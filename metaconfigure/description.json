@@ -593,6 +593,10 @@
   ],
   "strict": true,
   "test pattern": "test$",
-  "tests": {},
+  "tests": {
+    "GNDStk": [
+      "src/GNDStk/test/GNDStk.test.cpp"
+    ]
+  },
   "update": true
 }
