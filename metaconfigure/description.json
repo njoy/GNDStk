@@ -577,7 +577,10 @@
     ]
   },
   "header files": [
-    "src/GNDStk.hpp"
+    "src/GNDStk.hpp",
+    "src/GNDStk/generic.hpp",
+    "src/GNDStk/generic/Node.hpp",
+    "src/GNDStk/generic/Node/src/ctor.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -586,6 +589,7 @@
   "is external project": false,
   "language": "c++",
   "name": "GNDStk",
+  "standard": "c++14",
   "standards": [
     "c++98",
     "c++11",
@@ -596,6 +600,9 @@
   "tests": {
     "GNDStk": [
       "src/GNDStk/test/GNDStk.test.cpp"
+    ],
+    "GNDStk.generic.Node": [
+      "src/GNDStk/generic/Node/test/Node.test.cpp"
     ]
   },
   "update": true
