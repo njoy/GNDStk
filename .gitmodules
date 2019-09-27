@@ -4,3 +4,9 @@
 [submodule "dependencies/catch-adapter"]
 	path = dependencies/catch-adapter
 	url = https://github.com/njoy/catch-adapter
+[submodule "dependencies/pugixml-adapter"]
+	path = dependencies/pugixml-adapter
+	url = https://github.com/njoy/pugixml-adapter.git
+[submodule "dependencies/json-adapter"]
+	path = dependencies/json-adapter
+	url = https://github.com/njoy/json-adapter.git
