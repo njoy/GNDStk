@@ -1,6 +1,6 @@
 Node()
 try:
-  Base( Base::makeMap() ),
+  Node_t( Node_t::makeMap() ),
   metadata_()
 {
 } catch( std::exception& ){

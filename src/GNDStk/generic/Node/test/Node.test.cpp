@@ -16,8 +16,8 @@ SCENARIO( "Testing generic GNDStk Node" ){
         CHECK( "log-log" == genNode.metadata( "interpolation" ) );
         CHECK( "0" == genNode.metadata( "index" ) );
 
-        // CHECK_THROWS( genNode.metadata( "abc" ) );
-        genNode.metadata( "abc" );
+        CHECK_THROWS( genNode.metadata( "abc" ) );
+        // genNode.metadata( "abc" );
         
       } // THEN
     } // WHEN
