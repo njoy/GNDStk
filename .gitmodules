@@ -10,3 +10,6 @@
 [submodule "dependencies/json-adapter"]
 	path = dependencies/json-adapter
 	url = https://github.com/njoy/json-adapter.git
+[submodule "dependencies/Log"]
+	path = dependencies/Log
+	url = https://github.com/njoy/Log.git
