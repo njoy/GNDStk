@@ -578,9 +578,7 @@
   },
   "header files": [
     "src/GNDStk.hpp",
-    "src/GNDStk/generic.hpp",
-    "src/GNDStk/generic/src/node.hpp",
-    "src/GNDStk/generic/src/getString.hpp"
+    "src/GNDStk/generic.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],
@@ -600,9 +598,6 @@
   "tests": {
     "GNDStk": [
       "src/GNDStk/test/GNDStk.test.cpp"
-    ],
-    "GNDStk.generic": [
-      "src/GNDStk/generic/test/generic.test.cpp"
     ]
   },
   "update": true
