@@ -16,7 +16,7 @@ SCENARIO( "Testing generic GNDStk Node" ){
       THEN( "the metadata can be checked" ){
         CHECK( "log-log" == 
                generic::getString( genNode[ "metadata" ][ "interpolation" ] ) );
-        CHECK( "0" == generic::getString( genNode[ "metadata" ][ "index" ] ) );
+        CHECK( "1" == generic::getString( genNode[ "metadata" ][ "index" ] ) );
 
         
       } // THEN
