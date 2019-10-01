@@ -1,6 +1,6 @@
 [submodule "dependencies/knoop"]
 	path = dependencies/knoop
-	url = https://github.com/GeneralizedNuclearData/knoop
+	url = https://github.com/njoy/knoop
 [submodule "dependencies/catch-adapter"]
 	path = dependencies/catch-adapter
 	url = https://github.com/njoy/catch-adapter
