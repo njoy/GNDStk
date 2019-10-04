@@ -4,5 +4,5 @@
 #include "GNDStk.hpp"
 
 SCENARIO( "Testing GNDStk" ){
-  
+
 }
