@@ -11,6 +11,7 @@ namespace njoy{
 namespace GNDStk{
 
 #include "GNDStk/generic.hpp"
+#include "GNDStk/xml.hpp"
 
 } // namespace GNDStk
 } // namespace njoy
