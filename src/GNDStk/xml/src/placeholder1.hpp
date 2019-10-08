@@ -1,4 +1,4 @@
 
-inline void foo()
+inline void placeholder1()
 {
 }

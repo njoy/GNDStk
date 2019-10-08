@@ -1,4 +1,4 @@
 
-inline void bar()
+inline void placeholder2()
 {
 }

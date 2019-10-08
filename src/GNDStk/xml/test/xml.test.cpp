@@ -8,14 +8,14 @@ using namespace njoy::GNDStk;
 SCENARIO( "Test reading of an XML file" ){
   GIVEN( "an xml file" ){
 
-    const std::string file = "doc/n-009_F_019.xml";
-    pugi::xml_document doc;
+    const std::string file = "resources/n-009_F_019.xml";
+    pugi::xml_document document;
 
     WHEN( "the document has been loaded" ){
-      pugi::xml_parse_result load = doc.load_file(file.c_str());
+      pugi::xml_parse_result load = document.load_file(file.c_str());
 
       THEN( "its metadata can be checked" ){
-        pugi::xml_node rs = doc.child("reactionSuite");
+        pugi::xml_node rs = document.child("reactionSuite");
 
         CHECK( rs.attribute("projectile"     ).value() ==
                std::string("n"         ));
@@ -39,7 +39,8 @@ SCENARIO( "Test reading of an XML file" ){
         };
 
         int count = 0;
-        for (pugi::xml_node &rschild : doc.child("reactionSuite").children()) {
+        for (pugi::xml_node &rschild :
+             document.child("reactionSuite").children()) {
           CHECK( rschild.name() == names[count++] );
         } // for
       } // THEN
