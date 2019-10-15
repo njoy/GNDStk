@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# ------------------------
+# Setup
+# ------------------------
+
+COMPILE='
+   g++
+  -std=c++17
+  -I../subprojects/knoop/src
+  -I../subprojects/range-v3-adapter/src/include
+  -I../subprojects/valuable-adapter/src/valuable/include
+  -I../subprojects/pugixml-adapter/src/src
+  -I../subprojects/json-adapter/src/src
+  -I.
+  -O3 -Wall -Wextra -Wpedantic '
+
+LIBRARIES=''
+
+# ------------------------
+# Compile
+# ------------------------
+
+if [ ! -f "pugixml.o" ]; then
+$COMPILE ../subprojects/pugixml-adapter/src/src/pugixml.cpp -c -o pugixml.o
+fi
+$COMPILE gnds.cc pugixml.o -o gnds $LIBRARIES
