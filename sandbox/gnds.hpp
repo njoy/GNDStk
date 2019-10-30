@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "json.hpp"
 #include "knoop.hpp"
 #include "pugixml.hpp"
@@ -361,7 +363,7 @@ public:
 namespace gnds {
 
 // json
-bool json::read(const char * const filename)
+inline bool json::read(const char * const filename)
 {
    // load the document
    std::ifstream ifs(filename);
@@ -376,7 +378,7 @@ bool json::read(const char * const filename)
 }
 
 // xml
-bool xml::read(const char * const filename)
+inline bool xml::read(const char * const filename)
 {
    // load the document
    pugi::xml_parse_result load = doc.load_file(
@@ -410,14 +412,14 @@ bool xml::read(const char * const filename)
 namespace gnds {
 
 // json
-std::ostream &json::write(std::ostream &os) const
+inline std::ostream &json::write(std::ostream &os) const
 {
    os << std::setw(indent) << doc << std::endl;
    return os;
 }
 
 // xml
-std::ostream &xml::write(std::ostream &os) const
+inline std::ostream &xml::write(std::ostream &os) const
 {
    doc.save(os, std::string(indent,' ').c_str());
    return os;
@@ -466,13 +468,13 @@ std::ostream &write(const NODE &node, std::ostream &os, const int indentlevel)
 
 
 // knoop
-std::ostream &knoop::write(std::ostream &os) const
+inline std::ostream &knoop::write(std::ostream &os) const
 {
    return root ? detail::write(*root,os,0) : os;
 }
 
 // generic
-std::ostream &generic::write(std::ostream &os) const
+inline std::ostream &generic::write(std::ostream &os) const
 {
    return root ? detail::write(*root,os,0) : os;
 }
@@ -698,101 +700,16 @@ bool convert(const xml &from, TYPE &to)
 
 namespace gnds {
 
-bool convert(const json &from, knoop   &to) { return detail::convert(from,to); }
-bool convert(const json &from, generic &to) { return detail::convert(from,to); }
-bool convert(const xml  &from, knoop   &to) { return detail::convert(from,to); }
-bool convert(const xml  &from, generic &to) { return detail::convert(from,to); }
+inline bool convert(const json &from, knoop   &to)
+{ return detail::convert(from,to); }
+
+inline bool convert(const json &from, generic &to)
+{ return detail::convert(from,to); }
+
+inline bool convert(const xml  &from, knoop   &to)
+{ return detail::convert(from,to); }
+
+inline bool convert(const xml  &from, generic &to)
+{ return detail::convert(from,to); }
 
 } // namespace gnds
-
-
-
-// -----------------------------------------------------------------------------
-// main
-// -----------------------------------------------------------------------------
-
-// helper: compare
-void compare(const gnds::knoop &k, const gnds::generic &g)
-{
-   std::ostringstream strk;
-   std::ostringstream strg;
-   k.write(strk);
-   g.write(strg);
-   assert(strk.str() == strg.str());
-}
-
-// main
-int main(const int argc, const char * const * const argv)
-{
-   /*
-   // xml
-   gnds::xml x("19.xml" );
-   {
-      std::ostringstream strk;
-      std::ostringstream strg;
-      gnds::knoop  (x).write(strk); // xml  ==> knoop   ==> write
-      gnds::generic(x).write(strg); // xml  ==> generic ==> write
-      assert(strk.str() == strg.str()); // results should be the same
-   }
-
-   // json
-   gnds::json j("19.json");
-   {
-      std::ostringstream strk;
-      std::ostringstream strg;
-      gnds::knoop  (j).write(strk); // json ==> knoop   ==> write
-      gnds::generic(j).write(strg); // json ==> generic ==> write
-      assert(strk.str() == strg.str()); // results should be the same
-   }
-   */
-
-   // ------------------------
-   // Stress test
-   // ------------------------
-
-   // for timing...
-   const int ntiming = 10;
-
-   // command-line arguments...
-   for (int i = 1;  i < argc;  ++i) {
-      // file
-      const std::string filename = argv[i];
-
-      // skip if above some arbitrary size
-      if (gnds::filesize(filename) > 100000000) {
-         std::cout
-            << "Skipping file \"" << filename << "\" (too long)"
-            << std::endl;
-         continue;
-      }
-
-      // xml?
-      if (gnds::endsin(argv[i],".xml")) {
-         std::cout << "Loading XML file \"" << filename << "\"" << std::endl;
-         gnds::xml x(filename);
-         // convert to our knoop and generic types...
-         for (int count = ntiming;  count-- ; ) {
-            gnds::knoop   k(x);
-            gnds::generic g(x);
-            compare(k,g);
-         }
-
-      // json?
-      } else if (gnds::endsin(argv[i],".json")) {
-         std::cout << "Loading Json file \"" << filename << "\"" << std::endl;
-         gnds::json j(filename);
-         // convert to our knoop and generic types...
-         for (int count = ntiming;  count-- ; ) {
-            gnds::knoop   k(j);
-            gnds::generic g(j);
-            compare(k,g);
-         }
-
-      // unknown type
-      } else {
-         std::cout
-            << "Skipping file \"" << filename << "\" (unknown type)"
-            << std::endl;
-      }
-   }
-}
