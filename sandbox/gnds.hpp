@@ -31,7 +31,6 @@ inline void debug(const std::string &str)
    //std::cout << "debug: " << str << std::endl;
 }
 
-
 // filesize(char *)
 inline std::ifstream::pos_type filesize(const char * const name)
 {
@@ -448,7 +447,7 @@ namespace detail {
 template<class NODE>
 std::ostream &write(const NODE &node, std::ostream &os, const int indentlevel)
 {
-   // indentation strings
+   // indentation
    const std::string icurr(indent* indentlevel   ,' ');
    const std::string inext(indent*(indentlevel+1),' ');
 
