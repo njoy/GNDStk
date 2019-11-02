@@ -57,37 +57,45 @@ int main(const int argc, const char * const * const argv)
       if (gnds::filesize(filename) > 100000000) {
          std::cout
             << "Skipping file \"" << filename << "\" (too long)"
-            << std::endl;
+            <<  std::endl;
          continue;
       }
 
       // xml?
-      if (gnds::endsin(argv[i],".xml")) {
-         std::cout << "Loading XML file \"" << filename << "\"" << std::endl;
+      if (gnds::endsin(filename,".xml")) {
+         std::cout
+            << i << ". Loading XML file \"" << filename
+            << "\"\n   converting multiple times" << std::flush;
          gnds::xml x(filename);
          // convert to our knoop and generic types...
          for (int count = ntiming;  count-- ; ) {
+            std::cout << '.' << std::flush;
             gnds::knoop   k(x);
             gnds::generic g(x);
             compare(k,g);
          }
+         std::cout << std::endl;
 
       // json?
-      } else if (gnds::endsin(argv[i],".json")) {
-         std::cout << "Loading Json file \"" << filename << "\"" << std::endl;
+      } else if (gnds::endsin(filename,".json")) {
+         std::cout
+            << i << ". Loading Json file \"" << filename
+            << "\"\n   converting multiple times" << std::flush;
          gnds::json j(filename);
          // convert to our knoop and generic types...
          for (int count = ntiming;  count-- ; ) {
+            std::cout << '.' << std::flush;
             gnds::knoop   k(j);
             gnds::generic g(j);
             compare(k,g);
          }
+         std::cout << std::endl;
 
       // unknown type
       } else {
          std::cout
             << "Skipping file \"" << filename << "\" (unknown type)"
-            << std::endl;
+            <<  std::endl;
       }
    }
 }

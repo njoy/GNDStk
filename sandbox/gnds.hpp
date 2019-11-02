@@ -24,13 +24,6 @@ namespace gnds {
 // indent
 inline int indent = 3;
 
-
-// line
-inline void line()
-{
-   std::cout << std::endl;
-}
-
 // debug
 inline void debug(const std::string &str)
 {
@@ -40,16 +33,16 @@ inline void debug(const std::string &str)
 
 
 // filesize(char *)
-inline std::ifstream::pos_type filesize(const char * const filename)
+inline std::ifstream::pos_type filesize(const char * const name)
 {
-   std::ifstream ifs(filename, std::ifstream::ate | std::ifstream::binary);
+   std::ifstream ifs(name, std::ifstream::ate | std::ifstream::binary);
    return ifs.tellg();
 }
 
 // filesize(string)
-inline std::ifstream::pos_type filesize(const std::string &filename)
+inline std::ifstream::pos_type filesize(const std::string &name)
 {
-   return filesize(filename.c_str());
+   return filesize(name.c_str());
 }
 
 // endsin
@@ -96,8 +89,12 @@ public:
    // overall json document
    nlohmann::json doc;
 
-   // ctor: default
-   json() { }
+   // standard ctor/assignment
+   json() = default;
+   json(const json &) = default;
+   json(json &&) = default;
+   json &operator=(const json &) = default;
+   json &operator=(json &&) = default;
 
    // ctor: char *
    // ctor: string
@@ -122,11 +119,18 @@ public:
 
 class xml {
 public:
+
    // overall xml document
    pugi::xml_document doc;
 
-   // ctor: default
-   xml() { }
+   // standard ctor/assignment
+   // The copy constructor and assignment are commented-out because
+   // pugi::xml_document's respective elements are inaccessible.
+   xml() = default;
+   // xml(const xml &) = default;
+   xml(xml &&) = default;
+   // xml &operator=(const xml &) = default;
+   xml &operator=(xml &&) = default;
 
    // ctor: char *
    // ctor: string
@@ -147,7 +151,7 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// Internal representation, knoop-based:
+// Internal representation, using knoop:
 // gnds::knoop
 // -----------------------------------------------------------------------------
 
@@ -157,6 +161,8 @@ namespace gnds {
 class knoop;
 bool convert(const xml  &from, knoop &to);
 bool convert(const json &from, knoop &to);
+
+
 
 // ------------------------
 // gnds::knoop
@@ -197,12 +203,22 @@ public:
       auto &metadata() { return (  ++begin())->get<metadata_t>(); }
       auto &children() { return (++++begin())->get<children_t>(); }
 
+      void metadata_push(const std::string &key, const std::string &value)
+      {
+         metadata().push_back(std::make_pair(key,value));
+      }
+
+      void children_push(node *const value)
+      {
+         children().push_back(value);
+      }
+
       // dtor
      ~node()
       {
          for (auto &cptr : children()) {
-            delete cptr;
-            cptr = nullptr;
+            delete cptr;    // <== still have raw pointer in knoop-based class
+            cptr = nullptr; // <== to ensure delete'd raw pointer can't be used
             debug("delete node - knoop");
          }
       }
@@ -223,7 +239,7 @@ public:
    // ------------------------
 
    // data
-   node *root = nullptr;
+   std::unique_ptr<node> root;
 
    // ctor: default
    knoop() { }
@@ -236,15 +252,7 @@ public:
    // clear
    void clear()
    {
-      delete root;
       root = nullptr;
-      debug("delete ROOT - knoop");
-   }
-
-   // dtor
-  ~knoop()
-   {
-      clear();
    }
 
    // write
@@ -257,7 +265,7 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// Internal representation, our own lightweight class:
+// Internal representation, using our own lightweight class:
 // gnds::generic
 // -----------------------------------------------------------------------------
 
@@ -267,6 +275,8 @@ namespace gnds {
 class generic;
 bool convert(const xml  &from, generic &to);
 bool convert(const json &from, generic &to);
+
+
 
 // ------------------------
 // gnds::generic
@@ -285,7 +295,7 @@ public:
       // data
       std::string name_;
       std::vector<std::pair<std::string,std::string>> metadata_;
-      std::vector<node *> children_;
+      std::vector<std::unique_ptr<node>> children_;
 
       // accessors
       const auto &name    () const { return name_    ; }
@@ -296,14 +306,14 @@ public:
       auto &metadata() { return metadata_; }
       auto &children() { return children_; }
 
-      // dtor
-     ~node()
+      void metadata_push(const std::string &key, const std::string &value)
       {
-         for (auto &cptr : children()) {
-            delete cptr;
-            cptr = nullptr;
-            debug("delete node - generic");
-         }
+         metadata().push_back(std::make_pair(key,value));
+      }
+
+      void children_push(node *const value)
+      {
+         children().push_back(std::unique_ptr<node>(value));
       }
 
       // leaf?
@@ -322,7 +332,7 @@ public:
    // ------------------------
 
    // data
-   node *root = nullptr;
+   std::unique_ptr<node> root;
 
    // ctor: default
    generic() { }
@@ -335,15 +345,7 @@ public:
    // clear
    void clear()
    {
-      delete root;
       root = nullptr;
-      debug("delete ROOT - generic");
-   }
-
-   // dtor
-  ~generic()
-   {
-      clear();
    }
 
    // write
@@ -407,6 +409,8 @@ inline bool xml::read(const char * const filename)
 // -----------------------------------------------------------------------------
 // write json
 // write xml
+// These just wrap, into a consistent interface, the write capabilities
+// that the Json and XML libraries already have.
 // -----------------------------------------------------------------------------
 
 namespace gnds {
@@ -440,7 +444,7 @@ namespace gnds {
 namespace detail {
 
 // Helper: write(NODE == knoop::node | generic::node)
-// For now I won't bother guaranteeing that NODE is valid.
+// For now I won't bother guaranteeing that NODE is one of those two things.
 template<class NODE>
 std::ostream &write(const NODE &node, std::ostream &os, const int indentlevel)
 {
@@ -502,15 +506,10 @@ bool convert(const nlohmann::json::const_iterator &from, NODE &to)
    const nlohmann::json &value = from.value();
    for (auto sub = value.begin();  sub != value.end();  ++sub) {
       if (!sub->is_object()) {
-         to.metadata().push_back(
-            std::make_pair(
-               sub.key(),
-               sub->get<std::string>()
-            )
-         );
+         to.metadata_push(sub.key(), sub->get<std::string>());
       } else {
          debug("new node");
-         to.children().push_back(new NODE);
+         to.children_push(new NODE);
          if (!convert(sub,*to.children().back()))
             return false;
       }
@@ -531,14 +530,14 @@ bool convert(const json &from, TYPE &to)
    to.clear();
 
    // root's name "json" indicates that we came from a json
-   debug("new ROOT");
-   to.root = new typename TYPE::node;
+   using NODE = typename TYPE::node;
+   to.root = std::make_unique<NODE>();
    to.root->name() = "json";
 
    // visit the document's nodes
    for (auto elem = from.doc.begin();  elem != from.doc.end();  ++elem) {
       debug("new node");
-      to.root->children().push_back(new typename TYPE::node);
+      to.root->children_push(new NODE);
       if (!detail::convert(elem,*to.root->children().back()))
          return false;
    }
@@ -559,7 +558,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
    // metadata
    for (const pugi::xml_attribute &meta : from.attributes())
-      to.metadata().push_back(std::make_pair(meta.name(), meta.value()));
+      to.metadata_push(meta.name(), meta.value());
 
    // children
    for (const pugi::xml_node &sub : from.children()) {
@@ -595,7 +594,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
       if (sub.type() == pugi::node_comment) {
          static const std::string prefix = "<!--";
          static const std::string suffix = "-->";
-         to.metadata().push_back(std::make_pair(prefix, sub.value()+suffix));
+         to.metadata_push(prefix, sub.value()+suffix);
          continue;
       }
 
@@ -607,7 +606,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
          static const std::string prefix = "![CDATA[";
          static const std::string suffix = "]]";
-         to.metadata().push_back(std::make_pair(prefix, sub.value()+suffix));
+         to.metadata_push(prefix, sub.value()+suffix);
          continue;
       }
 
@@ -620,7 +619,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
          static const std::string prefix = "![PCDATA[";
          static const std::string suffix = "]]";
-         to.metadata().push_back(std::make_pair(prefix, sub.value()+suffix));
+         to.metadata_push(prefix, sub.value()+suffix);
          continue;
       }
 
@@ -630,7 +629,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
       assert(sub.type() == pugi::node_element);
       debug("new node");
-      to.children().push_back(new NODE);
+      to.children_push(new NODE);
       if (!convert(sub,*to.children().back()))
          return false;
    }
@@ -651,27 +650,26 @@ bool convert(const xml &from, TYPE &to)
 
    int count = 0;
    for (const pugi::xml_node &xnode : from.doc.children()) {
+      using NODE = typename TYPE::node;
+
       if (count == 0) {
          // expect the following, given that we called load_file()
          // with pugi::parse_declaration |d in its second argument
          assert(xnode.name() == std::string("xml"));
 
          // root's name "xml" indicates that we came from a xml
-         debug("new ROOT");
-         to.root = new typename TYPE::node;
+         to.root = std::make_unique<NODE>();
          to.root->name() = "xml";
 
          // base document "attributes": stuff like version and encoding
          for (const pugi::xml_attribute &meta : xnode.attributes())
-            to.root->metadata().push_back(
-               std::make_pair(meta.name(), meta.value())
-            );
+            to.root->metadata_push(meta.name(), meta.value());
       }
 
       if (count == 1) {
          // visit the document's nodes
          debug("new node");
-         to.root->children().push_back(new typename TYPE::node);
+         to.root->children_push(new NODE);
          if (!detail::convert(xnode,*to.root->children().back()))
             return false;
       }
