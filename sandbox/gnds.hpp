@@ -183,15 +183,15 @@ public:
       using metadata_t = std::vector<std::pair<std::string,std::string>>;
       using children_t = std::vector<node *>;
 
+      // begin(), for brevity
+      decltype(auto) begin()       { return list().begin(); }
+      decltype(auto) begin() const { return list().begin(); }
+
    public:
       using base = njoy::knoop::Node<name_t, metadata_t, children_t>;
 
       // ctor: default
       node() : base(name_t{}, metadata_t{}, children_t{}) { }
-
-      // begin(), for brevity
-      decltype(auto) begin()       { return list().begin(); }
-      decltype(auto) begin() const { return list().begin(); }
 
       // accessors
       const auto &name    () const { return (    begin())->get<name_t    >(); }
@@ -217,7 +217,7 @@ public:
       {
          for (auto &cptr : children()) {
             delete cptr;    // <== still have raw pointer in knoop-based class
-            cptr = nullptr; // <== to ensure delete'd raw pointer can't be used
+            cptr = nullptr; // <== to ensure deleted raw pointer can't be used
             debug("delete node - knoop");
          }
       }
