@@ -13,3 +13,6 @@
 [submodule "dependencies/valuable-adapter"]
 	path = dependencies/valuable-adapter
 	url = https://github.com/njoy/valuable-adapter.git
+[submodule "dependencies/Log"]
+	path = dependencies/Log
+	url = https://github.com/njoy/Log.git

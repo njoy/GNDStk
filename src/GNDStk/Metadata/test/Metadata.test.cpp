@@ -15,6 +15,8 @@ SCENARIO( "Testing the basic Metadata class" ){
       meta.emplace( std::string{ "key2" }, "value2" );
 
       AND_THEN( "I can retrieve the appropriate values" ){
+        CHECK( 2 == meta.size() );
+
         CHECK( "value1" == meta.at( "key1" ) );
         CHECK( "value2" == meta.at( "key2" ) );
 
@@ -25,7 +27,7 @@ SCENARIO( "Testing the basic Metadata class" ){
 
       WHEN( "asking for non-existent key" ){
         THEN( "an exception is thrown" ){
-          CHECK_THROWS( meta.at( "abcd" ) );
+          CHECK_THROWS_AS( meta.at( "abcd" ), std::out_of_range& );
         } // THEN
       } // WHEN
     } // THEN

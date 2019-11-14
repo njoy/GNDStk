@@ -13,4 +13,6 @@ public:
   auto keys() const { return ranges::view::keys( this->map_ ); }
   auto values() const { return ranges::view::values( this->map_ ); }
 
+  auto size() const { return map_.size(); }
+
 };

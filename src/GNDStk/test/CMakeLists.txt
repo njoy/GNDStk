@@ -1,5 +1,7 @@
 
-add_executable( GNDStk.test GNDStk.test.cpp )
+add_executable( GNDStk.test
+                fromXML.test.cpp
+                GNDStk.test.cpp )
 target_compile_options( GNDStk.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
