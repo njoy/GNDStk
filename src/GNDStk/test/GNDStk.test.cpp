@@ -1,5 +1,8 @@
 #define CATCH_CONFIG_MAIN
 
+#include <variant>
+
+
 #include "catch.hpp"
 #include "GNDStk.hpp"
 

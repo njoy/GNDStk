@@ -17,6 +17,10 @@ SCENARIO( "Testing the basic Metadata class" ){
       AND_THEN( "I can retrieve the appropriate values" ){
         CHECK( "value1" == meta.at( "key1" ) );
         CHECK( "value2" == meta.at( "key2" ) );
+
+        CHECK( ranges::equal( { "key1", "key2" }, meta.keys() ) );
+        CHECK( ranges::equal( { "value1", "value2" }, meta.values() ) );
+
       } // AND_THEN
 
       WHEN( "asking for non-existent key" ){

@@ -590,7 +590,9 @@
   "header files": [
     "src/GNDStk.hpp",
     "src/GNDStk/Metadata.hpp",
-    "src/GNDStk/Node.hpp"
+    "src/GNDStk/Node.hpp",
+    "src/GNDStk/Node/src/metadata.hpp",
+    "src/GNDStk/Metadata/src/at.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],

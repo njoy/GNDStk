@@ -6,8 +6,9 @@
 using namespace njoy;
 
 SCENARIO( "Testing the basic Node class" ){
-  GIVEN( "a basic Node" ){
-    GNDStk::Node gndsNode{};
+  GIVEN( "a Node containing a single type (std::string)" ){
+    using Node_string = GNDStk::Node< std::string >;
+    Node_string gndsNode{};
 
     WHEN( "adding metadata" ){
       gndsNode.metadata( "key1", "value1" );

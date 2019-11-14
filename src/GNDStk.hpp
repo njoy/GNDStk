@@ -3,6 +3,8 @@
 
 #include <variant>
 
+#include <range/v3/all.hpp>
+
 namespace njoy{
 namespace GNDStk {
 
