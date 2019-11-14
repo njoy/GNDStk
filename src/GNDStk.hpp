@@ -1,10 +1,12 @@
 #ifndef GNDSTK_HPP
 #define GNDSTK_HPP
 
-#include "knoop.hpp"
+#include <variant>
 
 namespace njoy{
-  namespace gndstk {
-  }
+namespace GNDStk {
+
+#include "GNDStk/Metadata.hpp"
+}
 }
 #endif // GNDSTK_HPP
