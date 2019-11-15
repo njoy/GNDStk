@@ -13,9 +13,13 @@
 namespace njoy{
 namespace GNDStk {
 
+inline const std::vector< std::string > allKeysValid;
+
 #include "GNDStk/Metadata.hpp"
+#include "GNDStk/SterileNode.hpp"
 #include "GNDStk/Node.hpp"
 
+#include "GNDStk/nodes.hpp"
 }
 }
 #endif // GNDSTK_HPP

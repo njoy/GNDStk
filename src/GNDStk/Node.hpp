@@ -1,19 +1,19 @@
 template< const std::vector< std::string >& AllowedKeys, typename... Ls >
-class Node {
+class Node : protected SterileNode< AllowedKeys > {
 public:
   using Child_t = std::variant< Ls... >;
 
 private:
-  Metadata< AllowedKeys > metadata_;
+  using Sterile_t = SterileNode< AllowedKeys >;
   std::vector< Child_t > children_;
 
 public: 
   #include "GNDStk/Node/src/ctor.hpp"
-  #include "GNDStk/Node/src/metadata.hpp"
   #include "GNDStk/Node/src/push_back.hpp"
   #include "GNDStk/Node/src/children.hpp"
+
+  using Sterile_t::metadata;
 };
 
-inline const std::vector< std::string > allKeysValid;
 template< typename... Ls >
 using AllKeysValidNode = Node< allKeysValid, Ls... >;

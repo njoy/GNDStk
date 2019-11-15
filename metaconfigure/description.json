@@ -589,12 +589,16 @@
   },
   "header files": [
     "src/GNDStk.hpp",
+    "src/GNDStk/SterileNode.hpp",
     "src/GNDStk/Metadata.hpp",
     "src/GNDStk/Node.hpp",
+    "src/GNDStk/nodes.hpp",
+    "src/GNDStk/nodes/axis.hpp",
     "src/GNDStk/Node/src/ctor.hpp",
     "src/GNDStk/Node/src/children.hpp",
-    "src/GNDStk/Node/src/metadata.hpp",
     "src/GNDStk/Node/src/push_back.hpp",
+    "src/GNDStk/SterileNode/src/ctor.hpp",
+    "src/GNDStk/SterileNode/src/metadata.hpp",
     "src/GNDStk/Metadata/src/ctor.hpp",
     "src/GNDStk/Metadata/src/checkKeys.hpp",
     "src/GNDStk/Metadata/src/emplace.hpp"
@@ -625,6 +629,12 @@
     ],
     "GNDStk.Node": [
       "src/GNDStk/Node/test/Node.test.cpp"
+    ],
+    "GNDStk.SterileNode": [
+      "src/GNDStk/SterileNode/test/SterileNode.test.cpp"
+    ],
+    "GNDStk.nodes.Axis": [
+      "src/GNDStk/nodes/Axis/test/Axis.test.cpp"
     ]
   },
   "update": true

@@ -3,9 +3,9 @@ Node( Node& ) = default;
 Node( const Node& ) = default;
 Node( Node&& ) = default;
 
-Node( typename Metadata< AllowedKeys >::MapType& dMap )
+Node( typename Sterile_t::Meta_t::MapType& dMap )
 try:
-  metadata_( dMap ),
+  Sterile_t( dMap ),
   children_( )
 { }
 catch( ... ){
@@ -15,7 +15,7 @@ catch( ... ){
 
 template< typename... Ts >
 Node( Ts&&... ts ):
-  metadata_(),
+  Sterile_t(),
   children_( std::vector< Child_t >{ std::forward< Ts >( ts ) }... )
 { }
 
