@@ -593,7 +593,7 @@
     "src/GNDStk/Metadata.hpp",
     "src/GNDStk/Node.hpp",
     "src/GNDStk/nodes.hpp",
-    "src/GNDStk/nodes/axis.hpp",
+    "src/GNDStk/nodes/Axis.hpp",
     "src/GNDStk/Node/src/ctor.hpp",
     "src/GNDStk/Node/src/children.hpp",
     "src/GNDStk/Node/src/push_back.hpp",
