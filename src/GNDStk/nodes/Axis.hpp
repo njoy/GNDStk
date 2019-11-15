@@ -1,3 +1,3 @@
 inline const
-std::vector< std::string > axisKeys{ "index", "label", "unit" };
+std::vector< std::string > axisKeys{ "label", "unit" };
 struct Axis : public SterileNode< axisKeys >{ };

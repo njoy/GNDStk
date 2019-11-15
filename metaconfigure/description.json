@@ -593,6 +593,7 @@
     "src/GNDStk/Metadata.hpp",
     "src/GNDStk/Node.hpp",
     "src/GNDStk/nodes.hpp",
+    "src/GNDStk/nodes/Grid.hpp",
     "src/GNDStk/nodes/Axis.hpp",
     "src/GNDStk/nodes/Axes.hpp",
     "src/GNDStk/Node/src/ctor.hpp",

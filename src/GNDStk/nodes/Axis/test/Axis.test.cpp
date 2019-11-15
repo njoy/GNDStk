@@ -10,7 +10,6 @@ SCENARIO( "Testing the basic Axis node" ){
     GNDStk::nodes::Axis axis{};
 
     THEN( "an exception is thrown if you try to access the values" ){
-      CHECK_THROWS_AS( axis.metadata( "index" ), std::out_of_range& );
       CHECK_THROWS_AS( axis.metadata( "label" ), std::out_of_range& );
       CHECK_THROWS_AS( axis.metadata( "unit" ), std::out_of_range& );
 
@@ -20,7 +19,6 @@ SCENARIO( "Testing the basic Axis node" ){
 
   GIVEN( "initial metadata" ){
     std::map< std::string, std::string > dMap{ 
-      { "index", "0" },
       { "label", "energy_in" },
       { "unit", "eV" }
     };
@@ -28,7 +26,6 @@ SCENARIO( "Testing the basic Axis node" ){
     GNDStk::nodes::Axis axis{ dMap };
     THEN( "we can verify the initial values" ){
       
-      CHECK( "0" == axis.metadata( "index" ) );
       CHECK( "energy_in" == axis.metadata( "label" ) );
       CHECK( "eV" == axis.metadata( "unit" ) );
     } // THEN
