@@ -1,4 +1,4 @@
-auto emplace(const std::string& key, const std::string& value){ 
+auto emplace(const std::string& key, const ValueType& value){ 
   if( not AllowedKeys.empty() ){
     auto found = ranges::find( AllowedKeys, key );
 

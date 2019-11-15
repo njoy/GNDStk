@@ -39,4 +39,28 @@ SCENARIO( "Testing the basic Metadata class" ){
       } // WHEN
     } // THEN
   } // GIVEN
+
+  GIVEN( "a starting map" ){
+    WHEN( "the default keys are valid" ){
+      std::map< std::string, std::string > dMap{ { "key1", "default1" } };
+      THEN( "a metadata object can be created" ){
+        auto meta = GNDStk::Metadata< keys >{ dMap };
+      
+        meta.emplace( "key2", "value2" );
+      
+        AND_THEN( "the key, value pairs can be verified" ){
+          CHECK( dMap[ "key1" ] == meta.at( "key1" ) );
+          CHECK( "value2" == meta.at( "key2" ) );
+      
+        } // AND_THEN
+      } // THEN
+    } // WHEN
+    WHEN( "the default keys are not valid" ){
+      std::map< std::string, std::string > dMap{ { "key3", "default1" } };
+      THEN( "an exception is thrown" ){
+        CHECK_THROWS( GNDStk::Metadata< keys >{ dMap } );
+      } // THEN
+      
+    } // WHEN
+  } // GIVEN
 } // SCENARIO

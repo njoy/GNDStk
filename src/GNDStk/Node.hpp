@@ -1,14 +1,14 @@
 template< const std::vector< std::string >& AllowedKeys, typename... Ls >
 class Node {
 public:
-  using child_type = std::variant< Ls... >;
+  using Child_t = std::variant< Ls... >;
 
 private:
   Metadata< AllowedKeys > metadata_;
-  std::vector< child_type > children_;
+  std::vector< Child_t > children_;
 
 public: 
-  // #include "GNDStk/Node/src/ctor.hpp"
+  #include "GNDStk/Node/src/ctor.hpp"
   #include "GNDStk/Node/src/metadata.hpp"
   #include "GNDStk/Node/src/push_back.hpp"
   #include "GNDStk/Node/src/children.hpp"

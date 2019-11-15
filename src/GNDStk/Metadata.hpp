@@ -1,11 +1,19 @@
 template< const std::vector< std::string >& AllowedKeys, 
           typename ValueType=std::string >
 class Metadata{
+public:
+  using MapType = std::map< std::string, ValueType >;
+
 private:
-  std::map< std::string, ValueType > map_;
+ 
+  MapType map_;
+
+  #include "GNDStk/Metadata/src/checkKeys.hpp"
 
 public:
+  #include "GNDStk/Metadata/src/ctor.hpp"
   #include "GNDStk/Metadata/src/emplace.hpp"
+
   auto& at( const std::string& key ) { return map_.at( key ); }
   const auto& at( const std::string& key ) const{ return map_.at( key ); }
 
