@@ -1,4 +1,4 @@
-template< std::vector< std::string >& AllowedKeys, typename... Ls >
+template< const std::vector< std::string >& AllowedKeys, typename... Ls >
 class Node {
 public:
   using child_type = std::variant< Ls... >;
@@ -22,6 +22,6 @@ public:
 
 };
 
-inline std::vector< std::string > allKeysValid;
+inline const std::vector< std::string > allKeysValid;
 template< typename... Ls >
 using AllKeysValidNode = Node< allKeysValid, Ls... >;

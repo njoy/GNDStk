@@ -596,7 +596,7 @@
     "src/GNDStk/Node/src/children.hpp",
     "src/GNDStk/Node/src/metadata.hpp",
     "src/GNDStk/Node/src/push_back.hpp",
-    "src/GNDStk/src/fromXML.hpp"
+    "src/GNDStk/Metadata/src/emplace.hpp"
   ],
   "ignore pattern": "$^",
   "implementation files": [],

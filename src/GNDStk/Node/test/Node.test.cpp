@@ -5,10 +5,10 @@
 
 using namespace njoy;
 
-std::vector< std::string > allowedKeys{};
+std::vector< std::string > allowedKeys{ "key1", "key2" };
 SCENARIO( "Testing the basic Node class" ){
   GIVEN( "a Node containing a single type (std::string)" ){
-    using Node_string = GNDStk::AllKeysValidNode<std::string >;
+    using Node_string = GNDStk::Node<allowedKeys, std::string >;
     Node_string gndsNode{ "stringNode" };
 
     WHEN( "adding data" ){
@@ -51,7 +51,8 @@ SCENARIO( "Testing the basic Node class" ){
       } // THEN
       WHEN( "asking for a non-existent key" ){
         THEN( "an exception is thrown" ){
-          CHECK_THROWS_AS( gndsNode.metadata( "key3" ), std::out_of_range& );
+          CHECK_THROWS_AS( gndsNode.metadata( "key3", "value3" ), 
+                           std::out_of_range& );
         } // THEN
       } // WHEN
     } // WHEN

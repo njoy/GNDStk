@@ -1,7 +1,8 @@
-template< std::vector< std::string >& AllowedKeys >
+template< const std::vector< std::string >& AllowedKeys, 
+          typename ValueType=std::string >
 class Metadata{
 private:
-  std::map< std::string, std::string > map_;
+  std::map< std::string, ValueType > map_;
 
 public:
   #include "GNDStk/Metadata/src/emplace.hpp"
