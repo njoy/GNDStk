@@ -5,9 +5,11 @@
 
 using namespace njoy;
 
+std::vector< std::string > keys{ "key1", "key2" };
 SCENARIO( "Testing the basic Metadata class" ){
   GIVEN( "an empty Metadata object" ){
-    GNDStk::Metadata meta{};
+    // GNDStk::Metadata meta{};
+    auto meta = GNDStk::Metadata< keys >{};
 
     THEN( "key,value pairs can be added" ){
 
@@ -25,6 +27,11 @@ SCENARIO( "Testing the basic Metadata class" ){
 
       } // AND_THEN
 
+      WHEN( "trying to use a non-allowed key" ){
+        THEN( "an exception is thrown" ){
+          CHECK_THROWS( meta.emplace( "key3", "value3" ) );
+        } // THEN
+      } // WHEN
       WHEN( "asking for non-existent key" ){
         THEN( "an exception is thrown" ){
           CHECK_THROWS_AS( meta.at( "abcd" ), std::out_of_range& );

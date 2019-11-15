@@ -5,9 +5,10 @@
 
 using namespace njoy;
 
+std::vector< std::string > allowedKeys{};
 SCENARIO( "Testing the basic Node class" ){
   GIVEN( "a Node containing a single type (std::string)" ){
-    using Node_string = GNDStk::Node< std::string >;
+    using Node_string = GNDStk::AllKeysValidNode<std::string >;
     Node_string gndsNode{ "stringNode" };
 
     WHEN( "adding data" ){
@@ -59,7 +60,7 @@ SCENARIO( "Testing the basic Node class" ){
 
 SCENARIO( "Testing a Node with multiple types" ){
   GIVEN( "a Node containing multiple types" ){
-    using Node_t = GNDStk::Node< int, double >;
+    using Node_t = GNDStk::AllKeysValidNode< int, double >;
     Node_t gndsNode{ "bi-type" };
 
     WHEN( "adding data" ){

@@ -1,4 +1,4 @@
-template< typename... Ls >
+template< std::vector< std::string >& AllowedKeys, typename... Ls >
 class Node {
 public:
   using child_type = std::variant< Ls... >;
@@ -6,7 +6,7 @@ public:
 
 private:
   std::string name_;
-  Metadata metadata_;
+  Metadata< AllowedKeys > metadata_;
   std::vector< ptr_type > children_;
   std::vector< child_type > body_;
 
@@ -21,3 +21,7 @@ public:
   #include "GNDStk/Node/src/body.hpp"
 
 };
+
+inline std::vector< std::string > allKeysValid;
+template< typename... Ls >
+using AllKeysValidNode = Node< allKeysValid, Ls... >;

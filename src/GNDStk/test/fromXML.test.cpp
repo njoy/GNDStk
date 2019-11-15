@@ -7,7 +7,9 @@ using namespace njoy;
 std::string testNode();
 pugi::xml_document doc;
 
-auto fromXML( const pugi::xml_node& xmlNode ) -> GNDStk::Node< std::string >;
+std::vector< std::string > allowedKeys{};
+auto fromXML( const pugi::xml_node& xmlNode ) -> 
+  GNDStk::Node< allowedKeys, std::string >;
 
 SCENARIO( "Creating a generic Node from XML" ){
   GIVEN( "a pugixml::node" ){
@@ -35,10 +37,11 @@ SCENARIO( "Creating a generic Node from XML" ){
   } // GIVEN
 } // SCENARIO
 
-auto fromXML( const pugi::xml_node& xmlNode ) -> GNDStk::Node< std::string >{
+auto fromXML( const pugi::xml_node& xmlNode ) -> 
+  GNDStk::Node< allowedKeys, std::string >{
 
   // Log::info( "Creating node from XML named: {}", xmlNode.name() );
-  GNDStk::Node< std::string > returnNode{ xmlNode.name() };
+  GNDStk::Node< allowedKeys, std::string > returnNode{ xmlNode.name() };
 
   // Log::info( "\tAttributes:" );
   for( const auto& attr : xmlNode.attributes()){
