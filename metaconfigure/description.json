@@ -594,6 +594,7 @@
     "src/GNDStk/Node.hpp",
     "src/GNDStk/nodes.hpp",
     "src/GNDStk/nodes/Axis.hpp",
+    "src/GNDStk/nodes/Axes.hpp",
     "src/GNDStk/Node/src/ctor.hpp",
     "src/GNDStk/Node/src/children.hpp",
     "src/GNDStk/Node/src/push_back.hpp",
@@ -632,6 +633,9 @@
     ],
     "GNDStk.SterileNode": [
       "src/GNDStk/SterileNode/test/SterileNode.test.cpp"
+    ],
+    "GNDStk.nodes.Axes": [
+      "src/GNDStk/nodes/Axes/test/Axes.test.cpp"
     ],
     "GNDStk.nodes.Axis": [
       "src/GNDStk/nodes/Axis/test/Axis.test.cpp"

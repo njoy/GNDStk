@@ -11,7 +11,7 @@ struct SterileTest: public GNDStk::SterileNode< AllowedKeys > {
 
 public:
   SterileTest() = default;
-  SterileTest( typename GNDStk::Metadata< AllowedKeys >::MapType& dMap ):
+  SterileTest( typename GNDStk::Metadata< AllowedKeys >::Map_t& dMap ):
     SN( dMap )
   { }
 

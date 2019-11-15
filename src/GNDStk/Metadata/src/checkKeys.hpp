@@ -1,4 +1,4 @@
-MapType& checkKeys( MapType& defaultMap ){
+Map_t& checkKeys( Map_t& defaultMap ){
   auto keys = ranges::view::keys( defaultMap );
   for( const auto& key : keys ){
     if( ranges::find( AllowedKeys, key ) == AllowedKeys.end() ){

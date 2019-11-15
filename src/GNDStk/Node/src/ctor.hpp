@@ -3,7 +3,7 @@ Node( Node& ) = default;
 Node( const Node& ) = default;
 Node( Node&& ) = default;
 
-Node( typename Sterile_t::Meta_t::MapType& dMap )
+Node( typename Sterile_t::Meta_t::Map_t& dMap )
 try:
   Sterile_t( dMap ),
   children_( )

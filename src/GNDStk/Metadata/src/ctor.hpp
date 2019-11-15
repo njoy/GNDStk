@@ -3,7 +3,7 @@ Metadata( Metadata& ) = default;
 Metadata( const Metadata& ) = default;
 Metadata( Metadata&& ) = default;
 
-Metadata( MapType& map )
+Metadata( Map_t& map )
 try:
   map_( checkKeys( map ) ){
 

@@ -2,11 +2,11 @@ template< const std::vector< std::string >& AllowedKeys,
           typename ValueType=std::string >
 class Metadata{
 public:
-  using MapType = std::map< std::string, ValueType >;
+  using Map_t = std::map< std::string, ValueType >;
 
 private:
  
-  MapType map_;
+  Map_t map_;
 
   #include "GNDStk/Metadata/src/checkKeys.hpp"
 

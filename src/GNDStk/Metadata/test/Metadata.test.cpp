@@ -8,7 +8,6 @@ using namespace njoy;
 std::vector< std::string > keys{ "key1", "key2" };
 SCENARIO( "Testing the basic Metadata class" ){
   GIVEN( "an empty Metadata object" ){
-    // GNDStk::Metadata meta{};
     auto meta = GNDStk::Metadata< keys >{};
 
     THEN( "key,value pairs can be added" ){

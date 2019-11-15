@@ -5,7 +5,7 @@
 
 using namespace njoy;
 
-SCENARIO( "Testing the basic axis node" ){
+SCENARIO( "Testing the basic Axis node" ){
   GIVEN( "no initial metadata" ){
     GNDStk::nodes::Axis axis{};
 
