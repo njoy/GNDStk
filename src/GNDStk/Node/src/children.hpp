@@ -1,14 +1,9 @@
 const auto& children() const{ return this->children_; }
 
-auto children( const std::string& name ) const {
+
+auto children( unsigned int index ){
   return this->children_
     | ranges::view::filter(
-        [&]( auto& child ){ return name == child->name(); } );
+      [&]( auto& child ){ return index == child.index(); } )
+    | ranges::view::all;
 }
-
-/* Not sure how to do this one
-template< typename T >
-auto children() const{
-
-}
- */

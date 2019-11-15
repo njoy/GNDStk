@@ -9,38 +9,28 @@ std::vector< std::string > allowedKeys{ "key1", "key2" };
 SCENARIO( "Testing the basic Node class" ){
   GIVEN( "a Node containing a single type (std::string)" ){
     using Node_string = GNDStk::Node<allowedKeys, std::string >;
-    Node_string gndsNode{ "stringNode" };
+    Node_string gndsNode{};
 
     WHEN( "adding data" ){
-      gndsNode.push_back( Node_string{ "child" } );
-      gndsNode.push_back( Node_string{ "child" } );
-      gndsNode.push_back( Node_string{ "stepchild" } );
-      gndsNode.push_back( "body1" );
-      gndsNode.push_back( "body2" );
-
       gndsNode.metadata( "key1", "value1" );
       gndsNode.metadata( "key2", "value2" );
 
-      THEN( "the data can be verified" ){
-        { // body
-         auto body = gndsNode.body();
-         CHECK( "body1" == std::get< std::string >( body[ 0 ] ) );
-         CHECK( "body2" == std::get< std::string >( body[ 1 ] ) );
-        }
+      gndsNode.push_back( "child1" );
+      gndsNode.push_back( "child2", "child3" );
+      gndsNode.push_back( "stepchild" );
 
+      THEN( "the data can be verified" ){
         { // children
-         CHECK( 3 == gndsNode.children().size() );
-         CHECK( "stepchild" == gndsNode.children().back()->name() );
-         
-         auto childRange = gndsNode.children( "child" );
-         auto stepchildRange = gndsNode.children( "stepchild" );
-         
-         CHECK( 2 == ranges::distance( childRange ) );
-         CHECK( 1 == ranges::distance( stepchildRange ) );
+          CHECK( 4 == ranges::distance( gndsNode.children( 0 ) ) );
+          auto children = gndsNode.children();
+          CHECK( 4 == children.size() );
+          CHECK( "child1" == std::get< std::string >( children[ 0 ] ) );
+          CHECK( "child1" == std::get< 0 >( children[ 0 ] ) );
+          CHECK( "child2" == std::get< 0 >( children[ 1 ] ) );
+          CHECK( "child3" == std::get< 0 >( children[ 2 ] ) );
+          CHECK( "stepchild" == std::get< 0 >( children[ 3 ] ) );
         }
         { // metadata
-          CHECK( "stringNode" == gndsNode.name() );
-         
          CHECK( "value1" == gndsNode.metadata( "key1" ) );
          CHECK( "value2" == gndsNode.metadata( "key2" ) );
          
@@ -62,17 +52,27 @@ SCENARIO( "Testing the basic Node class" ){
 SCENARIO( "Testing a Node with multiple types" ){
   GIVEN( "a Node containing multiple types" ){
     using Node_t = GNDStk::AllKeysValidNode< int, double >;
-    Node_t gndsNode{ "bi-type" };
+    Node_t gndsNode{};
 
     WHEN( "adding data" ){
-      gndsNode.push_back( 3.0 );
-      gndsNode.push_back( 2.0, 1 );
+      gndsNode.push_back( 3.3 );
+      gndsNode.push_back( 2.2, 4 );
 
       THEN( "the data can be verified" ){
-         auto body = gndsNode.body();
-         CHECK( 3.0 == std::get< double >( body[ 0 ] ) );
-         CHECK( 2.0 == std::get< double >( body[ 1 ] ) );
-         CHECK( 1 == std::get< int >( body[ 2 ] ) );
+        auto intChildren = gndsNode.children( 0 );
+
+        CHECK( 1 == ranges::distance( intChildren ) );
+        // CHECK( 4 == std::get< 0 >( intChildren[ 0 ] ) );
+
+        // auto doubleChildren = gndsNode.children( 1 );
+        // CHECK( 2 == ranges::distance( gndsNode.children( 1 ) ) );
+        // CHECK( 3.3 == std::get< 1 >( doubleChildren[ 0 ] ) );
+        // CHECK( 2.2 == std::get< 1 >( doubleChildren[ 1 ] ) );
+
+        auto children = gndsNode.children();
+        CHECK( 3.3 == std::get< double >( children[ 0 ] ) );
+        CHECK( 2.2 == std::get< double >( children[ 1 ] ) );
+        CHECK( 4 == std::get< int >( children[ 2 ] ) );
       } // THEN
     } // WHEN
   } // GIVEN

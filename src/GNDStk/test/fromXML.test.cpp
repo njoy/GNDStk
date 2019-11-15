@@ -7,9 +7,9 @@ using namespace njoy;
 std::string testNode();
 pugi::xml_document doc;
 
-std::vector< std::string > allowedKeys{};
+/*
 auto fromXML( const pugi::xml_node& xmlNode ) -> 
-  GNDStk::Node< allowedKeys, std::string >;
+  GNDStk::AllKeysValidNode< GNDStk::AllKeysValidNode< std::string > >;
 
 SCENARIO( "Creating a generic Node from XML" ){
   GIVEN( "a pugixml::node" ){
@@ -19,29 +19,29 @@ SCENARIO( "Creating a generic Node from XML" ){
       auto genericNode = fromXML( doc.child( "regions1d" ) );
 
       // using Node_t = decltype( genericNode );
-      
+
       THEN( "we can check the hierarchy" ){
         { // axes
-          auto axes = genericNode.children( "axes" );
-          CHECK( 1 == ranges::distance( axes ) );
+          // auto axes = genericNode.children( "axes" );
+          // CHECK( 1 == ranges::distance( axes ) );
           // CHECK( 0 == axes[0].metadata().size() );
         }
 
         {
-          auto XYs1d = genericNode.children( "XYs1d" );
-          CHECK( 2 == ranges::distance( XYs1d ) );
+          // auto XYs1d = genericNode.children( "XYs1d" );
+          // CHECK( 2 == ranges::distance( XYs1d ) );
         }
-        
+
       } // THEN
     } // WHEN
   } // GIVEN
 } // SCENARIO
 
 auto fromXML( const pugi::xml_node& xmlNode ) -> 
-  GNDStk::Node< allowedKeys, std::string >{
+  GNDStk::AllKeysValidNode< GNDStk::AllKeysValidNode< std::string > >{
 
   // Log::info( "Creating node from XML named: {}", xmlNode.name() );
-  GNDStk::Node< allowedKeys, std::string > returnNode{ xmlNode.name() };
+  GNDStk::AllKeysValidNode< GNDStk::AllKeysValidNode< std::string > > returnNode{  };
 
   // Log::info( "\tAttributes:" );
   for( const auto& attr : xmlNode.attributes()){
@@ -76,3 +76,4 @@ std::string testNode(){
 </regions1d>
                 )xml";
 }
+ */

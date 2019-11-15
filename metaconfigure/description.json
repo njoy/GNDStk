@@ -591,7 +591,6 @@
     "src/GNDStk.hpp",
     "src/GNDStk/Metadata.hpp",
     "src/GNDStk/Node.hpp",
-    "src/GNDStk/Node/src/body.hpp",
     "src/GNDStk/Node/src/ctor.hpp",
     "src/GNDStk/Node/src/children.hpp",
     "src/GNDStk/Node/src/metadata.hpp",
