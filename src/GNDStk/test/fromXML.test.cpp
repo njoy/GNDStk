@@ -7,12 +7,14 @@ using namespace njoy;
 std::string testNode();
 pugi::xml_document doc;
 
+auto fromXML( const pugi::xml_node& xmlNode ) -> GNDStk::Node< std::string >;
+
 SCENARIO( "Creating a generic Node from XML" ){
   GIVEN( "a pugixml::node" ){
     doc.load_string( testNode().c_str() );
 
     WHEN( "a string node is created" ){
-      auto genericNode = GNDStk::fromXML( doc.child( "regions1d" ) );
+      auto genericNode = fromXML( doc.child( "regions1d" ) );
 
       // using Node_t = decltype( genericNode );
       
@@ -32,6 +34,24 @@ SCENARIO( "Creating a generic Node from XML" ){
     } // WHEN
   } // GIVEN
 } // SCENARIO
+
+auto fromXML( const pugi::xml_node& xmlNode ) -> GNDStk::Node< std::string >{
+
+  // Log::info( "Creating node from XML named: {}", xmlNode.name() );
+  GNDStk::Node< std::string > returnNode{ xmlNode.name() };
+
+  // Log::info( "\tAttributes:" );
+  for( const auto& attr : xmlNode.attributes()){
+    // Log::info( "\t\tname: {}, value: {}", attr.name(), attr.value() );
+    returnNode.metadata( attr.name(), attr.value() );
+  }
+
+  for( const auto& child : xmlNode.children() ){
+    returnNode.push_back( fromXML( child ) );
+  }
+
+  return returnNode;
+}
 
 std::string testNode(){
   return R"xml(

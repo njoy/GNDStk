@@ -16,7 +16,6 @@ namespace GNDStk {
 #include "GNDStk/Metadata.hpp"
 #include "GNDStk/Node.hpp"
 
-#include "GNDStk/src/fromXML.hpp"
 }
 }
 #endif // GNDSTK_HPP
