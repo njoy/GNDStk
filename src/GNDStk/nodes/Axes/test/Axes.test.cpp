@@ -16,7 +16,8 @@ SCENARIO( "Testing the the Axes node" ){
         .push_back( GNDStk::nodes::Axis{ axes1Meta } );
 
     THEN( "the contained data can be verified" ){
-      auto axises = axes.children( 0 );
+      // auto axises = axes.children< GNDStk::nodes::Axis >();
+      auto axises = axes.axis();
       CHECK( 2 == ranges::distance( axises ) );
 
     } // THEN
