@@ -12,3 +12,13 @@ catch( ... ){
   throw;
 }
 
+SterileNode(
+  std::initializer_list< std::pair< const std::string, std::string > >&& map )
+try:
+  metadata_( map )
+{ }
+catch( ... ){
+  Log::info( "Trouble creating Node with initializer list." );
+  throw;
+}
+

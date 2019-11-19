@@ -45,8 +45,7 @@ std::vector< std::string > allowedKeys{ "key1", "key2" };
 SCENARIO( "Testing the basic Node class" ){
   GIVEN( "a Node containing a single type (std::string)" ){
     using Node_string = GNDStk::Node<allowedKeys, std::string >;
-    std::map< std::string, std::string > dMap{ { "key1", "default1" } };
-    Node_string gndsNode{ dMap };
+    Node_string gndsNode{ { { "key1", "default1" } }};
 
     WHEN( "adding data" ){
       gndsNode.metadata( "key2", "value2" );
@@ -90,21 +89,13 @@ const int& get( const V& v ){ return std::get< int >( v ); }
 
 auto visitor = []( auto&& v ){ return v; };
 
-template< typename T >
-void checkChildren( const T& zip ){
-  ranges::for_each( zip,
-    [](auto& pair ){ CHECK( pair.first == pair.second ); } );
-  // for( auto&& [ reference, test ] : zip ){
-  //   CHECK( reference == test );
-  // }
-}
 SCENARIO( "Testing a Node with multiple types" ){
   GIVEN( "a Node containing multiple types" ){
     using Node_t = GNDStk::AllKeysValidNode< int, double >;
-    Node_t gndsNode{ 1.15 };
+    Node_t gndsNode{};
 
     WHEN( "adding data" ){
-      gndsNode.push_back( 3.3 );
+      gndsNode.push_back( 1.15, 3.3 );
       gndsNode.push_back( 2.2, 4 );
 
       THEN( "the data can be verified" ){

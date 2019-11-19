@@ -2,7 +2,7 @@ template< const std::vector< std::string >& AllowedKeys,
           typename ValueType=std::string >
 class Metadata{
 public:
-  using Map_t = std::map< std::string, ValueType >;
+  using Map_t = std::map< const std::string, ValueType >;
 
 private:
  

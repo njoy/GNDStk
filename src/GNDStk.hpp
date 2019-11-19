@@ -9,6 +9,7 @@
 #include "value-ptr.hpp"
 #include "pugixml.hpp"
 #include "Log.hpp"
+#include "header-utilities.hpp"
 
 namespace njoy{
 namespace GNDStk {

@@ -21,7 +21,7 @@ public:
 std::vector< std::string > allowedKeys{ "key1", "key2" };
 SCENARIO( "Testing the SterileNode" ){
   GIVEN( "a SterileNode with default map" ){
-    std::map< std::string, std::string > dMap{ { "key1", "default1" } };
+    std::map< const std::string, std::string > dMap{ { "key1", "default1" } };
     SterileTest< allowedKeys > gndsNode{ dMap };
 
     WHEN( "adding metadata" ){

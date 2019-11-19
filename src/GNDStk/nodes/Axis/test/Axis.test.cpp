@@ -18,12 +18,10 @@ SCENARIO( "Testing the basic Axis node" ){
   } // GIVEN
 
   GIVEN( "initial metadata" ){
-    std::map< std::string, std::string > dMap{ 
-      { "label", "energy_in" },
-      { "unit", "eV" }
+    GNDStk::nodes::Axis axis{ 
+      { { "label", "energy_in" },
+        { "unit", "eV" } }
     };
-
-    GNDStk::nodes::Axis axis{ dMap };
     THEN( "we can verify the initial values" ){
       
       CHECK( "energy_in" == axis.metadata( "label" ) );

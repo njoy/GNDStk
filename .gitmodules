@@ -16,3 +16,6 @@
 [submodule "dependencies/Log"]
 	path = dependencies/Log
 	url = https://github.com/njoy/Log.git
+[submodule "dependencies/header-utilities"]
+	path = dependencies/header-utilities
+	url = https://github.com/njoy/header-utilities.git

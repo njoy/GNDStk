@@ -41,7 +41,7 @@ SCENARIO( "Testing the basic Metadata class" ){
 
   GIVEN( "a starting map" ){
     WHEN( "the default keys are valid" ){
-      std::map< std::string, std::string > dMap{ { "key1", "default1" } };
+      std::map< const std::string, std::string > dMap{ { "key1", "default1" } };
       THEN( "a metadata object can be created" ){
         auto meta = GNDStk::Metadata< keys >{ dMap };
       
@@ -55,11 +55,30 @@ SCENARIO( "Testing the basic Metadata class" ){
       } // THEN
     } // WHEN
     WHEN( "the default keys are not valid" ){
-      std::map< std::string, std::string > dMap{ { "key3", "default1" } };
+      std::map< const std::string, std::string > dMap{ { "key3", "default1" } };
       THEN( "an exception is thrown" ){
         CHECK_THROWS( GNDStk::Metadata< keys >{ dMap } );
       } // THEN
       
     } // WHEN
   } // GIVEN
+
+  WHEN( "constructing with an initilizier list" ){
+
+    auto meta = GNDStk::Metadata< keys >{ 
+      { "key1", "initList1" },
+      { "key2", "initList2" }
+    };
+
+    THEN( "the metadata can be vierified" ){
+      CHECK( "initList1" == meta.at( "key1" ) );
+      CHECK( "initList2" == meta.at( "key2" ) );
+    } // THEN
+
+    GIVEN( "invalid keys in initializer list" ){
+      THEN( "an exception is thrown" ){
+        CHECK_THROWS( ( GNDStk::Metadata< keys >{ { "bad", "double bad" } } ) );
+      } // THEN
+    } // GIVEN
+  } // WHEN
 } // SCENARIO

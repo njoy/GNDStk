@@ -9,11 +9,8 @@ SCENARIO( "Testing the the Axes node" ){
   GIVEN( "an Axes node" ){
     GNDStk::nodes::Axes axes{};
 
-    std::map<std::string, std::string> axes0Meta{{"label", "energy_in" }};
-    std::map<std::string, std::string> axes1Meta{{"label", "crossSection" }};
-
-    axes.push_back( GNDStk::nodes::Axis{ axes0Meta } )
-        .push_back( GNDStk::nodes::Axis{ axes1Meta } );
+    axes.push_back( GNDStk::nodes::Axis{ {{"label", "energy_in" }} } )
+        .push_back( GNDStk::nodes::Axis{ {{"label", "crossSection" }} } );
 
     THEN( "the contained data can be verified" ){
       // auto axises = axes.children< GNDStk::nodes::Axis >();

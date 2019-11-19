@@ -593,9 +593,11 @@
     "src/GNDStk/Metadata.hpp",
     "src/GNDStk/Node.hpp",
     "src/GNDStk/nodes.hpp",
+    "src/GNDStk/nodes/Values.hpp",
     "src/GNDStk/nodes/Grid.hpp",
     "src/GNDStk/nodes/Axis.hpp",
     "src/GNDStk/nodes/Axes.hpp",
+    "src/GNDStk/nodes/Values/src/ctor.hpp",
     "src/GNDStk/Node/src/ctor.hpp",
     "src/GNDStk/Node/src/children.hpp",
     "src/GNDStk/Node/src/push_back.hpp",
@@ -640,6 +642,9 @@
     ],
     "GNDStk.nodes.Axis": [
       "src/GNDStk/nodes/Axis/test/Axis.test.cpp"
+    ],
+    "GNDStk.nodes.Values": [
+      "src/GNDStk/nodes/Values/test/Values.test.cpp"
     ]
   },
   "update": true
