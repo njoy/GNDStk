@@ -1,17 +1,15 @@
 #!/bin/bash
 
 # XMLs: flatten directory, and pretty-print
-for foo in fix/*.xml
+for xmlin in fix/*.xml
 do
-   bar="flat/$(basename $foo)"
-   txt="${bar/.xml/}.txt"
-   ###one="${bar/.xml/}.one"
-   ###two="${bar/.xml/}.two"
-   ### ./2 $foo > $bar
-   ###echo $bar "==>" $one
-   ###echo $bar "==>" $one
-   echo $foo "==>" $bar
-   ./2 $foo > $bar
-   echo $bar "==>" $txt
-   cat $bar | uniq | sort | uniq > $txt
+   xmlout="flat/$(basename $xmlin)" # not actually xml
+   echo $xmlin "==>" $xmlout
+   /bin/rm $xmlout
+   ./collate $xmlin > $xmlout
+
+   uniqout="${xmlout/.xml/}.txt"
+   echo $xmlout "==>" $uniqout
+   /bin/rm $uniqout
+   cat $xmlout | uniq | sort | uniq > $uniqout
 done

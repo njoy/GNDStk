@@ -10,6 +10,8 @@
 #include <iostream>
 #include <vector>
 
+#include "keyword.hpp"
+
 // macro: printvar
 #define printvar(var) std::cout << #var ": [" << var << "]" << std::endl
 
@@ -24,12 +26,16 @@ namespace gnds {
 // indent
 inline int indent = 3;
 
+
 // debug
-inline void debug(const std::string &str)
+inline bool debug = false;
+
+inline void debugmsg(const std::string &str)
 {
-   (void)str;
-   //std::cout << "debug: " << str << std::endl;
+   if (debug)
+      std::cout << "debug: " << str << std::endl;
 }
+
 
 // filesize(char *)
 inline std::ifstream::pos_type filesize(const char * const name)
@@ -44,6 +50,7 @@ inline std::ifstream::pos_type filesize(const std::string &name)
    return filesize(name.c_str());
 }
 
+
 // endsin
 // C++20 will have an ends_with(); I'll just do it directly for now
 inline bool endsin(const std::string &str, const std::string &end)
@@ -56,17 +63,11 @@ inline bool endsin(const std::string &str, const std::string &end)
 
 
 // -----------------------------------------------------------------------------
-// Classes based on external file-format libraries:
 // gnds::json
-// gnds::xml
+// Wraps nlohmann::json
 // -----------------------------------------------------------------------------
 
 namespace gnds {
-
-// ------------------------
-// gnds::json
-// Wraps nlohmann::json
-// ------------------------
 
 class json {
 public:
@@ -95,8 +96,7 @@ public:
    json &operator=(const json &) = default;
    json &operator=(json &&) = default;
 
-   // ctor: char *
-   // ctor: string
+   // ctor(filename)
    json(const char * const filename) { read(filename); }
    json(const std::string &filename) { read(filename); }
 
@@ -111,10 +111,22 @@ public:
 
 
 
-// ------------------------
+// ostream << gnds::json
+inline std::ostream &operator<<(std::ostream &os, const json &obj)
+{
+   return obj.write(os);
+}
+
+} // namespace gnds
+
+
+
+// -----------------------------------------------------------------------------
 // gnds::xml
 // Wraps pugi::xml_document
-// ------------------------
+// -----------------------------------------------------------------------------
+
+namespace gnds {
 
 class xml {
 public:
@@ -131,8 +143,7 @@ public:
    // xml &operator=(const xml &) = default;
    xml &operator=(xml &&) = default;
 
-   // ctor: char *
-   // ctor: string
+   // ctor(filename)
    xml(const char * const filename) { read(filename); }
    xml(const std::string &filename) { read(filename); }
 
@@ -145,13 +156,21 @@ public:
 
 }; // class xml
 
+
+
+// ostream << gnds::xml
+inline std::ostream &operator<<(std::ostream &os, const xml &obj)
+{
+   return obj.write(os);
+}
+
 } // namespace gnds
 
 
 
 // -----------------------------------------------------------------------------
-// Internal representation, using knoop:
 // gnds::knoop
+// Internal representation, using knoop
 // -----------------------------------------------------------------------------
 
 namespace gnds {
@@ -162,80 +181,12 @@ bool convert(const xml  &from, knoop &to);
 bool convert(const json &from, knoop &to);
 
 
-
-// ------------------------
 // gnds::knoop
-// ------------------------
-
 class knoop {
 public:
 
-   // ------------------------
-   // node - begin
-   // ------------------------
-
-   class node : public njoy::knoop::Node<
-      std::string, // name
-      std::vector<std::pair<std::string,std::string>>, // metadata
-      std::vector<node *> // children
-   > {
-      using name_t = std::string;
-      using metadata_t = std::vector<std::pair<std::string,std::string>>;
-      using children_t = std::vector<node *>;
-
-      // begin(), for brevity
-      decltype(auto) begin()       { return list().begin(); }
-      decltype(auto) begin() const { return list().begin(); }
-
-   public:
-      using base = njoy::knoop::Node<name_t, metadata_t, children_t>;
-
-      // ctor: default
-      node() : base(name_t{}, metadata_t{}, children_t{}) { }
-
-      // accessors
-      const auto &name    () const { return (    begin())->get<name_t    >(); }
-      const auto &metadata() const { return (  ++begin())->get<metadata_t>(); }
-      const auto &children() const { return (++++begin())->get<children_t>(); }
-
-      auto &name    () { return (    begin())->get<name_t    >(); }
-      auto &metadata() { return (  ++begin())->get<metadata_t>(); }
-      auto &children() { return (++++begin())->get<children_t>(); }
-
-      void metadata_push(const std::string &key, const std::string &value)
-      {
-         metadata().push_back(std::make_pair(key,value));
-      }
-
-      void children_push(node *const value)
-      {
-         children().push_back(value);
-      }
-
-      // dtor
-     ~node()
-      {
-         for (auto &cptr : children()) {
-            delete cptr;    // <== still have raw pointer in knoop-based class
-            cptr = nullptr; // <== to ensure deleted raw pointer can't be used
-            debug("delete node - knoop");
-         }
-      }
-
-      // leaf?
-      bool leaf() const
-      {
-         return children().size() == 0;
-      }
-
-      // write
-      void write(std::ostream &, const int indentlevel) const;
-
-   }; // class node
-
-   // ------------------------
-   // node - end
-   // ------------------------
+   // defined later
+   class node;
 
    // data
    std::unique_ptr<node> root;
@@ -243,8 +194,7 @@ public:
    // ctor: default
    knoop() { }
 
-   // ctor: xml
-   // ctor: json
+   // ctor: xml | json
    knoop(const xml  &x) { convert(x,*this); }
    knoop(const json &j) { convert(j,*this); }
 
@@ -259,13 +209,92 @@ public:
 
 }; // class knoop
 
+
+
+// ostream << gnds::knoop
+inline std::ostream &operator<<(std::ostream &os, const knoop &obj)
+{
+   return obj.write(os);
+}
+
 } // namespace gnds
 
 
 
 // -----------------------------------------------------------------------------
-// Internal representation, using our own lightweight class:
+// gnds::knoop::node
+// Helper for gnds::knoop
+// -----------------------------------------------------------------------------
+
+namespace gnds {
+
+class knoop::node : public njoy::knoop::Node<
+   std::string, // name
+   std::vector<std::pair<std::string,std::string>>, // metadata
+   std::vector<node *> // children
+> {
+   using name_t     = std::string;
+   using metadata_t = std::vector<std::pair<std::string,std::string>>;
+   using children_t = std::vector<node *>;
+
+   // begin(), for brevity later
+   decltype(auto) begin()       { return list().begin(); }
+   decltype(auto) begin() const { return list().begin(); }
+
+   using base = njoy::knoop::Node<name_t, metadata_t, children_t>;
+
+public:
+
+   // ctor: default
+   node() : base(name_t{}, metadata_t{}, children_t{}) { }
+
+   // accessors
+   const auto &name    () const { return (    begin())->get<name_t    >(); }
+   const auto &metadata() const { return (  ++begin())->get<metadata_t>(); }
+   const auto &children() const { return (++++begin())->get<children_t>(); }
+   auto &name    () { return (    begin())->get<name_t    >(); }
+   auto &metadata() { return (  ++begin())->get<metadata_t>(); }
+   auto &children() { return (++++begin())->get<children_t>(); }
+
+   // push
+   void push(const std::string &key, const std::string &value)
+   {
+      metadata().push_back(std::make_pair(key,value));
+   }
+
+   void push(node *const value)
+   {
+      children().push_back(value);
+   }
+
+   // leaf?
+   bool leaf() const
+   {
+      return children().size() == 0;
+   }
+
+   // write
+   void write(std::ostream &, const int indentlevel) const;
+
+   // dtor
+  ~node()
+   {
+      for (auto &cptr : children()) {
+         delete cptr;    // <== still have raw pointer in knoop-based class
+         cptr = nullptr; // <== to ensure deleted raw pointer can't be used
+         debugmsg("delete node - knoop");
+      }
+   }
+
+}; // class node
+
+} // namespace gnds
+
+
+
+// -----------------------------------------------------------------------------
 // gnds::generic
+// Internal representation, using our own lightweight class
 // -----------------------------------------------------------------------------
 
 namespace gnds {
@@ -276,59 +305,12 @@ bool convert(const xml  &from, generic &to);
 bool convert(const json &from, generic &to);
 
 
-
-// ------------------------
 // gnds::generic
-// ------------------------
-
 class generic {
 public:
 
-   // ------------------------
-   // node - begin
-   // ------------------------
-
-   class node {
-   public:
-
-      // data
-      std::string name_;
-      std::vector<std::pair<std::string,std::string>> metadata_;
-      std::vector<std::unique_ptr<node>> children_;
-
-      // accessors
-      const auto &name    () const { return name_    ; }
-      const auto &metadata() const { return metadata_; }
-      const auto &children() const { return children_; }
-
-      auto &name    () { return name_    ; }
-      auto &metadata() { return metadata_; }
-      auto &children() { return children_; }
-
-      void metadata_push(const std::string &key, const std::string &value)
-      {
-         metadata().push_back(std::make_pair(key,value));
-      }
-
-      void children_push(node *const value)
-      {
-         children().push_back(std::unique_ptr<node>(value));
-      }
-
-      // leaf?
-      bool leaf() const
-      {
-         return children().size() == 0;
-      }
-
-      // write
-      void write(std::ostream &, const int indentlevel) const;
-
-   }; // class node
-
-   // ------------------------
-   // node - end
-   // ------------------------
+   // defined later
+   class node;
 
    // data
    std::unique_ptr<node> root;
@@ -336,8 +318,7 @@ public:
    // ctor: default
    generic() { }
 
-   // ctor: xml
-   // ctor: json
+   // ctor: xml | json
    generic(const xml  &x) { convert(x,*this); }
    generic(const json &j) { convert(j,*this); }
 
@@ -350,7 +331,278 @@ public:
    // write
    std::ostream &write(std::ostream &) const;
 
+   // ------------------------
+   // shorthand data access:
+   // meta, child, operator()
+   // ------------------------
+
+   const std::string &meta(const std::string &key) const;
+   template<class T>
+   decltype(auto) meta(const gnds::meta<T> &m) const;
+   const node &child(const std::string &name) const;
+   const node &child(const gnds::child &c) const;
+   const node &operator()(const gnds::child &c) const;
+   template<class T, class... Ts>
+   decltype(auto) operator()(T &&t, Ts &&...ts) const; // should have sfinae
+
 }; // class generic
+
+
+
+// ostream << gnds::generic
+inline std::ostream &operator<<(std::ostream &os, const generic &obj)
+{
+   return obj.write(os);
+}
+
+} // namespace gnds
+
+
+
+// -----------------------------------------------------------------------------
+// gnds::generic::node
+// Helper for gnds::generic
+// -----------------------------------------------------------------------------
+
+namespace gnds {
+
+class generic::node {
+public:
+
+   // data
+   std::string name_;
+   std::vector<std::pair<std::string,std::string>> metadata_;
+   std::vector<std::unique_ptr<node>> children_;
+
+   // accessors
+   const auto &name    () const { return name_    ; }
+   const auto &metadata() const { return metadata_; }
+   const auto &children() const { return children_; }
+   auto &name    () { return name_    ; }
+   auto &metadata() { return metadata_; }
+   auto &children() { return children_; }
+
+   // push
+   void push(const std::string &key, const std::string &value)
+   {
+      metadata().push_back(std::make_pair(key,value));
+   }
+
+   void push(node *const value)
+   {
+      children().push_back(std::unique_ptr<node>(value));
+   }
+
+   // leaf?
+   bool leaf() const
+   {
+      return children().size() == 0;
+   }
+
+   // write
+   void write(std::ostream &, const int indentlevel) const;
+
+
+   // ------------------------
+   // meta()
+   // ------------------------
+
+   // 1. for string
+   const std::string &meta(const std::string &key) const
+   {
+      for (auto &m : metadata())
+         if (m.first == key)
+            return m.second;
+      // eventually do something better than this...
+      assert(false);
+      static std::string empty = "";
+      return empty;
+   }
+
+   // 2. for meta<bool>
+   bool meta(const gnds::meta<bool> &m) const
+   {
+      if (m.name == std::string("true" )) return true;
+      if (m.name == std::string("false")) return false;
+      assert(false);
+      return false;
+   }
+
+   // 3. for meta<T>
+   template<class T>
+   T meta(const gnds::meta<T> &m) const
+   {
+      std::istringstream iss(meta(std::string(m.name)));
+      T value;
+      iss >> value;
+      return value;
+   }
+
+   // 4. for meta<variant>
+   // Caller must stipulate <T>
+   template<class T, class... Vs>
+   T meta(const gnds::meta<std::variant<Vs...>> &m) const
+   {
+      std::istringstream iss(meta(std::string(m.name)));
+      T value;
+      iss >> value;
+      return value;
+   }
+
+   // 5. for meta<vector>
+   // Return by value isn't ideal, performance-wise,
+   // but we'll go with it for now
+   template<class T>
+   std::vector<T> meta(const gnds::meta<std::vector<T>> &m) const
+   {
+      std::istringstream iss(meta(std::string(m.name)));
+      std::vector<T> value;
+      T val;
+      while (iss >> val)
+         value.push_back(val);
+      return value;
+   }
+
+
+   // ------------------------
+   // child()
+   // ------------------------
+
+   // 6. for string
+   const node &child(const std::string &name) const
+   {
+      for (auto &c : children())
+         if (c != nullptr && c->name() == name)
+            return *c;
+      // eventually do something better than this...
+      assert(false);
+      static node empty{};
+      return empty;
+   }
+
+   // 7. for child
+   const node &child(const gnds::child &c) const
+   {
+      return child(std::string(c.name));
+   }
+
+
+   // ------------------------
+   // operator()
+   // ------------------------
+
+   /*
+   zzz
+
+   (n) 1. const std::string &meta(const std::string &key) const;
+
+   (x) 2. bool meta(const gnds::meta<bool> &m) const;
+   (x) 3. template<class T>
+   (x)    T meta(const gnds::meta<T> &m) const;
+   (x) 4. template<class T, class... Vs>
+   (x)    T meta(const gnds::meta<std::variant<Vs...>> &m) const;
+   (x) 5. template<class T>
+   (x)    std::vector<T> meta(const gnds::meta<std::vector<T>> &m) const;
+
+   (n) 6. const node &child(const std::string &name) const;
+
+   (x) 7. const node &child(const gnds::child &c) const;
+   */
+
+   // forwards to (2), (3), (4), or (5) above
+   template<class T>
+   decltype(auto) operator()(const gnds::meta<T> &m) const
+   {
+      return meta(m);
+   }
+
+   // forwards to (7) above
+   // return type will actually always be const node &
+   decltype(auto) operator()(const gnds::child &c) const
+   {
+      return child(c);
+   }
+
+   // multi-argument
+   // should have sfinae to ensure T is meta or child as for above operator()s
+   template<class T, class... Ts>
+   decltype(auto) operator()(T &&t, Ts &&...ts) const
+   {
+      return (*this)(t)(std::forward<Ts>(ts)...);
+   }
+
+}; // class node
+
+} // namespace gnds
+
+
+
+// -----------------------------------------------------------------------------
+// Definitions:
+//    generic::meta()
+//    generic::child()
+//    generic::operator()()
+// These appear to be somewhat redundant, and they all just defer down to the
+// document's top-level child node. Figure out a good way to fold them down.
+// Possibly, even have the top-level document type be implicitly convertible
+// to its top-level node; then we may not need these at all. Be sure that
+// whatever we do, we don't allow screwy usages that cause pages and pages of
+// incomprehensible compiler gibberish to spew out.
+// -----------------------------------------------------------------------------
+
+// zzz
+
+namespace gnds {
+
+// ------------------------
+// generic::meta()
+// ------------------------
+
+inline const std::string &generic::meta(const std::string &key) const
+{
+   assert(root != nullptr);
+   return root->meta(key);
+}
+
+template<class T>
+inline decltype(auto) generic::meta(const gnds::meta<T> &m) const
+{
+   assert(root != nullptr);
+   return root->meta(m);
+}
+
+// ------------------------
+// generic::child()
+// ------------------------
+
+inline const generic::node &generic::child(const std::string &name) const
+{
+   assert(root != nullptr);
+   return root->child(name);
+}
+
+inline const generic::node &generic::child(const gnds::child &c) const
+{
+   assert(root != nullptr);
+   return root->child(c);
+}
+
+// ------------------------
+// generic::operator()()
+// ------------------------
+
+inline const generic::node &generic::operator()(const gnds::child &c) const
+{
+   assert(root != nullptr);
+   return root->child(c);
+}
+
+template<class T, class... Ts>
+inline decltype(auto) generic::operator()(T &&t, Ts &&...ts) const
+{
+   assert(root != nullptr);
+   return (*root)(t)(std::forward<Ts>(ts)...);
+}
 
 } // namespace gnds
 
@@ -505,10 +757,10 @@ bool convert(const nlohmann::json::const_iterator &from, NODE &to)
    const nlohmann::json &value = from.value();
    for (auto sub = value.begin();  sub != value.end();  ++sub) {
       if (!sub->is_object()) {
-         to.metadata_push(sub.key(), sub->get<std::string>());
+         to.push(sub.key(), sub->get<std::string>());
       } else {
-         debug("new node");
-         to.children_push(new NODE);
+         debugmsg("new node");
+         to.push(new NODE);
          if (!convert(sub,*to.children().back()))
             return false;
       }
@@ -535,8 +787,8 @@ bool convert(const json &from, TYPE &to)
 
    // visit the document's nodes
    for (auto elem = from.doc.begin();  elem != from.doc.end();  ++elem) {
-      debug("new node");
-      to.root->children_push(new NODE);
+      debugmsg("new node");
+      to.root->push(new NODE);
       if (!detail::convert(elem,*to.root->children().back()))
          return false;
    }
@@ -557,7 +809,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
    // metadata
    for (const pugi::xml_attribute &meta : from.attributes())
-      to.metadata_push(meta.name(), meta.value());
+      to.push(meta.name(), meta.value());
 
    // children
    for (const pugi::xml_node &sub : from.children()) {
@@ -593,7 +845,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
       if (sub.type() == pugi::node_comment) {
          static const std::string prefix = "<!--";
          static const std::string suffix = "-->";
-         to.metadata_push(prefix, sub.value()+suffix);
+         to.push(prefix, sub.value()+suffix);
          continue;
       }
 
@@ -605,7 +857,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
          static const std::string prefix = "![CDATA[";
          static const std::string suffix = "]]";
-         to.metadata_push(prefix, sub.value()+suffix);
+         to.push(prefix, sub.value()+suffix);
          continue;
       }
 
@@ -618,7 +870,7 @@ bool convert(const pugi::xml_node &from, NODE &to)
 
          static const std::string prefix = "![PCDATA[";
          static const std::string suffix = "]]";
-         to.metadata_push(prefix, sub.value()+suffix);
+         to.push(prefix, sub.value()+suffix);
          continue;
       }
 
@@ -627,8 +879,8 @@ bool convert(const pugi::xml_node &from, NODE &to)
       // ------------------------
 
       assert(sub.type() == pugi::node_element);
-      debug("new node");
-      to.children_push(new NODE);
+      debugmsg("new node");
+      to.push(new NODE);
       if (!convert(sub,*to.children().back()))
          return false;
    }
@@ -662,13 +914,13 @@ bool convert(const xml &from, TYPE &to)
 
          // base document "attributes": stuff like version and encoding
          for (const pugi::xml_attribute &meta : xnode.attributes())
-            to.root->metadata_push(meta.name(), meta.value());
+            to.root->push(meta.name(), meta.value());
       }
 
       if (count == 1) {
          // visit the document's nodes
-         debug("new node");
-         to.root->children_push(new NODE);
+         debugmsg("new node");
+         to.root->push(new NODE);
          if (!detail::convert(xnode,*to.root->children().back()))
             return false;
       }

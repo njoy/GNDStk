@@ -22,7 +22,7 @@ std::string trim(std::string s)
 template<class T>
 bool isvector(const std::string &s)
 {
-   std::istringstream iss(trim(s));
+   std::istringstream iss(s);
    T value;
    int count = 0;
    while (iss >> value)
@@ -36,7 +36,7 @@ bool isvector(const std::string &s)
 template<class T>
 bool isscalar(const std::string &s)
 {
-   std::istringstream iss(trim(s));
+   std::istringstream iss(s);
    T value;
    int count = 0;
    while (iss >> value)
@@ -47,21 +47,22 @@ bool isscalar(const std::string &s)
 
 
 // type
-std::string type(const std::string &s)
+std::string type(std::string str)
 {
    using string = std::string;
+   const string s = trim(str);
 
-   if (trim(s) == "") return "empty";
+   if (s == "") return "std::string";
 
-   if (isvector<int   >(s)) return "vector<int>";
-   if (isvector<long  >(s)) return "vector<long>";
-   if (isvector<double>(s)) return "vector<double>";
-   if (isvector<string>(s)) return "vector<string>";
+   if (isvector<int   >(s)) return "std::vector<int>";
+   if (isvector<long  >(s)) return "std::vector<long>";
+   if (isvector<double>(s)) return "std::vector<double>";
+   if (isvector<string>(s)) return "std::vector<std::string>";
 
    if (isscalar<int   >(s)) return "int";
    if (isscalar<long  >(s)) return "long";
    if (isscalar<double>(s)) return "double";
-   if (isscalar<string>(s)) return "string";
+   if (isscalar<string>(s)) return "std::string";
 
    return "unknown";
 }
@@ -77,15 +78,17 @@ std::string type(const std::string &s)
 void prefix(
    std::ostream &os,
    const std::string &indentstr,
-   const std::string &label,
    const std::vector<std::string> &pfx
 ) {
-   static const std::string separator = " /// ";
-   os << indentstr << label;
-   for (auto &pre : pfx)
-      os << separator << pre;
-   os << separator;
+   os << indentstr;
+   int count = 0;
+   for (auto &pre : pfx) {
+      os << (count++ == 0 ? "" : " ") << pre;
+///      os << (count++ == 0 ? "" : " ") << pre << std::endl;
+   }
+///   os << separator;
 }
+
 
 
 // For gnds::[knoop|generic]::node
@@ -94,32 +97,45 @@ void write(
    std::ostream &os,
    const int indentlevel,
    const NODE &node,
-   std::vector<std::string> &pfx
+   std::vector<std::string> &pfx,
+   const bool asterisk
 ) {
    // indentation
    const std::string indentstr(gnds::indent*indentlevel,' ');
 
-   // name
-   prefix(os, indentstr, "type", pfx);
-   os << node.name() << std::endl;
-
    // prefix
-   pfx.push_back(node.name());
+   pfx.push_back(node.name() + (asterisk ? "*" : "") + " ");
+
+   // name
+   prefix(os, indentstr, pfx);
+   os << std::endl;
 
    // metadata
    for (const auto &m : node.metadata()) {
-      prefix(os, indentstr, "meta", pfx);
-      os << m.first << " [" << type(m.second) << "]" << std::endl;
+      prefix(os, indentstr, pfx);
+      os << " ;" << type(m.second) << "/**/" << m.first << ";" << std::endl;
    }
 
    // children
-   for (const auto &cptr : node.children()) {
-      assert(cptr != nullptr);
-      write(os, indentlevel+1, *cptr, pfx);
+   for (auto it = node.children().begin(); it != node.children().end(); ++it) {
+
+      // better hack
+      const std::string name = (*it)->name();
+      bool ast = false;
+      if (name.size() > 0) {
+         if (it != node.children().begin() && name == (*(it-1))->name())
+            ast = true;
+         if (it+1 != node.children().end() && name == (*(it+1))->name())
+            ast = true;
+      }
+
+      // pre-hack
+      write(os, indentlevel+1, **it, pfx, ast);
    }
 
    pfx.pop_back();
 }
+
 
 
 // For gnds::[knoop|generic]
@@ -128,7 +144,7 @@ void write(std::ostream &os, const TREE &doc)
 {
    std::vector<std::string> pfx;
    if (doc.root)
-      write(os, 0, *doc.root, pfx);
+      write(os, 0, *doc.root, pfx, false);
 }
 
 
