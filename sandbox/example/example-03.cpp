@@ -2,13 +2,13 @@
 #include "gnds.hpp"
 
 // helper: compare
-void compare(const gnds::knoop &k, const gnds::generic &g)
+void compare(const gnds::knoop &k, const gnds::tree &t)
 {
+   std::ostringstream strt;
    std::ostringstream strk;
-   std::ostringstream strg;
+   t.write(strt);
    k.write(strk);
-   g.write(strg);
-   assert(strk.str() == strg.str());
+   assert(strt.str() == strk.str());
 }
 
 
@@ -27,7 +27,7 @@ int main(const int argc, const char * const * const argv)
    assert(argc == 2);
 
    gnds::xml x(argv[1]);
-   gnds::generic g(x);
+   gnds::tree g(x);
 
    std::cout << std::endl;
 
@@ -123,7 +123,7 @@ int main(const int argc, const char * const * const argv)
    // This:
    //    <RutherfordScattering/>
    // shows up in a-002_He_004.xml (the example I've been working with).
-   // After reading into our generic tree structure, it presents as a child
+   // After reading into our tree structure, it presents as a child
    // node with no further children. In GNDS, its existence apparently
    // indicates a trait of the data. We should figure out a way to represent
    // the meaning in an elegant way; the following simple access syntax
@@ -285,8 +285,8 @@ int main(const int argc, const char * const * const argv)
    {
       std::ostringstream strk;
       std::ostringstream strg;
-      gnds::knoop  (x).write(strk); // xml  ==> knoop   ==> write
-      gnds::generic(x).write(strg); // xml  ==> generic ==> write
+      gnds::knoop(x).write(strk); // xml  ==> knoop ==> write
+      gnds::tree (x).write(strg); // xml  ==> tree  ==> write
       assert(strk.str() == strg.str()); // results should be the same
    }
    */
@@ -297,8 +297,8 @@ int main(const int argc, const char * const * const argv)
    {
       std::ostringstream strk;
       std::ostringstream strg;
-      gnds::knoop  (j).write(strk); // json ==> knoop   ==> write
-      gnds::generic(j).write(strg); // json ==> generic ==> write
+      gnds::knoop(j).write(strk); // json ==> knoop ==> write
+      gnds::tree (j).write(strg); // json ==> tree  ==> write
       assert(strk.str() == strg.str()); // results should be the same
    }
    */
@@ -330,11 +330,11 @@ int main(const int argc, const char * const * const argv)
             << i << ". Loading XML file \"" << filename
             << "\"\n   converting multiple times" << std::flush;
          gnds::xml x(filename);
-         // convert to our knoop and generic types...
+         // convert to our knoop and tree types...
          for (int count = ntiming;  count-- ; ) {
             std::cout << '.' << std::flush;
-            gnds::knoop   k(x);
-            gnds::generic g(x);
+            gnds::knoop k(x);
+            gnds::tree  g(x);
             compare(k,g);
          }
          std::cout << std::endl;
@@ -345,11 +345,11 @@ int main(const int argc, const char * const * const argv)
             << i << ". Loading Json file \"" << filename
             << "\"\n   converting multiple times" << std::flush;
          gnds::json j(filename);
-         // convert to our knoop and generic types...
+         // convert to our knoop and tree types...
          for (int count = ntiming;  count-- ; ) {
             std::cout << '.' << std::flush;
-            gnds::knoop   k(j);
-            gnds::generic g(j);
+            gnds::knoop k(j);
+            gnds::tree  g(j);
             compare(k,g);
          }
          std::cout << std::endl;

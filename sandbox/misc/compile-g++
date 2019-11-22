@@ -24,4 +24,4 @@ LIBRARIES=''
 if [ ! -f "pugixml.o" ]; then
 $COMPILE ../subprojects/pugixml-adapter/src/src/pugixml.cpp -c -o pugixml.o
 fi
-$COMPILE gnds.cpp pugixml.o -o gnds $LIBRARIES
+$COMPILE collate.cpp pugixml.o -o collate $LIBRARIES
