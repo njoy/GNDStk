@@ -3,11 +3,12 @@
 
 int main(const int argc, const char * const * const argv)
 {
-   // file
    assert(argc == 2);
+
+   // automatically determines xml or json...
    gnds::tree doc(argv[1]);
 
-   // has the keywords we use below
+   // has keywords we'll use below
    using namespace gnds::key;
 
    // access data...
@@ -15,7 +16,7 @@ int main(const int argc, const char * const * const argv)
       reactionSuite,
       styles,
       evaluated,
-      label
+      date
    ) << std::endl;
 
    std::cout << doc(
@@ -32,6 +33,7 @@ int main(const int argc, const char * const * const argv)
       label
    ) << std::endl;
 
+   // same as above, different form...
    std::cout << doc(
       reactionSuite,
       PoPs,
@@ -45,6 +47,10 @@ int main(const int argc, const char * const * const argv)
       Double
    ).meta(label) << std::endl;
 
+   // "value" could be any of a few types, depending on context,
+   // so we say <double> below. I plan to come up with something
+   // that tracks context and uses it to determine type, so users
+   // won't need to do it.
    std::cout << doc(
       reactionSuite,
       PoPs,
