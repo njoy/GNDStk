@@ -28,3 +28,4 @@ fi
 $COMPILE example-01.cpp pugixml.o -o 01 $LIBRARIES
 $COMPILE example-02.cpp pugixml.o -o 02 $LIBRARIES
 $COMPILE example-03.cpp pugixml.o -o 03 $LIBRARIES
+$COMPILE example-04.cpp pugixml.o -o 04 $LIBRARIES
