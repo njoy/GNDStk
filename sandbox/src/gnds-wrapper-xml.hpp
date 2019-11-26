@@ -10,6 +10,12 @@ public:
    // overall xml document
    pugi::xml_document doc;
 
+   // clear
+   void clear()
+   {
+      doc.reset();
+   }
+
    // standard ctor/assignment
    // The copy constructor and assignment are commented-out because
    // pugi::xml_document's respective elements are inaccessible.
@@ -18,6 +24,10 @@ public:
    xml(xml &&) = default;
    // xml &operator=(const xml &) = default;
    xml &operator=(xml &&) = default;
+
+   // ctor: json, tree
+   xml(const gnds::json &j);
+   xml(const gnds::tree &t) { convert(t,*this); }
 
    // ctor: file, stream
    xml(const char * const file) { read(file); }

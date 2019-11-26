@@ -25,12 +25,22 @@ public:
    // overall json document
    nlohmann::json doc;
 
+   // clear
+   void clear()
+   {
+      doc.clear();
+   }
+
    // standard ctor/assignment
    json() = default;
    json(const json &) = default;
    json(json &&) = default;
    json &operator=(const json &) = default;
    json &operator=(json &&) = default;
+
+   // ctor: xml, tree
+   json(const xml  &x);
+   json(const tree &t) { convert(t,*this); }
 
    // ctor: file, stream
    json(const char * const file) { read(file); }

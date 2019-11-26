@@ -5,6 +5,13 @@
 #define printval(var) std::cout << #var ": [" << var << "]" << std::endl
 #define printvar(var) std::cout << #var ": [" << var << "]" << std::endl
 
+// forward declarations
+class xml;
+class json;
+class tree;
+bool convert(const tree &, xml  &);
+bool convert(const tree &, json &);
+
 
 
 // -----------------------------------------------------------------------------

@@ -235,20 +235,122 @@ bool convert(const json &from, TYPE &to)
 
 
 
-
-
 // -----------------------------------------------------------------------------
 // convert: (xml|json) to (tree|knoop)
 // -----------------------------------------------------------------------------
 
-inline bool convert(const xml  &from, tree  &to)
+// xml to tree
+inline bool convert(const xml &from, tree &to)
 { return detail::convert(from,to); }
 
-inline bool convert(const xml  &from, knoop &to)
+// xml to knoop
+inline bool convert(const xml &from, knoop &to)
 { return detail::convert(from,to); }
 
-inline bool convert(const json &from, tree  &to)
+// json to tree
+inline bool convert(const json &from, tree &to)
 { return detail::convert(from,to); }
 
+// json to knoop
 inline bool convert(const json &from, knoop &to)
 { return detail::convert(from,to); }
+
+
+
+// -----------------------------------------------------------------------------
+// Helpers for:
+// convert: tree to (xml|json)
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// node to xml
+// zzz write this
+
+
+
+// node to json
+inline // <== obviously not always :-p
+bool convert(const gnds::node &node, nlohmann::json &j)
+{
+   // name
+   // Generally, the effect of the following is triggered automatically in the
+   // body of one and/or the other of the upcoming metadata and children loops.
+   // However, consider a node that has no metadata or children; then, we need
+   // this. Example: <RutherfordScattering/> in some of our GNDS XML files.
+   j[node.name()];
+
+   // metadata
+   for (auto &meta : node.metadata())
+      j[node.name()][meta.first] = meta.second;
+
+   // children
+   for (auto &child : node.children())
+      if (child && !convert(*child,j[node.name()]))
+         return false;
+
+   return true;
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// convert: tree to (xml|json)
+// -----------------------------------------------------------------------------
+
+// tree to xml
+inline bool convert(const tree &from, xml &to)
+{
+   (void)from;
+   (void)to;
+
+   to.clear();
+
+   // zzz write this
+   ///   assert(false);
+
+   return true;
+}
+
+
+
+// tree to json
+inline bool convert(const tree &from, json &to)
+{
+   to.clear();
+
+   if (from.root) {
+      const gnds::node &node = *from.root;
+      assert(node.name() == "xml");
+      assert(node.children().size() == 1);  // e.g. reactionSuite
+      assert(node.children()[0] != nullptr);
+      return detail::convert(*node.children()[0],to.doc);
+   }
+
+   return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Finish constructors that depend on definitions being available.
+// These both go through a tree, and could be made more efficient.
+// -----------------------------------------------------------------------------
+
+// xml(json)
+inline xml::xml(const gnds::json &j)
+{
+   tree t;
+   convert(j,t);
+   convert(t,*this);
+}
+
+// json(xml)
+inline json::json(const xml &x)
+{
+   tree t;
+   convert(x,t);
+   convert(t,*this);
+}
