@@ -84,7 +84,8 @@ int main(const int argc, const char * const * const argv)
    // strongly-typed
    // ------------------------
 
-   using namespace gnds::key;
+   using namespace gnds::child;
+   using namespace gnds::meta;
 
    printvar(
       g.child(reactionSuite)
@@ -105,7 +106,7 @@ int main(const int argc, const char * const * const argv)
    printvar(g.meta(version));
    printvar(g.meta(encoding));
 
-   // For meta<variant>, we must write .meta<something>
+   // For meta_t<variant>, we must write .meta<something>
    printvar(
       g.child(reactionSuite)
        .child(PoPs)
@@ -140,7 +141,7 @@ int main(const int argc, const char * const * const argv)
       true
    );
 
-   // For meta array. I should come up with a shorthand; we arguably know,
+   // For meta pcdata. I should come up with a shorthand; we arguably know,
    // at the "values" level, that an array is approaching.
    for (
       auto elem :
@@ -153,7 +154,7 @@ int main(const int argc, const char * const * const argv)
        .child(crossSection)
        .child(XYs1d)
        .child(values)
-       .meta (array)
+       .meta (pcdata)
    )
       printvar(elem);
 
@@ -168,7 +169,7 @@ int main(const int argc, const char * const * const argv)
        (styles)
        (evaluated)
        (temperature)
-       .meta ("value") // .meta() or .child() still needed for std::string
+       .meta ("value") // .meta() or .child() still needed for quoted "..."
    );
 
    printvar(
@@ -216,7 +217,7 @@ int main(const int argc, const char * const * const argv)
        (crossSection)
        (XYs1d)
        (values)
-       (array) // don't need meta on this; array is a meta<>, not std::string
+       (pcdata)
    )
       printvar(elem);
 
@@ -258,12 +259,12 @@ int main(const int argc, const char * const * const argv)
       true
    );
 
-   // comment as before; have a way to avoid ,array) at the end
+   // comment as before; have a way to avoid ,pcdata) at the end
    for (
       auto elem :
       g(reactionSuite, reactions, reaction, doubleDifferentialCrossSection,
         CoulombPlusNuclearElastic, nuclearPlusInterference, crossSection,
-        XYs1d, values, array)
+        XYs1d, values, pcdata)
    )
       printvar(elem);
 

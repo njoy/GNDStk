@@ -61,8 +61,8 @@ public:
       return empty;
    }
 
-   // 2. for meta<bool>
-   bool meta(const gnds::meta<bool> &m) const
+   // 2. for meta_t<bool>
+   bool meta(const gnds::meta_t<bool> &m) const
    {
       if (m.name == std::string("true" )) return true;
       if (m.name == std::string("false")) return false;
@@ -70,9 +70,9 @@ public:
       return false;
    }
 
-   // 3. for meta<T>
+   // 3. for meta_t<T>
    template<class T>
-   T meta(const gnds::meta<T> &m) const
+   T meta(const gnds::meta_t<T> &m) const
    {
       std::istringstream iss(meta(std::string(m.name)));
       T value;
@@ -80,10 +80,10 @@ public:
       return value;
    }
 
-   // 4. for meta<variant>
+   // 4. for meta_t<variant>
    // Caller must stipulate <T>
    template<class T, class... Vs>
-   T meta(const gnds::meta<std::variant<Vs...>> &m) const
+   T meta(const gnds::meta_t<std::variant<Vs...>> &m) const
    {
       std::istringstream iss(meta(std::string(m.name)));
       T value;
@@ -91,11 +91,11 @@ public:
       return value;
    }
 
-   // 5. for meta<vector>
+   // 5. for meta_t<vector>
    // Return by value isn't ideal, performance-wise,
    // but we'll go with it for now
    template<class T>
-   std::vector<T> meta(const gnds::meta<std::vector<T>> &m) const
+   std::vector<T> meta(const gnds::meta_t<std::vector<T>> &m) const
    {
       std::istringstream iss(meta(std::string(m.name)));
       std::vector<T> value;
@@ -123,7 +123,7 @@ public:
    }
 
    // 7. for child
-   const node &child(const gnds::child &c) const
+   const node &child(const gnds::child_t &c) const
    {
       return child(std::string(c.name));
    }
@@ -143,7 +143,7 @@ public:
 
    // forwards to (2), (3), (4), or (5) above
    template<class T>
-   decltype(auto) operator()(const gnds::meta<T> &m) const
+   decltype(auto) operator()(const gnds::meta_t<T> &m) const
    {
       return meta(m);
    }
@@ -151,7 +151,7 @@ public:
    // forwards to (7) above
    // return type will actually always be const node &, for now;
    // the decltype(auto) will work if and when child has <T>.
-   decltype(auto) operator()(const gnds::child &c) const
+   decltype(auto) operator()(const gnds::child_t &c) const
    {
       return child(c);
    }

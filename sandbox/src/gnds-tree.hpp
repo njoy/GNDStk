@@ -52,10 +52,10 @@ public:
 
    const std::string &meta(const std::string &key) const;
    template<class T>
-   decltype(auto) meta(const gnds::meta<T> &m) const;
+   decltype(auto) meta(const gnds::meta_t<T> &m) const;
    const node &child(const std::string &name) const;
-   const node &child(const gnds::child &c) const;
-   const node &operator()(const gnds::child &c) const;
+   const node &child(const gnds::child_t &c) const;
+   const node &operator()(const gnds::child_t &c) const;
    template<class T, class... Ts>
    decltype(auto) operator()(T &&t, Ts &&...ts) const; // should have sfinae
 

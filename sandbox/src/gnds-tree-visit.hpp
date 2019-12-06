@@ -23,7 +23,7 @@ inline const std::string &tree::meta(const std::string &key) const
 }
 
 template<class T>
-inline decltype(auto) tree::meta(const gnds::meta<T> &m) const
+inline decltype(auto) tree::meta(const gnds::meta_t<T> &m) const
 {
    assert(root != nullptr);
    return root->meta(m);
@@ -39,7 +39,7 @@ inline const node &tree::child(const std::string &name) const
    return root->child(name);
 }
 
-inline const node &tree::child(const gnds::child &c) const
+inline const node &tree::child(const gnds::child_t &c) const
 {
    assert(root != nullptr);
    return root->child(c);
@@ -49,7 +49,7 @@ inline const node &tree::child(const gnds::child &c) const
 // tree::operator()()
 // ------------------------
 
-inline const node &tree::operator()(const gnds::child &c) const
+inline const node &tree::operator()(const gnds::child_t &c) const
 {
    assert(root != nullptr);
    return root->child(c);

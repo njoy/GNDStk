@@ -265,7 +265,7 @@ inline bool convert(const json &from, knoop &to)
 namespace detail {
 
 // node to xml
-// zzz write this
+// fixme write this
 
 
 
@@ -307,10 +307,7 @@ inline bool convert(const tree &from, xml &to)
    (void)to;
 
    to.clear();
-
-   // zzz write this
-   ///   assert(false);
-
+   // fixme write this
    return true;
 }
 

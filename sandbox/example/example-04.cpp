@@ -8,8 +8,9 @@ int main(const int argc, const char * const * const argv)
    // automatically determines xml or json...
    gnds::tree doc(argv[1]);
 
-   // has keywords we'll use below
-   using namespace gnds::key;
+   // these have keywords we'll use below
+   using namespace gnds::child;
+   using namespace gnds::meta;
 
    // access data...
    std::cout << doc(
