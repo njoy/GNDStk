@@ -39,8 +39,8 @@ public:
    json &operator=(json &&) = default;
 
    // ctor: xml, tree
-   json(const xml  &x);
-   json(const tree &t) { convert(t,*this); }
+   json(const gnds::xml  &x);
+   json(const gnds::tree &t) { convert(t,*this); }
 
    // ctor: file, stream
    json(const char * const file) { read(file); }

@@ -68,6 +68,7 @@ inline bool xml::read(const char * const file)
       std::cout << "Error loading file: " << file               << std::endl;
       std::cout << "Parse error       : " << load.description() << std::endl;
       std::cout << "Character offset  : " << load.offset        << std::endl;
+      // failure
       return false;
    }
 
@@ -83,8 +84,8 @@ inline std::istream &xml::read(std::istream &is)
    const pugi::xml_parse_result load = doc.load(
       is,
       pugi::parse_default |
-      pugi::parse_declaration | // preserve root <?xml ...?> material
-      pugi::parse_comments      // preserve <!-- comment --> material
+      pugi::parse_declaration |
+      pugi::parse_comments
    );
 
    // check for errors
@@ -92,10 +93,9 @@ inline std::istream &xml::read(std::istream &is)
       std::cout << "Error loading from stream" << std::endl;
       std::cout << "Parse error       : " << load.description() << std::endl;
       std::cout << "Character offset  : " << load.offset        << std::endl;
-      return is;
    }
 
-   // success
+   // done
    return is;
 }
 

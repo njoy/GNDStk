@@ -1,7 +1,7 @@
 
 // macro, for keyword building
 #define make_meta(type,name) \
-   inline constexpr const meta_t<type> name(#name)
+   inline const meta_t<type> name(#name)
 
 
 
@@ -12,17 +12,17 @@
 template<class T>
 class meta_t {
 public:
-   const char *const name;
-   explicit constexpr meta_t(const char *const n) : name(n)
-   {
-   }
+   const std::string name;
+   explicit meta_t(const std::string &n) :
+      name(n)
+   { }
 };
 
 
 
 // -----------------------------------------------------------------------------
 // keywords
-// Use our macro.
+// These use our macro.
 // -----------------------------------------------------------------------------
 
 namespace meta {
@@ -112,7 +112,7 @@ make_meta(std::string, unit);
 make_meta(std::string, version);
 make_meta(std::string, valueType);
 make_meta(std::string, date);
-make_meta(std::string, decayRate); // appears to have "double 1/s" typically
+make_meta(std::string, decayRate); // seems to always have double and "1/s"
 
 } // namespace meta
 
@@ -130,62 +130,65 @@ make_meta(std::string, decayRate); // appears to have "double 1/s" typically
 namespace meta {
 
 // ------------------------
-// Goofy string-key cases;
-// must give !goofy names
+// Goofy string-key cases
+// must have !goofy names
 // ------------------------
 
+// fixme These may actually arrive with different keys if we've read from a
+// Json (not XML) file, at least an original one (not created from an XML).
+// Think about how we'll handle that. (Maybe allow for multiple keys?)
+
 // comment
-inline constexpr const meta_t<std::string>
+inline const meta_t<std::string>
 comment("<!--");
 
 // cdata
-// fixme: Cook up a shorthand to get this directly from "documentation"
-inline constexpr const meta_t<std::string>
+inline const meta_t<std::string>
 cdata("![CDATA[");
 
 // pcdata
-// fixme: This should be made more general
-inline constexpr const meta_t<std::vector<double>>
+// fixme: This should be made more general, not just vector<double>
+inline const meta_t<std::vector<double>>
 pcdata("![PCDATA[");
 
 
 // ------------------------
 // Variant cases; comma in
 // variant<,> prevents use
-// of our macro
+// of the macro
 // ------------------------
 
 // constant
-inline constexpr const meta_t<std::variant<int,double>>
+inline const meta_t<std::variant<int,double>>
 constant("constant");
 
 // degreesOfFreedom
-// I'd have expected an int for this, always, but some
-// of the GNDS files have a non-integral double.
-inline constexpr const meta_t<std::variant<int,double>>
+// I'd have expected an int for this, always, but some of the GNDS files have
+// a non-integral double. Perhaps we could arrange to always read as a double.
+inline const meta_t<std::variant<int,double>>
 degreesOfFreedom("degreesOfFreedom");
 
 // value
-inline constexpr const meta_t<std::variant<int,double,std::string>>
+inline const meta_t<std::variant<int,double,std::string>>
 value("value");
 
-// value
-// Shorthand for specific cases.
-// Prefixes {i,d,s} = {int,double,string}.
-inline constexpr const meta_t<int        > ivalue("value");
-inline constexpr const meta_t<double     > dvalue("value");
-inline constexpr const meta_t<std::string> svalue("value");
+// [ids]value
+// Shorthands for specific cases.
+// Prefixes {i,d,s} mean {int,double,string}.
+inline const meta_t<int        > ivalue("value");
+inline const meta_t<double     > dvalue("value");
+inline const meta_t<std::string> svalue("value");
 
 // channelSpin
-// This actually looks to me like it's always either an int,
-// or some sort of fraction, so figure out something clever
-// in place of variant.
-inline constexpr const meta_t<std::variant<int,std::string>>
+// This actually looks to me like it's always either an int, or some sort
+// of fraction, so figure out something clever in place of variant. Perhaps
+// our own handmade (or Boost's) rational-number class?
+inline const meta_t<std::variant<int,std::string>>
 channelSpin("channelSpin");
 
 // spin
 // Same remark as for channelSpin.
-inline constexpr const meta_t<std::variant<int,std::string>>
+inline const meta_t<std::variant<int,std::string>>
 spin("spin");
 
 } // namespace meta

@@ -4,12 +4,14 @@
 //    tree::meta()
 //    tree::child()
 //    tree::operator()()
+//
+// fixme
 // These appear to be somewhat redundant, and they all just defer down to the
 // document's top-level child node. Figure out a good way to fold them down.
 // Possibly, even have the top-level document type be implicitly convertible
 // to its top-level node; then we may not need these at all. Be sure that
-// whatever we do, we don't allow screwy usages that cause pages and pages of
-// incomprehensible compiler gibberish to spew out.
+// whatever we do, we don't allow screwy usages that cause pages and pages
+// of incomprehensible compiler gibberish to spew out.
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -23,10 +25,10 @@ inline const std::string &tree::meta(const std::string &key) const
 }
 
 template<class T>
-inline decltype(auto) tree::meta(const gnds::meta_t<T> &m) const
+inline decltype(auto) tree::meta(const gnds::meta_t<T> &keyword) const
 {
    assert(root != nullptr);
-   return root->meta(m);
+   return root->meta(keyword);
 }
 
 // ------------------------
@@ -39,7 +41,8 @@ inline const node &tree::child(const std::string &name) const
    return root->child(name);
 }
 
-inline const node &tree::child(const gnds::child_t &c) const
+template<class T>
+inline const node &tree::child(const gnds::child_t<T> &c) const
 {
    assert(root != nullptr);
    return root->child(c);
@@ -49,7 +52,8 @@ inline const node &tree::child(const gnds::child_t &c) const
 // tree::operator()()
 // ------------------------
 
-inline const node &tree::operator()(const gnds::child_t &c) const
+template<class T>
+inline const node &tree::operator()(const gnds::child_t<T> &c) const
 {
    assert(root != nullptr);
    return root->child(c);

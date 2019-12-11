@@ -3,13 +3,6 @@
 // tree
 // -----------------------------------------------------------------------------
 
-// convert: forward
-class tree;
-bool convert(const xml  &from, tree &to);
-bool convert(const json &from, tree &to);
-
-
-// tree
 class tree {
 public:
 
@@ -19,7 +12,7 @@ public:
    // clear
    void clear()
    {
-      // smart pointer, so the rest of the tree is deleted too
+      // smart pointer, so the rest of the tree is deleted as well
       root = nullptr;
    }
 
@@ -51,13 +44,20 @@ public:
    // ------------------------
 
    const std::string &meta(const std::string &key) const;
+
    template<class T>
    decltype(auto) meta(const gnds::meta_t<T> &m) const;
+
    const node &child(const std::string &name) const;
-   const node &child(const gnds::child_t &c) const;
-   const node &operator()(const gnds::child_t &c) const;
+
+   template<class T>
+   const node &child(const gnds::child_t<T> &c) const;
+
+   template<class T>
+   const node &operator()(const gnds::child_t<T> &c) const;
+
    template<class T, class... Ts>
-   decltype(auto) operator()(T &&t, Ts &&...ts) const; // should have sfinae
+   decltype(auto) operator()(T &&t, Ts &&...ts) const; // fixme Have SFINAE
 
 }; // class tree
 
@@ -74,8 +74,8 @@ inline bool tree::read(const char * const file)
    // below. That function peeks at the first character to decide whether it's
    // an xml or a json file. Alternatively, because we have the file *name* in
    // the present function, we could guess the file type by looking at any file
-   // extension it has. However, I'll be so bold as to predict that the below
-   // function's decision will get the right answer, if the right answer exists.
+   // extension it has. However, I'll predict that the below function's decision
+   // will get the right answer, if the right answer exists.
 
    // calls read(istream) below
    std::ifstream ifs(file);
@@ -94,14 +94,14 @@ inline std::istream &tree::read(std::istream &is)
    // guess xml/json, then read and convert
    if (is.peek() == '<') {
       // assume .xml
-      // we go through an xml object to create the tree...
-      xml x(is);
+      // go through a temporary xml object to create the tree...
+      const xml x(is);
       if (is)
          convert(x, *this);
    } else {
       // assume .json
-      // we go through a json object to create the tree...
-      json j(is);
+      // go through a temporary json object to create the tree...
+      const json j(is);
       if (is)
          convert(j, *this);
    }

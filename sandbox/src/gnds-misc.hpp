@@ -3,14 +3,17 @@
 // printvar
 // Macros. Are the same, so we don't need to remember the exact terminology
 #define printval(var) std::cout << #var ": [" << var << "]" << std::endl
-#define printvar(var) std::cout << #var ": [" << var << "]" << std::endl
+#define printvar(var) printval(var)
 
-// forward declarations
+// Forward declarations
 class xml;
 class json;
+class node;
 class tree;
-bool convert(const tree &, xml  &);
-bool convert(const tree &, json &);
+bool convert(const xml  &from, tree &to);
+bool convert(const json &from, tree &to);
+bool convert(const tree &from, xml  &to);
+bool convert(const tree &from, json &to);
 
 
 
@@ -50,7 +53,7 @@ inline std::ifstream::pos_type filesize(const std::string &file)
 
 
 // endsin
-// C++20 will have an ends_with(); we'll just do this directly for now
+// C++20 will have an ends_with(); for now we'll have this
 inline bool endsin(const std::string &str, const std::string &end)
 {
    return str.size() >= end.size() && &str[str.size()-end.size()] == end;
@@ -60,7 +63,7 @@ inline bool endsin(const std::string &str, const std::string &end)
 
 // -----------------------------------------------------------------------------
 // write(node)
-// Helper for writing certain node types that we'll define elsewhere.
+// Helper for writing certain "tree node" types that we'll define elsewhere.
 // Works for any sufficiently equipped node type.
 // -----------------------------------------------------------------------------
 
@@ -73,14 +76,14 @@ std::ostream &write(const NODE &node, std::ostream &os, const int level)
    const std::string icurr(indent* level   ,' ');
    const std::string inext(indent*(level+1),' ');
 
-   // name
+   // write name
    os << icurr << node.name() << ":" << std::endl;
 
-   // metadata
+   // write metadata
    for (const auto &meta : node.metadata())
       os << inext << meta.first << ": " << meta.second << std::endl;
 
-   // children
+   // write children
    for (const auto &cptr : node.children())
       if (cptr)
          write(*cptr, os, level+1);
