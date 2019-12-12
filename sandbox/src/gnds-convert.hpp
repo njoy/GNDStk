@@ -1,6 +1,6 @@
 
 /*
-Summary of helpers for xml...
+Summary of helpers for gnds::xml...
 
    template<class NODE>
       bool convert(const pugi::xml_node &from, NODE &to)
@@ -8,7 +8,7 @@ Summary of helpers for xml...
    template<class TYPE>
       bool convert(const gnds::xml &from, TYPE &to)
 
-Summary of helpers for json...
+Summary of helpers for gnds::json...
 
    template<class NODE>
       bool convert(const nlohmann::json::const_iterator &from, NODE &to)
@@ -19,19 +19,19 @@ Summary of helpers for json...
 Above, gnds::xml and gnds::json are our wrappers around pugi::xml_document
 and nlohmann::json, respectively. NODE is one of our own node types - either
 gnds::node, or possibly gnds::knoop::node if we keep our optional knoop-based
-tree. TYPE is one of our tree types: gnds::tree or gnds::knoop.
+tree. TYPE is one of our tree types: gnds::tree or gnds::knoop::tree.
 */
 
 
 
 // -----------------------------------------------------------------------------
-// Helpers for xml-related convert()s
+// Helpers for gnds::xml-related convert()s
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
 // convert(pugi::xml_node ==> NODE)
-// Where NODE == node | knoop::node
+// Where NODE == gnds::node | gnds::knoop::node
 template<class NODE>
 bool convert(const pugi::xml_node &xnode, NODE &node)
 {
@@ -125,15 +125,15 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
 
 
 
-// convert(xml ==> TYPE)
-// Where TYPE == tree | knoop
+// convert(gnds::xml ==> TYPE)
+// Where TYPE == gnds::tree | gnds::knoop::tree
 template<class TYPE>
 bool convert(const gnds::xml &xdoc, TYPE &tree)
 {
    // prepare output
    tree.clear();
 
-   // visit the xml document's nodes
+   // visit the gnds::xml document's nodes
    int count = 0;
    for (const pugi::xml_node &xnode : xdoc.doc.children()) {
       // gnds::node or gnds::knoop::node
@@ -145,7 +145,7 @@ bool convert(const gnds::xml &xdoc, TYPE &tree)
          assert(xnode.name() == std::string("xml"));
 
          tree.root = std::make_unique<NODE>();
-         tree.root->name() = "xml"; // indicates that we came from an xml
+         tree.root->name() = "xml"; // indicates that we came from a gnds::xml
 
          // base document "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &meta : xnode.attributes())
@@ -178,13 +178,13 @@ bool convert(const gnds::xml &xdoc, TYPE &tree)
 
 
 // -----------------------------------------------------------------------------
-// Helpers for json-related convert()s
+// Helpers for gnds::json-related convert()s
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
 // convert(nlohmann::json::const_iterator ==> NODE)
-// Where NODE == node | knoop::node
+// Where NODE == gnds::node | gnds::knoop::node
 template<class NODE>
 bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
 {
@@ -196,13 +196,23 @@ bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
    // elements
    const nlohmann::json &value = jiter.value();
    for (auto sub = value.begin();  sub != value.end();  ++sub) {
-      if (!sub->is_object()) {
-         node.push(sub.key(), sub->get<std::string>());
-      } else {
+      if (sub->is_null()) {
+         // The current node has a child node with neither metadata
+         // nor its own children. This would come about, for example,
+         // if the .json file was created, earlier, based on an .xml
+         // file with a construct like <RutherfordScattering/>, i.e.
+         // with /> to end the element immediately.
+         node.push(new NODE);
+         node.children().back()->name() = sub.key();
+      } else if (sub->is_object()) {
+         // The current node has a child node *other* than as above.
          debug("new node");
          node.push(new NODE);
          if (!convert(sub,*node.children().back()))
             return false;
+      } else {
+         // The current node has this as a key/value metadata pair...
+         node.push(sub.key(), sub->get<std::string>());
       }
    }
 
@@ -212,8 +222,8 @@ bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
 
 
 
-// convert(json ==> TYPE)
-// Where TYPE == tree | knoop
+// convert(gnds::json ==> TYPE)
+// Where TYPE == gnds::tree | gnds::knoop::tree
 template<class TYPE>
 bool convert(const gnds::json &jdoc, TYPE &tree)
 {
@@ -234,6 +244,7 @@ bool convert(const gnds::json &jdoc, TYPE &tree)
    }
 
    // done
+   tree.normalize();
    return true;
 }
 
@@ -242,64 +253,83 @@ bool convert(const gnds::json &jdoc, TYPE &tree)
 
 
 // -----------------------------------------------------------------------------
-// convert: (xml|json) to (tree|knoop)
-// I.e., convert an object from one of our xml or json documents (wrappers
+// convert: (gnds::xml|gnds::json) to (tree|knoop::tree)
+// I.e., convert from one of our gnds::xml or gnds::json objects (wrappers
 // around pugi::xml_document and nlohmann::json), to an object of our tree
-// or knope-based tree structure.
+// or knoop-based tree structure.
 // -----------------------------------------------------------------------------
 
-// xml to tree
+// gnds::xml to tree
 inline bool convert(const gnds::xml &xdoc, gnds::tree &tree)
 { return detail::convert(xdoc,tree); }
 
-// xml to knoop tree
-inline bool convert(const gnds::xml &xdoc, gnds::knoop &tree)
+// gnds::xml to knoop tree
+inline bool convert(const gnds::xml &xdoc, gnds::knoop::tree &tree)
 { return detail::convert(xdoc,tree); }
 
-// json to tree
+// gnds::json to tree
 inline bool convert(const gnds::json &jdoc, gnds::tree &tree)
 { return detail::convert(jdoc,tree); }
 
-// json to knoop tree
-inline bool convert(const gnds::json &jdoc, gnds::knoop &tree)
+// gnds::json to knoop tree
+inline bool convert(const gnds::json &jdoc, gnds::knoop::tree &tree)
 { return detail::convert(jdoc,tree); }
 
 
 
 // -----------------------------------------------------------------------------
 // Helpers for:
-// convert: tree to (xml|json)
+// convert: tree to (gnds::xml|gnds::json)
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
-// node to xml
+// Helper: prefix
+inline std::string prefix(const unsigned long n)
+{
+   std::ostringstream oss;
+   oss << std::setfill('0') << std::setw(12) << n;
+   return oss.str() + " ";
+}
+
+
+
+// node to gnds::xml
 // fixme write this
 
 
 
-// node to json
-inline // <== obviously not always :-p
-bool convert(const gnds::node &node, nlohmann::json &j)
-{
+// node to gnds::json
+inline bool convert(
+   const gnds::node &node, nlohmann::json &j,
+   unsigned long &count
+) {
    // name
-   // The effect of the following is to enter a key of this name into the json.
-   // Generally, this is triggered automatically in the body of one and/or the
-   // other of the upcoming metadata and children loops. However, consider
-   // a node that has no metadata or children; then, we need this. An example
-   // is <RutherfordScattering/> in some of our GNDS XML files, as it contains
-   // neither metadata nor children.
-   j[node.name()];
+   // The effect of j[nodename] is to enter a key of this name into the json
+   // object. Generally, this is triggered automatically in the body of one
+   // and/or the other of the upcoming metadata and children loops. However,
+   // consider a node that has no metadata or children; then, we need this.
+   // An example is <RutherfordScattering/> in some of our GNDS XML files,
+   // as it contains neither metadata nor children.
+   const std::string nodename = prefix(count++) + node.name();
+   j[nodename];
 
    // metadata
-   for (auto &meta : node.metadata())
-      j[node.name()][meta.first] = meta.second;
+   if (node.metadata().size() > 0) {
+      // ...because we only want the count++ here if size() > 0
+      const std::string attrname = prefix(count++) + "attributes";
+      // visit
+      for (auto &meta : node.metadata())
+         j[nodename][attrname][prefix(count++) + meta.first] =
+            meta.second;
+   }
 
    // children
    for (auto &child : node.children())
-      if (child && !convert(*child,j[node.name()]))
+      if (child && !convert(*child, j[nodename], count))
          return false;
 
+   // done
    return true;
 }
 
@@ -308,20 +338,21 @@ bool convert(const gnds::node &node, nlohmann::json &j)
 
 
 // -----------------------------------------------------------------------------
-// convert: tree to (xml|json)
+// convert: tree to (gnds::xml|gnds::json)
 // -----------------------------------------------------------------------------
 
-// tree to xml
-inline bool convert(const tree &from, xml &to)
+// tree to gnds::xml
+inline bool convert(const gnds::tree &tree, gnds::xml &xdoc)
 {
-   (void)from;
-   (void)to;
+   (void)tree;
+   (void)xdoc;
 
    // prepare output
-   to.clear();
+   xdoc.clear();
 
    // convert
    // fixme write this
+   assert(false);
 
    // done 
    return true;
@@ -329,19 +360,19 @@ inline bool convert(const tree &from, xml &to)
 
 
 
-// tree to json
-inline bool convert(const tree &from, json &to)
+// tree to gnds::json
+inline bool convert(const gnds::tree &tree, gnds::json &jdoc)
 {
    // prepare output
-   to.clear();
+   jdoc.clear();
 
    // convert
-   if (from.root) {
-      const gnds::node &node = *from.root;
-      assert(node.name() == "xml"); // fixme maybe not???
+   if (tree.root) {
+      const gnds::node &node = *tree.root;
       assert(node.children().size() == 1);  // e.g. reactionSuite
       assert(node.children()[0] != nullptr);
-      return detail::convert(*node.children()[0],to.doc);
+      unsigned long count = 0;
+      return detail::convert(*node.children()[0], jdoc.doc, count);
    }
 
    // done
@@ -351,27 +382,64 @@ inline bool convert(const tree &from, json &to)
 
 
 // -----------------------------------------------------------------------------
-// Finish constructors that depend on certain definitions being available.
+// convert:
+//    json to xml
+//    xml to json
 // Note that these both go through a tree, and could be made more efficient
 // if they were written more directly (which, however, would require more code).
 // We'll revisit this issue if efficiency, either in time or in space, becomes
 // more of an issue than it currently is.
 // -----------------------------------------------------------------------------
 
-// xml(json)
-inline xml::xml(const gnds::json &j)
+// convert(json,xml)
+inline bool convert(const gnds::json &jdoc, gnds::xml &xdoc)
 {
-   // process: xml(tree(json))
-   tree t;
-   convert(j,t);
-   convert(t,*this);
+   gnds::tree tree;
+   return
+      convert(jdoc,tree) &&
+      convert(tree,xdoc);
 }
 
-// json(xml)
-inline json::json(const xml &x)
+// convert(xml,json)
+inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
 {
-   // process: json(tree(xml))
-   tree t;
-   convert(x,t);
-   convert(t,*this);
+   gnds::tree tree;
+   return
+      convert(xdoc,tree) &&
+      convert(tree,jdoc);
 }
+
+
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+/*
+namespace detail {
+   // pugi/nlohmann nodes to our nodes (either regular or knoop)
+   template<class NODE>
+   bool convert(const pugi::xml_node                 &xnode, NODE &node);
+   template<class NODE>
+   bool convert(const nlohmann::json::const_iterator &jiter, NODE &node);
+
+   // our xml/json to our trees (either regular or knoop)
+   template<class TYPE> bool convert(const xml  &xdoc, TYPE &tree);
+   template<class TYPE> bool convert(const json &jdoc, TYPE &tree);
+
+   // our regular node to nlohmann object
+   inline bool convert(const node &node, nlohmann::json &j);
+}
+
+inline bool convert(const tree &tree, xml  &xdoc);
+inline bool convert(const tree &tree, json &jdoc);
+inline bool convert(const xml  &xdoc, tree &tree);
+inline bool convert(const xml  &xdoc, json &jdoc);
+inline bool convert(const json &jdoc, tree &tree);
+inline bool convert(const json &jdoc, xml  &xdoc);
+
+inline bool convert(const xml  &xdoc, knoop::tree &tree);
+inline bool convert(const json &jdoc, knoop::tree &tree);
+*/

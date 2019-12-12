@@ -1,5 +1,6 @@
 
 #include "gnds.hpp"
+
 using namespace gnds;
 using namespace gnds::child;
 using namespace gnds::meta;
@@ -10,10 +11,7 @@ int main(const int argc, const char * const * const argv)
    assert(argc == 2);
    const tree doc(argv[1]);
 
-   // ------------------------
    // examples of data access
-   // ------------------------
-
    std::cout << doc(reactionSuite, styles, evaluated, date) << std::endl;
 
    std::cout << doc(reactionSuite, PoPs, chemicalElements, chemicalElement,
@@ -37,5 +35,20 @@ int main(const int argc, const char * const * const argv)
       nuclide,
       mass,
       Double
-   ).meta<double>(value) << std::endl;
+   ).meta<std::string/*double*/>(value) << std::endl;
+
+   /*
+   std::cout << doc(
+      reactionSuite,
+      PoPs,
+      chemicalElements,
+      chemicalElement,
+      isotopes,
+      isotope,
+      nuclides,
+      nuclide,
+      mass,
+      Double
+   ) << std::endl;
+   */
 }

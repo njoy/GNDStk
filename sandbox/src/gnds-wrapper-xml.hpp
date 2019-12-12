@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// xml
+// gnds::xml
 // Wraps pugi::xml_document
 // -----------------------------------------------------------------------------
 
@@ -25,8 +25,8 @@ public:
    // xml &operator=(const xml &) = default;
    xml &operator=(xml &&) = default;
 
-   // ctor: json, tree
-   xml(const gnds::json &j);
+   // ctor: gnds::json, tree
+   xml(const gnds::json &j) { convert(j,*this); }
    xml(const gnds::tree &t) { convert(t,*this); }
 
    // ctor: file, stream
@@ -44,7 +44,7 @@ public:
    bool write(const std::string &file) const { return write(file.c_str()); }
    std::ostream &write(std::ostream &) const;
 
-}; // class xml
+}; // class gnds::xml
 
 
 
@@ -101,7 +101,7 @@ inline std::istream &xml::read(std::istream &is)
 
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, xml &obj)
+inline std::istream &operator>>(std::istream &is, gnds::xml &obj)
 {
    // calls read(istream) above
    return obj.read(is);
@@ -131,7 +131,7 @@ inline std::ostream &xml::write(std::ostream &os) const
 
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const xml &obj)
+inline std::ostream &operator<<(std::ostream &os, const gnds::xml &obj)
 {
    // calls write(ostream) above
    return obj.write(os);

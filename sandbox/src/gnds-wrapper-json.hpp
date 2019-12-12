@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// json
+// gnds::json
 // Wraps nlohmann::json
 // -----------------------------------------------------------------------------
 
@@ -38,9 +38,9 @@ public:
    json &operator=(const json &) = default;
    json &operator=(json &&) = default;
 
-   // ctor: xml, tree
-   json(const gnds::xml  &x);
-   json(const gnds::tree &t) { convert(t,*this); }
+   // ctor: gnds::xml, tree
+   json(const gnds::xml  &xdoc) { convert(xdoc,*this); }
+   json(const gnds::tree &tree) { convert(tree,*this); }
 
    // ctor: file, stream
    json(const char * const file) { read(file); }
@@ -57,7 +57,7 @@ public:
    bool write(const std::string &file) const { return write(file.c_str()); }
    std::ostream &write(std::ostream &) const;
 
-}; // class json
+}; // class gnds::json
 
 
 
@@ -77,12 +77,18 @@ inline bool json::read(const char * const file)
 // read(istream)
 inline std::istream &json::read(std::istream &is)
 {
-   return is >> doc;
+   is >> doc;
+   /*
+   if (is.eof ()) std::cout << "eof"  << std::endl;
+   if (is.bad ()) std::cout << "bad"  << std::endl;
+   if (is.fail()) std::cout << "fail" << std::endl;
+   */
+   return is;
 }
 
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, json &obj)
+inline std::istream &operator>>(std::istream &is, gnds::json &obj)
 {
    // calls read(istream) above
    return obj.read(is);
@@ -112,7 +118,7 @@ inline std::ostream &json::write(std::ostream &os) const
 
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const json &obj)
+inline std::ostream &operator<<(std::ostream &os, const gnds::json &obj)
 {
    // calls write(ostream) above
    return obj.write(os);

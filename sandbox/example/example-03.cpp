@@ -2,7 +2,7 @@
 #include "gnds.hpp"
 
 // helper: compare
-void compare(const gnds::knoop &k, const gnds::tree &t)
+void compare(const gnds::knoop::tree &k, const gnds::tree &t)
 {
    std::ostringstream strt;
    std::ostringstream strk;
@@ -281,24 +281,24 @@ int main(const int argc, const char * const * const argv)
    */
 
    /*
-   // xml
+   // gnds::xml
    gnds::xml x(argv[1]);
    {
       std::ostringstream strk;
       std::ostringstream strg;
-      gnds::knoop(x).write(strk); // xml  ==> knoop ==> write
+      gnds::knoop::tree(x).write(strk); // xml  ==> knoop::tree ==> write
       gnds::tree (x).write(strg); // xml  ==> tree  ==> write
       assert(strk.str() == strg.str()); // results should be the same
    }
    */
 
    /*
-   // json
+   // gnds::json
    gnds::json j(argv[1]);
    {
       std::ostringstream strk;
       std::ostringstream strg;
-      gnds::knoop(j).write(strk); // json ==> knoop ==> write
+      gnds::knoop::tree(j).write(strk); // json ==> knoop::tree ==> write
       gnds::tree (j).write(strg); // json ==> tree  ==> write
       assert(strk.str() == strg.str()); // results should be the same
    }
@@ -331,10 +331,10 @@ int main(const int argc, const char * const * const argv)
             << i << ". Loading XML file \"" << filename
             << "\"\n   converting multiple times" << std::flush;
          gnds::xml x(filename);
-         // convert to our knoop and tree types...
+         // convert to our knoop::tree and tree types...
          for (int count = ntiming;  count-- ; ) {
             std::cout << '.' << std::flush;
-            gnds::knoop k(x);
+            gnds::knoop::tree k(x);
             gnds::tree  g(x);
             compare(k,g);
          }
@@ -346,10 +346,10 @@ int main(const int argc, const char * const * const argv)
             << i << ". Loading Json file \"" << filename
             << "\"\n   converting multiple times" << std::flush;
          gnds::json j(filename);
-         // convert to our knoop and tree types...
+         // convert to our knoop::tree and tree types...
          for (int count = ntiming;  count-- ; ) {
             std::cout << '.' << std::flush;
-            gnds::knoop k(j);
+            gnds::knoop::tree k(j);
             gnds::tree  g(j);
             compare(k,g);
          }

@@ -14,10 +14,14 @@
 // ------------------------
 
 #include <cassert>
+#include <cctype>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <type_traits>
 #include <vector>
+#include <typeinfo>
+#include <boost/core/demangle.hpp>
 
 // ------------------------
 // GNDS
@@ -42,8 +46,8 @@ namespace gnds {
 #include "gnds-tree-visit.hpp"
 
 // tree - alternative
-#include "gnds-knoop.hpp"
 #include "gnds-knoop-node.hpp"
+#include "gnds-knoop.hpp"
 
 // conversions
 #include "gnds-convert.hpp"

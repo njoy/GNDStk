@@ -1,46 +1,50 @@
 
 // -----------------------------------------------------------------------------
-// knoop
-// Alternative to tree
+// gnds::knoop::tree
+// Alternative to gnds::tree
 // Not as fully equipped at the moment
-// Because we may or may not keep it
+// We may or may not keep it
 // -----------------------------------------------------------------------------
 
 // convert: forward
-class knoop;
-bool convert(const xml  &from, knoop &to);
-bool convert(const json &from, knoop &to);
+namespace knoop {
+   class tree;
+}
+bool convert(const gnds::xml  &xdoc, gnds::knoop::tree &tree);
+bool convert(const gnds::json &jdoc, gnds::knoop::tree &tree);
 
+namespace knoop {
 
-// knoop
-class knoop {
+// tree
+class tree {
 public:
 
-   // defined elsewhere
-   class node;
-
    // data
-   std::unique_ptr<node> root;
+   std::unique_ptr<knoop::node> root;
 
    // ctor: default
-   knoop() { }
+   tree() { }
 
-   // ctor: xml, json
-   knoop(const xml  &x) { convert(x,*this); }
-   knoop(const json &j) { convert(j,*this); }
+   // ctor: gnds::xml, gnds::json
+   tree(const gnds::xml  &xdoc) { convert(xdoc,*this); }
+   tree(const gnds::json &jdoc) { convert(jdoc,*this); }
 
    // clear
    void clear()
    {
-      // smart pointer, so the rest of the tree is deleted too;
-      // note that this in fact involves knoop::node::~node()
+      // smart pointer, so the rest of the tree is deleted as well
       root = nullptr;
    }
 
    // write
    std::ostream &write(std::ostream &) const;
 
-}; // class knoop
+   // normalize
+   void normalize() { }
+
+}; // class tree
+
+} // namespace knoop
 
 
 
@@ -48,14 +52,18 @@ public:
 // I/O
 // -----------------------------------------------------------------------------
 
+namespace knoop {
+
 // write
-inline std::ostream &knoop::write(std::ostream &os) const
+inline std::ostream &tree::write(std::ostream &os) const
 {
    return root ? detail::write(*root,os,0) : os;
 }
 
-// ostream << knoop
-inline std::ostream &operator<<(std::ostream &os, const knoop &obj)
+// ostream << knoop::tree
+inline std::ostream &operator<<(std::ostream &os, const knoop::tree &obj)
 {
    return obj.write(os);
 }
+
+} // namespace knoop

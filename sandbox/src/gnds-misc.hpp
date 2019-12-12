@@ -6,14 +6,16 @@
 #define printvar(var) printval(var)
 
 // Forward declarations
-class xml;
-class json;
 class node;
 class tree;
-bool convert(const xml  &from, tree &to);
-bool convert(const json &from, tree &to);
-bool convert(const tree &from, xml  &to);
-bool convert(const tree &from, json &to);
+class xml;
+class json;
+inline bool convert(const gnds::tree &tree, gnds::xml  &xdoc);
+inline bool convert(const gnds::tree &tree, gnds::json &jdoc);
+inline bool convert(const gnds::xml  &xdoc, gnds::tree &tree);
+inline bool convert(const gnds::xml  &xdoc, gnds::json &jdoc);
+inline bool convert(const gnds::json &jdoc, gnds::tree &tree);
+inline bool convert(const gnds::json &jdoc, gnds::xml  &xdoc);
 
 
 
@@ -57,6 +59,14 @@ inline std::ifstream::pos_type filesize(const std::string &file)
 inline bool endsin(const std::string &str, const std::string &end)
 {
    return str.size() >= end.size() && &str[str.size()-end.size()] == end;
+}
+
+
+// typeof
+template<class T>
+inline void typeof(const T &)
+{
+   std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
 }
 
 

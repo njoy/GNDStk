@@ -25,12 +25,15 @@ public:
    auto &children() { return children_; }
 
    // push metadatum
+   // fixme Consider making the return value be a reference to the new pair
    void push(const std::string &key, const std::string &value)
    {
       metadata().push_back(std::make_pair(key,value));
    }
 
    // push child
+   // fixme Consider making the return value be a reference to the dereferenced
+   // unique_ptr
    void push(node *const cptr)
    {
       children().push_back(std::unique_ptr<node>(cptr));

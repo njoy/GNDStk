@@ -1,9 +1,11 @@
 
 // -----------------------------------------------------------------------------
-// knoop::node
+// gnds::knoop::node
 // -----------------------------------------------------------------------------
 
-class knoop::node : public njoy::knoop::Node<
+namespace knoop {
+
+class node : public njoy::knoop::Node<
    std::string, // name
    std::vector<std::pair<std::string,std::string>>, // metadata
    std::vector<node *> // children
@@ -57,8 +59,10 @@ public:
       for (auto &cptr : children()) {
          delete cptr;    // <== still have raw pointer in knoop-based class
          cptr = nullptr; // <== to ensure deleted raw pointer can't be used
-         debug("delete node - knoop");
+         debug("delete node - knoop::tree");
       }
    }
 
 }; // class node
+
+} // namespace knoop
