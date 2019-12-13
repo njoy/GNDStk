@@ -11,12 +11,14 @@
 // child_t
 // -----------------------------------------------------------------------------
 
-// fixme Have T be used in some good way
 template<class T>
 class child_t {
 public:
+   // data
    const std::string name;
    const bool allow_multiple;
+
+   // ctor
    explicit child_t(const std::string &n, const bool a) :
       name(n), allow_multiple(a)
    { }

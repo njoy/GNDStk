@@ -36,12 +36,11 @@ namespace gnds {
 #include "gnds-wrapper-xml.hpp"
 #include "gnds-wrapper-json.hpp"
 
-// tree metadata/children
+// tree metadata/children etc.
 #include "gnds-keyword-meta.hpp"
 #include "gnds-keyword-child.hpp"
-
-// read
-#include "gnds-read.hpp"
+#include "gnds-keyword-read.hpp"
+#include "gnds-keyword-wrapper.hpp"
 
 // tree
 #include "gnds-tree-node.hpp"

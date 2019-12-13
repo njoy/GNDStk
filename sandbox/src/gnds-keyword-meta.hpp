@@ -12,7 +12,10 @@
 template<class T>
 class meta_t {
 public:
+   // data
    const std::string name;
+
+   // ctor
    explicit meta_t(const std::string &n) :
       name(n)
    { }
