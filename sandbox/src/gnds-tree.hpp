@@ -162,91 +162,76 @@ inline std::ostream &operator<<(std::ostream &os, const tree &obj)
 
 namespace detail {
 
-// helper: detail::strip
-void strip(std::string &name)
+// helper: strip
+inline std::string &strip(std::string &name)
 {
    int n = 0, ch; const int size = name.size();
    while (n < size && (isdigit(ch=name[n]) || isspace(ch)))
       n++;
-   if (n)
-      name = std::string(&name[n]);
+   return n ? (name = std::string(&name[n])) : name;
 }
 
-
-
-// helper: detail::normalize
-void normalize(gnds::node &node)
+// helper: normalize
+template<class NODE>
+void normalize(NODE &node)
 {
    // name
    strip(node.name());
 
-   // Sanity check. If the current node has a child node named "attributes",
-   // then that presumably means that the node originally had *that* child
-   // node's metadata as its own, before they were embedded down into a
-   // child named "attributes" for the purpose of writing, say, to a .json
-   // file. And, now, we've presumably read such a file back in, and are
-   // trying to restore the present node's original form. So, here, we're
-   // looking to see if an "attributes" child exists, and if it does, then
-   // this node shouldn't at present have any of its own metadata (until we
-   // restore that data from the "attributes" node). And, we'll also ensure
-   // that we have at most one "attributes" node; more than that should not
-   // have been created in the first place.
-   bool attr = false;
-   for (auto &child : node.children()) {
-      strip(child->name());
-      if (child->name() == "attributes") {
-///         assert(false);
-         assert(attr == false);
-         attr = true;
-      }
-   }
-
-   /*
-   bool attr = false;
-   for (auto iter = node.children().begin();
-        iter != node.children().end();  ++iter) {
-      if ((*iter)->name() == "attributes") {
-         assert(attr == false);
-         attr = true;
-      }
-   }
-   */
-
-   // metadata
-   for (auto &meta : node.metadata()) {
-      assert(attr == false); // see remark above
-      strip(meta.first);
-   }
-
    // children
-   for (auto &child : node.children()) {
-      if (child->name() == "attributes") {
-         // such a child shouldn't have its own
-         assert(child->children().size() == 0);
+   auto iter = node.children().end();
+   for (auto c = node.children().begin();  c != node.children().end();  ++c)
+      if (strip((*c)->name()) == "attributes") {
+         // Child node's name is "attributes"; this presumably means that the
+         // current node originally had *that* child node's metadata as its
+         // own, before they were placed into an "attributes" child for the
+         // purpose of writing, say, to a .json file. Now, apparently, we've
+         // just read such a file, and must restore the node's original form.
 
-         // hoist the metadata
-         for (auto &m : child->metadata()) {
-            ///            assert(false);
-            ///zzz;
-            ///node.metadata().push(m);
-            strip(m.first);
-            ///std::cout << m.first << std::endl;
+         // Under the circumstances, this node shouldn't (yet) have its own
+         // metadata. They'll be pulled up from the "attributes" child, which
+         // itself should have only those metadata (and not further children).
+         assert(node.metadata().size() == 0);  // this node
+         assert((*c)->children().size() == 0); // child's children
+
+         // And, there should have been at most one such "attributes" child.
+         assert(iter == node.children().end()); // up until now
+         iter = c; // now
+
+         // Restore the metadata
+         for (auto &m : (*c)->metadata())
             node.push(m.first,m.second);
-         }
 
-
+      } else if (endsin((*c)->name(), "_attr")) {
+         assert(false); // for now
+         // Child node's name ends in "_attr"
+         /*
+         fixme
+         I'll  need to think about the .json business more, and see what sorts
+         of GNDS json files are actually being produced by people other than
+         myself, in order to know for certain what I'll need to do in order to
+         properly read whatever other people might be writing. In my own json-
+         reading code, I use is_object(), from the nlohmann json library, to
+         distinguish whether what I'm reading should be entered into the current
+         node's children, or go into its metadata. I think this condition
+         amounts to whether the value in a json key/value pair is of the {...}
+         form (goes to children), or the "..." form (goes to metadata). The
+         GNDS manual speaks of the json format *not* having the concept of
+         attributes, but perhaps in some sense it does, via the condition I've
+         just described.
+         */
       } else {
-         normalize(*child);
+         // Regular child node; recursively normalize
+         normalize(**c);
       }
-   }
 
-   for (auto iter = node.children().begin();
-        iter != node.children().end(); ++iter) {
-      if ((*iter)->name() == "attributes") {
-         node.children().erase(iter);
-         break;
-      }
-   }
+   // chuck any "attributes" child
+   if (iter != node.children().end())
+      node.children().erase(iter);
+
+   // metadata (including any new ones from an "attributes" child as above)
+   for (auto &meta : node.metadata())
+      strip(meta.first);
 }
 
 } // namespace detail
@@ -256,7 +241,52 @@ void normalize(gnds::node &node)
 // normalize
 inline void tree::normalize()
 {
-   if (!root)
-      return;
-   detail::normalize(*root);
+   if (root)
+      detail::normalize(*root);
 }
+
+/*
+// helper: normalize
+template<class NODE>
+void normalize(NODE &node)
+{
+   // name
+   strip(node.name());
+
+   // children
+   auto iter = node.children().end();
+   for (auto c = node.children().begin();  c != node.children().end();  ++c)
+      if (strip((*c)->name()) == "attributes") {
+         // Child node is named "attributes"; this presumably means that the
+         // current node originally had *that* child node's metadata as its
+         // own, before they were placed into an "attributes" child for the
+         // purpose of writing, say, to a .json file. Now, apparently, we've
+         // just read such a file, and must restore the node's original form.
+
+         // Under the circumstances, this node shouldn't (yet) have its own
+         // metadata. They'll be pulled up from the "attributes" child, which
+         // itself should have only those metadata (and not further children).
+         assert(node.metadata().size() == 0);  // this node
+         assert((*c)->children().size() == 0); // child's children
+
+         // And, there should have been at most one such "attributes" child.
+         assert(iter == node.children().end()); // up until now
+         iter = c; // now
+
+         // Restore the metadata
+         for (auto &m : (*c)->metadata())
+            node.push(m.first,m.second);
+      } else {
+         // Regular child node; recursively normalize
+         normalize(**c);
+      }
+
+   // chuck any "attributes" child
+   if (iter != node.children().end())
+      node.children().erase(iter);
+
+   // metadata (including any new ones from an "attributes" child as above)
+   for (auto &meta : node.metadata())
+      strip(meta.first);
+}
+*/

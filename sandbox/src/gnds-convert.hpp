@@ -67,6 +67,33 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
       // Comment, CDATA, PCDATA
       // ------------------------
 
+      // We'll store these as metadata for the current node;
+      // they aren't really children in the usual XML sense.
+
+      // comment
+      // Use "comment"
+      if (xsub.type() == pugi::node_comment) {
+         node.push("comment", xsub.value());
+         continue;
+      }
+
+      // CDATA
+      // Use "text"
+      if (xsub.type() == pugi::node_cdata) {
+         assert(xsub.value() == xsub.text().get());
+         node.push("text", xsub.value());
+         continue;
+      }
+
+      // PCDATA
+      // use "body"
+      if (xsub.type() == pugi::node_pcdata) {
+         assert(xsub.value() == xsub.text().get());
+         node.push("body", xsub.value());
+         continue;
+      }
+
+      /*
       // We'll store these as metadata for the current element, as they aren't
       // really child elements in the usual XML sense. Markup-wise, I'll use the
       // beginning XML markup as the key, and append, to the value, the ending
@@ -107,6 +134,7 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
          node.push(prefix, xsub.value()+suffix);
          continue;
       }
+      */
 
       // ------------------------
       // Regular element
@@ -289,7 +317,7 @@ inline std::string prefix(const unsigned long n)
 {
    std::ostringstream oss;
    oss << std::setfill('0') << std::setw(12) << n;
-   return oss.str() + " ";
+   return oss.str();/// + " ";
 }
 
 
@@ -316,7 +344,7 @@ inline bool convert(
 
    // metadata
    if (node.metadata().size() > 0) {
-      // ...because we only want the count++ here if size() > 0
+      // ...because we only want the count ++ side effect if size() > 0
       const std::string attrname = prefix(count++) + "attributes";
       // visit
       for (auto &meta : node.metadata())
