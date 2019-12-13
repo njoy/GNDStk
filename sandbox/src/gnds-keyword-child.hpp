@@ -26,7 +26,6 @@ public:
 
 // -----------------------------------------------------------------------------
 // keywords
-// These use our macro.
 // fixme Eventually, many (or most (or all)) need a solid type, not <node>.
 // -----------------------------------------------------------------------------
 
@@ -118,8 +117,9 @@ make_child_default(summand,  true);
 // Plain old keywords
 // ------------------------
 
-// fixme do more sorting/categorization
-// fixme some may actually be singular/plural pairs as above
+// fixme
+// Do more sorting/categorization
+// Some may actually be singular/plural pairs as above
 
 // multiple == true
 make_child_default(add, true);

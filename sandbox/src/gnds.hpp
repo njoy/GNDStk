@@ -5,9 +5,9 @@
 // Libraries
 // ------------------------
 
+#include "pugixml.hpp"
 #include "json.hpp"
 #include "knoop.hpp"
-#include "pugixml.hpp"
 
 // ------------------------
 // C++
@@ -39,6 +39,9 @@ namespace gnds {
 // tree metadata/children
 #include "gnds-keyword-meta.hpp"
 #include "gnds-keyword-child.hpp"
+
+// read
+#include "gnds-read.hpp"
 
 // tree
 #include "gnds-tree-node.hpp"

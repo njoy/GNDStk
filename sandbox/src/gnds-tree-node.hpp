@@ -53,11 +53,11 @@ public:
    // meta()
    // ------------------------
 
-   // 1. for string
-   const std::string &meta(const std::string &key) const
+   // for string
+   const std::string &meta(const std::string &str) const
    {
       for (auto &m : metadata())
-         if (m.first == key)
+         if (m.first == str)
             return m.second;
       // fixme: eventually, do something better than this...
       assert(false);
@@ -65,50 +65,31 @@ public:
       return empty;
    }
 
-   // 2. for meta_t<bool>
-   bool meta(const gnds::meta_t<bool> &keyword) const
-   {
-      for (auto &m : metadata())
-         if (m.first == keyword.name) {
-            if (m.second == "true" ) return true;
-            if (m.second == "false") return false;
-            assert(false); // fixme as above
-         }
-      return false;
-   }
-
-   // 3. for meta_t<T>
+   // for meta_t<T>
+   // Return by value isn't ideal, performance-wise, if T is something large
+   // like a vector. We'll go with this for now, but perhaps should eventually
+   // provide variations of these meta() functions.
    template<class T>
-   T meta(const gnds::meta_t<T> &keyword) const
+   T meta(const meta_t<T> &keyword) const
    {
       std::istringstream iss(meta(keyword.name));
       T value;
-      iss >> value;
+      gnds::read(iss,value);
       return value;
    }
 
-   // 4. for meta_t<variant>
-   // Caller must stipulate <T>
-   template<class T, class... Vs>
-   T meta(const gnds::meta_t<std::variant<Vs...>> &keyword) const
+   // for meta_t<variant>
+   // Caller must stipulate <T>.
+   // Ideally, we might like to just fold this into meta(meta_t<T>) above,
+   // thus returning the variant itself. However, we need a gnds::read(),
+   // which defaults to stream input, which std::variant doesn't have.
+   template<class T, class... Ts>
+   T meta(const meta_t<std::variant<Ts...>> &keyword) const
    {
+      // body is as above, but function signature is structurally different
       std::istringstream iss(meta(keyword.name));
       T value;
-      iss >> value;
-      return value;
-   }
-
-   // 5. for meta_t<vector>
-   // Return by value isn't ideal, performance-wise,
-   // but we'll go with it for now
-   template<class T>
-   std::vector<T> meta(const gnds::meta_t<std::vector<T>> &keyword) const
-   {
-      std::istringstream iss(meta(keyword.name));
-      std::vector<T> value;
-      T val;
-      while (iss >> val)
-         value.push_back(val);
+      gnds::read(iss,value);
       return value;
    }
 
@@ -117,11 +98,11 @@ public:
    // child()
    // ------------------------
 
-   // 6. for string
-   const node &child(const std::string &name) const
+   // for string
+   const node &child(const std::string &str) const
    {
       for (auto &c : children())
-         if (c != nullptr && c->name() == name)
+         if (c != nullptr && c->name() == str)
             return *c;
       // fixme: eventually, do something better than this...
       assert(false);
@@ -129,11 +110,12 @@ public:
       return empty;
    }
 
-   // 7. for child_t
+   // for child_t
+   // fixme Do something with T here
    template<class T>
-   const node &child(const gnds::child_t<T> &c) const
+   const node &child(const child_t<T> &keyword) const
    {
-      return child(c.name);
+      return child(keyword.name);
    }
 
 
@@ -150,29 +132,57 @@ public:
    // std::string parameters - should be preferred! Those encode (via their
    // type) whether we're accessing metadata or children.
 
-   // forwards to (2), (3), (4), or (5) above
+   // forwards to meta(meta_t<>) above
    template<class T>
-   decltype(auto) operator()(const gnds::meta_t<T> &keyword) const
+   decltype(auto) operator()(const meta_t<T> &keyword) const
    {
       return meta(keyword);
    }
 
-   // forwards to (7) above
-   // The return type is always be const node &, for now; the decltype(auto)
-   // will work if and when we actually use child_t's <T>, which we should.
+   // forwards to child(child_t<>) above
    template<class T>
-   decltype(auto) operator()(const gnds::child_t<T> &c) const
+   decltype(auto) operator()(const child_t<T> &keyword) const
    {
-      return child(c);
+      return child(keyword);
    }
 
    // multi-argument
-   // fixme:
-   // Have SFINAE to ensure T is meta_t or child_t (for above operator()s)
    template<class T, class... Ts>
-   decltype(auto) operator()(T &&t, Ts &&...ts) const
+   decltype(auto) operator()(const meta_t <T> &keyword, Ts &&...ts) const
    {
-      return (*this)(t)(std::forward<Ts>(ts)...);
+      return (*this)(keyword)(std::forward<Ts>(ts)...);
+   }
+
+   template<class T, class... Ts>
+   decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const
+   {
+      return (*this)(keyword)(std::forward<Ts>(ts)...);
    }
 
 }; // class node
+
+
+
+// -----------------------------------------------------------------------------
+// Summary
+// -----------------------------------------------------------------------------
+
+/*
+node::meta()
+
+   const string & meta  ( const string                 &str     ) const;
+   T              meta  ( const meta_t<T>              &keyword ) const;
+   T              meta  ( const meta_t<variant<Ts...>> &keyword ) const;
+
+node::child()
+
+   const node   & child ( const string                 &str     ) const;
+   const node   & child ( const child_t<T>             &keyword ) const;
+
+node::operator()()
+
+   decltype(auto) operator() ( const meta_t <T> &keyword             ) const;
+   decltype(auto) operator() ( const child_t<T> &keyword             ) const;
+   decltype(auto) operator() ( const meta_t <T> &keyword, Ts &&...ts ) const;
+   decltype(auto) operator() ( const child_t<T> &keyword, Ts &&...ts ) const;
+*/

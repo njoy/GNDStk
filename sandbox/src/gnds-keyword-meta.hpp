@@ -22,7 +22,6 @@ public:
 
 // -----------------------------------------------------------------------------
 // keywords
-// These use our macro.
 // -----------------------------------------------------------------------------
 
 namespace meta {
@@ -123,7 +122,8 @@ make_meta(std::string, decayRate); // seems to always have double and "1/s"
 // Special cases, not doable with our macro.
 // -----------------------------------------------------------------------------
 
-// For the variant cases, we should work out a way to make the type be context
+// fixme
+// For the variant cases, we should work out a way to make the type be context-
 // dependent, which it *is* (I think) in GNDS. Then, additional data extraction
 // syntax won't be needed.
 
@@ -135,21 +135,21 @@ namespace meta {
 // ------------------------
 
 // fixme These may actually arrive with different keys if we've read from a
-// Json (not XML) file, at least an original one (not created from an XML).
+// Json (not XML) file - at least an original one, not created from an XML.
 // Think about how we'll handle that. (Maybe allow for multiple keys?)
 
 // comment
 inline const meta_t<std::string>
 comment("<!--");
 
-// cdata
+// text
 inline const meta_t<std::string>
-cdata("![CDATA[");
+text("![CDATA[");
 
-// pcdata
+// body
 // fixme: This should be made more general, not just vector<double>
 inline const meta_t<std::vector<double>>
-pcdata("![PCDATA[");
+body("![PCDATA[");
 
 
 // ------------------------

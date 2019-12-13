@@ -141,7 +141,7 @@ int main(const int argc, const char * const * const argv)
       true
    );
 
-   // For meta pcdata. I should come up with a shorthand; we arguably know,
+   // For meta "body". I should come up with a shorthand; we arguably know,
    // at the "values" level, that an array is approaching.
    for (
       auto elem :
@@ -154,7 +154,7 @@ int main(const int argc, const char * const * const argv)
        .child(crossSection)
        .child(XYs1d)
        .child(values)
-       .meta (pcdata)
+       .meta (body)
    )
       printvar(elem);
 
@@ -217,7 +217,7 @@ int main(const int argc, const char * const * const argv)
        (crossSection)
        (XYs1d)
        (values)
-       (pcdata)
+       (body)
    )
       printvar(elem);
 
@@ -259,12 +259,12 @@ int main(const int argc, const char * const * const argv)
       true
    );
 
-   // comment as before; have a way to avoid ,pcdata) at the end
+   // comment as before; have a way to avoid ,body) at the end
    for (
       auto elem :
       g(reactionSuite, reactions, reaction, doubleDifferentialCrossSection,
         CoulombPlusNuclearElastic, nuclearPlusInterference, crossSection,
-        XYs1d, values, pcdata)
+        XYs1d, values, body)
    )
       printvar(elem);
 

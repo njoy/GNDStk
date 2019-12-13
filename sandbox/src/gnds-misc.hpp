@@ -1,4 +1,8 @@
 
+// -----------------------------------------------------------------------------
+// Macros, declarations
+// -----------------------------------------------------------------------------
+
 // printval
 // printvar
 // Macros. Are the same, so we don't need to remember the exact terminology
@@ -10,27 +14,30 @@ class node;
 class tree;
 class xml;
 class json;
-inline bool convert(const gnds::tree &tree, gnds::xml  &xdoc);
-inline bool convert(const gnds::tree &tree, gnds::json &jdoc);
-inline bool convert(const gnds::xml  &xdoc, gnds::tree &tree);
-inline bool convert(const gnds::xml  &xdoc, gnds::json &jdoc);
-inline bool convert(const gnds::json &jdoc, gnds::tree &tree);
-inline bool convert(const gnds::json &jdoc, gnds::xml  &xdoc);
+inline bool convert(const tree &, xml  &);
+inline bool convert(const tree &, json &);
+inline bool convert(const xml  &, tree &);
+inline bool convert(const xml  &, json &);
+inline bool convert(const json &, tree &);
+inline bool convert(const json &, xml  &);
 
 
 
 // -----------------------------------------------------------------------------
 // Utility constructs
+// The functions here could possibly go into the detail namespace, but could
+// arguably be useful, in their own right, to users. So, I'll leave them out
+// in the overall project namespace (which enclosed the #include of this file).
 // -----------------------------------------------------------------------------
 
 // indent
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
 
-
 // verbose
 // Flag: should debug() actually print anything?
 inline bool verbose = false;
+
 
 // debug
 inline void debug(const std::string &str)
@@ -60,7 +67,6 @@ inline bool endsin(const std::string &str, const std::string &end)
 {
    return str.size() >= end.size() && &str[str.size()-end.size()] == end;
 }
-
 
 // typeof
 template<class T>

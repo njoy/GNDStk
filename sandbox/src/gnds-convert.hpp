@@ -1,37 +1,37 @@
 
 /*
-Summary of helpers for gnds::xml...
+Summary of helpers for xml...
 
    template<class NODE>
       bool convert(const pugi::xml_node &from, NODE &to)
 
    template<class TYPE>
-      bool convert(const gnds::xml &from, TYPE &to)
+      bool convert(const xml &from, TYPE &to)
 
-Summary of helpers for gnds::json...
+Summary of helpers for json...
 
    template<class NODE>
       bool convert(const nlohmann::json::const_iterator &from, NODE &to)
 
    template<class TYPE>
-      bool convert(const gnds::json &from, TYPE &to)
+      bool convert(const json &from, TYPE &to)
 
-Above, gnds::xml and gnds::json are our wrappers around pugi::xml_document
-and nlohmann::json, respectively. NODE is one of our own node types - either
-gnds::node, or possibly gnds::knoop::node if we keep our optional knoop-based
-tree. TYPE is one of our tree types: gnds::tree or gnds::knoop::tree.
+Above, xml and json are our wrappers around pugi::xml_document and
+nlohmann::json, respectively. NODE is one of our own node types - either
+node, or possibly knoop::node if we keep our optional knoop-based tree.
+TYPE is one of our tree types: tree or knoop::tree.
 */
 
 
 
 // -----------------------------------------------------------------------------
-// Helpers for gnds::xml-related convert()s
+// Helpers for xml-related convert()s
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
 // convert(pugi::xml_node ==> NODE)
-// Where NODE == gnds::node | gnds::knoop::node
+// Where NODE == node | knoop::node
 template<class NODE>
 bool convert(const pugi::xml_node &xnode, NODE &node)
 {
@@ -93,49 +93,6 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
          continue;
       }
 
-      /*
-      // We'll store these as metadata for the current element, as they aren't
-      // really child elements in the usual XML sense. Markup-wise, I'll use the
-      // beginning XML markup as the key, and append, to the value, the ending
-      // XML markup.
-      // fixme Perhaps we really don't want to append the ending XML markup;
-      // this could probably cause problems when interpreting the data.
-
-      // comment
-      if (xsub.type() == pugi::node_comment) {
-         static const std::string prefix = "<!--";
-         static const std::string suffix = "-->";
-         node.push(prefix, xsub.value()+suffix);
-         continue;
-      }
-
-      // CDATA
-      if (xsub.type() == pugi::node_cdata) {
-         // the docs speak of using text(); let's ensure that the following
-         // two give the same result...
-         assert(xsub.value() == xsub.text().get());
-
-         static const std::string prefix = "![CDATA[";
-         static const std::string suffix = "]]";
-         node.push(prefix, xsub.value()+suffix);
-         continue;
-      }
-
-      // PCDATA
-      // This isn't an XML tag (e.g. with "![PCDATA["), like CDATA is, but I'll
-      // mark it as such in the output format, to reflect the pugi XML reader's
-      // identification of this as being the type.
-      if (xsub.type() == pugi::node_pcdata) {
-         // comment as with CDATA code above
-         assert(xsub.value() == xsub.text().get());
-
-         static const std::string prefix = "![PCDATA[";
-         static const std::string suffix = "]]";
-         node.push(prefix, xsub.value()+suffix);
-         continue;
-      }
-      */
-
       // ------------------------
       // Regular element
       // ------------------------
@@ -153,18 +110,18 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
 
 
 
-// convert(gnds::xml ==> TYPE)
-// Where TYPE == gnds::tree | gnds::knoop::tree
+// convert(xml ==> TYPE)
+// Where TYPE == tree | knoop::tree
 template<class TYPE>
-bool convert(const gnds::xml &xdoc, TYPE &tree)
+bool convert(const xml &xdoc, TYPE &tree)
 {
    // prepare output
    tree.clear();
 
-   // visit the gnds::xml document's nodes
+   // visit the xml document's nodes
    int count = 0;
    for (const pugi::xml_node &xnode : xdoc.doc.children()) {
-      // gnds::node or gnds::knoop::node
+      // node or knoop::node
       using NODE = typename std::remove_reference<decltype(*tree.root)>::type;
 
       if (count == 0) {
@@ -173,7 +130,7 @@ bool convert(const gnds::xml &xdoc, TYPE &tree)
          assert(xnode.name() == std::string("xml"));
 
          tree.root = std::make_unique<NODE>();
-         tree.root->name() = "xml"; // indicates that we came from a gnds::xml
+         tree.root->name() = "xml"; // indicates that we came from a xml
 
          // base document "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &meta : xnode.attributes())
@@ -206,13 +163,13 @@ bool convert(const gnds::xml &xdoc, TYPE &tree)
 
 
 // -----------------------------------------------------------------------------
-// Helpers for gnds::json-related convert()s
+// Helpers for json-related convert()s
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
 // convert(nlohmann::json::const_iterator ==> NODE)
-// Where NODE == gnds::node | gnds::knoop::node
+// Where NODE == node | knoop::node
 template<class NODE>
 bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
 {
@@ -250,10 +207,10 @@ bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
 
 
 
-// convert(gnds::json ==> TYPE)
-// Where TYPE == gnds::tree | gnds::knoop::tree
+// convert(json ==> TYPE)
+// Where TYPE == tree | knoop::tree
 template<class TYPE>
-bool convert(const gnds::json &jdoc, TYPE &tree)
+bool convert(const json &jdoc, TYPE &tree)
 {
    // prepare output
    tree.clear();
@@ -281,33 +238,33 @@ bool convert(const gnds::json &jdoc, TYPE &tree)
 
 
 // -----------------------------------------------------------------------------
-// convert: (gnds::xml|gnds::json) to (tree|knoop::tree)
-// I.e., convert from one of our gnds::xml or gnds::json objects (wrappers
+// convert: (xml|json) to (tree|knoop::tree)
+// I.e., convert from one of our xml or json objects (wrappers
 // around pugi::xml_document and nlohmann::json), to an object of our tree
 // or knoop-based tree structure.
 // -----------------------------------------------------------------------------
 
-// gnds::xml to tree
-inline bool convert(const gnds::xml &xdoc, gnds::tree &tree)
+// xml to tree
+inline bool convert(const xml &xdoc, tree &tree)
 { return detail::convert(xdoc,tree); }
 
-// gnds::xml to knoop tree
-inline bool convert(const gnds::xml &xdoc, gnds::knoop::tree &tree)
+// xml to knoop tree
+inline bool convert(const xml &xdoc, knoop::tree &tree)
 { return detail::convert(xdoc,tree); }
 
-// gnds::json to tree
-inline bool convert(const gnds::json &jdoc, gnds::tree &tree)
+// json to tree
+inline bool convert(const json &jdoc, tree &tree)
 { return detail::convert(jdoc,tree); }
 
-// gnds::json to knoop tree
-inline bool convert(const gnds::json &jdoc, gnds::knoop::tree &tree)
+// json to knoop tree
+inline bool convert(const json &jdoc, knoop::tree &tree)
 { return detail::convert(jdoc,tree); }
 
 
 
 // -----------------------------------------------------------------------------
 // Helpers for:
-// convert: tree to (gnds::xml|gnds::json)
+// convert: tree to (xml|json)
 // -----------------------------------------------------------------------------
 
 namespace detail {
@@ -322,14 +279,14 @@ inline std::string prefix(const unsigned long n)
 
 
 
-// node to gnds::xml
+// node to xml
 // fixme write this
 
 
 
-// node to gnds::json
+// node to json
 inline bool convert(
-   const gnds::node &node, nlohmann::json &j,
+   const node &node, nlohmann::json &j,
    unsigned long &count
 ) {
    // name
@@ -366,11 +323,11 @@ inline bool convert(
 
 
 // -----------------------------------------------------------------------------
-// convert: tree to (gnds::xml|gnds::json)
+// convert: tree to (xml|json)
 // -----------------------------------------------------------------------------
 
-// tree to gnds::xml
-inline bool convert(const gnds::tree &tree, gnds::xml &xdoc)
+// tree to xml
+inline bool convert(const tree &tree, xml &xdoc)
 {
    (void)tree;
    (void)xdoc;
@@ -388,8 +345,8 @@ inline bool convert(const gnds::tree &tree, gnds::xml &xdoc)
 
 
 
-// tree to gnds::json
-inline bool convert(const gnds::tree &tree, gnds::json &jdoc)
+// tree to json
+inline bool convert(const tree &tree, json &jdoc)
 {
    // prepare output
    jdoc.clear();
@@ -420,7 +377,7 @@ inline bool convert(const gnds::tree &tree, gnds::json &jdoc)
 // -----------------------------------------------------------------------------
 
 // convert(json,xml)
-inline bool convert(const gnds::json &jdoc, gnds::xml &xdoc)
+inline bool convert(const json &jdoc, xml &xdoc)
 {
    gnds::tree tree;
    return
@@ -429,7 +386,7 @@ inline bool convert(const gnds::json &jdoc, gnds::xml &xdoc)
 }
 
 // convert(xml,json)
-inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
+inline bool convert(const xml &xdoc, json &jdoc)
 {
    gnds::tree tree;
    return
@@ -446,6 +403,8 @@ inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
 // -----------------------------------------------------------------------------
 
 /*
+fixme Probably delete this block; stuff will probably change anyway
+
 namespace detail {
    // pugi/nlohmann nodes to our nodes (either regular or knoop)
    template<class NODE>

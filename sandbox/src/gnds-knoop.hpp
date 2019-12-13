@@ -10,8 +10,8 @@
 namespace knoop {
    class tree;
 }
-bool convert(const gnds::xml  &xdoc, gnds::knoop::tree &tree);
-bool convert(const gnds::json &jdoc, gnds::knoop::tree &tree);
+bool convert(const xml  &xdoc, knoop::tree &tree);
+bool convert(const json &jdoc, knoop::tree &tree);
 
 namespace knoop {
 
@@ -25,9 +25,9 @@ public:
    // ctor: default
    tree() { }
 
-   // ctor: gnds::xml, gnds::json
-   tree(const gnds::xml  &xdoc) { convert(xdoc,*this); }
-   tree(const gnds::json &jdoc) { convert(jdoc,*this); }
+   // ctor: xml, json
+   tree(const xml  &xdoc) { convert(xdoc,*this); }
+   tree(const json &jdoc) { convert(jdoc,*this); }
 
    // clear
    void clear()

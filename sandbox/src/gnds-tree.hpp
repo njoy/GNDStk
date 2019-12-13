@@ -19,9 +19,9 @@ public:
    // ctor: default
    tree() { }
 
-   // ctor: gnds::xml, gnds::json
-   tree(const gnds::xml  &xdoc) { convert(xdoc,*this); }
-   tree(const gnds::json &jdoc) { convert(jdoc,*this); }
+   // ctor: xml, json
+   tree(const xml  &xdoc) { convert(xdoc,*this); }
+   tree(const json &jdoc) { convert(jdoc,*this); }
 
    // ctor: file, stream
    tree(const char * const file) { read(file); }
@@ -41,26 +41,32 @@ public:
    // normalize
    void normalize();
 
+
    // ------------------------
    // shorthand data access:
    // meta, child, operator()
    // ------------------------
 
-   const std::string &meta(const std::string &key) const;
+   decltype(auto) meta(const std::string &str) const;
 
    template<class T>
-   decltype(auto) meta(const gnds::meta_t<T> &m) const;
+   decltype(auto) meta(const meta_t<T> &keyword) const;
 
-   const node &child(const std::string &name) const;
-
-   template<class T>
-   const node &child(const gnds::child_t<T> &c) const;
+   decltype(auto) child(const std::string &str) const;
 
    template<class T>
-   const node &operator()(const gnds::child_t<T> &c) const;
+   decltype(auto) child(const child_t<T> &keyword) const;
+
+   template<class T>
+   decltype(auto) operator()(const meta_t<T> &keyword) const;
+
+   template<class T>
+   decltype(auto) operator()(const child_t<T> &keyword) const;
 
    template<class T, class... Ts>
-   decltype(auto) operator()(T &&t, Ts &&...ts) const; // fixme Have SFINAE
+   decltype(auto) operator()(const meta_t <T> &keyword, Ts &&...ts) const;
+   template<class T, class... Ts>
+   decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const;
 
 }; // class tree
 
@@ -97,14 +103,14 @@ inline std::istream &tree::read(std::istream &is)
    // guess xml/json, then read and convert
    if (is.peek() == '<') {
       // assume .xml
-      // go through a temporary gnds::xml object to create the tree...
-      const gnds::xml x(is);
+      // go through a temporary xml object to create the tree...
+      const xml x(is);
       if (!is.fail())
          convert(x, *this);
    } else {
       // assume .json
-      // go through a temporary gnds::json object to create the tree...
-      const gnds::json j(is);
+      // go through a temporary json object to create the tree...
+      const json j(is);
       // It would seem that the nlohmann::json stream input operation,
       // which is used by the constructor we just called, sets failbit
       // in instances in which it should just set eofbit!! So, we'll
@@ -244,49 +250,3 @@ inline void tree::normalize()
    if (root)
       detail::normalize(*root);
 }
-
-/*
-// helper: normalize
-template<class NODE>
-void normalize(NODE &node)
-{
-   // name
-   strip(node.name());
-
-   // children
-   auto iter = node.children().end();
-   for (auto c = node.children().begin();  c != node.children().end();  ++c)
-      if (strip((*c)->name()) == "attributes") {
-         // Child node is named "attributes"; this presumably means that the
-         // current node originally had *that* child node's metadata as its
-         // own, before they were placed into an "attributes" child for the
-         // purpose of writing, say, to a .json file. Now, apparently, we've
-         // just read such a file, and must restore the node's original form.
-
-         // Under the circumstances, this node shouldn't (yet) have its own
-         // metadata. They'll be pulled up from the "attributes" child, which
-         // itself should have only those metadata (and not further children).
-         assert(node.metadata().size() == 0);  // this node
-         assert((*c)->children().size() == 0); // child's children
-
-         // And, there should have been at most one such "attributes" child.
-         assert(iter == node.children().end()); // up until now
-         iter = c; // now
-
-         // Restore the metadata
-         for (auto &m : (*c)->metadata())
-            node.push(m.first,m.second);
-      } else {
-         // Regular child node; recursively normalize
-         normalize(**c);
-      }
-
-   // chuck any "attributes" child
-   if (iter != node.children().end())
-      node.children().erase(iter);
-
-   // metadata (including any new ones from an "attributes" child as above)
-   for (auto &meta : node.metadata())
-      strip(meta.first);
-}
-*/

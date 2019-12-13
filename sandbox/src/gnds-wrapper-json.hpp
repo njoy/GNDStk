@@ -38,9 +38,9 @@ public:
    json &operator=(const json &) = default;
    json &operator=(json &&) = default;
 
-   // ctor: gnds::xml, tree
-   json(const gnds::xml  &xdoc) { convert(xdoc,*this); }
-   json(const gnds::tree &tree) { convert(tree,*this); }
+   // ctor: xml, tree
+   json(const xml  &xdoc) { convert(xdoc,*this); }
+   json(const tree &tree) { convert(tree,*this); }
 
    // ctor: file, stream
    json(const char * const file) { read(file); }
@@ -57,7 +57,7 @@ public:
    bool write(const std::string &file) const { return write(file.c_str()); }
    std::ostream &write(std::ostream &) const;
 
-}; // class gnds::json
+}; // class json
 
 
 
@@ -88,7 +88,7 @@ inline std::istream &json::read(std::istream &is)
 
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, gnds::json &obj)
+inline std::istream &operator>>(std::istream &is, json &obj)
 {
    // calls read(istream) above
    return obj.read(is);
@@ -118,7 +118,7 @@ inline std::ostream &json::write(std::ostream &os) const
 
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const gnds::json &obj)
+inline std::ostream &operator<<(std::ostream &os, const json &obj)
 {
    // calls write(ostream) above
    return obj.write(os);
