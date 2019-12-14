@@ -1,4 +1,6 @@
 
+// fixme This comment needs some modification...
+
 // These are called from node::meta() and node::child() functions to read
 // their wrapped types. This way, we can have generic versions for those
 // functions - which are member functions, and thus not technically something
@@ -14,11 +16,11 @@
 // we may not really want stream input to a vector. (And so, below, we instead
 // specialize a gnds::read() for vector.)
 
+
+
 // -----------------------------------------------------------------------------
-// read
-// Note that these are in gnds:: because this file is included therein.
-// Our calls want the gnds::.
-// So, if you customize for your own type, put your own read() in gnds::.
+// read(istream,T)
+// default: use operator>>
 // -----------------------------------------------------------------------------
 
 // default
@@ -29,36 +31,6 @@ inline void read(std::istream &is, T &value)
 }
 
 
-// bool
-// Sort of goofy, but we'll go with it for now
-inline void read(std::istream &is, bool &value)
-{
-   std::string str;
-   is >> str;
-
-   // true
-   if (str == "1"    ) value = true;
-   if (str == "t"    ) value = true;
-   if (str == "true" ) value = true;
-   if (str == "T"    ) value = true;
-   if (str == "True" ) value = true;
-   if (str == "TRUE" ) value = true;
-
-   // false
-   if (str == "0"    ) value = false;
-   if (str == "f"    ) value = false;
-   if (str == "false") value = false;
-   if (str == "F"    ) value = false;
-   if (str == "False") value = false;
-   if (str == "FALSE") value = false;
-
-   // oh well
-   // fixme Obviously, do something less stupid eventually...
-   assert(false);
-   value = false;
-}
-
-
 // vector<T>
 template<class T>
 inline void read(std::istream &is, std::vector<T> &value)
@@ -66,4 +38,76 @@ inline void read(std::istream &is, std::vector<T> &value)
    T val;
    while (is >> val)
       value.push_back(val);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// read(string,T)
+// default: convert string to istringstream, use read(istream,T) above
+// -----------------------------------------------------------------------------
+
+// default
+template<class T>
+inline void read(const std::string &str, T &value)
+{
+   std::istringstream iss(str);
+   read(iss,value);
+}
+
+
+// bool
+inline void read(const std::string &str, bool &value)
+{
+   if (
+      str == "1" || str == "t"     || str == "true"  ||
+      str == "T" || str == "True"  || str == "TRUE"  )
+      value = true;
+   else if (
+      str == "0" || str == "f"     || str == "false" ||
+      str == "F" || str == "False" || str == "FALSE" )
+      value = false;
+   else {
+      // fixme do something better than this
+      assert(false);
+      value = false;
+   }
+}
+
+
+// miscellaneous
+// string-to-T specializations that may be faster than our default
+#define gnds_read(fun,T) \
+   inline void read(const std::string &str, T &value) \
+   { \
+      value = std::fun(str); \
+   }
+
+gnds_read(stod, double)
+gnds_read(stof, float)
+gnds_read(stoi, int)
+gnds_read(stol, long)
+gnds_read(stold, long double)
+gnds_read(stoll, long long)
+gnds_read(stoul, unsigned long)
+gnds_read(stoull, unsigned long long)
+
+#undef gnds_read
+
+
+
+// -----------------------------------------------------------------------------
+// read(node,T)
+// default: error
+// -----------------------------------------------------------------------------
+
+// default
+// Doesn't know what to do; should be overridden
+// fixme Consider having *no* default for read(node,...)
+template<class T>
+inline void read(const gnds::node &node, T &value)
+{
+   (void)node;
+   assert(false);
+   value = T{};
 }

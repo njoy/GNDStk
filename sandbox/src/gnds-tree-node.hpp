@@ -1,7 +1,7 @@
 
-// typed: forward declaration
-template<class result, class wraps>
-class typed;
+// typednode: forward declaration
+template<class T>
+class typednode;
 
 
 
@@ -45,14 +45,14 @@ public:
       children().push_back(std::shared_ptr<node>(cptr));
    }
 
+   // write
+   void write(std::ostream &, const int level = 0) const;
+
    // leaf?
    bool leaf() const
    {
       return children().size() == 0;
    }
-
-   // write
-   void write(std::ostream &, const int level) const;
 
 
    // ------------------------
@@ -77,9 +77,9 @@ public:
    template<class T>
    T meta(const meta_t<T> &keyword) const
    {
-      std::istringstream iss(meta(keyword.name));
+      const std::string &str = meta(keyword.name);
       T value;
-      gnds::read(iss,value);
+      gnds::read(str,value);
       return value;
    }
 
@@ -90,9 +90,9 @@ public:
    T meta(const meta_t<std::variant<Ts...>> &keyword) const
    {
       // body is as above, but function signature is structurally different
-      std::istringstream iss(meta(keyword.name));
+      const std::string &str = meta(keyword.name);
       T value;
-      gnds::read(iss,value);
+      gnds::read(str,value);
       return value;
    }
 
@@ -115,18 +115,18 @@ public:
 
    // for child_t<T>
    template<class T>
-   auto child(const child_t<T> &keyword) const
+   typednode<T> child(const child_t<T> &keyword) const
    {
-      return typed<T,child_t<T>>(keyword,child(keyword.name));
+      return typednode<T>(child(keyword.name));
    }
 
    // for child_t<variant>, caller must stipulate <T>.
    template<class T, class... Ts>
-   auto child(const child_t<std::variant<Ts...>> &keyword) const
+   typednode<T> child(const child_t<std::variant<Ts...>> &keyword) const
    {
-      // fixme We may need another specialization of typed to handle this...
+      // fixme We may need another specialization of typednode to handle this...
       // fixme or maybe not; its second temp arg isn't really used now!
-      return typed<T,child_t<std::variant<Ts...>>>(keyword,child(keyword.name));
+      return typednode<T>(child(keyword.name));
    }
 
 
@@ -180,10 +180,8 @@ node::meta()
 
 node::child()
    const node   & child ( const string                  &str     ) const;
-   typed<T,child_t<T>>
-                  child ( const child_t<T>              &keyword ) const;
-   typed<T,child_t<std::variant<Ts...>>>
-                  child ( const child_t<variant<Ts...>> &keyword ) const
+   typednode<T>   child ( const child_t<T>              &keyword ) const;
+   typednode<T>   child ( const child_t<variant<Ts...>> &keyword ) const
 
 node::operator()()
    decltype(auto) operator() ( const meta_t <T> &keyword             ) const;
