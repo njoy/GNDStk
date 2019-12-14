@@ -20,7 +20,7 @@ class tree {
 public:
 
    // data
-   std::unique_ptr<knoop::node> root;
+   std::shared_ptr<knoop::node> root;
 
    // ctor: default
    tree() { }

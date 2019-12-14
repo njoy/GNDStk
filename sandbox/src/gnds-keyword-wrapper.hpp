@@ -9,34 +9,13 @@ class typed {
 };
 
 
-// for meta_t
-template<class T>
-class typed<T,meta_t<T>> {
-public:
 
-   // data
-   const meta_t<T> &obj;
-   const std::string &key;
-   const std::string &value;
-
-   // ctor
-   explicit typed(const meta_t<T> &m, const std::string &s) :
-      obj(m), key(m.name), value(s)
-   { }
-
-   // operator(): evaluate to T
-   T operator()() const
-   {
-      T ret;
-      read(value,ret);
-      return ret;
-   }
-};
-
-
+// ------------------------
 // for child_t
+// ------------------------
+
 template<class T>
-class typed<T,child_t<T>> {
+class typed<T,child_t<T>> : public node {
 public:
 
    // data
@@ -46,16 +25,21 @@ public:
 
    // ctor
    explicit typed(const child_t<T> &c, const node &n) :
-      obj(c), key(c.name), value(n)
+      node(n), obj(c), key(obj.name), value(n)
    { }
 
    // operator(): evaluate to T
    T operator()() const
    {
       T ret;
-      read(value,ret);
+      read(value,ret); // fixme should allow for node-to-node automatically
       return ret;
    }
+
+   using node::meta;
+   using node::child;
+   using node::operator();
+   using node::leaf;
 };
 
 
@@ -72,10 +56,10 @@ public:
 // Default
 // Makes an istringstream from the string, and read()s with that
 template<class T>
-inline void read(const std::string &str, T &value)
+inline void read(const std::string &str, T &ret)
 {
    std::istringstream iss(str);
-   read(iss,value);
+   read(iss,ret);
 }
 
 
@@ -85,9 +69,9 @@ inline void read(const std::string &str, T &value)
 
 // string-to-T specializations that may be faster than the above default
 #define gnds_read(fun,type) \
-   inline void read(const std::string &str, type &value) \
+   inline void read(const std::string &str, type &ret) \
    { \
-      value = std::fun(str); \
+      ret = std::fun(str); \
    }
 
 gnds_read(stod, double)
@@ -110,10 +94,10 @@ gnds_read(stoull, unsigned long long)
 // default
 // fixme We arguably want *no* default for this
 template<class T>
-inline void read(const gnds::node &node, T &value)
+inline void read(const gnds::node &node, T &ret)
 {
    (void)node;
-   (void)value;
-   value = T{};
+   (void)ret;
+   ret = T{};
    assert(false);
 }

@@ -9,7 +9,7 @@ public:
 
    // Note: The json object reorders name/value pairs lexicographically, instead
    // of preserving the order in which it reads them. nlohmann's json.hpp says:
-   // 
+   //
    //   "@note The order name/value pairs are added to the object is *not*
    //    preserved by the library. Therefore, iterating an object may return
    //    name/value pairs in a different order than they were originally stored.

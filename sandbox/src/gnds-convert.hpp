@@ -129,7 +129,7 @@ bool convert(const xml &xdoc, TYPE &tree)
          // with pugi::parse_declaration |d in its second argument
          assert(xnode.name() == std::string("xml"));
 
-         tree.root = std::make_unique<NODE>();
+         tree.root = std::make_shared<NODE>();
          tree.root->name() = "xml"; // indicates that we came from a xml
 
          // base document "attributes", e.g. version and encoding
@@ -217,7 +217,7 @@ bool convert(const json &jdoc, TYPE &tree)
 
    // initialize base document
    using NODE = typename std::remove_reference<decltype(*tree.root)>::type;
-   tree.root = std::make_unique<NODE>();
+   tree.root = std::make_shared<NODE>();
    tree.root->name() = "json"; // indicates that we came from a json
 
    // visit the document's outer node, and its descendants
@@ -339,7 +339,7 @@ inline bool convert(const tree &tree, xml &xdoc)
    // fixme write this
    assert(false);
 
-   // done 
+   // done
    return true;
 }
 

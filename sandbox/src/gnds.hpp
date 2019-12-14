@@ -40,12 +40,14 @@ namespace gnds {
 #include "gnds-keyword-meta.hpp"
 #include "gnds-keyword-child.hpp"
 #include "gnds-keyword-read.hpp"
-#include "gnds-keyword-wrapper.hpp"
 
 // tree
 #include "gnds-tree-node.hpp"
 #include "gnds-tree.hpp"
 #include "gnds-tree-visit.hpp"
+
+// fixme where does this really belong?
+#include "gnds-keyword-wrapper.hpp"
 
 // tree - alternative
 #include "gnds-knoop-node.hpp"

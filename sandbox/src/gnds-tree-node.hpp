@@ -1,4 +1,10 @@
 
+// typed: forward declaration
+template<class result, class wraps>
+class typed;
+
+
+
 // -----------------------------------------------------------------------------
 // node
 // -----------------------------------------------------------------------------
@@ -14,7 +20,7 @@ public:
    // These could easily be changed (e.g. with a map for metadata).
    std::string name_;
    std::vector<std::pair<std::string,std::string>> metadata_;
-   std::vector<std::unique_ptr<node>> children_;
+   std::vector<std::shared_ptr<node>> children_;
 
    // accessors
    const auto &name    () const { return name_    ; }
@@ -33,10 +39,10 @@ public:
 
    // push child
    // fixme Consider making the return value be a reference to the dereferenced
-   // unique_ptr
+   // shared_ptr
    void push(node *const cptr)
    {
-      children().push_back(std::unique_ptr<node>(cptr));
+      children().push_back(std::shared_ptr<node>(cptr));
    }
 
    // leaf?
@@ -66,9 +72,8 @@ public:
    }
 
    // for meta_t<T>
-   // Return by value isn't ideal, performance-wise, if T is something large
-   // like a vector. We'll go with this for now, but perhaps should eventually
-   // provide variations of these meta() functions.
+   // Return by value isn't ideal, if T is something large like a vector.
+   // Think about options.
    template<class T>
    T meta(const meta_t<T> &keyword) const
    {
@@ -78,11 +83,9 @@ public:
       return value;
    }
 
-   // for meta_t<variant>
-   // Caller must stipulate <T>.
-   // Ideally, we might like to just fold this into meta(meta_t<T>) above,
-   // thus returning the variant itself. However, we need a gnds::read(),
-   // which defaults to stream input, which std::variant doesn't have.
+   // for meta_t<variant>, caller must stipulate <T>.
+   // We don't just fold this into meta(meta_t<T>) above and return the variant,
+   // because the read() would have no idea what variant variation to read into!
    template<class T, class... Ts>
    T meta(const meta_t<std::variant<Ts...>> &keyword) const
    {
@@ -110,12 +113,20 @@ public:
       return empty;
    }
 
-   // for child_t
-   // fixme Do something with T here
+   // for child_t<T>
    template<class T>
-   const node &child(const child_t<T> &keyword) const
+   auto child(const child_t<T> &keyword) const
    {
-      return child(keyword.name);
+      return typed<T,child_t<T>>(keyword,child(keyword.name));
+   }
+
+   // for child_t<variant>, caller must stipulate <T>.
+   template<class T, class... Ts>
+   auto child(const child_t<std::variant<Ts...>> &keyword) const
+   {
+      // fixme We may need another specialization of typed to handle this...
+      // fixme or maybe not; its second temp arg isn't really used now!
+      return typed<T,child_t<std::variant<Ts...>>>(keyword,child(keyword.name));
    }
 
 
@@ -148,12 +159,6 @@ public:
 
    // multi-argument
    template<class T, class... Ts>
-   decltype(auto) operator()(const meta_t <T> &keyword, Ts &&...ts) const
-   {
-      return (*this)(keyword)(std::forward<Ts>(ts)...);
-   }
-
-   template<class T, class... Ts>
    decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const
    {
       return (*this)(keyword)(std::forward<Ts>(ts)...);
@@ -169,20 +174,23 @@ public:
 
 /*
 node::meta()
-
-   const string & meta  ( const string                 &str     ) const;
-   T              meta  ( const meta_t<T>              &keyword ) const;
-   T              meta  ( const meta_t<variant<Ts...>> &keyword ) const;
+   const string & meta  ( const string                  &str     ) const;
+   T              meta  ( const meta_t<T>               &keyword ) const;
+   T              meta  ( const meta_t<variant<Ts...>>  &keyword ) const;
 
 node::child()
-
-   const node   & child ( const string                 &str     ) const;
-   const node   & child ( const child_t<T>             &keyword ) const;
+   const node   & child ( const string                  &str     ) const;
+   typed<T,child_t<T>>
+                  child ( const child_t<T>              &keyword ) const;
+   typed<T,child_t<std::variant<Ts...>>>
+                  child ( const child_t<variant<Ts...>> &keyword ) const
 
 node::operator()()
-
    decltype(auto) operator() ( const meta_t <T> &keyword             ) const;
    decltype(auto) operator() ( const child_t<T> &keyword             ) const;
-   decltype(auto) operator() ( const meta_t <T> &keyword, Ts &&...ts ) const;
    decltype(auto) operator() ( const child_t<T> &keyword, Ts &&...ts ) const;
 */
+
+
+
+

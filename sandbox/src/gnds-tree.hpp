@@ -7,7 +7,7 @@ class tree {
 public:
 
    // data
-   std::unique_ptr<node> root;
+   std::shared_ptr<node> root;
 
    // clear
    void clear()
@@ -47,24 +47,21 @@ public:
    // meta, child, operator()
    // ------------------------
 
+   // meta
    decltype(auto) meta(const std::string &str) const;
-
    template<class T>
    decltype(auto) meta(const meta_t<T> &keyword) const;
 
+   // child
    decltype(auto) child(const std::string &str) const;
-
    template<class T>
    decltype(auto) child(const child_t<T> &keyword) const;
 
+   // operator()
    template<class T>
-   decltype(auto) operator()(const meta_t<T> &keyword) const;
-
+   decltype(auto) operator()(const meta_t <T> &keyword) const;
    template<class T>
    decltype(auto) operator()(const child_t<T> &keyword) const;
-
-   template<class T, class... Ts>
-   decltype(auto) operator()(const meta_t <T> &keyword, Ts &&...ts) const;
    template<class T, class... Ts>
    decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const;
 
@@ -83,8 +80,8 @@ inline bool tree::read(const char * const file)
    // below. That function peeks at the first character to decide whether it's
    // an xml or a json file. Alternatively, because we have the file *name* in
    // the present function, we could guess the file type by looking at any file
-   // extension it has. However, I'll predict that the below function's decision
-   // will get the right answer, if the right answer exists.
+   // extension it has. However, I think that the below function's decision
+   // always gets the right answer, if the right answer exists.
 
    // calls read(istream) below
    std::ifstream ifs(file);
@@ -97,7 +94,7 @@ inline std::istream &tree::read(std::istream &is)
 {
    // Chuck current contents. Note that this will happen even
    // if the below read fails, which is a reasonable behavior.
-   // Empty tree == reminder that the attempt to read failed!
+   // Empty tree == reminder that the attempt to read failed.
    clear();
 
    // guess xml/json, then read and convert
