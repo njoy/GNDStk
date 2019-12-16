@@ -1,34 +1,34 @@
 
-// macros, for keyword building
-#define make_child_default(name,allow_multiple) \
-   inline const child_t<node> name(#name,allow_multiple)
-#define make_child(type,name,allow_multiple) \
-   inline const child_t<type> name(#name,allow_multiple)
-
-
-
 // -----------------------------------------------------------------------------
 // child_t
 // -----------------------------------------------------------------------------
 
-template<class T>
+template<class T = void>
 class child_t {
 public:
    // data
    const std::string name;
-   const bool allow_multiple;
 
    // ctor
-   explicit child_t(const std::string &n, const bool a) :
-      name(n), allow_multiple(a)
-   { }
+   explicit child_t(const std::string &n, const bool unused) :
+      name(n)
+   {
+      // not sure if we want the bool any longer; remove if we don't
+      (void)unused;
+   }
 };
+
+// macros, for keyword building
+#define make_child_default(name,allow_multiple) \
+   inline const child_t<>  name(#name,allow_multiple)
+#define make_child(T,name,allow_multiple) \
+   inline const child_t<T> name(#name,allow_multiple)
 
 
 
 // -----------------------------------------------------------------------------
 // keywords
-// fixme Eventually, many (or most (or all)) need a solid type,
+// fixme Eventually, many (or most (or all)) deserve a solid type,
 // not child_t's default.
 // -----------------------------------------------------------------------------
 
@@ -318,6 +318,6 @@ namespace child {
 
 // Double
 // Not double, for obvious reasons.
-inline const child_t<node> Double("double", false);
+inline const child_t<> Double("double", false);
 
 } // namespace child

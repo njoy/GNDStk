@@ -111,18 +111,16 @@ public:
 
    // for child_t<T>
    template<class T>
-   typednode<T> child(const child_t<T> &keyword) const
+   auto child(const child_t<T> &keyword) const
    {
-      return typednode<T>(child(keyword.name));
+      return tnode<MCON,CCON,T>(child(keyword.name));
    }
 
    // for child_t<variant>, caller must stipulate <T>.
    template<class T, class... Ts>
-   typednode<T> child(const child_t<std::variant<Ts...>> &keyword) const
+   auto child(const child_t<std::variant<Ts...>> &keyword) const
    {
-      // fixme We may need another specialization of typednode to handle this...
-      // fixme or maybe not; its second temp arg isn't really used now!
-      return typednode<T>(child(keyword.name));
+      return tnode<MCON,CCON,T>(child(keyword.name));
    }
 
 
@@ -136,17 +134,17 @@ public:
    // indeterminate as to whether we'd want the meta or child (std::string)
    // function. This is not a deficiency, but instead reflects the fact that
    // calling these functions with meta_t and child_t parameters - not with
-   // std::string parameters - should be preferred! Those encode (via their
+   // std::string parameters - should be preferred. Those encode (via their
    // type) whether we're accessing metadata or children.
 
-   // forwards to meta(meta_t<>) above
+   // forwards to meta(meta_t) above
    template<class T>
    decltype(auto) operator()(const meta_t<T> &keyword) const
    {
       return meta(keyword);
    }
 
-   // forwards to child(child_t<>) above
+   // forwards to child(child_t) above
    template<class T>
    decltype(auto) operator()(const child_t<T> &keyword) const
    {
@@ -237,9 +235,9 @@ Node::meta()
    T              meta  ( const meta_t<variant<Ts...>>  &keyword ) const;
 
 Node::child()
-   const Node   & child ( const string                  &str     ) const;
-   typednode<T>   child ( const child_t<T>              &keyword ) const;
-   typednode<T>   child ( const child_t<variant<Ts...>> &keyword ) const
+   const Node & child ( const string                  &str     ) const;
+   tnode<...,T> child ( const child_t<T>              &keyword ) const;
+   tnode<...,T> child ( const child_t<variant<Ts...>> &keyword ) const
 
 Node::operator()()
    decltype(auto) operator() ( const meta_t <T> &keyword             ) const;

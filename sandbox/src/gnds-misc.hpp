@@ -42,15 +42,40 @@ using tree = Tree<std::vector,std::vector>;
 class xml;
 class json;
 
-inline bool convert(const tree &, xml  &);
-inline bool convert(const tree &, json &);
-inline bool convert(const xml  &, tree &);
-inline bool convert(const xml  &, json &);
-inline bool convert(const json &, tree &);
-inline bool convert(const json &, xml  &);
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool convert(const Tree<MCON,CCON> &, xml &);
 
-template<class T>
-class typednode;
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool convert(const Tree<MCON,CCON> &, json &);
+
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool convert(const xml &, Tree<MCON,CCON> &);
+
+inline bool convert(const xml &, json &);
+
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool convert(const json &, Tree<MCON,CCON> &);
+
+inline bool convert(const json &, xml &);
+
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON,
+   class T
+>
+class tnode;
 
 
 

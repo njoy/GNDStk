@@ -266,8 +266,12 @@ inline std::string prefix(const unsigned long n)
 
 
 // node to json
-inline bool convert(
-   const node &node, nlohmann::json &j,
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+bool convert(
+   const Node<MCON,CCON> &node, nlohmann::json &j,
    unsigned long &kwdcount
 ) {
    // name
@@ -308,7 +312,11 @@ inline bool convert(
 // -----------------------------------------------------------------------------
 
 // tree to xml
-inline bool convert(const tree &tree, xml &xdoc)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+bool convert(const Tree<MCON,CCON> &tree, xml &xdoc)
 {
    (void)tree;
    (void)xdoc;
@@ -327,14 +335,18 @@ inline bool convert(const tree &tree, xml &xdoc)
 
 
 // tree to json
-inline bool convert(const tree &tree, json &jdoc)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+bool convert(const Tree<MCON,CCON> &tree, json &jdoc)
 {
    // prepare output
    jdoc.clear();
 
    // convert
    if (tree.root) {
-      const gnds::node &node = *tree.root;
+      const gnds::Node<MCON,CCON> &node = *tree.root;
       unsigned long kwdcount = 0;
       assert(node.children.size() == 1);  // e.g. reactionSuite
       assert(*node.children.begin() != nullptr);

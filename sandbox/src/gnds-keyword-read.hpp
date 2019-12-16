@@ -116,10 +116,13 @@ gnds_read(stoull, unsigned long long)
 // default
 // Doesn't know what to do; should be overridden
 // fixme Consider having *no* default for read(node,...)
-template<class T>
-inline void read(const gnds::node &node, T &value)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON,
+   class T
+>
+inline void read(const gnds::Node<MCON,CCON> &, T &value)
 {
-   (void)node;
    assert(false);
    value = T{};
 }

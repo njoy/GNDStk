@@ -50,8 +50,8 @@ namespace gnds {
 #include "gnds-tree.hpp"
 #include "gnds-tree-visit.hpp"
 
-// fixme where does this belong?
-#include "gnds-keyword-wrapper.hpp"
+// typed node
+#include "gnds-tnode.hpp"
 
 // conversions
 #include "gnds-convert.hpp"
