@@ -1,9 +1,17 @@
 
 // -----------------------------------------------------------------------------
-// node
+// Node (templated)
+// node (not)
 // -----------------------------------------------------------------------------
 
-class node {
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+class Node {
+   using pair = std::pair<std::string,std::string>;
+   using pointer = std::shared_ptr<Node>;
+
 public:
 
    // Simple node for our tree structure:
@@ -11,8 +19,8 @@ public:
    //    metadata
    //    children
    std::string name;
-   std::vector<std::pair<std::string,std::string>> metadata;
-   std::vector<std::shared_ptr<node>> children;
+   MCON<pair,   std::allocator<pair   >> metadata;
+   CCON<pointer,std::allocator<pointer>> children;
 
    // push metadatum
    auto &push(const std::string &key, const std::string &value)
@@ -22,14 +30,19 @@ public:
    }
 
    // push child
-   node &push(node *const cptr)
+   Node &push(Node *const cptr)
    {
-      children.push_back(std::shared_ptr<node>(cptr));
+      children.push_back(pointer(cptr));
       return *children.back();
    }
 
    // write
-   void write(std::ostream &, const int level = 0) const;
+   bool write(const char * const file, const int level = 0) const;
+   bool write(const std::string &file, const int level = 0) const
+   {
+      return write(file.c_str(),level);
+   }
+   std::ostream &write(std::ostream &, const int level = 0) const;
 
    // leaf?
    bool leaf() const
@@ -85,14 +98,14 @@ public:
    // ------------------------
 
    // for string
-   const node &child(const std::string &str) const
+   const Node &child(const std::string &str) const
    {
       for (auto &c : children)
          if (c != nullptr && c->name == str)
             return *c;
       // fixme: eventually, do something better than this...
       assert(false);
-      static node empty;
+      static Node empty;
       return empty;
    }
 
@@ -147,7 +160,69 @@ public:
       return (*this)(keyword)(std::forward<Ts>(ts)...);
    }
 
-}; // class node
+}; // class Node
+
+
+
+// -----------------------------------------------------------------------------
+// write
+// -----------------------------------------------------------------------------
+
+// write(char *)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool Node<MCON,CCON>::write(
+   const char * const file,
+   const int level
+) const {
+   // calls write(ostream) below
+   std::ofstream ofs(file);
+   return !write(ofs,level).fail();
+}
+
+
+// write(ostream)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+std::ostream &Node<MCON,CCON>::write(
+   std::ostream &os,
+   const int level
+) const {
+   // indentation
+   const std::string icurr(indent* level   ,' ');
+   const std::string inext(indent*(level+1),' ');
+
+   // write name
+   os << icurr << name << ":" << std::endl;
+
+   // write metadata
+   for (const auto &meta : metadata)
+      os << inext << meta.first << ": " << meta.second << std::endl;
+
+   // write children
+   for (const auto &cptr : children)
+      if (cptr)
+         cptr->write(os,level+1);
+
+   // done
+   return os;
+}
+
+
+// operator<<
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline std::ostream &operator<<(std::ostream &os, const Node<MCON,CCON> &obj)
+{
+   // calls write(ostream) above
+   return obj.write(os);
+}
 
 
 
@@ -156,17 +231,17 @@ public:
 // -----------------------------------------------------------------------------
 
 /*
-node::meta()
+Node::meta()
    const string & meta  ( const string                  &str     ) const;
    T              meta  ( const meta_t<T>               &keyword ) const;
    T              meta  ( const meta_t<variant<Ts...>>  &keyword ) const;
 
-node::child()
-   const node   & child ( const string                  &str     ) const;
+Node::child()
+   const Node   & child ( const string                  &str     ) const;
    typednode<T>   child ( const child_t<T>              &keyword ) const;
    typednode<T>   child ( const child_t<variant<Ts...>> &keyword ) const
 
-node::operator()()
+Node::operator()()
    decltype(auto) operator() ( const meta_t <T> &keyword             ) const;
    decltype(auto) operator() ( const child_t<T> &keyword             ) const;
    decltype(auto) operator() ( const child_t<T> &keyword, Ts &&...ts ) const;

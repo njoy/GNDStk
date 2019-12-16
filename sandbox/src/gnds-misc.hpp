@@ -1,25 +1,54 @@
 
 // -----------------------------------------------------------------------------
-// Macros, declarations
+// Macros, variables
 // -----------------------------------------------------------------------------
 
 // printval
 // printvar
-// Macros. Are the same, so we don't need to remember the exact terminology
+// Are the same, so we don't need to remember the exact terminology
 #define printval(var) std::cout << #var ": [" << var << "]" << std::endl
 #define printvar(var) printval(var)
 
+// indent
+// Number of spaces of indentation you want, in the output of certain types
+inline int indent = 3;
+
+// verbose
+// Flag: should debug() actually print anything?
+inline bool verbose = false;
+
+
+
+// -----------------------------------------------------------------------------
 // Forward declarations
-class node;
-class tree;
+// -----------------------------------------------------------------------------
+
+// fixme With some reorg elsewhere, many of these may no longer be necessary
+
+template<
+   template<class,class> class,
+   template<class,class> class
+>
+class Node;
+using node = Node<std::vector,std::vector>;
+
+template<
+   template<class,class> class,
+   template<class,class> class
+>
+class Tree;
+using tree = Tree<std::vector,std::vector>;
+
 class xml;
 class json;
+
 inline bool convert(const tree &, xml  &);
 inline bool convert(const tree &, json &);
 inline bool convert(const xml  &, tree &);
 inline bool convert(const xml  &, json &);
 inline bool convert(const json &, tree &);
 inline bool convert(const json &, xml  &);
+
 template<class T>
 class typednode;
 
@@ -31,15 +60,6 @@ class typednode;
 // arguably be useful, in their own right, to users. So, I'll leave them out
 // in the overall project namespace (which enclosed the #include of this file).
 // -----------------------------------------------------------------------------
-
-// indent
-// Number of spaces of indentation you want, in the output of certain types
-inline int indent = 3;
-
-// verbose
-// Flag: should debug() actually print anything?
-inline bool verbose = false;
-
 
 // debug
 inline void debug(const std::string &str)
@@ -76,38 +96,3 @@ inline void typeof(const T &)
 {
    std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
 }
-
-
-
-// -----------------------------------------------------------------------------
-// write(node)
-// Helper for writing certain "tree node" types that we'll define elsewhere.
-// Works for any sufficiently equipped node type.
-// -----------------------------------------------------------------------------
-
-namespace detail {
-
-template<class NODE>
-std::ostream &write(const NODE &node, std::ostream &os, const int level)
-{
-   // indentation
-   const std::string icurr(indent* level   ,' ');
-   const std::string inext(indent*(level+1),' ');
-
-   // write name
-   os << icurr << node.name << ":" << std::endl;
-
-   // write metadata
-   for (const auto &meta : node.metadata)
-      os << inext << meta.first << ": " << meta.second << std::endl;
-
-   // write children
-   for (const auto &cptr : node.children)
-      if (cptr)
-         write(*cptr, os, level+1);
-
-   // done
-   return os;
-}
-
-} // namespace detail

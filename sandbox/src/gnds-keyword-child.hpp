@@ -28,7 +28,8 @@ public:
 
 // -----------------------------------------------------------------------------
 // keywords
-// fixme Eventually, many (or most (or all)) need a solid type, not <node>.
+// fixme Eventually, many (or most (or all)) need a solid type,
+// not child_t's default.
 // -----------------------------------------------------------------------------
 
 namespace child {

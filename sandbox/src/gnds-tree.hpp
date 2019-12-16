@@ -1,13 +1,17 @@
 
 // -----------------------------------------------------------------------------
-// tree
+// Tree
 // -----------------------------------------------------------------------------
 
-class tree {
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+class Tree {
 public:
 
    // data
-   std::shared_ptr<node> root;
+   std::shared_ptr<Node<MCON,CCON>> root;
 
    // clear
    void clear()
@@ -17,16 +21,16 @@ public:
    }
 
    // ctor: default
-   tree() { }
+   Tree() { }
 
    // ctor: xml, json
-   tree(const xml  &xdoc) { convert(xdoc,*this); }
-   tree(const json &jdoc) { convert(jdoc,*this); }
+   Tree(const xml  &xdoc) { convert(xdoc,*this); }
+   Tree(const json &jdoc) { convert(jdoc,*this); }
 
    // ctor: file, stream
-   tree(const char * const file) { read(file); }
-   tree(const std::string &file) { read(file); }
-   tree(std::istream &is) { read(is); }
+   Tree(const char * const file) { read(file); }
+   Tree(const std::string &file) { read(file); }
+   Tree(std::istream &is) { read(is); }
 
    // read
    bool read(const char * const file);
@@ -65,7 +69,7 @@ public:
    template<class T, class... Ts>
    decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const;
 
-}; // class tree
+}; // class Tree
 
 
 
@@ -74,7 +78,11 @@ public:
 // -----------------------------------------------------------------------------
 
 // read(char *)
-inline bool tree::read(const char * const file)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool Tree<MCON,CCON>::read(const char * const file)
 {
    // Note that this function makes use of the read(istream) function directly
    // below. That function peeks at the first character to decide whether it's
@@ -90,7 +98,11 @@ inline bool tree::read(const char * const file)
 
 
 // read(istream)
-inline std::istream &tree::read(std::istream &is)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline std::istream &Tree<MCON,CCON>::read(std::istream &is)
 {
    // Chuck current contents. Note that this will happen even
    // if the below read fails, which is a reasonable behavior.
@@ -110,8 +122,8 @@ inline std::istream &tree::read(std::istream &is)
       const json j(is);
       // It would seem that the nlohmann::json stream input operation,
       // which is used by the constructor we just called, sets failbit
-      // in instances in which it should just set eofbit!! So, we'll
-      // comment-out the !is.fail() test... :-/
+      // in instances in which it should just set eofbit!! So, for now,
+      // we'll comment-out the !is.fail() test... :-/
       // if (!is.fail())
       convert(j, *this);
    }
@@ -122,7 +134,11 @@ inline std::istream &tree::read(std::istream &is)
 
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, tree &obj)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline std::istream &operator>>(std::istream &is, Tree<MCON,CCON> &obj)
 {
    // calls read(istream) above
    return obj.read(is);
@@ -135,7 +151,11 @@ inline std::istream &operator>>(std::istream &is, tree &obj)
 // -----------------------------------------------------------------------------
 
 // write(char *)
-inline bool tree::write(const char * const file) const
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline bool Tree<MCON,CCON>::write(const char * const file) const
 {
    // calls write(ostream) below
    std::ofstream ofs(file);
@@ -144,14 +164,23 @@ inline bool tree::write(const char * const file) const
 
 
 // write(ostream)
-inline std::ostream &tree::write(std::ostream &os) const
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline std::ostream &Tree<MCON,CCON>::write(std::ostream &os) const
 {
-   return root ? detail::write(*root,os,0) : os;
+   if (root) root->write(os,0);
+   return os;
 }
 
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const tree &obj)
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline std::ostream &operator<<(std::ostream &os, const Tree<MCON,CCON> &obj)
 {
    // calls write(ostream) above
    return obj.write(os);
@@ -242,7 +271,11 @@ void normalize(NODE &node)
 
 
 // normalize
-inline void tree::normalize()
+template<
+   template<class,class> class MCON,
+   template<class,class> class CCON
+>
+inline void Tree<MCON,CCON>::normalize()
 {
    if (root)
       detail::normalize(*root);

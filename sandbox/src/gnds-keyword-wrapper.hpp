@@ -31,7 +31,6 @@ public:
 
    using node::leaf;
    using node::write;
-
    using node::meta;
    using node::child;
    using node::operator();
