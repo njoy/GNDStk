@@ -5,21 +5,16 @@ Summary of helpers for xml...
    template<class NODE>
       bool convert(const pugi::xml_node &from, NODE &to)
 
-   template<class TYPE>
-      bool convert(const xml &from, TYPE &to)
+   template<class TREE>
+      bool convert(const xml &from, TREE &to)
 
 Summary of helpers for json...
 
    template<class NODE>
       bool convert(const nlohmann::json::const_iterator &from, NODE &to)
 
-   template<class TYPE>
-      bool convert(const json &from, TYPE &to)
-
-Above, xml and json are our wrappers around pugi::xml_document and
-nlohmann::json, respectively. NODE is one of our own node types - either
-node, or possibly knoop::node if we keep our optional knoop-based tree.
-TYPE is one of our tree types: tree or knoop::tree.
+   template<class TREE>
+      bool convert(const json &from, TREE &to)
 */
 
 
@@ -31,7 +26,6 @@ TYPE is one of our tree types: tree or knoop::tree.
 namespace detail {
 
 // convert(pugi::xml_node ==> NODE)
-// Where NODE == node | knoop::node
 template<class NODE>
 bool convert(const pugi::xml_node &xnode, NODE &node)
 {
@@ -110,10 +104,9 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
 
 
 
-// convert(xml ==> TYPE)
-// Where TYPE == tree | knoop::tree
-template<class TYPE>
-bool convert(const xml &xdoc, TYPE &tree)
+// convert(xml ==> TREE)
+template<class TREE>
+bool convert(const xml &xdoc, TREE &tree)
 {
    // prepare output
    tree.clear();
@@ -121,7 +114,6 @@ bool convert(const xml &xdoc, TYPE &tree)
    // visit the xml document's nodes
    int count = 0;
    for (const pugi::xml_node &xnode : xdoc.doc.children()) {
-      // node or knoop::node
       using NODE = typename std::remove_reference<decltype(*tree.root)>::type;
 
       if (count == 0) {
@@ -169,7 +161,6 @@ bool convert(const xml &xdoc, TYPE &tree)
 namespace detail {
 
 // convert(nlohmann::json::const_iterator ==> NODE)
-// Where NODE == node | knoop::node
 template<class NODE>
 bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
 {
@@ -207,10 +198,9 @@ bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
 
 
 
-// convert(json ==> TYPE)
-// Where TYPE == tree | knoop::tree
-template<class TYPE>
-bool convert(const json &jdoc, TYPE &tree)
+// convert(json ==> TREE)
+template<class TREE>
+bool convert(const json &jdoc, TREE &tree)
 {
    // prepare output
    tree.clear();
@@ -238,26 +228,17 @@ bool convert(const json &jdoc, TYPE &tree)
 
 
 // -----------------------------------------------------------------------------
-// convert: (xml|json) to (tree|knoop::tree)
-// I.e., convert from one of our xml or json objects (wrappers
-// around pugi::xml_document and nlohmann::json), to an object of our tree
-// or knoop-based tree structure.
+// convert: (xml|json) to tree
+// I.e., convert from one of our xml or json objects (wrappers around
+// pugi::xml_document and nlohmann::json) to an object of our tree structure.
 // -----------------------------------------------------------------------------
 
 // xml to tree
 inline bool convert(const xml &xdoc, tree &tree)
 { return detail::convert(xdoc,tree); }
 
-// xml to knoop tree
-inline bool convert(const xml &xdoc, knoop::tree &tree)
-{ return detail::convert(xdoc,tree); }
-
 // json to tree
 inline bool convert(const json &jdoc, tree &tree)
-{ return detail::convert(jdoc,tree); }
-
-// json to knoop tree
-inline bool convert(const json &jdoc, knoop::tree &tree)
 { return detail::convert(jdoc,tree); }
 
 
@@ -393,40 +374,3 @@ inline bool convert(const xml &xdoc, json &jdoc)
       convert(xdoc,tree) &&
       convert(tree,jdoc);
 }
-
-
-
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-
-/*
-fixme Probably delete this block; stuff will probably change anyway
-
-namespace detail {
-   // pugi/nlohmann nodes to our nodes (either regular or knoop)
-   template<class NODE>
-   bool convert(const pugi::xml_node                 &xnode, NODE &node);
-   template<class NODE>
-   bool convert(const nlohmann::json::const_iterator &jiter, NODE &node);
-
-   // our xml/json to our trees (either regular or knoop)
-   template<class TYPE> bool convert(const xml  &xdoc, TYPE &tree);
-   template<class TYPE> bool convert(const json &jdoc, TYPE &tree);
-
-   // our regular node to nlohmann object
-   inline bool convert(const node &node, nlohmann::json &j);
-}
-
-inline bool convert(const tree &tree, xml  &xdoc);
-inline bool convert(const tree &tree, json &jdoc);
-inline bool convert(const xml  &xdoc, tree &tree);
-inline bool convert(const xml  &xdoc, json &jdoc);
-inline bool convert(const json &jdoc, tree &tree);
-inline bool convert(const json &jdoc, xml  &xdoc);
-
-inline bool convert(const xml  &xdoc, knoop::tree &tree);
-inline bool convert(const json &jdoc, knoop::tree &tree);
-*/

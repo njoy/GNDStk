@@ -7,7 +7,7 @@
 
 #include "pugixml.hpp"
 #include "json.hpp"
-#include "knoop.hpp"
+#include <boost/core/demangle.hpp>
 
 // ------------------------
 // C++
@@ -18,10 +18,10 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include <type_traits>
-#include <vector>
 #include <typeinfo>
-#include <boost/core/demangle.hpp>
+#include <type_traits>
+#include <variant>
+#include <vector>
 
 // ------------------------
 // GNDS
@@ -46,12 +46,8 @@ namespace gnds {
 #include "gnds-tree.hpp"
 #include "gnds-tree-visit.hpp"
 
-// fixme where does this really belong?
+// fixme where does this belong?
 #include "gnds-keyword-wrapper.hpp"
-
-// tree - alternative
-#include "gnds-knoop-node.hpp"
-#include "gnds-knoop.hpp"
 
 // conversions
 #include "gnds-convert.hpp"
