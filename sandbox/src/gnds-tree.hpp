@@ -179,12 +179,12 @@ template<class NODE>
 void normalize(NODE &node)
 {
    // name
-   strip(node.name());
+   strip(node.name);
 
    // children
-   auto iter = node.children().end();
-   for (auto c = node.children().begin();  c != node.children().end();  ++c)
-      if (strip((*c)->name()) == "attributes") {
+   auto iter = node.children.end();
+   for (auto c = node.children.begin();  c != node.children.end();  ++c)
+      if (strip((*c)->name) == "attributes") {
          // Child node's name is "attributes"; this presumably means that the
          // current node originally had *that* child node's metadata as its
          // own, before they were placed into an "attributes" child for the
@@ -194,18 +194,18 @@ void normalize(NODE &node)
          // Under the circumstances, this node shouldn't (yet) have its own
          // metadata. They'll be pulled up from the "attributes" child, which
          // itself should have only those metadata (and not further children).
-         assert(node.metadata().size() == 0);  // this node
-         assert((*c)->children().size() == 0); // child's children
+         assert(node.metadata.size() == 0);  // this node
+         assert((*c)->children.size() == 0); // child's children
 
          // And, there should have been at most one such "attributes" child.
-         assert(iter == node.children().end()); // up until now
+         assert(iter == node.children.end()); // up until now
          iter = c; // now
 
          // Restore the metadata
-         for (auto &m : (*c)->metadata())
+         for (auto &m : (*c)->metadata)
             node.push(m.first,m.second);
 
-      } else if (endsin((*c)->name(), "_attr")) {
+      } else if (endsin((*c)->name, "_attr")) {
          assert(false); // for now
          // Child node's name ends in "_attr"
          /*
@@ -229,11 +229,11 @@ void normalize(NODE &node)
       }
 
    // chuck any "attributes" child
-   if (iter != node.children().end())
-      node.children().erase(iter);
+   if (iter != node.children.end())
+      node.children.erase(iter);
 
    // metadata (including any new ones from an "attributes" child as above)
-   for (auto &meta : node.metadata())
+   for (auto &meta : node.metadata)
       strip(meta.first);
 }
 

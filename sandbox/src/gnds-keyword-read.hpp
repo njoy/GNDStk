@@ -13,8 +13,7 @@
 // wish and expect to. However, we chose not have gnds::read() layered around
 // normal stream input, just in case somebody wants to avoid foisting stream
 // input capabilities on a type that perhaps shouldn't have it. For example,
-// we may not really want stream input to a vector. (And so, below, we instead
-// specialize a gnds::read() for vector.)
+// we may not really want stream input for C++ containers.
 
 
 
@@ -31,14 +30,27 @@ inline void read(std::istream &is, T &value)
 }
 
 
-// vector<T>
-template<class T>
-inline void read(std::istream &is, std::vector<T> &value)
-{
-   T val;
-   while (is >> val)
-      value.push_back(val);
-}
+// ------------------------
+// C++ sequence containers,
+// except array.
+// ------------------------
+
+#define gnds_read(container) \
+   template<class T, class Alloc> \
+   inline void read(std::istream &is, std::container<T,Alloc> &value) \
+   { \
+      value.clear(); \
+      T v; \
+      while (is >> v) \
+         value.push_back(v); \
+   }
+
+gnds_read(deque)
+gnds_read(forward_list)
+gnds_read(list)
+gnds_read(vector)
+
+#undef gnds_read
 
 
 

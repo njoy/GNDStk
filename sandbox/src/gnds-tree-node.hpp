@@ -1,10 +1,4 @@
 
-// typednode: forward declaration
-template<class T>
-class typednode;
-
-
-
 // -----------------------------------------------------------------------------
 // node
 // -----------------------------------------------------------------------------
@@ -12,37 +6,26 @@ class typednode;
 class node {
 public:
 
-   // data
-   // Simple but effective node for our tree structure:
-   //    - name
-   //    - vector<pair<string,string>> for metadata
-   //    - vector<node pointer> for children
-   // These could easily be changed (e.g. with a map for metadata).
-   std::string name_;
-   std::vector<std::pair<std::string,std::string>> metadata_;
-   std::vector<std::shared_ptr<node>> children_;
-
-   // accessors
-   const auto &name    () const { return name_    ; }
-   const auto &metadata() const { return metadata_; }
-   const auto &children() const { return children_; }
-   auto &name    () { return name_    ; }
-   auto &metadata() { return metadata_; }
-   auto &children() { return children_; }
+   // Simple node for our tree structure:
+   //    name
+   //    metadata
+   //    children
+   std::string name;
+   std::vector<std::pair<std::string,std::string>> metadata;
+   std::vector<std::shared_ptr<node>> children;
 
    // push metadatum
-   // fixme Consider making the return value be a reference to the new pair
-   void push(const std::string &key, const std::string &value)
+   auto &push(const std::string &key, const std::string &value)
    {
-      metadata().push_back(std::make_pair(key,value));
+      metadata.push_back(std::make_pair(key,value));
+      return metadata.back();
    }
 
    // push child
-   // fixme Consider making the return value be a reference to the dereferenced
-   // shared_ptr
-   void push(node *const cptr)
+   node &push(node *const cptr)
    {
-      children().push_back(std::shared_ptr<node>(cptr));
+      children.push_back(std::shared_ptr<node>(cptr));
+      return *children.back();
    }
 
    // write
@@ -51,7 +34,7 @@ public:
    // leaf?
    bool leaf() const
    {
-      return children().size() == 0;
+      return children.size() == 0;
    }
 
 
@@ -62,7 +45,7 @@ public:
    // for string
    const std::string &meta(const std::string &str) const
    {
-      for (auto &m : metadata())
+      for (auto &m : metadata)
          if (m.first == str)
             return m.second;
       // fixme: eventually, do something better than this...
@@ -72,7 +55,7 @@ public:
    }
 
    // for meta_t<T>
-   // Return by value isn't ideal, if T is something large like a vector.
+   // Return by value isn't ideal, if T is something large like a container.
    // Think about options.
    template<class T>
    T meta(const meta_t<T> &keyword) const
@@ -104,8 +87,8 @@ public:
    // for string
    const node &child(const std::string &str) const
    {
-      for (auto &c : children())
-         if (c != nullptr && c->name() == str)
+      for (auto &c : children)
+         if (c != nullptr && c->name == str)
             return *c;
       // fixme: eventually, do something better than this...
       assert(false);
@@ -188,7 +171,3 @@ node::operator()()
    decltype(auto) operator() ( const child_t<T> &keyword             ) const;
    decltype(auto) operator() ( const child_t<T> &keyword, Ts &&...ts ) const;
 */
-
-
-
-

@@ -21,6 +21,10 @@
 #include <typeinfo>
 #include <type_traits>
 #include <variant>
+
+#include <deque>
+#include <forward_list>
+#include <list>
 #include <vector>
 
 // ------------------------

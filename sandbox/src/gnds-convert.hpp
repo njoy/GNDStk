@@ -30,11 +30,11 @@ template<class NODE>
 bool convert(const pugi::xml_node &xnode, NODE &node)
 {
    // name
-   node.name() = xnode.name();
+   node.name = xnode.name();
 
    // metadata
-   for (const pugi::xml_attribute &meta : xnode.attributes())
-      node.push(meta.name(), meta.value());
+   for (const pugi::xml_attribute &xattr : xnode.attributes())
+      node.push(xattr.name(), xattr.value());
 
    // children (sub-nodes)
    for (const pugi::xml_node &xsub : xnode.children()) {
@@ -93,8 +93,8 @@ bool convert(const pugi::xml_node &xnode, NODE &node)
 
       assert(xsub.type() == pugi::node_element);
       debug("new node");
-      node.push(new NODE);
-      if (!convert(xsub,*node.children().back()))
+      auto &back = node.push(new NODE);
+      if (!convert(xsub,back))
          return false;
    }
 
@@ -122,18 +122,18 @@ bool convert(const xml &xdoc, TREE &tree)
          assert(xnode.name() == std::string("xml"));
 
          tree.root = std::make_shared<NODE>();
-         tree.root->name() = "xml"; // indicates that we came from a xml
+         tree.root->name = "xml"; // indicates that we came from a xml
 
          // base document "attributes", e.g. version and encoding
-         for (const pugi::xml_attribute &meta : xnode.attributes())
-            tree.root->push(meta.name(), meta.value());
+         for (const pugi::xml_attribute &xattr : xnode.attributes())
+            tree.root->push(xattr.name(), xattr.value());
       }
 
       if (count == 1) {
          // visit the document's outer node, and its descendants
          debug("new node");
-         tree.root->push(new NODE);
-         if (!detail::convert(xnode,*tree.root->children().back()))
+         auto &back = tree.root->push(new NODE);
+         if (!detail::convert(xnode,back))
             return false;
       }
 
@@ -167,7 +167,7 @@ bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
    assert(jiter->is_object());
 
    // name
-   node.name() = jiter.key();
+   node.name = jiter.key();
 
    // elements
    const nlohmann::json &value = jiter.value();
@@ -178,13 +178,13 @@ bool convert(const nlohmann::json::const_iterator &jiter, NODE &node)
          // if the .json file was created, earlier, based on an .xml
          // file with a construct like <RutherfordScattering/>, i.e.
          // with /> to end the element immediately.
-         node.push(new NODE);
-         node.children().back()->name() = sub.key();
+         auto &back = node.push(new NODE);
+         back.name = sub.key();
       } else if (sub->is_object()) {
          // The current node has a child node *other* than as above.
          debug("new node");
-         node.push(new NODE);
-         if (!convert(sub,*node.children().back()))
+         auto &back = node.push(new NODE);
+         if (!convert(sub,back))
             return false;
       } else {
          // The current node has this as a key/value metadata pair...
@@ -208,13 +208,13 @@ bool convert(const json &jdoc, TREE &tree)
    // initialize base document
    using NODE = typename std::remove_reference<decltype(*tree.root)>::type;
    tree.root = std::make_shared<NODE>();
-   tree.root->name() = "json"; // indicates that we came from a json
+   tree.root->name = "json"; // indicates that we came from a json
 
    // visit the document's outer node, and its descendants
    for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem) {
       debug("new node");
-      tree.root->push(new NODE);
-      if (!detail::convert(elem,*tree.root->children().back()))
+      auto &back = tree.root->push(new NODE);
+      if (!detail::convert(elem,back))
          return false;
    }
 
@@ -255,7 +255,7 @@ inline std::string prefix(const unsigned long n)
 {
    std::ostringstream oss;
    oss << std::setfill('0') << std::setw(12) << n;
-   return oss.str();/// + " ";
+   return oss.str();
 }
 
 
@@ -268,7 +268,7 @@ inline std::string prefix(const unsigned long n)
 // node to json
 inline bool convert(
    const node &node, nlohmann::json &j,
-   unsigned long &count
+   unsigned long &kwdcount
 ) {
    // name
    // The effect of j[nodename] is to enter a key of this name into the json
@@ -277,22 +277,22 @@ inline bool convert(
    // consider a node that has no metadata or children; then, we need this.
    // An example is <RutherfordScattering/> in some of our GNDS XML files,
    // as it contains neither metadata nor children.
-   const std::string nodename = prefix(count++) + node.name();
+   const std::string nodename = prefix(kwdcount++) + node.name;
    j[nodename];
 
    // metadata
-   if (node.metadata().size() > 0) {
-      // ...because we only want the count ++ side effect if size() > 0
-      const std::string attrname = prefix(count++) + "attributes";
+   if (node.metadata.size() > 0) {
+      // ...because we only want the kwdcount ++ side effect if size() > 0
+      const std::string attrname = prefix(kwdcount++) + "attributes";
       // visit
-      for (auto &meta : node.metadata())
-         j[nodename][attrname][prefix(count++) + meta.first] =
+      for (auto &meta : node.metadata)
+         j[nodename][attrname][prefix(kwdcount++) + meta.first] =
             meta.second;
    }
 
    // children
-   for (auto &child : node.children())
-      if (child && !convert(*child, j[nodename], count))
+   for (auto &child : node.children)
+      if (child && !convert(*child, j[nodename], kwdcount))
          return false;
 
    // done
@@ -335,10 +335,10 @@ inline bool convert(const tree &tree, json &jdoc)
    // convert
    if (tree.root) {
       const gnds::node &node = *tree.root;
-      assert(node.children().size() == 1);  // e.g. reactionSuite
-      assert(node.children()[0] != nullptr);
-      unsigned long count = 0;
-      return detail::convert(*node.children()[0], jdoc.doc, count);
+      unsigned long kwdcount = 0;
+      assert(node.children.size() == 1);  // e.g. reactionSuite
+      assert(*node.children.begin() != nullptr);
+      return detail::convert(**node.children.begin(), jdoc.doc, kwdcount);
    }
 
    // done

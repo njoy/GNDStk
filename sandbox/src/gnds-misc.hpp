@@ -20,6 +20,8 @@ inline bool convert(const xml  &, tree &);
 inline bool convert(const xml  &, json &);
 inline bool convert(const json &, tree &);
 inline bool convert(const json &, xml  &);
+template<class T>
+class typednode;
 
 
 
@@ -93,14 +95,14 @@ std::ostream &write(const NODE &node, std::ostream &os, const int level)
    const std::string inext(indent*(level+1),' ');
 
    // write name
-   os << icurr << node.name() << ":" << std::endl;
+   os << icurr << node.name << ":" << std::endl;
 
    // write metadata
-   for (const auto &meta : node.metadata())
+   for (const auto &meta : node.metadata)
       os << inext << meta.first << ": " << meta.second << std::endl;
 
    // write children
-   for (const auto &cptr : node.children())
+   for (const auto &cptr : node.children)
       if (cptr)
          write(*cptr, os, level+1);
 
