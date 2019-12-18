@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 class Node {
    using pair = std::pair<std::string,std::string>;
@@ -110,15 +110,15 @@ public:
    }
 
    // for child_t<T>
-   template<class T>
-   auto child(const child_t<T> &keyword) const
+   template<class T, class META, class CHILD>
+   auto child(const child_t<T,META,CHILD> &keyword) const
    {
       return tnode<MCON,CCON,T>(child(keyword.name));
    }
 
    // for child_t<variant>, caller must stipulate <T>.
-   template<class T, class... Ts>
-   auto child(const child_t<std::variant<Ts...>> &keyword) const
+   template<class T, class META, class CHILD, class... Ts>
+   auto child(const child_t<std::variant<Ts...>,META,CHILD> &keyword) const
    {
       return tnode<MCON,CCON,T>(child(keyword.name));
    }
@@ -145,16 +145,18 @@ public:
    }
 
    // forwards to child(child_t) above
-   template<class T>
-   decltype(auto) operator()(const child_t<T> &keyword) const
+   template<class T, class META, class CHILD>
+   decltype(auto) operator()(const child_t<T,META,CHILD> &keyword) const
    {
       return child(keyword);
    }
 
    // multi-argument
-   template<class T, class... Ts>
-   decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const
-   {
+   template<class T, class META, class CHILD, class... Ts>
+   decltype(auto) operator()(
+      const child_t<T,META,CHILD> &keyword,
+      Ts &&...ts
+   ) const {
       return (*this)(keyword)(std::forward<Ts>(ts)...);
    }
 
@@ -168,8 +170,8 @@ public:
 
 // write(char *)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool Node<MCON,CCON>::write(
    const char * const file,
@@ -183,8 +185,8 @@ inline bool Node<MCON,CCON>::write(
 
 // write(ostream)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 std::ostream &Node<MCON,CCON>::write(
    std::ostream &os,
@@ -213,8 +215,8 @@ std::ostream &Node<MCON,CCON>::write(
 
 // operator<<
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline std::ostream &operator<<(std::ostream &os, const Node<MCON,CCON> &obj)
 {

@@ -2,30 +2,37 @@
 #pragma once
 
 // ------------------------
-// Libraries
+// External libraries
 // ------------------------
 
 #include "pugixml.hpp"
 #include "json.hpp"
-#include <boost/core/demangle.hpp>
+
 
 // ------------------------
 // C++
 // ------------------------
 
+// miscellaneous
 #include <cassert>
 #include <cctype>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include <typeinfo>
+#include <tuple>
 #include <type_traits>
+#include <typeinfo>
 #include <variant>
 
+// sequence containers
 #include <deque>
 #include <forward_list>
 #include <list>
 #include <vector>
+
+// boost
+#include <boost/core/demangle.hpp>
+
 
 // ------------------------
 // GNDS
@@ -41,6 +48,7 @@ namespace gnds {
 #include "gnds-wrapper-json.hpp"
 
 // tree metadata/children etc.
+#include "gnds-keyword.hpp"
 #include "gnds-keyword-meta.hpp"
 #include "gnds-keyword-child.hpp"
 #include "gnds-keyword-read.hpp"

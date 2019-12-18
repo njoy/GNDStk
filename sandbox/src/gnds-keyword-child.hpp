@@ -3,18 +3,16 @@
 // child_t
 // -----------------------------------------------------------------------------
 
-template<class T = void>
+template<class T = void, class META=metadata<>, class CHILD=children<>>
 class child_t {
 public:
    // data
    const std::string name;
 
    // ctor
-   explicit child_t(const std::string &n, const bool unused) :
-      name(n)
+   explicit child_t(const std::string &n, const bool unused) : name(n)
    {
-      // not sure if we want the bool any longer; remove if we don't
-      (void)unused;
+      (void)unused; // fixme Decide if we'll use this or not
    }
 };
 

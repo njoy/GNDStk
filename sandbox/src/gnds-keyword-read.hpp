@@ -117,8 +117,8 @@ gnds_read(stoull, unsigned long long)
 // Doesn't know what to do; should be overridden
 // fixme Consider having *no* default for read(node,...)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON,
+   template<class...> class MCON,
+   template<class...> class CCON,
    class T
 >
 inline void read(const gnds::Node<MCON,CCON> &, T &value)

@@ -267,8 +267,8 @@ inline std::string prefix(const unsigned long n)
 
 // node to json
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 bool convert(
    const Node<MCON,CCON> &node, nlohmann::json &j,
@@ -313,8 +313,8 @@ bool convert(
 
 // tree to xml
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 bool convert(const Tree<MCON,CCON> &tree, xml &xdoc)
 {
@@ -336,8 +336,8 @@ bool convert(const Tree<MCON,CCON> &tree, xml &xdoc)
 
 // tree to json
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 bool convert(const Tree<MCON,CCON> &tree, json &jdoc)
 {

@@ -4,8 +4,8 @@
 // we know what to do in the following case.
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline void read(
    const gnds::Node<MCON,CCON> &from,
@@ -41,8 +41,8 @@ public:
 // -----------------------------------------------------------------------------
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON,
+   template<class...> class MCON,
+   template<class...> class CCON,
    class T
 >
 class tnode : public Node<MCON,CCON> {

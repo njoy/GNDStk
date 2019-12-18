@@ -4,8 +4,8 @@
 // -----------------------------------------------------------------------------
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 class Tree {
 public:
@@ -52,22 +52,22 @@ public:
    // ------------------------
 
    // meta
-   decltype(auto) meta(const std::string &str) const;
+   decltype(auto) meta(const std::string &) const;
    template<class T>
-   decltype(auto) meta(const meta_t<T> &keyword) const;
+   decltype(auto) meta(const meta_t<T> &) const;
 
    // child
-   decltype(auto) child(const std::string &str) const;
-   template<class T>
-   decltype(auto) child(const child_t<T> &keyword) const;
+   decltype(auto) child(const std::string &) const;
+   template<class T, class META, class CHILD>
+   decltype(auto) child(const child_t<T,META,CHILD> &) const;
 
    // operator()
    template<class T>
-   decltype(auto) operator()(const meta_t <T> &keyword) const;
-   template<class T>
-   decltype(auto) operator()(const child_t<T> &keyword) const;
-   template<class T, class... Ts>
-   decltype(auto) operator()(const child_t<T> &keyword, Ts &&...ts) const;
+   decltype(auto) operator()(const meta_t<T> &) const;
+   template<class T, class META, class CHILD>
+   decltype(auto) operator()(const child_t<T,META,CHILD> &) const;
+   template<class T, class META, class CHILD, class... Ts>
+   decltype(auto) operator()(const child_t<T,META,CHILD> &, Ts &&...) const;
 
 }; // class Tree
 
@@ -79,8 +79,8 @@ public:
 
 // read(char *)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool Tree<MCON,CCON>::read(const char * const file)
 {
@@ -99,10 +99,10 @@ inline bool Tree<MCON,CCON>::read(const char * const file)
 
 // read(istream)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
-inline std::istream &Tree<MCON,CCON>::read(std::istream &is)
+std::istream &Tree<MCON,CCON>::read(std::istream &is)
 {
    // Chuck current contents. Note that this will happen even
    // if the below read fails, which is a reasonable behavior.
@@ -135,8 +135,8 @@ inline std::istream &Tree<MCON,CCON>::read(std::istream &is)
 
 // operator>>
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline std::istream &operator>>(std::istream &is, Tree<MCON,CCON> &obj)
 {
@@ -152,8 +152,8 @@ inline std::istream &operator>>(std::istream &is, Tree<MCON,CCON> &obj)
 
 // write(char *)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool Tree<MCON,CCON>::write(const char * const file) const
 {
@@ -165,8 +165,8 @@ inline bool Tree<MCON,CCON>::write(const char * const file) const
 
 // write(ostream)
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline std::ostream &Tree<MCON,CCON>::write(std::ostream &os) const
 {
@@ -177,8 +177,8 @@ inline std::ostream &Tree<MCON,CCON>::write(std::ostream &os) const
 
 // operator<<
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline std::ostream &operator<<(std::ostream &os, const Tree<MCON,CCON> &obj)
 {
@@ -272,8 +272,8 @@ void normalize(NODE &node)
 
 // normalize
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline void Tree<MCON,CCON>::normalize()
 {

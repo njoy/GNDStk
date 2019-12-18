@@ -26,15 +26,15 @@ inline bool verbose = false;
 // fixme With some reorg elsewhere, many of these may no longer be necessary
 
 template<
-   template<class,class> class,
-   template<class,class> class
+   template<class...> class,
+   template<class...> class
 >
 class Node;
 using node = Node<std::vector,std::vector>;
 
 template<
-   template<class,class> class,
-   template<class,class> class
+   template<class...> class,
+   template<class...> class
 >
 class Tree;
 using tree = Tree<std::vector,std::vector>;
@@ -43,36 +43,36 @@ class xml;
 class json;
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool convert(const Tree<MCON,CCON> &, xml &);
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool convert(const Tree<MCON,CCON> &, json &);
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool convert(const xml &, Tree<MCON,CCON> &);
 
 inline bool convert(const xml &, json &);
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline bool convert(const json &, Tree<MCON,CCON> &);
 
 inline bool convert(const json &, xml &);
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON,
+   template<class...> class MCON,
+   template<class...> class CCON,
    class T
 >
 class tnode;

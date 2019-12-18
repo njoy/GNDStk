@@ -11,8 +11,8 @@
 // ------------------------
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline decltype(auto) Tree<MCON,CCON>::meta(const std::string &str) const
 {
@@ -21,8 +21,8 @@ inline decltype(auto) Tree<MCON,CCON>::meta(const std::string &str) const
 }
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 template<class T>
 inline decltype(auto) Tree<MCON,CCON>::meta(const meta_t<T> &keyword) const
@@ -37,8 +37,8 @@ inline decltype(auto) Tree<MCON,CCON>::meta(const meta_t<T> &keyword) const
 // ------------------------
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 inline decltype(auto) Tree<MCON,CCON>::child(const std::string &str) const
 {
@@ -47,12 +47,13 @@ inline decltype(auto) Tree<MCON,CCON>::child(const std::string &str) const
 }
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
-template<class T>
-inline decltype(auto) Tree<MCON,CCON>::child(const child_t<T> &keyword) const
-{
+template<class T, class META, class CHILD>
+inline decltype(auto) Tree<MCON,CCON>::child(
+   const child_t<T,META,CHILD> &keyword
+) const {
    assert(root != nullptr);
    return root->child(keyword);
 }
@@ -63,35 +64,36 @@ inline decltype(auto) Tree<MCON,CCON>::child(const child_t<T> &keyword) const
 // ------------------------
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
 template<class T>
-inline
-decltype(auto) Tree<MCON,CCON>::operator()(const meta_t <T> &keyword) const
-{
+inline decltype(auto) Tree<MCON,CCON>::operator()(
+   const meta_t <T> &keyword
+) const {
    return meta(keyword);
 }
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
-template<class T>
-inline
-decltype(auto) Tree<MCON,CCON>::operator()(const child_t<T> &keyword) const
-{
+template<class T, class META, class CHILD>
+inline decltype(auto) Tree<MCON,CCON>::operator()(
+   const child_t<T,META,CHILD> &keyword
+) const {
    return child(keyword);
 }
 
 template<
-   template<class,class> class MCON,
-   template<class,class> class CCON
+   template<class...> class MCON,
+   template<class...> class CCON
 >
-template<class T, class... Ts>
-inline
-decltype(auto) Tree<MCON,CCON>::operator()(const child_t<T> &keyword, Ts &&...ts) const
-{
+template<class T, class META, class CHILD, class... Ts>
+inline decltype(auto) Tree<MCON,CCON>::operator()(
+   const child_t<T,META,CHILD> &keyword,
+   Ts &&...ts
+) const {
    return (*this)(keyword)(std::forward<Ts>(ts)...);
 }
 
