@@ -3,7 +3,7 @@
 // child_t
 // -----------------------------------------------------------------------------
 
-template<class T = void, class META=metadata<>, class CHILD=children<>>
+template<class T, class METADATA, class CHILDREN>
 class child_t {
 public:
    // data
