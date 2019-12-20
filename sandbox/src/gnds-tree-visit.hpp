@@ -7,9 +7,10 @@
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// tree::meta()
+// Tree::meta()
 // ------------------------
 
+// string
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -20,6 +21,7 @@ inline decltype(auto) Tree<MCON,CCON>::meta(const std::string &str) const
    return root->meta(str);
 }
 
+// meta_t
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -33,9 +35,10 @@ inline decltype(auto) Tree<MCON,CCON>::meta(const meta_t<T> &keyword) const
 
 
 // ------------------------
-// tree::child()
+// Tree::child()
 // ------------------------
 
+// string
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -46,6 +49,7 @@ inline decltype(auto) Tree<MCON,CCON>::child(const std::string &str) const
    return root->child(str);
 }
 
+// child_t
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -60,20 +64,22 @@ inline decltype(auto) Tree<MCON,CCON>::child(
 
 
 // ------------------------
-// tree::operator()()
+// Tree::operator()()
 // ------------------------
 
+// meta_t
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
 template<class T>
 inline decltype(auto) Tree<MCON,CCON>::operator()(
-   const meta_t <T> &keyword
+   const meta_t<T> &keyword
 ) const {
    return meta(keyword);
 }
 
+// child_t
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -85,6 +91,7 @@ inline decltype(auto) Tree<MCON,CCON>::operator()(
    return child(keyword);
 }
 
+// child_t, ...
 template<
    template<class...> class MCON,
    template<class...> class CCON

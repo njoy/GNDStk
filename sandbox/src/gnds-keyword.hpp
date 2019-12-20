@@ -19,15 +19,21 @@ class children {
 // -----------------------------------------------------------------------------
 // meta_t
 // child_t
-// Forward declarations
+// Forward declarations, which we need for other constructs in this file.
 // -----------------------------------------------------------------------------
 
 // meta_t
-// fixme Should maybe have T = void, and have it mean retrieve as std::string
-template<class T>
+// The default template parameter, std::string, means to retrieve the metadatum
+// in its original form in the tree: as, well, a std::string.
+template<class T = std::string>
 class meta_t;
 
 // child_t
+// The default template parameter, void, means to retrieve the child node
+// in its original form in the tree: as some variation of a Node<>. The precise
+// type thus received depends on the template parameters of the tree's Tree<>
+// type, as those parameters trickle down to the Tree<>'s Node<>s. The fact
+// that there's no fixed "node" type is why we use void for this meaning.
 template<class T = void, class METADATA=metadata<>, class CHILDREN=children<>>
 class child_t;
 
@@ -125,9 +131,9 @@ public:
 
    // <[T]>
    template<class T = void>
-   auto meta() const
+   static auto meta(const std::string &name)
    {
-      return meta_t<T>{};
+      return meta_t<T>{name};
    }
 
    // ------------------------
@@ -136,18 +142,18 @@ public:
 
    // <[T]>
    template<class T = void>
-   auto child() const
+   static auto child(const std::string &name)
    {
-      return child_t<T,metadata<>,children<>>{};
+      return child_t<T,metadata<>,children<>>{name};
    }
 
    // <T,K[,Ks...]>
    template<class T, class K, class... Ks>
-   auto child(const K &, Ks...) const
+   static auto child(const std::string &name, const K &, Ks...)
    {
       using M = typename detail::mcat<metadata<>,K,Ks...>::type;
       using C = typename detail::ccat<children<>,K,Ks...>::type;
-      return child_t<T,M,C>{};
+      return child_t<T,M,C>{name};
    }
 };
 
@@ -162,8 +168,8 @@ inline const keyword_t keyword;
 
 // keyword_meta
 #define keyword_meta(type,name) \
-   inline const auto name = keyword.meta<type>{}
+   inline const auto name = keyword.meta <type>{#name}
 
 // keyword_child
 #define keyword_child(type,name,...) \
-   inline const auto name = keyword.child<type>{__VA_ARGS__}
+   inline const auto name = keyword.child<type>{#name,##__VA_ARGS__}

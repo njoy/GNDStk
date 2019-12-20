@@ -79,6 +79,26 @@ public:
       return value;
    }
 
+   // for meta_t<string>
+   // The above is functionally equivalent, as we have a read(string,string)
+   // that just copies the string (and we want that read() anyway, for possible
+   // use by the variant case below). But let's do this directly, for clarity's
+   // sake, even if after optimization the above probably wouldn't be worse...
+   std::string meta(const meta_t<std::string> &keyword) const
+   {
+      return meta(keyword.name); // raw (not meta_t<>'d) string case, earlier
+   }
+
+   // for meta_t<void>
+   // What the hey, let's define the meta_t<void> case to be equivalent to the
+   // meta_t<string> case. This makes meta_t's behavior more consistent with
+   // that of child_t, which uses <void> to stipulate that the child node be
+   // returned in its original form in the tree.
+   std::string meta(const meta_t<void> &keyword) const
+   {
+      return meta(keyword.name); // as above
+   }
+
    // for meta_t<variant>, caller must stipulate <T>.
    // We don't just fold this into meta(meta_t<T>) above and return the variant,
    // because the read() would have no idea what variant variation to read into!
@@ -137,6 +157,7 @@ public:
    // std::string parameters - should be preferred. Those encode (via their
    // type) whether we're accessing metadata or children.
 
+   // meta_t
    // forwards to meta(meta_t) above
    template<class T>
    decltype(auto) operator()(const meta_t<T> &keyword) const
@@ -144,6 +165,7 @@ public:
       return meta(keyword);
    }
 
+   // child_t
    // forwards to child(child_t) above
    template<class T, class META, class CHILD>
    decltype(auto) operator()(const child_t<T,META,CHILD> &keyword) const
@@ -151,6 +173,7 @@ public:
       return child(keyword);
    }
 
+   // child_t, ...
    // multi-argument
    template<class T, class META, class CHILD, class... Ts>
    decltype(auto) operator()(
@@ -234,6 +257,8 @@ inline std::ostream &operator<<(std::ostream &os, const Node<MCON,CCON> &obj)
 Node::meta()
    const string & meta  ( const string                  &str     ) const;
    T              meta  ( const meta_t<T>               &keyword ) const;
+   string         meta  ( const meta_t<string>          &keyword ) const;
+   string         meta  ( const meta_t<void>            &keyword ) const;
    T              meta  ( const meta_t<variant<Ts...>>  &keyword ) const;
 
 Node::child()

@@ -32,7 +32,7 @@ inline void read(std::istream &is, T &value)
 
 // ------------------------
 // C++ sequence containers,
-// except array.
+// except array
 // ------------------------
 
 #define gnds_read(container) \
@@ -67,6 +67,11 @@ inline void read(const std::string &str, T &value)
    read(iss,value);
 }
 
+// string
+inline void read(const std::string &str, std::string &value)
+{
+   value = str;
+}
 
 // bool
 inline void read(const std::string &str, bool &value)
@@ -85,7 +90,6 @@ inline void read(const std::string &str, bool &value)
       value = false;
    }
 }
-
 
 // miscellaneous
 // string-to-T specializations that may be faster than our default
