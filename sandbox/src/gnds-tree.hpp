@@ -24,13 +24,13 @@ public:
    Tree() { }
 
    // ctor: xml, json
-   Tree(const xml  &xdoc) { convert(xdoc,*this); }
-   Tree(const json &jdoc) { convert(jdoc,*this); }
+   explicit Tree(const xml  &xdoc) { convert(xdoc,*this); }
+   explicit Tree(const json &jdoc) { convert(jdoc,*this); }
 
    // ctor: file, stream
-   Tree(const char * const file) { read(file); }
-   Tree(const std::string &file) { read(file); }
-   Tree(std::istream &is) { read(is); }
+   explicit Tree(const char * const file) { read(file); }
+   explicit Tree(const std::string &file) { read(file); }
+   explicit Tree(std::istream &is) { read(is); }
 
    // read
    bool read(const char * const file);
@@ -204,8 +204,11 @@ inline std::string &strip(std::string &name)
 }
 
 // helper: normalize
-template<class NODE>
-void normalize(NODE &node)
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+void normalize(Node<MCON,CCON> &node)
 {
    // name
    strip(node.name);

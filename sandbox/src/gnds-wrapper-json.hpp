@@ -39,13 +39,13 @@ public:
    json &operator=(json &&) = default;
 
    // ctor: xml, tree
-   json(const xml  &xdoc) { convert(xdoc,*this); }
-   json(const tree &tree) { convert(tree,*this); }
+   explicit json(const xml  &xdoc) { convert(xdoc,*this); }
+   explicit json(const tree &tree) { convert(tree,*this); }
 
    // ctor: file, stream
-   json(const char * const file) { read(file); }
-   json(const std::string &file) { read(file); }
-   json(std::istream &is) { read(is); }
+   explicit json(const char * const file) { read(file); }
+   explicit json(const std::string &file) { read(file); }
+   explicit json(std::istream &is) { read(is); }
 
    // read
    bool read(const char * const file);

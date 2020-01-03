@@ -25,6 +25,7 @@ inline bool verbose = false;
 
 // fixme With some reorg elsewhere, many of these may no longer be necessary
 
+// Node, node
 template<
    template<class...> class,
    template<class...> class
@@ -32,6 +33,7 @@ template<
 class Node;
 using node = Node<std::vector,std::vector>;
 
+// Tree, tree
 template<
    template<class...> class,
    template<class...> class
@@ -39,37 +41,46 @@ template<
 class Tree;
 using tree = Tree<std::vector,std::vector>;
 
+// xml, json
 class xml;
 class json;
 
+// convert
+// ...Tree to xml
+// ...Tree to json
+// ...xml  to Tree
+// ...xml  to json
+// ...json to Tree
+// ...json to xml
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline bool convert(const Tree<MCON,CCON> &, xml &);
-
-template<
-   template<class...> class MCON,
-   template<class...> class CCON
->
-inline bool convert(const Tree<MCON,CCON> &, json &);
-
-template<
-   template<class...> class MCON,
-   template<class...> class CCON
->
-inline bool convert(const xml &, Tree<MCON,CCON> &);
-
-inline bool convert(const xml &, json &);
+bool convert(const gnds::Tree<MCON,CCON> &, gnds::xml &);
 
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline bool convert(const json &, Tree<MCON,CCON> &);
+bool convert(const gnds::Tree<MCON,CCON> &, gnds::json &);
 
-inline bool convert(const json &, xml &);
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+bool convert(const gnds::xml &, gnds::Tree<MCON,CCON> &);
 
+bool convert(const gnds::xml &, gnds::json &);
+
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+bool convert(const gnds::json &, gnds::Tree<MCON,CCON> &);
+
+bool convert(const gnds::json &, gnds::xml &);
+
+// tnode
 template<
    template<class...> class MCON,
    template<class...> class CCON,

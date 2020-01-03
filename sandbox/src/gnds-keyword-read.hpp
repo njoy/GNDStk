@@ -56,7 +56,7 @@ gnds_read(vector)
 
 // -----------------------------------------------------------------------------
 // read(string,T)
-// default: convert string to istringstream, use read(istream,T) above
+// default: make istringstream from string, then use read(istream,T) above
 // -----------------------------------------------------------------------------
 
 // default

@@ -26,13 +26,13 @@ public:
    xml &operator=(xml &&) = default;
 
    // ctor: json, tree
-   xml(const json &j) { convert(j,*this); }
-   xml(const tree &t) { convert(t,*this); }
+   explicit xml(const json &j) { convert(j,*this); }
+   explicit xml(const tree &t) { convert(t,*this); }
 
    // ctor: file, stream
-   xml(const char * const file) { read(file); }
-   xml(const std::string &file) { read(file); }
-   xml(std::istream &is) { read(is); }
+   explicit xml(const char * const file) { read(file); }
+   explicit xml(const std::string &file) { read(file); }
+   explicit xml(std::istream &is) { read(is); }
 
    // read
    bool read(const char * const file);

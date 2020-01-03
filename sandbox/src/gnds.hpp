@@ -62,6 +62,8 @@ namespace gnds {
 #include "gnds-tnode.hpp"
 
 // conversions
-#include "gnds-convert.hpp"
+#include "gnds-convert-to-xml.hpp"
+#include "gnds-convert-to-json.hpp"
+#include "gnds-convert-to-tree.hpp"
 
 } // namespace gnds
