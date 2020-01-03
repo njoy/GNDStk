@@ -40,7 +40,11 @@ public:
 
    // ctor: xml, tree
    explicit json(const xml  &xdoc) { convert(xdoc,*this); }
-   explicit json(const tree &tree) { convert(tree,*this); }
+   template<
+      template<class...> class MCON,
+      template<class...> class CCON
+   >
+   explicit json(const Tree<MCON,CCON> &tree) { convert(tree,*this); }
 
    // ctor: file, stream
    explicit json(const char * const file) { read(file); }

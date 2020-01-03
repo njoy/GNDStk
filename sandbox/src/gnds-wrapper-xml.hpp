@@ -17,22 +17,38 @@ public:
    }
 
    // standard ctor/assignment
-   // The copy constructor and assignment are commented-out because
-   // pugi::xml_document's respective elements are inaccessible.
+   // But we'll create our own copy constructor and copy assignment,
+   // because pugi::xml_document's are inaccessible.
    xml() = default;
-   // xml(const xml &) = default;
    xml(xml &&) = default;
-   // xml &operator=(const xml &) = default;
    xml &operator=(xml &&) = default;
 
    // ctor: json, tree
    explicit xml(const json &j) { convert(j,*this); }
-   explicit xml(const tree &t) { convert(t,*this); }
+   template<
+      template<class...> class MCON,
+      template<class...> class CCON
+   >
+   explicit xml(const Tree<MCON,CCON> &t) { convert(t,*this); }
 
    // ctor: file, stream
    explicit xml(const char * const file) { read(file); }
    explicit xml(const std::string &file) { read(file); }
    explicit xml(std::istream &is) { read(is); }
+
+   // copy ctor
+   xml(const xml &x)
+   {
+      convert(x,*this);
+   }
+
+   // copy assignment
+   xml &operator=(const xml &x)
+   {
+      if (&x != this)
+         convert(x,*this);
+      return *this;
+   }
 
    // read
    bool read(const char * const file);

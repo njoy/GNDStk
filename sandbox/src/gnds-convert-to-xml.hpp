@@ -24,7 +24,7 @@ namespace detail {
 // convert
 // -----------------------------------------------------------------------------
 
-// tree ==> xml
+// Tree ==> xml
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -44,6 +44,22 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
    return true;
 }
 
+
+// xml ==> xml
+// For completeness
+inline bool convert(const gnds::xml &from, gnds::xml &to)
+{
+   if (&from == &to)
+      return true;
+   to.clear();
+
+   (void)from;
+   (void)to;
+
+   // fixme write this!
+   assert(false);
+   return true;
+}
 
 
 // json ==> xml

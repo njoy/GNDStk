@@ -32,6 +32,42 @@ public:
    explicit Tree(const std::string &file) { read(file); }
    explicit Tree(std::istream &is) { read(is); }
 
+   // copy ctor
+   Tree(const Tree &t)
+   {
+      convert(t,*this);
+   }
+
+   // copy assignment
+   Tree &operator=(const Tree &t)
+   {
+      if (&t != this)
+         convert(t,*this);
+      return *this;
+   }
+
+   // templated "copy ctor"
+   template<
+      template<class...> class MCONTO,
+      template<class...> class CCONTO
+   >
+   Tree(const Tree<MCONTO,CCONTO> &t)
+   {
+      convert(t,*this);
+   }
+
+   // templated "copy assignment"
+   template<
+      template<class...> class MCONTO,
+      template<class...> class CCONTO
+   >
+   Tree &operator=(const Tree<MCONTO,CCONTO> &t)
+   {
+      if (&t != this)
+         convert(t,*this);
+      return *this;
+   }
+
    // read
    bool read(const char * const file);
    bool read(const std::string &file) { return read(file.c_str()); }

@@ -13,6 +13,8 @@ namespace detail {
    ...calls (2)
 
 4. convert(gnds::xml,  gnds::json)
+
+5. convert(gnds::json, gnds::json)
 */
 
 
@@ -80,7 +82,7 @@ bool node2json(
 // convert
 // -----------------------------------------------------------------------------
 
-// tree ==> json
+// Tree ==> json
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -104,7 +106,6 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::json &jdoc)
 }
 
 
-
 // xml ==> json
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this issue if this becomes more of an issue.
@@ -114,4 +115,17 @@ inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
    return
       convert(xdoc,tree) &&
       convert(tree,jdoc);
+}
+
+
+// json ==> json
+// For completeness
+inline bool convert(const gnds::json &from, gnds::json &to)
+{
+   if (&from == &to)
+      return true;
+   to.clear();
+
+   to.doc = from.doc;
+   return true;
 }

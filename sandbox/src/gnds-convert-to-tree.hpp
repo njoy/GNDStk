@@ -6,27 +6,29 @@ namespace detail {
    1. xnode2node ( pugi::xml_node,                 gnds::Node)
       ...calls (1) (itself)
 
-   2. xml2tree   ( gnds::xml,                      gnds::Tree)
+   2. xml2Tree   ( gnds::xml,                      gnds::Tree)
       ...calls (1)
 
    3. jiter2node ( nlohmann::json::const_iterator, gnds::Node)
       ...calls (3) (itself)
 
-   4. json2tree  ( gnds::json,                     gnds::Tree)
+   4. json2Tree  ( gnds::json,                     gnds::Tree)
       ...calls (3)
 }
 
-5. convert(gnds::xml,  gnds::Tree)
+5. convert(gnds::Tree, gnds::Tree)
+
+6. convert(gnds::xml,  gnds::Tree)
    ...calls (2)
 
-6. convert(gnds::json, gnds::Tree)
+7. convert(gnds::json, gnds::Tree)
    ...calls (4)
 */
 
 
 
 // -----------------------------------------------------------------------------
-// Helpers for xml-related convert()s
+// Helpers for xml-related converts
 // -----------------------------------------------------------------------------
 
 namespace detail {
@@ -118,7 +120,7 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-bool xml2tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
+bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
 {
    // prepare output
    tree.clear();
@@ -165,7 +167,7 @@ bool xml2tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
 
 
 // -----------------------------------------------------------------------------
-// Helpers for json-related convert()s
+// Helpers for json-related converts
 // -----------------------------------------------------------------------------
 
 namespace detail {
@@ -218,7 +220,7 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-bool json2tree(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
+bool json2Tree(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
 {
    // prepare output
    tree.clear();
@@ -250,6 +252,30 @@ bool json2tree(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
 // pugi::xml_document and nlohmann::json) to an object of our Tree structure.
 // -----------------------------------------------------------------------------
 
+// Tree ==> Tree
+template<
+   template<class...> class MCONFROM,
+   template<class...> class CCONFROM,
+   template<class...> class MCONTO,
+   template<class...> class CCONTO
+>
+inline bool convert(
+   const gnds::Tree<MCONFROM,CCONFROM> &from,
+   gnds::Tree<MCONTO,CCONTO> &to
+) {
+   if ((void*)&from == (void*)&to)
+      return true;
+   to.clear();
+
+   (void)from;
+   (void)to;
+
+   // fixme write this
+   assert(false);
+   return true;
+}
+
+
 // xml ==> Tree
 template<
    template<class...> class MCON,
@@ -257,9 +283,8 @@ template<
 >
 inline bool convert(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
 {
-   return detail::xml2tree(xdoc,tree);
+   return detail::xml2Tree(xdoc,tree);
 }
-
 
 
 // json ==> Tree
@@ -269,5 +294,5 @@ template<
 >
 inline bool convert(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
 {
-   return detail::json2tree(jdoc,tree);
+   return detail::json2Tree(jdoc,tree);
 }

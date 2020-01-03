@@ -20,10 +20,10 @@ inline bool verbose = false;
 
 
 // -----------------------------------------------------------------------------
-// Forward declarations
+// Forward declarations: general
 // -----------------------------------------------------------------------------
 
-// fixme With some reorg elsewhere, many of these may no longer be necessary
+// fixme With some reorganization elsewhere, some of these may not be necessary
 
 // Node, node
 template<
@@ -45,33 +45,76 @@ using tree = Tree<std::vector,std::vector>;
 class xml;
 class json;
 
+// tnode
+template<
+   template<class...> class MCON,
+   template<class...> class CCON,
+   class T
+>
+class tnode;
+
+
+
+// -----------------------------------------------------------------------------
+// Forward declarations: convert
+// -----------------------------------------------------------------------------
+
 // convert
+// ...Tree to Tree
 // ...Tree to xml
 // ...Tree to json
 // ...xml  to Tree
+// ...xml  to xml
 // ...xml  to json
 // ...json to Tree
 // ...json to xml
+// ...json to json
+
+
+// Tree to {Tree,xml,json}
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class MCONFROM,
+   template<class...> class CCONFROM,
+   template<class...> class MCONTO,
+   template<class...> class CCONTO
 >
-bool convert(const gnds::Tree<MCON,CCON> &, gnds::xml &);
+bool convert(
+   const gnds::Tree<MCONFROM,CCONFROM> &,
+   gnds::Tree<MCONTO,CCONTO> &
+);
 
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-bool convert(const gnds::Tree<MCON,CCON> &, gnds::json &);
+bool convert(
+   const gnds::Tree<MCON,CCON> &,
+   gnds::xml &
+);
 
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+bool convert(
+   const gnds::Tree<MCON,CCON> &,
+   gnds::json &
+);
+
+
+// xml to {Tree,xml,json}
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
 bool convert(const gnds::xml &, gnds::Tree<MCON,CCON> &);
 
+bool convert(const gnds::xml &, gnds::xml &);
+
 bool convert(const gnds::xml &, gnds::json &);
 
+
+// json to {Tree,xml,json}
 template<
    template<class...> class MCON,
    template<class...> class CCON
@@ -80,13 +123,7 @@ bool convert(const gnds::json &, gnds::Tree<MCON,CCON> &);
 
 bool convert(const gnds::json &, gnds::xml &);
 
-// tnode
-template<
-   template<class...> class MCON,
-   template<class...> class CCON,
-   class T
->
-class tnode;
+bool convert(const gnds::json &, gnds::json &);
 
 
 
