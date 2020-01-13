@@ -31,8 +31,9 @@ inline void read(std::istream &is, T &value)
 
 
 // ------------------------
-// C++ sequence containers,
-// except array
+// sequence containers,
+// except array and
+// forward_list
 // ------------------------
 
 #define gnds_read(container) \
@@ -46,7 +47,6 @@ inline void read(std::istream &is, T &value)
    }
 
 gnds_read(deque)
-gnds_read(forward_list)
 gnds_read(list)
 gnds_read(vector)
 

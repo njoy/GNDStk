@@ -71,9 +71,9 @@ public:
    // Return by value isn't ideal, if T is something large like a container.
    // Think about options.
    template<class T>
-   T meta(const meta_t<T> &keyword) const
+   T meta(const meta_t<T> &kwd) const
    {
-      const std::string &str = meta(keyword.name);
+      const std::string &str = meta(kwd.name);
       T value;
       gnds::read(str,value);
       return value;
@@ -84,9 +84,9 @@ public:
    // that just copies the string (and we want that read() anyway, for possible
    // use by the variant case below). But let's do this directly, for clarity's
    // sake, even if after optimization the above probably wouldn't be worse...
-   std::string meta(const meta_t<std::string> &keyword) const
+   std::string meta(const meta_t<std::string> &kwd) const
    {
-      return meta(keyword.name); // raw (not meta_t<>'d) string case, earlier
+      return meta(kwd.name); // raw (not meta_t<>'d) string case, earlier
    }
 
    // for meta_t<void>
@@ -94,19 +94,19 @@ public:
    // meta_t<string> case. This makes meta_t's behavior more consistent with
    // that of child_t, which uses <void> to stipulate that the child node be
    // returned in its original form in the tree.
-   std::string meta(const meta_t<void> &keyword) const
+   std::string meta(const meta_t<void> &kwd) const
    {
-      return meta(keyword.name); // as above
+      return meta(kwd.name); // as above
    }
 
    // for meta_t<variant>, caller must stipulate <T>.
    // We don't just fold this into meta(meta_t<T>) above and return the variant,
    // because the read() would have no idea what variant variation to read into!
    template<class T, class... Ts>
-   T meta(const meta_t<std::variant<Ts...>> &keyword) const
+   T meta(const meta_t<std::variant<Ts...>> &kwd) const
    {
       // body is as above, but function signature is structurally different
-      const std::string &str = meta(keyword.name);
+      const std::string &str = meta(kwd.name);
       T value;
       gnds::read(str,value);
       return value;
@@ -131,16 +131,16 @@ public:
 
    // for child_t<T>
    template<class T, class META, class CHILD>
-   auto child(const child_t<T,META,CHILD> &keyword) const
+   auto child(const child_t<T,META,CHILD> &kwd) const
    {
-      return tnode<MCON,CCON,T>(child(keyword.name));
+      return tnode<MCON,CCON,T>(child(kwd.name));
    }
 
    // for child_t<variant>, caller must stipulate <T>.
    template<class T, class META, class CHILD, class... Ts>
-   auto child(const child_t<std::variant<Ts...>,META,CHILD> &keyword) const
+   auto child(const child_t<std::variant<Ts...>,META,CHILD> &kwd) const
    {
-      return tnode<MCON,CCON,T>(child(keyword.name));
+      return tnode<MCON,CCON,T>(child(kwd.name));
    }
 
 
@@ -160,27 +160,27 @@ public:
    // meta_t
    // forwards to meta(meta_t) above
    template<class T>
-   decltype(auto) operator()(const meta_t<T> &keyword) const
+   decltype(auto) operator()(const meta_t<T> &kwd) const
    {
-      return meta(keyword);
+      return meta(kwd);
    }
 
    // child_t
    // forwards to child(child_t) above
    template<class T, class META, class CHILD>
-   decltype(auto) operator()(const child_t<T,META,CHILD> &keyword) const
+   decltype(auto) operator()(const child_t<T,META,CHILD> &kwd) const
    {
-      return child(keyword);
+      return child(kwd);
    }
 
    // child_t, ...
    // multi-argument
    template<class T, class META, class CHILD, class... Ts>
    decltype(auto) operator()(
-      const child_t<T,META,CHILD> &keyword,
+      const child_t<T,META,CHILD> &kwd,
       Ts &&...ts
    ) const {
-      return (*this)(keyword)(std::forward<Ts>(ts)...);
+      return (*this)(kwd)(std::forward<Ts>(ts)...);
    }
 
 }; // class Node
@@ -255,19 +255,19 @@ inline std::ostream &operator<<(std::ostream &os, const Node<MCON,CCON> &obj)
 
 /*
 Node::meta()
-   const string & meta  ( const string                  &str     ) const;
-   T              meta  ( const meta_t<T>               &keyword ) const;
-   string         meta  ( const meta_t<string>          &keyword ) const;
-   string         meta  ( const meta_t<void>            &keyword ) const;
-   T              meta  ( const meta_t<variant<Ts...>>  &keyword ) const;
+   const string & meta  ( const string                  &str ) const;
+   T              meta  ( const meta_t<T>               &kwd ) const;
+   string         meta  ( const meta_t<string>          &kwd ) const;
+   string         meta  ( const meta_t<void>            &kwd ) const;
+   T              meta  ( const meta_t<variant<Ts...>>  &kwd ) const;
 
 Node::child()
-   const Node & child ( const string                  &str     ) const;
-   tnode<...,T> child ( const child_t<T>              &keyword ) const;
-   tnode<...,T> child ( const child_t<variant<Ts...>> &keyword ) const
+   const Node & child ( const string                  &str ) const;
+   tnode<...,T> child ( const child_t<T>              &kwd ) const;
+   tnode<...,T> child ( const child_t<variant<Ts...>> &kwd ) const
 
 Node::operator()()
-   decltype(auto) operator() ( const meta_t <T> &keyword             ) const;
-   decltype(auto) operator() ( const child_t<T> &keyword             ) const;
-   decltype(auto) operator() ( const child_t<T> &keyword, Ts &&...ts ) const;
+   decltype(auto) operator() ( const meta_t <T> &kwd             ) const;
+   decltype(auto) operator() ( const child_t<T> &kwd             ) const;
+   decltype(auto) operator() ( const child_t<T> &kwd, Ts &&...ts ) const;
 */

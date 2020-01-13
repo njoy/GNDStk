@@ -27,10 +27,10 @@ template<
    template<class...> class CCON
 >
 template<class T>
-inline decltype(auto) Tree<MCON,CCON>::meta(const meta_t<T> &keyword) const
+inline decltype(auto) Tree<MCON,CCON>::meta(const meta_t<T> &kwd) const
 {
    assert(root != nullptr);
-   return root->meta(keyword);
+   return root->meta(kwd);
 }
 
 
@@ -56,10 +56,10 @@ template<
 >
 template<class T, class META, class CHILD>
 inline decltype(auto) Tree<MCON,CCON>::child(
-   const child_t<T,META,CHILD> &keyword
+   const child_t<T,META,CHILD> &kwd
 ) const {
    assert(root != nullptr);
-   return root->child(keyword);
+   return root->child(kwd);
 }
 
 
@@ -74,9 +74,9 @@ template<
 >
 template<class T>
 inline decltype(auto) Tree<MCON,CCON>::operator()(
-   const meta_t<T> &keyword
+   const meta_t<T> &kwd
 ) const {
-   return meta(keyword);
+   return meta(kwd);
 }
 
 // child_t
@@ -86,9 +86,9 @@ template<
 >
 template<class T, class META, class CHILD>
 inline decltype(auto) Tree<MCON,CCON>::operator()(
-   const child_t<T,META,CHILD> &keyword
+   const child_t<T,META,CHILD> &kwd
 ) const {
-   return child(keyword);
+   return child(kwd);
 }
 
 // child_t, ...
@@ -98,10 +98,10 @@ template<
 >
 template<class T, class META, class CHILD, class... Ts>
 inline decltype(auto) Tree<MCON,CCON>::operator()(
-   const child_t<T,META,CHILD> &keyword,
+   const child_t<T,META,CHILD> &kwd,
    Ts &&...ts
 ) const {
-   return (*this)(keyword)(std::forward<Ts>(ts)...);
+   return (*this)(kwd)(std::forward<Ts>(ts)...);
 }
 
 
@@ -112,15 +112,15 @@ inline decltype(auto) Tree<MCON,CCON>::operator()(
 
 /*
 Tree::meta()
-   decltype(auto) meta  ( const string     &str     ) const;
-   decltype(auto) meta  ( const meta_t<T>  &keyword ) const;
+   decltype(auto) meta  ( const string     &str ) const;
+   decltype(auto) meta  ( const meta_t<T>  &kwd ) const;
 
 Tree::child()
-   decltype(auto) child ( const string     &str     ) const;
-   decltype(auto) child ( const child_t<T> &keyword ) const;
+   decltype(auto) child ( const string     &str ) const;
+   decltype(auto) child ( const child_t<T> &kwd ) const;
 
 Tree::operator()()
-   decltype(auto) operator() ( const meta_t <T> &keyword             ) const;
-   decltype(auto) operator() ( const child_t<T> &keyword             ) const;
-   decltype(auto) operator() ( const child_t<T> &keyword, Ts &&...ts ) const;
+   decltype(auto) operator() ( const meta_t <T> &kwd             ) const;
+   decltype(auto) operator() ( const child_t<T> &kwd             ) const;
+   decltype(auto) operator() ( const child_t<T> &kwd, Ts &&...ts ) const;
 */

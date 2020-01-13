@@ -19,12 +19,12 @@ class children {
 // -----------------------------------------------------------------------------
 // meta_t
 // child_t
-// Forward declarations, which we need for other constructs in this file.
+// Forward declarations, which we'll need for other constructs in this file.
 // -----------------------------------------------------------------------------
 
 // meta_t
 // The default template parameter, std::string, means to retrieve the metadatum
-// in its original form in the tree: as, well, a std::string.
+// in its original form in the tree: as a std::string.
 template<class T = std::string>
 class meta_t;
 
@@ -32,7 +32,7 @@ class meta_t;
 // The default template parameter, void, means to retrieve the child node
 // in its original form in the tree: as some variation of a Node<>. The precise
 // type thus received depends on the template parameters of the tree's Tree<>
-// type, as those parameters trickle down to the Tree<>'s Node<>s. The fact
+// type, as those parameters trickle down into the Tree<>'s Node<>s. The fact
 // that there's no fixed "node" type is why we use void for this meaning.
 template<class T = void, class METADATA=metadata<>, class CHILDREN=children<>>
 class child_t;

@@ -24,9 +24,10 @@
 #include <typeinfo>
 #include <variant>
 
-// sequence containers
+// sequence containers,
+// except array and
+// forward_list
 #include <deque>
-#include <forward_list>
 #include <list>
 #include <vector>
 

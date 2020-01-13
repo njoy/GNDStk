@@ -10,17 +10,17 @@ public:
    const std::string name;
 
    // ctor
-   explicit child_t(const std::string &n, const bool unused) : name(n)
+   explicit child_t(const std::string &n, const bool multiple) : name(n)
    {
-      (void)unused; // fixme Decide if we'll use this or not
+      (void)multiple; // fixme Decide if we'll use this or not
    }
 };
 
-// macros, for keyword building
-#define make_child_default(name,allow_multiple) \
-   inline const child_t<>  name(#name,allow_multiple)
-#define make_child(T,name,allow_multiple) \
-   inline const child_t<T> name(#name,allow_multiple)
+// macros, for child_t building
+#define make_child_default(name,multiple) \
+   inline const child_t<>  name(#name,multiple)
+#define make_child(T,name,multiple) \
+   inline const child_t<T> name(#name,multiple)
 
 
 

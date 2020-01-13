@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Macros, variables
+// Macros, variables, enums
 // -----------------------------------------------------------------------------
 
 // printval
@@ -16,6 +16,16 @@ inline int indent = 3;
 // verbose
 // Flag: should debug() actually print anything?
 inline bool verbose = false;
+
+// format
+enum class format {
+   unspecified,
+   xml,
+   json,
+   tree, Tree = tree
+   // Both "tree" and "Tree" are allowed, to be consistent with the fact that
+   // we have both classes: Tree (templated), and shorthand tree (is Tree<>).
+};
 
 
 

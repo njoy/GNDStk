@@ -28,9 +28,26 @@ public:
    explicit Tree(const json &jdoc) { convert(jdoc,*this); }
 
    // ctor: file, stream
-   explicit Tree(const char * const file) { read(file); }
-   explicit Tree(const std::string &file) { read(file); }
-   explicit Tree(std::istream &is) { read(is); }
+   explicit Tree(
+      const char * const file,
+      const format form = format::unspecified
+   ) {
+      read(file,form);
+   }
+
+   explicit Tree(
+      const std::string &file,
+      const format form = format::unspecified
+   ) {
+      read(file,form);
+   }
+
+   explicit Tree(
+      std::istream &is,
+      const format form = format::unspecified
+   ) {
+      read(is,form);
+   }
 
    // copy ctor
    Tree(const Tree &t)
@@ -69,14 +86,40 @@ public:
    }
 
    // read
-   bool read(const char * const file);
-   bool read(const std::string &file) { return read(file.c_str()); }
-   std::istream &read(std::istream &);
+   bool read(
+      const char * const file,
+      const format form = format::unspecified
+   );
+
+   bool read(
+      const std::string &file,
+      const format form = format::unspecified
+   ) {
+      return read(file.c_str(),form);
+   }
+
+   std::istream &read(
+      std::istream &,
+      const format form = format::unspecified
+   );
 
    // write
-   bool write(const char * const file) const;
-   bool write(const std::string &file) const { return write(file.c_str()); }
-   std::ostream &write(std::ostream &) const;
+   bool write(
+      const char * const file,
+      const format form = format::unspecified
+   ) const;
+
+   bool write(
+      const std::string &file,
+      const format form = format::unspecified
+   ) const {
+      return write(file.c_str(),form);
+   }
+
+   std::ostream &write(
+      std::ostream &,
+      const format form = format::unspecified
+   ) const;
 
    // normalize
    void normalize();
@@ -113,52 +156,111 @@ public:
 // read
 // -----------------------------------------------------------------------------
 
-// read(char *)
+// read(char *, format)
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline bool Tree<MCON,CCON>::read(const char * const file)
-{
-   // Note that this function makes use of the read(istream) function directly
-   // below. That function peeks at the first character to decide whether it's
-   // an xml or a json file. Alternatively, because we have the file *name* in
-   // the present function, we could guess the file type by looking at any file
-   // extension it has. However, I think that the below function's decision
-   // always gets the right answer, if the right answer exists.
+inline bool Tree<MCON,CCON>::read(
+   const char * const file,
+   const format form
+) {
+   // Clear current contents. Note that this will happen even if something
+   // below fails - which is reasonable behavior. Empty tree is a reminder
+   // that the attempt to read failed.
+   clear();
 
-   // calls read(istream) below
+   // format::tree: not allowed for read() (it's for *output* only)
+   if (form == format::tree) {
+      // fixme ERROR here; tree format is just for debug writing,
+      // and is not intended to be a full, working format.
+      return false;
+   }
+
+   // format::xml: warn if file name appears to be inconsistent w/XML
+   if (form == format::xml) {
+      if (!endsin(file,".xml") &&
+          !endsin(file,".XML")
+      ) {
+         // fixme Warning here
+      }
+   }
+
+   // format::json: warn if file name appears to be inconsistent w/JSON
+   if (form == format::json) {
+      if (!endsin(file,".jsn") && !endsin(file,".json") &&
+          !endsin(file,".JSN") && !endsin(file,".JSON")
+      ) {
+         // fixme Warning here
+      }
+   }
+
+   // Open file; error if fails
    std::ifstream ifs(file);
-   return !read(ifs).fail();
+   if (!ifs) {
+      // fixme ERROR here
+   }
+
+   // Call read(istream) below
+   return !read(ifs,form).fail();
 }
 
 
-// read(istream)
+
+// read(istream, format)
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-std::istream &Tree<MCON,CCON>::read(std::istream &is)
-{
-   // Chuck current contents. Note that this will happen even
-   // if the below read fails, which is a reasonable behavior.
-   // Empty tree == reminder that the attempt to read failed.
+std::istream &Tree<MCON,CCON>::read(
+   std::istream &is,
+   const format _form
+) {
+   // non-const
+   format form = _form;
+
+   // clear; comment as above
    clear();
 
-   // guess xml/json, then read and convert
+   // tree format: not allowed for read
+   if (form == format::tree) {
+      // fixme ERROR here; tree format is just for debug writing,
+      // and is not intended to be a full, working format.
+      return is;
+   }
+
+   // Print a warning if the stipulated form, and the contents
+   // of the file, appear to be inconsistent with one another.
    if (is.peek() == '<') {
+      if (form == format::unspecified) form = format::xml;
+      if (form != format::xml) {
+         // fixme Warning
+      }
+   } else {
+      if (form == format::unspecified) form = format::json;
+      if (form != format::json) {
+         // fixme Warning
+      }
+   }
+
+   // guess xml/json, then read and convert
+   if (form == format::xml) {
       // assume .xml
       // go through a temporary xml object to create the tree...
       const xml x(is);
       if (!is.fail())
          convert(x, *this);
    } else {
+      // because of our own logic above
+      assert(form == format::json);
+
       // assume .json
       // go through a temporary json object to create the tree...
       const json j(is);
+
       // It would seem that the nlohmann::json stream input operation,
       // which is used by the constructor we just called, sets failbit
-      // in instances in which it should just set eofbit!! So, for now,
+      // in instances in which it should just set eofbit. So, for now,
       // we'll comment-out the !is.fail() test... :-/
       // if (!is.fail())
       convert(j, *this);
@@ -169,14 +271,17 @@ std::istream &Tree<MCON,CCON>::read(std::istream &is)
 }
 
 
+
 // operator>>
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline std::istream &operator>>(std::istream &is, Tree<MCON,CCON> &obj)
-{
-   // calls read(istream) above
+inline std::istream &operator>>(
+   std::istream &is,
+   Tree<MCON,CCON> &obj
+) {
+   // Call read(istream) above
    return obj.read(is);
 }
 
@@ -186,29 +291,74 @@ inline std::istream &operator>>(std::istream &is, Tree<MCON,CCON> &obj)
 // write
 // -----------------------------------------------------------------------------
 
-// write(char *)
+// write(char *, format)
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline bool Tree<MCON,CCON>::write(const char * const file) const
-{
-   // calls write(ostream) below
+inline bool Tree<MCON,CCON>::write(
+   const char * const file,
+   const format form
+) const {
+   // format::xml: warn if file name appears to be inconsistent w/XML
+   if (form == format::xml) {
+      if (!endsin(file,".xml") &&
+          !endsin(file,".XML")
+      ) {
+         // fixme Warning here
+      }
+   }
+
+   // format::json: warn if file name appears to be inconsistent w/JSON
+   if (form == format::json) {
+      if (!endsin(file,".jsn") && !endsin(file,".json") &&
+          !endsin(file,".JSN") && !endsin(file,".JSON")
+      ) {
+         // fixme Warning here
+      }
+   }
+
+   // Open file; error if fails
    std::ofstream ofs(file);
-   return !write(ofs).fail();
+   if (!ofs) {
+      // fixme ERROR here
+   }
+
+   // Call write(ostream) below
+   return !write(ofs,form).fail();
 }
 
 
-// write(ostream)
+
+// write(ostream, format)
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline std::ostream &Tree<MCON,CCON>::write(std::ostream &os) const
-{
+inline std::ostream &Tree<MCON,CCON>::write(
+   std::ostream &os,
+   const format form
+) const {
+
+   // format::xml?
+   if (form == format::xml) {
+      // write via a temporary xml object...
+      gnds::xml(*this).write(os);
+      return os;
+   }
+
+   // format::json?
+   if (form == format::json) {
+      // write via a temporary json object...
+      gnds::json(*this).write(os);
+      return os;
+   }
+
+   // else
    if (root) root->write(os,0);
    return os;
 }
+
 
 
 // operator<<
@@ -216,9 +366,11 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline std::ostream &operator<<(std::ostream &os, const Tree<MCON,CCON> &obj)
-{
-   // calls write(ostream) above
+inline std::ostream &operator<<(
+   std::ostream &os,
+   const Tree<MCON,CCON> &obj
+) {
+   // Call write(ostream) above
    return obj.write(os);
 }
 
