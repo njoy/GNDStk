@@ -43,6 +43,7 @@ namespace gnds {
 
 // utility
 #include "gnds-misc.hpp"
+#include "gnds-diagnostic.hpp"
 
 // library wrappers
 #include "gnds-wrapper-xml.hpp"

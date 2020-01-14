@@ -33,7 +33,7 @@ enum class format {
 // Forward declarations: general
 // -----------------------------------------------------------------------------
 
-// fixme With some reorganization elsewhere, some of these may not be necessary
+// fixme Some reorg elsewhere may make some of these unnecessary
 
 // Node, node
 template<

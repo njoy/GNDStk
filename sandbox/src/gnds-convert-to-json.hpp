@@ -106,6 +106,7 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::json &jdoc)
 }
 
 
+
 // xml ==> json
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this issue if this becomes more of an issue.
@@ -118,14 +119,16 @@ inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
 }
 
 
+
 // json ==> json
 // For completeness
 inline bool convert(const gnds::json &from, gnds::json &to)
 {
-   if (&from == &to)
-      return true;
-   to.clear();
+   if (&from != &to) {
+      to.clear();
 
-   to.doc = from.doc;
+      // We can use nlohmann::json's assignment.
+      to.doc = from.doc;
+   }
    return true;
 }
