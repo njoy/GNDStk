@@ -3,13 +3,13 @@
 Summary of functions in this file:
 
 namespace detail {
-   1. xnode2node ( pugi::xml_node,                 gnds::Node)
+   1. xnode2Node ( pugi::xml_node,                 gnds::Node)
       ...calls (1) (itself)
 
    2. xml2Tree   ( gnds::xml,                      gnds::Tree)
       ...calls (1)
 
-   3. jiter2node ( nlohmann::json::const_iterator, gnds::Node)
+   3. jiter2Node ( nlohmann::json::const_iterator, gnds::Node)
       ...calls (3) (itself)
 
    4. json2Tree  ( gnds::json,                     gnds::Tree)
@@ -38,7 +38,7 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-bool xnode2node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
+bool xnode2Node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
 {
    // name
    node.name = xnode.name();
@@ -104,8 +104,9 @@ bool xnode2node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
 
       assert(xsub.type() == pugi::node_element);
       debug("new node");
-      auto &back = node.push(new Node<MCON,CCON>);
-      if (!xnode2node(xsub,back))
+      ///auto &back = node.push(new Node<MCON,CCON>);
+      auto &back = node.push();
+      if (!xnode2Node(xsub,back))
          return false;
    }
 
@@ -122,10 +123,10 @@ template<
 >
 bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
 {
-   // prepare output
+   // clear
    tree.clear();
 
-   // visit the xml document's nodes
+   // visit the xml's nodes
    int count = 0;
    for (const pugi::xml_node &xnode : xdoc.doc.children()) {
       if (count == 0) {
@@ -136,16 +137,17 @@ bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
          tree.root = std::make_shared<Node<MCON,CCON>>();
          tree.root->name = "xml"; // indicates that we came from a xml
 
-         // base document "attributes", e.g. version and encoding
+         // base xml "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &xattr : xnode.attributes())
             tree.root->push(xattr.name(), xattr.value());
       }
 
       if (count == 1) {
-         // visit the document's outer node, and its descendants
+         // visit the xml's outer node, and its descendants
          debug("new node");
-         auto &back = tree.root->push(new Node<MCON,CCON>);
-         if (!detail::xnode2node(xnode,back))
+         ///auto &back = tree.root->push(new Node<MCON,CCON>);
+         auto &back = tree.root->push();
+         if (!detail::xnode2Node(xnode,back))
             return false;
       }
 
@@ -177,7 +179,7 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-bool jiter2node(
+bool jiter2Node(
    const nlohmann::json::const_iterator &jiter,
    gnds::Node<MCON,CCON> &node
 ) {
@@ -195,13 +197,15 @@ bool jiter2node(
          // if the .json file was created, earlier, based on an .xml
          // file with a construct like <RutherfordScattering/>, i.e.
          // with /> to end the element immediately.
-         auto &back = node.push(new Node<MCON,CCON>);
+         ///auto &back = node.push(new Node<MCON,CCON>);
+         auto &back = node.push();
          back.name = sub.key();
       } else if (sub->is_object()) {
          // The current node has a child node *other* than as above.
          debug("new node");
-         auto &back = node.push(new Node<MCON,CCON>);
-         if (!jiter2node(sub,back))
+         ///auto &back = node.push(new Node<MCON,CCON>);
+         auto &back = node.push();
+         if (!jiter2Node(sub,back))
             return false;
       } else {
          // The current node has this as a key/value metadata pair...
@@ -222,24 +226,65 @@ template<
 >
 bool json2Tree(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
 {
-   // prepare output
+   // clear
    tree.clear();
 
-   // initialize base document
+   // initialize root
    tree.root = std::make_shared<Node<MCON,CCON>>();
    tree.root->name = "json"; // indicates that we came from a json
 
-   // visit the document's outer node, and its descendants
+   // visit the json's outer node, and its descendants
    for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem) {
       debug("new node");
-      auto &back = tree.root->push(new Node<MCON,CCON>);
-      if (!detail::jiter2node(elem,back))
+      ///auto &back = tree.root->push(new Node<MCON,CCON>);
+      auto &back = tree.root->push();
+      if (!detail::jiter2Node(elem,back))
          return false;
    }
 
    // done
    tree.normalize();
    return true;
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// Helper for tree-to-tree convert
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// Node ==> Node
+template<
+   template<class...> class MCONFROM,
+   template<class...> class CCONFROM,
+   template<class...> class MCONTO,
+   template<class...> class CCONTO
+>
+inline void Node2Node(
+   const gnds::Node<MCONFROM,CCONFROM> &from,
+   gnds::Node<MCONTO,CCONTO> &to
+) {
+   // name
+   to.name = from.name;
+
+   // metadata
+   for (auto &m : from.metadata)
+      to.push(m.first,m.second);
+
+   // children
+   for (auto &c : from.children) {
+      if (c)
+         ///Node2Node(*c, to.push(new Node<MCONTO,CCONTO>));
+         Node2Node(*c, to.push());
+      /*
+      else
+         to.push(nullptr);
+      */
+   }
 }
 
 } // namespace detail
@@ -263,15 +308,20 @@ inline bool convert(
    const gnds::Tree<MCONFROM,CCONFROM> &from,
    gnds::Tree<MCONTO,CCONTO> &to
 ) {
-   if ((void*)&from == (void*)&to)
+   // casts needed here because template arguments may be different...
+   if ((void*)&to == (void*)&from)
       return true;
+
+   // clear
    to.clear();
 
-   (void)from;
-   (void)to;
+   // convert
+   if (from.root) {
+      to.root = std::make_shared<Node<MCONTO,CCONTO>>();
+      detail::Node2Node(*from.root, *to.root);
+   }
 
-   // fixme write this
-   assert(false);
+   // done
    return true;
 }
 

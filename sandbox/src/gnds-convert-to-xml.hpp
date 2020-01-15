@@ -13,7 +13,7 @@ fixme write this
 
 namespace detail {
 
-// node2xml
+// Node2xml
 // fixme write this
 
 } // namespace detail
@@ -31,14 +31,15 @@ template<
 >
 bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
 {
-   (void)tree;
-
-   // prepare output
+   // clear
    xdoc.clear();
 
    // convert
    // fixme write this
-   assert(false);
+   if (tree.root) {
+      (void)tree;
+      assert(false);
+   }
 
    // done
    return true;
@@ -50,29 +51,33 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
 // For completeness
 inline bool convert(const gnds::xml &from, gnds::xml &to)
 {
-   if (&from != &to) {
-      to.clear();
+   if (&to == &from)
+      return true;
 
-      // Unfortunately, we can't use pugi::xml_document's assignment, or for
-      // that matter its copy constructor, because, for whatever reason, the
-      // pugi library makes those private. (And, perhaps, those have shallow-
-      // copy semantics, too. I haven't checked into that, because we can't
-      // use those anyway.) For now, I'll write something simple that works,
-      // albeit not very efficiently: write "from" to a stringstream, then
-      // read "to" out of the stringstream. The GNDS documents that I've seen
-      // so far aren't large enough to make this untenable. We can revisit
-      // this issue if and when it's necessary to be more efficient.
+   // clear
+   to.clear();
 
-      // ...write to a stringstream
-      const int indent = gnds::indent; // backup
-      gnds::indent = 0; // <== to save a bit of space
-      std::stringstream ss;
-      from.write(ss);
-      gnds::indent = indent; // restore
+   // Unfortunately, we can't use pugi::xml_document's assignment, or for
+   // that matter its copy constructor, because, for whatever reason, the
+   // pugi library makes those private. (And, perhaps, those have shallow-
+   // copy semantics, too. I haven't checked into that, because we can't
+   // use those anyway.) For now, I'll write something simple that works,
+   // albeit not very efficiently: write "from" to a stringstream, then
+   // read "to" out of the stringstream. The GNDS documents that I've seen
+   // so far aren't large enough to make this untenable. We can revisit
+   // this issue if and when it's necessary to be more efficient.
 
-      // ...read from the stringstream
-      to.read(ss);
-   }
+   // backup indentation
+   const int indent = gnds::indent;
+   gnds::indent = 0; // to save a bit of space in the stringstream
+
+   // from ==> stringstream ==> to
+   std::stringstream ss;
+   from.write(ss);
+   to.read(ss);
+
+   // restore indentation
+   gnds::indent = indent;
 
    // done
    return true;

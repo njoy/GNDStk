@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // Node (templated)
-// node (not)
+// Then node = Node<>
 // -----------------------------------------------------------------------------
 
 template<
@@ -10,7 +10,7 @@ template<
 >
 class Node {
    using pair = std::pair<std::string,std::string>;
-   using pointer = std::shared_ptr<Node>;
+   using sptr = std::shared_ptr<Node>;
 
 public:
 
@@ -19,8 +19,8 @@ public:
    //    metadata
    //    children
    std::string name;
-   MCON<pair,   std::allocator<pair   >> metadata;
-   CCON<pointer,std::allocator<pointer>> children;
+   MCON<pair,std::allocator<pair>> metadata;
+   CCON<sptr,std::allocator<sptr>> children;
 
    // push metadatum
    auto &push(const std::string &key, const std::string &value)
@@ -30,11 +30,20 @@ public:
    }
 
    // push child
-   Node &push(Node *const cptr)
+   Node &push()
    {
-      children.push_back(pointer(cptr));
+      children.push_back(std::make_shared<Node<MCON,CCON>>());
       return *children.back();
    }
+
+   /*
+   // push child
+   Node &push(Node *const cptr)
+   {
+      children.push_back(sptr(cptr));
+      return *children.back();
+   }
+   */
 
    // write
    bool write(const char * const file, const int level = 0) const;

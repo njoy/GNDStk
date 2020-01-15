@@ -45,8 +45,7 @@ public:
    // copy assignment
    xml &operator=(const xml &x)
    {
-      if (&x != this)
-         convert(x,*this);
+      convert(x,*this);
       return *this;
    }
 

@@ -1,6 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Tree
+// Tree (templated)
+// Then tree = Tree<>
 // -----------------------------------------------------------------------------
 
 template<
@@ -58,8 +59,7 @@ public:
    // copy assignment
    Tree &operator=(const Tree &t)
    {
-      if (&t != this)
-         convert(t,*this);
+      convert(t,*this);
       return *this;
    }
 
@@ -80,8 +80,7 @@ public:
    >
    Tree &operator=(const Tree<MCONTO,CCONTO> &t)
    {
-      if (&t != this)
-         convert(t,*this);
+      convert(t,*this);
       return *this;
    }
 

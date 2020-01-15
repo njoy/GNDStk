@@ -5,7 +5,7 @@ Summary of functions in this file:
 namespace detail {
    1. prefix(unsigned long)
 
-   2. node2json(gnds::Node, nlohmann::json, unsigned long)
+   2. Node2json(gnds::Node, nlohmann::json, unsigned long)
       ...calls (1)
 }
 
@@ -35,12 +35,12 @@ inline std::string prefix(const unsigned long n)
 
 
 
-// node2json
+// Node2json
 template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-bool node2json(
+bool Node2json(
    const gnds::Node<MCON,CCON> &node,
    nlohmann::json &j,
    unsigned long &kwdcount
@@ -67,7 +67,7 @@ bool node2json(
 
    // children
    for (auto &child : node.children)
-      if (child && !node2json(*child, j[nodename], kwdcount))
+      if (child && !Node2json(*child, j[nodename], kwdcount))
          return false;
 
    // done
@@ -89,7 +89,7 @@ template<
 >
 bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::json &jdoc)
 {
-   // prepare output
+   // clear
    jdoc.clear();
 
    // convert
@@ -98,7 +98,7 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::json &jdoc)
       unsigned long kwdcount = 0;
       assert(node.children.size() == 1);  // e.g. reactionSuite
       assert(*node.children.begin() != nullptr);
-      return detail::node2json(**node.children.begin(), jdoc.doc, kwdcount);
+      return detail::Node2json(**node.children.begin(), jdoc.doc, kwdcount);
    }
 
    // done
@@ -124,11 +124,10 @@ inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
 // For completeness
 inline bool convert(const gnds::json &from, gnds::json &to)
 {
-   if (&from != &to) {
-      to.clear();
+   if (&to == &from)
+      return true;
 
-      // We can use nlohmann::json's assignment.
-      to.doc = from.doc;
-   }
+   to.clear();
+   to.doc = from.doc; // nlohmann::json's assignment
    return true;
 }
