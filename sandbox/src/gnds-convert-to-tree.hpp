@@ -1,28 +1,32 @@
 
 /*
-Summary of functions in this file:
+Summary of the functions in this file:
 
 namespace detail {
    1. xnode2Node ( pugi::xml_node,                 gnds::Node)
-      ...calls (1) (itself)
+      ...uses (1) (itself)
 
    2. xml2Tree   ( gnds::xml,                      gnds::Tree)
-      ...calls (1)
+      ...uses (1)
 
    3. jiter2Node ( nlohmann::json::const_iterator, gnds::Node)
-      ...calls (3) (itself)
+      ...uses (3) (itself)
 
    4. json2Tree  ( gnds::json,                     gnds::Tree)
-      ...calls (3)
+      ...uses (3)
+
+   5. Node2Node  ( gnds::Node,                     gnds::Node)
+      ...uses (5) (itself)
 }
 
-5. convert(gnds::Tree, gnds::Tree)
+6. convert(gnds::Tree, gnds::Tree)
+   ...uses (5)
 
-6. convert(gnds::xml,  gnds::Tree)
-   ...calls (2)
+7. convert(gnds::xml,  gnds::Tree)
+   ...uses (2)
 
-7. convert(gnds::json, gnds::Tree)
-   ...calls (4)
+8. convert(gnds::json, gnds::Tree)
+   ...uses (4)
 */
 
 
@@ -103,10 +107,7 @@ bool xnode2Node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
       // ------------------------
 
       assert(xsub.type() == pugi::node_element);
-      debug("new node");
-      ///auto &back = node.push(new Node<MCON,CCON>);
-      auto &back = node.push();
-      if (!xnode2Node(xsub,back))
+      if (!xnode2Node(xsub,node.push()))
          return false;
    }
 
@@ -144,10 +145,7 @@ bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
 
       if (count == 1) {
          // visit the xml's outer node, and its descendants
-         debug("new node");
-         ///auto &back = tree.root->push(new Node<MCON,CCON>);
-         auto &back = tree.root->push();
-         if (!detail::xnode2Node(xnode,back))
+         if (!xnode2Node(xnode,tree.root->push()))
             return false;
       }
 
@@ -197,15 +195,10 @@ bool jiter2Node(
          // if the .json file was created, earlier, based on an .xml
          // file with a construct like <RutherfordScattering/>, i.e.
          // with /> to end the element immediately.
-         ///auto &back = node.push(new Node<MCON,CCON>);
-         auto &back = node.push();
-         back.name = sub.key();
+         node.push().name = sub.key();
       } else if (sub->is_object()) {
          // The current node has a child node *other* than as above.
-         debug("new node");
-         ///auto &back = node.push(new Node<MCON,CCON>);
-         auto &back = node.push();
-         if (!jiter2Node(sub,back))
+         if (!jiter2Node(sub,node.push()))
             return false;
       } else {
          // The current node has this as a key/value metadata pair...
@@ -234,13 +227,9 @@ bool json2Tree(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
    tree.root->name = "json"; // indicates that we came from a json
 
    // visit the json's outer node, and its descendants
-   for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem) {
-      debug("new node");
-      ///auto &back = tree.root->push(new Node<MCON,CCON>);
-      auto &back = tree.root->push();
-      if (!detail::jiter2Node(elem,back))
+   for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem)
+      if (!jiter2Node(elem,tree.root->push()))
          return false;
-   }
 
    // done
    tree.normalize();
@@ -273,18 +262,12 @@ inline void Node2Node(
 
    // metadata
    for (auto &m : from.metadata)
-      to.push(m.first,m.second);
+      to.push(m);
 
    // children
-   for (auto &c : from.children) {
+   for (auto &c : from.children)
       if (c)
-         ///Node2Node(*c, to.push(new Node<MCONTO,CCONTO>));
          Node2Node(*c, to.push());
-      /*
-      else
-         to.push(nullptr);
-      */
-   }
 }
 
 } // namespace detail

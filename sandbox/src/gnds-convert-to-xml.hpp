@@ -1,6 +1,6 @@
 
 /*
-Summary of functions in this file:
+Summary of the functions in this file:
 
 fixme write this
 */
@@ -14,7 +14,87 @@ fixme write this
 namespace detail {
 
 // Node2xml
-// fixme write this
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+bool Node2xml(
+   const gnds::Node<MCON,CCON> &node,
+   pugi::xml_node &x
+) {
+   /**/
+   /**/
+   /*
+   std::cout << "   " << node.name << std::endl;
+   for (auto &m : node.metadata)
+      std::cout
+         << "   \""
+         << m.first << "\", \"" << m.second << '"' << std::endl;
+   for (auto &c : node.children)
+      std::cout << "   " << c->name << std::endl;
+   */
+   /**/
+   /**/
+
+   // name
+   pugi::xml_node xnode = x.append_child(node.name.c_str());
+
+   // metadata
+   for (auto &meta : node.metadata) {
+      if (meta.first == "comment") {
+///nope         assert(node.children.size() == 0); /// correct?
+         // comment
+         xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
+      } else if (meta.first == "text") {
+         assert(node.children.size() == 0); /// correct?
+         // CDATA
+         xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
+      } else if (meta.first == "body") {
+         assert(node.children.size() == 0); /// correct?
+         // PCDATA
+         xnode.append_child(pugi::node_pcdata).set_value(meta.second.c_str());
+      } else {
+         // regular element
+         xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
+      }
+   }
+
+   // children
+   bool ret = true;
+   for (auto &child : node.children)
+      ret = ret && Node2xml(*child, xnode);
+
+   // done
+   return ret;
+
+   /*
+   // fixme Remove this eventually; was from tree-to-json code, for comparison
+   // name
+   // The effect of j[nodename] is to enter a key of this name into the json
+   // object. Generally, this is triggered automatically in the body of one
+   // and/or the other of the upcoming metadata and children loops. However,
+   // consider a node that has no metadata or children; then, we need this.
+   // An example is <RutherfordScattering/> in some of our GNDS XML files,
+   // as it contains neither metadata nor children.
+   const std::string nodename = prefix(kwdcount++) + node.name;
+   j[nodename];
+
+   // metadata
+   if (node.metadata.size() > 0) {
+      // ...because we only want the kwdcount ++ side effect if size() > 0
+      const std::string attrname = prefix(kwdcount++) + "attributes";
+      // visit
+      for (auto &meta : node.metadata)
+         j[nodename][attrname][prefix(kwdcount++) + meta.first] =
+            meta.second;
+   }
+
+   // children
+   for (auto &child : node.children)
+      if (child && !Node2json(*child, j[nodename], kwdcount))
+         return false;
+   */
+}
 
 } // namespace detail
 
@@ -35,10 +115,46 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
    xdoc.clear();
 
    // convert
-   // fixme write this
    if (tree.root) {
-      (void)tree;
-      assert(false);
+      const gnds::Node<MCON,CCON> &node = *tree.root;
+
+      // ------------------------
+      // root node
+      // ------------------------
+
+      // The way we're storing things in our tree structure, this might contain
+      // the following if the tree was built from an xml:
+      //
+      //    name: "xml"
+      //    metadata:
+      //       "version", "1.0"
+      //       "encoding", "UTF-8"
+      //    children:
+      //       just one, e.g. "reactionSuite"
+      //
+      // or the following if the tree was built from a json:
+      //
+      //    name: "json"
+      //    metadata:
+      //       (nothing; empty container)
+      //    children:
+      //       just one, e.g. "reactionSuite"
+      //
+      // or something else if the tree was built in another manner. (The ability
+      // to do that isn't something we've written yet.)
+
+      // declaration node
+      pugi::xml_node decl = xdoc.doc.append_child(pugi::node_declaration);
+      for (auto &meta : node.metadata)
+         decl.append_attribute(meta.first.c_str()) = meta.second.c_str();
+
+      // ------------------------
+      // children
+      // ------------------------
+
+      assert(node.children.size() == 1);  // e.g. reactionSuite
+      assert(*node.children.begin() != nullptr);
+      return detail::Node2xml(**node.children.begin(), xdoc.doc);
    }
 
    // done
@@ -65,7 +181,7 @@ inline bool convert(const gnds::xml &from, gnds::xml &to)
    // albeit not very efficiently: write "from" to a stringstream, then
    // read "to" out of the stringstream. The GNDS documents that I've seen
    // so far aren't large enough to make this untenable. We can revisit
-   // this issue if and when it's necessary to be more efficient.
+   // this issue if and when it becomes necessary to be more efficient.
 
    // backup indentation
    const int indent = gnds::indent;

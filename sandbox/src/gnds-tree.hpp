@@ -171,8 +171,8 @@ inline bool Tree<MCON,CCON>::read(
 
    // format::tree: not allowed for read() (it's for *output* only)
    if (form == format::tree) {
-      // fixme ERROR here; tree format is just for debug writing,
-      // and is not intended to be a full, working format.
+      // fixme ERROR here; tree format is intended only for debug writing,
+      // and isn't a full, working format.
       return false;
    }
 
@@ -223,8 +223,8 @@ std::istream &Tree<MCON,CCON>::read(
 
    // tree format: not allowed for read
    if (form == format::tree) {
-      // fixme ERROR here; tree format is just for debug writing,
-      // and is not intended to be a full, working format.
+      // fixme ERROR here; tree format is intended only for debug writing,
+      // and isn't a full, working format.
       return is;
    }
 
@@ -422,7 +422,7 @@ void normalize(Node<MCON,CCON> &node)
 
          // Restore the metadata
          for (auto &m : (*c)->metadata)
-            node.push(m.first,m.second);
+            node.push(m);
 
       } else if (endsin((*c)->name, "_attr")) {
          assert(false); // for now
@@ -451,7 +451,8 @@ void normalize(Node<MCON,CCON> &node)
    if (iter != node.children.end())
       node.children.erase(iter);
 
-   // metadata (including any new ones from an "attributes" child as above)
+   // metadata, including any additional ones from an "attributes"
+   // child as described above
    for (auto &meta : node.metadata)
       strip(meta.first);
 }

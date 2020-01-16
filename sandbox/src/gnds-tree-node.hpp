@@ -23,9 +23,15 @@ public:
    CCON<sptr,std::allocator<sptr>> children;
 
    // push metadatum
-   auto &push(const std::string &key, const std::string &value)
+   pair &push(const std::string &key, const std::string &value)
    {
       metadata.push_back(std::make_pair(key,value));
+      return metadata.back();
+   }
+
+   pair &push(const pair &m)
+   {
+      metadata.push_back(m);
       return metadata.back();
    }
 
@@ -35,15 +41,6 @@ public:
       children.push_back(std::make_shared<Node<MCON,CCON>>());
       return *children.back();
    }
-
-   /*
-   // push child
-   Node &push(Node *const cptr)
-   {
-      children.push_back(sptr(cptr));
-      return *children.back();
-   }
-   */
 
    // write
    bool write(const char * const file, const int level = 0) const;

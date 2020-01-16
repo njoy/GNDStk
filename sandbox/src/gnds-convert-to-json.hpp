@@ -1,18 +1,19 @@
 
 /*
-Summary of functions in this file:
+Summary of the functions in this file:
 
 namespace detail {
    1. prefix(unsigned long)
 
    2. Node2json(gnds::Node, nlohmann::json, unsigned long)
-      ...calls (1)
+      ...uses (1)
 }
 
 3. convert(gnds::Tree, gnds::json)
-   ...calls (2)
+   ...uses (2)
 
 4. convert(gnds::xml,  gnds::json)
+   ...uses (3)
 
 5. convert(gnds::json, gnds::json)
 */
