@@ -2,7 +2,18 @@
 /*
 Summary of the functions in this file:
 
-fixme write this
+namespace detail {
+   1. Node2xml(gnds::Node, pugi::xml_node)
+      ...uses (1) (itself)
+}
+
+2. convert(gnds::Tree, gnds::xml)
+   ...uses (1)
+
+3. convert(gnds::xml, gnds::xml)
+
+4. convert(gnds::json, gnds::xml)
+   ...uses (2)
 */
 
 
@@ -22,78 +33,42 @@ bool Node2xml(
    const gnds::Node<MCON,CCON> &node,
    pugi::xml_node &x
 ) {
-   /**/
-   /**/
-   /*
-   std::cout << "   " << node.name << std::endl;
-   for (auto &m : node.metadata)
-      std::cout
-         << "   \""
-         << m.first << "\", \"" << m.second << '"' << std::endl;
-   for (auto &c : node.children)
-      std::cout << "   " << c->name << std::endl;
-   */
-   /**/
-   /**/
-
    // name
    pugi::xml_node xnode = x.append_child(node.name.c_str());
 
    // metadata
    for (auto &meta : node.metadata) {
-      if (meta.first == "comment") {
-///nope         assert(node.children.size() == 0); /// correct?
-         // comment
-         xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
-      } else if (meta.first == "text") {
-         assert(node.children.size() == 0); /// correct?
-         // CDATA
-         xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
-      } else if (meta.first == "body") {
-         assert(node.children.size() == 0); /// correct?
-         // PCDATA
+      // PCDATA
+      if (meta.first == keyword_pcdata) {
+         assert(node.children.size() == 0);
          xnode.append_child(pugi::node_pcdata).set_value(meta.second.c_str());
-      } else {
-         // regular element
-         xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
+         continue;
       }
+
+      // CDATA
+      if (meta.first == keyword_cdata) {
+         assert(node.children.size() == 0);
+         xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
+         continue;
+      }
+
+      // comment
+      if (meta.first == keyword_comment) {
+         xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
+         continue;
+      }
+
+      // regular element
+      xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
    }
 
    // children
-   bool ret = true;
    for (auto &child : node.children)
-      ret = ret && Node2xml(*child, xnode);
+      if (child && !Node2xml(*child, xnode))
+         return false;
 
    // done
-   return ret;
-
-   /*
-   // fixme Remove this eventually; was from tree-to-json code, for comparison
-   // name
-   // The effect of j[nodename] is to enter a key of this name into the json
-   // object. Generally, this is triggered automatically in the body of one
-   // and/or the other of the upcoming metadata and children loops. However,
-   // consider a node that has no metadata or children; then, we need this.
-   // An example is <RutherfordScattering/> in some of our GNDS XML files,
-   // as it contains neither metadata nor children.
-   const std::string nodename = prefix(kwdcount++) + node.name;
-   j[nodename];
-
-   // metadata
-   if (node.metadata.size() > 0) {
-      // ...because we only want the kwdcount ++ side effect if size() > 0
-      const std::string attrname = prefix(kwdcount++) + "attributes";
-      // visit
-      for (auto &meta : node.metadata)
-         j[nodename][attrname][prefix(kwdcount++) + meta.first] =
-            meta.second;
-   }
-
-   // children
-   for (auto &child : node.children)
-      if (child && !Node2json(*child, j[nodename], kwdcount))
-         return false;
-   */
+   return true;
 }
 
 } // namespace detail
@@ -122,15 +97,15 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
       // root node
       // ------------------------
 
-      // The way we're storing things in our tree structure, this might contain
-      // the following if the tree was built from an xml:
+      // The way we're storing things in our tree structure, this might
+      // contain e.g. the following if the tree was built from an xml:
       //
       //    name: "xml"
       //    metadata:
-      //       "version", "1.0"
+      //       "version",  "1.0"
       //       "encoding", "UTF-8"
       //    children:
-      //       just one, e.g. "reactionSuite"
+      //       just one, e.g. "reactionSuite" or "PoPs"
       //
       // or the following if the tree was built from a json:
       //
@@ -138,12 +113,12 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
       //    metadata:
       //       (nothing; empty container)
       //    children:
-      //       just one, e.g. "reactionSuite"
+      //       just one, e.g. "reactionSuite" or "PoPs"
       //
-      // or something else if the tree was built in another manner. (The ability
-      // to do that isn't something we've written yet.)
+      // or something else if the tree was built in another manner.
 
       // declaration node
+      // That's the thing like this: <?xml version="1.0" encoding="UTF-8"?>
       pugi::xml_node decl = xdoc.doc.append_child(pugi::node_declaration);
       for (auto &meta : node.metadata)
          decl.append_attribute(meta.first.c_str()) = meta.second.c_str();
@@ -152,8 +127,12 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
       // children
       // ------------------------
 
-      assert(node.children.size() == 1);  // e.g. reactionSuite
+      // fixme Everywhere, checks like the following should
+      // eventually be handled by something better than asserts
+      assert(node.children.size() == 1);  // e.g. reactionSuite or PoPs
       assert(*node.children.begin() != nullptr);
+
+      // one * for the begin() iterator, another for the shared_ptr
       return detail::Node2xml(**node.children.begin(), xdoc.doc);
    }
 
@@ -185,7 +164,7 @@ inline bool convert(const gnds::xml &from, gnds::xml &to)
 
    // backup indentation
    const int indent = gnds::indent;
-   gnds::indent = 0; // to save a bit of space in the stringstream
+   gnds::indent = 0; // saves space in the stringstream
 
    // from ==> stringstream ==> to
    std::stringstream ss;

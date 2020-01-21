@@ -138,6 +138,21 @@ bool convert(const gnds::json &, gnds::json &);
 
 
 // -----------------------------------------------------------------------------
+// Some string constants
+// -----------------------------------------------------------------------------
+
+// For pugi::xml_node_types { node_pcdata, node_cdata, node_comment }
+inline const std::string keyword_pcdata  = "body";
+inline const std::string keyword_cdata   = "text";
+inline const std::string keyword_comment = "comment";
+
+// Aliases
+inline const std::string &keyword_body = keyword_pcdata;
+inline const std::string &keyword_text = keyword_cdata;
+
+
+
+// -----------------------------------------------------------------------------
 // Utility constructs
 // The functions here could possibly go into the detail namespace, but could
 // arguably be useful, in their own right, to users. So, I'll leave them out

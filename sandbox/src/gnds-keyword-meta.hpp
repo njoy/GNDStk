@@ -133,26 +133,26 @@ make_meta(std::string, decayRate); // seems to always have double and "1/s"
 namespace meta {
 
 // ------------------------
-// Goofy string-key cases
-// must have !goofy names
+// pcdata, a.k.a. body
+// cdata,  a.k.a. text
+// comment
 // ------------------------
 
 // fixme These may actually arrive with different keys if we've read from a
 // Json (not XML) file - at least an original one, not created from an XML.
-// Think about how we'll handle that. (Maybe allow for multiple keys?)
+// Figure out what we'd be getting in this case.
+
+// pcdata, body
+// fixme: This should be made more general, not just vector<double>
+inline const meta_t<std::vector<double>> pcdata(keyword_pcdata);
+inline const meta_t<std::vector<double>> body  (keyword_body  );
+
+// cdata, text
+inline const meta_t<std::string> cdata(keyword_cdata);
+inline const meta_t<std::string> text (keyword_text );
 
 // comment
-inline const meta_t<std::string>
-comment("<!--");
-
-// text
-inline const meta_t<std::string>
-text("![CDATA[");
-
-// body
-// fixme: This should be made more general, not just vector<double>
-inline const meta_t<std::vector<double>>
-body("![PCDATA[");
+inline const meta_t<std::string> comment(keyword_comment);
 
 
 // ------------------------

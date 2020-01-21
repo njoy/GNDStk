@@ -35,6 +35,27 @@ namespace detail {
 // Helpers for xml-related converts
 // -----------------------------------------------------------------------------
 
+/*
+FYI, here's the pugixml code for pugi::xml_node_type:
+
+namespace pugi
+{
+   // Tree node types
+   enum xml_node_type
+   {
+      node_null,        // Empty (null) node handle
+      node_document,    // A document tree's absolute root
+      node_element,     // Element tag, i.e. '<node/>'
+      node_pcdata,      // Plain character data, i.e. 'text'
+      node_cdata,       // Character data, i.e. '<![CDATA[text]]>'
+      node_comment,     // Comment tag, i.e. '<!-- text -->'
+      node_pi,          // Processing instruction, i.e. '<?name?>'
+      node_declaration, // Document declaration, i.e. '<?xml version="1.0"?>'
+      node_doctype      // Document type declaration, i.e. '<!DOCTYPE doc>'
+   };
+}
+*/
+
 namespace detail {
 
 // pugi::xml_node ==> Node
@@ -73,32 +94,29 @@ bool xnode2Node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
          assert(false);
 
       // ------------------------
-      // Comment, CDATA, PCDATA
+      // PCDATA, CDATA, comment
       // ------------------------
 
       // We'll store these as metadata for the current node;
       // they aren't really children in the usual XML sense.
 
-      // comment
-      // Use "comment"
-      if (xsub.type() == pugi::node_comment) {
-         node.push("comment", xsub.value());
+      // PCDATA
+      if (xsub.type() == pugi::node_pcdata) {
+         assert(xsub.value() == xsub.text().get());
+         node.push(keyword_pcdata, xsub.value());
          continue;
       }
 
       // CDATA
-      // Use "text"
       if (xsub.type() == pugi::node_cdata) {
          assert(xsub.value() == xsub.text().get());
-         node.push("text", xsub.value());
+         node.push(keyword_cdata, xsub.value());
          continue;
       }
 
-      // PCDATA
-      // use "body"
-      if (xsub.type() == pugi::node_pcdata) {
-         assert(xsub.value() == xsub.text().get());
-         node.push("body", xsub.value());
+      // comment
+      if (xsub.type() == pugi::node_comment) {
+         node.push(keyword_comment, xsub.value());
          continue;
       }
 
