@@ -25,14 +25,15 @@ if [ ! -f "pugixml.o" ]; then
 $COMPILE ../../subprojects/pugixml-adapter/src/src/pugixml.cpp -c -o pugixml.o
 fi
 
-$COMPILE example-00.cpp pugixml.o -o 00 $LIBRARIES
-$COMPILE example-01.cpp pugixml.o -o 01 $LIBRARIES
-$COMPILE example-02.cpp pugixml.o -o 02 $LIBRARIES
-$COMPILE example-03.cpp pugixml.o -o 03 $LIBRARIES
-$COMPILE example-04.cpp pugixml.o -o 04 $LIBRARIES
-$COMPILE example-05.cpp pugixml.o -o 05 $LIBRARIES
-$COMPILE example-06.cpp pugixml.o -o 06 $LIBRARIES
-$COMPILE example-07.cpp pugixml.o -o 07 $LIBRARIES
-$COMPILE example-08.cpp pugixml.o -o 08 $LIBRARIES
-$COMPILE example-09.cpp pugixml.o -o 09 $LIBRARIES
-$COMPILE example-10.cpp pugixml.o -o 10 $LIBRARIES
+$COMPILE example-00.cpp example-01.cpp pugixml.o -o 01 $LIBRARIES
+$COMPILE example-00.cpp example-02.cpp pugixml.o -o 02 $LIBRARIES
+$COMPILE example-00.cpp example-03.cpp pugixml.o -o 03 $LIBRARIES
+$COMPILE example-00.cpp example-04.cpp pugixml.o -o 04 $LIBRARIES
+$COMPILE example-00.cpp example-05.cpp pugixml.o -o 05 $LIBRARIES
+$COMPILE example-00.cpp example-06.cpp pugixml.o -o 06 $LIBRARIES
+$COMPILE example-00.cpp example-07.cpp pugixml.o -o 07 $LIBRARIES
+$COMPILE example-00.cpp example-08.cpp pugixml.o -o 08 $LIBRARIES
+$COMPILE example-00.cpp example-09.cpp pugixml.o -o 09 $LIBRARIES
+$COMPILE example-00.cpp example-10.cpp pugixml.o -o 10 $LIBRARIES
+$COMPILE example-00.cpp example-11.cpp pugixml.o -o 11 $LIBRARIES
+$COMPILE example-00.cpp example-12.cpp pugixml.o -o 12 $LIBRARIES

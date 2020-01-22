@@ -13,10 +13,6 @@
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
 
-// verbose
-// Flag: should debug() actually print anything?
-inline bool verbose = false;
-
 // format
 enum class format {
    unspecified,
@@ -158,14 +154,6 @@ inline const std::string &keyword_text = keyword_cdata;
 // arguably be useful, in their own right, to users. So, I'll leave them out
 // in the overall project namespace (which enclosed the #include of this file).
 // -----------------------------------------------------------------------------
-
-// debug
-inline void debug(const std::string &str)
-{
-   if (verbose)
-      std::cout << "debug: " << str << std::endl;
-}
-
 
 // filesize(char *)
 inline std::ifstream::pos_type filesize(const char * const file)

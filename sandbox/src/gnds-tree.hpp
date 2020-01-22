@@ -171,8 +171,8 @@ inline bool Tree<MCON,CCON>::read(
 
    // format::tree: not allowed for read() (it's for *output* only)
    if (form == format::tree) {
-      // fixme ERROR here; tree format is intended only for debug writing,
-      // and isn't a full, working format.
+      // fixme Error here; tree format is intended only for debug writing,
+      // it isn't a full, working format.
       return false;
    }
 
@@ -197,7 +197,7 @@ inline bool Tree<MCON,CCON>::read(
    // Open file; error if fails
    std::ifstream ifs(file);
    if (!ifs) {
-      // fixme ERROR here
+      // fixme Error here
    }
 
    // Call read(istream) below
@@ -223,8 +223,8 @@ std::istream &Tree<MCON,CCON>::read(
 
    // tree format: not allowed for read
    if (form == format::tree) {
-      // fixme ERROR here; tree format is intended only for debug writing,
-      // and isn't a full, working format.
+      // fixme Error here; tree format is intended only for debug writing,
+      // it isn't a full, working format.
       return is;
    }
 
@@ -320,7 +320,7 @@ inline bool Tree<MCON,CCON>::write(
    // Open file; error if fails
    std::ofstream ofs(file);
    if (!ofs) {
-      // fixme ERROR here
+      // fixme Error here
    }
 
    // Call write(ostream) below
