@@ -164,7 +164,7 @@ inline bool convert(const gnds::xml &from, gnds::xml &to)
 
    // backup indentation
    const int indent = gnds::indent;
-   gnds::indent = 0; // saves space in the stringstream
+   gnds::indent = 0; // saves memory in the stringstream
 
    // from ==> stringstream ==> to
    std::stringstream ss;
