@@ -22,6 +22,9 @@ public:
    MCON<pair,std::allocator<pair>> metadata;
    CCON<sptr,std::allocator<sptr>> children;
 
+   // normalize
+   void normalize();
+
    // push metadatum
    pair &push(const std::string &key, const std::string &value)
    {
@@ -251,6 +254,96 @@ inline std::ostream &operator<<(std::ostream &os, const Node<MCON,CCON> &obj)
 {
    // calls write(ostream) above
    return obj.write(os);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// normalize
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// helper: strip
+// Strips leading digits and white-space from a string. Modifies
+// the original string, and also returns a reference to it.
+inline std::string &strip(std::string &name)
+{
+   int n = 0, ch; const int size = name.size();
+   while (n < size && (isdigit(ch=name[n]) || isspace(ch)))
+      n++;
+   return n ? (name = std::string(&name[n])) : name;
+}
+
+} // namespace detail
+
+
+
+// normalize
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+void Node<MCON,CCON>::normalize()
+{
+   // name
+   detail::strip(name);
+
+   // children
+   auto iter = children.end();
+   for (auto c = children.begin();  c != children.end();  ++c)
+      if (detail::strip((*c)->name) == "attributes") {
+         // Child node's name is "attributes". This presumably means that the
+         // current node originally had *that* child node's metadata as its
+         // own, before they were placed into an "attributes" child for the
+         // purpose of writing, say, to a .json file. Now, apparently, we've
+         // just read such a file, and must restore the node's original form.
+
+         // Under the circumstances, this node should not (yet) have its own
+         // metadata. They'll be pulled up from the "attributes" child, which
+         // itself should have only those metadata (and not further children).
+         assert(metadata.size() == 0);  // <== this node has no metadata
+         assert((*c)->children.size() == 0); // <== child node has no children
+
+         // And, there should have been at most one such "attributes" child.
+         assert(iter == children.end()); // up until now
+         iter = c; // now
+
+         // Restore the metadata
+         for (auto &m : (*c)->metadata)
+            push(m);
+
+      } else if (endsin((*c)->name, "_attr")) {
+         assert(false); // for now
+         // Child node's name ends in "_attr"
+         /*
+         fixme
+         I'll  need to think about the .json business more, and see what sorts
+         of GNDS json files are actually being produced by people other than
+         myself, in order to know for certain what I'll need to do in order to
+         properly read whatever other people might be writing. In my own json-
+         reading code, I use is_object(), from the nlohmann json library, to
+         distinguish whether what I'm reading should be entered into the current
+         node's children, or go into its metadata. I think this condition
+         amounts to whether the value in a json key/value pair is of the {...}
+         form (goes to children), or the "..." form (goes to metadata). The
+         GNDS manual speaks of the json format *not* having the concept of
+         attributes, but perhaps in some sense it does, via the condition I've
+         just described.
+         */
+      } else {
+         // Regular child node; recursively normalize
+         (*c)->normalize();
+      }
+
+   // chuck any "attributes" child
+   if (iter != children.end())
+      children.erase(iter);
+
+   // metadata, including any additional ones from an "attributes"
+   // child as described above
+   for (auto &meta : metadata)
+      detail::strip(meta.first);
 }
 
 

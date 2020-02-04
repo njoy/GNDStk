@@ -4,5 +4,6 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-SCENARIO("Testing GNDStk") {
+SCENARIO("Testing GNDStk tree") {
+   CHECK(1 == 1);
 }

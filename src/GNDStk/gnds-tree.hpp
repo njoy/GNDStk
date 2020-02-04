@@ -1,12 +1,12 @@
 
 // -----------------------------------------------------------------------------
 // Tree (templated)
-// Then tree = Tree<>
+// tree = Tree<>
 // -----------------------------------------------------------------------------
 
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class MCON, // metadata container
+   template<class...> class CCON  // children container
 >
 class Tree {
 public:
@@ -31,21 +31,21 @@ public:
    // ctor: file, stream
    explicit Tree(
       const char * const file,
-      const format form = format::unspecified
+      const format form = format::null
    ) {
       read(file,form);
    }
 
    explicit Tree(
       const std::string &file,
-      const format form = format::unspecified
+      const format form = format::null
    ) {
       read(file,form);
    }
 
    explicit Tree(
       std::istream &is,
-      const format form = format::unspecified
+      const format form = format::null
    ) {
       read(is,form);
    }
@@ -87,41 +87,45 @@ public:
    // read
    bool read(
       const char * const file,
-      const format form = format::unspecified
+      const format form = format::null
    );
 
    bool read(
       const std::string &file,
-      const format form = format::unspecified
+      const format form = format::null
    ) {
       return read(file.c_str(),form);
    }
 
    std::istream &read(
       std::istream &,
-      const format form = format::unspecified
+      const format form = format::null
    );
 
    // write
    bool write(
       const char * const file,
-      const format form = format::unspecified
+      const format form = format::null
    ) const;
 
    bool write(
       const std::string &file,
-      const format form = format::unspecified
+      const format form = format::null
    ) const {
       return write(file.c_str(),form);
    }
 
    std::ostream &write(
       std::ostream &,
-      const format form = format::unspecified
+      const format form = format::null
    ) const;
 
    // normalize
-   void normalize();
+   void normalize()
+   {
+      if (root)
+         root->normalize();
+   }
 
 
    // ------------------------
@@ -231,12 +235,14 @@ std::istream &Tree<MCON,CCON>::read(
    // Print a warning if the stipulated form, and the contents
    // of the file, appear to be inconsistent with one another.
    if (is.peek() == '<') {
-      if (form == format::unspecified) form = format::xml;
+      if (form == format::null)
+         form = format::xml;
       if (form != format::xml) {
          // fixme Warning
       }
    } else {
-      if (form == format::unspecified) form = format::json;
+      if (form == format::null)
+         form = format::json;
       if (form != format::json) {
          // fixme Warning
       }
@@ -371,103 +377,4 @@ inline std::ostream &operator<<(
 ) {
    // Call write(ostream) above
    return obj.write(os);
-}
-
-
-
-// -----------------------------------------------------------------------------
-// normalize
-// -----------------------------------------------------------------------------
-
-namespace detail {
-
-// helper: strip
-inline std::string &strip(std::string &name)
-{
-   int n = 0, ch; const int size = name.size();
-   while (n < size && (isdigit(ch=name[n]) || isspace(ch)))
-      n++;
-   return n ? (name = std::string(&name[n])) : name;
-}
-
-// helper: normalize
-template<
-   template<class...> class MCON,
-   template<class...> class CCON
->
-void normalize(Node<MCON,CCON> &node)
-{
-   // name
-   strip(node.name);
-
-   // children
-   auto iter = node.children.end();
-   for (auto c = node.children.begin();  c != node.children.end();  ++c)
-      if (strip((*c)->name) == "attributes") {
-         // Child node's name is "attributes"; this presumably means that the
-         // current node originally had *that* child node's metadata as its
-         // own, before they were placed into an "attributes" child for the
-         // purpose of writing, say, to a .json file. Now, apparently, we've
-         // just read such a file, and must restore the node's original form.
-
-         // Under the circumstances, this node shouldn't (yet) have its own
-         // metadata. They'll be pulled up from the "attributes" child, which
-         // itself should have only those metadata (and not further children).
-         assert(node.metadata.size() == 0);  // this node
-         assert((*c)->children.size() == 0); // child's children
-
-         // And, there should have been at most one such "attributes" child.
-         assert(iter == node.children.end()); // up until now
-         iter = c; // now
-
-         // Restore the metadata
-         for (auto &m : (*c)->metadata)
-            node.push(m);
-
-      } else if (endsin((*c)->name, "_attr")) {
-         assert(false); // for now
-         // Child node's name ends in "_attr"
-         /*
-         fixme
-         I'll  need to think about the .json business more, and see what sorts
-         of GNDS json files are actually being produced by people other than
-         myself, in order to know for certain what I'll need to do in order to
-         properly read whatever other people might be writing. In my own json-
-         reading code, I use is_object(), from the nlohmann json library, to
-         distinguish whether what I'm reading should be entered into the current
-         node's children, or go into its metadata. I think this condition
-         amounts to whether the value in a json key/value pair is of the {...}
-         form (goes to children), or the "..." form (goes to metadata). The
-         GNDS manual speaks of the json format *not* having the concept of
-         attributes, but perhaps in some sense it does, via the condition I've
-         just described.
-         */
-      } else {
-         // Regular child node; recursively normalize
-         normalize(**c);
-      }
-
-   // chuck any "attributes" child
-   if (iter != node.children.end())
-      node.children.erase(iter);
-
-   // metadata, including any additional ones from an "attributes"
-   // child as described above
-   for (auto &meta : node.metadata)
-      strip(meta.first);
-}
-
-} // namespace detail
-
-
-
-// normalize
-template<
-   template<class...> class MCON,
-   template<class...> class CCON
->
-inline void Tree<MCON,CCON>::normalize()
-{
-   if (root)
-      detail::normalize(*root);
 }

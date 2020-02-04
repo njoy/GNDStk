@@ -15,12 +15,11 @@ inline int indent = 3;
 
 // format
 enum class format {
-   unspecified,
+   null,
+   tree,
    xml,
    json,
-   tree, Tree = tree
-   // Both "tree" and "Tree" are allowed, to be consistent with the fact that
-   // we have both classes: Tree (templated), and shorthand tree (is Tree<>).
+   hdf5
 };
 
 
@@ -177,8 +176,10 @@ inline bool endsin(const std::string &str, const std::string &end)
 }
 
 // typeof
+#ifdef GNDS_BOOST
 template<class T>
 inline void typeof(const T &)
 {
    std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
 }
+#endif
