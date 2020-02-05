@@ -197,23 +197,39 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline bool Tree<MCON,CCON>::read(
+bool Tree<MCON,CCON>::read(
    const char * const file,
    const format form
 ) {
-   // Clear current contents. Note that this will happen even if something
-   // below fails - which is reasonable behavior. Empty tree is a reminder
-   // that the attempt to read failed.
+   // ------------------------
+   // Clear current contents
+   // ------------------------
+
+   // Note that this happens even if something below fails. This is reasonable
+   // behavior; an empty tree is a reminder that the read attempt failed.
    clear();
 
-   // format::tree: not allowed for read() (it's for *output* only)
+   // ------------------------
+   // format::tree
+   // ------------------------
+
+   // Error; this format isn't allowed for read() (only for write())
    if (form == format::tree) {
-      // fixme Error here; tree format is intended only for debug writing,
-      // it isn't a full, working format.
+      // fixme Error here; tree format is intended only for debug *writing*,
+      // not for reading. It's not intended to be a full, working format.
       return false;
    }
 
-   // format::xml: warn if file name appears to be inconsistent w/XML
+   // fixme Review the exact filename extensions we deal with below.
+   // Also, perhaps, write a case-insensitive endsin() variation.
+   // Don't worry about the fact that case insensitivity is technically
+   // a hard nut to crack, given the C++ concepts of locale, etc. :-/
+
+   // ------------------------
+   // format::xml
+   // ------------------------
+
+   // Warn if the file name appears to be inconsistent w/XML
    if (form == format::xml) {
       if (!endsin(file,".xml") &&
           !endsin(file,".XML")
@@ -222,7 +238,11 @@ inline bool Tree<MCON,CCON>::read(
       }
    }
 
-   // format::json: warn if file name appears to be inconsistent w/JSON
+   // ------------------------
+   // format::json
+   // ------------------------
+
+   // Warn if the file name appears to be inconsistent w/Json
    if (form == format::json) {
       if (!endsin(file,".jsn") && !endsin(file,".json") &&
           !endsin(file,".JSN") && !endsin(file,".JSON")
@@ -231,13 +251,32 @@ inline bool Tree<MCON,CCON>::read(
       }
    }
 
-   // Open file; error if fails
+   // ------------------------
+   // format::hdf5
+   // ------------------------
+
+   // Warn if the file name appears to be inconsistent w/HDF5
+   if (form == format::hdf5) {
+      if (!endsin(file,".hdf") && !endsin(file,".h5") &&
+          !endsin(file,".he5") && !endsin(file,".hdf5")
+      ) {
+         // fixme Warning here
+      }
+   }
+
+   // ------------------------
+   // Open and read
+   // ------------------------
+
    std::ifstream ifs(file);
    if (!ifs) {
       // fixme Error here
    }
 
-   // Call read(istream) below
+   // Call read(istream), below, to do the remaining work. Note that although
+   // the file name isn't available any longer in that function, the function
+   // can, and does, do additional checking (complimentary to what we already
+   // did above), based on peeking at the content we'll be attempting to read.
    return !read(ifs,form).fail();
 }
 
@@ -252,28 +291,38 @@ std::istream &Tree<MCON,CCON>::read(
    std::istream &is,
    const format _form
 ) {
-   // non-const
+   // non-const; slightly simplifies logic
    format form = _form;
 
-   // clear; comment as above
+   // clear; comment as in read(char *)
    clear();
 
    // tree format: not allowed for read
    if (form == format::tree) {
       // fixme Error here; tree format is intended only for debug writing,
       // it isn't a full, working format.
+      // Oh...perhaps we should set is' bad and/or fail
       return is;
    }
 
    // Print a warning if the stipulated form, and the contents
    // of the file, appear to be inconsistent with one another.
    if (is.peek() == '<') {
+      // looks like xml
       if (form == format::null)
          form = format::xml;
       if (form != format::xml) {
          // fixme Warning
       }
+   } else if (is.peek() == 137) {
+      // looks like hdf5
+      if (form == format::null)
+         form = format::hdf5;
+      if (form != format::hdf5) {
+         // fixme Warning
+      }
    } else {
+      // via process of elimination, looks like json
       if (form == format::null)
          form = format::json;
       if (form != format::json) {
@@ -281,27 +330,32 @@ std::istream &Tree<MCON,CCON>::read(
       }
    }
 
-   // guess xml/json, then read and convert
+   // Read and convert
+   // Obey form, independent of what might or might not have been warned
+   // about above. Note that if the original form parameter was format::null,
+   // then form would have been modified, above, to the probable correct
+   // format, based on the peek() code above.
    if (form == format::xml) {
       // assume .xml
       // go through a temporary xml object to create the tree...
-      const xml x(is);
+      const xml tmp(is);
       if (!is.fail())
-         convert(x, *this);
-   } else {
-      // because of our own logic above
-      assert(form == format::json);
-
+         convert(tmp, *this);
+   } else if (form == format::json) {
       // assume .json
       // go through a temporary json object to create the tree...
-      const json j(is);
+      const json tmp(is);
 
       // It would seem that the nlohmann::json stream input operation,
       // which is used by the constructor we just called, sets failbit
       // in instances in which it should just set eofbit. So, for now,
       // we'll comment-out the !is.fail() test... :-/
       // if (!is.fail())
-      convert(j, *this);
+      convert(tmp, *this);
+   } else {
+      assert(form == format::hdf);
+      // fixme Duh, need to write something non-stupid here
+      assert(false);
    }
 
    // done
