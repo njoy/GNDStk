@@ -40,11 +40,11 @@ using node = Node<std::vector,std::vector>;
 
 // Tree, tree
 template<
-   template<class...> class,
-   template<class...> class
+   template<class...> class = std::vector,
+   template<class...> class = std::vector
 >
 class Tree;
-using tree = Tree<std::vector,std::vector>;
+using tree = Tree<>;
 
 // xml, json
 class xml;

@@ -11,8 +11,17 @@ template<
 class Tree {
 public:
 
-   // data
+   // ------------------------
+   // Data
+   // ------------------------
+
+   // root
    std::shared_ptr<Node<MCON,CCON>> root;
+
+
+   // ------------------------
+   // Miscellaneous functions
+   // ------------------------
 
    // clear
    void clear()
@@ -20,6 +29,18 @@ public:
       // smart pointer, so the rest of the tree is deleted as well
       root = nullptr;
    }
+
+   // normalize
+   void normalize()
+   {
+      if (root)
+         root->normalize();
+   }
+
+
+   // ------------------------
+   // Constructors
+   // ------------------------
 
    // ctor: default
    Tree() { }
@@ -56,21 +77,26 @@ public:
       convert(t,*this);
    }
 
-   // copy assignment
-   Tree &operator=(const Tree &t)
-   {
-      convert(t,*this);
-      return *this;
-   }
-
    // templated "copy ctor"
    template<
       template<class...> class MCONTO,
       template<class...> class CCONTO
    >
-   Tree(const Tree<MCONTO,CCONTO> &t)
+   explicit Tree(const Tree<MCONTO,CCONTO> &t)
    {
       convert(t,*this);
+   }
+
+
+   // ------------------------
+   // Assignment
+   // ------------------------
+
+   // copy assignment
+   Tree &operator=(const Tree &t)
+   {
+      convert(t,*this);
+      return *this;
    }
 
    // templated "copy assignment"
@@ -84,12 +110,18 @@ public:
       return *this;
    }
 
+
+   // ------------------------
    // read
+   // ------------------------
+
+   // char *
    bool read(
       const char * const file,
       const format form = format::null
    );
 
+   // string
    bool read(
       const std::string &file,
       const format form = format::null
@@ -97,17 +129,24 @@ public:
       return read(file.c_str(),form);
    }
 
+   // istream
    std::istream &read(
       std::istream &,
       const format form = format::null
    );
 
+
+   // ------------------------
    // write
+   // ------------------------
+
+   // char *
    bool write(
       const char * const file,
       const format form = format::null
    ) const;
 
+   // string
    bool write(
       const std::string &file,
       const format form = format::null
@@ -115,17 +154,11 @@ public:
       return write(file.c_str(),form);
    }
 
+   // ostream
    std::ostream &write(
       std::ostream &,
       const format form = format::null
    ) const;
-
-   // normalize
-   void normalize()
-   {
-      if (root)
-         root->normalize();
-   }
 
 
    // ------------------------
