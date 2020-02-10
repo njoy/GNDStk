@@ -30,6 +30,12 @@ public:
       root = nullptr;
    }
 
+   // empty
+   bool empty() const
+   {
+      return root == nullptr;
+   }
+
    // normalize
    void normalize()
    {
@@ -189,6 +195,52 @@ public:
 
 
 // -----------------------------------------------------------------------------
+// helpers
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// warning_tree_io_name
+inline void warning_tree_io_name(
+   const std::string &op,
+   const std::string &file,
+   const std::string &format,
+   const std::string &name
+) {
+   warning(
+      "Tree " + op + " called with "
+      "format::" + format + " and "
+      "filename \"" + file + "\",\n"
+      "but the filename extension doesn't appear to be one for " +
+       name + "."
+   );
+}
+
+// warning_tree_io_data
+inline void warning_tree_io_data(
+   const format f,
+   const std::string &ch,
+   const std::string &name
+) {
+   const std::string form =
+      f == format::xml  ? "xml"
+    : f == format::json ? "json"
+    : f == format::hdf5 ? "hdf5"
+    : "?";
+
+   warning(
+      "Tree read called with "
+      "format::" + form + ",\n"
+      "but the file begins with " + ch + ", which suggests " +
+       name + "."
+   );
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
 // read
 // -----------------------------------------------------------------------------
 
@@ -211,6 +263,7 @@ bool Tree<MCON,CCON>::read(
 
    // ------------------------
    // format::tree
+   // Not allowed in read
    // ------------------------
 
    // Error; this format isn't allowed for read() (only for write())
@@ -220,49 +273,17 @@ bool Tree<MCON,CCON>::read(
       return false;
    }
 
-   // fixme Review the exact filename extensions we deal with below.
-   // Also, perhaps, write a case-insensitive endsin() variation.
-   // Don't worry about the fact that case insensitivity is technically
-   // a hard nut to crack, given the C++ concepts of locale, etc. :-/
-
    // ------------------------
-   // format::xml
+   // format::xml,json,hdf5
+   // Check: consistent name?
    // ------------------------
 
-   // Warn if the file name appears to be inconsistent w/XML
-   if (form == format::xml) {
-      if (!endsin(file,".xml") &&
-          !endsin(file,".XML")
-      ) {
-         // fixme Warning here
-      }
-   }
-
-   // ------------------------
-   // format::json
-   // ------------------------
-
-   // Warn if the file name appears to be inconsistent w/Json
-   if (form == format::json) {
-      if (!endsin(file,".jsn") && !endsin(file,".json") &&
-          !endsin(file,".JSN") && !endsin(file,".JSON")
-      ) {
-         // fixme Warning here
-      }
-   }
-
-   // ------------------------
-   // format::hdf5
-   // ------------------------
-
-   // Warn if the file name appears to be inconsistent w/HDF5
-   if (form == format::hdf5) {
-      if (!endsin(file,".hdf") && !endsin(file,".h5") &&
-          !endsin(file,".he5") && !endsin(file,".hdf5")
-      ) {
-         // fixme Warning here
-      }
-   }
+   if (form == format::xml  && has_extension(file) && !endsin_xml (file))
+      detail::warning_tree_io_name("read", file, "xml",  "XML" );
+   if (form == format::json && has_extension(file) && !endsin_json(file))
+      detail::warning_tree_io_name("read", file, "json", "Json");
+   if (form == format::hdf5 && has_extension(file) && !endsin_hdf5(file))
+      detail::warning_tree_io_name("read", file, "hdf5", "HDF5");
 
    // ------------------------
    // Open and read
@@ -274,9 +295,9 @@ bool Tree<MCON,CCON>::read(
    }
 
    // Call read(istream), below, to do the remaining work. Note that although
-   // the file name isn't available any longer in that function, the function
+   // the filename isn't available any longer in that function, the function
    // can, and does, do additional checking (complimentary to what we already
-   // did above), based on peeking at the content we'll be attempting to read.
+   // did above), based on looking at the content we'll be attempting to read.
    return !read(ifs,form).fail();
 }
 
@@ -297,7 +318,11 @@ std::istream &Tree<MCON,CCON>::read(
    // clear; comment as in read(char *)
    clear();
 
-   // tree format: not allowed for read
+   // ------------------------
+   // format::tree
+   // Not allowed in read
+   // ------------------------
+
    if (form == format::tree) {
       // fixme Error here; tree format is intended only for debug writing,
       // it isn't a full, working format.
@@ -305,29 +330,30 @@ std::istream &Tree<MCON,CCON>::read(
       return is;
    }
 
-   // Print a warning if the stipulated form, and the contents
-   // of the file, appear to be inconsistent with one another.
+   // ------------------------
+   // format::xml,json,hdf5
+   // Check: consistent
+   // initial content?
+   // ------------------------
+
    if (is.peek() == '<') {
       // looks like xml
       if (form == format::null)
          form = format::xml;
-      if (form != format::xml) {
-         // fixme Warning
-      }
+      if (form != format::xml)
+         detail::warning_tree_io_data(form, "'<'", "XML");
    } else if (is.peek() == 137) {
       // looks like hdf5
       if (form == format::null)
          form = format::hdf5;
-      if (form != format::hdf5) {
-         // fixme Warning
-      }
+      if (form != format::hdf5)
+         detail::warning_tree_io_data(form, "char 137", "HDF5");
    } else {
-      // via process of elimination, looks like json
+      // looks like json (via process of elimination)
       if (form == format::null)
          form = format::json;
-      if (form != format::json) {
-         // fixme Warning
-      }
+      if (form != format::json)
+         detail::warning_tree_io_data(form, "neither '<' nor char 137", "Json");
    }
 
    // Read and convert
@@ -353,7 +379,7 @@ std::istream &Tree<MCON,CCON>::read(
       // if (!is.fail())
       convert(tmp, *this);
    } else {
-      assert(form == format::hdf);
+      assert(form == format::hdf5);
       // fixme Duh, need to write something non-stupid here
       assert(false);
    }
@@ -392,31 +418,27 @@ inline bool Tree<MCON,CCON>::write(
    const char * const file,
    const format form
 ) const {
-   // format::xml: warn if file name appears to be inconsistent w/XML
-   if (form == format::xml) {
-      if (!endsin(file,".xml") &&
-          !endsin(file,".XML")
-      ) {
-         // fixme Warning here
-      }
-   }
 
-   // format::json: warn if file name appears to be inconsistent w/JSON
-   if (form == format::json) {
-      if (!endsin(file,".jsn") && !endsin(file,".json") &&
-          !endsin(file,".JSN") && !endsin(file,".JSON")
-      ) {
-         // fixme Warning here
-      }
-   }
+   // ------------------------
+   // format::xml,json,hdf5
+   // Check: consistent name?
+   // ------------------------
 
-   // Open file; error if fails
+   if (form == format::xml  && has_extension(file) && !endsin_xml (file))
+      detail::warning_tree_io_name("write", file, "xml",  "XML" );
+   if (form == format::json && has_extension(file) && !endsin_json(file))
+      detail::warning_tree_io_name("write", file, "json", "Json");
+   if (form == format::hdf5 && has_extension(file) && !endsin_hdf5(file))
+      detail::warning_tree_io_name("write", file, "hdf5", "HDF5");
+
+   // ------------------------
+   // Open and write
+   // ------------------------
+
    std::ofstream ofs(file);
    if (!ofs) {
       // fixme Error here
    }
-
-   // Call write(ostream) below
    return !write(ofs,form).fail();
 }
 

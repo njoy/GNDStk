@@ -122,6 +122,8 @@ public:
 // keyword
 // -----------------------------------------------------------------------------
 
+namespace detail {
+
 // keyword_t
 class keyword_t {
 public:
@@ -157,8 +159,10 @@ public:
    }
 };
 
+} // namespace detail
+
 // keyword
-inline const keyword_t keyword;
+inline const detail::keyword_t keyword;
 
 
 

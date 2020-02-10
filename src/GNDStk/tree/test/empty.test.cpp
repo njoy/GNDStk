@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-SCENARIO("Testing GNDStk tree clear()") {
+SCENARIO("Testing GNDStk tree empty()") {
 
    GIVEN("A tree") {
       gnds::Tree<> tree;
@@ -11,10 +11,9 @@ SCENARIO("Testing GNDStk tree clear()") {
          REQUIRE(tree.empty()); // it has nothing in it
       }
 
-      WHEN("A GNDS file is read into the tree, but then clear() is called") {
+      WHEN("A GNDS file is read into the tree") {
          tree.read("n-008_O_016.xml");
-         tree.clear();
-         REQUIRE(tree.empty()); // it still has nothing in it
+         REQUIRE(!tree.empty()); // it has something in it
       }
    }
 

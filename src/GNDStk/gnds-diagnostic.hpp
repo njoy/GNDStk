@@ -61,7 +61,7 @@ namespace detail {
 
 // The following class is templated so that static data member definitions
 // don't cause multiply-defined symbol errors when our (header-only) library
-// is #included in multiple user source files.
+// is #included in multiple source files.
 template<class unused>
 class color_t {
    static bool on;
@@ -497,9 +497,24 @@ class error_t {
 
 public:
 
+   // action
+   // The enum is unscoped, for ease of use; it's already in error_t
+   // fixme We need to actually make use of this throughout the code
+   enum action_t {
+      exception, // default
+      assertion, // assert(false)
+      exit,      // exit(1)
+      nothing,   // bool/stream/etc return
+      null = exception
+   };
+   static action_t action;
+
    // as bool
    error_t &operator=(const bool value) { return on = value, *this; }
    operator bool() const { return on; }
+
+   // as action
+   error_t &operator=(const action_t value) { return action = value, *this; }
 
    // operator()
    void operator()(const std::string &text) const
@@ -558,10 +573,16 @@ public:
 // ------------------------
 
 namespace detail {
+   // on
    template<class unused> bool note_t    <unused>::on = true;
    template<class unused> bool warning_t <unused>::on = true;
    template<class unused> bool error_t   <unused>::on = true;
    template<class unused> bool internal_t<unused>::on = true;
+
+   // action
+   template<class unused>
+   typename error_t<unused>::action_t error_t<unused>::action =
+      error_t<unused>::null;
 } // namespace detail
 
 

@@ -28,7 +28,7 @@ enum class format {
 // Forward declarations: general
 // -----------------------------------------------------------------------------
 
-// fixme Some reorg elsewhere may make some of these unnecessary
+// fixme Some reorganization elsewhere may make some of these unnecessary
 
 // Node, node
 template<
@@ -136,6 +136,8 @@ bool convert(const gnds::json &, gnds::json &);
 // Some string constants
 // -----------------------------------------------------------------------------
 
+namespace detail {
+
 // For pugi::xml_node_types { node_pcdata, node_cdata, node_comment }
 inline const std::string keyword_pcdata  = "body";
 inline const std::string keyword_cdata   = "text";
@@ -144,6 +146,8 @@ inline const std::string keyword_comment = "comment";
 // Aliases
 inline const std::string &keyword_body = keyword_pcdata;
 inline const std::string &keyword_text = keyword_cdata;
+
+} // namespace detail
 
 
 
@@ -183,3 +187,45 @@ inline void typeof(const T &)
    std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
 }
 #endif
+
+
+
+// -----------------------------------------------------------------------------
+// Re: file extensions
+// -----------------------------------------------------------------------------
+
+// xml
+inline bool endsin_xml(const std::string &str)
+{
+   return
+      endsin(str,".xml" ) ||
+      endsin(str,".XML" );
+}
+
+// json
+inline bool endsin_json(const std::string &str)
+{
+   return
+      endsin(str,".json") ||
+      endsin(str,".JSON");
+}
+
+// hdf5
+inline bool endsin_hdf5(const std::string &str)
+{
+   return
+      endsin(str,".hdf" ) ||
+      endsin(str,".HDF" ) ||
+      endsin(str,".h5"  ) ||
+      endsin(str,".H5"  ) ||
+      endsin(str,".hdf5") ||
+      endsin(str,".HDF5") ||
+      endsin(str,".he5" ) ||
+      endsin(str,".HE5" );
+}
+
+// has filename extension?
+inline bool has_extension(const std::string &str)
+{
+   return str.find('.') != std::string::npos;
+}

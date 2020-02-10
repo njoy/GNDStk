@@ -144,15 +144,15 @@ namespace meta {
 
 // pcdata, body
 // fixme: This should be made more general, not just vector<double>
-inline const meta_t<std::vector<double>> pcdata(keyword_pcdata);
-inline const meta_t<std::vector<double>> body  (keyword_body  );
+inline const meta_t<std::vector<double>> pcdata(detail::keyword_pcdata);
+inline const meta_t<std::vector<double>> body  (detail::keyword_body  );
 
 // cdata, text
-inline const meta_t<std::string> cdata(keyword_cdata);
-inline const meta_t<std::string> text (keyword_text );
+inline const meta_t<std::string> cdata(detail::keyword_cdata);
+inline const meta_t<std::string> text (detail::keyword_text );
 
 // comment
-inline const meta_t<std::string> comment(keyword_comment);
+inline const meta_t<std::string> comment(detail::keyword_comment);
 
 
 // ------------------------

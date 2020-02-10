@@ -636,7 +636,8 @@
       "src/GNDStk/tree/test/write.test.cpp", 
       "src/GNDStk/tree/test/parens.test.cpp", 
       "src/GNDStk/tree/test/normalize.test.cpp", 
-      "src/GNDStk/tree/test/clear.test.cpp"
+      "src/GNDStk/tree/test/clear.test.cpp", 
+      "src/GNDStk/tree/test/empty.test.cpp"
     ]
   }, 
   "update": true
