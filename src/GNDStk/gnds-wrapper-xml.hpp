@@ -7,8 +7,17 @@
 class xml {
 public:
 
+   // ------------------------
+   // Data
+   // ------------------------
+
    // overall xml document
    pugi::xml_document doc;
+
+
+   // ------------------------
+   // Miscellaneous functions
+   // ------------------------
 
    // clear
    void clear()
@@ -16,14 +25,17 @@ public:
       doc.reset();
    }
 
-   // standard ctor/assignment
-   // But we'll create our own copy constructor and copy assignment,
-   // because pugi::xml_document's are inaccessible.
+
+   // ------------------------
+   // Constructors
+   // ------------------------
+
+   // default
+   // rref
    xml() = default;
    xml(xml &&) = default;
-   xml &operator=(xml &&) = default;
 
-   // ctor: json, tree
+   // json, tree
    explicit xml(const json &j) { convert(j,*this); }
    template<
       template<class...> class MCON,
@@ -31,23 +43,36 @@ public:
    >
    explicit xml(const Tree<MCON,CCON> &t) { convert(t,*this); }
 
-   // ctor: file, stream
+   // file, stream
    explicit xml(const char * const file) { read(file); }
    explicit xml(const std::string &file) { read(file); }
    explicit xml(std::istream &is) { read(is); }
 
-   // copy ctor
+   // copy (pugi::xml_document's is inaccessible)
    xml(const xml &x)
    {
       convert(x,*this);
    }
 
-   // copy assignment
+
+   // ------------------------
+   // Assignment
+   // ------------------------
+
+   // rref
+   xml &operator=(xml &&) = default;
+
+   // copy (pugi::xml_document's is inaccessible)
    xml &operator=(const xml &x)
    {
       convert(x,*this);
       return *this;
    }
+
+
+   // ------------------------
+   // read, write
+   // ------------------------
 
    // read
    bool read(const char * const file);

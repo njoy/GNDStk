@@ -16,7 +16,7 @@ inline int indent = 3;
 // format
 enum class format {
    null, // default, automagick, etc.
-   tree, // for writing, our simple text format
+   tree, // our own simple text format
    xml,
    json,
    hdf5

@@ -48,14 +48,16 @@ public:
    // Constructors
    // ------------------------
 
-   // ctor: default
+   // default
+   // rref
    Tree() { }
+   // fixme write rref
 
-   // ctor: xml, json
+   // xml, json
    explicit Tree(const xml  &xdoc) { convert(xdoc,*this); }
    explicit Tree(const json &jdoc) { convert(jdoc,*this); }
 
-   // ctor: file, stream
+   // file, stream
    explicit Tree(
       const char * const file,
       const format form = format::null
@@ -77,13 +79,13 @@ public:
       read(is,form);
    }
 
-   // copy ctor
+   // copy
    Tree(const Tree &t)
    {
       convert(t,*this);
    }
 
-   // templated "copy ctor"
+   // templated "copy"
    template<
       template<class...> class MCONTO,
       template<class...> class CCONTO
@@ -98,14 +100,14 @@ public:
    // Assignment
    // ------------------------
 
-   // copy assignment
+   // copy
    Tree &operator=(const Tree &t)
    {
       convert(t,*this);
       return *this;
    }
 
-   // templated "copy assignment"
+   // templated "copy"
    template<
       template<class...> class MCONTO,
       template<class...> class CCONTO
@@ -200,8 +202,12 @@ public:
 
 namespace detail {
 
+// A couple of these are templated because we'd prefer not to say inline,
+// and this is a header-only library. (Not that "inline" really means it.)
+
 // warning_tree_io_name
-inline void warning_tree_io_name(
+template<class unused>
+void warning_tree_io_name(
    const std::string &op,
    const std::string &file,
    const std::string &format,
@@ -211,13 +217,14 @@ inline void warning_tree_io_name(
       "Tree " + op + " called with "
       "format::" + format + " and "
       "filename \"" + file + "\",\n"
-      "but the filename extension doesn't appear to be one for " +
+      "but the filename extension does not appear to be one for " +
        name + "."
    );
 }
 
 // warning_tree_io_data
-inline void warning_tree_io_data(
+template<class unused>
+void warning_tree_io_data(
    const format f,
    const std::string &ch,
    const std::string &name
@@ -235,6 +242,13 @@ inline void warning_tree_io_data(
        name + "."
    );
 }
+
+// format_tree_read
+inline const std::string format_tree_read =
+   "Format format::tree is not allowed in tree.read(). "
+   "Our \"tree\" format\nis intended only for debug writing; "
+   "it is not a first-class file format."
+;
 
 } // namespace detail
 
@@ -268,8 +282,7 @@ bool Tree<MCON,CCON>::read(
 
    // Error; this format isn't allowed for read() (only for write())
    if (form == format::tree) {
-      // fixme Error here; tree format is intended only for debug *writing*,
-      // not for reading. It's not intended to be a full, working format.
+      error(detail::format_tree_read);
       return false;
    }
 
@@ -279,20 +292,19 @@ bool Tree<MCON,CCON>::read(
    // ------------------------
 
    if (form == format::xml  && has_extension(file) && !endsin_xml (file))
-      detail::warning_tree_io_name("read", file, "xml",  "XML" );
+      detail::warning_tree_io_name<char>("read", file, "xml",  "XML" );
    if (form == format::json && has_extension(file) && !endsin_json(file))
-      detail::warning_tree_io_name("read", file, "json", "Json");
+      detail::warning_tree_io_name<char>("read", file, "json", "Json");
    if (form == format::hdf5 && has_extension(file) && !endsin_hdf5(file))
-      detail::warning_tree_io_name("read", file, "hdf5", "HDF5");
+      detail::warning_tree_io_name<char>("read", file, "hdf5", "HDF5");
 
    // ------------------------
    // Open and read
    // ------------------------
 
    std::ifstream ifs(file);
-   if (!ifs) {
-      // fixme Error here
-   }
+   if (!ifs)
+      error("Could not open input file \"" + std::string(file) + "\"");
 
    // Call read(istream), below, to do the remaining work. Note that although
    // the filename isn't available any longer in that function, the function
@@ -312,10 +324,9 @@ std::istream &Tree<MCON,CCON>::read(
    std::istream &is,
    const format _form
 ) {
-   // non-const; slightly simplifies logic
-   format form = _form;
-
-   // clear; comment as in read(char *)
+   // clear
+   // Comment as in read(char *). Note that we need the clear() here, too,
+   // because this function might be called directly, not via read(char *).
    clear();
 
    // ------------------------
@@ -323,10 +334,11 @@ std::istream &Tree<MCON,CCON>::read(
    // Not allowed in read
    // ------------------------
 
+   // non-const; slightly simplifies some later logic
+   format form = _form;
+
    if (form == format::tree) {
-      // fixme Error here; tree format is intended only for debug writing,
-      // it isn't a full, working format.
-      // Oh...perhaps we should set is' bad and/or fail
+      error(detail::format_tree_read);
       return is;
    }
 
@@ -340,27 +352,37 @@ std::istream &Tree<MCON,CCON>::read(
       // looks like xml
       if (form == format::null)
          form = format::xml;
-      if (form != format::xml)
-         detail::warning_tree_io_data(form, "'<'", "XML");
+      else if (form != format::xml)
+         detail::warning_tree_io_data<char>(
+            form, "'<'", "XML");
    } else if (is.peek() == 137) {
       // looks like hdf5
       if (form == format::null)
          form = format::hdf5;
-      if (form != format::hdf5)
-         detail::warning_tree_io_data(form, "char 137", "HDF5");
+      else if (form != format::hdf5)
+         detail::warning_tree_io_data<char>(
+            form, "char 137", "HDF5");
    } else {
       // looks like json (via process of elimination)
       if (form == format::null)
          form = format::json;
-      if (form != format::json)
-         detail::warning_tree_io_data(form, "neither '<' nor char 137", "Json");
+      else if (form != format::json)
+         detail::warning_tree_io_data<char>(
+            form, "neither '<' nor char 137", "Json");
    }
 
+   // The above logic is such that form cannot henceforth be format::tree,
+   // which would have triggered a return, or format::null, which would have
+   // become one of {xml,json,hdf5} somewhere in the above conditional.
+
+   // ------------------------
    // Read and convert
-   // Obey form, independent of what might or might not have been warned
+   // ------------------------
+
+   // Obey form, independent of whatever might or might not have been warned
    // about above. Note that if the original form parameter was format::null,
-   // then form would have been modified, above, to the probable correct
-   // format, based on the peek() code above.
+   // then form would have been modified, above, to the likely correct format,
+   // based on the peek() calls.
    if (form == format::xml) {
       // assume .xml
       // go through a temporary xml object to create the tree...
@@ -378,10 +400,12 @@ std::istream &Tree<MCON,CCON>::read(
       // we'll comment-out the !is.fail() test... :-/
       // if (!is.fail())
       convert(tmp, *this);
+   } else if (form == format::hdf5) {
+      error("HDF5 read() is not implemented yet");
    } else {
-      assert(form == format::hdf5);
-      // fixme Duh, need to write something non-stupid here
-      assert(false);
+      // we may or may not want slippery-slope stuff like this
+      internal("Unrecognized form = " + std::to_string(int(form)) + " "
+               "in tree.read()");
    }
 
    // done
@@ -414,10 +438,27 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline bool Tree<MCON,CCON>::write(
+bool Tree<MCON,CCON>::write(
    const char * const file,
-   const format form
+   const format _form
 ) const {
+
+   // ------------------------
+   // format::null
+   // Decide from file name
+   // ------------------------
+
+   format form = _form;
+   if (form == format::null) {
+      if (endsin_xml (file))
+         form = format::xml;
+      else if (endsin_json(file))
+         form = format::json;
+      else if (endsin_hdf5(file))
+         form = format::hdf5;
+      else
+         form = format::tree;
+   }
 
    // ------------------------
    // format::xml,json,hdf5
@@ -425,20 +466,21 @@ inline bool Tree<MCON,CCON>::write(
    // ------------------------
 
    if (form == format::xml  && has_extension(file) && !endsin_xml (file))
-      detail::warning_tree_io_name("write", file, "xml",  "XML" );
+      detail::warning_tree_io_name<char>("write", file, "xml",  "XML" );
    if (form == format::json && has_extension(file) && !endsin_json(file))
-      detail::warning_tree_io_name("write", file, "json", "Json");
+      detail::warning_tree_io_name<char>("write", file, "json", "Json");
    if (form == format::hdf5 && has_extension(file) && !endsin_hdf5(file))
-      detail::warning_tree_io_name("write", file, "hdf5", "HDF5");
+      detail::warning_tree_io_name<char>("write", file, "hdf5", "HDF5");
 
    // ------------------------
    // Open and write
    // ------------------------
 
    std::ofstream ofs(file);
-   if (!ofs) {
-      // fixme Error here
-   }
+   if (!ofs)
+      error("Could not open output file \"" + std::string(file) + "\"");
+
+   // Call write(ostream), below, to do the remaining work.
    return !write(ofs,form).fail();
 }
 
@@ -449,27 +491,51 @@ template<
    template<class...> class MCON,
    template<class...> class CCON
 >
-inline std::ostream &Tree<MCON,CCON>::write(
+std::ostream &Tree<MCON,CCON>::write(
    std::ostream &os,
    const format form
 ) const {
 
-   // format::xml?
+   // Discussion.
+   //
+   // This function might have been called through the filename write(); OR,
+   // might have been called directly by a user, or possibly called through
+   // the << stream output operator.
+   //
+   // In the former case, a filename was given, and thus the earlier function
+   // had the opportunity to examine the filename and, if applicable, make a
+   // smart decision - based on the filename extension - of what output format
+   // the user would like. That decision would have been forwarded to here.
+   //
+   // In the latter cases, only an ostream is involved, and there's neither
+   // a filename whose extension can be examined, nor an existing file (that
+   // we care about, at least - we're doing *output*) whose first character
+   // we can peek() in order to guess at the file type. We therefore have our
+   // else { } catchall, below, write the tree in our basic tree-output form,
+   // whether format::null or format::tree arrived as the format. An argument
+   // could be made that write(ostream,format) should require that a format
+   // be given, considering that we don't, here, have a file or filename to
+   // examine. On the other hand, we like having format be optional, to make
+   // our various tree I/O functions be as consistent with one another as
+   // possible. Note, also, that if the user calls operator<<, then there's
+   // no opportunity to explicitly provide a format.
+
    if (form == format::xml) {
       // write via a temporary xml object...
       gnds::xml(*this).write(os);
-      return os;
-   }
-
-   // format::json?
-   if (form == format::json) {
+   } else if (form == format::json) {
       // write via a temporary json object...
       gnds::json(*this).write(os);
-      return os;
+   } else if (form == format::hdf5) {
+      // write via a temporary hdf5 object...
+      error("HDF5 write() is not implemented yet");
+   } else {
+      // default, or our internal tree format
+      if (root) root->write(os,0);
    }
 
-   // else
-   if (root) root->write(os,0);
+   if (!os)
+      error("Could not write to output stream");
    return os;
 }
 

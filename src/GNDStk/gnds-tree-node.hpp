@@ -9,6 +9,9 @@ template<
    template<class...> class CCON
 >
 class Node {
+   // for internal use
+   static bool static_found;
+
    using pair = std::pair<std::string,std::string>;
    using sptr = std::shared_ptr<Node>;
 
@@ -65,14 +68,34 @@ public:
    // ------------------------
 
    // for string
-   const std::string &meta(const std::string &str) const
-   {
+   const std::string &meta(
+      const std::string &str,
+      bool &found = static_found // importantly, a reference; see below
+   ) const {
+      // search
       for (auto &m : metadata)
          if (m.first == str)
-            return m.second;
-      // fixme: eventually, do something better than this...
-      assert(false);
-      static std::string empty = "";
+            return found = true, m.second;
+
+      // not found
+      found = false;
+      static const std::string empty = "";
+
+      // If a "found" flag was NOT sent to this function, we'll emit an error.
+      // Otherwise, we'll assume that the caller intends to deal with the issue
+      // in its own way, and therefore that we shouldn't produce such an error.
+      // Note that the question of whether a "found" flag was sent is determined
+      // by looking at its address. This is entirely different from the question
+      // of what found's value should be. Its value is set either way.
+      if (&found == &static_found) {
+         // found references our private default - so, caller didn't send one
+         error(
+            "Node meta() called with key \"" + str + "\", "
+            "but this key wasn't\nfound in the node's metadata."
+         );
+      }
+
+      // done
       return empty;
    }
 
@@ -80,44 +103,52 @@ public:
    // Return by value isn't ideal, if T is something large like a container.
    // Think about options.
    template<class T>
-   T meta(const meta_t<T> &kwd) const
-   {
-      const std::string &str = meta(kwd.name);
-      T value;
-      gnds::read(str,value);
+   T meta(
+      const meta_t<T> &kwd,
+      bool &found = static_found
+   ) const {
+      const std::string &str = meta(kwd.name,found);
+      T value{};
+      if (found)
+         gnds::read(str,value);
       return value;
    }
 
    // for meta_t<string>
-   // The above is functionally equivalent, as we have a read(string,string)
-   // that just copies the string (and we want that read() anyway, for possible
-   // use by the variant case below). But let's do this directly, for clarity's
-   // sake, even if after optimization the above probably wouldn't be worse...
-   std::string meta(const meta_t<std::string> &kwd) const
-   {
-      return meta(kwd.name); // raw (not meta_t<>'d) string case, earlier
+   // Functionally equivalent to using meta(meta_t<T>) with T = string,
+   // but more direct and thus perhaps more efficient.
+   std::string meta(
+      const meta_t<std::string> &kwd,
+      bool &found = static_found
+   ) const {
+      return meta(kwd.name,found); // direct call to meta(string)
    }
 
    // for meta_t<void>
-   // What the hey, let's define the meta_t<void> case to be equivalent to the
-   // meta_t<string> case. This makes meta_t's behavior more consistent with
-   // that of child_t, which uses <void> to stipulate that the child node be
-   // returned in its original form in the tree.
-   std::string meta(const meta_t<void> &kwd) const
-   {
-      return meta(kwd.name); // as above
+   // Let's define the meta_t<void> case to be equivalent to the meta_t<string>
+   // case. This makes the behavior of meta_t be more consistent with that of
+   // child_t, which uses <void> to stipulate that the child node be returned
+   // in its original tree-node form.
+   std::string meta(
+      const meta_t<void> &kwd,
+      bool &found = static_found
+   ) const {
+      return meta(kwd.name,found); // as above
    }
 
    // for meta_t<variant>, caller must stipulate <T>.
-   // We don't just fold this into meta(meta_t<T>) above and return the variant,
+   // We can't just fold this into meta(meta_t<T>) above and return the variant,
    // because the read() would have no idea what variant variation to read into!
    template<class T, class... Ts>
-   T meta(const meta_t<std::variant<Ts...>> &kwd) const
-   {
-      // body is as above, but function signature is structurally different
-      const std::string &str = meta(kwd.name);
-      T value;
-      gnds::read(str,value);
+   T meta(
+      const meta_t<std::variant<Ts...>> &kwd,
+      bool &found = static_found
+   ) const {
+      // body is as above, but the function signature is structurally different
+      const std::string &str = meta(kwd.name,found);
+      T value{}; // T having been direct-specified, not in meta_t<here>
+      if (found)
+         gnds::read(str,value);
       return value;
    }
 
@@ -127,14 +158,29 @@ public:
    // ------------------------
 
    // for string
-   const Node &child(const std::string &str) const
-   {
+   const Node &child(
+      const std::string &str,
+      bool &found = static_found // as for meta(string)
+      // fixme Need "found" below, and in operator()
+   ) const {
+      // search
       for (auto &c : children)
          if (c != nullptr && c->name == str)
-            return *c;
-      // fixme: eventually, do something better than this...
-      assert(false);
-      static Node empty;
+            return found = true, *c;
+
+      // not found
+      found = false;
+      static const Node empty;
+
+      // comment as in meta(string)
+      if (&found == &static_found) {
+         error(
+            "Node child() called with key \"" + str + "\", "
+            "but this key wasn't\nfound in the node's children."
+         );
+      }
+
+      // done
       return empty;
    }
 
@@ -193,6 +239,13 @@ public:
    }
 
 }; // class Node
+
+// Node::static_found
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+bool Node<MCON,CCON>::static_found = false;
 
 
 
