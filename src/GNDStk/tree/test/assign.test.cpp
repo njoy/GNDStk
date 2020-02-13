@@ -3,7 +3,11 @@
 #include "GNDStk.hpp"
 
 
+
+// -----------------------------------------------------------------------------
 // assign(rhs,ossr)
+// -----------------------------------------------------------------------------
+
 // TREE = a existing "right-hand-side" tree that arrives here as something
 //        we'll use on the right-hand-side of an assignment to a new tree
 // M = metadata container class for the new tree
@@ -30,7 +34,11 @@ bool assign(
 }
 
 
+
+// -----------------------------------------------------------------------------
 // assign()
+// -----------------------------------------------------------------------------
+
 // Tests various tree assignments, with a "right-hand-side" of Tree<M,C>
 // M = metadata container class
 // C = children container class
@@ -69,7 +77,11 @@ bool assign()
 }
 
 
+
+// -----------------------------------------------------------------------------
 // SCENARIO
+// -----------------------------------------------------------------------------
+
 SCENARIO("Testing GNDStk tree assignments") {
    GIVEN("Various flavors of tree, each read from a GNDS .xml file") {
 

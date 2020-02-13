@@ -31,7 +31,7 @@ public:
    // ------------------------
 
    // default
-   // rref
+   // move
    xml() = default;
    xml(xml &&) = default;
 
@@ -59,7 +59,7 @@ public:
    // Assignment
    // ------------------------
 
-   // rref
+   // move
    xml &operator=(xml &&) = default;
 
    // copy (pugi::xml_document's is inaccessible)

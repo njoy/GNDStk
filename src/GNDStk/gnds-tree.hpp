@@ -49,9 +49,9 @@ public:
    // ------------------------
 
    // default
-   // rref
+   // move
    Tree() { }
-   // fixme write rref
+   Tree(Tree &&) = default;
 
    // xml, json
    explicit Tree(const xml  &xdoc) { convert(xdoc,*this); }
