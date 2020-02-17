@@ -317,7 +317,7 @@ inline bool convert(
    to.clear();
 
    // convert
-   if (from.root) {
+   if (!from.empty()) {
       to.root = std::make_shared<Node<MCONTO,CCONTO>>();
       detail::Node2Node(*from.root, *to.root);
    }

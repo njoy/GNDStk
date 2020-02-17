@@ -3,5 +3,4 @@ subprojects
 bin*
 build
 *~
-CMakeLists.txt
 metaconfigure/*.pyc

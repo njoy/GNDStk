@@ -94,12 +94,15 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::json &jdoc)
    jdoc.clear();
 
    // convert
-   if (tree.root) {
-      const gnds::Node<MCON,CCON> &node = *tree.root;
+   if (!tree.empty()) {
       unsigned long kwdcount = 0;
+      return detail::Node2json(tree.gnds(), jdoc.doc, kwdcount);
+      /*
+      const gnds::Node<MCON,CCON> &node = *tree.root;
       assert(node.children.size() == 1);  // e.g. reactionSuite
       assert(*node.children.begin() != nullptr);
       return detail::Node2json(**node.children.begin(), jdoc.doc, kwdcount);
+      */
    }
 
    // done

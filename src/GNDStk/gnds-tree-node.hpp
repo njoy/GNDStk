@@ -41,10 +41,27 @@ public:
       return metadata.back();
    }
 
+   template<class T>
+   pair &push(const std::string &key, const T &value)
+   {
+      std::ostringstream oss;
+      oss << value;
+      return push(key,oss.str());
+   }
+
+   template<class T>
+   pair &push(const std::pair<std::string,T> &m)
+   {
+      std::ostringstream oss;
+      oss << m.second;
+      return push(pair(m.first,oss.str()));
+   }
+
    // push child
-   Node &push()
+   Node &push(const std::string &name = "")
    {
       children.push_back(std::make_shared<Node<MCON,CCON>>());
+      children.back()->name = name;
       return *children.back();
    }
 

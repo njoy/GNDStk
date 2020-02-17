@@ -1,10 +1,4 @@
 
-// macro, for meta_t building
-#define make_meta(type,name) \
-   inline const meta_t<type> name(#name)
-
-
-
 // -----------------------------------------------------------------------------
 // meta_t
 // -----------------------------------------------------------------------------
@@ -20,6 +14,10 @@ public:
       name(n)
    { }
 };
+
+// macro, for meta_t building
+#define make_meta(type,name) \
+   inline const meta_t<type> name(#name)
 
 
 

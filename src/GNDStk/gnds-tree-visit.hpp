@@ -17,7 +17,7 @@ template<
 >
 inline decltype(auto) Tree<MCON,CCON>::meta(const std::string &str) const
 {
-   assert(root != nullptr);
+   assert(!empty());
    return root->meta(str);
 }
 
@@ -29,7 +29,7 @@ template<
 template<class T>
 inline decltype(auto) Tree<MCON,CCON>::meta(const meta_t<T> &kwd) const
 {
-   assert(root != nullptr);
+   assert(!empty());
    return root->meta(kwd);
 }
 
@@ -45,7 +45,7 @@ template<
 >
 inline decltype(auto) Tree<MCON,CCON>::child(const std::string &str) const
 {
-   assert(root != nullptr);
+   assert(!empty());
    return root->child(str);
 }
 
@@ -58,7 +58,7 @@ template<class T, class META, class CHILD>
 inline decltype(auto) Tree<MCON,CCON>::child(
    const child_t<T,META,CHILD> &kwd
 ) const {
-   assert(root != nullptr);
+   assert(!empty());
    return root->child(kwd);
 }
 

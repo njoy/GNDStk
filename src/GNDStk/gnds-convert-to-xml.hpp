@@ -90,11 +90,11 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
    xdoc.clear();
 
    // convert
-   if (tree.root) {
-      const gnds::Node<MCON,CCON> &node = *tree.root;
+   if (!tree.empty()) {
+      const gnds::Node<MCON,CCON> &zero = tree.zero();
 
       // ------------------------
-      // root node
+      // "zero" node
       // ------------------------
 
       // The way we're storing things in our tree structure, this might
@@ -120,20 +120,22 @@ bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
       // declaration node
       // That's the thing like this: <?xml version="1.0" encoding="UTF-8"?>
       pugi::xml_node decl = xdoc.doc.append_child(pugi::node_declaration);
-      for (auto &meta : node.metadata)
+      for (auto &meta : zero.metadata)
          decl.append_attribute(meta.first.c_str()) = meta.second.c_str();
 
       // ------------------------
       // children
       // ------------------------
 
+      return detail::Node2xml(tree.gnds(), xdoc.doc);
+
+      /*
       // fixme Everywhere, checks like the following should
       // eventually be handled by something better than asserts
-      assert(node.children.size() == 1);  // e.g. reactionSuite or PoPs
-      assert(*node.children.begin() != nullptr);
-
-      // one * for the begin() iterator, another for the shared_ptr
-      return detail::Node2xml(**node.children.begin(), xdoc.doc);
+      assert(zero.children.size() == 1);  // e.g. reactionSuite or PoPs
+      assert(*zero.children.begin() != nullptr);
+      return detail::Node2xml(**zero.children.begin(), xdoc.doc);
+      */
    }
 
    // done

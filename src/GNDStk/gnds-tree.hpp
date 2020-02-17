@@ -9,6 +9,9 @@ template<
    template<class...> class CCON  // children container
 >
 class Tree {
+   static std::string static_str1;
+   static std::string static_str2;
+
 public:
 
    // ------------------------
@@ -36,12 +39,75 @@ public:
       return root == nullptr;
    }
 
+   // start
+   Node<MCON,CCON> &start(
+      const std::string &type_str,
+      const std::string &gnds_str,
+      const std::string &param1 = static_str1,
+      const std::string &param2 = static_str2
+   ) {
+      // begin a new tree
+      clear();
+
+      // TYPE NODE: "xml", etc.
+      root = std::make_shared<Node<MCON,CCON>>();
+      root->name = type_str;
+      if (type_str == "xml") {
+         // xml
+         if (&param1 == &static_str1)
+            root->push("version","1.0");
+         else if (param1 != "")
+            root->push("version",param1);
+         if (&param2 == &static_str2)
+            root->push("encoding","UTF-8");
+         else if (param2 != "")
+            root->push("encoding",param2);
+      } else if (type_str == "hdf5") {
+         // fixme Write hdf5 case
+      } else {
+         // fixme Write json case
+      }
+
+      // PRIMARY GNDS NODE: "reactionSuite", etc.
+      Node<MCON,CCON> &gnds_node = root->push();
+      gnds_node.name = gnds_str;
+      return gnds_node;
+   }
+
    // normalize
    void normalize()
    {
-      if (root)
+      if (!empty())
          root->normalize();
    }
+
+   // zero: "Oth" tree node: "xml" etc. Like, say, a container's [0] element.
+   Node<MCON,CCON> &zero()
+   {
+      assert(!empty());
+      return *root;
+   }
+   const Node<MCON,CCON> &zero() const
+   {
+      assert(!empty());
+      return *root;
+   }
+
+   // gnds
+   // Primary GNDS node: "reactionSuite" etc.
+   Node<MCON,CCON> &gnds()
+   {
+      assert(!empty() && root->children.size() == 1 &&
+             *root->children.begin() != nullptr);
+      return **root->children.begin();
+   }
+   const Node<MCON,CCON> &gnds() const
+   {
+      assert(!empty() && root->children.size() == 1 &&
+             *root->children.begin() != nullptr);
+      return **root->children.begin();
+   }
+
 
 
    // ------------------------
@@ -93,6 +159,16 @@ public:
    explicit Tree(const Tree<MCONTO,CCONTO> &t)
    {
       convert(t,*this);
+   }
+
+   // starter tree
+   Tree(
+      const std::string &type_str,
+      const std::string &gnds_str,
+      const std::string &param1 = static_str1,
+      const std::string &param2 = static_str2
+   ) {
+      start(type_str, gnds_str, param1, param2);
    }
 
 
@@ -193,6 +269,18 @@ public:
    decltype(auto) operator()(const child_t<T,META,CHILD> &, Ts &&...) const;
 
 }; // class Tree
+
+// Tree::static_*
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+std::string Tree<MCON,CCON>::static_str1 = "";
+template<
+   template<class...> class MCON,
+   template<class...> class CCON
+>
+std::string Tree<MCON,CCON>::static_str2 = "";
 
 
 
@@ -531,7 +619,8 @@ std::ostream &Tree<MCON,CCON>::write(
       error("HDF5 write() is not implemented yet");
    } else {
       // default, or our internal tree format
-      if (root) root->write(os,0);
+      if (!empty())
+         root->write(os,0);
    }
 
    if (!os)
