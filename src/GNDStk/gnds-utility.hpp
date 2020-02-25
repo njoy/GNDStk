@@ -52,8 +52,8 @@ class json;
 
 // tnode
 template<
-   template<class...> class MCON,
-   template<class...> class CCON,
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER,
    class T
 >
 class tnode;
@@ -78,56 +78,58 @@ class tnode;
 
 // Tree to {Tree,xml,json}
 template<
-   template<class...> class MCONFROM,
-   template<class...> class CCONFROM,
-   template<class...> class MCONTO,
-   template<class...> class CCONTO
+   template<class...> class METADATA_CONTAINER_FROM,
+   template<class...> class CHILDREN_CONTAINER_FROM,
+   template<class...> class METADATA_CONTAINER_TO,
+   template<class...> class CHILDREN_CONTAINER_TO
 >
 bool convert(
-   const gnds::Tree<MCONFROM,CCONFROM> &,
-   gnds::Tree<MCONTO,CCONTO> &
+   const gnds::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
+   gnds::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &
 );
 
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::Tree<MCON,CCON> &,
+   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
    gnds::xml &
 );
 
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::Tree<MCON,CCON> &,
+   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
    gnds::json &
 );
 
 
 // xml to {Tree,xml,json}
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool convert(const gnds::xml &, gnds::Tree<MCON,CCON> &);
-
+bool convert(
+   const gnds::xml &,
+   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+);
 bool convert(const gnds::xml &, gnds::xml &);
-
 bool convert(const gnds::xml &, gnds::json &);
 
 
 // json to {Tree,xml,json}
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool convert(const gnds::json &, gnds::Tree<MCON,CCON> &);
-
+bool convert(
+   const gnds::json &,
+   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+);
 bool convert(const gnds::json &, gnds::xml &);
-
 bool convert(const gnds::json &, gnds::json &);
 
 
@@ -176,17 +178,8 @@ inline std::ifstream::pos_type filesize(const std::string &file)
 // C++20 will have an ends_with(); for now we'll have this
 inline bool endsin(const std::string &str, const std::string &end)
 {
-   return str.size() >= end.size() && &str[str.size()-end.size()] == end;
+   return str.size() >= end.size() and &str[str.size()-end.size()] == end;
 }
-
-// typeof
-#ifdef GNDS_BOOST
-template<class T>
-inline void typeof(const T &)
-{
-   std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
-}
-#endif
 
 
 
@@ -198,7 +191,7 @@ inline void typeof(const T &)
 inline bool endsin_xml(const std::string &str)
 {
    return
-      endsin(str,".xml" ) ||
+      endsin(str,".xml" ) or
       endsin(str,".XML" );
 }
 
@@ -206,7 +199,7 @@ inline bool endsin_xml(const std::string &str)
 inline bool endsin_json(const std::string &str)
 {
    return
-      endsin(str,".json") ||
+      endsin(str,".json") or
       endsin(str,".JSON");
 }
 
@@ -214,13 +207,13 @@ inline bool endsin_json(const std::string &str)
 inline bool endsin_hdf5(const std::string &str)
 {
    return
-      endsin(str,".hdf" ) ||
-      endsin(str,".HDF" ) ||
-      endsin(str,".h5"  ) ||
-      endsin(str,".H5"  ) ||
-      endsin(str,".hdf5") ||
-      endsin(str,".HDF5") ||
-      endsin(str,".he5" ) ||
+      endsin(str,".hdf" ) or
+      endsin(str,".HDF" ) or
+      endsin(str,".h5"  ) or
+      endsin(str,".H5"  ) or
+      endsin(str,".hdf5") or
+      endsin(str,".HDF5") or
+      endsin(str,".he5" ) or
       endsin(str,".HE5" );
 }
 

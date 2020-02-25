@@ -31,12 +31,6 @@
 #include <list>
 #include <vector>
 
-// boost demangle,
-// if it's wanted
-#ifdef GNDS_BOOST
-#include <boost/core/demangle.hpp>
-#endif
-
 
 // ------------------------
 // GNDS
@@ -61,7 +55,6 @@ namespace gnds {
 // tree
 #include "GNDStk/gnds-tree-node.hpp"
 #include "GNDStk/gnds-tree.hpp"
-#include "GNDStk/gnds-tree-visit.hpp"
 
 // typed node
 #include "GNDStk/gnds-tnode.hpp"

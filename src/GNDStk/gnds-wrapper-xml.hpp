@@ -38,10 +38,13 @@ public:
    // json, tree
    explicit xml(const json &j) { convert(j,*this); }
    template<
-      template<class...> class MCON,
-      template<class...> class CCON
+      template<class...> class METADATA_CONTAINER,
+      template<class...> class CHILDREN_CONTAINER
    >
-   explicit xml(const Tree<MCON,CCON> &t) { convert(t,*this); }
+   explicit xml(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
+   {
+      convert(t,*this);
+   }
 
    // file, stream
    explicit xml(const char * const file) { read(file); }
@@ -158,7 +161,7 @@ inline bool xml::write(const char * const file) const
 {
    // calls write(ostream) below
    std::ofstream ofs(file);
-   return !write(ofs).fail();
+   return not write(ofs).fail();
 }
 
 

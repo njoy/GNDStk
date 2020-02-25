@@ -41,10 +41,13 @@ public:
    // ctor: xml, tree
    explicit json(const xml  &xdoc) { convert(xdoc,*this); }
    template<
-      template<class...> class MCON,
-      template<class...> class CCON
+      template<class...> class METADATA_CONTAINER,
+      template<class...> class CHILDREN_CONTAINER
    >
-   explicit json(const Tree<MCON,CCON> &tree) { convert(tree,*this); }
+   explicit json(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree)
+   {
+      convert(tree,*this);
+   }
 
    // ctor: file, stream
    explicit json(const char * const file) { read(file); }
@@ -74,7 +77,7 @@ inline bool json::read(const char * const file)
 {
    // calls read(istream) below
    std::ifstream ifs(file);
-   return !read(ifs).fail();
+   return not read(ifs).fail();
 }
 
 
@@ -109,7 +112,7 @@ inline bool json::write(const char * const file) const
 {
    // calls write(ostream) below
    std::ofstream ofs(file);
-   return !write(ofs).fail();
+   return not write(ofs).fail();
 }
 
 

@@ -312,7 +312,7 @@ template<class unused>
 void debug_t<unused>::operator()(const std::string &text) const
 {
    // nothing, if debugging isn't on
-   if (!on)
+   if (not on)
       return;
 
    // initial markup, if needed
@@ -326,7 +326,7 @@ void debug_t<unused>::operator()(const std::string &text) const
    std::cout << color << "Debug: ";
    const std::size_t size = text.size();
    for (std::size_t i = 0;  i < size;  ++i) {
-      const bool internal_newline = text[i] == '\n' && i < size-1;
+      const bool internal_newline = text[i] == '\n' and i < size-1;
       if (internal_newline) std::cout << reset;
       std::cout << text[i];
       if (internal_newline) std::cout << color << "Debug: ";
@@ -334,7 +334,7 @@ void debug_t<unused>::operator()(const std::string &text) const
    std::cout << reset;
 
    // finish
-   if (text != "" && text.back() != '\n')
+   if (text != "" and text.back() != '\n')
       std::cout << '\n';
    std::cout << std::flush;
 }
@@ -390,19 +390,19 @@ void diagnostic(
 
    // spacing
    static bool first = true;
-   if (output.space && !first)
+   if (output.space and not first)
       std::cout << '\n';
    first = false;
 
    // color
-   if (!gnds::color)
+   if (not gnds::color)
       textcolor = maincolor = "";
    else if (textcolor == "")
       textcolor = maincolor;
    const std::string &reset = gnds::color ? gnds::color.reset : "";
 
    // content
-   if (label == "" || (output.brief && !keep_verbose))
+   if (label == "" or (output.brief and not keep_verbose))
       std::cout << maincolor << text << reset;
    else {
       std::cout
@@ -413,7 +413,7 @@ void diagnostic(
 
       const std::size_t size = text.size();
       for (std::size_t i = 0;  i < size;  ++i) {
-         const bool internal_newline = text[i] == '\n' && i < size-1;
+         const bool internal_newline = text[i] == '\n' and i < size-1;
          if (internal_newline) std::cout << reset;
          std::cout << text[i];
          if (internal_newline) std::cout << "   " << textcolor;
@@ -423,7 +423,7 @@ void diagnostic(
    }
 
    // finish
-   if (text != "" && text.back() != '\n')
+   if (text != "" and text.back() != '\n')
       std::cout << '\n';
    std::cout << std::flush;
 }
@@ -624,7 +624,7 @@ public:
       const std::string &text = "",
       const bool keep_verbose = false
    ) const {
-      if (!on || (label == "" && text == ""))
+      if ((not on) or (label == "" and text == ""))
          // reports are off, or this report has no content
          return;
       else if (text == "")

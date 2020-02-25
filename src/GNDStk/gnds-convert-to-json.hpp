@@ -38,11 +38,11 @@ inline std::string prefix(const unsigned long n)
 
 // Node2json
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 bool Node2json(
-   const gnds::Node<MCON,CCON> &node,
+   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    nlohmann::json &j,
    unsigned long &kwdcount
 ) {
@@ -68,7 +68,7 @@ bool Node2json(
 
    // children
    for (auto &child : node.children)
-      if (child && !Node2json(*child, j[nodename], kwdcount))
+      if (child and not Node2json(*child, j[nodename], kwdcount))
          return false;
 
    // done
@@ -85,20 +85,22 @@ bool Node2json(
 
 // Tree ==> json
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::json &jdoc)
-{
+bool convert(
+   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
+   gnds::json &jdoc
+) {
    // clear
    jdoc.clear();
 
    // convert
-   if (!tree.empty()) {
+   if (not tree.empty()) {
       unsigned long kwdcount = 0;
       return detail::Node2json(tree.gnds(), jdoc.doc, kwdcount);
       /*
-      const gnds::Node<MCON,CCON> &node = *tree.root;
+      const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node=*tree.root;
       assert(node.children.size() == 1);  // e.g. reactionSuite
       assert(*node.children.begin() != nullptr);
       return detail::Node2json(**node.children.begin(), jdoc.doc, kwdcount);
@@ -118,7 +120,7 @@ inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
 {
    gnds::tree tree;
    return
-      convert(xdoc,tree) &&
+      convert(xdoc,tree) and
       convert(tree,jdoc);
 }
 

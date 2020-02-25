@@ -77,12 +77,12 @@ inline void read(const std::string &str, std::string &value)
 inline void read(const std::string &str, bool &value)
 {
    if (
-      str == "1" || str == "t"     || str == "true"  ||
-      str == "T" || str == "True"  || str == "TRUE"  )
+      str == "1" or str == "t"     or str == "true"  or
+      str == "T" or str == "True"  or str == "TRUE"  )
       value = true;
    else if (
-      str == "0" || str == "f"     || str == "false" ||
-      str == "F" || str == "False" || str == "FALSE" )
+      str == "0" or str == "f"     or str == "false" or
+      str == "F" or str == "False" or str == "FALSE" )
       value = false;
    else {
       // fixme do something better than this
@@ -121,12 +121,14 @@ gnds_read(stoull, unsigned long long)
 // Doesn't know what to do; should be overridden
 // fixme Consider having *no* default for read(node,...)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON,
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER,
    class T
 >
-inline void read(const gnds::Node<MCON,CCON> &, T &value)
-{
+inline void read(
+   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
+   T &value
+) {
    assert(false);
    value = T{};
 }

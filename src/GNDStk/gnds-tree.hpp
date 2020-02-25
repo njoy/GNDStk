@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 template<
-   template<class...> class MCON, // metadata container
-   template<class...> class CCON  // children container
+   template<class...> class METADATA_CONTAINER, // metadata container
+   template<class...> class CHILDREN_CONTAINER  // children container
 >
 class Tree {
    static std::string static_str1;
@@ -19,7 +19,7 @@ public:
    // ------------------------
 
    // root
-   std::shared_ptr<Node<MCON,CCON>> root;
+   std::shared_ptr<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>> root;
 
 
    // ------------------------
@@ -40,7 +40,7 @@ public:
    }
 
    // start
-   Node<MCON,CCON> &start(
+   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &start(
       const std::string &type_str,
       const std::string &gnds_str,
       const std::string &param1 = static_str1,
@@ -50,7 +50,7 @@ public:
       clear();
 
       // TYPE NODE: "xml", etc.
-      root = std::make_shared<Node<MCON,CCON>>();
+      root = std::make_shared<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
       root->name = type_str;
       if (type_str == "xml") {
          // xml
@@ -69,7 +69,7 @@ public:
       }
 
       // PRIMARY GNDS NODE: "reactionSuite", etc.
-      Node<MCON,CCON> &gnds_node = root->push();
+      Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &gnds_node = root->push();
       gnds_node.name = gnds_str;
       return gnds_node;
    }
@@ -77,33 +77,35 @@ public:
    // normalize
    void normalize()
    {
-      if (!empty())
+      if (not empty())
          root->normalize();
    }
 
    // zero: "Oth" tree node: "xml" etc. Like, say, a container's [0] element.
-   Node<MCON,CCON> &zero()
+   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &zero()
    {
-      assert(!empty());
+      assert(not empty());
       return *root;
    }
-   const Node<MCON,CCON> &zero() const
+
+   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &zero() const
    {
-      assert(!empty());
+      assert(not empty());
       return *root;
    }
 
    // gnds
    // Primary GNDS node: "reactionSuite" etc.
-   Node<MCON,CCON> &gnds()
+   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &gnds()
    {
-      assert(!empty() && root->children.size() == 1 &&
+      assert(not empty() and root->children.size() == 1 and
              *root->children.begin() != nullptr);
       return **root->children.begin();
    }
-   const Node<MCON,CCON> &gnds() const
+
+   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &gnds() const
    {
-      assert(!empty() && root->children.size() == 1 &&
+      assert(not empty() and root->children.size() == 1 and
              *root->children.begin() != nullptr);
       return **root->children.begin();
    }
@@ -153,10 +155,10 @@ public:
 
    // templated "copy"
    template<
-      template<class...> class MCONTO,
-      template<class...> class CCONTO
+      template<class...> class METADATA_CONTAINER_TO,
+      template<class...> class CHILDREN_CONTAINER_TO
    >
-   explicit Tree(const Tree<MCONTO,CCONTO> &t)
+   explicit Tree(const Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &t)
    {
       convert(t,*this);
    }
@@ -185,10 +187,10 @@ public:
 
    // templated "copy"
    template<
-      template<class...> class MCONTO,
-      template<class...> class CCONTO
+      template<class...> class METADATA_CONTAINER_TO,
+      template<class...> class CHILDREN_CONTAINER_TO
    >
-   Tree &operator=(const Tree<MCONTO,CCONTO> &t)
+   Tree &operator=(const Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &t)
    {
       convert(t,*this);
       return *this;
@@ -250,37 +252,95 @@ public:
    // meta, child, operator()
    // ------------------------
 
+   // ------------------------
    // meta
-   decltype(auto) meta(const std::string &) const;
-   template<class T>
-   decltype(auto) meta(const meta_t<T> &) const;
+   // ------------------------
 
+   decltype(auto) meta(const std::string &str) const
+   {
+      assert(not empty());
+      return root->meta(str);
+   }
+
+   template<class T>
+   decltype(auto) meta(const meta_t<T> &kwd) const
+   {
+      assert(not empty());
+      return root->meta(kwd);
+   }
+
+   // ------------------------
    // child
-   decltype(auto) child(const std::string &) const;
-   template<class T, class META, class CHILD>
-   decltype(auto) child(const child_t<T,META,CHILD> &) const;
+   // ------------------------
 
-   // operator()
-   template<class T>
-   decltype(auto) operator()(const meta_t<T> &) const;
+   decltype(auto) child(const std::string &str) const
+   {
+      assert(not empty());
+      return root->child(str);
+   }
+
    template<class T, class META, class CHILD>
-   decltype(auto) operator()(const child_t<T,META,CHILD> &) const;
+   decltype(auto) child(const child_t<T,META,CHILD> &kwd) const
+   {
+      assert(not empty());
+      return root->child(kwd);
+   }
+
+   // ------------------------
+   // operator()
+   // ------------------------
+
+   template<class T>
+   decltype(auto) operator()(const meta_t<T> &kwd) const
+   {
+      return meta(kwd);
+   }
+
+   template<class T, class META, class CHILD>
+   decltype(auto) operator()(const child_t<T,META,CHILD> &kwd) const
+   {
+      return child(kwd);
+   }
+
    template<class T, class META, class CHILD, class... Ts>
-   decltype(auto) operator()(const child_t<T,META,CHILD> &, Ts &&...) const;
+   decltype(auto) operator()(const child_t<T,META,CHILD> &kwd, Ts &&...ts) const
+   {
+      return (*this)(kwd)(std::forward<Ts>(ts)...);
+   }
+
+   /*
+   Summary of meta(), child(), operator()()
+
+   Tree::meta()
+      decltype(auto) meta  ( const string     &str ) const;
+      decltype(auto) meta  ( const meta_t<T>  &kwd ) const;
+
+   Tree::child()
+      decltype(auto) child ( const string     &str ) const;
+      decltype(auto) child ( const child_t<T> &kwd ) const;
+
+   Tree::operator()()
+      decltype(auto) operator() ( const meta_t <T> &kwd             ) const;
+      decltype(auto) operator() ( const child_t<T> &kwd             ) const;
+      decltype(auto) operator() ( const child_t<T> &kwd, Ts &&...ts ) const;
+   */
 
 }; // class Tree
 
+
+
 // Tree::static_*
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-std::string Tree<MCON,CCON>::static_str1 = "";
+std::string Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_str1 = "";
+
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-std::string Tree<MCON,CCON>::static_str2 = "";
+std::string Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_str2 = "";
 
 
 
@@ -348,10 +408,10 @@ inline const std::string format_tree_read =
 
 // read(char *, format)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool Tree<MCON,CCON>::read(
+bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
    const char * const file,
    const format form
 ) {
@@ -379,11 +439,11 @@ bool Tree<MCON,CCON>::read(
    // Check: consistent name?
    // ------------------------
 
-   if (form == format::xml  && has_extension(file) && !endsin_xml (file))
+   if (form == format::xml  and has_extension(file) and not endsin_xml (file))
       detail::warning_tree_io_name<char>("read", file, "xml",  "XML" );
-   if (form == format::json && has_extension(file) && !endsin_json(file))
+   if (form == format::json and has_extension(file) and not endsin_json(file))
       detail::warning_tree_io_name<char>("read", file, "json", "Json");
-   if (form == format::hdf5 && has_extension(file) && !endsin_hdf5(file))
+   if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
       detail::warning_tree_io_name<char>("read", file, "hdf5", "HDF5");
 
    // ------------------------
@@ -391,24 +451,24 @@ bool Tree<MCON,CCON>::read(
    // ------------------------
 
    std::ifstream ifs(file);
-   if (!ifs)
+   if (not ifs)
       error("Could not open input file \"" + std::string(file) + "\"");
 
    // Call read(istream), below, to do the remaining work. Note that although
    // the filename isn't available any longer in that function, the function
    // can, and does, do additional checking (complimentary to what we already
    // did above), based on looking at the content we'll be attempting to read.
-   return !read(ifs,form).fail();
+   return not read(ifs,form).fail();
 }
 
 
 
 // read(istream, format)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-std::istream &Tree<MCON,CCON>::read(
+std::istream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
    std::istream &is,
    const format _form
 ) {
@@ -475,7 +535,7 @@ std::istream &Tree<MCON,CCON>::read(
       // assume .xml
       // go through a temporary xml object to create the tree...
       const xml tmp(is);
-      if (!is.fail())
+      if (not is.fail())
          convert(tmp, *this);
    } else if (form == format::json) {
       // assume .json
@@ -485,8 +545,8 @@ std::istream &Tree<MCON,CCON>::read(
       // It would seem that the nlohmann::json stream input operation,
       // which is used by the constructor we just called, sets failbit
       // in instances in which it should just set eofbit. So, for now,
-      // we'll comment-out the !is.fail() test... :-/
-      // if (!is.fail())
+      // we'll comment-out the "not is.fail()" test... :-/
+      // if (not is.fail())
       convert(tmp, *this);
    } else if (form == format::hdf5) {
       error("HDF5 read() is not implemented yet");
@@ -504,12 +564,12 @@ std::istream &Tree<MCON,CCON>::read(
 
 // operator>>
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 inline std::istream &operator>>(
    std::istream &is,
-   Tree<MCON,CCON> &obj
+   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
    // Call read(istream) above
    return obj.read(is);
@@ -523,10 +583,10 @@ inline std::istream &operator>>(
 
 // write(char *, format)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool Tree<MCON,CCON>::write(
+bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    const char * const file,
    const format _form
 ) const {
@@ -553,11 +613,11 @@ bool Tree<MCON,CCON>::write(
    // Check: consistent name?
    // ------------------------
 
-   if (form == format::xml  && has_extension(file) && !endsin_xml (file))
+   if (form == format::xml  and has_extension(file) and not endsin_xml (file))
       detail::warning_tree_io_name<char>("write", file, "xml",  "XML" );
-   if (form == format::json && has_extension(file) && !endsin_json(file))
+   if (form == format::json and has_extension(file) and not endsin_json(file))
       detail::warning_tree_io_name<char>("write", file, "json", "Json");
-   if (form == format::hdf5 && has_extension(file) && !endsin_hdf5(file))
+   if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
       detail::warning_tree_io_name<char>("write", file, "hdf5", "HDF5");
 
    // ------------------------
@@ -565,21 +625,21 @@ bool Tree<MCON,CCON>::write(
    // ------------------------
 
    std::ofstream ofs(file);
-   if (!ofs)
+   if (not ofs)
       error("Could not open output file \"" + std::string(file) + "\"");
 
    // Call write(ostream), below, to do the remaining work.
-   return !write(ofs,form).fail();
+   return not write(ofs,form).fail();
 }
 
 
 
 // write(ostream, format)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-std::ostream &Tree<MCON,CCON>::write(
+std::ostream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    std::ostream &os,
    const format form
 ) const {
@@ -619,11 +679,11 @@ std::ostream &Tree<MCON,CCON>::write(
       error("HDF5 write() is not implemented yet");
    } else {
       // default, or our internal tree format
-      if (!empty())
+      if (not empty())
          root->write(os,0);
    }
 
-   if (!os)
+   if (not os)
       error("Could not write to output stream");
    return os;
 }
@@ -632,12 +692,12 @@ std::ostream &Tree<MCON,CCON>::write(
 
 // operator<<
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 inline std::ostream &operator<<(
    std::ostream &os,
-   const Tree<MCON,CCON> &obj
+   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
    // Call write(ostream) above
    return obj.write(os);

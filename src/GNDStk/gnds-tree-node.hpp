@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 class Node {
    // for internal use
@@ -22,8 +22,8 @@ public:
    //    metadata
    //    children
    std::string name;
-   MCON<pair,std::allocator<pair>> metadata;
-   CCON<sptr,std::allocator<sptr>> children;
+   METADATA_CONTAINER<pair,std::allocator<pair>> metadata;
+   CHILDREN_CONTAINER<sptr,std::allocator<sptr>> children;
 
    // normalize
    void normalize();
@@ -60,7 +60,9 @@ public:
    // push child
    Node &push(const std::string &name = "")
    {
-      children.push_back(std::make_shared<Node<MCON,CCON>>());
+      children.push_back(
+         std::make_shared<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>()
+      );
       children.back()->name = name;
       return *children.back();
    }
@@ -182,7 +184,7 @@ public:
    ) const {
       // search
       for (auto &c : children)
-         if (c != nullptr && c->name == str)
+         if (c != nullptr and c->name == str)
             return found = true, *c;
 
       // not found
@@ -205,14 +207,14 @@ public:
    template<class T, class META, class CHILD>
    auto child(const child_t<T,META,CHILD> &kwd) const
    {
-      return tnode<MCON,CCON,T>(child(kwd.name));
+      return tnode<METADATA_CONTAINER,CHILDREN_CONTAINER,T>(child(kwd.name));
    }
 
    // for child_t<variant>, caller must stipulate <T>.
    template<class T, class META, class CHILD, class... Ts>
    auto child(const child_t<std::variant<Ts...>,META,CHILD> &kwd) const
    {
-      return tnode<MCON,CCON,T>(child(kwd.name));
+      return tnode<METADATA_CONTAINER,CHILDREN_CONTAINER,T>(child(kwd.name));
    }
 
 
@@ -261,10 +263,10 @@ public:
 
 // Node::static_found
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool Node<MCON,CCON>::static_found = false;
+bool Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_found = false;
 
 
 
@@ -274,25 +276,25 @@ bool Node<MCON,CCON>::static_found = false;
 
 // write(char *)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-inline bool Node<MCON,CCON>::write(
+inline bool Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    const char * const file,
    const int level
 ) const {
    // calls write(ostream) below
    std::ofstream ofs(file);
-   return !write(ofs,level).fail();
+   return not write(ofs,level).fail();
 }
 
 
 // write(ostream)
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-std::ostream &Node<MCON,CCON>::write(
+std::ostream &Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    std::ostream &os,
    const int level
 ) const {
@@ -319,11 +321,13 @@ std::ostream &Node<MCON,CCON>::write(
 
 // operator<<
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-inline std::ostream &operator<<(std::ostream &os, const Node<MCON,CCON> &obj)
-{
+inline std::ostream &operator<<(
+   std::ostream &os,
+   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
+) {
    // calls write(ostream) above
    return obj.write(os);
 }
@@ -342,7 +346,7 @@ namespace detail {
 inline std::string &strip(std::string &name)
 {
    int n = 0, ch; const int size = name.size();
-   while (n < size && (isdigit(ch=name[n]) || isspace(ch)))
+   while (n < size and (isdigit(ch=name[n]) or isspace(ch)))
       n++;
    return n ? (name = std::string(&name[n])) : name;
 }
@@ -353,10 +357,10 @@ inline std::string &strip(std::string &name)
 
 // normalize
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-void Node<MCON,CCON>::normalize()
+void Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
 {
    // name
    detail::strip(name);

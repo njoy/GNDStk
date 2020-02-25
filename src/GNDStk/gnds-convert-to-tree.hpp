@@ -60,11 +60,13 @@ namespace detail {
 
 // pugi::xml_node ==> Node
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool xnode2Node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
-{
+bool xnode2Node(
+   const pugi::xml_node &xnode,
+   gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+) {
    // name
    node.name = xnode.name();
 
@@ -125,7 +127,7 @@ bool xnode2Node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
       // ------------------------
 
       assert(xsub.type() == pugi::node_element);
-      if (!xnode2Node(xsub,node.push()))
+      if (not xnode2Node(xsub,node.push()))
          return false;
    }
 
@@ -137,11 +139,13 @@ bool xnode2Node(const pugi::xml_node &xnode, gnds::Node<MCON,CCON> &node)
 
 // xml ==> Tree
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
-{
+bool xml2Tree(
+   const gnds::xml &xdoc,
+   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+) {
    // clear
    tree.clear();
 
@@ -153,7 +157,8 @@ bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
          // with pugi::parse_declaration |d in its second argument
          assert(xnode.name() == std::string("xml"));
 
-         tree.root = std::make_shared<Node<MCON,CCON>>();
+         tree.root =
+            std::make_shared<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
          tree.root->name = "xml"; // indicates that we came from a xml
 
          // base xml "attributes", e.g. version and encoding
@@ -163,7 +168,7 @@ bool xml2Tree(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
 
       if (count == 1) {
          // visit the xml's outer node, and its descendants
-         if (!xnode2Node(xnode,tree.root->push()))
+         if (not xnode2Node(xnode,tree.root->push()))
             return false;
       }
 
@@ -192,12 +197,12 @@ namespace detail {
 
 // nlohmann::json::const_iterator ==> Node
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 bool jiter2Node(
    const nlohmann::json::const_iterator &jiter,
-   gnds::Node<MCON,CCON> &node
+   gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    assert(jiter->is_object());
 
@@ -216,7 +221,7 @@ bool jiter2Node(
          node.push().name = sub.key();
       } else if (sub->is_object()) {
          // The current node has a child node *other* than as above.
-         if (!jiter2Node(sub,node.push()))
+         if (not jiter2Node(sub,node.push()))
             return false;
       } else {
          // The current node has this as a key/value metadata pair...
@@ -232,21 +237,23 @@ bool jiter2Node(
 
 // json ==> Tree
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool json2Tree(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
-{
+bool json2Tree(
+   const gnds::json &jdoc,
+   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+) {
    // clear
    tree.clear();
 
    // initialize root
-   tree.root = std::make_shared<Node<MCON,CCON>>();
+   tree.root = std::make_shared<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
    tree.root->name = "json"; // indicates that we came from a json
 
    // visit the json's outer node, and its descendants
    for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem)
-      if (!jiter2Node(elem,tree.root->push()))
+      if (not jiter2Node(elem,tree.root->push()))
          return false;
 
    // done
@@ -266,14 +273,14 @@ namespace detail {
 
 // Node ==> Node
 template<
-   template<class...> class MCONFROM,
-   template<class...> class CCONFROM,
-   template<class...> class MCONTO,
-   template<class...> class CCONTO
+   template<class...> class METADATA_CONTAINER_FROM,
+   template<class...> class CHILDREN_CONTAINER_FROM,
+   template<class...> class METADATA_CONTAINER_TO,
+   template<class...> class CHILDREN_CONTAINER_TO
 >
 inline void Node2Node(
-   const gnds::Node<MCONFROM,CCONFROM> &from,
-   gnds::Node<MCONTO,CCONTO> &to
+   const gnds::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+   gnds::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
    // name
    to.name = from.name;
@@ -300,14 +307,14 @@ inline void Node2Node(
 
 // Tree ==> Tree
 template<
-   template<class...> class MCONFROM,
-   template<class...> class CCONFROM,
-   template<class...> class MCONTO,
-   template<class...> class CCONTO
+   template<class...> class METADATA_CONTAINER_FROM,
+   template<class...> class CHILDREN_CONTAINER_FROM,
+   template<class...> class METADATA_CONTAINER_TO,
+   template<class...> class CHILDREN_CONTAINER_TO
 >
 inline bool convert(
-   const gnds::Tree<MCONFROM,CCONFROM> &from,
-   gnds::Tree<MCONTO,CCONTO> &to
+   const gnds::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+   gnds::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
    // casts needed here because template arguments may be different...
    if ((void*)&to == (void*)&from)
@@ -317,8 +324,9 @@ inline bool convert(
    to.clear();
 
    // convert
-   if (!from.empty()) {
-      to.root = std::make_shared<Node<MCONTO,CCONTO>>();
+   if (not from.empty()) {
+      to.root =
+         std::make_shared<Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO>>();
       detail::Node2Node(*from.root, *to.root);
    }
 
@@ -329,21 +337,25 @@ inline bool convert(
 
 // xml ==> Tree
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-inline bool convert(const gnds::xml &xdoc, gnds::Tree<MCON,CCON> &tree)
-{
+inline bool convert(
+   const gnds::xml &xdoc,
+   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+) {
    return detail::xml2Tree(xdoc,tree);
 }
 
 
 // json ==> Tree
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-inline bool convert(const gnds::json &jdoc, gnds::Tree<MCON,CCON> &tree)
-{
+inline bool convert(
+   const gnds::json &jdoc,
+   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+) {
    return detail::json2Tree(jdoc,tree);
 }

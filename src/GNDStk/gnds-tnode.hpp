@@ -4,12 +4,12 @@
 // we know what to do in the following case.
 
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 inline void read(
-   const gnds::Node<MCON,CCON> &from,
-   gnds::Node<MCON,CCON> &to
+   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &from,
+   gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &to
 ) {
    to = from;
 }
@@ -41,31 +41,36 @@ public:
 // -----------------------------------------------------------------------------
 
 template<
-   template<class...> class MCON,
-   template<class...> class CCON,
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER,
    class T
 >
-class tnode : public Node<MCON,CCON> {
-   using RETURN = typename detail::if_void<T,Node<MCON,CCON>>::type;
+class tnode : public Node<METADATA_CONTAINER,CHILDREN_CONTAINER> {
+   using RETURN =
+      typename detail::if_void<
+         T,
+         Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
+      >::type;
 
 public:
 
    // ctor
-   explicit tnode(const Node<MCON,CCON> &n) :
-      Node<MCON,CCON>(n)
+   explicit tnode(const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &n) :
+      Node<METADATA_CONTAINER,CHILDREN_CONTAINER>(n)
    { }
 
-   // operator(): evaluate to RETURN (T if not void, else Node<MCON,CCON>)
+   // operator(): evaluate to RETURN (T if not void,
+   // else Node<METADATA_CONTAINER,CHILDREN_CONTAINER>)
    RETURN operator()() const
    {
       RETURN ret;
-      read(*(Node<MCON,CCON>*)this,ret);
+      read(*(Node<METADATA_CONTAINER,CHILDREN_CONTAINER>*)this,ret);
       return ret;
    }
 
-   using Node<MCON,CCON>::leaf;
-   using Node<MCON,CCON>::write;
-   using Node<MCON,CCON>::meta;
-   using Node<MCON,CCON>::child;
-   using Node<MCON,CCON>::operator();
+   using Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::leaf;
+   using Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::write;
+   using Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::meta;
+   using Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::child;
+   using Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::operator();
 };

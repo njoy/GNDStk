@@ -26,11 +26,11 @@ namespace detail {
 
 // Node2xml
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
 bool Node2xml(
-   const gnds::Node<MCON,CCON> &node,
+   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    pugi::xml_node &x
 ) {
    // name
@@ -64,7 +64,7 @@ bool Node2xml(
 
    // children
    for (auto &child : node.children)
-      if (child && !Node2xml(*child, xnode))
+      if (child and not Node2xml(*child, xnode))
          return false;
 
    // done
@@ -81,17 +81,20 @@ bool Node2xml(
 
 // Tree ==> xml
 template<
-   template<class...> class MCON,
-   template<class...> class CCON
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-bool convert(const gnds::Tree<MCON,CCON> &tree, gnds::xml &xdoc)
-{
+bool convert(
+   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
+   gnds::xml &xdoc
+) {
    // clear
    xdoc.clear();
 
    // convert
-   if (!tree.empty()) {
-      const gnds::Node<MCON,CCON> &zero = tree.zero();
+   if (not tree.empty()) {
+      const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &zero =
+         tree.zero();
 
       // ------------------------
       // "zero" node
@@ -189,6 +192,6 @@ inline bool convert(const gnds::json &jdoc, gnds::xml &xdoc)
 {
    gnds::tree tree;
    return
-      convert(jdoc,tree) &&
+      convert(jdoc,tree) and
       convert(tree,xdoc);
 }
