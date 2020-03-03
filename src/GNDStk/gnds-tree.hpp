@@ -126,19 +126,23 @@ public:
    explicit Tree(const json &jdoc) { convert(jdoc,*this); }
 
    // file, stream
-   explicit Tree(
-      const std::string &file,
-      const format form = format::null
-   ) {
-      read(file,form);
-   }
+   explicit Tree(const std::string &file, const format form = format::null)
+      { read(file,form); }
+   explicit Tree(std::istream &is, const format form = format::null)
+      { read(is,form); }
 
-   explicit Tree(
-      std::istream &is,
-      const format form = format::null
-   ) {
-      read(is,form);
-   }
+   /*
+   // The read() and write() functions allow a std::string form, for user
+   // convenience vs. writing format::something. However, we can't have the
+   // first of the following two here - it ambiguous versus the "starter
+   // tree" constructor. Given that we don't want the first of these, we
+   // probably don't want the second either, for the sake of API uniformity.
+
+   Tree(const std::string &file, const std::string &form)
+      { read(file,form); }
+   Tree(std::istream &is, const std::string &form)
+      { read(is,form); }
+   */
 
    // copy
    Tree(const Tree &t)
@@ -194,22 +198,20 @@ public:
    // read
    // ------------------------
 
-   // string
    bool read(const std::string &file, const format form = format::null);
-
-   // istream
    std::istream &read(std::istream &, const format form = format::null);
+   bool read(const std::string &file, const std::string &form);
+   std::istream &read(std::istream &, const std::string &form);
 
 
    // ------------------------
    // write
    // ------------------------
 
-   // string
    bool write(const std::string &file, const format form = format::null) const;
-
-   // ostream
    std::ostream &write(std::ostream &, const format form = format::null) const;
+   bool write(const std::string &file, const std::string &form) const;
+   std::ostream &write(std::ostream &, const std::string &form) const;
 
 
    // ------------------------
@@ -527,6 +529,50 @@ std::istream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
 
 
 
+// read(string, string)
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::
+read(const std::string &file, const std::string &form)
+{
+   if (eq_null(form)) return read(file,format::null);
+   if (eq_tree(form)) return read(file,format::tree);
+   if (eq_xml (form)) return read(file,format::xml );
+   if (eq_json(form)) return read(file,format::json);
+   if (eq_hdf5(form)) return read(file,format::hdf5);
+
+   // fixme Have some sort of warning
+   assert(false);
+
+   // fallback: try automagick
+   return read(file,format::null);
+}
+
+// read(istream, string)
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+std::istream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::
+read(std::istream &is, const std::string &form)
+{
+   if (eq_null(form)) return read(is,format::null);
+   if (eq_tree(form)) return read(is,format::tree);
+   if (eq_xml (form)) return read(is,format::xml );
+   if (eq_json(form)) return read(is,format::json);
+   if (eq_hdf5(form)) return read(is,format::hdf5);
+
+   // fixme Have some sort of warning
+   assert(false);
+
+   // fallback: try automagick
+   return read(is,format::null);
+}
+
+
+
 // operator>>
 template<
    template<class...> class METADATA_CONTAINER,
@@ -651,6 +697,50 @@ std::ostream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    if (not os)
       error("Could not write to output stream");
    return os;
+}
+
+
+
+// write(string, string)
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::
+write(const std::string &file, const std::string &form) const
+{
+   if (eq_null(form)) return write(file,format::null);
+   if (eq_tree(form)) return write(file,format::tree);
+   if (eq_xml (form)) return write(file,format::xml );
+   if (eq_json(form)) return write(file,format::json);
+   if (eq_hdf5(form)) return write(file,format::hdf5);
+
+   // fixme Have some sort of warning
+   assert(false);
+
+   // fallback: try automagick
+   return write(file,format::null);
+}
+
+// write(ostream, string)
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+std::ostream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::
+write(std::ostream &os, const std::string &form) const
+{
+   if (eq_null(form)) return write(os,format::null);
+   if (eq_tree(form)) return write(os,format::tree);
+   if (eq_xml (form)) return write(os,format::xml );
+   if (eq_json(form)) return write(os,format::json);
+   if (eq_hdf5(form)) return write(os,format::hdf5);
+
+   // fixme Have some sort of warning
+   assert(false);
+
+   // fallback: try automagick
+   return write(os,format::null);
 }
 
 

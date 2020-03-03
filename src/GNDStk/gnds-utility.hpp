@@ -183,6 +183,20 @@ inline bool endsin(const std::string &str, const std::string &end)
    return str.size() >= end.size() and &str[str.size()-end.size()] == end;
 }
 
+// nocasecmp
+// Caseless string comparison.
+// The old C-language strcasecmp() is nonstandard. A modern, true caseless
+// string comparison is actually a tougher nut to crack than meets the eye,
+// but the following will suffice for our purposes.
+inline bool nocasecmp(const std::string &one, const std::string &two)
+{
+   return std::equal(
+      one.begin(), one.end(),
+      two.begin(), two.end(),
+      [](const char a, const char b) { return tolower(a) == tolower(b); }
+   );
+}
+
 
 
 // -----------------------------------------------------------------------------
@@ -223,4 +237,52 @@ inline bool endsin_hdf5(const std::string &str)
 inline bool has_extension(const std::string &str)
 {
    return str.find('.') != std::string::npos;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Re: file type indicators
+// These are used in places where we're allowing a user to give a string,
+// e.g. "xml", in place of a format specifier ala enum class format.
+// -----------------------------------------------------------------------------
+
+// null
+// Goofy, perhaps, but we'd like to be consistent with enum class format
+inline bool eq_null(const std::string &str)
+{
+   return
+      nocasecmp(str,"null") or
+      str == "";
+}
+
+// tree
+inline bool eq_tree(const std::string &str)
+{
+   return
+      nocasecmp(str,"tree");
+}
+
+// xml
+inline bool eq_xml(const std::string &str)
+{
+   return
+      nocasecmp(str,"xml");
+}
+
+// json
+inline bool eq_json(const std::string &str)
+{
+   return
+      nocasecmp(str,"json");
+}
+
+// hdf5
+inline bool eq_hdf5(const std::string &str)
+{
+   return
+      nocasecmp(str,"hdf" ) or
+      nocasecmp(str,"h5"  ) or
+      nocasecmp(str,"hdf5") or
+      nocasecmp(str,"he5" );
 }

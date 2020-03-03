@@ -14,6 +14,7 @@
 // ------------------------
 
 // miscellaneous
+#include <algorithm>
 #include <cassert>
 #include <cctype>
 #include <fstream>
