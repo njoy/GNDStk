@@ -270,7 +270,6 @@ message( STATUS "-----------------------------------------------------------" )
 add_library( GNDStk INTERFACE )
 target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-meta.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-tree-visit.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-child.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-diagnostic.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-wrapper-xml.hpp"

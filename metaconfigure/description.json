@@ -590,7 +590,6 @@
   "header files": [
     "src/GNDStk.hpp", 
     "src/GNDStk/gnds-keyword-meta.hpp", 
-    "src/GNDStk/gnds-tree-visit.hpp", 
     "src/GNDStk/gnds-keyword-child.hpp", 
     "src/GNDStk/gnds-diagnostic.hpp", 
     "src/GNDStk/gnds-wrapper-xml.hpp", 

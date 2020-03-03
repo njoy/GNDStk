@@ -50,18 +50,15 @@ public:
    }
 
    // ctor: file, stream
-   explicit json(const char * const file) { read(file); }
    explicit json(const std::string &file) { read(file); }
    explicit json(std::istream &is) { read(is); }
 
    // read
-   bool read(const char * const file);
-   bool read(const std::string &file) { return read(file.c_str()); }
+   bool read(const std::string &file);
    std::istream &read(std::istream &);
 
    // write
-   bool write(const char * const file) const;
-   bool write(const std::string &file) const { return write(file.c_str()); }
+   bool write(const std::string &file) const;
    std::ostream &write(std::ostream &) const;
 
 }; // class json
@@ -72,11 +69,11 @@ public:
 // read
 // -----------------------------------------------------------------------------
 
-// read(char *)
-inline bool json::read(const char * const file)
+// read(string)
+inline bool json::read(const std::string &file)
 {
    // calls read(istream) below
-   std::ifstream ifs(file);
+   std::ifstream ifs(file.c_str());
    return not read(ifs).fail();
 }
 
@@ -107,11 +104,11 @@ inline std::istream &operator>>(std::istream &is, json &obj)
 // write
 // -----------------------------------------------------------------------------
 
-// write(char *)
-inline bool json::write(const char * const file) const
+// write(string)
+inline bool json::write(const std::string &file) const
 {
    // calls write(ostream) below
-   std::ofstream ofs(file);
+   std::ofstream ofs(file.c_str());
    return not write(ofs).fail();
 }
 

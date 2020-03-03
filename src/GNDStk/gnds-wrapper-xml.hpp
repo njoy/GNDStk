@@ -47,7 +47,6 @@ public:
    }
 
    // file, stream
-   explicit xml(const char * const file) { read(file); }
    explicit xml(const std::string &file) { read(file); }
    explicit xml(std::istream &is) { read(is); }
 
@@ -78,13 +77,11 @@ public:
    // ------------------------
 
    // read
-   bool read(const char * const file);
-   bool read(const std::string &file) { return read(file.c_str()); }
+   bool read(const std::string &file);
    std::istream &read(std::istream &);
 
    // write
-   bool write(const char * const file) const;
-   bool write(const std::string &file) const { return write(file.c_str()); }
+   bool write(const std::string &file) const;
    std::ostream &write(std::ostream &) const;
 
 }; // class xml
@@ -95,12 +92,12 @@ public:
 // read
 // -----------------------------------------------------------------------------
 
-// read(char *)
-inline bool xml::read(const char * const file)
+// read(string)
+inline bool xml::read(const std::string &file)
 {
    // load the document
    const pugi::xml_parse_result load = doc.load_file(
-      file,
+      file.c_str(),
       pugi::parse_default |
       pugi::parse_declaration | // preserve root <?xml ...?> material
       pugi::parse_comments      // preserve <!-- comment --> material
@@ -156,11 +153,11 @@ inline std::istream &operator>>(std::istream &is, xml &obj)
 // write
 // -----------------------------------------------------------------------------
 
-// write(char *)
-inline bool xml::write(const char * const file) const
+// write(string)
+inline bool xml::write(const std::string &file) const
 {
    // calls write(ostream) below
-   std::ofstream ofs(file);
+   std::ofstream ofs(file.c_str());
    return not write(ofs).fail();
 }
 

@@ -116,8 +116,8 @@ std::string color_t<unused>::reset = ansi.reset;
 
 
 // for users
-inline detail::color_t<char> color;
-inline detail::color_t<char> &colour = color;
+inline detail::color_t<dummy> color;
+inline detail::color_t<dummy> &colour = color;
 
 
 
@@ -254,7 +254,7 @@ template<class unused> bool output_t<unused>::colon = true;
 
 
 // for users
-inline detail::output_t<char> output;
+inline detail::output_t<dummy> output;
 
 
 
@@ -343,7 +343,7 @@ void debug_t<unused>::operator()(const std::string &text) const
 
 
 // for users
-inline detail::debug_t<char> debug;
+inline detail::debug_t<dummy> debug;
 
 
 
@@ -461,7 +461,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<char>("Note", text, gnds::color.note);
+         diagnostic<dummy>("Note", text, gnds::color.note);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -483,7 +483,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<char>("Warning", text, gnds::color.warning);
+         diagnostic<dummy>("Warning", text, gnds::color.warning);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -520,7 +520,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<char>("Error", text, gnds::color.error);
+         diagnostic<dummy>("Error", text, gnds::color.error);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -542,7 +542,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<char>("Internal Error", text, gnds::color.internal);
+         diagnostic<dummy>("Internal Error", text, gnds::color.internal);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -558,7 +558,7 @@ public:
    void operator()(const std::string &text) const
    {
       // No "on" test as with other error types; these can't be suppressed
-      diagnostic<char>("Fatal Error", text, gnds::color.fatal);
+      diagnostic<dummy>("Fatal Error", text, gnds::color.fatal);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -591,11 +591,11 @@ namespace detail {
 // for users
 // ------------------------
 
-inline detail::note_t    <char> note;
-inline detail::warning_t <char> warning;
-inline detail::error_t   <char> error;
-inline detail::internal_t<char> internal;
-inline detail::fatal_t   <char> fatal;
+inline detail::note_t    <dummy> note;
+inline detail::warning_t <dummy> warning;
+inline detail::error_t   <dummy> error;
+inline detail::internal_t<dummy> internal;
+inline detail::fatal_t   <dummy> fatal;
 
 
 
@@ -629,7 +629,7 @@ public:
          return;
       else if (text == "")
          // caller only gave one string
-         diagnostic<char>(
+         diagnostic<dummy>(
             "",    // assume label wasn't actually label...
             label, // but was text
             gnds::color.report.first,
@@ -638,7 +638,7 @@ public:
          );
       else
          // normal case: label + text
-         diagnostic<char>(
+         diagnostic<dummy>(
             label,
             text,
             gnds::color.report.first,
@@ -655,4 +655,4 @@ bool report_t<unused>::on = true;
 
 
 // for users
-inline detail::report_t<char> report;
+inline detail::report_t<dummy> report;

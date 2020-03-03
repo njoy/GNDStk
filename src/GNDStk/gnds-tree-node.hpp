@@ -68,11 +68,7 @@ public:
    }
 
    // write
-   bool write(const char * const file, const int level = 0) const;
-   bool write(const std::string &file, const int level = 0) const
-   {
-      return write(file.c_str(),level);
-   }
+   bool write(const std::string &file, const int level = 0) const;
    std::ostream &write(std::ostream &, const int level = 0) const;
 
    // leaf?
@@ -259,8 +255,6 @@ public:
 
 }; // class Node
 
-
-
 // Node::static_found
 template<
    template<class...> class METADATA_CONTAINER,
@@ -274,17 +268,17 @@ bool Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_found = false;
 // write
 // -----------------------------------------------------------------------------
 
-// write(char *)
+// write(string)
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 inline bool Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
-   const char * const file,
+   const std::string &file,
    const int level
 ) const {
    // calls write(ostream) below
-   std::ofstream ofs(file);
+   std::ofstream ofs(file.c_str());
    return not write(ofs,level).fail();
 }
 
@@ -299,8 +293,8 @@ std::ostream &Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    const int level
 ) const {
    // indentation
-   const std::string icurr(indent* level   ,' ');
-   const std::string inext(indent*(level+1),' ');
+   const std::string icurr(indent* level   ,' '); // current indentation #spaces
+   const std::string inext(indent*(level+1),' '); // next ...
 
    // write name
    os << icurr << name << ":" << std::endl;

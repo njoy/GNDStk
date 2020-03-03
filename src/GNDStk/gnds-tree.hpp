@@ -127,13 +127,6 @@ public:
 
    // file, stream
    explicit Tree(
-      const char * const file,
-      const format form = format::null
-   ) {
-      read(file,form);
-   }
-
-   explicit Tree(
       const std::string &file,
       const format form = format::null
    ) {
@@ -201,50 +194,22 @@ public:
    // read
    // ------------------------
 
-   // char *
-   bool read(
-      const char * const file,
-      const format form = format::null
-   );
-
    // string
-   bool read(
-      const std::string &file,
-      const format form = format::null
-   ) {
-      return read(file.c_str(),form);
-   }
+   bool read(const std::string &file, const format form = format::null);
 
    // istream
-   std::istream &read(
-      std::istream &,
-      const format form = format::null
-   );
+   std::istream &read(std::istream &, const format form = format::null);
 
 
    // ------------------------
    // write
    // ------------------------
 
-   // char *
-   bool write(
-      const char * const file,
-      const format form = format::null
-   ) const;
-
    // string
-   bool write(
-      const std::string &file,
-      const format form = format::null
-   ) const {
-      return write(file.c_str(),form);
-   }
+   bool write(const std::string &file, const format form = format::null) const;
 
    // ostream
-   std::ostream &write(
-      std::ostream &,
-      const format form = format::null
-   ) const;
+   std::ostream &write(std::ostream &, const format form = format::null) const;
 
 
    // ------------------------
@@ -406,13 +371,13 @@ inline const std::string format_tree_read =
 // read
 // -----------------------------------------------------------------------------
 
-// read(char *, format)
+// read(string, format)
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
-   const char * const file,
+   const std::string &file,
    const format form
 ) {
    // ------------------------
@@ -440,19 +405,19 @@ bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
    // ------------------------
 
    if (form == format::xml  and has_extension(file) and not endsin_xml (file))
-      detail::warning_tree_io_name<char>("read", file, "xml",  "XML" );
+      detail::warning_tree_io_name<dummy>("read", file, "xml",  "XML" );
    if (form == format::json and has_extension(file) and not endsin_json(file))
-      detail::warning_tree_io_name<char>("read", file, "json", "Json");
+      detail::warning_tree_io_name<dummy>("read", file, "json", "Json");
    if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
-      detail::warning_tree_io_name<char>("read", file, "hdf5", "HDF5");
+      detail::warning_tree_io_name<dummy>("read", file, "hdf5", "HDF5");
 
    // ------------------------
    // Open and read
    // ------------------------
 
-   std::ifstream ifs(file);
+   std::ifstream ifs(file.c_str());
    if (not ifs)
-      error("Could not open input file \"" + std::string(file) + "\"");
+      error("Could not open input file \"" + file + "\"");
 
    // Call read(istream), below, to do the remaining work. Note that although
    // the filename isn't available any longer in that function, the function
@@ -470,11 +435,11 @@ template<
 >
 std::istream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
    std::istream &is,
-   const format _form
+   const format f // const for consistency; copied to non-const local "form"
 ) {
    // clear
-   // Comment as in read(char *). Note that we need the clear() here, too,
-   // because this function might be called directly, not via read(char *).
+   // Comment as in read(string). Note that we need the clear() here, too,
+   // because this function might be called directly, not via read(string).
    clear();
 
    // ------------------------
@@ -483,7 +448,7 @@ std::istream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
    // ------------------------
 
    // non-const; slightly simplifies some later logic
-   format form = _form;
+   format form = f;
 
    if (form == format::tree) {
       error(detail::format_tree_read);
@@ -501,21 +466,21 @@ std::istream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::read(
       if (form == format::null)
          form = format::xml;
       else if (form != format::xml)
-         detail::warning_tree_io_data<char>(
+         detail::warning_tree_io_data<dummy>(
             form, "'<'", "XML");
    } else if (is.peek() == 137) {
       // looks like hdf5
       if (form == format::null)
          form = format::hdf5;
       else if (form != format::hdf5)
-         detail::warning_tree_io_data<char>(
+         detail::warning_tree_io_data<dummy>(
             form, "char 137", "HDF5");
    } else {
       // looks like json (via process of elimination)
       if (form == format::null)
          form = format::json;
       else if (form != format::json)
-         detail::warning_tree_io_data<char>(
+         detail::warning_tree_io_data<dummy>(
             form, "neither '<' nor char 137", "Json");
    }
 
@@ -581,14 +546,14 @@ inline std::istream &operator>>(
 // write
 // -----------------------------------------------------------------------------
 
-// write(char *, format)
+// write(string, format)
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
-   const char * const file,
-   const format _form
+   const std::string &file,
+   const format f // const for consistency; copied to non-const local "form"
 ) const {
 
    // ------------------------
@@ -596,7 +561,7 @@ bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    // Decide from file name
    // ------------------------
 
-   format form = _form;
+   format form = f;
    if (form == format::null) {
       if (endsin_xml (file))
          form = format::xml;
@@ -614,19 +579,19 @@ bool Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
    // ------------------------
 
    if (form == format::xml  and has_extension(file) and not endsin_xml (file))
-      detail::warning_tree_io_name<char>("write", file, "xml",  "XML" );
+      detail::warning_tree_io_name<dummy>("write", file, "xml",  "XML" );
    if (form == format::json and has_extension(file) and not endsin_json(file))
-      detail::warning_tree_io_name<char>("write", file, "json", "Json");
+      detail::warning_tree_io_name<dummy>("write", file, "json", "Json");
    if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
-      detail::warning_tree_io_name<char>("write", file, "hdf5", "HDF5");
+      detail::warning_tree_io_name<dummy>("write", file, "hdf5", "HDF5");
 
    // ------------------------
    // Open and write
    // ------------------------
 
-   std::ofstream ofs(file);
+   std::ofstream ofs(file.c_str());
    if (not ofs)
-      error("Could not open output file \"" + std::string(file) + "\"");
+      error("Could not open output file \"" + file + "\"");
 
    // Call write(ostream), below, to do the remaining work.
    return not write(ofs,form).fail();

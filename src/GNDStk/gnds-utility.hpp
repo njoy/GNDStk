@@ -22,6 +22,15 @@ enum class format {
    hdf5
 };
 
+// dummy
+// Empty class. We use this here and there, in places where a class is needed
+// but isn't relevant in and of itself. E.g., we have a function, and in order
+// for it to work properly in a header-only library, it must be either inline
+// or templated. If, for whatever reason, we don't want to make it inline,
+// then we can make it a function template, and use <dummy>. We could use,
+// say, <char> instead, but <dummy> may help us identify these use cases.
+class dummy { };
+
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +169,12 @@ inline const std::string &keyword_text = keyword_cdata;
 // in the overall project namespace (which enclosed the #include of this file).
 // -----------------------------------------------------------------------------
 
-// filesize(char *)
-inline std::ifstream::pos_type filesize(const char * const file)
-{
-   std::ifstream ifs(file, std::ifstream::ate | std::ifstream::binary);
-   return ifs.tellg();
-}
-
 // filesize(string)
 inline std::ifstream::pos_type filesize(const std::string &file)
 {
-   return filesize(file.c_str());
+   std::ifstream ifs(file.c_str(), std::ifstream::ate | std::ifstream::binary);
+   return ifs.tellg();
 }
-
 
 // endsin
 // C++20 will have an ends_with(); for now we'll have this
