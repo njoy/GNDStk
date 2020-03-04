@@ -14,16 +14,16 @@
 // -----------------------------------------------------------------------------
 
 // tree
-static const char *const string_empty_tree =
+static const std::string string_empty_tree =
 R"***()***";
 
 // xml
-static const char *const string_empty_xml =
+static const std::string string_empty_xml =
 R"***(<?xml version="1.0"?>
 )***";
 
 // json
-static const char *const string_empty_json =
+static const std::string string_empty_json =
 R"***(null)***";
 
 
@@ -42,7 +42,7 @@ R"***(null)***";
 // tree
 // ------------------------
 
-static const char *const string_real_tree =
+static const std::string string_real_tree =
 R"***(xml:
    version: 1.0
    encoding: UTF-8
@@ -94,7 +94,7 @@ R"***(xml:
 // xml
 // ------------------------
 
-static const char *const string_real_xml =
+static const std::string string_real_xml =
 R"***(<?xml version="1.0" encoding="UTF-8"?>
 <covarianceSuite projectile="n" target="Tm170" evaluation="ENDF/B-8.0" format="1.9">
    <styles>
@@ -132,7 +132,7 @@ R"***(<?xml version="1.0" encoding="UTF-8"?>
 // For now, ignore the weird-looking "000000000000" nonsense.
 // Json I/O is a work-in-progress.
 
-static const char *const string_real_json =
+static const std::string string_real_json =
 R"***({
    "000000000000covarianceSuite": {
       "000000000001attributes": {
@@ -222,13 +222,13 @@ R"***({
 // fixme As elsewhere, we don't yet have anything of substance for HDF5.
 
 SCENARIO("Testing GNDStk tree write() and operator<<") {
-   gnds::Tree<> tree;
+   GNDStk::Tree<> tree;
 
    // ------------------------
    // Empty tree
    // ------------------------
 
-   GIVEN("An empty gnds::tree object") {
+   GIVEN("An empty GNDStk::tree object") {
       // For now I'll just write to an output stream, as I'm not sure how our
       // testing system is supposed to work when our intention is to actually
       // write *files*.
@@ -238,12 +238,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          {
             // write()
             std::ostringstream oss;
-            tree.write(oss, gnds::format::tree);
+            tree.write(oss, GNDStk::format::tree);
             REQUIRE(oss.str() == string_empty_tree);
          } {
             // write(), using format::null (which defaults to tree)
             std::ostringstream oss;
-            tree.write(oss, gnds::format::null);
+            tree.write(oss, GNDStk::format::null);
             REQUIRE(oss.str() == string_empty_tree);
          } {
             // <<
@@ -256,24 +256,24 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // format::xml
       WHEN("We write() the empty tree in format::xml format") {
          std::ostringstream oss;
-         tree.write(oss, gnds::format::xml);
+         tree.write(oss, GNDStk::format::xml);
          REQUIRE(oss.str() == string_empty_xml);
       }
 
       // format::json
       WHEN("We write() the empty tree in format::json format") {
          std::ostringstream oss;
-         tree.write(oss, gnds::format::json);
+         tree.write(oss, GNDStk::format::json);
          REQUIRE(oss.str() == string_empty_json);
       }
    }
 
    // ------------------------
    // Real tree, from one of
-   // our sample GNDS files.
+   // our sample GNDS files
    // ------------------------
 
-   GIVEN("A real gnds::tree, read from a file") {
+   GIVEN("A real GNDStk::tree, read from a file") {
       tree.read("n-069_Tm_170-covar.xml");
       REQUIRE(!tree.empty());
 
@@ -282,12 +282,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          {
             // write()
             std::ostringstream oss;
-            tree.write(oss, gnds::format::tree);
+            tree.write(oss, GNDStk::format::tree);
             REQUIRE(oss.str() == string_real_tree);
          } {
             // write(), using format::null (which defaults to tree)
             std::ostringstream oss;
-            tree.write(oss, gnds::format::null);
+            tree.write(oss, GNDStk::format::null);
             REQUIRE(oss.str() == string_real_tree);
          } {
             // <<
@@ -300,14 +300,14 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // format::xml
       WHEN("We write() the tree in format::xml format") {
          std::ostringstream oss;
-         tree.write(oss, gnds::format::xml);
+         tree.write(oss, GNDStk::format::xml);
          REQUIRE(oss.str() == string_real_xml);
       }
 
       // format::json
       WHEN("We write() the tree in format::json format") {
          std::ostringstream oss;
-         tree.write(oss, gnds::format::json);
+         tree.write(oss, GNDStk::format::json);
          REQUIRE(oss.str() == string_real_json);
       }
    }

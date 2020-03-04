@@ -3,29 +3,29 @@
 Summary of the functions in this file:
 
 namespace detail {
-   1. xnode2Node ( pugi::xml_node,                 gnds::Node)
+   1. xnode2Node ( pugi::xml_node, GNDStk::Node)
       ...uses (1) (itself)
 
-   2. xml2Tree   ( gnds::xml,                      gnds::Tree)
+   2. xml2Tree   ( GNDStk::xml,    GNDStk::Tree)
       ...uses (1)
 
-   3. jiter2Node ( nlohmann::json::const_iterator, gnds::Node)
+   3. jiter2Node ( nlohmann::json::const_iterator, GNDStk::Node)
       ...uses (3) (itself)
 
-   4. json2Tree  ( gnds::json,                     gnds::Tree)
+   4. json2Tree  ( GNDStk::json,   GNDStk::Tree)
       ...uses (3)
 
-   5. Node2Node  ( gnds::Node,                     gnds::Node)
+   5. Node2Node  ( GNDStk::Node,   GNDStk::Node)
       ...uses (5) (itself)
 }
 
-6. convert(gnds::Tree, gnds::Tree)
+6. convert(GNDStk::Tree, GNDStk::Tree)
    ...uses (5)
 
-7. convert(gnds::xml,  gnds::Tree)
+7. convert(GNDStk::xml,  GNDStk::Tree)
    ...uses (2)
 
-8. convert(gnds::json, gnds::Tree)
+8. convert(GNDStk::json, GNDStk::Tree)
    ...uses (4)
 */
 
@@ -65,7 +65,7 @@ template<
 >
 bool xnode2Node(
    const pugi::xml_node &xnode,
-   gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+   GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    // name
    node.name = xnode.name();
@@ -143,8 +143,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool xml2Tree(
-   const gnds::xml &xdoc,
-   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+   const GNDStk::xml &xdoc,
+   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    // clear
    tree.clear();
@@ -202,7 +202,7 @@ template<
 >
 bool jiter2Node(
    const nlohmann::json::const_iterator &jiter,
-   gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+   GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    assert(jiter->is_object());
 
@@ -241,8 +241,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool json2Tree(
-   const gnds::json &jdoc,
-   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+   const GNDStk::json &jdoc,
+   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    // clear
    tree.clear();
@@ -279,8 +279,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 inline void Node2Node(
-   const gnds::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-   gnds::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
+   const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+   GNDStk::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
    // name
    to.name = from.name;
@@ -313,8 +313,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 inline bool convert(
-   const gnds::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-   gnds::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
+   const GNDStk::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+   GNDStk::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
    // casts needed here because template arguments may be different...
    if ((void*)&to == (void*)&from)
@@ -341,8 +341,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 inline bool convert(
-   const gnds::xml &xdoc,
-   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+   const GNDStk::xml &xdoc,
+   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    return detail::xml2Tree(xdoc,tree);
 }
@@ -354,8 +354,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 inline bool convert(
-   const gnds::json &jdoc,
-   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+   const GNDStk::json &jdoc,
+   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    return detail::json2Tree(jdoc,tree);
 }

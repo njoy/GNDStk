@@ -37,7 +37,7 @@
 // GNDS
 // ------------------------
 
-namespace gnds {
+namespace GNDStk {
 
 // utility
 #include "GNDStk/gnds-utility.hpp"
@@ -65,4 +65,4 @@ namespace gnds {
 #include "GNDStk/gnds-convert-to-json.hpp"
 #include "GNDStk/gnds-convert-to-tree.hpp"
 
-} // namespace gnds
+} // namespace GNDStk

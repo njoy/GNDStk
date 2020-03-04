@@ -22,7 +22,7 @@ bool assign(
    const std::ostringstream &ossr // the arriving tree printed to a string
 ) {
    // assignment: lhs = rhs
-   gnds::Tree<M,C> lhs;
+   GNDStk::Tree<M,C> lhs;
    lhs = rhs;
 
    // print lhs to a string
@@ -50,7 +50,7 @@ bool assign()
 {
    // read a meaningful GNDS hierarchy into the tree that
    // we'll use as the right-hand-side of our assignments
-   const gnds::Tree<M,C> rhs("n-008_O_016.xml");
+   const GNDStk::Tree<M,C> rhs("n-008_O_016.xml");
 
    // print the tree to a string, which we'll use soon as
    // something to which we'll compare other trees

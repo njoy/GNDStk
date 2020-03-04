@@ -681,10 +681,10 @@ std::ostream &Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::write(
 
    if (form == format::xml) {
       // write via a temporary xml object...
-      gnds::xml(*this).write(os);
+      GNDStk::xml(*this).write(os);
    } else if (form == format::json) {
       // write via a temporary json object...
-      gnds::json(*this).write(os);
+      GNDStk::json(*this).write(os);
    } else if (form == format::hdf5) {
       // write via a temporary hdf5 object...
       error("HDF5 write() is not implemented yet");

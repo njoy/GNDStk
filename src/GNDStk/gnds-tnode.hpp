@@ -8,8 +8,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 inline void read(
-   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &from,
-   gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &to
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &from,
+   GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &to
 ) {
    to = from;
 }
@@ -38,6 +38,7 @@ public:
 
 // -----------------------------------------------------------------------------
 // tnode
+// fixme Put in an explanation of what this thing is all about.
 // -----------------------------------------------------------------------------
 
 template<

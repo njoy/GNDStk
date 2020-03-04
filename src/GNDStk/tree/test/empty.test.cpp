@@ -5,7 +5,7 @@
 SCENARIO("Testing GNDStk tree empty()") {
 
    GIVEN("A tree") {
-      gnds::Tree<> tree;
+      GNDStk::Tree<> tree;
 
       WHEN("The tree is default-constructed") {
          REQUIRE(tree.empty()); // it has nothing in it

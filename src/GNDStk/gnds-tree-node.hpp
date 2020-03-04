@@ -125,7 +125,7 @@ public:
       const std::string &str = meta(kwd.name,found);
       T value{};
       if (found)
-         gnds::read(str,value);
+         GNDStk::read(str,value);
       return value;
    }
 
@@ -163,7 +163,7 @@ public:
       const std::string &str = meta(kwd.name,found);
       T value{}; // T having been direct-specified, not in meta_t<here>
       if (found)
-         gnds::read(str,value);
+         GNDStk::read(str,value);
       return value;
    }
 

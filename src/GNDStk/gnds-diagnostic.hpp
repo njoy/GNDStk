@@ -150,17 +150,17 @@ public:
    // ansi
    void ansi()
    {
-      color.debug    = gnds::ansi.bold.white;
-      color.note     = gnds::ansi.bold.green;
-      color.warning  = gnds::ansi.bold.yellow;
-      color.error    = gnds::ansi.bold.red;
-      color.internal = gnds::ansi.bold.magenta;
-      color.fatal    = gnds::ansi.bold.red;
+      color.debug    = GNDStk::ansi.bold.white;
+      color.note     = GNDStk::ansi.bold.green;
+      color.warning  = GNDStk::ansi.bold.yellow;
+      color.error    = GNDStk::ansi.bold.red;
+      color.internal = GNDStk::ansi.bold.magenta;
+      color.fatal    = GNDStk::ansi.bold.red;
       color.report   = {
-         gnds::ansi.bold.blue,
-         gnds::ansi.bold.cyan
+         GNDStk::ansi.bold.blue,
+         GNDStk::ansi.bold.cyan
       };
-      color.reset = gnds::ansi.reset;
+      color.reset = GNDStk::ansi.reset;
       prefix = "";
       suffix = "";
    }
@@ -319,8 +319,8 @@ void debug_t<unused>::operator()(const std::string &text) const
    output.begin();
 
    // color
-   const std::string &color = gnds::color ? gnds::color.debug : "";
-   const std::string &reset = gnds::color ? gnds::color.reset : "";
+   const std::string &color = GNDStk::color ? GNDStk::color.debug : "";
+   const std::string &reset = GNDStk::color ? GNDStk::color.reset : "";
 
    // content
    std::cout << color << "Debug: ";
@@ -395,11 +395,11 @@ void diagnostic(
    first = false;
 
    // color
-   if (not gnds::color)
+   if (not GNDStk::color)
       textcolor = maincolor = "";
    else if (textcolor == "")
       textcolor = maincolor;
-   const std::string &reset = gnds::color ? gnds::color.reset : "";
+   const std::string &reset = GNDStk::color ? GNDStk::color.reset : "";
 
    // content
    if (label == "" or (output.brief and not keep_verbose))
@@ -461,7 +461,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<dummy>("Note", text, gnds::color.note);
+         diagnostic<dummy>("Note", text, GNDStk::color.note);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -483,7 +483,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<dummy>("Warning", text, gnds::color.warning);
+         diagnostic<dummy>("Warning", text, GNDStk::color.warning);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -520,7 +520,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<dummy>("Error", text, gnds::color.error);
+         diagnostic<dummy>("Error", text, GNDStk::color.error);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -542,7 +542,7 @@ public:
    void operator()(const std::string &text) const
    {
       if (on)
-         diagnostic<dummy>("Internal Error", text, gnds::color.internal);
+         diagnostic<dummy>("Internal Error", text, GNDStk::color.internal);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -558,7 +558,7 @@ public:
    void operator()(const std::string &text) const
    {
       // No "on" test as with other error types; these can't be suppressed
-      diagnostic<dummy>("Fatal Error", text, gnds::color.fatal);
+      diagnostic<dummy>("Fatal Error", text, GNDStk::color.fatal);
    }
 
    void operator()(const std::ostringstream &oss) const { (*this)(oss.str()); }
@@ -632,8 +632,8 @@ public:
          diagnostic<dummy>(
             "",    // assume label wasn't actually label...
             label, // but was text
-            gnds::color.report.first,
-            gnds::color.report.second,
+            GNDStk::color.report.first,
+            GNDStk::color.report.second,
             keep_verbose
          );
       else
@@ -641,8 +641,8 @@ public:
          diagnostic<dummy>(
             label,
             text,
-            gnds::color.report.first,
-            gnds::color.report.second,
+            GNDStk::color.report.first,
+            GNDStk::color.report.second,
             keep_verbose
          );
    }

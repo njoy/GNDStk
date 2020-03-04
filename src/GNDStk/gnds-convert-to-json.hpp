@@ -5,17 +5,17 @@ Summary of the functions in this file:
 namespace detail {
    1. prefix(unsigned long)
 
-   2. Node2json(gnds::Node, nlohmann::json, unsigned long)
+   2. Node2json(GNDStk::Node, nlohmann::json, unsigned long)
       ...uses (1)
 }
 
-3. convert(gnds::Tree, gnds::json)
+3. convert(GNDStk::Tree, GNDStk::json)
    ...uses (2)
 
-4. convert(gnds::xml,  gnds::json)
+4. convert(GNDStk::xml,  GNDStk::json)
    ...uses (3)
 
-5. convert(gnds::json, gnds::json)
+5. convert(GNDStk::json, GNDStk::json)
 */
 
 
@@ -42,7 +42,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool Node2json(
-   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    nlohmann::json &j,
    unsigned long &kwdcount
 ) {
@@ -89,8 +89,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   gnds::json &jdoc
+   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
+   GNDStk::json &jdoc
 ) {
    // clear
    jdoc.clear();
@@ -100,7 +100,8 @@ bool convert(
       unsigned long kwdcount = 0;
       return detail::Node2json(tree.gnds(), jdoc.doc, kwdcount);
       /*
-      const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node=*tree.root;
+      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
+         &node = *tree.root;
       assert(node.children.size() == 1);  // e.g. reactionSuite
       assert(*node.children.begin() != nullptr);
       return detail::Node2json(**node.children.begin(), jdoc.doc, kwdcount);
@@ -116,9 +117,9 @@ bool convert(
 // xml ==> json
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this issue if this becomes more of an issue.
-inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
+inline bool convert(const GNDStk::xml &xdoc, GNDStk::json &jdoc)
 {
-   gnds::tree tree;
+   GNDStk::tree tree;
    return
       convert(xdoc,tree) and
       convert(tree,jdoc);
@@ -128,7 +129,7 @@ inline bool convert(const gnds::xml &xdoc, gnds::json &jdoc)
 
 // json ==> json
 // For completeness
-inline bool convert(const gnds::json &from, gnds::json &to)
+inline bool convert(const GNDStk::json &from, GNDStk::json &to)
 {
    if (&to == &from)
       return true;

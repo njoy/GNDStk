@@ -5,12 +5,12 @@
 // their wrapped types. This way, we can have generic versions for those
 // functions - which are member functions, and thus not technically something
 // a user can extend - but then still allow users to define input for their
-// own user-defined type by making their own custom gnds::read() to override
+// own user-defined type by making their own custom GNDStk::read() to override
 // the default one below.
 
-// Note that our default gnds::read() just uses stream input. Generally, then,
-// a user would just make a run-of-the-mill operator>>, as they'd probably
-// wish and expect to. However, we chose not have gnds::read() layered around
+// Note that our default GNDStk::read() just uses stream input. Generally,
+// then, a user would just make a run-of-the-mill operator>>, as they'd probably
+// wish and expect to. However, we chose not have GNDStk::read() layered around
 // normal stream input, just in case somebody wants to avoid foisting stream
 // input capabilities on a type that perhaps shouldn't have it. For example,
 // we may not really want stream input for C++ containers.
@@ -126,7 +126,7 @@ template<
    class T
 >
 inline void read(
-   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
    T &value
 ) {
    assert(false);

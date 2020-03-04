@@ -11,12 +11,11 @@ What we'll need to test...
    3. Tree(xml)
    4. Tree(json)
 
-   5. Tree(char *)
-   6. Tree(string)
-   7. Tree(istream)
+   5. Tree(string)
+   6. Tree(istream)
 
-   8. Tree(Tree   &) // copy
-   9. Tree(Tree<> &) // different <>
+   7. Tree(Tree   &) // copy
+   8. Tree(Tree<> &) // different <>
 */
 
 
@@ -25,7 +24,7 @@ What we'll need to test...
 // ctor(from,ossf)
 // -----------------------------------------------------------------------------
 
-// TREE = a existing sosurce tree that arrives here as something
+// TREE = a existing source tree that arrives here as something
 //        we'll use to construct a new tree
 // M = metadata container class for the new tree
 // C = children container class for the new tree
@@ -44,7 +43,7 @@ bool ctor(
    // in which case we're testing the copy constructor, and in other cases,
    // <A,B> != <C,D>, in which case we're testing that our various tree species
    // construct properly from other tree species.
-   gnds::Tree<M,C> to(from);
+   GNDStk::Tree<M,C> to(from);
 
    // print "to" to a string
    std::ostringstream osst;
@@ -70,7 +69,7 @@ template<
 bool ctor()
 {
    // read a meaningful GNDS hierarchy into the tree we'll use as a source
-   const gnds::Tree<M,C> from("n-008_O_016.xml");
+   const GNDStk::Tree<M,C> from("n-008_O_016.xml");
 
    // print the tree to a string, which we'll soon use for comparison
    std::ostringstream ossf;
@@ -105,7 +104,7 @@ SCENARIO("Testing GNDStk tree constructors") {
 
    // 1. Tree()
    GIVEN("A default-constructed tree") {
-      gnds::Tree<> t;
+      GNDStk::Tree<> t;
       WHEN("We check that it's empty") {
          REQUIRE(t.empty());
       }
@@ -113,10 +112,10 @@ SCENARIO("Testing GNDStk tree constructors") {
 
    // 2. Tree(Tree &&)
    GIVEN("One tree, read directly from a GNDS file") {
-      const gnds::Tree<> one("n-026_Fe_056.xml");
+      const GNDStk::Tree<> one("n-026_Fe_056.xml");
 
       WHEN("We make a second tree, moved from a tree made from the same file") {
-         const gnds::Tree<> two(gnds::Tree<>("n-026_Fe_056.xml"));
+         const GNDStk::Tree<> two(GNDStk::Tree<>("n-026_Fe_056.xml"));
 
          // The two trees should be the same
          std::ostringstream oss1; oss1 << one;
@@ -127,14 +126,14 @@ SCENARIO("Testing GNDStk tree constructors") {
    }
 
    // 3. Tree(xml)
-   GIVEN("A gnds::xml object, read from an XML file") {
-      const gnds::xml x("n-026_Fe_056.xml");
+   GIVEN("A GNDStk::xml object, read from an XML file") {
+      const GNDStk::xml x("n-026_Fe_056.xml");
 
-      WHEN("We construct a tree from the gnds::xml object") {
+      WHEN("We construct a tree from the GNDStk::xml object") {
          // We should get the same result for the tree constructed via the XML,
          // as we do for a tree that's read directly from the same file...
-         std::ostringstream oss1; oss1 << gnds::Tree<>(x);
-         std::ostringstream oss2; oss2 << gnds::Tree<>("n-026_Fe_056.xml");
+         std::ostringstream oss1; oss1 << GNDStk::Tree<>(x);
+         std::ostringstream oss2; oss2 << GNDStk::Tree<>("n-026_Fe_056.xml");
          REQUIRE(oss1.str() == oss2.str());
       }
    }
@@ -142,28 +141,21 @@ SCENARIO("Testing GNDStk tree constructors") {
    // 4. Tree(json)
    // fixme Json work isn't complete yet, so we won't write this test yet
 
-
-   // 5. Tree(char *)
-   // 6. Tree(string)
-   // 7. Tree(istream)
-   GIVEN("A tree(char *), a tree(string), and a tree(istream)") {
-
-      const gnds::Tree<> t1("n-026_Fe_056.xml");
-      const gnds::Tree<> t2(std::string("n-026_Fe_056.xml"));
+   // 5. Tree(string)
+   // 6. Tree(istream)
+   GIVEN("A tree(string) and a tree(istream)") {
+      const GNDStk::Tree<> t1("n-026_Fe_056.xml");
       std::ifstream ifs("n-026_Fe_056.xml");
-      const gnds::Tree<> t3(ifs);
+      const GNDStk::Tree<> t2(ifs);
 
-      // Results should all be the same
+      // Results should be the same
       std::ostringstream oss1; oss1 << t1;
       std::ostringstream oss2; oss2 << t2;
-      std::ostringstream oss3; oss3 << t3;
-
       REQUIRE(oss1.str() == oss2.str());
-      REQUIRE(oss1.str() == oss3.str());
    }
 
-   // 8. Tree(Tree   &) // copy
-   // 9. Tree(Tree<> &) // different <>
+   // 7. Tree(Tree   &) // copy
+   // 8. Tree(Tree<> &) // different <>
    // Do basically the same thing we did in our tree assignment
    // test code, but construct where we'd otherwise assign.
    GIVEN("Various flavors of tree, each read from a GNDS .xml file") {

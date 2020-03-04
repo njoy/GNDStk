@@ -40,77 +40,85 @@ class child_t;
 
 
 // -----------------------------------------------------------------------------
-// mcat
-// ccat
+// catenateMetadata
+// catenateChildren
+// fixme Eventually, I should put in a description, probably via an example,
+// of what these template metaprogramming constructs are all about.
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
 // ------------------------
-// mcat
+// catenateMetadata
 // metadata<> += meta_ts
 // chuck child_ts
 // ------------------------
 
 // default
-template<class METADATA, class... Ks> class mcat { };
+template<class METADATA, class... Ks> class catenateMetadata { };
 
 // metadata
 template<class... Ms>
-class mcat<metadata<Ms...>> {
+class catenateMetadata<metadata<Ms...>> {
 public:
-   // recursing terminal
-   using type = metadata<Ms...>;
+   // recursion terminal
+   using type =
+      metadata<Ms...>;
 };
 
 // +meta [+Ks]
 template<class... Ms, class T, class... Ks>
-class mcat<metadata<Ms...>, meta_t<T>, Ks...> {
+class catenateMetadata<metadata<Ms...>, meta_t<T>, Ks...> {
 public:
    // fold the meta_t into metadata; recurse
-   using type = typename mcat<metadata<Ms...,meta_t<T>>,Ks...>::type;
+   using type =
+      typename catenateMetadata<metadata<Ms...,meta_t<T>>,Ks...>::type;
 };
 
 // +child [+Ks]
 template<class... Ms, class... Ts, class... Ks>
-class mcat<metadata<Ms...>, child_t<Ts...>, Ks...> {
+class catenateMetadata<metadata<Ms...>, child_t<Ts...>, Ks...> {
 public:
    // chuck the child_t; recurse
-   using type = typename mcat<metadata<Ms...>,Ks...>::type;
+   using type =
+      typename catenateMetadata<metadata<Ms...>,Ks...>::type;
 };
 
 
 // ------------------------
-// ccat
+// catenateChildren
 // children<> += child_ts
 // chuck meta_ts
 // ------------------------
 
 // default
-template<class CHILDREN, class... Ks> class ccat { };
+template<class CHILDREN, class... Ks> class catenateChildren { };
 
 // children
 template<class... Cs>
-class ccat<children<Cs...>> {
+class catenateChildren<children<Cs...>> {
 public:
-   // recursing terminal
-   using type = children<Cs...>;
+   // recursion terminal
+   using type =
+      children<Cs...>;
 };
 
 // +meta [+Ks]
 template<class... Cs, class T, class... Ks>
-class ccat<children<Cs...>, meta_t<T>, Ks...> {
+class catenateChildren<children<Cs...>, meta_t<T>, Ks...> {
 public:
    // chuck the meta_t; recurse
-   using type = typename ccat<children<Cs...>,Ks...>::type;
+   using type =
+      typename catenateChildren<children<Cs...>,Ks...>::type;
 };
 
 // +child [+Ks]
 template<class... Cs, class... Ts, class... Ks>
-class ccat<children<Cs...>, child_t<Ts...>, Ks...> {
+class catenateChildren<children<Cs...>, child_t<Ts...>, Ks...> {
 public:
    // fold the child_t into children; recurse
-   using type = typename ccat<children<Cs...,child_t<Ts...>>,Ks...>::type;
+   using type =
+      typename catenateChildren<children<Cs...,child_t<Ts...>>,Ks...>::type;
 };
 
 } // namespace detail
@@ -153,9 +161,11 @@ public:
    template<class T, class K, class... Ks>
    static auto child(const std::string &name, const K &, Ks...)
    {
-      using M = typename detail::mcat<metadata<>,K,Ks...>::type;
-      using C = typename detail::ccat<children<>,K,Ks...>::type;
-      return child_t<T,M,C>{name};
+      // For all meta_t<> (resp. child_t<>) instances in {K,Ks}, pull
+      // them out, and consolidate into metadata<> (resp. children<>).
+      using METADATA = typename catenateMetadata<metadata<>,K,Ks...>::type;
+      using CHILDREN = typename catenateChildren<children<>,K,Ks...>::type;
+      return child_t<T,METADATA,CHILDREN>{name};
    }
 };
 

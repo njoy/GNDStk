@@ -93,8 +93,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 bool convert(
-   const gnds::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
-   gnds::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &
+   const GNDStk::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
+   GNDStk::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &
 );
 
 template<
@@ -102,8 +102,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   gnds::xml &
+   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
+   GNDStk::xml &
 );
 
 template<
@@ -111,8 +111,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   gnds::json &
+   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
+   GNDStk::json &
 );
 
 
@@ -122,11 +122,11 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::xml &,
-   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+   const GNDStk::xml &,
+   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 );
-bool convert(const gnds::xml &, gnds::xml &);
-bool convert(const gnds::xml &, gnds::json &);
+bool convert(const GNDStk::xml &, GNDStk::xml &);
+bool convert(const GNDStk::xml &, GNDStk::json &);
 
 
 // json to {Tree,xml,json}
@@ -135,11 +135,11 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::json &,
-   gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+   const GNDStk::json &,
+   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 );
-bool convert(const gnds::json &, gnds::xml &);
-bool convert(const gnds::json &, gnds::json &);
+bool convert(const GNDStk::json &, GNDStk::xml &);
+bool convert(const GNDStk::json &, GNDStk::json &);
 
 
 
@@ -184,7 +184,7 @@ inline bool endsin(const std::string &str, const std::string &end)
 }
 
 // nocasecmp
-// Caseless string comparison.
+// Case-insensitive string comparison.
 // The old C-language strcasecmp() is nonstandard. A modern, true caseless
 // string comparison is actually a tougher nut to crack than meets the eye,
 // but the following will suffice for our purposes.

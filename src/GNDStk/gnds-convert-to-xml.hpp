@@ -3,16 +3,16 @@
 Summary of the functions in this file:
 
 namespace detail {
-   1. Node2xml(gnds::Node, pugi::xml_node)
+   1. Node2xml(GNDStk::Node, pugi::xml_node)
       ...uses (1) (itself)
 }
 
-2. convert(gnds::Tree, gnds::xml)
+2. convert(GNDStk::Tree, GNDStk::xml)
    ...uses (1)
 
-3. convert(gnds::xml, gnds::xml)
+3. convert(GNDStk::xml, GNDStk::xml)
 
-4. convert(gnds::json, gnds::xml)
+4. convert(GNDStk::json, GNDStk::xml)
    ...uses (2)
 */
 
@@ -30,7 +30,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool Node2xml(
-   const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    pugi::xml_node &x
 ) {
    // name
@@ -85,15 +85,15 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const gnds::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   gnds::xml &xdoc
+   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
+   GNDStk::xml &xdoc
 ) {
    // clear
    xdoc.clear();
 
    // convert
    if (not tree.empty()) {
-      const gnds::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &zero =
+      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &zero =
          tree.zero();
 
       // ------------------------
@@ -149,7 +149,7 @@ bool convert(
 
 // xml ==> xml
 // For completeness
-inline bool convert(const gnds::xml &from, gnds::xml &to)
+inline bool convert(const GNDStk::xml &from, GNDStk::xml &to)
 {
    if (&to == &from)
       return true;
@@ -168,8 +168,8 @@ inline bool convert(const gnds::xml &from, gnds::xml &to)
    // this issue if and when it becomes necessary to be more efficient.
 
    // backup indentation
-   const int indent = gnds::indent;
-   gnds::indent = 0; // saves memory in the stringstream
+   const int indent = GNDStk::indent;
+   GNDStk::indent = 0; // saves memory in the stringstream
 
    // from ==> stringstream ==> to
    std::stringstream ss;
@@ -177,7 +177,7 @@ inline bool convert(const gnds::xml &from, gnds::xml &to)
    to.read(ss);
 
    // restore indentation
-   gnds::indent = indent;
+   GNDStk::indent = indent;
 
    // done
    return true;
@@ -188,9 +188,9 @@ inline bool convert(const gnds::xml &from, gnds::xml &to)
 // json ==> xml
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this issue if this becomes more of an issue.
-inline bool convert(const gnds::json &jdoc, gnds::xml &xdoc)
+inline bool convert(const GNDStk::json &jdoc, GNDStk::xml &xdoc)
 {
-   gnds::tree tree;
+   GNDStk::tree tree;
    return
       convert(jdoc,tree) and
       convert(tree,xdoc);

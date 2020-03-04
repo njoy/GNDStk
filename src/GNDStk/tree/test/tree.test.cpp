@@ -11,13 +11,13 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
 
    // Tree (upper-case T): takes 0, 1, or 2 template parameters
    GIVEN("A Tree<default,default>") {
-      gnds::Tree<> tree;
+      GNDStk::Tree<> tree;
       REQUIRE(tree.empty());
    }
 
    // tree (lower-case t): shorthand alias for Tree<>
    GIVEN("A tree") {
-      gnds::tree tree;
+      GNDStk::tree tree;
       REQUIRE(tree.empty());
    }
 
@@ -31,20 +31,20 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
    GIVEN("A Tree<various,various>") {
       using namespace std;
 
-      { gnds::Tree<deque        > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<deque ,deque > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<deque ,list  > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<deque ,vector> tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<deque        > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<deque ,deque > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<deque ,list  > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<deque ,vector> tree; REQUIRE(tree.empty()); }
 
-      { gnds::Tree<list         > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<list  ,deque > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<list  ,list  > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<list  ,vector> tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<list         > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<list  ,deque > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<list  ,list  > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<list  ,vector> tree; REQUIRE(tree.empty()); }
 
-      { gnds::Tree<vector       > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<vector,deque > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<vector,list  > tree; REQUIRE(tree.empty()); }
-      { gnds::Tree<vector,vector> tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<vector       > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<vector,deque > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<vector,list  > tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<vector,vector> tree; REQUIRE(tree.empty()); }
    }
 
 }
