@@ -178,12 +178,14 @@ inline const detail::keyword_t keyword;
 
 // -----------------------------------------------------------------------------
 // Macros
+// For users.
+// These may change; I need to see how the keyword business pans out.
 // -----------------------------------------------------------------------------
 
-// keyword_meta
-#define keyword_meta(type,name) \
+// GNDSTK_KEYWORD_META
+#define GNDSTK_KEYWORD_META(type,name) \
    inline const auto name = keyword.meta <type>{#name}
 
-// keyword_child
-#define keyword_child(type,name,...) \
+// GNDSTK_KEYWORD_CHILD
+#define GNDSTK_KEYWORD_CHILD(type,name,...) \
    inline const auto name = keyword.child<type>{#name,##__VA_ARGS__}

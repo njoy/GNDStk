@@ -16,8 +16,10 @@ public:
 };
 
 // macro, for meta_t building
-#define make_meta(type,name) \
+#define GNDSTK_MAKE_META(type,name) \
    inline const meta_t<type> name(#name)
+// Note: we won't #undef this, as one normally would,
+// because it's perfectly viable for users to invoke.
 
 
 
@@ -28,91 +30,91 @@ public:
 namespace meta {
 
 // bool
-make_meta(bool, calculateChannelRadius);
-make_meta(bool, calculatedAtThermal);
-make_meta(bool, calculatePenetrability);
-make_meta(bool, identicalParticles);
-make_meta(bool, supportsAngularReconstruction);
-make_meta(bool, useForSelfShieldingOnly);
+GNDSTK_MAKE_META(bool, calculateChannelRadius);
+GNDSTK_MAKE_META(bool, calculatedAtThermal);
+GNDSTK_MAKE_META(bool, calculatePenetrability);
+GNDSTK_MAKE_META(bool, identicalParticles);
+GNDSTK_MAKE_META(bool, supportsAngularReconstruction);
+GNDSTK_MAKE_META(bool, useForSelfShieldingOnly);
 
 // int
-make_meta(int, A);
-make_meta(int, columnIndex);
-make_meta(int, columns);
-make_meta(int, ENDF_MT);
-make_meta(int, index);
-make_meta(int, L);
-make_meta(int, MAT);
-make_meta(int, matrixStartIndex);
-make_meta(int, metaStableIndex);
-make_meta(int, nParameters);
-make_meta(int, numberOfProducts);
-make_meta(int, numberPerMolecule);
-make_meta(int, parity);
-make_meta(int, rows);
-make_meta(int, Z);
+GNDSTK_MAKE_META(int, A);
+GNDSTK_MAKE_META(int, columnIndex);
+GNDSTK_MAKE_META(int, columns);
+GNDSTK_MAKE_META(int, ENDF_MT);
+GNDSTK_MAKE_META(int, index);
+GNDSTK_MAKE_META(int, L);
+GNDSTK_MAKE_META(int, MAT);
+GNDSTK_MAKE_META(int, matrixStartIndex);
+GNDSTK_MAKE_META(int, metaStableIndex);
+GNDSTK_MAKE_META(int, nParameters);
+GNDSTK_MAKE_META(int, numberOfProducts);
+GNDSTK_MAKE_META(int, numberPerMolecule);
+GNDSTK_MAKE_META(int, parity);
+GNDSTK_MAKE_META(int, rows);
+GNDSTK_MAKE_META(int, Z);
 
 // double
-make_meta(double, coefficient);
-make_meta(double, domainMax);
-make_meta(double, domainMin);
-make_meta(double, electronNumber);
-make_meta(double, format);
-make_meta(double, max);
-make_meta(double, min);
-make_meta(double, muCutoff);
+GNDSTK_MAKE_META(double, coefficient);
+GNDSTK_MAKE_META(double, domainMax);
+GNDSTK_MAKE_META(double, domainMin);
+GNDSTK_MAKE_META(double, electronNumber);
+GNDSTK_MAKE_META(double, format);
+GNDSTK_MAKE_META(double, max);
+GNDSTK_MAKE_META(double, min);
+GNDSTK_MAKE_META(double, muCutoff);
 
 // string
-make_meta(std::string, approximation);
-make_meta(std::string, asymmetric);
-make_meta(std::string, boundaryCondition);
-make_meta(std::string, complete);
-make_meta(std::string, compression);
-make_meta(std::string, crossTerm);
-make_meta(std::string, dependenceOnProcessedGroupWidth);
-make_meta(std::string, derivedFrom);
-make_meta(std::string, domainUnit);
-make_meta(std::string, ejectile);
-make_meta(std::string, eliminated);
-make_meta(std::string, emissionMode);
-make_meta(std::string, encoding);
-make_meta(std::string, ENDF_MFMT);
-make_meta(std::string, evaluation);
-make_meta(std::string, final);
-make_meta(std::string, fissionGenre);
-make_meta(std::string, flags);
-make_meta(std::string, functionalForm);
-make_meta(std::string, generation);
-make_meta(std::string, genre);
-make_meta(std::string, href);
-make_meta(std::string, id);
-make_meta(std::string, initial);
-make_meta(std::string, interpolation);
-make_meta(std::string, interpolationQualifier);
-make_meta(std::string, label);
-make_meta(std::string, library);
-make_meta(std::string, material);
-make_meta(std::string, mode);
-make_meta(std::string, name);
-make_meta(std::string, path);
-make_meta(std::string, pid);
-make_meta(std::string, process);
-make_meta(std::string, productFrame);
-make_meta(std::string, projectile);
-make_meta(std::string, projectileFrame);
-make_meta(std::string, resonanceReaction);
-make_meta(std::string, shape);
-make_meta(std::string, style);
-make_meta(std::string, subshell);
-make_meta(std::string, symbol);
-make_meta(std::string, symmetry);
-make_meta(std::string, target);
-make_meta(std::string, type);
-make_meta(std::string, unit);
-make_meta(std::string, version);
-make_meta(std::string, valueType);
-make_meta(std::string, date);
-make_meta(std::string, decayRate); // seems to always have double and "1/s"
+GNDSTK_MAKE_META(std::string, approximation);
+GNDSTK_MAKE_META(std::string, asymmetric);
+GNDSTK_MAKE_META(std::string, boundaryCondition);
+GNDSTK_MAKE_META(std::string, complete);
+GNDSTK_MAKE_META(std::string, compression);
+GNDSTK_MAKE_META(std::string, crossTerm);
+GNDSTK_MAKE_META(std::string, dependenceOnProcessedGroupWidth);
+GNDSTK_MAKE_META(std::string, derivedFrom);
+GNDSTK_MAKE_META(std::string, domainUnit);
+GNDSTK_MAKE_META(std::string, ejectile);
+GNDSTK_MAKE_META(std::string, eliminated);
+GNDSTK_MAKE_META(std::string, emissionMode);
+GNDSTK_MAKE_META(std::string, encoding);
+GNDSTK_MAKE_META(std::string, ENDF_MFMT);
+GNDSTK_MAKE_META(std::string, evaluation);
+GNDSTK_MAKE_META(std::string, final);
+GNDSTK_MAKE_META(std::string, fissionGenre);
+GNDSTK_MAKE_META(std::string, flags);
+GNDSTK_MAKE_META(std::string, functionalForm);
+GNDSTK_MAKE_META(std::string, generation);
+GNDSTK_MAKE_META(std::string, genre);
+GNDSTK_MAKE_META(std::string, href);
+GNDSTK_MAKE_META(std::string, id);
+GNDSTK_MAKE_META(std::string, initial);
+GNDSTK_MAKE_META(std::string, interpolation);
+GNDSTK_MAKE_META(std::string, interpolationQualifier);
+GNDSTK_MAKE_META(std::string, label);
+GNDSTK_MAKE_META(std::string, library);
+GNDSTK_MAKE_META(std::string, material);
+GNDSTK_MAKE_META(std::string, mode);
+GNDSTK_MAKE_META(std::string, name);
+GNDSTK_MAKE_META(std::string, path);
+GNDSTK_MAKE_META(std::string, pid);
+GNDSTK_MAKE_META(std::string, process);
+GNDSTK_MAKE_META(std::string, productFrame);
+GNDSTK_MAKE_META(std::string, projectile);
+GNDSTK_MAKE_META(std::string, projectileFrame);
+GNDSTK_MAKE_META(std::string, resonanceReaction);
+GNDSTK_MAKE_META(std::string, shape);
+GNDSTK_MAKE_META(std::string, style);
+GNDSTK_MAKE_META(std::string, subshell);
+GNDSTK_MAKE_META(std::string, symbol);
+GNDSTK_MAKE_META(std::string, symmetry);
+GNDSTK_MAKE_META(std::string, target);
+GNDSTK_MAKE_META(std::string, type);
+GNDSTK_MAKE_META(std::string, unit);
+GNDSTK_MAKE_META(std::string, version);
+GNDSTK_MAKE_META(std::string, valueType);
+GNDSTK_MAKE_META(std::string, date);
+GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 
 } // namespace meta
 

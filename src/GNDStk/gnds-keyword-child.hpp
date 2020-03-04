@@ -16,11 +16,13 @@ public:
    }
 };
 
-// macros, for child_t building
-#define make_child_default(name,multiple) \
+// Macros, for child_t building
+#define GNDSTK_MAKE_CHILD_DEFAULT(name,multiple) \
    inline const child_t<>  name(#name,multiple)
-#define make_child(T,name,multiple) \
+#define GNDSTK_MAKE_CHILD(T,name,multiple) \
    inline const child_t<T> name(#name,multiple)
+// Note: we won't #undef these, as one normally would,
+// because they're perfectly viable for users to invoke.
 
 
 
@@ -37,80 +39,80 @@ namespace child {
 // constructs
 // ------------------------
 
-make_child_default(averageEnergies, false);
-make_child_default(averageEnergy,   true);
+GNDSTK_MAKE_CHILD_DEFAULT(averageEnergies, false);
+GNDSTK_MAKE_CHILD_DEFAULT(averageEnergy,   true);
 
-make_child_default(axes, false);
-make_child_default(axis, true);
+GNDSTK_MAKE_CHILD_DEFAULT(axes, false);
+GNDSTK_MAKE_CHILD_DEFAULT(axis, true);
 
-make_child_default(baryons, false);
-make_child_default(baryon,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(baryons, false);
+GNDSTK_MAKE_CHILD_DEFAULT(baryon,  true);
 
-make_child_default(channels, false);
-make_child_default(channel,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(channels, false);
+GNDSTK_MAKE_CHILD_DEFAULT(channel,  true);
 
-make_child_default(chemicalElements, false);
-make_child_default(chemicalElement,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(chemicalElements, false);
+GNDSTK_MAKE_CHILD_DEFAULT(chemicalElement,  true);
 
-make_child_default(configurations, false);
-make_child_default(configuration,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(configurations, false);
+GNDSTK_MAKE_CHILD_DEFAULT(configuration,  true);
 
-make_child_default(decayModes, false);
-make_child_default(decayMode,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(decayModes, false);
+GNDSTK_MAKE_CHILD_DEFAULT(decayMode,  true);
 
-make_child_default(durations, false);
-make_child_default(duration,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(durations, false);
+GNDSTK_MAKE_CHILD_DEFAULT(duration,  true);
 
-make_child_default(externalFiles, false);
-make_child_default(externalFile,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(externalFiles, false);
+GNDSTK_MAKE_CHILD_DEFAULT(externalFile,  true);
 
-make_child_default(fissionComponents, false);
-make_child_default(fissionComponent,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionComponents, false);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionComponent,  true);
 
-make_child_default(isotopes, false);
-make_child_default(isotope,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(isotopes, false);
+GNDSTK_MAKE_CHILD_DEFAULT(isotope,  true);
 
-make_child_default(Js, false);
-make_child_default(J,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(Js, false);
+GNDSTK_MAKE_CHILD_DEFAULT(J,  true);
 
-make_child_default(leptons, false);
-make_child_default(lepton,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(leptons, false);
+GNDSTK_MAKE_CHILD_DEFAULT(lepton,  true);
 
-make_child_default(nuclides, false);
-make_child_default(nuclide,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclides, false);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclide,  true);
 
-make_child_default(productions, false);
-make_child_default(production,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(productions, false);
+GNDSTK_MAKE_CHILD_DEFAULT(production,  true);
 
-make_child_default(products, false);
-make_child_default(product,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(products, false);
+GNDSTK_MAKE_CHILD_DEFAULT(product,  true);
 
-make_child_default(reactions, false);
-make_child_default(reaction,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(reactions, false);
+GNDSTK_MAKE_CHILD_DEFAULT(reaction,  true);
 
-make_child_default(resonanceReactions, false);
-make_child_default(resonanceReaction,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(resonanceReactions, false);
+GNDSTK_MAKE_CHILD_DEFAULT(resonanceReaction,  true);
 
-make_child_default(scatteringAtoms, false);
-make_child_default(scatteringAtom,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringAtoms, false);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringAtom,  true);
 
-make_child_default(spectra, false);
-make_child_default(spectrum, true);
+GNDSTK_MAKE_CHILD_DEFAULT(spectra, false);
+GNDSTK_MAKE_CHILD_DEFAULT(spectrum, true);
 
-make_child_default(spinGroups, false);
-make_child_default(spinGroup,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(spinGroups, false);
+GNDSTK_MAKE_CHILD_DEFAULT(spinGroup,  true);
 
-make_child_default(widths, false);
-make_child_default(width,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(widths, false);
+GNDSTK_MAKE_CHILD_DEFAULT(width,  true);
 
-make_child_default(sums, false);
-make_child_default(sum,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(sums, false);
+GNDSTK_MAKE_CHILD_DEFAULT(sum,  true);
 
-make_child_default(Ls, false);
-make_child_default(L,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(Ls, false);
+GNDSTK_MAKE_CHILD_DEFAULT(L,  true);
 
-make_child_default(summands, false);
-make_child_default(summand,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(summands, false);
+GNDSTK_MAKE_CHILD_DEFAULT(summand,  true);
 
 
 
@@ -123,185 +125,185 @@ make_child_default(summand,  true);
 // Some may actually be singular/plural pairs as above
 
 // multiple == true
-make_child_default(add, true);
-make_child_default(averageParameterCovariance, true);
-make_child_default(column, true);
-make_child_default(conversion, true);
-make_child_default(covariance, true);
-make_child_default(covarianceMatrix, true);
-make_child_default(crossSectionSum, true);
-make_child_default(decay, true);
-make_child_default(discrete, true);
-make_child_default(grid, true);
-make_child_default(Legendre, true);
-make_child_default(metaStable, true);
-make_child_default(multiplicitySum, true);
-make_child_default(parameterLink, true);
-make_child_default(regions1d, true);
-make_child_default(section, true);
-make_child_default(shell, true);
-make_child_default(values, true);
-make_child_default(weighted, true);
-make_child_default(XYs1d, true);
-make_child_default(XYs2d, true);
+GNDSTK_MAKE_CHILD_DEFAULT(add, true);
+GNDSTK_MAKE_CHILD_DEFAULT(averageParameterCovariance, true);
+GNDSTK_MAKE_CHILD_DEFAULT(column, true);
+GNDSTK_MAKE_CHILD_DEFAULT(conversion, true);
+GNDSTK_MAKE_CHILD_DEFAULT(covariance, true);
+GNDSTK_MAKE_CHILD_DEFAULT(covarianceMatrix, true);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSectionSum, true);
+GNDSTK_MAKE_CHILD_DEFAULT(decay, true);
+GNDSTK_MAKE_CHILD_DEFAULT(discrete, true);
+GNDSTK_MAKE_CHILD_DEFAULT(grid, true);
+GNDSTK_MAKE_CHILD_DEFAULT(Legendre, true);
+GNDSTK_MAKE_CHILD_DEFAULT(metaStable, true);
+GNDSTK_MAKE_CHILD_DEFAULT(multiplicitySum, true);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterLink, true);
+GNDSTK_MAKE_CHILD_DEFAULT(regions1d, true);
+GNDSTK_MAKE_CHILD_DEFAULT(section, true);
+GNDSTK_MAKE_CHILD_DEFAULT(shell, true);
+GNDSTK_MAKE_CHILD_DEFAULT(values, true);
+GNDSTK_MAKE_CHILD_DEFAULT(weighted, true);
+GNDSTK_MAKE_CHILD_DEFAULT(XYs1d, true);
+GNDSTK_MAKE_CHILD_DEFAULT(XYs2d, true);
 
 // multiple == false
-make_child_default(aliases, false);
-make_child_default(angular, false);
-make_child_default(angularEnergy, false);
-make_child_default(angularTwoBody, false);
-make_child_default(applicationData, false);
-make_child_default(array, false);
-make_child_default(atomic, false);
-make_child_default(averageProductEnergy, false);
-make_child_default(background, false);
-make_child_default(bindingEnergy, false);
-make_child_default(branching1d, false);
-make_child_default(branching3d, false);
-make_child_default(BreitWigner, false);
-make_child_default(characteristicCrossSection, false);
-make_child_default(charge, false);
-make_child_default(coherentElastic, false);
-make_child_default(coherentPhotonScattering, false);
-make_child_default(columnData, false);
-make_child_default(columnHeaders, false);
-make_child_default(constant1d, false);
-make_child_default(continuum, false);
-make_child_default(CoulombPlusNuclearElastic, false);
-make_child_default(covarianceSections, false);
-make_child_default(covarianceSuite, false);
-make_child_default(crossSection, false);
-make_child_default(crossSectionReconstructed, false);
-make_child_default(crossSections, false);
-make_child_default(cutoffEnergy, false);
-make_child_default(data, false);
-make_child_default(DebyeWaller, false);
-make_child_default(decayData, false);
-make_child_default(decayPath, false);
-make_child_default(delayedBetaEnergy, false);
-make_child_default(delayedGammaEnergy, false);
-make_child_default(delayedNeutronKE, false);
-make_child_default(discreteGamma, false);
-make_child_default(distribution, false);
-make_child_default(documentation, false);
-make_child_default(documentations, false);
-make_child_default(doubleDifferentialCrossSection, false);
-make_child_default(e_critical, false);
-make_child_default(EFH, false);
-make_child_default(EFL, false);
-make_child_default(e_max, false);
-make_child_default(ENDFconversionFlags, false);
-make_child_default(energy, false);
-make_child_default(energyAngular, false);
-make_child_default(evaluated, false);
-make_child_default(evaporation, false);
-make_child_default(f, false);
-make_child_default(fastRegion, false);
-make_child_default(fissionEnergyReleased, false);
-make_child_default(fissionFragmentData, false);
-make_child_default(fraction, false);
-make_child_default(freeAtomCrossSection, false);
-make_child_default(g, false);
-make_child_default(gaugeBoson, false);
-make_child_default(gaugeBosons, false);
-make_child_default(generalEvaporation, false);
-make_child_default(gridded2d, false);
-make_child_default(gridded3d, false);
-make_child_default(halflife, false);
-make_child_default(hardSphereRadius, false);
-make_child_default(imaginaryAnomalousFactor, false);
-make_child_default(imaginaryInterferenceTerm, false);
-make_child_default(incoherentElastic, false);
-make_child_default(incoherentInelastic, false);
-make_child_default(incoherentPhotonScattering, false);
-make_child_default(incompleteReactions, false);
-make_child_default(institution, false);
-make_child_default(integer, false);
-make_child_default(intensity, false);
-make_child_default(internalConversionCoefficients, false);
-make_child_default(internalPairFormationCoefficient, false);
-make_child_default(isotropic2d, false);
-make_child_default(KalbachMann, false);
-make_child_default(levelSpacing, false);
-make_child_default(link, false);
-make_child_default(listOfCovariances, false);
-make_child_default(MadlandNix, false);
-make_child_default(mass, false);
-make_child_default(mixed, false);
-make_child_default(multiplicities, false);
-make_child_default(multiplicity, false);
-make_child_default(NBodyPhaseSpace, false);
-make_child_default(neutrinoEnergy, false);
-make_child_default(nonNeutrinoEnergy, false);
-make_child_default(nuclearAmplitudeExpansion, false);
-make_child_default(nuclearPlusInterference, false);
-make_child_default(nuclearTerm, false);
-make_child_default(nucleus, false);
-make_child_default(orphanProducts, false);
-make_child_default(outputChannel, false);
-make_child_default(parameterCovariance, false);
-make_child_default(parameterCovarianceMatrix, false);
-make_child_default(parameterCovariances, false);
-make_child_default(parameters, false);
-make_child_default(parity, false);
-make_child_default(photonEmissionProbabilities, false);
-make_child_default(pids, false);
-make_child_default(polynomial1d, false);
-make_child_default(PoPs, false);
-make_child_default(positronEmissionIntensity, false);
-make_child_default(primaryGamma, false);
-make_child_default(probability, false);
-make_child_default(productYield, false);
-make_child_default(productYields, false);
-make_child_default(projectileEnergyDomain, false);
-make_child_default(promptGammaEnergy, false);
-make_child_default(promptNeutronKE, false);
-make_child_default(promptProductKE, false);
-make_child_default(Q, false);
-make_child_default(r, false);
-make_child_default(reactionSuite, false);
-make_child_default(realAnomalousFactor, false);
-make_child_default(realInterferenceTerm, false);
-make_child_default(recoil, false);
-make_child_default(reference, false);
-make_child_default(regions2d, false);
-make_child_default(resolved, false);
-make_child_default(resolvedRegion, false);
-make_child_default(resonanceParameters, false);
-make_child_default(resonances, false);
-make_child_default(resonancesWithBackground, false);
-make_child_default(RMatrix, false);
-make_child_default(rowData, false);
-make_child_default(RutherfordScattering, false);
-make_child_default(S_alpha_beta, false);
-make_child_default(scatteringFactor, false);
-make_child_default(scatteringRadius, false);
-make_child_default(shortRangeSelfScalingVariance, false);
-make_child_default(simpleMaxwellianFission, false);
-make_child_default(spin, false);
-make_child_default(S_table, false);
-make_child_default(standard, false);
-make_child_default(string, false);
-make_child_default(styles, false);
-make_child_default(table, false);
-make_child_default(tabulatedWidths, false);
-make_child_default(T_effective, false);
-make_child_default(temperature, false);
-make_child_default(thermalScattering, false);
-make_child_default(theta, false);
-make_child_default(time, false);
-make_child_default(T_M, false);
-make_child_default(totalEnergy, false);
-make_child_default(U, false);
-make_child_default(uncertainty, false);
-make_child_default(uncorrelated, false);
-make_child_default(unresolved, false);
-make_child_default(unresolvedRegion, false);
-make_child_default(unspecified, false);
-make_child_default(weightedFunctionals, false);
-make_child_default(xml, false);
-make_child_default(XYs3d, false);
-make_child_default(yields, false);
+GNDSTK_MAKE_CHILD_DEFAULT(aliases, false);
+GNDSTK_MAKE_CHILD_DEFAULT(angular, false);
+GNDSTK_MAKE_CHILD_DEFAULT(angularEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(angularTwoBody, false);
+GNDSTK_MAKE_CHILD_DEFAULT(applicationData, false);
+GNDSTK_MAKE_CHILD_DEFAULT(array, false);
+GNDSTK_MAKE_CHILD_DEFAULT(atomic, false);
+GNDSTK_MAKE_CHILD_DEFAULT(averageProductEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(background, false);
+GNDSTK_MAKE_CHILD_DEFAULT(bindingEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(branching1d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(branching3d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(BreitWigner, false);
+GNDSTK_MAKE_CHILD_DEFAULT(characteristicCrossSection, false);
+GNDSTK_MAKE_CHILD_DEFAULT(charge, false);
+GNDSTK_MAKE_CHILD_DEFAULT(coherentElastic, false);
+GNDSTK_MAKE_CHILD_DEFAULT(coherentPhotonScattering, false);
+GNDSTK_MAKE_CHILD_DEFAULT(columnData, false);
+GNDSTK_MAKE_CHILD_DEFAULT(columnHeaders, false);
+GNDSTK_MAKE_CHILD_DEFAULT(constant1d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(continuum, false);
+GNDSTK_MAKE_CHILD_DEFAULT(CoulombPlusNuclearElastic, false);
+GNDSTK_MAKE_CHILD_DEFAULT(covarianceSections, false);
+GNDSTK_MAKE_CHILD_DEFAULT(covarianceSuite, false);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSection, false);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSectionReconstructed, false);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSections, false);
+GNDSTK_MAKE_CHILD_DEFAULT(cutoffEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(data, false);
+GNDSTK_MAKE_CHILD_DEFAULT(DebyeWaller, false);
+GNDSTK_MAKE_CHILD_DEFAULT(decayData, false);
+GNDSTK_MAKE_CHILD_DEFAULT(decayPath, false);
+GNDSTK_MAKE_CHILD_DEFAULT(delayedBetaEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(delayedGammaEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(delayedNeutronKE, false);
+GNDSTK_MAKE_CHILD_DEFAULT(discreteGamma, false);
+GNDSTK_MAKE_CHILD_DEFAULT(distribution, false);
+GNDSTK_MAKE_CHILD_DEFAULT(documentation, false);
+GNDSTK_MAKE_CHILD_DEFAULT(documentations, false);
+GNDSTK_MAKE_CHILD_DEFAULT(doubleDifferentialCrossSection, false);
+GNDSTK_MAKE_CHILD_DEFAULT(e_critical, false);
+GNDSTK_MAKE_CHILD_DEFAULT(EFH, false);
+GNDSTK_MAKE_CHILD_DEFAULT(EFL, false);
+GNDSTK_MAKE_CHILD_DEFAULT(e_max, false);
+GNDSTK_MAKE_CHILD_DEFAULT(ENDFconversionFlags, false);
+GNDSTK_MAKE_CHILD_DEFAULT(energy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(energyAngular, false);
+GNDSTK_MAKE_CHILD_DEFAULT(evaluated, false);
+GNDSTK_MAKE_CHILD_DEFAULT(evaporation, false);
+GNDSTK_MAKE_CHILD_DEFAULT(f, false);
+GNDSTK_MAKE_CHILD_DEFAULT(fastRegion, false);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionEnergyReleased, false);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionFragmentData, false);
+GNDSTK_MAKE_CHILD_DEFAULT(fraction, false);
+GNDSTK_MAKE_CHILD_DEFAULT(freeAtomCrossSection, false);
+GNDSTK_MAKE_CHILD_DEFAULT(g, false);
+GNDSTK_MAKE_CHILD_DEFAULT(gaugeBoson, false);
+GNDSTK_MAKE_CHILD_DEFAULT(gaugeBosons, false);
+GNDSTK_MAKE_CHILD_DEFAULT(generalEvaporation, false);
+GNDSTK_MAKE_CHILD_DEFAULT(gridded2d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(gridded3d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(halflife, false);
+GNDSTK_MAKE_CHILD_DEFAULT(hardSphereRadius, false);
+GNDSTK_MAKE_CHILD_DEFAULT(imaginaryAnomalousFactor, false);
+GNDSTK_MAKE_CHILD_DEFAULT(imaginaryInterferenceTerm, false);
+GNDSTK_MAKE_CHILD_DEFAULT(incoherentElastic, false);
+GNDSTK_MAKE_CHILD_DEFAULT(incoherentInelastic, false);
+GNDSTK_MAKE_CHILD_DEFAULT(incoherentPhotonScattering, false);
+GNDSTK_MAKE_CHILD_DEFAULT(incompleteReactions, false);
+GNDSTK_MAKE_CHILD_DEFAULT(institution, false);
+GNDSTK_MAKE_CHILD_DEFAULT(integer, false);
+GNDSTK_MAKE_CHILD_DEFAULT(intensity, false);
+GNDSTK_MAKE_CHILD_DEFAULT(internalConversionCoefficients, false);
+GNDSTK_MAKE_CHILD_DEFAULT(internalPairFormationCoefficient, false);
+GNDSTK_MAKE_CHILD_DEFAULT(isotropic2d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(KalbachMann, false);
+GNDSTK_MAKE_CHILD_DEFAULT(levelSpacing, false);
+GNDSTK_MAKE_CHILD_DEFAULT(link, false);
+GNDSTK_MAKE_CHILD_DEFAULT(listOfCovariances, false);
+GNDSTK_MAKE_CHILD_DEFAULT(MadlandNix, false);
+GNDSTK_MAKE_CHILD_DEFAULT(mass, false);
+GNDSTK_MAKE_CHILD_DEFAULT(mixed, false);
+GNDSTK_MAKE_CHILD_DEFAULT(multiplicities, false);
+GNDSTK_MAKE_CHILD_DEFAULT(multiplicity, false);
+GNDSTK_MAKE_CHILD_DEFAULT(NBodyPhaseSpace, false);
+GNDSTK_MAKE_CHILD_DEFAULT(neutrinoEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(nonNeutrinoEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclearAmplitudeExpansion, false);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclearPlusInterference, false);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclearTerm, false);
+GNDSTK_MAKE_CHILD_DEFAULT(nucleus, false);
+GNDSTK_MAKE_CHILD_DEFAULT(orphanProducts, false);
+GNDSTK_MAKE_CHILD_DEFAULT(outputChannel, false);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterCovariance, false);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterCovarianceMatrix, false);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterCovariances, false);
+GNDSTK_MAKE_CHILD_DEFAULT(parameters, false);
+GNDSTK_MAKE_CHILD_DEFAULT(parity, false);
+GNDSTK_MAKE_CHILD_DEFAULT(photonEmissionProbabilities, false);
+GNDSTK_MAKE_CHILD_DEFAULT(pids, false);
+GNDSTK_MAKE_CHILD_DEFAULT(polynomial1d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(PoPs, false);
+GNDSTK_MAKE_CHILD_DEFAULT(positronEmissionIntensity, false);
+GNDSTK_MAKE_CHILD_DEFAULT(primaryGamma, false);
+GNDSTK_MAKE_CHILD_DEFAULT(probability, false);
+GNDSTK_MAKE_CHILD_DEFAULT(productYield, false);
+GNDSTK_MAKE_CHILD_DEFAULT(productYields, false);
+GNDSTK_MAKE_CHILD_DEFAULT(projectileEnergyDomain, false);
+GNDSTK_MAKE_CHILD_DEFAULT(promptGammaEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(promptNeutronKE, false);
+GNDSTK_MAKE_CHILD_DEFAULT(promptProductKE, false);
+GNDSTK_MAKE_CHILD_DEFAULT(Q, false);
+GNDSTK_MAKE_CHILD_DEFAULT(r, false);
+GNDSTK_MAKE_CHILD_DEFAULT(reactionSuite, false);
+GNDSTK_MAKE_CHILD_DEFAULT(realAnomalousFactor, false);
+GNDSTK_MAKE_CHILD_DEFAULT(realInterferenceTerm, false);
+GNDSTK_MAKE_CHILD_DEFAULT(recoil, false);
+GNDSTK_MAKE_CHILD_DEFAULT(reference, false);
+GNDSTK_MAKE_CHILD_DEFAULT(regions2d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(resolved, false);
+GNDSTK_MAKE_CHILD_DEFAULT(resolvedRegion, false);
+GNDSTK_MAKE_CHILD_DEFAULT(resonanceParameters, false);
+GNDSTK_MAKE_CHILD_DEFAULT(resonances, false);
+GNDSTK_MAKE_CHILD_DEFAULT(resonancesWithBackground, false);
+GNDSTK_MAKE_CHILD_DEFAULT(RMatrix, false);
+GNDSTK_MAKE_CHILD_DEFAULT(rowData, false);
+GNDSTK_MAKE_CHILD_DEFAULT(RutherfordScattering, false);
+GNDSTK_MAKE_CHILD_DEFAULT(S_alpha_beta, false);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringFactor, false);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringRadius, false);
+GNDSTK_MAKE_CHILD_DEFAULT(shortRangeSelfScalingVariance, false);
+GNDSTK_MAKE_CHILD_DEFAULT(simpleMaxwellianFission, false);
+GNDSTK_MAKE_CHILD_DEFAULT(spin, false);
+GNDSTK_MAKE_CHILD_DEFAULT(S_table, false);
+GNDSTK_MAKE_CHILD_DEFAULT(standard, false);
+GNDSTK_MAKE_CHILD_DEFAULT(string, false);
+GNDSTK_MAKE_CHILD_DEFAULT(styles, false);
+GNDSTK_MAKE_CHILD_DEFAULT(table, false);
+GNDSTK_MAKE_CHILD_DEFAULT(tabulatedWidths, false);
+GNDSTK_MAKE_CHILD_DEFAULT(T_effective, false);
+GNDSTK_MAKE_CHILD_DEFAULT(temperature, false);
+GNDSTK_MAKE_CHILD_DEFAULT(thermalScattering, false);
+GNDSTK_MAKE_CHILD_DEFAULT(theta, false);
+GNDSTK_MAKE_CHILD_DEFAULT(time, false);
+GNDSTK_MAKE_CHILD_DEFAULT(T_M, false);
+GNDSTK_MAKE_CHILD_DEFAULT(totalEnergy, false);
+GNDSTK_MAKE_CHILD_DEFAULT(U, false);
+GNDSTK_MAKE_CHILD_DEFAULT(uncertainty, false);
+GNDSTK_MAKE_CHILD_DEFAULT(uncorrelated, false);
+GNDSTK_MAKE_CHILD_DEFAULT(unresolved, false);
+GNDSTK_MAKE_CHILD_DEFAULT(unresolvedRegion, false);
+GNDSTK_MAKE_CHILD_DEFAULT(unspecified, false);
+GNDSTK_MAKE_CHILD_DEFAULT(weightedFunctionals, false);
+GNDSTK_MAKE_CHILD_DEFAULT(xml, false);
+GNDSTK_MAKE_CHILD_DEFAULT(XYs3d, false);
+GNDSTK_MAKE_CHILD_DEFAULT(yields, false);
 
 } // namespace child
 

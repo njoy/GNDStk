@@ -5,7 +5,9 @@
 
 // printval
 // printvar
-// Are the same, so we don't need to remember the exact terminology
+// Are the same, so we don't need to remember the exact terminology.
+// Note: intended for internal use during development, not for users,
+// so I'm not going to UPPER CASE, or prefix with GNDSTK_.
 #define printval(var) std::cout << #var ": [" << var << "]" << std::endl
 #define printvar(var) printval(var)
 

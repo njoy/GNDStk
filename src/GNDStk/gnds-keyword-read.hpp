@@ -36,7 +36,7 @@ inline void read(std::istream &is, T &value)
 // forward_list
 // ------------------------
 
-#define gnds_read(container) \
+#define GNDSTK_READ(container) \
    template<class T, class Alloc> \
    inline void read(std::istream &is, std::container<T,Alloc> &value) \
    { \
@@ -46,11 +46,11 @@ inline void read(std::istream &is, T &value)
          value.push_back(v); \
    }
 
-gnds_read(deque)
-gnds_read(list)
-gnds_read(vector)
+GNDSTK_READ(deque)
+GNDSTK_READ(list)
+GNDSTK_READ(vector)
 
-#undef gnds_read
+#undef GNDSTK_READ
 
 
 
@@ -93,22 +93,22 @@ inline void read(const std::string &str, bool &value)
 
 // miscellaneous
 // string-to-T specializations that may be faster than our default
-#define gnds_read(fun,T) \
+#define GNDSTK_READ(fun,T) \
    inline void read(const std::string &str, T &value) \
    { \
       value = std::fun(str); \
    }
 
-gnds_read(stod, double)
-gnds_read(stof, float)
-gnds_read(stoi, int)
-gnds_read(stol, long)
-gnds_read(stold, long double)
-gnds_read(stoll, long long)
-gnds_read(stoul, unsigned long)
-gnds_read(stoull, unsigned long long)
+GNDSTK_READ(stod, double)
+GNDSTK_READ(stof, float)
+GNDSTK_READ(stoi, int)
+GNDSTK_READ(stol, long)
+GNDSTK_READ(stold, long double)
+GNDSTK_READ(stoll, long long)
+GNDSTK_READ(stoul, unsigned long)
+GNDSTK_READ(stoull, unsigned long long)
 
-#undef gnds_read
+#undef GNDSTK_READ
 
 
 
