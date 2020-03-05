@@ -9,9 +9,6 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 class Node {
-   // for internal use
-   static bool static_found;
-
    using metaPair = std::pair<std::string,std::string>;
    using childPtr = std::shared_ptr<Node>;
 
@@ -85,7 +82,7 @@ public:
    // for string
    const std::string &meta(
       const std::string &str,
-      bool &found = static_found // importantly, a reference; see below
+      bool &found = detail::default_bool // importantly, a reference; see below
    ) const {
       // search
       for (auto &m : metadata)
@@ -102,7 +99,7 @@ public:
       // Note that the question of whether a "found" flag was sent is determined
       // by looking at its address. This is entirely different from the question
       // of what found's value should be. Its value is set either way.
-      if (&found == &static_found) {
+      if (&found == &detail::default_bool) {
          // found references our private default - so, caller didn't send one
          error(
             "Node meta() called with key \"" + str + "\", "
@@ -120,7 +117,7 @@ public:
    template<class T>
    T meta(
       const meta_t<T> &kwd,
-      bool &found = static_found
+      bool &found = detail::default_bool
    ) const {
       const std::string &str = meta(kwd.name,found);
       T value{};
@@ -134,7 +131,7 @@ public:
    // but more direct and thus perhaps more efficient.
    std::string meta(
       const meta_t<std::string> &kwd,
-      bool &found = static_found
+      bool &found = detail::default_bool
    ) const {
       return meta(kwd.name,found); // direct call to meta(string)
    }
@@ -146,7 +143,7 @@ public:
    // in its original tree-node form.
    std::string meta(
       const meta_t<void> &kwd,
-      bool &found = static_found
+      bool &found = detail::default_bool
    ) const {
       return meta(kwd.name,found); // as above
    }
@@ -157,7 +154,7 @@ public:
    template<class T, class... Ts>
    T meta(
       const meta_t<std::variant<Ts...>> &kwd,
-      bool &found = static_found
+      bool &found = detail::default_bool
    ) const {
       // body is as above, but the function signature is structurally different
       const std::string &str = meta(kwd.name,found);
@@ -175,7 +172,7 @@ public:
    // for string
    const Node &child(
       const std::string &str,
-      bool &found = static_found // as for meta(string)
+      bool &found = detail::default_bool // as for meta(string)
       // fixme Need "found" below, and in operator()
    ) const {
       // search
@@ -188,7 +185,7 @@ public:
       static const Node empty;
 
       // comment as in meta(string)
-      if (&found == &static_found) {
+      if (&found == &detail::default_bool) {
          error(
             "Node child() called with key \"" + str + "\", "
             "but this key wasn't\nfound in the node's children."
@@ -254,13 +251,6 @@ public:
    }
 
 }; // class Node
-
-// Node::static_found
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_found = false;
 
 
 

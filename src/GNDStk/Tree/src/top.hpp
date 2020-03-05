@@ -10,12 +10,12 @@ GNDS is billed as being a "database structure" or a "hierarchy," and as not
 being stored in, or bound to, a particular file format.
 
 As such, a variety of different types of files, including XML, JSON, and HDF5,
-could be used to store a GNDS hierarchy.
+can be used to store a GNDS hierarchy.
 
 Although GNDS is not, then, tied to a particular file format, a user who reads
-an existing GNDS hierarchy is reading it from some particular file format; and
-a user who builds a brand-new GNDS hierarchy may (or may not) plan to write it
-to a particular format.
+an existing GNDS hierarchy is reading it from a file of some particular format;
+and a user who builds a brand-new GNDS hierarchy may (or may not) plan to write
+it to a particular format.
 
 GNDStk's "tree" data structure is designed to hold a GNDS hierarchy - which,
 from a GNDS standpoint, begins with any one of a few available "top-level"
@@ -28,26 +28,28 @@ to be useful), GNDStk's tree structure places what we'll call a "zero-level
 node" just above the standard GNDS top-level node.
 
 Our terminology - "zero-level node" - can be thought of as being analogous to
-the fact that C/C++ array-like containers being indexed by [0]. It's an easy
-term to remember, and one that we don't believe will be confused by anyone as
-being the true top-level GNDS node.
+C/C++ array-like containers being indexed by [0]. It's an easy term to remember,
+and one that we don't believe would easily be confused to mean the top-level
+GNDS node.
 
-In respect of the above ideas, then, we provide the following functions for
+In respect of the above remarks, then, we provide the following functions for
 accessing what could be described as top-level tree information:
 
    zero()
-      Our zero-level node. Might contain, for instance:
-      name: "xml"
-      metadata: {{"version","1.0"},{"encoding","UTF-8"}}
-      children: "reactionSuite" // as below!
+      Our zero-level node.
+      Example contents:
+         name: "xml"
+         metadata: {{"version","1.0"},{"encoding","UTF-8"}}
+         children: "reactionSuite" // as below
 
    top()
-      The top-level GNDS node. Might contain, for instance:
-      name: "reactionSuite"
-      metadata: {{"projectile","He4"},{"target","He4"},...}
-      children: "styles", "documentations", "PoPs", "reactions"
+      The top-level GNDS node.
+      Example contents:
+         name: "reactionSuite"
+         metadata: {{"projectile","He4"},{"target","He4"},...}
+         children: "styles", "documentations", "PoPs", "reactions"
 
-Each of course has a const version and a non-const version.
+Each, of course, has a const version and a non-const version.
 
 Importantly, our various functions for searching and drilling into GNDS trees
 bypass the zero-level node - precisely because it's our own construct, not one

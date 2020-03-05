@@ -3,79 +3,69 @@
 #include "GNDStk.hpp"
 
 
-
 // -----------------------------------------------------------------------------
-// assign(rhs,ossr)
+// sets_equal_to()
 // -----------------------------------------------------------------------------
 
-// TREE = a existing "right-hand-side" tree that arrives here as something
-//        we'll use on the right-hand-side of an assignment to a new tree
-// M = metadata container class for the new tree
-// C = children container class for the new tree
 template<
-   class TREE,
-   template<class ...> class M = std::vector,
-   template<class ...> class C = std::vector
+   class LTREE, // left-hand tree
+   class RTREE // right-hand tree
 >
-bool assign(
-   const TREE &rhs, // arriving tree
-   const std::ostringstream &ossr // the arriving tree printed to a string
-) {
-   // assignment: lhs = rhs
-   GNDStk::Tree<M,C> lhs;
-   lhs = rhs;
+bool sets_equal_to(LTREE &left, RTREE &&right)
+{
+   // Read something in for the right-hand tree
+   right.read("n-008_O_016.xml");
 
-   // print lhs to a string
+   // WE WANT TO TEST IF THIS ASSIGNMENT WORKS CORRECTLY
+   left = right;
+
+   // Print the original tree
+   std::ostringstream ossr;
+   ossr << right;
+
+   // Print the tree we assigned into
    std::ostringstream ossl;
-   ossl << lhs;
+   ossl << left;
 
-   // compare the two strings
+   // If the assignment left = right worked correctly, then the original tree,
+   // and the new one that we assigned into, should have printed identically
    return ossl.str() == ossr.str();
 }
-
 
 
 // -----------------------------------------------------------------------------
 // assign()
 // -----------------------------------------------------------------------------
 
-// Tests various tree assignments, with a "right-hand-side" of Tree<M,C>
-// M = metadata container class
-// C = children container class
+// Tests various tree assignments of the form:
+//    Tree<M,C> = Tree<various types>
+// where:
+//    M = metadata container class
+//    C = children container class
 template<
    template<class ...> class M = std::vector,
    template<class ...> class C = std::vector
 >
-bool assign()
+void assign()
 {
-   // read a meaningful GNDS hierarchy into the tree that
-   // we'll use as the right-hand-side of our assignments
-   const GNDStk::Tree<M,C> rhs("n-008_O_016.xml");
+   using namespace std;
+   GNDStk::Tree<M,C> left; // for a left = right assignment
 
-   // print the tree to a string, which we'll use soon as
-   // something to which we'll compare other trees
-   std::ostringstream ossr;
-   ossr << rhs;
-
-   // assign the tree into other tree variants, and check
-   // that the contents of each such result are the same
-   return
-      assign<decltype(rhs)                          >(rhs,ossr) &&
-      assign<decltype(rhs), std::deque              >(rhs,ossr) &&
-      assign<decltype(rhs), std::deque , std::deque >(rhs,ossr) &&
-      assign<decltype(rhs), std::deque , std::list  >(rhs,ossr) &&
-      assign<decltype(rhs), std::deque , std::vector>(rhs,ossr) &&
-      assign<decltype(rhs), std::list               >(rhs,ossr) &&
-      assign<decltype(rhs), std::list  , std::deque >(rhs,ossr) &&
-      assign<decltype(rhs), std::list  , std::list  >(rhs,ossr) &&
-      assign<decltype(rhs), std::list  , std::vector>(rhs,ossr) &&
-      assign<decltype(rhs), std::vector             >(rhs,ossr) &&
-      assign<decltype(rhs), std::vector, std::deque >(rhs,ossr) &&
-      assign<decltype(rhs), std::vector, std::list  >(rhs,ossr) &&
-      assign<decltype(rhs), std::vector, std::vector>(rhs,ossr)
-      ;
+   // Perform a left = right assignment for various "right" cases
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<              >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque         >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque , deque >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque , list  >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque , vector>()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<list          >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<list  , deque >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<list  , list  >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<list  , vector>()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector        >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, deque >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, list  >()));
+   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, vector>()));
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -83,23 +73,19 @@ bool assign()
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk tree assignments") {
-   GIVEN("Various flavors of tree, each read from a GNDS .xml file") {
+   using namespace std;
 
-      // Extra parentheses are needed because there's
-      // a comma, and REQUIRE is a macro :-/
-      REQUIRE((assign<                        >()));
-      REQUIRE((assign<std::deque              >()));
-      REQUIRE((assign<std::deque , std::deque >()));
-      REQUIRE((assign<std::deque , std::list  >()));
-      REQUIRE((assign<std::deque , std::vector>()));
-      REQUIRE((assign<std::list               >()));
-      REQUIRE((assign<std::list  , std::deque >()));
-      REQUIRE((assign<std::list  , std::list  >()));
-      REQUIRE((assign<std::list  , std::vector>()));
-      REQUIRE((assign<std::vector             >()));
-      REQUIRE((assign<std::vector, std::deque >()));
-      REQUIRE((assign<std::vector, std::list  >()));
-      REQUIRE((assign<std::vector, std::vector>()));
-
-   }
+   GIVEN("Tree<              > = Tree<*>") { assign<              >(); }
+   GIVEN("Tree<deque         > = Tree<*>") { assign<deque         >(); }
+   GIVEN("Tree<deque , deque > = Tree<*>") { assign<deque , deque >(); }
+   GIVEN("Tree<deque , list  > = Tree<*>") { assign<deque , list  >(); }
+   GIVEN("Tree<deque , vector> = Tree<*>") { assign<deque , vector>(); }
+   GIVEN("Tree<list          > = Tree<*>") { assign<list          >(); }
+   GIVEN("Tree<list  , deque > = Tree<*>") { assign<list  , deque >(); }
+   GIVEN("Tree<list  , list  > = Tree<*>") { assign<list  , list  >(); }
+   GIVEN("Tree<list  , vector> = Tree<*>") { assign<list  , vector>(); }
+   GIVEN("Tree<vector        > = Tree<*>") { assign<vector        >(); }
+   GIVEN("Tree<vector, deque > = Tree<*>") { assign<vector, deque >(); }
+   GIVEN("Tree<vector, list  > = Tree<*>") { assign<vector, list  >(); }
+   GIVEN("Tree<vector, vector> = Tree<*>") { assign<vector, vector>(); }
 }

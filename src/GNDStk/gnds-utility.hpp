@@ -33,6 +33,13 @@ enum class format {
 // say, <char> instead, but <dummy> may help us identify these use cases.
 class dummy { };
 
+// default_*
+// fixme Describe what these are about
+namespace detail {
+inline bool default_bool = false;
+inline std::string default_string = "";
+}
+
 
 
 // -----------------------------------------------------------------------------

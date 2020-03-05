@@ -11,8 +11,6 @@ template<
    template<class...> class CHILDREN_CONTAINER  // children container type
 >
 class Tree {
-   static std::string static_str1;
-   static std::string static_str2;
    using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
 
 public:
@@ -21,9 +19,10 @@ public:
    std::shared_ptr<nodeType> root;
 
    // clear
+   // root is a smart pointer, so this deletes the whole tree
    void clear()
    {
-      root = nullptr; // smart pointer; this deletes the whole tree
+      root = nullptr;
    }
 
    // empty
@@ -39,34 +38,20 @@ public:
          root->normalize();
    }
 
-#include "GNDStk/Tree/src/make.hpp"
-#include "GNDStk/Tree/src/top.hpp"
+   #include "GNDStk/Tree/src/ctor.hpp"
+   #include "GNDStk/Tree/src/assign.hpp"
 
-#include "GNDStk/Tree/src/ctor.hpp"
-#include "GNDStk/Tree/src/assign.hpp"
+   #include "GNDStk/Tree/src/read.hpp"
+   #include "GNDStk/Tree/src/write.hpp"
 
-#include "GNDStk/Tree/src/read.hpp"
-#include "GNDStk/Tree/src/write.hpp"
+   // re: build new trees, or modify existing ones
+   #include "GNDStk/Tree/src/make.hpp"
 
-// meta, child, operator()
-#include "GNDStk/Tree/src/find.hpp"
+   // re: access tree contents
+   #include "GNDStk/Tree/src/top.hpp"  // zero(), top()
+   #include "GNDStk/Tree/src/find.hpp" // meta(), child(), operator()
 
 }; // class Tree
-
-
-
-// Tree::static_*
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-std::string Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_str1 = "";
-
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-std::string Tree<METADATA_CONTAINER,CHILDREN_CONTAINER>::static_str2 = "";
 
 
 

@@ -7,8 +7,8 @@
 nodeType &start(
    const std::string &type_str,
    const std::string &gnds_str,
-   const std::string &param1 = static_str1,
-   const std::string &param2 = static_str2
+   const std::string &version  = detail::default_string,
+   const std::string &encoding = detail::default_string
 ) {
    // begin a new tree
    clear();
@@ -18,14 +18,14 @@ nodeType &start(
    root->name = type_str;
    if (type_str == "xml") {
       // xml
-      if (&param1 == &static_str1)
+      if (&version == &detail::default_string)
          root->push("version","1.0");
-      else if (param1 != "")
-         root->push("version",param1);
-      if (&param2 == &static_str2)
+      else if (version != "")
+         root->push("version",version);
+      if (&encoding == &detail::default_string)
          root->push("encoding","UTF-8");
-      else if (param2 != "")
-         root->push("encoding",param2);
+      else if (encoding != "")
+         root->push("encoding",encoding);
    } else if (type_str == "hdf5") {
       // fixme Write hdf5 case
    } else {

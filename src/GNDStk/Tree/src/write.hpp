@@ -33,6 +33,9 @@ bool write(
    // Check: consistent name?
    // ------------------------
 
+   // Note that the above code block may have changed form,
+   // via automagick file type detection. So...
+
    if (form == format::xml  and has_extension(file) and not endsin_xml (file))
       detail::warning_tree_io_name<dummy>("write", file, "xml",  "XML" );
    if (form == format::json and has_extension(file) and not endsin_json(file))

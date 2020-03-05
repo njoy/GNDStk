@@ -12,9 +12,9 @@ Tree() { }
 Tree(Tree &&) = default;
 
 // copy
-Tree(const Tree &t)
+Tree(const Tree &from)
 {
-   convert(t,*this);
+   convert(from,*this);
 }
 
 // templated "copy"
@@ -22,9 +22,9 @@ template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM
 >
-explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &t)
+explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
-   convert(t,*this);
+   convert(from,*this);
 }
 
 
@@ -66,14 +66,15 @@ explicit Tree(
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
 // Example:
 //    Tree<> newtree("xml", "reactionSuite", "1.0", "UTF-8");
-// fixme: Probably reverse the first and second parameter.
+// fixme: Probably reverse the first and second parameters.
 Tree(
    const std::string &type_str,
    const std::string &gnds_str,
-   const std::string &param1 = static_str1,
-   const std::string &param2 = static_str2
+   // the names "version" and "encoding" make sense for XML at least...
+   const std::string &version  = detail::default_string,
+   const std::string &encoding = detail::default_string
 ) {
-   start(type_str, gnds_str, param1, param2);
+   start(type_str, gnds_str, version, encoding);
 }
 
 
@@ -82,7 +83,7 @@ Tree(
 // but worth mentioning
 // ------------------------
 
-// fixme I change I may make to the "starter tree" constructor will make
+// fixme A change I may make to the "starter tree" constructor will make
 // these workable, so I'm leaving them here for now.
 
 /*
