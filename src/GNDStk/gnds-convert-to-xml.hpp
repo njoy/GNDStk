@@ -130,7 +130,7 @@ bool convert(
       // children
       // ------------------------
 
-      return detail::Node2xml(tree.gnds(), xdoc.doc);
+      return detail::Node2xml(tree.top(), xdoc.doc);
 
       /*
       // fixme Everywhere, checks like the following should

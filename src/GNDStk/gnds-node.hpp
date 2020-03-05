@@ -12,8 +12,8 @@ class Node {
    // for internal use
    static bool static_found;
 
-   using pair = std::pair<std::string,std::string>;
-   using sptr = std::shared_ptr<Node>;
+   using metaPair = std::pair<std::string,std::string>;
+   using childPtr = std::shared_ptr<Node>;
 
 public:
 
@@ -22,27 +22,27 @@ public:
    //    metadata
    //    children
    std::string name;
-   METADATA_CONTAINER<pair,std::allocator<pair>> metadata;
-   CHILDREN_CONTAINER<sptr,std::allocator<sptr>> children;
+   METADATA_CONTAINER<metaPair,std::allocator<metaPair>> metadata;
+   CHILDREN_CONTAINER<childPtr,std::allocator<childPtr>> children;
 
    // normalize
    void normalize();
 
    // push metadatum
-   pair &push(const std::string &key, const std::string &value)
+   metaPair &push(const std::string &key, const std::string &value)
    {
       metadata.push_back(std::make_pair(key,value));
       return metadata.back();
    }
 
-   pair &push(const pair &m)
+   metaPair &push(const metaPair &m)
    {
       metadata.push_back(m);
       return metadata.back();
    }
 
    template<class T>
-   pair &push(const std::string &key, const T &value)
+   metaPair &push(const std::string &key, const T &value)
    {
       std::ostringstream oss;
       oss << value;
@@ -50,11 +50,11 @@ public:
    }
 
    template<class T>
-   pair &push(const std::pair<std::string,T> &m)
+   metaPair &push(const std::pair<std::string,T> &m)
    {
       std::ostringstream oss;
       oss << m.second;
-      return push(pair(m.first,oss.str()));
+      return push(metaPair(m.first,oss.str()));
    }
 
    // push child

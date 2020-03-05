@@ -270,19 +270,27 @@ message( STATUS "-----------------------------------------------------------" )
 add_library( GNDStk INTERFACE )
 target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-node.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-child.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-diagnostic.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-wrapper-xml.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-tree-node.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-tnode.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-read.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-tree.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-json.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-wrapper-json.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-xml.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-json.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-tree.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-utility.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-xml.hpp" )
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-xml.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/find.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/make.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/top.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/assign.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/read.hpp" )
 
 target_include_directories( GNDStk INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/src src/ )
 
@@ -295,7 +303,7 @@ target_link_libraries( GNDStk INTERFACE json-adapter INTERFACE catch-adapter INT
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
-        add_subdirectory( src/GNDStk/tree/test )
+        add_subdirectory( src/GNDStk/Tree/test )
         add_subdirectory( src/GNDStk/test )
     endif() 
 endif()

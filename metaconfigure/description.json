@@ -590,19 +590,27 @@
   "header files": [
     "src/GNDStk.hpp", 
     "src/GNDStk/gnds-keyword-meta.hpp", 
+    "src/GNDStk/gnds-node.hpp", 
     "src/GNDStk/gnds-keyword-child.hpp", 
     "src/GNDStk/gnds-diagnostic.hpp", 
-    "src/GNDStk/gnds-wrapper-xml.hpp", 
-    "src/GNDStk/gnds-tree-node.hpp", 
     "src/GNDStk/gnds-tnode.hpp", 
     "src/GNDStk/gnds-keyword-read.hpp", 
-    "src/GNDStk/gnds-tree.hpp", 
+    "src/GNDStk/gnds-json.hpp", 
     "src/GNDStk/gnds-keyword.hpp", 
-    "src/GNDStk/gnds-wrapper-json.hpp", 
+    "src/GNDStk/gnds-xml.hpp", 
     "src/GNDStk/gnds-convert-to-json.hpp", 
     "src/GNDStk/gnds-convert-to-tree.hpp", 
+    "src/GNDStk/Tree.hpp", 
     "src/GNDStk/gnds-utility.hpp", 
-    "src/GNDStk/gnds-convert-to-xml.hpp"
+    "src/GNDStk/gnds-convert-to-xml.hpp", 
+    "src/GNDStk/Tree/src/find.hpp", 
+    "src/GNDStk/Tree/src/make.hpp", 
+    "src/GNDStk/Tree/src/ctor.hpp", 
+    "src/GNDStk/Tree/src/write.hpp", 
+    "src/GNDStk/Tree/src/detail.hpp", 
+    "src/GNDStk/Tree/src/top.hpp", 
+    "src/GNDStk/Tree/src/assign.hpp", 
+    "src/GNDStk/Tree/src/read.hpp"
   ], 
   "ignore pattern": "$^", 
   "implementation files": [], 
@@ -624,19 +632,19 @@
     "GNDStk": [
       "src/GNDStk/test/GNDStk.test.cpp"
     ], 
-    "GNDStk.tree": [
-      "src/GNDStk/tree/test/assign.test.cpp", 
-      "src/GNDStk/tree/test/root.test.cpp", 
-      "src/GNDStk/tree/test/ctor.test.cpp", 
-      "src/GNDStk/tree/test/child.test.cpp", 
-      "src/GNDStk/tree/test/tree.test.cpp", 
-      "src/GNDStk/tree/test/read.test.cpp", 
-      "src/GNDStk/tree/test/meta.test.cpp", 
-      "src/GNDStk/tree/test/write.test.cpp", 
-      "src/GNDStk/tree/test/parens.test.cpp", 
-      "src/GNDStk/tree/test/normalize.test.cpp", 
-      "src/GNDStk/tree/test/clear.test.cpp", 
-      "src/GNDStk/tree/test/empty.test.cpp"
+    "GNDStk.Tree": [
+      "src/GNDStk/Tree/test/assign.test.cpp", 
+      "src/GNDStk/Tree/test/root.test.cpp", 
+      "src/GNDStk/Tree/test/ctor.test.cpp", 
+      "src/GNDStk/Tree/test/child.test.cpp", 
+      "src/GNDStk/Tree/test/tree.test.cpp", 
+      "src/GNDStk/Tree/test/read.test.cpp", 
+      "src/GNDStk/Tree/test/meta.test.cpp", 
+      "src/GNDStk/Tree/test/write.test.cpp", 
+      "src/GNDStk/Tree/test/parens.test.cpp", 
+      "src/GNDStk/Tree/test/normalize.test.cpp", 
+      "src/GNDStk/Tree/test/clear.test.cpp", 
+      "src/GNDStk/Tree/test/empty.test.cpp"
     ]
   }, 
   "update": true
