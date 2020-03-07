@@ -111,24 +111,24 @@ public:
       return empty;
    }
 
-   // for meta_t<T>
-   // Return by value isn't ideal, if T is something large like a container.
-   // Think about options.
-   template<class T>
-   T meta(
-      const meta_t<T> &kwd,
+   // for meta_t<RESULT>
+   // Return by value isn't ideal, if RESULT is something large
+   // like a container. Think about options.
+   template<class RESULT>
+   RESULT meta(
+      const meta_t<RESULT> &kwd,
       bool &found = detail::default_bool
    ) const {
       const std::string &str = meta(kwd.name,found);
-      T value{};
+      RESULT value{};
       if (found)
          GNDStk::read(str,value);
       return value;
    }
 
    // for meta_t<string>
-   // Functionally equivalent to using meta(meta_t<T>) with T = string,
-   // but more direct and thus perhaps more efficient.
+   // Functionally equivalent to using meta(meta_t<RESULT>) with
+   // RESULT = string, but more direct and thus perhaps more efficient.
    std::string meta(
       const meta_t<std::string> &kwd,
       bool &found = detail::default_bool
@@ -148,17 +148,18 @@ public:
       return meta(kwd.name,found); // as above
    }
 
-   // for meta_t<variant>, caller must stipulate <T>.
-   // We can't just fold this into meta(meta_t<T>) above and return the variant,
-   // because the read() would have no idea what variant variation to read into!
-   template<class T, class... Ts>
-   T meta(
+   // for meta_t<variant>, caller must stipulate result type to extract.
+   // We can't just fold this into meta(meta_t<RESULT>) above and return
+   // the variant, because the read() would have no idea what variant
+   // variation to read into.
+   template<class RESULT, class... Ts>
+   RESULT meta(
       const meta_t<std::variant<Ts...>> &kwd,
       bool &found = detail::default_bool
    ) const {
       // body is as above, but the function signature is structurally different
       const std::string &str = meta(kwd.name,found);
-      T value{}; // T having been direct-specified, not in meta_t<here>
+      RESULT value{}; // RESULT having been direct-specified as noted above
       if (found)
          GNDStk::read(str,value);
       return value;
@@ -196,18 +197,45 @@ public:
       return empty;
    }
 
-   // for child_t<T>
-   template<class T, class META, class CHILD>
-   auto child(const child_t<T,META,CHILD> &kwd) const
-   {
-      return tnode<METADATA_CONTAINER,CHILDREN_CONTAINER,T>(child(kwd.name));
+   // fixme Need to split multiple to true/false for both of these...
+
+   // for child_t<RESULT,...>
+   template<
+      class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+   >
+   auto child(
+      const child_t<
+         RESULT,
+         MULTIPLE,
+         METADATA,
+         CHILDREN
+      > &kwd
+   ) const {
+      return tnode<
+         METADATA_CONTAINER,
+         CHILDREN_CONTAINER,
+         RESULT
+      >(child(kwd.name));
    }
 
-   // for child_t<variant>, caller must stipulate <T>.
-   template<class T, class META, class CHILD, class... Ts>
-   auto child(const child_t<std::variant<Ts...>,META,CHILD> &kwd) const
-   {
-      return tnode<METADATA_CONTAINER,CHILDREN_CONTAINER,T>(child(kwd.name));
+   // for child_t<variant,...>, caller must stipulate the type
+   template<
+      class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+      class... Ts
+   >
+   auto child(
+      const child_t<
+         std::variant<Ts...>,
+         MULTIPLE,
+         METADATA,
+         CHILDREN
+      > &kwd
+   ) const {
+      return tnode<
+         METADATA_CONTAINER,
+         CHILDREN_CONTAINER,
+         RESULT
+      >(child(kwd.name));
    }
 
 
@@ -226,25 +254,31 @@ public:
 
    // meta_t
    // forwards to meta(meta_t) above
-   template<class T>
-   decltype(auto) operator()(const meta_t<T> &kwd) const
+   template<class RESULT>
+   decltype(auto) operator()(const meta_t<RESULT> &kwd) const
    {
       return meta(kwd);
    }
 
    // child_t
    // forwards to child(child_t) above
-   template<class T, class META, class CHILD>
-   decltype(auto) operator()(const child_t<T,META,CHILD> &kwd) const
-   {
+   template<
+      class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+   >
+   decltype(auto) operator()(
+      const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
+   ) const {
       return child(kwd);
    }
 
    // child_t, ...
    // multi-argument
-   template<class T, class META, class CHILD, class... Ts>
+   template<
+      class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+      class... Ts
+   >
    decltype(auto) operator()(
-      const child_t<T,META,CHILD> &kwd,
+      const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
       Ts &&...ts
    ) const {
       return (*this)(kwd)(std::forward<Ts>(ts)...);
@@ -410,6 +444,7 @@ void Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
 
 // -----------------------------------------------------------------------------
 // Summary
+// fixme Needs an update
 // -----------------------------------------------------------------------------
 
 /*

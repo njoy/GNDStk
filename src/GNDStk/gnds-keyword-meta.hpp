@@ -3,7 +3,7 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
-template<class T>
+template<class RESULT>
 class meta_t {
 public:
    // data
@@ -16,8 +16,8 @@ public:
 };
 
 // macro, for meta_t building
-#define GNDSTK_MAKE_META(type,name) \
-   inline const meta_t<type> name(#name)
+#define GNDSTK_MAKE_META(result,name) \
+   inline const meta_t<result> name(#name)
 // Note: we won't #undef this, as one normally would,
 // because it's perfectly viable for users to invoke.
 
@@ -80,7 +80,7 @@ GNDSTK_MAKE_META(std::string, emissionMode);
 GNDSTK_MAKE_META(std::string, encoding);
 GNDSTK_MAKE_META(std::string, ENDF_MFMT);
 GNDSTK_MAKE_META(std::string, evaluation);
-GNDSTK_MAKE_META(std::string, final);
+GNDSTK_MAKE_META(std::string, final); // final is C++ contextual keyword; so OK
 GNDSTK_MAKE_META(std::string, fissionGenre);
 GNDSTK_MAKE_META(std::string, flags);
 GNDSTK_MAKE_META(std::string, functionalForm);

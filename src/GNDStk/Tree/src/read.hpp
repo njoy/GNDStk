@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// read(string,format)
+// read(file,format)
 // ------------------------
 
 bool read(
@@ -55,6 +55,27 @@ bool read(
    // can, and does, do additional checking (complimentary to what we already
    // did above), based on looking at the content we'll be attempting to read.
    return not read(ifs,form).fail();
+}
+
+
+
+// ------------------------
+// read(file,string)
+// ------------------------
+
+bool read(const std::string &file, const std::string &form)
+{
+   if (eq_null(form)) return read(file,format::null);
+   if (eq_tree(form)) return read(file,format::tree);
+   if (eq_xml (form)) return read(file,format::xml );
+   if (eq_json(form)) return read(file,format::json);
+   if (eq_hdf5(form)) return read(file,format::hdf5);
+
+   // fixme Have some sort of warning
+   assert(false);
+
+   // fallback: try automagick
+   return read(file,format::null);
 }
 
 
@@ -150,27 +171,6 @@ std::istream &read(
 
    // done
    return is;
-}
-
-
-
-// ------------------------
-// read(string,string)
-// ------------------------
-
-bool read(const std::string &file, const std::string &form)
-{
-   if (eq_null(form)) return read(file,format::null);
-   if (eq_tree(form)) return read(file,format::tree);
-   if (eq_xml (form)) return read(file,format::xml );
-   if (eq_json(form)) return read(file,format::json);
-   if (eq_hdf5(form)) return read(file,format::hdf5);
-
-   // fixme Have some sort of warning
-   assert(false);
-
-   // fallback: try automagick
-   return read(file,format::null);
 }
 
 

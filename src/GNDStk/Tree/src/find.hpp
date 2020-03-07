@@ -10,18 +10,20 @@
 Summary:
 
 Tree::meta()
-   decltype(auto) meta  ( const string     &str ) const;
-   decltype(auto) meta  ( const meta_t<T>  &kwd ) const;
+   decltype(auto) meta  ( const string          &str ) const;
+   decltype(auto) meta  ( const meta_t <RESULT> &kwd ) const;
 
 Tree::child()
-   decltype(auto) child ( const string     &str ) const;
-   decltype(auto) child ( const child_t<T> &kwd ) const;
+   decltype(auto) child ( const string          &str ) const;
+   decltype(auto) child ( const child_t<RESULT> &kwd ) const;
 
 Tree::operator()()
-   decltype(auto) operator() ( const meta_t <T> &kwd             ) const;
-   decltype(auto) operator() ( const child_t<T> &kwd             ) const;
-   decltype(auto) operator() ( const child_t<T> &kwd, Ts &&...ts ) const;
+   decltype(auto) operator() ( const meta_t <RESULT> &kwd             ) const;
+   decltype(auto) operator() ( const child_t<RESULT> &kwd             ) const;
+   decltype(auto) operator() ( const child_t<RESULT> &kwd, Ts &&...ts ) const;
 */
+
+// fixme Probably have that bool &found stuff in these as well...
 
 
 
@@ -35,8 +37,8 @@ decltype(auto) meta(const std::string &str) const
    return root->meta(str);
 }
 
-template<class T>
-decltype(auto) meta(const meta_t<T> &kwd) const
+template<class RESULT>
+decltype(auto) meta(const meta_t<RESULT> &kwd) const
 {
    assert(not empty());
    return root->meta(kwd);
@@ -54,9 +56,10 @@ decltype(auto) child(const std::string &str) const
    return root->child(str);
 }
 
-template<class T, class META, class CHILD>
-decltype(auto) child(const child_t<T,META,CHILD> &kwd) const
-{
+template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
+decltype(auto) child(
+   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
+) const {
    assert(not empty());
    return root->child(kwd);
 }
@@ -67,20 +70,28 @@ decltype(auto) child(const child_t<T,META,CHILD> &kwd) const
 // operator()
 // -----------------------------------------------------------------------------
 
-template<class T>
-decltype(auto) operator()(const meta_t<T> &kwd) const
+template<class RESULT>
+decltype(auto) operator()(const meta_t<RESULT> &kwd) const
 {
    return meta(kwd);
 }
 
-template<class T, class META, class CHILD>
-decltype(auto) operator()(const child_t<T,META,CHILD> &kwd) const
-{
+template<
+   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+>
+decltype(auto) operator()(
+   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
+) const {
    return child(kwd);
 }
 
-template<class T, class META, class CHILD, class... Ts>
-decltype(auto) operator()(const child_t<T,META,CHILD> &kwd, Ts &&...ts) const
-{
+template<
+   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class... Ts
+>
+decltype(auto) operator()(
+   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   Ts &&...ts
+) const {
    return (*this)(kwd)(std::forward<Ts>(ts)...);
 }

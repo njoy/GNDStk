@@ -3,9 +3,9 @@
 // Constructors
 // -----------------------------------------------------------------------------
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // Basics
-// ------------------------
+// -----------------------------------------------------------------------------
 
 // default, move
 Tree() { }
@@ -28,21 +28,25 @@ explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 }
 
 
-// ------------------------
-// From xml and json
-// objects
-// ------------------------
+
+// -----------------------------------------------------------------------------
+// From xml and json objects
+// -----------------------------------------------------------------------------
 
 // xml, json
 explicit Tree(const xml  &xdoc) { convert(xdoc,*this); }
 explicit Tree(const json &jdoc) { convert(jdoc,*this); }
 
 
-// ------------------------
-// From input
-// ------------------------
 
-// file
+// -----------------------------------------------------------------------------
+// From input
+// Compare with our Tree read() functions
+// -----------------------------------------------------------------------------
+
+// file, format
+// Example:
+//    Tree<> t("n-008_O_016.xml", format::xml);
 explicit Tree(
    const std::string &file,
    const format form = format::null
@@ -50,7 +54,20 @@ explicit Tree(
    read(file,form);
 }
 
-// stream
+// file, string
+// Example:
+//    Tree<> t("n-008_O_016.xml", "xml");
+Tree(
+   const std::string &file,
+   const std::string &form
+) {
+   read(file,form);
+}
+
+// istream, format
+// Example:
+//    std::ifstream ifs("n-008_O_016.xml");
+//    Tree<> t(ifs, format::xml);
 explicit Tree(
    std::istream &is,
    const format form = format::null
@@ -58,52 +75,62 @@ explicit Tree(
    read(is,form);
 }
 
+// istream, string
+// Example:
+//    std::ifstream ifs("n-008_O_016.xml");
+//    Tree<> t(ifs, "xml");
+Tree(
+   std::istream &is,
+   const std::string &form
+) {
+   read(is,form);
+}
 
-// ------------------------
-// starter tree
-// ------------------------
+
+
+// -----------------------------------------------------------------------------
+// Starter tree
+// Compare with our Tree init() functions
+// -----------------------------------------------------------------------------
 
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
-// Example:
-//    Tree<> newtree("xml", "reactionSuite", "1.0", "UTF-8");
-// fixme: Probably reverse the first and second parameters.
+//
+// Examples:
+//    Tree<> newtree(child::reactionSuite, format::xml, "1.0", "UTF-8");
+// or
+//    Tree<> newtree(child::reactionSuite, "xml", "1.0", "UTF-8");
+//
+// Note that the first argument is NOT quoted (""). It isn't the name of the
+// top-level node that we want; rather, it's one of our "smart keywords."
+// These keywords encode lots of information in them, including the quoted
+// name that we'd otherwise have expected above, and, importantly, a boolean
+// value that indicates whether or not the name encoded within the keyword
+// is allowed (per the GNDS specification) as a top-level node. (If it isn't
+// so allowed, then we shouldn't be starting a new tree from it!) Note, also,
+// that by requiring the use of one of our keywords as the first argument to
+// each of the below constructors, we avoid the situation of the constructors
+// being ambiguous with other Tree constructors that take their (string) first
+// arguments to be *file* names (not top-level node names).
+
+// keyword, format
+template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
 Tree(
-   const std::string &type_str,
-   const std::string &gnds_str,
+   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &top,
+   const format form,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
-   start(type_str, gnds_str, version, encoding);
+   init(top, form, version, encoding);
 }
 
-
-// ------------------------
-// Not viable right now,
-// but worth mentioning
-// ------------------------
-
-// fixme A change I may make to the "starter tree" constructor will make
-// these workable, so I'm leaving them here for now.
-
-/*
-// The read() and write() functions allow a std::string form, for user
-// convenience vs. writing format::something. However, we can't have the
-// first of the following two here - it ambiguous versus the "starter
-// tree" constructor. Given that we don't want the first of these, we
-// probably don't want the second either, for the sake of API uniformity.
-
+// keyword, string
+template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
 Tree(
-   const std::string &file,
-   const std::string &form
+   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &top,
+   const std::string &form,
+   const std::string &version  = detail::default_string,
+   const std::string &encoding = detail::default_string
 ) {
-   read(file,form);
+   init(top, form, version, encoding);
 }
-
-Tree(
-   std::istream &is,
-   const std::string &form
-) {
-   read(is,form);
-}
-*/

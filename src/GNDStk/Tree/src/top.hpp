@@ -4,7 +4,9 @@
 // -----------------------------------------------------------------------------
 
 /*
-Explanation:
+// ------------------------
+// Description
+// ------------------------
 
 GNDS is billed as being a "database structure" or a "hierarchy," and as not
 being stored in, or bound to, a particular file format.

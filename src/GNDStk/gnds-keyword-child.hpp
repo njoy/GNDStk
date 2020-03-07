@@ -3,26 +3,120 @@
 // child_t
 // -----------------------------------------------------------------------------
 
-template<class T, class METADATA, class CHILDREN>
+/*
+// ------------------------
+// Description
+// ------------------------
+
+RESULT
+
+   The type to which GNDStk should convert a Node<> that's extracted with
+   the child_t object. If RESULT is void, then GNDStk uses Node<*>, where
+   * is whatever template parameters are in play with the particular Tree
+   being queried.
+
+MULTIPLE
+
+   A boolean that indicates whether or not the particular child node can
+   appear multiple times in whatever context it's found in. For example,
+   an XML-format GNDS might have:
+
+      <axes>
+         <axis> ... </axis>
+         <axis> ... </axis>
+         <axis> ... </axis>
+         ...
+      </axes>
+
+   In other words: there are (or can be) *multiple* <axis> nodes within
+   a particular enclosing context (here, <axes>). MULTIPLE is a template
+   parameter because it affects the type that's pulled from the Tree when
+   a child_t object is used for a query. For example,
+
+      tree(...,axes,axis)
+
+   gives back a container of axis objects, not a single axis object, due
+   to our child_t axis keyword having a true MULTIPLE. (Note: axes has
+   a false MULTIPLE, because it isn't *axes*, but *axis*, that's allowed
+   to have multiple values.)
+
+METADATA
+
+   fixme: not entirely implemented yet.
+
+   This is metadata<M1,M2,...> for some meta_t types M1, M2, .... These
+   meta_t types indicate what types of metadata this child_t is allowed
+   to have. This information will be used in a SFINAE context to ensure
+   that a particular drill-down into the Tree is well-structured.
+
+   Defaults to metadata<>, which means that we're allowing this child_t
+   to have any type of children.
+
+   At the moment, we're building all our keywords this way. The goal is
+   to eventually outfit these with proper specifications of what metadata
+   are allowed, if such specifications are well-defined in GNDS.)
+
+CHILDREN
+
+   fixme: not entirely implemented yet.
+
+   This is children<C1,C2,...> for some child_t types C1, C2, ....
+   Similar to METADATA, but defines what children this child_t can have.
+
+*/
+
+template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
 class child_t {
 public:
    // data
    const std::string name;
+   const bool canBeTopLevel;
 
    // ctor
-   explicit child_t(const std::string &n, const bool multiple) : name(n)
-   {
-      (void)multiple; // fixme Decide if we'll use this or not
-   }
+   explicit child_t(const std::string &n, const bool top = false) :
+      name(n), canBeTopLevel(top)
+   { }
 };
 
-// Macros, for child_t building
+
+
+// -----------------------------------------------------------------------------
+// Macros
+// For child_t building
+// -----------------------------------------------------------------------------
+
+// void (unspecified) result type (so, Node<>)
 #define GNDSTK_MAKE_CHILD_DEFAULT(name,multiple) \
-   inline const child_t<>  name(#name,multiple)
-#define GNDSTK_MAKE_CHILD(T,name,multiple) \
-   inline const child_t<T> name(#name,multiple)
-// Note: we won't #undef these, as one normally would,
-// because they're perfectly viable for users to invoke.
+   inline const child_t<void,multiple> name(#name)
+
+// user-defined result type
+#define GNDSTK_MAKE_CHILD(result,name,multiple) \
+   inline const child_t<result,multiple> name(#name)
+
+// Note: we won't #undef these later, as one often would with macros,
+// because they're both perfectly viable for users to invoke.
+
+
+
+// -----------------------------------------------------------------------------
+// Keywords for allowable top-level nodes
+// -----------------------------------------------------------------------------
+
+namespace child {
+
+// Remember:
+// false in <> means it's NOT "multiple" as described above (none of these are)
+// true  in () means it's allowed as a top-level node (all of these are)
+
+inline const child_t<void,false>
+   reactionSuite      ("reactionSuite",       true),
+   covarianceSuite    ("covarianceSuite",     true),
+   PoPs               ("PoPs",                true),
+   thermalScattering  ("thermalScattering",   true),
+   fissionFragmentData("fissionFragmentData", true);
+// fixme Not sure about fissionFragmentData
+
+} // namespace child
 
 
 
@@ -35,7 +129,7 @@ public:
 namespace child {
 
 // ------------------------
-// Singular+plural pair
+// Single + multiple pair
 // constructs
 // ------------------------
 
@@ -171,7 +265,6 @@ GNDSTK_MAKE_CHILD_DEFAULT(constant1d, false);
 GNDSTK_MAKE_CHILD_DEFAULT(continuum, false);
 GNDSTK_MAKE_CHILD_DEFAULT(CoulombPlusNuclearElastic, false);
 GNDSTK_MAKE_CHILD_DEFAULT(covarianceSections, false);
-GNDSTK_MAKE_CHILD_DEFAULT(covarianceSuite, false);
 GNDSTK_MAKE_CHILD_DEFAULT(crossSection, false);
 GNDSTK_MAKE_CHILD_DEFAULT(crossSectionReconstructed, false);
 GNDSTK_MAKE_CHILD_DEFAULT(crossSections, false);
@@ -200,7 +293,6 @@ GNDSTK_MAKE_CHILD_DEFAULT(evaporation, false);
 GNDSTK_MAKE_CHILD_DEFAULT(f, false);
 GNDSTK_MAKE_CHILD_DEFAULT(fastRegion, false);
 GNDSTK_MAKE_CHILD_DEFAULT(fissionEnergyReleased, false);
-GNDSTK_MAKE_CHILD_DEFAULT(fissionFragmentData, false);
 GNDSTK_MAKE_CHILD_DEFAULT(fraction, false);
 GNDSTK_MAKE_CHILD_DEFAULT(freeAtomCrossSection, false);
 GNDSTK_MAKE_CHILD_DEFAULT(g, false);
@@ -249,7 +341,6 @@ GNDSTK_MAKE_CHILD_DEFAULT(parity, false);
 GNDSTK_MAKE_CHILD_DEFAULT(photonEmissionProbabilities, false);
 GNDSTK_MAKE_CHILD_DEFAULT(pids, false);
 GNDSTK_MAKE_CHILD_DEFAULT(polynomial1d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(PoPs, false);
 GNDSTK_MAKE_CHILD_DEFAULT(positronEmissionIntensity, false);
 GNDSTK_MAKE_CHILD_DEFAULT(primaryGamma, false);
 GNDSTK_MAKE_CHILD_DEFAULT(probability, false);
@@ -261,7 +352,6 @@ GNDSTK_MAKE_CHILD_DEFAULT(promptNeutronKE, false);
 GNDSTK_MAKE_CHILD_DEFAULT(promptProductKE, false);
 GNDSTK_MAKE_CHILD_DEFAULT(Q, false);
 GNDSTK_MAKE_CHILD_DEFAULT(r, false);
-GNDSTK_MAKE_CHILD_DEFAULT(reactionSuite, false);
 GNDSTK_MAKE_CHILD_DEFAULT(realAnomalousFactor, false);
 GNDSTK_MAKE_CHILD_DEFAULT(realInterferenceTerm, false);
 GNDSTK_MAKE_CHILD_DEFAULT(recoil, false);
@@ -289,7 +379,6 @@ GNDSTK_MAKE_CHILD_DEFAULT(table, false);
 GNDSTK_MAKE_CHILD_DEFAULT(tabulatedWidths, false);
 GNDSTK_MAKE_CHILD_DEFAULT(T_effective, false);
 GNDSTK_MAKE_CHILD_DEFAULT(temperature, false);
-GNDSTK_MAKE_CHILD_DEFAULT(thermalScattering, false);
 GNDSTK_MAKE_CHILD_DEFAULT(theta, false);
 GNDSTK_MAKE_CHILD_DEFAULT(time, false);
 GNDSTK_MAKE_CHILD_DEFAULT(T_M, false);
@@ -317,7 +406,7 @@ GNDSTK_MAKE_CHILD_DEFAULT(yields, false);
 namespace child {
 
 // Double
-// Not double, for obvious reasons.
-inline const child_t<> Double("double", false);
+// Not called double, for obvious reasons.
+inline const child_t<void,false> Double("double");
 
 } // namespace child
