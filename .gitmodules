@@ -10,3 +10,9 @@
 [submodule "dependencies/json-adapter"]
 	path = dependencies/json-adapter
 	url = https://github.com/njoy/json-adapter.git
+[submodule "dependencies/utility"]
+	path = dependencies/utility
+	url = https://github.com/njoy/utility
+[submodule "dependencies/range-v3-adapter"]
+	path = dependencies/range-v3-adapter
+	url = https://github.com/njoy/range-v3-adapter.git
