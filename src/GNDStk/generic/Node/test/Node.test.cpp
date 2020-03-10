@@ -39,7 +39,15 @@ SCENARIO( "Testing generic Node" ){
 
         std::ostringstream oXML;
         xml.print( oXML, "  " );
-        njoy::Log::info( "oXML: \n{}", oXML.str() );
+
+        std::string refString = 
+R"_(<reactionSuite type="XML">
+  <child some="metadata">body of child node</child>
+  <child1></child1>
+  <child1></child1></reactionSuite>
+)_";
+        CHECK( refString == oXML.str() );
+
       } // THEN
     } // GIVEN
   } // WHEN
@@ -87,8 +95,10 @@ SCENARIO( "Testing generic Node" ){
         auto xml = document.append_child( xNode.name().c_str() );
         xNode.toXML( xml );
 
+        CHECK( xml == refXML );
         std::ostringstream oXML;
         xml.print( oXML, "  " );
+        // CHECK( sXML == oXML.str() );
         njoy::Log::info( "oXML: \n{}", oXML.str() );
       } // THEN
     } // GIVEN

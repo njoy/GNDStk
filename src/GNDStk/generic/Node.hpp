@@ -1,7 +1,7 @@
 class Node {
 
   std::string name_;
-  std::map< std::string, std::string > metadata_;
+  std::unordered_map< std::string, std::string > metadata_;
   std::vector< Node > children_;
   std::string body_;
 
