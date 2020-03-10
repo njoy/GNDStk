@@ -19,12 +19,15 @@ SCENARIO( "Testing generic Node" ){
       THEN( "we can verify the contents" ){
         CHECK( nodeName == gNode.name() );
         CHECK( "XML" == gNode.metadata( "type" ) );
+        CHECK( "XML" == gNode( "type" ) );
 
         CHECK( 3 == ranges::distance( gNode.children() ) );
         CHECK( 2 == ranges::distance( gNode.children( "child1" ) ) );
+        CHECK( 2 == ranges::distance( gNode[ "child1" ] ) );
 
         auto tChild = gNode.children( "child" ).front();
         CHECK( "metadata" == tChild.metadata( "some" ) );
+        CHECK( "metadata" == tChild( "some" ) );
 
       } // THEN
     } // GIVEN

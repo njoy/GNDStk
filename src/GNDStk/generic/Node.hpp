@@ -12,4 +12,11 @@ public:
 
   const std::string& name() const { return name_; }
 
+  auto operator[]( std::string key ){
+    return this->children( key );
+  }
+
+  auto operator()( std::string key ){
+    return this->metadata( key );
+  }
 };
