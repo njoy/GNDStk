@@ -4,6 +4,7 @@
 #include <string>
 
 #include "range/v3/all.hpp"
+#include "pugixml.hpp"
 
 #include "utility.hpp"
 
