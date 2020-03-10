@@ -7,8 +7,10 @@
 // Basics
 // -----------------------------------------------------------------------------
 
-// default, move
+// default
 Tree() { }
+
+// move
 Tree(Tree &&) = default;
 
 // copy

@@ -56,7 +56,6 @@ bool write(
 }
 
 
-
 // ------------------------
 // write(ostream,format)
 // ------------------------
@@ -111,7 +110,6 @@ std::ostream &write(
 }
 
 
-
 // ------------------------
 // write(string,string)
 // ------------------------
@@ -132,7 +130,6 @@ bool write(
    // fallback: try automagick
    return write(file,format::null);
 }
-
 
 
 // ------------------------

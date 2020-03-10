@@ -13,7 +13,7 @@
 
 
 // ------------------------
-// top, format, ...
+// init(top, format, ...)
 // ------------------------
 
 template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
@@ -70,9 +70,8 @@ nodeType &init(
 }
 
 
-
 // ------------------------
-// top, string, ...
+// init(top, string, ...)
 // ------------------------
 
 template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>

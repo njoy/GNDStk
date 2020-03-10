@@ -44,12 +44,15 @@ public:
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
 
-   // re: build new trees, or modify existing ones
-   #include "GNDStk/Tree/src/make.hpp"
+   #include "GNDStk/Tree/src/init.hpp"
 
-   // re: access tree contents
-   #include "GNDStk/Tree/src/top.hpp"  // zero(), top()
-   #include "GNDStk/Tree/src/find.hpp" // meta(), child(), operator()
+   #include "GNDStk/Tree/src/zero.hpp"
+   #include "GNDStk/Tree/src/top.hpp"
+
+   // fixme Probably have that bool &found stuff in these as well...
+   #include "GNDStk/Tree/src/meta.hpp"
+   #include "GNDStk/Tree/src/child.hpp"
+   #include "GNDStk/Tree/src/call.hpp"
 
 }; // class Tree
 

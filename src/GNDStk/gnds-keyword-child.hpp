@@ -54,7 +54,7 @@ METADATA
 
    At the moment, we're building all our keywords this way. The goal is
    to eventually outfit these with proper specifications of what metadata
-   are allowed, if such specifications are well-defined in GNDS.)
+   are allowed, if such specifications are well-defined in GNDS.
 
 CHILDREN
 
