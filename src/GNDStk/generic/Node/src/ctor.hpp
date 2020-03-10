@@ -11,6 +11,5 @@ Node( const pugi::xml_node& node ):
   for( auto& child : node.children() ){
     this->insertChild( Node( child ) );
   }
-
-  this->body_ = node.text().get();
+  this->body_ = node.text().as_string();
 }

@@ -10,6 +10,7 @@ SCENARIO( "Testing generic Node" ){
 
       njoy::GNDStk::generic::Node gNode( nodeName );
       njoy::GNDStk::generic::Node cNode( "child" );
+      cNode.body( "body of child node" );
       cNode.metadata( "some", "metadata" );
       gNode.metadata( "type", "XML" );
       gNode.insertChild( njoy::utility::copy( cNode ) );
@@ -30,25 +31,33 @@ SCENARIO( "Testing generic Node" ){
         CHECK( "metadata" == tChild( "some" ) );
 
       } // THEN
+
+      THEN( "we can write it out" ){
+        pugi::xml_document document;
+        auto xml = document.append_child( gNode.name().c_str() );
+        gNode.toXML( xml );
+
+        std::ostringstream oXML;
+        xml.print( oXML, "  " );
+        njoy::Log::info( "oXML: \n{}", oXML.str() );
+      } // THEN
     } // GIVEN
   } // WHEN
+
   WHEN( "creating a generic node from an XML file" ){
 
     std::string sXML = R"_(
 <?xml version="1.0" encoding="UTF-8"?>
 <reactionSuite projectile="n" target="O16" evaluation="ENDF/B-8.0" format="1.9" projectileFrame="lab">
   <reactions>
-    <reaction label="n + O16" ENDF_MT="2">
-    </reaction>
-    <reaction label="n + (O16_e1 -> O16)" ENDF_MT="51">1 2 3 4 5</reaction>
-  </reactions>
-</reactionSuite>
+    <reaction label="n + O16" ENDF_MT="2"></reaction>
+    <reaction label="n + (O16_e1 -> O16)" ENDF_MT="51">1 2 3 4 5</reaction></reactions></reactionSuite>
     )_";
-    pugi::xml_document xml;
-    auto result = xml.load_buffer( sXML.c_str(), sXML.size() );
+    pugi::xml_document refXML;
+    refXML.load_string( sXML.c_str() );
 
     GIVEN( "an XML node" ){
-      auto node = xml.child( "reactionSuite" );
+      auto node = refXML.child( "reactionSuite" );
       njoy::GNDStk::generic::Node xNode( node );
 
       THEN( "we can traverse the node" ){
@@ -73,9 +82,15 @@ SCENARIO( "Testing generic Node" ){
         CHECK( "1 2 3 4 5" == mt51.body() );
         
       } // THEN
+      THEN( "we can write it out" ){
+        pugi::xml_document document;
+        auto xml = document.append_child( xNode.name().c_str() );
+        xNode.toXML( xml );
 
+        std::ostringstream oXML;
+        xml.print( oXML, "  " );
+        njoy::Log::info( "oXML: \n{}", oXML.str() );
+      } // THEN
     } // GIVEN
-    
-    
   } // WHEN
 }
