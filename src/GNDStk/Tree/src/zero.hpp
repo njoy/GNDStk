@@ -1,9 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Access to "top-level" tree information
-// Relevant files:
-//    zero.hpp
-//    top.hpp
+// Tree::zero()
+// See also: Tree::top()
 // -----------------------------------------------------------------------------
 
 /*
@@ -63,16 +61,14 @@ however, waiting to be used, if/when the information it holds might be useful.
 */
 
 
-// ------------------------
-// zero
-// ------------------------
-
+// non-const
 nodeType &zero()
 {
    assert(not empty());
    return *root;
 }
 
+// const
 const nodeType &zero() const
 {
    assert(not empty());

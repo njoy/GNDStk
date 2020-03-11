@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// write()
+// Tree::write()
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -54,6 +54,7 @@ bool write(
    // Call write(ostream), below, to do the remaining work.
    return not write(ofs,form).fail();
 }
+
 
 
 // ------------------------
@@ -110,6 +111,7 @@ std::ostream &write(
 }
 
 
+
 // ------------------------
 // write(string,string)
 // ------------------------
@@ -130,6 +132,7 @@ bool write(
    // fallback: try automagick
    return write(file,format::null);
 }
+
 
 
 // ------------------------

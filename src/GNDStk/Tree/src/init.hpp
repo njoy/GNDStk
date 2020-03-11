@@ -1,6 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Functions for MAKING or MODIFYING trees
+// Tree::init()
+// For making or modifying trees
 // -----------------------------------------------------------------------------
 
 // init(top-level node, format[, version[, encoding]])
@@ -9,7 +10,6 @@
 // Briefly:
 //    Tree<> t(reactionSuite,format::xml);
 // with appropriate usings.
-
 
 
 // ------------------------
@@ -42,10 +42,10 @@ nodeType &init(
    if (form == format::xml or form == format::null or form == format::tree) {
       // xml, null, tree
       root->name = "xml";
-      root->push(
+      root->add(
          "version",
          &version  == &detail::default_string ? "1.0"   : version);
-      root->push(
+      root->add(
          "encoding",
          &encoding == &detail::default_string ? "UTF-8" : encoding);
    } else if (form == format::json) {
@@ -64,7 +64,7 @@ nodeType &init(
    }
 
    // TOP-LEVEL GNDS NODE: "reactionSuite", etc.
-   nodeType &GNDSTop = root->push();
+   nodeType &GNDSTop = root->add();
    GNDSTop.name = top.name; // extract name from the give child_t top parameter
    return GNDSTop;
 }

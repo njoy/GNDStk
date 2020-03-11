@@ -54,7 +54,7 @@ namespace GNDStk {
 #include "GNDStk/gnds-keyword-read.hpp"
 
 // tree
-#include "GNDStk/gnds-node.hpp"
+#include "GNDStk/Node.hpp"
 #include "GNDStk/Tree.hpp"
 
 // typed node

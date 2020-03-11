@@ -590,7 +590,6 @@
   "header files": [
     "src/GNDStk.hpp", 
     "src/GNDStk/gnds-keyword-meta.hpp", 
-    "src/GNDStk/gnds-node.hpp", 
     "src/GNDStk/gnds-keyword-child.hpp", 
     "src/GNDStk/gnds-diagnostic.hpp", 
     "src/GNDStk/gnds-tnode.hpp", 
@@ -599,6 +598,7 @@
     "src/GNDStk/gnds-keyword.hpp", 
     "src/GNDStk/gnds-xml.hpp", 
     "src/GNDStk/gnds-convert-to-json.hpp", 
+    "src/GNDStk/Node.hpp", 
     "src/GNDStk/gnds-convert-to-tree.hpp", 
     "src/GNDStk/Tree.hpp", 
     "src/GNDStk/gnds-utility.hpp", 
@@ -613,7 +613,13 @@
     "src/GNDStk/Tree/src/detail.hpp", 
     "src/GNDStk/Tree/src/top.hpp", 
     "src/GNDStk/Tree/src/assign.hpp", 
-    "src/GNDStk/Tree/src/read.hpp"
+    "src/GNDStk/Tree/src/read.hpp", 
+    "src/GNDStk/Node/src/meta.hpp", 
+    "src/GNDStk/Node/src/call.hpp", 
+    "src/GNDStk/Node/src/child.hpp", 
+    "src/GNDStk/Node/src/write.hpp", 
+    "src/GNDStk/Node/src/detail.hpp", 
+    "src/GNDStk/Node/src/add.hpp"
   ], 
   "ignore pattern": "$^", 
   "implementation files": [], 
@@ -634,6 +640,9 @@
   "tests": {
     "GNDStk": [
       "src/GNDStk/test/GNDStk.test.cpp"
+    ], 
+    "GNDStk.Node": [
+      "src/GNDStk/Node/test/node.test.cpp"
     ], 
     "GNDStk.Tree": [
       "src/GNDStk/Tree/test/assign.test.cpp", 

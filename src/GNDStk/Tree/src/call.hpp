@@ -1,14 +1,16 @@
 
 // -----------------------------------------------------------------------------
-// operator()
+// Tree::operator()
 // -----------------------------------------------------------------------------
 
+// meta_t
 template<class RESULT>
 decltype(auto) operator()(const meta_t<RESULT> &kwd) const
 {
    return meta(kwd);
 }
 
+// child_t
 template<
    class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
 >
@@ -18,6 +20,8 @@ decltype(auto) operator()(
    return child(kwd);
 }
 
+// child_t, ...
+// Multi-argument
 template<
    class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
    class... Ts

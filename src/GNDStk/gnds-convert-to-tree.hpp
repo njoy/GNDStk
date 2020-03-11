@@ -72,7 +72,7 @@ bool xnode2Node(
 
    // metadata
    for (const pugi::xml_attribute &xattr : xnode.attributes())
-      node.push(xattr.name(), xattr.value());
+      node.add(xattr.name(), xattr.value());
 
    // children (sub-nodes)
    for (const pugi::xml_node &xsub : xnode.children()) {
@@ -105,20 +105,20 @@ bool xnode2Node(
       // PCDATA
       if (xsub.type() == pugi::node_pcdata) {
          assert(xsub.value() == xsub.text().get());
-         node.push(keyword_pcdata, xsub.value());
+         node.add(keyword_pcdata, xsub.value());
          continue;
       }
 
       // CDATA
       if (xsub.type() == pugi::node_cdata) {
          assert(xsub.value() == xsub.text().get());
-         node.push(keyword_cdata, xsub.value());
+         node.add(keyword_cdata, xsub.value());
          continue;
       }
 
       // comment
       if (xsub.type() == pugi::node_comment) {
-         node.push(keyword_comment, xsub.value());
+         node.add(keyword_comment, xsub.value());
          continue;
       }
 
@@ -127,7 +127,7 @@ bool xnode2Node(
       // ------------------------
 
       assert(xsub.type() == pugi::node_element);
-      if (not xnode2Node(xsub,node.push()))
+      if (not xnode2Node(xsub,node.add()))
          return false;
    }
 
@@ -163,12 +163,12 @@ bool xml2Tree(
 
          // base xml "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &xattr : xnode.attributes())
-            tree.root->push(xattr.name(), xattr.value());
+            tree.root->add(xattr.name(), xattr.value());
       }
 
       if (count == 1) {
          // visit the xml's outer node, and its descendants
-         if (not xnode2Node(xnode,tree.root->push()))
+         if (not xnode2Node(xnode,tree.root->add()))
             return false;
       }
 
@@ -218,14 +218,14 @@ bool jiter2Node(
          // if the .json file was created, earlier, based on an .xml
          // file with a construct like <RutherfordScattering/>, i.e.
          // with /> to end the element immediately.
-         node.push().name = sub.key();
+         node.add().name = sub.key();
       } else if (sub->is_object()) {
          // The current node has a child node *other* than as above.
-         if (not jiter2Node(sub,node.push()))
+         if (not jiter2Node(sub,node.add()))
             return false;
       } else {
          // The current node has this as a key/value metadata pair...
-         node.push(sub.key(), sub->get<std::string>());
+         node.add(sub.key(), sub->get<std::string>());
       }
    }
 
@@ -253,7 +253,7 @@ bool json2Tree(
 
    // visit the json's outer node, and its descendants
    for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem)
-      if (not jiter2Node(elem,tree.root->push()))
+      if (not jiter2Node(elem,tree.root->add()))
          return false;
 
    // done
@@ -287,12 +287,12 @@ inline void Node2Node(
 
    // metadata
    for (auto &m : from.metadata)
-      to.push(m);
+      to.add(m);
 
    // children
    for (auto &c : from.children)
       if (c)
-         Node2Node(*c, to.push());
+         Node2Node(*c, to.add());
 }
 
 } // namespace detail

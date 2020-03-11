@@ -7,16 +7,24 @@
 // -----------------------------------------------------------------------------
 
 template<
-   template<class...> class METADATA_CONTAINER, // metadata container type
-   template<class...> class CHILDREN_CONTAINER  // children container type
+   template<class...> class METADATA_CONTAINER, // container type for metadata
+   template<class...> class CHILDREN_CONTAINER  // container type for children
 >
 class Tree {
    using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
 
 public:
 
-   // root
+   // ------------------------
+   // Data
+   // ------------------------
+
+   // Initial node of the tree
    std::shared_ptr<nodeType> root;
+
+   // ------------------------
+   // Functions
+   // ------------------------
 
    // clear
    // root is a smart pointer, so this deletes the whole tree
@@ -25,7 +33,7 @@ public:
       root = nullptr;
    }
 
-   // empty
+   // is this tree empty?
    bool empty() const
    {
       return root == nullptr;
@@ -41,10 +49,9 @@ public:
    #include "GNDStk/Tree/src/ctor.hpp"
    #include "GNDStk/Tree/src/assign.hpp"
 
+   #include "GNDStk/Tree/src/init.hpp"
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
-
-   #include "GNDStk/Tree/src/init.hpp"
 
    #include "GNDStk/Tree/src/zero.hpp"
    #include "GNDStk/Tree/src/top.hpp"

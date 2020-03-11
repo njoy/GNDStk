@@ -1,14 +1,16 @@
 
 // -----------------------------------------------------------------------------
-// meta
+// Tree::meta()
 // -----------------------------------------------------------------------------
 
-decltype(auto) meta(const std::string &str) const
+// meta(string)
+decltype(auto) meta(const std::string &key) const
 {
    assert(not empty());
-   return root->meta(str);
+   return root->meta(key);
 }
 
+// meta(meta_t<RESULT>)
 template<class RESULT>
 decltype(auto) meta(const meta_t<RESULT> &kwd) const
 {
