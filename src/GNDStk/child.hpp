@@ -10,10 +10,12 @@
 
 RESULT
 
-   The type to which GNDStk should convert a Node<> that's extracted with
-   the child_t object. If RESULT is void, then GNDStk uses Node<*>, where
-   * is whatever template parameters are in play with the particular Tree
-   being queried.
+   The type to which GNDStk should convert a Node<> that's extracted from
+   a Tree<> with the child_t object in question. If RESULT is void, then
+   GNDStk uses Node<*> (the child node, in its original form in the tree),
+   where * is whatever template parameters are in play with the particular
+   Tree<> being queried. The fact that there's no fixed Node<> type is why
+   we use void for this meaning.
 
 MULTIPLE
 
@@ -121,7 +123,9 @@ inline const child_t<void,false>
 
 
 // -----------------------------------------------------------------------------
-// keywords
+// Keywords
+// Of type child_t<*>
+//
 // fixme Eventually, many (or most (or all)) deserve a solid type,
 // not child_t's default.
 // -----------------------------------------------------------------------------

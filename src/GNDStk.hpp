@@ -44,14 +44,14 @@ namespace GNDStk {
 #include "GNDStk/gnds-diagnostic.hpp"
 
 // external-library wrappers
-#include "GNDStk/gnds-xml.hpp"
-#include "GNDStk/gnds-json.hpp"
+#include "GNDStk/XML.hpp"
+#include "GNDStk/JSON.hpp"
 
 // tree metadata/children etc.
-#include "GNDStk/gnds-keyword.hpp"
-#include "GNDStk/gnds-keyword-meta.hpp"
-#include "GNDStk/gnds-keyword-child.hpp"
-#include "GNDStk/gnds-keyword-read.hpp"
+#include "GNDStk/keyword.hpp"
+#include "GNDStk/meta.hpp"
+#include "GNDStk/child.hpp"
+#include "GNDStk/read.hpp"
 
 // tree
 #include "GNDStk/Node.hpp"
@@ -61,8 +61,6 @@ namespace GNDStk {
 #include "GNDStk/gnds-tnode.hpp"
 
 // conversions
-#include "GNDStk/gnds-convert-to-xml.hpp"
-#include "GNDStk/gnds-convert-to-json.hpp"
-#include "GNDStk/gnds-convert-to-tree.hpp"
+#include "GNDStk/convert.hpp"
 
 } // namespace GNDStk

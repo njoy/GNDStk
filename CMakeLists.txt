@@ -269,20 +269,22 @@ message( STATUS "-----------------------------------------------------------" )
 
 add_library( GNDStk INTERFACE )
 target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-meta.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-diagnostic.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/meta.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-tnode.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword-read.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-json.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-keyword.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-xml.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-json.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/child.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-tree.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/read.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-utility.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-convert-to-xml.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/xml.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/json.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/tree.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/zero.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/meta.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/call.hpp"
@@ -294,6 +296,17 @@ target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/top.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/assign.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/assign.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword/src/catenateMetadata.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword/src/catenateChildren.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword/src/child.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/meta.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/call.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/child.hpp"
@@ -312,9 +325,16 @@ target_link_libraries( GNDStk INTERFACE json-adapter INTERFACE catch-adapter INT
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
+        add_subdirectory( src/GNDStk/XML/test )
+        add_subdirectory( src/GNDStk/JSON/test )
+        add_subdirectory( src/GNDStk/read/test )
+        add_subdirectory( src/GNDStk/meta/test )
         add_subdirectory( src/GNDStk/Tree/test )
+        add_subdirectory( src/GNDStk/keyword/test )
+        add_subdirectory( src/GNDStk/child/test )
         add_subdirectory( src/GNDStk/Node/test )
         add_subdirectory( src/GNDStk/test )
+        add_subdirectory( src/GNDStk/convert/test )
     endif() 
 endif()
 

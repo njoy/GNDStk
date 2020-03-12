@@ -3,6 +3,8 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
+// The default template parameter, std::string, means to retrieve the metadatum
+// in its original form in the tree: as a std::string.
 template<class RESULT>
 class meta_t {
 public:
@@ -24,7 +26,8 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// keywords
+// Keywords
+// Of type meta_t<*>
 // -----------------------------------------------------------------------------
 
 namespace meta {

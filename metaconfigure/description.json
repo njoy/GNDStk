@@ -589,20 +589,22 @@
   }, 
   "header files": [
     "src/GNDStk.hpp", 
-    "src/GNDStk/gnds-keyword-meta.hpp", 
-    "src/GNDStk/gnds-keyword-child.hpp", 
+    "src/GNDStk/convert.hpp", 
     "src/GNDStk/gnds-diagnostic.hpp", 
+    "src/GNDStk/meta.hpp", 
     "src/GNDStk/gnds-tnode.hpp", 
-    "src/GNDStk/gnds-keyword-read.hpp", 
-    "src/GNDStk/gnds-json.hpp", 
-    "src/GNDStk/gnds-keyword.hpp", 
-    "src/GNDStk/gnds-xml.hpp", 
-    "src/GNDStk/gnds-convert-to-json.hpp", 
+    "src/GNDStk/XML.hpp", 
+    "src/GNDStk/child.hpp", 
     "src/GNDStk/Node.hpp", 
-    "src/GNDStk/gnds-convert-to-tree.hpp", 
+    "src/GNDStk/read.hpp", 
     "src/GNDStk/Tree.hpp", 
     "src/GNDStk/gnds-utility.hpp", 
-    "src/GNDStk/gnds-convert-to-xml.hpp", 
+    "src/GNDStk/JSON.hpp", 
+    "src/GNDStk/keyword.hpp", 
+    "src/GNDStk/convert/src/xml.hpp", 
+    "src/GNDStk/convert/src/json.hpp", 
+    "src/GNDStk/convert/src/detail.hpp", 
+    "src/GNDStk/convert/src/tree.hpp", 
     "src/GNDStk/Tree/src/zero.hpp", 
     "src/GNDStk/Tree/src/meta.hpp", 
     "src/GNDStk/Tree/src/call.hpp", 
@@ -614,6 +616,17 @@
     "src/GNDStk/Tree/src/top.hpp", 
     "src/GNDStk/Tree/src/assign.hpp", 
     "src/GNDStk/Tree/src/read.hpp", 
+    "src/GNDStk/JSON/src/ctor.hpp", 
+    "src/GNDStk/JSON/src/write.hpp", 
+    "src/GNDStk/JSON/src/read.hpp", 
+    "src/GNDStk/XML/src/ctor.hpp", 
+    "src/GNDStk/XML/src/write.hpp", 
+    "src/GNDStk/XML/src/assign.hpp", 
+    "src/GNDStk/XML/src/read.hpp", 
+    "src/GNDStk/keyword/src/catenateMetadata.hpp", 
+    "src/GNDStk/keyword/src/catenateChildren.hpp", 
+    "src/GNDStk/keyword/src/meta.hpp", 
+    "src/GNDStk/keyword/src/child.hpp", 
     "src/GNDStk/Node/src/meta.hpp", 
     "src/GNDStk/Node/src/call.hpp", 
     "src/GNDStk/Node/src/child.hpp", 
@@ -641,8 +654,11 @@
     "GNDStk": [
       "src/GNDStk/test/GNDStk.test.cpp"
     ], 
+    "GNDStk.JSON": [
+      "src/GNDStk/JSON/test/JSON.test.cpp"
+    ], 
     "GNDStk.Node": [
-      "src/GNDStk/Node/test/node.test.cpp"
+      "src/GNDStk/Node/test/Node.test.cpp"
     ], 
     "GNDStk.Tree": [
       "src/GNDStk/Tree/test/assign.test.cpp", 
@@ -657,6 +673,24 @@
       "src/GNDStk/Tree/test/normalize.test.cpp", 
       "src/GNDStk/Tree/test/clear.test.cpp", 
       "src/GNDStk/Tree/test/empty.test.cpp"
+    ], 
+    "GNDStk.XML": [
+      "src/GNDStk/XML/test/XML.test.cpp"
+    ], 
+    "GNDStk.child": [
+      "src/GNDStk/child/test/child.test.cpp"
+    ], 
+    "GNDStk.convert": [
+      "src/GNDStk/convert/test/convert.test.cpp"
+    ], 
+    "GNDStk.keyword": [
+      "src/GNDStk/keyword/test/keyword.test.cpp"
+    ], 
+    "GNDStk.meta": [
+      "src/GNDStk/meta/test/meta.test.cpp"
+    ], 
+    "GNDStk.read": [
+      "src/GNDStk/read/test/read.test.cpp"
     ]
   }, 
   "update": true

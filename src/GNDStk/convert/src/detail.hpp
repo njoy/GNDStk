@@ -1,38 +1,62 @@
 
-/*
-Summary of the functions in this file:
-
 namespace detail {
-   1. xnode2Node ( pugi::xml_node, GNDStk::Node)
-      ...uses (1) (itself)
 
-   2. xml2Tree   ( GNDStk::xml,    GNDStk::Tree)
-      ...uses (1)
+// -----------------------------------------------------------------------------
+// Helpers for convert(*,json)
+// -----------------------------------------------------------------------------
 
-   3. jiter2Node ( nlohmann::json::const_iterator, GNDStk::Node)
-      ...uses (3) (itself)
-
-   4. json2Tree  ( GNDStk::json,   GNDStk::Tree)
-      ...uses (3)
-
-   5. Node2Node  ( GNDStk::Node,   GNDStk::Node)
-      ...uses (5) (itself)
+// prefix
+inline std::string prefix(const unsigned long n)
+{
+   std::ostringstream oss;
+   oss << std::setfill('0') << std::setw(12) << n;
+   return oss.str();
 }
 
-6. convert(GNDStk::Tree, GNDStk::Tree)
-   ...uses (5)
 
-7. convert(GNDStk::xml,  GNDStk::Tree)
-   ...uses (2)
 
-8. convert(GNDStk::json, GNDStk::Tree)
-   ...uses (4)
-*/
+// Node2json
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+bool Node2json(
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
+   nlohmann::json &j,
+   unsigned long &kwdcount
+) {
+   // name
+   // The effect of j[nodename] is to enter a key of this name into the json
+   // object. Generally, this is triggered automatically in the body of one
+   // and/or the other of the upcoming metadata and children loops. However,
+   // consider a node that has no metadata or children; then, we need this.
+   // An example is <RutherfordScattering/> in some of our GNDS XML files,
+   // as it contains neither metadata nor children.
+   const std::string nodename = prefix(kwdcount++) + node.name;
+   j[nodename];
 
+   // metadata
+   if (node.metadata.size() > 0) {
+      // ...because we only want the kwdcount ++ side effect if size() > 0
+      const std::string attrname = prefix(kwdcount++) + "attributes";
+      // visit
+      for (auto &meta : node.metadata)
+         j[nodename][attrname][prefix(kwdcount++) + meta.first] =
+            meta.second;
+   }
+
+   // children
+   for (auto &child : node.children)
+      if (child and not Node2json(*child, j[nodename], kwdcount))
+         return false;
+
+   // done
+   return true;
+}
 
 
 // -----------------------------------------------------------------------------
-// Helpers for xml-related converts
+// Helpers for convert(*,tree)
 // -----------------------------------------------------------------------------
 
 /*
@@ -55,8 +79,6 @@ namespace pugi
    };
 }
 */
-
-namespace detail {
 
 // pugi::xml_node ==> Node
 template<
@@ -185,15 +207,7 @@ bool xml2Tree(
    return true;
 }
 
-} // namespace detail
 
-
-
-// -----------------------------------------------------------------------------
-// Helpers for json-related converts
-// -----------------------------------------------------------------------------
-
-namespace detail {
 
 // nlohmann::json::const_iterator ==> Node
 template<
@@ -261,15 +275,7 @@ bool json2Tree(
    return true;
 }
 
-} // namespace detail
 
-
-
-// -----------------------------------------------------------------------------
-// Helper for tree-to-tree convert
-// -----------------------------------------------------------------------------
-
-namespace detail {
 
 // Node ==> Node
 template<
@@ -295,67 +301,57 @@ inline void Node2Node(
          Node2Node(*c, to.add());
 }
 
-} // namespace detail
-
 
 
 // -----------------------------------------------------------------------------
-// convert: (xml|json) to Tree
-// I.e., convert from one of our xml or json objects (wrappers around
-// pugi::xml_document and nlohmann::json) to an object of our Tree structure.
+// Helpers for convert(*,xml)
 // -----------------------------------------------------------------------------
 
-// Tree ==> Tree
+// Node2xml
 template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM,
-   template<class...> class METADATA_CONTAINER_TO,
-   template<class...> class CHILDREN_CONTAINER_TO
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
 >
-inline bool convert(
-   const GNDStk::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-   GNDStk::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
+bool Node2xml(
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
+   pugi::xml_node &x
 ) {
-   // casts needed here because template arguments may be different...
-   if ((void*)&to == (void*)&from)
-      return true;
+   // name
+   pugi::xml_node xnode = x.append_child(node.name.c_str());
 
-   // clear
-   to.clear();
+   // metadata
+   for (auto &meta : node.metadata) {
+      // PCDATA
+      if (meta.first == keyword_pcdata) {
+         assert(node.children.size() == 0);
+         xnode.append_child(pugi::node_pcdata).set_value(meta.second.c_str());
+         continue;
+      }
 
-   // convert
-   if (not from.empty()) {
-      to.root =
-         std::make_shared<Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO>>();
-      detail::Node2Node(*from.root, *to.root);
+      // CDATA
+      if (meta.first == keyword_cdata) {
+         assert(node.children.size() == 0);
+         xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
+         continue;
+      }
+
+      // comment
+      if (meta.first == keyword_comment) {
+         xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
+         continue;
+      }
+
+      // regular element
+      xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
    }
+
+   // children
+   for (auto &child : node.children)
+      if (child and not Node2xml(*child, xnode))
+         return false;
 
    // done
    return true;
 }
 
-
-// xml ==> Tree
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-inline bool convert(
-   const GNDStk::xml &xdoc,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
-) {
-   return detail::xml2Tree(xdoc,tree);
-}
-
-
-// json ==> Tree
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-inline bool convert(
-   const GNDStk::json &jdoc,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
-) {
-   return detail::json2Tree(jdoc,tree);
-}
+} // namespace detail

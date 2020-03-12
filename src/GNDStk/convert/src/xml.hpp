@@ -1,82 +1,7 @@
 
-/*
-Summary of the functions in this file:
-
-namespace detail {
-   1. Node2xml(GNDStk::Node, pugi::xml_node)
-      ...uses (1) (itself)
-}
-
-2. convert(GNDStk::Tree, GNDStk::xml)
-   ...uses (1)
-
-3. convert(GNDStk::xml, GNDStk::xml)
-
-4. convert(GNDStk::json, GNDStk::xml)
-   ...uses (2)
-*/
-
-
-
 // -----------------------------------------------------------------------------
-// Helpers
-// -----------------------------------------------------------------------------
-
-namespace detail {
-
-// Node2xml
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool Node2xml(
-   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
-   pugi::xml_node &x
-) {
-   // name
-   pugi::xml_node xnode = x.append_child(node.name.c_str());
-
-   // metadata
-   for (auto &meta : node.metadata) {
-      // PCDATA
-      if (meta.first == keyword_pcdata) {
-         assert(node.children.size() == 0);
-         xnode.append_child(pugi::node_pcdata).set_value(meta.second.c_str());
-         continue;
-      }
-
-      // CDATA
-      if (meta.first == keyword_cdata) {
-         assert(node.children.size() == 0);
-         xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
-         continue;
-      }
-
-      // comment
-      if (meta.first == keyword_comment) {
-         xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
-         continue;
-      }
-
-      // regular element
-      xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
-   }
-
-   // children
-   for (auto &child : node.children)
-      if (child and not Node2xml(*child, xnode))
-         return false;
-
-   // done
-   return true;
-}
-
-} // namespace detail
-
-
-
-// -----------------------------------------------------------------------------
-// convert
+// convert(*,xml)
+// That is, convert TO xml objects
 // -----------------------------------------------------------------------------
 
 // Tree ==> xml
@@ -146,7 +71,6 @@ bool convert(
 }
 
 
-
 // xml ==> xml
 // For completeness
 inline bool convert(const GNDStk::xml &from, GNDStk::xml &to)
@@ -182,7 +106,6 @@ inline bool convert(const GNDStk::xml &from, GNDStk::xml &to)
    // done
    return true;
 }
-
 
 
 // json ==> xml
