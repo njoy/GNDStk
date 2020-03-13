@@ -43,18 +43,16 @@ inline std::string default_string = "";
 
 
 // -----------------------------------------------------------------------------
-// Forward declarations: general
+// Forward declarations: some classes
 // -----------------------------------------------------------------------------
-
-// fixme Some reorganization elsewhere may make some of these unnecessary
 
 // Node, node
 template<
-   template<class...> class,
-   template<class...> class
+   template<class...> class = std::vector,
+   template<class...> class = std::vector
 >
 class Node;
-using node = Node<std::vector,std::vector>;
+using node = Node<>;
 
 // Tree, tree
 template<
@@ -67,14 +65,6 @@ using tree = Tree<>;
 // xml, json
 class xml;
 class json;
-
-// tnode
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER,
-   class T
->
-class tnode;
 
 
 
@@ -212,6 +202,12 @@ inline bool nocasecmp(const std::string &one, const std::string &two)
 // Re: file extensions
 // -----------------------------------------------------------------------------
 
+// has filename extension?
+inline bool has_extension(const std::string &str)
+{
+   return str.find('.') != std::string::npos;
+}
+
 // xml
 inline bool endsin_xml(const std::string &str)
 {
@@ -240,12 +236,6 @@ inline bool endsin_hdf5(const std::string &str)
       endsin(str,".HDF5") or
       endsin(str,".he5" ) or
       endsin(str,".HE5" );
-}
-
-// has filename extension?
-inline bool has_extension(const std::string &str)
-{
-   return str.find('.') != std::string::npos;
 }
 
 

@@ -39,26 +39,24 @@
 
 namespace GNDStk {
 
-// utility
-#include "GNDStk/gnds-utility.hpp"
-#include "GNDStk/gnds-diagnostic.hpp"
+// basic
+#include "GNDStk/utility.hpp"
+#include "GNDStk/diagnostic.hpp"
 
 // external-library wrappers
 #include "GNDStk/XML.hpp"
 #include "GNDStk/JSON.hpp"
 
-// tree metadata/children etc.
+// tree: metadata/children etc.
 #include "GNDStk/keyword.hpp"
 #include "GNDStk/meta.hpp"
 #include "GNDStk/child.hpp"
 #include "GNDStk/read.hpp"
 
-// tree
+// tree: main constructs
 #include "GNDStk/Node.hpp"
+#include "GNDStk/TypedNode.hpp"
 #include "GNDStk/Tree.hpp"
-
-// typed node
-#include "GNDStk/gnds-tnode.hpp"
 
 // conversions
 #include "GNDStk/convert.hpp"

@@ -19,7 +19,7 @@
 
 // -----------------------------------------------------------------------------
 // read(istream,T)
-// default: use operator>>
+// Default: use operator>>
 // -----------------------------------------------------------------------------
 
 // default
@@ -46,9 +46,9 @@ inline void read(std::istream &is, T &value)
          value.push_back(v); \
    }
 
-GNDSTK_READ(deque)
-GNDSTK_READ(list)
-GNDSTK_READ(vector)
+   GNDSTK_READ(deque)
+   GNDSTK_READ(list)
+   GNDSTK_READ(vector)
 
 #undef GNDSTK_READ
 
@@ -56,7 +56,7 @@ GNDSTK_READ(vector)
 
 // -----------------------------------------------------------------------------
 // read(string,T)
-// default: make istringstream from string, then use read(istream,T) above
+// Default: make istringstream from string, then use read(istream,T)
 // -----------------------------------------------------------------------------
 
 // default
@@ -99,24 +99,24 @@ inline void read(const std::string &str, bool &value)
       value = std::fun(str); \
    }
 
-GNDSTK_READ(stod, double)
-GNDSTK_READ(stof, float)
-GNDSTK_READ(stoi, int)
-GNDSTK_READ(stol, long)
-GNDSTK_READ(stold, long double)
-GNDSTK_READ(stoll, long long)
-GNDSTK_READ(stoul, unsigned long)
-GNDSTK_READ(stoull, unsigned long long)
+   GNDSTK_READ(stod, double)
+   GNDSTK_READ(stof, float)
+   GNDSTK_READ(stoi, int)
+   GNDSTK_READ(stol, long)
+   GNDSTK_READ(stold, long double)
+   GNDSTK_READ(stoll, long long)
+   GNDSTK_READ(stoul, unsigned long)
+   GNDSTK_READ(stoull, unsigned long long)
 
 #undef GNDSTK_READ
 
 
 
 // -----------------------------------------------------------------------------
-// read(node,T)
-// default: error
+// read(Node,T)
 // -----------------------------------------------------------------------------
 
+/*
 // default
 // Doesn't know what to do; should be overridden
 // fixme Consider having *no* default for read(node,...)
@@ -131,4 +131,17 @@ inline void read(
 ) {
    assert(false);
    value = T{};
+}
+*/
+
+// read(Node,Node)
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+inline void read(
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &from,
+   /* */ GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &to
+) {
+   to = from;
 }

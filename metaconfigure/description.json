@@ -590,15 +590,15 @@
   "header files": [
     "src/GNDStk.hpp", 
     "src/GNDStk/convert.hpp", 
-    "src/GNDStk/gnds-diagnostic.hpp", 
+    "src/GNDStk/utility.hpp", 
+    "src/GNDStk/TypedNode.hpp", 
     "src/GNDStk/meta.hpp", 
-    "src/GNDStk/gnds-tnode.hpp", 
     "src/GNDStk/XML.hpp", 
     "src/GNDStk/child.hpp", 
     "src/GNDStk/Node.hpp", 
     "src/GNDStk/read.hpp", 
     "src/GNDStk/Tree.hpp", 
-    "src/GNDStk/gnds-utility.hpp", 
+    "src/GNDStk/diagnostic.hpp", 
     "src/GNDStk/JSON.hpp", 
     "src/GNDStk/keyword.hpp", 
     "src/GNDStk/convert/src/xml.hpp", 
@@ -674,6 +674,9 @@
       "src/GNDStk/Tree/test/clear.test.cpp", 
       "src/GNDStk/Tree/test/empty.test.cpp"
     ], 
+    "GNDStk.TypedNode": [
+      "src/GNDStk/TypedNode/test/TypedNode.test.cpp"
+    ], 
     "GNDStk.XML": [
       "src/GNDStk/XML/test/XML.test.cpp"
     ], 
@@ -683,6 +686,9 @@
     "GNDStk.convert": [
       "src/GNDStk/convert/test/convert.test.cpp"
     ], 
+    "GNDStk.diagnostic": [
+      "src/GNDStk/diagnostic/test/diagnostic.test.cpp"
+    ], 
     "GNDStk.keyword": [
       "src/GNDStk/keyword/test/keyword.test.cpp"
     ], 
@@ -691,6 +697,9 @@
     ], 
     "GNDStk.read": [
       "src/GNDStk/read/test/read.test.cpp"
+    ], 
+    "GNDStk.utility": [
+      "src/GNDStk/utility/test/utility.test.cpp"
     ]
   }, 
   "update": true

@@ -52,7 +52,7 @@ template<
 auto child(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
 ) const {
-   return tnode<
+   return TypedNode<
       METADATA_CONTAINER,
       CHILDREN_CONTAINER,
       RESULT
@@ -66,13 +66,12 @@ auto child(
 
 // Caller must stipulate the type
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
-   class... Ts
+   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN, class... Ts
 >
 auto child(
    const child_t<std::variant<Ts...>,MULTIPLE,METADATA,CHILDREN> &kwd
 ) const {
-   return tnode<
+   return TypedNode<
       METADATA_CONTAINER,
       CHILDREN_CONTAINER,
       RESULT

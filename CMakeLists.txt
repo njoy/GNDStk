@@ -270,15 +270,15 @@ message( STATUS "-----------------------------------------------------------" )
 add_library( GNDStk INTERFACE )
 target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-diagnostic.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/utility.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/TypedNode.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/meta.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-tnode.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/child.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/read.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/gnds-utility.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/diagnostic.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/xml.hpp"
@@ -327,8 +327,11 @@ if( NOT is_subproject )
     if ( unit_tests )
         add_subdirectory( src/GNDStk/XML/test )
         add_subdirectory( src/GNDStk/JSON/test )
+        add_subdirectory( src/GNDStk/diagnostic/test )
         add_subdirectory( src/GNDStk/read/test )
         add_subdirectory( src/GNDStk/meta/test )
+        add_subdirectory( src/GNDStk/TypedNode/test )
+        add_subdirectory( src/GNDStk/utility/test )
         add_subdirectory( src/GNDStk/Tree/test )
         add_subdirectory( src/GNDStk/keyword/test )
         add_subdirectory( src/GNDStk/child/test )

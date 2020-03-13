@@ -1,6 +1,21 @@
 
 #include "GNDStk/Node/src/detail.hpp"
 
+// ------------------------
+// Forward declaration for
+// TypedNode; returned by
+// Node's child() functions
+// ------------------------
+
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER,
+   class T
+>
+class TypedNode;
+
+
+
 // -----------------------------------------------------------------------------
 // Node (templated)
 // node = Node<>
@@ -51,7 +66,6 @@ public:
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"
-
    #include "GNDStk/Node/src/meta.hpp"
    #include "GNDStk/Node/src/child.hpp"
    #include "GNDStk/Node/src/call.hpp"
