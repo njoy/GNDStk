@@ -20,14 +20,14 @@ public:
    // ------------------------
 
    // Initial node of the tree
-   std::shared_ptr<nodeType> root;
+   std::unique_ptr<nodeType> root;
 
    // ------------------------
    // Functions
    // ------------------------
 
    // clear
-   // root is a smart pointer, so this deletes the whole tree
+   // root is a unique_ptr, so this deletes the whole tree
    void clear()
    {
       root = nullptr;
@@ -40,10 +40,11 @@ public:
    }
 
    // normalize
-   void normalize()
+   Tree &normalize()
    {
       if (not empty())
          root->normalize();
+      return *this;
    }
 
    #include "GNDStk/Tree/src/ctor.hpp"

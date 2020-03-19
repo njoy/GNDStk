@@ -130,7 +130,7 @@ R"***(<?xml version="1.0" encoding="UTF-8"?>
 
 // fixme
 // For now, ignore the weird-looking "000000000000" nonsense.
-// Json I/O is a work-in-progress.
+// JSON I/O is a work-in-progress.
 
 static const std::string string_real_json =
 R"***({

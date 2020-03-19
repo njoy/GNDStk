@@ -89,6 +89,8 @@ bool xnode2Node(
    const pugi::xml_node &xnode,
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
+   assert(node.empty());
+
    // name
    node.name = xnode.name();
 
@@ -180,7 +182,7 @@ bool xml2Tree(
          assert(xnode.name() == std::string("xml"));
 
          tree.root =
-            std::make_shared<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
+            std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
          tree.root->name = "xml"; // indicates that we came from a xml
 
          // base xml "attributes", e.g. version and encoding
@@ -218,6 +220,7 @@ bool jiter2Node(
    const nlohmann::json::const_iterator &jiter,
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
+   assert(node.empty());
    assert(jiter->is_object());
 
    // name
@@ -262,7 +265,7 @@ bool json2Tree(
    tree.clear();
 
    // initialize root
-   tree.root = std::make_shared<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
+   tree.root = std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
    tree.root->name = "json"; // indicates that we came from a json
 
    // visit the json's outer node, and its descendants
@@ -288,6 +291,8 @@ inline void Node2Node(
    const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
    GNDStk::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
+   assert(to.empty());
+
    // name
    to.name = from.name;
 

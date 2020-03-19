@@ -1,6 +1,7 @@
 
 #pragma once
 
+
 // ------------------------
 // External libraries
 // ------------------------
@@ -20,6 +21,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <string>
 #include <tuple>
 #include <type_traits>
 #include <typeinfo>
@@ -51,7 +53,12 @@ namespace GNDStk {
 #include "GNDStk/keyword.hpp"
 #include "GNDStk/meta.hpp"
 #include "GNDStk/child.hpp"
-#include "GNDStk/read.hpp"
+
+// string/node to/from type
+#include "GNDStk/string2type.hpp"
+#include "GNDStk/node2type.hpp"
+#include "GNDStk/type2string.hpp"
+#include "GNDStk/type2node.hpp"
 
 // tree: main constructs
 #include "GNDStk/Node.hpp"

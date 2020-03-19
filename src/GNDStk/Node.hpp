@@ -1,17 +1,8 @@
 
 #include "GNDStk/Node/src/detail.hpp"
 
-// ------------------------
-// Forward declaration for
-// TypedNode; returned by
-// Node's child() functions
-// ------------------------
-
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER,
-   class T
->
+// This is returned by some of Node's child() functions
+template<class NODE, class T>
 class TypedNode;
 
 
@@ -27,7 +18,7 @@ template<
 >
 class Node {
    using metaPair = std::pair<std::string,std::string>;
-   using childPtr = std::shared_ptr<Node>;
+   using childPtr = std::unique_ptr<Node>;
 
 public:
 
@@ -37,22 +28,29 @@ public:
 
    // Simple node for our tree structure:
    //    name
-   //    metadata
-   //    children
+   //    metadata (container of string pairs)
+   //    children (container of pointers to other Node<>s)
    std::string name;
    METADATA_CONTAINER<metaPair,std::allocator<metaPair>> metadata;
    CHILDREN_CONTAINER<childPtr,std::allocator<childPtr>> children;
 
    // ------------------------
-   // Functions
+   // Simple functions
    // ------------------------
 
    // clear()
-   void clear()
+   Node &clear()
    {
       name = "";
       metadata.clear();
       children.clear();
+      return *this;
+   }
+
+   // is this node empty?
+   bool empty() const
+   {
+      return name == "" && metadata.size() == 0 && children.size() == 0;
    }
 
    // is this a leaf node?
@@ -62,7 +60,14 @@ public:
    }
 
    // normalize
-   void normalize();
+   Node &normalize();
+
+   // ------------------------
+   // General functions
+   // ------------------------
+
+   Node() { }
+   Node(const Node &) = delete;
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"
@@ -99,7 +104,8 @@ template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-void Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
+Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
 {
    // name
    detail::strip(name);
@@ -159,4 +165,7 @@ void Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
    // child as described above
    for (auto &meta : metadata)
       detail::strip(meta.first);
+
+   // done
+   return *this;
 }

@@ -17,7 +17,7 @@ std::ostream &write(std::ostream &os) const
 {
    // fixme Can we prevent pugixml from emitting a newline at the end?
    // ...Concept: output functions shouldn't *assume* that someone who prints
-   // ...something wants a newline at the end. A user should explicitly write
+   // ...something wants a newline at the end. A user should explicitly provide
    // ...the \n, std::endl, whatever, if they want that. One might think we'd
    // ...always want the newline for a "large" or "compound" object (the
    // ...printing of which might, in fact, even have internal newlines).
@@ -28,7 +28,8 @@ std::ostream &write(std::ostream &os) const
    // ...get one int per line. Print a vector of these xml objects in the same
    // ...way, and we'll get blank lines, in between, if the xml printing takes
    // ...it upon itself to print its own newline. The best behavior, in my
-   // ...opinion, is consistent behavior - it's easy to remember.
+   // ...opinion, is consistent behavior - it's easy to remember. So, then,
+   // ...no fluff, either before or after any object being written.
    doc.save(os, std::string(indent,' ').c_str());
    return os;
 }

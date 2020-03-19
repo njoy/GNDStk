@@ -38,7 +38,7 @@ bool read(
    if (form == format::xml  and has_extension(file) and not endsin_xml (file))
       detail::warning_tree_io_name<dummy>("read", file, "xml",  "XML" );
    if (form == format::json and has_extension(file) and not endsin_json(file))
-      detail::warning_tree_io_name<dummy>("read", file, "json", "Json");
+      detail::warning_tree_io_name<dummy>("read", file, "json", "JSON");
    if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
       detail::warning_tree_io_name<dummy>("read", file, "hdf5", "HDF5");
 
@@ -129,7 +129,7 @@ std::istream &read(
          form = format::json;
       else if (form != format::json)
          detail::warning_tree_io_data<dummy>(
-            form, "neither '<' nor char 137", "Json");
+            form, "neither '<' nor char 137", "JSON");
    }
 
    // The above logic is such that form cannot henceforth be format::tree,

@@ -1,45 +1,45 @@
 
 // -----------------------------------------------------------------------------
 // TypedNode
-// fixme Put in an explanation of what this is about
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER,
-   class T
->
-class TypedNode : public Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
+template<class NODE, class T>
+class TypedNode : public NODE
 {
-   // base
-   using base = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
-
-   // if_void: A != void ? A : B
+   // TYPE will be T if T != void; else NODE
    template<class A, class B> struct if_void         { using type = A; };
    template<         class B> struct if_void<void,B> { using type = B; };
-
-   // RETURN
-   using RETURN = typename if_void<T,base>::type;
+   using TYPE = typename if_void<T,NODE>::type;
 
 public:
 
-   using base::clear;
-   using base::leaf;
-   using base::normalize;
-   using base::add;
-   using base::write;
-   using base::meta;
-   using base::child;
-   using base::operator();
+   using NODE::clear;
+   using NODE::empty;
+   using NODE::leaf;
+   using NODE::normalize;
+   using NODE::add;
+   using NODE::write;
+   using NODE::meta;
+   using NODE::child;
+   using NODE::operator();
 
-   // ctor
-   explicit TypedNode(const base &n) : base(n) { }
+   TypedNode(const TypedNode &) = delete;
 
-   // operator(): evaluate to RETURN (T if not void, else base)
-   RETURN operator()() const
+   // convert to TYPE
+   // Note that this won't get called for the conversion if T was void,
+   // so that TYPE ended up being NODE (the base class). In that case,
+   // the base is just used.
+   operator TYPE() const
    {
-      RETURN ret;
-      read(*(base*)this,ret);
+      TYPE ret;
+      node2type(*(const NODE *)this,ret);
       return ret;
+   }
+
+   // operator()
+   // Also convert to TYPE; just more explicit
+   TYPE operator()() const
+   {
+      return TYPE(*this);
    }
 };

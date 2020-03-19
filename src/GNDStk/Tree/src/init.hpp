@@ -37,7 +37,7 @@ nodeType &init(
    // ZERO NODE: "xml", etc.
    // This is our Tree object's technically top-level (over the top??) node
    // that can stipulate an eventual intended file type for the GNDS hierarchy.
-   root = std::make_shared<nodeType>();
+   root = std::make_unique<nodeType>();
 
    if (form == format::xml or form == format::null or form == format::tree) {
       // xml, null, tree

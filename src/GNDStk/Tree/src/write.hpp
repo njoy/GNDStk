@@ -39,7 +39,7 @@ bool write(
    if (form == format::xml  and has_extension(file) and not endsin_xml (file))
       detail::warning_tree_io_name<dummy>("write", file, "xml",  "XML" );
    if (form == format::json and has_extension(file) and not endsin_json(file))
-      detail::warning_tree_io_name<dummy>("write", file, "json", "Json");
+      detail::warning_tree_io_name<dummy>("write", file, "json", "JSON");
    if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
       detail::warning_tree_io_name<dummy>("write", file, "hdf5", "HDF5");
 

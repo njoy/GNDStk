@@ -44,7 +44,7 @@ const std::string &meta(
 //    RESULT    General case
 //    string    For string, more efficient than general case
 //    void      Like string case
-//    variant   User must stipulate a specific output type
+//    variant   With caller-specified result type
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -62,7 +62,7 @@ RESULT meta(
    // convert value, if any, to the appropriate result type
    RESULT ret{};
    if (found)
-      GNDStk::read(value,ret);
+      string2type(value,ret);
    return ret;
 }
 
@@ -99,11 +99,10 @@ std::string meta(
 
 // ------------------------
 // meta(meta_t<variant>)
+// With caller-specified
+// result/return type
 // ------------------------
 
-// For meta_t<variant>, the caller must stipulate the type to extract. Note
-// that we can't just fold this into meta(meta_t<RESULT>), above, and return
-// the variant, because the read() wouldn't know what variation to read into.
 template<class RESULT, class... Ts>
 RESULT meta(
    const meta_t<std::variant<Ts...>> &kwd,
@@ -114,6 +113,6 @@ RESULT meta(
    const std::string &value = meta(kwd.name,found);
    RESULT ret{}; // RESULT having been direct-specified as noted above
    if (found)
-      GNDStk::read(value,ret);
+      string2type(value,ret);
    return ret;
 }

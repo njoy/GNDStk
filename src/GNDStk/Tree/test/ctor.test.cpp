@@ -75,7 +75,7 @@ bool ctor()
    std::ostringstream ossf;
    ossf << from;
 
-   // construct from the tree into other tree variants, and check
+   // construct from the tree into other tree varieties, and check
    // that the contents of each such result are the same
    return
       ctor<decltype(from)                          >(from,ossf) &&
@@ -139,7 +139,7 @@ SCENARIO("Testing GNDStk tree constructors") {
    }
 
    // 4. Tree(json)
-   // fixme Json work isn't complete yet, so we won't write this test yet
+   // fixme JSON work isn't complete yet, so we won't write this test yet
 
    // 5. Tree(string)
    // 6. Tree(istream)

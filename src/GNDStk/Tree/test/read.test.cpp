@@ -52,7 +52,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
    }
 
    // fixme There's actually somewhat more we can test, with regards to tree's
-   // read(). Above, we're just dealing with an XML file, not a Json (for which
+   // read(). Above, we're just dealing with an XML file, not a JSON (for which
    // we don't yet have an official GNDS file) or an HDF (ditto, and for which
    // we don't have read/write capabilities yet either). Also, we allow for a
    // direct user-stipulated format (xml, json, hdf5) in our read()s, for which

@@ -37,7 +37,7 @@ const Node &child(
 //
 // Two cases of child_t<*>:
 //    RESULT    General case
-//    variant   User must stipulate a specific output type
+//    variant   With caller-specified result type
 // -----------------------------------------------------------------------------
 
 // fixme Need to split multiple to true/false for both of these...
@@ -49,14 +49,10 @@ const Node &child(
 template<
    class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
 >
-auto child(
+auto &child(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
 ) const {
-   return TypedNode<
-      METADATA_CONTAINER,
-      CHILDREN_CONTAINER,
-      RESULT
-   >(child(kwd.name));
+   return *(const TypedNode<const Node, RESULT> *)(&child(kwd.name));
 }
 
 
@@ -64,16 +60,13 @@ auto child(
 // child(child_t<variant>)
 // ------------------------
 
-// Caller must stipulate the type
+// Caller must specify the result type (not the same as return type
+// of the function, which is a TypedNode with the given result type)
 template<
    class RESULT, bool MULTIPLE, class METADATA, class CHILDREN, class... Ts
 >
-auto child(
+auto &child(
    const child_t<std::variant<Ts...>,MULTIPLE,METADATA,CHILDREN> &kwd
 ) const {
-   return TypedNode<
-      METADATA_CONTAINER,
-      CHILDREN_CONTAINER,
-      RESULT
-   >(child(kwd.name));
+   return *(const TypedNode<const Node, RESULT> *)(&child(kwd.name));
 }

@@ -595,8 +595,11 @@
     "src/GNDStk/meta.hpp", 
     "src/GNDStk/XML.hpp", 
     "src/GNDStk/child.hpp", 
+    "src/GNDStk/node2type.hpp", 
+    "src/GNDStk/type2node.hpp", 
     "src/GNDStk/Node.hpp", 
-    "src/GNDStk/read.hpp", 
+    "src/GNDStk/string2type.hpp", 
+    "src/GNDStk/type2string.hpp", 
     "src/GNDStk/Tree.hpp", 
     "src/GNDStk/diagnostic.hpp", 
     "src/GNDStk/JSON.hpp", 
@@ -695,8 +698,17 @@
     "GNDStk.meta": [
       "src/GNDStk/meta/test/meta.test.cpp"
     ], 
-    "GNDStk.read": [
-      "src/GNDStk/read/test/read.test.cpp"
+    "GNDStk.node2type": [
+      "src/GNDStk/node2type/test/node2type.test.cpp"
+    ], 
+    "GNDStk.string2type": [
+      "src/GNDStk/string2type/test/string2type.test.cpp"
+    ], 
+    "GNDStk.type2node": [
+      "src/GNDStk/type2node/test/type2node.test.cpp"
+    ], 
+    "GNDStk.type2string": [
+      "src/GNDStk/type2string/test/type2string.test.cpp"
     ], 
     "GNDStk.utility": [
       "src/GNDStk/utility/test/utility.test.cpp"

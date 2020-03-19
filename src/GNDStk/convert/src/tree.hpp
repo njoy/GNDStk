@@ -25,7 +25,7 @@ inline bool convert(
    // convert
    if (not from.empty()) {
       to.root =
-         std::make_shared<Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO>>();
+         std::make_unique<Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO>>();
       detail::Node2Node(*from.root, *to.root);
    }
 

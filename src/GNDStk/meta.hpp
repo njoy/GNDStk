@@ -39,6 +39,7 @@ GNDSTK_MAKE_META(bool, calculatePenetrability);
 GNDSTK_MAKE_META(bool, identicalParticles);
 GNDSTK_MAKE_META(bool, supportsAngularReconstruction);
 GNDSTK_MAKE_META(bool, useForSelfShieldingOnly);
+GNDSTK_MAKE_META(bool, complete);
 
 // int
 GNDSTK_MAKE_META(int, A);
@@ -71,7 +72,6 @@ GNDSTK_MAKE_META(double, muCutoff);
 GNDSTK_MAKE_META(std::string, approximation);
 GNDSTK_MAKE_META(std::string, asymmetric);
 GNDSTK_MAKE_META(std::string, boundaryCondition);
-GNDSTK_MAKE_META(std::string, complete);
 GNDSTK_MAKE_META(std::string, compression);
 GNDSTK_MAKE_META(std::string, crossTerm);
 GNDSTK_MAKE_META(std::string, dependenceOnProcessedGroupWidth);
@@ -142,7 +142,7 @@ namespace meta {
 // ------------------------
 
 // fixme These may actually arrive with different keys if we've read from a
-// Json (not XML) file - at least an original one, not created from an XML.
+// JSON (not XML) file - at least an original JSON, not created from an XML.
 // Figure out what we'd be getting in this case.
 
 // pcdata, body
@@ -188,7 +188,7 @@ inline const meta_t<std::string> svalue("value");
 // channelSpin
 // This actually looks to me like it's always either an int, or some sort
 // of fraction, so figure out something clever in place of variant. Perhaps
-// our own handmade (or Boost's) rational-number class?
+// a rational-number class?
 inline const meta_t<std::variant<int,std::string>>
 channelSpin("channelSpin");
 

@@ -275,8 +275,11 @@ target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/meta.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/node2type.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2node.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/string2type.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2string.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/diagnostic.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON.hpp"
@@ -326,10 +329,12 @@ if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
         add_subdirectory( src/GNDStk/XML/test )
+        add_subdirectory( src/GNDStk/string2type/test )
         add_subdirectory( src/GNDStk/JSON/test )
         add_subdirectory( src/GNDStk/diagnostic/test )
-        add_subdirectory( src/GNDStk/read/test )
+        add_subdirectory( src/GNDStk/type2string/test )
         add_subdirectory( src/GNDStk/meta/test )
+        add_subdirectory( src/GNDStk/type2node/test )
         add_subdirectory( src/GNDStk/TypedNode/test )
         add_subdirectory( src/GNDStk/utility/test )
         add_subdirectory( src/GNDStk/Tree/test )
@@ -338,6 +343,7 @@ if( NOT is_subproject )
         add_subdirectory( src/GNDStk/Node/test )
         add_subdirectory( src/GNDStk/test )
         add_subdirectory( src/GNDStk/convert/test )
+        add_subdirectory( src/GNDStk/node2type/test )
     endif() 
 endif()
 
