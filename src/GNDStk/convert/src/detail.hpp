@@ -15,12 +15,12 @@ inline std::string prefix(const unsigned long n)
 
 
 
-// Node2json
+// node2JSON
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool Node2json(
+bool node2JSON(
    const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    nlohmann::json &j,
    unsigned long &kwdcount
@@ -47,12 +47,13 @@ bool Node2json(
 
    // children
    for (auto &child : node.children)
-      if (child and not Node2json(*child, j[nodename], kwdcount))
+      if (child and not node2JSON(*child, j[nodename], kwdcount))
          return false;
 
    // done
    return true;
 }
+
 
 
 // -----------------------------------------------------------------------------
@@ -85,7 +86,7 @@ template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool xnode2Node(
+bool xmlnode2Node(
    const pugi::xml_node &xnode,
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
@@ -151,7 +152,7 @@ bool xnode2Node(
       // ------------------------
 
       assert(xsub.type() == pugi::node_element);
-      if (not xnode2Node(xsub,node.add()))
+      if (not xmlnode2Node(xsub,node.add()))
          return false;
    }
 
@@ -192,7 +193,7 @@ bool xml2Tree(
 
       if (count == 1) {
          // visit the xml's outer node, and its descendants
-         if (not xnode2Node(xnode,tree.root->add()))
+         if (not xmlnode2Node(xnode,tree.root->add()))
             return false;
       }
 
@@ -287,7 +288,7 @@ template<
    template<class...> class METADATA_CONTAINER_TO,
    template<class...> class CHILDREN_CONTAINER_TO
 >
-inline void Node2Node(
+inline void node2Node(
    const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
    GNDStk::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
@@ -303,7 +304,7 @@ inline void Node2Node(
    // children
    for (auto &c : from.children)
       if (c)
-         Node2Node(*c, to.add());
+         node2Node(*c, to.add());
 }
 
 
@@ -312,12 +313,12 @@ inline void Node2Node(
 // Helpers for convert(*,xml)
 // -----------------------------------------------------------------------------
 
-// Node2xml
+// node2XML
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool Node2xml(
+bool node2XML(
    const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    pugi::xml_node &x
 ) {
@@ -352,7 +353,7 @@ bool Node2xml(
 
    // children
    for (auto &child : node.children)
-      if (child and not Node2xml(*child, xnode))
+      if (child and not node2XML(*child, xnode))
          return false;
 
    // done

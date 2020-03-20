@@ -2,10 +2,11 @@
 // -----------------------------------------------------------------------------
 // Node::meta(string)
 //
-// Searches the Node's metadata for a key of the given name. If found,
-// returns the key's paired value. Else returns an empty string.
+// Searches the Node's metadata for a metadatum of the given name. If found,
+// returns the key's paired value. Else, returns an empty string.
 // -----------------------------------------------------------------------------
 
+// const
 const std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
@@ -17,7 +18,7 @@ const std::string &meta(
 
    // not found
    found = false;
-   static const std::string empty = "";
+   static std::string empty = "";
 
    // If a "found" flag was not sent to this function, we'll produce an error.
    // Otherwise, we'll assume that the caller intends to deal with the issue
@@ -33,6 +34,14 @@ const std::string &meta(
 
    // done
    return empty;
+}
+
+// non-const
+std::string &meta(
+   const std::string &key,
+   bool &found = detail::default_bool
+) {
+   return const_cast<std::string &>(std::as_const(*this).meta(key,found));
 }
 
 
@@ -51,6 +60,7 @@ const std::string &meta(
 // meta(meta_t<RESULT>)
 // ------------------------
 
+// const
 template<class RESULT>
 RESULT meta(
    const meta_t<RESULT> &kwd,
@@ -66,24 +76,27 @@ RESULT meta(
    return ret;
 }
 
+// non-const
+// not needed
+
 
 // ------------------------
 // meta(meta_t<string>)
+// meta(meta_t<void>)
 // ------------------------
 
-// Functionally equivalent to using meta(meta_t<RESULT>) with
-// RESULT = string, but more direct and thus perhaps more efficient.
+// Consistent with other meta_t<> cases (as opposed to the raw-string case),
+// these return their result (which happens to be string) by value; we thus
+// need only the const cases.
+
+// Functionally equivalent to using meta(meta_t<RESULT>) with RESULT = string,
+// but more direct and thus perhaps more efficient.
 std::string meta(
    const meta_t<std::string> &kwd,
    bool &found = detail::default_bool
 ) const {
    return meta(kwd.name,found);
 }
-
-
-// ------------------------
-// meta(meta_t<void>)
-// ------------------------
 
 // Let's define the meta_t<void> case to be equivalent to the meta_t<string>
 // case. This makes meta_t's behavior more consistent with that of child_t,
@@ -103,6 +116,7 @@ std::string meta(
 // result/return type
 // ------------------------
 
+// const
 template<class RESULT, class... Ts>
 RESULT meta(
    const meta_t<std::variant<Ts...>> &kwd,
@@ -116,3 +130,6 @@ RESULT meta(
       string2type(value,ret);
    return ret;
 }
+
+// non-const
+// not needed

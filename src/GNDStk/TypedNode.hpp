@@ -7,8 +7,8 @@ template<class NODE, class T>
 class TypedNode : public NODE
 {
    // TYPE will be T if T != void; else NODE
-   template<class A, class B> struct if_void         { using type = A; };
-   template<         class B> struct if_void<void,B> { using type = B; };
+   template<class A, class B> class if_void         { public: using type = A; };
+   template<         class B> class if_void<void,B> { public: using type = B; };
    using TYPE = typename if_void<T,NODE>::type;
 
 public:
@@ -24,6 +24,7 @@ public:
    using NODE::operator();
 
    TypedNode(const TypedNode &) = delete;
+   TypedNode &operator=(const TypedNode &) = delete;
 
    // convert to TYPE
    // Note that this won't get called for the conversion if T was void,

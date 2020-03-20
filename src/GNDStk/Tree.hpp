@@ -57,8 +57,8 @@ public:
    #include "GNDStk/Tree/src/zero.hpp"
    #include "GNDStk/Tree/src/top.hpp"
 
-   // fixme Probably have that bool &found stuff in these as well...
    #include "GNDStk/Tree/src/meta.hpp"
+   // fixme Probably have that bool &found stuff in these as well...
    #include "GNDStk/Tree/src/child.hpp"
    #include "GNDStk/Tree/src/call.hpp"
 

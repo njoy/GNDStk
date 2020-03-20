@@ -63,8 +63,10 @@ bool read(
 // read(file,string)
 // ------------------------
 
-bool read(const std::string &file, const std::string &form)
-{
+bool read(
+   const std::string &file,
+   const std::string &form
+) {
    if (eq_null(form)) return read(file,format::null);
    if (eq_tree(form)) return read(file,format::tree);
    if (eq_xml (form)) return read(file,format::xml );
@@ -179,8 +181,10 @@ std::istream &read(
 // read(istream,string)
 // ------------------------
 
-std::istream &read(std::istream &is, const std::string &form)
-{
+std::istream &read(
+   std::istream &is,
+   const std::string &form
+) {
    if (eq_null(form)) return read(is,format::null);
    if (eq_tree(form)) return read(is,format::tree);
    if (eq_xml (form)) return read(is,format::xml );

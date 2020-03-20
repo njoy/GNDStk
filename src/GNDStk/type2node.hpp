@@ -29,5 +29,5 @@ inline void type2node(
          GNDStk::Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &node
 ) {
    node.clear();
-   detail::Node2Node(type,node);
+   detail::node2Node(type,node);
 }

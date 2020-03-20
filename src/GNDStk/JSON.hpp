@@ -33,8 +33,8 @@ public:
 
    // constructors, assignment
    #include "GNDStk/JSON/src/ctor.hpp"
-   json &operator=(const json &) = default;
    json &operator=(json &&) = default;
+   json &operator=(const json &) = default;
 
    // read, write
    #include "GNDStk/JSON/src/read.hpp"

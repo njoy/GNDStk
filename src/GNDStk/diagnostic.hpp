@@ -13,7 +13,8 @@ class ansi_t {
 public:
 
    // bold.*
-   struct bold_t {
+   class bold_t {
+   public:
       static constexpr const char *const black   = "\033[30;1m";
       static constexpr const char *const red     = "\033[31;1m";
       static constexpr const char *const green   = "\033[32;1m";
@@ -27,7 +28,8 @@ public:
    // lite.*
    // On some terminals I'm seeing these get underlined, which probably isn't
    // best for a default. So, I'll use only the "bold" versions for defaults.
-   struct lite_t {
+   class lite_t {
+   public:
       static constexpr const char *const black   = "\033[30;21m";
       static constexpr const char *const red     = "\033[31;21m";
       static constexpr const char *const green   = "\033[32;21m";
@@ -148,7 +150,7 @@ public:
    // ------------------------
 
    // ansi
-   void ansi()
+   void ansi() const
    {
       color.debug    = GNDStk::ansi.bold.white;
       color.note     = GNDStk::ansi.bold.green;
@@ -166,7 +168,7 @@ public:
    }
 
    // html
-   void html(const std::string &indent = "")
+   void html(const std::string &indent = "") const
    {
       color.debug    = indent + "<span style=\"color:lightgray\">";
       color.note     = indent + "<span style=\"color:green\">";
@@ -184,7 +186,7 @@ public:
    }
 
    // rst
-   void rst()
+   void rst() const
    {
       html("   ");
       prefix = ".. raw:: html\n   <pre class=\"code literal-block\">\n";
@@ -192,7 +194,7 @@ public:
    }
 
    // tex
-   void tex(const std::string &pfx = "\\", const std::string &sfx = "{}")
+   void tex(const std::string &pfx = "\\", const std::string &sfx = "{}") const
    {
       color.debug    = pfx + "textWhite"   + sfx;
       color.note     = pfx + "textGreen"   + sfx;
@@ -210,7 +212,7 @@ public:
    }
 
    // listing
-   void listing()
+   void listing() const
    {
       tex("`","``");
       prefix = "";

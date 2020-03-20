@@ -8,7 +8,7 @@
 // ------------------------
 
 // (string,string) direct
-metaPair &add(const std::string &key, const std::string &value /*= ""*/ )
+metaPair &add(const std::string &key, const std::string &value)
 {
    metadata.push_back(metaPair(key,value));
    return metadata.back();

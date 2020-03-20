@@ -55,14 +55,14 @@ bool convert(
       // children
       // ------------------------
 
-      return detail::Node2xml(tree.top(), xdoc.doc);
+      return detail::node2XML(tree.top(), xdoc.doc);
 
       /*
       // fixme Everywhere, checks like the following should
       // eventually be handled by something better than asserts
       assert(zero.children.size() == 1);  // e.g. reactionSuite or PoPs
       assert(*zero.children.begin() != nullptr);
-      return detail::Node2xml(**zero.children.begin(), xdoc.doc);
+      return detail::node2XML(**zero.children.begin(), xdoc.doc);
       */
    }
 

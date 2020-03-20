@@ -38,7 +38,7 @@ namespace detail {
       template<class...> class METADATA_CONTAINER_TO,
       template<class...> class CHILDREN_CONTAINER_TO
    >
-   void Node2Node(
+   void node2Node(
       const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
             GNDStk::Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &
    );
@@ -56,5 +56,5 @@ inline void node2type(
          GNDStk::Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &type
 ) {
    type.clear();
-   detail::Node2Node(node,type);
+   detail::node2Node(node,type);
 }

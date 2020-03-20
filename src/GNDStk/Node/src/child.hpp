@@ -6,9 +6,10 @@
 // returns the child node in question. Else, returns an empty Node.
 // -----------------------------------------------------------------------------
 
+// const
 const Node &child(
    const std::string &key,
-   bool &found = detail::default_bool // as for meta(string)
+   bool &found = detail::default_bool
 ) const {
    // search
    for (auto &c : children)
@@ -17,7 +18,7 @@ const Node &child(
 
    // not found
    found = false;
-   static const Node empty;
+   static Node empty;
 
    // comment as in meta(string)
    if (&found == &detail::default_bool)
@@ -28,6 +29,14 @@ const Node &child(
 
    // done
    return empty;
+}
+
+// non-const
+Node &child(
+   const std::string &key,
+   bool &found = detail::default_bool
+) {
+   return const_cast<Node &>(std::as_const(*this).child(key,found));
 }
 
 

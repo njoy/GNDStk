@@ -19,13 +19,13 @@ bool convert(
    // convert
    if (not tree.empty()) {
       unsigned long kwdcount = 0;
-      return detail::Node2json(tree.top(), jdoc.doc, kwdcount);
+      return detail::node2JSON(tree.top(), jdoc.doc, kwdcount);
       /*
       const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
          &node = *tree.root;
       assert(node.children.size() == 1);  // e.g. reactionSuite
       assert(*node.children.begin() != nullptr);
-      return detail::Node2json(**node.children.begin(), jdoc.doc, kwdcount);
+      return detail::node2JSON(**node.children.begin(), jdoc.doc, kwdcount);
       */
    }
 

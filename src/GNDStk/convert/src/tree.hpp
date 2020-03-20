@@ -26,7 +26,7 @@ inline bool convert(
    if (not from.empty()) {
       to.root =
          std::make_unique<Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO>>();
-      detail::Node2Node(*from.root, *to.root);
+      detail::node2Node(*from.root, *to.root);
    }
 
    // done

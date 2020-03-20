@@ -3,6 +3,9 @@
 // Tree Assignment
 // -----------------------------------------------------------------------------
 
+// move
+Tree &operator=(Tree &&) = default;
+
 // copy
 Tree &operator=(const Tree &t)
 {

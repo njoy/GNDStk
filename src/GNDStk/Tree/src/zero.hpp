@@ -60,17 +60,15 @@ in GNDS. So, a user doesn't even need to know that it's there. It *is* there,
 however, waiting to be used, if/when the information it holds might be useful.
 */
 
-
-// non-const
-nodeType &zero()
-{
-   assert(not empty());
-   return *root;
-}
-
 // const
 const nodeType &zero() const
 {
    assert(not empty());
    return *root;
+}
+
+// non-const
+nodeType &zero()
+{
+   return const_cast<nodeType &>(std::as_const(*this).zero());
 }

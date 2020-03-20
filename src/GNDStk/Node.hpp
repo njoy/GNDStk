@@ -59,6 +59,14 @@ public:
       return children.size() == 0;
    }
 
+   // copy
+   Node copy() const
+   {
+      Node ret;
+      detail::node2Node(*this,ret);
+      return ret;
+   }
+
    // normalize
    Node &normalize();
 
@@ -66,8 +74,16 @@ public:
    // General functions
    // ------------------------
 
+   // ctor: default
    Node() { }
+
+   // ctor: move, DELETED copy
+   Node(Node &&) = default;
    Node(const Node &) = delete;
+
+   // assignment: move, DELETED copy
+   Node &operator=(Node &&) = default;
+   Node &operator=(const Node &) = delete;
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"

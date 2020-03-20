@@ -36,14 +36,15 @@ class dummy { };
 // default_*
 // fixme Describe what these are about
 namespace detail {
-inline bool default_bool = false;
-inline std::string default_string = "";
+   inline bool default_bool = false;
+   inline std::string default_string = "";
 }
 
 
 
 // -----------------------------------------------------------------------------
 // Forward declarations: some classes
+// These are needed for the upcoming forward declarations of convert().
 // -----------------------------------------------------------------------------
 
 // Node, node
@@ -70,6 +71,13 @@ class json;
 
 // -----------------------------------------------------------------------------
 // Forward declarations: convert
+// We're not fans of having lots of forward declarations, but these are here
+// because (1) the relevant classes (tree, xml, json) use these functions in,
+// e.g., their constructors, which are defined in-class; and (2) the convert()
+// functions in turn work with the classes and thus need the class definitions
+// to be available. The alternative would be to mostly define the classes, but
+// only declare their constructors; then define the convert()s; then finally
+// define the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
 // convert

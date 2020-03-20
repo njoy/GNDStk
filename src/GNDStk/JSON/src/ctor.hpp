@@ -3,10 +3,10 @@
 // Constructors
 // -----------------------------------------------------------------------------
 
-// default, copy, move
+// default, move, copy
 json() = default;
-json(const json &) = default;
 json(json &&) = default;
+json(const json &) = default;
 
 
 // xml, tree

@@ -23,12 +23,13 @@ nodeType &init(
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
+   // fixme Write all the cases where I currently have assert(false)
+
    // Begin a new tree
    clear();
 
    // Is the given child_t object invalid for a top-level node?
    if (not top.canBeTopLevel) {
-      // fixme
       assert(false);
       // consider having a warning, but allowing
       // the allegedly invalid top-level node
@@ -51,15 +52,12 @@ nodeType &init(
    } else if (form == format::json) {
       // json
       root->name = "json";
-      // fixme Write the json case
       assert(false);
    } else if (form == format::hdf5) {
       // hdf5
       root->name = "hdf5";
-      // fixme Write the hdf5 case
       assert(false);
    } else {
-      // fixme
       assert(false);
    }
 
