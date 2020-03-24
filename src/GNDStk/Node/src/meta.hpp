@@ -56,17 +56,19 @@ std::string &meta(
 //    variant   With caller-specified result type
 // -----------------------------------------------------------------------------
 
+// non-const versions aren't needed for these,
+// because the const versions return by value
+
 // ------------------------
 // meta(meta_t<RESULT>)
 // ------------------------
 
-// const
 template<class RESULT>
 RESULT meta(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
-   // call meta(string) above, with meta_t's key
+   // call meta(string) above, with the meta_t's key
    const std::string &value = meta(kwd.name,found);
 
    // convert value, if any, to the appropriate result type
@@ -76,9 +78,6 @@ RESULT meta(
    return ret;
 }
 
-// non-const
-// not needed
-
 
 // ------------------------
 // meta(meta_t<string>)
@@ -87,7 +86,8 @@ RESULT meta(
 
 // Consistent with other meta_t<> cases (as opposed to the raw-string case),
 // these return their result (which happens to be string) by value; we thus
-// need only the const cases.
+// still need only the const cases. Eventually, I'll want to do more in all
+// of these (meta_t) cases, to support writing to trees as well as querying.
 
 // Functionally equivalent to using meta(meta_t<RESULT>) with RESULT = string,
 // but more direct and thus perhaps more efficient.
@@ -116,7 +116,6 @@ std::string meta(
 // result/return type
 // ------------------------
 
-// const
 template<class RESULT, class... Ts>
 RESULT meta(
    const meta_t<std::variant<Ts...>> &kwd,
@@ -125,11 +124,9 @@ RESULT meta(
    // body resembles that of general case, but function
    // signature is structurally different
    const std::string &value = meta(kwd.name,found);
+
    RESULT ret{}; // RESULT having been direct-specified as noted above
    if (found)
       string2type(value,ret);
    return ret;
 }
-
-// non-const
-// not needed

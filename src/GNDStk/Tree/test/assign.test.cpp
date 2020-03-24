@@ -65,6 +65,13 @@ void assign()
    REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, deque >()));
    REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, list  >()));
    REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, vector>()));
+
+   // Test move assignment
+   left = GNDStk::Tree<M,C>("n-069_Tm_170-covar.xml");
+   std::ostringstream ossl; ossl << left;
+   GNDStk::Tree<M,C> right("n-069_Tm_170-covar.xml");
+   std::ostringstream ossr; ossr << right;
+   REQUIRE(ossl.str() == ossr.str());
 }
 
 

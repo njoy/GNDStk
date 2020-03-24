@@ -4,6 +4,7 @@
 
 SCENARIO("Testing GNDStk tree normalize()") {
 
+   // fixme
    // The "normalize" concept is intended to deal with certain issues regarding
    // limitations of different specific file formats; for example, the issue of
    // attributes not being supported in the .json format. The GNDS manual speaks

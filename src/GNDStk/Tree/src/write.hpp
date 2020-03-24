@@ -3,6 +3,16 @@
 // Tree::write()
 // -----------------------------------------------------------------------------
 
+/*
+Cases:
+   bool     write( string  &file, format = null ) const
+   ostream &write( ostream &os,   format = null ) const
+   bool     write( string  &file, string &form  ) const
+   ostream &write( ostream &os,   string &form  ) const
+*/
+
+
+
 // ------------------------
 // write(string,format)
 // ------------------------
@@ -101,8 +111,10 @@ std::ostream &write(
       error("HDF5 write() is not implemented yet");
    } else {
       // default, or our internal tree format
-      if (not empty())
-         root->write(os,0);
+      if (not empty()) {
+         int level = 0;
+         root->write(os,level);
+      }
    }
 
    if (not os)

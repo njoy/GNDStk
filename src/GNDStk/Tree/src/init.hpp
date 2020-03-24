@@ -19,7 +19,7 @@
 template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
 nodeType &init(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &top,
-   const format form,
+   const format form = format::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
@@ -35,9 +35,9 @@ nodeType &init(
       // the allegedly invalid top-level node
    }
 
-   // ZERO NODE: "xml", etc.
-   // This is our Tree object's technically top-level (over the top??) node
-   // that can stipulate an eventual intended file type for the GNDS hierarchy.
+   // Declaration node: "xml", etc.
+   // This is our Tree object's technically top-level ("over the top"?) node
+   // that can specify an eventual intended file type for the GNDS hierarchy.
    root = std::make_unique<nodeType>();
 
    if (form == format::xml or form == format::null or form == format::tree) {
@@ -52,11 +52,11 @@ nodeType &init(
    } else if (form == format::json) {
       // json
       root->name = "json";
-      assert(false);
+      // what about version and encoding?
    } else if (form == format::hdf5) {
       // hdf5
       root->name = "hdf5";
-      assert(false);
+      // what about version and encoding?
    } else {
       assert(false);
    }

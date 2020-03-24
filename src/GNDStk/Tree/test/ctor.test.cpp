@@ -16,6 +16,8 @@ What we'll need to test...
 
    7. Tree(Tree   &) // copy
    8. Tree(Tree<> &) // different <>
+
+   9. Tree(top-level node, format | string [, version [, encoding]])
 */
 
 
@@ -38,11 +40,11 @@ bool ctor(
    const std::ostringstream &ossf // the arriving tree printed to a string
 ) {
    // construct
-   // The context here is such that we're testing a whole bunch of constructions
+   // The context here is such that we're testing several constructions
    // of a Tree<A,B> from a Tree<C,D>, where in some cases <A,B> == <C,D>,
    // in which case we're testing the copy constructor, and in other cases,
-   // <A,B> != <C,D>, in which case we're testing that our various tree species
-   // construct properly from other tree species.
+   // <A,B> != <C,D>, in which case we're testing that our various tree
+   // species construct properly from other tree species.
    GNDStk::Tree<M,C> to(from);
 
    // print "to" to a string
@@ -68,15 +70,15 @@ template<
 >
 bool ctor()
 {
-   // read a meaningful GNDS hierarchy into the tree we'll use as a source
-   const GNDStk::Tree<M,C> from("n-008_O_016.xml");
+   // read a meaningful GNDS hierarchy into a "source" tree
+   const GNDStk::Tree<M,C> from("n-069_Tm_170-covar.xml");
 
-   // print the tree to a string, which we'll soon use for comparison
+   // print the tree to a string, which we'll use for comparison
    std::ostringstream ossf;
    ossf << from;
 
-   // construct from the tree into other tree varieties, and check
-   // that the contents of each such result are the same
+   // construct from the source tree into other tree varieties,
+   // and check that the contents of each such result are the same
    return
       ctor<decltype(from)                          >(from,ossf) &&
       ctor<decltype(from), std::deque              >(from,ossf) &&
@@ -145,8 +147,10 @@ SCENARIO("Testing GNDStk tree constructors") {
    // 6. Tree(istream)
    GIVEN("A tree(string) and a tree(istream)") {
       const GNDStk::Tree<> t1("n-026_Fe_056.xml");
+      REQUIRE(!t1.empty());
       std::ifstream ifs("n-026_Fe_056.xml");
       const GNDStk::Tree<> t2(ifs);
+      REQUIRE(!t2.empty());
 
       // Results should be the same
       std::ostringstream oss1; oss1 << t1;
@@ -173,4 +177,103 @@ SCENARIO("Testing GNDStk tree constructors") {
       REQUIRE((ctor<std::vector, std::list  >()));
       REQUIRE((ctor<std::vector, std::vector>()));
    }
+
+   // 9. Tree(top-level node, format | string [, version [, encoding]])
+   GIVEN("Some trees created from scratch") {
+      using namespace GNDStk;
+      using namespace GNDStk::child;
+
+      /*
+      Cases:
+         Tree(top-level node)
+         Tree(top-level node, format)
+         Tree(top-level node, format, version)
+         Tree(top-level node, format, version, encoding)
+         Tree(top-level node, string)
+         Tree(top-level node, string, version)
+         Tree(top-level node, string, version, encoding)
+      */
+
+      WHEN("We call: Tree(top-level node)") {
+         Tree<> t(reactionSuite);
+         REQUIRE(t.decl().name == "xml");
+         REQUIRE(t.decl().metadata.size() == 2);
+         REQUIRE(t.decl().meta("version") == "1.0");
+         REQUIRE(t.decl().meta("encoding") == "UTF-8");
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "reactionSuite");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+      }
+
+      WHEN("We call: Tree(top-level node, format)") {
+         Tree<> t(reactionSuite, format::json);
+         REQUIRE(t.decl().name == "json");
+         REQUIRE(t.decl().metadata.size() == 0);
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "reactionSuite");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+      }
+
+      WHEN("We call: Tree(top-level node, format, version)") {
+         Tree<> t(covarianceSuite, format::null, "2.0");
+         REQUIRE(t.decl().name == "xml");
+         REQUIRE(t.decl().metadata.size() == 2);
+         REQUIRE(t.decl().meta("version") == "2.0");
+         REQUIRE(t.decl().meta("encoding") == "UTF-8");
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "covarianceSuite");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+      }
+
+      WHEN("We call: Tree(top-level node, format, version, encoding)") {
+         Tree<> t(covarianceSuite, format::xml, "3.0", "UTF-9");
+         REQUIRE(t.decl().name == "xml");
+         REQUIRE(t.decl().metadata.size() == 2);
+         REQUIRE(t.decl().meta("version") == "3.0");
+         REQUIRE(t.decl().meta("encoding") == "UTF-9");
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "covarianceSuite");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+      }
+
+      WHEN("We call: Tree(top-level node, string)") {
+         Tree<> t(PoPs, "hdf5");
+         REQUIRE(t.decl().name == "hdf5");
+         REQUIRE(t.decl().metadata.size() == 0);
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "PoPs");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+
+      }
+
+      WHEN("We call: Tree(top-level node, string, version)") {
+         Tree<> t(PoPs, "tree", "4.0");
+         REQUIRE(t.decl().name == "xml");
+         REQUIRE(t.decl().metadata.size() == 2);
+         REQUIRE(t.decl().meta("version") == "4.0");
+         REQUIRE(t.decl().meta("encoding") == "UTF-8");
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "PoPs");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+      }
+
+      WHEN("We call: Tree(top-level node, string, version, encoding)") {
+         Tree<> t(thermalScattering, "xml", "5.0", "UTF-10");
+         REQUIRE(t.decl().name == "xml");
+         REQUIRE(t.decl().metadata.size() == 2);
+         REQUIRE(t.decl().meta("version") == "5.0");
+         REQUIRE(t.decl().meta("encoding") == "UTF-10");
+         REQUIRE(t.decl().children.size() == 1);
+         REQUIRE(t.top().name == "thermalScattering");
+         REQUIRE(t.top().metadata.size() == 0);
+         REQUIRE(t.top().children.size() == 0);
+      }
+   }
+
 }

@@ -54,7 +54,7 @@ public:
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
 
-   #include "GNDStk/Tree/src/zero.hpp"
+   #include "GNDStk/Tree/src/decl.hpp"
    #include "GNDStk/Tree/src/top.hpp"
 
    #include "GNDStk/Tree/src/meta.hpp"

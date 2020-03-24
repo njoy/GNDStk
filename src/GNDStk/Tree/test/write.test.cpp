@@ -2,10 +2,10 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-// fixme We're currently testing write to ostream (specifically ostringsream),
+// fixme We're currently testing write to ostream (specifically ostringstream),
 // and operator<< (also to ostringstream). For testing to files (with a given
-// file name, or an ofstream in place of an ostringstream), I need to figure
-// out how that's supposed to be done within this testing system.
+// file name, or an ofstream in place of an ostringstream), I need to know how
+// that's supposed to be done with this testing system.
 
 
 
@@ -237,14 +237,30 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() or << the empty tree in format::tree format") {
          {
             // write()
-            std::ostringstream oss;
-            tree.write(oss, GNDStk::format::tree);
-            REQUIRE(oss.str() == string_empty_tree);
+            {
+               std::ostringstream oss;
+               tree.write(oss, GNDStk::format::tree);
+               REQUIRE(oss.str() == string_empty_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, "tree");
+               REQUIRE(oss.str() == string_empty_tree);
+            }
          } {
             // write(), using format::null (which defaults to tree)
-            std::ostringstream oss;
-            tree.write(oss, GNDStk::format::null);
-            REQUIRE(oss.str() == string_empty_tree);
+            {
+               std::ostringstream oss;
+               tree.write(oss, GNDStk::format::null);
+               REQUIRE(oss.str() == string_empty_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, "null");
+               REQUIRE(oss.str() == string_empty_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, "");
+               REQUIRE(oss.str() == string_empty_tree);
+            }
          } {
             // <<
             std::ostringstream oss;
@@ -255,16 +271,28 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       // format::xml
       WHEN("We write() the empty tree in format::xml format") {
-         std::ostringstream oss;
-         tree.write(oss, GNDStk::format::xml);
-         REQUIRE(oss.str() == string_empty_xml);
+         {
+            std::ostringstream oss;
+            tree.write(oss, GNDStk::format::xml);
+            REQUIRE(oss.str() == string_empty_xml);
+         } {
+            std::ostringstream oss;
+            tree.write(oss, "xml");
+            REQUIRE(oss.str() == string_empty_xml);
+         }
       }
 
       // format::json
       WHEN("We write() the empty tree in format::json format") {
-         std::ostringstream oss;
-         tree.write(oss, GNDStk::format::json);
-         REQUIRE(oss.str() == string_empty_json);
+         {
+            std::ostringstream oss;
+            tree.write(oss, GNDStk::format::json);
+            REQUIRE(oss.str() == string_empty_json);
+         } {
+            std::ostringstream oss;
+            tree.write(oss, "json");
+            REQUIRE(oss.str() == string_empty_json);
+         }
       }
    }
 
@@ -281,14 +309,38 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() or << the tree in format::tree format") {
          {
             // write()
-            std::ostringstream oss;
-            tree.write(oss, GNDStk::format::tree);
-            REQUIRE(oss.str() == string_real_tree);
+            {
+               std::ostringstream oss;
+               tree.write(oss);
+               REQUIRE(oss.str() == string_real_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, GNDStk::format::tree);
+               REQUIRE(oss.str() == string_real_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, "tree");
+               REQUIRE(oss.str() == string_real_tree);
+            }
          } {
             // write(), using format::null (which defaults to tree)
-            std::ostringstream oss;
-            tree.write(oss, GNDStk::format::null);
-            REQUIRE(oss.str() == string_real_tree);
+            {
+               std::ostringstream oss;
+               tree.write(oss);
+               REQUIRE(oss.str() == string_real_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, GNDStk::format::null);
+               REQUIRE(oss.str() == string_real_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, "null");
+               REQUIRE(oss.str() == string_real_tree);
+            } {
+               std::ostringstream oss;
+               tree.write(oss, "");
+               REQUIRE(oss.str() == string_real_tree);
+            }
          } {
             // <<
             std::ostringstream oss;
@@ -299,16 +351,28 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       // format::xml
       WHEN("We write() the tree in format::xml format") {
-         std::ostringstream oss;
-         tree.write(oss, GNDStk::format::xml);
-         REQUIRE(oss.str() == string_real_xml);
+         {
+            std::ostringstream oss;
+            tree.write(oss, GNDStk::format::xml);
+            REQUIRE(oss.str() == string_real_xml);
+         } {
+            std::ostringstream oss;
+            tree.write(oss, "xml");
+            REQUIRE(oss.str() == string_real_xml);
+         }
       }
 
       // format::json
       WHEN("We write() the tree in format::json format") {
-         std::ostringstream oss;
-         tree.write(oss, GNDStk::format::json);
-         REQUIRE(oss.str() == string_real_json);
+         {
+            std::ostringstream oss;
+            tree.write(oss, GNDStk::format::json);
+            REQUIRE(oss.str() == string_real_json);
+         } {
+            std::ostringstream oss;
+            tree.write(oss, "json");
+            REQUIRE(oss.str() == string_real_json);
+         }
       }
    }
 }

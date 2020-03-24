@@ -13,8 +13,9 @@ SCENARIO("Testing GNDStk tree clear()") {
 
       WHEN("A GNDS file is read into the tree, but then clear() is called") {
          tree.read("n-008_O_016.xml");
+         REQUIRE(!tree.empty()); // it initially has something in it
          tree.clear();
-         REQUIRE(tree.empty()); // it still has nothing in it
+         REQUIRE(tree.empty()); // but then nothing, after clear() is called
       }
    }
 

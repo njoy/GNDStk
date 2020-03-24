@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Tree::zero()
+// Tree::decl()
 // See also: Tree::top()
 // -----------------------------------------------------------------------------
 
@@ -27,19 +27,18 @@ nodes: reactionSuite, covarianceSuite, etc.
 In order to keep track of the particular type of file (XML etc.) that someone
 reads from (in case such information proves to be useful), and to keep track
 of what format someone may want to write in (in case such information proves
-to be useful), GNDStk's tree structure places what we'll call a "zero-level
+to be useful), GNDStk's tree structure places what we'll call the "declaration
 node" just above the standard GNDS top-level node.
 
-Our terminology - "zero-level node" - can be thought of as being analogous to
-C/C++ array-like containers being indexed by [0]. It's an easy term to remember,
-and one that we don't believe would easily be confused to mean the top-level
-GNDS node.
+Our terminology - "declaration node" - is the same terminology used in XML to
+describe the content, e.g. <?xml version="1.0" encoding="UTF-8"?> that appears
+at the very beginning of an XML file.
 
 In respect of the above remarks, then, we provide the following functions for
 accessing what could be described as top-level tree information:
 
-   zero()
-      Our zero-level node.
+   decl()
+      Our "declaration" node.
       Example contents:
          name: "xml"
          metadata: {{"version","1.0"},{"encoding","UTF-8"}}
@@ -55,20 +54,20 @@ accessing what could be described as top-level tree information:
 Each, of course, has a const version and a non-const version.
 
 Importantly, our various functions for searching and drilling into GNDS trees
-bypass the zero-level node - precisely because it's our own construct, not one
+bypass the declaration node - precisely because it's our own construct, not one
 in GNDS. So, a user doesn't even need to know that it's there. It *is* there,
 however, waiting to be used, if/when the information it holds might be useful.
 */
 
 // const
-const nodeType &zero() const
+const nodeType &decl() const
 {
    assert(not empty());
    return *root;
 }
 
 // non-const
-nodeType &zero()
+nodeType &decl()
 {
-   return const_cast<nodeType &>(std::as_const(*this).zero());
+   return const_cast<nodeType &>(std::as_const(*this).decl());
 }

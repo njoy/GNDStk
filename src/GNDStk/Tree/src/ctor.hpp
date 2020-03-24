@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-// Basics
+// Basic
 // -----------------------------------------------------------------------------
 
 // default
@@ -118,7 +118,7 @@ Tree(
 template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
 Tree(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &top,
-   const format form,
+   const format form = format::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

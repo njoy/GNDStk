@@ -1,17 +1,20 @@
 
 add_executable( GNDStk.Tree.test
-                assign.test.cpp
-                root.test.cpp
-                ctor.test.cpp
+                clear.test.cpp
                 child.test.cpp
+                decl.test.cpp
+                meta.test.cpp
+                assign.test.cpp
                 tree.test.cpp
                 read.test.cpp
-                meta.test.cpp
-                write.test.cpp
                 parens.test.cpp
+                empty.test.cpp
+                top.test.cpp
                 normalize.test.cpp
-                clear.test.cpp
-                empty.test.cpp )
+                ctor.test.cpp
+                init.test.cpp
+                root.test.cpp
+                write.test.cpp )
 target_compile_options( GNDStk.Tree.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

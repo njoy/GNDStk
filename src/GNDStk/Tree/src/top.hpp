@@ -1,8 +1,8 @@
 
 // -----------------------------------------------------------------------------
 // Tree::top()
-// See also: Tree::zero()
-// See the comment in zero.hpp for more information.
+// See also: Tree::decl()
+// See the comment in decl.hpp for more information.
 // -----------------------------------------------------------------------------
 
 // const

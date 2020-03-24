@@ -18,11 +18,11 @@ bool convert(
 
    // convert
    if (not tree.empty()) {
-      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &zero =
-         tree.zero();
+      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &tdecl =
+         tree.decl();
 
       // ------------------------
-      // "zero" node
+      // declaration node
       // ------------------------
 
       // The way we're storing things in our tree structure, this might
@@ -47,9 +47,9 @@ bool convert(
 
       // declaration node
       // That's the thing like this: <?xml version="1.0" encoding="UTF-8"?>
-      pugi::xml_node decl = xdoc.doc.append_child(pugi::node_declaration);
-      for (auto &meta : zero.metadata)
-         decl.append_attribute(meta.first.c_str()) = meta.second.c_str();
+      pugi::xml_node xdecl = xdoc.doc.append_child(pugi::node_declaration);
+      for (auto &meta : tdecl.metadata)
+         xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
 
       // ------------------------
       // children
@@ -60,9 +60,9 @@ bool convert(
       /*
       // fixme Everywhere, checks like the following should
       // eventually be handled by something better than asserts
-      assert(zero.children.size() == 1);  // e.g. reactionSuite or PoPs
-      assert(*zero.children.begin() != nullptr);
-      return detail::node2XML(**zero.children.begin(), xdoc.doc);
+      assert(tdecl.children.size() == 1);  // e.g. reactionSuite or PoPs
+      assert(*tdecl.children.begin() != nullptr);
+      return detail::node2XML(**tdecl.children.begin(), xdoc.doc);
       */
    }
 

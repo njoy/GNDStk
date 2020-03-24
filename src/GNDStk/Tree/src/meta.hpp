@@ -1,43 +1,71 @@
 
 // -----------------------------------------------------------------------------
-// Tree::meta()
+// Tree::meta(string)
 // -----------------------------------------------------------------------------
 
-// ------------------------
-// meta(string)
-// ------------------------
-
 // const
-decltype(auto) meta(
+const std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   assert(not empty());
-   return root->meta(key,found);
+   // if tree is empty, but a "found" flag wasn't sent
+   if (empty() and &found == &detail::default_bool) {
+      // fixme need a real error
+      assert(false);
+   }
+
+   // first, look in the declaration node; then look in the top-level node
+   bool found_in_decl;
+   const std::string &ret = decl().meta(key,found_in_decl);
+   return found_in_decl ? (found = true, ret) : top().meta(key,found);
 }
 
 // non-const
-decltype(auto) meta(
+std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) {
-   assert(not empty());
-   return root->meta(key,found);
+   return const_cast<std::string &>(std::as_const(*this).meta(key,found));
 }
 
-// ------------------------
-// meta(meta_t<RESULT>)
-// ------------------------
 
-// const
+
+// -----------------------------------------------------------------------------
+// Tree::meta(meta_t<RESULT>)
+// Tree::meta(meta_t<variant>)
+// -----------------------------------------------------------------------------
+
+// non-const versions aren't needed here,
+// because const versions return by value
+
+// RESULT
 template<class RESULT>
 decltype(auto) meta(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
-   assert(not empty());
-   return root->meta(kwd,found);
+   if (empty() and &found == &detail::default_bool) {
+      // fixme need a real error
+      assert(false);
+   }
+
+   bool found_in_decl;
+   const auto ret = decl().meta(kwd,found_in_decl);
+   return found_in_decl ? (found = true, ret) : top().meta(kwd,found);
 }
 
-// non-const
-// not applicable
+// variant
+template<class RESULT, class... Ts>
+decltype(auto) meta(
+   const meta_t<std::variant<Ts...>> &kwd,
+   bool &found = detail::default_bool
+) const {
+   if (empty() and &found == &detail::default_bool)
+      assert(false);
+
+   bool found_in_decl;
+   const auto ret = decl().template meta<RESULT>(kwd,found_in_decl);
+   return found_in_decl
+      ? (found = true, ret)
+      : top().template meta<RESULT>(kwd,found);
+}

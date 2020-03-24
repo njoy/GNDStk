@@ -3,6 +3,16 @@
 // Tree::read()
 // -----------------------------------------------------------------------------
 
+/*
+Cases:
+   bool     read( string  &file, format = null )
+   istream &read( istream &is,   format = null )
+   bool     read( string  &file, string &form  )
+   istream &read( istream &is,   string &form  )
+*/
+
+
+
 // ------------------------
 // read(file,format)
 // ------------------------
@@ -55,29 +65,6 @@ bool read(
    // can, and does, do additional checking (complimentary to what we already
    // did above), based on looking at the content we'll be attempting to read.
    return not read(ifs,form).fail();
-}
-
-
-
-// ------------------------
-// read(file,string)
-// ------------------------
-
-bool read(
-   const std::string &file,
-   const std::string &form
-) {
-   if (eq_null(form)) return read(file,format::null);
-   if (eq_tree(form)) return read(file,format::tree);
-   if (eq_xml (form)) return read(file,format::xml );
-   if (eq_json(form)) return read(file,format::json);
-   if (eq_hdf5(form)) return read(file,format::hdf5);
-
-   // fixme Have some sort of warning
-   assert(false);
-
-   // fallback: try automagick
-   return read(file,format::null);
 }
 
 
@@ -166,13 +153,36 @@ std::istream &read(
    } else if (form == format::hdf5) {
       error("HDF5 read() is not implemented yet");
    } else {
-      // we may or may not want slippery-slope stuff like this
+      // The earlier logic is such that this should never happen
       internal("Unrecognized form = " + std::to_string(int(form)) + " "
                "in tree.read()");
    }
 
    // done
    return is;
+}
+
+
+
+// ------------------------
+// read(file,string)
+// ------------------------
+
+bool read(
+   const std::string &file,
+   const std::string &form
+) {
+   if (eq_null(form)) return read(file,format::null);
+   if (eq_tree(form)) return read(file,format::tree);
+   if (eq_xml (form)) return read(file,format::xml );
+   if (eq_json(form)) return read(file,format::json);
+   if (eq_hdf5(form)) return read(file,format::hdf5);
+
+   // fixme Have some sort of warning
+   assert(false);
+
+   // fallback: try automagick
+   return read(file,format::null);
 }
 
 
