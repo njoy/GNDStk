@@ -1,20 +1,74 @@
 
+// Reminder: Tree::nodeType is Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
+
 // -----------------------------------------------------------------------------
-// Tree::child()
+// Tree::child(string)
 // -----------------------------------------------------------------------------
 
-// child(string)
-decltype(auto) child(const std::string &str) const
-{
-   assert(not empty());
-   return root->child(str);
+// const
+const nodeType &child(
+   const std::string &key,
+   bool &found = detail::default_bool
+) const {
+   // if tree is empty, but a "found" flag wasn't sent
+   if (empty() and &found == &detail::default_bool) {
+      // fixme need a real error
+      assert(false);
+   }
+   return decl().name == key ? (found = true, decl()) : decl().child(key,found);
 }
 
+
+// non-const
+nodeType &child(
+   const std::string &key,
+   bool &found = detail::default_bool
+) {
+   return const_cast<nodeType &>(std::as_const(*this).child(key,found));
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Tree::child(child_t<*>)
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// MULTIPLE == false
+// Because true wouldn't
+// make sense for trees
+// ------------------------
+
 // child(child_t<RESULT>)
-template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
-decltype(auto) child(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
+template<class RESULT, class METADATA, class CHILDREN>
+RESULT child(
+   const child_t<RESULT,false,METADATA,CHILDREN> &kwd,
+   bool &found = detail::default_bool
 ) const {
-   assert(not empty());
-   return root->child(kwd);
+   const nodeType &n = child(kwd.name,found);
+   RESULT type{};
+   if (found)
+      node2type(n,type);
+   return type;
+}
+
+
+// child(child_t<void>)
+template<class METADATA, class CHILDREN>
+nodeType child(
+   const child_t<void,false,METADATA,CHILDREN> &kwd,
+   bool &found = detail::default_bool
+) const {
+   return child(kwd.name,found).copy();
+}
+
+
+// child(child_t<variant>)
+// With caller-specified result type
+template<class RESULT, class METADATA, class CHILDREN, class... Ts>
+RESULT child(
+   const child_t<std::variant<Ts...>,false,METADATA,CHILDREN> &kwd,
+   bool &found = detail::default_bool
+) const {
+   return child(child_t<RESULT,false,METADATA,CHILDREN>(kwd.name),found);
 }

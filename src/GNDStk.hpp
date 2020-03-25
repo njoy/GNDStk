@@ -63,7 +63,7 @@ namespace GNDStk {
 
 // tree: main constructs
 #include "GNDStk/Node.hpp"
-#include "GNDStk/TypedNode.hpp"
+///#include "GNDStk/TypedNode.hpp"
 #include "GNDStk/Tree.hpp"
 
 // conversions

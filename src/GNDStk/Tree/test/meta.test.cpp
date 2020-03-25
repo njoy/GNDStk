@@ -94,7 +94,7 @@ SCENARIO("Testing GNDStk tree meta()") {
 
       // ------------------------
       // meta(meta_t)
-      // Smart-keyword lookup
+      // Smart keyword lookup
       // ------------------------
 
       // *** version ***

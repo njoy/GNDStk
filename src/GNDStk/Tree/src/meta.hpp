@@ -20,6 +20,7 @@ const std::string &meta(
    return found_in_decl ? (found = true, ret) : top().meta(key,found);
 }
 
+
 // non-const
 std::string &meta(
    const std::string &key,
@@ -33,10 +34,9 @@ std::string &meta(
 // -----------------------------------------------------------------------------
 // Tree::meta(meta_t<RESULT>)
 // Tree::meta(meta_t<variant>)
+// Non-const versions aren't needed for these, because the const versions
+// return by value.
 // -----------------------------------------------------------------------------
-
-// non-const versions aren't needed here,
-// because const versions return by value
 
 // RESULT
 template<class RESULT>
@@ -54,18 +54,12 @@ decltype(auto) meta(
    return found_in_decl ? (found = true, ret) : top().meta(kwd,found);
 }
 
+
 // variant
 template<class RESULT, class... Ts>
 decltype(auto) meta(
    const meta_t<std::variant<Ts...>> &kwd,
    bool &found = detail::default_bool
 ) const {
-   if (empty() and &found == &detail::default_bool)
-      assert(false);
-
-   bool found_in_decl;
-   const auto ret = decl().template meta<RESULT>(kwd,found_in_decl);
-   return found_in_decl
-      ? (found = true, ret)
-      : top().template meta<RESULT>(kwd,found);
+   return meta(meta_t<RESULT>(kwd.name),found);
 }

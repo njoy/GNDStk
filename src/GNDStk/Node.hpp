@@ -1,9 +1,11 @@
 
 #include "GNDStk/Node/src/detail.hpp"
 
+/*
 // This is returned by some of Node's child() functions
 template<class NODE, class T>
 class TypedNode;
+*/
 
 
 
