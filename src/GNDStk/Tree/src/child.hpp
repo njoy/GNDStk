@@ -36,7 +36,9 @@ nodeType &child(
 // ------------------------
 // MULTIPLE == false
 // Because true wouldn't
-// make sense for trees
+// make sense for trees;
+// one declaration + one
+// top-level GNDS node
 // ------------------------
 
 // child(child_t<RESULT>)
@@ -66,7 +68,10 @@ nodeType child(
 // child(child_t<variant>)
 // With caller-specified result type
 template<class RESULT, class METADATA, class CHILDREN, class... Ts>
-RESULT child(
+typename std::enable_if<
+   detail::is_oneof<RESULT,Ts...>::value,
+   RESULT
+>::type child(
    const child_t<std::variant<Ts...>,false,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {

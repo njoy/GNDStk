@@ -12,4 +12,11 @@ inline std::string &strip(std::string &name)
    return n ? (name = std::string(&name[n])) : name;
 }
 
+// is_oneof
+template<class Foo, class... Foos>
+class is_oneof {
+public:
+   static constexpr bool value = (std::is_same_v<Foo,Foos> || ...);
+};
+
 } // namespace detail

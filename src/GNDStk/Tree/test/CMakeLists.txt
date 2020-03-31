@@ -7,10 +7,10 @@ add_executable( GNDStk.Tree.test
                 assign.test.cpp
                 tree.test.cpp
                 read.test.cpp
-                parens.test.cpp
                 empty.test.cpp
                 top.test.cpp
                 normalize.test.cpp
+                call.test.cpp
                 ctor.test.cpp
                 init.test.cpp
                 root.test.cpp

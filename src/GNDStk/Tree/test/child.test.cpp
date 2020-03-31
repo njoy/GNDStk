@@ -3,6 +3,7 @@
 #include "GNDStk.hpp"
 
 using namespace GNDStk;
+using namespace GNDStk::meta;
 using namespace GNDStk::child;
 
 /*
@@ -60,15 +61,15 @@ public:
 template<class NODE>
 inline void node2type(const NODE &node, xml_t &out)
 {
-   out.version = std::stod(node.meta("version").c_str());
-   out.encoding = node.meta("encoding");
+   out.version  = std::stod(node.meta(version));
+   out.encoding = node.meta(encoding);
 }
 
 // keyword: my_xml_keyword
 // Users can write custom child_t values like this, and then use them in
 // child() functions. Here, "xml" is what the keyword uses to look up nodes
 // that can be converted to xml_t objects via the node2type() function above.
-inline child_t<xml_t> my_xml_keyword("xml");
+inline const child_t<xml_t> my_xml_keyword("xml");
 
 
 
@@ -124,10 +125,10 @@ inline void node2type(const NODE &node, covarianceSuite_type_2 &out)
 
 // keyword: my_covarianceSuite_keyword
 // Can extract objects of either of the types defined just above!
-inline child_t<
+inline const child_t<
    std::variant<
       covarianceSuite_type_1,
-      covarianceSuite_type_1
+      covarianceSuite_type_2
    >
 > my_covarianceSuite_keyword("covarianceSuite");
 

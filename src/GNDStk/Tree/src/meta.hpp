@@ -34,13 +34,15 @@ std::string &meta(
 // -----------------------------------------------------------------------------
 // Tree::meta(meta_t<RESULT>)
 // Tree::meta(meta_t<variant>)
+//
 // Non-const versions aren't needed for these, because the const versions
 // return by value.
 // -----------------------------------------------------------------------------
 
 // RESULT
 template<class RESULT>
-decltype(auto) meta(
+decltype(auto) // usually RESULT, but std::string if RESULT == void
+meta(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -57,7 +59,10 @@ decltype(auto) meta(
 
 // variant
 template<class RESULT, class... Ts>
-decltype(auto) meta(
+typename std::enable_if<
+   detail::is_oneof<RESULT,Ts...>::value,
+   RESULT
+>::type meta(
    const meta_t<std::variant<Ts...>> &kwd,
    bool &found = detail::default_bool
 ) const {

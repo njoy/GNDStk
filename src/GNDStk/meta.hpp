@@ -3,8 +3,9 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
-// The default template parameter, std::string, means to retrieve the metadatum
-// in its original form in the tree: as a std::string.
+// The default template parameter std::string, which was set in a forward
+// declaration elsewhere, means to retrieve the metadatum in its original
+// form in the tree: as a std::string.
 template<class RESULT>
 class meta_t {
 public:
@@ -17,7 +18,20 @@ public:
    { }
 };
 
-// macro, for meta_t building
+// operator-
+template<class RESULT>
+inline meta_t<void> operator-(const meta_t<RESULT> &kwd)
+{
+   return meta_t<void>(kwd.name);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Macro
+// For meta_t building
+// -----------------------------------------------------------------------------
+
 #define GNDSTK_MAKE_META(result,name) \
    inline const meta_t<result> name(#name)
 // Note: we won't #undef this, as one normally would,
@@ -83,7 +97,7 @@ GNDSTK_MAKE_META(std::string, emissionMode);
 GNDSTK_MAKE_META(std::string, encoding);
 GNDSTK_MAKE_META(std::string, ENDF_MFMT);
 GNDSTK_MAKE_META(std::string, evaluation);
-GNDSTK_MAKE_META(std::string, final); // final is C++ contextual keyword; so OK
+GNDSTK_MAKE_META(std::string, final); // is a C++ *contextual* keyword; so OK
 GNDSTK_MAKE_META(std::string, fissionGenre);
 GNDSTK_MAKE_META(std::string, flags);
 GNDSTK_MAKE_META(std::string, functionalForm);

@@ -601,7 +601,6 @@
     "src/GNDStk/JSON.hpp", 
     "src/GNDStk/Tree.hpp", 
     "src/GNDStk/keyword.hpp", 
-    "src/GNDStk/TypedNode.hpp", 
     "src/GNDStk/convert.hpp", 
     "src/GNDStk/type2node.hpp", 
     "src/GNDStk/Node/src/write.hpp", 
@@ -671,17 +670,14 @@
       "src/GNDStk/Tree/test/assign.test.cpp", 
       "src/GNDStk/Tree/test/tree.test.cpp", 
       "src/GNDStk/Tree/test/read.test.cpp", 
-      "src/GNDStk/Tree/test/parens.test.cpp", 
       "src/GNDStk/Tree/test/empty.test.cpp", 
       "src/GNDStk/Tree/test/top.test.cpp", 
       "src/GNDStk/Tree/test/normalize.test.cpp", 
+      "src/GNDStk/Tree/test/call.test.cpp", 
       "src/GNDStk/Tree/test/ctor.test.cpp", 
       "src/GNDStk/Tree/test/init.test.cpp", 
       "src/GNDStk/Tree/test/root.test.cpp", 
       "src/GNDStk/Tree/test/write.test.cpp"
-    ], 
-    "GNDStk.TypedNode": [
-      "src/GNDStk/TypedNode/test/TypedNode.test.cpp"
     ], 
     "GNDStk.XML": [
       "src/GNDStk/XML/test/XML.test.cpp"

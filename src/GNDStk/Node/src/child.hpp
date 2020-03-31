@@ -108,7 +108,10 @@ Node child(
 // child(child_t<variant>)
 // With caller-specified result type
 template<class RESULT, class METADATA, class CHILDREN, class... Ts>
-RESULT child(
+typename std::enable_if<
+   detail::is_oneof<RESULT,Ts...>::value,
+   RESULT
+>::type child(
    const child_t<std::variant<Ts...>,false,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -161,7 +164,6 @@ CONTAINER<RESULT,std::allocator<RESULT>> child(
       );
    */
 
-   // with luck, the compiler does RVO well
    return container;
 }
 
@@ -193,7 +195,18 @@ template<
    template<class ...> class CONTAINER = std::vector,
    class METADATA, class CHILDREN, class... Ts
 >
-CONTAINER<RESULT,std::allocator<RESULT>> child(
+CONTAINER<
+   typename std::enable_if<
+      detail::is_oneof<RESULT,Ts...>::value,
+      RESULT
+   >::type ,
+   std::allocator<
+      typename std::enable_if<
+         detail::is_oneof<RESULT,Ts...>::value,
+         RESULT
+      >::type
+   >
+> child(
    const child_t<std::variant<Ts...>,true,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {

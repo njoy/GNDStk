@@ -281,7 +281,6 @@ target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword.hpp"
-             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/TypedNode.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2node.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/write.hpp"
@@ -335,7 +334,6 @@ if( NOT is_subproject )
         add_subdirectory( src/GNDStk/type2string/test )
         add_subdirectory( src/GNDStk/meta/test )
         add_subdirectory( src/GNDStk/type2node/test )
-        add_subdirectory( src/GNDStk/TypedNode/test )
         add_subdirectory( src/GNDStk/utility/test )
         add_subdirectory( src/GNDStk/Tree/test )
         add_subdirectory( src/GNDStk/keyword/test )

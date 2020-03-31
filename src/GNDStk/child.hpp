@@ -80,6 +80,14 @@ public:
    { }
 };
 
+// operator-
+template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
+inline child_t<void,MULTIPLE,METADATA,CHILDREN> operator-(
+   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
+) {
+   return child_t<void,MULTIPLE,METADATA,CHILDREN>(kwd.name,kwd.canBeTopLevel);
+}
+
 
 
 // -----------------------------------------------------------------------------

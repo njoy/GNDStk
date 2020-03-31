@@ -100,27 +100,27 @@ SCENARIO("Testing GNDStk tree meta()") {
       // *** version ***
       // extract as double or string
       // appears in declaration node
-      meta_t<std::variant<double,std::string>> version("version");
+      const meta_t<std::variant<double,std::string>> version("version");
 
       // *** encoding ***
       // extract as string
       // appears in declaration node
-      meta_t<std::string> encoding("encoding");
+      const meta_t<std::string> encoding("encoding");
 
       // *** projectile ***
       // extract as char or string
       // appears in top-level GNDS node
-      meta_t<std::variant<char,std::string>> projectile("projectile");
+      const meta_t<std::variant<char,std::string>> projectile("projectile");
 
       // *** target ***
       // extract as string (void ==> string w/meta_t)
       // appears in top-level GNDS node
-      meta_t<void> target("target");
+      const meta_t<void> target("target");
 
       // *** format ***
       // extract as double
       // appears in top-level GNDS node
-      meta_t<double> format("format");
+      const meta_t<double> format("format");
 
       // fixme Floating-point comparisons aren't necessarily reliable
       REQUIRE( c.meta <double     > ( version    ) ==  1.0    ); // double

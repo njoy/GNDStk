@@ -121,7 +121,10 @@ std::string meta(
 // ------------------------
 
 template<class RESULT, class... Ts>
-RESULT meta(
+typename std::enable_if<
+   detail::is_oneof<RESULT,Ts...>::value,
+   RESULT
+>::type meta(
    const meta_t<std::variant<Ts...>> &kwd,
    bool &found = detail::default_bool
 ) const {
