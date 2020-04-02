@@ -11,6 +11,8 @@ const std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nm01);
+
    // search
    for (auto &m : metadata)
       if (m.first == key)
@@ -43,6 +45,7 @@ std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) {
+   debug(detail::nm02);
    return const_cast<std::string &>(std::as_const(*this).meta(key,found));
 }
 
@@ -71,6 +74,8 @@ RESULT meta(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nm03);
+
    // call meta(string) above, with the meta_t's key
    const std::string &value = meta(kwd.name,found);
 
@@ -98,6 +103,7 @@ std::string meta(
    const meta_t<std::string> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nm04);
    return meta(kwd.name,found);
 }
 
@@ -110,6 +116,7 @@ std::string meta(
    const meta_t<void> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nm05);
    return meta(kwd.name,found);
 }
 
@@ -128,5 +135,6 @@ typename std::enable_if<
    const meta_t<std::variant<Ts...>> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nm06);
    return meta(meta_t<RESULT>(kwd.name),found);
 }

@@ -24,6 +24,7 @@ decltype(auto) operator()(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::np15);
    return meta(kwd,found);
 }
 
@@ -36,6 +37,7 @@ decltype(auto) operator()(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::np16);
    return child(kwd,found);
 }
 
@@ -43,13 +45,17 @@ decltype(auto) operator()(
 // Multi-argument
 template<
    class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
-   class... Ts
+   class... Keywords
 >
 decltype(auto) operator()(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
-   Ts &&...ts
+   Keywords &&...keywords
 ) const {
-   return (*this)(-kwd)(std::forward<Ts>(ts)...);
+   debug(detail::np17);
+   if (kwd.name == "")
+      detail::apply_keyword<RESULT>()(*this);
+   const auto &peel = this->child(-kwd); // for const correctness
+   return peel(std::forward<Keywords>(keywords)...);
 }
 
 
@@ -65,6 +71,7 @@ decltype(auto) operator()(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) {
+   debug(detail::np18);
    return meta(kwd,found);
 }
 
@@ -76,17 +83,21 @@ decltype(auto) operator()(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) {
+   debug(detail::np19);
    return child(kwd,found);
 }
 
 // child_t, ...
 template<
    class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
-   class... Ts
+   class... Keywords
 >
 decltype(auto) operator()(
    const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
-   Ts &&...ts
+   Keywords &&...keywords
 ) {
-   return (*this)(-kwd)(std::forward<Ts>(ts)...);
+   debug(detail::np20);
+   if (kwd.name == "")
+      detail::apply_keyword<RESULT>()(*this);
+   return this->child(-kwd)(std::forward<Keywords>(keywords)...);
 }

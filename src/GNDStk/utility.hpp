@@ -293,3 +293,96 @@ inline bool eq_hdf5(const std::string &str)
       nocasecmp(str,"hdf5") or
       nocasecmp(str,"he5" );
 }
+
+
+
+// -----------------------------------------------------------------------------
+// For debugging
+// fixme Remove this goofy looking stuff at some point
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// re: node::meta()
+inline const std::string nm01 =
+ "01. nm: (        string                                     &) const";
+inline const std::string nm02 =
+ "02. nm: (        string                                     &)";
+inline const std::string nm03 =
+ "03. nm: (meta_t< RESULT                                   > &) const";
+inline const std::string nm04 =
+ "04. nm: (meta_t< string                                   > &) const";
+inline const std::string nm05 =
+ "05. nm: (meta_t< void                                     > &) const";
+inline const std::string nm06 =
+ "06. nm: (meta_t< variant<Ts...>                           > &) const";
+
+// re: node::child()
+inline const std::string nc07 =
+ "07. nc: (        string                                     &) const";
+inline const std::string nc08 =
+ "08. nc: (        string                                     &)";
+inline const std::string nc09 =
+ "09. nc: (child_t<RESULT,        false,   METADATA,CHILDREN> &) const";
+inline const std::string nc10 =
+ "10. nc: (child_t<void,          false,   METADATA,CHILDREN> &) const";
+inline const std::string nc11 =
+ "11. nc: (child_t<variant<Ts...>,false,   METADATA,CHILDREN> &) const";
+inline const std::string nc12 =
+ "12. nc: (child_t<RESULT,        true,    METADATA,CHILDREN> &) const";
+inline const std::string nc13 =
+ "13. nc: (child_t<void,          true,    METADATA,CHILDREN> &) const";
+inline const std::string nc14 =
+ "14. nc: (child_t<variant<Ts...>,true,    METADATA,CHILDREN> &) const";
+
+// re: node::operator()()
+inline const std::string np15 =
+ "15. np: (meta_t <RESULT                                   > &) const";
+inline const std::string np16 =
+ "16. np: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &) const";
+inline const std::string np17 =
+ "17. np: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &, ...) const";
+inline const std::string np18 =
+ "18. np: (meta_t <RESULT                                   > &)";
+inline const std::string np19 =
+ "19. np: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &)";
+inline const std::string np20 =
+ "20. np: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &, ...)";
+
+// re: tree::meta()
+inline const std::string tm21 =
+ "21. tm: (        string                                     &) const";
+inline const std::string tm22 =
+ "22. tm: (        string                                     &)";
+inline const std::string tm23 =
+ "23. tm: (meta_t< RESULT                                   > &) const";
+inline const std::string tm24 =
+ "24. tm: (meta_t< variant<Ts...>                           > &) const";
+
+// re: tree::child()
+inline const std::string tc25 =
+ "25. tc: (        string                                     &) const";
+inline const std::string tc26 =
+ "26. tc: (        string                                     &)";
+inline const std::string tc27 =
+ "27. tc: (child_t<RESULT,        false,   METADATA,CHILDREN> &) const";
+inline const std::string tc28 =
+ "28. tc: (child_t<void,          false,   METADATA,CHILDREN> &) const";
+inline const std::string tc29 =
+ "29. tc: (child_t<variant<Ts...>,false,   METADATA,CHILDREN> &) const";
+
+// re: tree::operator()()
+inline const std::string tp30 =
+ "30. tp: (meta_t <RESULT                                   > &) const";
+inline const std::string tp31 =
+ "31. tp: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &) const";
+inline const std::string tp32 =
+ "32. tp: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &kwd, ...) const";
+inline const std::string tp33 =
+ "33. tp: (meta_t <RESULT                                   > &)";
+inline const std::string tp34 =
+ "34. tp: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &)";
+inline const std::string tp35 =
+ "35. tp: (child_t<RESULT,        MULTIPLE,METADATA,CHILDREN> &kwd, ...)";
+
+} // namespace detail

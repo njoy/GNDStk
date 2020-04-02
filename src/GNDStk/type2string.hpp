@@ -34,9 +34,7 @@ inline void type2ostream(const T &value, std::ostream &os)
 
 
 // ------------------------
-// sequence containers,
-// except array and
-// forward_list
+// some sequence containers
 // ------------------------
 
 #define GNDSTK_TYPE2OSTREAM(container) \

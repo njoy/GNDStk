@@ -36,7 +36,19 @@ public:
    // is this tree empty?
    bool empty() const
    {
-      return root == nullptr;
+      // yes, empty?
+      if (root == nullptr)
+         return true;
+
+      // might as well also double-check for well-formedness...
+      // ...the declaration node leads to exactly *one* top-level GNDS node
+      assert(root->children.size() == 1);
+      // ...and the top-level GNDS node is actually there
+      assert(*root->children.begin() != nullptr);
+      // fixme As elsewhere, have better error reporting
+
+      // no, not empty
+      return false;
    }
 
    // normalize

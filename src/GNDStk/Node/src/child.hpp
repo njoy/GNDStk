@@ -16,6 +16,12 @@ const Node &child(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc07);
+
+   // ""
+   if (key == "")
+      return found = true, *this;
+
    // search
    for (auto &c : children)
       if (c != nullptr and c->name == key)
@@ -43,6 +49,7 @@ Node &child(
    const std::string &key,
    bool &found = detail::default_bool
 ) {
+   debug(detail::nc08);
    return const_cast<Node &>(std::as_const(*this).child(key,found));
 }
 
@@ -84,6 +91,8 @@ RESULT child(
    const child_t<RESULT,false,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc09);
+
    // call child(string) above, with the child_t's key
    const Node &n = child(kwd.name,found);
 
@@ -101,6 +110,7 @@ Node child(
    const child_t<void,false,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc10);
    return child(kwd.name,found).copy();
 }
 
@@ -115,6 +125,7 @@ typename std::enable_if<
    const child_t<std::variant<Ts...>,false,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc11);
    return child(child_t<RESULT,false,METADATA,CHILDREN>(kwd.name),found);
 }
 
@@ -133,6 +144,8 @@ CONTAINER<RESULT,std::allocator<RESULT>> child(
    const child_t<RESULT,true,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc12);
+
    // container
    CONTAINER<RESULT,std::allocator<RESULT>> container;
 
@@ -177,6 +190,8 @@ CONTAINER<Node,std::allocator<Node>> child(
    const child_t<void,true,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc13);
+
    CONTAINER<Node,std::allocator<Node>> container;
 
    for (auto &c : children)
@@ -210,5 +225,6 @@ CONTAINER<
    const child_t<std::variant<Ts...>,true,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
+   debug(detail::nc14);
    return child(child_t<RESULT,true,METADATA,CHILDREN>(kwd.name),found);
 }

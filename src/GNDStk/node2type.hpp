@@ -10,27 +10,24 @@ of those largely applies here.
 The difference is that these are called through child(), not meta, and
 hence have nodes, not strings, as inputs.
 
-Also, we don't have any viable default here. We simply don't know, for
-a general node, how it would convert to any particular type. And, while
+Also, we don't have any viable general default here. We simply don't know,
+for a general node, how it would convert to any particular type. And, while
 the string2type() functions could default to the behavior of converting
 the string to a stream and using operator>>, we don't know how to convert
 a node to a stream either.
-
-So, we'll just have the one thing we can do definitively, conversion-wise,
-with a node: convert it to another node.
 */
 
 
 
 // -----------------------------------------------------------------------------
 // node2type(Node,Node)
+//
 // We may or may not really care about allowing for different container types
 // in the input and the output, but supporting it shouldn't do any harm.
 // -----------------------------------------------------------------------------
 
 // Turns out that we already have this capability, in order to do tree-to-tree
-// conversions. I'll just need to forward-declare the requisite function, then
-// call it.
+// conversions. I'll just need to forward-declare it first...
 namespace detail {
    template<
       template<class...> class METADATA_CONTAINER_FROM,
@@ -58,3 +55,57 @@ inline void node2type(
    type.clear();
    detail::node2Node(node,type);
 }
+
+
+
+// -----------------------------------------------------------------------------
+// node2type(Node, some containers)
+// Supports GNDS nodes like this:
+//    <values>0.0 1.0 2.0 3.0 4.0</values>
+// where the pugixml reader interprets the text as pcdata or cdata.
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// fixme put this detail stuff somewhere else
+template<
+   template<class...> class METADATA_CONTAINER,
+   template<class...> class CHILDREN_CONTAINER
+>
+void node2container_check(
+   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+) {
+   if (node.metadata.size() != 1 ||
+       node.children.size() != 0 || (
+          node.metadata[0].first != detail::keyword_pcdata &&
+          node.metadata[0].first != detail::keyword_cdata)
+   ) {
+      // fixme
+      assert(false);
+   }
+}
+
+}
+
+
+
+#define GNDSTK_NODE2CONTAINER(container) \
+   template< \
+      template<class...> class METADATA_CONTAINER, \
+      template<class...> class CHILDREN_CONTAINER, \
+      class T, class Alloc \
+   > \
+   void node2type( \
+      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node, \
+      std::container<T,Alloc> &ctnr \
+   ) { \
+      ctnr.clear(); \
+      detail::node2container_check(node); \
+      string2type(node.metadata[0].second, ctnr); \
+   }
+
+   GNDSTK_NODE2CONTAINER(deque)
+   GNDSTK_NODE2CONTAINER(list)
+   GNDSTK_NODE2CONTAINER(vector)
+
+#undef GNDSTK_NODE2CONTAINER

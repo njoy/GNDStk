@@ -54,9 +54,7 @@ inline void istream2type(std::istream &is, T &value)
 
 
 // ------------------------
-// sequence containers,
-// except array and
-// forward_list
+// some sequence containers
 // ------------------------
 
 #define GNDSTK_ISTREAM2TYPE(container) \
