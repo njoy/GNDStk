@@ -8,38 +8,59 @@
 namespace detail {
 
 // default
-template<class METADATA, class... Ks>
+template<class... Ks>
 class catenateMetadata {
 };
 
 
 // metadata
-template<class... Ms>
+template<
+   class... Ms
+>
 class catenateMetadata<metadata<Ms...>> {
 public:
-   // recursion terminal
-   using type =
-      metadata<Ms...>;
+   // terminal
+   using type = metadata<Ms...>;
 };
 
 
-// +meta [+Ks]
-template<class... Ms, class RESULT, class... Ks>
-class catenateMetadata<metadata<Ms...>, meta_t<RESULT>, Ks...> {
+// metadata + meta [+ Ks]
+template<
+   class... Ms,
+   class RESULT,
+   class... Ks
+>
+class catenateMetadata<
+   metadata<Ms...>,
+   meta_t<RESULT>,
+   Ks...
+> {
 public:
-   // fold the meta_t into metadata; recurse
-   using type =
-      typename catenateMetadata<metadata<Ms...,meta_t<RESULT>>,Ks...>::type;
+   // fold meta_t into metadata; continue
+   using type = typename catenateMetadata<
+      metadata<Ms...,meta_t<RESULT>>,
+      Ks...
+   >::type;
 };
 
 
-// +child [+Ks]
-template<class... Ms, class... Ts, class... Ks>
-class catenateMetadata<metadata<Ms...>, child_t<Ts...>, Ks...> {
+// metadata + child [+ Ks]
+template<
+   class... Ms,
+   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class... Ks
+>
+class catenateMetadata<
+   metadata<Ms...>,
+   child_t<RESULT,MULTIPLE,METADATA,CHILDREN>,
+   Ks...
+> {
 public:
-   // chuck the child_t; recurse
-   using type =
-      typename catenateMetadata<metadata<Ms...>,Ks...>::type;
+   // chuck child_t; continue
+   using type = typename catenateMetadata<
+      metadata<Ms...>,
+      Ks...
+   >::type;
 };
 
 } // namespace detail

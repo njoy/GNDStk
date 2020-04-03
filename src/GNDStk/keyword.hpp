@@ -27,7 +27,7 @@ class meta_t;
 
 // forward: child_t
 template<
-   class RESULT   = void,
+   class RESULT   = void,       // default means current Node type
    bool  MULTIPLE = false,      // multiple appearances allowed? (e.g. <axis>)
    class METADATA = metadata<>, // allowable metadata for this child-node type
    class CHILDREN = children<>  // allowable children ...
@@ -38,7 +38,7 @@ class child_t;
 
 // -----------------------------------------------------------------------------
 // catenate*
-// Template metaprogramming detail for use by the upcoming keyword_t class
+// Template metaprogramming detail for use by the upcoming keyword_t
 // -----------------------------------------------------------------------------
 
 #include "GNDStk/keyword/src/catenateMetadata.hpp"
@@ -58,5 +58,5 @@ public:
 };
 
 // keyword
-// For creating keywords, an object of the keyword_t type
+// For creating keywords: an object of the keyword_t type
 inline const keyword_t keyword;

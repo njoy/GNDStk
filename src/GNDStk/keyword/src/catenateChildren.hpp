@@ -8,33 +8,59 @@
 namespace detail {
 
 // default
-template<class CHILDREN, class... Ks> class catenateChildren { };
+template<class... Ks>
+class catenateChildren {
+};
+
 
 // children
-template<class... Cs>
+template<
+   class... Cs
+>
 class catenateChildren<children<Cs...>> {
 public:
-   // recursion terminal
-   using type =
-      children<Cs...>;
+   // terminal
+   using type = children<Cs...>;
 };
 
-// +meta [+Ks]
-template<class... Cs, class RESULT, class... Ks>
-class catenateChildren<children<Cs...>, meta_t<RESULT>, Ks...> {
+
+// children + child [+ Ks]
+template<
+   class... Cs,
+   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class... Ks
+>
+class catenateChildren<
+   children<Cs...>,
+   child_t<RESULT,MULTIPLE,METADATA,CHILDREN>,
+   Ks...
+> {
 public:
-   // chuck the meta_t; recurse
-   using type =
-      typename catenateChildren<children<Cs...>,Ks...>::type;
+   // fold child_t into children; continue
+   using type = typename catenateChildren<
+      children<Cs...,child_t<RESULT,MULTIPLE,METADATA,CHILDREN>>,
+      Ks...
+   >::type;
 };
 
-// +child [+Ks]
-template<class... Cs, class... Ts, class... Ks>
-class catenateChildren<children<Cs...>, child_t<Ts...>, Ks...> {
+
+// children + meta [+ Ks]
+template<
+   class... Cs,
+   class RESULT,
+   class... Ks
+>
+class catenateChildren<
+   children<Cs...>,
+   meta_t<RESULT>,
+   Ks...
+> {
 public:
-   // fold the child_t into children; recurse
-   using type =
-      typename catenateChildren<children<Cs...,child_t<Ts...>>,Ks...>::type;
+   // chuck meta_t; continue
+   using type = typename catenateChildren<
+      children<Cs...>,
+      Ks...
+   >::type;
 };
 
 } // namespace detail
