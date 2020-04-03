@@ -4,11 +4,11 @@
 // -----------------------------------------------------------------------------
 
 // move
-xml &operator=(xml &&) = default;
+XML &operator=(XML &&) = default;
 
 // copy
 // Note: pugi::xml_document's is inaccessible
-xml &operator=(const xml &x)
+XML &operator=(const XML &x)
 {
    convert(x,*this);
    return *this;

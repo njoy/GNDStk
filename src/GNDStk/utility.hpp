@@ -63,16 +63,16 @@ template<
 class Tree;
 using tree = Tree<>;
 
-// xml, json
-class xml;
-class json;
+// XML, JSON
+class XML;
+class JSON;
 
 
 
 // -----------------------------------------------------------------------------
 // Forward declarations: convert
 // We're not fans of having lots of forward declarations, but these are here
-// because (1) the relevant classes (tree, xml, json) use these functions in,
+// because (1) the relevant classes (Tree, XML, JSON) use these functions in,
 // e.g., their constructors, which are defined in-class; and (2) the convert()
 // functions in turn work with the classes and thus need the class definitions
 // to be available. The alternative would be to mostly define the classes, but
@@ -82,17 +82,17 @@ class json;
 
 // convert
 // ...Tree to Tree
-// ...Tree to xml
-// ...Tree to json
-// ...xml  to Tree
-// ...xml  to xml
-// ...xml  to json
-// ...json to Tree
-// ...json to xml
-// ...json to json
+// ...Tree to XML
+// ...Tree to JSON
+// ...XML  to Tree
+// ...XML  to XML
+// ...XML  to JSON
+// ...JSON to Tree
+// ...JSON to XML
+// ...JSON to JSON
 
 
-// Tree to {Tree,xml,json}
+// Tree to {Tree,XML,JSON}
 template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM,
@@ -110,7 +110,7 @@ template<
 >
 bool convert(
    const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   GNDStk::xml &
+   GNDStk::XML &
 );
 
 template<
@@ -119,34 +119,34 @@ template<
 >
 bool convert(
    const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   GNDStk::json &
+   GNDStk::JSON &
 );
 
 
-// xml to {Tree,xml,json}
+// XML to {Tree,XML,JSON}
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::xml &,
+   const GNDStk::XML &,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 );
-bool convert(const GNDStk::xml &, GNDStk::xml &);
-bool convert(const GNDStk::xml &, GNDStk::json &);
+bool convert(const GNDStk::XML &, GNDStk::XML &);
+bool convert(const GNDStk::XML &, GNDStk::JSON &);
 
 
-// json to {Tree,xml,json}
+// JSON to {Tree,XML,JSON}
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::json &,
+   const GNDStk::JSON &,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 );
-bool convert(const GNDStk::json &, GNDStk::xml &);
-bool convert(const GNDStk::json &, GNDStk::json &);
+bool convert(const GNDStk::JSON &, GNDStk::XML &);
+bool convert(const GNDStk::JSON &, GNDStk::JSON &);
 
 
 

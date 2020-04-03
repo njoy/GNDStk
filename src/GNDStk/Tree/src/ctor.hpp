@@ -32,12 +32,12 @@ explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 
 
 // -----------------------------------------------------------------------------
-// From xml and json objects
+// From XML and JSON objects
 // -----------------------------------------------------------------------------
 
-// xml, json
-explicit Tree(const xml  &xdoc) { convert(xdoc,*this); }
-explicit Tree(const json &jdoc) { convert(jdoc,*this); }
+// XML, JSON
+explicit Tree(const XML  &xdoc) { convert(xdoc,*this); }
+explicit Tree(const JSON &jdoc) { convert(jdoc,*this); }
 
 
 

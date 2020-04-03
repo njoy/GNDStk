@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // convert(*,Tree)
-// That is, convert TO Tree objects
+// That is, convert to Tree objects
 // -----------------------------------------------------------------------------
 
 // Tree ==> Tree
@@ -34,27 +34,27 @@ inline bool convert(
 }
 
 
-// xml ==> Tree
+// XML ==> Tree
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 inline bool convert(
-   const GNDStk::xml &xdoc,
+   const GNDStk::XML &xdoc,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
-   return detail::xml2Tree(xdoc,tree);
+   return detail::XML2Tree(xdoc,tree);
 }
 
 
-// json ==> Tree
+// JSON ==> Tree
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 inline bool convert(
-   const GNDStk::json &jdoc,
+   const GNDStk::JSON &jdoc,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
-   return detail::json2Tree(jdoc,tree);
+   return detail::JSON2Tree(jdoc,tree);
 }

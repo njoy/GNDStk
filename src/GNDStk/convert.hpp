@@ -3,5 +3,5 @@
 
 // convert to:
 #include "GNDStk/convert/src/tree.hpp"
-#include "GNDStk/convert/src/xml.hpp"
-#include "GNDStk/convert/src/json.hpp"
+#include "GNDStk/convert/src/XML.hpp"
+#include "GNDStk/convert/src/JSON.hpp"

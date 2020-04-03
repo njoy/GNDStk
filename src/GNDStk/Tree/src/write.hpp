@@ -102,10 +102,10 @@ std::ostream &write(
 
    if (form == format::xml) {
       // write via a temporary xml object...
-      GNDStk::xml(*this).write(os);
+      GNDStk::XML(*this).write(os);
    } else if (form == format::json) {
       // write via a temporary json object...
-      GNDStk::json(*this).write(os);
+      GNDStk::JSON(*this).write(os);
    } else if (form == format::hdf5) {
       // write via a temporary hdf5 object...
       error("HDF5 write() is not implemented yet");

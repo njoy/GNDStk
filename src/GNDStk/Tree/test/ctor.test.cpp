@@ -8,8 +8,8 @@ What we'll need to test...
    1. Tree()
    2. Tree(Tree &&)
 
-   3. Tree(xml)
-   4. Tree(json)
+   3. Tree(XML)
+   4. Tree(JSON)
 
    5. Tree(string)
    6. Tree(istream)
@@ -127,11 +127,11 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
    }
 
-   // 3. Tree(xml)
-   GIVEN("A GNDStk::xml object, read from an XML file") {
-      const GNDStk::xml x("n-026_Fe_056.xml");
+   // 3. Tree(XML)
+   GIVEN("A GNDStk::XML object, read from an XML file") {
+      const GNDStk::XML x("n-026_Fe_056.xml");
 
-      WHEN("We construct a tree from the GNDStk::xml object") {
+      WHEN("We construct a tree from the GNDStk::XML object") {
          // We should get the same result for the tree constructed via the XML,
          // as we do for a tree that's read directly from the same file...
          std::ostringstream oss1; oss1 << GNDStk::Tree<>(x);
@@ -140,7 +140,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
    }
 
-   // 4. Tree(json)
+   // 4. Tree(JSON)
    // fixme JSON work isn't complete yet, so we won't write this test yet
 
    // 5. Tree(string)

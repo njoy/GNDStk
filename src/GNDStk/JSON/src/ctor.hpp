@@ -4,13 +4,13 @@
 // -----------------------------------------------------------------------------
 
 // default, move, copy
-json() = default;
-json(json &&) = default;
-json(const json &) = default;
+JSON() = default;
+JSON(JSON &&) = default;
+JSON(const JSON &) = default;
 
 
-// xml, tree
-explicit json(const xml &x)
+// XML, Tree
+explicit JSON(const XML &x)
 {
    convert(x,*this);
 }
@@ -19,12 +19,12 @@ template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-explicit json(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
+explicit JSON(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
    convert(t,*this);
 }
 
 
 // file, stream
-explicit json(const std::string &file) { read(file); }
-explicit json(std::istream &is) { read(is); }
+explicit JSON(const std::string &file) { read(file); }
+explicit JSON(std::istream &is) { read(is); }

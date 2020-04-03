@@ -106,5 +106,4 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          REQUIRE(!tree.empty());
       }
    }
-
 }

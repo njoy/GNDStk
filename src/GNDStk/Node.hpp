@@ -129,7 +129,7 @@ Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
          // Child node's name is "attributes". This presumably means that the
          // current node originally had *that* child node's metadata as its
          // own, before they were placed into an "attributes" child for the
-         // purpose of writing, say, to a .json file. Now, apparently, we've
+         // purpose of writing, say, to a JSON file. Now, apparently, we've
          // just read such a file, and must restore the node's original form.
 
          // Under the circumstances, this node should not (yet) have its own
@@ -151,16 +151,16 @@ Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
          // Child node's name ends in "_attr"
          /*
          fixme
-         I'll  need to think about the .json business more, and see what sorts
-         of GNDS json files are actually being produced by people other than
+         I'll  need to think about the JSON business more, and see what sorts
+         of GNDS JSON files are actually being produced by people other than
          myself, in order to know for certain what I'll need to do in order to
-         properly read whatever other people might be writing. In my own json-
-         reading code, I use is_object(), from the nlohmann json library, to
+         properly read whatever other people might be writing. In my own JSON-
+         reading code, I use is_object(), from the nlohmann::json library, to
          distinguish whether what I'm reading should be entered into the current
          node's children, or go into its metadata. I think this condition
-         amounts to whether the value in a json key/value pair is of the {...}
+         amounts to whether the value in a JSON key/value pair is of the {...}
          form (goes to children), or the "..." form (goes to metadata). The
-         GNDS manual speaks of the json format *not* having the concept of
+         GNDS manual speaks of the JSON format *not* having the concept of
          attributes, but perhaps in some sense it does, via the condition I've
          just described.
          */

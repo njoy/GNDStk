@@ -1,17 +1,17 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,xml)
-// That is, convert TO xml objects
+// convert(*,XML)
+// That is, convert to XML objects
 // -----------------------------------------------------------------------------
 
-// Tree ==> xml
+// Tree ==> XML
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
    const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   GNDStk::xml &xdoc
+   GNDStk::XML &xdoc
 ) {
    // clear
    xdoc.clear();
@@ -26,7 +26,7 @@ bool convert(
       // ------------------------
 
       // The way we're storing things in our tree structure, this might
-      // contain e.g. the following if the tree was built from an xml:
+      // contain e.g. the following if the tree was built from an XML:
       //
       //    name: "xml"
       //    metadata:
@@ -35,7 +35,7 @@ bool convert(
       //    children:
       //       just one, e.g. "reactionSuite" or "PoPs"
       //
-      // or the following if the tree was built from a json:
+      // or the following if the tree was built from a JSON:
       //
       //    name: "json"
       //    metadata:
@@ -71,9 +71,9 @@ bool convert(
 }
 
 
-// xml ==> xml
+// XML ==> XML
 // For completeness
-inline bool convert(const GNDStk::xml &from, GNDStk::xml &to)
+inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
 {
    if (&to == &from)
       return true;
@@ -108,10 +108,10 @@ inline bool convert(const GNDStk::xml &from, GNDStk::xml &to)
 }
 
 
-// json ==> xml
+// JSON ==> XML
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this issue if this becomes more of an issue.
-inline bool convert(const GNDStk::json &jdoc, GNDStk::xml &xdoc)
+inline bool convert(const GNDStk::JSON &jdoc, GNDStk::XML &xdoc)
 {
    GNDStk::tree tree;
    return

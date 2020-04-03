@@ -135,14 +135,14 @@ std::istream &read(
    // based on the peek() calls.
    if (form == format::xml) {
       // assume .xml
-      // go through a temporary xml object to create the tree...
-      const xml tmp(is);
+      // go through a temporary XML object to create the tree...
+      const XML tmp(is);
       if (not is.fail())
          convert(tmp, *this);
    } else if (form == format::json) {
       // assume .json
       // go through a temporary json object to create the tree...
-      const json tmp(is);
+      const JSON tmp(is);
 
       // It would seem that the nlohmann::json stream input operation,
       // which is used by the constructor we just called, sets failbit

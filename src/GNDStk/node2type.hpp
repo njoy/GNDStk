@@ -87,8 +87,6 @@ void node2container_check(
 
 }
 
-
-
 #define GNDSTK_NODE2CONTAINER(container) \
    template< \
       template<class...> class METADATA_CONTAINER, \

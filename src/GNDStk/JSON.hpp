@@ -1,14 +1,15 @@
 
 // -----------------------------------------------------------------------------
-// GNDStk::json
+// GNDStk::JSON
 // Wraps nlohmann::json
 // -----------------------------------------------------------------------------
 
-class json {
+class JSON {
 public:
 
-   // Note: The json object reorders name/value pairs lexicographically, instead
-   // of preserving the order in which it reads them. nlohmann's json.hpp says:
+   // Note: The nlohmann::json object reorders name/value pairs
+   // lexicographically, instead of preserving the order in which
+   // it reads them. nlohmann's json.hpp says:
    //
    //   "@note The order name/value pairs are added to the object is *not*
    //    preserved by the library. Therefore, iterating an object may return
@@ -22,7 +23,7 @@ public:
    // order. This could be hacked in some way, I suppose. And, it's worth noting
    // that the GNDS document speaks of, well, basically such a hack. -MFS
 
-   // overall json document
+   // overall JSON document
    nlohmann::json doc;
 
    // clear
@@ -33,14 +34,14 @@ public:
 
    // constructors, assignment
    #include "GNDStk/JSON/src/ctor.hpp"
-   json &operator=(json &&) = default;
-   json &operator=(const json &) = default;
+   JSON &operator=(JSON &&) = default;
+   JSON &operator=(const JSON &) = default;
 
    // read, write
    #include "GNDStk/JSON/src/read.hpp"
    #include "GNDStk/JSON/src/write.hpp"
 
-}; // class json
+}; // class JSON
 
 
 
@@ -49,13 +50,13 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, json &obj)
+inline std::istream &operator>>(std::istream &is, JSON &obj)
 {
    return obj.read(is);
 }
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const json &obj)
+inline std::ostream &operator<<(std::ostream &os, const JSON &obj)
 {
    return obj.write(os);
 }

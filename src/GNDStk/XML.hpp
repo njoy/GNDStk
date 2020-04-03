@@ -1,13 +1,13 @@
 
 // -----------------------------------------------------------------------------
-// GNDStk::xml
+// GNDStk::XML
 // Wraps pugi::xml_document
 // -----------------------------------------------------------------------------
 
-class xml {
+class XML {
 public:
 
-   // overall xml document
+   // overall XML document
    pugi::xml_document doc;
 
    // clear
@@ -24,7 +24,7 @@ public:
    #include "GNDStk/XML/src/read.hpp"
    #include "GNDStk/XML/src/write.hpp"
 
-}; // class xml
+}; // class XML
 
 
 
@@ -33,13 +33,13 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, xml &obj)
+inline std::istream &operator>>(std::istream &is, XML &obj)
 {
    return obj.read(is);
 }
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const xml &obj)
+inline std::ostream &operator<<(std::ostream &os, const XML &obj)
 {
    return obj.write(os);
 }

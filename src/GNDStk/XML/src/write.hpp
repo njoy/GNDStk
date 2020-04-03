@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// xml::write()
+// XML::write()
 // -----------------------------------------------------------------------------
 
 // write(string)
@@ -25,8 +25,8 @@ std::ostream &write(std::ostream &os) const
    // ...different from what we expect with "simple" types - int, double, etc.
    // ...Different makes it less predictable, and inconsistent. Print a vector
    // ...of ints, for example, with an explicit newline after each, and we'll
-   // ...get one int per line. Print a vector of these xml objects in the same
-   // ...way, and we'll get blank lines, in between, if the xml printing takes
+   // ...get one int per line. Print a vector of these XML objects in the same
+   // ...way, and we'll get blank lines, in between, if the XML printing takes
    // ...it upon itself to print its own newline. The best behavior, in my
    // ...opinion, is consistent behavior - it's easy to remember. So, then,
    // ...no fluff, either before or after any object being written.

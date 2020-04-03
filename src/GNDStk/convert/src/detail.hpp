@@ -2,7 +2,7 @@
 namespace detail {
 
 // -----------------------------------------------------------------------------
-// Helpers for convert(*,json)
+// Helpers for convert(*,JSON)
 // -----------------------------------------------------------------------------
 
 // prefix
@@ -15,12 +15,12 @@ inline std::string prefix(const unsigned long n)
 
 
 
-// node2JSON
+// node2json
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool node2JSON(
+bool node2json(
    const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    nlohmann::json &j,
    unsigned long &kwdcount
@@ -47,7 +47,7 @@ bool node2JSON(
 
    // children
    for (auto &child : node.children)
-      if (child and not node2JSON(*child, j[nodename], kwdcount))
+      if (child and not node2json(*child, j[nodename], kwdcount))
          return false;
 
    // done
@@ -162,19 +162,19 @@ bool xmlnode2Node(
 
 
 
-// xml ==> Tree
+// XML ==> Tree
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool xml2Tree(
-   const GNDStk::xml &xdoc,
+bool XML2Tree(
+   const GNDStk::XML &xdoc,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    // clear
    tree.clear();
 
-   // visit the xml's nodes
+   // visit the XML's nodes
    int count = 0;
    for (const pugi::xml_node &xnode : xdoc.doc.children()) {
       if (count == 0) {
@@ -184,15 +184,15 @@ bool xml2Tree(
 
          tree.root =
             std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
-         tree.root->name = "xml"; // indicates that we came from a xml
+         tree.root->name = "xml"; // indicates that we came from an XML
 
-         // base xml "attributes", e.g. version and encoding
+         // base XML "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &xattr : xnode.attributes())
             tree.root->add(xattr.name(), xattr.value());
       }
 
       if (count == 1) {
-         // visit the xml's outer node, and its descendants
+         // visit the XML's outer node, and its descendants
          if (not xmlnode2Node(xnode,tree.root->add()))
             return false;
       }
@@ -233,7 +233,7 @@ bool jiter2Node(
       if (sub->is_null()) {
          // The current node has a child node with neither metadata
          // nor its own children. This would come about, for example,
-         // if the .json file was created, earlier, based on an .xml
+         // if the JSON file was created, earlier, based on an XML
          // file with a construct like <RutherfordScattering/>, i.e.
          // with /> to end the element immediately.
          node.add().name = sub.key();
@@ -253,13 +253,13 @@ bool jiter2Node(
 
 
 
-// json ==> Tree
+// JSON ==> Tree
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool json2Tree(
-   const GNDStk::json &jdoc,
+bool JSON2Tree(
+   const GNDStk::JSON &jdoc,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    // clear
@@ -267,9 +267,9 @@ bool json2Tree(
 
    // initialize root
    tree.root = std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
-   tree.root->name = "json"; // indicates that we came from a json
+   tree.root->name = "json"; // indicates that we came from a JSON
 
-   // visit the json's outer node, and its descendants
+   // visit the JSON's outer node, and its descendants
    for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem)
       if (not jiter2Node(elem,tree.root->add()))
          return false;
@@ -310,7 +310,7 @@ inline void node2Node(
 
 
 // -----------------------------------------------------------------------------
-// Helpers for convert(*,xml)
+// Helpers for convert(*,XML)
 // -----------------------------------------------------------------------------
 
 // node2XML

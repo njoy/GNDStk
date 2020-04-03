@@ -4,19 +4,19 @@
 // -----------------------------------------------------------------------------
 
 // default, move
-xml() = default;
-xml(xml &&) = default;
+XML() = default;
+XML(XML &&) = default;
 
 // copy
 // Note: pugi::xml_document's is inaccessible
-xml(const xml &x)
+XML(const XML &x)
 {
    convert(x,*this);
 }
 
 
-// json, tree
-explicit xml(const json &j)
+// JSON, Tree
+explicit XML(const JSON &j)
 {
    convert(j,*this);
 }
@@ -25,12 +25,12 @@ template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-explicit xml(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
+explicit XML(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
    convert(t,*this);
 }
 
 
 // file, stream
-explicit xml(const std::string &file) { read(file); }
-explicit xml(std::istream &is) { read(is); }
+explicit XML(const std::string &file) { read(file); }
+explicit XML(std::istream &is) { read(is); }
