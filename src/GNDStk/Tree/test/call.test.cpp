@@ -174,7 +174,7 @@ SCENARIO("Testing GNDStk tree operator()") {
       REQUIRE(tree(reactionSuite,styles,evaluated,temperature,dvalue) == 0.0);
       REQUIRE(tree(reactionSuite,styles,evaluated,temperature,unit  ) == "K");
 
-      // GNDStk::child::reaction has MULTIPLE == true, so the following
+      // GNDStk::child::reaction has FIND == find::all, so the following
       // gives us back a container (std::vector by default).
       found = false;
       auto vec = tree(reactionSuite,reactions,reaction,found);
@@ -203,7 +203,7 @@ SCENARIO("Testing GNDStk tree operator()") {
       REQUIRE(
          tree
           (reactionSuite, reactions, reaction)[0]
-          (crossSection,XYs1d)[0] // fixme Double-check multiple==true for XYs1d
+          (crossSection,XYs1d)[0] // fixme Double-check find::all for XYs1d
           (axes,axis).size() == 2
       );
    }

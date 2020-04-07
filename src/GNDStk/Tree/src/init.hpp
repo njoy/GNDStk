@@ -16,9 +16,9 @@
 // init(top, format, ...)
 // ------------------------
 
-template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
+template<class RESULT, find FIND, class METADATA, class CHILDREN>
 nodeType &init(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
    const format form = format::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -72,9 +72,9 @@ nodeType &init(
 // init(top, string, ...)
 // ------------------------
 
-template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
+template<class RESULT, find FIND, class METADATA, class CHILDREN>
 nodeType &init(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

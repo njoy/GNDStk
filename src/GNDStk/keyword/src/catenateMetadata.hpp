@@ -47,12 +47,12 @@ public:
 // metadata + child [+ Ks]
 template<
    class... Ms,
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class RESULT, find FIND, class METADATA, class CHILDREN,
    class... Ks
 >
 class catenateMetadata<
    metadata<Ms...>,
-   child_t<RESULT,MULTIPLE,METADATA,CHILDREN>,
+   child_t<RESULT,FIND,METADATA,CHILDREN>,
    Ks...
 > {
 public:

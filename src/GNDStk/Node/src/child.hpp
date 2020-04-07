@@ -63,32 +63,32 @@ Node &child(
 //    RESULT    General case
 //    variant   With caller-specified result type
 //
-// Each of those is split into two further cases, depending on the MULTIPLE
+// Each of those is split into two further cases, depending on the FIND
 // template parameter in the child_t:
 //
-//    MULTIPLE == false
+//    FIND == find::one
 //       The child_t encodes the notion that we're only supposed to find
-//       one child node of this name. (Independent of the fact that multiple
+//       one child node of this name. (Independent of the fact that many
 //       child nodes of the same name are allowed in, e.g., XML.) In these
-//       cases, the child() functions below return "scalars."
+//       cases, the child() functions below return single values.
 //
-//    MULTIPLE == true
-//       The child_t encodes the notion that multiple child nodes of this
-//       name can occur. In these cases, the child() functions below return
-//       containers.
+//    FIND == find::all
+//       The child_t encodes the notion that any number of child nodes of
+//       this name can occur. In these cases, the child() functions below
+//       return containers of values.
 //
 // Non-const versions aren't needed for these, because the const versions
 // return by value.
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// MULTIPLE == false
+// find::one
 // ------------------------
 
 // child(child_t<RESULT>)
 template<class RESULT, class METADATA, class CHILDREN>
 RESULT child(
-   const child_t<RESULT,false,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::nc09);
@@ -107,7 +107,7 @@ RESULT child(
 // child(child_t<void>)
 template<class METADATA, class CHILDREN>
 Node child(
-   const child_t<void,false,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::nc10);
@@ -122,17 +122,17 @@ typename std::enable_if<
    detail::is_oneof<RESULT,Ts...>::value,
    RESULT
 >::type child(
-   const child_t<std::variant<Ts...>,false,METADATA,CHILDREN> &kwd,
+   const child_t<std::variant<Ts...>,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::nc11);
-   return child(child_t<RESULT,false,METADATA,CHILDREN>(kwd.name),found);
+   return child(child_t<RESULT,find::one,METADATA,CHILDREN>(kwd.name),found);
 }
 
 
 
 // ------------------------
-// MULTIPLE == true
+// find::all
 // ------------------------
 
 // child(child_t<RESULT>)
@@ -141,7 +141,7 @@ template<
    class RESULT, class METADATA, class CHILDREN
 >
 CONTAINER<RESULT,std::allocator<RESULT>> child(
-   const child_t<RESULT,true,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,find::all,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::nc12);
@@ -187,7 +187,7 @@ template<
    class METADATA, class CHILDREN
 >
 CONTAINER<Node,std::allocator<Node>> child(
-   const child_t<void,true,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::all,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::nc13);
@@ -222,9 +222,9 @@ CONTAINER<
       >::type
    >
 > child(
-   const child_t<std::variant<Ts...>,true,METADATA,CHILDREN> &kwd,
+   const child_t<std::variant<Ts...>,find::all,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::nc14);
-   return child(child_t<RESULT,true,METADATA,CHILDREN>(kwd.name),found);
+   return child(child_t<RESULT,find::all,METADATA,CHILDREN>(kwd.name),found);
 }

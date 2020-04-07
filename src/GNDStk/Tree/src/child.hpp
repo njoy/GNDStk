@@ -42,16 +42,16 @@ nodeType &child(
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// MULTIPLE == false
+// find::one
 // ------------------------
 
-// Note: We have the MULTIPLE = false case only, because true wouldn't make
-// sense for trees - which have one declaration and one top-level GNDS node.
+// Note: We have the find::one case only, because find::all wouldn't make
+// sense for trees, which have one declaration and one top-level GNDS node.
 
 // child(child_t<RESULT>)
 template<class RESULT, class METADATA, class CHILDREN>
 RESULT child(
-   const child_t<RESULT,false,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::tc27);
@@ -66,7 +66,7 @@ RESULT child(
 // child(child_t<void>)
 template<class METADATA, class CHILDREN>
 nodeType child(
-   const child_t<void,false,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::tc28);
@@ -81,9 +81,9 @@ typename std::enable_if<
    detail::is_oneof<RESULT,Ts...>::value,
    RESULT
 >::type child(
-   const child_t<std::variant<Ts...>,false,METADATA,CHILDREN> &kwd,
+   const child_t<std::variant<Ts...>,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::tc29);
-   return child(child_t<RESULT,false,METADATA,CHILDREN>(kwd.name),found);
+   return child(child_t<RESULT,find::one,METADATA,CHILDREN>(kwd.name),found);
 }

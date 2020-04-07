@@ -88,8 +88,8 @@ SCENARIO("Testing GNDStk tree meta()") {
       // comes back as false. (If we didn't send it at all, then attempting
       // to look up a nonexistent metadata key would trigger an error).
       // Const version, then non-const...
-      REQUIRE((found=true, c.meta("foo", found), found == false));
-      REQUIRE((found=true, t.meta("bar", found), found == false));
+      REQUIRE((found = true, c.meta("foo", found), found == false));
+      REQUIRE((found = true, t.meta("bar", found), found == false));
 
 
       // ------------------------

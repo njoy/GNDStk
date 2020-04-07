@@ -11,6 +11,8 @@ bool write(
    const std::string &file,
    const int level = 0
 ) const {
+   debug("node write(file,level)");
+
    // calls write(ostream) below
    std::ofstream ofs(file.c_str());
    return not write(ofs,level).fail();
@@ -25,6 +27,8 @@ std::ostream &write(
    std::ostream &os,
    const int level = 0
 ) const {
+   /// debug("node write(ostream,level)");
+
    // indentation
    const std::string icurr(indent* level   ,' '); // current indentation #spaces
    const std::string inext(indent*(level+1),' '); // next ...

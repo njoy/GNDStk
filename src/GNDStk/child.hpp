@@ -17,11 +17,11 @@ RESULT
    Tree<> being queried. The fact that there's no fixed Node<> type is why
    we use void for this meaning.
 
-MULTIPLE
+FIND
 
-   A boolean that indicates whether or not the particular child node can
-   appear multiple times in whatever context it's found in. For example,
-   an XML-format GNDS might have:
+   A value of [enum class find] that indicates whether or not the kind of
+   node in question is expected to appear one time, or any number of times.
+   Consider, for example, that an XML-format GNDS might have:
 
       <axes>
          <axis> ... </axis>
@@ -30,17 +30,16 @@ MULTIPLE
          ...
       </axes>
 
-   In other words: there are (or can be) *multiple* <axis> nodes within
-   a particular enclosing context (here, <axes>). MULTIPLE is a template
-   parameter because it affects the type that's pulled from the Tree when
-   a child_t object is used for a query. For example,
+   In other words: there are (or can be) any number of <axis> nodes within
+   an enclosing context (here, <axes>). FIND is a template parameter because
+   it affects the type that's pulled from the Tree when the child_t object
+   is used for a query. For example,
 
       tree(...,axes,axis)
 
-   gives back a container of axis objects, not a single axis object, due
-   to our child_t axis keyword having a true MULTIPLE. (Note: axes has
-   a false MULTIPLE, because it isn't *axes*, but *axis*, that's allowed
-   to have multiple values.)
+   gives back a container of axis objects, not a single axis object, because
+   our child_t axis keyword has FIND == find::any. Note that axes, not to be
+   confused with axis, has FIND == find::one because it's expected just once.
 
 METADATA
 
@@ -67,7 +66,7 @@ CHILDREN
 
 */
 
-template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
+template<class RESULT, find FIND, class METADATA, class CHILDREN>
 class child_t {
 public:
    // data
@@ -81,11 +80,11 @@ public:
 };
 
 // operator-
-template<class RESULT, bool MULTIPLE, class METADATA, class CHILDREN>
-inline child_t<void,MULTIPLE,METADATA,CHILDREN> operator-(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd
+template<class RESULT, find FIND, class METADATA, class CHILDREN>
+inline child_t<void,FIND,METADATA,CHILDREN> operator-(
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd
 ) {
-   return child_t<void,MULTIPLE,METADATA,CHILDREN>(kwd.name,kwd.canBeTopLevel);
+   return child_t<void,FIND,METADATA,CHILDREN>(kwd.name,kwd.canBeTopLevel);
 }
 
 
@@ -96,12 +95,12 @@ inline child_t<void,MULTIPLE,METADATA,CHILDREN> operator-(
 // -----------------------------------------------------------------------------
 
 // void (unspecified) result type (so, Node<>)
-#define GNDSTK_MAKE_CHILD_DEFAULT(name,multiple) \
-   inline const child_t<void,multiple> name(#name)
+#define GNDSTK_MAKE_CHILD_DEFAULT(name,FIND) \
+   inline const child_t<void,FIND> name(#name)
 
 // user-defined result type
-#define GNDSTK_MAKE_CHILD(result,name,multiple) \
-   inline const child_t<result,multiple> name(#name)
+#define GNDSTK_MAKE_CHILD(result,name,FIND) \
+   inline const child_t<result,FIND> name(#name)
 
 // Note: we won't #undef these later, as one often would with macros,
 // because they're both perfectly viable for users to invoke.
@@ -114,11 +113,9 @@ inline child_t<void,MULTIPLE,METADATA,CHILDREN> operator-(
 
 namespace child {
 
-// Remember:
-// false in <> means it's NOT "multiple" as described above (none of these are)
-// true  in () means it's allowed as a top-level node (all of these are)
-
-inline const child_t<void,false>
+// Note: the true values here mean "allowed as a top-level node,"
+// which all of these are
+inline const child_t<void,find::one>
    reactionSuite      ("reactionSuite",       true),
    covarianceSuite    ("covarianceSuite",     true),
    PoPs               ("PoPs",                true),
@@ -141,84 +138,84 @@ inline const child_t<void,false>
 namespace child {
 
 // ------------------------
-// Single + multiple pair
+// one + all pair
 // constructs
 // ------------------------
 
-GNDSTK_MAKE_CHILD_DEFAULT(averageEnergies, false);
-GNDSTK_MAKE_CHILD_DEFAULT(averageEnergy,   true);
+GNDSTK_MAKE_CHILD_DEFAULT(averageEnergies, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(averageEnergy,   find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(axes, false);
-GNDSTK_MAKE_CHILD_DEFAULT(axis, true);
+GNDSTK_MAKE_CHILD_DEFAULT(axes, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(axis, find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(baryons, false);
-GNDSTK_MAKE_CHILD_DEFAULT(baryon,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(baryons, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(baryon,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(channels, false);
-GNDSTK_MAKE_CHILD_DEFAULT(channel,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(channels, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(channel,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(chemicalElements, false);
-GNDSTK_MAKE_CHILD_DEFAULT(chemicalElement,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(chemicalElements, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(chemicalElement,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(configurations, false);
-GNDSTK_MAKE_CHILD_DEFAULT(configuration,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(configurations, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(configuration,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(decayModes, false);
-GNDSTK_MAKE_CHILD_DEFAULT(decayMode,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(decayModes, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(decayMode,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(durations, false);
-GNDSTK_MAKE_CHILD_DEFAULT(duration,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(durations, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(duration,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(externalFiles, false);
-GNDSTK_MAKE_CHILD_DEFAULT(externalFile,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(externalFiles, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(externalFile,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(fissionComponents, false);
-GNDSTK_MAKE_CHILD_DEFAULT(fissionComponent,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionComponents, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionComponent,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(isotopes, false);
-GNDSTK_MAKE_CHILD_DEFAULT(isotope,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(isotopes, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(isotope,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(Js, false);
-GNDSTK_MAKE_CHILD_DEFAULT(J,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(Js, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(J,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(leptons, false);
-GNDSTK_MAKE_CHILD_DEFAULT(lepton,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(leptons, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(lepton,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(nuclides, false);
-GNDSTK_MAKE_CHILD_DEFAULT(nuclide,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclides, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclide,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(productions, false);
-GNDSTK_MAKE_CHILD_DEFAULT(production,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(productions, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(production,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(products, false);
-GNDSTK_MAKE_CHILD_DEFAULT(product,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(products, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(product,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(reactions, false);
-GNDSTK_MAKE_CHILD_DEFAULT(reaction,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(reactions, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(reaction,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(resonanceReactions, false);
-GNDSTK_MAKE_CHILD_DEFAULT(resonanceReaction,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(resonanceReactions, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(resonanceReaction,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(scatteringAtoms, false);
-GNDSTK_MAKE_CHILD_DEFAULT(scatteringAtom,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringAtoms, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringAtom,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(spectra, false);
-GNDSTK_MAKE_CHILD_DEFAULT(spectrum, true);
+GNDSTK_MAKE_CHILD_DEFAULT(spectra, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(spectrum, find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(spinGroups, false);
-GNDSTK_MAKE_CHILD_DEFAULT(spinGroup,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(spinGroups, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(spinGroup,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(widths, false);
-GNDSTK_MAKE_CHILD_DEFAULT(width,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(widths, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(width,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(sums, false);
-GNDSTK_MAKE_CHILD_DEFAULT(sum,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(sums, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(sum,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(Ls, false);
-GNDSTK_MAKE_CHILD_DEFAULT(L,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(Ls, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(L,  find::all);
 
-GNDSTK_MAKE_CHILD_DEFAULT(summands, false);
-GNDSTK_MAKE_CHILD_DEFAULT(summand,  true);
+GNDSTK_MAKE_CHILD_DEFAULT(summands, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(summand,  find::all);
 
 
 
@@ -230,181 +227,181 @@ GNDSTK_MAKE_CHILD_DEFAULT(summand,  true);
 // Do more sorting/categorization
 // Some may actually be singular/plural pairs as above
 
-// multiple == true
-GNDSTK_MAKE_CHILD_DEFAULT(add, true);
-GNDSTK_MAKE_CHILD_DEFAULT(averageParameterCovariance, true);
-GNDSTK_MAKE_CHILD_DEFAULT(column, true);
-GNDSTK_MAKE_CHILD_DEFAULT(conversion, true);
-GNDSTK_MAKE_CHILD_DEFAULT(covariance, true);
-GNDSTK_MAKE_CHILD_DEFAULT(covarianceMatrix, true);
-GNDSTK_MAKE_CHILD_DEFAULT(crossSectionSum, true);
-GNDSTK_MAKE_CHILD_DEFAULT(decay, true);
-GNDSTK_MAKE_CHILD_DEFAULT(discrete, true);
-GNDSTK_MAKE_CHILD_DEFAULT(grid, true);
-GNDSTK_MAKE_CHILD_DEFAULT(Legendre, true);
-GNDSTK_MAKE_CHILD_DEFAULT(metaStable, true);
-GNDSTK_MAKE_CHILD_DEFAULT(multiplicitySum, true);
-GNDSTK_MAKE_CHILD_DEFAULT(parameterLink, true);
-GNDSTK_MAKE_CHILD_DEFAULT(regions1d, true);
-GNDSTK_MAKE_CHILD_DEFAULT(section, true);
-GNDSTK_MAKE_CHILD_DEFAULT(shell, true);
-GNDSTK_MAKE_CHILD_DEFAULT(values, true);
-GNDSTK_MAKE_CHILD_DEFAULT(weighted, true);
-GNDSTK_MAKE_CHILD_DEFAULT(XYs1d, true);
-GNDSTK_MAKE_CHILD_DEFAULT(XYs2d, true);
+// find::all cases
+GNDSTK_MAKE_CHILD_DEFAULT(add, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(averageParameterCovariance, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(column, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(conversion, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(covariance, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(covarianceMatrix, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSectionSum, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(decay, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(discrete, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(grid, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(Legendre, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(metaStable, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(multiplicitySum, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterLink, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(regions1d, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(section, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(shell, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(values, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(weighted, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(XYs1d, find::all);
+GNDSTK_MAKE_CHILD_DEFAULT(XYs2d, find::all);
 
-// multiple == false
-GNDSTK_MAKE_CHILD_DEFAULT(aliases, false);
-GNDSTK_MAKE_CHILD_DEFAULT(angular, false);
-GNDSTK_MAKE_CHILD_DEFAULT(angularEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(angularTwoBody, false);
-GNDSTK_MAKE_CHILD_DEFAULT(applicationData, false);
-GNDSTK_MAKE_CHILD_DEFAULT(array, false);
-GNDSTK_MAKE_CHILD_DEFAULT(atomic, false);
-GNDSTK_MAKE_CHILD_DEFAULT(averageProductEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(background, false);
-GNDSTK_MAKE_CHILD_DEFAULT(bindingEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(branching1d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(branching3d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(BreitWigner, false);
-GNDSTK_MAKE_CHILD_DEFAULT(characteristicCrossSection, false);
-GNDSTK_MAKE_CHILD_DEFAULT(charge, false);
-GNDSTK_MAKE_CHILD_DEFAULT(coherentElastic, false);
-GNDSTK_MAKE_CHILD_DEFAULT(coherentPhotonScattering, false);
-GNDSTK_MAKE_CHILD_DEFAULT(columnData, false);
-GNDSTK_MAKE_CHILD_DEFAULT(columnHeaders, false);
-GNDSTK_MAKE_CHILD_DEFAULT(constant1d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(continuum, false);
-GNDSTK_MAKE_CHILD_DEFAULT(CoulombPlusNuclearElastic, false);
-GNDSTK_MAKE_CHILD_DEFAULT(covarianceSections, false);
-GNDSTK_MAKE_CHILD_DEFAULT(crossSection, false);
-GNDSTK_MAKE_CHILD_DEFAULT(crossSectionReconstructed, false);
-GNDSTK_MAKE_CHILD_DEFAULT(crossSections, false);
-GNDSTK_MAKE_CHILD_DEFAULT(cutoffEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(data, false);
-GNDSTK_MAKE_CHILD_DEFAULT(DebyeWaller, false);
-GNDSTK_MAKE_CHILD_DEFAULT(decayData, false);
-GNDSTK_MAKE_CHILD_DEFAULT(decayPath, false);
-GNDSTK_MAKE_CHILD_DEFAULT(delayedBetaEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(delayedGammaEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(delayedNeutronKE, false);
-GNDSTK_MAKE_CHILD_DEFAULT(discreteGamma, false);
-GNDSTK_MAKE_CHILD_DEFAULT(distribution, false);
-GNDSTK_MAKE_CHILD_DEFAULT(documentation, false);
-GNDSTK_MAKE_CHILD_DEFAULT(documentations, false);
-GNDSTK_MAKE_CHILD_DEFAULT(doubleDifferentialCrossSection, false);
-GNDSTK_MAKE_CHILD_DEFAULT(e_critical, false);
-GNDSTK_MAKE_CHILD_DEFAULT(EFH, false);
-GNDSTK_MAKE_CHILD_DEFAULT(EFL, false);
-GNDSTK_MAKE_CHILD_DEFAULT(e_max, false);
-GNDSTK_MAKE_CHILD_DEFAULT(ENDFconversionFlags, false);
-GNDSTK_MAKE_CHILD_DEFAULT(energy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(energyAngular, false);
-GNDSTK_MAKE_CHILD_DEFAULT(evaluated, false);
-GNDSTK_MAKE_CHILD_DEFAULT(evaporation, false);
-GNDSTK_MAKE_CHILD_DEFAULT(f, false);
-GNDSTK_MAKE_CHILD_DEFAULT(fastRegion, false);
-GNDSTK_MAKE_CHILD_DEFAULT(fissionEnergyReleased, false);
-GNDSTK_MAKE_CHILD_DEFAULT(fraction, false);
-GNDSTK_MAKE_CHILD_DEFAULT(freeAtomCrossSection, false);
-GNDSTK_MAKE_CHILD_DEFAULT(g, false);
-GNDSTK_MAKE_CHILD_DEFAULT(gaugeBoson, false);
-GNDSTK_MAKE_CHILD_DEFAULT(gaugeBosons, false);
-GNDSTK_MAKE_CHILD_DEFAULT(generalEvaporation, false);
-GNDSTK_MAKE_CHILD_DEFAULT(gridded2d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(gridded3d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(halflife, false);
-GNDSTK_MAKE_CHILD_DEFAULT(hardSphereRadius, false);
-GNDSTK_MAKE_CHILD_DEFAULT(imaginaryAnomalousFactor, false);
-GNDSTK_MAKE_CHILD_DEFAULT(imaginaryInterferenceTerm, false);
-GNDSTK_MAKE_CHILD_DEFAULT(incoherentElastic, false);
-GNDSTK_MAKE_CHILD_DEFAULT(incoherentInelastic, false);
-GNDSTK_MAKE_CHILD_DEFAULT(incoherentPhotonScattering, false);
-GNDSTK_MAKE_CHILD_DEFAULT(incompleteReactions, false);
-GNDSTK_MAKE_CHILD_DEFAULT(institution, false);
-GNDSTK_MAKE_CHILD_DEFAULT(integer, false);
-GNDSTK_MAKE_CHILD_DEFAULT(intensity, false);
-GNDSTK_MAKE_CHILD_DEFAULT(internalConversionCoefficients, false);
-GNDSTK_MAKE_CHILD_DEFAULT(internalPairFormationCoefficient, false);
-GNDSTK_MAKE_CHILD_DEFAULT(isotropic2d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(KalbachMann, false);
-GNDSTK_MAKE_CHILD_DEFAULT(levelSpacing, false);
-GNDSTK_MAKE_CHILD_DEFAULT(link, false);
-GNDSTK_MAKE_CHILD_DEFAULT(listOfCovariances, false);
-GNDSTK_MAKE_CHILD_DEFAULT(MadlandNix, false);
-GNDSTK_MAKE_CHILD_DEFAULT(mass, false);
-GNDSTK_MAKE_CHILD_DEFAULT(mixed, false);
-GNDSTK_MAKE_CHILD_DEFAULT(multiplicities, false);
-GNDSTK_MAKE_CHILD_DEFAULT(multiplicity, false);
-GNDSTK_MAKE_CHILD_DEFAULT(NBodyPhaseSpace, false);
-GNDSTK_MAKE_CHILD_DEFAULT(neutrinoEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(nonNeutrinoEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(nuclearAmplitudeExpansion, false);
-GNDSTK_MAKE_CHILD_DEFAULT(nuclearPlusInterference, false);
-GNDSTK_MAKE_CHILD_DEFAULT(nuclearTerm, false);
-GNDSTK_MAKE_CHILD_DEFAULT(nucleus, false);
-GNDSTK_MAKE_CHILD_DEFAULT(orphanProducts, false);
-GNDSTK_MAKE_CHILD_DEFAULT(outputChannel, false);
-GNDSTK_MAKE_CHILD_DEFAULT(parameterCovariance, false);
-GNDSTK_MAKE_CHILD_DEFAULT(parameterCovarianceMatrix, false);
-GNDSTK_MAKE_CHILD_DEFAULT(parameterCovariances, false);
-GNDSTK_MAKE_CHILD_DEFAULT(parameters, false);
-GNDSTK_MAKE_CHILD_DEFAULT(parity, false);
-GNDSTK_MAKE_CHILD_DEFAULT(photonEmissionProbabilities, false);
-GNDSTK_MAKE_CHILD_DEFAULT(pids, false);
-GNDSTK_MAKE_CHILD_DEFAULT(polynomial1d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(positronEmissionIntensity, false);
-GNDSTK_MAKE_CHILD_DEFAULT(primaryGamma, false);
-GNDSTK_MAKE_CHILD_DEFAULT(probability, false);
-GNDSTK_MAKE_CHILD_DEFAULT(productYield, false);
-GNDSTK_MAKE_CHILD_DEFAULT(productYields, false);
-GNDSTK_MAKE_CHILD_DEFAULT(projectileEnergyDomain, false);
-GNDSTK_MAKE_CHILD_DEFAULT(promptGammaEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(promptNeutronKE, false);
-GNDSTK_MAKE_CHILD_DEFAULT(promptProductKE, false);
-GNDSTK_MAKE_CHILD_DEFAULT(Q, false);
-GNDSTK_MAKE_CHILD_DEFAULT(r, false);
-GNDSTK_MAKE_CHILD_DEFAULT(realAnomalousFactor, false);
-GNDSTK_MAKE_CHILD_DEFAULT(realInterferenceTerm, false);
-GNDSTK_MAKE_CHILD_DEFAULT(recoil, false);
-GNDSTK_MAKE_CHILD_DEFAULT(reference, false);
-GNDSTK_MAKE_CHILD_DEFAULT(regions2d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(resolved, false);
-GNDSTK_MAKE_CHILD_DEFAULT(resolvedRegion, false);
-GNDSTK_MAKE_CHILD_DEFAULT(resonanceParameters, false);
-GNDSTK_MAKE_CHILD_DEFAULT(resonances, false);
-GNDSTK_MAKE_CHILD_DEFAULT(resonancesWithBackground, false);
-GNDSTK_MAKE_CHILD_DEFAULT(RMatrix, false);
-GNDSTK_MAKE_CHILD_DEFAULT(rowData, false);
-GNDSTK_MAKE_CHILD_DEFAULT(RutherfordScattering, false);
-GNDSTK_MAKE_CHILD_DEFAULT(S_alpha_beta, false);
-GNDSTK_MAKE_CHILD_DEFAULT(scatteringFactor, false);
-GNDSTK_MAKE_CHILD_DEFAULT(scatteringRadius, false);
-GNDSTK_MAKE_CHILD_DEFAULT(shortRangeSelfScalingVariance, false);
-GNDSTK_MAKE_CHILD_DEFAULT(simpleMaxwellianFission, false);
-GNDSTK_MAKE_CHILD_DEFAULT(spin, false);
-GNDSTK_MAKE_CHILD_DEFAULT(S_table, false);
-GNDSTK_MAKE_CHILD_DEFAULT(standard, false);
-GNDSTK_MAKE_CHILD_DEFAULT(string, false);
-GNDSTK_MAKE_CHILD_DEFAULT(styles, false);
-GNDSTK_MAKE_CHILD_DEFAULT(table, false);
-GNDSTK_MAKE_CHILD_DEFAULT(tabulatedWidths, false);
-GNDSTK_MAKE_CHILD_DEFAULT(T_effective, false);
-GNDSTK_MAKE_CHILD_DEFAULT(temperature, false);
-GNDSTK_MAKE_CHILD_DEFAULT(theta, false);
-GNDSTK_MAKE_CHILD_DEFAULT(time, false);
-GNDSTK_MAKE_CHILD_DEFAULT(T_M, false);
-GNDSTK_MAKE_CHILD_DEFAULT(totalEnergy, false);
-GNDSTK_MAKE_CHILD_DEFAULT(U, false);
-GNDSTK_MAKE_CHILD_DEFAULT(uncertainty, false);
-GNDSTK_MAKE_CHILD_DEFAULT(uncorrelated, false);
-GNDSTK_MAKE_CHILD_DEFAULT(unresolved, false);
-GNDSTK_MAKE_CHILD_DEFAULT(unresolvedRegion, false);
-GNDSTK_MAKE_CHILD_DEFAULT(unspecified, false);
-GNDSTK_MAKE_CHILD_DEFAULT(weightedFunctionals, false);
-GNDSTK_MAKE_CHILD_DEFAULT(xml, false);
-GNDSTK_MAKE_CHILD_DEFAULT(XYs3d, false);
-GNDSTK_MAKE_CHILD_DEFAULT(yields, false);
+// find::one cases
+GNDSTK_MAKE_CHILD_DEFAULT(aliases, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(angular, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(angularEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(angularTwoBody, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(applicationData, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(array, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(atomic, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(averageProductEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(background, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(bindingEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(branching1d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(branching3d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(BreitWigner, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(characteristicCrossSection, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(charge, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(coherentElastic, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(coherentPhotonScattering, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(columnData, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(columnHeaders, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(constant1d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(continuum, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(CoulombPlusNuclearElastic, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(covarianceSections, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSection, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSectionReconstructed, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(crossSections, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(cutoffEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(data, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(DebyeWaller, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(decayData, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(decayPath, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(delayedBetaEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(delayedGammaEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(delayedNeutronKE, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(discreteGamma, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(distribution, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(documentation, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(documentations, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(doubleDifferentialCrossSection, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(e_critical, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(EFH, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(EFL, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(e_max, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(ENDFconversionFlags, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(energy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(energyAngular, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(evaluated, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(evaporation, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(f, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(fastRegion, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(fissionEnergyReleased, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(fraction, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(freeAtomCrossSection, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(g, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(gaugeBoson, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(gaugeBosons, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(generalEvaporation, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(gridded2d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(gridded3d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(halflife, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(hardSphereRadius, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(imaginaryAnomalousFactor, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(imaginaryInterferenceTerm, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(incoherentElastic, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(incoherentInelastic, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(incoherentPhotonScattering, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(incompleteReactions, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(institution, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(integer, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(intensity, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(internalConversionCoefficients, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(internalPairFormationCoefficient, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(isotropic2d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(KalbachMann, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(levelSpacing, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(link, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(listOfCovariances, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(MadlandNix, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(mass, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(mixed, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(multiplicities, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(multiplicity, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(NBodyPhaseSpace, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(neutrinoEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(nonNeutrinoEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclearAmplitudeExpansion, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclearPlusInterference, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(nuclearTerm, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(nucleus, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(orphanProducts, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(outputChannel, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterCovariance, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterCovarianceMatrix, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(parameterCovariances, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(parameters, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(parity, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(photonEmissionProbabilities, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(pids, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(polynomial1d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(positronEmissionIntensity, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(primaryGamma, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(probability, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(productYield, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(productYields, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(projectileEnergyDomain, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(promptGammaEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(promptNeutronKE, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(promptProductKE, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(Q, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(r, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(realAnomalousFactor, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(realInterferenceTerm, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(recoil, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(reference, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(regions2d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(resolved, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(resolvedRegion, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(resonanceParameters, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(resonances, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(resonancesWithBackground, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(RMatrix, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(rowData, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(RutherfordScattering, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(S_alpha_beta, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringFactor, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(scatteringRadius, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(shortRangeSelfScalingVariance, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(simpleMaxwellianFission, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(spin, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(S_table, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(standard, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(string, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(styles, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(table, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(tabulatedWidths, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(T_effective, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(temperature, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(theta, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(time, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(T_M, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(totalEnergy, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(U, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(uncertainty, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(uncorrelated, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(unresolved, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(unresolvedRegion, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(unspecified, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(weightedFunctionals, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(xml, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(XYs3d, find::one);
+GNDSTK_MAKE_CHILD_DEFAULT(yields, find::one);
 
 } // namespace child
 
@@ -419,6 +416,6 @@ namespace child {
 
 // Double
 // Not called double, for obvious reasons.
-inline const child_t<void,false> Double("double");
+inline const child_t<void,find::one> Double("double");
 
 } // namespace child

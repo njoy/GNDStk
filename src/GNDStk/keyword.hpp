@@ -28,7 +28,7 @@ class meta_t;
 // forward: child_t
 template<
    class RESULT   = void,       // default means current Node type
-   bool  MULTIPLE = false,      // multiple appearances allowed? (e.g. <axis>)
+   find  FIND     = find::one,  // one, or any number allowed?
    class METADATA = metadata<>, // allowable metadata for this child-node type
    class CHILDREN = children<>  // allowable children ...
 >

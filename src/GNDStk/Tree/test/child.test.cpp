@@ -211,11 +211,11 @@ SCENARIO("Testing GNDStk tree child()") {
       // even when the child isn't found...
       (void)&c.child("xml");
       (void)&c.child("covarianceSuite");
-      (void)&c.child("foo");
+      (void)&c.child("foo",found);
 
       (void)&t.child("xml");
       (void)&t.child("covarianceSuite");
-      (void)&t.child("bar");
+      (void)&t.child("bar",found);
 
 
       // ------------------------

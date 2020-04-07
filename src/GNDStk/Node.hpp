@@ -37,6 +37,7 @@ public:
    // clear()
    Node &clear()
    {
+      /// debug("node clear()");
       name = "";
       metadata.clear();
       children.clear();
@@ -46,18 +47,21 @@ public:
    // is this node empty?
    bool empty() const
    {
+      /// debug("node empty()");
       return name == "" && metadata.size() == 0 && children.size() == 0;
    }
 
    // is this a leaf node?
    bool leaf() const
    {
+      debug("node leaf()");
       return children.size() == 0;
    }
 
    // copy
    Node copy() const
    {
+      /// debug("node copy()");
       Node ret;
       detail::node2Node(*this,ret);
       return ret;
@@ -71,7 +75,10 @@ public:
    // ------------------------
 
    // ctor: default
-   Node() { }
+   Node()
+   {
+      /// debug("node node()");
+   }
 
    // ctor: move, DELETED copy
    Node(Node &&) = default;
@@ -103,6 +110,7 @@ inline std::ostream &operator<<(
    std::ostream &os,
    const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
+   debug("node operator<<");
    return obj.write(os);
 }
 
@@ -119,6 +127,8 @@ template<
 Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 Node<METADATA_CONTAINER,CHILDREN_CONTAINER>::normalize()
 {
+   debug("node normalize()");
+
    // name
    detail::strip(name);
 

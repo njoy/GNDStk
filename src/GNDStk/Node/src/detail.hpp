@@ -10,6 +10,7 @@ namespace detail {
 // the original string, and also returns a reference to it.
 inline std::string &strip(std::string &name)
 {
+   debug("node detail strip()");
    int n = 0, ch; const int size = name.size();
    while (n < size and (isdigit(ch=name[n]) or isspace(ch)))
       n++;
@@ -37,6 +38,7 @@ public:
    template<class NODE>
    void operator()(const NODE &node) const
    {
+      debug("node detail apply_keyword<RESULT>()");
       RESULT result;
       node2type(node,result);
    }
@@ -52,6 +54,7 @@ public:
    template<class NODE>
    void operator()(const NODE &) const
    {
+      debug("node detail apply_keyword<Node>()");
       // no action
    }
 };
@@ -63,6 +66,7 @@ public:
    template<class NODE>
    void operator()(const NODE &) const
    {
+      debug("node detail apply_keyword<void>()");
       // no action
    }
 };

@@ -3,34 +3,37 @@
 // keyword_t::child()
 // -----------------------------------------------------------------------------
 
-template<class RESULT = void, bool MULTIPLE = false>
+// name [,top]
+template<class RESULT = void, find FIND = find::one>
 static auto child(const std::string &name, const bool top = false)
 {
    return child_t<
       RESULT,
-      MULTIPLE,
+      FIND,
       metadata<>,
       children<>
    >{name,top};
 }
 
-template<class RESULT = void, bool MULTIPLE = false, class K, class... Ks>
+// name, keyword[s]
+template<class RESULT = void, find FIND = find::one, class K, class... Ks>
 static auto child(const std::string &name, const K &, Ks...)
 {
    return child_t<
       RESULT,
-      MULTIPLE,
+      FIND,
       typename detail::catenateMetadata<metadata<>,K,Ks...>::type,
       typename detail::catenateChildren<children<>,K,Ks...>::type
    >{name};
 }
 
-template<class RESULT = void, bool MULTIPLE = false, class K, class... Ks>
+// name, top, keyword[s]
+template<class RESULT = void, find FIND = find::one, class K, class... Ks>
 static auto child(const std::string &name, const bool top, const K &, Ks...)
 {
    return child_t<
       RESULT,
-      MULTIPLE,
+      FIND,
       typename detail::catenateMetadata<metadata<>,K,Ks...>::type,
       typename detail::catenateChildren<children<>,K,Ks...>::type
    >{name,top};

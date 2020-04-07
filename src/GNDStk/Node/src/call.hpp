@@ -31,10 +31,10 @@ decltype(auto) operator()(
 // child_t
 // Forwards to child(child_t)
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+   class RESULT, find FIND, class METADATA, class CHILDREN
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::np16);
@@ -44,11 +44,11 @@ decltype(auto) operator()(
 // child_t, ...
 // Multi-argument
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class RESULT, find FIND, class METADATA, class CHILDREN,
    class... Keywords
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) const {
    debug(detail::np17);
@@ -77,10 +77,10 @@ decltype(auto) operator()(
 
 // child_t
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+   class RESULT, find FIND, class METADATA, class CHILDREN
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) {
    debug(detail::np19);
@@ -89,11 +89,11 @@ decltype(auto) operator()(
 
 // child_t, ...
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class RESULT, find FIND, class METADATA, class CHILDREN,
    class... Keywords
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) {
    debug(detail::np20);

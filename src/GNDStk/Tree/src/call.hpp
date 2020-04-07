@@ -21,10 +21,10 @@ decltype(auto) operator()(
 
 // child_t
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+   class RESULT, find FIND, class METADATA, class CHILDREN
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
    debug(detail::tp31);
@@ -33,11 +33,11 @@ decltype(auto) operator()(
 
 // child_t, ...
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class RESULT, find FIND, class METADATA, class CHILDREN,
    class... Keywords
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) const {
    debug(detail::tp32);
@@ -66,10 +66,10 @@ decltype(auto) operator()(
 
 // child_t
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN
+   class RESULT, find FIND, class METADATA, class CHILDREN
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) {
    debug(detail::tp34);
@@ -78,11 +78,11 @@ decltype(auto) operator()(
 
 // child_t, ...
 template<
-   class RESULT, bool MULTIPLE, class METADATA, class CHILDREN,
+   class RESULT, find FIND, class METADATA, class CHILDREN,
    class... Keywords
 >
 decltype(auto) operator()(
-   const child_t<RESULT,MULTIPLE,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) {
    debug(detail::tp35);
