@@ -91,6 +91,8 @@ public:
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"
    #include "GNDStk/Node/src/meta.hpp"
+   #include "GNDStk/Node/src/one.hpp"
+   #include "GNDStk/Node/src/all.hpp"
    #include "GNDStk/Node/src/child.hpp"
    #include "GNDStk/Node/src/call.hpp"
 

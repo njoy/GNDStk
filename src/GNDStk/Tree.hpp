@@ -70,6 +70,8 @@ public:
    #include "GNDStk/Tree/src/top.hpp"
 
    #include "GNDStk/Tree/src/meta.hpp"
+   #include "GNDStk/Tree/src/one.hpp"
+   #include "GNDStk/Tree/src/all.hpp"
    #include "GNDStk/Tree/src/child.hpp"
    #include "GNDStk/Tree/src/call.hpp"
 

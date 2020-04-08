@@ -1,52 +1,18 @@
 
-// Reminder: Tree::nodeType is Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
-
-
-
-// -----------------------------------------------------------------------------
-// Tree::child(string)
-// -----------------------------------------------------------------------------
-
-// const
-const nodeType &child(
-   const std::string &key,
-   bool &found = detail::default_bool
-) const {
-   debug(detail::tc25);
-
-   // if tree is empty, but a "found" flag wasn't sent
-   if (empty() and &found == &detail::default_bool) {
-      // fixme need a real error
-      assert(false);
-   }
-
-   return key == "" || decl().name == key
-      ? (found = true, decl())
-      : decl().child(key,found);
-}
-
-
-// non-const
-nodeType &child(
-   const std::string &key,
-   bool &found = detail::default_bool
-) {
-   debug(detail::tc26);
-   return const_cast<nodeType &>(std::as_const(*this).child(key,found));
-}
-
-
-
 // -----------------------------------------------------------------------------
 // Tree::child(child_t<*>)
+// Reminder: Tree::nodeType is Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
 // -----------------------------------------------------------------------------
 
 // ------------------------
 // find::one
 // ------------------------
 
-// Note: We have the find::one case only, because find::all wouldn't make
-// sense for trees, which have one declaration and one top-level GNDS node.
+// Note: We have the find::one case only, because find::all wouldn't make sense
+// for trees, which have at most one declaration node and one top-level GNDS
+// node. We did in fact provide a Tree::all(string) function - for plain string
+// lookup - but, with properly formulated keywords, there's just no need here.
+
 
 // child(child_t<RESULT>)
 template<class RESULT, class METADATA, class CHILDREN>
@@ -55,7 +21,7 @@ RESULT child(
    bool &found = detail::default_bool
 ) const {
    debug(detail::tc27);
-   const nodeType &n = child(kwd.name,found);
+   const nodeType &n = one(kwd.name,found);
    RESULT type{};
    if (found)
       node2type(n,type);
@@ -70,7 +36,7 @@ nodeType child(
    bool &found = detail::default_bool
 ) const {
    debug(detail::tc28);
-   return child(kwd.name,found).copy();
+   return one(kwd.name,found).copy();
 }
 
 
