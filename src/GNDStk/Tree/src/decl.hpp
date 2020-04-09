@@ -62,7 +62,7 @@ however, waiting to be used, if/when the information it holds might be useful.
 // const
 const nodeType &decl() const
 {
-   assert(not empty());
+   assert(has_decl());
    return *root;
 }
 

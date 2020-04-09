@@ -36,19 +36,31 @@ public:
    // is this tree empty?
    bool empty() const
    {
-      // yes, empty?
-      if (root == nullptr)
-         return true;
+      return root == nullptr;
+   }
 
-      // might as well also double-check for well-formedness...
-      // ...the declaration node leads to exactly *one* top-level GNDS node
-      assert(root->children.size() == 1);
-      // ...and the top-level GNDS node is actually there
-      assert(*root->children.begin() != nullptr);
-      // fixme As elsewhere, have better error reporting
+   // does this tree have a declaration node?
+   bool has_decl() const
+   {
+      // This is basically equivalent to !empty(),
+      // but with an additional well-formedness check
 
-      // no, not empty
-      return false;
+      // no
+      if (root == nullptr) return false;
+      // well-formedness check
+      assert(root->children.size() == 0 || (
+             root->children.size() == 1 && *root->children.begin() != nullptr));
+      // yes
+      return true;
+   }
+
+   // does this tree have a top-level GNDS node?
+   bool has_top() const
+   {
+      // no
+      if (!has_decl()) return false;
+      // maybe yes, maybe no
+      return root->children.size() == 1;
    }
 
    // normalize
@@ -59,10 +71,10 @@ public:
       return *this;
    }
 
+   #include "GNDStk/Tree/src/init.hpp"
    #include "GNDStk/Tree/src/ctor.hpp"
    #include "GNDStk/Tree/src/assign.hpp"
 
-   #include "GNDStk/Tree/src/init.hpp"
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
 

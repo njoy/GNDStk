@@ -54,7 +54,7 @@ decltype(auto) operator()(
    debug(detail::np17);
    if (kwd.name == "")
       detail::apply_keyword<RESULT>()(*this);
-   const auto &peel = this->child(-kwd); // for const correctness
+   const auto &peel = this->child(-kwd);
    return peel(std::forward<Keywords>(keywords)...);
 }
 

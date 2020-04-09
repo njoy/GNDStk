@@ -29,7 +29,7 @@ const std::string &meta(
    // Note that the question of whether a "found" flag was sent is determined
    // by looking at its address. This is entirely different from the question
    // of what found's value proves to be.
-   if (&found == &detail::default_bool)
+   if (detail::not_sent(found))
       error(
          "Node meta() called with key \"" + key + "\", "
          "but this key wasn't\nfound in the node's metadata."

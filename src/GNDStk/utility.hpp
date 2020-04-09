@@ -44,6 +44,11 @@ class dummy { };
 namespace detail {
    inline bool default_bool = false;
    inline std::string default_string = "";
+
+   inline bool not_sent(const bool &found)
+   {
+      return &found == &default_bool;
+   }
 }
 
 
@@ -53,18 +58,20 @@ namespace detail {
 // These are needed for the upcoming forward declarations of convert().
 // -----------------------------------------------------------------------------
 
+#define GNDSTK_DEFAULT_CONTAINER std::vector
+
 // Node, node
 template<
-   template<class...> class = std::vector,
-   template<class...> class = std::vector
+   template<class...> class = GNDSTK_DEFAULT_CONTAINER,
+   template<class...> class = GNDSTK_DEFAULT_CONTAINER
 >
 class Node;
 using node = Node<>;
 
 // Tree, tree
 template<
-   template<class...> class = std::vector,
-   template<class...> class = std::vector
+   template<class...> class = GNDSTK_DEFAULT_CONTAINER,
+   template<class...> class = GNDSTK_DEFAULT_CONTAINER
 >
 class Tree;
 using tree = Tree<>;

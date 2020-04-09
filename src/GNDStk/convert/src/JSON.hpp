@@ -19,7 +19,8 @@ bool convert(
    // convert
    if (not tree.empty()) {
       unsigned long kwdcount = 0;
-      return detail::node2json(tree.top(), jdoc.doc, kwdcount);
+      return !tree.has_top() ||
+         detail::node2json(tree.top(), jdoc.doc, kwdcount);
       /*
       const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
          &node = *tree.root;

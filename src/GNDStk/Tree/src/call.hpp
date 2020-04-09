@@ -41,9 +41,9 @@ decltype(auto) operator()(
    Keywords &&...keywords
 ) const {
    debug(detail::tp32);
-   if (kwd.name == "")
+   if (kwd.name == "" && has_decl())
       detail::apply_keyword<RESULT>()(decl());
-   const auto &peel = this->child(-kwd); // for const correctness
+   const auto &peel = this->child(-kwd);
    return peel(std::forward<Keywords>(keywords)...);
 }
 
@@ -86,7 +86,7 @@ decltype(auto) operator()(
    Keywords &&...keywords
 ) {
    debug(detail::tp35);
-   if (kwd.name == "")
+   if (kwd.name == "" && has_decl())
       detail::apply_keyword<RESULT>()(decl());
    return this->child(-kwd)(std::forward<Keywords>(keywords)...);
 }

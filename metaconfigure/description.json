@@ -611,6 +611,7 @@
     "src/GNDStk/Node/src/all.hpp", 
     "src/GNDStk/Node/src/one.hpp", 
     "src/GNDStk/Node/src/detail.hpp", 
+    "src/GNDStk/node2type/src/detail.hpp", 
     "src/GNDStk/keyword/src/child.hpp", 
     "src/GNDStk/keyword/src/meta.hpp", 
     "src/GNDStk/keyword/src/catenateChildren.hpp", 

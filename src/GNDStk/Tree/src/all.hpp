@@ -21,12 +21,22 @@ CONTAINER<nodeType,std::allocator<nodeType>> all(
    CONTAINER<nodeType,std::allocator<nodeType>> container;
 
    // search
+   if (has_decl()) {
+      if (decl().name == key)
+         container.push_back(decl().copy());
+      if (has_top() && top().name == key)
+         container.push_back(top().copy());
+   }
+
+   /*
+   // search
    if (!empty()) {
       if (decl().name == key)
          container.push_back(decl().copy());
       if (decl().children.size() > 0 && top().name == key)
          container.push_back(top().copy());
    }
+   */
 
    // done
    found = container.size() > 0;

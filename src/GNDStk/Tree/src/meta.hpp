@@ -10,26 +10,31 @@ const std::string &meta(
 ) const {
    debug(detail::tm21);
 
-   // if tree is empty, but a "found" flag wasn't sent
-   if (empty() and &found == &detail::default_bool) {
-      // fixme need a real error
-      assert(false);
+   // local "found"
+   bool f;
+
+   // look in the declaration node
+   if (has_decl()) {
+      const std::string &d = decl().meta(key,f);
+      if (f) return found = true, d;
    }
 
-   // first, look in the declaration node; then look in the top-level node
-   bool f; // local "found"
-   const std::string &d = decl().meta(key,f); if (f) { found = true; return d; }
-   const std::string &t = top ().meta(key,f); if (f) { found = true; return t; }
+   // look in the top-level GNDS node
+   if (has_top()) {
+      const std::string &t = top().meta(key,f);
+      if (f) return found = true, t;
+   }
 
-   if (&found == &detail::default_bool)
+   // well, we didn't find it
+   if (detail::not_sent(found))
       error(
          "Tree meta() called with key \"" + key + "\", "
          "but this key wasn't\nfound in the tree's declaration node "
          "or in its top-level GNDS node."
       );
 
-   found = false;
-   return t;
+   static std::string empty;
+   return found = false, empty = "";
 }
 
 
@@ -59,32 +64,33 @@ meta(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::tm23);
 
-   if (empty() and &found == &detail::default_bool) {
-      // fixme need a real error
-      assert(false);
+   // local "found"
+   bool f;
+
+   // look in the declaration node
+   if (has_decl()) {
+      auto d = decl().meta(kwd,f);
+      if (f) { found = true; return d; }
    }
 
-   /*
-   bool found_in_decl;
-   const auto ret = decl().meta(kwd,found_in_decl);
-   return found_in_decl ? (found = true, ret) : top().meta(kwd,found);
-   */
+   // look in the top-level GNDS node
+   if (has_top()) {
+      auto t = top().meta(kwd,f);
+      if (f) { found = true; return t; }
+   }
 
-   bool f; // local "found"
-   const auto d = decl().meta(kwd,f); if (f) { found = true; return d; }
-   const auto t = top ().meta(kwd,f); if (f) { found = true; return t; }
-
-   if (&found == &detail::default_bool)
+   // well, we didn't find it
+   if (detail::not_sent(found))
       error(
-         "Tree meta() called with meta_t key \"" + kwd.name + "\", "
+         "Tree meta() called with key \"" + kwd.name + "\", "
          "but this key wasn't\nfound in the tree's declaration node "
          "or in its top-level GNDS node."
       );
 
    found = false;
-   return t;
+   decltype(decl().meta(kwd,f)) empty{};
+   return empty;
 }
 
 

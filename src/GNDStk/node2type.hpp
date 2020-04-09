@@ -17,6 +17,8 @@ the string to a stream and using operator>>, we don't know how to convert
 a node to a stream either.
 */
 
+#include "GNDStk/node2type/src/detail.hpp"
+
 
 
 // -----------------------------------------------------------------------------
@@ -65,29 +67,7 @@ inline void node2type(
 // where the pugixml reader interprets the text as pcdata or cdata.
 // -----------------------------------------------------------------------------
 
-namespace detail {
-
-// fixme put this detail stuff somewhere else
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-void node2container_check(
-   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
-) {
-   if (node.metadata.size() != 1 ||
-       node.children.size() != 0 || (
-          node.metadata[0].first != detail::keyword_pcdata &&
-          node.metadata[0].first != detail::keyword_cdata)
-   ) {
-      // fixme
-      assert(false);
-   }
-}
-
-}
-
-#define GNDSTK_NODE2CONTAINER(container) \
+#define GNDSTK_NODE2CONTAINER(CONTAINER) \
    template< \
       template<class...> class METADATA_CONTAINER, \
       template<class...> class CHILDREN_CONTAINER, \
@@ -95,11 +75,10 @@ void node2container_check(
    > \
    void node2type( \
       const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node, \
-      std::container<T,Alloc> &ctnr \
+      std::CONTAINER<T,Alloc> &container \
    ) { \
-      ctnr.clear(); \
-      detail::node2container_check(node); \
-      string2type(node.metadata[0].second, ctnr); \
+      container.clear(); \
+      string2type(detail::node2container_data(node), container); \
    }
 
    GNDSTK_NODE2CONTAINER(deque)

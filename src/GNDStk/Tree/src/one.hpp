@@ -9,8 +9,8 @@ const nodeType &one(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   // if tree is empty, but a "found" flag wasn't sent
-   if (empty() and &found == &detail::default_bool) {
+   // if tree has no declaration node, but a "found" flag wasn't sent
+   if (!has_decl() and detail::not_sent(found)) {
       // fixme need a real error
       assert(false);
    }

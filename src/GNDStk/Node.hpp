@@ -37,7 +37,6 @@ public:
    // clear()
    Node &clear()
    {
-      /// debug("node clear()");
       name = "";
       metadata.clear();
       children.clear();
@@ -47,21 +46,21 @@ public:
    // is this node empty?
    bool empty() const
    {
-      /// debug("node empty()");
       return name == "" && metadata.size() == 0 && children.size() == 0;
    }
 
+   /*
+   // removed for now; let's see if we end up needing this
    // is this a leaf node?
    bool leaf() const
    {
-      debug("node leaf()");
       return children.size() == 0;
    }
+   */
 
    // copy
    Node copy() const
    {
-      /// debug("node copy()");
       Node ret;
       detail::node2Node(*this,ret);
       return ret;
@@ -75,10 +74,7 @@ public:
    // ------------------------
 
    // ctor: default
-   Node()
-   {
-      /// debug("node node()");
-   }
+   Node() { }
 
    // ctor: move, DELETED copy
    Node(Node &&) = default;
@@ -90,6 +86,7 @@ public:
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"
+
    #include "GNDStk/Node/src/meta.hpp"
    #include "GNDStk/Node/src/one.hpp"
    #include "GNDStk/Node/src/all.hpp"

@@ -17,7 +17,7 @@ bool convert(
    xdoc.clear();
 
    // convert
-   if (not tree.empty()) {
+   if (tree.has_decl()) {
       const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &tdecl =
          tree.decl();
 
@@ -55,7 +55,7 @@ bool convert(
       // children
       // ------------------------
 
-      return detail::node2XML(tree.top(), xdoc.doc);
+      return !tree.has_top() || detail::node2XML(tree.top(), xdoc.doc);
 
       /*
       // fixme Everywhere, checks like the following should

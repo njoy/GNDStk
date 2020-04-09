@@ -8,8 +8,7 @@
 // const
 const nodeType &top() const
 {
-   assert(not empty() and root->children.size() == 1 and
-          *root->children.begin() != nullptr);
+   assert(has_top());
    // **: one to dereference the begin() iterator into the container,
    // the other to dereference the pointer that's in the container.
    return **root->children.begin();
