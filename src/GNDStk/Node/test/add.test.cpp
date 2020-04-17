@@ -56,7 +56,7 @@ SCENARIO("Testing GNDStk Node add()") {
 
    Node<> n;
    n.name = "name";
-   debug = true;
+   // debug = true;
 
    // metadata, string key, various value types
    n.add(std::make_pair("a","b"));
