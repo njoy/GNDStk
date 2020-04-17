@@ -11,6 +11,12 @@
 // child_t parameters - not with std::string parameters - should be preferred.
 // Those encode (via their type) whether we're accessing metadata or children.
 
+// Note: for variant-based meta_t and child_t keywords, you'll still need to
+// call meta<RESULT>() or child<RESULT> directly. Implementing the variant
+// versions here would bulk up this file, and you'd need to write the operator
+// call in functional form, e.g. mynode.operator()<some_t>(...), to use it.
+
+
 // ------------------------
 // const
 // ------------------------
@@ -24,7 +30,6 @@ decltype(auto) operator()(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::np15);
    return meta(kwd,found);
 }
 
@@ -37,7 +42,6 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::np16);
    return child(kwd,found);
 }
 
@@ -51,7 +55,6 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) const {
-   debug(detail::np17);
    if (kwd.name == "")
       detail::apply_keyword<RESULT>()(*this);
    const auto &peel = this->child(-kwd);
@@ -71,7 +74,6 @@ decltype(auto) operator()(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) {
-   debug(detail::np18);
    return meta(kwd,found);
 }
 
@@ -83,7 +85,6 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) {
-   debug(detail::np19);
    return child(kwd,found);
 }
 
@@ -96,7 +97,6 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) {
-   debug(detail::np20);
    if (kwd.name == "")
       detail::apply_keyword<RESULT>()(*this);
    return this->child(-kwd)(std::forward<Keywords>(keywords)...);

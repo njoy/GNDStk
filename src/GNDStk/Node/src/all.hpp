@@ -7,8 +7,8 @@
 // -----------------------------------------------------------------------------
 
 // const
-// return by value, so non-const isn't needed
-template<template<class ...> class CONTAINER = std::vector>
+// returns by value, so non-const isn't needed
+template<template<class...> class CONTAINER = std::vector>
 CONTAINER<Node,std::allocator<Node>> all(
    const std::string &key,
    bool &found = detail::default_bool

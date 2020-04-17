@@ -1,43 +1,33 @@
 
 // -----------------------------------------------------------------------------
 // Node::add() metadatum
+// This adds a new metadatum to the current node.
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// string, ...
+// general
 // ------------------------
 
-// (string,string) direct
-metaPair &add(const std::string &key, const std::string &value)
+// (metaPair)
+metaPair &add(const metaPair &pair)
 {
-   /// debug("node add() #1: (string,string)");
-   metadata.push_back(metaPair(key,value));
+   metadata.push_back(pair);
    return metadata.back();
 }
 
-// (string,string) pair
-metaPair &add(const metaPair &m)
+// (string,string)
+metaPair &add(const std::string &key, const std::string &value)
 {
-   /// debug("node add() #2: pair(string,string)");
-   return add(m.first,m.second);
+   return add(metaPair(key,value));
 }
 
-// (string,T) direct
+// (string,T)
 template<class T>
 metaPair &add(const std::string &key, const T &value)
 {
-   /// debug("node add() #3: (string,T)");
    std::string str;
    type2string(value,str);
    return add(key,str);
-}
-
-// (string,T) pair
-template<class T>
-metaPair &add(const std::pair<std::string,T> &m)
-{
-   debug("node add() #4: pair(string,T)");
-   return add(m.first,m.second);
 }
 
 
@@ -45,48 +35,155 @@ metaPair &add(const std::pair<std::string,T> &m)
 // meta_t, ...
 // ------------------------
 
-// (meta_t<void>,string) direct
+// (meta_t<void>,string)
 metaPair &add(const meta_t<void> &kwd, const std::string &value = "")
 {
-   debug("node add() #5: (meta_t<void>,string)");
    return add(kwd.name,value);
 }
 
-// (meta_t<void>,string) pair
-metaPair &add(const std::pair<meta_t<void>,std::string> &m)
+// (meta_t<string>,string)
+metaPair &add(const meta_t<std::string> &kwd, const std::string &value = "")
 {
-   debug("node add() #6: pair(meta_t<void>,string)");
-   return add(m.first,m.second);
+   return add(kwd.name,value);
 }
 
-// (meta_t<T>,T) direct
+// (meta_t<T>,T)
 template<class T>
 metaPair &add(const meta_t<T> &kwd, const T &value = T{})
 {
-   debug("node add() #7: (meta_t<T>,T)");
    return add(kwd.name,value);
 }
 
-// (meta_t<T>,T) pair
-template<class T>
-metaPair &add(const std::pair<meta_t<T>,T> &m)
-{
-   debug("node add() #8: pair(meta_t<T>,T)");
-   return add(m.first,m.second);
+
+
+// -----------------------------------------------------------------------------
+// Node::add() child node
+// This adds a new child node to the current node.
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// general
+// ------------------------
+
+// (Node<same or different>)
+// Action: creates a new child in the current node, and copies the new node
+// (sent as a parameter) into it.
+// Returns a reference to the new child node.
+template<
+   template<class...> class METADATA_CONTAINER_FROM,
+   template<class...> class CHILDREN_CONTAINER_FROM
+>
+Node &add(
+   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from
+) {
+   Node &n = add(); // below
+   detail::node2Node(from,n);
+   return n;
 }
-
-
-
-// -----------------------------------------------------------------------------
-// Node::add() child
-// -----------------------------------------------------------------------------
 
 // ()
 // (string)
-Node &add(const std::string &name = "")
-{
-   /// debug("node add() #9: (string)");
+// Action: creates a new child in the current node, and with the given name
+// if any.
+// Returns a reference to the new child node.
+Node &add(
+   const std::string &name = ""
+) {
    children.push_back(std::make_unique<Node>());
-   children.back()->name = name;
-   return *children.back();
+   Node &n = *children.back();
+   n.name = name;
+   return n;
+}
+
+
+// ------------------------
+// child_t, ...
+// ------------------------
+
+// <void,one>: accepts one node
+// Action: creates a new child in the current node, and copies the node sent
+// as a parameter into it. Gives the new node the name from the keyword object,
+// not the one it got from the copied-in node.
+// Returns a reference to the new child node.
+template<
+   class METADATA,
+   class CHILDREN,
+   template<class...> class METADATA_CONTAINER_FROM,
+   template<class...> class CHILDREN_CONTAINER_FROM
+>
+Node &add(
+   const child_t<void,find::one,METADATA,CHILDREN> &kwd,
+   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &value
+) {
+   Node &n = add();
+   type2node(value,n);
+   n.name = kwd.name;
+   return n;
+}
+
+
+// <T,one>: accepts one T
+// Action: creates a new child in the current node, and converts the T sent
+// as a parameter into it. Gives the new node the name from the keyword object,
+// not the one it might have gotten from the conversion.
+// Returns a reference to the new child node.
+template<
+   class METADATA,
+   class CHILDREN,
+   class T
+>
+Node &add(
+   const child_t<T,find::one,METADATA,CHILDREN> &kwd,
+   const T &value
+) {
+   Node &n = add();
+   type2node(value,n);
+   n.name = kwd.name;
+   return n;
+}
+
+
+// <void,all>: accepts a container of nodes
+// Action: creates new children in the current node, copying the nodes sent
+// in the container parameter into them. Gives all the new nodes the name from
+// the keyword object, not the ones they got from the copied-in nodes.
+// No returned reference, because we entered numerous new values.
+template<
+   class METADATA,
+   class CHILDREN,
+   template<class...> class CONTAINER = std::vector,
+   template<class...> class METADATA_CONTAINER_FROM,
+   template<class...> class CHILDREN_CONTAINER_FROM,
+   class... Args
+>
+void add(
+   const child_t<void,find::all,METADATA,CHILDREN> &kwd,
+   const CONTAINER<
+      Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM>,
+      Args...
+   > &container
+) {
+   for (auto &value : container)
+      add(child_t<void,find::one,METADATA,CHILDREN>(kwd.name), value);
+}
+
+
+// <T,all>: accepts container of Ts
+// Action: creates new children in the current node, converting the Ts sent
+// in the container parameter into them. Gives all the new nodes the name from
+// the keyword object, not the ones they might have gotten from the conversions.
+// No returned reference, because we entered numerous new values.
+template<
+   class T,
+   class METADATA,
+   class CHILDREN,
+   template<class...> class CONTAINER = std::vector,
+   class... Args
+>
+void add(
+   const child_t<T,find::all,METADATA,CHILDREN> &kwd,
+   const CONTAINER<T,Args...> &container
+) {
+   for (auto &value : container)
+      add(child_t<T,find::one,METADATA,CHILDREN>(kwd.name), value);
 }

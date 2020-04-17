@@ -5,18 +5,6 @@
 
 namespace detail {
 
-// strip
-// Strips leading digits and white-space from a string. Modifies
-// the original string, and also returns a reference to it.
-inline std::string &strip(std::string &name)
-{
-   debug("node detail strip()");
-   int n = 0, ch; const int size = name.size();
-   while (n < size and (isdigit(ch=name[n]) or isspace(ch)))
-      n++;
-   return n ? (name = std::string(&name[n])) : name;
-}
-
 // is_oneof
 // For some SFINAE
 template<class Foo, class... Foos>
@@ -39,8 +27,8 @@ public:
    void operator()(const NODE &node) const
    {
       debug("node detail apply_keyword<RESULT>()");
-      RESULT result;
-      node2type(node,result);
+      RESULT type{};
+      node2type(node,type);
    }
 };
 

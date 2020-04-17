@@ -21,22 +21,19 @@
 //       this name can occur. In these cases, the child() functions below
 //       return containers of values.
 //
-// Non-const versions aren't needed for these, because the const versions
-// return by value.
+// Non-const versions aren't needed for most of these.
 // -----------------------------------------------------------------------------
 
 // ------------------------
 // find::one
 // ------------------------
 
-// child(child_t<RESULT>)
+// child(child_t<RESULT>) const
 template<class RESULT, class METADATA, class CHILDREN>
 RESULT child(
    const child_t<RESULT,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::nc09);
-
    // call one(string), with the child_t's key
    const Node &n = one(kwd.name,found);
 
@@ -48,18 +45,27 @@ RESULT child(
 }
 
 
-// child(child_t<void>)
+// child(child_t<void>) const
 template<class METADATA, class CHILDREN>
-Node child(
+const Node &child(
    const child_t<void,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::nc10);
-   return one(kwd.name,found).copy();
+   return one(kwd.name,found);
 }
 
 
-// child(child_t<variant>)
+// child(child_t<void>) non-const
+template<class METADATA, class CHILDREN>
+Node &child(
+   const child_t<void,find::one,METADATA,CHILDREN> &kwd,
+   bool &found = detail::default_bool
+) {
+   return one(kwd.name,found);
+}
+
+
+// child(child_t<variant>) const
 // With caller-specified result type
 template<class RESULT, class METADATA, class CHILDREN, class... Ts>
 typename std::enable_if<
@@ -69,7 +75,6 @@ typename std::enable_if<
    const child_t<std::variant<Ts...>,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::nc11);
    return child(child_t<RESULT,find::one,METADATA,CHILDREN>(kwd.name),found);
 }
 
@@ -79,17 +84,15 @@ typename std::enable_if<
 // find::all
 // ------------------------
 
-// child(child_t<RESULT>)
+// child(child_t<RESULT>) const
 template<
-   template<class ...> class CONTAINER = std::vector,
+   template<class...> class CONTAINER = std::vector,
    class RESULT, class METADATA, class CHILDREN
 >
 CONTAINER<RESULT,std::allocator<RESULT>> child(
    const child_t<RESULT,find::all,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::nc12);
-
    // container
    CONTAINER<RESULT,std::allocator<RESULT>> container;
 
@@ -107,25 +110,24 @@ CONTAINER<RESULT,std::allocator<RESULT>> child(
 }
 
 
-// child(child_t<void>)
+// child(child_t<void>) const
 template<
-   template<class ...> class CONTAINER = std::vector,
+   template<class...> class CONTAINER = std::vector,
    class METADATA, class CHILDREN
 >
 CONTAINER<Node,std::allocator<Node>> child(
    const child_t<void,find::all,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::nc13);
    return all<CONTAINER>(kwd.name,found);
 }
 
 
-// child(child_t<variant>)
+// child(child_t<variant>) const
 // With caller-specified result type
 template<
    class RESULT,
-   template<class ...> class CONTAINER = std::vector,
+   template<class...> class CONTAINER = std::vector,
    class METADATA, class CHILDREN, class... Ts
 >
 CONTAINER<
@@ -143,7 +145,6 @@ CONTAINER<
    const child_t<std::variant<Ts...>,find::all,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::nc14);
    return child<CONTAINER>(
       child_t<RESULT,find::all,METADATA,CHILDREN>(kwd.name),
       found
