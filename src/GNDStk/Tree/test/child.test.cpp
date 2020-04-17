@@ -174,16 +174,16 @@ SCENARIO("Testing GNDStk tree child()") {
          // a plain old Node, even though in principle it could give us back
          // a custom type.
          found = false;
-         Node<> cnode = c.child(child::xml,found);
+         const Node<> &cnode = c.child(child::xml,found);
          REQUIRE(found == true);
          found = false;
-         Node<> tnode = t.child(child::xml,found);
+         Node<> &tnode = t.child(child::xml,found);
          REQUIRE(found == true);
       } {
          // IN CASE OF ERROR: Same note as immediately above.
-         found = false; auto cnode = c.child(covarianceSuite,found);
+         found = false; auto &cnode = c.child(covarianceSuite,found);
          REQUIRE(found == true);
-         found = false; auto tnode = t.child(covarianceSuite,found);
+         found = false; auto &tnode = t.child(covarianceSuite,found);
          REQUIRE(found == true);
       }
 

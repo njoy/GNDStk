@@ -38,57 +38,57 @@ SCENARIO("Testing GNDStk tree top()") {
 
    GIVEN("An empty tree") {
 
-      WHEN("init(reactionSuite)") {
+      WHEN("reset(reactionSuite)") {
          Tree<> t;
-         t.init(reactionSuite);
+         t.reset(reactionSuite);
          REQUIRE(t.top().name == "reactionSuite");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);
       }
 
-      WHEN("init(reactionSuite, format::json)") {
+      WHEN("reset(reactionSuite, format::json)") {
          Tree<> t;
-         t.init(reactionSuite, format::json);
+         t.reset(reactionSuite, format::json);
          REQUIRE(t.top().name == "reactionSuite");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);
       }
 
-      WHEN("init(covarianceSuite, format::null, \"2.0\")") {
+      WHEN("reset(covarianceSuite, format::null, \"2.0\")") {
          Tree<> t;
-         t.init(covarianceSuite, format::null, "2.0");
+         t.reset(covarianceSuite, format::null, "2.0");
          REQUIRE(t.top().name == "covarianceSuite");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);
       }
 
-      WHEN("init(covarianceSuite, format::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("reset(covarianceSuite, format::xml, \"3.0\", \"UTF-9\")") {
          Tree<> t;
-         t.init(covarianceSuite, format::xml, "3.0", "UTF-9");
+         t.reset(covarianceSuite, format::xml, "3.0", "UTF-9");
          REQUIRE(t.top().name == "covarianceSuite");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);
       }
 
-      WHEN("init(PoPs, \"hdf5\")") {
+      WHEN("reset(PoPs, \"hdf5\")") {
          Tree<> t;
-         t.init(PoPs, "hdf5");
+         t.reset(PoPs, "hdf5");
          REQUIRE(t.top().name == "PoPs");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);
       }
 
-      WHEN("init(PoPs, \"tree\", \"4.0\")") {
+      WHEN("reset(PoPs, \"tree\", \"4.0\")") {
          Tree<> t;
-         t.init(PoPs, "tree", "4.0");
+         t.reset(PoPs, "tree", "4.0");
          REQUIRE(t.top().name == "PoPs");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);
       }
 
-      WHEN("init(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
+      WHEN("reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
          Tree<> t;
-         t.init(thermalScattering, "xml", "5.0", "UTF-10");
+         t.reset(thermalScattering, "xml", "5.0", "UTF-10");
          REQUIRE(t.top().name == "thermalScattering");
          REQUIRE(t.top().metadata.size() == 0);
          REQUIRE(t.top().children.size() == 0);

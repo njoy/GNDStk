@@ -5,16 +5,16 @@ add_executable( GNDStk.Tree.test
                 decl.test.cpp
                 meta.test.cpp
                 assign.test.cpp
-                tree.test.cpp
                 read.test.cpp
                 all.test.cpp
                 empty.test.cpp
+                reset.test.cpp
                 top.test.cpp
                 normalize.test.cpp
+                Tree.test.cpp
                 one.test.cpp
                 call.test.cpp
                 ctor.test.cpp
-                init.test.cpp
                 root.test.cpp
                 write.test.cpp )
 target_compile_options( GNDStk.Tree.test PRIVATE ${${PREFIX}_common_flags}

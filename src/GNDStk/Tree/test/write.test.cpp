@@ -85,7 +85,7 @@ R"***(xml:
                   shape: 78,78
                   compression: diagonal
                   values:
-                     body: 0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012
+                     pcdata: 0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012
 )***";
 
 
@@ -128,84 +128,80 @@ R"***(<?xml version="1.0" encoding="UTF-8"?>
 // json
 // ------------------------
 
-// fixme
-// For now, ignore the weird-looking "000000000000" nonsense.
-// JSON I/O is a work-in-progress.
-
 static const std::string string_real_json =
 R"***({
-   "000000000000covarianceSuite": {
-      "000000000001attributes": {
-         "000000000002projectile": "n",
-         "000000000003target": "Tm170",
-         "000000000004evaluation": "ENDF/B-8.0",
-         "000000000005format": "1.9"
+   "covarianceSuite": {
+      "attributes": {
+         "evaluation": "ENDF/B-8.0",
+         "format": "1.9",
+         "projectile": "n",
+         "target": "Tm170"
       },
-      "000000000006styles": {
-         "000000000007evaluated": {
-            "000000000008attributes": {
-               "000000000009label": "eval",
-               "000000000010date": "2011-10-01",
-               "000000000011library": "ENDF/B",
-               "000000000012version": "8.0.1"
-            },
-            "000000000013temperature": {
-               "000000000014attributes": {
-                  "000000000015value": "0.0",
-                  "000000000016unit": "K"
-               }
-            },
-            "000000000017projectileEnergyDomain": {
-               "000000000018attributes": {
-                  "000000000019min": "1e-05",
-                  "000000000020max": "30000000.0",
-                  "000000000021unit": "eV"
-               }
+      "externalFiles": {
+         "externalFile": {
+            "attributes": {
+               "label": "reactions",
+               "path": "n-069_Tm_170.xml"
             }
          }
       },
-      "000000000022externalFiles": {
-         "000000000023externalFile": {
-            "000000000024attributes": {
-               "000000000025label": "reactions",
-               "000000000026path": "n-069_Tm_170.xml"
-            }
-         }
-      },
-      "000000000027parameterCovariances": {
-         "000000000028parameterCovariance": {
-            "000000000029attributes": {
-               "000000000030label": "resolved resonances"
+      "parameterCovariances": {
+         "parameterCovariance": {
+            "attributes": {
+               "label": "resolved resonances"
             },
-            "000000000031rowData": {
-               "000000000032attributes": {
-                  "000000000033href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']"
-               }
-            },
-            "000000000034parameterCovarianceMatrix": {
-               "000000000035attributes": {
-                  "000000000036label": "eval",
-                  "000000000037type": "absolute"
-               },
-               "000000000038parameters": {
-                  "000000000039parameterLink": {
-                     "000000000040attributes": {
-                        "000000000041label": "resonanceParameters",
-                        "000000000042href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']/resonanceParameters/table",
-                        "000000000043nParameters": "78"
-                     }
-                  }
-               },
-               "000000000044array": {
-                  "000000000045attributes": {
-                     "000000000046shape": "78,78",
-                     "000000000047compression": "diagonal"
+            "parameterCovarianceMatrix": {
+               "array": {
+                  "attributes": {
+                     "compression": "diagonal",
+                     "shape": "78,78"
                   },
-                  "000000000048values": {
-                     "000000000049attributes": {
-                        "000000000050body": "0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012"
+                  "values": {
+                     "attributes": {
+                        "pcdata": "0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012"
                      }
                   }
+               },
+               "attributes": {
+                  "label": "eval",
+                  "type": "absolute"
+               },
+               "parameters": {
+                  "parameterLink": {
+                     "attributes": {
+                        "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']/resonanceParameters/table",
+                        "label": "resonanceParameters",
+                        "nParameters": "78"
+                     }
+                  }
+               }
+            },
+            "rowData": {
+               "attributes": {
+                  "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']"
+               }
+            }
+         }
+      },
+      "styles": {
+         "evaluated": {
+            "attributes": {
+               "date": "2011-10-01",
+               "label": "eval",
+               "library": "ENDF/B",
+               "version": "8.0.1"
+            },
+            "projectileEnergyDomain": {
+               "attributes": {
+                  "max": "30000000.0",
+                  "min": "1e-05",
+                  "unit": "eV"
+               }
+            },
+            "temperature": {
+               "attributes": {
+                  "unit": "K",
+                  "value": "0.0"
                }
             }
          }
