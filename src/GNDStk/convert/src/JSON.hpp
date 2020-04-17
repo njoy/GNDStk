@@ -11,39 +11,27 @@ template<
 >
 bool convert(
    const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   GNDStk::JSON &jdoc
+   GNDStk::JSON &j
 ) {
    // clear
-   jdoc.clear();
+   j.clear();
 
    // convert
-   if (not tree.empty()) {
-      unsigned long kwdcount = 0;
-      return !tree.has_top() ||
-         detail::node2json(tree.top(), jdoc.doc, kwdcount);
-      /*
-      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER>
-         &node = *tree.root;
-      assert(node.children.size() == 1);  // e.g. reactionSuite
-      assert(*node.children.begin() != nullptr);
-      return detail::node2json(**node.children.begin(), jdoc.doc, kwdcount);
-      */
-   }
-
-   // done
-   return true;
+   return tree.has_top()
+      ? detail::node2json(tree.top(), j.doc)
+      : true; // <== fine, JSON-wise, if nothing's there
 }
 
 
 // XML ==> JSON
 // Goes through a tree. Could be made more efficient if written directly.
-// We'll revisit this issue if this becomes more of an issue.
-inline bool convert(const GNDStk::XML &xdoc, GNDStk::JSON &jdoc)
+// We'll revisit this if it becomes more of an issue.
+inline bool convert(const GNDStk::XML &x, GNDStk::JSON &j)
 {
    GNDStk::tree tree;
    return
-      convert(xdoc,tree) and
-      convert(tree,jdoc);
+      convert(x,tree) and
+      convert(tree,j);
 }
 
 

@@ -94,12 +94,15 @@ class JSON;
 // -----------------------------------------------------------------------------
 
 // convert
+//
 // ...Tree to Tree
 // ...Tree to XML
 // ...Tree to JSON
+//
 // ...XML  to Tree
 // ...XML  to XML
 // ...XML  to JSON
+//
 // ...JSON to Tree
 // ...JSON to XML
 // ...JSON to JSON
@@ -169,14 +172,11 @@ bool convert(const GNDStk::JSON &, GNDStk::JSON &);
 
 namespace detail {
 
-// For pugi::xml_node_types { node_pcdata, node_cdata, node_comment }
-inline const std::string keyword_pcdata  = "body";
-inline const std::string keyword_cdata   = "text";
+// These correspond to the enum pugi::xml_node_type
+// values { node_cdata, node_pcdata, node_comment }
+inline const std::string keyword_cdata   = "cdata";
+inline const std::string keyword_pcdata  = "pcdata";
 inline const std::string keyword_comment = "comment";
-
-// Aliases
-inline const std::string &keyword_body = keyword_pcdata;
-inline const std::string &keyword_text = keyword_cdata;
 
 } // namespace detail
 
@@ -306,96 +306,3 @@ inline bool eq_hdf5(const std::string &str)
       nocasecmp(str,"hdf5") or
       nocasecmp(str,"he5" );
 }
-
-
-
-// -----------------------------------------------------------------------------
-// For debugging
-// fixme Remove this goofy looking stuff at some point
-// -----------------------------------------------------------------------------
-
-namespace detail {
-
-// re: node::meta()
-inline const std::string nm01 =
- "01. nm: (        string                                 &) const";
-inline const std::string nm02 =
- "02. nm: (        string                                 &)";
-inline const std::string nm03 =
- "03. nm: (meta_t< RESULT                               > &) const";
-inline const std::string nm04 =
- "04. nm: (meta_t< string                               > &) const";
-inline const std::string nm05 =
- "05. nm: (meta_t< void                                 > &) const";
-inline const std::string nm06 =
- "06. nm: (meta_t< variant<Ts...>                       > &) const";
-
-// re: node::child()
-inline const std::string nc07 =
- "07. nc: (        string                                 &) const";
-inline const std::string nc08 =
- "08. nc: (        string                                 &)";
-inline const std::string nc09 =
- "09. nc: (child_t<RESULT,        one, METADATA,CHILDREN> &) const";
-inline const std::string nc10 =
- "10. nc: (child_t<void,          one, METADATA,CHILDREN> &) const";
-inline const std::string nc11 =
- "11. nc: (child_t<variant<Ts...>,one, METADATA,CHILDREN> &) const";
-inline const std::string nc12 =
- "12. nc: (child_t<RESULT,        all, METADATA,CHILDREN> &) const";
-inline const std::string nc13 =
- "13. nc: (child_t<void,          all, METADATA,CHILDREN> &) const";
-inline const std::string nc14 =
- "14. nc: (child_t<variant<Ts...>,all, METADATA,CHILDREN> &) const";
-
-// re: node::operator()()
-inline const std::string np15 =
- "15. np: (meta_t <RESULT                               > &) const";
-inline const std::string np16 =
- "16. np: (child_t<RESULT,        FIND,METADATA,CHILDREN> &) const";
-inline const std::string np17 =
- "17. np: (child_t<RESULT,        FIND,METADATA,CHILDREN> &, ...) const";
-inline const std::string np18 =
- "18. np: (meta_t <RESULT                               > &)";
-inline const std::string np19 =
- "19. np: (child_t<RESULT,        FIND,METADATA,CHILDREN> &)";
-inline const std::string np20 =
- "20. np: (child_t<RESULT,        FIND,METADATA,CHILDREN> &, ...)";
-
-// re: tree::meta()
-inline const std::string tm21 =
- "21. tm: (        string                                 &) const";
-inline const std::string tm22 =
- "22. tm: (        string                                 &)";
-inline const std::string tm23 =
- "23. tm: (meta_t< RESULT                               > &) const";
-inline const std::string tm24 =
- "24. tm: (meta_t< variant<Ts...>                       > &) const";
-
-// re: tree::child()
-inline const std::string tc25 =
- "25. tc: (        string                                 &) const";
-inline const std::string tc26 =
- "26. tc: (        string                                 &)";
-inline const std::string tc27 =
- "27. tc: (child_t<RESULT,        one, METADATA,CHILDREN> &) const";
-inline const std::string tc28 =
- "28. tc: (child_t<void,          one, METADATA,CHILDREN> &) const";
-inline const std::string tc29 =
- "29. tc: (child_t<variant<Ts...>,one, METADATA,CHILDREN> &) const";
-
-// re: tree::operator()()
-inline const std::string tp30 =
- "30. tp: (meta_t <RESULT                               > &) const";
-inline const std::string tp31 =
- "31. tp: (child_t<RESULT,        FIND,METADATA,CHILDREN> &) const";
-inline const std::string tp32 =
- "32. tp: (child_t<RESULT,        FIND,METADATA,CHILDREN> &kwd, ...) const";
-inline const std::string tp33 =
- "33. tp: (meta_t <RESULT                               > &)";
-inline const std::string tp34 =
- "34. tp: (child_t<RESULT,        FIND,METADATA,CHILDREN> &)";
-inline const std::string tp35 =
- "35. tp: (child_t<RESULT,        FIND,METADATA,CHILDREN> &kwd, ...)";
-
-} // namespace detail

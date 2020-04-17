@@ -11,10 +11,10 @@ template<
 >
 bool convert(
    const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   GNDStk::XML &xdoc
+   GNDStk::XML &x
 ) {
    // clear
-   xdoc.clear();
+   x.clear();
 
    // convert
    if (tree.has_decl()) {
@@ -47,7 +47,7 @@ bool convert(
 
       // declaration node
       // That's the thing like this: <?xml version="1.0" encoding="UTF-8"?>
-      pugi::xml_node xdecl = xdoc.doc.append_child(pugi::node_declaration);
+      pugi::xml_node xdecl = x.doc.append_child(pugi::node_declaration);
       for (auto &meta : tdecl.metadata)
          xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
 
@@ -55,14 +55,14 @@ bool convert(
       // children
       // ------------------------
 
-      return !tree.has_top() || detail::node2XML(tree.top(), xdoc.doc);
+      return !tree.has_top() || detail::node2XML(tree.top(), x.doc);
 
       /*
       // fixme Everywhere, checks like the following should
       // eventually be handled by something better than asserts
       assert(tdecl.children.size() == 1);  // e.g. reactionSuite or PoPs
       assert(*tdecl.children.begin() != nullptr);
-      return detail::node2XML(**tdecl.children.begin(), xdoc.doc);
+      return detail::node2XML(**tdecl.children.begin(), x.doc);
       */
    }
 
@@ -110,11 +110,11 @@ inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
 
 // JSON ==> XML
 // Goes through a tree. Could be made more efficient if written more directly.
-// We'll revisit this issue if this becomes more of an issue.
-inline bool convert(const GNDStk::JSON &jdoc, GNDStk::XML &xdoc)
+// We'll revisit this if it becomes more of an issue.
+inline bool convert(const GNDStk::JSON &j, GNDStk::XML &x)
 {
    GNDStk::tree tree;
    return
-      convert(jdoc,tree) and
-      convert(tree,xdoc);
+      convert(j,tree) and
+      convert(tree,x);
 }

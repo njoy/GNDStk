@@ -5,16 +5,6 @@ namespace detail {
 // Helpers for convert(*,JSON)
 // -----------------------------------------------------------------------------
 
-// prefix
-inline std::string prefix(const unsigned long n)
-{
-   std::ostringstream oss;
-   oss << std::setfill('0') << std::setw(12) << n;
-   return oss.str();
-}
-
-
-
 // node2json
 template<
    template<class...> class METADATA_CONTAINER,
@@ -23,32 +13,57 @@ template<
 bool node2json(
    const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    nlohmann::json &j,
-   unsigned long &kwdcount
+   const std::string &suffix = ""
 ) {
-   // name
-   // The effect of j[nodename] is to enter a key of this name into the json
-   // object. Generally, this is triggered automatically in the body of one
-   // and/or the other of the upcoming metadata and children loops. However,
-   // consider a node that has no metadata or children; then, we need this.
-   // An example is <RutherfordScattering/> in some of our GNDS XML files,
-   // as it contains neither metadata nor children.
-   const std::string nodename = prefix(kwdcount++) + node.name;
-   j[nodename];
+   // Original node name, and suffixed name. The latter is for handling child
+   // nodes of the same name under the same parent node, and includes a numeric
+   // suffix (so, name0, name1, etc.) in that scenario. This is needed for JSON
+   // because JSON doesn't support same-named child nodes. In cases where the
+   // name was unique to begin with, nameOriginal == nameSuffixed.
+   const std::string nameOriginal = node.name;
+   const std::string nameSuffixed = node.name + suffix;
 
-   // metadata
-   if (node.metadata.size() > 0) {
-      // ...because we only want the kwdcount ++ side effect if size() > 0
-      const std::string attrname = prefix(kwdcount++) + "attributes";
-      // visit
-      for (auto &meta : node.metadata)
-         j[nodename][attrname][prefix(kwdcount++) + meta.first] =
-            meta.second;
-   }
+   // This also triggers node creation, in the event that the node exists but
+   // is null (so that nothing is entered below). E.g. in XML: <something/>.
+   auto &json = j[nameSuffixed];
 
-   // children
-   for (auto &child : node.children)
-      if (child and not node2json(*child, j[nodename], kwdcount))
-         return false;
+   // ------------------------
+   // metadata ==> json
+   // ------------------------
+
+   if (suffix != "")
+      json["nodeName"] = nameOriginal;
+
+   for (auto &meta : node.metadata)
+      json["attributes"][meta.first] = meta.second;
+
+   // ------------------------
+   // children ==> json
+   // ------------------------
+
+   // First, account for what children appear in the current node. If any child
+   // names appear multiple times, we must deal with that. For each represented
+   // child name, the map gets 0 if the name appears once, 1 if it appears more
+   // than once. Later, this 0/1 is used initially to make a boolean choice;
+   // then it serves as a counter to generate a 0-indexed numeric suffix that
+   // makes the child names unique: name0, name1, etc.
+   std::map<std::string,unsigned> childNames;
+   for (auto &c : node.children)
+      if (c != nullptr) {
+         auto iter = childNames.find(c->name);
+         if (iter == childNames.end())
+            childNames.insert({c->name,0}); // once (so far)
+         else
+            iter->second = 1; // more than once
+      }
+
+   // now revisit and process the child nodes
+   for (auto &c : node.children)
+      if (c != nullptr) {
+         const unsigned counter = childNames.find(c->name)->second++;
+         if (!node2json(*c, json, counter ? std::to_string(counter-1) : ""))
+            return false;
+      }
 
    // done
    return true;
@@ -71,9 +86,9 @@ namespace pugi
       node_null,        // Empty (null) node handle
       node_document,    // A document tree's absolute root
       node_element,     // Element tag, i.e. '<node/>'
-      node_pcdata,      // Plain character data, i.e. 'text'
-      node_cdata,       // Character data, i.e. '<![CDATA[text]]>'
-      node_comment,     // Comment tag, i.e. '<!-- text -->'
+      node_pcdata,      // Plain character data, i.e. 'foo'
+      node_cdata,       // Character data, i.e. '<![CDATA[foo]]>'
+      node_comment,     // Comment tag, i.e. '<!-- foo -->'
       node_pi,          // Processing instruction, i.e. '<?name?>'
       node_declaration, // Document declaration, i.e. '<?xml version="1.0"?>'
       node_doctype      // Document type declaration, i.e. '<!DOCTYPE doc>'
@@ -103,7 +118,7 @@ bool xmlnode2Node(
    for (const pugi::xml_node &xsub : xnode.children()) {
 
       // ------------------------
-      // Not handled right now
+      // not handled right now
       // ------------------------
 
       // I don't think that the following should ever appear in this context...
@@ -121,39 +136,47 @@ bool xmlnode2Node(
          assert(false);
 
       // ------------------------
-      // PCDATA, CDATA, comment
+      // element (typical case)
+      // ------------------------
+
+      if (xsub.type() == pugi::node_element) {
+         if (not xmlnode2Node(xsub,node.add()))
+            return false;
+         continue;
+      }
+
+      // ------------------------
+      // cdata, pcdata, comment
       // ------------------------
 
       // We'll store these as metadata for the current node;
       // they aren't really children in the usual XML sense.
 
-      // PCDATA
-      if (xsub.type() == pugi::node_pcdata) {
-         assert(xsub.value() == xsub.text().get());
-         node.add(keyword_pcdata, xsub.value());
-         continue;
-      }
-
-      // CDATA
+      // cdata (from '<![CDATA[foo]]>')
       if (xsub.type() == pugi::node_cdata) {
          assert(xsub.value() == xsub.text().get());
          node.add(keyword_cdata, xsub.value());
          continue;
       }
 
-      // comment
+      // pcdata (from 'foo'; plain character data)
+      if (xsub.type() == pugi::node_pcdata) {
+         assert(xsub.value() == xsub.text().get());
+         node.add(keyword_pcdata, xsub.value());
+         continue;
+      }
+
+      // comment (from '<!-- foo -->')
       if (xsub.type() == pugi::node_comment) {
          node.add(keyword_comment, xsub.value());
          continue;
       }
 
       // ------------------------
-      // Regular element
+      // well we missed something
       // ------------------------
 
-      assert(xsub.type() == pugi::node_element);
-      if (not xmlnode2Node(xsub,node.add()))
-         return false;
+      assert(false);
    }
 
    // done
@@ -168,7 +191,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool XML2Tree(
-   const GNDStk::XML &xdoc,
+   const GNDStk::XML &x,
    GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    // clear
@@ -176,7 +199,7 @@ bool XML2Tree(
 
    // visit the XML's nodes
    int count = 0;
-   for (const pugi::xml_node &xnode : xdoc.doc.children()) {
+   for (const pugi::xml_node &xnode : x.doc.children()) {
       if (count == 0) {
          // expect the following, given that we called load_file()
          // with pugi::parse_declaration |d in its second argument
@@ -213,69 +236,61 @@ bool XML2Tree(
 
 
 // nlohmann::json::const_iterator ==> Node
+// Why the iterator rather than the json object? I found that there were some
+// seemingly funny semantics in the json library. As we can see below, we have
+// for example iter->is_object() (so, the -> operator, typical for iterators),
+// but also iter.value() (the . operator - on an iterator). Similarly, also
+// seen below, with the sub-elements. This is why we are, for now, writing
+// our for-loops, here as well as in the functions that call this, in the older
+// iterator form rather than the range-based-for form. Perhaps there's a way
+// to reformulate all this in a shorter way, but this is what we have for now.
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool jiter2Node(
-   const nlohmann::json::const_iterator &jiter,
+bool json2node(
+   const nlohmann::json::const_iterator &iter,
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
+   // the node sent here should be fresh, ready to receive entries...
    assert(node.empty());
-   assert(jiter->is_object());
+   // non-object cases were handled before a caller calls this function...
+   assert(iter->is_object());
+   // any "attributes" key should have been handled at the parent level...
+   assert(iter.key() != "attributes");
 
-   // name
-   node.name = jiter.key();
+   // key,value ==> node name, json value to bring in
+   node.name = iter.key();
+   const nlohmann::json &json = iter.value();
 
    // elements
-   const nlohmann::json &value = jiter.value();
-   for (auto sub = value.begin();  sub != value.end();  ++sub) {
-      if (sub->is_null()) {
-         // The current node has a child node with neither metadata
-         // nor its own children. This would come about, for example,
-         // if the JSON file was created, earlier, based on an XML
-         // file with a construct like <RutherfordScattering/>, i.e.
-         // with /> to end the element immediately.
-         node.add().name = sub.key();
-      } else if (sub->is_object()) {
-         // The current node has a child node *other* than as above.
-         if (not jiter2Node(sub,node.add()))
+   for (auto elem = json.begin();  elem != json.end();  ++elem) {
+      if (elem.key() == "nodeName") {
+         // nodeName? ...extract as current node's true name
+         node.name = elem->get<std::string>();
+      } else if (elem.key() == "attributes") {
+         // attributes? ...extract as current node's metadata
+         const auto &jsub = elem.value();
+         for (auto attr = jsub.begin();  attr != jsub.end();  ++attr)
+            node.add(attr.key(), attr->get<std::string>());
+      } else if (elem->is_string()) {
+         // string? ...extract as metadata key/value pair
+         node.add(elem.key(), elem->get<std::string>());
+      } else if (elem->is_object()) {
+         // {} object? ...extract as normal child node
+         if (!json2node(elem,node.add()))
             return false;
+      } else if (elem->is_null()) {
+         // null node? ...extract as normal (albeit empty) child node
+         // In GNDS, e.g. XML's <RutherfordScattering/> or <isotropic2d/>
+         node.add().name = elem.key();
       } else {
-         // The current node has this as a key/value metadata pair...
-         node.add(sub.key(), sub->get<std::string>());
+         // no other cases are recognized now
+         assert(false);
       }
    }
 
    // done
-   return true;
-}
-
-
-
-// JSON ==> Tree
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool JSON2Tree(
-   const GNDStk::JSON &jdoc,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
-) {
-   // clear
-   tree.clear();
-
-   // initialize root
-   tree.root = std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
-   tree.root->name = "json"; // indicates that we came from a JSON
-
-   // visit the JSON's outer node, and its descendants
-   for (auto elem = jdoc.doc.begin();  elem != jdoc.doc.end();  ++elem)
-      if (not jiter2Node(elem,tree.root->add()))
-         return false;
-
-   // done
-   tree.normalize();
    return true;
 }
 
