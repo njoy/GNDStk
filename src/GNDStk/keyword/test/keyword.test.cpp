@@ -183,7 +183,7 @@ SCENARIO("Testing GNDStk keyword") {
    REQUIRE(vers.patch == 1);
 
    // For brevity, let's make a shortcut to <evaluated>
-   auto eval = tree(covarianceSuite,styles,evaluated);
+   auto &eval = tree(covarianceSuite,styles,evaluated);
 
    // Extract date in <evaluated>, via the shortcut
    // Specifically: mydate keyword ==> date_t
@@ -193,7 +193,7 @@ SCENARIO("Testing GNDStk keyword") {
    REQUIRE(date.day   == 1);
 
    // Pull out <array>, to make some upcoming queries shorter
-   auto arr = tree(
+   auto &arr = tree(
       covarianceSuite, parameterCovariances, parameterCovariance,
       parameterCovarianceMatrix, array);
 

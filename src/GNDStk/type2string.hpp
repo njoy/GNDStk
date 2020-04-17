@@ -70,6 +70,15 @@ inline void type2string(const T &value, std::string &str)
    str = oss.str();
 }
 
+// char *
+// Faster than going through the generic T version.
+// Note: we have this, in addition to the std::string version,
+// so a call doesn't select the generic T version above.
+inline void type2string(const char *const value, std::string &str)
+{
+   str = value;
+}
+
 // string
 inline void type2string(const std::string &value, std::string &str)
 {

@@ -150,8 +150,8 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 namespace meta {
 
 // ------------------------
-// pcdata, a.k.a. body
-// cdata,  a.k.a. text
+// cdata
+// pcdata
 // comment
 // ------------------------
 
@@ -159,14 +159,12 @@ namespace meta {
 // JSON (not XML) file - at least an original JSON, not created from an XML.
 // Figure out what we'd be getting in this case.
 
-// pcdata, body
+// cdata
+inline const meta_t<std::string> cdata(detail::keyword_cdata);
+
+// pcdata
 // fixme: This should be made more general, not just vector<double>
 inline const meta_t<std::vector<double>> pcdata(detail::keyword_pcdata);
-inline const meta_t<std::vector<double>> body  (detail::keyword_body);
-
-// cdata, text
-inline const meta_t<std::string> cdata(detail::keyword_cdata);
-inline const meta_t<std::string> text (detail::keyword_text);
 
 // comment
 inline const meta_t<std::string> comment(detail::keyword_comment);

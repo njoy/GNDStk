@@ -64,7 +64,7 @@ inline void node2type(
 // node2type(Node, some containers)
 // Supports GNDS nodes like this:
 //    <values>0.0 1.0 2.0 3.0 4.0</values>
-// where the pugixml reader interprets the text as pcdata or cdata.
+// where the pugixml reader interprets the content as pcdata.
 // -----------------------------------------------------------------------------
 
 #define GNDSTK_NODE2CONTAINER(CONTAINER) \
@@ -78,7 +78,7 @@ inline void node2type(
       std::CONTAINER<T,Alloc> &container \
    ) { \
       container.clear(); \
-      string2type(detail::node2container_data(node), container); \
+      string2type(detail::get_pcdata_string(node), container); \
    }
 
    GNDSTK_NODE2CONTAINER(deque)
