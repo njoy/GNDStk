@@ -113,7 +113,7 @@ std::istream &read(
          detail::warning_tree_io_data<dummy>(
             form, "char 137", "HDF5");
    } else {
-      // looks like json (via process of elimination)
+      // looks like json (for now, via process of elimination)
       if (form == format::null)
          form = format::json;
       else if (form != format::json)

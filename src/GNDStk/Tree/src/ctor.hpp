@@ -36,8 +36,8 @@ explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 // -----------------------------------------------------------------------------
 
 // XML, JSON
-explicit Tree(const XML  &xdoc) { convert(xdoc,*this); }
-explicit Tree(const JSON &jdoc) { convert(jdoc,*this); }
+explicit Tree(const XML  &x) { convert(x,*this); }
+explicit Tree(const JSON &j) { convert(j,*this); }
 
 
 
@@ -92,7 +92,7 @@ Tree(
 
 // -----------------------------------------------------------------------------
 // Starter tree
-// Compare with our Tree init() functions
+// Compare with our Tree reset() functions
 // -----------------------------------------------------------------------------
 
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
@@ -123,7 +123,7 @@ Tree(
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
-   init(top, form, version, encoding);
+   reset(top, form, version, encoding);
 }
 
 // keyword, string
@@ -134,5 +134,5 @@ Tree(
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
-   init(top, form, version, encoding);
+   reset(top, form, version, encoding);
 }

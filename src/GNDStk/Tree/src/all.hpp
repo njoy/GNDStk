@@ -12,7 +12,7 @@
 
 // const
 // return by value, so non-const isn't needed
-template<template<class ...> class CONTAINER = std::vector>
+template<template<class...> class CONTAINER = std::vector>
 CONTAINER<nodeType,std::allocator<nodeType>> all(
    const std::string &key,
    bool &found = detail::default_bool

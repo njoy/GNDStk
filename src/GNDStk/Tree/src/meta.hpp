@@ -8,8 +8,6 @@ const std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::tm21);
-
    // local "found"
    bool f;
 
@@ -43,7 +41,6 @@ std::string &meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) {
-   debug(detail::tm22);
    return const_cast<std::string &>(std::as_const(*this).meta(key,found));
 }
 
@@ -70,13 +67,13 @@ meta(
 
    // look in the declaration node
    if (has_decl()) {
-      auto d = decl().meta(kwd,f);
+      decltype(auto) d = decl().meta(kwd,f);
       if (f) { found = true; return d; }
    }
 
    // look in the top-level GNDS node
    if (has_top()) {
-      auto t = top().meta(kwd,f);
+      decltype(auto) t = top().meta(kwd,f);
       if (f) { found = true; return t; }
    }
 
@@ -89,8 +86,8 @@ meta(
       );
 
    found = false;
-   decltype(decl().meta(kwd,f)) empty{};
-   return empty;
+   decltype(decl().meta(kwd,f)) type{};
+   return type;
 }
 
 
@@ -103,6 +100,5 @@ typename std::enable_if<
    const meta_t<std::variant<Ts...>> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::tm24);
    return meta(meta_t<RESULT>(kwd.name),found);
 }

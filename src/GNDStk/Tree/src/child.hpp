@@ -13,14 +13,12 @@
 // node. We did in fact provide a Tree::all(string) function - for plain string
 // lookup - but, with properly formulated keywords, there's just no need here.
 
-
-// child(child_t<RESULT>)
+// child(child_t<RESULT>) const
 template<class RESULT, class METADATA, class CHILDREN>
 RESULT child(
    const child_t<RESULT,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::tc27);
    const nodeType &n = one(kwd.name,found);
    RESULT type{};
    if (found)
@@ -28,19 +26,25 @@ RESULT child(
    return type;
 }
 
-
-// child(child_t<void>)
+// child(child_t<void>) const
 template<class METADATA, class CHILDREN>
-nodeType child(
+const nodeType &child(
    const child_t<void,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::tc28);
-   return one(kwd.name,found).copy();
+   return one(kwd.name,found);
 }
 
+// child(child_t<void>) non-const
+template<class METADATA, class CHILDREN>
+nodeType &child(
+   const child_t<void,find::one,METADATA,CHILDREN> &kwd,
+   bool &found = detail::default_bool
+) {
+   return one(kwd.name,found);
+}
 
-// child(child_t<variant>)
+// child(child_t<variant>) const
 // With caller-specified result type
 template<class RESULT, class METADATA, class CHILDREN, class... Ts>
 typename std::enable_if<
@@ -50,6 +54,5 @@ typename std::enable_if<
    const child_t<std::variant<Ts...>,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   debug(detail::tc29);
    return child(child_t<RESULT,find::one,METADATA,CHILDREN>(kwd.name),found);
 }

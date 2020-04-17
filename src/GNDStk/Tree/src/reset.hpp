@@ -1,10 +1,19 @@
 
 // -----------------------------------------------------------------------------
-// Tree::init()
-// For making or modifying trees
+// Tree::reset()
+// For starting a tree, or resetting it with certain top-level boilerplate.
+// Contrast with clear(), which completely clears the tree of any contents.
+// Note that constructors call this, as necessary, so that you don't need
+// to, and probably shouldn't in a construction context. It's intended for
+// the relatively unusual but plausible cases where you have a tree object
+// that's persistent in some way (function- or class-scope static, global
+// variable, singleton), and wish to remove its current contents and begin
+// again with some boilerplate (declaration node plus top-level GNDS node.)
+// The described effect could be had in other ways, of course; this is just
+// intended as a convenience.
 // -----------------------------------------------------------------------------
 
-// init(top-level node, format[, version[, encoding]])
+// reset(top-level node, format[, version[, encoding]])
 // Example:
 //    GNDStk::Tree<> t(GNDStk::child::reactionSuite,GNDStk::format::xml);
 // Briefly:
@@ -13,11 +22,11 @@
 
 
 // ------------------------
-// init(top, format, ...)
+// reset(top, format, ...)
 // ------------------------
 
 template<class RESULT, find FIND, class METADATA, class CHILDREN>
-nodeType &init(
+nodeType &reset(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
    const format form = format::xml,
    const std::string &version  = detail::default_string,
@@ -69,25 +78,25 @@ nodeType &init(
 
 
 // ------------------------
-// init(top, string, ...)
+// reset(top, string, ...)
 // ------------------------
 
 template<class RESULT, find FIND, class METADATA, class CHILDREN>
-nodeType &init(
+nodeType &reset(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
-   if (eq_null(form)) return init(top, format::null, version, encoding);
-   if (eq_tree(form)) return init(top, format::tree, version, encoding);
-   if (eq_xml (form)) return init(top, format::xml,  version, encoding);
-   if (eq_json(form)) return init(top, format::json, version, encoding);
-   if (eq_hdf5(form)) return init(top, format::hdf5, version, encoding);
+   if (eq_null(form)) return reset(top, format::null, version, encoding);
+   if (eq_tree(form)) return reset(top, format::tree, version, encoding);
+   if (eq_xml (form)) return reset(top, format::xml,  version, encoding);
+   if (eq_json(form)) return reset(top, format::json, version, encoding);
+   if (eq_hdf5(form)) return reset(top, format::hdf5, version, encoding);
 
    // fixme Have some sort of warning
    assert(false);
 
    // fallback: assume intended output file format, if any, is XML
-   return init(top, format::xml, version, encoding);
+   return reset(top, format::xml, version, encoding);
 }

@@ -63,15 +63,14 @@ public:
       return root->children.size() == 1;
    }
 
-   // normalize
-   Tree &normalize()
+   // sort
+   Tree &sort()
    {
-      if (not empty())
-         root->normalize();
+      if (has_decl()) decl().sort();
       return *this;
    }
 
-   #include "GNDStk/Tree/src/init.hpp"
+   #include "GNDStk/Tree/src/reset.hpp"
    #include "GNDStk/Tree/src/ctor.hpp"
    #include "GNDStk/Tree/src/assign.hpp"
 
