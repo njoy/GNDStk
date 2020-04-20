@@ -225,16 +225,28 @@ set( GNDStk_Clang_Linux_nonportable_optimization_flags "-march=native" )
 set( GNDStk_Clang_Linux_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
 
-if( NOT TARGET json-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/json-adapter )
+if( NOT TARGET fmt-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/fmt-adapter )
 endif()
 
 if( NOT TARGET catch-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
 endif()
 
+if( NOT TARGET json-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/json-adapter )
+endif()
+
 if( NOT TARGET pugixml-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/pugixml-adapter )
+endif()
+
+if( NOT TARGET spdlog-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/spdlog-adapter )
+endif()
+
+if( NOT TARGET Log )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/Log )
 endif()
 
 
@@ -329,7 +341,7 @@ set( PREFIX GNDStk_${CMAKE_CXX_COMPILER_ID}_${CMAKE_SYSTEM_NAME} )
 
 target_link_libraries( GNDStk INTERFACE "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:GNDStk_appended_flags>:${GNDStk_appended_flags};>" )
 
-target_link_libraries( GNDStk INTERFACE json-adapter INTERFACE catch-adapter INTERFACE pugixml-adapter )
+target_link_libraries( GNDStk INTERFACE json-adapter INTERFACE catch-adapter INTERFACE Log INTERFACE pugixml-adapter )
 
 if( NOT is_subproject )
     enable_testing() 
