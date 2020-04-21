@@ -52,11 +52,21 @@ public:
 // operator>>
 inline std::istream &operator>>(std::istream &is, JSON &obj)
 {
-   return obj.read(is);
+   try {
+      obj.read(is);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: istream >> JSON");
+   }
+   return is;
 }
 
 // operator<<
 inline std::ostream &operator<<(std::ostream &os, const JSON &obj)
 {
-   return obj.write(os);
+   try {
+      obj.write(os);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: ostream << JSON");
+   }
+   return os;
 }

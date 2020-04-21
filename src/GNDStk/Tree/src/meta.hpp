@@ -24,7 +24,7 @@ const std::string &meta(
    }
 
    // well, we didn't find it
-   if (detail::not_sent(found))
+   if (!detail::sent(found))
       error(
          "Tree meta() called with key \"" + key + "\", "
          "but this key wasn't\nfound in the tree's declaration node "
@@ -78,7 +78,7 @@ meta(
    }
 
    // well, we didn't find it
-   if (detail::not_sent(found))
+   if (!detail::sent(found))
       error(
          "Tree meta() called with key \"" + kwd.name + "\", "
          "but this key wasn't\nfound in the tree's declaration node "

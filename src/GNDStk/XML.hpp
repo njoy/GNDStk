@@ -35,11 +35,21 @@ public:
 // operator>>
 inline std::istream &operator>>(std::istream &is, XML &obj)
 {
-   return obj.read(is);
+   try {
+      obj.read(is);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: istream >> XML");
+   }
+   return is;
 }
 
 // operator<<
 inline std::ostream &operator<<(std::ostream &os, const XML &obj)
 {
-   return obj.write(os);
+   try {
+      obj.write(os);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: ostream << XML");
+   }
+   return os;
 }

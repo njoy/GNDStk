@@ -10,6 +10,10 @@ XML &operator=(XML &&) = default;
 // Note: pugi::xml_document's is inaccessible
 XML &operator=(const XML &x)
 {
-   convert(x,*this);
+   try {
+      convert(x,*this);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: XML = XML");
+   }
    return *this;
 }

@@ -1,15 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Macros, variables, enums
+// Miscellaneous macros, variables, enums, etc.
 // -----------------------------------------------------------------------------
-
-// printval
-// printvar
-// Are the same, so we don't need to remember the exact terminology.
-// Note: intended for internal use during development, not for users,
-// so I'm not going to UPPER CASE, or prefix with GNDSTK_.
-#define printval(var) std::cout << #var ": [" << var << "]" << std::endl
-#define printvar(var) printval(var)
 
 // indent
 // Number of spaces of indentation you want, in the output of certain types
@@ -30,24 +22,21 @@ enum class find {
    all
 };
 
-// dummy
-// Empty class. We use this here and there, in places where a class is needed
-// but isn't relevant in and of itself. E.g., we have a function, and in order
-// for it to work properly in a header-only library, it must be either inline
-// or templated. If, for whatever reason, we don't want to make it inline,
-// then we can make it a function template, and use <dummy>. We could use,
-// say, <char> instead, but <dummy> may help us identify these use cases.
-class dummy { };
-
 // default_*
 // fixme Describe what these are about
 namespace detail {
+   // bool
    inline bool default_bool = false;
-   inline std::string default_string = "";
-
-   inline bool not_sent(const bool &found)
+   inline bool sent(const bool &found)
    {
-      return &found == &default_bool;
+      return &found != &default_bool;
+   }
+
+   // string
+   inline std::string default_string = "";
+   inline bool sent(const std::string &string)
+   {
+      return &string != &default_string;
    }
 }
 
@@ -207,7 +196,7 @@ inline bool endsin(const std::string &str, const std::string &end)
 // Case-insensitive string comparison.
 // The old C-language strcasecmp() is nonstandard. A modern, true caseless
 // string comparison is actually a tougher nut to crack than meets the eye,
-// but the following will suffice for our purposes.
+// but the following will suffice for our English-language purposes.
 inline bool nocasecmp(const std::string &one, const std::string &two)
 {
    return std::equal(

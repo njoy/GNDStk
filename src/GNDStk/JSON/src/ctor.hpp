@@ -9,22 +9,48 @@ JSON(JSON &&) = default;
 JSON(const JSON &) = default;
 
 
-// XML, Tree
+// XML
 explicit JSON(const XML &x)
 {
-   convert(x,*this);
+   try {
+      convert(x,*this);
+   }  catch (const std::exception &) {
+      njoy::Log::info("Context: JSON(XML)");
+   }
 }
 
+
+// Tree
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
 explicit JSON(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
-   convert(t,*this);
+   try {
+      convert(t,*this);
+   }  catch (const std::exception &) {
+      njoy::Log::info("Context: JSON(Tree)");
+   }
 }
 
 
-// file, stream
-explicit JSON(const std::string &file) { read(file); }
-explicit JSON(std::istream &is) { read(is); }
+// filename
+explicit JSON(const std::string &filename)
+{
+   try {
+      read(filename);
+   }  catch (const std::exception &) {
+      njoy::Log::info("Context: JSON(filename)");
+   }
+}
+
+
+// istream
+explicit JSON(std::istream &is) {
+   try {
+      read(is);
+   }  catch (const std::exception &) {
+      njoy::Log::info("Context: JSON(istream)");
+   }
+}

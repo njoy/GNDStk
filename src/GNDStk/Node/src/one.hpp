@@ -42,7 +42,7 @@ const Node &one(
    empty.clear();
 
    // error iff no "found" flag sent
-   if (detail::not_sent(found))
+   if (!detail::sent(found))
       error(
          "Node::one(key) called with key \"" + key + "\", "
          "but this key wasn't\nfound in the node's children."

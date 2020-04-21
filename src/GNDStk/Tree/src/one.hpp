@@ -10,7 +10,7 @@ const nodeType &one(
    bool &found = detail::default_bool
 ) const {
    // if tree has no declaration node, but a "found" flag wasn't sent
-   if (!has_decl() and detail::not_sent(found)) {
+   if (!has_decl() and !detail::sent(found)) {
       // fixme need a real error
       assert(false);
    }

@@ -1,4 +1,15 @@
 
+// dummy
+// Empty class. We use this here and there, in places where a class is needed
+// but isn't relevant in and of itself. E.g., we have a function, and in order
+// for it to work properly in a header-only library, it must be either inline
+// or templated. If, for whatever reason, we don't want to make it inline,
+// then we can make it a function template, and use <dummy>. We could use,
+// say, <char> instead, but <dummy> may help us identify these use cases.
+class dummy { };
+
+
+
 // -----------------------------------------------------------------------------
 // ansi
 // ANSI text-color codes

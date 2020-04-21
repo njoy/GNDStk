@@ -40,33 +40,19 @@ public:
    }
 
    // does this tree have a declaration node?
-   bool has_decl() const
-   {
-      // This is basically equivalent to !empty(),
-      // but with an additional well-formedness check
-
-      // no
-      if (root == nullptr) return false;
-      // well-formedness check
-      assert(root->children.size() == 0 || (
-             root->children.size() == 1 && *root->children.begin() != nullptr));
-      // yes
-      return true;
-   }
+   #include "GNDStk/Tree/src/has_decl.hpp"
 
    // does this tree have a top-level GNDS node?
    bool has_top() const
    {
-      // no
-      if (!has_decl()) return false;
-      // maybe yes, maybe no
-      return root->children.size() == 1;
+      return has_decl() && root->children.size() == 1;
    }
 
    // sort
    Tree &sort()
    {
-      if (has_decl()) decl().sort();
+      if (has_decl())
+         decl().sort();
       return *this;
    }
 
@@ -103,7 +89,12 @@ inline std::istream &operator>>(
    std::istream &is,
    Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
-   return obj.read(is);
+   try {
+      obj.read(is);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: istream >> tree");
+   }
+   return is;
 }
 
 // operator<<
@@ -115,5 +106,10 @@ inline std::ostream &operator<<(
    std::ostream &os,
    const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
-   return obj.write(os);
+   try {
+      obj.write(os);
+   } catch (const std::exception &) {
+      njoy::Log::info("Context: ostream << tree");
+   }
+   return os;
 }

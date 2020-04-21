@@ -27,7 +27,7 @@ struct shape_t {
    int cols;
 };
 
-// <>: retrieve metadata value as string
+// <>, or <void>: retrieve metadata value as string
 auto encoding = keyword.meta<>("encoding");
 
 // <std::string>: also retrieve metadata value as string

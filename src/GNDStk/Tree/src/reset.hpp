@@ -3,8 +3,8 @@
 // Tree::reset()
 // For starting a tree, or resetting it with certain top-level boilerplate.
 // Contrast with clear(), which completely clears the tree of any contents.
-// Note that constructors call this, as necessary, so that you don't need
-// to, and probably shouldn't in a construction context. It's intended for
+// Note that the constructors call this, as necessary, so that you don't need
+// to - and probably shouldn't, in a construction context. It's intended for
 // the relatively unusual but plausible cases where you have a tree object
 // that's persistent in some way (function- or class-scope static, global
 // variable, singleton), and wish to remove its current contents and begin
@@ -15,9 +15,9 @@
 
 // reset(top-level node, format[, version[, encoding]])
 // Example:
-//    GNDStk::Tree<> t(GNDStk::child::reactionSuite,GNDStk::format::xml);
+//    GNDStk::Tree<> t(GNDStk::child::reactionSuite, GNDStk::format::xml);
 // Briefly:
-//    Tree<> t(reactionSuite,format::xml);
+//    Tree<> t(reactionSuite, format::xml);
 // with appropriate usings.
 
 
@@ -52,12 +52,8 @@ nodeType &reset(
    if (form == format::xml or form == format::null or form == format::tree) {
       // xml, null, tree
       root->name = "xml";
-      root->add(
-         "version",
-         &version  == &detail::default_string ? "1.0"   : version);
-      root->add(
-         "encoding",
-         &encoding == &detail::default_string ? "UTF-8" : encoding);
+      root->add("version",  detail::sent(version ) ? version  : "1.0"  );
+      root->add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
    } else if (form == format::json) {
       // json
       root->name = "json";

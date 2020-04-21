@@ -625,6 +625,7 @@
     "src/GNDStk/Tree/src/top.hpp", 
     "src/GNDStk/Tree/src/decl.hpp", 
     "src/GNDStk/Tree/src/ctor.hpp", 
+    "src/GNDStk/Tree/src/has_decl.hpp", 
     "src/GNDStk/Tree/src/all.hpp", 
     "src/GNDStk/Tree/src/one.hpp", 
     "src/GNDStk/Tree/src/assign.hpp", 

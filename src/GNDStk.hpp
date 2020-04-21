@@ -8,6 +8,7 @@
 
 #include "pugixml.hpp"
 #include "json.hpp"
+#include "Log.hpp"
 
 
 // ------------------------

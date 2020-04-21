@@ -62,7 +62,13 @@ however, waiting to be used, if/when the information it holds might be useful.
 // const
 const nodeType &decl() const
 {
-   assert(has_decl());
+   if (!has_decl()) {
+      njoy::Log::error(
+         "tree.decl() called, "
+         "but this tree has no declaration node"
+      );
+      throw std::exception{};
+   }
    return *root;
 }
 

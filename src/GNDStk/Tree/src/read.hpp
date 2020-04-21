@@ -46,11 +46,11 @@ bool read(
    // ------------------------
 
    if (form == format::xml  and has_extension(file) and not endsin_xml (file))
-      detail::warning_tree_io_name<dummy>("read", file, "xml",  "XML" );
+      detail::warning_tree_io_name("read", file, "xml",  "XML" );
    if (form == format::json and has_extension(file) and not endsin_json(file))
-      detail::warning_tree_io_name<dummy>("read", file, "json", "JSON");
+      detail::warning_tree_io_name("read", file, "json", "JSON");
    if (form == format::hdf5 and has_extension(file) and not endsin_hdf5(file))
-      detail::warning_tree_io_name<dummy>("read", file, "hdf5", "HDF5");
+      detail::warning_tree_io_name("read", file, "hdf5", "HDF5");
 
    // ------------------------
    // Open and read
@@ -103,22 +103,19 @@ std::istream &read(
       if (form == format::null)
          form = format::xml;
       else if (form != format::xml)
-         detail::warning_tree_io_data<dummy>(
-            form, "'<'", "XML");
+         detail::warning_tree_io_data(form, "'<'", "XML");
    } else if (is.peek() == 137) {
       // looks like hdf5
       if (form == format::null)
          form = format::hdf5;
       else if (form != format::hdf5)
-         detail::warning_tree_io_data<dummy>(
-            form, "char 137", "HDF5");
+         detail::warning_tree_io_data(form, "char 137", "HDF5");
    } else {
       // looks like json (for now, via process of elimination)
       if (form == format::null)
          form = format::json;
       else if (form != format::json)
-         detail::warning_tree_io_data<dummy>(
-            form, "neither '<' nor char 137", "JSON");
+         detail::warning_tree_io_data(form, "neither '<' nor char 137", "JSON");
    }
 
    // The above logic is such that form cannot henceforth be format::tree,

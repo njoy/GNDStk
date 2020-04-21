@@ -63,7 +63,6 @@ CHILDREN
 
    This is children<C1,C2,...> for some child_t types C1, C2, ....
    Similar to METADATA, but defines what children this child_t can have.
-
 */
 
 template<class RESULT, find FIND, class METADATA, class CHILDREN>
@@ -216,7 +215,6 @@ GNDSTK_MAKE_CHILD_DEFAULT(L,  find::all);
 
 GNDSTK_MAKE_CHILD_DEFAULT(summands, find::one);
 GNDSTK_MAKE_CHILD_DEFAULT(summand,  find::all);
-
 
 
 // ------------------------
