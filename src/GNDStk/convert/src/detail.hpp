@@ -96,16 +96,40 @@ namespace pugi
 }
 */
 
+
+
+// Helper
+inline bool internal_xml_node2Node(const std::string &str)
+{
+   njoy::Log::error(
+      "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
+      "type pugi::{} found, but not handled, as sub-element",
+      str
+   );
+   throw std::exception{};
+   return false; // in case we allow exceptions to be turned off
+}
+
+
+
 // pugi::xml_node ==> Node
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
 >
-bool xmlnode2Node(
+bool xml_node2Node(
    const pugi::xml_node &xnode,
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
-   assert(node.empty());
+   // check destination node
+   if (!node.empty()) {
+      njoy::Log::error(
+         "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
+         "destination Node is supposed to arrive here empty, but didn't"
+      );
+      throw std::exception{};
+      return false;
+   }
 
    // name
    node.name = xnode.name();
@@ -123,25 +147,30 @@ bool xmlnode2Node(
 
       // I don't think that the following should ever appear in this context...
       if (xsub.type() == pugi::node_document)
-         assert(false);
+         return internal_xml_node2Node("node_document");
       if (xsub.type() == pugi::node_declaration)
-         assert(false);
+         return internal_xml_node2Node("node_declaration");
 
       // For now I won't handle these; let's ensure that we don't see them...
       if (xsub.type() == pugi::node_null)
-         assert(false);
+         return internal_xml_node2Node("node_null");
       if (xsub.type() == pugi::node_pi)
-         assert(false);
+         return internal_xml_node2Node("node_pi");
       if (xsub.type() == pugi::node_doctype)
-         assert(false);
+         return internal_xml_node2Node("node_doctype");
 
       // ------------------------
       // element (typical case)
       // ------------------------
 
       if (xsub.type() == pugi::node_element) {
-         if (not xmlnode2Node(xsub,node.add()))
-            return false;
+         try {
+            if (!xml_node2Node(xsub,node.add()))
+               return false;
+         } catch (const std::exception &) {
+            // recursive; no point printing error context; just throw
+            throw;
+         }
          continue;
       }
 
@@ -154,14 +183,12 @@ bool xmlnode2Node(
 
       // cdata (from '<![CDATA[foo]]>')
       if (xsub.type() == pugi::node_cdata) {
-         assert(xsub.value() == xsub.text().get());
          node.add(keyword_cdata, xsub.value());
          continue;
       }
 
       // pcdata (from 'foo'; plain character data)
       if (xsub.type() == pugi::node_pcdata) {
-         assert(xsub.value() == xsub.text().get());
          node.add(keyword_pcdata, xsub.value());
          continue;
       }
@@ -176,58 +203,13 @@ bool xmlnode2Node(
       // well we missed something
       // ------------------------
 
-      assert(false);
+      njoy::Log::error(
+         "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
+         "we've encountered a pugi:: node type that we don't know about"
+      );
+      throw std::exception{};
+      return false;
    }
-
-   // done
-   return true;
-}
-
-
-
-// XML ==> Tree
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool XML2Tree(
-   const GNDStk::XML &x,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
-) {
-   // clear
-   tree.clear();
-
-   // visit the XML's nodes
-   int count = 0;
-   for (const pugi::xml_node &xnode : x.doc.children()) {
-      if (count == 0) {
-         // expect the following, given that we called load_file()
-         // with pugi::parse_declaration |d in its second argument
-         assert(xnode.name() == std::string("xml"));
-
-         tree.root =
-            std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
-         tree.root->name = "xml"; // indicates that we came from an XML
-
-         // base XML "attributes", e.g. version and encoding
-         for (const pugi::xml_attribute &xattr : xnode.attributes())
-            tree.root->add(xattr.name(), xattr.value());
-      }
-
-      if (count == 1) {
-         // visit the XML's outer node, and its descendants
-         if (not xmlnode2Node(xnode,tree.root->add()))
-            return false;
-      }
-
-      // a proper XML document should contain just one outer node; we expect
-      // two (but no more) only because we loaded the file with a flag that
-      // said to include the <?xml ... ?> material as part of the deal
-      if (count >= 2)
-         assert(false);
-      count++;
-   }
-   assert(count == 2);
 
    // done
    return true;
@@ -244,6 +226,20 @@ bool XML2Tree(
 // our for-loops, here as well as in the functions that call this, in the older
 // iterator form rather than the range-based-for form. Perhaps there's a way
 // to reformulate all this in a shorter way, but this is what we have for now.
+
+// Helper
+inline bool internal_json2node(const std::string &str)
+{
+   njoy::Log::error(
+      "Internal error in detail::json2node(nlohmann::json,Node):\n"
+      "message is \"{}\"; please let us know about this",
+      str
+   );
+   throw std::exception{};
+   return false; // in case we allow exceptions turned off
+}
+
+
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
@@ -253,11 +249,16 @@ bool json2node(
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    // the node sent here should be fresh, ready to receive entries...
-   assert(node.empty());
+   if (!node.empty())
+      return internal_json2node("!node.empty()");
+
    // non-object cases were handled before a caller calls this function...
-   assert(iter->is_object());
+   if (!iter->is_object())
+      return internal_json2node("!iter->is_object()");
+
    // any "attributes" key should have been handled at the parent level...
-   assert(iter.key() != "attributes");
+   if (iter.key() == "attributes")
+      return internal_json2node("iter.key() == \"attributes\"");
 
    // key,value ==> node name, json value to bring in
    node.name = iter.key();
@@ -278,15 +279,20 @@ bool json2node(
          node.add(elem.key(), elem->get<std::string>());
       } else if (elem->is_object()) {
          // {} object? ...extract as normal child node
-         if (!json2node(elem,node.add()))
-            return false;
+         try {
+            if (!json2node(elem,node.add()))
+               return false;
+         } catch (const std::exception &) {
+            // recursive; no point printing error context; just throw
+            throw;
+         }
       } else if (elem->is_null()) {
          // null node? ...extract as normal (albeit empty) child node
          // In GNDS, e.g. XML's <RutherfordScattering/> or <isotropic2d/>
          node.add().name = elem.key();
       } else {
-         // no other cases are recognized now
-         assert(false);
+         // no other cases are handled right now
+         return internal_json2node("unhandled JSON value type");
       }
    }
 
@@ -307,7 +313,15 @@ inline void node2Node(
    const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
    GNDStk::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
-   assert(to.empty());
+   // check destination node
+   if (!to.empty()) {
+      njoy::Log::error(
+         "Internal error in detail::node2Node(Node,Node):\n"
+         "destination Node is supposed to arrive here empty, but didn't"
+      );
+      throw std::exception{};
+      return;
+   }
 
    // name
    to.name = from.name;
@@ -342,34 +356,92 @@ bool node2XML(
 
    // metadata
    for (auto &meta : node.metadata) {
+
+      // ------------------------
       // PCDATA
+      // ------------------------
+
       if (meta.first == keyword_pcdata) {
-         assert(node.children.size() == 0);
+         if (node.children.size() != 0) {
+            // From https://en.wikipedia.org/wiki/PCDATA
+            //   "When declaring document elements. An element declaration
+            //    employing the #PCDATA content model value does not allow
+            //    for child elements." [Initial sentence fragment theirs.]
+            // So, the following would appear to be reasonable.
+            njoy::Log::error(
+               "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+               "node with PCDATA appears to have other elements as well,\n"
+               "making the node ill-formed"
+            );
+            throw std::exception{};
+            return false;
+         }
+
          xnode.append_child(pugi::node_pcdata).set_value(meta.second.c_str());
          continue;
       }
 
+      // ------------------------
       // CDATA
+      // ------------------------
+
       if (meta.first == keyword_cdata) {
-         assert(node.children.size() == 0);
+         if (node.children.size() != 0) {
+            // Reading https://en.wikipedia.org/wiki/CDATA, I see nothing
+            // to suggest that other child elements are disallowed in this
+            // context. And, in fact, under "Uses of CDATA sections," they
+            // speak of splitting CDATA into e.g. <![CDATA[]]]]><![CDATA[>]]>.
+            // At the time of this writing, however, in official GNDS files,
+            // I only see CDATA elements as singletons, and without siblings.
+            // So, for now, I'll treat these as I do PCDATA elements (above).
+            njoy::Log::error(
+               "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+               "node with CDATA appears to have other elements as well,\n"
+               "making the node ill-formed"
+            );
+            throw std::exception{};
+            return false;
+         }
+
          xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
          continue;
       }
 
+      // ------------------------
       // comment
+      // ------------------------
+
       if (meta.first == keyword_comment) {
+         // Whoa, it seems that GNDS files sometimes have doubled-up comments,
+         // e.g. <!-- foo --><!-- bar -->. So, no node.children.size() checks
+         // here, as we did above for pcdata and cdata. Side note: the double
+         // comments I'm seeing in some GNDS files arguably thumb their noses
+         // at GNDS' "no element ordering" rule; although, the nature of the
+         // offending comments, which appear to be intended as labels, e.g.
+         //    <!--  energy | capture | elastic  -->
+         //    <!--         |  width  |  width   -->
+         // appears to make them amenable to proper interpretation/treatment.
          xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
          continue;
       }
 
+      // ------------------------
       // regular element
+      // ------------------------
+
       xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
    }
 
    // children
-   for (auto &child : node.children)
-      if (child and not node2XML(*child, xnode))
-         return false;
+   for (auto &child : node.children) {
+      try {
+         if (child && !node2XML(*child, xnode))
+            return false;
+      } catch (const std::exception &) {
+         // recursive; no point printing error context; just throw
+         throw;
+      }
+   }
 
    // done
    return true;

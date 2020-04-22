@@ -7,17 +7,22 @@
 // Basic
 // -----------------------------------------------------------------------------
 
-// default
-Tree() { }
-
-// move
+// default, move
+Tree() = default;
 Tree(Tree &&) = default;
+
 
 // copy
 Tree(const Tree &from)
 {
-   convert(from,*this);
+   try {
+      convert(from,*this);
+   } catch (const std::exception &) {
+      detail::context("Tree(Tree)");
+      throw;
+   }
 }
+
 
 // templated "copy"
 template<
@@ -26,7 +31,12 @@ template<
 >
 explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
-   convert(from,*this);
+   try {
+      convert(from,*this);
+   } catch (const std::exception &) {
+      detail::context("Tree(Tree<different>)");
+      throw;
+   }
 }
 
 
@@ -35,9 +45,28 @@ explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 // From XML and JSON objects
 // -----------------------------------------------------------------------------
 
-// XML, JSON
-explicit Tree(const XML  &x) { convert(x,*this); }
-explicit Tree(const JSON &j) { convert(j,*this); }
+// XML
+explicit Tree(const XML &x)
+{
+   try {
+      convert(x,*this);
+   } catch (const std::exception &) {
+      detail::context("Tree(XML)");
+      throw;
+   }
+}
+
+
+// JSON
+explicit Tree(const JSON &j)
+{
+   try {
+      convert(j,*this);
+   } catch (const std::exception &) {
+      detail::context("Tree(JSON)");
+      throw;
+   }
+}
 
 
 
@@ -46,25 +75,37 @@ explicit Tree(const JSON &j) { convert(j,*this); }
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
-// file, format
+// filename, format
 // Example:
 //    Tree<> t("n-008_O_016.xml", format::xml);
 explicit Tree(
-   const std::string &file,
+   const std::string &filename,
    const format form = format::null
 ) {
-   read(file,form);
+   try {
+      read(filename,form);
+   } catch (const std::exception &) {
+      detail::context("Tree(filename=\"{}\"[,format])", filename);
+      throw;
+   }
 }
 
-// file, string
+
+// filename, string
 // Example:
 //    Tree<> t("n-008_O_016.xml", "xml");
 Tree(
-   const std::string &file,
-   const std::string &form
+   const std::string &filename,
+   const std::string &type
 ) {
-   read(file,form);
+   try {
+      read(filename,type);
+   } catch (const std::exception &) {
+      detail::context("Tree(filename=\"{}\",type=\"{}\")", filename, type);
+      throw;
+   }
 }
+
 
 // istream, format
 // Example:
@@ -74,8 +115,14 @@ explicit Tree(
    std::istream &is,
    const format form = format::null
 ) {
-   read(is,form);
+   try {
+      read(is,form);
+   } catch (const std::exception &) {
+      detail::context("Tree(istream[,format])");
+      throw;
+   }
 }
+
 
 // istream, string
 // Example:
@@ -83,9 +130,14 @@ explicit Tree(
 //    Tree<> t(ifs, "xml");
 Tree(
    std::istream &is,
-   const std::string &form
+   const std::string &type
 ) {
-   read(is,form);
+   try {
+      read(is,type);
+   } catch (const std::exception &) {
+      detail::context("Tree(istream,type=\"{}\")", type);
+      throw;
+   }
 }
 
 
@@ -123,16 +175,32 @@ Tree(
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
-   reset(top, form, version, encoding);
+   try {
+      reset(top, form, version, encoding);
+   } catch (const std::exception &) {
+      detail::context(
+         "Tree(child_t(\"{}\")[,format,version,encoding])",
+         top.name
+      );
+      throw;
+   }
 }
 
 // keyword, string
 template<class RESULT, find FIND, class METADATA, class CHILDREN>
 Tree(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
-   const std::string &form,
+   const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
-   reset(top, form, version, encoding);
+   try {
+      reset(top, type, version, encoding);
+   } catch (const std::exception &) {
+      detail::context(
+         "Tree(child_t(\"{}\"),type=\"{}\"[,version,encoding])",
+         top.name, type
+      );
+      throw;
+   }
 }

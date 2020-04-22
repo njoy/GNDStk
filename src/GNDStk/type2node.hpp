@@ -30,8 +30,13 @@ inline void type2node(
    const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &type,
          GNDStk::Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &node
 ) {
-   node.clear();
-   detail::node2Node(type,node);
+   try {
+      node.clear();
+      detail::node2Node(type,node);
+   } catch (const std::exception &) {
+      detail::context("type2node(Node,Node)");
+      throw;
+   }
 }
 
 
@@ -50,8 +55,13 @@ inline void type2node(
       const std::CONTAINER<T,Alloc> &container, \
       GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node \
    ) { \
-      node.clear(); \
-      type2string(container, detail::put_pcdata_string(node)); \
+      try { \
+         node.clear(); \
+         type2string(container, detail::put_pcdata_string(node)); \
+      } catch (const std::exception &) { \
+         detail::context("type2node(" #CONTAINER ",Node)"); \
+         throw; \
+      } \
    }
 
    GNDSTK_CONTAINER2NODE(deque)

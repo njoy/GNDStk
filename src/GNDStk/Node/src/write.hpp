@@ -4,31 +4,11 @@
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// write(string,level)
-// ------------------------
-
-bool write(
-   const std::string &file,
-   const int level = 0
-) const {
-   debug("node write(file,level)");
-
-   // calls write(ostream) below
-   std::ofstream ofs(file.c_str());
-   return not write(ofs,level).fail();
-}
-
-
-// ------------------------
 // write(ostream,level)
 // ------------------------
 
-std::ostream &write(
-   std::ostream &os,
-   const int level = 0
-) const {
-   /// debug("node write(ostream,level)");
-
+std::ostream &write(std::ostream &os, const int level = 0) const
+{
    // indentation
    const std::string icurr(indent* level   ,' '); // current indentation #spaces
    const std::string inext(indent*(level+1),' '); // next ...
@@ -38,13 +18,47 @@ std::ostream &write(
 
    // write metadata
    for (const auto &meta : metadata)
-      os << inext << meta.first << ": " << meta.second << std::endl;
+      if (!(os << inext << meta.first << ": " << meta.second << std::endl))
+         break;
 
    // write children
    for (const auto &cptr : children)
       if (cptr)
-         cptr->write(os,level+1);
+         if (!cptr->write(os,level+1))
+            break;
+
+   // check for errors
+   if (!os)
+      njoy::Log::error("Problem during Node::write(ostream)");
 
    // done
    return os;
+}
+
+
+// ------------------------
+// write(filename,level)
+// ------------------------
+
+bool write(const std::string &filename, const int level = 0) const
+{
+   // open file
+   std::ofstream ofs(filename.c_str());
+   if (!ofs) {
+      njoy::Log::error(
+         "Could not open file in call to Node::write(filename=\"{}\")",
+         filename
+      );
+      return false;
+   }
+
+   // write to stream
+   write(ofs,level);
+   if (ofs.fail()) {
+      detail::context("Node::write(filename=\"{}\")", filename);
+      return false;
+   }
+
+   // done
+   return true;
 }

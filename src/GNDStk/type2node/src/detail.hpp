@@ -12,7 +12,14 @@ template<
 std::string &put_pcdata_string(
    GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
-   assert(node.metadata.size() == 0);
+   if (node.metadata.size() != 0) {
+      njoy::Log::error(
+         "Unable to write pcdata (plain character data) entry to the Node,\n"
+         "as needed for an operation, because a pcdata entry is already there"
+      );
+      throw std::exception{};
+   }
+
    node.metadata.push_back({keyword_pcdata,""});
    return node.metadata.back().second;
 }

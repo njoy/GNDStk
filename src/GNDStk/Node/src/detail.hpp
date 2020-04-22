@@ -7,6 +7,7 @@ namespace detail {
 
 // is_oneof
 // For some SFINAE
+// Is Foo one of the types in Foos?
 template<class Foo, class... Foos>
 class is_oneof {
 public:
@@ -26,7 +27,6 @@ public:
    template<class NODE>
    void operator()(const NODE &node) const
    {
-      debug("node detail apply_keyword<RESULT>()");
       RESULT type{};
       node2type(node,type);
    }
@@ -42,7 +42,6 @@ public:
    template<class NODE>
    void operator()(const NODE &) const
    {
-      debug("node detail apply_keyword<Node>()");
       // no action
    }
 };
@@ -54,7 +53,6 @@ public:
    template<class NODE>
    void operator()(const NODE &) const
    {
-      debug("node detail apply_keyword<void>()");
       // no action
    }
 };

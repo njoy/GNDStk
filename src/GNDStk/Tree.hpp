@@ -92,7 +92,8 @@ inline std::istream &operator>>(
    try {
       obj.read(is);
    } catch (const std::exception &) {
-      njoy::Log::info("Context: istream >> tree");
+      detail::context("istream >> Tree");
+      throw;
    }
    return is;
 }
@@ -109,7 +110,8 @@ inline std::ostream &operator<<(
    try {
       obj.write(os);
    } catch (const std::exception &) {
-      njoy::Log::info("Context: ostream << tree");
+      detail::context("ostream << Tree");
+      throw;
    }
    return os;
 }

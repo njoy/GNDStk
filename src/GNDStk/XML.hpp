@@ -38,7 +38,8 @@ inline std::istream &operator>>(std::istream &is, XML &obj)
    try {
       obj.read(is);
    } catch (const std::exception &) {
-      njoy::Log::info("Context: istream >> XML");
+      detail::context("istream >> XML");
+      throw;
    }
    return is;
 }
@@ -49,7 +50,8 @@ inline std::ostream &operator<<(std::ostream &os, const XML &obj)
    try {
       obj.write(os);
    } catch (const std::exception &) {
-      njoy::Log::info("Context: ostream << XML");
+      detail::context("ostream << XML");
+      throw;
    }
    return os;
 }

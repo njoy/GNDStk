@@ -6,12 +6,19 @@
 // move
 Tree &operator=(Tree &&) = default;
 
+
 // copy
 Tree &operator=(const Tree &t)
 {
-   convert(t,*this);
+   try {
+      convert(t,*this);
+   } catch (const std::exception &) {
+      detail::context("Tree = Tree");
+      throw;
+   }
    return *this;
 }
+
 
 // templated "copy"
 template<
@@ -20,6 +27,11 @@ template<
 >
 Tree &operator=(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &t)
 {
-   convert(t,*this);
+   try {
+      convert(t,*this);
+   } catch (const std::exception &) {
+      detail::context("Tree = Tree<different>");
+      throw;
+   }
    return *this;
 }

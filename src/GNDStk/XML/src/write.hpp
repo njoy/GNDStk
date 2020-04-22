@@ -3,19 +3,14 @@
 // XML::write()
 // -----------------------------------------------------------------------------
 
-// write(string)
-bool write(const std::string &file) const
-{
-   // calls write(ostream) below
-   std::ofstream ofs(file.c_str());
-   return not write(ofs).fail();
-}
-
-
+// ------------------------
 // write(ostream)
+// ------------------------
+
 std::ostream &write(std::ostream &os) const
 {
-   // fixme Can we prevent pugixml from emitting a newline at the end?
+   // save
+   // ...fixme Can we prevent pugixml from emitting a newline at the end?
    // ...Concept: output functions shouldn't *assume* that someone who prints
    // ...something wants a newline at the end. A user should explicitly provide
    // ...the \n, std::endl, whatever, if they want that. One might think we'd
@@ -31,5 +26,41 @@ std::ostream &write(std::ostream &os) const
    // ...opinion, is consistent behavior - it's easy to remember. So, then,
    // ...no fluff, either before or after any object being written.
    doc.save(os, std::string(indent,' ').c_str());
+
+   // check for errors
+   if (!os) {
+      njoy::Log::error("Problem during pugi::xml_document::save(ostream)");
+      detail::context("XML::write(ostream)");
+   }
+
+   // done
    return os;
+}
+
+
+// ------------------------
+// write(filename)
+// ------------------------
+
+bool write(const std::string &filename) const
+{
+   // open file
+   std::ofstream ofs(filename.c_str());
+   if (!ofs) {
+      njoy::Log::error(
+         "Could not open file in call to XML::write(filename=\"{}\")",
+         filename
+      );
+      return false;
+   }
+
+   // write to stream
+   write(ofs);
+   if (ofs.fail()) {
+      detail::context("XML::write(filename=\"{}\")", filename);
+      return false;
+   }
+
+   // done
+   return true;
 }

@@ -178,7 +178,7 @@ bool read(
    // fixme Have some sort of warning
    assert(false);
 
-   // fallback: try automagick
+   // fallback: automagick
    return read(file,format::null);
 }
 
@@ -201,6 +201,6 @@ std::istream &read(
    // fixme Have some sort of warning
    assert(false);
 
-   // fallback: try automagick
+   // fallback: automagick
    return read(is,format::null);
 }

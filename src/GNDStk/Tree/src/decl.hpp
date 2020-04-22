@@ -64,7 +64,7 @@ const nodeType &decl() const
 {
    if (!has_decl()) {
       njoy::Log::error(
-         "tree.decl() called, "
+         "Tree.decl() called, "
          "but this tree has no declaration node"
       );
       throw std::exception{};

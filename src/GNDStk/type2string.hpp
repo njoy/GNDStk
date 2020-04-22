@@ -33,10 +33,7 @@ inline void type2ostream(const T &value, std::ostream &os)
 }
 
 
-// ------------------------
 // some sequence containers
-// ------------------------
-
 #define GNDSTK_TYPE2OSTREAM(container) \
    template<class T, class Alloc> \
    inline void type2ostream( \
@@ -65,10 +62,17 @@ inline void type2ostream(const T &value, std::ostream &os)
 template<class T>
 inline void type2string(const T &value, std::string &str)
 {
-   std::ostringstream oss;
-   type2ostream(value,oss);
-   str = oss.str();
+   // try block, in case someone overloads our own type2ostream functions
+   try {
+      std::ostringstream oss;
+      type2ostream(value,oss);
+      str = oss.str();
+   } catch (const std::exception &) {
+      detail::context("type2string(T,string)");
+      throw;
+   }
 }
+
 
 // char *
 // Faster than going through the generic T version.
@@ -79,17 +83,20 @@ inline void type2string(const char *const value, std::string &str)
    str = value;
 }
 
+
 // string
 inline void type2string(const std::string &value, std::string &str)
 {
    str = value;
 }
 
+
 // bool
 inline void type2string(const bool &value, std::string &str)
 {
    str = value ? "true" : "false";
 }
+
 
 // miscellaneous
 // T-to-string specializations that may be faster than our default

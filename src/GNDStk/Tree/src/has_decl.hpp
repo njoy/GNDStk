@@ -10,7 +10,7 @@ bool has_decl() const
    const auto &elems = root->children;
    if (elems.size() > 1) {
       njoy::Log::error(
-         "tree does not appear to be well-formed. Its declaration node\n"
+         "Tree does not appear to be well-formed. Its declaration node\n"
          "has {} child nodes, but should have either one or none",
          elems.size()
       );
@@ -19,7 +19,7 @@ bool has_decl() const
 
    if (elems.size() != 0 && *elems.begin() == nullptr) {
       njoy::Log::error(
-         "tree does not appear to be well-formed. Its declaration node\n"
+         "Tree does not appear to be well-formed. Its declaration node\n"
          "has one child, but with nullptr"
       );
       throw std::exception{};

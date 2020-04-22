@@ -4,8 +4,6 @@
 // -----------------------------------------------------------------------------
 
 /*
- , bool decl = false
-
 Cases:
    bool     write( string  &file, format = null ) const
    ostream &write( ostream &os,   format = null ) const
@@ -143,7 +141,7 @@ bool write(
    // fixme Have some sort of warning
    assert(false);
 
-   // fallback: try automagick
+   // fallback: automagick
    return write(file,format::null);
 }
 
@@ -166,6 +164,6 @@ std::ostream &write(
    // fixme Have some sort of warning
    assert(false);
 
-   // fallback: try automagick
+   // fallback: automagick
    return write(os,format::null);
 }

@@ -53,10 +53,7 @@ inline void istream2type(std::istream &is, T &value)
 }
 
 
-// ------------------------
 // some sequence containers
-// ------------------------
-
 #define GNDSTK_ISTREAM2TYPE(container) \
    template<class T, class Alloc> \
    inline void istream2type( \
@@ -86,9 +83,16 @@ inline void istream2type(std::istream &is, T &value)
 template<class T>
 inline void string2type(const std::string &str, T &value)
 {
-   std::istringstream iss(str);
-   istream2type(iss,value);
+   // try block, in case someone overloads our own istream2type functions
+   try {
+      std::istringstream iss(str);
+      istream2type(iss,value);
+   } catch (const std::exception &) {
+      detail::context("string2type(string,T)");
+      throw;
+   }
 }
+
 
 // string
 inline void string2type(const std::string &str, std::string &value)
@@ -96,25 +100,26 @@ inline void string2type(const std::string &str, std::string &value)
    value = str;
 }
 
+
 // bool
 inline void string2type(const std::string &str, bool &value)
 {
-   // The GNDS files I have appear to use "true" and "false", but let's have
-   // the following until (and unless) we determine that that's always the case
-   if (
-      str == "1" or str == "t"     or str == "true"  or
-      str == "T" or str == "True"  or str == "TRUE"  )
+   // The GNDS files I have appear to use "true" and "false" exclusively
+   if (str == "true")
       value = true;
-   else if (
-      str == "0" or str == "f"     or str == "false" or
-      str == "F" or str == "False" or str == "FALSE" )
+   else if (str == "false")
       value = false;
    else {
-      // fixme do something better than this
-      assert(false);
       value = false;
+      njoy::Log::error(
+         "Expected \"true\" or \"false\" in string2type(string,bool); "
+         "got \"{}\" instead",
+         str
+      );
+      throw std::exception{};
    }
 }
+
 
 // miscellaneous
 // string-to-T specializations that may be faster than our default

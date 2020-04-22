@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Assignment
+// XML Assignment
 // -----------------------------------------------------------------------------
 
 // move
@@ -13,7 +13,8 @@ XML &operator=(const XML &x)
    try {
       convert(x,*this);
    } catch (const std::exception &) {
-      njoy::Log::info("Context: XML = XML");
+      detail::context("XML = XML");
+      throw;
    }
    return *this;
 }

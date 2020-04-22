@@ -1,11 +1,12 @@
 
 // -----------------------------------------------------------------------------
-// Constructors
+// XML Constructors
 // -----------------------------------------------------------------------------
 
 // default, move
 XML() = default;
 XML(XML &&) = default;
+
 
 // copy
 // Note: pugi::xml_document's is inaccessible
@@ -13,8 +14,9 @@ XML(const XML &x)
 {
    try {
       convert(x,*this);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: XML(XML)");
+   } catch (const std::exception &) {
+      detail::context("XML(XML)");
+      throw;
    }
 }
 
@@ -24,8 +26,9 @@ explicit XML(const JSON &j)
 {
    try {
       convert(j,*this);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: XML(JSON)");
+   } catch (const std::exception &) {
+      detail::context("XML(JSON)");
+      throw;
    }
 }
 
@@ -39,8 +42,9 @@ explicit XML(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
    try {
       convert(t,*this);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: XML(Tree)");
+   } catch (const std::exception &) {
+      detail::context("XML(Tree)");
+      throw;
    }
 }
 
@@ -50,8 +54,9 @@ explicit XML(const std::string &filename)
 {
    try {
       read(filename);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: XML(filename)");
+   } catch (const std::exception &) {
+      detail::context("XML(filename=\"{}\")", filename);
+      throw;
    }
 }
 
@@ -61,7 +66,8 @@ explicit XML(std::istream &is)
 {
    try {
       read(is);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: XML(istream)");
+   } catch (const std::exception &) {
+      detail::context("XML(istream)");
+      throw;
    }
 }

@@ -1,12 +1,22 @@
 
 // -----------------------------------------------------------------------------
-// Constructors
+// JSON Constructors
 // -----------------------------------------------------------------------------
 
-// default, move, copy
+// default, move
 JSON() = default;
 JSON(JSON &&) = default;
-JSON(const JSON &) = default;
+
+
+// JSON
+JSON(const JSON &j)
+try: doc(j.doc)
+{
+}
+catch (const std::exception &) {
+   detail::context("JSON(JSON)");
+   throw;
+}
 
 
 // XML
@@ -14,8 +24,9 @@ explicit JSON(const XML &x)
 {
    try {
       convert(x,*this);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: JSON(XML)");
+   } catch (const std::exception &) {
+      detail::context("JSON(XML)");
+      throw;
    }
 }
 
@@ -29,8 +40,9 @@ explicit JSON(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
    try {
       convert(t,*this);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: JSON(Tree)");
+   } catch (const std::exception &) {
+      detail::context("JSON(Tree)");
+      throw;
    }
 }
 
@@ -40,8 +52,9 @@ explicit JSON(const std::string &filename)
 {
    try {
       read(filename);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: JSON(filename)");
+   } catch (const std::exception &) {
+      detail::context("JSON(filename=\"{}\")", filename);
+      throw;
    }
 }
 
@@ -50,7 +63,8 @@ explicit JSON(const std::string &filename)
 explicit JSON(std::istream &is) {
    try {
       read(is);
-   }  catch (const std::exception &) {
-      njoy::Log::info("Context: JSON(istream)");
+   } catch (const std::exception &) {
+      detail::context("JSON(istream)");
+      throw;
    }
 }

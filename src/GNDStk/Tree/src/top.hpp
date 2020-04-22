@@ -10,7 +10,7 @@ const nodeType &top() const
 {
    if (!has_top()) {
       njoy::Log::error(
-         "tree.top() called, "
+         "Tree.top() called, "
          "but this tree has no top-level node"
       );
       throw std::exception{};

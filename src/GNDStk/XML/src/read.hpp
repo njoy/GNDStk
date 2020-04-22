@@ -3,12 +3,15 @@
 // XML::read()
 // -----------------------------------------------------------------------------
 
-// read(string)
-bool read(const std::string &file)
+// ------------------------
+// read(istream)
+// ------------------------
+
+std::istream &read(std::istream &is)
 {
-   // load the document
-   const pugi::xml_parse_result load = doc.load_file(
-      file.c_str(),
+   // call pugi::xml_document's read capability
+   const pugi::xml_parse_result load = doc.load(
+      is,
       pugi::parse_default |
       pugi::parse_declaration | // preserve root <?xml ...?> material
       pugi::parse_comments      // preserve <!-- comment --> material
@@ -16,36 +19,44 @@ bool read(const std::string &file)
 
    // check for errors
    if (load.description() != std::string("No error")) {
-      std::cout << "Error loading file: " << file               << std::endl;
-      std::cout << "Parse error       : " << load.description() << std::endl;
-      std::cout << "Character offset  : " << load.offset        << std::endl;
-      // failure
-      return false;
-   }
-
-   // success
-   return true;
-}
-
-
-// read(istream)
-std::istream &read(std::istream &is)
-{
-   // load the document
-   const pugi::xml_parse_result load = doc.load(
-      is,
-      pugi::parse_default |
-      pugi::parse_declaration |
-      pugi::parse_comments
-   );
-
-   // check for errors
-   if (load.description() != std::string("No error")) {
-      std::cout << "Error loading from stream" << std::endl;
-      std::cout << "Parse error       : " << load.description() << std::endl;
-      std::cout << "Character offset  : " << load.offset        << std::endl;
+      njoy::Log::error(
+         "An error occurred in XML::read(istream) during its call\n"
+         "to pugi::xml_document::load(), which reported the following:\n"
+         "Parse error: {}\n"
+         "Character offset: {}",
+         load.description(),
+         load.offset
+      );
    }
 
    // done
    return is;
+}
+
+
+// ------------------------
+// read(filename)
+// ------------------------
+
+bool read(const std::string &filename)
+{
+   // open file
+   std::ifstream ifs(filename.c_str());
+   if (!ifs) {
+      njoy::Log::error(
+         "Could not open file in call to XML::read(filename=\"{}\")",
+         filename
+      );
+      return false;
+   }
+
+   // read from stream
+   read(ifs);
+   if (!ifs) {
+      detail::context("XML::read(filename=\"{}\")", filename);
+      return false;
+   }
+
+   // done
+   return true;
 }

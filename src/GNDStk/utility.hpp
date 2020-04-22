@@ -40,6 +40,16 @@ namespace detail {
    }
 }
 
+// context
+// Wraps certain calls to njoy::Log::info()
+namespace detail {
+   template<class... Args>
+   inline void context(const std::string &str, Args &&...args)
+   {
+      njoy::Log::info(("Context: " + str).c_str(), std::forward<Args>(args)...);
+   }
+}
+
 
 
 // -----------------------------------------------------------------------------

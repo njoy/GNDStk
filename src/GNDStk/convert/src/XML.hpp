@@ -4,7 +4,10 @@
 // That is, convert to XML objects
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // Tree ==> XML
+// ------------------------
+
 template<
    template<class...> class METADATA_CONTAINER,
    template<class...> class CHILDREN_CONTAINER
@@ -16,63 +19,65 @@ bool convert(
    // clear
    x.clear();
 
-   // convert
-   if (tree.has_decl()) {
-      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &tdecl =
-         tree.decl();
-
-      // ------------------------
-      // declaration node
-      // ------------------------
-
-      // The way we're storing things in our tree structure, this might
-      // contain e.g. the following if the tree was built from an XML:
-      //
-      //    name: "xml"
-      //    metadata:
-      //       "version",  "1.0"
-      //       "encoding", "UTF-8"
-      //    children:
-      //       just one, e.g. "reactionSuite" or "PoPs"
-      //
-      // or the following if the tree was built from a JSON:
-      //
-      //    name: "json"
-      //    metadata:
-      //       (nothing; empty container)
-      //    children:
-      //       just one, e.g. "reactionSuite" or "PoPs"
-      //
-      // or something else if the tree was built in another manner.
-
-      // declaration node
-      // That's the thing like this: <?xml version="1.0" encoding="UTF-8"?>
-      pugi::xml_node xdecl = x.doc.append_child(pugi::node_declaration);
-      for (auto &meta : tdecl.metadata)
-         xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
-
-      // ------------------------
-      // children
-      // ------------------------
-
-      return !tree.has_top() || detail::node2XML(tree.top(), x.doc);
-
-      /*
-      // fixme Everywhere, checks like the following should
-      // eventually be handled by something better than asserts
-      assert(tdecl.children.size() == 1);  // e.g. reactionSuite or PoPs
-      assert(*tdecl.children.begin() != nullptr);
-      return detail::node2XML(**tdecl.children.begin(), x.doc);
-      */
+   // just in case has_decl() throws (which it can)
+   bool has_decl;
+   try {
+      has_decl = tree.has_decl();
+   } catch (const std::exception &) {
+      detail::context("convert(Tree,XML)");
+      throw;
    }
 
-   // done
-   return true;
+   // but it's OK if it returns false
+   if (!has_decl)
+      return true;
+
+   // ------------------------
+   // convert
+   // ------------------------
+
+   // The way we're storing things in our tree structure, the declaration node
+   // might contain, e.g., the following, if the tree was built from an XML:
+   //
+   //    name: "xml"
+   //    metadata:
+   //       "version",  "1.0"
+   //       "encoding", "UTF-8"
+   //    children:
+   //       just one, e.g. "reactionSuite" or "PoPs"
+   //
+   // or the following if the tree was built from a JSON:
+   //
+   //    name: "json"
+   //    metadata:
+   //       (nothing; empty container)
+   //    children:
+   //       just one, e.g. "reactionSuite" or "PoPs"
+   //
+   // or something else if the tree was built in another manner. In an XML file,
+   // the declaration node is the thing like: <?xml version="1.0"...?>
+
+   try {
+      // declaration node
+      const auto &decl = tree.decl();
+      pugi::xml_node xdecl = x.doc.append_child(pugi::node_declaration);
+      for (auto &meta : decl.metadata)
+         xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
+      // children
+      return !tree.has_top() || detail::node2XML(tree.top(), x.doc);
+   } catch (const std::exception &) {
+      detail::context("convert(Tree,XML)");
+      throw;
+   }
 }
 
 
+
+// ------------------------
 // XML ==> XML
 // For completeness
+// ------------------------
+
 inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
 {
    if (&to == &from)
@@ -96,9 +101,14 @@ inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
    GNDStk::indent = 0; // saves memory in the stringstream
 
    // from ==> stringstream ==> to
-   std::stringstream ss;
-   from.write(ss);
-   to.read(ss);
+   try {
+      std::stringstream ss;
+      from.write(ss);
+      to.read(ss);
+   } catch (const std::exception &) {
+      detail::context("convert(XML,XML)");
+      throw;
+   }
 
    // restore indentation
    GNDStk::indent = indent;
@@ -108,13 +118,25 @@ inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
 }
 
 
+
+// ------------------------
 // JSON ==> XML
+// ------------------------
+
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this if it becomes more of an issue.
 inline bool convert(const GNDStk::JSON &j, GNDStk::XML &x)
 {
+   // temporary
    GNDStk::tree tree;
-   return
-      convert(j,tree) and
-      convert(tree,x);
+
+   // convert
+   try {
+      return
+         convert(j,tree) and
+         convert(tree,x);
+   } catch (const std::exception &) {
+      detail::context("convert(JSON,XML)");
+      throw;
+   }
 }
