@@ -108,7 +108,7 @@ SCENARIO("Testing GNDStk tree constructors") {
    GIVEN("A default-constructed tree") {
       GNDStk::Tree<> t;
       WHEN("We check that it's empty") {
-         REQUIRE(t.empty());
+         CHECK(t.empty());
       }
    }
 
@@ -123,7 +123,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          std::ostringstream oss1; oss1 << one;
          std::ostringstream oss2; oss2 << two;
 
-         REQUIRE(oss1.str() == oss2.str());
+         CHECK(oss1.str() == oss2.str());
       }
    }
 
@@ -136,7 +136,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          // as we do for a tree that's read directly from the same file...
          std::ostringstream oss1; oss1 << GNDStk::Tree<>(x);
          std::ostringstream oss2; oss2 << GNDStk::Tree<>("n-026_Fe_056.xml");
-         REQUIRE(oss1.str() == oss2.str());
+         CHECK(oss1.str() == oss2.str());
       }
    }
 
@@ -147,15 +147,15 @@ SCENARIO("Testing GNDStk tree constructors") {
    // 6. Tree(istream)
    GIVEN("A tree(string) and a tree(istream)") {
       const GNDStk::Tree<> t1("n-026_Fe_056.xml");
-      REQUIRE(!t1.empty());
+      CHECK(!t1.empty());
       std::ifstream ifs("n-026_Fe_056.xml");
       const GNDStk::Tree<> t2(ifs);
-      REQUIRE(!t2.empty());
+      CHECK(!t2.empty());
 
       // Results should be the same
       std::ostringstream oss1; oss1 << t1;
       std::ostringstream oss2; oss2 << t2;
-      REQUIRE(oss1.str() == oss2.str());
+      CHECK(oss1.str() == oss2.str());
    }
 
    // 7. Tree(Tree   &) // copy
@@ -163,19 +163,19 @@ SCENARIO("Testing GNDStk tree constructors") {
    // Do basically the same thing we did in our tree assignment
    // test code, but construct where we'd otherwise assign.
    GIVEN("Various flavors of tree, each read from a GNDS .xml file") {
-      REQUIRE((ctor<                        >()));
-      REQUIRE((ctor<std::deque              >()));
-      REQUIRE((ctor<std::deque , std::deque >()));
-      REQUIRE((ctor<std::deque , std::list  >()));
-      REQUIRE((ctor<std::deque , std::vector>()));
-      REQUIRE((ctor<std::list               >()));
-      REQUIRE((ctor<std::list  , std::deque >()));
-      REQUIRE((ctor<std::list  , std::list  >()));
-      REQUIRE((ctor<std::list  , std::vector>()));
-      REQUIRE((ctor<std::vector             >()));
-      REQUIRE((ctor<std::vector, std::deque >()));
-      REQUIRE((ctor<std::vector, std::list  >()));
-      REQUIRE((ctor<std::vector, std::vector>()));
+      CHECK((ctor<                        >()));
+      CHECK((ctor<std::deque              >()));
+      CHECK((ctor<std::deque , std::deque >()));
+      CHECK((ctor<std::deque , std::list  >()));
+      CHECK((ctor<std::deque , std::vector>()));
+      CHECK((ctor<std::list               >()));
+      CHECK((ctor<std::list  , std::deque >()));
+      CHECK((ctor<std::list  , std::list  >()));
+      CHECK((ctor<std::list  , std::vector>()));
+      CHECK((ctor<std::vector             >()));
+      CHECK((ctor<std::vector, std::deque >()));
+      CHECK((ctor<std::vector, std::list  >()));
+      CHECK((ctor<std::vector, std::vector>()));
    }
 
    // 9. Tree(top-level node, format | string [, version [, encoding]])
@@ -196,83 +196,83 @@ SCENARIO("Testing GNDStk tree constructors") {
 
       WHEN("We call: Tree(top-level node)") {
          Tree<> t(reactionSuite);
-         REQUIRE(t.decl().name == "xml");
-         REQUIRE(t.decl().metadata.size() == 2);
-         REQUIRE(t.decl().meta("version") == "1.0");
-         REQUIRE(t.decl().meta("encoding") == "UTF-8");
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "reactionSuite");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "xml");
+         CHECK(t.decl().metadata.size() == 2);
+         CHECK(t.decl().meta("version") == "1.0");
+         CHECK(t.decl().meta("encoding") == "UTF-8");
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "reactionSuite");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
       }
 
       WHEN("We call: Tree(top-level node, format)") {
          Tree<> t(reactionSuite, format::json);
-         REQUIRE(t.decl().name == "json");
-         REQUIRE(t.decl().metadata.size() == 0);
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "reactionSuite");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "json");
+         CHECK(t.decl().metadata.size() == 0);
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "reactionSuite");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
       }
 
       WHEN("We call: Tree(top-level node, format, version)") {
          Tree<> t(covarianceSuite, format::null, "2.0");
-         REQUIRE(t.decl().name == "xml");
-         REQUIRE(t.decl().metadata.size() == 2);
-         REQUIRE(t.decl().meta("version") == "2.0");
-         REQUIRE(t.decl().meta("encoding") == "UTF-8");
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "covarianceSuite");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "xml");
+         CHECK(t.decl().metadata.size() == 2);
+         CHECK(t.decl().meta("version") == "2.0");
+         CHECK(t.decl().meta("encoding") == "UTF-8");
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "covarianceSuite");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
       }
 
       WHEN("We call: Tree(top-level node, format, version, encoding)") {
          Tree<> t(covarianceSuite, format::xml, "3.0", "UTF-9");
-         REQUIRE(t.decl().name == "xml");
-         REQUIRE(t.decl().metadata.size() == 2);
-         REQUIRE(t.decl().meta("version") == "3.0");
-         REQUIRE(t.decl().meta("encoding") == "UTF-9");
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "covarianceSuite");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "xml");
+         CHECK(t.decl().metadata.size() == 2);
+         CHECK(t.decl().meta("version") == "3.0");
+         CHECK(t.decl().meta("encoding") == "UTF-9");
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "covarianceSuite");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
       }
 
       WHEN("We call: Tree(top-level node, string)") {
          Tree<> t(PoPs, "hdf5");
-         REQUIRE(t.decl().name == "hdf5");
-         REQUIRE(t.decl().metadata.size() == 0);
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "PoPs");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "hdf5");
+         CHECK(t.decl().metadata.size() == 0);
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "PoPs");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
 
       }
 
       WHEN("We call: Tree(top-level node, string, version)") {
          Tree<> t(PoPs, "tree", "4.0");
-         REQUIRE(t.decl().name == "xml");
-         REQUIRE(t.decl().metadata.size() == 2);
-         REQUIRE(t.decl().meta("version") == "4.0");
-         REQUIRE(t.decl().meta("encoding") == "UTF-8");
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "PoPs");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "xml");
+         CHECK(t.decl().metadata.size() == 2);
+         CHECK(t.decl().meta("version") == "4.0");
+         CHECK(t.decl().meta("encoding") == "UTF-8");
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "PoPs");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
       }
 
       WHEN("We call: Tree(top-level node, string, version, encoding)") {
          Tree<> t(thermalScattering, "xml", "5.0", "UTF-10");
-         REQUIRE(t.decl().name == "xml");
-         REQUIRE(t.decl().metadata.size() == 2);
-         REQUIRE(t.decl().meta("version") == "5.0");
-         REQUIRE(t.decl().meta("encoding") == "UTF-10");
-         REQUIRE(t.decl().children.size() == 1);
-         REQUIRE(t.top().name == "thermalScattering");
-         REQUIRE(t.top().metadata.size() == 0);
-         REQUIRE(t.top().children.size() == 0);
+         CHECK(t.decl().name == "xml");
+         CHECK(t.decl().metadata.size() == 2);
+         CHECK(t.decl().meta("version") == "5.0");
+         CHECK(t.decl().meta("encoding") == "UTF-10");
+         CHECK(t.decl().children.size() == 1);
+         CHECK(t.top().name == "thermalScattering");
+         CHECK(t.top().metadata.size() == 0);
+         CHECK(t.top().children.size() == 0);
       }
    }
 

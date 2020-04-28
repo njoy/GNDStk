@@ -12,13 +12,13 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
    // Tree (upper-case T): takes 0, 1, or 2 template parameters
    GIVEN("A Tree<default,default>") {
       GNDStk::Tree<> tree;
-      REQUIRE(tree.empty());
+      CHECK(tree.empty());
    }
 
    // tree (lower-case t): shorthand alias for Tree<>
    GIVEN("A tree") {
       GNDStk::tree tree;
-      REQUIRE(tree.empty());
+      CHECK(tree.empty());
    }
 
    // Each of Tree's two template parameters can be any of three particular C++
@@ -31,20 +31,20 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
    GIVEN("A Tree<various,various>") {
       using namespace std;
 
-      { GNDStk::Tree<deque        > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<deque ,deque > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<deque ,list  > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<deque ,vector> tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<deque        > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<deque ,deque > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<deque ,list  > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<deque ,vector> tree; CHECK(tree.empty()); }
 
-      { GNDStk::Tree<list         > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<list  ,deque > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<list  ,list  > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<list  ,vector> tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<list         > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<list  ,deque > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<list  ,list  > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<list  ,vector> tree; CHECK(tree.empty()); }
 
-      { GNDStk::Tree<vector       > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<vector,deque > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<vector,list  > tree; REQUIRE(tree.empty()); }
-      { GNDStk::Tree<vector,vector> tree; REQUIRE(tree.empty()); }
+      { GNDStk::Tree<vector       > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<vector,deque > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<vector,list  > tree; CHECK(tree.empty()); }
+      { GNDStk::Tree<vector,vector> tree; CHECK(tree.empty()); }
    }
 
 }

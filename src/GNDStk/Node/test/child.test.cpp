@@ -83,16 +83,16 @@ SCENARIO("Testing GNDStk Node child()") {
       ).child(
          temperature // ours, as set up earlier
       );
-      REQUIRE(temp.value == 0.0);
-      REQUIRE(temp.unit  == "K");
+      CHECK(temp.value == 0.0);
+      CHECK(temp.unit  == "K");
 
       auto &styles_const = ctop.child(styles);
-      REQUIRE(styles_const.metadata.size() == 0);
-      REQUIRE(styles_const.children.size() == 1);
+      CHECK(styles_const.metadata.size() == 0);
+      CHECK(styles_const.children.size() == 1);
 
       auto &styles_nonconst = top.child(styles);
-      REQUIRE(styles_nonconst.metadata.size() == 0);
-      REQUIRE(styles_nonconst.children.size() == 1);
+      CHECK(styles_nonconst.metadata.size() == 0);
+      CHECK(styles_nonconst.children.size() == 1);
 
       auto foodoc = top.child<foo_t>(documentations);
       (void)foodoc.foo_id; // foodoc should be of type foo_t;
@@ -106,10 +106,10 @@ SCENARIO("Testing GNDStk Node child()") {
       )[0](
          child::isotopes
       ).child(isotope);
-      REQUIRE(iso.size() == 3);
-      REQUIRE(iso[0].symbol == "H1");  REQUIRE(iso[0].A == 1);
-      REQUIRE(iso[1].symbol == "H2");  REQUIRE(iso[1].A == 2);
-      REQUIRE(iso[2].symbol == "H3");  REQUIRE(iso[2].A == 3);
+      CHECK(iso.size() == 3);
+      CHECK(iso[0].symbol == "H1");  CHECK(iso[0].A == 1);
+      CHECK(iso[1].symbol == "H2");  CHECK(iso[1].A == 2);
+      CHECK(iso[2].symbol == "H3");  CHECK(iso[2].A == 3);
 
       auto iso_node = top(
          child::PoPs,
@@ -118,10 +118,10 @@ SCENARIO("Testing GNDStk Node child()") {
       )[0](
          child::isotopes
       ).child(isotope_node);
-      REQUIRE(iso_node.size() == 3);
-      REQUIRE(iso_node[0].name == "isotope");
-      REQUIRE(iso_node[1].name == "isotope");
-      REQUIRE(iso_node[2].name == "isotope");
+      CHECK(iso_node.size() == 3);
+      CHECK(iso_node[0].name == "isotope");
+      CHECK(iso_node[1].name == "isotope");
+      CHECK(iso_node[2].name == "isotope");
 
       auto iso_foo_node = top(
          child::PoPs,
@@ -132,8 +132,8 @@ SCENARIO("Testing GNDStk Node child()") {
          child::isotope
       )[0](child::nuclides).child<foo_t>(nuclide_foo_or_bar_node);
 
-      REQUIRE(iso_foo_node.size() == 1);
-      REQUIRE(iso_foo_node[0].foo_id == "H1");
+      CHECK(iso_foo_node.size() == 1);
+      CHECK(iso_foo_node[0].foo_id == "H1");
 
       auto iso_bar_node = top(
          child::PoPs,
@@ -144,7 +144,7 @@ SCENARIO("Testing GNDStk Node child()") {
          child::isotope
       )[1](child::nuclides).child<bar_t>(nuclide_foo_or_bar_node);
 
-      REQUIRE(iso_bar_node.size() == 1);
-      REQUIRE(iso_bar_node[0].bar_id == "H2");
+      CHECK(iso_bar_node.size() == 1);
+      CHECK(iso_bar_node[0].bar_id == "H2");
    }
 }

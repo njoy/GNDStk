@@ -36,20 +36,20 @@ SCENARIO("Testing GNDStk tree meta()") {
       // first, then looks in the top-level node only if the first look failed.
 
       // const
-      REQUIRE(c.meta("version") == "1.0");
-      REQUIRE(c.meta("encoding") == "UTF-8");
-      REQUIRE(c.meta("projectile") == "n");
-      REQUIRE(c.meta("target") == "Tm170");
-      REQUIRE(c.meta("evaluation") == "ENDF/B-8.0");
-      REQUIRE(c.meta("format") == "1.9");
+      CHECK(c.meta("version") == "1.0");
+      CHECK(c.meta("encoding") == "UTF-8");
+      CHECK(c.meta("projectile") == "n");
+      CHECK(c.meta("target") == "Tm170");
+      CHECK(c.meta("evaluation") == "ENDF/B-8.0");
+      CHECK(c.meta("format") == "1.9");
 
       // non-const
-      REQUIRE(t.meta("version") == "1.0");
-      REQUIRE(t.meta("encoding") == "UTF-8");
-      REQUIRE(t.meta("projectile") == "n");
-      REQUIRE(t.meta("target") == "Tm170");
-      REQUIRE(t.meta("evaluation") == "ENDF/B-8.0");
-      REQUIRE(t.meta("format") == "1.9");
+      CHECK(t.meta("version") == "1.0");
+      CHECK(t.meta("encoding") == "UTF-8");
+      CHECK(t.meta("projectile") == "n");
+      CHECK(t.meta("target") == "Tm170");
+      CHECK(t.meta("evaluation") == "ENDF/B-8.0");
+      CHECK(t.meta("format") == "1.9");
 
       // Be sure that all of the above return references, given that both const
       // and non-const meta(string) use decltype(auto) and some other constructs
@@ -71,25 +71,25 @@ SCENARIO("Testing GNDStk tree meta()") {
       // Again doing the lookups as earlier, be sure they always give back
       // a true "found" if we send "found" at all...
       bool found;
-      REQUIRE((found=false,c.meta("version",   found)=="1.0"        && found));
-      REQUIRE((found=false,c.meta("encoding",  found)=="UTF-8"      && found));
-      REQUIRE((found=false,c.meta("projectile",found)=="n"          && found));
-      REQUIRE((found=false,c.meta("target",    found)=="Tm170"      && found));
-      REQUIRE((found=false,c.meta("evaluation",found)=="ENDF/B-8.0" && found));
-      REQUIRE((found=false,c.meta("format",    found)=="1.9"        && found));
-      REQUIRE((found=false,t.meta("version",   found)=="1.0"        && found));
-      REQUIRE((found=false,t.meta("encoding",  found)=="UTF-8"      && found));
-      REQUIRE((found=false,t.meta("projectile",found)=="n"          && found));
-      REQUIRE((found=false,t.meta("target",    found)=="Tm170"      && found));
-      REQUIRE((found=false,t.meta("evaluation",found)=="ENDF/B-8.0" && found));
-      REQUIRE((found=false,t.meta("format",    found)=="1.9"        && found));
+      CHECK((found=false,c.meta("version",   found)=="1.0"        && found));
+      CHECK((found=false,c.meta("encoding",  found)=="UTF-8"      && found));
+      CHECK((found=false,c.meta("projectile",found)=="n"          && found));
+      CHECK((found=false,c.meta("target",    found)=="Tm170"      && found));
+      CHECK((found=false,c.meta("evaluation",found)=="ENDF/B-8.0" && found));
+      CHECK((found=false,c.meta("format",    found)=="1.9"        && found));
+      CHECK((found=false,t.meta("version",   found)=="1.0"        && found));
+      CHECK((found=false,t.meta("encoding",  found)=="UTF-8"      && found));
+      CHECK((found=false,t.meta("projectile",found)=="n"          && found));
+      CHECK((found=false,t.meta("target",    found)=="Tm170"      && found));
+      CHECK((found=false,t.meta("evaluation",found)=="ENDF/B-8.0" && found));
+      CHECK((found=false,t.meta("format",    found)=="1.9"        && found));
 
       // Now, try to look up something that isn't there, and be sure "found"
       // comes back as false. (If we didn't send it at all, then attempting
       // to look up a nonexistent metadata key would trigger an error).
       // Const version, then non-const...
-      REQUIRE((found = true, c.meta("foo", found), found == false));
-      REQUIRE((found = true, t.meta("bar", found), found == false));
+      CHECK((found = true, c.meta("foo", found), found == false));
+      CHECK((found = true, t.meta("bar", found), found == false));
 
 
       // ------------------------
@@ -123,36 +123,36 @@ SCENARIO("Testing GNDStk tree meta()") {
       const meta_t<double> format("format");
 
       // fixme Floating-point comparisons aren't necessarily reliable
-      REQUIRE( c.meta <double     > ( version    ) ==  1.0    ); // double
-      REQUIRE( c.meta <std::string> ( version    ) == "1.0"   ); // string
-      REQUIRE( c.meta               ( encoding   ) == "UTF-8" ); // string
-      REQUIRE( c.meta <char       > ( projectile ) == 'n'     ); // char
-      REQUIRE( c.meta <std::string> ( projectile ) == "n"     ); // string
-      REQUIRE( c.meta               ( target     ) == "Tm170" ); // string
-      REQUIRE( c.meta               ( format     ) ==  1.9    ); // double
+      CHECK( c.meta <double     > ( version    ) ==  1.0    ); // double
+      CHECK( c.meta <std::string> ( version    ) == "1.0"   ); // string
+      CHECK( c.meta               ( encoding   ) == "UTF-8" ); // string
+      CHECK( c.meta <char       > ( projectile ) == 'n'     ); // char
+      CHECK( c.meta <std::string> ( projectile ) == "n"     ); // string
+      CHECK( c.meta               ( target     ) == "Tm170" ); // string
+      CHECK( c.meta               ( format     ) ==  1.9    ); // double
 
       // Test found
-      REQUIRE((found=false,
-               c.meta <double     > ( version    , found) ==  1.0    && found));
-      REQUIRE((found=false,
-               c.meta <std::string> ( version    , found) == "1.0"   && found));
-      REQUIRE((found=false,
-               c.meta               ( encoding   , found) == "UTF-8" && found));
-      REQUIRE((found=false,
-               c.meta <char       > ( projectile , found) == 'n'     && found));
-      REQUIRE((found=false,
-               c.meta <std::string> ( projectile , found) == "n"     && found));
-      REQUIRE((found=false,
-               c.meta               ( target     , found) == "Tm170" && found));
-      REQUIRE((found=false,
-               c.meta               ( format     , found) ==  1.9    && found));
+      CHECK((found=false,
+             c.meta <double     > ( version    , found) ==  1.0    && found));
+      CHECK((found=false,
+             c.meta <std::string> ( version    , found) == "1.0"   && found));
+      CHECK((found=false,
+             c.meta               ( encoding   , found) == "UTF-8" && found));
+      CHECK((found=false,
+             c.meta <char       > ( projectile , found) == 'n'     && found));
+      CHECK((found=false,
+             c.meta <std::string> ( projectile , found) == "n"     && found));
+      CHECK((found=false,
+             c.meta               ( target     , found) == "Tm170" && found));
+      CHECK((found=false,
+             c.meta               ( format     , found) ==  1.9    && found));
 
       // Test not-found
       meta_t<int> foo("foo");
       meta_t<std::variant<int,double>> bar("bar");
-      REQUIRE((found = true, c.meta        (foo,found), found == false));
-      REQUIRE((found = true, c.meta<int   >(bar,found), found == false));
-      REQUIRE((found = true, c.meta<double>(bar,found), found == false));
+      CHECK((found = true, c.meta        (foo,found), found == false));
+      CHECK((found = true, c.meta<int   >(bar,found), found == false));
+      CHECK((found = true, c.meta<double>(bar,found), found == false));
 
 
       // ------------------------
@@ -163,15 +163,15 @@ SCENARIO("Testing GNDStk tree meta()") {
 
       // something in the declaration node
       t.meta("version") = "1.2345"; // change version string
-      REQUIRE(t.meta("version") == "1.2345"); // verify that it changed
+      CHECK(t.meta("version") == "1.2345"); // verify that it changed
 
       // something in the top-level GNDS node
       t.meta("projectile") = "abc"; // change projectile string
-      REQUIRE(t.meta("projectile") == "abc"); // verify that it changed
+      CHECK(t.meta("projectile") == "abc"); // verify that it changed
 
       // assignments "work" (don't cause a crash) for nonexistent metadata
       // keys, but give back found == false
-      REQUIRE((found = true, t.meta("foo key",found) = "foo value", !found));
-      REQUIRE((found = true, t.meta("bar key",found) = "bar value", !found));
+      CHECK((found = true, t.meta("foo key",found) = "foo value", !found));
+      CHECK((found = true, t.meta("bar key",found) = "bar value", !found));
    }
 }

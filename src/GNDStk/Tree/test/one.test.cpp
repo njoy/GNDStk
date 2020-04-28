@@ -24,16 +24,16 @@ SCENARIO("Testing GNDStk tree one()") {
          // const
          found = false;
          auto &cnode = c.one("xml",found);
-         REQUIRE(found == true);
-         REQUIRE(cnode.name == "xml");
-         REQUIRE(cnode.meta("version") == "1.0");
+         CHECK(found == true);
+         CHECK(cnode.name == "xml");
+         CHECK(cnode.meta("version") == "1.0");
 
          // non-const
          found = false;
          auto &tnode = t.one("xml",found);
-         REQUIRE(found == true);
-         REQUIRE(tnode.name == "xml");
-         REQUIRE(tnode.meta("encoding") == "UTF-8");
+         CHECK(found == true);
+         CHECK(tnode.name == "xml");
+         CHECK(tnode.meta("encoding") == "UTF-8");
 
       } {
          // Top-level GNDS node...
@@ -41,16 +41,16 @@ SCENARIO("Testing GNDStk tree one()") {
          // const
          found = false;
          auto &cnode = c.one("covarianceSuite",found);
-         REQUIRE(found == true);
-         REQUIRE(cnode.name == "covarianceSuite");
-         REQUIRE(cnode.meta("target") == "Tm170");
+         CHECK(found == true);
+         CHECK(cnode.name == "covarianceSuite");
+         CHECK(cnode.meta("target") == "Tm170");
 
          // non-const
          found = false;
          auto &tnode = t.one("covarianceSuite",found);
-         REQUIRE(found == true);
-         REQUIRE(tnode.name == "covarianceSuite");
-         REQUIRE(tnode.meta("evaluation") == "ENDF/B-8.0");
+         CHECK(found == true);
+         CHECK(tnode.name == "covarianceSuite");
+         CHECK(tnode.meta("evaluation") == "ENDF/B-8.0");
 
       } {
          // Non-existent child of the Tree...
@@ -58,12 +58,12 @@ SCENARIO("Testing GNDStk tree one()") {
          // const
          found = true;
          auto &cnode = c.one("foo",found);
-         REQUIRE(found == false);
+         CHECK(found == false);
 
          // non-const
          found = true;
          auto &tnode = t.one("bar",found);
-         REQUIRE(found == false);
+         CHECK(found == false);
 
       }
 

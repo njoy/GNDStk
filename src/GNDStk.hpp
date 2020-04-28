@@ -44,7 +44,6 @@ namespace GNDStk {
 
 // basic
 #include "GNDStk/utility.hpp"
-#include "GNDStk/diagnostic.hpp"
 
 // external-library wrappers
 #include "GNDStk/XML.hpp"

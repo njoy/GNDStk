@@ -4,9 +4,9 @@
 
 SCENARIO("Testing GNDStk Node copy()") {
    GNDStk::Node<> node1;
-   REQUIRE(node1.empty());
+   CHECK(node1.empty());
    const GNDStk::Node<> node2 = node1.copy();
-   REQUIRE(node2.empty());
+   CHECK(node2.empty());
 
    node1.name = "I'm a node"; // name
    node1.add("one","two"); // metadatum
@@ -19,22 +19,22 @@ SCENARIO("Testing GNDStk Node copy()") {
       const auto node2 = node1.copy();
 
       // name
-      REQUIRE(node2.name == "I'm a node");
+      CHECK(node2.name == "I'm a node");
 
       // metadata
-      REQUIRE(node2.metadata.size() == 2);
+      CHECK(node2.metadata.size() == 2);
       auto meta = node2.metadata.begin();
-      REQUIRE(meta->first == "one");
-      REQUIRE(meta->second == "two");
+      CHECK(meta->first == "one");
+      CHECK(meta->second == "two");
       meta++;
-      REQUIRE(meta->first == "three");
-      REQUIRE(meta->second == "four");
+      CHECK(meta->first == "three");
+      CHECK(meta->second == "four");
 
       // children
-      REQUIRE(node2.children.size() == 3);
+      CHECK(node2.children.size() == 3);
       auto child = node2.children.begin();
-      REQUIRE((*child)->name == "five");
-      REQUIRE((*++child)->name == "six");
-      REQUIRE((*++child)->name == "seven");
+      CHECK((*child)->name == "five");
+      CHECK((*++child)->name == "six");
+      CHECK((*++child)->name == "seven");
    }
 }

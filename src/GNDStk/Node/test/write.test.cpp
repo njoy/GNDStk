@@ -54,13 +54,13 @@ SCENARIO("Testing GNDStk Node write() and operator<<") {
       WHEN("We call node.write(ostream)") {
          std::ostringstream oss;
          top.write(oss);
-         REQUIRE(oss.str() == correct_written_node);
+         CHECK(oss.str() == correct_written_node);
       }
 
       WHEN("We call ostream << node") {
          std::ostringstream oss;
          oss << top;
-         REQUIRE(oss.str() == correct_written_node);
+         CHECK(oss.str() == correct_written_node);
       }
    }
 }

@@ -52,26 +52,26 @@ void assign()
    GNDStk::Tree<M,C> left; // for a left = right assignment
 
    // Perform a left = right assignment for various "right" cases
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<              >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque         >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque , deque >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque , list  >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<deque , vector>()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<list          >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<list  , deque >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<list  , list  >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<list  , vector>()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector        >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, deque >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, list  >()));
-   REQUIRE(sets_equal_to(left, GNDStk::Tree<vector, vector>()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<              >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<deque         >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<deque , deque >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<deque , list  >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<deque , vector>()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<list          >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<list  , deque >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<list  , list  >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<list  , vector>()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<vector        >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<vector, deque >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<vector, list  >()));
+   CHECK(sets_equal_to(left, GNDStk::Tree<vector, vector>()));
 
    // Test move assignment
    left = GNDStk::Tree<M,C>("n-069_Tm_170-covar.xml");
    std::ostringstream ossl; ossl << left;
    GNDStk::Tree<M,C> right("n-069_Tm_170-covar.xml");
    std::ostringstream ossr; ossr << right;
-   REQUIRE(ossl.str() == ossr.str());
+   CHECK(ossl.str() == ossr.str());
 }
 
 

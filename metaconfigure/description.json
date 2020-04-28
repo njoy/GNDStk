@@ -595,7 +595,6 @@
     "src/GNDStk/Node.hpp", 
     "src/GNDStk/child.hpp", 
     "src/GNDStk/meta.hpp", 
-    "src/GNDStk/diagnostic.hpp", 
     "src/GNDStk/string2type.hpp", 
     "src/GNDStk/XML.hpp", 
     "src/GNDStk/JSON.hpp", 
@@ -693,7 +692,6 @@
       "src/GNDStk/Tree/test/empty.test.cpp", 
       "src/GNDStk/Tree/test/reset.test.cpp", 
       "src/GNDStk/Tree/test/top.test.cpp", 
-      "src/GNDStk/Tree/test/normalize.test.cpp", 
       "src/GNDStk/Tree/test/Tree.test.cpp", 
       "src/GNDStk/Tree/test/one.test.cpp", 
       "src/GNDStk/Tree/test/call.test.cpp", 
@@ -709,9 +707,6 @@
     ], 
     "GNDStk.convert": [
       "src/GNDStk/convert/test/convert.test.cpp"
-    ], 
-    "GNDStk.diagnostic": [
-      "src/GNDStk/diagnostic/test/diagnostic.test.cpp"
     ], 
     "GNDStk.keyword": [
       "src/GNDStk/keyword/test/keyword.test.cpp"

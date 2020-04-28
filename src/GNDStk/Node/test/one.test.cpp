@@ -18,11 +18,11 @@ SCENARIO("Testing GNDStk Node one()") {
          // in fact is all there is. If there were many, we'd probably
          // want to use all() instead of one().
          Node<> &pops = rs.one("PoPs");
-         REQUIRE(pops.meta("name") == "protare_internal");
+         CHECK(pops.meta("name") == "protare_internal");
 
          // const version
          const Node<> &cpops = const_rs.one("PoPs");
-         REQUIRE(cpops.meta("name") == "protare_internal");
+         CHECK(cpops.meta("name") == "protare_internal");
       }
    }
 }

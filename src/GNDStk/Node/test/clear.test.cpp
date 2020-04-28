@@ -6,7 +6,7 @@ SCENARIO("Testing GNDStk Node clear()") {
 
    GIVEN("A default-constructed node") {
       GNDStk::Node<> n;
-      REQUIRE(n.empty());
+      CHECK(n.empty());
 
       WHEN("a name, metadata, and children are added") {
          n.name = "I'm a node"; // name
@@ -16,13 +16,13 @@ SCENARIO("Testing GNDStk Node clear()") {
          n.add("six"); // another child
 
          // well, now it's not empty
-         REQUIRE(!n.empty());
+         CHECK(!n.empty());
 
          // clear it!
          n.clear();
 
          // now it's empty again
-         REQUIRE(n.empty());
+         CHECK(n.empty());
       }
    }
 

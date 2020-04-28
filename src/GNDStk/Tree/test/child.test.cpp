@@ -175,24 +175,24 @@ SCENARIO("Testing GNDStk tree child()") {
          // a custom type.
          found = false;
          const Node<> &cnode = c.child(child::xml,found);
-         REQUIRE(found == true);
+         CHECK(found == true);
          found = false;
          Node<> &tnode = t.child(child::xml,found);
-         REQUIRE(found == true);
+         CHECK(found == true);
       } {
          // IN CASE OF ERROR: Same note as immediately above.
          found = false; auto &cnode = c.child(covarianceSuite,found);
-         REQUIRE(found == true);
+         CHECK(found == true);
          found = false; auto &tnode = t.child(covarianceSuite,found);
-         REQUIRE(found == true);
+         CHECK(found == true);
       }
 
       // Let's try our own custom keyword, which was set up near the
       // beginning of this test file.
       {
          const xml_t x = c.child(my_xml_keyword);
-         REQUIRE(x.version == 1.0);
-         REQUIRE(x.encoding == "UTF-8");
+         CHECK(x.version == 1.0);
+         CHECK(x.encoding == "UTF-8");
       }
 
       // Another custom keyword, this one to test child() for std::variant.
@@ -204,13 +204,13 @@ SCENARIO("Testing GNDStk tree child()") {
          covarianceSuite_type_2 two =
             c.child<covarianceSuite_type_2>(my_covarianceSuite_keyword);
 
-         REQUIRE(one.foo == 123);
-         REQUIRE(one.bar == 456);
+         CHECK(one.foo == 123);
+         CHECK(one.bar == 456);
 
-         REQUIRE(two.projectile == "n");
-         REQUIRE(two.target     == "Tm170");
-         REQUIRE(two.evaluation == "ENDF/B-8.0");
-         REQUIRE(two.format     == 1.9);
+         CHECK(two.projectile == "n");
+         CHECK(two.target     == "Tm170");
+         CHECK(two.evaluation == "ENDF/B-8.0");
+         CHECK(two.format     == 1.9);
       }
    }
 }

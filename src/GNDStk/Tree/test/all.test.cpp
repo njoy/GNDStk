@@ -24,18 +24,18 @@ SCENARIO("Testing GNDStk tree all()") {
          // const
          found = false;
          auto cnode = c.all("xml",found);
-         REQUIRE(found == true);
-         REQUIRE(cnode.size() == 1);
-         REQUIRE(cnode[0].name == "xml");
-         REQUIRE(cnode[0].meta("version") == "1.0");
+         CHECK(found == true);
+         CHECK(cnode.size() == 1);
+         CHECK(cnode[0].name == "xml");
+         CHECK(cnode[0].meta("version") == "1.0");
 
          // non-const
          found = false;
          auto tnode = t.all("xml",found);
-         REQUIRE(found == true);
-         REQUIRE(tnode.size() == 1);
-         REQUIRE(tnode[0].name == "xml");
-         REQUIRE(tnode[0].meta("encoding") == "UTF-8");
+         CHECK(found == true);
+         CHECK(tnode.size() == 1);
+         CHECK(tnode[0].name == "xml");
+         CHECK(tnode[0].meta("encoding") == "UTF-8");
 
       } {
          // Top-level GNDS node...
@@ -43,18 +43,18 @@ SCENARIO("Testing GNDStk tree all()") {
          // const
          found = false;
          auto cnode = c.all("covarianceSuite",found);
-         REQUIRE(found == true);
-         REQUIRE(cnode.size() == 1);
-         REQUIRE(cnode[0].name == "covarianceSuite");
-         REQUIRE(cnode[0].meta("target") == "Tm170");
+         CHECK(found == true);
+         CHECK(cnode.size() == 1);
+         CHECK(cnode[0].name == "covarianceSuite");
+         CHECK(cnode[0].meta("target") == "Tm170");
 
          // non-const
          found = false;
          auto tnode = t.all("covarianceSuite",found);
-         REQUIRE(found == true);
-         REQUIRE(tnode.size() == 1);
-         REQUIRE(tnode[0].name == "covarianceSuite");
-         REQUIRE(tnode[0].meta("evaluation") == "ENDF/B-8.0");
+         CHECK(found == true);
+         CHECK(tnode.size() == 1);
+         CHECK(tnode[0].name == "covarianceSuite");
+         CHECK(tnode[0].meta("evaluation") == "ENDF/B-8.0");
 
       } {
          // Non-existent child of the Tree...
@@ -62,14 +62,14 @@ SCENARIO("Testing GNDStk tree all()") {
          // const
          found = true;
          auto cnode = c.all("foo",found);
-         REQUIRE(found == false);
-         REQUIRE(cnode.size() == 0);
+         CHECK(found == false);
+         CHECK(cnode.size() == 0);
 
          // non-const
          found = true;
          auto tnode = t.all("bar",found);
-         REQUIRE(found == false);
-         REQUIRE(tnode.size() == 0);
+         CHECK(found == false);
+         CHECK(tnode.size() == 0);
 
       }
    }

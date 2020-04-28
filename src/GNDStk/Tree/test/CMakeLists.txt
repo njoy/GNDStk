@@ -10,7 +10,6 @@ add_executable( GNDStk.Tree.test
                 empty.test.cpp
                 reset.test.cpp
                 top.test.cpp
-                normalize.test.cpp
                 Tree.test.cpp
                 one.test.cpp
                 call.test.cpp

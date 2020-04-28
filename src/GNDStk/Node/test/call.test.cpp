@@ -81,16 +81,16 @@ SCENARIO("Testing GNDStk Node operator()") {
          child::evaluated, // from GNDStk
          temperature // ours, as set up earlier
       );
-      REQUIRE(temp.value == 0.0);
-      REQUIRE(temp.unit  == "K");
+      CHECK(temp.value == 0.0);
+      CHECK(temp.unit  == "K");
 
       auto &styles_const = ctop(styles);
-      REQUIRE(styles_const.metadata.size() == 0);
-      REQUIRE(styles_const.children.size() == 1);
+      CHECK(styles_const.metadata.size() == 0);
+      CHECK(styles_const.children.size() == 1);
 
       auto &styles_nonconst = top(styles);
-      REQUIRE(styles_nonconst.metadata.size() == 0);
-      REQUIRE(styles_nonconst.children.size() == 1);
+      CHECK(styles_nonconst.metadata.size() == 0);
+      CHECK(styles_nonconst.children.size() == 1);
 
       auto iso = top( // non-const
          child::PoPs,
@@ -100,10 +100,10 @@ SCENARIO("Testing GNDStk Node operator()") {
          child::isotopes,
          isotope
       );
-      REQUIRE(iso.size() == 3);
-      REQUIRE(iso[0].symbol == "H1");  REQUIRE(iso[0].A == 1);
-      REQUIRE(iso[1].symbol == "H2");  REQUIRE(iso[1].A == 2);
-      REQUIRE(iso[2].symbol == "H3");  REQUIRE(iso[2].A == 3);
+      CHECK(iso.size() == 3);
+      CHECK(iso[0].symbol == "H1");  CHECK(iso[0].A == 1);
+      CHECK(iso[1].symbol == "H2");  CHECK(iso[1].A == 2);
+      CHECK(iso[2].symbol == "H3");  CHECK(iso[2].A == 3);
 
       auto iso_node = ctop( // const
          child::PoPs,
@@ -113,12 +113,12 @@ SCENARIO("Testing GNDStk Node operator()") {
          child::isotopes,
          isotope_node
       );
-      REQUIRE(iso_node.size() == 3);
-      REQUIRE(iso_node[0].name == "isotope");
-      REQUIRE(iso_node[1].name == "isotope");
-      REQUIRE(iso_node[2].name == "isotope");
+      CHECK(iso_node.size() == 3);
+      CHECK(iso_node[0].name == "isotope");
+      CHECK(iso_node[1].name == "isotope");
+      CHECK(iso_node[2].name == "isotope");
 
       const meta_t<char> projectile("projectile");
-      REQUIRE(top(projectile) == 'n');
+      CHECK(top(projectile) == 'n');
    }
 }

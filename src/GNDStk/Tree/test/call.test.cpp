@@ -97,20 +97,20 @@ SCENARIO("Testing GNDStk tree operator()") {
       const meta_t<double     > dformat    ("format");
       const meta_t<std::string> sframe     ("projectileFrame");
 
-      REQUIRE( tree(sversion   ) == "1.0"   );
-      REQUIRE( tree(dversion   ) ==  1.0    );
-      REQUIRE( tree(sencoding  ) == "UTF-8" );
-      REQUIRE( tree(sprojectile) == "n"     );
-      REQUIRE( tree(cprojectile) == 'n'     );
-      REQUIRE( tree(vtarget    ) == "O16"   );
-      REQUIRE( tree(sevaluation) == "ENDF/B-8.0" );
-      REQUIRE( tree(sformat    ) == "1.9"   );
-      REQUIRE( tree(dformat    ) ==  1.9    );
-      REQUIRE( tree(sframe     ) == "lab"   );
+      CHECK( tree(sversion   ) == "1.0"   );
+      CHECK( tree(dversion   ) ==  1.0    );
+      CHECK( tree(sencoding  ) == "UTF-8" );
+      CHECK( tree(sprojectile) == "n"     );
+      CHECK( tree(cprojectile) == 'n'     );
+      CHECK( tree(vtarget    ) == "O16"   );
+      CHECK( tree(sevaluation) == "ENDF/B-8.0" );
+      CHECK( tree(sformat    ) == "1.9"   );
+      CHECK( tree(dformat    ) ==  1.9    );
+      CHECK( tree(sframe     ) == "lab"   );
 
       // found
-      found = false; REQUIRE( (tree(dversion,found),  found) );
-      found = true;  REQUIRE( (tree(foo,     found), !found) );
+      found = false; CHECK( (tree(dversion,found),  found) );
+      found = true;  CHECK( (tree(foo,     found), !found) );
 
 
       // ------------------------
@@ -118,52 +118,52 @@ SCENARIO("Testing GNDStk tree operator()") {
       // ------------------------
 
       auto x = tree(::xml);
-      REQUIRE(x.version == 1.0);
-      REQUIRE(x.encoding == "UTF-8");
+      CHECK(x.version == 1.0);
+      CHECK(x.encoding == "UTF-8");
 
       auto r = tree(::rsuite);
-      REQUIRE(r.projectile == "n");
-      REQUIRE(r.target     == "O16");
-      REQUIRE(r.evaluation == "ENDF/B-8.0");
-      REQUIRE(r.format     ==  1.9);
-      REQUIRE(r.frame      == "lab");
+      CHECK(r.projectile == "n");
+      CHECK(r.target     == "O16");
+      CHECK(r.evaluation == "ENDF/B-8.0");
+      CHECK(r.format     ==  1.9);
+      CHECK(r.frame      == "lab");
 
       // found
-      found = false; REQUIRE( (tree(::rsuite,found), found) );
-      found = true;  REQUIRE( (tree(bar,found), !found) );
+      found = false; CHECK( (tree(::rsuite,found), found) );
+      found = true;  CHECK( (tree(bar,found), !found) );
 
 
       // ------------------------
       // operator()(child_t, meta_t)
       // ------------------------
 
-      REQUIRE( tree( reactionSuite, projectile      ) == "n"          );
-      REQUIRE( tree( reactionSuite, target          ) == "O16"        );
-      REQUIRE( tree( reactionSuite, evaluation      ) == "ENDF/B-8.0" );
-      REQUIRE( tree( reactionSuite, meta::format    ) ==  1.9         );
-      REQUIRE( tree( reactionSuite, projectileFrame ) == "lab"        );
+      CHECK( tree( reactionSuite, projectile      ) == "n"          );
+      CHECK( tree( reactionSuite, target          ) == "O16"        );
+      CHECK( tree( reactionSuite, evaluation      ) == "ENDF/B-8.0" );
+      CHECK( tree( reactionSuite, meta::format    ) ==  1.9         );
+      CHECK( tree( reactionSuite, projectileFrame ) == "lab"        );
 
       // found
       found = false;
-      REQUIRE((tree(reactionSuite,projectile,found) == "n", found));
+      CHECK((tree(reactionSuite,projectile,found) == "n", found));
       found = true;
-      REQUIRE((tree(reactionSuite,foo,found), !found));
+      CHECK((tree(reactionSuite,foo,found), !found));
 
 
       // ------------------------
       // operator()(child_t, child_t)
       // ------------------------
 
-      REQUIRE( tree( reactionSuite, styles ).metadata.size() == 0);
-      REQUIRE( tree( reactionSuite, styles ).children.size() == 1);
-      REQUIRE( tree( reactionSuite, PoPs   ).metadata.size() == 3);
-      REQUIRE( tree( reactionSuite, PoPs   ).children.size() == 3);
+      CHECK( tree( reactionSuite, styles ).metadata.size() == 0);
+      CHECK( tree( reactionSuite, styles ).children.size() == 1);
+      CHECK( tree( reactionSuite, PoPs   ).metadata.size() == 3);
+      CHECK( tree( reactionSuite, PoPs   ).children.size() == 3);
 
       // found
       found = false;
-      REQUIRE((tree(reactionSuite,styles,found), found));
+      CHECK((tree(reactionSuite,styles,found), found));
       found = true;
-      REQUIRE((tree(reactionSuite,bar,found), !found));
+      CHECK((tree(reactionSuite,bar,found), !found));
 
 
       // ------------------------
@@ -171,22 +171,22 @@ SCENARIO("Testing GNDStk tree operator()") {
       // ------------------------
 
       // dvalue = double version of "value" metadatum
-      REQUIRE(tree(reactionSuite,styles,evaluated,temperature,dvalue) == 0.0);
-      REQUIRE(tree(reactionSuite,styles,evaluated,temperature,unit  ) == "K");
+      CHECK(tree(reactionSuite,styles,evaluated,temperature,dvalue) == 0.0);
+      CHECK(tree(reactionSuite,styles,evaluated,temperature,unit  ) == "K");
 
       // GNDStk::child::reaction has FIND == find::all, so the following
       // gives us back a container (std::vector by default).
       found = false;
       auto vec = tree(reactionSuite,reactions,reaction,found);
-      REQUIRE(found);
-      REQUIRE(vec.size() == 60);
+      CHECK(found);
+      CHECK(vec.size() == 60);
 
       // At present, need to split and use child() (...) in
       // order to <direct-specify> an output container type
       found = false;
       auto dq = tree(reactionSuite,reactions).child<std::deque>(reaction,found);
-      REQUIRE(found);
-      REQUIRE(dq.size() == 60);
+      CHECK(found);
+      CHECK(dq.size() == 60);
 
       /*
       Relevant section of the .xml:
@@ -200,7 +200,7 @@ SCENARIO("Testing GNDStk tree operator()") {
                 <axis index="0" label="crossSection" unit="b"/>
               </axes>
       */
-      REQUIRE(
+      CHECK(
          tree
           (reactionSuite, reactions, reaction)[0]
           (crossSection,XYs1d)[0] // fixme Double-check find::all for XYs1d

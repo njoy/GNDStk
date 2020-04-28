@@ -63,7 +63,7 @@ SCENARIO("Testing GNDStk Node add()") {
    n.add(std::string("one"), std::string("two"));
    n.add("1","2");
    auto &pair = n.add("foobar", "foo bar");
-   REQUIRE(pair.second == "foo bar");
+   CHECK(pair.second == "foo bar");
    n.add("3",3.1416);
    n.add("4",dimensions2d(12,34));
 

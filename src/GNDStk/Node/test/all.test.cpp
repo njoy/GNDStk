@@ -18,8 +18,8 @@ SCENARIO("Testing GNDStk Node all()") {
          // nodes: chemicalElement
          bool found = false;
          auto elem = elems.all("chemicalElement",found);
-         REQUIRE(found);
-         REQUIRE(elem.size() == 8);
+         CHECK(found);
+         CHECK(elem.size() == 8);
       }
    }
 }

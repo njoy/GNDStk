@@ -54,7 +54,7 @@ SCENARIO("Testing GNDStk Node sort()") {
       WHEN("We call node.sort(), then node.write(ostream)") {
          std::ostringstream oss;
          top.sort().write(oss);
-         REQUIRE(oss.str() == correct_sorted_written_node);
+         CHECK(oss.str() == correct_sorted_written_node);
       }
    }
 }

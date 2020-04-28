@@ -9,13 +9,13 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       WHEN("We read() one from a file") {
          const std::string filename = "n-008_O_016.xml";
          t1.read(filename);
-         REQUIRE(!t1.empty()); // we get something
+         CHECK(!t1.empty()); // we get something
       }
 
       WHEN("We read() one from an istream, specifically an ifstream") {
          std::ifstream ifs("n-008_O_016.xml");
          t2.read(ifs);
-         REQUIRE(!t2.empty()); // we get something
+         CHECK(!t2.empty()); // we get something
       }
 
       WHEN("We read() one from an istream, specifically a stringstream") {
@@ -23,13 +23,13 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          std::stringstream sstr;
          sstr << ifs.rdbuf();
          t3.read(sstr);
-         REQUIRE(!t3.empty()); // we get something
+         CHECK(!t3.empty()); // we get something
       }
 
       WHEN("We stream-input one, specifically from an ifstream") {
          std::ifstream ifs("n-008_O_016.xml");
          ifs >> t4;
-         REQUIRE(!t4.empty()); // we get something
+         CHECK(!t4.empty()); // we get something
       }
    }
 
@@ -46,9 +46,9 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       std::ostringstream oss3; t3.write(oss3);
       std::ostringstream oss4; t4.write(oss4);
 
-      REQUIRE(oss1.str() == oss2.str());
-      REQUIRE(oss1.str() == oss3.str());
-      REQUIRE(oss1.str() == oss4.str());
+      CHECK(oss1.str() == oss2.str());
+      CHECK(oss1.str() == oss3.str());
+      CHECK(oss1.str() == oss4.str());
    }
 
    // fixme There's actually somewhat more we can test, with regards to tree's
@@ -65,45 +65,45 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
       WHEN("We test read(filename,format") {
          tree.read(filename,format::null);
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
 
          tree.read(filename,format::xml);
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
       }
 
       WHEN("We test read(filename,string") {
          tree.read(filename,"");
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
 
          tree.read(filename,"null");
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
 
          tree.read(filename,"xml");
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
       }
 
       WHEN("We test read(istream,format") {
          ifs.seekg (0,std::ios::beg);
          tree.read(ifs,format::null);
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
 
          ifs.seekg (0,std::ios::beg);
          tree.read(ifs,format::xml);
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
       }
 
       WHEN("We test read(istream,string") {
          ifs.seekg (0,std::ios::beg);
          tree.read(ifs,"");
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
 
          ifs.seekg (0,std::ios::beg);
          tree.read(ifs,"null");
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
 
          ifs.seekg (0,std::ios::beg);
          tree.read(ifs,"xml");
-         REQUIRE(!tree.empty());
+         CHECK(!tree.empty());
       }
    }
 }
