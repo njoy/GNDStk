@@ -11,13 +11,18 @@ const nodeType &one(
 ) const {
    // if tree has no declaration node, but a "found" flag wasn't sent
    if (!has_decl() and !detail::sent(found)) {
-      // fixme need a real error
-      assert(false);
+      log::error("Tree::one(\"{}\") called, but the tree is empty", key);
+      throw std::exception{};
    }
 
-   return key == "" || decl().name == key
-      ? (found = true, decl())
-      : decl().one(key,found);
+   try {
+      return key == "" || decl().name == key
+         ? (found = true, decl())
+         : decl().one(key,found);
+   } catch (const std::exception &) {
+      log::context("Tree::one(\"{}\")", key);
+      throw;
+   }
 }
 
 

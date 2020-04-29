@@ -15,7 +15,7 @@ XML(const XML &x)
    try {
       convert(x,*this);
    } catch (const std::exception &) {
-      detail::context("XML(XML)");
+      log::context("XML(XML)");
       throw;
    }
 }
@@ -27,7 +27,7 @@ explicit XML(const JSON &j)
    try {
       convert(j,*this);
    } catch (const std::exception &) {
-      detail::context("XML(JSON)");
+      log::context("XML(JSON)");
       throw;
    }
 }
@@ -43,7 +43,7 @@ explicit XML(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
    try {
       convert(t,*this);
    } catch (const std::exception &) {
-      detail::context("XML(Tree)");
+      log::context("XML(Tree)");
       throw;
    }
 }
@@ -55,7 +55,7 @@ explicit XML(const std::string &filename)
    try {
       read(filename);
    } catch (const std::exception &) {
-      detail::context("XML(filename=\"{}\")", filename);
+      log::context("XML(filename=\"{}\")", filename);
       throw;
    }
 }
@@ -67,7 +67,7 @@ explicit XML(std::istream &is)
    try {
       read(is);
    } catch (const std::exception &) {
-      detail::context("XML(istream)");
+      log::context("XML(istream)");
       throw;
    }
 }

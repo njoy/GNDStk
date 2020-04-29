@@ -38,10 +38,14 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) const {
-   if (kwd.name == "" && has_decl())
-      detail::apply_keyword<RESULT>()(decl());
-   const auto &peel = this->child(-kwd);
-   return peel(std::forward<Keywords>(keywords)...);
+   try {
+      if (kwd.name == "" && has_decl())
+         detail::apply_keyword<RESULT>()(decl());
+      return child(-kwd)(std::forward<Keywords>(keywords)...);
+   } catch (const std::exception &) {
+      log::context("Tree(child_t(\"{}\"),...) const", kwd.name);
+      throw;
+   }
 }
 
 
@@ -80,7 +84,12 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) {
-   if (kwd.name == "" && has_decl())
-      detail::apply_keyword<RESULT>()(decl());
-   return this->child(-kwd)(std::forward<Keywords>(keywords)...);
+   try {
+      if (kwd.name == "" && has_decl())
+         detail::apply_keyword<RESULT>()(decl());
+      return this->child(-kwd)(std::forward<Keywords>(keywords)...);
+   } catch (const std::exception &) {
+      log::context("Tree(child_t(\"{}\"),...)", kwd.name);
+      throw;
+   }
 }

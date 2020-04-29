@@ -14,8 +14,8 @@ std::istream &read(std::istream &is)
 
    // check for errors
    if (!is) {
-      njoy::Log::error("Problem during istream >> nlohmann::json");
-      detail::context("JSON::read(istream)");
+      log::error("Problem during istream >> nlohmann::json");
+      log::context("JSON::read(istream)");
    }
 
    // done
@@ -38,7 +38,7 @@ bool read(const std::string &filename)
    // open file
    std::ifstream ifs(filename.c_str());
    if (!ifs) {
-      njoy::Log::error(
+      log::error(
          "Could not open file in call to JSON::read(filename=\"{}\")",
          filename
       );
@@ -48,7 +48,7 @@ bool read(const std::string &filename)
    // read from stream
    read(ifs);
    if (!ifs) {
-      detail::context("JSON::read(filename=\"{}\")", filename);
+      log::context("JSON::read(filename=\"{}\")", filename);
       return false;
    }
 

@@ -24,7 +24,7 @@ bool node2json(
    const std::string nameSuffixed = node.name + suffix;
 
    // This also triggers node creation, in the event that the node exists but
-   // is null (so that nothing is entered below). E.g. in XML: <something/>.
+   // is null (so that nothing is entered later), e.g. in XML's <something/>.
    auto &json = j[nameSuffixed];
 
    // ------------------------
@@ -101,7 +101,7 @@ namespace pugi
 // Helper
 inline bool internal_xml_node2Node(const std::string &str)
 {
-   njoy::Log::error(
+   log::error(
       "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
       "type pugi::{} found, but not handled, as sub-element",
       str
@@ -123,7 +123,7 @@ bool xml_node2Node(
 ) {
    // check destination node
    if (!node.empty()) {
-      njoy::Log::error(
+      log::error(
          "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
          "destination Node is supposed to arrive here empty, but didn't"
       );
@@ -203,7 +203,7 @@ bool xml_node2Node(
       // well we missed something
       // ------------------------
 
-      njoy::Log::error(
+      log::error(
          "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
          "we've encountered a pugi:: node type that we don't know about"
       );
@@ -230,7 +230,7 @@ bool xml_node2Node(
 // Helper
 inline bool internal_json2node(const std::string &str)
 {
-   njoy::Log::error(
+   log::error(
       "Internal error in detail::json2node(nlohmann::json,Node):\n"
       "message is \"{}\"; please let us know about this",
       str
@@ -313,9 +313,15 @@ inline void node2Node(
    const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
    GNDStk::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
-   // check destination node
+   // Check that the destination node is empty. We don't really need to have
+   // such a check in a viable node-to-node function; it would be perfectly
+   // reasonable to clear the destination node and then copy the contents of
+   // the source node. This is a "detail" namespace function, however, and
+   // we're using it elsewhere in contexts for which the destination node,
+   // when we call here, should in fact have no current contents. So, then,
+   // we're doing this here in order to validate that that's indeed the case.
    if (!to.empty()) {
-      njoy::Log::error(
+      log::error(
          "Internal error in detail::node2Node(Node,Node):\n"
          "destination Node is supposed to arrive here empty, but didn't"
       );
@@ -368,7 +374,7 @@ bool node2XML(
             //    employing the #PCDATA content model value does not allow
             //    for child elements." [Initial sentence fragment theirs.]
             // So, the following would appear to be reasonable.
-            njoy::Log::error(
+            log::error(
                "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
                "node with PCDATA appears to have other elements as well,\n"
                "making the node ill-formed"
@@ -393,8 +399,8 @@ bool node2XML(
             // speak of splitting CDATA into e.g. <![CDATA[]]]]><![CDATA[>]]>.
             // At the time of this writing, however, in official GNDS files,
             // I only see CDATA elements as singletons, and without siblings.
-            // So, for now, I'll treat these as I do PCDATA elements (above).
-            njoy::Log::error(
+            // So, for now, I'll treat these as I do PCDATA elements.
+            log::error(
                "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
                "node with CDATA appears to have other elements as well,\n"
                "making the node ill-formed"
@@ -414,10 +420,10 @@ bool node2XML(
       if (meta.first == keyword_comment) {
          // Whoa, it seems that GNDS files sometimes have doubled-up comments,
          // e.g. <!-- foo --><!-- bar -->. So, no node.children.size() checks
-         // here, as we did above for pcdata and cdata. Side note: the double
-         // comments I'm seeing in some GNDS files arguably thumb their noses
-         // at GNDS' "no element ordering" rule; although, the nature of the
-         // offending comments, which appear to be intended as labels, e.g.
+         // here, as we did for pcdata and cdata. Side note: the double comments
+         // I'm seeing in some GNDS files arguably thumb their noses at GNDS'
+         // no-element-ordering rule; although, the nature of the comments in
+         // question, which appear to be intended as labels, e.g.
          //    <!--  energy | capture | elastic  -->
          //    <!--         |  width  |  width   -->
          // appears to make them amenable to proper interpretation/treatment.

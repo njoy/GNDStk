@@ -18,8 +18,6 @@ const std::string &meta(
 
    // not found
    found = false;
-   static std::string empty;
-   empty = "";
 
    // If a "found" flag was not sent to this function, we'll produce an error.
    // Otherwise, we'll assume that the caller intends to deal with the issue
@@ -27,14 +25,14 @@ const std::string &meta(
    // Note that the question of whether a "found" flag was sent is determined
    // by looking at its address. This is entirely different from the question
    // of what found's value proves to be.
-   if (!detail::sent(found))
-      error(
-         "Node meta() called with key \"" + key + "\", "
-         "but this key wasn't\nfound in the node's metadata."
-      );
+   if (!detail::sent(found)) {
+      log::error("Node::meta(\"{}\"): key not found in metadata", key);
+      throw std::exception{};
+   }
 
    // done
-   return empty;
+   static std::string empty;
+   return empty = "";
 }
 
 
@@ -64,56 +62,42 @@ std::string &meta(
 // ------------------------
 
 template<class RESULT>
-RESULT meta(
+typename detail::metaReturn<RESULT,RESULT>::general meta(
    const meta_t<RESULT> &kwd,
    bool &found = detail::default_bool
 ) const {
-   // call meta(string) above, with the meta_t's key
-   const std::string &value = meta(kwd.name,found);
-
-   // convert value, if any, to the appropriate result type
-   RESULT type{};
-   if (found)
-      string2type(value,type);
-   return type;
+   try {
+      // call meta(string), with the meta_t's key
+      const std::string &value = meta(kwd.name,found);
+      // convert value, if any, to the appropriate result type
+      RESULT type{};
+      if (found)
+         string2type(value,type);
+      return type;
+   } catch (const std::exception &) {
+      log::context("Node::meta(meta_t(\"{}\"))", kwd.name);
+      throw;
+   }
 }
 
 
 // ------------------------
-// meta(meta_t<string>)
-// meta(meta_t<void>)
+// meta(meta_t<void or string>)
 // ------------------------
 
-// Functionally equivalent to using meta(meta_t<RESULT>) with RESULT = string,
-// but more direct and thus perhaps more efficient.
-const std::string &meta(
-   const meta_t<std::string> &kwd,
+// const
+template<class T>
+typename detail::metaReturn<T,const std::string &>::special meta(
+   const meta_t<T> &kwd,
    bool &found = detail::default_bool
 ) const {
    return meta(kwd.name,found);
 }
 
-std::string &meta(
-   const meta_t<std::string> &kwd,
-   bool &found = detail::default_bool
-) {
-   return meta(kwd.name,found);
-}
-
-
-// Let's define the meta_t<void> case to be equivalent to the meta_t<string>
-// case. This makes meta_t's behavior more consistent with that of child_t,
-// which uses <void> to stipulate that the child node be returned in its
-// original tree-node form.
-const std::string &meta(
-   const meta_t<void> &kwd,
-   bool &found = detail::default_bool
-) const {
-   return meta(kwd.name,found);
-}
-
-std::string &meta(
-   const meta_t<void> &kwd,
+// non-const
+template<class T>
+typename detail::metaReturn<T,std::string &>::special meta(
+   const meta_t<T> &kwd,
    bool &found = detail::default_bool
 ) {
    return meta(kwd.name,found);
@@ -127,10 +111,7 @@ std::string &meta(
 // ------------------------
 
 template<class RESULT, class... Ts>
-typename std::enable_if<
-   detail::is_oneof<RESULT,Ts...>::value,
-   RESULT
->::type meta(
+typename detail::oneof<RESULT,Ts...>::type meta(
    const meta_t<std::variant<Ts...>> &kwd,
    bool &found = detail::default_bool
 ) const {

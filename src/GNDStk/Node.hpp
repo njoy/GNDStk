@@ -49,20 +49,16 @@ public:
       return name == "" && metadata.size() == 0 && children.size() == 0;
    }
 
-   /*
-   // removed for now; let's see if we end up needing this
-   // is this a leaf node?
-   bool leaf() const
-   {
-      return children.size() == 0;
-   }
-   */
-
    // copy
    Node copy() const
    {
       Node n;
-      detail::node2Node(*this,n);
+      try {
+         detail::node2Node(*this,n);
+      } catch (const std::exception &) {
+         log::context("Node::copy()");
+         throw;
+      }
       return n;
    }
 
@@ -111,6 +107,11 @@ inline std::ostream &operator<<(
    std::ostream &os,
    const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
-   debug("node operator<<");
-   return obj.write(os);
+   try {
+      obj.write(os);
+   } catch (const std::exception &) {
+      log::context("ostream << Node");
+      throw;
+   }
+   return os;
 }

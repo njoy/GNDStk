@@ -14,8 +14,8 @@ std::ostream &write(std::ostream &os) const
 
    // check for errors
    if (!os) {
-      njoy::Log::error("Problem during ostream << nlohmann::json");
-      detail::context("JSON::write(ostream)");
+      log::error("Problem during ostream << nlohmann::json");
+      log::context("JSON::write(ostream)");
    }
 
    // done
@@ -32,7 +32,7 @@ bool write(const std::string &filename) const
    // open file
    std::ofstream ofs(filename.c_str());
    if (!ofs) {
-      njoy::Log::error(
+      log::error(
          "Could not open file in call to JSON::write(filename=\"{}\")",
          filename
       );
@@ -42,7 +42,7 @@ bool write(const std::string &filename) const
    // write to stream
    write(ofs);
    if (ofs.fail()) {
-      detail::context("JSON::write(filename=\"{}\")", filename);
+      log::context("JSON::write(filename=\"{}\")", filename);
       return false;
    }
 

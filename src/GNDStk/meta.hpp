@@ -20,7 +20,7 @@ public:
 
 // operator-
 template<class RESULT>
-inline meta_t<void> operator-(const meta_t<RESULT> &kwd)
+inline auto operator-(const meta_t<RESULT> &kwd)
 {
    return meta_t<void>(kwd.name);
 }
@@ -143,9 +143,9 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 // -----------------------------------------------------------------------------
 
 // fixme
-// For the variant cases, we should work out a way to make the type be context-
-// dependent, which it *is* (I think) in GNDS. Then, additional data extraction
-// syntax won't be needed.
+// For the variant cases, we should consider having a way to make the type
+// be context-dependent, which it *is* (I think) in GNDS. Then, additional
+// data extraction syntax won't be needed.
 
 namespace meta {
 

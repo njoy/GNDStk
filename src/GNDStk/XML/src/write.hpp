@@ -29,8 +29,8 @@ std::ostream &write(std::ostream &os) const
 
    // check for errors
    if (!os) {
-      njoy::Log::error("Problem during pugi::xml_document::save(ostream)");
-      detail::context("XML::write(ostream)");
+      log::error("Problem during pugi::xml_document::save(ostream)");
+      log::context("XML::write(ostream)");
    }
 
    // done
@@ -47,7 +47,7 @@ bool write(const std::string &filename) const
    // open file
    std::ofstream ofs(filename.c_str());
    if (!ofs) {
-      njoy::Log::error(
+      log::error(
          "Could not open file in call to XML::write(filename=\"{}\")",
          filename
       );
@@ -57,7 +57,7 @@ bool write(const std::string &filename) const
    // write to stream
    write(ofs);
    if (ofs.fail()) {
-      detail::context("XML::write(filename=\"{}\")", filename);
+      log::context("XML::write(filename=\"{}\")", filename);
       return false;
    }
 

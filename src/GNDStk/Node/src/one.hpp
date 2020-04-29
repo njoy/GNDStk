@@ -29,27 +29,27 @@ const Node &one(
 
    // found
    if (count) {
-      if (count > 1) {
-         // fixme As elsewhere, rework diagnostics
-         warning("Node::one(\"" + key + "\") called, "
-                 "but " + std::to_string(count) + " such nodes were found");
-      }
+      if (count > 1)
+         log::warning(
+            "Node::one(\"{}\") called, but {} such child nodes were found",
+            key, count
+         );
       return found = true, *theone;
    }
 
    // not found
-   static Node empty;
-   empty.clear();
+   found = false;
 
    // error iff no "found" flag sent
-   if (!detail::sent(found))
-      error(
-         "Node::one(key) called with key \"" + key + "\", "
-         "but this key wasn't\nfound in the node's children."
-      );
+   if (!detail::sent(found)) {
+      log::error("Node::one(\"{}\"): key not found in children", key);
+      throw std::exception{};
+   }
 
    // done
-   return found = false, empty;
+   static Node empty;
+   empty.clear();
+   return empty;
 }
 
 

@@ -16,7 +16,7 @@ const std::string &get_pcdata_string(
       if (m.first == keyword_pcdata)
          return m.second;
 
-   njoy::Log::error(
+   log::error(
       "Unable to find pcdata (plain character data) entry in the Node,\n"
       "but it's needed for an operation"
    );

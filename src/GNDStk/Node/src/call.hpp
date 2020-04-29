@@ -16,6 +16,17 @@
 // versions here would bulk up this file, and you'd need to write the operator
 // call in functional form, e.g. mynode.operator()<some_t>(...), to use it.
 
+// For now, in this file and in similar ones, I'm writing "context" try/catch
+// blocks where the action is even slightly more substantial than a one-liner.
+// For example, the apply_keyword() calls below can catch exceptions thrown
+// in user-provided conversion functions from nodes to user-defined types.
+// Given that even the one-liner calls could result in an exception happening
+// in (or past) the called function, a case could be made that context should
+// be printed in those as well. Another school of thought would be to declutter
+// GNDStk completely of exception context printing, and let that be handled
+// by a supervisory code (e.g. a debugger). For now we'll leave that question
+// unanswered.
+
 
 // ------------------------
 // const
@@ -33,6 +44,7 @@ decltype(auto) operator()(
    return meta(kwd,found);
 }
 
+
 // child_t
 // Forwards to child(child_t)
 template<
@@ -45,6 +57,7 @@ decltype(auto) operator()(
    return child(kwd,found);
 }
 
+
 // child_t, ...
 // Multi-argument
 template<
@@ -55,10 +68,14 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) const {
-   if (kwd.name == "")
-      detail::apply_keyword<RESULT>()(*this);
-   const auto &peel = this->child(-kwd);
-   return peel(std::forward<Keywords>(keywords)...);
+   try {
+      if (kwd.name == "")
+         detail::apply_keyword<RESULT>()(*this);
+      return child(-kwd)(std::forward<Keywords>(keywords)...);
+   } catch (const std::exception &) {
+      log::context("Node(child_t(\"{}\"),...) const", kwd.name);
+      throw;
+   }
 }
 
 
@@ -77,6 +94,7 @@ decltype(auto) operator()(
    return meta(kwd,found);
 }
 
+
 // child_t
 template<
    class RESULT, find FIND, class METADATA, class CHILDREN
@@ -88,6 +106,7 @@ decltype(auto) operator()(
    return child(kwd,found);
 }
 
+
 // child_t, ...
 template<
    class RESULT, find FIND, class METADATA, class CHILDREN,
@@ -97,7 +116,12 @@ decltype(auto) operator()(
    const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd,
    Keywords &&...keywords
 ) {
-   if (kwd.name == "")
-      detail::apply_keyword<RESULT>()(*this);
-   return this->child(-kwd)(std::forward<Keywords>(keywords)...);
+   try {
+      if (kwd.name == "")
+         detail::apply_keyword<RESULT>()(*this);
+      return this->child(-kwd)(std::forward<Keywords>(keywords)...);
+   } catch (const std::exception &) {
+      log::context("Node(child_t(\"{}\"),...)", kwd.name);
+      throw;
+   }
 }

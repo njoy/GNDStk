@@ -13,7 +13,7 @@ Tree &operator=(const Tree &t)
    try {
       convert(t,*this);
    } catch (const std::exception &) {
-      detail::context("Tree = Tree");
+      log::context("Tree = Tree");
       throw;
    }
    return *this;
@@ -30,7 +30,7 @@ Tree &operator=(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &t)
    try {
       convert(t,*this);
    } catch (const std::exception &) {
-      detail::context("Tree = Tree<different>");
+      log::context("Tree = Tree<different>");
       throw;
    }
    return *this;

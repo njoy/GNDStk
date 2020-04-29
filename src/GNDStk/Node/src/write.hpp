@@ -29,7 +29,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
 
    // check for errors
    if (!os)
-      njoy::Log::error("Problem during Node::write(ostream)");
+      log::error("Problem during Node::write(ostream)");
 
    // done
    return os;
@@ -45,7 +45,7 @@ bool write(const std::string &filename, const int level = 0) const
    // open file
    std::ofstream ofs(filename.c_str());
    if (!ofs) {
-      njoy::Log::error(
+      log::error(
          "Could not open file in call to Node::write(filename=\"{}\")",
          filename
       );
@@ -55,7 +55,7 @@ bool write(const std::string &filename, const int level = 0) const
    // write to stream
    write(ofs,level);
    if (ofs.fail()) {
-      detail::context("Node::write(filename=\"{}\")", filename);
+      log::context("Node::write(filename=\"{}\")", filename);
       return false;
    }
 

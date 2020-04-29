@@ -24,7 +24,7 @@ bool convert(
    try {
       has_decl = tree.has_decl();
    } catch (const std::exception &) {
-      detail::context("convert(Tree,XML)");
+      log::context("convert(Tree,XML)");
       throw;
    }
 
@@ -66,7 +66,7 @@ bool convert(
       // children
       return !tree.has_top() || detail::node2XML(tree.top(), x.doc);
    } catch (const std::exception &) {
-      detail::context("convert(Tree,XML)");
+      log::context("convert(Tree,XML)");
       throw;
    }
 }
@@ -106,7 +106,7 @@ inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
       from.write(ss);
       to.read(ss);
    } catch (const std::exception &) {
-      detail::context("convert(XML,XML)");
+      log::context("convert(XML,XML)");
       throw;
    }
 
@@ -136,7 +136,7 @@ inline bool convert(const GNDStk::JSON &j, GNDStk::XML &x)
          convert(j,tree) and
          convert(tree,x);
    } catch (const std::exception &) {
-      detail::context("convert(JSON,XML)");
+      log::context("convert(JSON,XML)");
       throw;
    }
 }

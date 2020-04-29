@@ -58,7 +58,7 @@ inline void node2type(
       type.clear();
       detail::node2Node(node,type);
    } catch (const std::exception &) {
-      detail::context("node2type(Node,Node)");
+      log::context("node2type(Node,Node)");
       throw;
    }
 }
@@ -86,7 +86,7 @@ inline void node2type(
          container.clear(); \
          string2type(detail::get_pcdata_string(node), container); \
       } catch (const std::exception &) { \
-         detail::context("node2type(Node," #CONTAINER ")"); \
+         log::context("node2type(Node," #CONTAINER ")"); \
          throw; \
       } \
    }

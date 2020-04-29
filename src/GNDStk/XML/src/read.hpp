@@ -19,7 +19,7 @@ std::istream &read(std::istream &is)
 
    // check for errors
    if (load.description() != std::string("No error")) {
-      njoy::Log::error(
+      log::error(
          "An error occurred in XML::read(istream) during its call\n"
          "to pugi::xml_document::load(), which reported the following:\n"
          "Parse error: {}\n"
@@ -43,7 +43,7 @@ bool read(const std::string &filename)
    // open file
    std::ifstream ifs(filename.c_str());
    if (!ifs) {
-      njoy::Log::error(
+      log::error(
          "Could not open file in call to XML::read(filename=\"{}\")",
          filename
       );
@@ -53,7 +53,7 @@ bool read(const std::string &filename)
    // read from stream
    read(ifs);
    if (!ifs) {
-      detail::context("XML::read(filename=\"{}\")", filename);
+      log::context("XML::read(filename=\"{}\")", filename);
       return false;
    }
 

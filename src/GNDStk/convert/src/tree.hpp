@@ -32,7 +32,7 @@ bool convert(
       try {
          detail::node2Node(*from.root, *to.root);
       } catch (const std::exception &) {
-         detail::context("convert(Tree,Tree)");
+         log::context("convert(Tree,Tree)");
          throw;
       }
    }
@@ -65,7 +65,7 @@ bool convert(
          // expect the following, given that we called load_file()
          // with pugi::parse_declaration |d in its second argument
          if (xnode.name() != std::string("xml")) {
-            njoy::Log::error(
+            log::error(
                "Internal error in convert(XML,Tree):\n"
                "Expected the initial (declaration) node "
                "to have the name \"xml\";\n"
@@ -78,20 +78,20 @@ bool convert(
 
          tree.root =
             std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
-         tree.root->name = "xml"; // indicates that we came from an XML
+         tree.decl().name = "xml"; // indicates that we came from an XML
 
          // base XML "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &xattr : xnode.attributes())
-            tree.root->add(xattr.name(), xattr.value());
+            tree.decl().add(xattr.name(), xattr.value());
       }
 
       if (count == 1) {
          // visit the XML's outer node, and its descendants
          try {
-            if (not detail::xml_node2Node(xnode,tree.root->add()))
+            if (not detail::xml_node2Node(xnode,tree.decl().add()))
                return false;
          } catch (const std::exception &) {
-            detail::context("convert(XML,Tree)");
+            log::context("convert(XML,Tree)");
             throw;
          }
       }
@@ -103,7 +103,7 @@ bool convert(
    // two (but no more) only because we loaded the file with a flag that
    // said to include the declaration node <?xml ... ?> as part of the deal
    if (count != 2) {
-      njoy::Log::error(
+      log::error(
          "Internal error in convert(XML,Tree):\n"
          "Found more than just a declaration node and one top-level node "
          "in the XML"
@@ -141,7 +141,7 @@ bool convert(
 
    // otherwise, I think there should always be one
    if (j.doc.size() != 1) {
-      njoy::Log::error(
+      log::error(
          "Internal error in convert(JSON,Tree):\n"
          "Found more than just one top-level node in the JSON"
       );
@@ -161,7 +161,7 @@ bool convert(
       if (not detail::json2node(j.doc.begin(),top))
          return false;
       } catch (const std::exception &) {
-         detail::context("convert(JSON,Tree)");
+         log::context("convert(JSON,Tree)");
          throw;
       }
 

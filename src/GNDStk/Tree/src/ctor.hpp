@@ -18,7 +18,7 @@ Tree(const Tree &from)
    try {
       convert(from,*this);
    } catch (const std::exception &) {
-      detail::context("Tree(Tree)");
+      log::context("Tree(Tree)");
       throw;
    }
 }
@@ -34,7 +34,7 @@ explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
    try {
       convert(from,*this);
    } catch (const std::exception &) {
-      detail::context("Tree(Tree<different>)");
+      log::context("Tree(Tree<different>)");
       throw;
    }
 }
@@ -51,7 +51,7 @@ explicit Tree(const XML &x)
    try {
       convert(x,*this);
    } catch (const std::exception &) {
-      detail::context("Tree(XML)");
+      log::context("Tree(XML)");
       throw;
    }
 }
@@ -63,7 +63,7 @@ explicit Tree(const JSON &j)
    try {
       convert(j,*this);
    } catch (const std::exception &) {
-      detail::context("Tree(JSON)");
+      log::context("Tree(JSON)");
       throw;
    }
 }
@@ -85,7 +85,7 @@ explicit Tree(
    try {
       read(filename,form);
    } catch (const std::exception &) {
-      detail::context("Tree(filename=\"{}\"[,format])", filename);
+      log::context("Tree(filename=\"{}\"[,format])", filename);
       throw;
    }
 }
@@ -101,7 +101,7 @@ Tree(
    try {
       read(filename,type);
    } catch (const std::exception &) {
-      detail::context("Tree(filename=\"{}\",type=\"{}\")", filename, type);
+      log::context("Tree(filename=\"{}\",type=\"{}\")", filename, type);
       throw;
    }
 }
@@ -118,7 +118,7 @@ explicit Tree(
    try {
       read(is,form);
    } catch (const std::exception &) {
-      detail::context("Tree(istream[,format])");
+      log::context("Tree(istream[,format])");
       throw;
    }
 }
@@ -135,7 +135,7 @@ Tree(
    try {
       read(is,type);
    } catch (const std::exception &) {
-      detail::context("Tree(istream,type=\"{}\")", type);
+      log::context("Tree(istream,type=\"{}\")", type);
       throw;
    }
 }
@@ -178,7 +178,7 @@ Tree(
    try {
       reset(top, form, version, encoding);
    } catch (const std::exception &) {
-      detail::context(
+      log::context(
          "Tree(child_t(\"{}\")[,format,version,encoding])",
          top.name
       );
@@ -197,7 +197,7 @@ Tree(
    try {
       reset(top, type, version, encoding);
    } catch (const std::exception &) {
-      detail::context(
+      log::context(
          "Tree(child_t(\"{}\"),type=\"{}\"[,version,encoding])",
          top.name, type
       );

@@ -23,7 +23,8 @@ enum class find {
 };
 
 // default_*
-// fixme Describe what these are about
+// These are for internal use only, where we want to determine whether
+// certain out-parameters were, or were not, sent to certain functions.
 namespace detail {
    // bool
    inline bool default_bool = false;
@@ -40,15 +41,51 @@ namespace detail {
    }
 }
 
-// context
-// Wraps certain calls to njoy::Log::info()
-namespace detail {
-   template<class... Args>
-   inline void context(const std::string &str, Args &&...args)
-   {
-      njoy::Log::info(("Context: " + str).c_str(), std::forward<Args>(args)...);
-   }
+
+
+// -----------------------------------------------------------------------------
+// Shortcuts to njoy::Log functions
+// -----------------------------------------------------------------------------
+
+namespace log {
+
+// info
+template<class... Args>
+inline void info(Args &&...args)
+{
+   njoy::Log::info(std::forward<Args>(args)...);
 }
+
+// debug
+template<class... Args>
+inline void debug(Args &&...args)
+{
+   njoy::Log::debug(std::forward<Args>(args)...);
+}
+
+// warning
+template<class... Args>
+inline void warning(Args &&...args)
+{
+   njoy::Log::warning(std::forward<Args>(args)...);
+}
+
+// error
+template<class... Args>
+inline void error(Args &&...args)
+{
+   njoy::Log::error(std::forward<Args>(args)...);
+}
+
+// context
+// For certain particular calls to njoy::Log::info()
+template<class... Args>
+inline void context(const std::string &str, Args &&...args)
+{
+   log::info(("Context: " + str).c_str(), std::forward<Args>(args)...);
+}
+
+} // namespace log
 
 
 
@@ -189,9 +226,12 @@ inline const std::string keyword_comment = "comment";
 // -----------------------------------------------------------------------------
 
 // filesize(string)
-inline std::ifstream::pos_type filesize(const std::string &file)
+inline std::ifstream::pos_type filesize(const std::string &filename)
 {
-   std::ifstream ifs(file.c_str(), std::ifstream::ate | std::ifstream::binary);
+   std::ifstream ifs(
+      filename.c_str(),
+      std::ifstream::ate | std::ifstream::binary
+   );
    return ifs.tellg();
 }
 
@@ -305,3 +345,43 @@ inline bool eq_hdf5(const std::string &str)
       nocasecmp(str,"hdf5") or
       nocasecmp(str,"he5" );
 }
+
+
+
+// -----------------------------------------------------------------------------
+// For some SFINAE
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// is_oneof
+// Is Foo one of the types in Foos?
+template<class Foo, class... Foos>
+class is_oneof {
+public:
+   static constexpr bool value = (std::is_same_v<Foo,Foos> || ...);
+};
+
+// oneof
+template<class RESULT, class... Ts>
+class oneof {
+public:
+   using type = typename std::enable_if<
+      is_oneof<RESULT,Ts...>::value,
+      RESULT
+   >::type;
+};
+
+// metaReturn
+// Allows us to consolidate certain functions that use our meta_t class,
+// given that void and std::string mean something special in that context,
+// while everything else (not void or std::string) fall into the general
+// case. Note the one "general" versus two "special" usings below.
+template<class T, class type>
+class metaReturn                   { public: using general = type; };
+template<         class type>
+class metaReturn<void,       type> { public: using special = type; };
+template<         class type>
+class metaReturn<std::string,type> { public: using special = type; };
+
+} // namespace detail

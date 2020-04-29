@@ -42,7 +42,7 @@ accessing what could be described as top-level tree information:
       Example contents:
          name: "xml"
          metadata: {{"version","1.0"},{"encoding","UTF-8"}}
-         children: "reactionSuite" // as below
+         children: "reactionSuite"
 
    top()
       The top-level GNDS node.
@@ -63,10 +63,7 @@ however, waiting to be used, if/when the information it holds might be useful.
 const nodeType &decl() const
 {
    if (!has_decl()) {
-      njoy::Log::error(
-         "Tree.decl() called, "
-         "but this tree has no declaration node"
-      );
+      log::error("Tree.decl() called, but this tree has no declaration node");
       throw std::exception{};
    }
    return *root;

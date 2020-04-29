@@ -19,11 +19,16 @@ RESULT child(
    const child_t<RESULT,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const nodeType &n = one(kwd.name,found);
-   RESULT type{};
-   if (found)
-      node2type(n,type);
-   return type;
+   try {
+      const nodeType &n = one(kwd.name,found);
+      RESULT type{};
+      if (found)
+         node2type(n,type);
+      return type;
+   } catch (const std::exception &) {
+      log::context("Tree::child(child_t<type,find::one>(\"{}\"))", kwd.name);
+      throw;
+   }
 }
 
 // child(child_t<void>) const
@@ -47,10 +52,7 @@ nodeType &child(
 // child(child_t<variant>) const
 // With caller-specified result type
 template<class RESULT, class METADATA, class CHILDREN, class... Ts>
-typename std::enable_if<
-   detail::is_oneof<RESULT,Ts...>::value,
-   RESULT
->::type child(
+typename detail::oneof<RESULT,Ts...>::type child(
    const child_t<std::variant<Ts...>,find::one,METADATA,CHILDREN> &kwd,
    bool &found = detail::default_bool
 ) const {

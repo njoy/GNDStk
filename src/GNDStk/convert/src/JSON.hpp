@@ -25,7 +25,7 @@ bool convert(
          ? detail::node2json(tree.top(), j.doc)
          : true; // <== fine, JSON-wise, if nothing's there
    } catch (const std::exception &) {
-      detail::context("convert(Tree,JSON)");
+      log::context("convert(Tree,JSON)");
       throw;
    }
 }
@@ -49,7 +49,7 @@ inline bool convert(const GNDStk::XML &x, GNDStk::JSON &j)
          convert(x,tree) and
          convert(tree,j);
    } catch (const std::exception &) {
-      detail::context("convert(XML,JSON)");
+      log::context("convert(XML,JSON)");
       throw;
    }
 }
@@ -73,7 +73,7 @@ inline bool convert(const GNDStk::JSON &from, GNDStk::JSON &to)
    try {
       to.doc = from.doc; // nlohmann::json's assignment
    } catch (const std::exception &) {
-      detail::context("convert(JSON,JSON)");
+      log::context("convert(JSON,JSON)");
       throw;
    }
 

@@ -14,7 +14,7 @@ try: doc(j.doc)
 {
 }
 catch (const std::exception &) {
-   detail::context("JSON(JSON)");
+   log::context("JSON(JSON)");
    throw;
 }
 
@@ -25,7 +25,7 @@ explicit JSON(const XML &x)
    try {
       convert(x,*this);
    } catch (const std::exception &) {
-      detail::context("JSON(XML)");
+      log::context("JSON(XML)");
       throw;
    }
 }
@@ -41,7 +41,7 @@ explicit JSON(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
    try {
       convert(t,*this);
    } catch (const std::exception &) {
-      detail::context("JSON(Tree)");
+      log::context("JSON(Tree)");
       throw;
    }
 }
@@ -53,7 +53,7 @@ explicit JSON(const std::string &filename)
    try {
       read(filename);
    } catch (const std::exception &) {
-      detail::context("JSON(filename=\"{}\")", filename);
+      log::context("JSON(filename=\"{}\")", filename);
       throw;
    }
 }
@@ -64,7 +64,7 @@ explicit JSON(std::istream &is) {
    try {
       read(is);
    } catch (const std::exception &) {
-      detail::context("JSON(istream)");
+      log::context("JSON(istream)");
       throw;
    }
 }

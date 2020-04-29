@@ -9,16 +9,13 @@
 const nodeType &top() const
 {
    if (!has_top()) {
-      njoy::Log::error(
-         "Tree.top() called, "
-         "but this tree has no top-level node"
-      );
+      log::error("Tree.top() called, but this tree has no top-level node");
       throw std::exception{};
    }
 
    // **: one to dereference the begin() iterator into the container,
    // the other to dereference the pointer that's in the container.
-   return **root->children.begin();
+   return **decl().children.begin();
 }
 
 // non-const

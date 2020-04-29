@@ -80,9 +80,8 @@ public:
 
 // operator-
 template<class RESULT, find FIND, class METADATA, class CHILDREN>
-inline child_t<void,FIND,METADATA,CHILDREN> operator-(
-   const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd
-) {
+inline auto operator-(const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd)
+{
    return child_t<void,FIND,METADATA,CHILDREN>(kwd.name,kwd.canBeTopLevel);
 }
 
@@ -107,20 +106,19 @@ inline child_t<void,FIND,METADATA,CHILDREN> operator-(
 
 
 // -----------------------------------------------------------------------------
-// Keywords for allowable top-level nodes
+// Allowable top-level nodes
+// As given in LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
 namespace child {
 
-// Note: the true values here mean "allowed as a top-level node,"
-// which all of these are
+// Note: the true values here mean "allowed as a top-level node"
 inline const child_t<void,find::one>
    reactionSuite      ("reactionSuite",       true),
    covarianceSuite    ("covarianceSuite",     true),
    PoPs               ("PoPs",                true),
    thermalScattering  ("thermalScattering",   true),
    fissionFragmentData("fissionFragmentData", true);
-// fixme Not sure about fissionFragmentData
 
 } // namespace child
 
@@ -223,7 +221,7 @@ GNDSTK_MAKE_CHILD_DEFAULT(summand,  find::all);
 
 // fixme
 // Do more sorting/categorization
-// Some may actually be singular/plural pairs as above
+// Some may actually be singular/plural pairs
 
 // find::all cases
 GNDSTK_MAKE_CHILD_DEFAULT(add, find::all);

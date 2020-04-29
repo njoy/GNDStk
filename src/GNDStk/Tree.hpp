@@ -11,9 +11,8 @@ template<
    template<class...> class CHILDREN_CONTAINER  // container type for children
 >
 class Tree {
-   using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
-
 public:
+   using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
 
    // ------------------------
    // Data
@@ -45,7 +44,7 @@ public:
    // does this tree have a top-level GNDS node?
    bool has_top() const
    {
-      return has_decl() && root->children.size() == 1;
+      return has_decl() && decl().children.size() == 1;
    }
 
    // sort
@@ -92,7 +91,7 @@ inline std::istream &operator>>(
    try {
       obj.read(is);
    } catch (const std::exception &) {
-      detail::context("istream >> Tree");
+      log::context("istream >> Tree");
       throw;
    }
    return is;
@@ -110,7 +109,7 @@ inline std::ostream &operator<<(
    try {
       obj.write(os);
    } catch (const std::exception &) {
-      detail::context("ostream << Tree");
+      log::context("ostream << Tree");
       throw;
    }
    return os;

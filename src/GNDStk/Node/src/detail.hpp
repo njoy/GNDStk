@@ -1,24 +1,9 @@
 
 // -----------------------------------------------------------------------------
-// miscellaneous
+// apply_keyword
 // -----------------------------------------------------------------------------
 
 namespace detail {
-
-// is_oneof
-// For some SFINAE
-// Is Foo one of the types in Foos?
-template<class Foo, class... Foos>
-class is_oneof {
-public:
-   static constexpr bool value = (std::is_same_v<Foo,Foos> || ...);
-};
-
-
-
-// -----------------------------------------------------------------------------
-// apply_keyword
-// -----------------------------------------------------------------------------
 
 // apply_keyword<RESULT>
 template<class RESULT>

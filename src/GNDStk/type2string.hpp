@@ -68,23 +68,22 @@ inline void type2string(const T &value, std::string &str)
       type2ostream(value,oss);
       str = oss.str();
    } catch (const std::exception &) {
-      detail::context("type2string(T,string)");
+      log::context("type2string(T,string)");
       throw;
    }
 }
 
 
 // char *
-// Faster than going through the generic T version.
-// Note: we have this, in addition to the std::string version,
-// so a call doesn't select the generic T version above.
+// string
+// Faster than we'd get by going through the generic T version. Note that we
+// normally wouldn't write a "char *" case, as char * would normally convert
+// to std::string, but it won't do so here, because of the generic T version.
 inline void type2string(const char *const value, std::string &str)
 {
    str = value;
 }
 
-
-// string
 inline void type2string(const std::string &value, std::string &str)
 {
    str = value;

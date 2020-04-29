@@ -11,7 +11,7 @@ some particular type, possibly user-defined.
 This way, users who make custom types can define precisely how a string value,
 from a GNDS hierarchy, converts into their custom type.
 
-Below, we'll pre-define some string2type() functions for certain existing
+Here, we'll pre-define some string2type() functions for certain existing
 C++ types - in particular some container types and some POD types - and also
 for output into a string itself (which of course just copies the input string).
 
@@ -88,7 +88,7 @@ inline void string2type(const std::string &str, T &value)
       std::istringstream iss(str);
       istream2type(iss,value);
    } catch (const std::exception &) {
-      detail::context("string2type(string,T)");
+      log::context("string2type(string,T)");
       throw;
    }
 }
@@ -111,7 +111,7 @@ inline void string2type(const std::string &str, bool &value)
       value = false;
    else {
       value = false;
-      njoy::Log::error(
+      log::error(
          "Expected \"true\" or \"false\" in string2type(string,bool); "
          "got \"{}\" instead",
          str

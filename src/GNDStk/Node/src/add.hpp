@@ -26,7 +26,12 @@ template<class T>
 metaPair &add(const std::string &key, const T &value)
 {
    std::string str;
-   type2string(value,str);
+   try {
+      type2string(value,str);
+   } catch (const std::exception &) {
+      log::context("Node::add(key=\"{}\",value)", key);
+      throw;
+   }
    return add(key,str);
 }
 
@@ -35,21 +40,18 @@ metaPair &add(const std::string &key, const T &value)
 // meta_t, ...
 // ------------------------
 
-// (meta_t<void>,string)
-metaPair &add(const meta_t<void> &kwd, const std::string &value = "")
-{
-   return add(kwd.name,value);
-}
-
-// (meta_t<string>,string)
-metaPair &add(const meta_t<std::string> &kwd, const std::string &value = "")
-{
-   return add(kwd.name,value);
-}
-
 // (meta_t<T>,T)
 template<class T>
-metaPair &add(const meta_t<T> &kwd, const T &value = T{})
+typename detail::metaReturn<T,metaPair&>::general
+add(const meta_t<T> &kwd, const T &value = T{})
+{
+   return add(kwd.name,value);
+}
+
+// (meta_t<void or string>,string)
+template<class T>
+typename detail::metaReturn<T,metaPair&>::special
+add(const meta_t<T> &kwd, const std::string &value = "")
 {
    return add(kwd.name,value);
 }
@@ -65,6 +67,19 @@ metaPair &add(const meta_t<T> &kwd, const T &value = T{})
 // general
 // ------------------------
 
+// ()
+// (string)
+// Action: creates a new child in the current node, and with the given name
+// if any.
+// Returns a reference to the new child node.
+Node &add(const std::string &name = "")
+{
+   children.push_back(std::make_unique<Node>());
+   Node &n = *children.back();
+   n.name = name;
+   return n;
+}
+
 // (Node<same or different>)
 // Action: creates a new child in the current node, and copies the new node
 // (sent as a parameter) into it.
@@ -73,25 +88,10 @@ template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM
 >
-Node &add(
-   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from
-) {
-   Node &n = add(); // below
+Node &add(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
+{
+   Node &n = add();
    detail::node2Node(from,n);
-   return n;
-}
-
-// ()
-// (string)
-// Action: creates a new child in the current node, and with the given name
-// if any.
-// Returns a reference to the new child node.
-Node &add(
-   const std::string &name = ""
-) {
-   children.push_back(std::make_unique<Node>());
-   Node &n = *children.back();
-   n.name = name;
    return n;
 }
 
@@ -116,7 +116,14 @@ Node &add(
    const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &value
 ) {
    Node &n = add();
-   type2node(value,n);
+
+   try {
+      type2node(value,n);
+   } catch (const std::exception &) {
+      log::context("Node::add(child_t(\"{}\"),Node)", kwd.name);
+      throw;
+   }
+
    n.name = kwd.name;
    return n;
 }
@@ -137,7 +144,14 @@ Node &add(
    const T &value
 ) {
    Node &n = add();
-   type2node(value,n);
+
+   try {
+      type2node(value,n);
+   } catch (const std::exception &) {
+      log::context("Node::add(child_t(\"{}\"),value)", kwd.name);
+      throw;
+   }
+
    n.name = kwd.name;
    return n;
 }
@@ -163,8 +177,13 @@ void add(
       Args...
    > &container
 ) {
-   for (auto &value : container)
-      add(child_t<void,find::one,METADATA,CHILDREN>(kwd.name), value);
+   try {
+      for (auto &value : container)
+         add(child_t<void,find::one,METADATA,CHILDREN>(kwd.name), value);
+   } catch (const std::exception &) {
+      log::context("Node::add(child_t(\"{}\"),container<Node>)", kwd.name);
+      throw;
+   }
 }
 
 
@@ -184,6 +203,11 @@ void add(
    const child_t<T,find::all,METADATA,CHILDREN> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
-   for (auto &value : container)
-      add(child_t<T,find::one,METADATA,CHILDREN>(kwd.name), value);
+   try {
+      for (auto &value : container)
+         add(child_t<T,find::one,METADATA,CHILDREN>(kwd.name), value);
+   } catch (const std::exception &) {
+      log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
+      throw;
+   }
 }

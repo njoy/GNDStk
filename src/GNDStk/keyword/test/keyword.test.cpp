@@ -140,21 +140,21 @@ SCENARIO("Testing GNDStk keyword") {
       // child::xml disambiguates vs. class xml
       // meta::format disambiguates vs. enum class format
 
-      REQUIRE(tree(child::xml).metadata.size() == 2);
-      REQUIRE(tree(child::xml).children.size() == 1);
-      REQUIRE(tree(child::xml,version) == "1.0");
-      REQUIRE(tree(child::xml,encoding) == "UTF-8");
-      REQUIRE(tree(covarianceSuite).metadata.size() == 4);
-      REQUIRE(tree(covarianceSuite).children.size() == 3);
-      REQUIRE(tree(covarianceSuite,projectile) == "n");
-      REQUIRE(tree(covarianceSuite,target) == "Tm170");
-      REQUIRE(tree(covarianceSuite,evaluation) == "ENDF/B-8.0");
-      REQUIRE(tree(covarianceSuite,meta::format) == 1.9); // double, not string
-      REQUIRE(tree(covarianceSuite,styles).metadata.size() == 0);
-      REQUIRE(tree(covarianceSuite,styles).children.size() == 1);
-      REQUIRE(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
-      REQUIRE(tree(covarianceSuite,styles,evaluated).children.size() == 2);
-      REQUIRE(tree(covarianceSuite,styles,evaluated,label) == "eval");
+      CHECK(tree(child::xml).metadata.size() == 2);
+      CHECK(tree(child::xml).children.size() == 1);
+      CHECK(tree(child::xml,version) == "1.0");
+      CHECK(tree(child::xml,encoding) == "UTF-8");
+      CHECK(tree(covarianceSuite).metadata.size() == 4);
+      CHECK(tree(covarianceSuite).children.size() == 3);
+      CHECK(tree(covarianceSuite,projectile) == "n");
+      CHECK(tree(covarianceSuite,target) == "Tm170");
+      CHECK(tree(covarianceSuite,evaluation) == "ENDF/B-8.0");
+      CHECK(tree(covarianceSuite,meta::format) == 1.9); // double, not string
+      CHECK(tree(covarianceSuite,styles).metadata.size() == 0);
+      CHECK(tree(covarianceSuite,styles).children.size() == 1);
+      CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
+      CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
+      CHECK(tree(covarianceSuite,styles,evaluated,label) == "eval");
    }
 
    // ------------------------
@@ -173,14 +173,14 @@ SCENARIO("Testing GNDStk keyword") {
    // Extract <xml> version into *our* version type
    // Specifically: myversion keyword ==> version_t
    auto vers = tree(child::xml,myversion);
-   REQUIRE(vers.major == 1);
-   REQUIRE(vers.minor == 0);
+   CHECK(vers.major == 1);
+   CHECK(vers.minor == 0);
 
    // Now extract <evaluated> version
    vers = tree(covarianceSuite,styles,evaluated,myversion);
-   REQUIRE(vers.major == 8);
-   REQUIRE(vers.minor == 0);
-   REQUIRE(vers.patch == 1);
+   CHECK(vers.major == 8);
+   CHECK(vers.minor == 0);
+   CHECK(vers.patch == 1);
 
    // For brevity, let's make a shortcut to <evaluated>
    auto &eval = tree(covarianceSuite,styles,evaluated);
@@ -188,9 +188,9 @@ SCENARIO("Testing GNDStk keyword") {
    // Extract date in <evaluated>, via the shortcut
    // Specifically: mydate keyword ==> date_t
    auto date = eval(mydate);
-   REQUIRE(date.year  == 2011);
-   REQUIRE(date.month == 10);
-   REQUIRE(date.day   == 1);
+   CHECK(date.year  == 2011);
+   CHECK(date.month == 10);
+   CHECK(date.day   == 1);
 
    // Pull out <array>, to make some upcoming queries shorter
    auto &arr = tree(
@@ -200,17 +200,17 @@ SCENARIO("Testing GNDStk keyword") {
    // Extract <array> shape into our shape type
    // Specifically: myshape keyword ==> shape_t
    auto shape = arr(myshape);
-   REQUIRE(shape.rows == 78);
-   REQUIRE(shape.cols == 78);
+   CHECK(shape.rows == 78);
+   CHECK(shape.cols == 78);
 
    // Extract <array> values into our values type, which is vector<double>
    // Specifically: myshape keyword ==> shape_t
    auto val = arr(myvalues);
-   REQUIRE(val[0] == 0.015);
-   REQUIRE(val[1] == 0);
-   REQUIRE(val[2] == 0);
-   REQUIRE(val[3] == 0);
-   REQUIRE(val[4] == 4.5e-5);
+   CHECK(val[0] == 0.015);
+   CHECK(val[1] == 0);
+   CHECK(val[2] == 0);
+   CHECK(val[3] == 0);
+   CHECK(val[4] == 4.5e-5);
 
    // ------------------------
    // Special keyword
@@ -226,7 +226,7 @@ SCENARIO("Testing GNDStk keyword") {
    // Examine the tree itself, which really means the declaration node
    {
       auto man = tree(mymanifest);
-      REQUIRE(man.information == manifest_tree);
+      CHECK(man.information == manifest_tree);
    }
 
    // Let's look at what's in the top-level GNDS node. Note that top()
@@ -234,14 +234,14 @@ SCENARIO("Testing GNDStk keyword") {
    // we do *not* write tree.top(manifest), which wouldn't make sense.
    {
       auto man = tree.top()(mymanifest);
-      REQUIRE(man.information == manifest_covarianceSuite);
+      CHECK(man.information == manifest_covarianceSuite);
    }
 
    // Of course we can do this as well, knowing that covarianceSuite
    // is the top-level node
    {
       auto man = tree(covarianceSuite, mymanifest);
-      REQUIRE(man.information == manifest_covarianceSuite);
+      CHECK(man.information == manifest_covarianceSuite);
    }
 
    // And let's dig further:
@@ -250,7 +250,7 @@ SCENARIO("Testing GNDStk keyword") {
          covarianceSuite, parameterCovariances,
          parameterCovariance, mymanifest
       );
-      REQUIRE(man.information == manifest_parameterCovariances);
+      CHECK(man.information == manifest_parameterCovariances);
    }
 
    // ------------------------
