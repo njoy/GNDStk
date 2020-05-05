@@ -69,16 +69,21 @@ public:
    // fixme Should probably have some additional constructors,
    // allowing for name, metadata, etc. at construction time.
 
-   // ctor: default
+   // ctor: default, move, copy
    Node() { }
-
-   // ctor: move, DELETED copy
    Node(Node &&) = default;
-   Node(const Node &) = delete;
+   Node(const Node &from)
+   {
+      detail::node2Node(from,*this);
+   }
 
-   // assignment: move, DELETED copy
+   // assignment: move, copy
    Node &operator=(Node &&) = default;
-   Node &operator=(const Node &) = delete;
+   Node &operator=(const Node &from)
+   {
+      detail::node2Node(from,*this);
+      return *this;
+   }
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"

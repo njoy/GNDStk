@@ -8,13 +8,6 @@
 // general
 // ------------------------
 
-// (metaPair)
-metaPair &add(const metaPair &pair)
-{
-   metadata.push_back(pair);
-   return metadata.back();
-}
-
 // (string,string)
 metaPair &add(const std::string &key, const std::string &value)
 {
@@ -35,6 +28,21 @@ metaPair &add(const std::string &key, const T &value)
    return add(key,str);
 }
 
+// (metaPair), i.e. (pair<string,string>)
+metaPair &add(const metaPair &pair)
+{
+   metadata.push_back(pair);
+   return metadata.back();
+}
+
+// (pair<string,T>)
+// "string" given as S so that char* works
+template<class S, class T>
+metaPair &add(const std::pair<S,T> &pair)
+{
+   return add(std::string(pair.first),pair.second);
+}
+
 
 // ------------------------
 // meta_t, ...
@@ -50,7 +58,7 @@ add(const meta_t<T> &kwd, const T &value = T{})
 
 // (meta_t<void or string>,string)
 template<class T>
-typename detail::metaReturn<T,metaPair&>::special
+typename detail::metaReturn<T,metaPair &>::special
 add(const meta_t<T> &kwd, const std::string &value = "")
 {
    return add(kwd.name,value);

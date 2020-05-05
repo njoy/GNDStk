@@ -27,10 +27,9 @@ bool convert(
 
    // convert
    if (not from.empty()) {
-      to.root =
-         std::make_unique<Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO>>();
+      to.reroot();
       try {
-         detail::node2Node(*from.root, *to.root);
+         detail::node2Node(from.decl(), to.decl());
       } catch (const std::exception &) {
          log::context("convert(Tree,Tree)");
          throw;
@@ -76,8 +75,7 @@ bool convert(
             return false;
          }
 
-         tree.root =
-            std::make_unique<Node<METADATA_CONTAINER,CHILDREN_CONTAINER>>();
+         tree.reroot();
          tree.decl().name = "xml"; // indicates that we came from an XML
 
          // base XML "attributes", e.g. version and encoding
@@ -150,7 +148,7 @@ bool convert(
    }
 
    // make a boilerplate declaration node
-   tree.root = std::make_unique<node_t>();
+   tree.reroot();
    tree.decl().name = "json"; // indicates that we came from a JSON
 
    // make a top-level GNDS node, name to-be-determined

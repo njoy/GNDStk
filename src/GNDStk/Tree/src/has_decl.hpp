@@ -1,5 +1,5 @@
 
-// This is equivalent to !empty(), with an additional well-formedness check
+// This is equivalent to !empty(), with additional well-formedness checks
 bool has_decl() const
 {
    // no

@@ -66,6 +66,8 @@ SCENARIO("Testing GNDStk Node add()") {
    CHECK(pair.second == "foo bar");
    n.add("3",3.1416);
    n.add("4",dimensions2d(12,34));
+   n.add(std::make_pair(std::string("5"),dimensions2d(56,78)));
+   n.add(std::make_pair("6",9));
 
    // metadata, meta_t key
    auto v   = keyword.meta<void>("AStringViaVoid");

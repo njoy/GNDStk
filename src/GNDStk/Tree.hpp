@@ -25,6 +25,9 @@ public:
    // Functions
    // ------------------------
 
+   // simplifies some other code
+   void reroot() { root = std::make_unique<nodeType>(); }
+
    // clear
    // root is a unique_ptr, so this deletes the whole tree
    void clear()

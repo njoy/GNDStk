@@ -64,7 +64,10 @@ std::string &meta(
 // because the const version otherwise returns by value.
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // RESULT
+// ------------------------
+
 template<class RESULT>
 decltype(auto) // RESULT, except const string & if RESULT is void or string
 meta(
@@ -111,7 +114,15 @@ meta(
 }
 
 
-// void or string, non-const
+// ------------------------
+// void or string
+// ------------------------
+
+// const
+// Handled appropriately by the decltype(auto) return case.
+// So, we don't need to repeat, or factor out, its content.
+
+// non-const
 template<class T>
 typename detail::metaReturn<T,std::string &>::special meta(
    const meta_t<T> &kwd,
@@ -121,7 +132,10 @@ typename detail::metaReturn<T,std::string &>::special meta(
 }
 
 
+// ------------------------
 // variant
+// ------------------------
+
 template<class RESULT, class... Ts>
 typename detail::oneof<RESULT,Ts...>::type meta(
    const meta_t<std::variant<Ts...>> &kwd,

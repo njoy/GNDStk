@@ -13,7 +13,7 @@ std::istream &read(std::istream &is)
    const pugi::xml_parse_result load = doc.load(
       is,
       pugi::parse_default |
-      pugi::parse_declaration | // preserve root <?xml ...?> material
+      pugi::parse_declaration | // preserve <?xml ...?> material
       pugi::parse_comments      // preserve <!-- comment --> material
    );
 

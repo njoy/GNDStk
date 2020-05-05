@@ -50,7 +50,7 @@ nodeType &reset(
    // Declaration node: "xml", etc.
    // This is our Tree object's technically top-level ("over the top"?) node
    // that can specify an eventual intended file type for the GNDS hierarchy.
-   root = std::make_unique<nodeType>();
+   reroot();
 
    // The add()s can throw, and we have our own potential throw as well;
    // so let's just put this all in a try...
