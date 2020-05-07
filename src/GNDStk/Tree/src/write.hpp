@@ -125,9 +125,9 @@ std::ostream &write(
          log::error("Tree::write() for HDF5 is not implemented yet");
          throw std::exception{};
       } else {
-         // default, or our internal tree format
+         // default: our internal tree format
          if (not empty())
-            decl().write(os,0); // 0 is level
+            top().write(os,0); // 0 is level
       }
 
       if (not os) {
