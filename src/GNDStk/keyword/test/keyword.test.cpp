@@ -154,7 +154,7 @@ SCENARIO("Testing GNDStk keyword") {
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
       CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
       CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
-      CHECK(tree(covarianceSuite,styles,evaluated,label) == "eval");
+      CHECK(tree(covarianceSuite,styles,evaluated,GNDStk::meta::label) == "eval");
    }
 
    // ------------------------

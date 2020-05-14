@@ -198,7 +198,7 @@ inline const meta_t<double     > dvalue("value");
 inline const meta_t<std::string> svalue("value");
 
 // channelSpin
-// This actually looks to me like it's always either an int, or some sort
+// This actually looks to me like it's always either an int, or some kind
 // of fraction, so figure out something clever in place of variant. Perhaps
 // a rational-number class?
 inline const meta_t<std::variant<int,std::string>>

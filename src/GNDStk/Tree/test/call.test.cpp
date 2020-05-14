@@ -145,7 +145,7 @@ SCENARIO("Testing GNDStk tree operator()") {
 
       // found
       found = false;
-      CHECK((tree(reactionSuite,projectile,found) == "n", found));
+      CHECK((tree(reactionSuite,projectile,found) == "n" && found));
       found = true;
       CHECK((tree(reactionSuite,foo,found), !found));
 
