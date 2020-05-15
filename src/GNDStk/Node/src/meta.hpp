@@ -72,7 +72,7 @@ typename detail::metaReturn<RESULT,RESULT>::general meta(
       // convert value, if any, to the appropriate result type
       RESULT type{};
       if (found)
-         string2type(value,type);
+         convert(value,type);
       return type;
    } catch (const std::exception &) {
       log::context("Node::meta(meta_t(\"{}\"))", kwd.name);

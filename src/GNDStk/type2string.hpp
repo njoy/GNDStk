@@ -1,42 +1,36 @@
 
 /*
-Description of type2string()
+Description of convert(type,string)
 
 Brief: type ==> string ==> node.meta(meta_t<type>)
 
-These are essentially the reverse of the string2type() functions.
+These are essentially the reverse of the convert(string,type) functions.
 The description of those, seen in reverse, applies here.
 
 In short, these functions are for taking various types, perhaps user-defined,
-and writing them into a string that's destined for the value of a metadatum's
+and converting them into a string that's destined for the value of a metadatum's
 key/value pair.
 */
 
 
 
 // -----------------------------------------------------------------------------
-// type2ostream(T,ostream)
-//
-// Note the name: type2ostream, not type2string. These are helpers for the
-// actual type2string functions that we'll define shortly. Also note that the
-// ostream is the second parameter, to be consistent with the "foo2bar" style
-// function name. (Contrast with stream I/O, where the stream is always first.)
-//
+// convert(T,ostream)
 // Default: use operator<<
 // -----------------------------------------------------------------------------
 
 // default
 template<class T>
-inline void type2ostream(const T &value, std::ostream &os)
+inline void convert(const T &value, std::ostream &os)
 {
    os << value;
 }
 
 
 // some sequence containers
-#define GNDSTK_TYPE2OSTREAM(container) \
+#define GNDSTK_CONVERT(container) \
    template<class T, class Alloc> \
-   inline void type2ostream( \
+   inline void convert( \
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
@@ -45,53 +39,50 @@ inline void type2ostream(const T &value, std::ostream &os)
          os << (n++ ? " " : "") << v; \
    }
 
-   GNDSTK_TYPE2OSTREAM(deque)
-   GNDSTK_TYPE2OSTREAM(list)
-   GNDSTK_TYPE2OSTREAM(vector)
+   GNDSTK_CONVERT(deque)
+   GNDSTK_CONVERT(list)
+   GNDSTK_CONVERT(vector)
 
-#undef GNDSTK_TYPE2OSTREAM
+#undef GNDSTK_CONVERT
 
 
 
 // -----------------------------------------------------------------------------
-// type2string(T,string)
-// Default: make an ostringstream from the string, then use type2ostream()
+// convert(T,string)
+// Default: make an ostringstream from the string, then use convert(*,ostream)
 // -----------------------------------------------------------------------------
 
 // default
 template<class T>
-inline void type2string(const T &value, std::string &str)
+inline void convert(const T &value, std::string &str)
 {
-   // try block, in case someone overloads our own type2ostream functions
+   // try block, in case someone overloads our convert()s
    try {
       std::ostringstream oss;
-      type2ostream(value,oss);
+      convert(value,oss);
       str = oss.str();
    } catch (const std::exception &) {
-      log::context("type2string(T,string)");
+      log::context("convert(T,string)");
       throw;
    }
 }
 
 
 // char *
-// string
 // Faster than we'd get by going through the generic T version. Note that we
 // normally wouldn't write a "char *" case, as char * would normally convert
 // to std::string, but it won't do so here, because of the generic T version.
-inline void type2string(const char *const value, std::string &str)
+inline void convert(const char *const value, std::string &str)
 {
    str = value;
 }
 
-inline void type2string(const std::string &value, std::string &str)
-{
-   str = value;
-}
+// convert(const std::string &, std::string &)
+// Already defined, for "convert(string,type)"
 
 
 // bool
-inline void type2string(const bool &value, std::string &str)
+inline void convert(const bool &value, std::string &str)
 {
    str = value ? "true" : "false";
 }
@@ -99,22 +90,22 @@ inline void type2string(const bool &value, std::string &str)
 
 // miscellaneous
 // T-to-string specializations that may be faster than our default
-#define GNDSTK_TYPE2STRING(T) \
-   inline void type2string(const T &value, std::string &str) \
+#define GNDSTK_CONVERT(T) \
+   inline void convert(const T &value, std::string &str) \
    { \
       str = std::to_string(value); \
    }
 
-   GNDSTK_TYPE2STRING(int)
-   GNDSTK_TYPE2STRING(long)
-   GNDSTK_TYPE2STRING(long long)
+   GNDSTK_CONVERT(int)
+   GNDSTK_CONVERT(long)
+   GNDSTK_CONVERT(long long)
 
-   GNDSTK_TYPE2STRING(unsigned)
-   GNDSTK_TYPE2STRING(unsigned long)
-   GNDSTK_TYPE2STRING(unsigned long long)
+   GNDSTK_CONVERT(unsigned)
+   GNDSTK_CONVERT(unsigned long)
+   GNDSTK_CONVERT(unsigned long long)
 
-   GNDSTK_TYPE2STRING(float)
-   GNDSTK_TYPE2STRING(double)
-   GNDSTK_TYPE2STRING(long double)
+   GNDSTK_CONVERT(float)
+   GNDSTK_CONVERT(double)
+   GNDSTK_CONVERT(long double)
 
-#undef GNDSTK_TYPE2STRING
+#undef GNDSTK_CONVERT

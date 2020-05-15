@@ -55,11 +55,11 @@ public:
    std::string encoding;
 };
 
-// node2type(): callback for GNDStk; converts a node to an xml_t.
+// convert(): callback for GNDStk; converts a node to an xml_t.
 // Given that GNDStk::Node is templated, it's easiest to write functions
 // like this by using template<class NODE> as I do here...
 template<class NODE>
-inline void node2type(const NODE &node, xml_t &out)
+inline void convert(const NODE &node, xml_t &out)
 {
    out.version  = std::stod(node.meta(version));
    out.encoding = node.meta(encoding);
@@ -68,7 +68,7 @@ inline void node2type(const NODE &node, xml_t &out)
 // keyword: my_xml_keyword
 // Users can write custom child_t values like this, and then use them in
 // child() functions. Here, "xml" is what the keyword uses to look up nodes
-// that can be converted to xml_t objects via the node2type() function above.
+// that can be converted to xml_t objects via the convert() function above.
 inline const child_t<xml_t> my_xml_keyword("xml");
 
 
@@ -103,7 +103,7 @@ public:
 
 // From a node, build a covarianceSuite_type_1
 template<class NODE>
-inline void node2type(const NODE &, covarianceSuite_type_1 &out)
+inline void convert(const NODE &, covarianceSuite_type_1 &out)
 {
    // some random nonsense, just for illustration
    out.foo = 123;
@@ -112,7 +112,7 @@ inline void node2type(const NODE &, covarianceSuite_type_1 &out)
 
 // From a node, build a covarianceSuite_type_2
 template<class NODE>
-inline void node2type(const NODE &node, covarianceSuite_type_2 &out)
+inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 {
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
    // and format keyword - which return, respectively, string, string, string,

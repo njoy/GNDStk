@@ -42,7 +42,7 @@ bool node2json(
    // ------------------------
 
    // First, account for what children appear in the current node. If any child
-   // names appear multiple times, we must deal with that. For each represented
+   // name appears multiple times, we must deal with that. For each represented
    // child name, the map gets 0 if the name appears once, 1 if it appears more
    // than once. Later, this 0/1 is used initially to make a boolean choice;
    // then it serves as a counter to generate a 0-indexed numeric suffix that

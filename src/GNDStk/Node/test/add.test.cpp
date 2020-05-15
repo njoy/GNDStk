@@ -38,7 +38,7 @@ struct dim2d {
    dim2d(const int r, const int c) : rows(r), cols(c) { }
 };
 
-void type2node(const dim2d &d, Node<> &out)
+void convert(const dim2d &d, Node<> &out)
 {
    out.name = "unused";
    out.add("numberOfRows",d.rows);

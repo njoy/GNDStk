@@ -15,7 +15,7 @@ struct temperature_t {
    std::string unit;
 };
 
-inline void node2type(const Node<> &n, temperature_t &temp)
+inline void convert(const Node<> &n, temperature_t &temp)
 {
    temp.value = n(meta::dvalue);
    temp.unit  = n(meta::unit);
@@ -28,7 +28,7 @@ struct isotope_t {
    const Node<> *nuclides;
 };
 
-inline void node2type(const Node<> &n, isotope_t &iso)
+inline void convert(const Node<> &n, isotope_t &iso)
 {
    iso.symbol = n(meta::symbol);
    iso.A = n(meta::A);

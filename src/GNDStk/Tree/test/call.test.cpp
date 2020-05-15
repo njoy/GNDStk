@@ -23,7 +23,7 @@ public:
 };
 
 template<class NODE>
-inline void node2type(const NODE &node, xml_t &out)
+inline void convert(const NODE &node, xml_t &out)
 {
    out.version  = std::stod(node.meta(version));
    out.encoding = node.meta(encoding);
@@ -46,7 +46,7 @@ public:
 };
 
 template<class NODE>
-inline void node2type(const NODE &node, reactionSuite_t &out)
+inline void convert(const NODE &node, reactionSuite_t &out)
 {
    out.projectile = node.meta(projectile);
    out.target     = node.meta(target);

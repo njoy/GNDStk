@@ -4,6 +4,6 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-SCENARIO("Testing GNDStk type2string") {
+SCENARIO("Testing GNDStk convert(type,string)") {
 
 }

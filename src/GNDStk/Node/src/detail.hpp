@@ -13,7 +13,7 @@ public:
    void operator()(const NODE &node) const
    {
       RESULT type{};
-      node2type(node,type);
+      convert(node,type);
    }
 };
 

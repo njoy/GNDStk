@@ -41,7 +41,7 @@ RESULT child(
       // convert value, if any, to the appropriate result type
       RESULT type{};
       if (found)
-         node2type(n,type);
+         convert(n,type);
       return type;
    } catch (const std::exception &) {
       log::context("Node::child(child_t<type,find::one>(\"{}\"))", kwd.name);
@@ -103,7 +103,7 @@ CONTAINER<RESULT,std::allocator<RESULT>> child(
       for (auto &c : children)
          if (c != nullptr and c->name == kwd.name) {
             RESULT type{};
-            node2type(*c,type);
+            convert(*c,type);
             container.push_back(type);
          }
    } catch (const std::exception &) {

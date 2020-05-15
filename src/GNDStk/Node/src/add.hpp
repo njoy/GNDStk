@@ -20,7 +20,7 @@ metaPair &add(const std::string &key, const T &value)
 {
    std::string str;
    try {
-      type2string(value,str);
+      convert(value,str);
    } catch (const std::exception &) {
       log::context("Node::add(key=\"{}\",value)", key);
       throw;
@@ -126,7 +126,7 @@ Node &add(
    Node &n = add();
 
    try {
-      type2node(value,n);
+      convert(value,n);
    } catch (const std::exception &) {
       log::context("Node::add(child_t(\"{}\"),Node)", kwd.name);
       throw;
@@ -154,7 +154,7 @@ Node &add(
    Node &n = add();
 
    try {
-      type2node(value,n);
+      convert(value,n);
    } catch (const std::exception &) {
       log::context("Node::add(child_t(\"{}\"),value)", kwd.name);
       throw;

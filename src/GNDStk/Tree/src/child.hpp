@@ -23,7 +23,7 @@ RESULT child(
       const nodeType &n = one(kwd.name,found);
       RESULT type{};
       if (found)
-         node2type(n,type);
+         convert(n,type);
       return type;
    } catch (const std::exception &) {
       log::context("Tree::child(child_t<type,find::one>(\"{}\"))", kwd.name);

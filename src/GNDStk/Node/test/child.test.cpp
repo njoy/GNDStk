@@ -15,7 +15,7 @@ struct temperature_t {
    std::string unit;
 };
 
-inline void node2type(const Node<> &n, temperature_t &temp)
+inline void convert(const Node<> &n, temperature_t &temp)
 {
    temp.value = n(meta::dvalue);
    temp.unit  = n(meta::unit);
@@ -25,9 +25,9 @@ inline void node2type(const Node<> &n, temperature_t &temp)
 struct foo_t { std::string foo_id; };
 struct bar_t { std::string bar_id; };
 
-inline void node2type(const Node<> &n, foo_t &foo)
+inline void convert(const Node<> &n, foo_t &foo)
    { bool found; foo.foo_id = n(meta::id,found); }
-inline void node2type(const Node<> &n, bar_t &bar)
+inline void convert(const Node<> &n, bar_t &bar)
    { bool found; bar.bar_id = n(meta::id,found); }
 
 // isotope_t
@@ -37,7 +37,7 @@ struct isotope_t {
    const Node<> *nuclides;
 };
 
-inline void node2type(const Node<> &n, isotope_t &iso)
+inline void convert(const Node<> &n, isotope_t &iso)
 {
    iso.symbol = n(meta::symbol);
    iso.A = n(meta::A);

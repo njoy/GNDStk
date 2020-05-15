@@ -61,7 +61,7 @@ struct manifest_t {
 };
 
 template<class NODE>
-void node2type(const NODE &node, manifest_t &man)
+void convert(const NODE &node, manifest_t &man)
 {
    std::ostringstream oss;
 
