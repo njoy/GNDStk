@@ -3,8 +3,8 @@
 #include "GNDStk.hpp"
 
 SCENARIO("Testing GNDStk tree reset()") {
-   using namespace GNDStk;
-   using namespace GNDStk::child;
+   using namespace njoy::GNDStk;
+   using namespace child;
 
    GIVEN("An empty tree") {
 

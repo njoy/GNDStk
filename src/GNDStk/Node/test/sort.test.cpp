@@ -1,7 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace GNDStk;
+using namespace njoy::GNDStk;
 
 static const std::string correct_sorted_written_node =
 R"***(covarianceSuite:

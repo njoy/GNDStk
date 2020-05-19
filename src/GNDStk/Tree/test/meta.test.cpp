@@ -15,8 +15,8 @@ The file we'll be examining:
 */
 
 SCENARIO("Testing GNDStk tree meta()") {
-   using namespace GNDStk;
-   using namespace GNDStk::meta;
+   using namespace njoy::GNDStk;
+   using namespace meta;
 
    GIVEN("A tree read from n-069_Tm_170-covar.xml") {
       // c: a const tree

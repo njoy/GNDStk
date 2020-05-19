@@ -1,11 +1,12 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node copy()") {
-   GNDStk::Node<> node1;
+   Node<> node1;
    CHECK(node1.empty());
-   const GNDStk::Node<> node2 = node1.copy();
+   const Node<> node2 = node1.copy();
    CHECK(node2.empty());
 
    node1.name = "I'm a node"; // name

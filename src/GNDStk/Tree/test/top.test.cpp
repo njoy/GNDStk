@@ -3,8 +3,8 @@
 #include "GNDStk.hpp"
 
 SCENARIO("Testing GNDStk tree top()") {
-   using namespace GNDStk;
-   using namespace GNDStk::child;
+   using namespace njoy::GNDStk;
+   using namespace child;
 
    GIVEN("A tree read from n-069_Tm_170-covar.xml") {
       Tree<> t("n-069_Tm_170-covar.xml");

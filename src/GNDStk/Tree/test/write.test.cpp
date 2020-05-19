@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 // fixme We're currently testing write to ostream (specifically ostringstream),
 // and operator<< (also to ostringstream). For testing to files (with a given
@@ -215,13 +216,13 @@ R"***({
 // fixme As elsewhere, we don't yet have anything of substance for HDF5.
 
 SCENARIO("Testing GNDStk tree write() and operator<<") {
-   GNDStk::Tree<> tree;
+   Tree<> tree;
 
    // ------------------------
    // Empty tree
    // ------------------------
 
-   GIVEN("An empty GNDStk::tree object") {
+   GIVEN("An empty tree object") {
       // For now I'll just write to an output stream, as I'm not sure how our
       // testing system is supposed to work when our intention is to actually
       // write *files*.
@@ -232,7 +233,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
             // write()
             {
                std::ostringstream oss;
-               tree.write(oss, GNDStk::format::tree);
+               tree.write(oss, format::tree);
                CHECK(oss.str() == string_empty_tree);
             } {
                std::ostringstream oss;
@@ -243,7 +244,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
             // write(), using format::null (which defaults to tree)
             {
                std::ostringstream oss;
-               tree.write(oss, GNDStk::format::null);
+               tree.write(oss, format::null);
                CHECK(oss.str() == string_empty_tree);
             } {
                std::ostringstream oss;
@@ -266,7 +267,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() the empty tree in format::xml format") {
          {
             std::ostringstream oss;
-            tree.write(oss, GNDStk::format::xml);
+            tree.write(oss, format::xml);
             CHECK(oss.str() == string_empty_xml);
          } {
             std::ostringstream oss;
@@ -279,7 +280,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() the empty tree in format::json format") {
          {
             std::ostringstream oss;
-            tree.write(oss, GNDStk::format::json);
+            tree.write(oss, format::json);
             CHECK(oss.str() == string_empty_json);
          } {
             std::ostringstream oss;
@@ -294,7 +295,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
    // our sample GNDS files
    // ------------------------
 
-   GIVEN("A real GNDStk::tree, read from a file") {
+   GIVEN("A real tree, read from a file") {
       tree.read("n-069_Tm_170-covar.xml");
       CHECK(!tree.empty());
 
@@ -308,7 +309,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
                CHECK(oss.str() == string_real_tree);
             } {
                std::ostringstream oss;
-               tree.write(oss, GNDStk::format::tree);
+               tree.write(oss, format::tree);
                CHECK(oss.str() == string_real_tree);
             } {
                std::ostringstream oss;
@@ -323,7 +324,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
                CHECK(oss.str() == string_real_tree);
             } {
                std::ostringstream oss;
-               tree.write(oss, GNDStk::format::null);
+               tree.write(oss, format::null);
                CHECK(oss.str() == string_real_tree);
             } {
                std::ostringstream oss;
@@ -346,7 +347,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() the tree in format::xml format") {
          {
             std::ostringstream oss;
-            tree.write(oss, GNDStk::format::xml);
+            tree.write(oss, format::xml);
             CHECK(oss.str() == string_real_xml);
          } {
             std::ostringstream oss;
@@ -359,7 +360,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() the tree in format::json format") {
          {
             std::ostringstream oss;
-            tree.write(oss, GNDStk::format::json);
+            tree.write(oss, format::json);
             CHECK(oss.str() == string_real_json);
          } {
             std::ostringstream oss;

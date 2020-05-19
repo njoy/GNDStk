@@ -3,6 +3,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
 
@@ -11,13 +12,13 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
 
    // Tree (upper-case T): takes 0, 1, or 2 template parameters
    GIVEN("A Tree<default,default>") {
-      GNDStk::Tree<> tree;
+      Tree<> tree;
       CHECK(tree.empty());
    }
 
    // tree (lower-case t): shorthand alias for Tree<>
    GIVEN("A tree") {
-      GNDStk::tree tree;
+      tree tree;
       CHECK(tree.empty());
    }
 
@@ -31,20 +32,20 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
    GIVEN("A Tree<various,various>") {
       using namespace std;
 
-      { GNDStk::Tree<deque        > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<deque ,deque > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<deque ,list  > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<deque ,vector> tree; CHECK(tree.empty()); }
+      { Tree<deque        > tree; CHECK(tree.empty()); }
+      { Tree<deque ,deque > tree; CHECK(tree.empty()); }
+      { Tree<deque ,list  > tree; CHECK(tree.empty()); }
+      { Tree<deque ,vector> tree; CHECK(tree.empty()); }
 
-      { GNDStk::Tree<list         > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<list  ,deque > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<list  ,list  > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<list  ,vector> tree; CHECK(tree.empty()); }
+      { Tree<list         > tree; CHECK(tree.empty()); }
+      { Tree<list  ,deque > tree; CHECK(tree.empty()); }
+      { Tree<list  ,list  > tree; CHECK(tree.empty()); }
+      { Tree<list  ,vector> tree; CHECK(tree.empty()); }
 
-      { GNDStk::Tree<vector       > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<vector,deque > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<vector,list  > tree; CHECK(tree.empty()); }
-      { GNDStk::Tree<vector,vector> tree; CHECK(tree.empty()); }
+      { Tree<vector       > tree; CHECK(tree.empty()); }
+      { Tree<vector,deque > tree; CHECK(tree.empty()); }
+      { Tree<vector,list  > tree; CHECK(tree.empty()); }
+      { Tree<vector,vector> tree; CHECK(tree.empty()); }
    }
 
 }

@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 /*
 What we'll need to test...
@@ -45,7 +46,7 @@ bool ctor(
    // in which case we're testing the copy constructor, and in other cases,
    // <A,B> != <C,D>, in which case we're testing that our various tree
    // species construct properly from other tree species.
-   GNDStk::Tree<M,C> to(from);
+   Tree<M,C> to(from);
 
    // print "to" to a string
    std::ostringstream osst;
@@ -71,7 +72,7 @@ template<
 bool ctor()
 {
    // read a meaningful GNDS hierarchy into a "source" tree
-   const GNDStk::Tree<M,C> from("n-069_Tm_170-covar.xml");
+   const Tree<M,C> from("n-069_Tm_170-covar.xml");
 
    // print the tree to a string, which we'll use for comparison
    std::ostringstream ossf;
@@ -106,7 +107,7 @@ SCENARIO("Testing GNDStk tree constructors") {
 
    // 1. Tree()
    GIVEN("A default-constructed tree") {
-      GNDStk::Tree<> t;
+      Tree<> t;
       WHEN("We check that it's empty") {
          CHECK(t.empty());
       }
@@ -114,10 +115,10 @@ SCENARIO("Testing GNDStk tree constructors") {
 
    // 2. Tree(Tree &&)
    GIVEN("One tree, read directly from a GNDS file") {
-      const GNDStk::Tree<> one("n-026_Fe_056.xml");
+      const Tree<> one("n-026_Fe_056.xml");
 
       WHEN("We make a second tree, moved from a tree made from the same file") {
-         const GNDStk::Tree<> two(GNDStk::Tree<>("n-026_Fe_056.xml"));
+         const Tree<> two(Tree<>("n-026_Fe_056.xml"));
 
          // The two trees should be the same
          std::ostringstream oss1; oss1 << one;
@@ -128,14 +129,14 @@ SCENARIO("Testing GNDStk tree constructors") {
    }
 
    // 3. Tree(XML)
-   GIVEN("A GNDStk::XML object, read from an XML file") {
-      const GNDStk::XML x("n-026_Fe_056.xml");
+   GIVEN("An XML object, read from an XML file") {
+      const XML x("n-026_Fe_056.xml");
 
-      WHEN("We construct a tree from the GNDStk::XML object") {
+      WHEN("We construct a tree from the XML object") {
          // We should get the same result for the tree constructed via the XML,
          // as we do for a tree that's read directly from the same file...
-         std::ostringstream oss1; oss1 << GNDStk::Tree<>(x);
-         std::ostringstream oss2; oss2 << GNDStk::Tree<>("n-026_Fe_056.xml");
+         std::ostringstream oss1; oss1 << Tree<>(x);
+         std::ostringstream oss2; oss2 << Tree<>("n-026_Fe_056.xml");
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -146,10 +147,10 @@ SCENARIO("Testing GNDStk tree constructors") {
    // 5. Tree(string)
    // 6. Tree(istream)
    GIVEN("A tree(string) and a tree(istream)") {
-      const GNDStk::Tree<> t1("n-026_Fe_056.xml");
+      const Tree<> t1("n-026_Fe_056.xml");
       CHECK(!t1.empty());
       std::ifstream ifs("n-026_Fe_056.xml");
-      const GNDStk::Tree<> t2(ifs);
+      const Tree<> t2(ifs);
       CHECK(!t2.empty());
 
       // Results should be the same
@@ -180,8 +181,7 @@ SCENARIO("Testing GNDStk tree constructors") {
 
    // 9. Tree(top-level node, format | string [, version [, encoding]])
    GIVEN("Some trees created from scratch") {
-      using namespace GNDStk;
-      using namespace GNDStk::child;
+      using namespace child;
 
       /*
       Cases:

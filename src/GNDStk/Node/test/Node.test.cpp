@@ -3,12 +3,13 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node (templated), node (not templated)") {
 
    // Node (upper-case N): takes 0, 1, or 2 template parameters
    GIVEN("A Node<default,default>") {
-      GNDStk::Node<> n;
+      Node<> n;
       CHECK(n.empty());
       CHECK(n.name == "");
       CHECK(n.metadata.size() == 0);
@@ -17,7 +18,7 @@ SCENARIO("Testing GNDStk Node (templated), node (not templated)") {
 
    // node (lower-case n) equals Node<>
    GIVEN("A node") {
-      GNDStk::node n;
+      node n;
       CHECK(n.empty());
       CHECK(n.name == "");
       CHECK(n.metadata.size() == 0);
@@ -27,17 +28,17 @@ SCENARIO("Testing GNDStk Node (templated), node (not templated)") {
    // just for fun...
    GIVEN("A Node<various,various>") {
       using namespace std;
-      { GNDStk::Node<deque        > n;  CHECK(n.empty()); }
-      { GNDStk::Node<deque ,deque > n;  CHECK(n.empty()); }
-      { GNDStk::Node<deque ,list  > n;  CHECK(n.empty()); }
-      { GNDStk::Node<deque ,vector> n;  CHECK(n.empty()); }
-      { GNDStk::Node<list         > n;  CHECK(n.empty()); }
-      { GNDStk::Node<list  ,deque > n;  CHECK(n.empty()); }
-      { GNDStk::Node<list  ,list  > n;  CHECK(n.empty()); }
-      { GNDStk::Node<list  ,vector> n;  CHECK(n.empty()); }
-      { GNDStk::Node<vector       > n;  CHECK(n.empty()); }
-      { GNDStk::Node<vector,deque > n;  CHECK(n.empty()); }
-      { GNDStk::Node<vector,list  > n;  CHECK(n.empty()); }
-      { GNDStk::Node<vector,vector> n;  CHECK(n.empty()); }
+      { Node<deque        > n;  CHECK(n.empty()); }
+      { Node<deque ,deque > n;  CHECK(n.empty()); }
+      { Node<deque ,list  > n;  CHECK(n.empty()); }
+      { Node<deque ,vector> n;  CHECK(n.empty()); }
+      { Node<list         > n;  CHECK(n.empty()); }
+      { Node<list  ,deque > n;  CHECK(n.empty()); }
+      { Node<list  ,list  > n;  CHECK(n.empty()); }
+      { Node<list  ,vector> n;  CHECK(n.empty()); }
+      { Node<vector       > n;  CHECK(n.empty()); }
+      { Node<vector,deque > n;  CHECK(n.empty()); }
+      { Node<vector,list  > n;  CHECK(n.empty()); }
+      { Node<vector,vector> n;  CHECK(n.empty()); }
    }
 }

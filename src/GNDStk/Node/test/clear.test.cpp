@@ -1,11 +1,12 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node clear()") {
 
    GIVEN("A default-constructed node") {
-      GNDStk::Node<> n;
+      Node<> n;
       CHECK(n.empty());
 
       WHEN("a name, metadata, and children are added") {

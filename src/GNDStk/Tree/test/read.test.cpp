@@ -1,9 +1,10 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk tree read() and operator>>") {
-   GNDStk::Tree<> t1, t2, t3, t4;
+   Tree<> t1, t2, t3, t4;
 
    GIVEN("Some trees") {
       WHEN("We read() one from a file") {
@@ -57,7 +58,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
    // we don't have read/write capabilities yet either).
 
    GIVEN("Some trees") {
-      using namespace GNDStk;
+      using namespace njoy::GNDStk;
       Tree<> tree;
 
       const std::string filename = "n-008_O_016.xml";

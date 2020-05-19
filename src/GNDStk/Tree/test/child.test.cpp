@@ -2,9 +2,9 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace GNDStk;
-using namespace GNDStk::meta;
-using namespace GNDStk::child;
+using namespace njoy::GNDStk;
+using namespace meta;
+using namespace child;
 
 /*
 The file we'll be examining:
@@ -56,7 +56,7 @@ public:
 };
 
 // convert(): callback for GNDStk; converts a node to an xml_t.
-// Given that GNDStk::Node is templated, it's easiest to write functions
+// Given that Node is templated, it's easiest to write functions
 // like this by using template<class NODE> as I do here...
 template<class NODE>
 inline void convert(const NODE &node, xml_t &out)
@@ -159,12 +159,10 @@ SCENARIO("Testing GNDStk tree child()") {
       // ------------------------
 
       // child::xml is the smart keyword for retrieving the xml node.
-      // We need the child:: prefix to disambiguate from GNDStk::xml,
-      // our wrapper class around pugi::xml_document. Note that both
-      // blocks below test with both const and non-const trees. The
-      // relevant child() functions actually only have const versions,
-      // because they return by value; so it isn't really necessary
-      // to try both const and non-const trees below.
+      // Note that both blocks below test with both const and non-const trees.
+      // The relevant child() functions actually only have const versions,
+      // because they return by value; so it isn't really necessary to try
+      // both const and non-const trees below.
       {
          // NOTE FOR THE FUTURE, IF AN ERROR EVER HAPPENS BELOW:
          // Our built-in keyword child::xml is currently a child_t<void,...>.

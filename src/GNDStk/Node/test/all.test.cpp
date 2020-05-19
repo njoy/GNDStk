@@ -2,8 +2,8 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace GNDStk;
-using namespace GNDStk::child;
+using namespace njoy::GNDStk;
+using namespace child;
 
 SCENARIO("Testing GNDStk Node all()") {
 

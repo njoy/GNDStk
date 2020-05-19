@@ -2,9 +2,9 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace GNDStk;
-using namespace GNDStk::meta;
-using namespace GNDStk::child;
+using namespace njoy::GNDStk;
+using namespace meta;
+using namespace child;
 
 
 
@@ -174,7 +174,7 @@ SCENARIO("Testing GNDStk tree operator()") {
       CHECK(tree(reactionSuite,styles,evaluated,temperature,dvalue) == 0.0);
       CHECK(tree(reactionSuite,styles,evaluated,temperature,unit  ) == "K");
 
-      // GNDStk::child::reaction has FIND == find::all, so the following
+      // child::reaction has FIND == find::all, so the following
       // gives us back a container (std::vector by default).
       found = false;
       auto vec = tree(reactionSuite,reactions,reaction,found);

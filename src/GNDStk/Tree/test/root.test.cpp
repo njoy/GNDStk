@@ -1,11 +1,12 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk tree root") {
 
    GIVEN("A tree") {
-      GNDStk::Tree<> tree;
+      Tree<> tree;
 
       WHEN("The tree is default-constructed") {
          CHECK(tree.root == nullptr); // it has nothing in it

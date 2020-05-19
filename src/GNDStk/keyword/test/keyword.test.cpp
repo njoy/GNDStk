@@ -4,7 +4,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace GNDStk;
+using namespace njoy::GNDStk;
 using std::string;
 
 
@@ -125,12 +125,11 @@ R"***(node: parameterCovariance
 
 SCENARIO("Testing GNDStk keyword") {
 
-   using GNDStk::keyword;
-   using namespace GNDStk::meta;
-   using namespace GNDStk::child;
+   using namespace meta;
+   using namespace child;
 
    // tree
-   const GNDStk::tree tree("n-069_Tm_170-covar.xml");
+   const njoy::GNDStk::tree tree("n-069_Tm_170-covar.xml");
 
    // ------------------------
    // exercise some built-ins
@@ -154,7 +153,7 @@ SCENARIO("Testing GNDStk keyword") {
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
       CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
       CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
-      CHECK(tree(covarianceSuite,styles,evaluated,GNDStk::meta::label) == "eval");
+      CHECK(tree(covarianceSuite,styles,evaluated,meta::label) == "eval");
    }
 
    // ------------------------

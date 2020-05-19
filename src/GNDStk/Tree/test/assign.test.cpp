@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
@@ -49,27 +50,27 @@ template<
 void assign()
 {
    using namespace std;
-   GNDStk::Tree<M,C> left; // for a left = right assignment
+   Tree<M,C> left; // for a left = right assignment
 
    // Perform a left = right assignment for various "right" cases
-   CHECK(sets_equal_to(left, GNDStk::Tree<              >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<deque         >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<deque , deque >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<deque , list  >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<deque , vector>()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<list          >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<list  , deque >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<list  , list  >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<list  , vector>()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<vector        >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<vector, deque >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<vector, list  >()));
-   CHECK(sets_equal_to(left, GNDStk::Tree<vector, vector>()));
+   CHECK(sets_equal_to(left, Tree<              >()));
+   CHECK(sets_equal_to(left, Tree<deque         >()));
+   CHECK(sets_equal_to(left, Tree<deque , deque >()));
+   CHECK(sets_equal_to(left, Tree<deque , list  >()));
+   CHECK(sets_equal_to(left, Tree<deque , vector>()));
+   CHECK(sets_equal_to(left, Tree<list          >()));
+   CHECK(sets_equal_to(left, Tree<list  , deque >()));
+   CHECK(sets_equal_to(left, Tree<list  , list  >()));
+   CHECK(sets_equal_to(left, Tree<list  , vector>()));
+   CHECK(sets_equal_to(left, Tree<vector        >()));
+   CHECK(sets_equal_to(left, Tree<vector, deque >()));
+   CHECK(sets_equal_to(left, Tree<vector, list  >()));
+   CHECK(sets_equal_to(left, Tree<vector, vector>()));
 
    // Test move assignment
-   left = GNDStk::Tree<M,C>("n-069_Tm_170-covar.xml");
+   left = Tree<M,C>("n-069_Tm_170-covar.xml");
    std::ostringstream ossl; ossl << left;
-   GNDStk::Tree<M,C> right("n-069_Tm_170-covar.xml");
+   Tree<M,C> right("n-069_Tm_170-covar.xml");
    std::ostringstream ossr; ossr << right;
    CHECK(ossl.str() == ossr.str());
 }
