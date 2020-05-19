@@ -47,32 +47,24 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
-// Node::meta(meta_t<*>)
-//
-// Cases:
-//
-//    RESULT    General case
-//    string    For string, more efficient than general case
-//    void      Like string case
-//    variant   With caller-specified result type
+// Node::meta(meta_t)
 // -----------------------------------------------------------------------------
 
-// ------------------------
-// meta(meta_t<RESULT>)
-// ------------------------
-
-template<class RESULT>
-typename detail::metaReturn<RESULT,RESULT>::general meta(
-   const meta_t<RESULT> &kwd,
+// RESULT
+// return is RESULT, except string if RESULT is void
+template<class RESULT, class CONVERTER>
+auto meta(
+   const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
+   using T = typename detail::void2string<RESULT>::type;
    try {
       // call meta(string), with the meta_t's key
       const std::string &value = meta(kwd.name,found);
       // convert value, if any, to the appropriate result type
-      RESULT type{};
+      T type{};
       if (found)
-         convert(value,type);
+         kwd.converter(value,type);
       return type;
    } catch (const std::exception &) {
       log::context("Node::meta(meta_t(\"{}\"))", kwd.name);
@@ -81,39 +73,12 @@ typename detail::metaReturn<RESULT,RESULT>::general meta(
 }
 
 
-// ------------------------
-// meta(meta_t<void or string>)
-// ------------------------
-
-// const
-template<class T>
-typename detail::metaReturn<T,const std::string &>::special meta(
-   const meta_t<T> &kwd,
-   bool &found = detail::default_bool
-) const {
-   return meta(kwd.name,found);
-}
-
-// non-const
-template<class T>
-typename detail::metaReturn<T,std::string &>::special meta(
-   const meta_t<T> &kwd,
-   bool &found = detail::default_bool
-) {
-   return meta(kwd.name,found);
-}
-
-
-// ------------------------
-// meta(meta_t<variant>)
-// With caller-specified
-// result type
-// ------------------------
-
-template<class RESULT, class... Ts>
+// variant
+// With caller-specified result type
+template<class RESULT, class... Ts, class CONVERTER>
 typename detail::oneof<RESULT,Ts...>::type meta(
-   const meta_t<std::variant<Ts...>> &kwd,
+   const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return meta(meta_t<RESULT>(kwd.name),found);
+   return meta(meta_t<RESULT,CONVERTER>(kwd.name),found);
 }

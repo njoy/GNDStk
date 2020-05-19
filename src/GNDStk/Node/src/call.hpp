@@ -35,10 +35,10 @@
 // meta_t
 // Forwards to meta(meta_t)
 template<
-   class RESULT
+   class RESULT, class CONVERTER
 >
-decltype(auto) operator()(
-   const meta_t<RESULT> &kwd,
+auto operator()(
+   const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return meta(kwd,found);
@@ -85,10 +85,10 @@ decltype(auto) operator()(
 
 // meta_t
 template<
-   class RESULT
+   class RESULT, class CONVERTER
 >
-decltype(auto) operator()(
-   const meta_t<RESULT> &kwd,
+auto operator()(
+   const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) {
    return meta(kwd,found);
@@ -119,7 +119,7 @@ decltype(auto) operator()(
    try {
       if (kwd.name == "")
          detail::apply_keyword<RESULT>()(*this);
-      return this->child(-kwd)(std::forward<Keywords>(keywords)...);
+      return child(-kwd)(std::forward<Keywords>(keywords)...);
    } catch (const std::exception &) {
       log::context("Node(child_t(\"{}\"),...)", kwd.name);
       throw;

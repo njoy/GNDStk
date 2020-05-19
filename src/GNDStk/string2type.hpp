@@ -11,7 +11,7 @@ some particular type, possibly user-defined.
 This way, users who make custom types can define precisely how a string
 from a GNDS hierarchy converts into their custom type.
 
-Here, we'll pre-define some convert(string,type) functions for certain existing
+Here, we'll predefine some convert(string,type) functions for certain existing
 C++ types - in particular, for some container and POD types - and also for
 output into a string itself (which of course just copies the input string).
 
@@ -119,8 +119,8 @@ inline void convert(const std::string &str, bool &value)
 
 // miscellaneous
 // string-to-T specializations that may be faster than our default
-#define GNDSTK_CONVERT(fun,T) \
-   inline void convert(const std::string &str, T &value) \
+#define GNDSTK_CONVERT(fun,TYPE) \
+   inline void convert(const std::string &str, TYPE &value) \
    { \
       value = std::fun(str); \
    }

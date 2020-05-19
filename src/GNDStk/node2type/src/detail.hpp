@@ -10,7 +10,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 const std::string &get_pcdata_string(
-   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    for (auto &m : node.metadata)
       if (m.first == keyword_pcdata)

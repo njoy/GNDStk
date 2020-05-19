@@ -47,12 +47,12 @@ public:
 // children + meta [+ Ks]
 template<
    class... Cs,
-   class RESULT,
+   class RESULT, class CONVERTER,
    class... Ks
 >
 class catenateChildren<
    children<Cs...>,
-   meta_t<RESULT>,
+   meta_t<RESULT,CONVERTER>,
    Ks...
 > {
 public:

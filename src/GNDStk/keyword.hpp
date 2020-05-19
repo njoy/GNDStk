@@ -21,7 +21,8 @@ template<class... Cs> class children { };
 
 // forward: meta_t
 template<
-   class RESULT = std::string
+   class RESULT = std::string,
+   class CONVERTER = detail::convert_t
 >
 class meta_t;
 

@@ -90,8 +90,8 @@ inline void convert(const bool &value, std::string &str)
 
 // miscellaneous
 // T-to-string specializations that may be faster than our default
-#define GNDSTK_CONVERT(T) \
-   inline void convert(const T &value, std::string &str) \
+#define GNDSTK_CONVERT(TYPE) \
+   inline void convert(const TYPE &value, std::string &str) \
    { \
       str = std::to_string(value); \
    }

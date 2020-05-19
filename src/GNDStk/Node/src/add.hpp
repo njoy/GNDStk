@@ -8,60 +8,48 @@
 // general
 // ------------------------
 
-// (string,string)
-metaPair &add(const std::string &key, const std::string &value)
-{
-   return add(metaPair(key,value));
-}
-
-// (string,T)
-template<class T>
-metaPair &add(const std::string &key, const T &value)
-{
-   std::string str;
+// string,T
+template<class T, class CONVERTER = detail::convert_t>
+metaPair &add(
+   const std::string &key,
+   const T &from,
+   const CONVERTER &converter = CONVERTER{}
+) {
+   std::string to;
    try {
-      convert(value,str);
+      // often (but not necessarily) identity, if T is string
+      converter(from,to);
    } catch (const std::exception &) {
       log::context("Node::add(key=\"{}\",value)", key);
       throw;
    }
-   return add(key,str);
-}
-
-// (metaPair), i.e. (pair<string,string>)
-metaPair &add(const metaPair &pair)
-{
-   metadata.push_back(pair);
+   metadata.push_back(metaPair(key,to));
    return metadata.back();
 }
 
-// (pair<string,T>)
-// "string" given as S so that char* works
-template<class S, class T>
-metaPair &add(const std::pair<S,T> &pair)
-{
-   return add(std::string(pair.first),pair.second);
+// pair<string,T>
+// string given as S so convertible-to-string objects, e.g. char*, work
+template<class S, class T, class CONVERTER = detail::convert_t>
+metaPair &add(
+   const std::pair<S,T> &pair,
+   const CONVERTER &converter = CONVERTER{}
+) {
+   return add(std::string(pair.first), pair.second, converter);
 }
 
 
 // ------------------------
-// meta_t, ...
+// meta_t,T
 // ------------------------
 
-// (meta_t<T>,T)
-template<class T>
-typename detail::metaReturn<T,metaPair&>::general
-add(const meta_t<T> &kwd, const T &value = T{})
-{
-   return add(kwd.name,value);
-}
-
-// (meta_t<void or string>,string)
-template<class T>
-typename detail::metaReturn<T,metaPair &>::special
-add(const meta_t<T> &kwd, const std::string &value = "")
-{
-   return add(kwd.name,value);
+template<class T, class CONVERTER>
+metaPair &add(
+   const meta_t<T,CONVERTER> &kwd,
+   const
+   typename detail::void2string<T>::type &value =
+   typename detail::void2string<T>::type{}
+) {
+   return add(kwd.name, value, kwd.converter);
 }
 
 
@@ -75,11 +63,9 @@ add(const meta_t<T> &kwd, const std::string &value = "")
 // general
 // ------------------------
 
-// ()
-// (string)
-// Action: creates a new child in the current node, and with the given name
-// if any.
-// Returns a reference to the new child node.
+// string
+// Creates a new child, in the current node, with the given name.
+// Returns a reference to the new child.
 Node &add(const std::string &name = "")
 {
    children.push_back(std::make_unique<Node>());
@@ -88,10 +74,9 @@ Node &add(const std::string &name = "")
    return n;
 }
 
-// (Node<same or different>)
-// Action: creates a new child in the current node, and copies the new node
-// (sent as a parameter) into it.
-// Returns a reference to the new child node.
+// Node<same or different>
+// Creates a new child, in the current node, copied from the parameter.
+// Returns a reference to the new child.
 template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM
@@ -109,9 +94,9 @@ Node &add(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 // ------------------------
 
 // <void,one>: accepts one node
-// Action: creates a new child in the current node, and copies the node sent
-// as a parameter into it. Gives the new node the name from the keyword object,
-// not the one it got from the copied-in node.
+// Creates a new child, in the current node, copied from the parameter.
+// Gives the new node the name from the keyword object, not the one it
+// got from the copied-in node.
 // Returns a reference to the new child node.
 template<
    class METADATA,
@@ -138,9 +123,9 @@ Node &add(
 
 
 // <T,one>: accepts one T
-// Action: creates a new child in the current node, and converts the T sent
-// as a parameter into it. Gives the new node the name from the keyword object,
-// not the one it might have gotten from the conversion.
+// Creates a new child, in the current node, converted from the T sent as
+// a parameter. Gives the new node the name from the keyword object, not
+// any name it might have gotten from the conversion.
 // Returns a reference to the new child node.
 template<
    class METADATA,
@@ -166,9 +151,9 @@ Node &add(
 
 
 // <void,all>: accepts a container of nodes
-// Action: creates new children in the current node, copying the nodes sent
-// in the container parameter into them. Gives all the new nodes the name from
-// the keyword object, not the ones they got from the copied-in nodes.
+// Creates new children, in the current node, copied from the nodes sent in
+// the container parameter. Gives all the new nodes the name from the keyword
+// object, not the ones they got from the copied-in nodes.
 // No returned reference, because we entered numerous new values.
 template<
    class METADATA,
@@ -195,10 +180,10 @@ void add(
 }
 
 
-// <T,all>: accepts container of Ts
-// Action: creates new children in the current node, converting the Ts sent
-// in the container parameter into them. Gives all the new nodes the name from
-// the keyword object, not the ones they might have gotten from the conversions.
+// <T,all>: accepts a container of Ts
+// Creates new children, in the current node, converted from the Ts sent
+// in the container parameter. Gives all the new nodes the name from the
+// keyword object, not the names they might have gotten from the conversions.
 // No returned reference, because we entered numerous new values.
 template<
    class T,

@@ -27,7 +27,7 @@ and converting them into a node that's destined to be added as a child node.
    > \
    void convert( \
       const std::CONTAINER<T,Alloc> &container, \
-      GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node \
+      Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node \
    ) { \
       try { \
          node.clear(); \

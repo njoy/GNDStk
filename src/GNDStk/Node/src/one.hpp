@@ -24,7 +24,7 @@ const Node &one(
    const Node *theone = nullptr;
    unsigned count = 0;
    for (auto &c : children)
-      if (c != nullptr && c->name == key && count++ == 0)
+      if (c->name == key && count++ == 0)
          theone = &(*c);
 
    // found

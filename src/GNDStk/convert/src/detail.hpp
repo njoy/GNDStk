@@ -11,7 +11,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool node2json(
-   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
+   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    nlohmann::json &j,
    const std::string &suffix = ""
 ) {
@@ -48,22 +48,20 @@ bool node2json(
    // then it serves as a counter to generate a 0-indexed numeric suffix that
    // makes the child names unique: name0, name1, etc.
    std::map<std::string,unsigned> childNames;
-   for (auto &c : node.children)
-      if (c != nullptr) {
-         auto iter = childNames.find(c->name);
-         if (iter == childNames.end())
-            childNames.insert({c->name,0}); // once (so far)
-         else
-            iter->second = 1; // more than once
-      }
+   for (auto &c : node.children) {
+      auto iter = childNames.find(c->name);
+      if (iter == childNames.end())
+         childNames.insert({c->name,0}); // once (so far)
+      else
+         iter->second = 1; // more than once
+   }
 
    // now revisit and process the child nodes
-   for (auto &c : node.children)
-      if (c != nullptr) {
-         const unsigned counter = childNames.find(c->name)->second++;
-         if (!node2json(*c, json, counter ? std::to_string(counter-1) : ""))
-            return false;
-      }
+   for (auto &c : node.children) {
+      const unsigned counter = childNames.find(c->name)->second++;
+      if (!node2json(*c, json, counter ? std::to_string(counter-1) : ""))
+         return false;
+   }
 
    // done
    return true;
@@ -119,7 +117,7 @@ template<
 >
 bool xml_node2Node(
    const pugi::xml_node &xnode,
-   GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    // check destination node
    if (!node.empty()) {
@@ -246,7 +244,7 @@ template<
 >
 bool json2node(
    const nlohmann::json::const_iterator &iter,
-   GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    // the node sent here should be fresh, ready to receive entries...
    if (!node.empty())
@@ -310,8 +308,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 inline void node2Node(
-   const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-   GNDStk::Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
+   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+   Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
    // Check that the destination node is empty. We don't really need to have
    // such a check in a viable node-to-node function; it would be perfectly
@@ -338,8 +336,7 @@ inline void node2Node(
 
    // children
    for (auto &c : from.children)
-      if (c)
-         node2Node(*c, to.add());
+      node2Node(*c, to.add());
 }
 
 
@@ -354,7 +351,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool node2XML(
-   const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
+   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
    pugi::xml_node &x
 ) {
    // name

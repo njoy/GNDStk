@@ -10,7 +10,7 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 std::string &put_pcdata_string(
-   GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
+   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
 ) {
    if (node.metadata.size() != 0) {
       log::error(

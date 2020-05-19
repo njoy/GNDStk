@@ -3,26 +3,27 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
-// The default template parameter std::string, which was set in a forward
-// declaration elsewhere, means to retrieve the metadatum in its original
-// form in the tree: as a std::string.
-template<class RESULT>
+// The default RESULT = std::string, which was set in a forward declaration
+// elsewhere, means to retrieve the metadatum in its original form in the
+// tree: as a std::string.
+template<class RESULT, class CONVERTER>
 class meta_t {
 public:
    // data
    const std::string name;
+   const CONVERTER converter; // optional custom conversion; needs operator()
 
    // ctor
-   explicit meta_t(const std::string &n) :
-      name(n)
+   explicit meta_t(const std::string &n, const CONVERTER &c = CONVERTER{}) :
+      name(n), converter(c)
    { }
 };
 
 // operator-
-template<class RESULT>
-inline auto operator-(const meta_t<RESULT> &kwd)
+template<class RESULT, class CONVERTER>
+inline auto operator-(const meta_t<RESULT,CONVERTER> &kwd)
 {
-   return meta_t<void>(kwd.name);
+   return meta_t<void,detail::convert_t>(kwd.name);
 }
 
 
@@ -41,7 +42,7 @@ inline auto operator-(const meta_t<RESULT> &kwd)
 
 // -----------------------------------------------------------------------------
 // Keywords
-// Of type meta_t<*>
+// Of type meta_t
 // -----------------------------------------------------------------------------
 
 namespace meta {

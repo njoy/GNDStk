@@ -15,11 +15,7 @@
 // -----------------------------------------------------------------------------
 
 // reset(top-level node, format[, version[, encoding]])
-// Example:
-//    GNDStk::Tree<> t(GNDStk::child::reactionSuite, GNDStk::format::xml);
-// Briefly:
-//    Tree<> t(reactionSuite, format::xml);
-// with appropriate usings.
+// Example: Tree<> t(child::reactionSuite, format::xml);
 
 
 // ------------------------

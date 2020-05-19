@@ -281,6 +281,7 @@ message( STATUS "-----------------------------------------------------------" )
 
 add_library( GNDStk INTERFACE )
 target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert_t.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2string.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/node2type.hpp"
              "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/utility.hpp"

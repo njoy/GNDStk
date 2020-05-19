@@ -37,8 +37,8 @@ namespace detail {
       template<class...> class CHILDREN_CONTAINER_TO
    >
    void node2Node(
-      const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
-            GNDStk::Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &
+      const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
+            Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &
    );
 }
 
@@ -50,8 +50,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 inline void convert(
-   const GNDStk::Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-         GNDStk::Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &to
+   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+         Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &to
 ) {
    try {
       to.clear();
@@ -78,7 +78,7 @@ inline void convert(
       class T, class Alloc \
    > \
    void convert( \
-      const GNDStk::Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node, \
+      const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node, \
       std::CONTAINER<T,Alloc> &container \
    ) { \
       try { \

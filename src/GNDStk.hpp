@@ -40,6 +40,7 @@
 // GNDS
 // ------------------------
 
+namespace njoy {
 namespace GNDStk {
 
 // basic
@@ -49,22 +50,24 @@ namespace GNDStk {
 #include "GNDStk/XML.hpp"
 #include "GNDStk/JSON.hpp"
 
-// tree: metadata/children etc.
-#include "GNDStk/keyword.hpp"
-#include "GNDStk/meta.hpp"
-#include "GNDStk/child.hpp"
-
-// string/node to/from type
+// string|node to|from type
 #include "GNDStk/string2type.hpp"
 #include "GNDStk/node2type.hpp"
 #include "GNDStk/type2string.hpp"
 #include "GNDStk/type2node.hpp"
 
+// tree: metadata/children etc.
+#include "GNDStk/convert_t.hpp"
+#include "GNDStk/keyword.hpp"
+#include "GNDStk/meta.hpp"
+#include "GNDStk/child.hpp"
+
 // tree: primary constructs
 #include "GNDStk/Node.hpp"
 #include "GNDStk/Tree.hpp"
 
-// conversions
+// xml/json/tree conversions
 #include "GNDStk/convert.hpp"
 
 } // namespace GNDStk
+} // namespace njoy

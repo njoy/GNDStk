@@ -27,18 +27,18 @@ public:
 // metadata + meta [+ Ks]
 template<
    class... Ms,
-   class RESULT,
+   class RESULT, class CONVERTER,
    class... Ks
 >
 class catenateMetadata<
    metadata<Ms...>,
-   meta_t<RESULT>,
+   meta_t<RESULT,CONVERTER>,
    Ks...
 > {
 public:
    // fold meta_t into metadata; continue
    using type = typename catenateMetadata<
-      metadata<Ms...,meta_t<RESULT>>,
+      metadata<Ms...,meta_t<RESULT,CONVERTER>>,
       Ks...
    >::type;
 };

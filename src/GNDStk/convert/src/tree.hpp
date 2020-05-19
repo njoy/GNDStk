@@ -15,8 +15,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 bool convert(
-   const GNDStk::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-   GNDStk::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
+   const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
+   Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
    // casts are used here because the template arguments may be different
    if ((void*)&to == (void*)&from)
@@ -51,8 +51,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::XML &x,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+   const XML &x,
+   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    // clear
    tree.clear();
@@ -125,8 +125,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::JSON &j,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
+   const JSON &j,
+   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
    using node_t = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
 

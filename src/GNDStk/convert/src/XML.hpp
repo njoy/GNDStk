@@ -13,8 +13,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   GNDStk::XML &x
+   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
+   XML &x
 ) {
    // clear
    x.clear();
@@ -78,7 +78,7 @@ bool convert(
 // For completeness
 // ------------------------
 
-inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
+inline bool convert(const XML &from, XML &to)
 {
    if (&to == &from)
       return true;
@@ -125,16 +125,16 @@ inline bool convert(const GNDStk::XML &from, GNDStk::XML &to)
 
 // Goes through a tree. Could be made more efficient if written more directly.
 // We'll revisit this if it becomes more of an issue.
-inline bool convert(const GNDStk::JSON &j, GNDStk::XML &x)
+inline bool convert(const JSON &j, XML &x)
 {
    // temporary
-   GNDStk::tree tree;
+   tree t;
 
    // convert
    try {
       return
-         convert(j,tree) and
-         convert(tree,x);
+         convert(j,t) and
+         convert(t,x);
    } catch (const std::exception &) {
       log::context("convert(JSON,XML)");
       throw;

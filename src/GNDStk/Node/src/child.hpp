@@ -101,7 +101,7 @@ CONTAINER<RESULT,std::allocator<RESULT>> child(
    try {
       // search
       for (auto &c : children)
-         if (c != nullptr and c->name == kwd.name) {
+         if (c->name == kwd.name) {
             RESULT type{};
             convert(*c,type);
             container.push_back(type);

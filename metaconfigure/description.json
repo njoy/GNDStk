@@ -589,6 +589,7 @@
   }, 
   "header files": [
     "src/GNDStk.hpp", 
+    "src/GNDStk/convert_t.hpp", 
     "src/GNDStk/type2string.hpp", 
     "src/GNDStk/node2type.hpp", 
     "src/GNDStk/utility.hpp", 

@@ -53,32 +53,32 @@ namespace log {
 template<class... Args>
 inline void info(Args &&...args)
 {
-   njoy::Log::info(std::forward<Args>(args)...);
+   Log::info(std::forward<Args>(args)...);
 }
 
 // debug
 template<class... Args>
 inline void debug(Args &&...args)
 {
-   njoy::Log::debug(std::forward<Args>(args)...);
+   Log::debug(std::forward<Args>(args)...);
 }
 
 // warning
 template<class... Args>
 inline void warning(Args &&...args)
 {
-   njoy::Log::warning(std::forward<Args>(args)...);
+   Log::warning(std::forward<Args>(args)...);
 }
 
 // error
 template<class... Args>
 inline void error(Args &&...args)
 {
-   njoy::Log::error(std::forward<Args>(args)...);
+   Log::error(std::forward<Args>(args)...);
 }
 
 // context
-// For certain particular calls to njoy::Log::info()
+// For certain particular calls to Log::info()
 template<class... Args>
 inline void context(const std::string &str, Args &&...args)
 {
@@ -152,8 +152,8 @@ template<
    template<class...> class CHILDREN_CONTAINER_TO
 >
 bool convert(
-   const GNDStk::Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
-   GNDStk::Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &
+   const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
+   Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &
 );
 
 template<
@@ -161,8 +161,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   GNDStk::XML &
+   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
+   XML &
 );
 
 template<
@@ -170,8 +170,8 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   GNDStk::JSON &
+   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
+   JSON &
 );
 
 
@@ -181,11 +181,11 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::XML &,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+   const XML &,
+   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 );
-bool convert(const GNDStk::XML &, GNDStk::XML &);
-bool convert(const GNDStk::XML &, GNDStk::JSON &);
+bool convert(const XML &, XML &);
+bool convert(const XML &, JSON &);
 
 
 // JSON to {Tree,XML,JSON}
@@ -194,11 +194,11 @@ template<
    template<class...> class CHILDREN_CONTAINER
 >
 bool convert(
-   const GNDStk::JSON &,
-   GNDStk::Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
+   const JSON &,
+   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
 );
-bool convert(const GNDStk::JSON &, GNDStk::XML &);
-bool convert(const GNDStk::JSON &, GNDStk::JSON &);
+bool convert(const JSON &, XML &);
+bool convert(const JSON &, JSON &);
 
 
 
@@ -372,16 +372,18 @@ public:
    >::type;
 };
 
-// metaReturn
-// Allows us to consolidate certain functions that use our meta_t class,
-// given that void and std::string mean something special in that context,
-// while everything else (not void or std::string) fall into the general
-// case. Note the one "general" versus two "special" usings below.
-template<class T, class type>
-class metaReturn                   { public: using general = type; };
-template<         class type>
-class metaReturn<void,       type> { public: using special = type; };
-template<         class type>
-class metaReturn<std::string,type> { public: using special = type; };
+// void2string
+template<class T>
+class void2string {
+public:
+   using type = T;
+};
+
+// void2string<void>
+template<>
+class void2string<void> {
+public:
+   using type = std::string;
+};
 
 } // namespace detail
