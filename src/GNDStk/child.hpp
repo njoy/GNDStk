@@ -1,4 +1,12 @@
 
+// Used by child_t
+// metadata
+// children
+template<class... Ms> class metadata { };
+template<class... Cs> class children { };
+
+
+
 // -----------------------------------------------------------------------------
 // child_t
 // -----------------------------------------------------------------------------
@@ -65,7 +73,12 @@ CHILDREN
    Similar to METADATA, but defines what children this child_t can have.
 */
 
-template<class RESULT, find FIND, class METADATA, class CHILDREN>
+template<
+   class RESULT   = void,       // default means current Node type
+   find  FIND     = find::one,  // one, or any number allowed?
+   class METADATA = metadata<>, // allowable metadata for this child-node type
+   class CHILDREN = children<>  // allowable children ...
+>
 class child_t {
 public:
    // data

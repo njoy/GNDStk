@@ -372,18 +372,28 @@ public:
    >::type;
 };
 
-// void2string
+// isVoid<T>
 template<class T>
-class void2string {
+class isVoid {
+};
+
+// isVoid<void>
+template<>
+class isVoid<void> {
+public:
+   using type = void;
+};
+
+// isNotVoid<T>
+template<class T>
+class isNotVoid {
 public:
    using type = T;
 };
 
-// void2string<void>
+// isNotVoid<void>
 template<>
-class void2string<void> {
-public:
-   using type = std::string;
+class isNotVoid<void> {
 };
 
 } // namespace detail

@@ -116,6 +116,9 @@ SCENARIO("Testing GNDStk tree meta()") {
       // extract as string (void ==> string w/meta_t)
       // appears in top-level GNDS node
       const meta_t<void> target("target");
+      // meta<void> cases should trigger [const] reference returns...
+      (void)&c.meta(target);
+      (void)&t.meta(target);
 
       // *** format ***
       // extract as double

@@ -74,7 +74,9 @@ SCENARIO("Testing GNDStk Node add()") {
    auto str = keyword.meta<std::string>("AString");
    auto dbl = keyword.meta<double>("ADouble");
    auto dim = keyword.meta<dimensions2d>("Dimensions");
+   n.add(v);
    n.add(v,"fred");
+   n.add(str);
    n.add(str,"flintstone");
    n.add(dbl);
    n.add(dbl,1.23);

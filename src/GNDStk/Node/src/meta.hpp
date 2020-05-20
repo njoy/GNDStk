@@ -35,7 +35,6 @@ const std::string &meta(
    return empty = "";
 }
 
-
 // non-const
 std::string &meta(
    const std::string &key,
@@ -47,22 +46,44 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
+// Node::meta(meta_t<void>)
+// -----------------------------------------------------------------------------
+
+// const
+template<class CONVERTER>
+decltype(auto) meta(
+   const meta_t<void,CONVERTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   return meta(kwd.name,found);
+}
+
+// non-const
+template<class CONVERTER>
+decltype(auto) meta(
+   const meta_t<void,CONVERTER> &kwd,
+   bool &found = detail::default_bool
+) {
+   return meta(kwd.name,found);
+}
+
+
+
+// -----------------------------------------------------------------------------
 // Node::meta(meta_t)
 // -----------------------------------------------------------------------------
 
 // RESULT
-// return is RESULT, except string if RESULT is void
 template<class RESULT, class CONVERTER>
 auto meta(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   using T = typename detail::void2string<RESULT>::type;
    try {
       // call meta(string), with the meta_t's key
       const std::string &value = meta(kwd.name,found);
       // convert value, if any, to the appropriate result type
-      T type{};
+      RESULT type{};
       if (found)
          kwd.converter(value,type);
       return type;
@@ -71,7 +92,6 @@ auto meta(
       throw;
    }
 }
-
 
 // variant
 // With caller-specified result type

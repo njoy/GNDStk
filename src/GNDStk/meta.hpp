@@ -3,13 +3,14 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
-// The default RESULT = std::string, which was set in a forward declaration
-// elsewhere, means to retrieve the metadatum in its original form in the
-// tree: as a std::string.
-template<class RESULT, class CONVERTER>
+// <RESULT,CONVERTER>
+template<
+   class RESULT = void,
+   class CONVERTER = typename detail::default_converter<RESULT>::type
+>
 class meta_t {
 public:
-   // data
+   // name, converter
    const std::string name;
    const CONVERTER converter; // optional custom conversion; needs operator()
 
@@ -19,24 +20,54 @@ public:
    { }
 };
 
+// <void[,default]>
+template<>
+class meta_t<void,detail::failure_t> {
+public:
+   // name
+   const std::string name;
+
+   // ctor
+   explicit meta_t(const std::string &n) :
+      name(n)
+   { }
+};
+
+// <void,CONVERTER>
+// Invalid
+template<class CONVERTER>
+class meta_t<void,CONVERTER> {
+   static_assert(
+      !std::is_same<CONVERTER,detail::failure_t>::value,
+      "Can't instantiate meta_t<void,CONVERTER> with non-default CONVERTER"
+   );
+};
+
+
+
+// -----------------------------------------------------------------------------
+// Weaken to void
+// -----------------------------------------------------------------------------
+
 // operator-
 template<class RESULT, class CONVERTER>
 inline auto operator-(const meta_t<RESULT,CONVERTER> &kwd)
 {
-   return meta_t<void,detail::convert_t>(kwd.name);
+   return meta_t<void>(kwd.name);
 }
 
 
 
 // -----------------------------------------------------------------------------
 // Macro
-// For meta_t building
+// For meta_t building. The macro doesn't handle the optional converter;
+// for that, just construct such an object directly.
 // -----------------------------------------------------------------------------
 
-#define GNDSTK_MAKE_META(result,name) \
-   inline const meta_t<result> name(#name)
-// Note: we won't #undef this, as one normally would,
-// because it's perfectly viable for users to invoke.
+#define GNDSTK_MAKE_META(RESULT,name) \
+   inline const meta_t<RESULT> name(#name)
+// Note: we won't #undef this eventually, as we normally would,
+// because it's a perfectly viable macro for users to invoke.
 
 
 
@@ -143,11 +174,6 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 // Special cases, not doable with our macro.
 // -----------------------------------------------------------------------------
 
-// fixme
-// For the variant cases, we should consider having a way to make the type
-// be context-dependent, which it *is* (I think) in GNDS. Then, additional
-// data extraction syntax won't be needed.
-
 namespace meta {
 
 // ------------------------
@@ -158,13 +184,13 @@ namespace meta {
 
 // fixme These may actually arrive with different keys if we've read from a
 // JSON (not XML) file - at least an original JSON, not created from an XML.
-// Figure out what we'd be getting in this case.
+// Figure out what we'd be getting in such a case.
 
 // cdata
 inline const meta_t<std::string> cdata(detail::keyword_cdata);
 
 // pcdata
-// fixme: This should be made more general, not just vector<double>
+// fixme: Should perhaps be more general, not just vector<double>
 inline const meta_t<std::vector<double>> pcdata(detail::keyword_pcdata);
 
 // comment

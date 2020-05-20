@@ -14,7 +14,7 @@
 // Note: for variant-based meta_t and child_t keywords, you'll still need to
 // call meta<RESULT>() or child<RESULT> directly. Implementing the variant
 // versions here would bulk up this file, and you'd need to write the operator
-// call in functional form, e.g. mynode.operator()<some_t>(...), to use it.
+// call in functional form, e.g. mynode.operator()<RESULT>(...), to use it.
 
 // For now, in this file and in similar ones, I'm writing "context" try/catch
 // blocks where the action is even slightly more substantial than a one-liner.
@@ -37,7 +37,7 @@
 template<
    class RESULT, class CONVERTER
 >
-auto operator()(
+decltype(auto) operator()(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -87,7 +87,7 @@ decltype(auto) operator()(
 template<
    class RESULT, class CONVERTER
 >
-auto operator()(
+decltype(auto) operator()(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) {

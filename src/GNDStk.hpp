@@ -58,9 +58,9 @@ namespace GNDStk {
 
 // tree: metadata/children etc.
 #include "GNDStk/convert_t.hpp"
-#include "GNDStk/keyword.hpp"
 #include "GNDStk/meta.hpp"
 #include "GNDStk/child.hpp"
+#include "GNDStk/keyword.hpp"
 
 // tree: primary constructs
 #include "GNDStk/Node.hpp"

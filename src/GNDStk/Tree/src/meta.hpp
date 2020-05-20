@@ -57,11 +57,30 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
+// Tree::meta(meta_t<void>)
+// -----------------------------------------------------------------------------
+
+// const
+template<class CONVERTER>
+decltype(auto) meta(const meta_t<void,CONVERTER> &kwd) const
+{
+   return meta(kwd.name);
+}
+
+// non-const
+template<class CONVERTER>
+decltype(auto) meta(const meta_t<void,CONVERTER> &kwd)
+{
+   return meta(kwd.name);
+}
+
+
+
+// -----------------------------------------------------------------------------
 // Tree::meta(meta_t)
 // -----------------------------------------------------------------------------
 
 // RESULT
-// return is RESULT, except string if RESULT is void
 template<class RESULT, class CONVERTER>
 auto meta(
    const meta_t<RESULT,CONVERTER> &kwd,
@@ -100,10 +119,7 @@ auto meta(
    }
 
    // done
-   // fixme Consider that we really only need static for void or string,
-   // as otherwise the return is by value
-   static decltype(top().meta(kwd,f)) type{};
-   return type;
+   return decltype(top().meta(kwd,f)){};
 }
 
 

@@ -27,10 +27,13 @@ metaPair &add(
    return metadata.back();
 }
 
-// pair<string,T>
-// string given as S so convertible-to-string objects, e.g. char*, work
+
+// pair<S,T>, iff S is convertible to std::string
 template<class S, class T, class CONVERTER = detail::convert_t>
-metaPair &add(
+typename std::enable_if<
+   std::is_convertible<S,std::string>::value,
+   metaPair &
+>::type add(
    const std::pair<S,T> &pair,
    const CONVERTER &converter = CONVERTER{}
 ) {
@@ -38,18 +41,33 @@ metaPair &add(
 }
 
 
+
 // ------------------------
-// meta_t,T
+// meta_t
 // ------------------------
 
-template<class T, class CONVERTER>
-metaPair &add(
-   const meta_t<T,CONVERTER> &kwd,
-   const
-   typename detail::void2string<T>::type &value =
-   typename detail::void2string<T>::type{}
+// TYPE
+template<class TYPE, class CONVERTER, class T = TYPE>
+typename std::enable_if<
+   std::is_convertible<T,TYPE>::value,
+   metaPair &
+>::type add(
+   const meta_t<TYPE,CONVERTER> &kwd,
+   const T &value = T{}
 ) {
-   return add(kwd.name, value, kwd.converter);
+   return add(kwd.name, TYPE(value), kwd.converter);
+}
+
+// void
+template<class CONVERTER, class T = std::string>
+typename std::enable_if<
+   std::is_convertible<T,std::string>::value,
+   metaPair &
+>::type add(
+   const meta_t<void,CONVERTER> &kwd,
+   const T &value = T{}
+) {
+   return add(kwd.name, std::string(value));
 }
 
 

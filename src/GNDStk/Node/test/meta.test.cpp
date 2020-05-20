@@ -35,6 +35,8 @@ SCENARIO("Testing GNDStk Node meta()") {
       std::string vstr = top.meta(vstring);
       CHECK(sstr == "ENDF/B-8.0");
       CHECK(vstr == "ENDF/B-8.0");
+      // meta<void> case should trigger a reference return...
+      (void)&top.meta(vstring);
 
       auto var = keyword.meta<std::variant<std::string,double>>("format");
       auto s = top.meta<std::string>(var);

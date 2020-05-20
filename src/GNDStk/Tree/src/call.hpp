@@ -11,7 +11,7 @@
 template<
    class RESULT, class CONVERTER
 >
-auto operator()(
+decltype(auto) operator()(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -57,7 +57,7 @@ decltype(auto) operator()(
 template<
    class RESULT, class CONVERTER
 >
-auto operator()(
+decltype(auto) operator()(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) {
