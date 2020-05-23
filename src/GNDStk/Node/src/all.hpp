@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------------
 
 // const
-// returns by value, so only const is needed
 template<template<class...> class CONTAINER = std::vector>
 CONTAINER<Node,std::allocator<Node>> all(
    const std::string &key,
@@ -31,3 +30,6 @@ CONTAINER<Node,std::allocator<Node>> all(
    found = container.size() > 0;
    return container;
 }
+
+// non-const
+// Not needed, because the const version returns by value

@@ -12,7 +12,7 @@ class meta_t {
 public:
    // name, converter
    const std::string name;
-   const CONVERTER converter; // optional custom conversion; needs operator()
+   const CONVERTER converter; // optional custom converter; needs operator()
 
    // ctor
    explicit meta_t(const std::string &n, const CONVERTER &c = CONVERTER{}) :
@@ -46,7 +46,7 @@ class meta_t<void,CONVERTER> {
 
 
 // -----------------------------------------------------------------------------
-// Weaken to void
+// voidify
 // -----------------------------------------------------------------------------
 
 // operator-

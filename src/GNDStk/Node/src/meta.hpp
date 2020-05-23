@@ -50,18 +50,16 @@ std::string &meta(
 // -----------------------------------------------------------------------------
 
 // const
-template<class CONVERTER>
-decltype(auto) meta(
-   const meta_t<void,CONVERTER> &kwd,
+const std::string &meta(
+   const meta_t<void> &kwd,
    bool &found = detail::default_bool
 ) const {
    return meta(kwd.name,found);
 }
 
 // non-const
-template<class CONVERTER>
-decltype(auto) meta(
-   const meta_t<void,CONVERTER> &kwd,
+std::string &meta(
+   const meta_t<void> &kwd,
    bool &found = detail::default_bool
 ) {
    return meta(kwd.name,found);
@@ -75,7 +73,7 @@ decltype(auto) meta(
 
 // RESULT
 template<class RESULT, class CONVERTER>
-auto meta(
+RESULT meta(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {

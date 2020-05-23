@@ -1,7 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::add() metadatum
-// This adds a new metadatum to the current node.
+// Node::add() metadata
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -46,6 +45,19 @@ typename std::enable_if<
 // meta_t
 // ------------------------
 
+// void
+template<class T = std::string>
+typename std::enable_if<
+   std::is_convertible<T,std::string>::value,
+   metaPair &
+>::type add(
+   const meta_t<void> &kwd,
+   const T &value = T{}
+) {
+   return add(kwd.name, std::string(value));
+}
+
+
 // TYPE
 template<class TYPE, class CONVERTER, class T = TYPE>
 typename std::enable_if<
@@ -58,23 +70,10 @@ typename std::enable_if<
    return add(kwd.name, TYPE(value), kwd.converter);
 }
 
-// void
-template<class CONVERTER, class T = std::string>
-typename std::enable_if<
-   std::is_convertible<T,std::string>::value,
-   metaPair &
->::type add(
-   const meta_t<void,CONVERTER> &kwd,
-   const T &value = T{}
-) {
-   return add(kwd.name, std::string(value));
-}
-
 
 
 // -----------------------------------------------------------------------------
-// Node::add() child node
-// This adds a new child node to the current node.
+// Node::add() children
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -82,8 +81,8 @@ typename std::enable_if<
 // ------------------------
 
 // string
-// Creates a new child, in the current node, with the given name.
-// Returns a reference to the new child.
+// Builds a new child node with the given name.
+// Returns a reference to the new node.
 Node &add(const std::string &name = "")
 {
    children.push_back(std::make_unique<Node>());
@@ -92,131 +91,131 @@ Node &add(const std::string &name = "")
    return n;
 }
 
-// Node<same or different>
-// Creates a new child, in the current node, copied from the parameter.
-// Returns a reference to the new child.
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM
->
-Node &add(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
+
+// T
+// Accepts a convertible-to-node value.
+// Builds a new child node from the value.
+// Returns a reference to the new node.
+template<class T>
+typename std::enable_if<
+   std::is_convertible<T,Node>::value,
+   Node &
+>::type add(const T &value)
 {
    Node &n = add();
-   detail::node2Node(from,n);
+   detail::node2Node(Node(value),n);
    return n;
 }
+
 
 
 // ------------------------
 // child_t, ...
 // ------------------------
 
-// <void,one>: accepts one node
-// Creates a new child, in the current node, copied from the parameter.
-// Gives the new node the name from the keyword object, not the one it
-// got from the copied-in node.
-// Returns a reference to the new child node.
+// <void,one>
+// Accepts a convertible-to-node value.
+// Builds a new child node from the value.
+// Gives the new node the name from the keyword object.
+// Returns a reference to the new node.
 template<
-   class METADATA,
-   class CHILDREN,
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM
->
-Node &add(
-   const child_t<void,find::one,METADATA,CHILDREN> &kwd,
-   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &value
-) {
-   Node &n = add();
-
-   try {
-      convert(value,n);
-   } catch (const std::exception &) {
-      log::context("Node::add(child_t(\"{}\"),Node)", kwd.name);
-      throw;
-   }
-
-   n.name = kwd.name;
-   return n;
-}
-
-
-// <T,one>: accepts one T
-// Creates a new child, in the current node, converted from the T sent as
-// a parameter. Gives the new node the name from the keyword object, not
-// any name it might have gotten from the conversion.
-// Returns a reference to the new child node.
-template<
-   class METADATA,
-   class CHILDREN,
+   class METADATA, class CHILDREN,
    class T
 >
-Node &add(
-   const child_t<T,find::one,METADATA,CHILDREN> &kwd,
+typename std::enable_if<
+   std::is_convertible<T,Node>::value,
+   Node &
+>::type add(
+   const child_t<void,find::one,detail::failure_t,METADATA,CHILDREN> &kwd,
    const T &value
 ) {
-   Node &n = add();
-
    try {
-      convert(value,n);
+      Node &n = add();
+      detail::node2Node(Node(value),n);
+      n.name = kwd.name;
+      return n;
    } catch (const std::exception &) {
       log::context("Node::add(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
-
-   n.name = kwd.name;
-   return n;
 }
 
 
-// <void,all>: accepts a container of nodes
-// Creates new children, in the current node, copied from the nodes sent in
-// the container parameter. Gives all the new nodes the name from the keyword
-// object, not the ones they got from the copied-in nodes.
-// No returned reference, because we entered numerous new values.
+// <TYPE,one>
+// Accepts a convertible-to-TYPE value.
+// Builds a new child node from the value.
+// Gives the new node the name from the keyword object.
+// Returns a reference to the new node.
 template<
-   class METADATA,
-   class CHILDREN,
-   template<class...> class CONTAINER = std::vector,
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM,
-   class... Args
+   class TYPE, class CONVERTER, class METADATA, class CHILDREN,
+   class T
 >
-void add(
-   const child_t<void,find::all,METADATA,CHILDREN> &kwd,
-   const CONTAINER<
-      Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM>,
-      Args...
-   > &container
+typename std::enable_if<
+   std::is_convertible<T,TYPE>::value,
+   Node &
+>::type add(
+   const child_t<TYPE,find::one,CONVERTER,METADATA,CHILDREN> &kwd,
+   const T &value
 ) {
    try {
-      for (auto &value : container)
-         add(child_t<void,find::one,METADATA,CHILDREN>(kwd.name), value);
+      Node &n = add();
+      kwd.converter(TYPE(value),n);
+      n.name = kwd.name;
+      return n;
    } catch (const std::exception &) {
-      log::context("Node::add(child_t(\"{}\"),container<Node>)", kwd.name);
+      log::context("Node::add(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }
 
 
-// <T,all>: accepts a container of Ts
-// Creates new children, in the current node, converted from the Ts sent
-// in the container parameter. Gives all the new nodes the name from the
-// keyword object, not the names they might have gotten from the conversions.
+// <void,all>
+// Accepts a container of convertible-to-node values.
+// Builds new child nodes from the values.
+// Gives each new node the name from the keyword object.
 // No returned reference, because we entered numerous new values.
 template<
-   class T,
-   class METADATA,
-   class CHILDREN,
+   class METADATA, class CHILDREN,
    template<class...> class CONTAINER = std::vector,
-   class... Args
+   class T = Node, class... Args
 >
-void add(
-   const child_t<T,find::all,METADATA,CHILDREN> &kwd,
+typename std::enable_if<
+   std::is_convertible<T,Node>::value,
+   void
+>::type add(
+   const child_t<void,find::all,detail::failure_t,METADATA,CHILDREN> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {
-      for (auto &value : container)
-         add(child_t<T,find::one,METADATA,CHILDREN>(kwd.name), value);
+      for (const T &value : container)
+         add(kwd--,value);
+   } catch (const std::exception &) {
+      log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
+      throw;
+   }
+}
+
+
+// <TYPE,all>
+// Accepts a container of convertible-to-TYPE values.
+// Builds new child nodes from the values.
+// Gives each new node the name from the keyword object.
+// No returned reference, because we entered numerous new values.
+template<
+   class TYPE, class CONVERTER, class METADATA, class CHILDREN,
+   template<class...> class CONTAINER = std::vector,
+   class T = TYPE, class... Args
+>
+typename std::enable_if<
+   std::is_convertible<T,TYPE>::value,
+   void
+>::type add(
+   const child_t<TYPE,find::all,CONVERTER,METADATA,CHILDREN> &kwd,
+   const CONTAINER<T,Args...> &container
+) {
+    try {
+      for (const T &value : container)
+         add(kwd--,value);
    } catch (const std::exception &) {
       log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;

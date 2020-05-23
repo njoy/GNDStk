@@ -61,15 +61,13 @@ std::string &meta(
 // -----------------------------------------------------------------------------
 
 // const
-template<class CONVERTER>
-decltype(auto) meta(const meta_t<void,CONVERTER> &kwd) const
+const std::string &meta(const meta_t<void> &kwd) const
 {
    return meta(kwd.name);
 }
 
 // non-const
-template<class CONVERTER>
-decltype(auto) meta(const meta_t<void,CONVERTER> &kwd)
+std::string &meta(const meta_t<void> &kwd)
 {
    return meta(kwd.name);
 }

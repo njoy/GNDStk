@@ -19,15 +19,14 @@ template<class... Cs> class children { };
 RESULT
 
    The type to which GNDStk should convert a Node<> that's extracted from
-   a Tree<> with the child_t object in question. If RESULT is void, then
-   GNDStk uses Node<*> (the child node, in its original form in the tree),
-   where * is whatever template parameters are in play with the particular
-   Tree<> being queried. The fact that there's no fixed Node<> type is why
-   we use void for this meaning.
+   a Tree<> with the child_t object. If RESULT is void, then GNDStk uses
+   Node<*> (the child node, in its original form in the tree), where *
+   is whatever template parameters are in play with the particular Tree<>
+   being queried.
 
 FIND
 
-   A value of [enum class find] that indicates whether or not the kind of
+   A value, of enum class find, that indicates whether or not the kind of
    node in question is expected to appear one time, or any number of times.
    Consider, for example, that an XML-format GNDS might have:
 
@@ -40,7 +39,7 @@ FIND
 
    In other words: there are (or can be) any number of <axis> nodes within
    an enclosing context (here, <axes>). FIND is a template parameter because
-   it affects the type that's pulled from the Tree when the child_t object
+   it affects the *type* that's pulled from the Tree when the child_t object
    is used for a query. For example,
 
       tree(...,axes,axis)
@@ -48,6 +47,11 @@ FIND
    gives back a container of axis objects, not a single axis object, because
    our child_t axis keyword has FIND == find::any. Note that axes, not to be
    confused with axis, has FIND == find::one because it's expected just once.
+
+CONVERTER
+
+   Custom conversion between RESULT and Node, if we wish to override the
+   default of calling the overloaded function convert() to do the conversion.
 
 METADATA
 
@@ -73,36 +77,147 @@ CHILDREN
    Similar to METADATA, but defines what children this child_t can have.
 */
 
+// ------------------------
+// default
+// ------------------------
+
 template<
-   class RESULT   = void,       // default means current Node type
-   find  FIND     = find::one,  // one, or any number allowed?
-   class METADATA = metadata<>, // allowable metadata for this child-node type
-   class CHILDREN = children<>  // allowable children ...
+   class RESULT    = void,       // default means current Node type
+   find  FIND      = find::one,  // one, or any number allowed?
+   class CONVERTER = typename detail::default_converter<RESULT>::type,
+   class METADATA  = metadata<>, // allowable metadata for this child-node type
+   class CHILDREN  = children<>  // allowable children ...
 >
 class child_t {
 public:
-   // data
+   // name, converter, can be top level?
+   const std::string name;
+   const CONVERTER converter; // optional custom converter; needs operator()
+   const bool canBeTopLevel;
+
+   // ctor(name)
+   // ctor(name,top)
+   // ctor(name,top,converter)
+   explicit child_t(
+      const std::string &n,
+      const bool top = false,
+      const CONVERTER &c = CONVERTER{}
+   ) :
+      name(n), converter(c), canBeTopLevel(top)
+   { }
+
+   // ctor(name,converter)
+   // ctor(name,converter,top)
+   child_t(
+      const std::string &n,
+      const CONVERTER &c,
+      const bool top = false
+   ) :
+      name(n), converter(c), canBeTopLevel(top)
+   { }
+};
+
+
+
+// ------------------------
+// void (valid)
+// ------------------------
+
+template<find FIND, class METADATA, class CHILDREN>
+class child_t<void,FIND,detail::failure_t,METADATA,CHILDREN> {
+public:
+   // name, can be top level?
    const std::string name;
    const bool canBeTopLevel;
 
-   // ctor
-   explicit child_t(const std::string &n, const bool top = false) :
+   // ctor(name)
+   // ctor(name,top)
+   explicit child_t(
+      const std::string &n,
+      const bool top = false
+   ) :
       name(n), canBeTopLevel(top)
    { }
 };
 
+
+
+// ------------------------
+// void (invalid)
+// ------------------------
+
+template<find FIND, class CONVERTER, class METADATA, class CHILDREN>
+class child_t<void,FIND,CONVERTER,METADATA,CHILDREN> {
+   static_assert(
+      !std::is_same<CONVERTER,detail::failure_t>::value,
+      "Can't instantiate child_t<void,FIND,CONVERTER> "
+      "with non-default CONVERTER"
+   );
+};
+
+
+
+// -----------------------------------------------------------------------------
+// voidify
+// one/all --/++
+// -----------------------------------------------------------------------------
+
 // operator-
-template<class RESULT, find FIND, class METADATA, class CHILDREN>
-inline auto operator-(const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd)
-{
-   return child_t<void,FIND,METADATA,CHILDREN>(kwd.name,kwd.canBeTopLevel);
+template<class TYPE, find FIND, class CONVERTER, class METADATA, class CHILDREN>
+inline auto operator-(
+   const child_t<TYPE,FIND,CONVERTER,METADATA,CHILDREN> &kwd
+) {
+   return child_t<void,FIND,detail::failure_t,METADATA,CHILDREN>(
+      kwd.name, kwd.canBeTopLevel
+   );
+}
+
+// child_t<void>--
+template<find FIND, class METADATA, class CHILDREN>
+inline auto operator--(
+   const child_t<void,FIND,detail::failure_t,METADATA,CHILDREN> &kwd, const int
+) {
+   return child_t<void,find::one,detail::failure_t,METADATA,CHILDREN>(
+      kwd.name, kwd.canBeTopLevel
+   );
+}
+
+// child_t<void>++
+template<find FIND, class METADATA, class CHILDREN>
+inline auto operator++(
+   const child_t<void,FIND,detail::failure_t,METADATA,CHILDREN> &kwd, const int
+) {
+   return child_t<void,find::all,detail::failure_t,METADATA,CHILDREN>(
+      kwd.name, kwd.canBeTopLevel
+   );
+}
+
+// child_t<TYPE>--
+template<class TYPE, find FIND, class CONVERTER, class METADATA, class CHILDREN>
+inline auto operator--(
+   const child_t<TYPE,FIND,CONVERTER,METADATA,CHILDREN> &kwd, const int
+) {
+   return child_t<TYPE,find::one,CONVERTER,METADATA,CHILDREN>(
+      kwd.name, kwd.converter, kwd.canBeTopLevel
+   );
+}
+
+// child_t<TYPE>++
+template<class TYPE, find FIND, class CONVERTER, class METADATA, class CHILDREN>
+inline auto operator++(
+   const child_t<TYPE,FIND,CONVERTER,METADATA,CHILDREN> &kwd, const int
+) {
+   return child_t<TYPE,find::all,CONVERTER,METADATA,CHILDREN>(
+      kwd.name, kwd.converter, kwd.canBeTopLevel
+   );
 }
 
 
 
 // -----------------------------------------------------------------------------
 // Macros
-// For child_t building
+// For child_t building. The macros don't handle the optional converter;
+// for that, just construct such an object directly.
 // -----------------------------------------------------------------------------
 
 // void (unspecified) result type (so, Node<>)
@@ -113,8 +228,8 @@ inline auto operator-(const child_t<RESULT,FIND,METADATA,CHILDREN> &kwd)
 #define GNDSTK_MAKE_CHILD(result,name,FIND) \
    inline const child_t<result,FIND> name(#name)
 
-// Note: we won't #undef these later, as one often would with macros,
-// because they're both perfectly viable for users to invoke.
+// Note: we won't #undef these eventually, as we normally would,
+// because they're perfectly viable macros for users to invoke.
 
 
 
@@ -139,7 +254,7 @@ inline const child_t<void,find::one>
 
 // -----------------------------------------------------------------------------
 // Keywords
-// Of type child_t<*>
+// Of type child_t
 //
 // fixme Eventually, many (or most (or all)) deserve a solid type,
 // not child_t's default.

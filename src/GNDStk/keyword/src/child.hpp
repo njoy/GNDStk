@@ -3,38 +3,53 @@
 // keyword_t::child()
 // -----------------------------------------------------------------------------
 
-// name [,top]
-template<class RESULT = void, find FIND = find::one>
-static auto child(const std::string &name, const bool top = false)
-{
-   return child_t<
-      RESULT,
-      FIND,
-      metadata<>,
-      children<>
-   >{name,top};
+// child[<[void[,FIND]]>](name[,top])
+template<
+   class RESULT = void,
+   find  FIND = find::one
+>
+static child_t<
+   typename detail::isVoid<RESULT>::type,
+   FIND, detail::failure_t
+> child(
+   const std::string &name,
+   const bool top = false
+) {
+   return child_t<void,FIND,detail::failure_t>{name,top};
 }
 
-// name, keyword[s]
-template<class RESULT = void, find FIND = find::one, class K, class... Ks>
-static auto child(const std::string &name, const K &, Ks...)
-{
-   return child_t<
-      RESULT,
-      FIND,
-      typename detail::catenateMetadata<metadata<>,K,Ks...>::type,
-      typename detail::catenateChildren<children<>,K,Ks...>::type
-   >{name};
+
+// child<RESULT[,FIND[,CONVERTER]]>(name[,top[,converter]])
+template<
+   class RESULT,
+   find  FIND = find::one,
+   class CONVERTER = detail::convert_t
+>
+static child_t<
+   typename detail::isNotVoid<RESULT>::type,
+   FIND, CONVERTER
+> child(
+   const std::string &name,
+   const bool top = false,
+   const CONVERTER &converter = CONVERTER{}
+) {
+   return child_t<RESULT,FIND,CONVERTER>{name,top,converter};
 }
 
-// name, top, keyword[s]
-template<class RESULT = void, find FIND = find::one, class K, class... Ks>
-static auto child(const std::string &name, const bool top, const K &, Ks...)
-{
-   return child_t<
-      RESULT,
-      FIND,
-      typename detail::catenateMetadata<metadata<>,K,Ks...>::type,
-      typename detail::catenateChildren<children<>,K,Ks...>::type
-   >{name,top};
+
+// child<RESULT[,FIND[,CONVERTER]]>(name,converter[,top])
+template<
+   class RESULT,
+   find  FIND = find::one,
+   class CONVERTER = detail::convert_t
+>
+static child_t<
+   typename detail::isNotVoid<RESULT>::type,
+   FIND, CONVERTER
+> child(
+   const std::string &name,
+   const CONVERTER &converter,
+   const bool top = false
+) {
+   return child_t<RESULT,FIND,CONVERTER>{name,top,converter};
 }

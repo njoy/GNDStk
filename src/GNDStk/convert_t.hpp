@@ -15,13 +15,13 @@ public:
    }
 };
 
+// fixme dumb name
 class failure_t {
 public:
    template<class FROM, class TO>
    void operator()(const FROM &, TO &) const
    {
-      // fixme say something intelligent here;
-      // maybe better class name too
+      // fixme error message; this shouldn't happen
       throw std::exception{};
    }
 };

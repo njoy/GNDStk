@@ -66,24 +66,8 @@ public:
    // General functions
    // ------------------------
 
-   // fixme Should probably have some additional constructors,
-   // allowing for name, metadata, etc. at construction time.
-
-   // ctor: default, move, copy
-   Node() { }
-   Node(Node &&) = default;
-   Node(const Node &from)
-   {
-      detail::node2Node(from,*this);
-   }
-
-   // assignment: move, copy
-   Node &operator=(Node &&) = default;
-   Node &operator=(const Node &from)
-   {
-      detail::node2Node(from,*this);
-      return *this;
-   }
+   #include "GNDStk/Node/src/ctor.hpp"
+   #include "GNDStk/Node/src/assign.hpp"
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"

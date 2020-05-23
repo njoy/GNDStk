@@ -29,7 +29,7 @@ template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM
 >
-explicit Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
+Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
    try {
       convert(from,*this);
@@ -167,9 +167,12 @@ Tree(
 // arguments to be *file* names (not top-level node names).
 
 // keyword, format
-template<class RESULT, find FIND, class METADATA, class CHILDREN>
+template<
+   class RESULT, find FIND, class CONVERTER,
+   class METADATA, class CHILDREN
+>
 Tree(
-   const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &top,
    const format form = format::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
@@ -187,9 +190,12 @@ Tree(
 }
 
 // keyword, string
-template<class RESULT, find FIND, class METADATA, class CHILDREN>
+template<
+   class RESULT, find FIND, class CONVERTER,
+   class METADATA, class CHILDREN
+>
 Tree(
-   const child_t<RESULT,FIND,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &top,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
