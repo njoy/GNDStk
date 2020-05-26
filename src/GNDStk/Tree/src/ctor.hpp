@@ -13,10 +13,10 @@ Tree(Tree &&) = default;
 
 
 // copy
-Tree(const Tree &from)
+Tree(const Tree &t)
 {
    try {
-      convert(from,*this);
+      convert(t,*this);
    } catch (const std::exception &) {
       log::context("Tree(Tree)");
       throw;
@@ -29,10 +29,10 @@ template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM
 >
-Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
+Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &t)
 {
    try {
-      convert(from,*this);
+      convert(t,*this);
    } catch (const std::exception &) {
       log::context("Tree(Tree<different>)");
       throw;

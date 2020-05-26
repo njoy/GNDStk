@@ -17,6 +17,7 @@ public:
 
 // fixme dumb name
 class failure_t {
+   /*
 public:
    template<class FROM, class TO>
    void operator()(const FROM &, TO &) const
@@ -24,6 +25,7 @@ public:
       // fixme error message; this shouldn't happen
       throw std::exception{};
    }
+   */
 };
 
 
