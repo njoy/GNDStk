@@ -10,12 +10,12 @@ template<
 >
 static child_t<
    typename detail::isVoid<RESULT>::type,
-   FIND, detail::failure_t
+   FIND
 > child(
    const std::string &name,
    const bool top = false
 ) {
-   return child_t<void,FIND,detail::failure_t>{name,top};
+   return child_t<void,FIND>{name,top};
 }
 
 

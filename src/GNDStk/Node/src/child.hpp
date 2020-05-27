@@ -20,18 +20,16 @@
 // -----------------------------------------------------------------------------
 
 // const
-template<class METADATA, class CHILDREN>
 const Node &child(
-   const child_t<void,find::one,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one> &kwd,
    bool &found = detail::default_bool
 ) const {
    return one(kwd.name,found);
 }
 
 // non-const
-template<class METADATA, class CHILDREN>
 Node &child(
-   const child_t<void,find::one,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one> &kwd,
    bool &found = detail::default_bool
 ) {
    return one(kwd.name,found);
@@ -44,12 +42,9 @@ Node &child(
 // -----------------------------------------------------------------------------
 
 // const
-template<
-   template<class...> class CONTAINER = std::vector,
-   class METADATA, class CHILDREN
->
+template<template<class...> class CONTAINER = std::vector>
 CONTAINER<Node,std::allocator<Node>> child(
-   const child_t<void,find::all,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::all> &kwd,
    bool &found = detail::default_bool
 ) const {
    return all<CONTAINER>(kwd.name,found);
@@ -62,12 +57,9 @@ CONTAINER<Node,std::allocator<Node>> child(
 // -----------------------------------------------------------------------------
 
 // RESULT
-template<
-   class RESULT,
-   class CONVERTER, class METADATA, class CHILDREN
->
+template<class RESULT, class CONVERTER>
 RESULT child(
-   const child_t<RESULT,find::one,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -86,16 +78,13 @@ RESULT child(
 
 // variant
 // With caller-specified result type
-template<
-   class RESULT,
-   class CONVERTER, class METADATA, class CHILDREN, class... Ts
->
+template<class RESULT, class CONVERTER, class... Ts>
 typename detail::oneof<RESULT,Ts...>::type child(
-   const child_t<std::variant<Ts...>,find::one,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child(
-      child_t<RESULT,find::one,CONVERTER,METADATA,CHILDREN>(kwd.name),
+      child_t<RESULT,find::one,CONVERTER>(kwd.name),
       found
    );
 }
@@ -109,11 +98,10 @@ typename detail::oneof<RESULT,Ts...>::type child(
 // RESULT
 template<
    template<class...> class CONTAINER = std::vector,
-   class RESULT,
-   class CONVERTER, class METADATA, class CHILDREN
+   class RESULT, class CONVERTER
 >
 CONTAINER<RESULT,std::allocator<RESULT>> child(
-   const child_t<RESULT,find::all,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    CONTAINER<RESULT,std::allocator<RESULT>> container;
@@ -141,17 +129,17 @@ CONTAINER<RESULT,std::allocator<RESULT>> child(
 template<
    class RESULT,
    template<class...> class CONTAINER = std::vector,
-   class CONVERTER, class METADATA, class CHILDREN, class... Ts
+   class CONVERTER, class... Ts
 >
 CONTAINER<
    typename detail::oneof<RESULT,Ts...>::type,
    std::allocator<typename detail::oneof<RESULT,Ts...>::type>
 > child(
-   const child_t<std::variant<Ts...>,find::all,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(
-      child_t<RESULT,find::all,CONVERTER,METADATA,CHILDREN>(kwd.name),
+      child_t<RESULT,find::all,CONVERTER>(kwd.name),
       found
    );
 }

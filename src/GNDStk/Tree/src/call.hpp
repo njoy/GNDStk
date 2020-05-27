@@ -8,9 +8,7 @@
 // ------------------------
 
 // meta_t
-template<
-   class RESULT, class CONVERTER
->
+template<class RESULT, class CONVERTER>
 decltype(auto) operator()(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
@@ -19,23 +17,18 @@ decltype(auto) operator()(
 }
 
 // child_t
-template<
-   class RESULT, find FIND, class CONVERTER, class METADATA, class CHILDREN
->
+template<class RESULT, find FIND, class CONVERTER>
 decltype(auto) operator()(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child(kwd,found);
 }
 
 // child_t, ...
-template<
-   class RESULT, find FIND, class CONVERTER, class METADATA, class CHILDREN,
-   class... Keywords
->
+template<class RESULT, find FIND, class CONVERTER, class... Keywords>
 decltype(auto) operator()(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    Keywords &&...keywords
 ) const {
    try {
@@ -65,23 +58,18 @@ decltype(auto) operator()(
 }
 
 // child_t
-template<
-   class RESULT, find FIND, class CONVERTER, class METADATA, class CHILDREN
->
+template<class RESULT, find FIND, class CONVERTER>
 decltype(auto) operator()(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) {
    return child(kwd,found);
 }
 
 // child_t, ...
-template<
-   class RESULT, find FIND, class CONVERTER, class METADATA, class CHILDREN,
-   class... Keywords
->
+template<class RESULT, find FIND, class CONVERTER, class... Keywords>
 decltype(auto) operator()(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    Keywords &&...keywords
 ) {
    try {

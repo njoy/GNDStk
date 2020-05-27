@@ -3,16 +3,6 @@
 // Tree::write()
 // -----------------------------------------------------------------------------
 
-/*
-Cases:
-   bool     write( string  &filename, format = null ) const
-   ostream &write( ostream &os,       format = null ) const
-   bool     write( string  &filename, string &form  ) const
-   ostream &write( ostream &os,       string &form  ) const
-*/
-
-
-
 // ------------------------
 // write(filename,format)
 // ------------------------

@@ -3,7 +3,6 @@ namespace detail {
 
 // -----------------------------------------------------------------------------
 // convert_t
-// failure_t
 // -----------------------------------------------------------------------------
 
 class convert_t {
@@ -13,19 +12,6 @@ public:
    {
       convert(from,to);
    }
-};
-
-// fixme dumb name
-class failure_t {
-   /*
-public:
-   template<class FROM, class TO>
-   void operator()(const FROM &, TO &) const
-   {
-      // fixme error message; this shouldn't happen
-      throw std::exception{};
-   }
-   */
 };
 
 
@@ -43,7 +29,7 @@ public:
 template<>
 class default_converter<void> {
 public:
-   using type = failure_t;
+   using type = void;
 };
 
 } // namespace detail

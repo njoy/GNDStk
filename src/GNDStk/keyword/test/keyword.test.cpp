@@ -292,30 +292,4 @@ SCENARIO("Testing GNDStk keyword") {
    auto c19=keyword.child<int, find::one>("c19");
    auto c20=keyword.child<int, find::one>("c20",true );
    auto c21=keyword.child<int, find::one>("c21",false);
-
-   /*
-   // for now, make sure some template metaprogramming material is working
-   // 2020-may-22 Not viable at the moment; changed relevant functions
-   auto c22=keyword.child<              >("c22"      ,m04,c08,m06,c17);
-   auto c23=keyword.child<              >("c23",true ,c21,c05,c08,c11);
-   auto c24=keyword.child<              >("c24",false,c09,c17,c20,c04);
-   auto c25=keyword.child<void          >("c25"      ,c04,c01,c13,c12);
-   auto c26=keyword.child<void          >("c26",true ,c17,c10,c13,m01);
-   auto c27=keyword.child<void          >("c27",false,m06,c18,m08,c11);
-   auto c28=keyword.child<void,find::all>("c28"      ,c19,m04,c11,c15);
-   auto c29=keyword.child<void,find::all>("c29",true ,m02,c01,m06,m08,c11);
-   auto c30=keyword.child<void,find::all>("c30",false,c06,c03,c09,m06,c14);
-   auto c31=keyword.child<void,find::one>("c31"      ,c13,m03,c18,m08,c09);
-   auto c32=keyword.child<void,find::one>("c32",true ,m07,c07,c08,c20,c10);
-   auto c33=keyword.child<void,find::one>("c33",false,m01,m04,c15,m08,c18);
-   auto c34=keyword.child<int           >("c34"      ,m07,m04,m05,c04,m02);
-   auto c35=keyword.child<int           >("c35",true ,c14,c18,c01,m05,c15);
-   auto c36=keyword.child<int           >("c36",false,c01,m07,c19,c11,c20,c12);
-   auto c37=keyword.child<int, find::all>("c37"      ,c09,c11,c19,m08,m05,c08);
-   auto c38=keyword.child<int, find::all>("c38",true ,c09,c07,c21,c14,c13,c08);
-   auto c39=keyword.child<int, find::all>("c39",false,c16,m08,c10,c18,c07,c08);
-   auto c40=keyword.child<int, find::one>("c40"      ,m02,c08,c03,m05,c09,c18);
-   auto c41=keyword.child<int, find::one>("c41",true ,c06,m06,c21,c10,c12,m02);
-   auto c42=keyword.child<int, find::one>("c42",false,c09,c10,c07,m05,c08,m02);
-   */
 }

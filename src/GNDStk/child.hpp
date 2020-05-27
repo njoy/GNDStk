@@ -44,36 +44,7 @@ CONVERTER
 
    Custom conversion between RESULT and Node, if we wish to override the
    default of calling the overloaded function convert() to do the conversion.
-
-METADATA
-
-   fixme: not entirely implemented yet.
-
-   This is metadata<M1,M2,...> for some meta_t types M1, M2, .... These
-   meta_t types indicate what types of metadata this child_t is allowed
-   to have. This information will be used in a SFINAE context to ensure
-   that a particular drill-down into the Tree is well-structured.
-
-   Defaults to metadata<>, which means that we're allowing this child_t
-   to have any type of children.
-
-   At the moment, we're building all our keywords this way. The goal is
-   to eventually outfit these with proper specifications of what metadata
-   are allowed, if such specifications are well-defined in GNDS.
-
-CHILDREN
-
-   fixme: not entirely implemented yet.
-
-   This is children<C1,C2,...> for some child_t types C1, C2, ....
-   Similar to METADATA, but defines what children this child_t can have.
 */
-
-// Helper classes
-template<class... Ms> class metadata { };
-template<class... Cs> class children { };
-
-
 
 // ------------------------
 // default
@@ -82,9 +53,7 @@ template<class... Cs> class children { };
 template<
    class RESULT    = void,       // default means current Node type
    find  FIND      = find::one,  // one, or any number allowed?
-   class CONVERTER = typename detail::default_converter<RESULT>::type,
-   class METADATA  = metadata<>, // allowable metadata for this child-node type
-   class CHILDREN  = children<>  // allowable children ...
+   class CONVERTER = typename detail::default_converter<RESULT>::type
 >
 class child_t {
 public:
@@ -120,10 +89,10 @@ public:
 // void
 // ------------------------
 
-template<find FIND, class CONVERTER, class METADATA, class CHILDREN>
-class child_t<void,FIND,CONVERTER,METADATA,CHILDREN> {
+template<find FIND, class CONVERTER>
+class child_t<void,FIND,CONVERTER> {
    static_assert(
-      std::is_same<CONVERTER,detail::failure_t>::value,
+      std::is_same<CONVERTER,void>::value,
      "Can't instantiate child_t<void,FIND,CONVERTER> "
      "with non-default CONVERTER"
    );

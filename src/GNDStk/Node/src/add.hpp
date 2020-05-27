@@ -118,15 +118,12 @@ typename std::enable_if<
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<
-   class METADATA, class CHILDREN,
-   class T
->
+template<class T>
 typename std::enable_if<
    std::is_convertible<T,Node>::value,
    Node &
 >::type add(
-   const child_t<void,find::one,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one> &kwd,
    const T &value
 ) {
    try {
@@ -146,15 +143,12 @@ typename std::enable_if<
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<
-   class TYPE, class CONVERTER, class METADATA, class CHILDREN,
-   class T
->
+template<class TYPE, class CONVERTER, class T>
 typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    Node &
 >::type add(
-   const child_t<TYPE,find::one,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<TYPE,find::one,CONVERTER> &kwd,
    const T &value
 ) {
    try {
@@ -175,7 +169,6 @@ typename std::enable_if<
 // Gives each new node the name from the keyword object.
 // No returned reference, because we entered numerous new values.
 template<
-   class METADATA, class CHILDREN,
    template<class...> class CONTAINER = std::vector,
    class T = Node, class... Args
 >
@@ -183,7 +176,7 @@ typename std::enable_if<
    std::is_convertible<T,Node>::value,
    void
 >::type add(
-   const child_t<void,find::all,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::all> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {
@@ -202,7 +195,7 @@ typename std::enable_if<
 // Gives each new node the name from the keyword object.
 // No returned reference, because we entered numerous new values.
 template<
-   class TYPE, class CONVERTER, class METADATA, class CHILDREN,
+   class TYPE, class CONVERTER,
    template<class...> class CONTAINER = std::vector,
    class T = TYPE, class... Args
 >
@@ -210,7 +203,7 @@ typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    void
 >::type add(
-   const child_t<TYPE,find::all,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<TYPE,find::all,CONVERTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
     try {

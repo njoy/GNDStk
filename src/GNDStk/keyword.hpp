@@ -4,11 +4,6 @@
 // create meta_t and child_t keywords.
 // -----------------------------------------------------------------------------
 
-// catenate*
-// Template metaprogramming detail for use by the upcoming keyword_t
-#include "GNDStk/keyword/src/catenateMetadata.hpp"
-#include "GNDStk/keyword/src/catenateChildren.hpp"
-
 // keyword_t
 class keyword_t {
 public:

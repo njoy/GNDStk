@@ -60,9 +60,13 @@ SCENARIO("Testing GNDStk Node add()") {
 
    // metadata, string key, various value types
    n.add(std::make_pair("a","b"));
+   CHECK(n.metadata.size() == 1);
+   CHECK(n.metadata[0].first == "a");
+   CHECK(n.metadata[0].second == "b");
    n.add(std::string("one"), std::string("two"));
    n.add("1","2");
    auto &pair = n.add("foobar", "foo bar");
+   CHECK(pair.first == "foobar");
    CHECK(pair.second == "foo bar");
    n.add("3",3.1416);
    n.add("4",dimensions2d(12,34));

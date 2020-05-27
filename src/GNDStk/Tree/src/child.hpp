@@ -13,18 +13,16 @@
 // -----------------------------------------------------------------------------
 
 // const
-template<class METADATA, class CHILDREN>
 const nodeType &child(
-   const child_t<void,find::one,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one> &kwd,
    bool &found = detail::default_bool
 ) const {
    return one(kwd.name,found);
 }
 
 // non-const
-template<class METADATA, class CHILDREN>
 nodeType &child(
-   const child_t<void,find::one,detail::failure_t,METADATA,CHILDREN> &kwd,
+   const child_t<void,find::one> &kwd,
    bool &found = detail::default_bool
 ) {
    return one(kwd.name,found);
@@ -37,12 +35,9 @@ nodeType &child(
 // -----------------------------------------------------------------------------
 
 // RESULT
-template<
-   class RESULT,
-   class CONVERTER, class METADATA, class CHILDREN
->
+template<class RESULT, class CONVERTER>
 RESULT child(
-   const child_t<RESULT,find::one,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<RESULT,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -59,16 +54,10 @@ RESULT child(
 
 // variant
 // With caller-specified result type
-template<
-   class RESULT,
-   class CONVERTER, class METADATA, class CHILDREN, class... Ts
->
+template<class RESULT, class CONVERTER, class... Ts>
 typename detail::oneof<RESULT,Ts...>::type child(
-   const child_t<std::variant<Ts...>,find::one,CONVERTER,METADATA,CHILDREN> &kwd,
+   const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child(
-      child_t<RESULT,find::one,CONVERTER,METADATA,CHILDREN>(kwd.name),
-      found
-   );
+   return child(child_t<RESULT,find::one,CONVERTER>(kwd.name), found);
 }

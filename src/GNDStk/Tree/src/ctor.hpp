@@ -167,12 +167,9 @@ Tree(
 // arguments to be *file* names (not top-level node names).
 
 // keyword, format
-template<
-   class RESULT, find FIND, class CONVERTER,
-   class METADATA, class CHILDREN
->
+template<class RESULT, find FIND, class CONVERTER>
 Tree(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,CONVERTER> &top,
    const format form = format::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
@@ -190,12 +187,9 @@ Tree(
 }
 
 // keyword, string
-template<
-   class RESULT, find FIND, class CONVERTER,
-   class METADATA, class CHILDREN
->
+template<class RESULT, find FIND, class CONVERTER>
 Tree(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,CONVERTER> &top,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

@@ -617,8 +617,6 @@
     "src/GNDStk/node2type/src/detail.hpp", 
     "src/GNDStk/keyword/src/child.hpp", 
     "src/GNDStk/keyword/src/meta.hpp", 
-    "src/GNDStk/keyword/src/catenateChildren.hpp", 
-    "src/GNDStk/keyword/src/catenateMetadata.hpp", 
     "src/GNDStk/type2node/src/detail.hpp", 
     "src/GNDStk/meta/src/keyword.hpp", 
     "src/GNDStk/meta/src/operator.hpp", 

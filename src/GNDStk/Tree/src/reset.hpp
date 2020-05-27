@@ -22,12 +22,9 @@
 // reset(top, format, ...)
 // ------------------------
 
-template<
-   class RESULT, find FIND, class CONVERTER,
-   class METADATA, class CHILDREN
->
+template<class RESULT, find FIND, class CONVERTER>
 nodeType &reset(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,CONVERTER> &top,
    const format form = format::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -91,12 +88,9 @@ nodeType &reset(
 // reset(top, string, ...)
 // ------------------------
 
-template<
-   class RESULT, find FIND, class CONVERTER,
-   class METADATA, class CHILDREN
->
+template<class RESULT, find FIND, class CONVERTER>
 nodeType &reset(
-   const child_t<RESULT,FIND,CONVERTER,METADATA,CHILDREN> &top,
+   const child_t<RESULT,FIND,CONVERTER> &top,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

@@ -3,16 +3,6 @@
 // Tree::read()
 // -----------------------------------------------------------------------------
 
-/*
-Cases:
-   bool     read( string  &filename, format = null )
-   istream &read( istream &is,       format = null )
-   bool     read( string  &filename, string &form  )
-   istream &read( istream &is,       string &form  )
-*/
-
-
-
 // ------------------------
 // read(filename,format)
 // ------------------------
