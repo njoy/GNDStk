@@ -43,16 +43,6 @@ inline void convert(const Node<> &n, isotope_t &iso)
 
 SCENARIO("Testing GNDStk Node operator()") {
 
-   // If I put these outside SCENARIO, the build system claims that they're
-   // multiply defined with respect to the definitions in child.test.cpp.
-   // Why on earth does the build system cram together that file and this one?
-   // Oh, but if I leave them out (because, apparently, the build system tries
-   // to bring them in from child.test.cpp!), then it complains that they aren't
-   // defined at all! OK, maybe putting them here, locally, will work. Hooray
-   // for confounding, convoluted and Byzantine building and testing systems
-   // that invariably make compiling and testing more complicated than they'd
-   // be if we had no such systems at all.
-
    // keywords with find::one
    auto temperature =
       keyword.child<temperature_t,find::one>("temperature");

@@ -109,11 +109,10 @@ SCENARIO("Testing GNDStk Node add()") {
    Node<> node3; node3.name = "cc33";
    Node<> node4; node4.name = "dd44";
    std::vector<Node<>> vec;
-   // change the following, assuming we add back node's copy constructor...
-   vec.emplace_back(node1.copy());
-   vec.emplace_back(node2.copy());
-   vec.emplace_back(node3.copy());
-   vec.emplace_back(node4.copy());
+   vec.push_back(node1);
+   vec.push_back(node2);
+   vec.push_back(node3);
+   vec.push_back(node4);
    n.add(nrepeat,vec);
 
    auto drepeat = keyword.child<dim2d,find::all>("dimension");

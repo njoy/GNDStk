@@ -299,10 +299,28 @@ GNDSTK_MAKE_CHILD_DEFAULT(yields, find::one);
 
 // -----------------------------------------------------------------------------
 // keywords
-// Special cases, not doable with our macro.
+// Special cases
 // -----------------------------------------------------------------------------
 
+// Helper for cdata, pcdata, and comment
+namespace detail {
+   class text_metadatum_to_string {
+   public:
+      template<class NODE>
+      void operator()(const NODE &node, std::string &to) const
+      {
+         to = node(meta::text);
+      }
+   };
+}
+
 namespace child {
+
+// cdata, pcdata, comment
+inline const child_t<std::string,find::all,detail::text_metadatum_to_string>
+   cdata  ("cdata"  ),
+   pcdata ("pcdata" ),
+   comment("comment");
 
 // Double
 // Not called double, for obvious reasons.

@@ -30,16 +30,8 @@ or particularly helpful to convert a node to a stream.
 // Turns out that we already have this capability, in order to do tree-to-tree
 // conversions. We just need to forward-declare it first...
 namespace detail {
-   template<
-      template<class...> class METADATA_CONTAINER_FROM,
-      template<class...> class CHILDREN_CONTAINER_FROM,
-      template<class...> class METADATA_CONTAINER_TO,
-      template<class...> class CHILDREN_CONTAINER_TO
-   >
-   void node2Node(
-      const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
-            Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &
-   );
+   template<class NODEFROM, class NODETO>
+   void node2Node(const NODEFROM &, NODETO &);
 }
 
 // And then convert, for type == node

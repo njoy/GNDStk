@@ -6,13 +6,9 @@ namespace detail {
 // -----------------------------------------------------------------------------
 
 // node2json
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
+template<class NODE>
 bool node2json(
-   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
-   nlohmann::json &j,
+   const NODE &node, nlohmann::json &j,
    const std::string &suffix = ""
 ) {
    // Original node name, and suffixed name. The latter is for handling child
@@ -94,9 +90,7 @@ namespace pugi
 }
 */
 
-
-
-// Helper
+// internal_xml_node2Node
 inline bool internal_xml_node2Node(const std::string &str)
 {
    log::error(
@@ -108,17 +102,10 @@ inline bool internal_xml_node2Node(const std::string &str)
    return false; // in case we allow exceptions to be turned off
 }
 
-
-
 // pugi::xml_node ==> Node
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool xml_node2Node(
-   const pugi::xml_node &xnode,
-   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
-) {
+template<class NODE>
+bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
+{
    // check destination node
    if (!node.empty()) {
       log::error(
@@ -143,13 +130,13 @@ bool xml_node2Node(
       // not handled right now
       // ------------------------
 
-      // I don't think that the following should ever appear in this context...
+      // I don't think that the following should ever appear in this context
       if (xsub.type() == pugi::node_document)
          return internal_xml_node2Node("node_document");
       if (xsub.type() == pugi::node_declaration)
          return internal_xml_node2Node("node_declaration");
 
-      // For now I won't handle these; let's ensure that we don't see them...
+      // For now I won't handle these; let's ensure that we don't see them
       if (xsub.type() == pugi::node_null)
          return internal_xml_node2Node("node_null");
       if (xsub.type() == pugi::node_pi)
@@ -166,7 +153,7 @@ bool xml_node2Node(
             if (!xml_node2Node(xsub,node.add()))
                return false;
          } catch (const std::exception &) {
-            // recursive; no point printing error context; just throw
+            // recursive; no point printing error context, so just throw
             throw;
          }
          continue;
@@ -176,24 +163,29 @@ bool xml_node2Node(
       // cdata, pcdata, comment
       // ------------------------
 
-      // We'll store these as metadata for the current node;
-      // they aren't really children in the usual XML sense.
+      // We'll store these in a special manner as children of the current node,
+      // reflecting how they arrived through pugi xml. Our manner of storing
+      // them will allow us to maintain their original ordering if, say, someone
+      // reads an XML, makes modest modifications or additions to data here and
+      // there, and then writes an XML back out. GNDS has no ordering, so doing
+      // this isn't necessary. It is, however, easy to handle, and users may
+      // appreciate that GNDStk doesn't toss comments, or mess with the ordering
+      // of cdata, pcdata, or comment nodes, either individually or together.
+      // Of note, all bets are off if someone converts to JSON and back, because
+      // the nlohmann JSON library reorders everything lexicographically.
 
-      // cdata (from '<![CDATA[foo]]>')
       if (xsub.type() == pugi::node_cdata) {
-         node.add(keyword_cdata, xsub.value());
+         node.add("cdata").add("text", xsub.value());
          continue;
       }
 
-      // pcdata (from 'foo'; plain character data)
       if (xsub.type() == pugi::node_pcdata) {
-         node.add(keyword_pcdata, xsub.value());
+         node.add("pcdata").add("text", xsub.value());
          continue;
       }
 
-      // comment (from '<!-- foo -->')
       if (xsub.type() == pugi::node_comment) {
-         node.add(keyword_comment, xsub.value());
+         node.add("comment").add("text", xsub.value());
          continue;
       }
 
@@ -238,14 +230,9 @@ inline bool internal_json2node(const std::string &str)
 }
 
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool json2node(
-   const nlohmann::json::const_iterator &iter,
-   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
-) {
+template<class NODE>
+bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
+{
    // the node sent here should be fresh, ready to receive entries...
    if (!node.empty())
       return internal_json2node("!node.empty()");
@@ -301,16 +288,9 @@ bool json2node(
 
 
 // Node ==> Node
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM,
-   template<class...> class METADATA_CONTAINER_TO,
-   template<class...> class CHILDREN_CONTAINER_TO
->
-inline void node2Node(
-   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-   Node<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
-) {
+template<class NODEFROM, class NODETO>
+inline void node2Node(const NODEFROM &from, NODETO &to)
+{
    // Check that the destination node is empty. We don't really need to have
    // such a check in a viable node-to-node function; it would be perfectly
    // reasonable to clear the destination node and then copy the contents of
@@ -345,103 +325,104 @@ inline void node2Node(
 // Helpers for convert(*,XML)
 // -----------------------------------------------------------------------------
 
+// check_special
+template<class NODE>
+bool check_special(const NODE &node, const std::string &label)
+{
+   if (node.children.size() != 0) {
+      log::error(
+         "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+         "ill-formed <" + label + "> node; "
+         "should have 0 children, but has {}",
+         node.children.size()
+      );
+      throw std::exception{};
+      return false;
+   }
+
+   if (node.metadata.size() != 1) {
+      log::error(
+         "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+         "ill-formed <" + label + "> node; "
+         "should have 1 metadatum, but has {}",
+         node.metadata.size()
+      );
+      throw std::exception{};
+      return false;
+   }
+
+   if (node.metadata.begin()->first != "text") {
+      log::error(
+         "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+         "ill-formed <" + label + "> node; "
+         "should have metadatum key \"text\", but has key \"{}\"",
+         node.metadata.begin()->first
+      );
+      throw std::exception{};
+      return false;
+   }
+
+   return true;
+}
+
+
+
+// write_cdata
+template<class NODE>
+bool write_cdata(const NODE &node, pugi::xml_node &xnode)
+{
+   if (!check_special(node,"cdata")) return false;
+   xnode.append_child(pugi::node_cdata).set_value(node(meta::text).c_str());
+   return true;
+}
+
+// write_pcdata
+template<class NODE>
+bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
+{
+   if (!check_special(node,"pcdata")) return false;
+   xnode.append_child(pugi::node_pcdata).set_value(node(meta::text).c_str());
+   return true;
+}
+
+// write_comment
+template<class NODE>
+bool write_comment(const NODE &node, pugi::xml_node &xnode)
+{
+   if (!check_special(node,"comment")) return false;
+   xnode.append_child(pugi::node_comment).set_value(node(meta::text).c_str());
+   return true;
+}
+
+
+
 // node2XML
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool node2XML(
-   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
-   pugi::xml_node &x
-) {
+template<class NODE>
+bool node2XML(const NODE &node, pugi::xml_node &x)
+{
    // name
    pugi::xml_node xnode = x.append_child(node.name.c_str());
 
    // metadata
-   for (auto &meta : node.metadata) {
-
-      // ------------------------
-      // PCDATA
-      // ------------------------
-
-      if (meta.first == keyword_pcdata) {
-         if (node.children.size() != 0) {
-            // From https://en.wikipedia.org/wiki/PCDATA
-            //   "When declaring document elements. An element declaration
-            //    employing the #PCDATA content model value does not allow
-            //    for child elements." [Initial sentence fragment theirs.]
-            // So, the following would appear to be reasonable.
-            log::error(
-               "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
-               "node with PCDATA appears to have other elements as well,\n"
-               "making the node ill-formed"
-            );
-            throw std::exception{};
-            return false;
-         }
-
-         xnode.append_child(pugi::node_pcdata).set_value(meta.second.c_str());
-         continue;
-      }
-
-      // ------------------------
-      // CDATA
-      // ------------------------
-
-      if (meta.first == keyword_cdata) {
-         if (node.children.size() != 0) {
-            // Reading https://en.wikipedia.org/wiki/CDATA, I see nothing
-            // to suggest that other child elements are disallowed in this
-            // context. And, in fact, under "Uses of CDATA sections," they
-            // speak of splitting CDATA into e.g. <![CDATA[]]]]><![CDATA[>]]>.
-            // At the time of this writing, however, in official GNDS files,
-            // I only see CDATA elements as singletons, and without siblings.
-            // So, for now, I'll treat these as I do PCDATA elements.
-            log::error(
-               "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
-               "node with CDATA appears to have other elements as well,\n"
-               "making the node ill-formed"
-            );
-            throw std::exception{};
-            return false;
-         }
-
-         xnode.append_child(pugi::node_cdata).set_value(meta.second.c_str());
-         continue;
-      }
-
-      // ------------------------
-      // comment
-      // ------------------------
-
-      if (meta.first == keyword_comment) {
-         // Whoa, it seems that GNDS files sometimes have doubled-up comments,
-         // e.g. <!-- foo --><!-- bar -->. So, no node.children.size() checks
-         // here, as we did for pcdata and cdata. Side note: the double comments
-         // I'm seeing in some GNDS files arguably thumb their noses at GNDS'
-         // no-element-ordering rule; although, the nature of the comments in
-         // question, which appear to be intended as labels, e.g.
-         //    <!--  energy | capture | elastic  -->
-         //    <!--         |  width  |  width   -->
-         // appears to make them amenable to proper interpretation/treatment.
-         xnode.append_child(pugi::node_comment).set_value(meta.second.c_str());
-         continue;
-      }
-
-      // ------------------------
-      // regular element
-      // ------------------------
-
+   for (auto &meta : node.metadata)
       xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
-   }
 
    // children
    for (auto &child : node.children) {
       try {
-         if (child && !node2XML(*child, xnode))
+         // special element
+         if (child->name == "cdata")
+            { if (write_cdata  (*child,xnode)) continue; else return false; }
+         if (child->name == "pcdata")
+            { if (write_pcdata (*child,xnode)) continue; else return false; }
+         if (child->name == "comment")
+            { if (write_comment(*child,xnode)) continue; else return false; }
+
+         // typical element
+         if (!node2XML(*child,xnode))
             return false;
       } catch (const std::exception &) {
-         // recursive; no point printing error context; just throw
+         // recursive; no point in printing error context; just throw
          throw;
       }
    }

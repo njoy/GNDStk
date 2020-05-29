@@ -4,7 +4,6 @@ add_executable( GNDStk.Node.test
                 clear.test.cpp
                 child.test.cpp
                 sort.test.cpp
-                copy.test.cpp
                 meta.test.cpp
                 assign.test.cpp
                 all.test.cpp

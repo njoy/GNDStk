@@ -51,30 +51,30 @@ namespace log {
 
 // info
 template<class... Args>
-inline void info(Args &&...args)
+inline void info(const std::string &str, Args &&...args)
 {
-   Log::info(std::forward<Args>(args)...);
+   Log::info(str.c_str(), std::forward<Args>(args)...);
 }
 
 // debug
 template<class... Args>
-inline void debug(Args &&...args)
+inline void debug(const std::string &str, Args &&...args)
 {
-   Log::debug(std::forward<Args>(args)...);
+   Log::debug(str.c_str(), std::forward<Args>(args)...);
 }
 
 // warning
 template<class... Args>
-inline void warning(Args &&...args)
+inline void warning(const std::string &str, Args &&...args)
 {
-   Log::warning(std::forward<Args>(args)...);
+   Log::warning(str.c_str(), std::forward<Args>(args)...);
 }
 
 // error
 template<class... Args>
-inline void error(Args &&...args)
+inline void error(const std::string &str, Args &&...args)
 {
-   Log::error(std::forward<Args>(args)...);
+   Log::error(str.c_str(), std::forward<Args>(args)...);
 }
 
 // context
@@ -129,92 +129,33 @@ class JSON;
 // define the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
-// convert
-//
-// ...Tree to Tree
-// ...Tree to XML
-// ...Tree to JSON
-//
-// ...XML  to Tree
-// ...XML  to XML
-// ...XML  to JSON
-//
-// ...JSON to Tree
-// ...JSON to XML
-// ...JSON to JSON
-
+// Note: the template arguments below are all CONTAINER types. These template
+// arguments are: MONE, CONE, MTWO, CTWO, M, and C. Normally we'd give longer,
+// more-descriptive names, as we do elsewhere. These mere forward declarations
+// for convert() are, however, shorter and clearer with the abbreviated names.
 
 // Tree to {Tree,XML,JSON}
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM,
-   template<class...> class METADATA_CONTAINER_TO,
-   template<class...> class CHILDREN_CONTAINER_TO
->
-bool convert(
-   const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &,
-   Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &
-);
+template<template<class...> class MONE, template<class...> class CONE,
+         template<class...> class MTWO, template<class...> class CTWO>
+bool convert(const Tree<MONE,CONE> &, Tree<MTWO,CTWO> &);
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool convert(
-   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   XML &
-);
+template<template<class...> class M, template<class...> class C>
+bool convert(const Tree<M,C> &, XML &);
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool convert(
-   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &,
-   JSON &
-);
-
+template<template<class...> class M, template<class...> class C>
+bool convert(const Tree<M,C> &, JSON &);
 
 // XML to {Tree,XML,JSON}
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool convert(
-   const XML &,
-   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
-);
-bool convert(const XML &, XML &);
+template<template<class...> class M, template<class...> class C>
+bool convert(const XML &, Tree<M,C> &);
+bool convert(const XML &, XML  &);
 bool convert(const XML &, JSON &);
 
-
 // JSON to {Tree,XML,JSON}
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool convert(
-   const JSON &,
-   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &
-);
-bool convert(const JSON &, XML &);
+template<template<class...> class M, template<class...> class C>
+bool convert(const JSON &, Tree<M,C> &);
+bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
-
-
-
-// -----------------------------------------------------------------------------
-// Some string constants
-// -----------------------------------------------------------------------------
-
-namespace detail {
-
-// These correspond to the enum pugi::xml_node_type
-// values { node_cdata, node_pcdata, node_comment }
-inline const std::string keyword_cdata   = "cdata";
-inline const std::string keyword_pcdata  = "pcdata";
-inline const std::string keyword_comment = "comment";
-
-} // namespace detail
 
 
 

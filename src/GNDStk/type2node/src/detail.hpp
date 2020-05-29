@@ -5,13 +5,11 @@
 
 namespace detail {
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-std::string &put_pcdata_string(
-   Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
-) {
+template<class NODE>
+std::string &put_pcdata_string(NODE &node)
+{
+   /*
+   // fixme Really, the call context is such that this should never happen
    if (node.metadata.size() != 0) {
       log::error(
          "Unable to write pcdata (plain character data) entry to the Node,\n"
@@ -19,9 +17,9 @@ std::string &put_pcdata_string(
       );
       throw std::exception{};
    }
+   */
 
-   node.metadata.push_back({keyword_pcdata,""});
-   return node.metadata.back().second;
+   return node.add("pcdata").add("text","").second;
 }
 
 } // namespace detail

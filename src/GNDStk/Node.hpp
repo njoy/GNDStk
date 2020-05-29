@@ -49,19 +49,6 @@ public:
       return name == "" && metadata.size() == 0 && children.size() == 0;
    }
 
-   // copy
-   Node copy() const
-   {
-      Node n;
-      try {
-         detail::node2Node(*this,n);
-      } catch (const std::exception &) {
-         log::context("Node::copy()");
-         throw;
-      }
-      return n;
-   }
-
    // ------------------------
    // General functions
    // ------------------------

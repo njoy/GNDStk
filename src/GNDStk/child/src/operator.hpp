@@ -18,7 +18,7 @@ inline auto operator-(
 // -----------------------------------------------------------------------------
 // R/child_t
 // Change result to R
-// See meta operators for relevant comments
+// See meta operators for relevant remarks
 // -----------------------------------------------------------------------------
 
 template<class R, class RESULT, find FIND, class CONVERTER>
@@ -42,7 +42,7 @@ inline auto operator/(const R &, const child_t<void,FIND,CONVERTER> &kwd)
 // -----------------------------------------------------------------------------
 // child_t/C
 // Change converter to C
-// See meta operators for relevant comments
+// See meta operators for relevant remarks
 // -----------------------------------------------------------------------------
 
 template<class RESULT, find FIND, class CONVERTER, class C>

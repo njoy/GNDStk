@@ -99,30 +99,14 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 
 // -----------------------------------------------------------------------------
 // Keywords
-// Special cases, not doable with our macro.
+// Special cases
 // -----------------------------------------------------------------------------
 
 namespace meta {
 
-// ------------------------
-// cdata
-// pcdata
-// comment
-// ------------------------
-
-// fixme These may actually arrive with different keys if we've read from a
-// JSON (not XML) file - at least an original JSON, not created from an XML.
-// Figure out what we'd be getting in such a case.
-
-// cdata
-inline const meta_t<std::string> cdata(detail::keyword_cdata);
-
-// pcdata
-// fixme: Should perhaps be more general, not just vector<double>
-inline const meta_t<std::vector<double>> pcdata(detail::keyword_pcdata);
-
-// comment
-inline const meta_t<std::string> comment(detail::keyword_comment);
+// text
+// For use with cdata, pcdata, and comment child nodes
+GNDSTK_MAKE_META(void,text);
 
 
 // ------------------------

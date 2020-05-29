@@ -19,7 +19,7 @@ CONTAINER<Node,std::allocator<Node>> all(
       // search
       for (auto &c : children)
          if (c->name == key)
-            container.push_back(c->copy()); // can throw
+            container.push_back(*c); // can throw
    } catch (const std::exception &) {
       found = container.size() > 0;
       log::context("Node::all(key=\"{}\")", key);

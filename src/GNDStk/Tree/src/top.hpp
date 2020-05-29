@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 // Tree::top()
 // See also: Tree::decl()
-// See the comment in decl.hpp for more information.
+// See the remark in decl.hpp for more information.
 // -----------------------------------------------------------------------------
 
 // const

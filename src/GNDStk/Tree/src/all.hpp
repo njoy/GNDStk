@@ -24,9 +24,9 @@ CONTAINER<nodeType,std::allocator<nodeType>> all(
       // search
       if (has_decl()) {
          if (decl().name == key)
-            container.push_back(decl().copy());
+            container.push_back(decl());
          if (has_top() && top().name == key)
-            container.push_back(top().copy());
+            container.push_back(top());
       }
    } catch (const std::exception &) {
       found = container.size() > 0;

@@ -20,12 +20,6 @@ std::istream &read(std::istream &is)
 
    // done
    return is;
-
-   /*
-   if (is.eof ()) std::cout << "eof"  << std::endl;
-   if (is.bad ()) std::cout << "bad"  << std::endl;
-   if (is.fail()) std::cout << "fail" << std::endl;
-   */
 }
 
 

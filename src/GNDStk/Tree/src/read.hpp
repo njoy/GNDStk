@@ -82,7 +82,7 @@ std::istream &read(
    format form = format::null
 ) {
    // clear
-   // Comment as in read(string). Note that we need the clear() here, too,
+   // Remark as in read(string). Note that we need the clear() here, too,
    // because this function might be called directly, not via read(string).
    clear();
 
@@ -150,7 +150,7 @@ std::istream &read(
          // It would seem that the nlohmann::json stream input operation,
          // which is used by the constructor we just called, sets failbit
          // in instances in which it should just set eofbit. So, for now,
-         // we'll comment-out the "not is.fail()" test... :-/
+         // we'll remove the "not is.fail()" test... :-/
          // if (not is.fail())
          convert(tmp, *this);
       } else if (form == format::hdf5) {

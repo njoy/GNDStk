@@ -676,7 +676,6 @@
       "src/GNDStk/Node/test/clear.test.cpp", 
       "src/GNDStk/Node/test/child.test.cpp", 
       "src/GNDStk/Node/test/sort.test.cpp", 
-      "src/GNDStk/Node/test/copy.test.cpp", 
       "src/GNDStk/Node/test/meta.test.cpp", 
       "src/GNDStk/Node/test/assign.test.cpp", 
       "src/GNDStk/Node/test/all.test.cpp", 
