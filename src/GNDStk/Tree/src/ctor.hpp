@@ -11,28 +11,26 @@
 Tree() = default;
 Tree(Tree &&) = default;
 
-
 // copy
-Tree(const Tree &t)
+Tree(const Tree &from)
 {
    try {
-      convert(t,*this);
+      convert(from,*this);
    } catch (const std::exception &) {
       log::context("Tree(Tree)");
       throw;
    }
 }
 
-
 // templated "copy"
 template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM
 >
-Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &t)
+Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
    try {
-      convert(t,*this);
+      convert(from,*this);
    } catch (const std::exception &) {
       log::context("Tree(Tree<different>)");
       throw;
@@ -56,7 +54,6 @@ explicit Tree(const XML &x)
    }
 }
 
-
 // JSON
 explicit Tree(const JSON &j)
 {
@@ -78,10 +75,8 @@ explicit Tree(const JSON &j)
 // filename, format
 // Example:
 //    Tree<> t("n-008_O_016.xml", format::xml);
-explicit Tree(
-   const std::string &filename,
-   const format form = format::null
-) {
+explicit Tree(const std::string &filename, const format form = format::null)
+{
    try {
       read(filename,form);
    } catch (const std::exception &) {
@@ -90,14 +85,11 @@ explicit Tree(
    }
 }
 
-
 // filename, string
 // Example:
 //    Tree<> t("n-008_O_016.xml", "xml");
-Tree(
-   const std::string &filename,
-   const std::string &type
-) {
+Tree(const std::string &filename, const std::string &type)
+{
    try {
       read(filename,type);
    } catch (const std::exception &) {
@@ -106,15 +98,12 @@ Tree(
    }
 }
 
-
 // istream, format
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree<> t(ifs, format::xml);
-explicit Tree(
-   std::istream &is,
-   const format form = format::null
-) {
+explicit Tree(std::istream &is, const format form = format::null)
+{
    try {
       read(is,form);
    } catch (const std::exception &) {
@@ -123,15 +112,12 @@ explicit Tree(
    }
 }
 
-
 // istream, string
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree<> t(ifs, "xml");
-Tree(
-   std::istream &is,
-   const std::string &type
-) {
+Tree(std::istream &is, const std::string &type)
+{
    try {
       read(is,type);
    } catch (const std::exception &) {

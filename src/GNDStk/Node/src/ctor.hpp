@@ -6,18 +6,15 @@
 // fixme Should probably have some additional constructors,
 // allowing for name, metadata, etc. at construction time.
 
-
 // default, move
 Node() = default;
 Node(Node &&) = default;
-
 
 // copy
 Node(const Node &from)
 {
    detail::node2Node(from,*this);
 }
-
 
 // templated "copy"
 template<

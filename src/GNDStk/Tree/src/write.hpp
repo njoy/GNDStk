@@ -3,9 +3,74 @@
 // Tree::write()
 // -----------------------------------------------------------------------------
 
-// ------------------------
+// -----------------------------------------------------------------------------
+// write(ostream,format)
+// -----------------------------------------------------------------------------
+
+std::ostream &write(
+   std::ostream &os,
+   const format form = format::null
+) const {
+
+   // Discussion.
+   //
+   // This function might have been called through the filename write(); OR,
+   // might have been called directly by a user, or possibly called through
+   // the << stream output operator.
+   //
+   // In the former case, a filename was given, and thus the earlier function
+   // had the opportunity to examine the filename and, if applicable, make a
+   // smart decision - based on the filename extension - of what output format
+   // the user would like. That decision would have been forwarded to here.
+   //
+   // In the latter cases, only an ostream is involved, and there's neither
+   // a filename whose extension can be examined, nor an existing file (that
+   // we care about, at least - we're doing *output*) whose first character
+   // we can peek() in order to guess at the file type. We therefore have our
+   // else { } catch-all, below, write the tree in our basic tree-output form,
+   // whether format::null or format::tree arrived as the format. An argument
+   // could be made that write(ostream,format) should require that a format
+   // be given, considering that we don't, here, have a file or filename to
+   // examine. On the other hand, we like having format be optional, to make
+   // our various tree I/O functions be as consistent with one another as
+   // possible. Note, also, that if the user calls operator<<, then there's
+   // no opportunity to explicitly provide a format.
+
+   try {
+      if (form == format::xml) {
+         // write via a temporary xml object...
+         XML(*this).write(os);
+      } else if (form == format::json) {
+         // write via a temporary json object...
+         JSON(*this).write(os);
+      } else if (form == format::hdf5) {
+         // write via a temporary hdf5 object...
+         log::error("Tree::write() for HDF5 is not implemented yet");
+         throw std::exception{};
+      } else {
+         // default: our internal tree format
+         if (not empty())
+            top().write(os,0); // 0 is level
+      }
+
+      if (not os) {
+         log::error("Could not write to output stream");
+         throw std::exception{};
+      }
+   } catch (const std::exception &) {
+      log::context("Tree::write(ostream)");
+      throw;
+   }
+
+   // done
+   return os;
+}
+
+
+
+// -----------------------------------------------------------------------------
 // write(filename,format)
-// ------------------------
+// -----------------------------------------------------------------------------
 
 bool write(
    const std::string &filename,
@@ -70,74 +135,41 @@ bool write(
 
 
 
-// ------------------------
-// write(ostream,format)
-// ------------------------
+// -----------------------------------------------------------------------------
+// write(ostream,string)
+// -----------------------------------------------------------------------------
 
 std::ostream &write(
    std::ostream &os,
-   const format form = format::null
+   const std::string &form
 ) const {
-
-   // Discussion.
-   //
-   // This function might have been called through the filename write(); OR,
-   // might have been called directly by a user, or possibly called through
-   // the << stream output operator.
-   //
-   // In the former case, a filename was given, and thus the earlier function
-   // had the opportunity to examine the filename and, if applicable, make a
-   // smart decision - based on the filename extension - of what output format
-   // the user would like. That decision would have been forwarded to here.
-   //
-   // In the latter cases, only an ostream is involved, and there's neither
-   // a filename whose extension can be examined, nor an existing file (that
-   // we care about, at least - we're doing *output*) whose first character
-   // we can peek() in order to guess at the file type. We therefore have our
-   // else { } catch-all, below, write the tree in our basic tree-output form,
-   // whether format::null or format::tree arrived as the format. An argument
-   // could be made that write(ostream,format) should require that a format
-   // be given, considering that we don't, here, have a file or filename to
-   // examine. On the other hand, we like having format be optional, to make
-   // our various tree I/O functions be as consistent with one another as
-   // possible. Note, also, that if the user calls operator<<, then there's
-   // no opportunity to explicitly provide a format.
-
    try {
-      if (form == format::xml) {
-         // write via a temporary xml object...
-         XML(*this).write(os);
-      } else if (form == format::json) {
-         // write via a temporary json object...
-         JSON(*this).write(os);
-      } else if (form == format::hdf5) {
-         // write via a temporary hdf5 object...
-         log::error("Tree::write() for HDF5 is not implemented yet");
-         throw std::exception{};
-      } else {
-         // default: our internal tree format
-         if (not empty())
-            top().write(os,0); // 0 is level
-      }
+      if (eq_null(form)) return write(os,format::null);
+      if (eq_tree(form)) return write(os,format::tree);
+      if (eq_xml (form)) return write(os,format::xml );
+      if (eq_json(form)) return write(os,format::json);
+      if (eq_hdf5(form)) return write(os,format::hdf5);
 
-      if (not os) {
-         log::error("Could not write to output stream");
-         throw std::exception{};
-      }
+      // unrecognized format
+      log::warning(
+         "Unrecognized format in call to Tree::write(ostream,\"{}\").\n"
+         "We'll use our internal debug write format",
+         form
+      );
+
+      // fallback: automagick
+      return write(os,format::null);
    } catch (const std::exception &) {
-      log::context("Tree::write(ostream)");
+      log::context("Tree::write(ostream,\"{}\")", form);
       throw;
    }
-
-   // done
-   return os;
 }
 
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // write(filename,string)
-// ------------------------
+// -----------------------------------------------------------------------------
 
 bool write(
    const std::string &filename,
@@ -162,38 +194,6 @@ bool write(
       return write(filename,format::null);
    } catch (const std::exception &) {
       log::context("Tree::write(\"{}\",\"{}\")", filename, form);
-      throw;
-   }
-}
-
-
-
-// ------------------------
-// write(ostream,string)
-// ------------------------
-
-std::ostream &write(
-   std::ostream &os,
-   const std::string &form
-) const {
-   try {
-      if (eq_null(form)) return write(os,format::null);
-      if (eq_tree(form)) return write(os,format::tree);
-      if (eq_xml (form)) return write(os,format::xml );
-      if (eq_json(form)) return write(os,format::json);
-      if (eq_hdf5(form)) return write(os,format::hdf5);
-
-      // unrecognized format
-      log::warning(
-         "Unrecognized format in call to Tree::write(ostream,\"{}\").\n"
-         "We'll use our internal debug write format",
-         form
-      );
-
-      // fallback: automagick
-      return write(os,format::null);
-   } catch (const std::exception &) {
-      log::context("Tree::write(ostream,\"{}\")", form);
       throw;
    }
 }

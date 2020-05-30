@@ -1,9 +1,8 @@
 
 // -----------------------------------------------------------------------------
 // Node::meta(string)
-//
 // Searches the node's metadata for a metadatum of the given name. If found,
-// returns the key's paired value. Else, returns an empty string.
+// returns the value associated with the key. Else, returns an empty string.
 // -----------------------------------------------------------------------------
 
 // const

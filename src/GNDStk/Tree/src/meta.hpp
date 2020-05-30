@@ -61,15 +61,19 @@ std::string &meta(
 // -----------------------------------------------------------------------------
 
 // const
-const std::string &meta(const meta_t<void> &kwd) const
-{
-   return meta(kwd.name);
+const std::string &meta(
+   const meta_t<void> &kwd,
+   bool &found = detail::default_bool
+) const {
+   return meta(kwd.name,found);
 }
 
 // non-const
-std::string &meta(const meta_t<void> &kwd)
-{
-   return meta(kwd.name);
+std::string &meta(
+   const meta_t<void> &kwd,
+   bool &found = detail::default_bool
+) {
+   return meta(kwd.name,found);
 }
 
 
@@ -80,7 +84,7 @@ std::string &meta(const meta_t<void> &kwd)
 
 // RESULT
 template<class RESULT, class CONVERTER>
-auto meta(
+RESULT meta(
    const meta_t<RESULT,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
