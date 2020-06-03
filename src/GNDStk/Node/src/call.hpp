@@ -63,7 +63,7 @@ decltype(auto) operator()(
 ) const {
    try {
       if (kwd.name == "")
-         detail::apply_keyword<RESULT>()(*this);
+         detail::apply_keyword<RESULT>()(kwd,*this);
       return child(-kwd)(std::forward<Keywords>(keywords)...);
    } catch (const std::exception &) {
       log::context("Node(child_t(\"{}\"),...) const", kwd.name);
@@ -104,7 +104,7 @@ decltype(auto) operator()(
 ) {
    try {
       if (kwd.name == "")
-         detail::apply_keyword<RESULT>()(*this);
+         detail::apply_keyword<RESULT>()(kwd,*this);
       return child(-kwd)(std::forward<Keywords>(keywords)...);
    } catch (const std::exception &) {
       log::context("Node(child_t(\"{}\"),...)", kwd.name);

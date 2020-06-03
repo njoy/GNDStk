@@ -78,7 +78,7 @@ RESULT child(
 
 // variant
 // With caller-specified result type
-template<class RESULT, class CONVERTER, class... Ts>
+template<class RESULT, class... Ts, class CONVERTER>
 typename detail::oneof<RESULT,Ts...>::type child(
    const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
@@ -129,7 +129,7 @@ CONTAINER<RESULT> child(
 template<
    class RESULT,
    template<class...> class CONTAINER = std::vector,
-   class CONVERTER, class... Ts
+   class... Ts, class CONVERTER
 >
 CONTAINER<typename detail::oneof<RESULT,Ts...>::type> child(
    const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
