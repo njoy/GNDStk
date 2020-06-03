@@ -41,10 +41,7 @@ public:
       return this->nodeType::sort(), *this;
    }
 
-   // does this tree have a declaration node?
    #include "GNDStk/Tree/src/has_decl.hpp"
-
-   // does this tree have a top-level GNDS node?
    #include "GNDStk/Tree/src/has_top.hpp"
 
    #include "GNDStk/Tree/src/decl.hpp"
@@ -75,12 +72,11 @@ inline std::istream &operator>>(
    Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
    try {
-      obj.read(is);
+      return obj.read(is);
    } catch (const std::exception &) {
       log::context("istream >> Tree");
       throw;
    }
-   return is;
 }
 
 // operator<<
@@ -93,10 +89,9 @@ inline std::ostream &operator<<(
    const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
    try {
-      obj.write(os);
+      return obj.write(os);
    } catch (const std::exception &) {
       log::context("ostream << Tree");
       throw;
    }
-   return os;
 }

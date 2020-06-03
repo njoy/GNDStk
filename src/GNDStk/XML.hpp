@@ -36,22 +36,20 @@ public:
 inline std::istream &operator>>(std::istream &is, XML &obj)
 {
    try {
-      obj.read(is);
+      return obj.read(is);
    } catch (const std::exception &) {
       log::context("istream >> XML");
       throw;
    }
-   return is;
 }
 
 // operator<<
 inline std::ostream &operator<<(std::ostream &os, const XML &obj)
 {
    try {
-      obj.write(os);
+      return obj.write(os);
    } catch (const std::exception &) {
       log::context("ostream << XML");
       throw;
    }
-   return os;
 }

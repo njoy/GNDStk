@@ -1,4 +1,5 @@
 
+// Does this tree have a top-level GNDS node?
 bool has_top() const
 {
    // This pretty much just does the complement of what has_decl() does;

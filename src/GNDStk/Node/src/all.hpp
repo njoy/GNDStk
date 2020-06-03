@@ -8,12 +8,12 @@
 
 // const
 template<template<class...> class CONTAINER = std::vector>
-CONTAINER<Node,std::allocator<Node>> all(
+CONTAINER<Node> all(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
    // container
-   CONTAINER<Node,std::allocator<Node>> container;
+   CONTAINER<Node> container;
 
    try {
       // search

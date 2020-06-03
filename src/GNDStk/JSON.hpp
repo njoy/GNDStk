@@ -53,22 +53,20 @@ public:
 inline std::istream &operator>>(std::istream &is, JSON &obj)
 {
    try {
-      obj.read(is);
+      return obj.read(is);
    } catch (const std::exception &) {
       log::context("istream >> JSON");
       throw;
    }
-   return is;
 }
 
 // operator<<
 inline std::ostream &operator<<(std::ostream &os, const JSON &obj)
 {
    try {
-      obj.write(os);
+      return obj.write(os);
    } catch (const std::exception &) {
       log::context("ostream << JSON");
       throw;
    }
-   return os;
 }

@@ -28,9 +28,9 @@ bool convert(
    // convert
    try {
       if (from.has_decl())
-         detail::node2Node(from.decl(), to.add());
+         to.add() = from.decl();
       if (from.has_top())
-         detail::node2Node(from.top(), to.add());
+         to.add() = from.top();
    } catch (const std::exception &) {
       log::context("convert(Tree,Tree)");
       throw;

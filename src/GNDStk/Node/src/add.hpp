@@ -102,9 +102,7 @@ typename std::enable_if<
    Node &
 >::type add(const T &value)
 {
-   Node &n = add();
-   detail::node2Node(Node(value),n);
-   return n;
+   return add() = Node(value);
 }
 
 
@@ -127,8 +125,7 @@ typename std::enable_if<
    const T &value
 ) {
    try {
-      Node &n = add();
-      detail::node2Node(Node(value),n);
+      Node &n = add() = Node(value);
       n.name = kwd.name;
       return n;
    } catch (const std::exception &) {

@@ -24,8 +24,8 @@ public:
    //    metadata (container of string pairs)
    //    children (container of pointers to other Node<>s)
    std::string name;
-   METADATA_CONTAINER<metaPair,std::allocator<metaPair>> metadata;
-   CHILDREN_CONTAINER<childPtr,std::allocator<childPtr>> children;
+   METADATA_CONTAINER<metaPair> metadata;
+   CHILDREN_CONTAINER<childPtr> children;
 
    // ------------------------
    // Simple functions
@@ -81,10 +81,9 @@ inline std::ostream &operator<<(
    const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
 ) {
    try {
-      obj.write(os);
+      return obj.write(os);
    } catch (const std::exception &) {
       log::context("ostream << Node");
       throw;
    }
-   return os;
 }

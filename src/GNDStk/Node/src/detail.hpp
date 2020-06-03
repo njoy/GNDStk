@@ -1,4 +1,10 @@
 
+// Forward declaration needed from Node.hpp
+namespace detail {
+   template<class NODEFROM, class NODETO>
+   void node2Node(const NODEFROM &, NODETO &);
+}
+
 // -----------------------------------------------------------------------------
 // apply_keyword
 // -----------------------------------------------------------------------------

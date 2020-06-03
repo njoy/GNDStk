@@ -13,7 +13,7 @@ Node(Node &&) = default;
 // copy
 Node(const Node &from)
 {
-   detail::node2Node(from,*this);
+   *this = from;
 }
 
 // templated "copy"
@@ -23,5 +23,5 @@ template<
 >
 Node(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
-   detail::node2Node(from,*this);
+   *this = from;
 }

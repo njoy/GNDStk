@@ -1,4 +1,5 @@
 
+// Does this tree have a declaration node?
 bool has_decl() const
 {
    // Does the tree have something that looks like a declaration node?

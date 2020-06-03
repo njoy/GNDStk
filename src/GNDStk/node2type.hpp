@@ -27,13 +27,6 @@ or particularly helpful to convert a node to a stream.
 // in both the input and the output, but supporting it shouldn't do any harm.
 // -----------------------------------------------------------------------------
 
-// Turns out that we already have this capability, in order to do tree-to-tree
-// conversions. We just need to forward-declare it first...
-namespace detail {
-   template<class NODEFROM, class NODETO>
-   void node2Node(const NODEFROM &, NODETO &);
-}
-
 // And then convert, for type == node
 template<
    template<class...> class METADATA_CONTAINER_FROM,
@@ -46,8 +39,7 @@ inline void convert(
          Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &to
 ) {
    try {
-      to.clear();
-      detail::node2Node(from,to);
+      to.clear() = from;
    } catch (const std::exception &) {
       log::context("convert(Node,Node)");
       throw;

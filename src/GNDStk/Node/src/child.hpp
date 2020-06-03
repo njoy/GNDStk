@@ -43,7 +43,7 @@ Node &child(
 
 // const
 template<template<class...> class CONTAINER = std::vector>
-CONTAINER<Node,std::allocator<Node>> child(
+CONTAINER<Node> child(
    const child_t<void,find::all> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -100,11 +100,11 @@ template<
    template<class...> class CONTAINER = std::vector,
    class RESULT, class CONVERTER
 >
-CONTAINER<RESULT,std::allocator<RESULT>> child(
+CONTAINER<RESULT> child(
    const child_t<RESULT,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   CONTAINER<RESULT,std::allocator<RESULT>> container;
+   CONTAINER<RESULT> container;
    found = false;
 
    try {
@@ -131,10 +131,7 @@ template<
    template<class...> class CONTAINER = std::vector,
    class CONVERTER, class... Ts
 >
-CONTAINER<
-   typename detail::oneof<RESULT,Ts...>::type,
-   std::allocator<typename detail::oneof<RESULT,Ts...>::type>
-> child(
+CONTAINER<typename detail::oneof<RESULT,Ts...>::type> child(
    const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
