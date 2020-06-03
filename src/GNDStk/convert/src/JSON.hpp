@@ -4,9 +4,9 @@
 // That is, convert to JSON objects
 // -----------------------------------------------------------------------------
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // Tree ==> JSON
-// ------------------------
+// -----------------------------------------------------------------------------
 
 template<
    template<class...> class METADATA_CONTAINER,
@@ -21,9 +21,7 @@ bool convert(
 
    // convert
    try {
-      return tree.has_top()
-         ? detail::node2json(tree.top(), j.doc)
-         : true; // <== fine, JSON-wise, if nothing's there
+      return !tree.has_top() || detail::node2json(tree.top(), j.doc);
    } catch (const std::exception &) {
       log::context("convert(Tree,JSON)");
       throw;
@@ -32,9 +30,9 @@ bool convert(
 
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // XML ==> JSON
-// ------------------------
+// -----------------------------------------------------------------------------
 
 // Goes through a tree. Could be made more efficient if written directly.
 // We'll revisit this if it becomes more of an issue.
@@ -56,10 +54,10 @@ inline bool convert(const XML &x, JSON &j)
 
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // JSON ==> JSON
 // For completeness
-// ------------------------
+// -----------------------------------------------------------------------------
 
 inline bool convert(const JSON &from, JSON &to)
 {

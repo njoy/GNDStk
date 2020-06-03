@@ -66,16 +66,17 @@ void convert(const NODE &node, manifest_t &man)
    std::ostringstream oss;
 
    // name
-   oss << "node: " << node.name << std::endl;
+   oss << "node: \"" << node.name << '"' << std::endl;
 
    // metadata
    oss << "   metadata:" << std::endl;
    for (auto &m : node.metadata)
-      oss << "      " << m.first << std::endl;
+      oss << "      \"" << m.first << '"' << std::endl;
 
    // children
    oss << "   children:" << std::endl;
-   for (auto &c : node.children) oss << "      " << c->name << std::endl;
+   for (auto &c : node.children)
+      oss << "      \"" << c->name << '"' << std::endl;
 
    man.information = oss.str();
 }
@@ -87,34 +88,33 @@ void convert(const NODE &node, manifest_t &man)
 // -----------------------------------------------------------------------------
 
 static const std::string manifest_tree =
-R"***(node: xml
+R"***(node: ""
    metadata:
-      version
-      encoding
    children:
-      covarianceSuite
+      "xml"
+      "covarianceSuite"
 )***";
 
 static const std::string manifest_covarianceSuite =
-R"***(node: covarianceSuite
+R"***(node: "covarianceSuite"
    metadata:
-      projectile
-      target
-      evaluation
-      format
+      "projectile"
+      "target"
+      "evaluation"
+      "format"
    children:
-      styles
-      externalFiles
-      parameterCovariances
+      "styles"
+      "externalFiles"
+      "parameterCovariances"
 )***";
 
 static const std::string manifest_parameterCovariances =
-R"***(node: parameterCovariance
+R"***(node: "parameterCovariance"
    metadata:
-      label
+      "label"
    children:
-      rowData
-      parameterCovarianceMatrix
+      "rowData"
+      "parameterCovarianceMatrix"
 )***";
 
 
@@ -140,7 +140,7 @@ SCENARIO("Testing GNDStk keyword") {
       // meta::format disambiguates vs. enum class format
 
       CHECK(tree(child::xml).metadata.size() == 2);
-      CHECK(tree(child::xml).children.size() == 1);
+      CHECK(tree(child::xml).children.size() == 0);
       CHECK(tree(child::xml,version) == "1.0");
       CHECK(tree(child::xml,encoding) == "UTF-8");
       CHECK(tree(covarianceSuite).metadata.size() == 4);
@@ -222,7 +222,7 @@ SCENARIO("Testing GNDStk keyword") {
    // how we could build various "x-ray" or "dictionary" type tools.
    // See how manifest_t is set up, earlier in this file.
 
-   // Examine the tree itself, which really means the declaration node
+   // Examine the tree itself
    {
       auto man = tree(mymanifest);
       CHECK(man.information == manifest_tree);

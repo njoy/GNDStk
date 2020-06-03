@@ -26,14 +26,14 @@ bool convert(
    to.clear();
 
    // convert
-   if (not from.empty()) {
-      to.reroot();
-      try {
-         detail::node2Node(from.decl(), to.decl());
-      } catch (const std::exception &) {
-         log::context("convert(Tree,Tree)");
-         throw;
-      }
+   try {
+      if (from.has_decl())
+         detail::node2Node(from.decl(), to.add());
+      if (from.has_top())
+         detail::node2Node(from.top(), to.add());
+   } catch (const std::exception &) {
+      log::context("convert(Tree,Tree)");
+      throw;
    }
 
    // done
@@ -75,8 +75,7 @@ bool convert(
             return false;
          }
 
-         tree.reroot();
-         tree.decl().name = "xml"; // indicates that we came from an XML
+         tree.add("xml"); // indicates that we came from an XML
 
          // base XML "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &xattr : xnode.attributes())
@@ -86,7 +85,7 @@ bool convert(
       if (count == 1) {
          // visit the XML's outer node, and its descendants
          try {
-            if (not detail::xml_node2Node(xnode,tree.decl().add()))
+            if (not detail::xml_node2Node(xnode,tree.add()))
                return false;
          } catch (const std::exception &) {
             log::context("convert(XML,Tree)");
@@ -128,10 +127,11 @@ bool convert(
    const JSON &j,
    Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
-   using node_t = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
-
    // clear
    tree.clear();
+
+   // make a boilerplate declaration node
+   tree.add("json"); // indicates that we came from a JSON
 
    // I suppose this could happen
    if (j.doc.size() == 0)
@@ -147,16 +147,9 @@ bool convert(
       return false;
    }
 
-   // make a boilerplate declaration node
-   tree.reroot();
-   tree.decl().name = "json"; // indicates that we came from a JSON
-
-   // make a top-level GNDS node, name to-be-determined
-   node_t &top = tree.decl().add();
-
    // visit the JSON's outer node, and its descendants
    try {
-      if (not detail::json2node(j.doc.begin(),top))
+      if (not detail::json2node(j.doc.begin(),tree.add()))
          return false;
       } catch (const std::exception &) {
          log::context("convert(JSON,Tree)");

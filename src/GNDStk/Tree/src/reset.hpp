@@ -18,13 +18,13 @@
 // Example: Tree<> t(child::reactionSuite, format::xml);
 
 
-// ------------------------
-// reset(top, format, ...)
-// ------------------------
+// -----------------------------------------------------------------------------
+// reset(kwd, format, ...)
+// -----------------------------------------------------------------------------
 
 template<class RESULT, find FIND, class CONVERTER>
-nodeType &reset(
-   const child_t<RESULT,FIND,CONVERTER> &top,
+Tree &reset(
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    const format form = format::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -32,84 +32,80 @@ nodeType &reset(
    // Begin a new tree
    clear();
 
-   // Warn if the given child_t is not valid for a top-level GNDS node
-   if (not top.canBeTopLevel) {
+   // Warn if the given child_t doesn't look valid for a top-level GNDS node
+   if (not kwd.canBeTopLevel) {
       log::warning(
-         "Tree::reset(child_t(\"{}\")) called, but the top-level GNDS node\n"
-         "as given by the child_t object is not encoded as being appropriate\n"
-         "for a top-level GNDS node. (bool child_t.canBeTopLevel is false).\n"
-         "Allowing it, but know what you're doing. (Or have us fix it.)",
-         top.name
+         "Tree::reset(child_t(\"{}\")) called, but the node as given by the\n"
+         "child_t object is not encoded as being suitable for a top-level\n"
+         "GNDS node (bool child_t.canBeTopLevel is false)",
+         kwd.name
       );
    }
 
-   // Declaration node: "xml", etc.
-   // This is our Tree object's technically top-level ("over the top"?) node
-   // that can specify an eventual intended file type for the GNDS hierarchy.
-   reroot();
-
-   // The add()s can throw, and we have our own potential throw as well;
-   // so let's just put this all in a try...
    try {
+      // Declaration node: "xml", etc.
+      // This can specify an eventual intended file type for the GNDS hierarchy.
       if (form == format::xml or form == format::null or form == format::tree) {
          // xml, null, tree
-         decl().name = "xml";
+         nodeType::add("xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
       } else if (form == format::json) {
          // json
-         decl().name = "json";
+         nodeType::add("json");
          // any use for version and encoding?
       } else if (form == format::hdf5) {
          // hdf5
-         decl().name = "hdf5";
+         nodeType::add("hdf5");
          // any use for version and encoding?
       } else {
          log::error(
             "Internal error in Tree::reset(child_t(\"{}\"),format,...):\n"
             "Unrecognized format; apparently, we missed something. "
             "Please report this to us",
-            top.name
+            kwd.name
          );
          throw std::exception{};
       }
 
       // GNDS node: "reactionSuite", etc.
-      return decl().add(top.name);
+      nodeType::add(kwd.name);
+      return *this;
 
    } catch (const std::exception &) {
-      log::context("Tree::reset(child_t(\"{}\"),format,...)", top.name);
+      log::context("Tree::reset(child_t(\"{}\"),format,...)", kwd.name);
       throw;
    }
 }
 
 
-// ------------------------
-// reset(top, string, ...)
-// ------------------------
+
+// -----------------------------------------------------------------------------
+// reset(kwd, string, ...)
+// -----------------------------------------------------------------------------
 
 template<class RESULT, find FIND, class CONVERTER>
-nodeType &reset(
-   const child_t<RESULT,FIND,CONVERTER> &top,
+Tree &reset(
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
       // recognized formats
-      if (eq_null(form)) return reset(top, format::null, version, encoding);
-      if (eq_tree(form)) return reset(top, format::tree, version, encoding);
-      if (eq_xml (form)) return reset(top, format::xml,  version, encoding);
-      if (eq_json(form)) return reset(top, format::json, version, encoding);
-      if (eq_hdf5(form)) return reset(top, format::hdf5, version, encoding);
+      if (eq_null(form)) return reset(kwd, format::null, version, encoding);
+      if (eq_tree(form)) return reset(kwd, format::tree, version, encoding);
+      if (eq_xml (form)) return reset(kwd, format::xml,  version, encoding);
+      if (eq_json(form)) return reset(kwd, format::json, version, encoding);
+      if (eq_hdf5(form)) return reset(kwd, format::hdf5, version, encoding);
 
       // fallback: use XML
       // Note: we should consider making this an error
       log::warning("Unrecognized format \"{}\"; defaulting to XML", form);
-      return reset(top, format::xml, version, encoding);
+      return reset(kwd, format::xml, version, encoding);
 
    } catch (const std::exception &) {
-      log::context("Tree::reset(child_t(\"{}\"),\"{}\",...)", top.name, form);
+      log::context("Tree::reset(child_t(\"{}\"),\"{}\",...)", kwd.name, form);
       throw;
    }
 }

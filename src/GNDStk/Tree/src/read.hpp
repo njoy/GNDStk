@@ -3,79 +3,9 @@
 // Tree::read()
 // -----------------------------------------------------------------------------
 
-// ------------------------
-// read(filename,format)
-// ------------------------
-
-bool read(
-   const std::string &filename,
-   const format form = format::null
-) {
-   // ------------------------
-   // Clear current contents
-   // ------------------------
-
-   // Note that this happens even if something below fails. This is reasonable
-   // behavior; an empty tree is a reminder that the read attempt failed.
-   clear();
-
-   // ------------------------
-   // format::tree
-   // Not allowed in read
-   // ------------------------
-
-   // Error; this format isn't allowed for read() (only for write())
-   if (form == format::tree) {
-      log::error(detail::format_tree_read);
-      log::context("Tree::read(\"{}\",format)", filename);
-      throw std::exception{};
-   }
-
-   // ------------------------
-   // format::xml,json,hdf5
-   // Check: consistent name?
-   // ------------------------
-
-   if (form == format::xml  and has_extension(filename)
-       and not endsin_xml (filename)) {
-      detail::warning_tree_io_name("read", "xml",  filename, "XML" );
-   }
-   if (form == format::json and has_extension(filename)
-       and not endsin_json(filename)) {
-      detail::warning_tree_io_name("read", "json", filename, "JSON");
-   }
-   if (form == format::hdf5 and has_extension(filename)
-       and not endsin_hdf5(filename)) {
-      detail::warning_tree_io_name("read", "hdf5", filename, "HDF5");
-   }
-
-   // ------------------------
-   // Open and read
-   // ------------------------
-
-   try {
-      std::ifstream ifs(filename.c_str());
-      if (not ifs) {
-         log::error("Could not open input file \"{}\"", filename);
-         throw std::exception{};
-      }
-
-      // Call read(istream) to do the remaining work. Note that although the
-      // filename isn't available any longer there, the function can, and does,
-      // do additional checking (complimentary to what we already did above),
-      // based on looking at the content that we'll be attempting to read.
-      return not read(ifs,form).fail();
-   } catch (const std::exception &) {
-      log::context("Tree::read(\"{}\")", filename);
-      throw;
-   }
-}
-
-
-
-// ------------------------
+// -----------------------------------------------------------------------------
 // read(istream,format)
-// ------------------------
+// -----------------------------------------------------------------------------
 
 std::istream &read(
    std::istream &is,
@@ -176,41 +106,79 @@ std::istream &read(
 
 
 
-// ------------------------
-// read(filename,string)
-// ------------------------
+// -----------------------------------------------------------------------------
+// read(filename,format)
+// -----------------------------------------------------------------------------
 
 bool read(
    const std::string &filename,
-   const std::string &form
+   const format form = format::null
 ) {
+   // ------------------------
+   // Clear current contents
+   // ------------------------
+
+   // Note that this happens even if something below fails. This is reasonable
+   // behavior; an empty tree is a reminder that the read attempt failed.
+   clear();
+
+   // ------------------------
+   // format::tree
+   // Not allowed in read
+   // ------------------------
+
+   // Error; this format isn't allowed for read() (only for write())
+   if (form == format::tree) {
+      log::error(detail::format_tree_read);
+      log::context("Tree::read(\"{}\",format)", filename);
+      throw std::exception{};
+   }
+
+   // ------------------------
+   // format::xml,json,hdf5
+   // Check: consistent name?
+   // ------------------------
+
+   if (form == format::xml  and has_extension(filename)
+       and not endsin_xml (filename)) {
+      detail::warning_tree_io_name("read", "xml",  filename, "XML" );
+   }
+   if (form == format::json and has_extension(filename)
+       and not endsin_json(filename)) {
+      detail::warning_tree_io_name("read", "json", filename, "JSON");
+   }
+   if (form == format::hdf5 and has_extension(filename)
+       and not endsin_hdf5(filename)) {
+      detail::warning_tree_io_name("read", "hdf5", filename, "HDF5");
+   }
+
+   // ------------------------
+   // Open and read
+   // ------------------------
+
    try {
-      if (eq_null(form)) return read(filename,format::null);
-      if (eq_tree(form)) return read(filename,format::tree);
-      if (eq_xml (form)) return read(filename,format::xml );
-      if (eq_json(form)) return read(filename,format::json);
-      if (eq_hdf5(form)) return read(filename,format::hdf5);
+      std::ifstream ifs(filename.c_str());
+      if (not ifs) {
+         log::error("Could not open input file \"{}\"", filename);
+         throw std::exception{};
+      }
 
-      // unrecognized format
-      log::warning(
-         "Unrecognized format in call to Tree::read(\"{}\",\"{}\").\n"
-         "We'll guess from the file contents",
-         filename, form
-      );
-
-      // fallback: automagick
-      return read(filename,format::null);
+      // Call read(istream) to do the remaining work. Note that although the
+      // filename isn't available any longer there, the function can, and does,
+      // do additional checking (complimentary to what we already did above),
+      // based on looking at the content that we'll be attempting to read.
+      return not read(ifs,form).fail();
    } catch (const std::exception &) {
-      log::context("Tree::read(\"{}\",\"{}\")", filename, form);
+      log::context("Tree::read(\"{}\")", filename);
       throw;
    }
 }
 
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // read(istream,string)
-// ------------------------
+// -----------------------------------------------------------------------------
 
 std::istream &read(
    std::istream &is,
@@ -234,6 +202,38 @@ std::istream &read(
       return read(is,format::null);
    } catch (const std::exception &) {
       log::context("Tree::read(istream,\"{}\")", form);
+      throw;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// read(filename,string)
+// -----------------------------------------------------------------------------
+
+bool read(
+   const std::string &filename,
+   const std::string &form
+) {
+   try {
+      if (eq_null(form)) return read(filename,format::null);
+      if (eq_tree(form)) return read(filename,format::tree);
+      if (eq_xml (form)) return read(filename,format::xml );
+      if (eq_json(form)) return read(filename,format::json);
+      if (eq_hdf5(form)) return read(filename,format::hdf5);
+
+      // unrecognized format
+      log::warning(
+         "Unrecognized format in call to Tree::read(\"{}\",\"{}\").\n"
+         "We'll guess from the file contents",
+         filename, form
+      );
+
+      // fallback: automagick
+      return read(filename,format::null);
+   } catch (const std::exception &) {
+      log::context("Tree::read(\"{}\",\"{}\")", filename, form);
       throw;
    }
 }

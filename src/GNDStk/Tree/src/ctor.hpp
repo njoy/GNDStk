@@ -12,7 +12,7 @@ Tree() = default;
 Tree(Tree &&) = default;
 
 // copy
-Tree(const Tree &from)
+Tree(const Tree &from) : nodeType{}
 {
    try {
       convert(from,*this);
@@ -136,9 +136,9 @@ Tree(std::istream &is, const std::string &type)
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
 //
 // Examples:
-//    Tree<> newtree(child::reactionSuite, format::xml, "1.0", "UTF-8");
+//    Tree<> newtree(reactionSuite, format::xml, "1.0", "UTF-8");
 // or
-//    Tree<> newtree(child::reactionSuite, "xml", "1.0", "UTF-8");
+//    Tree<> newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
 // Note that the first argument is NOT quoted (""). It isn't the name of the
 // top-level node that we want; rather, it's one of our "smart keywords."
@@ -155,18 +155,18 @@ Tree(std::istream &is, const std::string &type)
 // keyword, format
 template<class RESULT, find FIND, class CONVERTER>
 Tree(
-   const child_t<RESULT,FIND,CONVERTER> &top,
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    const format form = format::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
-      reset(top, form, version, encoding);
+      reset(kwd, form, version, encoding);
    } catch (const std::exception &) {
       log::context(
          "Tree(child_t(\"{}\")[,format,version,encoding])",
-         top.name
+         kwd.name
       );
       throw;
    }
@@ -175,17 +175,17 @@ Tree(
 // keyword, string
 template<class RESULT, find FIND, class CONVERTER>
 Tree(
-   const child_t<RESULT,FIND,CONVERTER> &top,
+   const child_t<RESULT,FIND,CONVERTER> &kwd,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
-      reset(top, type, version, encoding);
+      reset(kwd, type, version, encoding);
    } catch (const std::exception &) {
       log::context(
          "Tree(child_t(\"{}\"),type=\"{}\"[,version,encoding])",
-         top.name, type
+         kwd.name, type
       );
       throw;
    }

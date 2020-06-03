@@ -14,7 +14,6 @@ add_executable( GNDStk.Tree.test
                 one.test.cpp
                 call.test.cpp
                 ctor.test.cpp
-                root.test.cpp
                 write.test.cpp )
 target_compile_options( GNDStk.Tree.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:

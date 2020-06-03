@@ -31,7 +31,7 @@ SCENARIO("Testing GNDStk tree decl()") {
       CHECK(t.decl().metadata.size() == 2);
       CHECK(t.decl().meta("version") == "1.0");
       CHECK(t.decl().meta("encoding") == "UTF-8");
-      CHECK(t.decl().children.size() == 1);
+      CHECK(t.decl().children.size() == 0);
    }
 
    GIVEN("An empty tree") {
@@ -43,7 +43,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "1.0");
          CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
       }
 
       WHEN("reset(reactionSuite, format::json)") {
@@ -51,7 +51,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          t.reset(reactionSuite, format::json);
          CHECK(t.decl().name == "json");
          CHECK(t.decl().metadata.size() == 0);
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
       }
 
       WHEN("reset(covarianceSuite, format::null, \"2.0\")") {
@@ -61,7 +61,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "2.0");
          CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
       }
 
       WHEN("reset(covarianceSuite, format::xml, \"3.0\", \"UTF-9\")") {
@@ -71,7 +71,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "3.0");
          CHECK(t.decl().meta("encoding") == "UTF-9");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
       }
 
       WHEN("reset(PoPs, \"hdf5\")") {
@@ -79,7 +79,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          t.reset(PoPs, "hdf5");
          CHECK(t.decl().name == "hdf5");
          CHECK(t.decl().metadata.size() == 0);
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
 
       }
 
@@ -90,7 +90,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "4.0");
          CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
       }
 
       WHEN("reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
@@ -100,7 +100,7 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "5.0");
          CHECK(t.decl().meta("encoding") == "UTF-10");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
       }
    }
 

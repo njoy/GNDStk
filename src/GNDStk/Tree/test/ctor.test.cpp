@@ -200,7 +200,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "1.0");
          CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "reactionSuite");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);
@@ -210,7 +210,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          Tree<> t(reactionSuite, format::json);
          CHECK(t.decl().name == "json");
          CHECK(t.decl().metadata.size() == 0);
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "reactionSuite");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);
@@ -222,7 +222,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "2.0");
          CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "covarianceSuite");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);
@@ -234,7 +234,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "3.0");
          CHECK(t.decl().meta("encoding") == "UTF-9");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "covarianceSuite");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);
@@ -244,7 +244,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          Tree<> t(PoPs, "hdf5");
          CHECK(t.decl().name == "hdf5");
          CHECK(t.decl().metadata.size() == 0);
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "PoPs");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);
@@ -257,7 +257,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "4.0");
          CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "PoPs");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);
@@ -269,7 +269,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "5.0");
          CHECK(t.decl().meta("encoding") == "UTF-10");
-         CHECK(t.decl().children.size() == 1);
+         CHECK(t.decl().children.size() == 0);
          CHECK(t.top().name == "thermalScattering");
          CHECK(t.top().metadata.size() == 0);
          CHECK(t.top().children.size() == 0);

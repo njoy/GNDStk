@@ -2,61 +2,53 @@
 #include "GNDStk/Tree/src/detail.hpp"
 
 // -----------------------------------------------------------------------------
-// Tree (templated)
-// tree = Tree<>
+// Tree
 // -----------------------------------------------------------------------------
 
 template<
    template<class...> class METADATA_CONTAINER, // container type for metadata
    template<class...> class CHILDREN_CONTAINER  // container type for children
 >
-class Tree {
+class Tree : public Node<METADATA_CONTAINER,CHILDREN_CONTAINER> {
 public:
    using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
 
-   // ------------------------
-   // Data
-   // ------------------------
+   using nodeType::name;
+   using nodeType::metadata;
+   using nodeType::children;
 
-   // Initial node of the tree
-   std::unique_ptr<nodeType> root;
+   using nodeType::empty;
+
+   using nodeType::meta;
+   using nodeType::one;
+   using nodeType::all;
+   using nodeType::child;
+   using nodeType::operator();
 
    // ------------------------
    // Functions
    // ------------------------
 
-   // simplifies some other code
-   void reroot() { root = std::make_unique<nodeType>(); }
-
    // clear
-   // root is a unique_ptr, so this deletes the whole tree
-   void clear()
+   Tree &clear()
    {
-      root = nullptr;
+      return this->nodeType::clear(), *this;
    }
 
-   // is this tree empty?
-   bool empty() const
+   // sort
+   Tree &sort()
    {
-      return root == nullptr;
+      return this->nodeType::sort(), *this;
    }
 
    // does this tree have a declaration node?
    #include "GNDStk/Tree/src/has_decl.hpp"
 
    // does this tree have a top-level GNDS node?
-   bool has_top() const
-   {
-      return has_decl() && decl().children.size() == 1;
-   }
+   #include "GNDStk/Tree/src/has_top.hpp"
 
-   // sort
-   Tree &sort()
-   {
-      if (has_decl())
-         decl().sort();
-      return *this;
-   }
+   #include "GNDStk/Tree/src/decl.hpp"
+   #include "GNDStk/Tree/src/top.hpp"
 
    #include "GNDStk/Tree/src/reset.hpp"
    #include "GNDStk/Tree/src/ctor.hpp"
@@ -64,15 +56,6 @@ public:
 
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
-
-   #include "GNDStk/Tree/src/decl.hpp"
-   #include "GNDStk/Tree/src/top.hpp"
-
-   #include "GNDStk/Tree/src/meta.hpp"
-   #include "GNDStk/Tree/src/one.hpp"
-   #include "GNDStk/Tree/src/all.hpp"
-   #include "GNDStk/Tree/src/child.hpp"
-   #include "GNDStk/Tree/src/call.hpp"
 
 }; // class Tree
 

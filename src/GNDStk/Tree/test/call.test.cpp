@@ -97,20 +97,20 @@ SCENARIO("Testing GNDStk tree operator()") {
       const meta_t<double     > dformat    ("format");
       const meta_t<std::string> sframe     ("projectileFrame");
 
-      CHECK( tree(sversion   ) == "1.0"   );
-      CHECK( tree(dversion   ) ==  1.0    );
-      CHECK( tree(sencoding  ) == "UTF-8" );
-      CHECK( tree(sprojectile) == "n"     );
-      CHECK( tree(cprojectile) == 'n'     );
-      CHECK( tree(vtarget    ) == "O16"   );
-      CHECK( tree(sevaluation) == "ENDF/B-8.0" );
-      CHECK( tree(sformat    ) == "1.9"   );
-      CHECK( tree(dformat    ) ==  1.9    );
-      CHECK( tree(sframe     ) == "lab"   );
+      CHECK( tree(::xml,sversion   ) == "1.0"   );
+      CHECK( tree(::xml,dversion   ) ==  1.0    );
+      CHECK( tree(::xml,sencoding  ) == "UTF-8" );
+      CHECK( tree(reactionSuite,sprojectile) == "n"     );
+      CHECK( tree(reactionSuite,cprojectile) == 'n'     );
+      CHECK( tree(reactionSuite,vtarget    ) == "O16"   );
+      CHECK( tree(reactionSuite,sevaluation) == "ENDF/B-8.0" );
+      CHECK( tree(reactionSuite,sformat    ) == "1.9"   );
+      CHECK( tree(reactionSuite,dformat    ) ==  1.9    );
+      CHECK( tree(reactionSuite,sframe     ) == "lab"   );
 
       // found
-      found = false; CHECK( (tree(dversion,found),  found) );
-      found = true;  CHECK( (tree(foo,     found), !found) );
+      found = false; CHECK( (tree(::xml,dversion,found),  found) );
+      found = true;  CHECK( (tree(::xml,foo,     found), !found) );
 
 
       // ------------------------

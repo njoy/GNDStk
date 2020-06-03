@@ -30,59 +30,54 @@ SCENARIO("Testing GNDStk tree meta()") {
       // Dumb string lookup
       // ------------------------
 
-      // Some of the following appear in the declaration node (<?xml ... ),
-      // while some appear in the top-level GNDS node (<covarianceSuite ... ).
-      // Tree's meta() function automatically looks in the declaration node
-      // first, then looks in the top-level node only if the first look failed.
-
       // const
-      CHECK(c.meta("version") == "1.0");
-      CHECK(c.meta("encoding") == "UTF-8");
-      CHECK(c.meta("projectile") == "n");
-      CHECK(c.meta("target") == "Tm170");
-      CHECK(c.meta("evaluation") == "ENDF/B-8.0");
-      CHECK(c.meta("format") == "1.9");
+      CHECK(c.decl().meta("version") == "1.0");
+      CHECK(c.decl().meta("encoding") == "UTF-8");
+      CHECK(c.top() .meta("projectile") == "n");
+      CHECK(c.top() .meta("target") == "Tm170");
+      CHECK(c.top() .meta("evaluation") == "ENDF/B-8.0");
+      CHECK(c.top() .meta("format") == "1.9");
 
       // non-const
-      CHECK(t.meta("version") == "1.0");
-      CHECK(t.meta("encoding") == "UTF-8");
-      CHECK(t.meta("projectile") == "n");
-      CHECK(t.meta("target") == "Tm170");
-      CHECK(t.meta("evaluation") == "ENDF/B-8.0");
-      CHECK(t.meta("format") == "1.9");
+      CHECK(t.decl().meta("version") == "1.0");
+      CHECK(t.decl().meta("encoding") == "UTF-8");
+      CHECK(t.top() .meta("projectile") == "n");
+      CHECK(t.top() .meta("target") == "Tm170");
+      CHECK(t.top() .meta("evaluation") == "ENDF/B-8.0");
+      CHECK(t.top() .meta("format") == "1.9");
 
       // Be sure that all of the above return references, given that both const
       // and non-const meta(string) use decltype(auto) and some other constructs
       // in arguably not-too-common ways. The following won't compile unless
       // references are returned.
-      (void)&c.meta("version");
-      (void)&c.meta("encoding");
-      (void)&c.meta("projectile");
-      (void)&c.meta("target");
-      (void)&c.meta("evaluation");
-      (void)&c.meta("format");
-      (void)&t.meta("version");
-      (void)&t.meta("encoding");
-      (void)&t.meta("projectile");
-      (void)&t.meta("target");
-      (void)&t.meta("evaluation");
-      (void)&t.meta("format");
+      (void)&c.decl().meta("version");
+      (void)&c.decl().meta("encoding");
+      (void)&c.top() .meta("projectile");
+      (void)&c.top() .meta("target");
+      (void)&c.top() .meta("evaluation");
+      (void)&c.top() .meta("format");
+      (void)&t.decl().meta("version");
+      (void)&t.decl().meta("encoding");
+      (void)&t.top() .meta("projectile");
+      (void)&t.top() .meta("target");
+      (void)&t.top() .meta("evaluation");
+      (void)&t.top() .meta("format");
 
       // Again doing the lookups as earlier, be sure they always give back
       // a true "found" if we send "found" at all...
       bool found;
-      CHECK((found=false,c.meta("version",   found)=="1.0"        && found));
-      CHECK((found=false,c.meta("encoding",  found)=="UTF-8"      && found));
-      CHECK((found=false,c.meta("projectile",found)=="n"          && found));
-      CHECK((found=false,c.meta("target",    found)=="Tm170"      && found));
-      CHECK((found=false,c.meta("evaluation",found)=="ENDF/B-8.0" && found));
-      CHECK((found=false,c.meta("format",    found)=="1.9"        && found));
-      CHECK((found=false,t.meta("version",   found)=="1.0"        && found));
-      CHECK((found=false,t.meta("encoding",  found)=="UTF-8"      && found));
-      CHECK((found=false,t.meta("projectile",found)=="n"          && found));
-      CHECK((found=false,t.meta("target",    found)=="Tm170"      && found));
-      CHECK((found=false,t.meta("evaluation",found)=="ENDF/B-8.0" && found));
-      CHECK((found=false,t.meta("format",    found)=="1.9"        && found));
+      CHECK((found=false,c.decl().meta("version",   found)=="1.0"        && found));
+      CHECK((found=false,c.decl().meta("encoding",  found)=="UTF-8"      && found));
+      CHECK((found=false,c.top() .meta("projectile",found)=="n"          && found));
+      CHECK((found=false,c.top() .meta("target",    found)=="Tm170"      && found));
+      CHECK((found=false,c.top() .meta("evaluation",found)=="ENDF/B-8.0" && found));
+      CHECK((found=false,c.top() .meta("format",    found)=="1.9"        && found));
+      CHECK((found=false,t.decl().meta("version",   found)=="1.0"        && found));
+      CHECK((found=false,t.decl().meta("encoding",  found)=="UTF-8"      && found));
+      CHECK((found=false,t.top() .meta("projectile",found)=="n"          && found));
+      CHECK((found=false,t.top() .meta("target",    found)=="Tm170"      && found));
+      CHECK((found=false,t.top() .meta("evaluation",found)=="ENDF/B-8.0" && found));
+      CHECK((found=false,t.top() .meta("format",    found)=="1.9"        && found));
 
       // Now, try to look up something that isn't there, and be sure "found"
       // comes back as false. (If we didn't send it at all, then attempting
@@ -117,8 +112,8 @@ SCENARIO("Testing GNDStk tree meta()") {
       // appears in top-level GNDS node
       const meta_t<void> target("target");
       // meta<void> cases should trigger [const] reference returns...
-      (void)&c.meta(target);
-      (void)&t.meta(target);
+      (void)&c.top().meta(target);
+      (void)&t.top().meta(target);
 
       // *** format ***
       // extract as double
@@ -126,29 +121,29 @@ SCENARIO("Testing GNDStk tree meta()") {
       const meta_t<double> format("format");
 
       // fixme Floating-point comparisons aren't necessarily reliable
-      CHECK( c.meta <double     > ( version    ) ==  1.0    ); // double
-      CHECK( c.meta <std::string> ( version    ) == "1.0"   ); // string
-      CHECK( c.meta               ( encoding   ) == "UTF-8" ); // string
-      CHECK( c.meta <char       > ( projectile ) == 'n'     ); // char
-      CHECK( c.meta <std::string> ( projectile ) == "n"     ); // string
-      CHECK( c.meta               ( target     ) == "Tm170" ); // string
-      CHECK( c.meta               ( format     ) ==  1.9    ); // double
+      CHECK( c.decl().meta <double     > ( version    ) ==  1.0    ); // double
+      CHECK( c.decl().meta <std::string> ( version    ) == "1.0"   ); // string
+      CHECK( c.decl().meta               ( encoding   ) == "UTF-8" ); // string
+      CHECK( c.top() .meta <char       > ( projectile ) == 'n'     ); // char
+      CHECK( c.top() .meta <std::string> ( projectile ) == "n"     ); // string
+      CHECK( c.top() .meta               ( target     ) == "Tm170" ); // string
+      CHECK( c.top() .meta               ( format     ) ==  1.9    ); // double
 
       // Test found
       CHECK((found=false,
-             c.meta <double     > ( version    , found) ==  1.0    && found));
+             c.decl().meta <double     > ( version    , found) ==  1.0    && found));
       CHECK((found=false,
-             c.meta <std::string> ( version    , found) == "1.0"   && found));
+             c.decl().meta <std::string> ( version    , found) == "1.0"   && found));
       CHECK((found=false,
-             c.meta               ( encoding   , found) == "UTF-8" && found));
+             c.decl().meta               ( encoding   , found) == "UTF-8" && found));
       CHECK((found=false,
-             c.meta <char       > ( projectile , found) == 'n'     && found));
+             c.top() .meta <char       > ( projectile , found) == 'n'     && found));
       CHECK((found=false,
-             c.meta <std::string> ( projectile , found) == "n"     && found));
+             c.top() .meta <std::string> ( projectile , found) == "n"     && found));
       CHECK((found=false,
-             c.meta               ( target     , found) == "Tm170" && found));
+             c.top() .meta               ( target     , found) == "Tm170" && found));
       CHECK((found=false,
-             c.meta               ( format     , found) ==  1.9    && found));
+             c.top() .meta               ( format     , found) ==  1.9    && found));
 
       // Test not-found
       meta_t<int> foo("foo");
@@ -165,12 +160,12 @@ SCENARIO("Testing GNDStk tree meta()") {
       // ------------------------
 
       // something in the declaration node
-      t.meta("version") = "1.2345"; // change version string
-      CHECK(t.meta("version") == "1.2345"); // verify that it changed
+      t.decl().meta("version") = "1.2345"; // change version string
+      CHECK(t.decl().meta("version") == "1.2345"); // verify that it changed
 
       // something in the top-level GNDS node
-      t.meta("projectile") = "abc"; // change projectile string
-      CHECK(t.meta("projectile") == "abc"); // verify that it changed
+      t.top().meta("projectile") = "abc"; // change projectile string
+      CHECK(t.top() .meta("projectile") == "abc"); // verify that it changed
 
       // assignments "work" (don't cause a crash) for nonexistent metadata
       // keys, but give back found == false

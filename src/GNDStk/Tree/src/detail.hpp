@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Helpers for various tree-related code.
+// Helpers for various tree-related code
 // -----------------------------------------------------------------------------
 
 namespace detail {
