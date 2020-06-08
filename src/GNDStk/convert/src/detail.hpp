@@ -372,7 +372,7 @@ template<class NODE>
 bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 {
    if (!check_special(node,"cdata")) return false;
-   xnode.append_child(pugi::node_cdata).set_value(node(meta::text).c_str());
+   xnode.append_child(pugi::node_cdata).set_value(node.meta("text").c_str());
    return true;
 }
 
@@ -381,7 +381,7 @@ template<class NODE>
 bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 {
    if (!check_special(node,"pcdata")) return false;
-   xnode.append_child(pugi::node_pcdata).set_value(node(meta::text).c_str());
+   xnode.append_child(pugi::node_pcdata).set_value(node.meta("text").c_str());
    return true;
 }
 
@@ -390,7 +390,7 @@ template<class NODE>
 bool write_comment(const NODE &node, pugi::xml_node &xnode)
 {
    if (!check_special(node,"comment")) return false;
-   xnode.append_child(pugi::node_comment).set_value(node(meta::text).c_str());
+   xnode.append_child(pugi::node_comment).set_value(node.meta("text").c_str());
    return true;
 }
 

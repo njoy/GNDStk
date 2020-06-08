@@ -132,6 +132,5 @@ public:
 // Note: we won't #undef these eventually, as we normally would,
 // because they're perfectly viable macros for users to invoke.
 
-// Operators and built-in keywords
+// Operators
 #include "GNDStk/child/src/operator.hpp"
-#include "GNDStk/child/src/keyword.hpp"

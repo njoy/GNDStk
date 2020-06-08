@@ -3,7 +3,7 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace child;
+using namespace mixed::child;
 
 SCENARIO("Testing GNDStk Node all()") {
 

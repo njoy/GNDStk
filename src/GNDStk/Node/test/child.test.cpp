@@ -17,8 +17,8 @@ struct temperature_t {
 
 inline void convert(const Node<> &n, temperature_t &temp)
 {
-   temp.value = n(meta::dvalue);
-   temp.unit  = n(meta::unit);
+   temp.value = n(mixed::meta::dvalue);
+   temp.unit  = n(mixed::meta::unit);
 }
 
 // foo_t, bar_t
@@ -26,9 +26,9 @@ struct foo_t { std::string foo_id; };
 struct bar_t { std::string bar_id; };
 
 inline void convert(const Node<> &n, foo_t &foo)
-   { bool found; foo.foo_id = n(meta::id,found); }
+   { bool found; foo.foo_id = n(mixed::meta::id,found); }
 inline void convert(const Node<> &n, bar_t &bar)
-   { bool found; bar.bar_id = n(meta::id,found); }
+   { bool found; bar.bar_id = n(mixed::meta::id,found); }
 
 // isotope_t
 struct isotope_t {
@@ -39,9 +39,9 @@ struct isotope_t {
 
 inline void convert(const Node<> &n, isotope_t &iso)
 {
-   iso.symbol = n(meta::symbol);
-   iso.A = n(meta::A);
-   iso.nuclides = &n(child::nuclides);
+   iso.symbol = n(mixed::meta::symbol);
+   iso.A = n(mixed::meta::A);
+   iso.nuclides = &n(mixed::child::nuclides);
 }
 
 // keywords with find::one
@@ -78,8 +78,8 @@ SCENARIO("Testing GNDStk Node child()") {
 
       // below, we'll exercise every variation of node::child()
       auto temp = top(
-         child::styles,   // from GNDStk
-         child::evaluated // from GNDStk
+         mixed::child::styles,   // from GNDStk
+         mixed::child::evaluated // from GNDStk
       ).child(
          temperature // ours, as set up earlier
       );
@@ -100,11 +100,11 @@ SCENARIO("Testing GNDStk Node child()") {
       (void)bardoc.bar_id; // bardoc should be of type bar_t;
 
       auto iso = top(
-         child::PoPs,
-         child::chemicalElements,
-         child::chemicalElement
+         mixed::child::PoPs,
+         mixed::child::chemicalElements,
+         mixed::child::chemicalElement
       )[0](
-         child::isotopes
+         mixed::child::isotopes
       ).child(isotope);
       CHECK(iso.size() == 3);
       CHECK(iso[0].symbol == "H1");  CHECK(iso[0].A == 1);
@@ -112,11 +112,11 @@ SCENARIO("Testing GNDStk Node child()") {
       CHECK(iso[2].symbol == "H3");  CHECK(iso[2].A == 3);
 
       auto iso_node = top(
-         child::PoPs,
-         child::chemicalElements,
-         child::chemicalElement
+         mixed::child::PoPs,
+         mixed::child::chemicalElements,
+         mixed::child::chemicalElement
       )[0](
-         child::isotopes
+         mixed::child::isotopes
       ).child(isotope_node);
       CHECK(iso_node.size() == 3);
       CHECK(iso_node[0].name == "isotope");
@@ -124,25 +124,25 @@ SCENARIO("Testing GNDStk Node child()") {
       CHECK(iso_node[2].name == "isotope");
 
       auto iso_foo_node = top(
-         child::PoPs,
-         child::chemicalElements,
-         child::chemicalElement
+         mixed::child::PoPs,
+         mixed::child::chemicalElements,
+         mixed::child::chemicalElement
       )[0](
-         child::isotopes,
-         child::isotope
-      )[0](child::nuclides).child<foo_t>(nuclide_foo_or_bar_node);
+         mixed::child::isotopes,
+         mixed::child::isotope
+      )[0](mixed::child::nuclides).child<foo_t>(nuclide_foo_or_bar_node);
 
       CHECK(iso_foo_node.size() == 1);
       CHECK(iso_foo_node[0].foo_id == "H1");
 
       auto iso_bar_node = top(
-         child::PoPs,
-         child::chemicalElements,
-         child::chemicalElement
+         mixed::child::PoPs,
+         mixed::child::chemicalElements,
+         mixed::child::chemicalElement
       )[0](
-         child::isotopes,
-         child::isotope
-      )[1](child::nuclides).child<bar_t>(nuclide_foo_or_bar_node);
+         mixed::child::isotopes,
+         mixed::child::isotope
+      )[1](mixed::child::nuclides).child<bar_t>(nuclide_foo_or_bar_node);
 
       CHECK(iso_bar_node.size() == 1);
       CHECK(iso_bar_node[0].bar_id == "H2");

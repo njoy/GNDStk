@@ -56,11 +56,16 @@ namespace GNDStk {
 #include "GNDStk/type2string.hpp"
 #include "GNDStk/type2node.hpp"
 
-// tree: metadata/children etc.
+// meta_t, child_t, and related
 #include "GNDStk/convert_t.hpp"
 #include "GNDStk/meta.hpp"
 #include "GNDStk/child.hpp"
 #include "GNDStk/keyword.hpp"
+
+// sets of meta_t/child_t
+#include "GNDStk/plain.hpp"
+#include "GNDStk/typed.hpp"
+#include "GNDStk/mixed.hpp"
 
 // tree: primary constructs
 #include "GNDStk/Node.hpp"

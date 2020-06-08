@@ -309,7 +309,7 @@ namespace detail {
       template<class NODE>
       void operator()(const NODE &node, std::string &to) const
       {
-         to = node(meta::text);
+         to = node.meta("text");
       }
    };
 }

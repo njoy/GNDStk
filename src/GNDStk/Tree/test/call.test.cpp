@@ -3,8 +3,8 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace meta;
-using namespace child;
+using namespace mixed::meta;
+using namespace mixed::child;
 
 
 
@@ -51,7 +51,7 @@ inline void convert(const NODE &node, reactionSuite_t &out)
    out.projectile = node.meta(projectile);
    out.target     = node.meta(target);
    out.evaluation = node.meta(evaluation);
-   out.format     = node.meta(meta::format);
+   out.format     = node.meta(mixed::meta::format);
    out.frame      = node.meta(projectileFrame);
 }
 
@@ -140,7 +140,7 @@ SCENARIO("Testing GNDStk tree operator()") {
       CHECK( tree( reactionSuite, projectile      ) == "n"          );
       CHECK( tree( reactionSuite, target          ) == "O16"        );
       CHECK( tree( reactionSuite, evaluation      ) == "ENDF/B-8.0" );
-      CHECK( tree( reactionSuite, meta::format    ) ==  1.9         );
+      CHECK( tree( reactionSuite, mixed::meta::format    ) ==  1.9         );
       CHECK( tree( reactionSuite, projectileFrame ) == "lab"        );
 
       // found

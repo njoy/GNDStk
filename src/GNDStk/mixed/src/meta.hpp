@@ -104,11 +104,6 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 
 namespace meta {
 
-// text
-// For use with cdata, pcdata, and comment child nodes
-GNDSTK_MAKE_META(void,text);
-
-
 // ------------------------
 // Variant cases; comma in
 // variant<,> prevents use

@@ -17,8 +17,8 @@ struct temperature_t {
 
 inline void convert(const Node<> &n, temperature_t &temp)
 {
-   temp.value = n(meta::dvalue);
-   temp.unit  = n(meta::unit);
+   temp.value = n(mixed::meta::dvalue);
+   temp.unit  = n(mixed::meta::unit);
 }
 
 // isotope_t
@@ -30,9 +30,9 @@ struct isotope_t {
 
 inline void convert(const Node<> &n, isotope_t &iso)
 {
-   iso.symbol = n(meta::symbol);
-   iso.A = n(meta::A);
-   iso.nuclides = &n(child::nuclides);
+   iso.symbol = n(mixed::meta::symbol);
+   iso.A = n(mixed::meta::A);
+   iso.nuclides = &n(mixed::child::nuclides);
 }
 
 
@@ -67,8 +67,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // Below, we'll exercise every variation of node::operator()
 
       auto temp = top(
-         child::styles,   // from GNDStk
-         child::evaluated, // from GNDStk
+         mixed::child::styles,   // from GNDStk
+         mixed::child::evaluated, // from GNDStk
          temperature // ours, as set up earlier
       );
       CHECK(temp.value == 0.0);
@@ -83,11 +83,11 @@ SCENARIO("Testing GNDStk Node operator()") {
       CHECK(styles_nonconst.children.size() == 1);
 
       auto iso = top( // non-const
-         child::PoPs,
-         child::chemicalElements,
-         child::chemicalElement
+         mixed::child::PoPs,
+         mixed::child::chemicalElements,
+         mixed::child::chemicalElement
       )[0](
-         child::isotopes,
+         mixed::child::isotopes,
          isotope
       );
       CHECK(iso.size() == 3);
@@ -96,11 +96,11 @@ SCENARIO("Testing GNDStk Node operator()") {
       CHECK(iso[2].symbol == "H3");  CHECK(iso[2].A == 3);
 
       auto iso_node = ctop( // const
-         child::PoPs,
-         child::chemicalElements,
-         child::chemicalElement
+         mixed::child::PoPs,
+         mixed::child::chemicalElements,
+         mixed::child::chemicalElement
       )[0](
-         child::isotopes,
+         mixed::child::isotopes,
          isotope_node
       );
       CHECK(iso_node.size() == 3);

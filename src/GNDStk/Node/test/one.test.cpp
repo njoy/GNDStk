@@ -10,7 +10,7 @@ SCENARIO("Testing GNDStk Node one()") {
       Tree<> tree("n-008_O_016.xml");
 
       // node: reactionSuite
-      Node<> &rs = tree(child::reactionSuite);
+      Node<> &rs = tree(mixed::child::reactionSuite);
       const Node<> &const_rs = rs;
 
       WHEN("We extract one PoPs node") {

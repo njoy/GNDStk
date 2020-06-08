@@ -50,6 +50,5 @@ public:
 // Note: we won't #undef this eventually, as we normally would,
 // because it's a perfectly viable macro for users to invoke.
 
-// Operators and built-in keywords
+// Operators
 #include "GNDStk/meta/src/operator.hpp"
-#include "GNDStk/meta/src/keyword.hpp"

@@ -125,8 +125,8 @@ R"***(node: "parameterCovariance"
 
 SCENARIO("Testing GNDStk keyword") {
 
-   using namespace meta;
-   using namespace child;
+   using namespace mixed::meta;
+   using namespace mixed::child;
 
    // tree
    const njoy::GNDStk::tree tree("n-069_Tm_170-covar.xml");
@@ -139,21 +139,21 @@ SCENARIO("Testing GNDStk keyword") {
       // child::xml disambiguates vs. class xml
       // meta::format disambiguates vs. enum class format
 
-      CHECK(tree(child::xml).metadata.size() == 2);
-      CHECK(tree(child::xml).children.size() == 0);
-      CHECK(tree(child::xml,version) == "1.0");
-      CHECK(tree(child::xml,encoding) == "UTF-8");
+      CHECK(tree(mixed::child::xml).metadata.size() == 2);
+      CHECK(tree(mixed::child::xml).children.size() == 0);
+      CHECK(tree(mixed::child::xml,version) == "1.0");
+      CHECK(tree(mixed::child::xml,encoding) == "UTF-8");
       CHECK(tree(covarianceSuite).metadata.size() == 4);
       CHECK(tree(covarianceSuite).children.size() == 3);
       CHECK(tree(covarianceSuite,projectile) == "n");
       CHECK(tree(covarianceSuite,target) == "Tm170");
       CHECK(tree(covarianceSuite,evaluation) == "ENDF/B-8.0");
-      CHECK(tree(covarianceSuite,meta::format) == 1.9); // double, not string
+      CHECK(tree(covarianceSuite,mixed::meta::format) == 1.9); // double, not string
       CHECK(tree(covarianceSuite,styles).metadata.size() == 0);
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
       CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
       CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
-      CHECK(tree(covarianceSuite,styles,evaluated,meta::label) == "eval");
+      CHECK(tree(covarianceSuite,styles,evaluated,mixed::meta::label) == "eval");
    }
 
    // ------------------------
@@ -171,7 +171,7 @@ SCENARIO("Testing GNDStk keyword") {
 
    // Extract <xml> version into *our* version type
    // Specifically: myversion keyword ==> version_t
-   auto vers = tree(child::xml,myversion);
+   auto vers = tree(mixed::child::xml,myversion);
    CHECK(vers.major == 1);
    CHECK(vers.minor == 0);
 

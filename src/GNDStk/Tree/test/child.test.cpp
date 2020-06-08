@@ -3,8 +3,8 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace meta;
-using namespace child;
+using namespace mixed::meta;
+using namespace mixed::child;
 
 /*
 The file we'll be examining:
@@ -117,10 +117,10 @@ inline void convert(const NODE &node, covarianceSuite_type_2 &out)
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
    // and format keyword - which return, respectively, string, string, string,
    // and double. I.e. just what we need in our own custom type.
-   out.projectile = node.meta(meta::projectile);
-   out.target     = node.meta(meta::target);
-   out.evaluation = node.meta(meta::evaluation);
-   out.format     = node.meta(meta::format);
+   out.projectile = node.meta(mixed::meta::projectile);
+   out.target     = node.meta(mixed::meta::target);
+   out.evaluation = node.meta(mixed::meta::evaluation);
+   out.format     = node.meta(mixed::meta::format);
 }
 
 // keyword: my_covarianceSuite_keyword
@@ -172,10 +172,10 @@ SCENARIO("Testing GNDStk tree child()") {
          // a plain old Node, even though in principle it could give us back
          // a custom type.
          found = false;
-         const Node<> &cnode = c.child(child::xml,found);
+         const Node<> &cnode = c.child(mixed::child::xml,found);
          CHECK(found == true);
          found = false;
-         Node<> &tnode = t.child(child::xml,found);
+         Node<> &tnode = t.child(mixed::child::xml,found);
          CHECK(found == true);
       } {
          // IN CASE OF ERROR: Same note as immediately above.

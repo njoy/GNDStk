@@ -181,7 +181,7 @@ SCENARIO("Testing GNDStk tree constructors") {
 
    // 9. Tree(top-level node, format | string [, version [, encoding]])
    GIVEN("Some trees created from scratch") {
-      using namespace child;
+      using namespace mixed::child;
 
       /*
       Cases:
