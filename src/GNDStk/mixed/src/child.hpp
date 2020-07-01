@@ -302,7 +302,7 @@ GNDSTK_MAKE_CHILD_DEFAULT(yields, find::one);
 // Special cases
 // -----------------------------------------------------------------------------
 
-// Helper for cdata, pcdata, and comment
+// Helper for cdata and comment
 namespace detail {
    class text_metadatum_to_string {
    public:
@@ -316,11 +316,30 @@ namespace detail {
 
 namespace child {
 
-// cdata, pcdata, comment
+// cdata, comment
+// These are where XML <![CDATA[...]]> or <!-- ... --> (comment) material ends
+// up. It's reasonable to extract such material as a std::string. We're storing
+// these "cdata" and "comment" nodes as nodes of those respective names, each
+// with one metadatum having a key of "text" and a value containing the "..."
+// from <![CDATA[...]]> or <!--...-->.
+inline const child_t<std::string,find::one,detail::text_metadatum_to_string>
+   cdata("cdata");
 inline const child_t<std::string,find::all,detail::text_metadatum_to_string>
-   cdata  ("cdata"  ),
-   pcdata ("pcdata" ),
    comment("comment");
+
+// pcdata
+// These are where XML material appearing in constructs like this:
+//    <values>1.2 3.4 5.6 7.8 9.0</values>
+// ends up. In that case, in our internal tree structure, we'd have a node named
+// "values", inside it a child node named "pcdata", and then in the pcdata child
+// node we'd have a metadatum with a key of "text" and a value with the original
+// content: "1.2 ...". Examination of a large library of GNDS files shows that
+// some pcdata nodes contain integers, while others contain doubles. We provide
+// the following, a child_t<void,...>, so that users can get to the pcdata node
+// in its plain node form and decide for themselves what to do about the "text"
+// metadatum.
+inline const child_t<void,find::one>
+   pcdata("pcdata");
 
 // Double
 // Not called double, for obvious reasons.
