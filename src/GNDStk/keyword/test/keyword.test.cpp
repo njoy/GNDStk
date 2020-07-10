@@ -261,35 +261,35 @@ SCENARIO("Testing GNDStk keyword") {
    // compiler doesn't go nuts.
 
    // metadata
-   auto m01=keyword.meta<         >("m01");
-   auto m02=keyword.meta<char     >("m02");
-   auto m03=keyword.meta<int      >("m03");
-   auto m04=keyword.meta<float    >("m04");
-   auto m05=keyword.meta<double   >("m05");
-   auto m06=keyword.meta<version_t>("m06");
-   auto m07=keyword.meta<date_t   >("m07");
-   auto m08=keyword.meta<shape_t  >("m08");
+   auto m01 = keyword.meta<         >("m01");
+   auto m02 = keyword.meta<char     >("m02");
+   auto m03 = keyword.meta<int      >("m03");
+   auto m04 = keyword.meta<float    >("m04");
+   auto m05 = keyword.meta<double   >("m05");
+   auto m06 = keyword.meta<version_t>("m06");
+   auto m07 = keyword.meta<date_t   >("m07");
+   auto m08 = keyword.meta<shape_t  >("m08");
 
    // basic children, no metadata/children requirements
-   auto c01=keyword.child<              >("c01");
-   auto c02=keyword.child<              >("c02",true );
-   auto c03=keyword.child<              >("c03",false);
-   auto c04=keyword.child<void          >("c04");
-   auto c05=keyword.child<void          >("c05",true );
-   auto c06=keyword.child<void          >("c06",false);
-   auto c07=keyword.child<void,find::all>("c07");
-   auto c08=keyword.child<void,find::all>("c08",true );
-   auto c09=keyword.child<void,find::all>("c09",false);
-   auto c10=keyword.child<void,find::one>("c10");
-   auto c11=keyword.child<void,find::one>("c11",true );
-   auto c12=keyword.child<void,find::one>("c12",false);
-   auto c13=keyword.child<int           >("c13");
-   auto c14=keyword.child<int           >("c14",true );
-   auto c15=keyword.child<int           >("c15",false);
-   auto c16=keyword.child<int, find::all>("c16");
-   auto c17=keyword.child<int, find::all>("c17",true );
-   auto c18=keyword.child<int, find::all>("c18",false);
-   auto c19=keyword.child<int, find::one>("c19");
-   auto c20=keyword.child<int, find::one>("c20",true );
-   auto c21=keyword.child<int, find::one>("c21",false);
+   auto c01 = keyword.child<              >("c01");
+   auto c02 = keyword.child<              >("c02",true );
+   auto c03 = keyword.child<              >("c03",false);
+   auto c04 = keyword.child<void          >("c04");
+   auto c05 = keyword.child<void          >("c05",true );
+   auto c06 = keyword.child<void          >("c06",false);
+   auto c07 = keyword.child<void,find::all>("c07");
+   auto c08 = keyword.child<void,find::all>("c08",true );
+   auto c09 = keyword.child<void,find::all>("c09",false);
+   auto c10 = keyword.child<void,find::one>("c10");
+   auto c11 = keyword.child<void,find::one>("c11",true );
+   auto c12 = keyword.child<void,find::one>("c12",false);
+   auto c13 = keyword.child<int           >("c13");
+   auto c14 = keyword.child<int           >("c14",true );
+   auto c15 = keyword.child<int           >("c15",false);
+   auto c16 = keyword.child<int, find::all>("c16");
+   auto c17 = keyword.child<int, find::all>("c17",true );
+   auto c18 = keyword.child<int, find::all>("c18",false);
+   auto c19 = keyword.child<int, find::one>("c19");
+   auto c20 = keyword.child<int, find::one>("c20",true );
+   auto c21 = keyword.child<int, find::one>("c21",false);
 }

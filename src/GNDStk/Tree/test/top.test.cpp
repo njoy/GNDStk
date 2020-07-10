@@ -9,24 +9,6 @@ SCENARIO("Testing GNDStk tree top()") {
    GIVEN("A tree read from n-069_Tm_170-covar.xml") {
       Tree<> t("n-069_Tm_170-covar.xml");
 
-      /*
-      <?xml
-         version="1.0"
-         encoding="UTF-8"
-      ?>
-
-      <covarianceSuite
-         projectile="n"
-         target="Tm170"
-         evaluation="ENDF/B-8.0"
-         format="1.9"
-      >
-        <styles> ... </styles>
-        <externalFiles> ... </externalFiles>
-        <parameterCovariances> ... </parameterCovariances>
-      </covarianceSuite>
-      */
-
       CHECK(t.top().name == "covarianceSuite");
       CHECK(t.top().metadata.size() == 4);
       CHECK(t.top().meta("projectile") == "n");

@@ -1,7 +1,7 @@
 
 // fixme
-// This file tests all of Node's add() functions, but could use
-// some reorganization in order to make it all much clearer.
+// This file tests all of Node's add() functions,
+// but could use some reorganization for clarity.
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
@@ -34,7 +34,6 @@ std::ostream &operator<<(std::ostream &s, const dimensions2d &dim)
 struct dim2d {
    int rows;
    int cols;
-   ///   dim2d() : rows(10), cols(10) { }
    dim2d(const int r, const int c) : rows(r), cols(c) { }
 };
 

@@ -69,11 +69,6 @@ SCENARIO("Testing GNDStk tree operator()") {
       // tree: a const tree
       const Tree<> tree("n-008_O_016.xml");
 
-      /*
-      // non: a non-const tree
-      Tree<> non = tree;
-      */
-
       // optional return flag
       bool found;
 
@@ -188,18 +183,6 @@ SCENARIO("Testing GNDStk tree operator()") {
       CHECK(found);
       CHECK(dq.size() == 60);
 
-      /*
-      Relevant section of the .xml:
-      ...
-      <reactions>
-        <reaction label="n + O16" ENDF_MT="2">
-          <crossSection>
-            <XYs1d label="eval">
-              <axes>
-                <axis index="1" label="energy_in" unit="eV"/>
-                <axis index="0" label="crossSection" unit="b"/>
-              </axes>
-      */
       CHECK(
          tree
           (reactionSuite, reactions, reaction)[0]

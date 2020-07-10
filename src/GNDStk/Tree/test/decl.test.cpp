@@ -9,24 +9,6 @@ SCENARIO("Testing GNDStk tree decl()") {
    GIVEN("A tree read from an XML file") {
       Tree<> t("n-069_Tm_170-covar.xml");
 
-      /*
-      <?xml
-         version="1.0"
-         encoding="UTF-8"
-      ?>
-
-      <covarianceSuite
-         projectile="n"
-         target="Tm170"
-         evaluation="ENDF/B-8.0"
-         format="1.9"
-      >
-        <styles> ... </styles>
-        <externalFiles> ... </externalFiles>
-        <parameterCovariances> ... </parameterCovariances>
-      </covarianceSuite>
-      */
-
       CHECK(t.decl().name == "xml");
       CHECK(t.decl().metadata.size() == 2);
       CHECK(t.decl().meta("version") == "1.0");

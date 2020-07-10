@@ -2,18 +2,6 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-/*
-The file we'll be examining:
-
-<?xml version="1.0" encoding="UTF-8"?>
-<covarianceSuite projectile="n" target="Tm170"
- evaluation="ENDF/B-8.0" format="1.9">
-  <styles> ... </styles>
-  <externalFiles> ... </externalFiles>
-  <parameterCovariances> ... </parameterCovariances>
-</covarianceSuite>
-*/
-
 SCENARIO("Testing GNDStk tree meta()") {
    using namespace njoy::GNDStk;
    using namespace mixed::meta;
