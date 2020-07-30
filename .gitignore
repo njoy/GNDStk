@@ -1,3 +1,6 @@
 __pycache__
 subprojects
 bin*
+build
+*~
+metaconfigure/*.pyc

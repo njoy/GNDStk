@@ -91,7 +91,7 @@ if ( profile_generate )
     file( MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/profiling" )
 endif()
 
-set( GNDStk_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" )
+set( GNDStk_AppleClang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( GNDStk_AppleClang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( GNDStk_AppleClang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
 set( GNDStk_AppleClang_Darwin_strict_flags "-Werror" )
@@ -103,31 +103,7 @@ set( GNDStk_AppleClang_Darwin_link_time_optimization_flags "-flto" )
 set( GNDStk_AppleClang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( GNDStk_AppleClang_Darwin_nonportable_optimization_flags "-march=native" )
 set( GNDStk_AppleClang_Darwin_static_flags "-static" )
-set( GNDStk_GNU_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
-set( GNDStk_GNU_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( GNDStk_GNU_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
-set( GNDStk_GNU_MinGW_strict_flags "-Werror" )
-set( GNDStk_GNU_MinGW_coverage_flags "--coverage" )
-set( GNDStk_GNU_MinGW_subproject_flags  )
-set( GNDStk_GNU_MinGW_base_project_flags  )
-set( GNDStk_GNU_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_GNU_MinGW_link_time_optimization_flags "-flto" )
-set( GNDStk_GNU_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_GNU_MinGW_nonportable_optimization_flags "-march=native" )
-set( GNDStk_GNU_MinGW_static_flags "-static" )
-set( GNDStk_GNU_Linux_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
-set( GNDStk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( GNDStk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( GNDStk_GNU_Linux_strict_flags "-Werror" )
-set( GNDStk_GNU_Linux_coverage_flags "--coverage" )
-set( GNDStk_GNU_Linux_subproject_flags  )
-set( GNDStk_GNU_Linux_base_project_flags  )
-set( GNDStk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_GNU_Linux_link_time_optimization_flags "-flto" )
-set( GNDStk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_GNU_Linux_nonportable_optimization_flags "-march=native" )
-set( GNDStk_GNU_Linux_static_flags "-static" )
-set( GNDStk_GNU_Windows_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
+set( GNDStk_GNU_Windows_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( GNDStk_GNU_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( GNDStk_GNU_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
 set( GNDStk_GNU_Windows_strict_flags "-Werror" )
@@ -139,19 +115,7 @@ set( GNDStk_GNU_Windows_link_time_optimization_flags "-flto" )
 set( GNDStk_GNU_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( GNDStk_GNU_Windows_nonportable_optimization_flags "-march=native" )
 set( GNDStk_GNU_Windows_static_flags "-static" )
-set( GNDStk_GNU_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
-set( GNDStk_GNU_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( GNDStk_GNU_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
-set( GNDStk_GNU_CYGWIN_strict_flags "-Werror" )
-set( GNDStk_GNU_CYGWIN_coverage_flags "--coverage" )
-set( GNDStk_GNU_CYGWIN_subproject_flags  )
-set( GNDStk_GNU_CYGWIN_base_project_flags  )
-set( GNDStk_GNU_CYGWIN_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_GNU_CYGWIN_link_time_optimization_flags "-flto" )
-set( GNDStk_GNU_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_GNU_CYGWIN_nonportable_optimization_flags "-march=native" )
-set( GNDStk_GNU_CYGWIN_static_flags "-static" )
-set( GNDStk_GNU_Darwin_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
+set( GNDStk_GNU_Darwin_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( GNDStk_GNU_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
 set( GNDStk_GNU_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
 set( GNDStk_GNU_Darwin_strict_flags "-Werror" )
@@ -163,31 +127,43 @@ set( GNDStk_GNU_Darwin_link_time_optimization_flags "-flto" )
 set( GNDStk_GNU_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( GNDStk_GNU_Darwin_nonportable_optimization_flags "-march=native" )
 set( GNDStk_GNU_Darwin_static_flags "-static" )
-set( GNDStk_Clang_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
-set( GNDStk_Clang_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( GNDStk_Clang_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
-set( GNDStk_Clang_MinGW_strict_flags "-Werror" )
-set( GNDStk_Clang_MinGW_coverage_flags "--coverage" )
-set( GNDStk_Clang_MinGW_subproject_flags  )
-set( GNDStk_Clang_MinGW_base_project_flags  )
-set( GNDStk_Clang_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_Clang_MinGW_link_time_optimization_flags "-flto" )
-set( GNDStk_Clang_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_Clang_MinGW_nonportable_optimization_flags "-march=native" )
-set( GNDStk_Clang_MinGW_static_flags "-static" )
-set( GNDStk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" )
-set( GNDStk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
-set( GNDStk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
-set( GNDStk_Clang_Linux_strict_flags "-Werror" )
-set( GNDStk_Clang_Linux_coverage_flags "--coverage" )
-set( GNDStk_Clang_Linux_subproject_flags  )
-set( GNDStk_Clang_Linux_base_project_flags  )
-set( GNDStk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_Clang_Linux_link_time_optimization_flags "-flto" )
-set( GNDStk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_Clang_Linux_nonportable_optimization_flags "-march=native" )
-set( GNDStk_Clang_Linux_static_flags "-static" )
-set( GNDStk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" )
+set( GNDStk_GNU_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( GNDStk_GNU_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( GNDStk_GNU_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
+set( GNDStk_GNU_MinGW_strict_flags "-Werror" )
+set( GNDStk_GNU_MinGW_coverage_flags "--coverage" )
+set( GNDStk_GNU_MinGW_subproject_flags  )
+set( GNDStk_GNU_MinGW_base_project_flags  )
+set( GNDStk_GNU_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_GNU_MinGW_link_time_optimization_flags "-flto" )
+set( GNDStk_GNU_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_GNU_MinGW_nonportable_optimization_flags "-march=native" )
+set( GNDStk_GNU_MinGW_static_flags "-static" )
+set( GNDStk_GNU_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++17" )
+set( GNDStk_GNU_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( GNDStk_GNU_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
+set( GNDStk_GNU_CYGWIN_strict_flags "-Werror" )
+set( GNDStk_GNU_CYGWIN_coverage_flags "--coverage" )
+set( GNDStk_GNU_CYGWIN_subproject_flags  )
+set( GNDStk_GNU_CYGWIN_base_project_flags  )
+set( GNDStk_GNU_CYGWIN_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_GNU_CYGWIN_link_time_optimization_flags "-flto" )
+set( GNDStk_GNU_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_GNU_CYGWIN_nonportable_optimization_flags "-march=native" )
+set( GNDStk_GNU_CYGWIN_static_flags "-static" )
+set( GNDStk_GNU_Linux_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( GNDStk_GNU_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( GNDStk_GNU_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( GNDStk_GNU_Linux_strict_flags "-Werror" )
+set( GNDStk_GNU_Linux_coverage_flags "--coverage" )
+set( GNDStk_GNU_Linux_subproject_flags  )
+set( GNDStk_GNU_Linux_base_project_flags  )
+set( GNDStk_GNU_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_GNU_Linux_link_time_optimization_flags "-flto" )
+set( GNDStk_GNU_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_GNU_Linux_nonportable_optimization_flags "-march=native" )
+set( GNDStk_GNU_Linux_static_flags "-static" )
+set( GNDStk_Clang_Windows_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( GNDStk_Clang_Windows_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( GNDStk_Clang_Windows_RELEASE_flags "-O3" "-DNDEBUG" )
 set( GNDStk_Clang_Windows_strict_flags "-Werror" )
@@ -199,19 +175,7 @@ set( GNDStk_Clang_Windows_link_time_optimization_flags "-flto" )
 set( GNDStk_Clang_Windows_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( GNDStk_Clang_Windows_nonportable_optimization_flags "-march=native" )
 set( GNDStk_Clang_Windows_static_flags "-static" )
-set( GNDStk_Clang_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" )
-set( GNDStk_Clang_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
-set( GNDStk_Clang_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
-set( GNDStk_Clang_CYGWIN_strict_flags "-Werror" )
-set( GNDStk_Clang_CYGWIN_coverage_flags "--coverage" )
-set( GNDStk_Clang_CYGWIN_subproject_flags  )
-set( GNDStk_Clang_CYGWIN_base_project_flags  )
-set( GNDStk_Clang_CYGWIN_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_Clang_CYGWIN_link_time_optimization_flags "-flto" )
-set( GNDStk_Clang_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
-set( GNDStk_Clang_CYGWIN_nonportable_optimization_flags "-march=native" )
-set( GNDStk_Clang_CYGWIN_static_flags "-static" )
-set( GNDStk_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" )
+set( GNDStk_Clang_Darwin_common_flags "-stdlib=libc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
 set( GNDStk_Clang_Darwin_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
 set( GNDStk_Clang_Darwin_RELEASE_flags "-O3" "-DNDEBUG" )
 set( GNDStk_Clang_Darwin_strict_flags "-Werror" )
@@ -223,26 +187,66 @@ set( GNDStk_Clang_Darwin_link_time_optimization_flags "-flto" )
 set( GNDStk_Clang_Darwin_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
 set( GNDStk_Clang_Darwin_nonportable_optimization_flags "-march=native" )
 set( GNDStk_Clang_Darwin_static_flags "-static" )
+set( GNDStk_Clang_MinGW_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( GNDStk_Clang_MinGW_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( GNDStk_Clang_MinGW_RELEASE_flags "-O3" "-DNDEBUG" )
+set( GNDStk_Clang_MinGW_strict_flags "-Werror" )
+set( GNDStk_Clang_MinGW_coverage_flags "--coverage" )
+set( GNDStk_Clang_MinGW_subproject_flags  )
+set( GNDStk_Clang_MinGW_base_project_flags  )
+set( GNDStk_Clang_MinGW_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_Clang_MinGW_link_time_optimization_flags "-flto" )
+set( GNDStk_Clang_MinGW_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_Clang_MinGW_nonportable_optimization_flags "-march=native" )
+set( GNDStk_Clang_MinGW_static_flags "-static" )
+set( GNDStk_Clang_CYGWIN_common_flags "-Wno-subobject-linkage" "-Wall" "-Wextra" "-Wpedantic" "-std=gnu++17" )
+set( GNDStk_Clang_CYGWIN_DEBUG_flags "-O0" "-g" "-gdwarf-3" "-fsignaling-nans" )
+set( GNDStk_Clang_CYGWIN_RELEASE_flags "-O3" "-DNDEBUG" )
+set( GNDStk_Clang_CYGWIN_strict_flags "-Werror" )
+set( GNDStk_Clang_CYGWIN_coverage_flags "--coverage" )
+set( GNDStk_Clang_CYGWIN_subproject_flags  )
+set( GNDStk_Clang_CYGWIN_base_project_flags  )
+set( GNDStk_Clang_CYGWIN_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_Clang_CYGWIN_link_time_optimization_flags "-flto" )
+set( GNDStk_Clang_CYGWIN_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_Clang_CYGWIN_nonportable_optimization_flags "-march=native" )
+set( GNDStk_Clang_CYGWIN_static_flags "-static" )
+set( GNDStk_Clang_Linux_common_flags "-stdlib=libstdc++" "-Wall" "-Wextra" "-Wpedantic" "-std=c++17" )
+set( GNDStk_Clang_Linux_DEBUG_flags "-O0" "-g" "-gdwarf-3" )
+set( GNDStk_Clang_Linux_RELEASE_flags "-O3" "-DNDEBUG" )
+set( GNDStk_Clang_Linux_strict_flags "-Werror" )
+set( GNDStk_Clang_Linux_coverage_flags "--coverage" )
+set( GNDStk_Clang_Linux_subproject_flags  )
+set( GNDStk_Clang_Linux_base_project_flags  )
+set( GNDStk_Clang_Linux_profile_generate_flags "-fprofile-generate='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_Clang_Linux_link_time_optimization_flags "-flto" )
+set( GNDStk_Clang_Linux_profile_use_flags "-fprofile-use='${CMAKE_BINARY_DIR}/profiling'" )
+set( GNDStk_Clang_Linux_nonportable_optimization_flags "-march=native" )
+set( GNDStk_Clang_Linux_static_flags "-static" )
 get_directory_property( is_subproject PARENT_DIRECTORY )
+
+if( NOT TARGET fmt-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/fmt-adapter )
+endif()
 
 if( NOT TARGET catch-adapter )
     add_subdirectory( ${ROOT_DIRECTORY}/subprojects/catch-adapter )
 endif()
 
-if( NOT TARGET range-v3-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/range-v3-adapter )
+if( NOT TARGET json-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/json-adapter )
 endif()
 
-if( NOT TARGET variant-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/variant-adapter )
+if( NOT TARGET pugixml-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/pugixml-adapter )
 endif()
 
-if( NOT TARGET valuable-adapter )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/valuable-adapter )
+if( NOT TARGET spdlog-adapter )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/spdlog-adapter )
 endif()
 
-if( NOT TARGET knoop )
-    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/knoop )
+if( NOT TARGET Log )
+    add_subdirectory( ${ROOT_DIRECTORY}/subprojects/Log )
 endif()
 
 
@@ -276,20 +280,94 @@ message( STATUS "" )
 message( STATUS "-----------------------------------------------------------" )
 
 add_library( GNDStk INTERFACE )
-target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp" )
+target_sources( GNDStk INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert_t.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2string.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/node2type.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/typed.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/utility.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/string2type.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/mixed.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2node.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/plain.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/sort.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/call.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/add.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/all.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/one.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/assign.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Node/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/node2type/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/mixed/src/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/mixed/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/plain/src/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/plain/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword/src/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/keyword/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/type2node/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/meta/src/operator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/top.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/decl.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/has_decl.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/assign.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/reset.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/has_top.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/Tree/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/typed/src/child.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/typed/src/meta.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/child/src/operator.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/XML.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/JSON.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/detail.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/convert/src/tree.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/assign.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/XML/src/read.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON/src/write.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON/src/ctor.hpp"
+             "${CMAKE_CURRENT_SOURCE_DIR}/src/GNDStk/JSON/src/read.hpp" )
 
-target_include_directories( GNDStk INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/src src )
+target_include_directories( GNDStk INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/src src/ )
 
 set( PREFIX GNDStk_${CMAKE_CXX_COMPILER_ID}_${CMAKE_SYSTEM_NAME} )
 
 target_link_libraries( GNDStk INTERFACE "$<$<AND:$<CONFIG:RELEASE>,$<BOOL:${link_time_optimization}>>:${${PREFIX}_RELEASE_flags};${${PREFIX}_link_time_optimization_flags}$<$<BOOL:${profile_generate}>:${${PREFIX}_profile_generate_flags};>$<$<BOOL:${profile_use}>:${${PREFIX}_profile_use_flags};>$<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags};>>$<$<CONFIG:DEBUG>:$<$<BOOL:${coverage}>:${${PREFIX}_coverage_flags};>>$<$<BOOL:CXX_appended_flags>:${CXX_appended_flags};>$<$<BOOL:GNDStk_appended_flags>:${GNDStk_appended_flags};>" )
 
-target_link_libraries( GNDStk INTERFACE catch-adapter INTERFACE knoop )
+target_link_libraries( GNDStk INTERFACE json-adapter INTERFACE catch-adapter INTERFACE Log INTERFACE pugixml-adapter )
 
 if( NOT is_subproject )
     enable_testing() 
     if ( unit_tests )
+        add_subdirectory( src/GNDStk/XML/test )
+        add_subdirectory( src/GNDStk/string2type/test )
+        add_subdirectory( src/GNDStk/JSON/test )
+        add_subdirectory( src/GNDStk/type2string/test )
+        add_subdirectory( src/GNDStk/meta/test )
+        add_subdirectory( src/GNDStk/type2node/test )
+        add_subdirectory( src/GNDStk/utility/test )
+        add_subdirectory( src/GNDStk/Tree/test )
+        add_subdirectory( src/GNDStk/keyword/test )
+        add_subdirectory( src/GNDStk/child/test )
+        add_subdirectory( src/GNDStk/Node/test )
         add_subdirectory( src/GNDStk/test )
+        add_subdirectory( src/GNDStk/convert/test )
+        add_subdirectory( src/GNDStk/node2type/test )
     endif() 
 endif()
 
@@ -299,7 +377,7 @@ install( FILES "${CMAKE_BINARY_DIR}/signature.json"
                      GROUP_READ
                      WORLD_READ
 )
-install( DIRECTORY src/ DESTINATION include
+install( DIRECTORY src// DESTINATION include
          FILE_PERMISSIONS OWNER_READ OWNER_WRITE
                           GROUP_READ
                           WORLD_READ
