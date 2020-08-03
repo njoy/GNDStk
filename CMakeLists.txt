@@ -34,7 +34,7 @@ target_include_directories( GNDStk INTERFACE src/ )
 target_link_libraries( GNDStk
     INTERFACE Log
     INTERFACE catch-adapter
-    INTERFACE pugi-adapter
+    INTERFACE pugixml-adapter
     INTERFACE json-adapter
     )
 

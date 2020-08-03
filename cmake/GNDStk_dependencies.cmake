@@ -22,8 +22,8 @@ FetchContent_Declare( Log
     GIT_SHALLOW     TRUE
     )
 
-FetchContent_Declare( pugi-adapter
-    GIT_REPOSITORY  http://github.com/njoy/pugi-adapter
+FetchContent_Declare( pugixml-adapter
+    GIT_REPOSITORY  http://github.com/njoy/pugixml-adapter
     GIT_TAG         origin/master
     GIT_SHALLOW     TRUE
     )
@@ -42,6 +42,6 @@ FetchContent_Declare( json-adapter
 FetchContent_MakeAvailable(
     catch-adapter
     Log
-    pugi-adapter
+    pugixml-adapter
     json-adapter
     )
