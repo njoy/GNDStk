@@ -35,7 +35,7 @@ target_link_libraries( GNDStk
     INTERFACE Log
     INTERFACE catch-adapter
     INTERFACE pugixml-adapter
-    INTERFACE json-adapter
+    INTERFACE nlohmann_json::nlohmann_json
     )
 
 
