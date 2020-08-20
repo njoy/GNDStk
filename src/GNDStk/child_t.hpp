@@ -133,4 +133,4 @@ public:
 // because they're perfectly viable macros for users to invoke.
 
 // Operators
-#include "GNDStk/child/src/operator.hpp"
+#include "GNDStk/child_t/src/operator.hpp"

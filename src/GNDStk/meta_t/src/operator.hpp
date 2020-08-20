@@ -83,5 +83,5 @@ inline meta_t<
       !std::is_same<RESULT,void>::value,  // ...require non-void!
       "meta_t<void>/CONVERTER not allowed; the meta_t type must be non-void"
    );
-   return kwd; // placeholder; the static assert will always fail
+   return kwd; // placeholder; the static_assert will always fail
 }

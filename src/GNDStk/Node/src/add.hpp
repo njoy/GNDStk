@@ -11,13 +11,13 @@
 template<class T, class CONVERTER = detail::convert_t>
 metaPair &add(
    const std::string &key,
-   const T &from,
+   const T &value,
    const CONVERTER &converter = CONVERTER{}
 ) {
    std::string to;
    try {
       // often (but not necessarily) identity, if T is string
-      converter(from,to);
+      converter(value,to);
    } catch (const std::exception &) {
       log::context("Node::add(key=\"{}\",value)", key);
       throw;
@@ -111,21 +111,30 @@ typename std::enable_if<
 // child_t, ...
 // ------------------------
 
-// <void,one>
+// Remark. The first two accept a general FIND child_t - either "one" or "all";
+// and return a reference to the added value. The "all" is allowed here - hence
+// the general FIND instead of just "one" - because it's perfectly reasonable
+// to add just a single value in this case, even if multiple values are allowed.
+// The second two functions accept only an "all" child_t, because they receive
+// containers of values. (They also return void, as there's not generally just
+// one added value to which we'd be able to return a reference.)
+
+
+// <void,FIND>
 // Accepts a convertible-to-node value.
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<class T>
+template<find FIND, class T>
 typename std::enable_if<
    std::is_convertible<T,Node>::value,
    Node &
 >::type add(
-   const child_t<void,find::one> &kwd,
+   const child_t<void,FIND> &kwd,
    const T &value
 ) {
    try {
-      Node &n = add() = Node(value);
+      Node &n = add(value);
       n.name = kwd.name;
       return n;
    } catch (const std::exception &) {
@@ -135,17 +144,17 @@ typename std::enable_if<
 }
 
 
-// <TYPE,one>
+// <TYPE,FIND>
 // Accepts a convertible-to-TYPE value.
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<class TYPE, class CONVERTER, class T>
+template<class TYPE, find FIND, class CONVERTER, class T>
 typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    Node &
 >::type add(
-   const child_t<TYPE,find::one,CONVERTER> &kwd,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
    const T &value
 ) {
    try {
@@ -203,7 +212,7 @@ typename std::enable_if<
    const child_t<TYPE,find::all,CONVERTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
-    try {
+   try {
       for (const T &value : container)
          add(kwd--,value);
    } catch (const std::exception &) {

@@ -107,16 +107,19 @@ SCENARIO("Testing GNDStk Node add()") {
    Node<> node2; node2.name = "bb22";
    Node<> node3; node3.name = "cc33";
    Node<> node4; node4.name = "dd44";
+   Node<> node5; node5.name = "ee55";
    std::vector<Node<>> vec;
    vec.push_back(node1);
    vec.push_back(node2);
    vec.push_back(node3);
    vec.push_back(node4);
    n.add(nrepeat,vec);
+   n.add(nrepeat,node5);
 
    auto drepeat = keyword.child<dim2d,find::all>("dimension");
-   const dim2d a(1,2), b(3,4), c(5,6), d(7,8);
+   const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);
    n.add(drepeat,{a,b,c,d});
+   n.add(drepeat,e);
 
    Node<std::deque,std::list> n3; n3.name = "Child 6";
    n.add(foo,n3);

@@ -3,8 +3,11 @@
 // JSON Constructors
 // -----------------------------------------------------------------------------
 
-// default, move
+// default
 JSON() = default;
+
+
+// move
 JSON(JSON &&) = default;
 
 

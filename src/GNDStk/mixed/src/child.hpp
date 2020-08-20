@@ -21,9 +21,6 @@ inline const child_t<void,find::one>
 // -----------------------------------------------------------------------------
 // Keywords
 // Of type child_t
-//
-// fixme Eventually, many (or most (or all)) deserve a solid type,
-// not child_t's default.
 // -----------------------------------------------------------------------------
 
 namespace child {

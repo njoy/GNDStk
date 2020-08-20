@@ -3,8 +3,11 @@
 // XML Constructors
 // -----------------------------------------------------------------------------
 
-// default, move
+// default
 XML() = default;
+
+
+// move
 XML(XML &&) = default;
 
 

@@ -51,4 +51,4 @@ public:
 // because it's a perfectly viable macro for users to invoke.
 
 // Operators
-#include "GNDStk/meta/src/operator.hpp"
+#include "GNDStk/meta_t/src/operator.hpp"
