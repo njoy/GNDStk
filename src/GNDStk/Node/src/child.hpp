@@ -56,17 +56,17 @@ CONTAINER<Node> child(
 // Node::child(child_t<*,one>)
 // -----------------------------------------------------------------------------
 
-// RESULT
-template<class RESULT, class CONVERTER>
-RESULT child(
-   const child_t<RESULT,find::one,CONVERTER> &kwd,
+// TYPE
+template<class TYPE, class CONVERTER>
+TYPE child(
+   const child_t<TYPE,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
       // call one(string), with the child_t's key
       const Node &value = one(kwd.name,found);
-      // convert value, if any, to the appropriate result type
-      RESULT type{};
+      // convert value, if any, to the appropriate type
+      TYPE type{};
       if (found)
          kwd.converter(value,type);
       return type;
@@ -77,14 +77,14 @@ RESULT child(
 }
 
 // variant
-// With caller-specified result type
-template<class RESULT, class... Ts, class CONVERTER>
-typename detail::oneof<RESULT,Ts...>::type child(
+// With caller-specified type
+template<class TYPE, class... Ts, class CONVERTER>
+typename detail::oneof<TYPE,Ts...>::type child(
    const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child(
-      child_t<RESULT,find::one,CONVERTER>(kwd.name),
+      child_t<TYPE,find::one,CONVERTER>(kwd.name),
       found
    );
 }
@@ -95,16 +95,16 @@ typename detail::oneof<RESULT,Ts...>::type child(
 // Node::child(child_t<*,all>)
 // -----------------------------------------------------------------------------
 
-// RESULT
+// TYPE
 template<
    template<class...> class CONTAINER = std::vector,
-   class RESULT, class CONVERTER
+   class TYPE, class CONVERTER
 >
-CONTAINER<RESULT> child(
-   const child_t<RESULT,find::all,CONVERTER> &kwd,
+CONTAINER<TYPE> child(
+   const child_t<TYPE,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   CONTAINER<RESULT> container;
+   CONTAINER<TYPE> container;
    found = false;
 
    try {
@@ -112,8 +112,8 @@ CONTAINER<RESULT> child(
       for (auto &value : children)
          if (value->name == kwd.name) {
             found = true;
-            // convert value to the appropriate result type
-            RESULT type{};
+            // convert value to the appropriate type
+            TYPE type{};
             kwd.converter(*value,type);
             container.push_back(type);
          }
@@ -125,18 +125,18 @@ CONTAINER<RESULT> child(
 }
 
 // variant
-// With caller-specified result type
+// With caller-specified type
 template<
-   class RESULT,
+   class TYPE,
    template<class...> class CONTAINER = std::vector,
    class... Ts, class CONVERTER
 >
-CONTAINER<typename detail::oneof<RESULT,Ts...>::type> child(
+CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
    const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(
-      child_t<RESULT,find::all,CONVERTER>(kwd.name),
+      child_t<TYPE,find::all,CONVERTER>(kwd.name),
       found
    );
 }

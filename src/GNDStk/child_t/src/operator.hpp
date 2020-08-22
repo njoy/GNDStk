@@ -4,33 +4,33 @@
 // -----------------------------------------------------------------------------
 
 // operator-
-template<class RESULT, find FIND, class CONVERTER>
-inline auto operator-(const child_t<RESULT,FIND,CONVERTER> &kwd)
+template<class TYPE, find FIND, class CONVERTER>
+inline auto operator-(const child_t<TYPE,FIND,CONVERTER> &kwd)
 {
-   // Downgrade the result to void, and chuck the converter.
+   // Downgrade the type to void, and chuck the converter.
    return child_t<void,FIND>(kwd.name, kwd.canBeTopLevel);
 }
 
 
 
 // -----------------------------------------------------------------------------
-// R/child_t
-// Change result to R
+// T/child_t
+// Change type to T
 // See meta_t analogs for relevant remarks
 // -----------------------------------------------------------------------------
 
-// R/child_t<RESULT,FIND,CONVERTER>
-template<class R, class RESULT, find FIND, class CONVERTER>
-inline auto operator/(const R &, const child_t<RESULT,FIND,CONVERTER> &kwd)
+// T/child_t<TYPE,FIND,CONVERTER>
+template<class T, class TYPE, find FIND, class CONVERTER>
+inline auto operator/(const T &, const child_t<TYPE,FIND,CONVERTER> &kwd)
 {
-   return child_t<R,FIND,CONVERTER>(kwd.name, kwd.converter, kwd.canBeTopLevel);
+   return child_t<T,FIND,CONVERTER>(kwd.name, kwd.converter, kwd.canBeTopLevel);
 }
 
-// R/child_t<void,FIND>
-template<class R, find FIND>
-inline auto operator/(const R &, const child_t<void,FIND> &kwd)
+// T/child_t<void,FIND>
+template<class T, find FIND>
+inline auto operator/(const T &, const child_t<void,FIND> &kwd)
 {
-   return child_t<R,FIND>(kwd.name, kwd.canBeTopLevel);
+   return child_t<T,FIND>(kwd.name, kwd.canBeTopLevel);
 }
 
 
@@ -41,30 +41,30 @@ inline auto operator/(const R &, const child_t<void,FIND> &kwd)
 // See meta_t analogs for relevant remarks
 // -----------------------------------------------------------------------------
 
-// child_t<RESULT,FIND,CONVERTER>/C
-template<class RESULT, find FIND, class CONVERTER, class C>
+// child_t<TYPE,FIND,CONVERTER>/C
+template<class TYPE, find FIND, class CONVERTER, class C>
 inline child_t<
-   typename detail::isNotVoid<RESULT>::type,
+   typename detail::isNotVoid<TYPE>::type,
    FIND,
    C
 > operator/(
-   const child_t<RESULT,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
    const C &converter
 ) {
-   return child_t<RESULT,FIND,C>(kwd.name, converter, kwd.canBeTopLevel);
+   return child_t<TYPE,FIND,C>(kwd.name, converter, kwd.canBeTopLevel);
 }
 
 // child_t<void,FIND>/C
-template<class RESULT, find FIND, class C>
+template<class TYPE, find FIND, class C>
 inline child_t<
-   typename detail::isVoid<RESULT>::type,
+   typename detail::isVoid<TYPE>::type,
    FIND
 > operator/(
-   const child_t<RESULT,FIND> &kwd,
+   const child_t<TYPE,FIND> &kwd,
    const C &
 ) {
    static_assert(
-      !std::is_same<RESULT,void>::value,
+      !std::is_same<TYPE,void>::value,
       "child_t<void>/CONVERTER not allowed; the child_t type must be non-void"
    );
    return kwd;

@@ -8,10 +8,10 @@
 // Description
 // ------------------------
 
-RESULT
+TYPE
 
    The type to which GNDStk should convert a Node<> that's extracted from
-   a Tree<> with the child_t object. If RESULT is void, then GNDStk uses
+   a Tree<> with the child_t object. If TYPE is void, then GNDStk uses
    Node<*> (the child node, in its original form in the tree), where *
    is whatever template parameters are in play with the particular Tree<>
    being queried.
@@ -42,7 +42,7 @@ FIND
 
 CONVERTER
 
-   Custom conversion between RESULT and Node, if we wish to override the
+   Custom conversion between TYPE and Node, if we wish to override the
    default of calling the overloaded function convert() to do the conversion.
 */
 
@@ -51,9 +51,9 @@ CONVERTER
 // ------------------------
 
 template<
-   class RESULT    = void,       // default means current Node type
-   find  FIND      = find::one,  // one, or any number allowed?
-   class CONVERTER = typename detail::default_converter<RESULT>::type
+   class TYPE = void,      // default means current Node type
+   find  FIND = find::one, // one, or any number allowed?
+   class CONVERTER = typename detail::default_converter<TYPE>::type
 >
 class child_t {
 public:
@@ -121,13 +121,13 @@ public:
 // For child_t building. The macros don't handle the optional converter;
 // for that, just construct such an object directly.
 
-// void (unspecified) result type (so, Node<>)
+// void (unspecified) type (so, Node<>)
 #define GNDSTK_MAKE_CHILD_DEFAULT(name,FIND) \
    inline const child_t<void,FIND> name(#name)
 
-// user-defined result type
-#define GNDSTK_MAKE_CHILD(result,name,FIND) \
-   inline const child_t<result,FIND> name(#name)
+// user-defined type
+#define GNDSTK_MAKE_CHILD(type,name,FIND) \
+   inline const child_t<type,FIND> name(#name)
 
 // Note: we won't #undef these eventually, as we normally would,
 // because they're perfectly viable macros for users to invoke.

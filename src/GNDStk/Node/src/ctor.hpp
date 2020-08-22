@@ -42,8 +42,8 @@ Node(const std::string &name) : name(name)
 }
 
 // child_t<*>
-template<class RESULT, find FIND, class CONVERTER>
-Node(const child_t<RESULT,FIND,CONVERTER> &kwd) : name(kwd.name)
+template<class TYPE, find FIND, class CONVERTER>
+Node(const child_t<TYPE,FIND,CONVERTER> &kwd) : name(kwd.name)
 {
 }
 

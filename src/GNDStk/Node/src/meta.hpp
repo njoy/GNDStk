@@ -70,17 +70,17 @@ std::string &meta(
 // Node::meta(meta_t)
 // -----------------------------------------------------------------------------
 
-// RESULT
-template<class RESULT, class CONVERTER>
-RESULT meta(
-   const meta_t<RESULT,CONVERTER> &kwd,
+// TYPE
+template<class TYPE, class CONVERTER>
+TYPE meta(
+   const meta_t<TYPE,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
       // call meta(string), with the meta_t's key
       const std::string &value = meta(kwd.name,found);
-      // convert value, if any, to the appropriate result type
-      RESULT type{};
+      // convert value, if any, to the appropriate type
+      TYPE type{};
       if (found)
          kwd.converter(value,type);
       return type;
@@ -91,11 +91,11 @@ RESULT meta(
 }
 
 // variant
-// With caller-specified result type
-template<class RESULT, class... Ts, class CONVERTER>
-typename detail::oneof<RESULT,Ts...>::type meta(
+// With caller-specified type
+template<class TYPE, class... Ts, class CONVERTER>
+typename detail::oneof<TYPE,Ts...>::type meta(
    const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return meta(meta_t<RESULT,CONVERTER>(kwd.name),found);
+   return meta(meta_t<TYPE,CONVERTER>(kwd.name),found);
 }

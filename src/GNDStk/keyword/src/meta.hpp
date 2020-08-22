@@ -4,9 +4,9 @@
 // -----------------------------------------------------------------------------
 
 // meta[<[void]>](name)
-template<class RESULT = void>
+template<class TYPE = void>
 static meta_t<
-   typename detail::isVoid<RESULT>::type
+   typename detail::isVoid<TYPE>::type
 > meta(
    const std::string &name
 ) {
@@ -14,14 +14,14 @@ static meta_t<
 }
 
 
-// meta<RESULT>(name[,converter])
-template<class RESULT, class CONVERTER = detail::convert_t>
+// meta<TYPE>(name[,converter])
+template<class TYPE, class CONVERTER = detail::convert_t>
 static meta_t<
-   typename detail::isNotVoid<RESULT>::type,
+   typename detail::isNotVoid<TYPE>::type,
    CONVERTER
 > meta(
    const std::string &name,
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return meta_t<RESULT,CONVERTER>{name,converter};
+   return meta_t<TYPE,CONVERTER>{name,converter};
 }

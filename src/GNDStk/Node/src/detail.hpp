@@ -11,14 +11,14 @@ namespace detail {
 
 namespace detail {
 
-// apply_keyword<RESULT>
-template<class RESULT>
+// apply_keyword<TYPE>
+template<class TYPE>
 class apply_keyword {
 public:
    template<class KEYWORD, class NODE>
    void operator()(const KEYWORD &kwd, const NODE &from) const
    {
-      RESULT type{};
+      TYPE type{};
       kwd.converter(from,type);
    }
 };

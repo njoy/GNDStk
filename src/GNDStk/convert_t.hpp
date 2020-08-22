@@ -27,7 +27,7 @@ public:
 // of a converter is not applicable.
 // -----------------------------------------------------------------------------
 
-template<class RESULT>
+template<class TYPE>
 class default_converter {
 public:
    using type = convert_t;
