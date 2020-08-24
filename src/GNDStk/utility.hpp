@@ -296,21 +296,18 @@ inline bool eq_hdf5(const std::string &str)
 namespace detail {
 
 // is_oneof
-// Is Foo one of the types in Foos?
-template<class Foo, class... Foos>
+// Is T one of the types in T?
+template<class T, class... Ts>
 class is_oneof {
 public:
-   static constexpr bool value = (std::is_same_v<Foo,Foos> || ...);
+   static constexpr bool value = (std::is_same_v<T,Ts> || ...);
 };
 
 // oneof
-template<class RESULT, class... Ts>
+template<class T, class... Ts>
 class oneof {
 public:
-   using type = typename std::enable_if<
-      is_oneof<RESULT,Ts...>::value,
-      RESULT
-   >::type;
+   using type = typename std::enable_if<is_oneof<T,Ts...>::value,T>::type;
 };
 
 // isVoid<T>

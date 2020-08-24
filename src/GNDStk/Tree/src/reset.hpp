@@ -22,9 +22,9 @@
 // reset(kwd, format, ...)
 // -----------------------------------------------------------------------------
 
-template<class RESULT, find FIND, class CONVERTER>
+template<class TYPE, find FIND, class CONVERTER>
 Tree &reset(
-   const child_t<RESULT,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
    const format form = format::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -84,9 +84,9 @@ Tree &reset(
 // reset(kwd, string, ...)
 // -----------------------------------------------------------------------------
 
-template<class RESULT, find FIND, class CONVERTER>
+template<class TYPE, find FIND, class CONVERTER>
 Tree &reset(
-   const child_t<RESULT,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

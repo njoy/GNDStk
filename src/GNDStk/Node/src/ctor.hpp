@@ -1,13 +1,12 @@
 
 // -----------------------------------------------------------------------------
-// Node Constructors
+// Basic Node Constructors
 // -----------------------------------------------------------------------------
 
-// fixme Should probably have some additional constructors,
-// allowing for name, metadata, etc. at construction time.
-
-// default, move
+// default
 Node() = default;
+
+// move
 Node(Node &&) = default;
 
 // copy
@@ -24,4 +23,68 @@ template<
 Node(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
    *this = from;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Other Node Constructors
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// Name: directly, or from
+// a child_t
+// ------------------------
+
+// string
+Node(const std::string &name) : name(name)
+{
+}
+
+// child_t<*>
+template<class TYPE, find FIND, class CONVERTER>
+Node(const child_t<TYPE,FIND,CONVERTER> &kwd) : name(kwd.name)
+{
+}
+
+
+// ------------------------
+// Name and value, using
+// a child_t
+// ------------------------
+
+// child_t<void,...>, Node
+template<find FIND>
+Node(
+   const child_t<void,FIND> &kwd,
+   const Node &value
+) {
+   try {
+      *this = value;
+      name = kwd.name; // overrides any name from the assignment
+   } catch (const std::exception &) {
+      log::context("Node(child_t(\"{}\"),value)", kwd.name);
+      throw;
+   }
+}
+
+// child_t<TYPE,...>, T
+// T must be convertible to TYPE
+// Then, the child_t's converter converts the TYPE value to a Node. With
+// child_t's default converter, this means convert(TYPE,Node) is called.
+template<
+   class TYPE, find FIND, class CONVERTER, class T,
+   class = typename std::enable_if<std::is_convertible<T,TYPE>::value>::type
+>
+Node(
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const T &value
+) {
+   try {
+      kwd.converter(TYPE(value),*this);
+      name = kwd.name; // overrides any name from the above line
+   } catch (const std::exception &) {
+      log::context("Node(child_t(\"{}\"),value)", kwd.name);
+      throw;
+   }
 }

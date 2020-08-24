@@ -3,6 +3,9 @@ namespace detail {
 
 // -----------------------------------------------------------------------------
 // convert_t
+// Serves as a default "function object" in places where a function object
+// can be (optionally) user-provided for converting *from* something, *to*
+// something else.
 // -----------------------------------------------------------------------------
 
 class convert_t {
@@ -18,9 +21,13 @@ public:
 
 // -----------------------------------------------------------------------------
 // default_converter
+// Used for selecting the CONVERTER template argument of the meta_t and child_t
+// classes. Usually gives convert_t, but gives void (which in turn will not and
+// should not be used) for meta_t<void> and child_t<void>, for which the concept
+// of a converter is not applicable.
 // -----------------------------------------------------------------------------
 
-template<class RESULT>
+template<class TYPE>
 class default_converter {
 public:
    using type = convert_t;

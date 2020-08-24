@@ -1,14 +1,12 @@
 
 // -----------------------------------------------------------------------------
-// Tree Constructors
+// Basic Tree Constructors
 // -----------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------
-// Basic
-// -----------------------------------------------------------------------------
-
-// default, move
+// default
 Tree() = default;
+
+// move
 Tree(Tree &&) = default;
 
 // copy
@@ -68,7 +66,7 @@ explicit Tree(const JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// From input
+// From input file/stream
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
@@ -153,9 +151,9 @@ Tree(std::istream &is, const std::string &type)
 // arguments to be *file* names (not top-level node names).
 
 // keyword, format
-template<class RESULT, find FIND, class CONVERTER>
+template<class TYPE, find FIND, class CONVERTER>
 Tree(
-   const child_t<RESULT,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
    const format form = format::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
@@ -173,9 +171,9 @@ Tree(
 }
 
 // keyword, string
-template<class RESULT, find FIND, class CONVERTER>
+template<class TYPE, find FIND, class CONVERTER>
 Tree(
-   const child_t<RESULT,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

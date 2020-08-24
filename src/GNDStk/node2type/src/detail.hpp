@@ -8,14 +8,11 @@ namespace detail {
 template<class NODE>
 const std::string &get_pcdata_string(const NODE &node)
 {
-   // fixme This function would be shorter if it used our keyword system,
-   // which, alas, isn't #included yet at this point. Consider fixing this.
-   // Also, we really could use a more-informative error message below.
-
-   // Context: we're in, say, a <values> node, which ends up having a <pcdata>
-   // node inside of it, which in turn has a metadata value with the key "text".
-   // That's how something like <values>1 2 3 4</values> ends up being encoded.
-   // Our goal here is to extract the "1 2 3 4".
+   // Context
+   // We're in, say, a <values> node, which has a <pcdata> child node, which,
+   // finally, has a metadatum with key "text". That's how GNDS content like
+   // <values>...</values> (from an XML file) gets encoded in our node objects.
+   // Our goal here is to extract the "..." - the metadatum's value string.
    for (auto &c : node.children)
       if (c->name == "pcdata")
          for (auto &m : c->metadata)
@@ -23,12 +20,13 @@ const std::string &get_pcdata_string(const NODE &node)
                return m.second;
 
    log::error(
-      "Unable to find pcdata+text entry in the Node,\n"
+      "Internal error in detail::get_pcdata_string().\n"
+      "Unable to find child \"pcdata\" metadatum \"text\" entry in the Node,\n"
       "but it's needed for an operation"
    );
    throw std::exception{};
 
-   // leave here, even if unreached
+   // unreached, given the above throw, but might silence compiler warnings
    static const std::string empty = "";
    return empty;
 }

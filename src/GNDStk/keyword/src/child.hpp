@@ -5,11 +5,11 @@
 
 // child[<[void[,FIND]]>](name[,top])
 template<
-   class RESULT = void,
+   class TYPE = void,
    find  FIND = find::one
 >
 static child_t<
-   typename detail::isVoid<RESULT>::type,
+   typename detail::isVoid<TYPE>::type,
    FIND
 > child(
    const std::string &name,
@@ -19,37 +19,37 @@ static child_t<
 }
 
 
-// child<RESULT[,FIND[,CONVERTER]]>(name[,top[,converter]])
+// child<TYPE[,FIND[,CONVERTER]]>(name[,top[,converter]])
 template<
-   class RESULT,
+   class TYPE,
    find  FIND = find::one,
    class CONVERTER = detail::convert_t
 >
 static child_t<
-   typename detail::isNotVoid<RESULT>::type,
+   typename detail::isNotVoid<TYPE>::type,
    FIND, CONVERTER
 > child(
    const std::string &name,
    const bool top = false,
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return child_t<RESULT,FIND,CONVERTER>{name,top,converter};
+   return child_t<TYPE,FIND,CONVERTER>{name,top,converter};
 }
 
 
-// child<RESULT[,FIND[,CONVERTER]]>(name,converter[,top])
+// child<TYPE[,FIND[,CONVERTER]]>(name,converter[,top])
 template<
-   class RESULT,
+   class TYPE,
    find  FIND = find::one,
    class CONVERTER = detail::convert_t
 >
 static child_t<
-   typename detail::isNotVoid<RESULT>::type,
+   typename detail::isNotVoid<TYPE>::type,
    FIND, CONVERTER
 > child(
    const std::string &name,
    const CONVERTER &converter,
    const bool top = false
 ) {
-   return child_t<RESULT,FIND,CONVERTER>{name,top,converter};
+   return child_t<TYPE,FIND,CONVERTER>{name,top,converter};
 }

@@ -59,8 +59,8 @@ namespace GNDStk {
 
 // meta_t, child_t, and related
 #include "GNDStk/convert_t.hpp"
-#include "GNDStk/meta.hpp"
-#include "GNDStk/child.hpp"
+#include "GNDStk/meta_t.hpp"
+#include "GNDStk/child_t.hpp"
 #include "GNDStk/keyword.hpp"
 
 // sets of meta_t/child_t

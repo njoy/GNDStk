@@ -3,10 +3,10 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
-// <RESULT,CONVERTER>
+// <TYPE,CONVERTER>
 template<
-   class RESULT = void,
-   class CONVERTER = typename detail::default_converter<RESULT>::type
+   class TYPE = void,
+   class CONVERTER = typename detail::default_converter<TYPE>::type
 >
 class meta_t {
 public:
@@ -45,10 +45,10 @@ public:
 // Macro
 // For meta_t building. The macro doesn't handle the optional converter;
 // for that, just construct such an object directly.
-#define GNDSTK_MAKE_META(RESULT,name) \
-   inline const meta_t<RESULT> name(#name)
+#define GNDSTK_MAKE_META(TYPE,name) \
+   inline const meta_t<TYPE> name(#name)
 // Note: we won't #undef this eventually, as we normally would,
 // because it's a perfectly viable macro for users to invoke.
 
 // Operators
-#include "GNDStk/meta/src/operator.hpp"
+#include "GNDStk/meta_t/src/operator.hpp"
