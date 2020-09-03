@@ -73,7 +73,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // default
    // ------------------------
-   {
+   WHEN("A node is default constructed") {
       Node<> n;
       CHECK(n.empty());
    }
@@ -81,7 +81,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // move
    // ------------------------
-   {
+   WHEN("A default node is move constructed") {
       Node<> n(Node<>{});
       CHECK(n.empty());
    }
@@ -89,7 +89,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // copy
    // ------------------------
-   {
+   WHEN("A tree's top-level node is copy constructed") {
       Tree<> t("n-008_O_016.xml");
       Node<> n(t.top());
       std::ostringstream osst; osst << t.top();
@@ -100,7 +100,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // templated "copy"
    // ------------------------
-   {
+   WHEN("A tree's top node is constructed into a different-typed node") {
       Tree<std::vector,std::deque> t("n-008_O_016.xml");
       Node<std::deque,std::vector> n(t.top());
       std::ostringstream osst; osst << t.top();
@@ -111,7 +111,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // string (the node's name)
    // ------------------------
-   {
+   WHEN("A node is constructed from just a name (no metadata/children)") {
       Node<> n("NodeName");
       CHECK(n.name == "NodeName");
       CHECK(n.metadata.size() == 0);
@@ -122,7 +122,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // child_t<*> (from which
    // we get the node's name
    // ------------------------
-   {
+   WHEN("A node is constructed from a child_t") {
       Node<> n(plain::child::reactionSuite);
       CHECK(n.name == "reactionSuite");
       CHECK(n.metadata.size() == 0);
@@ -132,7 +132,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // child_t<void>, Node
    // ------------------------
-   {
+   GIVEN ("A node with some metadata and children") {
       // to be used...
       Node<> nv("one");
       nv.add("key1","value1");
@@ -144,7 +144,7 @@ SCENARIO("Testing GNDStk Node constructors") {
       nd.add("child2");
 
       // child_t<void,one>
-      {
+      WHEN("Another node is constructed from (child_t<one>,node)") {
          Node<> n(child_t<void,find::one>("ONE"),nv);
          CHECK(n.name == "ONE"); // name taken from the child_t, not from nv
          CHECK(n.metadata.size() == 2);
@@ -152,7 +152,7 @@ SCENARIO("Testing GNDStk Node constructors") {
       }
 
       // child_t<void,all>, just to be different from the <one> case above
-      {
+      WHEN("Another node is constructed from (child_t<all>,node)") {
          Node<> n(child_t<void,find::all>("TWO"),nd);
          CHECK(n.name == "TWO"); // as above
          CHECK(n.metadata.size() == 1);
@@ -160,7 +160,7 @@ SCENARIO("Testing GNDStk Node constructors") {
       }
 
       // With a yyyymmdd, which can implcitly convert to a Node
-      {
+      WHEN("Another node is constructed from (child_t<all>,type)") {
          Node<> n(child_t<void,find::all>("THREE"),yyyymmdd{1776,7,4});
          CHECK(n.name == "THREE");
          CHECK(n.metadata.size() == 3);
@@ -174,11 +174,11 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // child_t<TYPE>, TYPE
    // ------------------------
-   {
+   GIVEN("Some child_t<type> objects") {
       const child_t<yyyymmdd,find::one> ymd("YearMonthDay");
       const child_t<mmddyyyy,find::one> mdy("MonthDayYear");
 
-      {
+      WHEN("A node is constructed with (child_t<type>,type)") {
          Node<> n(ymd,yyyymmdd{1776,7,4});
          CHECK(n.name == "YearMonthDay");
          CHECK(n.metadata.size() == 3);
@@ -188,7 +188,7 @@ SCENARIO("Testing GNDStk Node constructors") {
          CHECK(n.children.size() == 0);
       }
 
-      {
+      WHEN("A node is constructed with (child_t<type>,type)") {
          Node<> n(mdy,mmddyyyy{6,21,1788});
          CHECK(n.name == "MonthDayYear");
          CHECK(n.metadata.size() == 3);
@@ -200,7 +200,7 @@ SCENARIO("Testing GNDStk Node constructors") {
 
       // mix things up a bit, considering that
       // mmddyyyy has a conversion to yyyymmdd
-      {
+      WHEN("Same, with (child_t<type>, other type convertible to type)") {
          Node<> n(ymd,mmddyyyy{6,21,1788});
          CHECK(n.name == "YearMonthDay");
          CHECK(n.metadata.size() == 3);

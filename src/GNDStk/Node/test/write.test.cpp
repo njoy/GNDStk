@@ -55,13 +55,17 @@ SCENARIO("Testing GNDStk Node write() and operator<<") {
       WHEN("We call node.write(ostream)") {
          std::ostringstream oss;
          top.write(oss);
-         CHECK(oss.str() == correct_written_node);
+         THEN("We get what we expect") {
+            CHECK(oss.str() == correct_written_node);
+         }
       }
 
-      WHEN("We call ostream << node") {
+      WHEN("We call ostream << node (equivalent to node.write(ostream))") {
          std::ostringstream oss;
          oss << top;
-         CHECK(oss.str() == correct_written_node);
+         THEN("We also get what we expect") {
+            CHECK(oss.str() == correct_written_node);
+         }
       }
    }
 }

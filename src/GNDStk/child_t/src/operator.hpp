@@ -7,7 +7,7 @@
 template<class TYPE, find FIND, class CONVERTER>
 inline auto operator-(const child_t<TYPE,FIND,CONVERTER> &kwd)
 {
-   // Downgrade the type to void, and chuck the converter.
+   // Downgrade the type to void, and chuck the converter
    return child_t<void,FIND>(kwd.name, kwd.canBeTopLevel);
 }
 
@@ -77,21 +77,11 @@ inline child_t<
 // Downgrade|upgrade to one|all
 // -----------------------------------------------------------------------------
 
-// child_t<void>--
-template<find FIND>
-inline auto operator--(const child_t<void,FIND> &kwd, const int)
-{
-   return child_t<void,find::one>(kwd.name, kwd.canBeTopLevel);
-}
+// ------------------------
+// child_t<TYPE>
+// ------------------------
 
-// child_t<void>++
-template<find FIND>
-inline auto operator++(const child_t<void,FIND> &kwd, const int)
-{
-   return child_t<void,find::all>(kwd.name, kwd.canBeTopLevel);
-}
-
-// child_t<TYPE>--
+// operator--
 template<class TYPE, find FIND, class CONVERTER>
 inline auto operator--(const child_t<TYPE,FIND,CONVERTER> &kwd, const int)
 {
@@ -100,11 +90,29 @@ inline auto operator--(const child_t<TYPE,FIND,CONVERTER> &kwd, const int)
    );
 }
 
-// child_t<TYPE>++
+// operator++
 template<class TYPE, find FIND, class CONVERTER>
 inline auto operator++(const child_t<TYPE,FIND,CONVERTER> &kwd, const int)
 {
    return child_t<TYPE,find::all,CONVERTER>(
       kwd.name, kwd.converter, kwd.canBeTopLevel
    );
+}
+
+// ------------------------
+// child_t<void>
+// ------------------------
+
+// operator--
+template<find FIND>
+inline auto operator--(const child_t<void,FIND> &kwd, const int)
+{
+   return child_t<void,find::one>(kwd.name, kwd.canBeTopLevel);
+}
+
+// operator++
+template<find FIND>
+inline auto operator++(const child_t<void,FIND> &kwd, const int)
+{
+   return child_t<void,find::all>(kwd.name, kwd.canBeTopLevel);
 }

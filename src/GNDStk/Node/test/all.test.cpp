@@ -7,7 +7,7 @@ using namespace mixed::child;
 
 SCENARIO("Testing GNDStk Node all()") {
 
-   GIVEN("A tree object") {
+   GIVEN("A tree read from a particular example GNDS file") {
       // tree
       const Tree<> tree("n-008_O_016.xml");
 
@@ -18,8 +18,10 @@ SCENARIO("Testing GNDStk Node all()") {
          // nodes: chemicalElement
          bool found = false;
          auto elem = elems.all("chemicalElement",found);
-         CHECK(found);
-         CHECK(elem.size() == 8);
+         THEN("We find 8 of them") {
+            CHECK(found);
+            CHECK(elem.size() == 8);
+         }
       }
    }
 }
