@@ -18,7 +18,7 @@ SCENARIO("Testing GNDStk tree all()") {
       // the top-level GNDS node (or both if they have the same name, which
       // really wouldn't be a correct state of affairs).
 
-      {
+      WHEN("We look for all \"xml\" nodes") {
          // Declaration node...
 
          // const
@@ -36,8 +36,9 @@ SCENARIO("Testing GNDStk tree all()") {
          CHECK(tnode.size() == 1);
          CHECK(tnode[0].name == "xml");
          CHECK(tnode[0].meta("encoding") == "UTF-8");
+      }
 
-      } {
+      WHEN("We look for all \"covarianceSuite\" nodes") {
          // Top-level GNDS node...
 
          // const
@@ -55,8 +56,9 @@ SCENARIO("Testing GNDStk tree all()") {
          CHECK(tnode.size() == 1);
          CHECK(tnode[0].name == "covarianceSuite");
          CHECK(tnode[0].meta("evaluation") == "ENDF/B-8.0");
+      }
 
-      } {
+      WHEN("We look for some nonexistent tree nodes") {
          // Non-existent child of the Tree...
 
          // const
@@ -70,7 +72,6 @@ SCENARIO("Testing GNDStk tree all()") {
          auto tnode = t.all("bar",found);
          CHECK(found == false);
          CHECK(tnode.size() == 0);
-
       }
    }
 }

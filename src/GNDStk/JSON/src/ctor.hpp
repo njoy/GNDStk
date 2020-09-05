@@ -11,7 +11,7 @@ JSON() = default;
 JSON(JSON &&) = default;
 
 
-// JSON
+// copy
 JSON(const JSON &j)
 try: doc(j.doc)
 {

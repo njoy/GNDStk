@@ -23,12 +23,12 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
    }
 
    // Each of Tree's two template parameters can be any of three particular C++
-   // sequence containers: {deque,list,vector}. We don't allow for the other two
-   // sequence containers, {array,forward_list}, because each of those lacks one
-   // or more features we need. In the future we may relax this restriction, or
-   // even allow for other than *sequence* containers; for example, std::map.
+   // sequence containers: {deque,list,vector}. We don't allow for the other
+   // sequence containers, {array,forward_list}, because each of those lacks
+   // one or more features we need. In the future we may relax this restriction,
+   // or even allow for other than sequence containers; for example, std::map.
    // Note also that users could plug in their own suitably-defined container.
-   // We'll of course clarify the meaning of "suitably-defined" at some point.
+   // We'll clarify the meaning of "suitably-defined" at some point.
    GIVEN("A Tree<various,various>") {
       using namespace std;
 

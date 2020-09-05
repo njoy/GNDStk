@@ -54,10 +54,18 @@ bool convert(
    const XML &x,
    Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
-   // clear
+   // clear the receiving tree
    tree.clear();
 
-   // visit the XML's nodes
+   // the pugixml xml document might have nothing in it;
+   // in this case we'll leave the tree completely empty
+   if (x.empty())
+      return true;
+
+   // make a boilerplate declaration node
+   tree.add("xml"); // indicates that we came from an XML
+
+   // otherwise, visit the pugixml xml document's nodes
    int count = 0;
    for (const pugi::xml_node &xnode : x.doc.children()) {
       if (count == 0) {
@@ -74,8 +82,6 @@ bool convert(
             throw std::exception{};
             return false;
          }
-
-         tree.add("xml"); // indicates that we came from an XML
 
          // base XML "attributes", e.g. version and encoding
          for (const pugi::xml_attribute &xattr : xnode.attributes())
@@ -127,17 +133,18 @@ bool convert(
    const JSON &j,
    Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree
 ) {
-   // clear
+   // clear the receiving tree
    tree.clear();
+
+   // the nlohmann json document might have nothing in it;
+   // in this case we'll leave the tree completely empty
+   if (j.empty())
+      return true;
 
    // make a boilerplate declaration node
    tree.add("json"); // indicates that we came from a JSON
 
-   // I suppose this could happen
-   if (j.doc.size() == 0)
-      return true;
-
-   // otherwise, I think there should always be one
+   // otherwise, the nlohmann json document should have one outer element
    if (j.doc.size() != 1) {
       log::error(
          "Internal error in convert(JSON,Tree):\n"

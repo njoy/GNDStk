@@ -94,7 +94,7 @@ bool ctor()
       ctor<decltype(from), std::vector, std::deque >(from,ossf) &&
       ctor<decltype(from), std::vector, std::list  >(from,ossf) &&
       ctor<decltype(from), std::vector, std::vector>(from,ossf)
-      ;
+   ;
 }
 
 
@@ -133,8 +133,8 @@ SCENARIO("Testing GNDStk tree constructors") {
       const XML x("n-026_Fe_056.xml");
 
       WHEN("We construct a tree from the XML object") {
-         // We should get the same result for the tree constructed via the XML,
-         // as we do for a tree that's read directly from the same file...
+         // We should get the same result for the tree constructed via the
+         // XML as we do for a tree that's read directly from the same file
          std::ostringstream oss1; oss1 << Tree<>(x);
          std::ostringstream oss2; oss2 << Tree<>("n-026_Fe_056.xml");
          CHECK(oss1.str() == oss2.str());
@@ -142,7 +142,17 @@ SCENARIO("Testing GNDStk tree constructors") {
    }
 
    // 4. Tree(JSON)
-   // fixme JSON work isn't complete yet, so we won't write this test yet
+   GIVEN("A JSON object, read from a JSON file") {
+      const JSON j("n-069_Tm_170-covar.json");
+
+      WHEN("We construct a tree from the JSON object") {
+         // We should get the same result for the tree constructed via the
+         // JSON as we do for a tree that's read directly from the same file
+         std::ostringstream oss1; oss1 << Tree<>(j);
+         std::ostringstream oss2; oss2 << Tree<>("n-069_Tm_170-covar.json");
+         CHECK(oss1.str() == oss2.str());
+      }
+   }
 
    // 5. Tree(string)
    // 6. Tree(istream)
@@ -196,84 +206,96 @@ SCENARIO("Testing GNDStk tree constructors") {
 
       WHEN("We call: Tree(top-level node)") {
          Tree<> t(reactionSuite);
-         CHECK(t.decl().name == "xml");
-         CHECK(t.decl().metadata.size() == 2);
-         CHECK(t.decl().meta("version") == "1.0");
-         CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "reactionSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().metadata.size() == 2);
+            CHECK(t.decl().meta("version") == "1.0");
+            CHECK(t.decl().meta("encoding") == "UTF-8");
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "reactionSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
       WHEN("We call: Tree(top-level node, format)") {
          Tree<> t(reactionSuite, format::json);
-         CHECK(t.decl().name == "json");
-         CHECK(t.decl().metadata.size() == 0);
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "reactionSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "json");
+            CHECK(t.decl().metadata.size() == 0);
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "reactionSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
       WHEN("We call: Tree(top-level node, format, version)") {
          Tree<> t(covarianceSuite, format::null, "2.0");
-         CHECK(t.decl().name == "xml");
-         CHECK(t.decl().metadata.size() == 2);
-         CHECK(t.decl().meta("version") == "2.0");
-         CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "covarianceSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().metadata.size() == 2);
+            CHECK(t.decl().meta("version") == "2.0");
+            CHECK(t.decl().meta("encoding") == "UTF-8");
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "covarianceSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
       WHEN("We call: Tree(top-level node, format, version, encoding)") {
          Tree<> t(covarianceSuite, format::xml, "3.0", "UTF-9");
-         CHECK(t.decl().name == "xml");
-         CHECK(t.decl().metadata.size() == 2);
-         CHECK(t.decl().meta("version") == "3.0");
-         CHECK(t.decl().meta("encoding") == "UTF-9");
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "covarianceSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().metadata.size() == 2);
+            CHECK(t.decl().meta("version") == "3.0");
+            CHECK(t.decl().meta("encoding") == "UTF-9");
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "covarianceSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
       WHEN("We call: Tree(top-level node, string)") {
          Tree<> t(PoPs, "hdf5");
-         CHECK(t.decl().name == "hdf5");
-         CHECK(t.decl().metadata.size() == 0);
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "PoPs");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
-
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "hdf5");
+            CHECK(t.decl().metadata.size() == 0);
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "PoPs");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
       WHEN("We call: Tree(top-level node, string, version)") {
          Tree<> t(PoPs, "tree", "4.0");
-         CHECK(t.decl().name == "xml");
-         CHECK(t.decl().metadata.size() == 2);
-         CHECK(t.decl().meta("version") == "4.0");
-         CHECK(t.decl().meta("encoding") == "UTF-8");
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "PoPs");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().metadata.size() == 2);
+            CHECK(t.decl().meta("version") == "4.0");
+            CHECK(t.decl().meta("encoding") == "UTF-8");
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "PoPs");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
       WHEN("We call: Tree(top-level node, string, version, encoding)") {
          Tree<> t(thermalScattering, "xml", "5.0", "UTF-10");
-         CHECK(t.decl().name == "xml");
-         CHECK(t.decl().metadata.size() == 2);
-         CHECK(t.decl().meta("version") == "5.0");
-         CHECK(t.decl().meta("encoding") == "UTF-10");
-         CHECK(t.decl().children.size() == 0);
-         CHECK(t.top().name == "thermalScattering");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various decl() and top() queries") {
+            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().metadata.size() == 2);
+            CHECK(t.decl().meta("version") == "5.0");
+            CHECK(t.decl().meta("encoding") == "UTF-10");
+            CHECK(t.decl().children.size() == 0);
+            CHECK(t.top().name == "thermalScattering");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
    }
-
 }

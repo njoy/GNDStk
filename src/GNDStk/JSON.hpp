@@ -27,9 +27,16 @@ public:
    nlohmann::json doc;
 
    // clear
-   void clear()
+   JSON &clear()
    {
       doc.clear();
+      return *this;
+   }
+
+   // empty
+   bool empty() const
+   {
+      return doc.size() == 0;
    }
 
    // constructors, assignment

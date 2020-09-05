@@ -129,11 +129,9 @@ SCENARIO("Testing GNDStk tree child()") {
       // ------------------------
 
       // child::xml is the smart keyword for retrieving the xml node.
-      // Note that both blocks below test with both const and non-const trees.
-      // The relevant child() functions actually only have const versions,
-      // because they return by value; so it isn't really necessary to try
-      // both const and non-const trees below.
-      {
+      // Note that we'll work with both const and non-const trees.
+
+      WHEN("We call tree.child() to get the declaration node") {
          // NOTE FOR THE FUTURE, IF AN ERROR EVER HAPPENS BELOW:
          // Our built-in keyword child::xml is currently a child_t<void,...>.
          // It may someday change to child_t<something other than void,...>,
@@ -147,7 +145,9 @@ SCENARIO("Testing GNDStk tree child()") {
          found = false;
          Node<> &tnode = t.child(mixed::child::xml,found);
          CHECK(found == true);
-      } {
+      }
+
+      WHEN("We call tree.child() to get the covarianceSuite node") {
          // IN CASE OF ERROR: Same note as immediately above.
          found = false; auto &cnode = c.child(covarianceSuite,found);
          CHECK(found == true);
@@ -157,14 +157,14 @@ SCENARIO("Testing GNDStk tree child()") {
 
       // Let's try our own custom keyword, which was set up near the
       // beginning of this test file.
-      {
+      WHEN("We try tree.child(a custom keyword)") {
          const xml_t x = c.child(my_xml_keyword);
          CHECK(x.version == 1.0);
          CHECK(x.encoding == "UTF-8");
       }
 
       // Another custom keyword, this one to test child() for std::variant.
-      {
+      WHEN("We try tree.child<type>(a custom keyword using variant)") {
          // Here, the same keyword can extract objects of either of the two
          // types that we set it up to be able to extract...
          covarianceSuite_type_1 one =
