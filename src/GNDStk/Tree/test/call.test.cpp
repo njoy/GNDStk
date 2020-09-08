@@ -197,7 +197,7 @@ SCENARIO("Testing GNDStk tree operator()") {
          CHECK(
             tree
             (reactionSuite, reactions, reaction)[0]
-            (crossSection,XYs1d)[0] // fixme Double-check find::all for XYs1d
+            (crossSection,XYs1d)[0]
             (axes,axis).size() == 2
          );
       }

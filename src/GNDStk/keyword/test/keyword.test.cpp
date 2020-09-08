@@ -13,53 +13,77 @@ using std::string;
 // Custom types
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // version_t
+// ------------------------
+
+// class
 struct version_t {
    int major = -1;
    int minor = -1;
    int patch = -1;
 };
 
+// operator>>
 std::istream &operator>>(std::istream &s, version_t &obj)
 {
    char ch; // '.'
    return s >> obj.major >> ch >> obj.minor >> ch >> obj.patch;
 }
 
+// ------------------------
 // date_t
+// ------------------------
+
+// class
 struct date_t {
    int year  = -1;
    int month = -1;
    int day   = -1;
 };
 
+// operator>>
 std::istream &operator>>(std::istream &s, date_t &obj)
 {
    char ch; // '-'
    return s >> obj.year >> ch >> obj.month >> ch >> obj.day;
 }
 
+// ------------------------
 // shape_t
+// ------------------------
+
+// class
 struct shape_t {
    // or maybe it should cols, rows; not important for this example
    int rows = -1;
    int cols = -1;
 };
 
+// operator>>
 std::istream &operator>>(std::istream &s, shape_t &obj)
 {
    char ch; // ','
    return s >> obj.rows >> ch >> obj.cols;
 }
 
+// ------------------------
 // values_t
+// ------------------------
+
+// class
 using values_t = std::vector<double>;
 
+// ------------------------
 // manifest_t
+// ------------------------
+
+// class
 struct manifest_t {
    string information;
 };
 
+// convert
 template<class NODE>
 void convert(const NODE &node, manifest_t &man)
 {
@@ -84,7 +108,7 @@ void convert(const NODE &node, manifest_t &man)
 
 
 // -----------------------------------------------------------------------------
-// Some literal strings we'll use for testing
+// Some literal strings representing correct values
 // -----------------------------------------------------------------------------
 
 static const std::string manifest_tree =
@@ -135,7 +159,7 @@ SCENARIO("Testing GNDStk keyword") {
    // exercise some built-ins
    // ------------------------
 
-   {
+   WHEN("We access a tree using some built-in child_t and meta_t objects") {
       // child::xml disambiguates vs. class xml
       // meta::format disambiguates vs. enum class format
 
@@ -148,16 +172,17 @@ SCENARIO("Testing GNDStk keyword") {
       CHECK(tree(covarianceSuite,projectile) == "n");
       CHECK(tree(covarianceSuite,target) == "Tm170");
       CHECK(tree(covarianceSuite,evaluation) == "ENDF/B-8.0");
-      CHECK(tree(covarianceSuite,mixed::meta::format) == 1.9); // double, not string
+      CHECK(tree(covarianceSuite,mixed::meta::format) == 1.9);
       CHECK(tree(covarianceSuite,styles).metadata.size() == 0);
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
       CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
       CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
       CHECK(tree(covarianceSuite,styles,evaluated,mixed::meta::label) == "eval");
-   }
+   } // WHEN
+
 
    // ------------------------
-   // make and use our own
+   // make our own
    // ------------------------
 
    // for metadata
@@ -166,50 +191,71 @@ SCENARIO("Testing GNDStk keyword") {
    auto myshape   = keyword.meta<shape_t  >("shape"  );
 
    // for children
-   auto myvalues   = keyword.child<values_t,  find::one>("values");
-   auto mymanifest = keyword.child<manifest_t,find::one>(""); // "": current node
+   auto myvalues  = keyword.child<values_t,  find::one>("values");
+   // In the following, a name of "" means to stay at the current node
+   auto mymanifest = keyword.child<manifest_t,find::one>("");
 
-   // Extract <xml> version into *our* version type
-   // Specifically: myversion keyword ==> version_t
    auto vers = tree(mixed::child::xml,myversion);
-   CHECK(vers.major == 1);
-   CHECK(vers.minor == 0);
 
-   // Now extract <evaluated> version
-   vers = tree(covarianceSuite,styles,evaluated,myversion);
-   CHECK(vers.major == 8);
-   CHECK(vers.minor == 0);
-   CHECK(vers.patch == 1);
 
-   // For brevity, let's make a shortcut to <evaluated>
-   auto &eval = tree(covarianceSuite,styles,evaluated);
+   // ------------------------
+   // use them
+   // ------------------------
 
-   // Extract date in <evaluated>, via the shortcut
-   // Specifically: mydate keyword ==> date_t
-   auto date = eval(mydate);
-   CHECK(date.year  == 2011);
-   CHECK(date.month == 10);
-   CHECK(date.day   == 1);
+   WHEN("We build our own child_t and meta_t objects, using keyword_t") {
 
-   // Pull out <array>, to make some upcoming queries shorter
-   auto &arr = tree(
-      covarianceSuite, parameterCovariances, parameterCovariance,
-      parameterCovarianceMatrix, array);
+      THEN("Try extracting xml version") {
+         // Extract <xml> version into *our* version type
+         // Specifically: myversion keyword ==> version_t
+         CHECK(vers.major == 1);
+         CHECK(vers.minor == 0);
+      }
 
-   // Extract <array> shape into our shape type
-   // Specifically: myshape keyword ==> shape_t
-   auto shape = arr(myshape);
-   CHECK(shape.rows == 78);
-   CHECK(shape.cols == 78);
+      THEN("Try extracting covarianceSuite/styles/evaluated/version") {
+         // Now extract <evaluated> version
+         vers = tree(covarianceSuite,styles,evaluated,myversion);
+         CHECK(vers.major == 8);
+         CHECK(vers.minor == 0);
+         CHECK(vers.patch == 1);
+      }
 
-   // Extract <array> values into our values type, which is vector<double>
-   // Specifically: myshape keyword ==> shape_t
-   auto val = arr(myvalues);
-   CHECK(val[0] == 0.015);
-   CHECK(val[1] == 0);
-   CHECK(val[2] == 0);
-   CHECK(val[3] == 0);
-   CHECK(val[4] == 4.5e-5);
+      // For brevity, let's make a shortcut to <evaluated>
+      auto &eval = tree(covarianceSuite,styles,evaluated);
+
+      THEN("Try extracting covarianceSuite/styles/evaluated/date") {
+         // Extract date in <evaluated>, via the shortcut
+         // Specifically: mydate keyword ==> date_t
+         auto date = eval(mydate);
+         CHECK(date.year  == 2011);
+         CHECK(date.month == 10);
+         CHECK(date.day   == 1);
+      }
+
+      // Pull out <array>, to make some upcoming queries shorter
+      auto &arr = tree(
+         covarianceSuite, parameterCovariances, parameterCovariance,
+         parameterCovarianceMatrix, array);
+
+      THEN("Try extracting .../array/shape") {
+         // Extract <array> shape into our shape type
+         // Specifically: myshape keyword ==> shape_t
+         auto shape = arr(myshape);
+         CHECK(shape.rows == 78);
+         CHECK(shape.cols == 78);
+      }
+
+      THEN("Try extracting .../array/values") {
+         // Extract <array> values into our values type, which is vector<double>
+         // Specifically: myshape keyword ==> shape_t
+         auto val = arr(myvalues);
+         CHECK(val[0] == 0.015);
+         CHECK(val[1] == 0);
+         CHECK(val[2] == 0);
+         CHECK(val[3] == 0);
+         CHECK(val[4] == 4.5e-5);
+      }
+   } // WHEN
+
 
    // ------------------------
    // Special keyword
@@ -223,7 +269,7 @@ SCENARIO("Testing GNDStk keyword") {
    // See how manifest_t is set up, earlier in this file.
 
    // Examine the tree itself
-   {
+   WHEN("We use a special \"\"-named keyword to examine tree") {
       auto man = tree(mymanifest);
       CHECK(man.information == manifest_tree);
    }
@@ -231,20 +277,21 @@ SCENARIO("Testing GNDStk keyword") {
    // Let's look at what's in the top-level GNDS node. Note that top()
    // gets us the top-level node here, from which we call (manifest);
    // we do *not* write tree.top(manifest), which wouldn't make sense.
-   {
+   WHEN("We use a special \"\"-named keyword to examine tree.top()") {
       auto man = tree.top()(mymanifest);
       CHECK(man.information == manifest_covarianceSuite);
    }
 
    // Of course we can do this as well, knowing that covarianceSuite
    // is the top-level node
-   {
+   WHEN("We use a special \"\"-named keyword to examine <covarianceSuite>") {
       auto man = tree(covarianceSuite, mymanifest);
       CHECK(man.information == manifest_covarianceSuite);
    }
 
    // And let's dig further:
-   {
+   WHEN("We use a special \"\"-named keyword to examine "
+        ".../<parameterCovariance>") {
       auto man = tree(
          covarianceSuite, parameterCovariances,
          parameterCovariance, mymanifest
@@ -252,13 +299,14 @@ SCENARIO("Testing GNDStk keyword") {
       CHECK(man.information == manifest_parameterCovariances);
    }
 
+
    // ------------------------
    // Exercise keyword builder
    // ------------------------
 
-   // fixme To properly test this, we should really have something like
-   // the Boost demangle library. For now, let's just make sure that the
-   // compiler doesn't go nuts.
+   // To properly test this, we should really have something like the Boost
+   // demangle library, to print a representation of the *type* that's being
+   // created. For now, let's just make sure that the expressions are valid.
 
    // metadata
    auto m01 = keyword.meta<         >("m01");

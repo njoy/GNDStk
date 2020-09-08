@@ -7,7 +7,7 @@
 template<class TYPE, find FIND, class CONVERTER>
 inline auto operator-(const child_t<TYPE,FIND,CONVERTER> &kwd)
 {
-   // Downgrade the type to void, and chuck the converter
+   // Downgrade the type to void, and chuck the converter.
    return child_t<void,FIND>(kwd.name, kwd.canBeTopLevel);
 }
 

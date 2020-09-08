@@ -19,7 +19,6 @@ SCENARIO("Testing GNDStk child_t<TYPE,FIND,CONVERTER>") {
 
    // child_t<TYPE,...>
    GIVEN("The child_t<TYPE,...> class") {
-
       WHEN("Constructed with (name)") {
          child_t<double> foo("foo");
          CHECK(foo.name == "foo");
@@ -49,12 +48,10 @@ SCENARIO("Testing GNDStk child_t<TYPE,FIND,CONVERTER>") {
          CHECK(foo.name == "foo");
          CHECK(foo.canBeTopLevel == true);
       }
-
    }
 
    // child_t<void,...>
    GIVEN("The child_t<void,...> class") {
-
       WHEN("Constructed with (name)") {
          child_t<void> foo("foo");
          CHECK(foo.name == "foo");
@@ -66,7 +63,5 @@ SCENARIO("Testing GNDStk child_t<TYPE,FIND,CONVERTER>") {
          CHECK(foo.name == "foo");
          CHECK(foo.canBeTopLevel == true);
       }
-
    }
-
 }

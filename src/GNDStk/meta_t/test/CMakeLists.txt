@@ -1,5 +1,5 @@
 
-add_executable( GNDStk.meta_t.test meta_t.test.cpp )
+add_executable( GNDStk.meta_t.test meta_t.test.cpp operator.test.cpp )
 target_compile_options( GNDStk.meta_t.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

@@ -3,6 +3,7 @@
 #include "GNDStk.hpp"
 using namespace njoy::GNDStk;
 
+
 // converterA
 struct converterA {
    template<class FROM, class TO>
@@ -117,7 +118,7 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void,one|all,converter>") {
+   GIVEN("A child_t<void,one|all>") {
       child_t<void,find::one> foo("foo");
       child_t<void,find::all> bar("bar");
       WHEN("We apply operator-") {
@@ -135,13 +136,13 @@ SCENARIO("Testing GNDStk child_t operators") {
       child_t<char,find::one,converterA> foo("foo");
       child_t<int, find::all,converterB> bar("bar");
       WHEN("We apply type/child_t") {
-         // change the type to newtype
+         // change the type to the new one
          CHECK(is_float(float{}/foo));
          CHECK(is_double(double{}/bar));
       }
    }
 
-   GIVEN("A child_t<void,one|all,converter>") {
+   GIVEN("A child_t<void,one|all>") {
       child_t<void,find::one> foo("foo");
       child_t<void,find::all> bar("bar");
       WHEN("We apply type/child_t") {
@@ -169,13 +170,13 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   // Note: /converter is not applicable for child<void>
+   // Note: /converter is not applicable for child_t<void>
 
    // ------------------------
    // child_t++, child_t--
    // ------------------------
 
-   GIVEN("A child_t<void|type,one|all>") {
+   GIVEN("A child_t<void|type,one|all[,converter]>") {
       child_t<char,find::one,converterA> a("a");
       child_t<int, find::all,converterB> b("b");
       child_t<void,find::one           > c("c");
@@ -189,7 +190,7 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void|type,one|all>") {
+   GIVEN("A child_t<void|type,one|all[,converter]>") {
       child_t<char,find::one,converterA> a("a");
       child_t<int, find::all,converterB> b("b");
       child_t<void,find::one           > c("c");

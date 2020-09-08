@@ -29,11 +29,6 @@ R"***(null)***";
 // file we'll read in.
 // -----------------------------------------------------------------------------
 
-// fixme I need to review each of these carefully, to be sure they're actually
-// correct. :-) At the moment, I got these strings just from doing the write()
-// calls and assuming that their output was correct. So, technically, all this
-// test tests is that nothing has changed between then and now.
-
 // ------------------------
 // tree
 // ------------------------

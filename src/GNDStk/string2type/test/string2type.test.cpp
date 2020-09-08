@@ -64,29 +64,34 @@ SCENARIO("Testing GNDStk convert(istream|string,type)") {
 
    WHEN("We call convert(istream,T) for some sequence containers T") {
       THEN("It works for T == deque") {
-         std::istringstream iss("1 2 3");
-         std::deque<int> deq;
-         convert(iss,deq);
-         // For deque, I'll just check the size
-         CHECK(deq.size() == 3);
+         std::istringstream iss("10 20 30");
+         std::deque<int> container;
+         convert(iss,container);
+         CHECK(container.size() == 3);
+         CHECK(container[0] == 10);
+         CHECK(container[1] == 20);
+         CHECK(container[2] == 30);
       }
 
       THEN("It works for T == list") {
-         std::istringstream iss("1 2 3");
-         std::list<int> lis;
-         convert(iss,lis);
-         // For list, I'll just check the size
-         CHECK(lis.size() == 3);
+         std::istringstream iss("100 200 300");
+         std::list<int> container;
+         convert(iss,container);
+         CHECK(container.size() == 3);
+         auto iter = container.begin();
+         CHECK(*iter++ == 100);
+         CHECK(*iter++ == 200);
+         CHECK(*iter++ == 300);
       }
 
       THEN("It works for T == vector") {
-         std::istringstream iss("1 2 3");
-         std::vector<int> vec;
-         convert(iss,vec);
-         CHECK(vec.size() == 3);
-         CHECK(vec[0] == 1);
-         CHECK(vec[1] == 2);
-         CHECK(vec[2] == 3);
+         std::istringstream iss("1000 2000 3000");
+         std::vector<int> container;
+         convert(iss,container);
+         CHECK(container.size() == 3);
+         CHECK(container[0] == 1000);
+         CHECK(container[1] == 2000);
+         CHECK(container[2] == 3000);
       }
    }
 
