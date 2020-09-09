@@ -286,9 +286,6 @@ SCENARIO("Testing GNDStk JSON") {
       }
    }
 
-   // to file
-   // fixme How do we handle *writing* a file with this test system?
-
 
    // ------------------------
    // stream I/O
