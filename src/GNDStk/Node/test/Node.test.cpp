@@ -16,7 +16,7 @@ SCENARIO("Testing GNDStk Node (templated), node (not templated)") {
       CHECK(n.children.size() == 0);
    }
 
-   // node (lower-case n) equals Node<>
+   // node (lower-case n) is the same as Node<>
    GIVEN("A node") {
       node n;
       CHECK(n.empty());

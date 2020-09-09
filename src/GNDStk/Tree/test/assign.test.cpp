@@ -53,26 +53,30 @@ void assign()
    Tree<M,C> left; // for a left = right assignment
 
    // Perform a left = right assignment for various "right" cases
-   CHECK(sets_equal_to(left, Tree<              >()));
-   CHECK(sets_equal_to(left, Tree<deque         >()));
-   CHECK(sets_equal_to(left, Tree<deque , deque >()));
-   CHECK(sets_equal_to(left, Tree<deque , list  >()));
-   CHECK(sets_equal_to(left, Tree<deque , vector>()));
-   CHECK(sets_equal_to(left, Tree<list          >()));
-   CHECK(sets_equal_to(left, Tree<list  , deque >()));
-   CHECK(sets_equal_to(left, Tree<list  , list  >()));
-   CHECK(sets_equal_to(left, Tree<list  , vector>()));
-   CHECK(sets_equal_to(left, Tree<vector        >()));
-   CHECK(sets_equal_to(left, Tree<vector, deque >()));
-   CHECK(sets_equal_to(left, Tree<vector, list  >()));
-   CHECK(sets_equal_to(left, Tree<vector, vector>()));
+   WHEN("We try various assignments") {
+      CHECK(sets_equal_to(left, Tree<              >()));
+      CHECK(sets_equal_to(left, Tree<deque         >()));
+      CHECK(sets_equal_to(left, Tree<deque , deque >()));
+      CHECK(sets_equal_to(left, Tree<deque , list  >()));
+      CHECK(sets_equal_to(left, Tree<deque , vector>()));
+      CHECK(sets_equal_to(left, Tree<list          >()));
+      CHECK(sets_equal_to(left, Tree<list  , deque >()));
+      CHECK(sets_equal_to(left, Tree<list  , list  >()));
+      CHECK(sets_equal_to(left, Tree<list  , vector>()));
+      CHECK(sets_equal_to(left, Tree<vector        >()));
+      CHECK(sets_equal_to(left, Tree<vector, deque >()));
+      CHECK(sets_equal_to(left, Tree<vector, list  >()));
+      CHECK(sets_equal_to(left, Tree<vector, vector>()));
+   }
 
    // Test move assignment
-   left = Tree<M,C>("n-069_Tm_170-covar.xml");
-   std::ostringstream ossl; ossl << left;
-   Tree<M,C> right("n-069_Tm_170-covar.xml");
-   std::ostringstream ossr; ossr << right;
-   CHECK(ossl.str() == ossr.str());
+   WHEN("We try move assignments") {
+      left = Tree<M,C>("n-069_Tm_170-covar.xml");
+      std::ostringstream ossl; ossl << left;
+      Tree<M,C> right("n-069_Tm_170-covar.xml");
+      std::ostringstream ossr; ossr << right;
+      CHECK(ossl.str() == ossr.str());
+   }
 }
 
 

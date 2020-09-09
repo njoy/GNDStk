@@ -18,7 +18,7 @@ SCENARIO("Testing GNDStk tree one()") {
       // node, or the top-level GNDS node; we consider both of those to be
       // a Tree's children.
 
-      {
+      WHEN("We look for an \"xml\" node") {
          // Declaration node...
 
          // const
@@ -34,8 +34,9 @@ SCENARIO("Testing GNDStk tree one()") {
          CHECK(found == true);
          CHECK(tnode.name == "xml");
          CHECK(tnode.meta("encoding") == "UTF-8");
+      }
 
-      } {
+      WHEN("We look for a \"covarianceSuite\" node") {
          // Top-level GNDS node...
 
          // const
@@ -51,8 +52,9 @@ SCENARIO("Testing GNDStk tree one()") {
          CHECK(found == true);
          CHECK(tnode.name == "covarianceSuite");
          CHECK(tnode.meta("evaluation") == "ENDF/B-8.0");
+      }
 
-      } {
+      WHEN("We look for a nonexistent tree node") {
          // Non-existent child of the Tree...
 
          // const
@@ -64,7 +66,6 @@ SCENARIO("Testing GNDStk tree one()") {
          found = true;
          auto &tnode = t.one("bar",found);
          CHECK(found == false);
-
       }
 
       // Illustrate that Tree's one(string) functions return references,
@@ -72,9 +73,11 @@ SCENARIO("Testing GNDStk tree one()") {
       (void)&c.one("xml");
       (void)&c.one("covarianceSuite");
       (void)&c.one("foo",found);
+      CHECK(found == false);
 
       (void)&t.one("xml");
       (void)&t.one("covarianceSuite");
       (void)&t.one("bar",found);
+      CHECK(found == false);
    }
 }

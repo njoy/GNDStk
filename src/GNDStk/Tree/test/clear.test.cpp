@@ -3,21 +3,23 @@
 #include "GNDStk.hpp"
 using namespace njoy::GNDStk;
 
-SCENARIO("Testing GNDStk tree clear()") {
+SCENARIO("Testing GNDStk Tree clear()") {
 
-   GIVEN("A tree") {
+   GIVEN("A default-constructed tree") {
       Tree<> tree;
-
-      WHEN("The tree is default-constructed") {
-         CHECK(tree.empty()); // it has nothing in it
+      THEN("It checks as being empty()") {
+         CHECK(tree.empty());
       }
 
-      WHEN("A GNDS file is read into the tree, but then clear() is called") {
+      WHEN("A GNDS file is read into the tree") {
          tree.read("n-008_O_016.xml");
-         CHECK(!tree.empty()); // it initially has something in it
-         tree.clear();
-         CHECK(tree.empty()); // but then nothing, after clear() is called
+         THEN("It checks as being non-empty()") {
+            CHECK(!tree.empty());
+         }
+         THEN("After clear() is called, it's empty again") {
+            tree.clear();
+            CHECK(tree.empty());
+         }
       }
    }
-
 }

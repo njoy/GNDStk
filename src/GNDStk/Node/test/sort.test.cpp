@@ -52,10 +52,12 @@ SCENARIO("Testing GNDStk Node sort()") {
       Tree<> tree("n-069_Tm_170-covar.xml");
       Node<> &top = tree.top(); // top-level GNDS node
 
-      WHEN("We call node.sort(), then node.write(ostream)") {
+      WHEN("We call node.sort()") {
          std::ostringstream oss;
          top.sort().write(oss);
-         CHECK(oss.str() == correct_sorted_written_node);
+         THEN("We get properly reordered node content") {
+            CHECK(oss.str() == correct_sorted_written_node);
+         }
       }
    }
 }

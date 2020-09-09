@@ -7,8 +7,8 @@ Brief: node.child(child_t<type>) ==> node ==> type
 These are analogous to the convert(string,type) functions, and the description
 of those largely applies here.
 
-The difference is that these are called through child(), not meta, and
-hence have nodes, not strings, as inputs.
+The difference is that these are called through child(), not meta, and hence
+have nodes, not strings, as inputs.
 
 Also, we don't have any viable general default here. We simply don't know, for
 a general node, how it would convert to any particular type. And, although the
@@ -27,7 +27,6 @@ or particularly helpful to convert a node to a stream.
 // in both the input and the output, but supporting it shouldn't do any harm.
 // -----------------------------------------------------------------------------
 
-// And then convert, for type == node
 template<
    template<class...> class METADATA_CONTAINER_FROM,
    template<class...> class CHILDREN_CONTAINER_FROM,

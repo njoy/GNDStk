@@ -104,8 +104,11 @@ inline void convert(const bool &value, std::string &str)
    GNDSTK_CONVERT(unsigned long)
    GNDSTK_CONVERT(unsigned long long)
 
-   GNDSTK_CONVERT(float)
-   GNDSTK_CONVERT(double)
-   GNDSTK_CONVERT(long double)
+   // These write extra trailing 0s, e.g. 12.340000 instead of 12.34.
+   // See https://en.cppreference.com/w/cpp/string/basic_string/to_string
+   // So, we won't use them, and will let our default handle floating types.
+   // GNDSTK_CONVERT(float)
+   // GNDSTK_CONVERT(double)
+   // GNDSTK_CONVERT(long double)
 
 #undef GNDSTK_CONVERT

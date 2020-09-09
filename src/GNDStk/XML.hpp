@@ -11,9 +11,16 @@ public:
    pugi::xml_document doc;
 
    // clear
-   void clear()
+   XML &clear()
    {
       doc.reset();
+      return *this;
+   }
+
+   // empty
+   bool empty() const
+   {
+      return doc.children().end() == doc.children().begin();
    }
 
    // constructors, assignment

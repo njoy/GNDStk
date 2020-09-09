@@ -57,10 +57,19 @@ template<
 >
 class child_t {
 public:
+
+   // ------------------------
+   // data
+   // ------------------------
+
    // name, converter, can be top level?
    const std::string name;
    const CONVERTER converter; // optional custom converter; needs operator()
    const bool canBeTopLevel;
+
+   // ------------------------
+   // constructors
+   // ------------------------
 
    // ctor(name)
    // ctor(name,top)
@@ -96,10 +105,20 @@ class child_t<void,FIND,CONVERTER> {
      "Can't instantiate child_t<void,FIND,CONVERTER> "
      "with non-default CONVERTER"
    );
+
 public:
+
+   // ------------------------
+   // data
+   // ------------------------
+
    // name, can be top level?
    const std::string name;
    const bool canBeTopLevel;
+
+   // ------------------------
+   // constructors
+   // ------------------------
 
    // ctor(name)
    // ctor(name,top)
@@ -114,23 +133,23 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// Miscellaneous
+// Macro
 // -----------------------------------------------------------------------------
 
-// Macros
-// For child_t building. The macros don't handle the optional converter;
-// for that, just construct such an object directly.
+// For child_t building. This macro doesn't handle the optional "top level"
+// flag or the converter, which we don't believe are needed very often. If
+// you do need to provide one or both, just construct a child_t directly.
 
-// void (unspecified) type (so, Node<>)
-#define GNDSTK_MAKE_CHILD_DEFAULT(name,FIND) \
-   inline const child_t<void,FIND> name(#name)
-
-// user-defined type
 #define GNDSTK_MAKE_CHILD(type,name,FIND) \
    inline const child_t<type,FIND> name(#name)
 
-// Note: we won't #undef these eventually, as we normally would,
-// because they're perfectly viable macros for users to invoke.
+// Note: we don't #undef this after we use it within GNDStk, as we might
+// normally do, because users might find it handy.
 
+
+
+// -----------------------------------------------------------------------------
 // Operators
+// -----------------------------------------------------------------------------
+
 #include "GNDStk/child_t/src/operator.hpp"

@@ -20,61 +20,74 @@ SCENARIO("Testing GNDStk tree top()") {
 
    GIVEN("An empty tree") {
 
-      WHEN("reset(reactionSuite)") {
+      WHEN("We call reset(reactionSuite)") {
          Tree<> t;
          t.reset(reactionSuite);
-         CHECK(t.top().name == "reactionSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "reactionSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
-      WHEN("reset(reactionSuite, format::json)") {
+      WHEN("We call reset(reactionSuite, format::json)") {
          Tree<> t;
          t.reset(reactionSuite, format::json);
-         CHECK(t.top().name == "reactionSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "reactionSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
-      WHEN("reset(covarianceSuite, format::null, \"2.0\")") {
+      WHEN("We call reset(covarianceSuite, format::null, \"2.0\")") {
          Tree<> t;
          t.reset(covarianceSuite, format::null, "2.0");
-         CHECK(t.top().name == "covarianceSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "covarianceSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
-      WHEN("reset(covarianceSuite, format::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("We call reset(covarianceSuite, format::xml, \"3.0\", \"UTF-9\")") {
          Tree<> t;
          t.reset(covarianceSuite, format::xml, "3.0", "UTF-9");
-         CHECK(t.top().name == "covarianceSuite");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "covarianceSuite");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
-      WHEN("reset(PoPs, \"hdf5\")") {
+      WHEN("We call reset(PoPs, \"hdf5\")") {
          Tree<> t;
          t.reset(PoPs, "hdf5");
-         CHECK(t.top().name == "PoPs");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "PoPs");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
-      WHEN("reset(PoPs, \"tree\", \"4.0\")") {
+      WHEN("We call reset(PoPs, \"tree\", \"4.0\")") {
          Tree<> t;
          t.reset(PoPs, "tree", "4.0");
-         CHECK(t.top().name == "PoPs");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "PoPs");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
 
-      WHEN("reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
+      WHEN("We call reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
          Tree<> t;
          t.reset(thermalScattering, "xml", "5.0", "UTF-10");
-         CHECK(t.top().name == "thermalScattering");
-         CHECK(t.top().metadata.size() == 0);
-         CHECK(t.top().children.size() == 0);
+         THEN("We can make various top() (top level node) queries") {
+            CHECK(t.top().name == "thermalScattering");
+            CHECK(t.top().metadata.size() == 0);
+            CHECK(t.top().children.size() == 0);
+         }
       }
    }
-
 }

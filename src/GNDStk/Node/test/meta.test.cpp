@@ -10,39 +10,52 @@ SCENARIO("Testing GNDStk Node meta()") {
       const Node<> &consttop = tree.top(); // top-level GNDS node
       Node<> &top = tree.top(); // top-level GNDS node
 
-      CHECK(consttop.meta("projectile") == "n");
-      CHECK(top.meta("target") == "Tm170");
-      CHECK(consttop.meta("format") == "1.9");
+      THEN("We can use meta() to extract metadata") {
+         CHECK(consttop.meta("projectile") == "n");
+         CHECK(top.meta("target") == "Tm170");
+         CHECK(consttop.meta("format") == "1.9");
+      }
 
-      // get reference back; can set
       top.meta("format") = "1.99";
-      CHECK(consttop.meta("format") == "1.99");
 
-      auto format = keyword.meta<double>("format");
-      double f = top.meta(format);
-      CHECK(f == 1.99);
+      WHEN("node.meta(\"key\") is called on a non-const node") {
+         // get reference back; can set
+         THEN("It returns a reference that can be assigned") {
+            CHECK(consttop.meta("format") == "1.99");
+         }
 
-      // try something that doesn't work
-      auto foobar = keyword.meta<double>("foobar");
-      bool found = true;
-      f = top.meta(foobar,found); // foobar isn't there
-      CHECK(!found); // so it wasn't found
+         auto format = keyword.meta<double>("format");
+         double f = top.meta(format);
+         CHECK(f == 1.99);
 
-      // string and void meta_t ==> string
-      auto sstring = keyword.meta<std::string>("evaluation");
-      auto vstring = keyword.meta<void       >("evaluation");
-      std::string sstr = top.meta(sstring);
-      std::string vstr = top.meta(vstring);
-      CHECK(sstr == "ENDF/B-8.0");
-      CHECK(vstr == "ENDF/B-8.0");
-      // meta<void> case should trigger a reference return...
-      (void)&top.meta(vstring);
+         WHEN("node.meta(\"key\",found) is called for a key that isn't there") {
+            // try something that doesn't work
+            auto foobar = keyword.meta<double>("foobar");
+            bool found = true;
+            f = top.meta(foobar,found); // foobar isn't there
+            THEN("found is false") {
+               CHECK(!found); // so it wasn't found
+            }
+         }
+      }
 
-      auto var = keyword.meta<std::variant<std::string,double>>("format");
-      auto s = top.meta<std::string>(var);
-      auto d = top.meta<double     >(var);
-      CHECK(s == "1.99");
-      CHECK(d ==  1.99 );
+      WHEN("node.meta(meta_t) is called") {
+         // string and void meta_t ==> string
+         auto sstring = keyword.meta<std::string>("evaluation");
+         auto vstring = keyword.meta<void       >("evaluation");
+         std::string sstr = top.meta(sstring);
+         std::string vstr = top.meta(vstring);
+         CHECK(sstr == "ENDF/B-8.0");
+         CHECK(vstr == "ENDF/B-8.0");
+         // meta<void> case should trigger a reference return...
+         (void)&top.meta(vstring);
+
+         auto var = keyword.meta<std::variant<std::string,double>>("format");
+         auto s = top.meta<std::string>(var);
+         auto d = top.meta<double     >(var);
+         CHECK(s == "1.99");
+         CHECK(d ==  1.99 );
+      }
    }
 
 }
