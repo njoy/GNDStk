@@ -31,7 +31,7 @@ public:
    // Simple functions
    // ------------------------
 
-   // clear()
+   // clear
    Node &clear()
    {
       name = "";
@@ -40,7 +40,7 @@ public:
       return *this;
    }
 
-   // is this node empty?
+   // empty?
    bool empty() const
    {
       return name == "" && metadata.size() == 0 && children.size() == 0;
@@ -60,9 +60,30 @@ public:
    #include "GNDStk/Node/src/one.hpp"
    #include "GNDStk/Node/src/all.hpp"
    #include "GNDStk/Node/src/child.hpp"
-   #include "GNDStk/Node/src/call.hpp"
 
    #include "GNDStk/Node/src/sort.hpp"
+
+   // ------------------------
+   // operator()
+   // ------------------------
+
+   // These provide notationally consistent and richer access to the meta and
+   // child functions, except that the std::string parameter versions of those
+   // are intentionally unsupported, as it would be indeterminate as to whether
+   // we'd want the meta or child (std::string) function. This also reflects
+   // the fact that performing node accesses with meta_t/child_t parameters -
+   // not with std::string parameters - should be preferred. meta_t and child_t
+   // compile-time encode that we want, respectively, metadata or children.
+   // Note: for variant-based meta_t and child_t keywords, you should still
+   // call meta<TYPE>() or child<TYPE>() directly. Having operator() cases to
+   // support those would complicate these files, and require that you invoke
+   // operator() in awkward functional form, e.g. mynode.operator()<TYPE>(...).
+
+   #include "GNDStk/Node/src/call-meta.hpp"
+   #define GNDSTK_CONST const
+   #include "GNDStk/Node/src/call-child.hpp"
+   #define GNDSTK_CONST
+   #include "GNDStk/Node/src/call-child.hpp"
 
 }; // class Node
 

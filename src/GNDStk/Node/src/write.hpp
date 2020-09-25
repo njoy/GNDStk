@@ -22,10 +22,9 @@ std::ostream &write(std::ostream &os, const int level = 0) const
          break;
 
    // write children
-   for (const auto &cptr : children)
-      if (cptr)
-         if (!cptr->write(os,level+1))
-            break;
+   for (const auto &c : children)
+      if (c && !c->write(os,level+1))
+         break;
 
    // check for errors
    if (!os)
