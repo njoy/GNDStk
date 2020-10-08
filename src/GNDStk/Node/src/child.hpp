@@ -115,7 +115,7 @@ CONTAINER<TYPE> child(
       // ""
       // meaning: return a container with the converted-to-TYPE current node
       if (kwd.name == "") {
-         // fixme Consider if this should validate filter(*this)
+         // filter is ignored in this case
          TYPE type{};
          kwd.converter(*this,type);
          container.push_back(type);

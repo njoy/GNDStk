@@ -52,11 +52,11 @@ public:
       bool found;
 
       // In node n, look for the value associated
-      // with the metadata key "label".
+      // with the metadata key called "label"
       const std::string &label = n.meta("label",found);
 
       // If it's found, AND has the value we want,
-      // then return true. Otherwise return false.
+      // then return true; otherwise return false
       return found && label == want;
    }
 };

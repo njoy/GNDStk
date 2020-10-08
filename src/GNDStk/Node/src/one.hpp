@@ -5,7 +5,7 @@
 // Searches the current node's sub-nodes for one that has the given name, and
 // that also passes the given filter requirement. If it's found, the sub-node
 // is returned. Else, an empty node is returned.
-
+//
 // Call one() you expect exactly one such value. (Some GNDS nodes are expected
 // to occur at most once as a sub-node of a given parent, even if the file
 // format used, e.g. XML, might allow for more than one same-named sub-node.)
@@ -28,7 +28,7 @@ const Node &one(
    // ""
    // meaning: return the current node
    if (key == "") {
-      // fixme Consider if this should validate filter(*this)
+      // filter is ignored in this case
       return found = true, *this;
    }
 

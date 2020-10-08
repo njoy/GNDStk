@@ -110,7 +110,24 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       THEN("Calling node.top(meta_t) gives us a metadatum") {
          const meta_t<char> projectile("projectile");
-         CHECK(top(projectile) == 'n');
+         CHECK(ctop(projectile) == 'n');
+
+         // "projectile" is found
+         bool found = false;
+         ctop(projectile,found);
+         CHECK(found == true);
+
+         // "bar" is not found
+         const meta_t<char> foo("bar");
+         found = true;
+         ctop(foo,found);
+         CHECK(found == false);
+
+         // should get a reference back for the non-const version
+         // of the node, when () is invoked with a <void> meta_t
+         const meta_t<void> proj("projectile");
+         top(proj) = "N"; // was "n"
+         CHECK(ctop(projectile) == 'N');
       }
    }
 }

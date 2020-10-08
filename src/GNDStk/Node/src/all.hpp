@@ -26,7 +26,7 @@ CONTAINER<Node> all(
       // ""
       // meaning: return a container with a copy of current node
       if (key == "") {
-         // fixme Consider if this should validate filter(*this)
+         // filter is ignored in this case
          container.push_back(*this);
          found = true;
       } else {
