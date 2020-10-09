@@ -30,7 +30,8 @@ decltype(auto) operator()(
 // (child_t, string)
 template<class TYPE, find FIND, class CONVERTER>
 decltype(auto) operator()(
-   const child_t<TYPE,FIND,CONVERTER> &kwd, std::string &&label,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   std::string &&label,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
    try {
@@ -63,7 +64,8 @@ decltype(auto) operator()(
 // (child_t, string, ...)
 template<class TYPE, find FIND, class CONVERTER, class... KEYWORDS>
 decltype(auto) operator()(
-   const child_t<TYPE,FIND,CONVERTER> &kwd, std::string &&label,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   std::string &&label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
    try {
@@ -81,7 +83,8 @@ decltype(auto) operator()(
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
 template<class TYPE, find FIND, class CONVERTER, class... KEYWORDS>
 decltype(auto) operator()(
-   const child_t<TYPE,FIND,CONVERTER> &kwd, const char *const label,
+   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const char *const label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
    // Forward to the string overload above

@@ -61,5 +61,5 @@ CONTAINER<Node> all(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   return all<CONTAINER>(key, [](const Node &) { return true; }, found);
+   return all<CONTAINER>(key, detail::noFilter, found);
 }

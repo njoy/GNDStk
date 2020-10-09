@@ -33,7 +33,6 @@ void convert(const node &n, nonsense_t &r)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Some child_ts
 // -----------------------------------------------------------------------------
@@ -89,7 +88,6 @@ auto isotope_node =
    keyword.child<void,find::all>("isotope");
 auto nuclide_foo_or_bar_node =
    keyword.child<std::variant<foo_t,bar_t>,find::all>("nuclide");
-
 
 
 // -----------------------------------------------------------------------------
@@ -181,7 +179,6 @@ SCENARIO("Testing GNDStk Node child()") {
    }
 
 
-
    // ------------------------
    // Mechanically try all
    // the node.child() cases
@@ -193,6 +190,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // filter for nodes that have label="2n + *"
    auto twon = [](const node &n)
       { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
+
 
    // case: <void,one>
    GIVEN("Testing node.child(child_t<void,one>[,filter][,found])") {

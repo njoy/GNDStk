@@ -170,14 +170,14 @@ const Node &child(
    const child_t<void,find::one> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child(kwd, [](const Node &) { return true; }, found);
+   return child(kwd, detail::noFilter, found);
 }
 
 Node &child(
    const child_t<void,find::one> &kwd,
    bool &found = detail::default_bool
 ) {
-   return child(kwd, [](const Node &) { return true; }, found);
+   return child(kwd, detail::noFilter, found);
 }
 
 template<template<class...> class CONTAINER = std::vector>
@@ -185,7 +185,7 @@ CONTAINER<Node> child(
    const child_t<void,find::all> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child<CONTAINER>(kwd, [](const Node &) { return true; }, found);
+   return child<CONTAINER>(kwd, detail::noFilter, found);
 }
 
 template<class TYPE, class CONVERTER>
@@ -193,7 +193,7 @@ TYPE child(
    const child_t<TYPE,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child(kwd, [](const Node &) { return true; }, found);
+   return child(kwd, detail::noFilter, found);
 }
 
 template<class TYPE, class... Ts, class CONVERTER>
@@ -201,7 +201,7 @@ typename detail::oneof<TYPE,Ts...>::type child(
    const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child<TYPE>(kwd, [](const Node &) { return true; }, found);
+   return child<TYPE>(kwd, detail::noFilter, found);
 }
 
 template<
@@ -212,7 +212,7 @@ CONTAINER<TYPE> child(
    const child_t<TYPE,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child<CONTAINER>(kwd, [](const Node &) { return true; }, found);
+   return child<CONTAINER>(kwd, detail::noFilter, found);
 }
 
 template<
@@ -224,5 +224,5 @@ CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
    const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child<TYPE,CONTAINER>(kwd, [](const Node &) { return true; }, found);
+   return child<TYPE,CONTAINER>(kwd, detail::noFilter, found);
 }
