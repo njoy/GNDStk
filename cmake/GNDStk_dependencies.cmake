@@ -28,11 +28,19 @@ FetchContent_Declare( pugixml-adapter
     GIT_SHALLOW     TRUE
     )
 
-FetchContent_Declare( json-adapter
-    GIT_REPOSITORY  http://github.com/njoy/json-adapter
-    GIT_TAG         origin/master
-    GIT_SHALLOW     TRUE
+FetchContent_Declare(json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.7.3
+    GIT_SHALLOW true
     )
+
+FetchContent_GetProperties(json)
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+if(NOT json_POPULATED)
+  FetchContent_Populate(json)
+  add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+
 
 
 ########################################################################
@@ -43,5 +51,5 @@ FetchContent_MakeAvailable(
     catch-adapter
     Log
     pugixml-adapter
-    json-adapter
+    json
     )
