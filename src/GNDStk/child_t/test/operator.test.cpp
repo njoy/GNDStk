@@ -173,7 +173,7 @@ SCENARIO("Testing GNDStk child_t operators") {
    // Note: /converter is not applicable for child_t<void>
 
    // ------------------------
-   // child_t++, child_t--
+   // one(child_t)
    // ------------------------
 
    GIVEN("A child_t<void|type,one|all[,converter]>") {
@@ -181,26 +181,30 @@ SCENARIO("Testing GNDStk child_t operators") {
       child_t<int, find::all,converterB> b("b");
       child_t<void,find::one           > c("c");
       child_t<void,find::all           > d("d");
-      WHEN("We apply child_t++") {
-         // ++ upgrades to all
-         CHECK(is_all(a++));
-         CHECK(is_all(b++));
-         CHECK(is_all(c++));
-         CHECK(is_all(d++));
+      WHEN("We apply one(child_t)") {
+         // one() downgrades to one
+         CHECK(is_one(one(a)));
+         CHECK(is_one(one(b)));
+         CHECK(is_one(one(c)));
+         CHECK(is_one(one(d)));
       }
    }
+
+   // ------------------------
+   // all(child_t)
+   // ------------------------
 
    GIVEN("A child_t<void|type,one|all[,converter]>") {
       child_t<char,find::one,converterA> a("a");
       child_t<int, find::all,converterB> b("b");
       child_t<void,find::one           > c("c");
       child_t<void,find::all           > d("d");
-      WHEN("We apply child_t--") {
-         // -- downgrades to one
-         CHECK(is_one(a--));
-         CHECK(is_one(b--));
-         CHECK(is_one(c--));
-         CHECK(is_one(d--));
+      WHEN("We apply all(child_t)") {
+         // all() upgrades to all
+         CHECK(is_all(all(a)));
+         CHECK(is_all(all(b)));
+         CHECK(is_all(all(c)));
+         CHECK(is_all(all(d)));
       }
    }
 
@@ -211,17 +215,19 @@ SCENARIO("Testing GNDStk child_t operators") {
    GIVEN("Various child_t objects") {
       child_t<void,find::one> voidone("voidone");
       child_t<void,find::all> voidall("voidall");
-      auto foo = (100/voidone/converterA{})++;
-      auto bar = (1.2/voidall/converterB{})--;
-      CHECK(is_int(foo));
-      CHECK(is_all(foo));
+
+      auto foo = one(1.2/voidall/converterA{});
+      CHECK(is_one(foo));
+      CHECK(is_double(foo));
       CHECK(is_converterA(foo));
-      CHECK(is_double(bar));
-      CHECK(is_one(bar));
-      CHECK(is_converterB(bar));
       CHECK(is_void(-foo));
-      CHECK(is_all(-foo));
+      CHECK(is_one(-foo));
+
+      auto bar = all(100/voidone/converterB{});
+      CHECK(is_all(bar));
+      CHECK(is_int(bar));
+      CHECK(is_converterB(bar));
       CHECK(is_void(-bar));
-      CHECK(is_one(-bar));
+      CHECK(is_all(-bar));
    }
 }

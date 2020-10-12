@@ -13,6 +13,10 @@ class Tree : public Node<METADATA_CONTAINER,CHILDREN_CONTAINER> {
 public:
    using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
 
+   // ------------------------
+   // From Node
+   // ------------------------
+
    using nodeType::name;
    using nodeType::metadata;
    using nodeType::children;
@@ -26,7 +30,7 @@ public:
    using nodeType::operator();
 
    // ------------------------
-   // Functions
+   // Simple functions
    // ------------------------
 
    // clear
@@ -40,6 +44,10 @@ public:
    {
       return this->nodeType::sort(), *this;
    }
+
+   // ------------------------
+   // General functions
+   // ------------------------
 
    #include "GNDStk/Tree/src/has_decl.hpp"
    #include "GNDStk/Tree/src/has_top.hpp"

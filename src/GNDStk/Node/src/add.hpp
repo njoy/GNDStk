@@ -187,7 +187,7 @@ typename std::enable_if<
 ) {
    try {
       for (const T &value : container)
-         add(kwd--,value);
+         add(GNDStk::one(kwd),value);
    } catch (const std::exception &) {
       log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;
@@ -214,7 +214,7 @@ typename std::enable_if<
 ) {
    try {
       for (const T &value : container)
-         add(kwd--,value);
+         add(GNDStk::one(kwd),value);
    } catch (const std::exception &) {
       log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;

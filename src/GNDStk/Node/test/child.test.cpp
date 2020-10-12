@@ -1,7 +1,36 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include <cstring>
+
 using namespace njoy::GNDStk;
+
+
+// -----------------------------------------------------------------------------
+// reaction_t
+// nonsense_t
+// For use in some of the tests
+// -----------------------------------------------------------------------------
+
+struct reaction_t {
+   // For the purposes of our testing, let's just have label and ENDF_MT.
+   // A real reaction_t structure would of course contain much more.
+   std::string label;
+   int ENDF_MT;
+};
+
+void convert(const node &n, reaction_t &r)
+{
+   r.label = n(plain::meta::label);
+   r.ENDF_MT = n(mixed::meta::ENDF_MT);
+}
+
+struct nonsense_t {
+};
+
+void convert(const node &n, nonsense_t &r)
+{
+}
 
 
 // -----------------------------------------------------------------------------
@@ -61,17 +90,16 @@ auto nuclide_foo_or_bar_node =
    keyword.child<std::variant<foo_t,bar_t>,find::all>("nuclide");
 
 
-
 // -----------------------------------------------------------------------------
 // Scenario
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk Node child()") {
+
+   // tree
+   Tree<> tree("n-008_O_016.xml");
+
    GIVEN("The top-level node from a tree object") {
-
-      // tree
-      Tree<> tree("n-008_O_016.xml");
-
       // top-level GNDS node, const and non-const
       const Node<> &ctop = tree.top();
       Node<> &top = tree.top();
@@ -147,6 +175,377 @@ SCENARIO("Testing GNDStk Node child()") {
 
          CHECK(iso_bar_node.size() == 1);
          CHECK(iso_bar_node[0].bar_id == "H2");
+      }
+   }
+
+
+   // ------------------------
+   // Mechanically try all
+   // the node.child() cases
+   // ------------------------
+
+   using mixed::meta::label;
+   using mixed::meta::ENDF_MT;
+
+   // filter for nodes that have label="2n + *"
+   auto twon = [](const node &n)
+      { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
+
+
+   // case: <void,one>
+   GIVEN("Testing node.child(child_t<void,one>[,filter][,found])") {
+      // n: non-const <reactions> node
+      node &n = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<void,find::one> reaction("reaction");
+      const child_t<void,find::one> nonsense("nonsense");
+
+      THEN("child(child_t) works") {
+         // reference return; so, its address is available
+         (void)&n.child(reaction);
+         // Note: the n.child(reaction) instances below - not the further label
+         // or ENDF_MT accesses - are really the tests. n.child(reaction) gives
+         // us a non-const node &, from which we should be able to do the rest
+         CHECK(n.child(reaction)(label) == "n + O16");
+         CHECK(n.child(reaction)(ENDF_MT) == 2);
+         n.child(reaction)(-ENDF_MT) = "0"; // non-const; can set
+         CHECK(n.child(reaction)(ENDF_MT) == 0);
+         n.child(reaction)(-ENDF_MT) = "2"; // revert
+         CHECK(n.child(reaction)(ENDF_MT) == 2);
+      }
+
+      THEN("child(child_t,found) works") {
+         bool found = false;
+         (void)&n.child(reaction,found);
+         CHECK(found);
+         found = false;
+         CHECK((n.child(reaction,found)(label) == "n + O16" && found));
+         found = false;
+         CHECK((n.child(reaction,found)(ENDF_MT) == 2 && found));
+         n.child(reaction,found)(-ENDF_MT) = "0";
+         found = false;
+         CHECK((n.child(reaction,found)(ENDF_MT) == 0 && found));
+         n.child(reaction,found)(-ENDF_MT) = "2";
+         found = false;
+         CHECK((n.child(reaction,found)(ENDF_MT) == 2 && found));
+         // <reaction> was found, above, but <nonsense> shouldn't be...
+         found = true;
+         (void)&n.child(nonsense,found);
+         CHECK(!found);
+      }
+
+      THEN("child(child_t,filter) works") {
+         (void)&n.child(reaction,twon);
+         CHECK(n.child(reaction,twon)(label) == "2n + O15 + photon");
+         CHECK(n.child(reaction,twon)(ENDF_MT) == 16);
+         n.child(reaction,twon)(-ENDF_MT) = "0";
+         CHECK(n.child(reaction,twon)(ENDF_MT) == 0);
+         n.child(reaction,twon)(-ENDF_MT) = "16";
+         CHECK(n.child(reaction,twon)(ENDF_MT) == 16);
+      }
+
+      THEN("child(child_t,filter,found) works") {
+         bool found = false;
+         (void)&n.child(reaction,twon,found);
+         CHECK(found);
+         found = false;
+         CHECK(n.child(reaction,twon,found)(label) == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((n.child(reaction,twon,found)(ENDF_MT) == 16 && found));
+         n.child(reaction,twon,found)(-ENDF_MT) = "0";
+         found = false;
+         CHECK((n.child(reaction,twon,found)(ENDF_MT) == 0 && found));
+         n.child(reaction,twon,found)(-ENDF_MT) = "16";
+         found = false;
+         CHECK((n.child(reaction,twon,found)(ENDF_MT) == 16 && found));
+         found = true;
+         (void)&n.child(nonsense,twon,found);
+         CHECK(!found);
+      }
+   }
+
+   // case: <void,one> const
+   // Like the above, except this one is const
+   GIVEN("Testing node.child(child_t<void,one>[,filter][,found]) const") {
+      // c: const <reactions> node
+      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<void,find::one> reaction("reaction");
+      const child_t<void,find::one> nonsense("nonsense");
+
+      THEN("child(child_t) const works") {
+         (void)&c.child(reaction);
+         CHECK(c.child(reaction)(label) == "n + O16");
+         CHECK(c.child(reaction)(ENDF_MT) == 2);
+      }
+
+      THEN("child(child_t,found) const works") {
+         bool found = false;
+         (void)&c.child(reaction,found);
+         CHECK(found);
+         found = false;
+         CHECK((c.child(reaction,found)(label) == "n + O16" && found));
+         found = false;
+         CHECK((c.child(reaction,found)(ENDF_MT) == 2 && found));
+         found = true;
+         (void)&c.child(nonsense,found);
+         CHECK(!found);
+      }
+
+      THEN("child(child_t,filter) const works") {
+         (void)&c.child(reaction,twon);
+         CHECK(c.child(reaction,twon)(label) == "2n + O15 + photon");
+         CHECK(c.child(reaction,twon)(ENDF_MT) == 16);
+      }
+
+      THEN("child(child_t,filter,found) const works") {
+         bool found = false;
+         (void)&c.child(reaction,twon,found);
+         CHECK(found);
+         found = false;
+         CHECK(c.child(reaction,twon,found)(label) == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((c.child(reaction,twon,found)(ENDF_MT) == 16 && found));
+         found = true;
+         (void)&c.child(nonsense,twon,found);
+         CHECK(!found);
+      }
+   }
+
+   // case: <void,all> const
+   GIVEN("Testing node.child(child_t<void,all>[,filter][,found]) const") {
+      // c: const <reactions> node
+      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<void,find::all> reaction("reaction");
+      const child_t<void,find::all> nonsense("nonsense");
+
+      THEN("child(child_t) const works") {
+         CHECK(c.child(reaction).size() == 60);
+         CHECK(c.child(reaction)[0](label) == "n + O16");
+         CHECK(c.child(reaction)[0](ENDF_MT) == 2);
+      }
+
+      THEN("child(child_t,found) const works") {
+         bool found = false;
+         CHECK((c.child(reaction,found).size() == 60 && found));
+         found = false;
+         CHECK((c.child(reaction,found)[0](label) == "n + O16" && found));
+         found = false;
+         CHECK((c.child(reaction,found)[0](ENDF_MT) == 2 && found));
+         found = true;
+         CHECK((c.child(nonsense,found).size() == 0 && !found));
+      }
+
+      THEN("child(child_t,filter) const works") {
+         CHECK(c.child(reaction,twon).size() == 2);
+         CHECK(c.child(reaction,twon)[0](label) == "2n + O15 + photon");
+         CHECK(c.child(reaction,twon)[0](ENDF_MT) == 16);
+         CHECK(c.child(reaction,twon)[1](label) == "2n + H1 + N14 + photon");
+         CHECK(c.child(reaction,twon)[1](ENDF_MT) == 41);
+      }
+
+      THEN("child(child_t,filter,found) const works") {
+         bool found = false;
+         CHECK((c.child(reaction,twon,found).size() == 2 && found));
+         found = false;
+         CHECK(c.child(reaction,twon,found)[0](label) == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((c.child(reaction,twon,found)[0](ENDF_MT) == 16 && found));
+         found = true;
+         CHECK((c.child(nonsense,twon,found).size() == 0 && !found));
+      }
+   }
+
+   // case: <type,one> const
+   GIVEN("Testing node.child(child_t<type,one>[,filter][,found]) const") {
+      // c: const <reactions> node
+      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<reaction_t,find::one> reaction("reaction");
+      const child_t<nonsense_t,find::one> nonsense("nonsense");
+
+      THEN("child(child_t) const works") {
+         CHECK(c.child(reaction).label == "n + O16");
+         CHECK(c.child(reaction).ENDF_MT == 2);
+      }
+
+      THEN("child(child_t,found) const works") {
+         bool found = false;
+         CHECK((c.child(reaction,found).label == "n + O16" && found));
+         found = false;
+         CHECK((c.child(reaction,found).ENDF_MT == 2 && found));
+         found = true;
+         c.child(nonsense,found);
+         CHECK(!found);
+      }
+
+      THEN("child(child_t,filter) const works") {
+         CHECK(c.child(reaction,twon).label == "2n + O15 + photon");
+         CHECK(c.child(reaction,twon).ENDF_MT == 16);
+      }
+
+      THEN("child(child_t,filter,found) const works") {
+         bool found = false;
+         CHECK(c.child(reaction,twon,found).label == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((c.child(reaction,twon,found).ENDF_MT == 16 && found));
+         found = true;
+         c.child(nonsense,twon,found);
+         CHECK(!found);
+      }
+   }
+
+   // case: <variant,one> const
+   GIVEN("Testing node.child(child_t<variant,one>[,filter][,found]) const") {
+      // c: const <reactions> node
+      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<std::variant<int,reaction_t,double>,find::one>
+         reaction("reaction");
+      const child_t<std::variant<double,nonsense_t,int>,find::one>
+         nonsense("nonsense");
+
+      // For brevity
+      using R = reaction_t;
+      using N = nonsense_t;
+
+      THEN("child(child_t) const works") {
+         CHECK(c.child<R>(reaction).label == "n + O16");
+         CHECK(c.child<R>(reaction).ENDF_MT == 2);
+      }
+
+      THEN("child(child_t,found) const works") {
+         bool found = false;
+         CHECK((c.child<R>(reaction,found).label == "n + O16" && found));
+         found = false;
+         CHECK((c.child<R>(reaction,found).ENDF_MT == 2 && found));
+         found = true;
+         c.child<N>(nonsense,found);
+         CHECK(!found);
+      }
+
+      THEN("child(child_t,filter) const works") {
+         CHECK(c.child<R>(reaction,twon).label == "2n + O15 + photon");
+         CHECK(c.child<R>(reaction,twon).ENDF_MT == 16);
+      }
+
+      THEN("child(child_t,filter,found) const works") {
+         bool found = false;
+         CHECK(c.child<R>(reaction,twon,found).label == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((c.child<R>(reaction,twon,found).ENDF_MT == 16 && found));
+         found = true;
+         c.child<N>(nonsense,twon,found);
+         CHECK(!found);
+      }
+   }
+
+   // case: <type,all> const
+   GIVEN("Testing node.child(child_t<type,all>[,filter][,found]) const") {
+      // c: const <reactions> node
+      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<reaction_t,find::all> reaction("reaction");
+      const child_t<nonsense_t,find::all> nonsense("nonsense");
+
+      THEN("child(child_t) const works") {
+         CHECK(c.child(reaction).size() == 60);
+         CHECK(c.child(reaction)[0].label == "n + O16");
+         CHECK(c.child(reaction)[0].ENDF_MT == 2);
+      }
+
+      THEN("child(child_t,found) const works") {
+         bool found = false;
+         CHECK((c.child(reaction,found).size() == 60 && found));
+         found = false;
+         CHECK((c.child(reaction,found)[0].label == "n + O16" && found));
+         found = false;
+         CHECK((c.child(reaction,found)[0].ENDF_MT == 2 && found));
+         found = true;
+         c.child(nonsense,found)[0];
+         CHECK(!found);
+      }
+
+      THEN("child(child_t,filter) const works") {
+         CHECK(c.child(reaction,twon).size() == 2);
+         CHECK(c.child(reaction,twon)[0].label == "2n + O15 + photon");
+         CHECK(c.child(reaction,twon)[0].ENDF_MT == 16);
+         CHECK(c.child(reaction,twon)[1].label == "2n + H1 + N14 + photon");
+         CHECK(c.child(reaction,twon)[1].ENDF_MT == 41);
+      }
+
+      THEN("child(child_t,filter,found) const works") {
+         bool found = false;
+         CHECK((c.child(reaction,twon,found).size() == 2 && found));
+         found = false;
+         CHECK(c.child(reaction,twon,found)[0].label == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((c.child(reaction,twon,found)[0].ENDF_MT == 16 && found));
+         found = true;
+         c.child(nonsense,twon,found);
+         CHECK(!found);
+      }
+   }
+
+   // case: <variant,all> const
+   GIVEN("Testing node.child(child_t<variant,all>[,filter][,found]) const") {
+
+      // c: const <reactions> node
+      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+
+      const child_t<std::variant<int,reaction_t,double>,find::all>
+         reaction("reaction");
+      const child_t<std::variant<double,nonsense_t,int>,find::all>
+         nonsense("nonsense");
+
+      // For brevity
+      using R = reaction_t;
+      using N = nonsense_t;
+
+      THEN("child(child_t) const works") {
+         CHECK(c.child<R>(reaction).size() == 60);
+         CHECK(c.child<R>(reaction)[0].label == "n + O16");
+         CHECK(c.child<R>(reaction)[0].ENDF_MT == 2);
+      }
+
+      THEN("child(child_t,found) const works") {
+         bool found = false;
+         CHECK((c.child<R>(reaction,found).size() == 60 && found));
+         found = false;
+         CHECK((c.child<R>(reaction,found)[0].label == "n + O16" && found));
+         found = false;
+         CHECK((c.child<R>(reaction,found)[0].ENDF_MT == 2 && found));
+         found = true;
+         c.child<N>(nonsense,found)[0];
+         CHECK(!found);
+      }
+
+      THEN("child(child_t,filter) const works") {
+         CHECK(c.child<R>(reaction,twon).size() == 2);
+         CHECK(c.child<R>(reaction,twon)[0].label == "2n + O15 + photon");
+         CHECK(c.child<R>(reaction,twon)[0].ENDF_MT == 16);
+         CHECK(c.child<R>(reaction,twon)[1].label == "2n + H1 + N14 + photon");
+         CHECK(c.child<R>(reaction,twon)[1].ENDF_MT == 41);
+      }
+
+      THEN("child(child_t,filter,found) const works") {
+         bool found = false;
+         CHECK((c.child<R>(reaction,twon,found).size() == 2 && found));
+         found = false;
+         CHECK(c.child<R>(reaction,twon,found)[0].label == "2n + O15 + photon");
+         CHECK(found);
+         found = false;
+         CHECK((c.child<R>(reaction,twon,found)[0].ENDF_MT == 16 && found));
+         found = true;
+         c.child<N>(nonsense,twon,found);
+         CHECK(!found);
       }
    }
 }

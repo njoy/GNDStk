@@ -30,8 +30,7 @@ and converting them into a node that's destined to be added as a child node.
       Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node \
    ) { \
       try { \
-         node.clear(); \
-         node.name = "values"; \
+         node.clear().name = "values"; \
          convert(container, detail::put_pcdata_string(node)); \
       } catch (const std::exception &) { \
          log::context("convert(" #CONTAINER ",Node)"); \

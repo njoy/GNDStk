@@ -22,7 +22,7 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
       CHECK(tree.empty());
    }
 
-   // Each of Tree's two template parameters can be any of three particular C++
+   // Each of Tree's two template parameters can be any of three particular
    // sequence containers: {deque,list,vector}. We don't allow for the other
    // sequence containers, {array,forward_list}, because each of those lacks
    // one or more features we need. In the future we may relax this restriction,
