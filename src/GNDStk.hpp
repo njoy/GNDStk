@@ -53,8 +53,8 @@ namespace GNDStk {
 
 // string|node to|from type
 #include "GNDStk/string2type.hpp"
-#include "GNDStk/node2type.hpp"
 #include "GNDStk/type2string.hpp"
+#include "GNDStk/node2type.hpp"
 #include "GNDStk/type2node.hpp"
 
 // meta_t, child_t, and related

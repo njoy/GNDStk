@@ -1,7 +1,11 @@
 
 namespace detail {
 
-// Forward declaration needed from Node.hpp
+// node2Node: forward declaration
+// This function is called by some of Node's assignment operators. We'd instead
+// put this forward declaration into the file in which *those* are defined, but
+// that file is #included inside class Node { ... }'s definition, where writing
+// the forward declaration wouldn't make sense.
 template<class NODEFROM, class NODETO>
 void node2Node(const NODEFROM &, NODETO &);
 

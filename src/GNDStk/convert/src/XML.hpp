@@ -132,7 +132,7 @@ inline bool convert(const JSON &j, XML &x)
    // convert
    try {
       return
-         convert(j,t) and
+         convert(j,t) &&
          convert(t,x);
    } catch (const std::exception &) {
       log::context("convert(JSON,XML)");

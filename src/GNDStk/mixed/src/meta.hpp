@@ -1,10 +1,10 @@
 
+namespace meta {
+
 // -----------------------------------------------------------------------------
 // Keywords
 // Of type meta_t
 // -----------------------------------------------------------------------------
-
-namespace meta {
 
 // bool
 GNDSTK_MAKE_META(bool, calculateChannelRadius);
@@ -93,16 +93,12 @@ GNDSTK_MAKE_META(std::string, valueType);
 GNDSTK_MAKE_META(std::string, date);
 GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 
-} // namespace meta
-
 
 
 // -----------------------------------------------------------------------------
 // Keywords
 // Special cases
 // -----------------------------------------------------------------------------
-
-namespace meta {
 
 // ------------------------
 // Variant cases; comma in

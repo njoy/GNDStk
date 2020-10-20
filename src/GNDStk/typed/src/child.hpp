@@ -907,9 +907,12 @@ class unspecified {
 public:
 };
 
+/*
+// May or may not want this
 class values {
 public:
 };
+*/
 
 class weighted {
 public:
@@ -940,10 +943,14 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// Possible top-level elements
+// Elements
 // -----------------------------------------------------------------------------
 
 namespace child {
+
+// ------------------------
+// Allowable as top-level
+// ------------------------
 
 inline const child_t<elemtype::PoPs,find::one>
    PoPs               ("PoPs"               , true);
@@ -956,15 +963,10 @@ inline const child_t<elemtype::thermalScattering,find::one>
 inline const child_t<elemtype::fissionFragmentData,find::one>
    fissionFragmentData("fissionFragmentData", true);
 
-} // namespace child
 
-
-
-// -----------------------------------------------------------------------------
+// ------------------------
 // Regular elements
-// -----------------------------------------------------------------------------
-
-namespace child {
+// ------------------------
 
 inline const child_t<elemtype::BreitWigner,find::one>
    BreitWigner                     ("BreitWigner"                     );
@@ -1404,8 +1406,16 @@ inline const child_t<elemtype::unresolvedRegion,find::one>
    unresolvedRegion                ("unresolvedRegion"                );
 inline const child_t<elemtype::unspecified,find::one>
    unspecified                     ("unspecified"                     );
+/*
+fixme We'll want to think about how best to do this. I'm seeing two
+fundamentally different types of <values> nodes in the GNDS library.
+Most have just "plain character data", but others have metadata too.
+These two flavors or <values> nodes should reasonably have different
+underlying C++ classes to represent them.
+
 inline const child_t<elemtype::values,find::all>
    values                          ("values"                          );
+*/
 inline const child_t<elemtype::weighted,find::all>
    weighted                        ("weighted"                        );
 inline const child_t<elemtype::weightedFunctionals,find::one>

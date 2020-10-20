@@ -49,11 +49,11 @@ std::ostream &write(
          throw std::exception{};
       } else {
          // default: our internal tree format
-         if (not empty())
+         if (!empty())
             top().write(os,0); // 0 is level
       }
 
-      if (not os) {
+      if (!os) {
          log::error("Could not write to output stream");
          throw std::exception{};
       }
@@ -101,16 +101,16 @@ bool write(
    // Note that the above code block may have changed "form",
    // via automagick file type detection. So...
 
-   if (form == format::xml  and has_extension(filename)
-       and not endsin_xml (filename)) {
+   if (form == format::xml && has_extension(filename)
+       && !endsin_xml (filename)) {
       detail::warning_tree_io_name("write", "xml",  filename, "XML" );
    }
-   if (form == format::json and has_extension(filename)
-       and not endsin_json(filename)) {
+   if (form == format::json && has_extension(filename)
+       && !endsin_json(filename)) {
       detail::warning_tree_io_name("write", "json", filename, "JSON");
    }
-   if (form == format::hdf5 and has_extension(filename)
-       and not endsin_hdf5(filename)) {
+   if (form == format::hdf5 && has_extension(filename)
+       && !endsin_hdf5(filename)) {
       detail::warning_tree_io_name("write", "hdf5", filename, "HDF5");
    }
 
@@ -120,13 +120,13 @@ bool write(
 
    try {
       std::ofstream ofs(filename.c_str());
-      if (not ofs) {
+      if (!ofs) {
          log::error("Could not open output file \"{}\"", filename);
          throw std::exception{};
       }
 
       // Call write(ostream) to do the remaining work.
-      return not write(ofs,form).fail();
+      return !write(ofs,form).fail();
    } catch (const std::exception &) {
       log::context("Tree::write(\"{}\")", filename);
       throw;

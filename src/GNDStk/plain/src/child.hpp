@@ -1,4 +1,6 @@
 
+namespace child {
+
 // -----------------------------------------------------------------------------
 // child_t<void,...>
 // For all elements that we see in every existing XML-format GNDS file that
@@ -12,14 +14,11 @@
 // tree: as (a const or non-const reference to) a Node.
 
 
-
 // -----------------------------------------------------------------------------
 // Potential top-level elements. We saw the first four used as top-level nodes
 // in the library of XML-format GNDS files. The last, fissionFragmentData, can
 // be a top-level node according to the GNDS manual.
 // -----------------------------------------------------------------------------
-
-namespace child {
 
 inline const child_t<void,find::one>
    PoPs               ("PoPs"               , true);
@@ -32,15 +31,10 @@ inline const child_t<void,find::one>
 inline const child_t<void,find::one>
    fissionFragmentData("fissionFragmentData", true);
 
-} // namespace child
-
-
 
 // -----------------------------------------------------------------------------
 // General elements
 // -----------------------------------------------------------------------------
-
-namespace child {
 
 inline const child_t<void,find::one>
    BreitWigner                     ("BreitWigner"                     );
@@ -480,8 +474,17 @@ inline const child_t<void,find::one>
    unresolvedRegion                ("unresolvedRegion"                );
 inline const child_t<void,find::one>
    unspecified                     ("unspecified"                     );
+
+/*
+// We should consider other ideas for <values>, which usually contains only
+// plain character data (XML "pcdata") but *occasionally* contains metadata
+// as well. And, <values> usually appears just once (so that find::one would
+// be better), but *occasionally* appears more than once, in the same parent
+// node; see for example some <array> parent nodes in n-094_Pu_239-covar.xml.
 inline const child_t<void,find::all>
    values                          ("values"                          );
+*/
+
 inline const child_t<void,find::all>
    weighted                        ("weighted"                        );
 inline const child_t<void,find::one>

@@ -45,9 +45,15 @@ SCENARIO("Testing GNDStk convert(node,type)") {
       // container with the contents of the "text" metadatum's value.
       foo.add("pcdata").add("text","12 34 56 78 90");
 
+      // Update, 2020-10-19. The relevant convert() functionality has been
+      // reformulated into the detail::convert_pcdata_text_t callable object,
+      // so we'll reformulate with that. Ultimately, due to the location of
+      // the new code, we should probably put this test material elsewhere.
+
       THEN("convert(foo,deque) extracts the content correctly") {
          std::deque<int> container;
-         convert(foo,container);
+         // convert(foo,container);
+         detail::convert_pcdata_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
          CHECK(container[1] == 34);
@@ -58,7 +64,8 @@ SCENARIO("Testing GNDStk convert(node,type)") {
 
       THEN("convert(foo,list) extracts the content correctly") {
          std::list<int> container;
-         convert(foo,container);
+         // convert(foo,container);
+         detail::convert_pcdata_text_t{}(foo,container);
          CHECK(container.size() == 5);
          auto iter = container.begin();
          CHECK(*iter++ == 12);
@@ -70,7 +77,8 @@ SCENARIO("Testing GNDStk convert(node,type)") {
 
       THEN("convert(foo,vector) extracts the content correctly") {
          std::vector<int> container;
-         convert(foo,container);
+         // convert(foo,container);
+         detail::convert_pcdata_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
          CHECK(container[1] == 34);
