@@ -4,3 +4,6 @@ bin*
 build
 *~
 metaconfigure/*.pyc
+_build
+*.pyc
+__pycache__
