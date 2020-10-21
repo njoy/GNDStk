@@ -52,7 +52,6 @@ SCENARIO("Testing GNDStk convert(node,type)") {
 
       THEN("convert(foo,deque) extracts the content correctly") {
          std::deque<int> container;
-         // convert(foo,container);
          detail::convert_pcdata_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
@@ -64,7 +63,6 @@ SCENARIO("Testing GNDStk convert(node,type)") {
 
       THEN("convert(foo,list) extracts the content correctly") {
          std::list<int> container;
-         // convert(foo,container);
          detail::convert_pcdata_text_t{}(foo,container);
          CHECK(container.size() == 5);
          auto iter = container.begin();
@@ -77,7 +75,6 @@ SCENARIO("Testing GNDStk convert(node,type)") {
 
       THEN("convert(foo,vector) extracts the content correctly") {
          std::vector<int> container;
-         // convert(foo,container);
          detail::convert_pcdata_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);

@@ -328,6 +328,8 @@ inline const child_t<void,find::one>
 // -----------------------------------------------------------------------------
 
 // convert_pcdata_text
+// This object, via its type, provides conversions between certain C++ container
+// types, and nodes that contain plain character data (pcdata) content.
 inline const detail::convert_pcdata_text_t convert_pcdata_text;
 
 // values

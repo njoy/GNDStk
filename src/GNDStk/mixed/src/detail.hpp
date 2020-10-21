@@ -105,7 +105,7 @@ std::string &set_pcdata_text(NODE &node)
 
 
 // -----------------------------------------------------------------------------
-// PcdataTextVContainer
+// convert_pcdata_text_t
 // -----------------------------------------------------------------------------
 
 class convert_pcdata_text_t {

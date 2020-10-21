@@ -27,7 +27,6 @@ SCENARIO("Testing GNDStk convert(type,node)") {
    WHEN("type is vector") {
       std::vector<double> container = { 1, 2.3, 4.56 };
       node n("old name");
-      // convert(container,n);
       detail::convert_pcdata_text_t{}(container,n);
 
       // one way to check the node
@@ -48,7 +47,6 @@ SCENARIO("Testing GNDStk convert(type,node)") {
    WHEN("type is deque") {
       std::deque<double> container = { 1, 2.3, 4.56 };
       node n("old name");
-      // convert(container,n);
       detail::convert_pcdata_text_t{}(container,n);
       std::ostringstream oss; oss << n;
       CHECK(oss.str() == correct_node);
@@ -57,7 +55,6 @@ SCENARIO("Testing GNDStk convert(type,node)") {
    WHEN("type is list") {
       std::list<double> container = { 1, 2.3, 4.56 };
       node n("old name");
-      // convert(container,n);
       detail::convert_pcdata_text_t{}(container,n);
       std::ostringstream oss; oss << n;
       CHECK(oss.str() == correct_node);
