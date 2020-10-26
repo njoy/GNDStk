@@ -291,21 +291,8 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 template<class NODEFROM, class NODETO>
 inline void node2Node(const NODEFROM &from, NODETO &to)
 {
-   // Check that the destination node is empty. We don't really need to have
-   // such a check in a viable node-to-node function; it would be perfectly
-   // reasonable to clear the destination node and then copy the contents of
-   // the source node. This is a "detail" namespace function, however, and
-   // we're using it elsewhere in contexts for which the destination node,
-   // when we call here, should in fact have no current contents. So, then,
-   // we're doing this here in order to validate that that's indeed the case.
-   if (!to.empty()) {
-      log::error(
-         "Internal error in detail::node2Node(Node,Node):\n"
-         "destination Node is supposed to arrive here empty, but didn't"
-      );
-      throw std::exception{};
-      return;
-   }
+   // clear
+   to.clear();
 
    // name
    to.name = from.name;

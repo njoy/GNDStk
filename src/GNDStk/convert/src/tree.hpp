@@ -91,7 +91,7 @@ bool convert(
       if (count == 1) {
          // visit the XML's outer node, and its descendants
          try {
-            if (not detail::xml_node2Node(xnode,tree.add()))
+            if (!detail::xml_node2Node(xnode,tree.add()))
                return false;
          } catch (const std::exception &) {
             log::context("convert(XML,Tree)");
@@ -156,7 +156,7 @@ bool convert(
 
    // visit the JSON's outer node, and its descendants
    try {
-      if (not detail::json2node(j.doc.begin(),tree.add()))
+      if (!detail::json2node(j.doc.begin(),tree.add()))
          return false;
       } catch (const std::exception &) {
          log::context("convert(JSON,Tree)");

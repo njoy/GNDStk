@@ -39,7 +39,7 @@ namespace detail {
    {
       return &string != &default_string;
    }
-}
+} // namespace detail
 
 
 
@@ -180,7 +180,7 @@ inline std::ifstream::pos_type filesize(const std::string &filename)
 // C++20 will have an ends_with(); for now we'll have this
 inline bool endsin(const std::string &str, const std::string &end)
 {
-   return str.size() >= end.size() and &str[str.size()-end.size()] == end;
+   return str.size() >= end.size() && &str[str.size()-end.size()] == end;
 }
 
 // nocasecmp
@@ -213,7 +213,7 @@ inline bool has_extension(const std::string &str)
 inline bool endsin_xml(const std::string &str)
 {
    return
-      endsin(str,".xml" ) or
+      endsin(str,".xml" ) ||
       endsin(str,".XML" );
 }
 
@@ -221,7 +221,7 @@ inline bool endsin_xml(const std::string &str)
 inline bool endsin_json(const std::string &str)
 {
    return
-      endsin(str,".json") or
+      endsin(str,".json") ||
       endsin(str,".JSON");
 }
 
@@ -229,13 +229,13 @@ inline bool endsin_json(const std::string &str)
 inline bool endsin_hdf5(const std::string &str)
 {
    return
-      endsin(str,".hdf" ) or
-      endsin(str,".HDF" ) or
-      endsin(str,".h5"  ) or
-      endsin(str,".H5"  ) or
-      endsin(str,".hdf5") or
-      endsin(str,".HDF5") or
-      endsin(str,".he5" ) or
+      endsin(str,".hdf" ) ||
+      endsin(str,".HDF" ) ||
+      endsin(str,".h5"  ) ||
+      endsin(str,".H5"  ) ||
+      endsin(str,".hdf5") ||
+      endsin(str,".HDF5") ||
+      endsin(str,".he5" ) ||
       endsin(str,".HE5" );
 }
 
@@ -252,7 +252,7 @@ inline bool endsin_hdf5(const std::string &str)
 inline bool eq_null(const std::string &str)
 {
    return
-      nocasecmp(str,"null") or
+      nocasecmp(str,"null") ||
       str == "";
 }
 
@@ -281,9 +281,9 @@ inline bool eq_json(const std::string &str)
 inline bool eq_hdf5(const std::string &str)
 {
    return
-      nocasecmp(str,"hdf" ) or
-      nocasecmp(str,"h5"  ) or
-      nocasecmp(str,"hdf5") or
+      nocasecmp(str,"hdf" ) ||
+      nocasecmp(str,"h5"  ) ||
+      nocasecmp(str,"hdf5") ||
       nocasecmp(str,"he5" );
 }
 

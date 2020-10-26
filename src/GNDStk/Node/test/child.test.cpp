@@ -180,6 +180,28 @@ SCENARIO("Testing GNDStk Node child()") {
 
 
    // ------------------------
+   // Test the cdata keyword
+   // ------------------------
+
+   // By extension, this tests detail::text_metadatum_to_string()
+   GIVEN("A tree object") {
+      // top-level GNDS node, const and non-const
+      const Node<> &ctop = tree.top();
+      Node<> &top = tree.top();
+
+      WHEN("We extract the CDATA description") {
+         auto descr = tree(
+            plain::child::reactionSuite,
+            plain::child::documentations,
+            plain::child::documentation,
+            mixed::child::cdata
+         );
+         CHECK(0 == strncmp(descr.c_str(), "\n  8-O - 16 LANL", 16));
+      }
+   }
+
+
+   // ------------------------
    // Mechanically try all
    // the node.child() cases
    // ------------------------

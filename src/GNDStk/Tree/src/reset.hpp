@@ -33,7 +33,7 @@ Tree &reset(
    clear();
 
    // Warn if the given child_t doesn't look valid for a top-level GNDS node
-   if (not kwd.canBeTopLevel) {
+   if (!kwd.canBeTopLevel) {
       log::warning(
          "Tree::reset(child_t(\"{}\")) called, but the node as given by the\n"
          "child_t object is not encoded as being suitable for a top-level\n"
@@ -45,7 +45,7 @@ Tree &reset(
    try {
       // Declaration node: "xml", etc.
       // This can specify an eventual intended file type for the GNDS hierarchy.
-      if (form == format::xml or form == format::null or form == format::tree) {
+      if (form == format::xml || form == format::null || form == format::tree) {
          // xml, null, tree
          nodeType::add("xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );

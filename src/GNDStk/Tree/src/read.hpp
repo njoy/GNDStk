@@ -70,7 +70,7 @@ std::istream &read(
          // assume .xml
          // go through a temporary XML object to create the tree...
          const XML tmp(is);
-         if (not is.fail())
+         if (!is.fail())
             convert(tmp, *this);
       } else if (form == format::json) {
          // assume .json
@@ -81,7 +81,7 @@ std::istream &read(
          // which is used by the constructor we just called, sets failbit
          // in instances in which it should just set eofbit. So, for now,
          // we'll remove the "not is.fail()" test... :-/
-         // if (not is.fail())
+         // if (!is.fail())
          convert(tmp, *this);
       } else if (form == format::hdf5) {
          log::error("Tree::read() for HDF5 is not implemented yet");
@@ -139,16 +139,16 @@ bool read(
    // Check: consistent name?
    // ------------------------
 
-   if (form == format::xml  and has_extension(filename)
-       and not endsin_xml (filename)) {
+   if (form == format::xml && has_extension(filename)
+       && !endsin_xml(filename)) {
       detail::warning_tree_io_name("read", "xml",  filename, "XML" );
    }
-   if (form == format::json and has_extension(filename)
-       and not endsin_json(filename)) {
+   if (form == format::json && has_extension(filename)
+       && !endsin_json(filename)) {
       detail::warning_tree_io_name("read", "json", filename, "JSON");
    }
-   if (form == format::hdf5 and has_extension(filename)
-       and not endsin_hdf5(filename)) {
+   if (form == format::hdf5 && has_extension(filename)
+       && !endsin_hdf5(filename)) {
       detail::warning_tree_io_name("read", "hdf5", filename, "HDF5");
    }
 
@@ -158,7 +158,7 @@ bool read(
 
    try {
       std::ifstream ifs(filename.c_str());
-      if (not ifs) {
+      if (!ifs) {
          log::error("Could not open input file \"{}\"", filename);
          throw std::exception{};
       }
@@ -167,7 +167,7 @@ bool read(
       // filename isn't available any longer there, the function can, and does,
       // do additional checking (complimentary to what we already did above),
       // based on looking at the content that we'll be attempting to read.
-      return not read(ifs,form).fail();
+      return !read(ifs,form).fail();
    } catch (const std::exception &) {
       log::context("Tree::read(\"{}\")", filename);
       throw;

@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // Set of meta_t and child_t keywords all of which use <void>, meaning they'll
-// retrieve values in their original form in the GNDS tree.
+// retrieve metadata and child nodes in their original form in the GNDS tree.
 // -----------------------------------------------------------------------------
 
 namespace plain {

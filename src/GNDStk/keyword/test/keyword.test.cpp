@@ -191,7 +191,8 @@ SCENARIO("Testing GNDStk keyword") {
    auto myshape   = keyword.meta<shape_t  >("shape"  );
 
    // for children
-   auto myvalues  = keyword.child<values_t,  find::one>("values");
+   auto myvalues =
+      keyword.child<values_t,find::one>("values",convert_pcdata_text);
    // In the following, a name of "" means to stay at the current node
    auto mymanifest = keyword.child<manifest_t,find::one>("");
 
@@ -245,7 +246,8 @@ SCENARIO("Testing GNDStk keyword") {
       }
 
       THEN("Try extracting .../array/values") {
-         // Extract <array> values into our values type, which is vector<double>
+         // Extract <array> values into our values_t type,
+         // which is vector<double>.
          // Specifically: myshape keyword ==> shape_t
          auto val = arr(myvalues);
          CHECK(val[0] == 0.015);
@@ -254,6 +256,7 @@ SCENARIO("Testing GNDStk keyword") {
          CHECK(val[3] == 0);
          CHECK(val[4] == 4.5e-5);
       }
+
    } // WHEN
 
 

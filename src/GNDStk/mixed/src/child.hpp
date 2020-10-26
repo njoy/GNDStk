@@ -1,12 +1,12 @@
 
+namespace child {
+
 // -----------------------------------------------------------------------------
 // Allowable top-level nodes
 // As given in LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-namespace child {
-
-// Note: the true values here mean "allowed as a top-level node"
+// Note: the trues here mean "allowed as a top-level node"
 inline const child_t<void,find::one>
    reactionSuite      ("reactionSuite",       true),
    covarianceSuite    ("covarianceSuite",     true),
@@ -14,16 +14,12 @@ inline const child_t<void,find::one>
    thermalScattering  ("thermalScattering",   true),
    fissionFragmentData("fissionFragmentData", true);
 
-} // namespace child
-
 
 
 // -----------------------------------------------------------------------------
 // Keywords
 // Of type child_t
 // -----------------------------------------------------------------------------
-
-namespace child {
 
 // ------------------------
 // one + all pair
@@ -132,7 +128,6 @@ GNDSTK_MAKE_CHILD(void, parameterLink, find::all);
 GNDSTK_MAKE_CHILD(void, regions1d, find::all);
 GNDSTK_MAKE_CHILD(void, section, find::all);
 GNDSTK_MAKE_CHILD(void, shell, find::all);
-GNDSTK_MAKE_CHILD(void, values, find::all);
 GNDSTK_MAKE_CHILD(void, weighted, find::all);
 GNDSTK_MAKE_CHILD(void, XYs1d, find::all);
 GNDSTK_MAKE_CHILD(void, XYs2d, find::all);
@@ -290,35 +285,22 @@ GNDSTK_MAKE_CHILD(void, xml, find::one);
 GNDSTK_MAKE_CHILD(void, XYs3d, find::one);
 GNDSTK_MAKE_CHILD(void, yields, find::one);
 
-} // namespace child
-
 
 
 // -----------------------------------------------------------------------------
 // keywords
-// Special cases
+// Some special cases
 // -----------------------------------------------------------------------------
 
-// Helper for cdata and comment
-namespace detail {
-   class text_metadatum_to_string {
-   public:
-      template<class NODE>
-      void operator()(const NODE &node, std::string &to) const
-      {
-         to = node.meta("text");
-      }
-   };
-}
-
-namespace child {
+// Double
+// Not called double, for obvious reasons.
+inline const child_t<void,find::one> Double("double");
 
 // cdata, comment
-// These are where XML <![CDATA[...]]> or <!-- ... --> (comment) material ends
-// up. It's reasonable to extract such material as a std::string. We're storing
-// these "cdata" and "comment" nodes as nodes of those respective names, each
-// with one metadatum having a key of "text" and a value containing the "..."
-// from <![CDATA[...]]> or <!--...-->.
+// These are where XML <![CDATA[...]]> or <!-- ... --> (comment) material
+// resides. It's reasonable to extract such content into std::strings. We
+// then store these as nodes of those respective names, each with one metadatum
+// having a key of "text" and a value containing the original content.
 inline const child_t<std::string,find::one,detail::text_metadatum_to_string>
    cdata("cdata");
 inline const child_t<std::string,find::all,detail::text_metadatum_to_string>
@@ -327,19 +309,35 @@ inline const child_t<std::string,find::all,detail::text_metadatum_to_string>
 // pcdata
 // These are where XML material appearing in constructs like this:
 //    <values>1.2 3.4 5.6 7.8 9.0</values>
-// ends up. In that case, in our internal tree structure, we'd have a node named
-// "values", inside it a child node named "pcdata", and then in the pcdata child
-// node we'd have a metadatum with a key of "text" and a value with the original
-// content: "1.2 ...". Examination of a large library of GNDS files shows that
-// some pcdata nodes contain integers, while others contain doubles. We provide
-// the following, a child_t<void,...>, so that users can get to the pcdata node
-// in its plain node form and decide for themselves what to do about the "text"
-// metadatum.
+// resides. In that case, our internal tree structure would have a node named
+// values, which would have a child node named pcdata, which would have a
+// metadatum with a key of "text" and a value containing the original content:
+// the "1.2 ..." in the above example. Our examination of many GNDS files shows
+// that some pcdata nodes contain integers, while others contain doubles. We
+// therefore define pcdata as a child_t with <void>, so that we can access it
+// in its original form and thus dig further down to its "text" metadatum, at
+// which point we can decide elsewhere what's appropriate for that. (Read into
+// a vector of ints? Into vector of doubles? Into something else?)
 inline const child_t<void,find::one>
    pcdata("pcdata");
 
-// Double
-// Not called double, for obvious reasons.
-inline const child_t<void,find::one> Double("double");
+
+
+// -----------------------------------------------------------------------------
+// values
+// -----------------------------------------------------------------------------
+
+// convert_pcdata_text
+// This object, via its type, provides conversions between certain C++ container
+// types, and nodes that contain plain character data (pcdata) content.
+inline const detail::convert_pcdata_text_t convert_pcdata_text;
+
+// values
+template<class T = double>
+inline const child_t<
+   typename detail::values_type<T>::type,
+   find::one,
+   detail::convert_pcdata_text_t
+> values("values",convert_pcdata_text);
 
 } // namespace child

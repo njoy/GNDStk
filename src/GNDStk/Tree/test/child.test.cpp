@@ -36,7 +36,7 @@ inline void convert(const NODE &node, xml_t &out)
 }
 
 // keyword: my_xml_keyword
-// Users can write custom child_t values like this, and then use them in
+// Users can write custom child_t objects like this, and then use them in
 // child() functions. Here, "xml" is what the keyword uses to look up nodes
 // that can be converted to xml_t objects via the convert() function above.
 inline const child_t<xml_t> my_xml_keyword("xml");
