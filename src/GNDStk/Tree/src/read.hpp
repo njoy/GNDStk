@@ -1,10 +1,18 @@
 
 // -----------------------------------------------------------------------------
-// Tree::read()
+// Tree.read()
 // -----------------------------------------------------------------------------
 
+// Cases:
+// 1. read(istream, format)
+// 2. read(filename,format) (calls 1 after making istream from filename)
+// 3. read(istream, string) (calls 1 after making format from string)
+// 4. read(filename,string) (calls 2 after making format from string)
+
+
+
 // -----------------------------------------------------------------------------
-// read(istream,format)
+// 1. read(istream,format)
 // -----------------------------------------------------------------------------
 
 std::istream &read(
@@ -23,7 +31,7 @@ std::istream &read(
 
    if (form == format::tree) {
       log::error(detail::format_tree_read);
-      log::context("Tree::read(istream,format)");
+      log::member("Tree.read(istream)");
       throw std::exception{};
    }
 
@@ -33,24 +41,55 @@ std::istream &read(
    // initial content?
    // ------------------------
 
-   if (is.peek() == '<') {
-      // looks like xml
-      if (form == format::null)
+   // Description of the "file magic number" in case something goes wrong.
+   // This may be important for diagnostics purposes in, for example, cases
+   // where the file isn't valid in any format we recognize. Unless format
+   // is stipulated, we assume XML if the stream begins with '<', HDF5 if
+   // it begins with character 137, and JSON (for which the first file
+   // character isn't set in stone) if neither. The choice is thus based
+   // on file contents, not file extension. (Indeed, if this read() function
+   // is called directly, there is no file name/extension - there's just
+   // an istream.) Imagine that someone tries to open a bad .XML file, one
+   // that doesn't begin with '<'. Via the above process, we end up assuming
+   // below (unless format was provided) that it's JSON, and the diagnostic
+   // message mentions "JSON" - which would be confusing to a user who knows
+   // they wrote something.XML. So, when applicable, we'll include in our
+   // diagnostic the file type assumption we make, to clarify the error.
+   std::string magic;
+   static const std::string request = ", because it was requested";
+
+   // Examine the stream's first character ("file magic number")
+   if (is.peek() == EOF) {
+      log::error("The istream is empty");
+      log::member("Tree.read(istream)");
+      throw std::exception{};
+   } else if (is.peek() == '<') {
+      // looks like XML
+      if (form == format::null) {
          form = format::xml;
-      else if (form != format::xml)
-         detail::warning_tree_io_data(form, "'<'", "XML");
+         magic = "Assuming XML, based on the first character of the istream";
+      } else if (form != format::xml) {
+         detail::warning_tree_io_data(form, "XML");
+         magic = "Using " + detail::print_format(form) + request;
+      }
    } else if (is.peek() == 137) {
-      // looks like hdf5
-      if (form == format::null)
+      // looks like HDF5
+      if (form == format::null) {
          form = format::hdf5;
-      else if (form != format::hdf5)
-         detail::warning_tree_io_data(form, "char 137", "HDF5");
+         magic = "Assuming HDF5, based on the first character of the istream";
+      } else if (form != format::hdf5) {
+         detail::warning_tree_io_data(form, "HDF5");
+         magic = "Using " + detail::print_format(form) + request;
+      }
    } else {
-      // looks like json (for now, via process of elimination)
-      if (form == format::null)
+      // looks like JSON (via process of elimination)
+      if (form == format::null) {
          form = format::json;
-      else if (form != format::json)
-         detail::warning_tree_io_data(form, "neither '<' nor char 137", "JSON");
+         magic = "Assuming JSON, based on the first character of the istream";
+      } else if (form != format::json) {
+         detail::warning_tree_io_data(form, "JSON");
+         magic = "Using " + detail::print_format(form) + request;
+      }
    }
 
    // The above logic is such that form cannot henceforth be format::tree,
@@ -67,24 +106,17 @@ std::istream &read(
       // format::null, then form would have been modified, above, to the
       // likely correct format, based on the peek() calls.
       if (form == format::xml) {
-         // assume .xml
-         // go through a temporary XML object to create the tree...
-         const XML tmp(is);
-         if (!is.fail())
-            convert(tmp, *this);
+         // assume XML; so, create tree by converting from a temporary XML...
+         XML tmp;
+         if (!tmp.read(is) || !convert(tmp, *this))
+            throw std::exception{};
       } else if (form == format::json) {
-         // assume .json
-         // go through a temporary json object to create the tree...
-         const JSON tmp(is);
-
-         // It would seem that the nlohmann::json stream input operation,
-         // which is used by the constructor we just called, sets failbit
-         // in instances in which it should just set eofbit. So, for now,
-         // we'll remove the "not is.fail()" test... :-/
-         // if (!is.fail())
-         convert(tmp, *this);
+         // assume JSON; so, create tree by converting from a temporary JSON...
+         JSON tmp;
+         if (!tmp.read(is) || !convert(tmp, *this))
+            throw std::exception{};
       } else if (form == format::hdf5) {
-         log::error("Tree::read() for HDF5 is not implemented yet");
+         log::error("Tree.read() for HDF5 is not implemented yet");
          throw std::exception{};
       } else {
          // The earlier logic is such that this shouldn't happen; consider
@@ -95,8 +127,10 @@ std::istream &read(
          );
          throw std::exception{};
       }
-   } catch (const std::exception &) {
-      log::context("Tree::read(istream)");
+   } catch (...) {
+      if (magic != "")
+         log::info(magic);
+      log::member("Tree.read(istream)");
       throw;
    }
 
@@ -107,7 +141,7 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// read(filename,format)
+// 2. read(filename,format)
 // -----------------------------------------------------------------------------
 
 bool read(
@@ -130,7 +164,7 @@ bool read(
    // Error; this format isn't allowed for read() (only for write())
    if (form == format::tree) {
       log::error(detail::format_tree_read);
-      log::context("Tree::read(\"{}\",format)", filename);
+      log::member("Tree.read(\"{}\",format)", filename);
       throw std::exception{};
    }
 
@@ -164,12 +198,14 @@ bool read(
       }
 
       // Call read(istream) to do the remaining work. Note that although the
-      // filename isn't available any longer there, the function can, and does,
+      // filename is no longer available there, the function can, and does,
       // do additional checking (complimentary to what we already did above),
       // based on looking at the content that we'll be attempting to read.
-      return !read(ifs,form).fail();
-   } catch (const std::exception &) {
-      log::context("Tree::read(\"{}\")", filename);
+      if (!read(ifs,form))
+         throw std::exception{};
+      return bool(ifs);
+   } catch (...) {
+      log::member("Tree.read(\"{}\")", filename);
       throw;
    }
 }
@@ -177,7 +213,7 @@ bool read(
 
 
 // -----------------------------------------------------------------------------
-// read(istream,string)
+// 3. read(istream,string)
 // -----------------------------------------------------------------------------
 
 std::istream &read(
@@ -193,15 +229,15 @@ std::istream &read(
 
       // unrecognized format
       log::warning(
-         "Unrecognized format in call to Tree::read(istream,\"{}\").\n"
+         "Unrecognized format in call to tree.read(istream,\"{}\").\n"
          "We'll guess from the stream contents",
          form
       );
 
       // fallback: automagick
       return read(is,format::null);
-   } catch (const std::exception &) {
-      log::context("Tree::read(istream,\"{}\")", form);
+   } catch (...) {
+      log::member("Tree.read(istream,\"{}\")", form);
       throw;
    }
 }
@@ -209,7 +245,7 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// read(filename,string)
+// 4. read(filename,string)
 // -----------------------------------------------------------------------------
 
 bool read(
@@ -225,15 +261,15 @@ bool read(
 
       // unrecognized format
       log::warning(
-         "Unrecognized format in call to Tree::read(\"{}\",\"{}\").\n"
+         "Unrecognized format in call to Tree.read(\"{}\",\"{}\").\n"
          "We'll guess from the file contents",
          filename, form
       );
 
       // fallback: automagick
       return read(filename,format::null);
-   } catch (const std::exception &) {
-      log::context("Tree::read(\"{}\",\"{}\")", filename, form);
+   } catch (...) {
+      log::member("Tree.read(\"{}\",\"{}\")", filename, form);
       throw;
    }
 }

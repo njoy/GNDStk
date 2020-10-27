@@ -949,7 +949,8 @@ public:
 namespace child {
 
 // ------------------------
-// Allowable as top-level
+// Allowable top-level nodes,
+// per LLNL-TR-774621-DRAFT
 // ------------------------
 
 inline const child_t<elemtype::PoPs,find::one>

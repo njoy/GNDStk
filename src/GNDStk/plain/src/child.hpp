@@ -15,25 +15,25 @@ namespace child {
 
 
 // -----------------------------------------------------------------------------
-// Potential top-level elements. We saw the first four used as top-level nodes
-// in the library of XML-format GNDS files. The last, fissionFragmentData, can
-// be a top-level node according to the GNDS manual.
+// Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
+// Note: the trues mean "allowed as a top-level node"
 inline const child_t<void,find::one>
-   PoPs               ("PoPs"               , true);
-inline const child_t<void,find::one>
-   covarianceSuite    ("covarianceSuite"    , true);
-inline const child_t<void,find::one>
-   reactionSuite      ("reactionSuite"      , true);
-inline const child_t<void,find::one>
-   thermalScattering  ("thermalScattering"  , true);
-inline const child_t<void,find::one>
+   PoPs               ("PoPs"               , true),
+   covarianceSuite    ("covarianceSuite"    , true),
+   reactionSuite      ("reactionSuite"      , true),
+   thermalScattering  ("thermalScattering"  , true),
    fissionFragmentData("fissionFragmentData", true);
 
 
 // -----------------------------------------------------------------------------
 // General elements
+// fixme We auto-generated this list. If we keep it (as opposed to replacing
+// it by something different that we might get by studying the GNDS specs),
+// then it might be worthwhile at some point to separate the find::one and
+// find::all cases and then consolidate the repetitive child_t types, just
+// to shorten the code.
 // -----------------------------------------------------------------------------
 
 inline const child_t<void,find::one>

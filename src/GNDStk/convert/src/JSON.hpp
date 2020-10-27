@@ -21,9 +21,12 @@ bool convert(
 
    // convert
    try {
-      return !tree.has_top() || detail::node2json(tree.top(), j.doc);
-   } catch (const std::exception &) {
-      log::context("convert(Tree,JSON)");
+      if (!tree.has_top())
+         return true;
+      detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
+      return detail::node2json(tree.top(), j.doc);
+   } catch (...) {
+      log::function("convert(Tree,JSON)");
       throw;
    }
 }
@@ -46,8 +49,8 @@ inline bool convert(const XML &x, JSON &j)
       return
          convert(x,t) &&
          convert(t,j);
-   } catch (const std::exception &) {
-      log::context("convert(XML,JSON)");
+   } catch (...) {
+      log::function("convert(XML,JSON)");
       throw;
    }
 }
@@ -70,8 +73,8 @@ inline bool convert(const JSON &from, JSON &to)
    // convert
    try {
       to.doc = from.doc; // nlohmann::json's assignment
-   } catch (const std::exception &) {
-      log::context("convert(JSON,JSON)");
+   } catch (...) {
+      log::function("convert(JSON,JSON)");
       throw;
    }
 

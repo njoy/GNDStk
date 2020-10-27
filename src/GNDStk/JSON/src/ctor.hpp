@@ -16,8 +16,8 @@ JSON(const JSON &j)
 try: doc(j.doc)
 {
 }
-catch (const std::exception &) {
-   log::context("JSON(JSON)");
+catch (...) {
+   log::ctor("JSON(JSON)");
    throw;
 }
 
@@ -26,9 +26,10 @@ catch (const std::exception &) {
 explicit JSON(const XML &x)
 {
    try {
-      convert(x,*this);
-   } catch (const std::exception &) {
-      log::context("JSON(XML)");
+      if (!convert(x,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(XML)");
       throw;
    }
 }
@@ -42,9 +43,10 @@ template<
 explicit JSON(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
    try {
-      convert(t,*this);
-   } catch (const std::exception &) {
-      log::context("JSON(Tree)");
+      if (!convert(t,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(Tree)");
       throw;
    }
 }
@@ -54,20 +56,23 @@ explicit JSON(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 explicit JSON(const std::string &filename)
 {
    try {
-      read(filename);
-   } catch (const std::exception &) {
-      log::context("JSON(filename=\"{}\")", filename);
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(\"{}\")", filename);
       throw;
    }
 }
 
 
 // istream
-explicit JSON(std::istream &is) {
+explicit JSON(std::istream &is)
+{
    try {
-      read(is);
-   } catch (const std::exception &) {
-      log::context("JSON(istream)");
+      if (!read(is))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(istream)");
       throw;
    }
 }

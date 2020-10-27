@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::child(child_t<*>)
+// Node.child(child_t<*>)
 //
 // FIND == find::one
 // The child_t encodes the notion that we're only supposed to find one child
@@ -70,8 +70,8 @@ TYPE child(
       if (found)
          kwd.converter(value,type);
       return type;
-   } catch (const std::exception &) {
-      log::context("Node::child(child_t<type,find::one>(\"{}\"))", kwd.name);
+   } catch (...) {
+      log::member("Node.child(child_t<type,find::one>(\"{}\"))", kwd.name);
       throw;
    }
 }
@@ -132,8 +132,8 @@ CONTAINER<TYPE> child(
             }
          }
       }
-   } catch (const std::exception &) {
-      log::context("Node::child(child_t<type,find::all>(\"{}\"))", kwd.name);
+   } catch (...) {
+      log::member("Node.child(child_t<type,find::all>(\"{}\"))", kwd.name);
       throw;
    }
 

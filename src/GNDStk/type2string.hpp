@@ -61,8 +61,8 @@ inline void convert(const T &value, std::string &str)
       std::ostringstream oss;
       convert(value,oss);
       str = oss.str();
-   } catch (const std::exception &) {
-      log::context("convert(T,string)");
+   } catch (...) {
+      log::function("convert(T,string)");
       throw;
    }
 }

@@ -62,8 +62,8 @@ Node(
    try {
       *this = value;
       name = kwd.name; // overrides any name from the assignment
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),value)", kwd.name);
+   } catch (...) {
+      log::ctor("Node(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }
@@ -83,8 +83,8 @@ Node(
    try {
       kwd.converter(TYPE(value),*this);
       name = kwd.name; // overrides any name from the above line
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),value)", kwd.name);
+   } catch (...) {
+      log::ctor("Node(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }

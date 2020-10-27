@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Tree::reset()
+// Tree.reset()
 //
 // For starting a tree, or resetting it with certain top-level boilerplate.
 // Contrast with clear(), which completely clears the tree of any contents.
@@ -35,7 +35,7 @@ Tree &reset(
    // Warn if the given child_t doesn't look valid for a top-level GNDS node
    if (!kwd.canBeTopLevel) {
       log::warning(
-         "Tree::reset(child_t(\"{}\")) called, but the node as given by the\n"
+         "Tree.reset(child_t(\"{}\")) called, but the node as given by the\n"
          "child_t object is not encoded as being suitable for a top-level\n"
          "GNDS node (bool child_t.canBeTopLevel is false)",
          kwd.name
@@ -60,7 +60,7 @@ Tree &reset(
          // any use for version and encoding?
       } else {
          log::error(
-            "Internal error in Tree::reset(child_t(\"{}\"),format,...):\n"
+            "Internal error in Tree.reset(child_t(\"{}\"),format,...):\n"
             "Unrecognized format; apparently, we missed something. "
             "Please report this to us",
             kwd.name
@@ -72,8 +72,8 @@ Tree &reset(
       nodeType::add(kwd.name);
       return *this;
 
-   } catch (const std::exception &) {
-      log::context("Tree::reset(child_t(\"{}\"),format,...)", kwd.name);
+   } catch (...) {
+      log::member("Tree.reset(child_t(\"{}\"),format,...)", kwd.name);
       throw;
    }
 }
@@ -104,8 +104,8 @@ Tree &reset(
       log::warning("Unrecognized format \"{}\"; defaulting to XML", form);
       return reset(kwd, format::xml, version, encoding);
 
-   } catch (const std::exception &) {
-      log::context("Tree::reset(child_t(\"{}\"),\"{}\",...)", kwd.name, form);
+   } catch (...) {
+      log::member("Tree.reset(child_t(\"{}\"),\"{}\",...)", kwd.name, form);
       throw;
    }
 }

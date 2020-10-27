@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::meta(string)
+// Node.meta(string)
 // Searches the node's metadata for a metadatum of the given name. If found,
 // returns the value associated with the key. Else, returns an empty string.
 // -----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ const std::string &meta(
    // by looking at its address. This is entirely different from the question
    // of what found's value proves to be.
    if (!detail::sent(found)) {
-      log::error("Node::meta(\"{}\"): key not found in metadata", key);
+      log::error("Node.meta(\"{}\"): key not found in metadata", key);
       throw std::exception{};
    }
 
@@ -45,7 +45,7 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
-// Node::meta(meta_t<void>)
+// Node.meta(meta_t<void>)
 // -----------------------------------------------------------------------------
 
 // const
@@ -67,7 +67,7 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
-// Node::meta(meta_t)
+// Node.meta(meta_t)
 // -----------------------------------------------------------------------------
 
 // TYPE
@@ -84,8 +84,8 @@ TYPE meta(
       if (found)
          kwd.converter(value,type);
       return type;
-   } catch (const std::exception &) {
-      log::context("Node::meta(meta_t(\"{}\"))", kwd.name);
+   } catch (...) {
+      log::member("Node.meta(meta_t(\"{}\"))", kwd.name);
       throw;
    }
 }

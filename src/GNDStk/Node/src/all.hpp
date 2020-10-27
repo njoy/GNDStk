@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::all(string,...)
+// Node.all(string,...)
 //
 // Searches the current node's sub-nodes for all nodes that have the given name
 // and that pass the given filter requirement. Returns a container of copies of
@@ -38,8 +38,8 @@ CONTAINER<Node> all(
             }
          }
       }
-   } catch (const std::exception &) {
-      log::context("Node::all(key=\"{}\")", key);
+   } catch (...) {
+      log::member("Node.all(\"{}\")", key);
       throw;
    }
 

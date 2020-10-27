@@ -81,8 +81,8 @@ inline std::istream &operator>>(
 ) {
    try {
       return obj.read(is);
-   } catch (const std::exception &) {
-      log::context("istream >> Tree");
+   } catch (...) {
+      log::function("istream >> Tree");
       throw;
    }
 }
@@ -98,8 +98,8 @@ inline std::ostream &operator<<(
 ) {
    try {
       return obj.write(os);
-   } catch (const std::exception &) {
-      log::context("ostream << Tree");
+   } catch (...) {
+      log::function("ostream << Tree");
       throw;
    }
 }

@@ -25,7 +25,7 @@ template<class CONVERTER>
 class meta_t<void,CONVERTER> {
    static_assert(
       std::is_same<CONVERTER,void>::value,
-     "Can't instantiate meta_t<void,CONVERTER> with non-default CONVERTER"
+     "Can't create meta_t<void,CONVERTER> with non-default CONVERTER"
    );
 public:
    // name

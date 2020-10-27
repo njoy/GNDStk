@@ -21,8 +21,8 @@ decltype(auto) operator()(
       //       detail::apply_converter<TYPE>{}(kwd,*this);
       // because the effect will happen next...
       return child(kwd,found);
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"))", kwd.name);
+   } catch (...) {
+      log::function("Node(child_t(\"{}\"))", kwd.name);
       throw;
    }
 }
@@ -39,8 +39,8 @@ decltype(auto) operator()(
       //    if (kwd.name == "")
       //       detail::apply_converter<TYPE>{}(kwd,*this);
       return child(GNDStk::one(kwd), detail::label_is(label), found);
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
+   } catch (...) {
+      log::function("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
       throw;
    }
 }
@@ -55,8 +55,8 @@ decltype(auto) operator()(
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
       return child(-kwd)(std::forward<KEYWORDS>(keywords)...);
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),...)", kwd.name);
+   } catch (...) {
+      log::function("Node(child_t(\"{}\"),...)", kwd.name);
       throw;
    }
 }
@@ -73,8 +73,8 @@ decltype(auto) operator()(
          detail::apply_converter<TYPE>{}(kwd,*this);
       return child(GNDStk::one(-kwd), detail::label_is(label))
                   (std::forward<KEYWORDS>(keywords)...);
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
+   } catch (...) {
+      log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
       throw;
    }
 }

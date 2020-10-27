@@ -44,8 +44,8 @@ inline std::istream &operator>>(std::istream &is, XML &obj)
 {
    try {
       return obj.read(is);
-   } catch (const std::exception &) {
-      log::context("istream >> XML");
+   } catch (...) {
+      log::function("istream >> XML");
       throw;
    }
 }
@@ -55,8 +55,8 @@ inline std::ostream &operator<<(std::ostream &os, const XML &obj)
 {
    try {
       return obj.write(os);
-   } catch (const std::exception &) {
-      log::context("ostream << XML");
+   } catch (...) {
+      log::function("ostream << XML");
       throw;
    }
 }

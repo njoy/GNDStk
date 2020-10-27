@@ -2,11 +2,10 @@
 namespace child {
 
 // -----------------------------------------------------------------------------
-// Allowable top-level nodes
-// As given in LLNL-TR-774621-DRAFT
+// Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-// Note: the trues here mean "allowed as a top-level node"
+// Note: the trues mean "allowed as a top-level node"
 inline const child_t<void,find::one>
    reactionSuite      ("reactionSuite",       true),
    covarianceSuite    ("covarianceSuite",     true),

@@ -1,19 +1,24 @@
 
 // -----------------------------------------------------------------------------
-// Miscellaneous macros, variables, enums, etc.
+// Miscellaneous variables, enums, etc.
 // -----------------------------------------------------------------------------
 
 // indent
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
 
+// decl
+// Should Tree.write() also print the tree's declaration node if it exists?
+inline bool decl = false;
+
 // format
 enum class format {
    null, // default, automagick, etc.
    tree, // our own simple text format
-   xml,
-   json,
-   hdf5
+   // give users easy-to-type lowercase as well as acronym-style uppercase...
+   xml,  XML  = xml,
+   json, JSON = json,
+   hdf5, HDF5 = hdf5
 };
 
 // find
@@ -22,23 +27,89 @@ enum class find {
    all
 };
 
+namespace detail {
+
 // default_*
 // These are for internal use only, where we want to determine whether
 // certain out-parameters were, or were not, sent to certain functions.
-namespace detail {
-   // bool
-   inline bool default_bool = false;
-   inline bool sent(const bool &found)
-   {
-      return &found != &default_bool;
-   }
 
-   // string
-   inline std::string default_string = "";
-   inline bool sent(const std::string &string)
-   {
-      return &string != &default_string;
-   }
+// bool
+inline bool default_bool = false;
+inline bool sent(const bool &found)
+{
+   return &found != &default_bool;
+}
+
+// string
+inline std::string default_string = "";
+inline bool sent(const std::string &string)
+{
+   return &string != &default_string;
+}
+
+// allowable declaration nodes
+inline std::set<std::string> AllowedDecl = {
+   "xml",
+   "json",
+   "hdf5",
+};
+
+// allowable top-level GNDS nodes
+inline std::set<std::string> AllowedTop = {
+   // added as they're identified
+   // in our child_t class
+};
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// Helper constructs for some simple Log-enhancing pretty-printing
+// -----------------------------------------------------------------------------
+
+// align, color
+// Users can set these in their own codes
+inline bool align = true;  // extra spaces, to line stuff up for easy reading
+inline bool color = false; // default: impose no ANSI escape-sequence clutter
+
+namespace detail {
+
+// diagnostic
+inline std::string diagnostic(
+   const std::string &label,
+   const std::string &message,
+   const std::string &prefix = ""
+) {
+   static std::map<std::string,std::string> codes = {
+      { "debug",   "\033[37;21m" }, // white
+      { "info",    "\033[36;21m" }, // cyan
+      { "warning", "\033[33;1m"  }, // yellow
+      { "error",   "\033[31;21m" }  // red
+   };
+   static const std::string under = "\033[4m";  // underline on
+   static const std::string unoff = "\033[24m"; // underline off
+   static const std::string reset = "\033[0m";  // all color/decorations off
+   static const size_t warn = 7; // length of "warning", the longest label
+
+   // full text, including the (possibly underlined) prefix if one was provided
+   const std::string text = prefix == ""
+    ?  message
+    : (color ? under : "") + prefix + (color ? unoff : "") + ": " + message;
+
+   // full text, possibly spaced for alignment
+   std::string spaced, indent = std::string(warn+3,' '); // 3 for '[', ']', ' '
+   if (align) {
+      spaced = std::string(warn > label.size() ? warn-label.size() : 0, ' ');
+      for (char c : text)
+         spaced += c + (c == '\n' ? indent : "");
+   } else
+      spaced = text;
+
+   // final message, possibly colorized
+   return color ? codes[label] + spaced + reset : spaced;
+}
+
 } // namespace detail
 
 
@@ -49,40 +120,82 @@ namespace detail {
 
 namespace log {
 
+// ------------------------
+// The basics
+// ------------------------
+
 // info
 template<class... Args>
 inline void info(const std::string &str, Args &&...args)
 {
-   Log::info(str.c_str(), std::forward<Args>(args)...);
+   const std::string msg = detail::diagnostic("info",str);
+   Log::info(msg.c_str(), std::forward<Args>(args)...);
 }
 
 // debug
 template<class... Args>
 inline void debug(const std::string &str, Args &&...args)
 {
-   Log::debug(str.c_str(), std::forward<Args>(args)...);
+   const std::string msg = detail::diagnostic("debug",str);
+   Log::debug(msg.c_str(), std::forward<Args>(args)...);
 }
 
 // warning
 template<class... Args>
 inline void warning(const std::string &str, Args &&...args)
 {
-   Log::warning(str.c_str(), std::forward<Args>(args)...);
+   const std::string msg = detail::diagnostic("warning",str);
+   Log::warning(msg.c_str(), std::forward<Args>(args)...);
 }
 
 // error
 template<class... Args>
 inline void error(const std::string &str, Args &&...args)
 {
-   Log::error(str.c_str(), std::forward<Args>(args)...);
+   const std::string msg = detail::diagnostic("error",str);
+   Log::error(msg.c_str(), std::forward<Args>(args)...);
 }
 
-// context
-// For certain particular calls to Log::info()
+// ------------------------
+// These invoke info, with
+// the intent of providing
+// some context information
+// ------------------------
+
+// function
 template<class... Args>
-inline void context(const std::string &str, Args &&...args)
+inline void function(const std::string &str, Args &&...args)
 {
-   log::info(("Context: " + str).c_str(), std::forward<Args>(args)...);
+   const std::string msg =
+      detail::diagnostic("info", "function "+str, "Context");
+   Log::info(msg.c_str(), std::forward<Args>(args)...);
+}
+
+// member
+template<class... Args>
+inline void member(const std::string &str, Args &&...args)
+{
+   const std::string msg =
+      detail::diagnostic("info", "member "+str, "Context");
+   Log::info(msg.c_str(), std::forward<Args>(args)...);
+}
+
+// ctor
+template<class... Args>
+inline void ctor(const std::string &str, Args &&...args)
+{
+   const std::string msg =
+      detail::diagnostic("info", "constructor "+str, "Context");
+   Log::info(msg.c_str(), std::forward<Args>(args)...);
+}
+
+// assign
+template<class... Args>
+inline void assign(const std::string &str, Args &&...args)
+{
+   const std::string msg =
+      detail::diagnostic("info", "assignment "+str, "Context");
+   Log::info(msg.c_str(), std::forward<Args>(args)...);
 }
 
 } // namespace log
@@ -165,16 +278,6 @@ bool convert(const JSON &, JSON &);
 // arguably be useful, in their own right, to users. So, I'll leave them out
 // in the overall project namespace (which enclosed the #include of this file).
 // -----------------------------------------------------------------------------
-
-// filesize(string)
-inline std::ifstream::pos_type filesize(const std::string &filename)
-{
-   std::ifstream ifs(
-      filename.c_str(),
-      std::ifstream::ate | std::ifstream::binary
-   );
-   return ifs.tellg();
-}
 
 // endsin
 // C++20 will have an ends_with(); for now we'll have this
@@ -333,5 +436,27 @@ public:
 template<>
 class isNotVoid<void> {
 };
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// print_format
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+inline std::string print_format(const format f, const bool brief = false)
+{
+   return std::string(brief ? "" : "format::") + (
+      f == format::null ? "null"
+    : f == format::tree ? "tree"
+    : f == format::xml  ? "XML"
+    : f == format::json ? "JSON"
+    : f == format::hdf5 ? "HDF5"
+    : "unknown"
+   );
+}
 
 } // namespace detail

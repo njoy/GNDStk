@@ -9,7 +9,7 @@
 // and instead take it upon itself to sort its child nodes, recursively, before
 // proceeding with the relevant comparisons. This would render the full sort()
 // as s-l-o-w as molasses, and would trash up the principle that less() should
-// compare nodes, not mess with them. As it stands, our full node::sort() does
+// compare nodes, not mess with them. As it stands, our full node.sort() does
 // things in the right order, so that less() works as it should in that context.
 // -----------------------------------------------------------------------------
 

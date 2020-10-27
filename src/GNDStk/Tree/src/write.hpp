@@ -1,10 +1,18 @@
 
 // -----------------------------------------------------------------------------
-// Tree::write()
+// Tree.write()
 // -----------------------------------------------------------------------------
 
+// Cases:
+// 1. write(ostream, format)
+// 2. write(filename,format) (calls 1 after making ostream from filename)
+// 3. write(ostream, string) (calls 1 after making format from string)
+// 4. write(filename,string) (calls 2 after making format from string)
+
+
+
 // -----------------------------------------------------------------------------
-// write(ostream,format)
+// 1. write(ostream,format)
 // -----------------------------------------------------------------------------
 
 std::ostream &write(
@@ -45,20 +53,23 @@ std::ostream &write(
          JSON(*this).write(os);
       } else if (form == format::hdf5) {
          // write via a temporary hdf5 object...
-         log::error("Tree::write() for HDF5 is not implemented yet");
+         log::error("Tree.write() for HDF5 is not implemented yet");
          throw std::exception{};
       } else {
          // default: our internal tree format
-         if (!empty())
+         if (!empty()) {
+            if (GNDStk::decl)
+               decl().write(os,0);
             top().write(os,0); // 0 is level
+         }
       }
 
       if (!os) {
          log::error("Could not write to output stream");
          throw std::exception{};
       }
-   } catch (const std::exception &) {
-      log::context("Tree::write(ostream)");
+   } catch (...) {
+      log::member("Tree.write(ostream)");
       throw;
    }
 
@@ -69,7 +80,7 @@ std::ostream &write(
 
 
 // -----------------------------------------------------------------------------
-// write(filename,format)
+// 2. write(filename,format)
 // -----------------------------------------------------------------------------
 
 bool write(
@@ -126,16 +137,18 @@ bool write(
       }
 
       // Call write(ostream) to do the remaining work.
-      return !write(ofs,form).fail();
-   } catch (const std::exception &) {
-      log::context("Tree::write(\"{}\")", filename);
+      if (!write(ofs,form))
+         throw std::exception{};
+      return bool(ofs);
+   } catch (...) {
+      log::member("Tree.write(\"{}\")", filename);
       throw;
    }
 }
 
 
 // -----------------------------------------------------------------------------
-// write(ostream,string)
+// 3. write(ostream,string)
 // -----------------------------------------------------------------------------
 
 std::ostream &write(
@@ -151,15 +164,15 @@ std::ostream &write(
 
       // unrecognized format
       log::warning(
-         "Unrecognized format in call to Tree::write(ostream,\"{}\").\n"
+         "Unrecognized format in call to Tree.write(ostream,\"{}\").\n"
          "We'll use our internal debug write format",
          form
       );
 
       // fallback: automagick
       return write(os,format::null);
-   } catch (const std::exception &) {
-      log::context("Tree::write(ostream,\"{}\")", form);
+   } catch (...) {
+      log::member("Tree.write(ostream,\"{}\")", form);
       throw;
    }
 }
@@ -167,7 +180,7 @@ std::ostream &write(
 
 
 // -----------------------------------------------------------------------------
-// write(filename,string)
+// 4. write(filename,string)
 // -----------------------------------------------------------------------------
 
 bool write(
@@ -183,7 +196,7 @@ bool write(
 
       // unrecognized format
       log::warning(
-         "Unrecognized format in call to Tree::write(\"{}\",\"{}\").\n"
+         "Unrecognized format in call to Tree.write(\"{}\",\"{}\").\n"
          "We'll guess from the file extension, or use our internal debug\n"
          "write format if that fails",
          filename, form
@@ -191,8 +204,8 @@ bool write(
 
       // fallback: automagick
       return write(filename,format::null);
-   } catch (const std::exception &) {
-      log::context("Tree::write(\"{}\",\"{}\")", filename, form);
+   } catch (...) {
+      log::member("Tree.write(\"{}\",\"{}\")", filename, form);
       throw;
    }
 }

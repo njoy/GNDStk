@@ -36,8 +36,8 @@ inline void convert(
 ) {
    try {
       to = from;
-   } catch (const std::exception &) {
-      log::context("convert(Node,Node)");
+   } catch (...) {
+      log::function("convert(Node,Node)");
       throw;
    }
 }

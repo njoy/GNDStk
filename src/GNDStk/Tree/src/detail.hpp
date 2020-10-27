@@ -23,19 +23,12 @@ inline void warning_tree_io_name(
 // warning_tree_io_data
 inline void warning_tree_io_data(
    const format f,
-   const std::string &ch,
-   const std::string &name
+   const std::string &appears
 ) {
-   const std::string form =
-      f == format::xml  ? "xml"
-    : f == format::json ? "json"
-    : f == format::hdf5 ? "hdf5"
-    : "?";
-
    log::warning(
-      "tree.read() called with format::{},\n"
-      "but the file begins with {}, which suggests {}",
-      form, ch, name
+      "tree.read() was called with {}, but the first character\n"
+      "in the file suggests perhaps {}. Trying {} anyway...",
+      print_format(f), appears, print_format(f,true)
    );
 }
 

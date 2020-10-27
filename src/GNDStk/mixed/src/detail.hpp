@@ -131,8 +131,8 @@ public:
       try {
          container.clear();
          convert(get_pcdata_text(node), container);
-      } catch (const std::exception &) {
-         log::context("convert_pcdata_text_t(node,container)");
+      } catch (...) {
+         log::function("convert_pcdata_text_t(node,container)");
          throw;
       }
    }
@@ -150,8 +150,8 @@ public:
       try {
          node.clear().name = str;
          convert(container, set_pcdata_text(node));
-      } catch (const std::exception &) {
-         log::context("convert_pcdata_text_t(container,node)");
+      } catch (...) {
+         log::function("convert_pcdata_text_t(container,node)");
          throw;
       }
    }

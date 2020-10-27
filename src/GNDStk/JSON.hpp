@@ -61,8 +61,8 @@ inline std::istream &operator>>(std::istream &is, JSON &obj)
 {
    try {
       return obj.read(is);
-   } catch (const std::exception &) {
-      log::context("istream >> JSON");
+   } catch (...) {
+      log::function("istream >> JSON");
       throw;
    }
 }
@@ -72,8 +72,8 @@ inline std::ostream &operator<<(std::ostream &os, const JSON &obj)
 {
    try {
       return obj.write(os);
-   } catch (const std::exception &) {
-      log::context("ostream << JSON");
+   } catch (...) {
+      log::function("ostream << JSON");
       throw;
    }
 }

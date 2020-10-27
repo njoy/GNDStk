@@ -11,9 +11,10 @@ XML &operator=(XML &&) = default;
 XML &operator=(const XML &x)
 {
    try {
-      convert(x,*this);
-   } catch (const std::exception &) {
-      log::context("XML = XML");
+      if (!convert(x,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::assign("XML = XML");
       throw;
    }
    return *this;

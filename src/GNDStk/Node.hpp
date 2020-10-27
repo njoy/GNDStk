@@ -103,8 +103,8 @@ inline std::ostream &operator<<(
 ) {
    try {
       return obj.write(os);
-   } catch (const std::exception &) {
-      log::context("ostream << Node");
+   } catch (...) {
+      log::function("ostream << Node");
       throw;
    }
 }

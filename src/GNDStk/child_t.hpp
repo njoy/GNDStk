@@ -80,7 +80,9 @@ public:
       const CONVERTER &c = CONVERTER{}
    ) :
       name(n), converter(c), canBeTopLevel(top)
-   { }
+   {
+      if (top) detail::AllowedTop.insert(name);
+   }
 
    // ctor(name,converter)
    // ctor(name,converter,top)
@@ -90,7 +92,9 @@ public:
       const bool top = false
    ) :
       name(n), converter(c), canBeTopLevel(top)
-   { }
+   {
+      if (top) detail::AllowedTop.insert(name);
+   }
 };
 
 
@@ -102,8 +106,7 @@ template<find FIND, class CONVERTER>
 class child_t<void,FIND,CONVERTER> {
    static_assert(
       std::is_same<CONVERTER,void>::value,
-     "Can't instantiate child_t<void,FIND,CONVERTER> "
-     "with non-default CONVERTER"
+     "Can't create child_t<void,FIND,CONVERTER> with non-default CONVERTER"
    );
 
 public:
@@ -127,7 +130,9 @@ public:
       const bool top = false
    ) :
       name(n), canBeTopLevel(top)
-   { }
+   {
+      if (top) detail::AllowedTop.insert(name);
+   }
 };
 
 

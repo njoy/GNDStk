@@ -83,8 +83,8 @@ inline void convert(const std::string &str, T &value)
    try {
       std::istringstream iss(str);
       convert(iss,value);
-   } catch (const std::exception &) {
-      log::context("convert(string,T)");
+   } catch (...) {
+      log::function("convert(string,T)");
       throw;
    }
 }

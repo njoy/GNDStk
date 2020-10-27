@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::one(string,...)
+// Node.one(string,...)
 //
 // Searches the current node's sub-nodes for one that has the given name, and
 // that also passes the given filter requirement. If it's found, the sub-node
@@ -46,7 +46,7 @@ const Node &one(
    if (both) {
       if (both > 1)
          log::warning(
-            "Node::one(\"{}\") called, but {} matching nodes were found",
+            "Node.one(\"{}\") called, but {} matching nodes were found",
             key, both
          );
       return found = true, *theone;
@@ -59,14 +59,14 @@ const Node &one(
    if (!detail::sent(found)) {
       if (name == 0)
          log::error(
-            "Node::one(\"{}\"): node not found", key);
+            "Node.one(\"{}\"): node not found", key);
       else if (name == 1)
          log::error(
-            "Node::one(\"{}\"): a node with the given name was found,\n"
+            "Node.one(\"{}\"): a node with the given name was found,\n"
             "but it didn't pass the filter condition", key);
       else
          log::error(
-            "Node::one(\"{}\"): {} nodes with the given name were found,\n"
+            "Node.one(\"{}\"): {} nodes with the given name were found,\n"
             "but none of them passed the filter condition", name, key);
       throw std::exception{};
    }

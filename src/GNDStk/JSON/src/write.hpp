@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// JSON::write()
+// JSON.write()
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -9,13 +9,21 @@
 
 std::ostream &write(std::ostream &os) const
 {
-   // intentional: no << std::endl
-   os << std::setw(indent) << doc;
+   // call nlohmann::json's write capability
+   try {
+      // intentional: no << std::endl
+      os << std::setw(indent) << doc;
 
-   // check for errors
-   if (!os) {
-      log::error("Problem during ostream << nlohmann::json");
-      log::context("JSON::write(ostream)");
+      // check for errors
+      if (!os) {
+         log::error("ostream << nlohmann::json returned with !ostream");
+         log::member("JSON.write(ostream)");
+      }
+   }
+   catch (...) {
+      log::error("ostream << nlohmann::json threw an exception");
+      log::member("JSON.write(ostream)");
+      os.setstate(std::ios::failbit);
    }
 
    // done
@@ -32,17 +40,14 @@ bool write(const std::string &filename) const
    // open file
    std::ofstream ofs(filename.c_str());
    if (!ofs) {
-      log::error(
-         "Could not open file in call to JSON::write(filename=\"{}\")",
-         filename
-      );
+      log::error("Could not open file \"{}\" for output", filename);
+      log::member("JSON.write(\"{}\")", filename);
       return false;
    }
 
-   // write to stream
-   write(ofs);
-   if (ofs.fail()) {
-      log::context("JSON::write(filename=\"{}\")", filename);
+   // write to ostream
+   if (!write(ofs)) {
+      log::member("JSON.write(\"{}\")", filename);
       return false;
    }
 

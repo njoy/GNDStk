@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// XML::write()
+// XML.write()
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -9,7 +9,6 @@
 
 std::ostream &write(std::ostream &os) const
 {
-   // save
    // ...fixme Can we prevent pugixml from emitting a newline at the end?
    // ...Concept: output functions shouldn't *assume* that someone who prints
    // ...something wants a newline at the end. A user should explicitly provide
@@ -25,12 +24,22 @@ std::ostream &write(std::ostream &os) const
    // ...it upon itself to print its own newline. The best behavior, in my
    // ...opinion, is consistent behavior - it's easy to remember. So, then,
    // ...no fluff, either before or after any object being written.
-   doc.save(os, std::string(indent,' ').c_str());
 
-   // check for errors
-   if (!os) {
-      log::error("Problem during pugi::xml_document::save(ostream)");
-      log::context("XML::write(ostream)");
+   // call pugi::xml_document's write capability
+   try {
+      // save
+      doc.save(os, std::string(indent,' ').c_str());
+
+      // check for errors
+      if (!os) {
+         log::error("pugi::xml_document.save(ostream) returned with !ostream");
+         log::member("XML.write(ostream)");
+      }
+   }
+   catch (...) {
+      log::error("pugi::xml_document.save(ostream) threw an exception");
+      log::member("XML.write(ostream)");
+      os.setstate(std::ios::failbit);
    }
 
    // done
@@ -47,17 +56,14 @@ bool write(const std::string &filename) const
    // open file
    std::ofstream ofs(filename.c_str());
    if (!ofs) {
-      log::error(
-         "Could not open file in call to XML::write(filename=\"{}\")",
-         filename
-      );
+      log::error("Could not open file \"{}\" for output", filename);
+      log::member("XML.write(\"{}\")", filename);
       return false;
    }
 
-   // write to stream
-   write(ofs);
-   if (ofs.fail()) {
-      log::context("XML::write(filename=\"{}\")", filename);
+   // write to ostream
+   if (!write(ofs)) {
+      log::member("XML.write(\"{}\")", filename);
       return false;
    }
 

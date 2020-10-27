@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::add() metadata
+// Node.add() metadata
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -18,8 +18,8 @@ metaPair &add(
    try {
       // often (but not necessarily) identity, if T is string
       converter(value,to);
-   } catch (const std::exception &) {
-      log::context("Node::add(key=\"{}\",value)", key);
+   } catch (...) {
+      log::member("Node.add(\"{}\",value)", key);
       throw;
    }
    metadata.push_back(metaPair(key,to));
@@ -73,7 +73,7 @@ typename std::enable_if<
 
 
 // -----------------------------------------------------------------------------
-// Node::add() children
+// Node.add() children
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -137,8 +137,8 @@ typename std::enable_if<
       Node &n = add(value);
       n.name = kwd.name;
       return n;
-   } catch (const std::exception &) {
-      log::context("Node::add(child_t(\"{}\"),value)", kwd.name);
+   } catch (...) {
+      log::member("Node.add(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }
@@ -162,8 +162,8 @@ typename std::enable_if<
       kwd.converter(TYPE(value),n);
       n.name = kwd.name;
       return n;
-   } catch (const std::exception &) {
-      log::context("Node::add(child_t(\"{}\"),value)", kwd.name);
+   } catch (...) {
+      log::member("Node.add(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }
@@ -188,8 +188,8 @@ typename std::enable_if<
    try {
       for (const T &value : container)
          add(GNDStk::one(kwd),value);
-   } catch (const std::exception &) {
-      log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
+   } catch (...) {
+      log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;
    }
 }
@@ -215,8 +215,8 @@ typename std::enable_if<
    try {
       for (const T &value : container)
          add(GNDStk::one(kwd),value);
-   } catch (const std::exception &) {
-      log::context("Node::add(child_t(\"{}\"),container<value>)", kwd.name);
+   } catch (...) {
+      log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;
    }
 }

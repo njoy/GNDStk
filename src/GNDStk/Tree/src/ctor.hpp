@@ -13,9 +13,10 @@ Tree(Tree &&) = default;
 Tree(const Tree &from) : nodeType{}
 {
    try {
-      convert(from,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(Tree)");
+      if (!convert(from,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(Tree)");
       throw;
    }
 }
@@ -28,9 +29,10 @@ template<
 Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
    try {
-      convert(from,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(Tree<different>)");
+      if (!convert(from,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(Tree<different>)");
       throw;
    }
 }
@@ -45,9 +47,10 @@ Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 explicit Tree(const XML &x)
 {
    try {
-      convert(x,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(XML)");
+      if (!convert(x,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(XML)");
       throw;
    }
 }
@@ -56,9 +59,10 @@ explicit Tree(const XML &x)
 explicit Tree(const JSON &j)
 {
    try {
-      convert(j,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(JSON)");
+      if (!convert(j,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(JSON)");
       throw;
    }
 }
@@ -76,9 +80,10 @@ explicit Tree(const JSON &j)
 explicit Tree(const std::string &filename, const format form = format::null)
 {
    try {
-      read(filename,form);
-   } catch (const std::exception &) {
-      log::context("Tree(filename=\"{}\"[,format])", filename);
+      if (!read(filename,form))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(\"{}\")", filename);
       throw;
    }
 }
@@ -89,9 +94,10 @@ explicit Tree(const std::string &filename, const format form = format::null)
 Tree(const std::string &filename, const std::string &type)
 {
    try {
-      read(filename,type);
-   } catch (const std::exception &) {
-      log::context("Tree(filename=\"{}\",type=\"{}\")", filename, type);
+      if (!read(filename,type))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(\"{}\",type=\"{}\")", filename, type);
       throw;
    }
 }
@@ -103,9 +109,10 @@ Tree(const std::string &filename, const std::string &type)
 explicit Tree(std::istream &is, const format form = format::null)
 {
    try {
-      read(is,form);
-   } catch (const std::exception &) {
-      log::context("Tree(istream[,format])");
+      if (!read(is,form))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(istream,string)");
       throw;
    }
 }
@@ -117,9 +124,10 @@ explicit Tree(std::istream &is, const format form = format::null)
 Tree(std::istream &is, const std::string &type)
 {
    try {
-      read(is,type);
-   } catch (const std::exception &) {
-      log::context("Tree(istream,type=\"{}\")", type);
+      if (!read(is,type))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(istream,format)", type);
       throw;
    }
 }
@@ -161,11 +169,8 @@ Tree(
 ) {
    try {
       reset(kwd, form, version, encoding);
-   } catch (const std::exception &) {
-      log::context(
-         "Tree(child_t(\"{}\")[,format,version,encoding])",
-         kwd.name
-      );
+   } catch (...) {
+      log::ctor("Tree(child_t(\"{}\"))", kwd.name);
       throw;
    }
 }
@@ -180,11 +185,8 @@ Tree(
 ) {
    try {
       reset(kwd, type, version, encoding);
-   } catch (const std::exception &) {
-      log::context(
-         "Tree(child_t(\"{}\"),type=\"{}\"[,version,encoding])",
-         kwd.name, type
-      );
+   } catch (...) {
+      log::ctor("Tree(child_t(\"{}\"),type=\"{}\")", kwd.name, type);
       throw;
    }
 }
