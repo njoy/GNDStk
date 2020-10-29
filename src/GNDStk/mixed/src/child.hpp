@@ -336,7 +336,7 @@ template<class T = double>
 inline const child_t<
    typename detail::values_type<T>::type,
    find::one,
-   detail::convert_pcdata_text_t
-> values("values",convert_pcdata_text);
+   typename detail::values_type<T>::converter
+> values("values");
 
 } // namespace child

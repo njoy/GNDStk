@@ -72,4 +72,26 @@ public:
 
 inline const auto noFilter = [](const auto &) { return true; };
 
+
+// -----------------------------------------------------------------------------
+// extract_found
+// -----------------------------------------------------------------------------
+
+inline bool &extract_found(bool &found)
+{
+   return found;
+}
+
+template<class T>
+inline bool &extract_found(const T &)
+{
+   return detail::default_bool;
+}
+
+template<class T, class... ARGS>
+inline bool &extract_found(const T &, ARGS &&...args)
+{
+   return extract_found(std::forward<ARGS>(args)...);
+}
+
 } // namespace detail

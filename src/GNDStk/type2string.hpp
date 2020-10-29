@@ -26,7 +26,6 @@ inline void convert(const T &value, std::ostream &os)
    os << value;
 }
 
-
 // some sequence containers
 #define GNDSTK_CONVERT(container) \
    template<class T, class Alloc> \
@@ -34,9 +33,10 @@ inline void convert(const T &value, std::ostream &os)
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
-      unsigned n = 0; \
+      size_t n = 0; \
       for (const T &v : value) \
-         os << (n++ ? " " : "") << v; \
+         if (!(os << (n++ ? " " : "") && (convert(v,os),os))) \
+            break; /* stream appears to be broken anyway */ \
    }
 
    GNDSTK_CONVERT(deque)

@@ -108,7 +108,7 @@ SCENARIO("Testing GNDStk Node add()") {
       auto foos = keyword.child<
          std::vector<double>,
          find::one
-         >("values",mixed::child::convert_pcdata_text);
+      >("values",mixed::child::convert_pcdata_text);
 
       auto nrepeat = keyword.child<void,find::all>("repeated node");
       Node<> node1; node1.name = "aa11";

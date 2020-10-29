@@ -63,6 +63,10 @@ public:
 
    #include "GNDStk/Node/src/sort.hpp"
 
+   // miscellaneous specialty functions:
+   // documentation, cdata, ...
+   #include "GNDStk/Node/src/special.hpp"
+
    // ------------------------
    // operator()
    // ------------------------

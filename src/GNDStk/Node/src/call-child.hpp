@@ -51,10 +51,11 @@ decltype(auto) operator()(
    const child_t<TYPE,FIND,CONVERTER> &kwd,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
+   bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(-kwd)(std::forward<KEYWORDS>(keywords)...);
+      return child(-kwd,found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),...)", kwd.name);
       throw;
@@ -68,10 +69,11 @@ decltype(auto) operator()(
    std::string &&label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
+   bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(GNDStk::one(-kwd), detail::label_is(label))
+      return child(GNDStk::one(-kwd), detail::label_is(label), found)
                   (std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);

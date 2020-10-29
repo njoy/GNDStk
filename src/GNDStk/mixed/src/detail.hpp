@@ -15,40 +15,6 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// values_type
-// -----------------------------------------------------------------------------
-
-// default: make vector
-template<class T>
-class values_type {
-public:
-   using type = std::vector<T>;
-};
-
-// keep deque
-template<class T, class Alloc>
-class values_type<std::deque<T,Alloc>> {
-public:
-   using type = std::deque<T,Alloc>;
-};
-
-// keep list
-template<class T, class Alloc>
-class values_type<std::list<T,Alloc>> {
-public:
-   using type = std::list<T,Alloc>;
-};
-
-// keep vector
-template<class T, class Alloc>
-class values_type<std::vector<T,Alloc>> {
-public:
-   using type = std::vector<T,Alloc>;
-};
-
-
-
-// -----------------------------------------------------------------------------
 // get_pcdata_text
 // -----------------------------------------------------------------------------
 
@@ -155,6 +121,52 @@ public:
          throw;
       }
    }
+};
+
+
+
+// -----------------------------------------------------------------------------
+// values_type
+// -----------------------------------------------------------------------------
+
+// default: make vector
+template<class T>
+class values_type {
+public:
+   using type = std::vector<T>;
+   using converter = detail::convert_pcdata_text_t;
+};
+
+// keep void
+template<>
+class values_type<void> {
+public:
+   using type = void;
+   using converter = void;
+};
+
+// keep deque
+template<class T, class Alloc>
+class values_type<std::deque<T,Alloc>> {
+public:
+   using type = std::deque<T,Alloc>;
+   using converter = detail::convert_pcdata_text_t;
+};
+
+// keep list
+template<class T, class Alloc>
+class values_type<std::list<T,Alloc>> {
+public:
+   using type = std::list<T,Alloc>;
+   using converter = detail::convert_pcdata_text_t;
+};
+
+// keep vector
+template<class T, class Alloc>
+class values_type<std::vector<T,Alloc>> {
+public:
+   using type = std::vector<T,Alloc>;
+   using converter = detail::convert_pcdata_text_t;
 };
 
 } // namespace detail

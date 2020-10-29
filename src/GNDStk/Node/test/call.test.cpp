@@ -61,6 +61,278 @@ inline void convert(const Node<> &n, isotope_t &iso)
 
 
 // -----------------------------------------------------------------------------
+// values_string
+// -----------------------------------------------------------------------------
+
+static const std::string values_string =
+R"***(1e-05
+460000
+1.1e+06
+1.45e+06
+1.6505e+06
+1.68916e+06
+1.744e+06
+1.833e+06
+1.9e+06
+2.26e+06
+2.84e+06
+2.985e+06
+3.209e+06
+3.4405e+06
+3.755e+06
+4.08e+06
+4.45e+06
+4.52e+06
+4.5935e+06
+4.626e+06
+4.82e+06
+5.119e+06
+5.35e+06
+5.57e+06
+5.694e+06
+5.976e+06
+6.0715e+06
+6.155e+06
+6.378e+06
+6.49e+06
+6.683e+06
+7.07e+06
+7.42e+06
+7.92e+06
+8.42e+06
+8.92e+06
+9.675e+06
+1.071e+07
+1.17e+07
+1.32e+07
+1.389e+07
+1.585e+07
+1.81e+07
+2.065e+07
+2.65e+07
+5.3e+07
+1.06e+08
+
+1e-05
+460000
+1.1e+06
+1.45e+06
+1.6505e+06
+1.68916e+06
+1.744e+06
+1.833e+06
+1.9e+06
+2.26e+06
+2.84e+06
+2.985e+06
+3.209e+06
+3.4405e+06
+3.755e+06
+4.08e+06
+4.45e+06
+4.52e+06
+4.5935e+06
+4.626e+06
+4.82e+06
+5.119e+06
+5.35e+06
+5.57e+06
+5.694e+06
+5.976e+06
+6.0715e+06
+6.155e+06
+6.378e+06
+6.49e+06
+6.683e+06
+7.07e+06
+7.42e+06
+7.92e+06
+8.42e+06
+8.92e+06
+9.675e+06
+1.071e+07
+1.17e+07
+1.32e+07
+1.389e+07
+1.585e+07
+1.81e+07
+2.065e+07
+2.65e+07
+5.3e+07
+1.06e+08
+
+1e-05
+460000
+1.1e+06
+1.45e+06
+1.6505e+06
+1.68916e+06
+1.744e+06
+1.833e+06
+1.9e+06
+2.26e+06
+2.84e+06
+2.985e+06
+3.209e+06
+3.4405e+06
+3.755e+06
+4.08e+06
+4.45e+06
+4.52e+06
+4.5935e+06
+4.626e+06
+4.82e+06
+5.119e+06
+5.35e+06
+5.57e+06
+5.694e+06
+5.976e+06
+6.0715e+06
+6.155e+06
+6.378e+06
+6.49e+06
+6.683e+06
+7.07e+06
+7.42e+06
+7.92e+06
+8.42e+06
+8.92e+06
+9.675e+06
+1.071e+07
+1.17e+07
+1.32e+07
+1.389e+07
+1.585e+07
+1.81e+07
+2.065e+07
+2.65e+07
+5.3e+07
+1.06e+08
+
+1e-05
+460000
+1.1e+06
+1.45e+06
+1.6505e+06
+1.68916e+06
+1.744e+06
+1.833e+06
+1.9e+06
+2.26e+06
+2.84e+06
+2.985e+06
+3.209e+06
+3.4405e+06
+3.755e+06
+4.08e+06
+4.45e+06
+4.52e+06
+4.5935e+06
+4.626e+06
+4.82e+06
+5.119e+06
+5.35e+06
+5.57e+06
+5.694e+06
+5.976e+06
+6.0715e+06
+6.155e+06
+6.378e+06
+6.49e+06
+6.683e+06
+7.07e+06
+7.42e+06
+7.92e+06
+8.42e+06
+8.92e+06
+9.675e+06
+1.071e+07
+1.17e+07
+1.32e+07
+1.389e+07
+1.585e+07
+1.81e+07
+2.065e+07
+2.65e+07
+5.3e+07
+1.06e+08
+
+1e-05
+460000
+1.1e+06
+1.45e+06
+1.6505e+06
+1.68916e+06
+1.744e+06
+1.833e+06
+1.9e+06
+2.26e+06
+2.84e+06
+2.985e+06
+3.209e+06
+3.4405e+06
+3.755e+06
+4.08e+06
+4.45e+06
+4.52e+06
+4.5935e+06
+4.626e+06
+4.82e+06
+5.119e+06
+5.35e+06
+5.57e+06
+5.694e+06
+5.976e+06
+6.0715e+06
+6.155e+06
+6.378e+06
+6.49e+06
+6.683e+06
+7.07e+06
+7.42e+06
+7.92e+06
+8.42e+06
+8.92e+06
+9.675e+06
+1.071e+07
+1.17e+07
+1.32e+07
+1.389e+07
+1.585e+07
+1.81e+07
+2.065e+07
+2.65e+07
+5.3e+07
+1.06e+08
+
+1e-05, 3.7939
+1.1e+06, 3.52665
+1.6505e+06, 8.9205
+1.744e+06, 1.67805
+1.9e+06, 3.03608
+2.84e+06, 1.09835
+3.209e+06, 2.80248
+3.755e+06, 3.89727
+4.45e+06, 1.80596
+4.5935e+06, 1.74252
+4.82e+06, 1.52328
+5.35e+06, 0.995682
+5.694e+06, 1.56097
+6.0715e+06, 1.31116
+6.378e+06, 1.26616
+6.683e+06, 0.825407
+7.42e+06, 0.795699
+8.42e+06, 0.618634
+9.675e+06, 0.721606
+1.17e+07, 1.0017
+1.389e+07, 0.99579
+1.81e+07, 1.03393
+2.65e+07, 1.02923
+1.06e+08, 0.301421
+)***";
+
+
+// -----------------------------------------------------------------------------
 // Scenario
 // -----------------------------------------------------------------------------
 
@@ -666,4 +938,79 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(!found);
       }
    }
+
+
+   // ------------------------
+   // Test our values<>
+   // variable template
+   // ------------------------
+
+   GIVEN("Testing node(values<*>) for various *") {
+      const node n = tree(
+         plain::child::reactionSuite,
+         plain::child::reactions,
+         plain::child::reaction, "n + O16",
+         plain::child::crossSection,
+         plain::child::XYs1d, "eval"
+      );
+
+      using mixed::child::values;
+      std::ostringstream oss;
+
+      // I'll only print every [stride] vector elements from the vectors
+      // as extracted below, so as not to have a gigantic string to compare
+      // with. There's nothing wrong with gigantic strings, except that I
+      // don't want to hardcode, in this or any test file, a literal string
+      // that's hundreds of pages long! :-)
+      const int stride = 100;
+      int count;
+
+      // values<void> ==> node (that is, generic node in original form)
+      auto vnode = n(values<void>);
+      CHECK(vnode.metadata.size() == 0);
+      CHECK(vnode.children.size() == 1);
+
+      // values<> ==> vector<double>
+      count = 0;
+      for (auto v : n(values<>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<double> ==> vector<double>
+      count = 0;
+      for (auto v : n(values<double>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<float> ==> vector<float>
+      count = 0;
+      for (auto v : n(values<float>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<vector<double>> ==> vector<double>
+      count = 0;
+      for (auto v : n(values<std::vector<double>>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<vector<float>> ==> vector<float>
+      count = 0;
+      for (auto v : n(values<std::vector<float>>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<vector<pair<double,double>>> ==> vector<pair<double,double>>
+      count = 0;
+      for (auto v : n(values<std::vector<std::pair<double,double>>>))
+         if (count++ % stride == 0)
+            oss << v.first << ", " << v.second << std::endl;
+
+      CHECK(oss.str() == values_string);
+   } // GIVEN
 }
