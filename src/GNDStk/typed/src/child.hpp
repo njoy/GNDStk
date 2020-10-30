@@ -1408,11 +1408,10 @@ inline const child_t<elemtype::unresolvedRegion,find::one>
 inline const child_t<elemtype::unspecified,find::one>
    unspecified                     ("unspecified"                     );
 /*
-fixme We'll want to think about how best to do this. I'm seeing two
-fundamentally different types of <values> nodes in the GNDS library.
-Most have just "plain character data", but others have metadata too.
-These two flavors or <values> nodes should reasonably have different
-underlying C++ classes to represent them.
+fixme We'll want to think about how best to do this. I see two fundamentally
+different kinds of <values> nodes in the GNDS library. Most have just "plain
+character data", but others have metadata too. These two flavors or <values>
+nodes should have different underlying C++ classes to represent them.
 
 inline const child_t<elemtype::values,find::all>
    values                          ("values"                          );

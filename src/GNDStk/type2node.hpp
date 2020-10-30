@@ -41,7 +41,7 @@ overriding them might prove to be relatively awkward. (Note in particular that
 if someone wrote a C++ override like, say, convert(std::vector<double>, node),
 then it would indeed override a general templated version, but such an override
 would then break anything that defaulted to convert(std::vector<double>, node)
-with the intention of creating a "<values>" node as above!)
+with the intention of creating a <values> node as above!)
 
 That, then, was our motivation for no longer providing these.
 

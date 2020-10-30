@@ -6,7 +6,7 @@
 // Look around for the "..." content that appears in places like this:
 //
 //    <documentations>
-//       <documentation name="endfDoc">
+//       <documentation>
 //          <![CDATA[...]]>
 //       </documentation>
 //    </documentations>
@@ -17,11 +17,11 @@
 // node from which we can drill down as above, beginning with a documentations,
 // documentation, or CDATA node, or even directly to a text metadatum.
 //
-// Note: such CDATA nodes as I've seen in available GNDS files always begin with
-// a newline. It's perhaps tempting to chuck the newline, except that (1) we're
-// intentionally returning a *reference* to the data, for maximum usability
-// including the ability to set it in the non-const case; and (2) throughout
-// GNDStk, we're mindful of maintaining a GNDS hierarchy's exact content.
+// Note: CDATA nodes that we've seen in available GNDS files always begin with
+// a newline. It's tempting, perhaps, to chuck the newline, except that (1) we
+// intentionally return a reference to the data, for maximum usability including
+// the ability to set it if non-const; and (2) throughout GNDStk, we're mindful
+// to maintain a GNDS hierarchy's exact content.
 // -----------------------------------------------------------------------------
 
 // const
@@ -60,9 +60,9 @@ const std::string &documentation(bool &found = detail::default_bool) const
    // node, look for any of our allowable top-level nodes, e.g. reactionSuite,
    // and, if found, perform the above lookup (in the lambda) in that node.
    for (auto &top : detail::AllowedTop) {
-      bool fnd = false; // f = found this particular top-level node?
-      const Node &n = one(top,fnd);
-      if (fnd && look(n,s))
+      bool found_top = false; // found this particular top-level node?
+      const Node &n = one(top,found_top);
+      if (found_top && look(n,s))
          return found = true, *s;
    }
 
@@ -112,7 +112,7 @@ const std::string &cdata(bool &found = detail::default_bool) const
 // non-const
 std::string &cdata(bool &found = detail::default_bool)
 {
-   return const_cast<std::string &>(std::as_const(*this).cdata(found));
+   return (*this)(plain::child::cdata, plain::meta::text, found);
 }
 
 
@@ -129,7 +129,7 @@ const std::string &pcdata(bool &found = detail::default_bool) const
 // non-const
 std::string &pcdata(bool &found = detail::default_bool)
 {
-   return const_cast<std::string &>(std::as_const(*this).pcdata(found));
+   return (*this)(plain::child::pcdata, plain::meta::text, found);
 }
 
 
@@ -139,6 +139,7 @@ std::string &pcdata(bool &found = detail::default_bool)
 // -----------------------------------------------------------------------------
 
 // ------------------------
+// comment()
 // comment(size_t)
 // ------------------------
 
@@ -160,7 +161,7 @@ const std::string &comment(
 
 // non-const
 std::string &comment(
-   const size_t i,
+   const size_t i = 0,
    bool &found = detail::default_bool
 ) {
    return const_cast<std::string &>(std::as_const(*this).comment(i,found));
@@ -168,8 +169,22 @@ std::string &comment(
 
 
 // ------------------------
-// comments() // plural; returns std::vector or other container
+// comments()
+// plural :-)
+// returns a std::vector,
+// or other container
 // ------------------------
+
+// We provide this because comments occasionally appear *multiple* times
+// within a given GNDS parent node. Example:
+//    <data>
+//       <!--  energy | capture | elastic  -->
+//       <!--         |  width  |  width   -->
+//       ... numeric data ...
+//    </data>
+// One could argue that the second comment here really isn't important.
+// However, GNDStk is careful to maintain ALL information that's present
+// in any GNDS files it reads. We don't make decisions about importance.
 
 // const
 template<
@@ -182,12 +197,12 @@ typename std::enable_if<
 >::type
 comments(bool &found = detail::default_bool) const
 {
-   CONTAINER<T,Args...> ret;
+   CONTAINER<T,Args...> container;
    const std::string *text;
    for (auto c : children)
       if (c->name == "comment" && (text = &c->meta("text",found),found))
-         ret.push_back(T(*text));
-   return ret;
+         container.push_back(T(*text));
+   return container;
 }
 
 // non-const

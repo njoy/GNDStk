@@ -309,7 +309,7 @@ inline const child_t<std::string,find::all,detail::text_metadatum_to_string>
 // These are where XML material appearing in constructs like this:
 //    <values>1.2 3.4 5.6 7.8 9.0</values>
 // resides. In that case, our internal tree structure would have a node named
-// values, which would have a child node named pcdata, which would have a
+// "values", which would have a child node named pcdata, which would have a
 // metadatum with a key of "text" and a value containing the original content:
 // the "1.2 ..." in the above example. Our examination of many GNDS files shows
 // that some pcdata nodes contain integers, while others contain doubles. We
@@ -328,7 +328,10 @@ inline const child_t<void,find::one>
 
 // convert_pcdata_text
 // This object, via its type, provides conversions between certain C++ container
-// types, and nodes that contain plain character data (pcdata) content.
+// types, and nodes such as <values> that contain plain character data (pcdata)
+// content. We provide it for user convenience if someone wishes to extract data
+// from <values> nodes using their own constructs (which could make use of this
+// object) rather than the values object we provide below.
 inline const detail::convert_pcdata_text_t convert_pcdata_text;
 
 // values

@@ -37,7 +37,7 @@ const Node &one(
    // name: #times node name == key
    // both: #times node name == key AND the filter condition is met
    const Node *theone = nullptr;
-   unsigned name = 0, both = 0;
+   size_t name = 0, both = 0;
    for (auto &c : children)
       if (c->name == key && (name++, filter(*c)) && both++ == 0)
          theone = &(*c);
