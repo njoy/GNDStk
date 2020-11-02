@@ -98,5 +98,5 @@ typename detail::oneof<TYPE,Ts...>::type meta(
    const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return meta(meta_t<TYPE,CONVERTER>(kwd.name),found);
+   return meta(meta_t<TYPE,CONVERTER>(kwd.name,kwd.converter),found);
 }

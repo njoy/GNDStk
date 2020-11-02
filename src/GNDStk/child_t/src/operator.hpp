@@ -11,8 +11,11 @@
 template<class TYPE, allow ALLOW, class CONVERTER>
 inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER> &kwd)
 {
-   // Downgrade the type to void, and chuck the converter.
-   return child_t<void,ALLOW>(kwd.name, kwd.canBeTopLevel);
+   // Downgrade the type to void, and (necessarily) chuck the converter.
+   return child_t<void,ALLOW>(
+      kwd.name,
+      kwd.canBeTopLevel
+   );
 }
 
 
@@ -27,14 +30,21 @@ inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER> &kwd)
 template<class T, class TYPE, allow ALLOW, class CONVERTER>
 inline auto operator/(const T &, const child_t<TYPE,ALLOW,CONVERTER> &kwd)
 {
-   return child_t<T,ALLOW,CONVERTER>(kwd.name, kwd.converter, kwd.canBeTopLevel);
+   return child_t<T,ALLOW,CONVERTER>(
+      kwd.name,
+      kwd.converter,
+      kwd.canBeTopLevel
+   );
 }
 
 // T/child_t<void,ALLOW>
 template<class T, allow ALLOW>
 inline auto operator/(const T &, const child_t<void,ALLOW> &kwd)
 {
-   return child_t<T,ALLOW>(kwd.name, kwd.canBeTopLevel);
+   return child_t<T,ALLOW>(
+      kwd.name,
+      kwd.canBeTopLevel
+   );
 }
 
 

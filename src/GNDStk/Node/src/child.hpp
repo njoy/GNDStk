@@ -85,7 +85,11 @@ typename detail::oneof<TYPE,Ts...>::type child(
    bool &found = detail::default_bool
 ) const {
    return child(
-      child_t<TYPE,allow::one,CONVERTER>(kwd.name),
+      child_t<TYPE,allow::one,CONVERTER>(
+         kwd.name,
+         kwd.converter,
+         kwd.canBeTopLevel
+      ),
       filter,
       found
    );
@@ -154,7 +158,11 @@ CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(
-      child_t<TYPE,allow::many,CONVERTER>(kwd.name),
+      child_t<TYPE,allow::many,CONVERTER>(
+         kwd.name,
+         kwd.converter,
+         kwd.canBeTopLevel
+      ),
       filter,
       found
    );
