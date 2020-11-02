@@ -35,7 +35,7 @@ std::ostream &write(
    // a filename whose extension can be examined, nor an existing file (that
    // we care about, at least - we're doing *output*) whose first character
    // we can peek() in order to guess at the file type. We therefore have our
-   // else { } catch-all, below, write the tree in our basic tree-output form,
+   // else { } catchall, below, write the tree in our basic tree-output form,
    // whether format::null or format::tree arrived as the format. An argument
    // could be made that write(ostream,format) should require that a format
    // be given, considering that we don't, here, have a file or filename to

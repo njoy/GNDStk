@@ -2,13 +2,13 @@
 // -----------------------------------------------------------------------------
 // Node.child(child_t<*>)
 //
-// FIND == find::one
-// The child_t encodes the notion that we're only supposed to find one child
+// ALLOW == allow::one
+// The child_t encodes the notion that we're only supposed to have one child
 // node of this name. (Independent of the fact that many child nodes of the
 // same name are allowed in, e.g., XML.) In these cases the child() functions
 // return single values.
 //
-// FIND == find::all
+// ALLOW == allow::many
 // The child_t encodes the notion that any number of child nodes of this name
 // can occur. In these cases the child() functions return containers of values.
 //
@@ -16,13 +16,13 @@
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-// child(child_t<void,one|all>,filter[,found])
+// child(child_t<void,one|many>,filter[,found])
 // -----------------------------------------------------------------------------
 
 // one, const
 template<class FILTER>
 const Node &child(
-   const child_t<void,find::one> &kwd,
+   const child_t<void,allow::one> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) const {
@@ -32,21 +32,21 @@ const Node &child(
 // one, non-const
 template<class FILTER>
 Node &child(
-   const child_t<void,find::one> &kwd,
+   const child_t<void,allow::one> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) {
    return one(kwd.name, filter, found);
 }
 
-// all, const
+// many, const
 template<template<class...> class CONTAINER = std::vector, class FILTER>
 CONTAINER<Node> child(
-   const child_t<void,find::all> &kwd,
+   const child_t<void,allow::many> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) const {
-   return all<CONTAINER>(kwd.name, filter, found);
+   return many<CONTAINER>(kwd.name, filter, found);
 }
 
 
@@ -58,7 +58,7 @@ CONTAINER<Node> child(
 // TYPE
 template<class TYPE, class CONVERTER, class FILTER>
 TYPE child(
-   const child_t<TYPE,find::one,CONVERTER> &kwd,
+   const child_t<TYPE,allow::one,CONVERTER> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) const {
@@ -71,7 +71,7 @@ TYPE child(
          kwd.converter(value,type);
       return type;
    } catch (...) {
-      log::member("Node.child(child_t<type,find::one>(\"{}\"))", kwd.name);
+      log::member("Node.child(child_t<type,allow::one>(\"{}\"))", kwd.name);
       throw;
    }
 }
@@ -80,12 +80,12 @@ TYPE child(
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER, class FILTER>
 typename detail::oneof<TYPE,Ts...>::type child(
-   const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
+   const child_t<std::variant<Ts...>,allow::one,CONVERTER> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) const {
    return child(
-      child_t<TYPE,find::one,CONVERTER>(kwd.name),
+      child_t<TYPE,allow::one,CONVERTER>(kwd.name),
       filter,
       found
    );
@@ -94,7 +94,7 @@ typename detail::oneof<TYPE,Ts...>::type child(
 
 
 // -----------------------------------------------------------------------------
-// child(child_t<TYPE,all>,filter[,found])
+// child(child_t<TYPE,many>,filter[,found])
 // -----------------------------------------------------------------------------
 
 // TYPE
@@ -103,7 +103,7 @@ template<
    class TYPE, class CONVERTER, class FILTER
 >
 CONTAINER<TYPE> child(
-   const child_t<TYPE,find::all,CONVERTER> &kwd,
+   const child_t<TYPE,allow::many,CONVERTER> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) const {
@@ -133,7 +133,7 @@ CONTAINER<TYPE> child(
          }
       }
    } catch (...) {
-      log::member("Node.child(child_t<type,find::all>(\"{}\"))", kwd.name);
+      log::member("Node.child(child_t<type,allow::many>(\"{}\"))", kwd.name);
       throw;
    }
 
@@ -149,12 +149,12 @@ template<
    class... Ts, class CONVERTER, class FILTER
 >
 CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
-   const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
+   const child_t<std::variant<Ts...>,allow::many,CONVERTER> &kwd,
    const FILTER &filter,
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(
-      child_t<TYPE,find::all,CONVERTER>(kwd.name),
+      child_t<TYPE,allow::many,CONVERTER>(kwd.name),
       filter,
       found
    );
@@ -167,14 +167,14 @@ CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
 // -----------------------------------------------------------------------------
 
 const Node &child(
-   const child_t<void,find::one> &kwd,
+   const child_t<void,allow::one> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child(kwd, detail::noFilter, found);
 }
 
 Node &child(
-   const child_t<void,find::one> &kwd,
+   const child_t<void,allow::one> &kwd,
    bool &found = detail::default_bool
 ) {
    return child(kwd, detail::noFilter, found);
@@ -182,7 +182,7 @@ Node &child(
 
 template<template<class...> class CONTAINER = std::vector>
 CONTAINER<Node> child(
-   const child_t<void,find::all> &kwd,
+   const child_t<void,allow::many> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(kwd, detail::noFilter, found);
@@ -190,7 +190,7 @@ CONTAINER<Node> child(
 
 template<class TYPE, class CONVERTER>
 TYPE child(
-   const child_t<TYPE,find::one,CONVERTER> &kwd,
+   const child_t<TYPE,allow::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child(kwd, detail::noFilter, found);
@@ -198,7 +198,7 @@ TYPE child(
 
 template<class TYPE, class... Ts, class CONVERTER>
 typename detail::oneof<TYPE,Ts...>::type child(
-   const child_t<std::variant<Ts...>,find::one,CONVERTER> &kwd,
+   const child_t<std::variant<Ts...>,allow::one,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child<TYPE>(kwd, detail::noFilter, found);
@@ -209,7 +209,7 @@ template<
    class TYPE, class CONVERTER
 >
 CONTAINER<TYPE> child(
-   const child_t<TYPE,find::all,CONVERTER> &kwd,
+   const child_t<TYPE,allow::many,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(kwd, detail::noFilter, found);
@@ -221,7 +221,7 @@ template<
    class... Ts, class CONVERTER
 >
 CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
-   const child_t<std::variant<Ts...>,find::all,CONVERTER> &kwd,
+   const child_t<std::variant<Ts...>,allow::many,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return child<TYPE,CONTAINER>(kwd, detail::noFilter, found);

@@ -159,9 +159,9 @@ Tree(std::istream &is, const std::string &type)
 // arguments to be *file* names (not top-level node names).
 
 // keyword, format
-template<class TYPE, find FIND, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER>
 Tree(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
    const format form = format::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
@@ -176,9 +176,9 @@ Tree(
 }
 
 // keyword, string
-template<class TYPE, find FIND, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER>
 Tree(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

@@ -4,10 +4,10 @@
 #include <cstring>
 
 using namespace njoy::GNDStk;
-using namespace mixed::child;
-using namespace mixed::meta;
+using namespace misc::child;
+using namespace misc::meta;
 
-SCENARIO("Testing GNDStk Node all()") {
+SCENARIO("Testing GNDStk Node many()") {
 
    GIVEN("A tree read from a particular example GNDS file") {
       // tree
@@ -18,14 +18,14 @@ SCENARIO("Testing GNDStk Node all()") {
          const auto &CEs = tree(reactionSuite,PoPs,chemicalElements);
          {
             // without "found"
-            auto ce = CEs.all("chemicalElement");
+            auto ce = CEs.many("chemicalElement");
             THEN("We find eight of them") {
                CHECK(ce.size() == 8);
             }
          } {
             // with "found"
             bool found = false;
-            auto ce = CEs.all("chemicalElement",found);
+            auto ce = CEs.many("chemicalElement",found);
             THEN("We find eight of them") {
                CHECK(found);
                CHECK(ce.size() == 8);
@@ -50,30 +50,30 @@ SCENARIO("Testing GNDStk Node all()") {
             { return nplus(n) && endf_mt_600(n); };
 
          THEN("There are 15 <reaction> nodes with label=\"n + *\"") {
-            CHECK(Rs.all("reaction",nplus).size() == 15);
+            CHECK(Rs.many("reaction",nplus).size() == 15);
          }
 
          THEN("There is one <reaction> node with ENDF_MT=\"600\"") {
-            CHECK(Rs.all("reaction",endf_mt_600).size() == 1);
+            CHECK(Rs.many("reaction",endf_mt_600).size() == 1);
          }
 
          THEN("There are no <reaction> nodes with both "
               "label=\"n + *\" and ENDF_MT=\"600\"") {
             bool found = true;
-            CHECK(Rs.all("reaction",filter_both,found).size() == 0);
+            CHECK(Rs.many("reaction",filter_both,found).size() == 0);
             CHECK(!found);
          }
       }
 
       // reactions / reaction
-      WHEN("We invoke node::all() with an empty (\"\") key") {
+      WHEN("We invoke node::many() with an empty (\"\") key") {
          auto Rs = tree(reactionSuite,reactions);
 
          THEN("We get back a container with one node, identical to *this") {
             bool found = false;
-            auto vec = Rs.all("",found); // ensure this version works
+            auto vec = Rs.many("",found); // ensure this version works
             CHECK(found == true);
-            vec = Rs.all(""); // and this one
+            vec = Rs.many(""); // and this one
             CHECK(vec.size() == 1);
             std::ostringstream oss1; oss1 << Rs.sort();
             std::ostringstream oss2; oss2 << vec[0].sort();
@@ -84,9 +84,9 @@ SCENARIO("Testing GNDStk Node all()") {
             // filter should be ignored when used with key==""
             auto filter = [](const node &n) { return false; };
             bool found = false;
-            auto vec = Rs.all("",filter,found); // ensure this version works
+            auto vec = Rs.many("",filter,found); // ensure this version works
             CHECK(found == true);
-            vec = Rs.all("",filter); // and this one
+            vec = Rs.many("",filter); // and this one
             CHECK(vec.size() == 1);
             std::ostringstream oss1; oss1 << Rs.sort();
             std::ostringstream oss2; oss2 << vec[0].sort();

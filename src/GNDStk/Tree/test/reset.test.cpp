@@ -4,7 +4,7 @@
 
 SCENARIO("Testing GNDStk tree reset()") {
    using namespace njoy::GNDStk;
-   using namespace mixed::child;
+   using namespace misc::child;
 
    GIVEN("An empty tree") {
       /*

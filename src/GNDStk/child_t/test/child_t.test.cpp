@@ -15,7 +15,7 @@ public:
    }
 };
 
-SCENARIO("Testing GNDStk child_t<TYPE,FIND,CONVERTER>") {
+SCENARIO("Testing GNDStk child_t<TYPE,ALLOW,CONVERTER>") {
 
    // child_t<TYPE,...>
    GIVEN("The child_t<TYPE,...> class") {
@@ -32,19 +32,19 @@ SCENARIO("Testing GNDStk child_t<TYPE,FIND,CONVERTER>") {
       }
 
       WHEN("Constructed with (name,top=true,converter)") {
-         child_t<double,find::one,converter> foo("foo",true,converter{});
+         child_t<double,allow::one,converter> foo("foo",true,converter{});
          CHECK(foo.name == "foo");
          CHECK(foo.canBeTopLevel == true);
       }
 
       WHEN("Constructed with (name,converter)") {
-         child_t<double,find::one,converter> foo("foo",converter{});
+         child_t<double,allow::one,converter> foo("foo",converter{});
          CHECK(foo.name == "foo");
          CHECK(foo.canBeTopLevel == false);
       }
 
       WHEN("Constructed with (name,converter,top=true)") {
-         child_t<double,find::one,converter> foo("foo",converter{},true);
+         child_t<double,allow::one,converter> foo("foo",converter{},true);
          CHECK(foo.name == "foo");
          CHECK(foo.canBeTopLevel == true);
       }

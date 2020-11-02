@@ -11,8 +11,8 @@ template<
 class meta_t {
 public:
    // name, converter
-   const std::string name;
-   const CONVERTER converter; // optional custom converter; needs operator()
+   std::string name;
+   CONVERTER converter; // optional custom converter; needs operator()
 
    // ctor
    explicit meta_t(const std::string &n, const CONVERTER &c = CONVERTER{}) :
@@ -27,9 +27,10 @@ class meta_t<void,CONVERTER> {
       std::is_same<CONVERTER,void>::value,
      "Can't create meta_t<void,CONVERTER> with non-default CONVERTER"
    );
+
 public:
    // name
-   const std::string name;
+   std::string name;
 
    // ctor
    explicit meta_t(const std::string &n) :
@@ -43,8 +44,8 @@ public:
 // -----------------------------------------------------------------------------
 
 // Macro
-// For meta_t building. The macro doesn't handle the optional converter;
-// for that, just construct such an object directly.
+// For meta_t building. This macro doesn't allow for the (optional) converter;
+// for that, construct a meta_t directly.
 #define GNDSTK_MAKE_META(TYPE,name) \
    inline const meta_t<TYPE> name(#name)
 // Note: we won't #undef this eventually, as we normally would,

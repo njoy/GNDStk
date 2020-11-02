@@ -42,8 +42,8 @@ Node(const std::string &name) : name(name)
 }
 
 // child_t<*>
-template<class TYPE, find FIND, class CONVERTER>
-Node(const child_t<TYPE,FIND,CONVERTER> &kwd) : name(kwd.name)
+template<class TYPE, allow ALLOW, class CONVERTER>
+Node(const child_t<TYPE,ALLOW,CONVERTER> &kwd) : name(kwd.name)
 {
 }
 
@@ -54,9 +54,9 @@ Node(const child_t<TYPE,FIND,CONVERTER> &kwd) : name(kwd.name)
 // ------------------------
 
 // child_t<void,...>, Node
-template<find FIND>
+template<allow ALLOW>
 Node(
-   const child_t<void,FIND> &kwd,
+   const child_t<void,ALLOW> &kwd,
    const Node &value
 ) {
    try {
@@ -73,11 +73,11 @@ Node(
 // Then, the child_t's converter converts the TYPE value to a Node. With
 // child_t's default converter, this means convert(TYPE,Node) is called.
 template<
-   class TYPE, find FIND, class CONVERTER, class T,
+   class TYPE, allow ALLOW, class CONVERTER, class T,
    class = typename std::enable_if<std::is_convertible<T,TYPE>::value>::type
 >
 Node(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
    const T &value
 ) {
    try {

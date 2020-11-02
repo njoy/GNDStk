@@ -3,53 +3,53 @@
 // keyword_t.child()
 // -----------------------------------------------------------------------------
 
-// child[<[void[,FIND]]>](name[,top])
+// child[<[void[,ALLOW]]>](name[,top])
 template<
    class TYPE = void,
-   find  FIND = find::one
+   allow ALLOW = allow::one
 >
 static child_t<
    typename detail::isVoid<TYPE>::type,
-   FIND
+   ALLOW
 > child(
    const std::string &name,
    const bool top = false
 ) {
-   return child_t<void,FIND>{name,top};
+   return child_t<void,ALLOW>{name,top};
 }
 
 
-// child<TYPE[,FIND[,CONVERTER]]>(name[,top[,converter]])
+// child<TYPE[,ALLOW[,CONVERTER]]>(name[,top[,converter]])
 template<
    class TYPE,
-   find  FIND = find::one,
+   allow ALLOW = allow::one,
    class CONVERTER = detail::convert_t
 >
 static child_t<
    typename detail::isNotVoid<TYPE>::type,
-   FIND, CONVERTER
+   ALLOW, CONVERTER
 > child(
    const std::string &name,
    const bool top = false,
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return child_t<TYPE,FIND,CONVERTER>{name,top,converter};
+   return child_t<TYPE,ALLOW,CONVERTER>{name,top,converter};
 }
 
 
-// child<TYPE[,FIND[,CONVERTER]]>(name,converter[,top])
+// child<TYPE[,ALLOW[,CONVERTER]]>(name,converter[,top])
 template<
    class TYPE,
-   find  FIND = find::one,
+   allow ALLOW = allow::one,
    class CONVERTER = detail::convert_t
 >
 static child_t<
    typename detail::isNotVoid<TYPE>::type,
-   FIND, CONVERTER
+   ALLOW, CONVERTER
 > child(
    const std::string &name,
    const CONVERTER &converter,
    const bool top = false
 ) {
-   return child_t<TYPE,FIND,CONVERTER>{name,top,converter};
+   return child_t<TYPE,ALLOW,CONVERTER>{name,top,converter};
 }

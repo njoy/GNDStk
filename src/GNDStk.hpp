@@ -66,9 +66,9 @@ namespace GNDStk {
 #include "GNDStk/keyword.hpp"
 
 // sets of meta_t/child_t
-#include "GNDStk/plain.hpp"
+#include "GNDStk/basic.hpp"
 #include "GNDStk/typed.hpp"
-#include "GNDStk/mixed.hpp"
+#include "GNDStk/misc.hpp"
 
 // tree: primary constructs
 #include "GNDStk/Node.hpp"

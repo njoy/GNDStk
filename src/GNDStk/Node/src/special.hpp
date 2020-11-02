@@ -29,10 +29,10 @@ const std::string &documentation(bool &found = detail::default_bool) const
 {
    auto look = [](const Node &n, const std::string *&s)
    {
-      auto docs  = plain::child::documentations;
-      auto doc   = plain::child::documentation;
-      auto cdata = plain::child::cdata;
-      auto text  = plain::meta ::text;
+      auto docs  = basic::child::documentations;
+      auto doc   = basic::child::documentation;
+      auto cdata = basic::child::cdata;
+      auto text  = basic::meta ::text;
 
       // In the node parameter, tries to find CDATA text at any layer of:
       //    <documentations>
@@ -96,7 +96,7 @@ std::string &doc(bool &found = detail::default_bool)
 
 
 // -----------------------------------------------------------------------------
-// Character and plain-character data
+// Character and plain character data
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -106,13 +106,13 @@ std::string &doc(bool &found = detail::default_bool)
 // const
 const std::string &cdata(bool &found = detail::default_bool) const
 {
-   return (*this)(plain::child::cdata, plain::meta::text, found);
+   return (*this)(basic::child::cdata, basic::meta::text, found);
 }
 
 // non-const
 std::string &cdata(bool &found = detail::default_bool)
 {
-   return (*this)(plain::child::cdata, plain::meta::text, found);
+   return (*this)(basic::child::cdata, basic::meta::text, found);
 }
 
 
@@ -123,13 +123,13 @@ std::string &cdata(bool &found = detail::default_bool)
 // const
 const std::string &pcdata(bool &found = detail::default_bool) const
 {
-   return (*this)(plain::child::pcdata, plain::meta::text, found);
+   return (*this)(basic::child::pcdata, basic::meta::text, found);
 }
 
 // non-const
 std::string &pcdata(bool &found = detail::default_bool)
 {
-   return (*this)(plain::child::pcdata, plain::meta::text, found);
+   return (*this)(basic::child::pcdata, basic::meta::text, found);
 }
 
 

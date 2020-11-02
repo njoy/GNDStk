@@ -25,7 +25,8 @@ const std::string &meta(
    // by looking at its address. This is entirely different from the question
    // of what found's value proves to be.
    if (!detail::sent(found)) {
-      log::error("Node.meta(\"{}\"): key not found in metadata", key);
+      log::error("Key \"{}\" not found in metadata", key);
+      log::member("Node.meta(\"{}\")", key);
       throw std::exception{};
    }
 

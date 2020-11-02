@@ -21,8 +21,8 @@ struct reaction_t {
 
 void convert(const node &n, reaction_t &r)
 {
-   r.label = n(plain::meta::label);
-   r.ENDF_MT = n(mixed::meta::ENDF_MT);
+   r.label = n(basic::meta::label);
+   r.ENDF_MT = n(misc::meta::ENDF_MT);
 }
 
 struct nonsense_t {
@@ -46,8 +46,8 @@ struct temperature_t {
 
 inline void convert(const Node<> &n, temperature_t &temp)
 {
-   temp.value = n(mixed::meta::dvalue);
-   temp.unit  = n(mixed::meta::unit);
+   temp.value = n(misc::meta::dvalue);
+   temp.unit  = n(misc::meta::unit);
 }
 
 // foo_t, bar_t
@@ -55,9 +55,9 @@ struct foo_t { std::string foo_id; };
 struct bar_t { std::string bar_id; };
 
 inline void convert(const Node<> &n, foo_t &foo)
-   { bool found; foo.foo_id = n(mixed::meta::id,found); }
+   { bool found; foo.foo_id = n(misc::meta::id,found); }
 inline void convert(const Node<> &n, bar_t &bar)
-   { bool found; bar.bar_id = n(mixed::meta::id,found); }
+   { bool found; bar.bar_id = n(misc::meta::id,found); }
 
 // isotope_t
 struct isotope_t {
@@ -68,26 +68,26 @@ struct isotope_t {
 
 inline void convert(const Node<> &n, isotope_t &iso)
 {
-   iso.symbol = n(mixed::meta::symbol);
-   iso.A = n(mixed::meta::A);
-   iso.nuclides = &n(mixed::child::nuclides);
+   iso.symbol = n(misc::meta::symbol);
+   iso.A = n(misc::meta::A);
+   iso.nuclides = &n(misc::child::nuclides);
 }
 
-// keywords with find::one
+// keywords with allow::one
 auto temperature =
-   keyword.child<temperature_t,find::one>("temperature");
+   keyword.child<temperature_t,allow::one>("temperature");
 auto styles =
-   keyword.child<void,find::one>("styles");
+   keyword.child<void,allow::one>("styles");
 auto documentations =
-   keyword.child<std::variant<foo_t,bar_t>,find::one>("documentations");
+   keyword.child<std::variant<foo_t,bar_t>,allow::one>("documentations");
 
-// keywords with find::all
+// keywords with allow::many
 auto isotope =
-   keyword.child<isotope_t,find::all>("isotope");
+   keyword.child<isotope_t,allow::many>("isotope");
 auto isotope_node =
-   keyword.child<void,find::all>("isotope");
+   keyword.child<void,allow::many>("isotope");
 auto nuclide_foo_or_bar_node =
-   keyword.child<std::variant<foo_t,bar_t>,find::all>("nuclide");
+   keyword.child<std::variant<foo_t,bar_t>,allow::many>("nuclide");
 
 
 // -----------------------------------------------------------------------------
@@ -107,8 +107,8 @@ SCENARIO("Testing GNDStk Node child()") {
       WHEN("We use node.child() to extract a child node") {
          // below, we'll exercise every variation of node::child()
          auto temp = top(
-            mixed::child::styles,   // from GNDStk
-            mixed::child::evaluated // from GNDStk
+            misc::child::styles,   // from GNDStk
+            misc::child::evaluated // from GNDStk
          ).child(
             temperature // ours, as set up earlier
          );
@@ -129,11 +129,11 @@ SCENARIO("Testing GNDStk Node child()") {
          (void)bardoc.bar_id; // bardoc should be of type bar_t;
 
          auto iso = top(
-            mixed::child::PoPs,
-            mixed::child::chemicalElements,
-            mixed::child::chemicalElement
+            misc::child::PoPs,
+            misc::child::chemicalElements,
+            misc::child::chemicalElement
          )[0](
-            mixed::child::isotopes
+            misc::child::isotopes
          ).child(isotope);
          CHECK(iso.size() == 3);
          CHECK(iso[0].symbol == "H1");  CHECK(iso[0].A == 1);
@@ -141,11 +141,11 @@ SCENARIO("Testing GNDStk Node child()") {
          CHECK(iso[2].symbol == "H3");  CHECK(iso[2].A == 3);
 
          auto iso_node = top(
-            mixed::child::PoPs,
-            mixed::child::chemicalElements,
-            mixed::child::chemicalElement
+            misc::child::PoPs,
+            misc::child::chemicalElements,
+            misc::child::chemicalElement
          )[0](
-            mixed::child::isotopes
+            misc::child::isotopes
          ).child(isotope_node);
          CHECK(iso_node.size() == 3);
          CHECK(iso_node[0].name == "isotope");
@@ -153,25 +153,25 @@ SCENARIO("Testing GNDStk Node child()") {
          CHECK(iso_node[2].name == "isotope");
 
          auto iso_foo_node = top(
-            mixed::child::PoPs,
-            mixed::child::chemicalElements,
-            mixed::child::chemicalElement
+            misc::child::PoPs,
+            misc::child::chemicalElements,
+            misc::child::chemicalElement
          )[0](
-            mixed::child::isotopes,
-            mixed::child::isotope
-         )[0](mixed::child::nuclides).child<foo_t>(nuclide_foo_or_bar_node);
+            misc::child::isotopes,
+            misc::child::isotope
+         )[0](misc::child::nuclides).child<foo_t>(nuclide_foo_or_bar_node);
 
          CHECK(iso_foo_node.size() == 1);
          CHECK(iso_foo_node[0].foo_id == "H1");
 
          auto iso_bar_node = top(
-            mixed::child::PoPs,
-            mixed::child::chemicalElements,
-            mixed::child::chemicalElement
+            misc::child::PoPs,
+            misc::child::chemicalElements,
+            misc::child::chemicalElement
          )[0](
-            mixed::child::isotopes,
-            mixed::child::isotope
-         )[1](mixed::child::nuclides).child<bar_t>(nuclide_foo_or_bar_node);
+            misc::child::isotopes,
+            misc::child::isotope
+         )[1](misc::child::nuclides).child<bar_t>(nuclide_foo_or_bar_node);
 
          CHECK(iso_bar_node.size() == 1);
          CHECK(iso_bar_node[0].bar_id == "H2");
@@ -191,10 +191,10 @@ SCENARIO("Testing GNDStk Node child()") {
 
       WHEN("We extract the CDATA description") {
          auto descr = tree(
-            plain::child::reactionSuite,
-            plain::child::documentations,
-            plain::child::documentation,
-            mixed::child::cdata
+            basic::child::reactionSuite,
+            basic::child::documentations,
+            basic::child::documentation,
+            misc::child::cdata
          );
          CHECK(0 == strncmp(descr.c_str(), "\n  8-O - 16 LANL", 16));
       }
@@ -202,12 +202,12 @@ SCENARIO("Testing GNDStk Node child()") {
 
 
    // ------------------------
-   // Mechanically try all
-   // the node.child() cases
+   // Mechanically try every
+   // node.child() case
    // ------------------------
 
-   using mixed::meta::label;
-   using mixed::meta::ENDF_MT;
+   using misc::meta::label;
+   using misc::meta::ENDF_MT;
 
    // filter for nodes that have label="2n + *"
    auto twon = [](const node &n)
@@ -217,10 +217,10 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <void,one>
    GIVEN("Testing node.child(child_t<void,one>[,filter][,found])") {
       // n: non-const <reactions> node
-      node &n = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      node &n = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<void,find::one> reaction("reaction");
-      const child_t<void,find::one> nonsense("nonsense");
+      const child_t<void,allow::one> reaction("reaction");
+      const child_t<void,allow::one> nonsense("nonsense");
 
       THEN("child(child_t) works") {
          // reference return; so, its address is available
@@ -291,10 +291,10 @@ SCENARIO("Testing GNDStk Node child()") {
    // Like the above, except this one is const
    GIVEN("Testing node.child(child_t<void,one>[,filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<void,find::one> reaction("reaction");
-      const child_t<void,find::one> nonsense("nonsense");
+      const child_t<void,allow::one> reaction("reaction");
+      const child_t<void,allow::one> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          (void)&c.child(reaction);
@@ -336,13 +336,13 @@ SCENARIO("Testing GNDStk Node child()") {
       }
    }
 
-   // case: <void,all> const
-   GIVEN("Testing node.child(child_t<void,all>[,filter][,found]) const") {
+   // case: <void,many> const
+   GIVEN("Testing node.child(child_t<void,many>[,filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<void,find::all> reaction("reaction");
-      const child_t<void,find::all> nonsense("nonsense");
+      const child_t<void,allow::many> reaction("reaction");
+      const child_t<void,allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c.child(reaction).size() == 60);
@@ -385,10 +385,10 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <type,one> const
    GIVEN("Testing node.child(child_t<type,one>[,filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<reaction_t,find::one> reaction("reaction");
-      const child_t<nonsense_t,find::one> nonsense("nonsense");
+      const child_t<reaction_t,allow::one> reaction("reaction");
+      const child_t<nonsense_t,allow::one> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c.child(reaction).label == "n + O16");
@@ -425,11 +425,11 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <variant,one> const
    GIVEN("Testing node.child(child_t<variant,one>[,filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<std::variant<int,reaction_t,double>,find::one>
+      const child_t<std::variant<int,reaction_t,double>,allow::one>
          reaction("reaction");
-      const child_t<std::variant<double,nonsense_t,int>,find::one>
+      const child_t<std::variant<double,nonsense_t,int>,allow::one>
          nonsense("nonsense");
 
       // For brevity
@@ -468,13 +468,13 @@ SCENARIO("Testing GNDStk Node child()") {
       }
    }
 
-   // case: <type,all> const
-   GIVEN("Testing node.child(child_t<type,all>[,filter][,found]) const") {
+   // case: <type,many> const
+   GIVEN("Testing node.child(child_t<type,many>[,filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<reaction_t,find::all> reaction("reaction");
-      const child_t<nonsense_t,find::all> nonsense("nonsense");
+      const child_t<reaction_t,allow::many> reaction("reaction");
+      const child_t<nonsense_t,allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c.child(reaction).size() == 60);
@@ -516,15 +516,15 @@ SCENARIO("Testing GNDStk Node child()") {
       }
    }
 
-   // case: <variant,all> const
-   GIVEN("Testing node.child(child_t<variant,all>[,filter][,found]) const") {
+   // case: <variant,many> const
+   GIVEN("Testing node.child(child_t<variant,many>[,filter][,found]) const") {
 
       // c: const <reactions> node
-      const node &c = tree(mixed::child::reactionSuite,mixed::child::reactions);
+      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<std::variant<int,reaction_t,double>,find::all>
+      const child_t<std::variant<int,reaction_t,double>,allow::many>
          reaction("reaction");
-      const child_t<std::variant<double,nonsense_t,int>,find::all>
+      const child_t<std::variant<double,nonsense_t,int>,allow::many>
          nonsense("nonsense");
 
       // For brevity

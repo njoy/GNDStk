@@ -25,7 +25,7 @@ public:
 
    using nodeType::meta;
    using nodeType::one;
-   using nodeType::all;
+   using nodeType::many;
    using nodeType::child;
    using nodeType::operator();
 

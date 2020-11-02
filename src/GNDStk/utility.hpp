@@ -21,10 +21,10 @@ enum class format {
    hdf5, HDF5 = hdf5
 };
 
-// find
-enum class find {
+// allow
+enum class allow {
    one,
-   all
+   many
 };
 
 namespace detail {

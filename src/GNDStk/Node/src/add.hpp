@@ -111,26 +111,26 @@ typename std::enable_if<
 // child_t, ...
 // ------------------------
 
-// Remark. The first two accept a general FIND child_t - either "one" or "all";
-// and return a reference to the added value. The "all" is allowed here - hence
-// the general FIND instead of just "one" - because it's perfectly reasonable
+// Remark. The first two accept a general ALLOW child_t (either "one" or "many")
+// and return a reference to the added value. The "many" is allowed here - hence
+// the general ALLOW instead of just "one" - because it's perfectly reasonable
 // to add just a single value in this case, even if multiple values are allowed.
-// The second two functions accept only an "all" child_t, because they receive
+// The second two functions accept only a "many" child_t, because they receive
 // containers of values. (They also return void, as there's not generally just
 // one added value to which we'd be able to return a reference.)
 
 
-// <void,FIND>
+// <void,ALLOW>
 // Accepts a convertible-to-node value.
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<find FIND, class T>
+template<allow ALLOW, class T>
 typename std::enable_if<
    std::is_convertible<T,Node>::value,
    Node &
 >::type add(
-   const child_t<void,FIND> &kwd,
+   const child_t<void,ALLOW> &kwd,
    const T &value
 ) {
    try {
@@ -144,17 +144,17 @@ typename std::enable_if<
 }
 
 
-// <TYPE,FIND>
+// <TYPE,ALLOW>
 // Accepts a convertible-to-TYPE value.
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<class TYPE, find FIND, class CONVERTER, class T>
+template<class TYPE, allow ALLOW, class CONVERTER, class T>
 typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    Node &
 >::type add(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
    const T &value
 ) {
    try {
@@ -169,7 +169,7 @@ typename std::enable_if<
 }
 
 
-// <void,all>
+// <void,many>
 // Accepts a container of convertible-to-node values.
 // Builds new child nodes from the values.
 // Gives each new node the name from the keyword object.
@@ -182,7 +182,7 @@ typename std::enable_if<
    std::is_convertible<T,Node>::value,
    void
 >::type add(
-   const child_t<void,find::all> &kwd,
+   const child_t<void,allow::many> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {
@@ -195,7 +195,7 @@ typename std::enable_if<
 }
 
 
-// <TYPE,all>
+// <TYPE,many>
 // Accepts a container of convertible-to-TYPE values.
 // Builds new child nodes from the values.
 // Gives each new node the name from the keyword object.
@@ -209,7 +209,7 @@ typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    void
 >::type add(
-   const child_t<TYPE,find::all,CONVERTER> &kwd,
+   const child_t<TYPE,allow::many,CONVERTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {

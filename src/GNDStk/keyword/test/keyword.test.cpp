@@ -149,8 +149,8 @@ R"***(node: "parameterCovariance"
 
 SCENARIO("Testing GNDStk keyword") {
 
-   using namespace mixed::meta;
-   using namespace mixed::child;
+   using namespace misc::meta;
+   using namespace misc::child;
 
    // tree
    const njoy::GNDStk::tree tree("n-069_Tm_170-covar.xml");
@@ -163,21 +163,21 @@ SCENARIO("Testing GNDStk keyword") {
       // child::xml disambiguates vs. class xml
       // meta::format disambiguates vs. enum class format
 
-      CHECK(tree(mixed::child::xml).metadata.size() == 2);
-      CHECK(tree(mixed::child::xml).children.size() == 0);
-      CHECK(tree(mixed::child::xml,version) == "1.0");
-      CHECK(tree(mixed::child::xml,encoding) == "UTF-8");
+      CHECK(tree(misc::child::xml).metadata.size() == 2);
+      CHECK(tree(misc::child::xml).children.size() == 0);
+      CHECK(tree(misc::child::xml,version) == "1.0");
+      CHECK(tree(misc::child::xml,encoding) == "UTF-8");
       CHECK(tree(covarianceSuite).metadata.size() == 4);
       CHECK(tree(covarianceSuite).children.size() == 3);
       CHECK(tree(covarianceSuite,projectile) == "n");
       CHECK(tree(covarianceSuite,target) == "Tm170");
       CHECK(tree(covarianceSuite,evaluation) == "ENDF/B-8.0");
-      CHECK(tree(covarianceSuite,mixed::meta::format) == 1.9);
+      CHECK(tree(covarianceSuite,misc::meta::format) == 1.9);
       CHECK(tree(covarianceSuite,styles).metadata.size() == 0);
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
       CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
       CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
-      CHECK(tree(covarianceSuite,styles,evaluated,mixed::meta::label) == "eval");
+      CHECK(tree(covarianceSuite,styles,evaluated,misc::meta::label) == "eval");
    } // WHEN
 
 
@@ -192,11 +192,11 @@ SCENARIO("Testing GNDStk keyword") {
 
    // for children
    auto myvalues =
-      keyword.child<values_t,find::one>("values",convert_pcdata_text);
+      keyword.child<values_t,allow::one>("values",convert_pcdata_text);
    // In the following, a name of "" means to stay at the current node
-   auto mymanifest = keyword.child<manifest_t,find::one>("");
+   auto mymanifest = keyword.child<manifest_t,allow::one>("");
 
-   auto vers = tree(mixed::child::xml,myversion);
+   auto vers = tree(misc::child::xml,myversion);
 
 
    // ------------------------
@@ -322,25 +322,25 @@ SCENARIO("Testing GNDStk keyword") {
    auto m08 = keyword.meta<shape_t  >("m08");
 
    // basic children, no metadata/children requirements
-   auto c01 = keyword.child<              >("c01");
-   auto c02 = keyword.child<              >("c02",true );
-   auto c03 = keyword.child<              >("c03",false);
-   auto c04 = keyword.child<void          >("c04");
-   auto c05 = keyword.child<void          >("c05",true );
-   auto c06 = keyword.child<void          >("c06",false);
-   auto c07 = keyword.child<void,find::all>("c07");
-   auto c08 = keyword.child<void,find::all>("c08",true );
-   auto c09 = keyword.child<void,find::all>("c09",false);
-   auto c10 = keyword.child<void,find::one>("c10");
-   auto c11 = keyword.child<void,find::one>("c11",true );
-   auto c12 = keyword.child<void,find::one>("c12",false);
-   auto c13 = keyword.child<int           >("c13");
-   auto c14 = keyword.child<int           >("c14",true );
-   auto c15 = keyword.child<int           >("c15",false);
-   auto c16 = keyword.child<int, find::all>("c16");
-   auto c17 = keyword.child<int, find::all>("c17",true );
-   auto c18 = keyword.child<int, find::all>("c18",false);
-   auto c19 = keyword.child<int, find::one>("c19");
-   auto c20 = keyword.child<int, find::one>("c20",true );
-   auto c21 = keyword.child<int, find::one>("c21",false);
+   auto c01 = keyword.child<                >("c01");
+   auto c02 = keyword.child<                >("c02",true );
+   auto c03 = keyword.child<                >("c03",false);
+   auto c04 = keyword.child<void            >("c04");
+   auto c05 = keyword.child<void            >("c05",true );
+   auto c06 = keyword.child<void            >("c06",false);
+   auto c07 = keyword.child<void,allow::many>("c07");
+   auto c08 = keyword.child<void,allow::many>("c08",true );
+   auto c09 = keyword.child<void,allow::many>("c09",false);
+   auto c10 = keyword.child<void,allow::one >("c10");
+   auto c11 = keyword.child<void,allow::one >("c11",true );
+   auto c12 = keyword.child<void,allow::one >("c12",false);
+   auto c13 = keyword.child<int             >("c13");
+   auto c14 = keyword.child<int             >("c14",true );
+   auto c15 = keyword.child<int             >("c15",false);
+   auto c16 = keyword.child<int, allow::many>("c16");
+   auto c17 = keyword.child<int, allow::many>("c17",true );
+   auto c18 = keyword.child<int, allow::many>("c18",false);
+   auto c19 = keyword.child<int, allow::one >("c19");
+   auto c20 = keyword.child<int, allow::one >("c20",true );
+   auto c21 = keyword.child<int, allow::one >("c21",false);
 }

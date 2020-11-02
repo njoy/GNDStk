@@ -104,13 +104,13 @@ SCENARIO("Testing GNDStk Node add()") {
       // ------------------------
       // ------------------------
 
-      auto foo  = keyword.child<void,find::one>("foo");
+      auto foo  = keyword.child<void,allow::one>("foo");
       auto foos = keyword.child<
          std::vector<double>,
-         find::one
-      >("values",mixed::child::convert_pcdata_text);
+         allow::one
+      >("values",misc::child::convert_pcdata_text);
 
-      auto nrepeat = keyword.child<void,find::all>("repeated node");
+      auto nrepeat = keyword.child<void,allow::many>("repeated node");
       Node<> node1; node1.name = "aa11";
       Node<> node2; node2.name = "bb22";
       Node<> node3; node3.name = "cc33";
@@ -124,7 +124,7 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(nrepeat,vec);
       n.add(nrepeat,node5);
 
-      auto drepeat = keyword.child<dim2d,find::all>("dimension");
+      auto drepeat = keyword.child<dim2d,allow::many>("dimension");
       const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);

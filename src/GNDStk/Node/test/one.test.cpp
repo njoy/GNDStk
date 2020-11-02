@@ -3,8 +3,8 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace mixed::child;
-using namespace mixed::meta;
+using namespace misc::child;
+using namespace misc::meta;
 
 SCENARIO("Testing GNDStk Node one()") {
 
@@ -13,13 +13,13 @@ SCENARIO("Testing GNDStk Node one()") {
       Tree<> tree("n-008_O_016.xml");
 
       // node: reactionSuite
-      Node<> &rsuite = tree(mixed::child::reactionSuite);
+      Node<> &rsuite = tree(misc::child::reactionSuite);
       const Node<> &const_rsuite = rsuite;
 
       WHEN("We extract one PoPs node") {
          // From the reactionSuite node, let's get one PoPs node; one,
          // in fact is all there is. If there were many, we'd probably
-         // want to use all() instead of one().
+         // want to use many() instead of one().
          Node<> &pops = rsuite.one("PoPs");
          CHECK(pops.meta("name") == "protare_internal");
 

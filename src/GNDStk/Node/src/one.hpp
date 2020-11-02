@@ -10,7 +10,7 @@
 // to occur at most once as a sub-node of a given parent, even if the file
 // format used, e.g. XML, might allow for more than one same-named sub-node.)
 //
-// With one(), as opposed to all(), you get back a direct reference to the one
+// With one(), as opposed to many(), you'll get a direct reference to the one
 // found node, not to a container of nodes.
 // -----------------------------------------------------------------------------
 
