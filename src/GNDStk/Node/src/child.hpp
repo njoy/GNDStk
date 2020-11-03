@@ -127,7 +127,7 @@ CONTAINER<TYPE> child(
       } else {
          // search in the current node's children
          for (auto &c : children) {
-            if (c->name == kwd.name && filter(*c)) {
+            if (std::regex_match(c->name, std::regex(kwd.name)) && filter(*c)) {
                // convert c to the appropriate type
                TYPE type{};
                kwd.converter(*c,type);

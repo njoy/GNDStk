@@ -12,7 +12,7 @@ const std::string &meta(
 ) const {
    // search
    for (auto &m : metadata)
-      if (m.first == key)
+      if (std::regex_match(m.first, std::regex(key)))
          return found = true, m.second;
 
    // not found

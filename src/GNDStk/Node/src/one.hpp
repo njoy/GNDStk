@@ -34,19 +34,21 @@ const Node &one(
 
    // search in the current node's children,
    // with these tracked for better diagnostics:
-   // name: #times node name == key
-   // both: #times node name == key AND the filter condition is met
+   // name: #times node name matches key
+   // both: #times node name matches key AND ALSO the filter condition is met
    const Node *theone = nullptr;
    size_t name = 0, both = 0;
    for (auto &c : children)
-      if (c->name == key && (name++, filter(*c)) && both++ == 0)
+      if (std::regex_match(c->name, std::regex(key)) &&
+          (name++, filter(*c)) && both++ == 0)
          theone = &(*c);
 
    // found
    if (both) {
       if (both > 1)
          log::warning(
-            "Node.one(\"{}\") called, but {} matching nodes were found",
+            "Node.one(\"{}\") called, but {} matching nodes were found;\n",
+            "returning the first one that was found",
             key, both
          );
       return found = true, *theone;
@@ -59,14 +61,14 @@ const Node &one(
    if (!detail::sent(found)) {
       if (name == 0)
          log::error(
-            "Node.one(\"{}\"): node not found", key);
+            "Node.one(\"{}\"): no nodes matching the key were found", key);
       else if (name == 1)
          log::error(
-            "Node.one(\"{}\"): a node with the given name was found,\n"
+            "Node.one(\"{}\"): a node matching the key was found,\n"
             "but it didn't pass the filter condition", key);
       else
          log::error(
-            "Node.one(\"{}\"): {} nodes with the given name were found,\n"
+            "Node.one(\"{}\"): {} nodes matching the key were found,\n"
             "but none of them passed the filter condition", name, key);
       throw std::exception{};
    }
