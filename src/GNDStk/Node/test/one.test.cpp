@@ -20,10 +20,12 @@ SCENARIO("Testing GNDStk Node one()") {
          // From the reactionSuite node, let's get one PoPs node; one,
          // in fact is all there is. If there were many, we'd probably
          // want to use many() instead of one().
+         CHECK(rsuite.has_one("PoPs"));
          Node<> &pops = rsuite.one("PoPs");
          CHECK(pops.meta("name") == "protare_internal");
 
          // const version
+         CHECK(const_rsuite.has_one("PoPs"));
          const Node<> &cpops = const_rsuite.one("PoPs");
          CHECK(cpops.meta("name") == "protare_internal");
       }
@@ -45,10 +47,12 @@ SCENARIO("Testing GNDStk Node one()") {
       // case 1
       WHEN("We test node.one(key,filter) const")
       {
+         CHECK(rsconst.has_one("reaction",twon));
          const node &r = rsconst.one("reaction",twon);
          CHECK(r(label) == "2n + O15 + photon");
          CHECK(r(ENDF_MT) == 16);
          // with key "": returns reference to *this; ignores filter
+         CHECK(rsconst.has_one("",twon));
          CHECK(&rsconst.one("",twon) == &rsconst);
       }
 
@@ -56,10 +60,12 @@ SCENARIO("Testing GNDStk Node one()") {
       WHEN("We test node.one(key,filter,found) const")
       {
          bool found = false;
+         CHECK(rsconst.has_one("reaction",twon));
          const node &r = rsconst.one("reaction",twon,found);
          CHECK(found);
          CHECK(r(label) == "2n + O15 + photon");
          CHECK(r(ENDF_MT) == 16);
+         CHECK(!rsconst.has_one("nonsense",twon));
          CHECK((rsconst.one("nonsense",twon,found), !found));
          // with key ""...
          found = false;

@@ -18,6 +18,7 @@ SCENARIO("Testing GNDStk Node many()") {
          const auto &CEs = tree(reactionSuite,PoPs,chemicalElements);
          {
             // without "found"
+            CHECK(CEs.has_many("chemicalElement"));
             auto ce = CEs.many("chemicalElement");
             THEN("We find eight of them") {
                CHECK(ce.size() == 8);
@@ -50,16 +51,19 @@ SCENARIO("Testing GNDStk Node many()") {
             { return nplus(n) && endf_mt_600(n); };
 
          THEN("There are 15 <reaction> nodes with label=\"n + *\"") {
+            CHECK(Rs.has_many("reaction",nplus));
             CHECK(Rs.many("reaction",nplus).size() == 15);
          }
 
          THEN("There is one <reaction> node with ENDF_MT=\"600\"") {
+            CHECK(Rs.has_many("reaction",endf_mt_600));
             CHECK(Rs.many("reaction",endf_mt_600).size() == 1);
          }
 
          THEN("There are no <reaction> nodes with both "
               "label=\"n + *\" and ENDF_MT=\"600\"") {
             bool found = true;
+            CHECK(!Rs.has_many("reaction",filter_both));
             CHECK(Rs.many("reaction",filter_both,found).size() == 0);
             CHECK(!found);
          }
@@ -71,6 +75,7 @@ SCENARIO("Testing GNDStk Node many()") {
 
          THEN("We get back a container with one node, identical to *this") {
             bool found = false;
+            CHECK(Rs.has_many(""));
             auto vec = Rs.many("",found); // ensure this version works
             CHECK(found == true);
             vec = Rs.many(""); // and this one
@@ -84,6 +89,7 @@ SCENARIO("Testing GNDStk Node many()") {
             // filter should be ignored when used with key==""
             auto filter = [](const node &n) { return false; };
             bool found = false;
+            CHECK(Rs.has_many("",filter));
             auto vec = Rs.many("",filter,found); // ensure this version works
             CHECK(found == true);
             vec = Rs.many("",filter); // and this one

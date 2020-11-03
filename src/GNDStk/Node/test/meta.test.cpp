@@ -11,6 +11,9 @@ SCENARIO("Testing GNDStk Node meta()") {
       Node<> &top = tree.top(); // top-level GNDS node
 
       THEN("We can use meta() to extract metadata") {
+         CHECK(consttop.has_meta("projectile"));
+         CHECK(top.has_meta("target"));
+         CHECK(consttop.has_meta("format"));
          CHECK(consttop.meta("projectile") == "n");
          CHECK(top.meta("target") == "Tm170");
          CHECK(consttop.meta("format") == "1.9");
@@ -21,16 +24,19 @@ SCENARIO("Testing GNDStk Node meta()") {
       WHEN("node.meta(\"key\") is called on a non-const node") {
          // get reference back; can set
          THEN("It returns a reference that can be assigned") {
+            CHECK(consttop.has_meta("format"));
             CHECK(consttop.meta("format") == "1.99");
          }
 
          auto format = keyword.meta<double>("format");
+         CHECK(top.has_meta(format));
          double f = top.meta(format);
          CHECK(f == 1.99);
 
          WHEN("node.meta(\"key\",found) is called for a key that isn't there") {
             // try something that doesn't work
             auto foobar = keyword.meta<double>("foobar");
+            CHECK(!top.has_meta(foobar)); // doesn't have
             bool found = true;
             f = top.meta(foobar,found); // foobar isn't there
             THEN("found is false") {

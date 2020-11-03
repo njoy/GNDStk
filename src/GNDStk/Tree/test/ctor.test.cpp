@@ -33,8 +33,8 @@ What we'll need to test...
 // C = children container class for the new tree
 template<
    class TREE,
-   template<class ...> class M = std::vector,
-   template<class ...> class C = std::vector
+   template<class...> class M = std::vector,
+   template<class...> class C = std::vector
 >
 bool ctor(
    const TREE &from, // arriving tree
@@ -66,8 +66,8 @@ bool ctor(
 // M = metadata container class
 // C = children container class
 template<
-   template<class ...> class M = std::vector,
-   template<class ...> class C = std::vector
+   template<class...> class M = std::vector,
+   template<class...> class C = std::vector
 >
 bool ctor()
 {

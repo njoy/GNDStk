@@ -115,6 +115,7 @@ SCENARIO("Testing GNDStk Node child()") {
          CHECK(temp.value == 0.0);
          CHECK(temp.unit  == "K");
 
+         CHECK(ctop.has_child(styles));
          auto &styles_const = ctop.child(styles);
          CHECK(styles_const.metadata.size() == 0);
          CHECK(styles_const.children.size() == 1);
@@ -252,6 +253,7 @@ SCENARIO("Testing GNDStk Node child()") {
          CHECK((n.child(reaction,found)(ENDF_MT) == 2 && found));
          // <reaction> was found, above, but <nonsense> shouldn't be...
          found = true;
+         CHECK(!n.has_child(nonsense));
          (void)&n.child(nonsense,found);
          CHECK(!found);
       }
