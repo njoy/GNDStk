@@ -60,6 +60,13 @@ inline std::set<std::string> AllowedTop = {
    // in our child_t class
 };
 
+// noFilter
+class noFilter {
+public:
+   template<class NODE>
+   bool operator()(const NODE &) const { return true; }
+};
+
 } // namespace detail
 
 

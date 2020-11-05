@@ -22,9 +22,9 @@
 // reset(kwd, format, ...)
 // -----------------------------------------------------------------------------
 
-template<class TYPE, allow ALLOW, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const format form = format::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -84,9 +84,9 @@ Tree &reset(
 // reset(kwd, string, ...)
 // -----------------------------------------------------------------------------
 
-template<class TYPE, allow ALLOW, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

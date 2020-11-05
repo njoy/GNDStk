@@ -10,9 +10,12 @@
 // code (e.g. a debugger). For now, we'll leave it at that.
 
 // (child_t, ...)
-template<class TYPE, allow ALLOW, class CONVERTER, class... KEYWORDS>
+template<
+   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class... KEYWORDS
+>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
@@ -27,9 +30,12 @@ decltype(auto) operator()(
 }
 
 // (child_t, string, ...)
-template<class TYPE, allow ALLOW, class CONVERTER, class... KEYWORDS>
+template<
+   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class... KEYWORDS
+>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    std::string &&label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
@@ -37,7 +43,7 @@ decltype(auto) operator()(
    try {
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(GNDStk::one(-kwd), detail::label_is(label), found)
+      return child(-kwd.one(), detail::label_is(label), found)
                   (std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
@@ -47,9 +53,12 @@ decltype(auto) operator()(
 
 // (child_t, char *, ...)
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
-template<class TYPE, allow ALLOW, class CONVERTER, class... KEYWORDS>
+template<
+   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class... KEYWORDS
+>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const char *const label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {

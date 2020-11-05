@@ -11,8 +11,7 @@
 template<class TYPE, class CONVERTER>
 inline auto operator-(const meta_t<TYPE,CONVERTER> &kwd)
 {
-   // Downgrade the type to void, and (necessarily) chuck the converter.
-   return meta_t<void>(kwd.name);
+   return kwd.basic();
 }
 
 
@@ -47,11 +46,12 @@ inline auto operator/(const T &, const meta_t<void> &kwd)
 // meta_t/string
 // meta_t/char*
 // Change name to the given one
+// Type remains the same
 // -----------------------------------------------------------------------------
 
 // meta_t/string
 template<class TYPE, class CONVERTER>
-inline meta_t<TYPE,CONVERTER> operator/(
+inline auto operator/(
    const meta_t<TYPE,CONVERTER> &kwd,
    const std::string &name
 ) {
@@ -63,11 +63,24 @@ inline meta_t<TYPE,CONVERTER> operator/(
 // Forwards to meta_t/string
 // Needed separately so that the generic meta_t/C case below isn't used
 template<class TYPE, class CONVERTER>
-inline meta_t<TYPE,CONVERTER> operator/(
+inline auto operator/(
    const meta_t<TYPE,CONVERTER> &kwd,
    const char *const name
 ) {
    return kwd/std::string(name);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// *
+// regex match-anything
+// -----------------------------------------------------------------------------
+
+template<class TYPE, class CONVERTER>
+inline auto operator*(const meta_t<TYPE,CONVERTER> &kwd)
+{
+   return kwd/".*";
 }
 
 
@@ -117,4 +130,22 @@ inline meta_t<
       "meta_t<void>/CONVERTER not allowed; the meta_t type must be non-void"
    );
    return kwd; // placeholder; the static_assert will always fail
+}
+
+
+
+// -----------------------------------------------------------------------------
+// post--
+// Downgrade converter to its default
+// -----------------------------------------------------------------------------
+
+// meta_t<TYPE>--
+// meta_t<void>--
+// Works for both
+template<class TYPE, class CONVERTER>
+inline auto operator--(
+   const meta_t<TYPE,CONVERTER> &kwd,
+   const int
+) {
+   return meta_t<TYPE,typename detail::default_converter<TYPE>::type>(kwd.name);
 }

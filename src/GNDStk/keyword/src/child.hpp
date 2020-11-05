@@ -3,6 +3,9 @@
 // keyword_t.child()
 // -----------------------------------------------------------------------------
 
+// fixme Allow these to accept filter
+
+
 // child[<[void[,ALLOW]]>](name[,top])
 template<
    class TYPE = void,

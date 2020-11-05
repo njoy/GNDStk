@@ -3,7 +3,10 @@
 // meta_t
 // -----------------------------------------------------------------------------
 
-// <TYPE,CONVERTER>
+// ------------------------
+// meta_t<TYPE,CONVERTER>
+// ------------------------
+
 template<
    class TYPE = void,
    class CONVERTER = typename detail::default_converter<TYPE>::type
@@ -18,9 +21,23 @@ public:
    explicit meta_t(const std::string &n, const CONVERTER &c = CONVERTER{}) :
       name(n), converter(c)
    { }
+
+   // basic()
+   // Produce a similar but voidified meta_t: with the TYPE template argument
+   // set to void. Used in a query, the new meta_t will produce a "basic"
+   // metadatum - one in its raw form in the GNDS tree, not converted to TYPE.
+   // The converter is necessarily discarded; meta_t<void,...> doesn't have it.
+   auto basic() const
+   {
+      return meta_t<void>(name);
+   }
 };
 
-// <void>
+
+// ------------------------
+// meta_t<void>
+// ------------------------
+
 template<class CONVERTER>
 class meta_t<void,CONVERTER> {
    static_assert(
@@ -36,6 +53,14 @@ public:
    explicit meta_t(const std::string &n) :
       name(n)
    { }
+
+   // basic()
+   // Produce a similar but voidified meta_t. In the present specialization,
+   // we're already void; this is here for consistency with the general case.
+   auto basic() const
+   {
+      return meta_t<void>(name);
+   }
 };
 
 

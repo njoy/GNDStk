@@ -100,7 +100,7 @@ const Node &one(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   return one(key, detail::noFilter, found);
+   return one(key, detail::noFilter{}, found);
 }
 
 // non-const
@@ -108,5 +108,5 @@ Node &one(
    const std::string &key,
    bool &found = detail::default_bool
 ) {
-   return one(key, detail::noFilter, found);
+   return one(key, detail::noFilter{}, found);
 }

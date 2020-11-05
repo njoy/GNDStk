@@ -183,10 +183,10 @@ SCENARIO("Testing GNDStk child_t operators") {
       child_t<void,allow::many           > d("d");
       WHEN("We apply one(child_t)") {
          // one() downgrades to find::one
-         CHECK(is_one(one(a)));
-         CHECK(is_one(one(b)));
-         CHECK(is_one(one(c)));
-         CHECK(is_one(one(d)));
+         CHECK(is_one(a.one()));
+         CHECK(is_one(b.one()));
+         CHECK(is_one(c.one()));
+         CHECK(is_one(d.one()));
       }
    }
 
@@ -201,10 +201,10 @@ SCENARIO("Testing GNDStk child_t operators") {
       child_t<void,allow::many           > d("d");
       WHEN("We apply many(child_t)") {
          // many() upgrades to find::many
-         CHECK(is_many(many(a)));
-         CHECK(is_many(many(b)));
-         CHECK(is_many(many(c)));
-         CHECK(is_many(many(d)));
+         CHECK(is_many(a.many()));
+         CHECK(is_many(b.many()));
+         CHECK(is_many(c.many()));
+         CHECK(is_many(d.many()));
       }
    }
 
@@ -216,14 +216,14 @@ SCENARIO("Testing GNDStk child_t operators") {
       child_t<void,allow::one > voidone("voidone");
       child_t<void,allow::many> voidmany("voidmany");
 
-      auto foo = one(1.2/voidmany/converterA{});
+      auto foo = (1.2/voidmany/converterA{}).one();
       CHECK(is_one(foo));
       CHECK(is_double(foo));
       CHECK(is_converterA(foo));
       CHECK(is_void(-foo));
       CHECK(is_one(-foo));
 
-      auto bar = many(100/voidone/converterB{});
+      auto bar = (100/voidone/converterB{}).many();
       CHECK(is_many(bar));
       CHECK(is_int(bar));
       CHECK(is_converterB(bar));

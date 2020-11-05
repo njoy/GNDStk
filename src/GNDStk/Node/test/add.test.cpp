@@ -38,8 +38,8 @@ void convert(const dim2d &d, Node<> &out)
    out.name = "unused";
    out.add("numberOfRows",d.rows);
    out.add("numberOfColumns",d.cols);
-   out.add("firstExampleChild");
-   out.add("secondExampleChild");
+   out.add("firstExampleSubNode");
+   out.add("secondExampleSubNode");
 }
 
 
@@ -93,10 +93,10 @@ SCENARIO("Testing GNDStk Node add()") {
 
       // children, empty / name / other node
       n.add(); // no name child
-      n.add("Child 2");
-      n.add(std::string("Child 3"));
-      Node<> n1; n1.name = "Child 4";
-      Node<std::deque,std::list> n2; n2.name = "Child 5";
+      n.add("SubNode 2");
+      n.add(std::string("SubNode 3"));
+      Node<> n1; n1.name = "SubNode 4";
+      Node<std::deque,std::list> n2; n2.name = "SubNode 5";
       n.add(n1);
       n.add(n2);
 
@@ -129,7 +129,7 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);
 
-      Node<std::deque,std::list> n3; n3.name = "Child 6";
+      Node<std::deque,std::list> n3; n3.name = "SubNode 6";
       n.add(foo,n3);
       n.add(foos,std::vector<double>{ 1.2, 3.4, 5.6, 7.8 });
 

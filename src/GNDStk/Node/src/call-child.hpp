@@ -1,8 +1,8 @@
 
 // (child_t)
-template<class TYPE, allow ALLOW, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
    try {
@@ -18,9 +18,9 @@ decltype(auto) operator()(
 }
 
 // (child_t, string)
-template<class TYPE, allow ALLOW, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    std::string &&label,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
@@ -28,7 +28,7 @@ decltype(auto) operator()(
       // As above, don't need or want:
       //    if (kwd.name == "")
       //       detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(GNDStk::one(kwd), detail::label_is(label), found);
+      return child(kwd.one(), detail::label_is(label), found);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
       throw;

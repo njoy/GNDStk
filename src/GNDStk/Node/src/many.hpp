@@ -61,5 +61,5 @@ CONTAINER<Node> many(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   return many<CONTAINER>(key, detail::noFilter, found);
+   return many<CONTAINER>(key, detail::noFilter{}, found);
 }

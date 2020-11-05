@@ -22,8 +22,8 @@ public:
 // -----------------------------------------------------------------------------
 // default_converter
 // Used for selecting the CONVERTER template argument of the meta_t and child_t
-// classes. Usually gives convert_t, but gives void (which in turn will not and
-// should not be used) for meta_t<void> and child_t<void>, for which the concept
+// classes. Usually gives convert_t, but gives void (which in turn won't, and
+// shouldn't, be used) for meta_t<void> and child_t<void>, for which the concept
 // of a converter is not applicable.
 // -----------------------------------------------------------------------------
 
