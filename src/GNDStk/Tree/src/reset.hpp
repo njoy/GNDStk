@@ -14,18 +14,18 @@
 // function is just intended to be a convenience.
 // -----------------------------------------------------------------------------
 
-// reset(top-level node, format[, version[, encoding]])
-// Example: Tree<> t(child::reactionSuite, format::xml);
+// reset(top-level node, file format[, version[, encoding]])
+// Example: Tree<> t(child::reactionSuite, file::xml);
 
 
 // -----------------------------------------------------------------------------
-// reset(kwd, format, ...)
+// reset(kwd, file format, ...)
 // -----------------------------------------------------------------------------
 
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const format form = format::xml,
+   const file form = file::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
@@ -44,24 +44,25 @@ Tree &reset(
 
    try {
       // Declaration node: "xml", etc.
-      // This can specify an eventual intended file type for the GNDS hierarchy.
-      if (form == format::xml || form == format::null || form == format::tree) {
+      // This can specify an eventual intended file format
+      // for the GNDS hierarchy.
+      if (form == file::xml || form == file::null || form == file::tree) {
          // xml, null, tree
          nodeType::add("xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
-      } else if (form == format::json) {
+      } else if (form == file::json) {
          // json
          nodeType::add("json");
          // any use for version and encoding?
-      } else if (form == format::hdf5) {
+      } else if (form == file::hdf5) {
          // hdf5
          nodeType::add("hdf5");
          // any use for version and encoding?
       } else {
          log::error(
             "Internal error in Tree.reset(child_t(\"{}\"),format,...):\n"
-            "Unrecognized format; apparently, we missed something. "
+            "Unrecognized file format; apparently, we missed something. "
             "Please report this to us",
             kwd.name
          );
@@ -92,17 +93,17 @@ Tree &reset(
    const std::string &encoding = detail::default_string
 ) {
    try {
-      // recognized formats
-      if (eq_null(form)) return reset(kwd, format::null, version, encoding);
-      if (eq_tree(form)) return reset(kwd, format::tree, version, encoding);
-      if (eq_xml (form)) return reset(kwd, format::xml,  version, encoding);
-      if (eq_json(form)) return reset(kwd, format::json, version, encoding);
-      if (eq_hdf5(form)) return reset(kwd, format::hdf5, version, encoding);
+      // recognized file formats
+      if (eq_null(form)) return reset(kwd, file::null, version, encoding);
+      if (eq_tree(form)) return reset(kwd, file::tree, version, encoding);
+      if (eq_xml (form)) return reset(kwd, file::xml,  version, encoding);
+      if (eq_json(form)) return reset(kwd, file::json, version, encoding);
+      if (eq_hdf5(form)) return reset(kwd, file::hdf5, version, encoding);
 
       // fallback: use XML
       // Note: we should consider making this an error
-      log::warning("Unrecognized format \"{}\"; defaulting to XML", form);
-      return reset(kwd, format::xml, version, encoding);
+      log::warning("Unrecognized file format \"{}\"; defaulting to XML", form);
+      return reset(kwd, file::xml, version, encoding);
 
    } catch (...) {
       log::member("Tree.reset(child_t(\"{}\"),\"{}\",...)", kwd.name, form);

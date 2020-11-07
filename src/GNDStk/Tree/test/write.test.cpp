@@ -6,7 +6,7 @@ using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
-// Strings: proper empty format::tree/xml/json
+// Strings: proper empty file::tree/xml/json
 // -----------------------------------------------------------------------------
 
 // tree
@@ -25,7 +25,7 @@ R"***(null)***";
 
 
 // -----------------------------------------------------------------------------
-// Strings: gold-standard format::tree/xml/json write()s for a particular
+// Strings: gold-standard file::tree/xml/json write()s for a particular
 // file we'll read in.
 // -----------------------------------------------------------------------------
 
@@ -218,12 +218,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // testing system is supposed to work when our intention is to actually
       // write *files*.
 
-      // format::tree
-      WHEN("We write() the empty tree using format::tree") {
+      // file::tree
+      WHEN("We write() the empty tree using file::tree") {
          // write()
-         THEN ("We get an empty string (case: format::tree)") {
+         THEN ("We get an empty string (case: file::tree)") {
             std::ostringstream oss;
-            tree.write(oss, format::tree);
+            tree.write(oss, file::tree);
             CHECK(oss.str() == string_empty_tree);
          }
          THEN ("We get an empty string (case: \"tree\")") {
@@ -233,11 +233,11 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          }
       }
 
-      WHEN("We write() the empty tree using format::null") {
-         // write(), using format::null (which defaults to tree)
-         THEN ("We get an empty string (case: format::null)") {
+      WHEN("We write() the empty tree using file::null") {
+         // write(), using file::null (which defaults to tree)
+         THEN ("We get an empty string (case: file::null)") {
             std::ostringstream oss;
-            tree.write(oss, format::null);
+            tree.write(oss, file::null);
             CHECK(oss.str() == string_empty_tree);
          }
          THEN ("We get an empty string (case: \"null\")") {
@@ -261,11 +261,11 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          }
       }
 
-      // format::xml
-      WHEN("We write() the empty tree using format::xml") {
-         THEN ("We get XML boilerplate only (case: format::xml)") {
+      // file::xml
+      WHEN("We write() the empty tree using file::xml") {
+         THEN ("We get XML boilerplate only (case: file::xml)") {
             std::ostringstream oss;
-            tree.write(oss, format::xml);
+            tree.write(oss, file::xml);
             CHECK(oss.str() == string_empty_xml);
          }
          THEN ("We get XML boilerplate only (case: \"xml\"))") {
@@ -275,11 +275,11 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          }
       }
 
-      // format::json
-      WHEN("We write() the empty tree using format::json") {
-         THEN ("We get JSON \"(null)\" only (case: format::json)") {
+      // file::json
+      WHEN("We write() the empty tree using file::json") {
+         THEN ("We get JSON \"(null)\" only (case: file::json)") {
             std::ostringstream oss;
-            tree.write(oss, format::json);
+            tree.write(oss, file::json);
             CHECK(oss.str() == string_empty_json);
          }
          THEN ("We get JSON \"(null)\" only (case: \"json\")") {
@@ -299,17 +299,17 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       tree.read("n-069_Tm_170-covar.xml");
       CHECK(!tree.empty());
 
-      // format::tree
-      WHEN("We write() the tree using format::tree") {
+      // file::tree
+      WHEN("We write() the tree using file::tree") {
          // write()
          THEN ("We get the correct tree-format content") {
             std::ostringstream oss;
             tree.write(oss);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: format::tree)") {
+         THEN ("We get the correct tree-format content (case: file::tree)") {
             std::ostringstream oss;
-            tree.write(oss, format::tree);
+            tree.write(oss, file::tree);
             CHECK(oss.str() == string_real_tree);
          }
          THEN ("We get the correct tree-format content (case: \"tree\")") {
@@ -319,16 +319,16 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          }
       }
 
-      WHEN("We write() the tree using format::null") {
-         // write(), using format::null (which defaults to tree)
+      WHEN("We write() the tree using file::null") {
+         // write(), using file::null (which defaults to tree)
          THEN ("We get the correct tree-format content") {
             std::ostringstream oss;
             tree.write(oss);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: format::null)") {
+         THEN ("We get the correct tree-format content (case: file::null)") {
             std::ostringstream oss;
-            tree.write(oss, format::null);
+            tree.write(oss, file::null);
             CHECK(oss.str() == string_real_tree);
          }
          THEN ("We get the correct tree-format content (case: \"null\")") {
@@ -352,11 +352,11 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          }
       }
 
-      // format::xml
-      WHEN("We write() the tree using format::xml") {
-         THEN ("We get the correct XML content (case: format::xml)") {
+      // file::xml
+      WHEN("We write() the tree using file::xml") {
+         THEN ("We get the correct XML content (case: file::xml)") {
             std::ostringstream oss;
-            tree.write(oss, format::xml);
+            tree.write(oss, file::xml);
             CHECK(oss.str() == string_real_xml);
          }
          THEN ("We get the correct XML content (case: \"xml\")") {
@@ -366,11 +366,11 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
          }
       }
 
-      // format::json
-      WHEN("We write() the tree using format::json") {
-         THEN ("We get the correct JSON content (case: format::json)") {
+      // file::json
+      WHEN("We write() the tree using file::json") {
+         THEN ("We get the correct JSON content (case: file::json)") {
             std::ostringstream oss;
-            tree.write(oss, format::json);
+            tree.write(oss, file::json);
             CHECK(oss.str() == string_real_json);
          }
          THEN ("We get the correct JSON content (case: \"json\")") {

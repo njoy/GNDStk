@@ -49,7 +49,7 @@ inline void convert(const NODE &node, reactionSuite_t &out)
    out.projectile = node.meta(projectile);
    out.target     = node.meta(target);
    out.evaluation = node.meta(evaluation);
-   out.format     = node.meta(misc::meta::format);
+   out.format     = node.meta(format);
    out.frame      = node.meta(projectileFrame);
 }
 
@@ -137,7 +137,7 @@ SCENARIO("Testing GNDStk tree operator()") {
          CHECK( tree( reactionSuite, projectile) == "n");
          CHECK( tree( reactionSuite, target) == "O16");
          CHECK( tree( reactionSuite, evaluation) == "ENDF/B-8.0");
-         CHECK( tree( reactionSuite, misc::meta::format) ==  1.9);
+         CHECK( tree( reactionSuite, format) ==  1.9);
          CHECK( tree( reactionSuite, projectileFrame) == "lab");
 
          // found

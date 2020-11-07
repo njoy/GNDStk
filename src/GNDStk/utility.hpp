@@ -11,8 +11,8 @@ inline int indent = 3;
 // Should Tree.write() also print the tree's declaration node if it exists?
 inline bool decl = false;
 
-// format
-enum class format {
+// file format
+enum class file {
    null, // default, automagick, etc.
    tree, // our own simple text format
    // give users easy-to-type lowercase as well as acronym-style uppercase...
@@ -313,7 +313,7 @@ inline bool nocasecmp(const std::string &one, const std::string &two)
 // Re: file extensions
 // -----------------------------------------------------------------------------
 
-// has filename extension?
+// string (presumably a file name) has an extension?
 inline bool has_extension(const std::string &str)
 {
    return str.find('.') != std::string::npos;
@@ -352,13 +352,12 @@ inline bool endsin_hdf5(const std::string &str)
 
 
 // -----------------------------------------------------------------------------
-// Re: file type indicators
+// Re: file format indicators
 // These are used in places where we're allowing a user to give a string,
-// e.g. "xml", in place of a format specifier ala enum class format.
+// e.g. "xml", in place of a file format specifier ala enum class file.
 // -----------------------------------------------------------------------------
 
 // null
-// Goofy, perhaps, but we'd like to be consistent with enum class format
 inline bool eq_null(const std::string &str)
 {
    return
@@ -454,14 +453,14 @@ class isNotVoid<void> {
 
 namespace detail {
 
-inline std::string print_format(const format f, const bool brief = false)
+inline std::string print_format(const file f, const bool brief = false)
 {
-   return std::string(brief ? "" : "format::") + (
-      f == format::null ? "null"
-    : f == format::tree ? "tree"
-    : f == format::xml  ? "XML"
-    : f == format::json ? "JSON"
-    : f == format::hdf5 ? "HDF5"
+   return std::string(brief ? "" : "file::") + (
+      f == file::null ? "null"
+    : f == file::tree ? "tree"
+    : f == file::xml  ? "XML"
+    : f == file::json ? "JSON"
+    : f == file::hdf5 ? "HDF5"
     : "unknown"
    );
 }

@@ -159,19 +159,16 @@ SCENARIO("Testing GNDStk keyword") {
    // ------------------------
 
    WHEN("We access a tree using some built-in child_t and meta_t objects") {
-      // child::xml disambiguates vs. class xml
-      // meta::format disambiguates vs. enum class format
-
-      CHECK(tree(misc::child::xml).metadata.size() == 2);
-      CHECK(tree(misc::child::xml).children.size() == 0);
-      CHECK(tree(misc::child::xml,version) == "1.0");
-      CHECK(tree(misc::child::xml,encoding) == "UTF-8");
+      CHECK(tree(xml).metadata.size() == 2);
+      CHECK(tree(xml).children.size() == 0);
+      CHECK(tree(xml,version) == "1.0");
+      CHECK(tree(xml,encoding) == "UTF-8");
       CHECK(tree(covarianceSuite).metadata.size() == 4);
       CHECK(tree(covarianceSuite).children.size() == 3);
       CHECK(tree(covarianceSuite,projectile) == "n");
       CHECK(tree(covarianceSuite,target) == "Tm170");
       CHECK(tree(covarianceSuite,evaluation) == "ENDF/B-8.0");
-      CHECK(tree(covarianceSuite,misc::meta::format) == 1.9);
+      CHECK(tree(covarianceSuite,format) == 1.9);
       CHECK(tree(covarianceSuite,styles).metadata.size() == 0);
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
       CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
@@ -195,7 +192,7 @@ SCENARIO("Testing GNDStk keyword") {
    // In the following, a name of "" means to stay at the current node
    auto mymanifest = keyword.child<manifest_t,allow::one>("");
 
-   auto vers = tree(misc::child::xml,myversion);
+   auto vers = tree(xml,myversion);
 
 
    // ------------------------

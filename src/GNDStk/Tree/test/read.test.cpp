@@ -134,7 +134,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
    GIVEN("Several trees, read differently, but ultimately from the same file") {
       // While the present test file is about tree's read(), not about its
       // write(), let's nevertheless do a simple write(), to tree's basic
-      // text-output format, from each of the trees read in different ways
+      // text-output file format, from each of the trees read in different ways
       // above, and be sure there are absolutely no differences between them.
       // In effect, this helps test the read(), because it gives confidence
       // that our various ways of reading the same files give the same results.
@@ -157,16 +157,16 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       std::ifstream xifs("n-069_Tm_170-covar.xml");
       std::ifstream jifs("n-069_Tm_170-covar.json");
 
-      WHEN("We test read(filename,format") {
+      WHEN("We test read(filename, file format") {
          // xml
-         tree.read(xfilename,format::null); CHECK(compare(tree));
-         tree.read(xfilename,format::xml ); CHECK(compare(tree));
+         tree.read(xfilename,file::null); CHECK(compare(tree));
+         tree.read(xfilename,file::xml ); CHECK(compare(tree));
          // json
-         tree.read(jfilename,format::null); CHECK(compare(tree));
-         tree.read(jfilename,format::json); CHECK(compare(tree));
+         tree.read(jfilename,file::null); CHECK(compare(tree));
+         tree.read(jfilename,file::json); CHECK(compare(tree));
       }
 
-      WHEN("We test read(filename,string") {
+      WHEN("We test read(filename, string") {
          // xml
          tree.read(xfilename,""    ); CHECK(compare(tree));
          tree.read(xfilename,"null"); CHECK(compare(tree));
@@ -177,20 +177,20 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          tree.read(jfilename,"json"); CHECK(compare(tree));
       }
 
-      WHEN("We test read(istream,format") {
+      WHEN("We test read(istream, file format") {
          // xml
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,format::null); CHECK(compare(tree));
+         tree.read(xifs,file::null); CHECK(compare(tree));
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,format::xml ); CHECK(compare(tree));
+         tree.read(xifs,file::xml ); CHECK(compare(tree));
          // json
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,format::null); CHECK(compare(tree));
+         tree.read(jifs,file::null); CHECK(compare(tree));
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,format::json); CHECK(compare(tree));
+         tree.read(jifs,file::json); CHECK(compare(tree));
       }
 
-      WHEN("We test read(istream,string") {
+      WHEN("We test read(istream, string") {
          // xml
          xifs.seekg (0,std::ios::beg);
          tree.read(xifs,""    ); CHECK(compare(tree));

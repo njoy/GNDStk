@@ -86,10 +86,10 @@ inline void convert(const NODE &node, covarianceSuite_type_2 &out)
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
    // and format keyword - which return, respectively, string, string, string,
    // and double. I.e. just what we need in our own custom type.
-   out.projectile = node.meta(misc::meta::projectile);
-   out.target     = node.meta(misc::meta::target);
-   out.evaluation = node.meta(misc::meta::evaluation);
-   out.format     = node.meta(misc::meta::format);
+   out.projectile = node.meta(meta::projectile);
+   out.target     = node.meta(meta::target);
+   out.evaluation = node.meta(meta::evaluation);
+   out.format     = node.meta(meta::format);
 }
 
 // keyword: my_covarianceSuite_keyword
@@ -139,10 +139,10 @@ SCENARIO("Testing GNDStk tree child()") {
          // a raw Node, even though in principle it could give us back
          // a custom type.
          found = false;
-         const Node<> &cnode = c.child(misc::child::xml,found);
+         const Node<> &cnode = c.child(child::xml,found);
          CHECK(found == true);
          found = false;
-         Node<> &tnode = t.child(misc::child::xml,found);
+         Node<> &tnode = t.child(child::xml,found);
          CHECK(found == true);
       }
 
