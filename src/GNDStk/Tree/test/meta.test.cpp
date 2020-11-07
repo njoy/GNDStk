@@ -1,8 +1,9 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+
 using namespace njoy::GNDStk;
-using namespace misc::meta;
+using namespace misc;
 
 SCENARIO("Testing GNDStk Tree meta()") {
 

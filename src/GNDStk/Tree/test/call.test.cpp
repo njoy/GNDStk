@@ -3,9 +3,7 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace misc::meta;
-using namespace misc::child;
-
+using namespace misc;
 
 
 // -----------------------------------------------------------------------------
@@ -56,7 +54,6 @@ inline void convert(const NODE &node, reactionSuite_t &out)
 }
 
 inline const child_t<reactionSuite_t> rsuite("reactionSuite");
-
 
 
 // -----------------------------------------------------------------------------

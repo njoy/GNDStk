@@ -9,4 +9,7 @@ namespace basic {
 #include "GNDStk/basic/src/meta.hpp"
 #include "GNDStk/basic/src/child.hpp"
 
+using namespace meta;
+using namespace child;
+
 }

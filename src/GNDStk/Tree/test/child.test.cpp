@@ -3,8 +3,7 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace misc::meta;
-using namespace misc::child;
+using namespace misc;
 
 
 

@@ -4,8 +4,7 @@
 #include <cstring>
 
 using namespace njoy::GNDStk;
-using namespace misc::child;
-using namespace misc::meta;
+using namespace misc;
 
 SCENARIO("Testing GNDStk Node many()") {
 

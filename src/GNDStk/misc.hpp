@@ -15,4 +15,7 @@ namespace misc {
 #include "GNDStk/misc/src/meta.hpp"
 #include "GNDStk/misc/src/child.hpp"
 
+using namespace meta;
+using namespace child;
+
 } // namespace misc

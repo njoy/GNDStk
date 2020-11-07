@@ -149,8 +149,7 @@ R"***(node: "parameterCovariance"
 
 SCENARIO("Testing GNDStk keyword") {
 
-   using namespace misc::meta;
-   using namespace misc::child;
+   using namespace misc;
 
    // tree
    const njoy::GNDStk::tree tree("n-069_Tm_170-covar.xml");
