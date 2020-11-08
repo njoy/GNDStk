@@ -834,7 +834,7 @@ SCENARIO("Testing GNDStk Node operator()") {
          basic::child::XYs1d, "eval"
       );
 
-      using misc::child::values;
+      using misc::values;
       std::ostringstream oss;
 
       // I'll only print every [stride] vector elements from the vectors

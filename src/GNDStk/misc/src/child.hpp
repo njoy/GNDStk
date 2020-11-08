@@ -323,23 +323,14 @@ inline const child_t<void,allow::one>
 
 
 // -----------------------------------------------------------------------------
-// values
+// convert_pcdata_text
 // -----------------------------------------------------------------------------
 
-// convert_pcdata_text
 // This object, via its type, provides conversions between certain C++ container
 // types, and nodes such as <values> that contain plain character data (pcdata)
 // content. We provide it for user convenience if someone wishes to extract data
 // from <values> nodes using their own constructs (which could make use of this
 // object) rather than the values object we provide below.
 inline const detail::convert_pcdata_text_t convert_pcdata_text;
-
-// values
-template<class T = double>
-inline const child_t<
-   typename detail::values_type<T>::type,
-   allow::one,
-   typename detail::values_type<T>::converter
-> values("values");
 
 } // namespace child

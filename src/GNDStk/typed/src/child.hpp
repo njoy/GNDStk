@@ -907,13 +907,6 @@ class unspecified {
 public:
 };
 
-/*
-// May or may not want this
-class values {
-public:
-};
-*/
-
 class weighted {
 public:
 };
@@ -1407,15 +1400,6 @@ inline const child_t<elemtype::unresolvedRegion,allow::one>
    unresolvedRegion                ("unresolvedRegion"                );
 inline const child_t<elemtype::unspecified,allow::one>
    unspecified                     ("unspecified"                     );
-/*
-fixme We'll want to think about how best to do this. I see two fundamentally
-different kinds of <values> nodes in the GNDS library. Most have just "plain
-character data", but others have metadata too. These two flavors or <values>
-nodes should have different underlying C++ classes to represent them.
-
-inline const child_t<elemtype::values,allow::many>
-   values                          ("values"                          );
-*/
 inline const child_t<elemtype::weighted,allow::many>
    weighted                        ("weighted"                        );
 inline const child_t<elemtype::weightedFunctionals,allow::one>

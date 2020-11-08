@@ -8,8 +8,6 @@
 // use various custom types - as GNDStk continues to develop.
 // -----------------------------------------------------------------------------
 
-#include "GNDStk/misc/src/detail.hpp"
-
 namespace misc {
 
 #include "GNDStk/misc/src/meta.hpp"
@@ -17,5 +15,6 @@ namespace misc {
 
 using namespace meta;
 using namespace child;
+using namespace common;
 
 } // namespace misc

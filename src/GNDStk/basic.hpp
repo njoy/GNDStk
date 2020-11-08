@@ -11,5 +11,6 @@ namespace basic {
 
 using namespace meta;
 using namespace child;
+using namespace common;
 
-}
+} // namespace basic
