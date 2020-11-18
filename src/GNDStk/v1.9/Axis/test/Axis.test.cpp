@@ -13,6 +13,7 @@ node chunk();
 void verifyChunk( const Axis& );
 node chunkWithOptionalUnit();
 void verifyChunkWithOptionalUnit( const Axis& );
+node invalidChunk();
 
 SCENARIO( "Axis" ) {
 
@@ -104,6 +105,17 @@ SCENARIO( "Axis" ) {
       } // THEN
     } // WHEN
   } // GIVEN
+
+  GIVEN( "invalid data for an Axis" ) {
+
+    WHEN( "when the wrong node is used" ) {
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( Axis( invalidChunk() ) );
+      } // THEN
+    } // WHEN
+  } // GIVEN
 } // SCENARIO
 
 node chunk() {
@@ -138,4 +150,10 @@ void verifyChunkWithOptionalUnit( const Axis& chunk ) {
   CHECK( 1 == chunk.index() );
   CHECK( "energy_in" == chunk.label() );
   CHECK( std::nullopt == chunk.unit() );
+}
+
+node invalidChunk() {
+
+  // wrong name for the node
+  return node( "wrongName" );
 }

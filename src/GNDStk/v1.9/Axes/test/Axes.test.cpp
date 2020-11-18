@@ -12,6 +12,7 @@ using Axes = v1_9::Axes;
 
 node chunk();
 void verifyChunk( const Axes& );
+node invalidChunk();
 
 SCENARIO( "Axes" ) {
 
@@ -55,6 +56,17 @@ SCENARIO( "Axes" ) {
 
         //! @todo there is currently no operator==() available to compare nodes
         // CHECK( chunk() == chunk.node() );
+      } // THEN
+    } // WHEN
+  } // GIVEN
+
+  GIVEN( "invalid data for an Axes" ) {
+
+    WHEN( "when the wrong node is used" ) {
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( Axes( invalidChunk() ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -104,4 +116,10 @@ void verifyChunk( const Axes& chunk ) {
   CHECK( "energy_in" == chunk.axis(1).label() );
   CHECK( std::nullopt != chunk.axis(1).unit() );
   CHECK( "eV" == chunk.axis(1).unit().value() );
+}
+
+node invalidChunk() {
+
+  // wrong name for the node
+  return node( "wrongName" );
 }

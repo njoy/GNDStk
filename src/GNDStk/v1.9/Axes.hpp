@@ -106,6 +106,9 @@ namespace v1_9 {
     /**
      *  @brief Retrieve the axes
      *
+     *  The order of the axis in the vector will correspond to the order of the
+     *  index attribute on the Axis instances.
+     *
      *  @return The axis in the component
      */
     const std::vector< Axis >& axes() const { return this->axes_; }
@@ -121,6 +124,9 @@ namespace v1_9 {
      *  @brief Return the axis with the given index
      *
      *  @param[in] index    the index of the axis to be retrieved
+     *
+     *  The order of the Axis in the Axes component corresponds to the order
+     *  of the index attribute on the Axis instances.
      *
      *  An std::out_of_range exception will be thrown when the index is out of
      *  range.
