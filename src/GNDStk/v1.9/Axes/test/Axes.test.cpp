@@ -10,14 +10,12 @@ using namespace njoy::GNDStk;
 using Axis = v1_9::Axis;
 using Axes = v1_9::Axes;
 
-std::string chunk();
+node chunk();
 void verifyChunk( const Axes& );
 
 SCENARIO( "Axes" ) {
 
   GIVEN( "valid data for a Axes" ) {
-
-    std::string string = chunk();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -35,18 +33,14 @@ SCENARIO( "Axes" ) {
 
         node core = chunk.node();
 
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
+        //! @todo there is currently no operator==() available to compare nodes
+        // CHECK( chunk() == chunk.node() );
       } // THEN
     } // WHEN
 
     WHEN( "the data is taken from a node" ) {
 
-      std::istringstream input( string );
-      Tree<> tree( input, "xml" );
-      auto core = tree.top()( basic::axes );
+      node core = chunk();
 
       Axes chunk( core );
 
@@ -59,44 +53,31 @@ SCENARIO( "Axes" ) {
 
         node core = chunk.node();
 
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the core interface is used to convert" ) {
-
-      std::istringstream input( string );
-      Tree<> tree( input, "xml" );
-
-      Axes chunk = tree.top()( Axes{} / basic::axes );
-
-      THEN( "an Axes can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
+        //! @todo there is currently no operator==() available to compare nodes
+        // CHECK( chunk() == chunk.node() );
       } // THEN
     } // WHEN
   } // GIVEN
 } // SCENARIO
 
-std::string chunk() {
+node chunk() {
 
-  return R"***(<reactionSuite>
-                 <axes>
-                   <axis index="1" label="energy_in" unit="eV"/>
-                   <axis index="0" label="radius" unit="fm"/></axes></reactionSuite>)***";
+  node chunk( "axes" );
+
+  node axis1( "axis" );
+  axis1.add( "index", "1" );
+  axis1.add( "label", "energy_in" );
+  axis1.add( "unit", "eV" );
+
+  node axis2( "axis" );
+  axis2.add( "index", "0" );
+  axis2.add( "label", "radius" );
+  axis2.add( "unit", "fm" );
+
+  chunk.add( "axis" ) = axis1;
+  chunk.add( "axis" ) = axis2;
+
+  return chunk;
 }
 
 void verifyChunk( const Axes& chunk ) {

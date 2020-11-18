@@ -9,16 +9,14 @@
 using namespace njoy::GNDStk;
 using Axis = v1_9::Axis;
 
-std::string chunk();
+node chunk();
 void verifyChunk( const Axis& );
-std::string chunkWithOptionalUnit();
+node chunkWithOptionalUnit();
 void verifyChunkWithOptionalUnit( const Axis& );
 
 SCENARIO( "Axis" ) {
 
   GIVEN( "valid data for a Axis" ) {
-
-    std::string string = chunk();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -37,18 +35,14 @@ SCENARIO( "Axis" ) {
 
         node core = chunk.node();
 
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
+        //! @todo there is currently no operator==() available to compare nodes
+        // CHECK( chunk() == chunk.node() );
       } // THEN
     } // WHEN
 
     WHEN( "the data is taken from a node" ) {
 
-      std::istringstream input( string );
-      Tree<> tree( input, "xml" );
-      auto core = tree.top()( --basic::axis );
+      node core = chunk();
 
       Axis chunk( core );
 
@@ -61,40 +55,13 @@ SCENARIO( "Axis" ) {
 
         node core = chunk.node();
 
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the core interface is used to convert" ) {
-
-      std::istringstream input( string );
-      Tree<> tree( input, "xml" );
-
-      Axis chunk = tree.top()( Axis{} / --basic::axis );
-
-      THEN( "an Axis can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
+        //! @todo there is currently no operator==() available to compare nodes
+        // CHECK( chunk() == chunk.node() );
       } // THEN
     } // WHEN
   } // GIVEN
 
   GIVEN( "valid data for a Axis without a unit" ) {
-
-    std::string string = chunkWithOptionalUnit();
 
     WHEN( "the data is given explicitly" ) {
 
@@ -112,18 +79,14 @@ SCENARIO( "Axis" ) {
 
         node core = chunk.node();
 
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
+        //! @todo there is currently no operator==() available to compare nodes
+        // CHECK( chunkWithOptionalUnit() == chunk.node() );
       } // THEN
     } // WHEN
 
     WHEN( "the data is taken from a node" ) {
 
-      std::istringstream input( string );
-      Tree<> tree( input, "xml" );
-      auto core = tree.top()( --basic::axis );
+      node core = chunkWithOptionalUnit();
 
       Axis chunk( core );
 
@@ -136,42 +99,21 @@ SCENARIO( "Axis" ) {
 
         node core = chunk.node();
 
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the core interface is used to convert" ) {
-
-      std::istringstream input( string );
-      Tree<> tree( input, "xml" );
-
-      Axis chunk = tree.top()( Axis{} / --basic::axis );
-
-      THEN( "an Axis can be constructed and members can be tested" ) {
-
-        verifyChunkWithOptionalUnit( chunk );
-      } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        // std::ostringstream out;
-        // core.write( out );
-
-        // CHECK( out.str() == string );
+        //! @todo there is currently no operator==() available to compare nodes
+        // CHECK( chunkWithOptionalUnit() == chunk.node() );
       } // THEN
     } // WHEN
   } // GIVEN
 } // SCENARIO
 
-std::string chunk() {
+node chunk() {
 
-  return R"***(<reactionSuite>
-                 <axis index="1" label="energy_in" unit="eV"/></reactionSuite>)***";
+  node chunk( "axis" );
+  chunk.add( "index", "1" );
+  chunk.add( "label", "energy_in" );
+  chunk.add( "unit", "eV" );
+
+  return chunk;
 }
 
 void verifyChunk( const Axis& chunk ) {
@@ -182,10 +124,13 @@ void verifyChunk( const Axis& chunk ) {
   CHECK( "eV" == chunk.unit().value() );
 }
 
-std::string chunkWithOptionalUnit() {
+node chunkWithOptionalUnit() {
 
-  return R"***(<reactionSuite>
-                 <axis index="1" label="energy_in"/></reactionSuite>)***";
+  node chunk( "axis" );
+  chunk.add( "index", "1" );
+  chunk.add( "label", "energy_in" );
+
+  return chunk;
 }
 
 void verifyChunkWithOptionalUnit( const Axis& chunk ) {
