@@ -24,3 +24,6 @@ add_subdirectory( src/GNDStk/keyword/test )
 add_subdirectory( src/GNDStk/child_t/test )
 add_subdirectory( src/GNDStk/convert/test )
 add_subdirectory( src/GNDStk/utility/test )
+
+add_subdirectory( src/GNDStk/v1.9/Axis/test )
+add_subdirectory( src/GNDStk/v1.9/Axes/test )
