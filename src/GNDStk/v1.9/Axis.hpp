@@ -2,6 +2,7 @@
 #define NJOY_GNDSTK_V1_9_AXIS
 
 // system includes
+#include <optional>
 
 // other includes
 #include "GNDStk.hpp"
@@ -56,16 +57,40 @@ namespace v1_9 {
     Axis( const NodeType& core ) : Axis( Component::fromNode( core ) ) {}
 
     /**
-     *  @brief Constructor to initialise the component using its data
+     *  @brief Full constructor with move semantics
+     *
+     *  @param[in] label    the axis label
+     *  @param[in] index    the axis index
+     *  @param[in] unit     the optional unit
+     */
+    Axis( unsigned int index, std::string&& label,
+          std::optional< std::string >&& unit ) :
+      index_( index ), label_( std::move( label ) ),
+      unit_( std::move( unit ) ) {}
+
+    /**
+     *  @brief Full constructor with copy semantics
+     *
+     *  @param[in] label    the axis label
+     *  @param[in] index    the axis index
+     *  @param[in] unit     the optional unit
+     */
+    Axis( unsigned int index, const std::string& label,
+          const std::optional< std::string >& unit ) :
+      Axis( index, std::string( label ),
+            std::optional< std::string >( unit ) ) {}
+
+    /**
+     *  @brief Convenience constructor
      *
      *  @param[in] label    the axis label
      *  @param[in] index    the axis index
      */
     Axis( unsigned int index, const std::string& label ) :
-      index_( index ), label_( label ) {}
+      Axis( index, std::string( label ), std::nullopt ) {}
 
     /**
-     *  @brief Constructor to initialise the component using its data
+     *  @brief Convenience constructor
      *
      *  @param[in] label    the axis label
      *  @param[in] index    the axis index
@@ -73,7 +98,7 @@ namespace v1_9 {
      */
     Axis( unsigned int index, const std::string& label,
           const std::string& unit ) :
-      index_( index ), label_( label ), unit_( std::make_optional( unit ) ) {}
+      Axis( index, std::string( label ), std::make_optional( unit ) ) {}
 
     /* methods */
 
@@ -97,8 +122,6 @@ namespace v1_9 {
      *  @return The unit of the axis
      */
     const std::optional< std::string >& unit() const { return this->unit_; }
-
-    using Component::node;
   };
 
 } // v1_9 namespace
@@ -127,12 +150,11 @@ void convert( const node& core, v1_9::Axis& component ) {
   }
 
   // create the component
-  component = core.has( GNDStk::basic::unit )
-                ? v1_9::Axis( core( unsigned{} / GNDStk::basic::index ),
-                              core( GNDStk::basic::label ),
-                              core( GNDStk::basic::unit ) )
-                : v1_9::Axis( core( unsigned{} / GNDStk::basic::index ),
-                              core( GNDStk::basic::label ) );
+  component = v1_9::Axis( core( unsigned{} / GNDStk::basic::index ),
+                          core( std::string{} / GNDStk::basic::label ),
+                          core.has( GNDStk::basic::unit )
+                            ? std::make_optional( core( GNDStk::basic::unit ) )
+                            : std::nullopt );
 }
 
 /**

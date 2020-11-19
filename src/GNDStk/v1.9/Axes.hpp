@@ -2,7 +2,6 @@
 #define NJOY_GNDSTK_V1_9_AXES
 
 // system includes
-#include <memory>
 
 // other includes
 #include "GNDStk.hpp"
@@ -58,25 +57,10 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Axes( NodeType core ) : Axes( Component::fromNode( core ) ) {}
+    Axes( const NodeType& core ) : Axes( Component::fromNode( core ) ) {}
 
     /**
-     *  @brief Constructor to initialise the component using its data (copy
-     *         semantics)
-     *
-     *  The axis in the vector need not be given in order, they will be sorted
-     *  by index as required.
-     *
-     *  @param[in] axes    the axes
-     */
-    Axes( const std::vector< Axis >& axes ) : axes_( axes ) {
-
-      this->sort();
-    }
-
-    /**
-     *  @brief Constructor to initialise the component using its data (move
-     *         semantics)
+     *  @brief Full constructor with move semantics
      *
      *  The axis in the vector need not be given in order, they will be sorted
      *  by index as required.
@@ -87,6 +71,17 @@ namespace v1_9 {
 
       this->sort();
     }
+
+    /**
+     *  @brief Full constructor with copy semantics
+     *
+     *  The axis in the vector need not be given in order, they will be sorted
+     *  by index as required.
+     *
+     *  @param[in] axes    the axes
+     */
+    Axes( const std::vector< Axis >& axes ) :
+      Axes( std::vector< Axis >( axes ) ) {}
 
     /* methods */
 
@@ -124,8 +119,6 @@ namespace v1_9 {
 
       return this->axes().at( index );
     }
-
-    using Component::node;
   };
 
 } // v1_9 namespace
@@ -140,6 +133,7 @@ void convert( const node& core, v1_9::Axes& component ) {
 
   // verify the node name
   if ( core.name != "axes" ) {
+
     log::error( "Expected an \"axes\" node, found \"{}\" instead", core.name );
     throw std::exception();
   }
