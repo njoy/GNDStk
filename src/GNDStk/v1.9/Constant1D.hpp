@@ -20,6 +20,17 @@ namespace v1_9 {
    */
   class Constant1D {
 
+    /* keys */
+    struct keys {
+
+      static inline const auto label = std::string{} / GNDStk::basic::label;
+      static inline const auto constant = double{} / GNDStk::basic::constant;
+      static inline const auto domainMin = double{} / GNDStk::basic::domainMin;
+      static inline const auto domainMax = double{} / GNDStk::basic::domainMax;
+      static inline const auto outerDomainValue = double{} / GNDStk::basic::outerDomainValue;
+      static inline const auto axes = Axes{} / GNDStk::basic::axes;
+    };
+
     /* type aliases */
     using NodeType = GNDStk::node;
 
@@ -44,9 +55,9 @@ namespace v1_9 {
       }
 
       // verify required attributes and children
-      if ( !core.has( gnds::label ) || !core.has( gnds::constant ) ||
-           !core.has( gnds::domainMin ) || !core.has( gnds::domainMax ) ||
-           !core.has( gnds::axes ) ) {
+      if ( !core.has( keys::label ) || !core.has( keys::constant ) ||
+           !core.has( keys::domainMin ) || !core.has( keys::domainMax ) ||
+           !core.has( keys::axes ) ) {
 
         log::error( "Some or all of the required attributes and/or children for "
                     "the \"constant1d\" node are missing"  );
@@ -55,14 +66,12 @@ namespace v1_9 {
 
       // create the component
       return Constant1D(
-               core( std::string{} / gnds::label ),
-               core( double{} / gnds::constant ),
-               core( double{} / gnds::domainMin ),
-               core( double{} / gnds::domainMax ),
-               core.has( gnds::outerDomainValue )
-                 ? std::make_optional( core( double{} / gnds::outerDomainValue ) )
+               core( keys::label ), core( keys::constant ),
+               core( keys::domainMin ), core( keys::domainMax ),
+               core.has( keys::outerDomainValue )
+                 ? std::make_optional( core( keys::outerDomainValue ) )
                  : std::nullopt,
-               core( v1_9::Axes{} / gnds::axes ) );
+               core( keys::axes ) );
     }
 
     void verify() {

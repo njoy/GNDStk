@@ -22,6 +22,12 @@ namespace v1_9 {
    */
   class Axes {
 
+    /* keys */
+    struct keys {
+
+      static inline const auto axis = Axis{} / GNDStk::basic::axis;
+    };
+
     /* type aliases */
     using NodeType = GNDStk::node;
 
@@ -31,8 +37,6 @@ namespace v1_9 {
     /* auxiliary functions */
     static Axes fromNode( const NodeType& core ) {
 
-      namespace gnds = GNDStk::basic;
-
       // verify the node name
       if ( core.name != "axes" ) {
 
@@ -41,7 +45,7 @@ namespace v1_9 {
       }
 
       // verify required attributes and children
-      if ( !core.has( gnds::axis ) ) {
+      if ( !core.has( keys::axis ) ) {
 
         log::error( "Some or all of the required attributes and/or children for "
                     "the \"axes\" node are missing"  );
@@ -49,7 +53,7 @@ namespace v1_9 {
       }
 
       // create the component
-      return Axes( core( v1_9::Axis{} / gnds::axis ) );
+      return Axes( core( keys::axis ) );
     }
 
     void sort() {

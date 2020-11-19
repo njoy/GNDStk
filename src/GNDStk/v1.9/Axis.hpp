@@ -23,6 +23,14 @@ namespace v1_9 {
    */
   class Axis {
 
+    /* keys */
+    struct keys {
+
+      static inline const auto index = unsigned{} / GNDStk::basic::index;
+      static inline const auto label = std::string{} / GNDStk::basic::label;
+      static inline const auto unit = std::string{} / GNDStk::basic::unit;
+    };
+
     /* type aliases */
     using NodeType = GNDStk::node;
 
@@ -34,8 +42,6 @@ namespace v1_9 {
     /* auxiliary functions */
     static Axis fromNode( const NodeType& core ) {
 
-      namespace gnds = GNDStk::basic;
-
       // verify the node name
       if ( core.name != "axis" ) {
 
@@ -44,7 +50,7 @@ namespace v1_9 {
       }
 
       // verify required attributes and children
-      if ( !core.has( gnds::index ) || !core.has( gnds::label ) ) {
+      if ( !core.has( keys::index ) || !core.has( keys::label ) ) {
 
         log::error( "Some or all of the required attributes and/or children for "
                     "the \"axis\" node are missing"  );
@@ -52,10 +58,9 @@ namespace v1_9 {
       }
 
       // create the component
-      return Axis( core( unsigned{} / gnds::index ),
-                   core( std::string{} / gnds::label ),
-                   core.has( gnds::unit )
-                     ? std::make_optional( core( gnds::unit ) )
+      return Axis( core( keys::index ), core( keys::label ),
+                   core.has( keys::unit )
+                     ? std::make_optional( core( keys::unit ) )
                      : std::nullopt );
     }
 
