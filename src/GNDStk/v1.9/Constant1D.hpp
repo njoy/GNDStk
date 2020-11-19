@@ -6,7 +6,6 @@
 
 // other includes
 #include "GNDStk.hpp"
-#include "GNDStk/v1.9/Component.hpp"
 #include "GNDStk/v1.9/Axes.hpp"
 
 namespace njoy {
@@ -25,7 +24,7 @@ namespace v1_9 {
    *
    *  See GNDS v1.9 specifications section 6.2.3
    */
-  class Constant1D : public Component< Constant1D > {
+  class Constant1D {
 
     /* type aliases */
     using NodeType = GNDStk::node;
@@ -39,6 +38,39 @@ namespace v1_9 {
     Axes axes_;
 
     /* auxiliary functions */
+    static Constant1D fromNode( const NodeType& core ) {
+
+      namespace gnds = GNDStk::basic;
+
+      // verify the node name
+      if ( core.name != "constant1d" ) {
+
+        log::error( "Expected a \"constant1d\" node, found \"{}\" instead", core.name );
+        throw std::exception();
+      }
+
+      // verify required attributes and children
+      if ( !core.has( gnds::label ) || !core.has( gnds::constant ) ||
+           !core.has( gnds::domainMin ) || !core.has( gnds::domainMax ) ||
+           !core.has( gnds::axes ) ) {
+
+        log::error( "Some or all of the required attributes and/or children for "
+                    "the \"constant1d\" node are missing"  );
+        throw std::exception();
+      }
+
+      // create the component
+      return Constant1D(
+               core( std::string{} / gnds::label ),
+               core( double{} / gnds::constant ),
+               core( double{} / gnds::domainMin ),
+               core( double{} / gnds::domainMax ),
+               core.has( gnds::outerDomainValue )
+                 ? std::make_optional( core( double{} / gnds::outerDomainValue ) )
+                 : std::nullopt,
+               core( v1_9::Axes{} / gnds::axes ) );
+    }
+
     void verify() {
 
       if ( this->axes().size() != 2 ) {
@@ -63,8 +95,7 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Constant1D( const NodeType& core ) :
-      Constant1D( Component::fromNode( core ) ) {
+    Constant1D( const NodeType& core ) : Constant1D( fromNode( core ) ) {
 
       this->verify();
     }
@@ -171,6 +202,26 @@ namespace v1_9 {
      *  @return The axes of the constant
      */
     const Axes& axes() const { return this->axes_; }
+
+    /**
+     *  @brief Retrieve a core GNDS node for this component
+     *
+     *  @return The core GNDS node constructed from the component
+     */
+    NodeType node() const {
+
+      NodeType core( "constant1d" );
+      core.add( "label", this->label() );
+      core.add( "constant", this->constant() );
+      core.add( "domainMin", this->domainMin() );
+      core.add( "domainMax", this->domainMax() );
+      if ( this->outerDomainValue() ) {
+
+        core.add( "outerDomainValue", this->outerDomainValue().value() );
+      }
+      core.add( "axes" ) = this->axes().node();
+      return core;
+    }
   };
 
 } // v1_9 namespace
@@ -183,36 +234,9 @@ namespace v1_9 {
  */
 void convert( const node& core, v1_9::Constant1D& component ) {
 
-  using namespace GNDStk::basic;
-
-  // verify the node name
-  if ( core.name != "constant1d" ) {
-
-    log::error( "Expected a \"constant1d\" node, found \"{}\" instead", core.name );
-    throw std::exception();
-  }
-
-  // verify required attributes and children
-  if ( !core.has( label ) || !core.has( constant ) ||
-       !core.has( domainMin ) || !core.has( domainMax ) ||
-       !core.has( axes ) ) {
-
-    log::error( "Some or all of the required attributes and/or children for "
-                "the \"constant1d\" node are missing"  );
-    throw std::exception();
-  }
-
-  // create the component
-  component = v1_9::Constant1D(
-                  core( std::string{} / label ),
-                  core( double{} / constant ),
-                  core( double{} / domainMin ),
-                  core( double{} / domainMax ),
-                  core.has( outerDomainValue )
-                    ? std::make_optional( core( double{} / outerDomainValue ) )
-                    : std::nullopt,
-                  core( v1_9::Axes{} / axes ) );
+  component = v1_9::Constant1D( core );
 }
+
 /**
  *  @brief Convert a component to a core GNDS node
  *
@@ -221,16 +245,7 @@ void convert( const node& core, v1_9::Constant1D& component ) {
  */
 void convert( const v1_9::Constant1D& component, node& core ) {
 
-  core.name = "constant1d";
-  core.add( "label", component.label() );
-  core.add( "constant", component.constant() );
-  core.add( "domainMin", component.domainMin() );
-  core.add( "domainMax", component.domainMax() );
-  if ( component.outerDomainValue() ) {
-
-    core.add( "outerDomainValue", component.outerDomainValue().value() );
-  }
-  core.add( "axes" ) = component.axes().node();
+  core = component.node();
 };
 
 } // GNDStk namespace

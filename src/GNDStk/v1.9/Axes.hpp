@@ -5,7 +5,6 @@
 
 // other includes
 #include "GNDStk.hpp"
-#include "GNDStk/v1.9/Component.hpp"
 #include "GNDStk/v1.9/Axis.hpp"
 
 namespace njoy {
@@ -27,7 +26,7 @@ namespace v1_9 {
    *
    *  See GNDS v1.9 specifications section 5.1.1
    */
-  class Axes : public Component< Axes > {
+  class Axes {
 
     /* type aliases */
     using NodeType = GNDStk::node;
@@ -36,6 +35,29 @@ namespace v1_9 {
     std::vector< Axis > axes_;
 
     /* auxiliary functions */
+    static Axes fromNode( const NodeType& core ) {
+
+      namespace gnds = GNDStk::basic;
+
+      // verify the node name
+      if ( core.name != "axes" ) {
+
+        log::error( "Expected an \"axes\" node, found \"{}\" instead", core.name );
+        throw std::exception();
+      }
+
+      // verify required attributes and children
+      if ( !core.has( gnds::axis ) ) {
+
+        log::error( "Some or all of the required attributes and/or children for "
+                    "the \"axes\" node are missing"  );
+        throw std::exception();
+      }
+
+      // create the component
+      return Axes( core( v1_9::Axis{} / gnds::axis ) );
+    }
+
     void sort() {
 
       std::sort( this->axes_.begin(), this->axes_.end(),
@@ -57,7 +79,7 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Axes( const NodeType& core ) : Axes( Component::fromNode( core ) ) {}
+    Axes( const NodeType& core ) : Axes( fromNode( core ) ) {}
 
     /**
      *  @brief Full constructor with move semantics
@@ -119,6 +141,25 @@ namespace v1_9 {
 
       return this->axes().at( index );
     }
+
+    /**
+     *  @brief Retrieve a core GNDS node for this component
+     *
+     *  @return The core GNDS node constructed from the component
+     */
+    NodeType node() const {
+
+      // axis need to be printed in reverse index order
+      auto begin = this->axes().rbegin();
+      auto end = this->axes().rend();
+
+      NodeType core( "axes" );
+      for ( auto iter = begin; iter != end; ++iter ) {
+
+        core.add( "axis" ) = iter->node();
+      }
+      return core;
+    }
   };
 
 } // v1_9 namespace
@@ -131,25 +172,7 @@ namespace v1_9 {
  */
 void convert( const node& core, v1_9::Axes& component ) {
 
-  using namespace GNDStk::basic;
-
-  // verify the node name
-  if ( core.name != "axes" ) {
-
-    log::error( "Expected an \"axes\" node, found \"{}\" instead", core.name );
-    throw std::exception();
-  }
-
-  // verify required attributes and children
-  if ( !core.has( axis ) ) {
-
-    log::error( "Some or all of the required attributes and/or children for "
-                "the \"axes\" node are missing"  );
-    throw std::exception();
-  }
-
-  // create the component
-  component = v1_9::Axes( core( v1_9::Axis{} / axis ) );
+  component = v1_9::Axes( core );
 }
 /**
  *  @brief Convert a component to a core GNDS node
@@ -159,16 +182,7 @@ void convert( const node& core, v1_9::Axes& component ) {
  */
 void convert( const v1_9::Axes& component, node& core ) {
 
-  // axis need to be printed in reverse index order
-
-  auto begin = component.axes().rbegin();
-  auto end = component.axes().rend();
-
-  core.name = "axes";
-  for ( auto iter = begin; iter != end; ++iter ) {
-
-    core.add( "axis" ) = iter->node();
-  }
+  core = component.node();
 };
 
 } // GNDStk namespace

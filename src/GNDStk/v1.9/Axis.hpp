@@ -6,7 +6,6 @@
 
 // other includes
 #include "GNDStk.hpp"
-#include "GNDStk/v1.9/Component.hpp"
 
 namespace njoy {
 namespace GNDStk {
@@ -28,7 +27,7 @@ namespace v1_9 {
    *
    *  See GNDS v1.9 specifications section 5.1.2
    */
-  class Axis : public Component< Axis > {
+  class Axis {
 
     /* type aliases */
     using NodeType = GNDStk::node;
@@ -39,6 +38,32 @@ namespace v1_9 {
     std::optional< std::string > unit_ = std::nullopt;  // optional, no default
 
     /* auxiliary functions */
+    static Axis fromNode( const NodeType& core ) {
+
+      namespace gnds = GNDStk::basic;
+
+      // verify the node name
+      if ( core.name != "axis" ) {
+
+        log::error( "Expected an \"axis\" node, found \"{}\" instead", core.name );
+        throw std::exception();
+      }
+
+      // verify required attributes and children
+      if ( !core.has( gnds::index ) || !core.has( gnds::label ) ) {
+
+        log::error( "Some or all of the required attributes and/or children for "
+                    "the \"axis\" node are missing"  );
+        throw std::exception();
+      }
+
+      // create the component
+      return Axis( core( unsigned{} / gnds::index ),
+                   core( std::string{} / gnds::label ),
+                   core.has( gnds::unit )
+                     ? std::make_optional( core( gnds::unit ) )
+                     : std::nullopt );
+    }
 
   public :
 
@@ -54,7 +79,7 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Axis( const NodeType& core ) : Axis( Component::fromNode( core ) ) {}
+    Axis( const NodeType& core ) : Axis( fromNode( core ) ) {}
 
     /**
      *  @brief Full constructor with move semantics
@@ -67,18 +92,6 @@ namespace v1_9 {
           std::optional< std::string >&& unit ) :
       index_( index ), label_( std::move( label ) ),
       unit_( std::move( unit ) ) {}
-
-    /**
-     *  @brief Full constructor with copy semantics
-     *
-     *  @param[in] label    the axis label
-     *  @param[in] index    the axis index
-     *  @param[in] unit     the optional unit
-     */
-    Axis( unsigned int index, const std::string& label,
-          const std::optional< std::string >& unit ) :
-      Axis( index, std::string( label ),
-            std::optional< std::string >( unit ) ) {}
 
     /**
      *  @brief Convenience constructor
@@ -122,6 +135,23 @@ namespace v1_9 {
      *  @return The unit of the axis
      */
     const std::optional< std::string >& unit() const { return this->unit_; }
+
+    /**
+     *  @brief Retrieve a core GNDS node for this component
+     *
+     *  @return The core GNDS node constructed from the component
+     */
+    NodeType node() const {
+
+      NodeType core( "axis" );
+      core.add( "index", this->index() );
+      core.add( "label", this->label() );
+      if ( this->unit() ) {
+
+        core.add( "unit", this->unit().value() );
+      };
+      return core;
+    }
   };
 
 } // v1_9 namespace
@@ -134,29 +164,7 @@ namespace v1_9 {
  */
 void convert( const node& core, v1_9::Axis& component ) {
 
-  using namespace GNDStk::basic;
-
-  // verify the node name
-  if ( core.name != "axis" ) {
-
-    log::error( "Expected an \"axis\" node, found \"{}\" instead", core.name );
-    throw std::exception();
-  }
-
-  // verify required attributes and children
-  if ( !core.has( index ) || !core.has( label ) ) {
-
-    log::error( "Some or all of the required attributes and/or children for "
-                "the \"axis\" node are missing"  );
-    throw std::exception();
-  }
-
-  // create the component
-  component = v1_9::Axis( core( unsigned{} / index ),
-                          core( std::string{} / label ),
-                          core.has( unit )
-                            ? std::make_optional( core( unit ) )
-                            : std::nullopt );
+  component = v1_9::Axis( core );
 }
 
 /**
@@ -167,13 +175,7 @@ void convert( const node& core, v1_9::Axis& component ) {
  */
 void convert( const v1_9::Axis& component, node& core ) {
 
-  core.name = "axis";
-  core.add( "index", component.index() );
-  core.add( "label", component.label() );
-  if ( component.unit() ) {
-
-    core.add( "unit", component.unit().value() );
-  }
+  core = component.node();
 };
 
 } // GNDStk namespace
