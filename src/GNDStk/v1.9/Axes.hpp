@@ -6,6 +6,7 @@
 
 // other includes
 #include "GNDStk.hpp"
+#include "GNDStk/v1.9/Component.hpp"
 #include "GNDStk/v1.9/Axis.hpp"
 
 namespace njoy {
@@ -27,7 +28,7 @@ namespace v1_9 {
    *
    *  See GNDS v1.9 specifications section 5.1.1
    */
-  class Axes {
+  class Axes : public Component< Axes > {
 
     /* type aliases */
     using NodeType = GNDStk::node;
@@ -36,20 +37,6 @@ namespace v1_9 {
     std::vector< Axis > axes_;
 
     /* auxiliary functions */
-    static NodeType makeNode( const Axes& component ) {
-
-      NodeType core;
-      convert( component, core );
-      return core;
-    }
-
-    static Axes fromNode( const NodeType& core ) {
-
-      Axes component;
-      convert( core, component );
-      return component;
-    }
-
     void sort() {
 
       std::sort( this->axes_.begin(), this->axes_.end(),
@@ -71,7 +58,7 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Axes( NodeType core ) : Axes( fromNode( core ) ) {}
+    Axes( NodeType core ) : Axes( Component::fromNode( core ) ) {}
 
     /**
      *  @brief Constructor to initialise the component using its data (copy
@@ -138,12 +125,7 @@ namespace v1_9 {
       return this->axes().at( index );
     }
 
-    /**
-     *  @brief Retrieve a core GNDS node for this component
-     *
-     *  @return The core GNDS node constructed from the component
-     */
-    NodeType node() const { return makeNode( *this ); }
+    using Component::node;
   };
 
 } // v1_9 namespace
