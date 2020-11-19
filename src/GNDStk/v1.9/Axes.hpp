@@ -131,6 +131,8 @@ namespace v1_9 {
  */
 void convert( const node& core, v1_9::Axes& component ) {
 
+  using namespace GNDStk::basic;
+
   // verify the node name
   if ( core.name != "axes" ) {
 
@@ -139,7 +141,7 @@ void convert( const node& core, v1_9::Axes& component ) {
   }
 
   // verify required attributes and children
-  if ( !core.has( GNDStk::basic::axis ) ) {
+  if ( !core.has( axis ) ) {
 
     log::error( "Some or all of the required attributes and/or children for "
                 "the \"axes\" node are missing"  );
@@ -147,7 +149,7 @@ void convert( const node& core, v1_9::Axes& component ) {
   }
 
   // create the component
-  component = v1_9::Axes( core( v1_9::Axis{} / GNDStk::basic::axis ) );
+  component = v1_9::Axes( core( v1_9::Axis{} / axis ) );
 }
 /**
  *  @brief Convert a component to a core GNDS node

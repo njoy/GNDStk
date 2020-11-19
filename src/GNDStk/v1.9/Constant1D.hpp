@@ -32,13 +32,22 @@ namespace v1_9 {
 
     /* fields */
     std::string label_;
-    double value_;
+    double constant_;
     double min_;
     double max_;
     std::optional< double > outer_ = std::nullopt;  // optional, no default
     Axes axes_;
 
     /* auxiliary functions */
+    void verify() {
+
+      if ( this->axes().size() != 2 ) {
+
+        log::error( "Expected 2 \"axis\" nodes for a \"constant1d\" node" );
+        log::info( "Found: {}", this->axes().size() );
+        throw std::exception();
+      }
+    }
 
   public :
 
@@ -54,59 +63,66 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Constant1D( const NodeType& core ) : Axes( Component::fromNode( core ) ) {}
+    Constant1D( const NodeType& core ) :
+      Constant1D( Component::fromNode( core ) ) {
+
+      this->verify();
+    }
 
     /**
      *  @brief Full constructor with move semantics
      *
      *  @param[in] label               the constant label
-     *  @param[in] value               the constant value
+     *  @param[in] constant            the constant value
      *  @param[in] domainMin           the minimum domain value
      *  @param[in] domainMax           the maximum domain value
      *  @param[in] outerDomainValue    the optional outer domain value
      *  @param[in] axes                the axes of the constant
      */
-    Constant1D( std::string&& label, double value, double domainMin,
+    Constant1D( std::string&& label, double constant, double domainMin,
                 double domainMax, std::optional< double >&& outerDomainValue,
                 Axes&& axes ) :
-      label_( std::move( label ) ), value_( value ), min_( domainMin ),
+      label_( std::move( label ) ), constant_( constant ), min_( domainMin ),
       max_( domainMax ), outer_( std::move( outerDomainValue ) ),
-      axes_( std::move( axes ) ) {}
+      axes_( std::move( axes ) ) {
+
+      this->verify();
+    }
 
     /**
      *  @brief Full constructor with copy semantics
      *
      *  @param[in] label               the constant label
-     *  @param[in] value               the constant value
+     *  @param[in] constant            the constant value
      *  @param[in] domainMin           the minimum domain value
      *  @param[in] domainMax           the maximum domain value
      *  @param[in] outerDomainValue    the optional outer domain value
      *  @param[in] axes                the axes of the constant
      */
-    Constant1D( const std::string& label, double value, double domainMin,
+    Constant1D( const std::string& label, double constant, double domainMin,
                 double domainMax, const std::optional< double >& outerDomainValue,
                 const Axes& axes ) :
-      Constant1D( std::string( label ), value, domainMin, domainMax,
+      Constant1D( std::string( label ), constant, domainMin, domainMax,
                   std::optional< double >( outerDomainValue ), Axes( axes ) ) {}
 
     /**
      *  @brief Convenience constructor
      *
      *  @param[in] label               the constant label
-     *  @param[in] value               the constant value
+     *  @param[in] constant            the constant value
      *  @param[in] domainMin           the minimum domain value
      *  @param[in] domainMax           the maximum domain value
-     *  @param[in] valueLabel          the constant axis label
+     *  @param[in] constantLabel       the constant axis label
      *  @param[in] domainlabel         the domain axis label
-     *  @param[in] valueUnit           the constant axis unit
+     *  @param[in] constantUnit        the constant axis unit
      *  @param[in] domainUnit          the domain axis unit
      */
-    Constant1D( const std::string& label, double value,
+    Constant1D( const std::string& label, double constant,
                 double domainMin, double domainMax,
-                const std::string& valueLabel, const std::string& domainLabel,
-                const std::string& valueUnit, const std::string& domainUnit ) :
-      Constant1D( std::string( label ), value, domainMin, domainMax, std::nullopt,
-                  Axes( { Axis( 0, valueLabel, valueUnit ),
+                const std::string& constantLabel, const std::string& domainLabel,
+                const std::string& constantUnit, const std::string& domainUnit ) :
+      Constant1D( std::string( label ), constant, domainMin, domainMax, std::nullopt,
+                  Axes( { Axis( 0, constantLabel, constantUnit ),
                           Axis( 1, domainLabel, domainUnit ) } ) ) {}
 
     /* methods */
@@ -123,7 +139,7 @@ namespace v1_9 {
      *
      *  @return The constant value
      */
-    double value() const { return this->value_; }
+    double constant() const { return this->constant_; }
 
     /**
      *  @brief Return the minimum domain value
@@ -167,19 +183,19 @@ namespace v1_9 {
  */
 void convert( const node& core, v1_9::Constant1D& component ) {
 
+  using namespace GNDStk::basic;
+
   // verify the node name
   if ( core.name != "constant1d" ) {
 
-    log::error( "Expected an \"constant1d\" node, found \"{}\" instead", core.name );
+    log::error( "Expected a \"constant1d\" node, found \"{}\" instead", core.name );
     throw std::exception();
   }
 
   // verify required attributes and children
-  if ( !core.has( GNDStk::basic::label ) ||
-       !core.has( GNDStk::basic::value ) ||
-       !core.has( GNDStk::basic::domainMin ) ||
-       !core.has( GNDStk::basic::domainMax ) ||
-       !core.has( GNDStk::basic::axes ) ) {
+  if ( !core.has( label ) || !core.has( constant ) ||
+       !core.has( domainMin ) || !core.has( domainMax ) ||
+       !core.has( axes ) ) {
 
     log::error( "Some or all of the required attributes and/or children for "
                 "the \"constant1d\" node are missing"  );
@@ -188,14 +204,14 @@ void convert( const node& core, v1_9::Constant1D& component ) {
 
   // create the component
   component = v1_9::Constant1D(
-                  core( std::string{} / GNDStk::basic::label ),
-                  core( double{} / GNDStk::basic::value ),
-                  core( double{} / GNDStk::basic::domainMin ),
-                  core( double{} / GNDStk::basic::domainMax ),
-                  core.has( GNDStk::basic::outerDomainValue )
-                    ? std::make_optional( core( GNDStk::basic::outerDomainValue ) )
+                  core( std::string{} / label ),
+                  core( double{} / constant ),
+                  core( double{} / domainMin ),
+                  core( double{} / domainMax ),
+                  core.has( outerDomainValue )
+                    ? std::make_optional( core( double{} / outerDomainValue ) )
                     : std::nullopt,
-                  core( v1_9::Axes{} / GNDStk::basic::axes ) );
+                  core( v1_9::Axes{} / axes ) );
 }
 /**
  *  @brief Convert a component to a core GNDS node
@@ -207,14 +223,14 @@ void convert( const v1_9::Constant1D& component, node& core ) {
 
   core.name = "constant1d";
   core.add( "label", component.label() );
-  core.add( "value", component.value() );
+  core.add( "constant", component.constant() );
   core.add( "domainMin", component.domainMin() );
   core.add( "domainMax", component.domainMax() );
   if ( component.outerDomainValue() ) {
 
     core.add( "outerDomainValue", component.outerDomainValue().value() );
   }
-  core.add( "axes" ) = this->axes().node();
+  core.add( "axes" ) = component.axes().node();
 };
 
 } // GNDStk namespace

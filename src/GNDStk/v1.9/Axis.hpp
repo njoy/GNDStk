@@ -134,6 +134,8 @@ namespace v1_9 {
  */
 void convert( const node& core, v1_9::Axis& component ) {
 
+  using namespace GNDStk::basic;
+
   // verify the node name
   if ( core.name != "axis" ) {
 
@@ -142,7 +144,7 @@ void convert( const node& core, v1_9::Axis& component ) {
   }
 
   // verify required attributes and children
-  if ( !core.has( GNDStk::basic::index ) || !core.has( GNDStk::basic::label ) ) {
+  if ( !core.has( index ) || !core.has( label ) ) {
 
     log::error( "Some or all of the required attributes and/or children for "
                 "the \"axis\" node are missing"  );
@@ -150,10 +152,10 @@ void convert( const node& core, v1_9::Axis& component ) {
   }
 
   // create the component
-  component = v1_9::Axis( core( unsigned{} / GNDStk::basic::index ),
-                          core( std::string{} / GNDStk::basic::label ),
-                          core.has( GNDStk::basic::unit )
-                            ? std::make_optional( core( GNDStk::basic::unit ) )
+  component = v1_9::Axis( core( unsigned{} / index ),
+                          core( std::string{} / label ),
+                          core.has( unit )
+                            ? std::make_optional( core( unit ) )
                             : std::nullopt );
 }
 

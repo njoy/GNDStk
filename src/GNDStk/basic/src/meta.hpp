@@ -73,6 +73,7 @@ inline const meta_t<void>
    name                           ("name"                           ),
    numberOfProducts               ("numberOfProducts"               ),
    numberPerMolecule              ("numberPerMolecule"              ),
+   outerDomainValue               ("outerDomainValue"               ),
    parity                         ("parity"                         ),
    path                           ("path"                           ),
    pid                            ("pid"                            ),

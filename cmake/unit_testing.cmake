@@ -27,3 +27,5 @@ add_subdirectory( src/GNDStk/utility/test )
 
 add_subdirectory( src/GNDStk/v1.9/Axis/test )
 add_subdirectory( src/GNDStk/v1.9/Axes/test )
+
+add_subdirectory( src/GNDStk/v1.9/Constant1D/test )

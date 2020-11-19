@@ -41,6 +41,7 @@ GNDSTK_MAKE_META(double, format);
 GNDSTK_MAKE_META(double, max);
 GNDSTK_MAKE_META(double, min);
 GNDSTK_MAKE_META(double, muCutoff);
+GNDSTK_MAKE_META(double, outerDomainValue);
 
 // string
 GNDSTK_MAKE_META(std::string, approximation);
