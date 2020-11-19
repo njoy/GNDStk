@@ -43,7 +43,7 @@ bool node2json(
    // than once. Later, this 0/1 is used initially to make a boolean choice;
    // then it serves as a counter to generate a 0-indexed numeric suffix that
    // makes the child names unique: name0, name1, etc.
-   std::map<std::string,unsigned> childNames;
+   std::map<std::string,size_t> childNames;
    for (auto &c : node.children) {
       auto iter = childNames.find(c->name);
       if (iter == childNames.end())
@@ -54,7 +54,7 @@ bool node2json(
 
    // now revisit and process the child nodes
    for (auto &c : node.children) {
-      const unsigned counter = childNames.find(c->name)->second++;
+      const size_t counter = childNames.find(c->name)->second++;
       if (!node2json(*c, json, counter ? std::to_string(counter-1) : ""))
          return false;
    }
@@ -152,7 +152,7 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
          try {
             if (!xml_node2Node(xsub,node.add()))
                return false;
-         } catch (const std::exception &) {
+         } catch (...) {
             // recursive; no point printing error context, so just throw
             throw;
          }
@@ -267,7 +267,7 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
          try {
             if (!json2node(elem,node.add()))
                return false;
-         } catch (const std::exception &) {
+         } catch (...) {
             // recursive; no point printing error context; just throw
             throw;
          }
@@ -408,7 +408,7 @@ bool node2XML(const NODE &node, pugi::xml_node &x)
          // typical element
          if (!node2XML(*child,xnode))
             return false;
-      } catch (const std::exception &) {
+      } catch (...) {
          // recursive; no point in printing error context; just throw
          throw;
       }
@@ -416,6 +416,29 @@ bool node2XML(const NODE &node, pugi::xml_node &x)
 
    // done
    return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// check_top
+// -----------------------------------------------------------------------------
+
+inline void check_top(
+   const std::string &top,
+   const std::string &type,
+   const std::string &context
+) {
+   if (AllowedTop.find(top) == AllowedTop.end()) {
+      std::string message =
+         "Name \"{}\" in {} object's top-level node is not recognized\n"
+         "in our list of allowable names for top-level GNDS nodes:\n";
+      for (const std::string &n : detail::AllowedTop)
+         message += "   \"" + n + "\"\n";
+      message += "Creating node \"{}\" anyway...";
+      log::warning(message, top, type, top);
+      log::function(context);
+   }
 }
 
 } // namespace detail

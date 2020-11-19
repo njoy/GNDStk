@@ -19,21 +19,6 @@ bool convert(
    // clear
    x.clear();
 
-   /*
-   // just in case has_decl() throws (which it can)
-   bool has_decl;
-   try {
-      has_decl = tree.has_decl();
-   } catch (const std::exception &) {
-      log::context("convert(Tree,XML)");
-      throw;
-   }
-
-   // but it's OK if it returns false
-   if (!has_decl)
-      return true;
-   */
-
    // The way we're storing things in our tree structure, the declaration node
    // might contain, e.g., the following, if the tree was built from an XML:
    //
@@ -63,9 +48,12 @@ bool convert(
             xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
       }
       // top-level GNDS node
-      return !tree.has_top() || detail::node2XML(tree.top(), x.doc);
-   } catch (const std::exception &) {
-      log::context("convert(Tree,XML)");
+      if (!tree.has_top())
+         return true;
+      detail::check_top(tree.top().name, "Tree", "convert(Tree,XML)");
+      return detail::node2XML(tree.top(), x.doc);
+   } catch (...) {
+      log::function("convert(Tree,XML)");
       throw;
    }
 }
@@ -104,8 +92,8 @@ inline bool convert(const XML &from, XML &to)
       std::stringstream ss;
       from.write(ss);
       to.read(ss);
-   } catch (const std::exception &) {
-      log::context("convert(XML,XML)");
+   } catch (...) {
+      log::function("convert(XML,XML)");
       throw;
    }
 
@@ -134,8 +122,8 @@ inline bool convert(const JSON &j, XML &x)
       return
          convert(j,t) &&
          convert(t,x);
-   } catch (const std::exception &) {
-      log::context("convert(JSON,XML)");
+   } catch (...) {
+      log::function("convert(JSON,XML)");
       throw;
    }
 }

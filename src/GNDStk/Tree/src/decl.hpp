@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Tree::decl()
+// Tree.decl()
 // -----------------------------------------------------------------------------
 
 // const
@@ -16,8 +16,8 @@ const nodeType &decl() const
             return *c;
       log::error("Tree's declaration node not found");
       throw std::exception{};
-   } catch (const std::exception &) {
-      log::context("Tree::decl()");
+   } catch (...) {
+      log::member("Tree.decl()");
       throw;
    }
 }

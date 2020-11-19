@@ -42,8 +42,8 @@ Node(const std::string &name) : name(name)
 }
 
 // child_t<*>
-template<class TYPE, find FIND, class CONVERTER>
-Node(const child_t<TYPE,FIND,CONVERTER> &kwd) : name(kwd.name)
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+Node(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) : name(kwd.name)
 {
 }
 
@@ -54,16 +54,16 @@ Node(const child_t<TYPE,FIND,CONVERTER> &kwd) : name(kwd.name)
 // ------------------------
 
 // child_t<void,...>, Node
-template<find FIND>
+template<allow ALLOW, class FILTER>
 Node(
-   const child_t<void,FIND> &kwd,
+   const child_t<void,ALLOW,void,FILTER> &kwd,
    const Node &value
 ) {
    try {
       *this = value;
       name = kwd.name; // overrides any name from the assignment
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),value)", kwd.name);
+   } catch (...) {
+      log::ctor("Node(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }
@@ -73,18 +73,18 @@ Node(
 // Then, the child_t's converter converts the TYPE value to a Node. With
 // child_t's default converter, this means convert(TYPE,Node) is called.
 template<
-   class TYPE, find FIND, class CONVERTER, class T,
+   class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T,
    class = typename std::enable_if<std::is_convertible<T,TYPE>::value>::type
 >
 Node(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const T &value
 ) {
    try {
       kwd.converter(TYPE(value),*this);
       name = kwd.name; // overrides any name from the above line
-   } catch (const std::exception &) {
-      log::context("Node(child_t(\"{}\"),value)", kwd.name);
+   } catch (...) {
+      log::ctor("Node(child_t(\"{}\"),value)", kwd.name);
       throw;
    }
 }

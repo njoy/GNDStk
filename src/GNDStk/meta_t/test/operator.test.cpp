@@ -147,9 +147,9 @@ SCENARIO("Testing GNDStk meta_t operators") {
 
    GIVEN("Various meta_t objects") {
       meta_t<void> voidone("voidone");
-      meta_t<void> voidall("voidall");
+      meta_t<void> voidmany("voidmany");
       auto foo = 100 / voidone / converterA{};
-      auto bar = 1.2 / voidall / converterB{};
+      auto bar = 1.2 / voidmany/ converterB{};
       CHECK(is_int(foo));
       CHECK(is_converterA(foo));
       CHECK(is_double(bar));

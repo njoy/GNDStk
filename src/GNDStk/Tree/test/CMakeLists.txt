@@ -6,7 +6,7 @@ add_executable( GNDStk.Tree.test
                 meta.test.cpp
                 assign.test.cpp
                 read.test.cpp
-                all.test.cpp
+                many.test.cpp
                 empty.test.cpp
                 reset.test.cpp
                 top.test.cpp

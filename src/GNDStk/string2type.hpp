@@ -48,6 +48,20 @@ inline void convert(std::istream &is, T &value)
    is >> value;
 }
 
+// pair
+template<class X, class Y>
+inline void convert(std::istream &is, std::pair<X,Y> &p)
+{
+   // let's allow:
+   //    x y
+   // or:
+   //    x,y
+   if ((convert(is,p.first),is)) {
+      if (is.get() != ',')
+         is.unget();
+      convert(is,p.second);
+   }
+}
 
 // some sequence containers
 #define GNDSTK_CONVERT(container) \
@@ -58,8 +72,15 @@ inline void convert(std::istream &is, T &value)
    ) { \
       value.clear(); \
       T v; \
-      while (is >> v) \
+      while ((convert(is,v),is)) { \
          value.push_back(v); \
+         /* The following of course means that any ',' after the container */ \
+         /* elements will be eaten, but we don't believe this will create  */ \
+         /* problems, given this function's usage. In fact the container's */ \
+         /* last element is *probably* at the end of the istream anyway.   */ \
+         if (is.get() != ',') \
+            is.unget(); \
+      } \
    }
 
    GNDSTK_CONVERT(deque)
@@ -83,8 +104,8 @@ inline void convert(const std::string &str, T &value)
    try {
       std::istringstream iss(str);
       convert(iss,value);
-   } catch (const std::exception &) {
-      log::context("convert(string,T)");
+   } catch (...) {
+      log::function("convert(string,T)");
       throw;
    }
 }

@@ -10,4 +10,8 @@ namespace typed {
 #include "GNDStk/typed/src/meta.hpp"
 #include "GNDStk/typed/src/child.hpp"
 
-}
+using namespace meta;
+using namespace child;
+using namespace common;
+
+} // namespace typed

@@ -16,9 +16,10 @@ XML(XML &&) = default;
 XML(const XML &x)
 {
    try {
-      convert(x,*this);
-   } catch (const std::exception &) {
-      log::context("XML(XML)");
+      if (!convert(x,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(XML)");
       throw;
    }
 }
@@ -28,9 +29,10 @@ XML(const XML &x)
 explicit XML(const JSON &j)
 {
    try {
-      convert(j,*this);
-   } catch (const std::exception &) {
-      log::context("XML(JSON)");
+      if (!convert(j,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(JSON)");
       throw;
    }
 }
@@ -44,9 +46,10 @@ template<
 explicit XML(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 {
    try {
-      convert(t,*this);
-   } catch (const std::exception &) {
-      log::context("XML(Tree)");
+      if (!convert(t,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(Tree)");
       throw;
    }
 }
@@ -56,9 +59,10 @@ explicit XML(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
 explicit XML(const std::string &filename)
 {
    try {
-      read(filename);
-   } catch (const std::exception &) {
-      log::context("XML(filename=\"{}\")", filename);
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(\"{}\")", filename);
       throw;
    }
 }
@@ -68,9 +72,10 @@ explicit XML(const std::string &filename)
 explicit XML(std::istream &is)
 {
    try {
-      read(is);
-   } catch (const std::exception &) {
-      log::context("XML(istream)");
+      if (!read(is))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(istream)");
       throw;
    }
 }

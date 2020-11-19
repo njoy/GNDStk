@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// JSON::read()
+// JSON.read()
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -10,12 +10,16 @@
 std::istream &read(std::istream &is)
 {
    // call nlohmann::json's read capability
-   is >> doc;
-
-   // check for errors
-   if (!is) {
-      log::error("Problem during istream >> nlohmann::json");
-      log::context("JSON::read(istream)");
+   try {
+      if (!(is >> doc)) {
+         log::error("istream >> nlohmann::json returned with !istream");
+         log::member("JSON.read(istream)");
+      }
+   }
+   catch (...) {
+      log::error("istream >> nlohmann::json threw an exception");
+      log::member("JSON.read(istream)");
+      is.setstate(std::ios::failbit);
    }
 
    // done
@@ -32,17 +36,14 @@ bool read(const std::string &filename)
    // open file
    std::ifstream ifs(filename.c_str());
    if (!ifs) {
-      log::error(
-         "Could not open file in call to JSON::read(filename=\"{}\")",
-         filename
-      );
+      log::error("Could not open file \"{}\" for input", filename);
+      log::member("JSON.read(\"{}\")", filename);
       return false;
    }
 
-   // read from stream
-   read(ifs);
-   if (!ifs) {
-      log::context("JSON::read(filename=\"{}\")", filename);
+   // read from istream
+   if (!read(ifs)) {
+      log::member("JSON.read(\"{}\")", filename);
       return false;
    }
 

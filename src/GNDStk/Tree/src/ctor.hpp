@@ -13,9 +13,10 @@ Tree(Tree &&) = default;
 Tree(const Tree &from) : nodeType{}
 {
    try {
-      convert(from,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(Tree)");
+      if (!convert(from,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(Tree)");
       throw;
    }
 }
@@ -28,9 +29,10 @@ template<
 Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 {
    try {
-      convert(from,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(Tree<different>)");
+      if (!convert(from,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(Tree<different>)");
       throw;
    }
 }
@@ -45,9 +47,10 @@ Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 explicit Tree(const XML &x)
 {
    try {
-      convert(x,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(XML)");
+      if (!convert(x,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(XML)");
       throw;
    }
 }
@@ -56,9 +59,10 @@ explicit Tree(const XML &x)
 explicit Tree(const JSON &j)
 {
    try {
-      convert(j,*this);
-   } catch (const std::exception &) {
-      log::context("Tree(JSON)");
+      if (!convert(j,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(JSON)");
       throw;
    }
 }
@@ -70,42 +74,45 @@ explicit Tree(const JSON &j)
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
-// filename, format
+// file name, file format
 // Example:
-//    Tree<> t("n-008_O_016.xml", format::xml);
-explicit Tree(const std::string &filename, const format form = format::null)
+//    Tree<> t("n-008_O_016.xml", file::xml);
+explicit Tree(const std::string &filename, const file form = file::null)
 {
    try {
-      read(filename,form);
-   } catch (const std::exception &) {
-      log::context("Tree(filename=\"{}\"[,format])", filename);
+      if (!read(filename,form))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(\"{}\")", filename);
       throw;
    }
 }
 
-// filename, string
+// file name, string
 // Example:
 //    Tree<> t("n-008_O_016.xml", "xml");
 Tree(const std::string &filename, const std::string &type)
 {
    try {
-      read(filename,type);
-   } catch (const std::exception &) {
-      log::context("Tree(filename=\"{}\",type=\"{}\")", filename, type);
+      if (!read(filename,type))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(\"{}\",type=\"{}\")", filename, type);
       throw;
    }
 }
 
-// istream, format
+// istream, file format
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
-//    Tree<> t(ifs, format::xml);
-explicit Tree(std::istream &is, const format form = format::null)
+//    Tree<> t(ifs, file::xml);
+explicit Tree(std::istream &is, const file form = file::null)
 {
    try {
-      read(is,form);
-   } catch (const std::exception &) {
-      log::context("Tree(istream[,format])");
+      if (!read(is,form))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(istream,string)");
       throw;
    }
 }
@@ -117,9 +124,10 @@ explicit Tree(std::istream &is, const format form = format::null)
 Tree(std::istream &is, const std::string &type)
 {
    try {
-      read(is,type);
-   } catch (const std::exception &) {
-      log::context("Tree(istream,type=\"{}\")", type);
+      if (!read(is,type))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(istream,format)", type);
       throw;
    }
 }
@@ -134,7 +142,7 @@ Tree(std::istream &is, const std::string &type)
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
 //
 // Examples:
-//    Tree<> newtree(reactionSuite, format::xml, "1.0", "UTF-8");
+//    Tree<> newtree(reactionSuite, file::xml, "1.0", "UTF-8");
 // or
 //    Tree<> newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
@@ -150,41 +158,35 @@ Tree(std::istream &is, const std::string &type)
 // being ambiguous with other Tree constructors that take their (string) first
 // arguments to be *file* names (not top-level node names).
 
-// keyword, format
-template<class TYPE, find FIND, class CONVERTER>
+// keyword, file format
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
-   const format form = format::xml,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const file form = file::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
       reset(kwd, form, version, encoding);
-   } catch (const std::exception &) {
-      log::context(
-         "Tree(child_t(\"{}\")[,format,version,encoding])",
-         kwd.name
-      );
+   } catch (...) {
+      log::ctor("Tree(child_t(\"{}\"))", kwd.name);
       throw;
    }
 }
 
 // keyword, string
-template<class TYPE, find FIND, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
       reset(kwd, type, version, encoding);
-   } catch (const std::exception &) {
-      log::context(
-         "Tree(child_t(\"{}\"),type=\"{}\"[,version,encoding])",
-         kwd.name, type
-      );
+   } catch (...) {
+      log::ctor("Tree(child_t(\"{}\"),type=\"{}\")", kwd.name, type);
       throw;
    }
 }

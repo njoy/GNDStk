@@ -1,8 +1,9 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+
 using namespace njoy::GNDStk;
-using namespace mixed::meta;
+using namespace misc;
 
 SCENARIO("Testing GNDStk Tree meta()") {
 
@@ -52,8 +53,8 @@ SCENARIO("Testing GNDStk Tree meta()") {
       (void)&t.top() .meta("evaluation");
       (void)&t.top() .meta("format");
 
-      // Again doing the lookups as earlier, be sure they always return a true
-      // found found flag if we sent the found flag at all...
+      // Again doing the lookups as earlier, be sure they always return
+      // a true found flag if we sent the found flag at all...
       bool found;
 
       THEN("Ensure that sending the \"found\" flag works as intended") {

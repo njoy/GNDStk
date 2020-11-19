@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::all(string,...)
+// Node.many(string,...)
 //
 // Searches the current node's sub-nodes for all nodes that have the given name
 // and that pass the given filter requirement. Returns a container of copies of
@@ -8,12 +8,12 @@
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// all(key,filter[,found])
+// many(key,filter[,found])
 // ------------------------
 
 // const
 template<template<class...> class CONTAINER = std::vector, class FILTER>
-CONTAINER<Node> all(
+CONTAINER<Node> many(
    const std::string &key,
    const FILTER &filter,
    bool &found = detail::default_bool
@@ -32,14 +32,14 @@ CONTAINER<Node> all(
       } else {
          // search in the current node's children
          for (auto &c : children) {
-            if (c->name == key && filter(*c)) {
+            if (std::regex_match(c->name, std::regex(key)) && filter(*c)) {
                container.push_back(*c); // can throw
                found = true;
             }
          }
       }
-   } catch (const std::exception &) {
-      log::context("Node::all(key=\"{}\")", key);
+   } catch (...) {
+      log::member("Node.many(\"{}\")", key);
       throw;
    }
 
@@ -52,14 +52,14 @@ CONTAINER<Node> all(
 
 
 // ------------------------
-// all(key[,found])
+// many(key[,found])
 // ------------------------
 
 // const
 template<template<class...> class CONTAINER = std::vector>
-CONTAINER<Node> all(
+CONTAINER<Node> many(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
-   return all<CONTAINER>(key, detail::noFilter, found);
+   return many<CONTAINER>(key, detail::noFilter{}, found);
 }

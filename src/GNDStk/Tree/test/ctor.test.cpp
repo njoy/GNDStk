@@ -18,7 +18,7 @@ What we'll need to test...
    7. Tree(Tree   &) // copy
    8. Tree(Tree<> &) // different <>
 
-   9. Tree(top-level node, format | string [, version [, encoding]])
+   9. Tree(top-level node, file format | string [, version [, encoding]])
 */
 
 
@@ -33,8 +33,8 @@ What we'll need to test...
 // C = children container class for the new tree
 template<
    class TREE,
-   template<class ...> class M = std::vector,
-   template<class ...> class C = std::vector
+   template<class...> class M = std::vector,
+   template<class...> class C = std::vector
 >
 bool ctor(
    const TREE &from, // arriving tree
@@ -66,8 +66,8 @@ bool ctor(
 // M = metadata container class
 // C = children container class
 template<
-   template<class ...> class M = std::vector,
-   template<class ...> class C = std::vector
+   template<class...> class M = std::vector,
+   template<class...> class C = std::vector
 >
 bool ctor()
 {
@@ -189,16 +189,16 @@ SCENARIO("Testing GNDStk tree constructors") {
       CHECK((ctor<std::vector, std::vector>()));
    }
 
-   // 9. Tree(top-level node, format | string [, version [, encoding]])
+   // 9. Tree(top-level node, file format | string [, version [, encoding]])
    GIVEN("Some trees created from scratch") {
-      using namespace mixed::child;
+      using namespace misc;
 
       /*
       Cases:
          Tree(top-level node)
-         Tree(top-level node, format)
-         Tree(top-level node, format, version)
-         Tree(top-level node, format, version, encoding)
+         Tree(top-level node, file format)
+         Tree(top-level node, file format, version)
+         Tree(top-level node, file format, version, encoding)
          Tree(top-level node, string)
          Tree(top-level node, string, version)
          Tree(top-level node, string, version, encoding)
@@ -218,8 +218,8 @@ SCENARIO("Testing GNDStk tree constructors") {
          }
       }
 
-      WHEN("We call: Tree(top-level node, format)") {
-         Tree<> t(reactionSuite, format::json);
+      WHEN("We call: Tree(top-level node, file format)") {
+         Tree<> t(reactionSuite, file::json);
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "json");
             CHECK(t.decl().metadata.size() == 0);
@@ -230,8 +230,8 @@ SCENARIO("Testing GNDStk tree constructors") {
          }
       }
 
-      WHEN("We call: Tree(top-level node, format, version)") {
-         Tree<> t(covarianceSuite, format::null, "2.0");
+      WHEN("We call: Tree(top-level node, file format, version)") {
+         Tree<> t(covarianceSuite, file::null, "2.0");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "xml");
             CHECK(t.decl().metadata.size() == 2);
@@ -244,8 +244,8 @@ SCENARIO("Testing GNDStk tree constructors") {
          }
       }
 
-      WHEN("We call: Tree(top-level node, format, version, encoding)") {
-         Tree<> t(covarianceSuite, format::xml, "3.0", "UTF-9");
+      WHEN("We call: Tree(top-level node, file format, version, encoding)") {
+         Tree<> t(covarianceSuite, file::xml, "3.0", "UTF-9");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "xml");
             CHECK(t.decl().metadata.size() == 2);

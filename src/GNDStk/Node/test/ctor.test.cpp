@@ -123,7 +123,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // we get the node's name
    // ------------------------
    WHEN("A node is constructed from a child_t") {
-      Node<> n(plain::child::reactionSuite);
+      Node<> n(basic::child::reactionSuite);
       CHECK(n.name == "reactionSuite");
       CHECK(n.metadata.size() == 0);
       CHECK(n.children.size() == 0);
@@ -145,23 +145,23 @@ SCENARIO("Testing GNDStk Node constructors") {
 
       // child_t<void,one>
       WHEN("Another node is constructed from (child_t<one>,node)") {
-         Node<> n(child_t<void,find::one>("ONE"),nv);
+         Node<> n(child_t<void,allow::one>("ONE"),nv);
          CHECK(n.name == "ONE"); // name taken from the child_t, not from nv
          CHECK(n.metadata.size() == 2);
          CHECK(n.children.size() == 1);
       }
 
-      // child_t<void,all>, just to be different from the <one> case above
-      WHEN("Another node is constructed from (child_t<all>,node)") {
-         Node<> n(child_t<void,find::all>("TWO"),nd);
+      // child_t<void,many>, just to be different from the <one> case above
+      WHEN("Another node is constructed from (child_t<many>,node)") {
+         Node<> n(child_t<void,allow::many>("TWO"),nd);
          CHECK(n.name == "TWO"); // as above
          CHECK(n.metadata.size() == 1);
          CHECK(n.children.size() == 2);
       }
 
       // With a yyyymmdd, which can implcitly convert to a Node
-      WHEN("Another node is constructed from (child_t<all>,type)") {
-         Node<> n(child_t<void,find::all>("THREE"),yyyymmdd{1776,7,4});
+      WHEN("Another node is constructed from (child_t<many>,type)") {
+         Node<> n(child_t<void,allow::many>("THREE"),yyyymmdd{1776,7,4});
          CHECK(n.name == "THREE");
          CHECK(n.metadata.size() == 3);
          CHECK(n.meta("Year" ) == "1776");
@@ -175,8 +175,8 @@ SCENARIO("Testing GNDStk Node constructors") {
    // child_t<TYPE>, TYPE
    // ------------------------
    GIVEN("Some child_t<type> objects") {
-      const child_t<yyyymmdd,find::one> ymd("YearMonthDay");
-      const child_t<mmddyyyy,find::one> mdy("MonthDayYear");
+      const child_t<yyyymmdd,allow::one> ymd("YearMonthDay");
+      const child_t<mmddyyyy,allow::one> mdy("MonthDayYear");
 
       WHEN("A node is constructed with (child_t<type>,type)") {
          Node<> n(ymd,yyyymmdd{1776,7,4});

@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Node::write()
+// Node.write()
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -14,21 +14,28 @@ std::ostream &write(std::ostream &os, const int level = 0) const
    const std::string inext(indent*(level+1),' '); // next ...
 
    // write name
-   os << icurr << name << ":" << std::endl;
+   if (!(os << icurr << name << ":" << std::endl))
+      log::error("ostream << node.name returned with !ostream");
 
    // write metadata
-   for (const auto &meta : metadata)
-      if (!(os << inext << meta.first << ": " << meta.second << std::endl))
-         break;
+   if (os)
+      for (const auto &meta : metadata)
+         if (!(os << inext << meta.first << ": " << meta.second << std::endl)) {
+            log::error("ostream << node.metadata returned with !ostream");
+            break;
+         }
 
    // write children
-   for (const auto &c : children)
-      if (c && !c->write(os,level+1))
-         break;
+   if (os)
+      for (const auto &c : children)
+         if (c && !c->write(os,level+1)) {
+            log::error("ostream << node.children returned with !ostream");
+            break;
+         }
 
-   // check for errors
+   // context, if applicable
    if (!os)
-      log::error("Problem during Node::write(ostream)");
+      log::member("Node.write(ostream)");
 
    // done
    return os;
@@ -45,17 +52,14 @@ bool write(const std::string &filename, const int level = 0) const
    // open file
    std::ofstream ofs(filename.c_str());
    if (!ofs) {
-      log::error(
-         "Could not open file in call to Node::write(filename=\"{}\")",
-         filename
-      );
+      log::error("Could not open file \"{}\" for output", filename);
+      log::member("Node.write(\"{}\")", filename);
       return false;
    }
 
-   // write to stream
-   write(ofs,level);
-   if (ofs.fail()) {
-      log::context("Node::write(filename=\"{}\")", filename);
+   // write to ostream
+   if (!write(ofs,level)) {
+      log::member("Node.write(\"{}\")", filename);
       return false;
    }
 

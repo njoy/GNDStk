@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Tree::top()
+// Tree.top()
 // -----------------------------------------------------------------------------
 
 // const
@@ -16,8 +16,8 @@ const nodeType &top() const
             return *c;
       log::error("Tree's top-level GNDS node not found");
       throw std::exception{};
-   } catch (const std::exception &) {
-      log::context("Tree::top()");
+   } catch (...) {
+      log::member("Tree.top()");
       throw;
    }
 }

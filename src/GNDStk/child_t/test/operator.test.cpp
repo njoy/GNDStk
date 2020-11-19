@@ -18,82 +18,82 @@ struct converterB {
 
 
 // is_void(child_t)
-template<find FIND>
-bool is_void(const child_t<void,FIND>)
+template<allow ALLOW>
+bool is_void(const child_t<void,ALLOW>)
 { return true; }
 
-template<class TYPE, find FIND, class CONVERTER>
-bool is_void(const child_t<TYPE,FIND,CONVERTER>)
+template<class TYPE, allow ALLOW, class CONVERTER>
+bool is_void(const child_t<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
 // is_int(child_t)
-template<find FIND, class CONVERTER>
-bool is_int(const child_t<int,FIND,CONVERTER>)
+template<allow ALLOW, class CONVERTER>
+bool is_int(const child_t<int,ALLOW,CONVERTER>)
 { return true; }
 
-template<class TYPE, find FIND, class CONVERTER>
-bool is_int(const child_t<TYPE,FIND,CONVERTER>)
+template<class TYPE, allow ALLOW, class CONVERTER>
+bool is_int(const child_t<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
 // is_float(child_t)
-template<find FIND, class CONVERTER>
-bool is_float(const child_t<float,FIND,CONVERTER>)
+template<allow ALLOW, class CONVERTER>
+bool is_float(const child_t<float,ALLOW,CONVERTER>)
 { return true; }
 
-template<class TYPE, find FIND, class CONVERTER>
-bool is_float(const child_t<TYPE,FIND,CONVERTER>)
+template<class TYPE, allow ALLOW, class CONVERTER>
+bool is_float(const child_t<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
 // is_double(child_t)
-template<find FIND, class CONVERTER>
-bool is_double(const child_t<double,FIND,CONVERTER>)
+template<allow ALLOW, class CONVERTER>
+bool is_double(const child_t<double,ALLOW,CONVERTER>)
 { return true; }
 
-template<class TYPE, find FIND, class CONVERTER>
-bool is_double(const child_t<TYPE,FIND,CONVERTER>)
+template<class TYPE, allow ALLOW, class CONVERTER>
+bool is_double(const child_t<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
 // is_converterA(child_t)
-template<class TYPE, find FIND>
-bool is_converterA(const child_t<TYPE,FIND,converterA>)
+template<class TYPE, allow ALLOW>
+bool is_converterA(const child_t<TYPE,ALLOW,converterA>)
 { return true; }
 
-template<class TYPE, find FIND>
-bool is_converterA(const child_t<TYPE,FIND,converterB>)
+template<class TYPE, allow ALLOW>
+bool is_converterA(const child_t<TYPE,ALLOW,converterB>)
 { return false; }
 
 
 // is_converterB(child_t)
-template<class TYPE, find FIND>
-bool is_converterB(const child_t<TYPE,FIND,converterB>)
+template<class TYPE, allow ALLOW>
+bool is_converterB(const child_t<TYPE,ALLOW,converterB>)
 { return true; }
 
-template<class TYPE, find FIND>
-bool is_converterB(const child_t<TYPE,FIND,converterA>)
+template<class TYPE, allow ALLOW>
+bool is_converterB(const child_t<TYPE,ALLOW,converterA>)
 { return false; }
 
 
 // is_one(child_t)
 template<class TYPE, class CONVERTER>
-bool is_one(const child_t<TYPE,find::one,CONVERTER>)
+bool is_one(const child_t<TYPE,allow::one,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_one(const child_t<TYPE,find::all,CONVERTER>)
+bool is_one(const child_t<TYPE,allow::many,CONVERTER>)
 { return false; }
 
 
-// is_all(child_t)
+// is_many(child_t)
 template<class TYPE, class CONVERTER>
-bool is_all(const child_t<TYPE,find::all,CONVERTER>)
+bool is_many(const child_t<TYPE,allow::many,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_all(const child_t<TYPE,find::one,CONVERTER>)
+bool is_many(const child_t<TYPE,allow::one,CONVERTER>)
 { return false; }
 
 
@@ -108,9 +108,9 @@ SCENARIO("Testing GNDStk child_t operators") {
    // -child_t
    // ------------------------
 
-   GIVEN("A child_t<type,one|all,converter>") {
-      child_t<char,find::one,converterA> foo("foo");
-      child_t<int, find::all,converterB> bar("bar");
+   GIVEN("A child_t<type,one|many,converter>") {
+      child_t<char,allow::one, converterA> foo("foo");
+      child_t<int, allow::many,converterB> bar("bar");
       WHEN("We apply operator-") {
          // both become <void>
          CHECK(is_void(-foo));
@@ -118,9 +118,9 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void,one|all>") {
-      child_t<void,find::one> foo("foo");
-      child_t<void,find::all> bar("bar");
+   GIVEN("A child_t<void,one|many>") {
+      child_t<void,allow::one > foo("foo");
+      child_t<void,allow::many> bar("bar");
       WHEN("We apply operator-") {
          // both remain <void>
          CHECK(is_void(-foo));
@@ -132,9 +132,9 @@ SCENARIO("Testing GNDStk child_t operators") {
    // type/child_t
    // ------------------------
 
-   GIVEN("A child_t<type,one|all,converter>") {
-      child_t<char,find::one,converterA> foo("foo");
-      child_t<int, find::all,converterB> bar("bar");
+   GIVEN("A child_t<type,one|many,converter>") {
+      child_t<char,allow::one, converterA> foo("foo");
+      child_t<int, allow::many,converterB> bar("bar");
       WHEN("We apply type/child_t") {
          // change the type to the new one
          CHECK(is_float(float{}/foo));
@@ -142,9 +142,9 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void,one|all>") {
-      child_t<void,find::one> foo("foo");
-      child_t<void,find::all> bar("bar");
+   GIVEN("A child_t<void,one|many>") {
+      child_t<void,allow::one > foo("foo");
+      child_t<void,allow::many> bar("bar");
       WHEN("We apply type/child_t") {
          // change the type to the new one
          CHECK(is_float(float{}/foo));
@@ -156,11 +156,11 @@ SCENARIO("Testing GNDStk child_t operators") {
    // child_t/converter
    // ------------------------
 
-   GIVEN("A child_t<type,one|all,converter>") {
-      child_t<char,  find::one,converterA> foo("foo");
-      child_t<int,   find::all,converterB> bar("bar");
-      child_t<float, find::one           > one("one");
-      child_t<double,find::all           > two("two");
+   GIVEN("A child_t<type,one|many,converter>") {
+      child_t<char,  allow::one, converterA> foo("foo");
+      child_t<int,   allow::many,converterB> bar("bar");
+      child_t<float, allow::one            > one("one");
+      child_t<double,allow::many           > two("two");
       WHEN("We apply child_t/converter") {
          // change the converter as given
          CHECK(is_converterB(foo/converterB{}));
@@ -176,35 +176,35 @@ SCENARIO("Testing GNDStk child_t operators") {
    // one(child_t)
    // ------------------------
 
-   GIVEN("A child_t<void|type,one|all[,converter]>") {
-      child_t<char,find::one,converterA> a("a");
-      child_t<int, find::all,converterB> b("b");
-      child_t<void,find::one           > c("c");
-      child_t<void,find::all           > d("d");
+   GIVEN("A child_t<void|type,one|many[,converter]>") {
+      child_t<char,allow::one, converterA> a("a");
+      child_t<int, allow::many,converterB> b("b");
+      child_t<void,allow::one            > c("c");
+      child_t<void,allow::many           > d("d");
       WHEN("We apply one(child_t)") {
-         // one() downgrades to one
-         CHECK(is_one(one(a)));
-         CHECK(is_one(one(b)));
-         CHECK(is_one(one(c)));
-         CHECK(is_one(one(d)));
+         // one() downgrades to find::one
+         CHECK(is_one(a.one()));
+         CHECK(is_one(b.one()));
+         CHECK(is_one(c.one()));
+         CHECK(is_one(d.one()));
       }
    }
 
    // ------------------------
-   // all(child_t)
+   // many(child_t)
    // ------------------------
 
-   GIVEN("A child_t<void|type,one|all[,converter]>") {
-      child_t<char,find::one,converterA> a("a");
-      child_t<int, find::all,converterB> b("b");
-      child_t<void,find::one           > c("c");
-      child_t<void,find::all           > d("d");
-      WHEN("We apply all(child_t)") {
-         // all() upgrades to all
-         CHECK(is_all(all(a)));
-         CHECK(is_all(all(b)));
-         CHECK(is_all(all(c)));
-         CHECK(is_all(all(d)));
+   GIVEN("A child_t<void|type,one|many[,converter]>") {
+      child_t<char,allow::one, converterA> a("a");
+      child_t<int, allow::many,converterB> b("b");
+      child_t<void,allow::one            > c("c");
+      child_t<void,allow::many           > d("d");
+      WHEN("We apply many(child_t)") {
+         // many() upgrades to find::many
+         CHECK(is_many(a.many()));
+         CHECK(is_many(b.many()));
+         CHECK(is_many(c.many()));
+         CHECK(is_many(d.many()));
       }
    }
 
@@ -213,21 +213,21 @@ SCENARIO("Testing GNDStk child_t operators") {
    // ------------------------
 
    GIVEN("Various child_t objects") {
-      child_t<void,find::one> voidone("voidone");
-      child_t<void,find::all> voidall("voidall");
+      child_t<void,allow::one > voidone("voidone");
+      child_t<void,allow::many> voidmany("voidmany");
 
-      auto foo = one(1.2/voidall/converterA{});
+      auto foo = (1.2/voidmany/converterA{}).one();
       CHECK(is_one(foo));
       CHECK(is_double(foo));
       CHECK(is_converterA(foo));
       CHECK(is_void(-foo));
       CHECK(is_one(-foo));
 
-      auto bar = all(100/voidone/converterB{});
-      CHECK(is_all(bar));
+      auto bar = (100/voidone/converterB{}).many();
+      CHECK(is_many(bar));
       CHECK(is_int(bar));
       CHECK(is_converterB(bar));
       CHECK(is_void(-bar));
-      CHECK(is_all(-bar));
+      CHECK(is_many(-bar));
    }
 }
