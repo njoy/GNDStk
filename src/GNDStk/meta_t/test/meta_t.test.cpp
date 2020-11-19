@@ -30,8 +30,8 @@ SCENARIO("Testing GNDStk meta_t<TYPE,CONVERTER>") {
       }
    }
 
-   // meta_t<void,CONVERTER>
-   GIVEN("The meta_t<void,CONVERTER> class") {
+   // meta_t<void>
+   GIVEN("The meta_t<void> class") {
       WHEN("Constructed with (name)") {
          meta_t<void> foo("foo");
          CHECK(foo.name == "foo");

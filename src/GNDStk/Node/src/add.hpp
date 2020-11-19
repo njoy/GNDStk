@@ -111,26 +111,26 @@ typename std::enable_if<
 // child_t, ...
 // ------------------------
 
-// Remark. The first two accept a general FIND child_t - either "one" or "all";
-// and return a reference to the added value. The "all" is allowed here - hence
-// the general FIND instead of just "one" - because it's perfectly reasonable
+// Remark. The first two accept a general ALLOW child_t (either "one" or "many")
+// and return a reference to the added value. The "many" is allowed here - hence
+// the general ALLOW instead of just "one" - because it's perfectly reasonable
 // to add just a single value in this case, even if multiple values are allowed.
-// The second two functions accept only an "all" child_t, because they receive
+// The second two functions accept only a "many" child_t, because they receive
 // containers of values. (They also return void, as there's not generally just
 // one added value to which we'd be able to return a reference.)
 
 
-// <void,FIND>
+// <void,ALLOW,void,FILTER>
 // Accepts a convertible-to-node value.
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<find FIND, class T>
+template<allow ALLOW, class T, class FILTER>
 typename std::enable_if<
    std::is_convertible<T,Node>::value,
    Node &
 >::type add(
-   const child_t<void,FIND> &kwd,
+   const child_t<void,ALLOW,void,FILTER> &kwd,
    const T &value
 ) {
    try {
@@ -144,17 +144,17 @@ typename std::enable_if<
 }
 
 
-// <TYPE,FIND>
+// <TYPE,ALLOW,CONVERTER,FILTER>
 // Accepts a convertible-to-TYPE value.
 // Builds a new child node from the value.
 // Gives the new node the name from the keyword object.
 // Returns a reference to the new node.
-template<class TYPE, find FIND, class CONVERTER, class T>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T>
 typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    Node &
 >::type add(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const T &value
 ) {
    try {
@@ -169,25 +169,26 @@ typename std::enable_if<
 }
 
 
-// <void,all>
+// <void,many,void,FILTER>
 // Accepts a container of convertible-to-node values.
 // Builds new child nodes from the values.
 // Gives each new node the name from the keyword object.
 // No returned reference, because we entered numerous new values.
 template<
    template<class...> class CONTAINER = std::vector,
+   class FILTER,
    class T = Node, class... Args
 >
 typename std::enable_if<
    std::is_convertible<T,Node>::value,
    void
 >::type add(
-   const child_t<void,find::all> &kwd,
+   const child_t<void,allow::many,void,FILTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {
       for (const T &value : container)
-         add(GNDStk::one(kwd),value);
+         add(kwd.one(),value);
    } catch (...) {
       log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;
@@ -195,13 +196,13 @@ typename std::enable_if<
 }
 
 
-// <TYPE,all>
+// <TYPE,many,CONVERTER,FILTER>
 // Accepts a container of convertible-to-TYPE values.
 // Builds new child nodes from the values.
 // Gives each new node the name from the keyword object.
 // No returned reference, because we entered numerous new values.
 template<
-   class TYPE, class CONVERTER,
+   class TYPE, class CONVERTER, class FILTER,
    template<class...> class CONTAINER = std::vector,
    class T = TYPE, class... Args
 >
@@ -209,12 +210,12 @@ typename std::enable_if<
    std::is_convertible<T,TYPE>::value,
    void
 >::type add(
-   const child_t<TYPE,find::all,CONVERTER> &kwd,
+   const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {
       for (const T &value : container)
-         add(GNDStk::one(kwd),value);
+         add(kwd.one(),value);
    } catch (...) {
       log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;

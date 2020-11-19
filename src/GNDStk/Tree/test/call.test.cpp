@@ -3,9 +3,7 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace mixed::meta;
-using namespace mixed::child;
-
+using namespace misc;
 
 
 // -----------------------------------------------------------------------------
@@ -51,12 +49,11 @@ inline void convert(const NODE &node, reactionSuite_t &out)
    out.projectile = node.meta(projectile);
    out.target     = node.meta(target);
    out.evaluation = node.meta(evaluation);
-   out.format     = node.meta(mixed::meta::format);
+   out.format     = node.meta(format);
    out.frame      = node.meta(projectileFrame);
 }
 
 inline const child_t<reactionSuite_t> rsuite("reactionSuite");
-
 
 
 // -----------------------------------------------------------------------------
@@ -140,7 +137,7 @@ SCENARIO("Testing GNDStk tree operator()") {
          CHECK( tree( reactionSuite, projectile) == "n");
          CHECK( tree( reactionSuite, target) == "O16");
          CHECK( tree( reactionSuite, evaluation) == "ENDF/B-8.0");
-         CHECK( tree( reactionSuite, mixed::meta::format) ==  1.9);
+         CHECK( tree( reactionSuite, format) ==  1.9);
          CHECK( tree( reactionSuite, projectileFrame) == "lab");
 
          // found
@@ -178,7 +175,7 @@ SCENARIO("Testing GNDStk tree operator()") {
          CHECK(tree(reactionSuite,styles,evaluated,temperature,dvalue) == 0.0);
          CHECK(tree(reactionSuite,styles,evaluated,temperature,unit  ) == "K");
 
-         // child::reaction has FIND == find::all, so the following
+         // child::reaction has ALLOW == allow::many, so the following
          // gives us back a container (std::vector by default).
          found = false;
          auto vec = tree(reactionSuite,reactions,reaction,found);

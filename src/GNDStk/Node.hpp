@@ -55,13 +55,23 @@ public:
 
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"
+   #include "GNDStk/Node/src/sort.hpp"
 
+   // miscellaneous specialty functions:
+   // documentation, cdata, ...
+   #include "GNDStk/Node/src/special.hpp"
+
+   // access
+   // These form bases for the operator()s
    #include "GNDStk/Node/src/meta.hpp"
    #include "GNDStk/Node/src/one.hpp"
-   #include "GNDStk/Node/src/all.hpp"
+   #include "GNDStk/Node/src/many.hpp"
    #include "GNDStk/Node/src/child.hpp"
 
-   #include "GNDStk/Node/src/sort.hpp"
+   // has*
+   // Boolean query: will the analogous access function succeed?
+   // Example: has(A,B,C,D) == "operator()(A,B,C,D) succeeds"
+   #include "GNDStk/Node/src/has.hpp"
 
    // ------------------------
    // operator()
@@ -79,11 +89,20 @@ public:
    // support those would complicate these files, and require that you invoke
    // operator() in awkward functional form, e.g. mynode.operator()<TYPE>(...).
 
+   // meta
    #include "GNDStk/Node/src/call-meta.hpp"
+
+   // child
    #define GNDSTK_CONST const
    #include "GNDStk/Node/src/call-child.hpp"
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call-child.hpp"
+
+   // general
+   #define GNDSTK_CONST const
+   #include "GNDStk/Node/src/call.hpp"
+   #define GNDSTK_CONST
+   #include "GNDStk/Node/src/call.hpp"
 
 }; // class Node
 

@@ -12,7 +12,7 @@ const std::string &meta(
 ) const {
    // search
    for (auto &m : metadata)
-      if (m.first == key)
+      if (std::regex_match(m.first, std::regex(key)))
          return found = true, m.second;
 
    // not found
@@ -25,7 +25,8 @@ const std::string &meta(
    // by looking at its address. This is entirely different from the question
    // of what found's value proves to be.
    if (!detail::sent(found)) {
-      log::error("Node.meta(\"{}\"): key not found in metadata", key);
+      log::error("Key \"{}\" not found in metadata", key);
+      log::member("Node.meta(\"{}\")", key);
       throw std::exception{};
    }
 
@@ -97,5 +98,5 @@ typename detail::oneof<TYPE,Ts...>::type meta(
    const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return meta(meta_t<TYPE,CONVERTER>(kwd.name),found);
+   return meta(meta_t<TYPE,CONVERTER>(kwd.name,kwd.converter),found);
 }

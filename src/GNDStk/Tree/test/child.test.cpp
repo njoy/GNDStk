@@ -3,8 +3,7 @@
 #include "GNDStk.hpp"
 
 using namespace njoy::GNDStk;
-using namespace mixed::meta;
-using namespace mixed::child;
+using namespace misc;
 
 
 
@@ -87,10 +86,10 @@ inline void convert(const NODE &node, covarianceSuite_type_2 &out)
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
    // and format keyword - which return, respectively, string, string, string,
    // and double. I.e. just what we need in our own custom type.
-   out.projectile = node.meta(mixed::meta::projectile);
-   out.target     = node.meta(mixed::meta::target);
-   out.evaluation = node.meta(mixed::meta::evaluation);
-   out.format     = node.meta(mixed::meta::format);
+   out.projectile = node.meta(meta::projectile);
+   out.target     = node.meta(meta::target);
+   out.evaluation = node.meta(meta::evaluation);
+   out.format     = node.meta(meta::format);
 }
 
 // keyword: my_covarianceSuite_keyword
@@ -137,13 +136,13 @@ SCENARIO("Testing GNDStk tree child()") {
          // It may someday change to child_t<something other than void,...>,
          // at which time the Node<> return PROBABLY WON'T WORK! void, in
          // this context, means that the "smart keyword" really just returns
-         // a plain old Node, even though in principle it could give us back
+         // a raw Node, even though in principle it could give us back
          // a custom type.
          found = false;
-         const Node<> &cnode = c.child(mixed::child::xml,found);
+         const Node<> &cnode = c.child(child::xml,found);
          CHECK(found == true);
          found = false;
-         Node<> &tnode = t.child(mixed::child::xml,found);
+         Node<> &tnode = t.child(child::xml,found);
          CHECK(found == true);
       }
 

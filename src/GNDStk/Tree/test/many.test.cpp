@@ -4,7 +4,7 @@
 
 using namespace njoy::GNDStk;
 
-SCENARIO("Testing GNDStk tree all()") {
+SCENARIO("Testing GNDStk tree many()") {
 
    GIVEN("A tree read from n-069_Tm_170-covar.xml") {
       // c: a const tree
@@ -14,7 +14,7 @@ SCENARIO("Testing GNDStk tree all()") {
       // found flag
       bool found;
 
-      // Note: Tree's all() function can give back the declaration node or
+      // Note: Tree's many() function can give back the declaration node or
       // the top-level GNDS node (or both if they have the same name, which
       // really wouldn't be a correct state of affairs).
 
@@ -23,7 +23,7 @@ SCENARIO("Testing GNDStk tree all()") {
 
          // const
          found = false;
-         auto cnode = c.all("xml",found);
+         auto cnode = c.many("xml",found);
          CHECK(found == true);
          CHECK(cnode.size() == 1);
          CHECK(cnode[0].name == "xml");
@@ -31,7 +31,7 @@ SCENARIO("Testing GNDStk tree all()") {
 
          // non-const
          found = false;
-         auto tnode = t.all("xml",found);
+         auto tnode = t.many("xml",found);
          CHECK(found == true);
          CHECK(tnode.size() == 1);
          CHECK(tnode[0].name == "xml");
@@ -43,7 +43,7 @@ SCENARIO("Testing GNDStk tree all()") {
 
          // const
          found = false;
-         auto cnode = c.all("covarianceSuite",found);
+         auto cnode = c.many("covarianceSuite",found);
          CHECK(found == true);
          CHECK(cnode.size() == 1);
          CHECK(cnode[0].name == "covarianceSuite");
@@ -51,7 +51,7 @@ SCENARIO("Testing GNDStk tree all()") {
 
          // non-const
          found = false;
-         auto tnode = t.all("covarianceSuite",found);
+         auto tnode = t.many("covarianceSuite",found);
          CHECK(found == true);
          CHECK(tnode.size() == 1);
          CHECK(tnode[0].name == "covarianceSuite");
@@ -63,13 +63,13 @@ SCENARIO("Testing GNDStk tree all()") {
 
          // const
          found = true;
-         auto cnode = c.all("foo",found);
+         auto cnode = c.many("foo",found);
          CHECK(found == false);
          CHECK(cnode.size() == 0);
 
          // non-const
          found = true;
-         auto tnode = t.all("bar",found);
+         auto tnode = t.many("bar",found);
          CHECK(found == false);
          CHECK(tnode.size() == 0);
       }

@@ -1,14 +1,17 @@
 
 // -----------------------------------------------------------------------------
+// The below all create new child_t objects; they don't modify the given ones
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 // Voidify
 // -----------------------------------------------------------------------------
 
 // operator-
-template<class TYPE, find FIND, class CONVERTER>
-inline auto operator-(const child_t<TYPE,FIND,CONVERTER> &kwd)
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
-   // Downgrade the type to void, and chuck the converter.
-   return child_t<void,FIND>(kwd.name, kwd.canBeTopLevel);
+   return kwd.basic();
 }
 
 
@@ -19,18 +22,95 @@ inline auto operator-(const child_t<TYPE,FIND,CONVERTER> &kwd)
 // See meta_t analogs for relevant remarks
 // -----------------------------------------------------------------------------
 
-// T/child_t<TYPE,FIND,CONVERTER>
-template<class T, class TYPE, find FIND, class CONVERTER>
-inline auto operator/(const T &, const child_t<TYPE,FIND,CONVERTER> &kwd)
-{
-   return child_t<T,FIND,CONVERTER>(kwd.name, kwd.converter, kwd.canBeTopLevel);
+// T/child_t<TYPE,ALLOW,CONVERTER,FILTER>
+template<class T, class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator/(
+   const T &,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd
+) {
+   return child_t<T,ALLOW,CONVERTER,FILTER>(
+      kwd.name,
+      kwd.converter,
+      kwd.filter,
+      kwd.canBeTopLevel
+   );
 }
 
-// T/child_t<void,FIND>
-template<class T, find FIND>
-inline auto operator/(const T &, const child_t<void,FIND> &kwd)
+// T/child_t<void,ALLOW,void,FILTER>
+template<class T, allow ALLOW, class FILTER>
+inline auto operator/(
+   const T &,
+   const child_t<void,ALLOW,void,FILTER> &kwd
+) {
+   using CONVERTER = typename detail::default_converter<T>::type;
+   return child_t<T,ALLOW,CONVERTER,FILTER>(
+      kwd.name,
+      CONVERTER{}, // because the input child_t didn't have one
+      kwd.filter,
+      kwd.canBeTopLevel
+   );
+}
+
+
+
+// -----------------------------------------------------------------------------
+// child_t/string
+// child_t/char*
+// Change name to the given one
+// Type remains the same
+// Note: the <TYPE> and <void> cases, as well as the <string> and <char*>
+// cases, must all be given, or else ambiguities will arise with the later
+// child_t/converter operators.
+// -----------------------------------------------------------------------------
+
+// child_t/string
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator/(
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const std::string &name
+) {
+   auto ret = kwd;
+   return ret.name = name, ret;
+}
+
+template<allow ALLOW, class FILTER>
+inline auto operator/(
+   const child_t<void,ALLOW,void,FILTER> &kwd,
+   const std::string &name
+) {
+   auto ret = kwd;
+   return ret.name = name, ret;
+}
+
+// child_t/char*
+// Forwards to child_t/string
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator/(
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const char *const name
+) {
+   return kwd/std::string(name);
+}
+
+template<allow ALLOW, class FILTER>
+inline auto operator/(
+   const child_t<void,ALLOW,void,FILTER> &kwd,
+   const char *const name
+) {
+   return kwd/std::string(name);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// *
+// regex match-anything
+// -----------------------------------------------------------------------------
+
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator*(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
-   return child_t<T,FIND>(kwd.name, kwd.canBeTopLevel);
+   return kwd/".*";
 }
 
 
@@ -41,31 +121,39 @@ inline auto operator/(const T &, const child_t<void,FIND> &kwd)
 // See meta_t analogs for relevant remarks
 // -----------------------------------------------------------------------------
 
-// child_t<TYPE,FIND,CONVERTER>/C
-template<class TYPE, find FIND, class CONVERTER, class C>
+// child_t<TYPE,ALLOW,CONVERTER,FILTER>/C
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class C>
 inline child_t<
-   typename detail::isNotVoid<TYPE>::type,
-   FIND,
-   C
+   typename detail::isNotVoid<TYPE>::type, // for SFINAE
+   ALLOW,
+   C,
+   FILTER
 > operator/(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const C &converter
 ) {
-   return child_t<TYPE,FIND,C>(kwd.name, converter, kwd.canBeTopLevel);
+   return child_t<TYPE,ALLOW,C,FILTER>(
+      kwd.name,
+      converter, // the new one; not kwd.converter!
+      kwd.filter,
+      kwd.canBeTopLevel
+   );
 }
 
-// child_t<void,FIND>/C
-template<class TYPE, find FIND, class C>
+// child_t<void,ALLOW,void,FILTER>/C
+template<class TYPE, allow ALLOW, class FILTER, class C>
 inline child_t<
-   typename detail::isVoid<TYPE>::type,
-   FIND
+   typename detail::isVoid<TYPE>::type, // for SFINAE
+   ALLOW,
+   void,
+   FILTER
 > operator/(
-   const child_t<TYPE,FIND> &kwd,
+   const child_t<TYPE,ALLOW,void,FILTER> &kwd,
    const C &
 ) {
    static_assert(
       !std::is_same<TYPE,void>::value,
-      "child_t<void>/CONVERTER not allowed; the child_t type must be non-void"
+      "child_t<void>/CONVERTER not allowed; the child_t must be non-void"
    );
    return kwd;
 }
@@ -73,46 +161,85 @@ inline child_t<
 
 
 // -----------------------------------------------------------------------------
-// one(), all()
-// Downgrade|upgrade to find:: one|all
+// post--
+// Downgrade converter to its default
 // -----------------------------------------------------------------------------
 
-// ------------------------
-// child_t<TYPE>
-// ------------------------
-
-// one()
-template<class TYPE, find FIND, class CONVERTER>
-inline auto one(const child_t<TYPE,FIND,CONVERTER> &kwd)
-{
-   return child_t<TYPE,find::one,CONVERTER>(
-      kwd.name, kwd.converter, kwd.canBeTopLevel
+// child_t<TYPE>--
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator--(
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const int
+) {
+   using C = typename detail::default_converter<TYPE>::type;
+   return child_t<TYPE,ALLOW,C,FILTER>(
+      kwd.name,
+      C{},
+      kwd.filter,
+      kwd.canBeTopLevel
    );
 }
 
-// all()
-template<class TYPE, find FIND, class CONVERTER>
-inline auto all(const child_t<TYPE,FIND,CONVERTER> &kwd)
+// child_t<void>--
+template<allow ALLOW, class FILTER>
+inline auto operator--(
+   const child_t<void,ALLOW,void,FILTER> &kwd,
+   const int
+) {
+   return kwd;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// --pre, ++pre
+// Downgrade|upgrade to allow::one|many
+// -----------------------------------------------------------------------------
+
+// --child_t
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator--(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
-   return child_t<TYPE,find::all,CONVERTER>(
-      kwd.name, kwd.converter, kwd.canBeTopLevel
+   return kwd.one();
+}
+
+// ++child_t
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator++(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+{
+   return kwd.many();
+}
+
+
+
+// -----------------------------------------------------------------------------
+// child_t + F
+// Change filter to F
+// -----------------------------------------------------------------------------
+
+// child_t<TYPE,ALLOW,CONVERTER,FILTER> + F
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class F>
+inline auto operator+(
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const F &filter
+) {
+   return child_t<TYPE,ALLOW,CONVERTER,F>(
+      kwd.name,
+      kwd.converter,
+      filter, // the new one
+      kwd.canBeTopLevel
    );
 }
 
-// ------------------------
-// child_t<void>
-// ------------------------
-
-// one()
-template<find FIND>
-inline auto one(const child_t<void,FIND> &kwd)
-{
-   return child_t<void,find::one>(kwd.name, kwd.canBeTopLevel);
-}
-
-// all()
-template<find FIND>
-inline auto all(const child_t<void,FIND> &kwd)
-{
-   return child_t<void,find::all>(kwd.name, kwd.canBeTopLevel);
+// child_t<void,ALLOW,void,FILTER> + F
+template<allow ALLOW, class FILTER, class F>
+inline auto operator+(
+   const child_t<void,ALLOW,void,FILTER> &kwd,
+   const F &filter
+) {
+   return child_t<void,ALLOW,void,F>(
+      kwd.name,
+      filter, // the new one
+      kwd.canBeTopLevel
+   );
 }

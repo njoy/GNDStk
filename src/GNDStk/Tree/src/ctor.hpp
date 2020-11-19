@@ -74,10 +74,10 @@ explicit Tree(const JSON &j)
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
-// filename, format
+// file name, file format
 // Example:
-//    Tree<> t("n-008_O_016.xml", format::xml);
-explicit Tree(const std::string &filename, const format form = format::null)
+//    Tree<> t("n-008_O_016.xml", file::xml);
+explicit Tree(const std::string &filename, const file form = file::null)
 {
    try {
       if (!read(filename,form))
@@ -88,7 +88,7 @@ explicit Tree(const std::string &filename, const format form = format::null)
    }
 }
 
-// filename, string
+// file name, string
 // Example:
 //    Tree<> t("n-008_O_016.xml", "xml");
 Tree(const std::string &filename, const std::string &type)
@@ -102,11 +102,11 @@ Tree(const std::string &filename, const std::string &type)
    }
 }
 
-// istream, format
+// istream, file format
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
-//    Tree<> t(ifs, format::xml);
-explicit Tree(std::istream &is, const format form = format::null)
+//    Tree<> t(ifs, file::xml);
+explicit Tree(std::istream &is, const file form = file::null)
 {
    try {
       if (!read(is,form))
@@ -142,7 +142,7 @@ Tree(std::istream &is, const std::string &type)
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
 //
 // Examples:
-//    Tree<> newtree(reactionSuite, format::xml, "1.0", "UTF-8");
+//    Tree<> newtree(reactionSuite, file::xml, "1.0", "UTF-8");
 // or
 //    Tree<> newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
@@ -158,11 +158,11 @@ Tree(std::istream &is, const std::string &type)
 // being ambiguous with other Tree constructors that take their (string) first
 // arguments to be *file* names (not top-level node names).
 
-// keyword, format
-template<class TYPE, find FIND, class CONVERTER>
+// keyword, file format
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
-   const format form = format::xml,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const file form = file::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -176,9 +176,9 @@ Tree(
 }
 
 // keyword, string
-template<class TYPE, find FIND, class CONVERTER>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree(
-   const child_t<TYPE,FIND,CONVERTER> &kwd,
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &type,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

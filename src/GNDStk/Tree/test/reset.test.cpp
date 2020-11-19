@@ -4,15 +4,15 @@
 
 SCENARIO("Testing GNDStk tree reset()") {
    using namespace njoy::GNDStk;
-   using namespace mixed::child;
+   using namespace misc;
 
    GIVEN("An empty tree") {
       /*
       Cases:
          reset(top-level node)
-         reset(top-level node, format)
-         reset(top-level node, format, version)
-         reset(top-level node, format, version, encoding)
+         reset(top-level node, file format)
+         reset(top-level node, file format, version)
+         reset(top-level node, file format, version, encoding)
          reset(top-level node, string)
          reset(top-level node, string, version)
          reset(top-level node, string, version, encoding)
@@ -36,9 +36,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(reactionSuite, format::json)") {
+           "Tree.reset(reactionSuite, file::json)") {
          Tree<> t;
-         t.reset(reactionSuite, format::json);
+         t.reset(reactionSuite, file::json);
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "json");
@@ -51,9 +51,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(covarianceSuite, format::null, \"2.0\")") {
+           "Tree.reset(covarianceSuite, file::null, \"2.0\")") {
          Tree<> t;
-         t.reset(covarianceSuite, format::null, "2.0");
+         t.reset(covarianceSuite, file::null, "2.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "xml");
@@ -68,9 +68,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(covarianceSuite, format::xml, \"3.0\", \"UTF-9\")") {
+           "Tree.reset(covarianceSuite, file::xml, \"3.0\", \"UTF-9\")") {
          Tree<> t;
-         t.reset(covarianceSuite, format::xml, "3.0", "UTF-9");
+         t.reset(covarianceSuite, file::xml, "3.0", "UTF-9");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "xml");

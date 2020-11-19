@@ -24,6 +24,7 @@
 #include <iomanip>
 #include <iostream>
 #include <map>
+#include <regex>
 #include <set>
 #include <sstream>
 #include <string>
@@ -66,9 +67,10 @@ namespace GNDStk {
 #include "GNDStk/keyword.hpp"
 
 // sets of meta_t/child_t
-#include "GNDStk/plain.hpp"
+#include "GNDStk/common.hpp"
+#include "GNDStk/basic.hpp"
+#include "GNDStk/misc.hpp"
 #include "GNDStk/typed.hpp"
-#include "GNDStk/mixed.hpp"
 
 // tree: primary constructs
 #include "GNDStk/Node.hpp"

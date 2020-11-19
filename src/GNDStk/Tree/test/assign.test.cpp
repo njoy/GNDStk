@@ -44,8 +44,8 @@ bool sets_equal_to(LTREE &left, RTREE &&right)
 //    M = metadata container class
 //    C = children container class
 template<
-   template<class ...> class M = std::vector,
-   template<class ...> class C = std::vector
+   template<class...> class M = std::vector,
+   template<class...> class C = std::vector
 >
 void assign()
 {

@@ -6,7 +6,7 @@ add_executable( GNDStk.Node.test
                 sort.test.cpp
                 meta.test.cpp
                 assign.test.cpp
-                all.test.cpp
+                many.test.cpp
                 empty.test.cpp
                 one.test.cpp
                 call.test.cpp

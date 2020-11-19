@@ -41,8 +41,8 @@ struct temperature_t {
 
 inline void convert(const Node<> &n, temperature_t &temp)
 {
-   temp.value = n(mixed::meta::dvalue);
-   temp.unit  = n(mixed::meta::unit);
+   temp.value = n(misc::meta::dvalue);
+   temp.unit  = n(misc::meta::unit);
 }
 
 // isotope_t
@@ -54,10 +54,155 @@ struct isotope_t {
 
 inline void convert(const Node<> &n, isotope_t &iso)
 {
-   iso.symbol = n(mixed::meta::symbol);
-   iso.A = n(mixed::meta::A);
-   iso.nuclides = &n(mixed::child::nuclides);
+   iso.symbol = n(misc::meta::symbol);
+   iso.A = n(misc::meta::A);
+   iso.nuclides = &n(misc::child::nuclides);
 }
+
+
+// -----------------------------------------------------------------------------
+// values_string
+// -----------------------------------------------------------------------------
+
+static const std::string values_string =
+R"***(1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05, 3.7939
+1.6505e+06, 8.9205
+1.9e+06, 3.03608
+3.209e+06, 2.80248
+4.45e+06, 1.80596
+4.82e+06, 1.52328
+5.694e+06, 1.56097
+6.378e+06, 1.26616
+7.42e+06, 0.795699
+9.675e+06, 0.721606
+1.389e+07, 0.99579
+2.65e+07, 1.02923
+)***";
 
 
 // -----------------------------------------------------------------------------
@@ -69,13 +214,13 @@ SCENARIO("Testing GNDStk Node operator()") {
    // tree
    Tree<> tree("n-008_O_016.xml");
 
-   // keywords with find::one
-   auto temperature = keyword.child<temperature_t,find::one>("temperature");
-   auto styles = keyword.child<void,find::one>("styles");
+   // keywords with allow::one
+   auto temperature = keyword.child<temperature_t,allow::one>("temperature");
+   auto styles = keyword.child<void,allow::one>("styles");
 
-   // keywords with find::all
-   auto isotope = keyword.child<isotope_t,find::all>("isotope");
-   auto isotope_node = keyword.child<void,find::all>("isotope");
+   // keywords with allow::many
+   auto isotope = keyword.child<isotope_t,allow::many>("isotope");
+   auto isotope_node = keyword.child<void,allow::many>("isotope");
 
    GIVEN("The top-level node from a tree object") {
 
@@ -86,11 +231,17 @@ SCENARIO("Testing GNDStk Node operator()") {
       // Below, we'll exercise every variation of node::operator()
 
       THEN("Calling node.top(child_t,child_t,meta_t) gives us a metadatum") {
+         CHECK(top.has(
+            misc::child::styles,
+            misc::child::evaluated,
+            temperature
+         ));
+
          auto temp = top(
-            mixed::child::styles,   // from GNDStk
-            mixed::child::evaluated, // from GNDStk
+            misc::child::styles,   // from GNDStk
+            misc::child::evaluated, // from GNDStk
             temperature // ours, as set up earlier
-            );
+         );
          CHECK(temp.value == 0.0);
          CHECK(temp.unit  == "K");
       }
@@ -105,11 +256,11 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(styles_nonconst.children.size() == 1);
 
          auto iso = top( // non-const
-            mixed::child::PoPs,
-            mixed::child::chemicalElements,
-            mixed::child::chemicalElement
+            misc::child::PoPs,
+            misc::child::chemicalElements,
+            misc::child::chemicalElement
          )[0](
-            mixed::child::isotopes,
+            misc::child::isotopes,
             isotope
          );
          CHECK(iso.size() == 3);
@@ -118,11 +269,11 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(iso[2].symbol == "H3");  CHECK(iso[2].A == 3);
 
          auto iso_node = ctop( // const
-            mixed::child::PoPs,
-            mixed::child::chemicalElements,
-            mixed::child::chemicalElement
+            misc::child::PoPs,
+            misc::child::chemicalElements,
+            misc::child::chemicalElement
          )[0](
-            mixed::child::isotopes,
+            misc::child::isotopes,
             isotope_node
          );
          CHECK(iso_node.size() == 3);
@@ -160,10 +311,10 @@ SCENARIO("Testing GNDStk Node operator()") {
    // operator() cases
    // ------------------------
 
-   using mixed::child::reactionSuite;
-   using mixed::child::reactions;
-   using mixed::meta::label;
-   using mixed::meta::ENDF_MT;
+   using misc::child::reactionSuite;
+   using misc::child::reactions;
+   using misc::meta::label;
+   using misc::meta::ENDF_MT;
 
    const char *const twon = "2n + O15 + photon";
 
@@ -172,8 +323,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // n: non-const <reactions> node
       node &n = tree(reactionSuite,reactions);
 
-      const child_t<void,find::one> reaction("reaction");
-      const child_t<void,find::one> nonsense("nonsense");
+      const child_t<void,allow::one> reaction("reaction");
+      const child_t<void,allow::one> nonsense("nonsense");
 
       THEN("(child_t) works") {
          // reference return; so, its address is available
@@ -246,8 +397,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<void,find::one> reaction("reaction");
-      const child_t<void,find::one> nonsense("nonsense");
+      const child_t<void,allow::one> reaction("reaction");
+      const child_t<void,allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          (void)&c(reaction);
@@ -289,13 +440,13 @@ SCENARIO("Testing GNDStk Node operator()") {
       }
    }
 
-   // case: <void,all> const
-   GIVEN("Testing node(child_t<void,all>[,string][,found]) const") {
+   // case: <void,many> const
+   GIVEN("Testing node(child_t<void,many>[,string][,found]) const") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<void,find::all> reaction("reaction");
-      const child_t<void,find::all> nonsense("nonsense");
+      const child_t<void,allow::many> reaction("reaction");
+      const child_t<void,allow::many> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(reaction).size() == 60);
@@ -335,8 +486,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<reaction_t,find::one> reaction("reaction");
-      const child_t<nonsense_t,find::one> nonsense("nonsense");
+      const child_t<reaction_t,allow::one> reaction("reaction");
+      const child_t<nonsense_t,allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(reaction).label == "n + O16");
@@ -370,13 +521,13 @@ SCENARIO("Testing GNDStk Node operator()") {
       }
    }
 
-   // case: <type,all> const
-   GIVEN("Testing node(child_t<type,all>[,string][,found]) const") {
+   // case: <type,many> const
+   GIVEN("Testing node(child_t<type,many>[,string][,found]) const") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<reaction_t,find::all> reaction("reaction");
-      const child_t<nonsense_t,find::all> nonsense("nonsense");
+      const child_t<reaction_t,allow::many> reaction("reaction");
+      const child_t<nonsense_t,allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c(reaction).size() == 60);
@@ -430,8 +581,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // n: non-const <reactions> node
       Tree<> &n = tree;
 
-      const child_t<void,find::one> reaction("reaction");
-      const child_t<void,find::one> nonsense("nonsense");
+      const child_t<void,allow::one> reaction("reaction");
+      const child_t<void,allow::one> nonsense("nonsense");
 
       THEN("(child_t) works") {
          (void)&n(suite,reactions,reaction);
@@ -500,8 +651,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<void,find::one> reaction("reaction");
-      const child_t<void,find::one> nonsense("nonsense");
+      const child_t<void,allow::one> reaction("reaction");
+      const child_t<void,allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          (void)&c(suite,reactions,reaction);
@@ -543,13 +694,13 @@ SCENARIO("Testing GNDStk Node operator()") {
       }
    }
 
-   // case: <void,all> const
-   GIVEN("Testing node(child_t<void,all>[,string][,found]) const") {
+   // case: <void,many> const
+   GIVEN("Testing node(child_t<void,many>[,string][,found]) const") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<void,find::all> reaction("reaction");
-      const child_t<void,find::all> nonsense("nonsense");
+      const child_t<void,allow::many> reaction("reaction");
+      const child_t<void,allow::many> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(suite,reactions,reaction).size() == 60);
@@ -589,8 +740,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<reaction_t,find::one> reaction("reaction");
-      const child_t<nonsense_t,find::one> nonsense("nonsense");
+      const child_t<reaction_t,allow::one> reaction("reaction");
+      const child_t<nonsense_t,allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(suite,reactions,reaction).label == "n + O16");
@@ -603,6 +754,7 @@ SCENARIO("Testing GNDStk Node operator()") {
          found = false;
          CHECK((c(suite,reactions,reaction,found).ENDF_MT == 2 && found));
          found = true;
+         CHECK(!c.has(suite,reactions,nonsense));
          c(suite,reactions,nonsense,found);
          CHECK(!found);
       }
@@ -624,13 +776,13 @@ SCENARIO("Testing GNDStk Node operator()") {
       }
    }
 
-   // case: <type,all> const
-   GIVEN("Testing node(child_t<type,all>[,string][,found]) const") {
+   // case: <type,many> const
+   GIVEN("Testing node(child_t<type,many>[,string][,found]) const") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<reaction_t,find::all> reaction("reaction");
-      const child_t<nonsense_t,find::all> nonsense("nonsense");
+      const child_t<reaction_t,allow::many> reaction("reaction");
+      const child_t<nonsense_t,allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c(suite,reactions,reaction).size() == 60);
@@ -666,4 +818,79 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(!found);
       }
    }
+
+
+   // ------------------------
+   // Test our values<>
+   // variable template
+   // ------------------------
+
+   GIVEN("Testing node(values<*>) for various *") {
+      const node n = tree(
+         basic::child::reactionSuite,
+         basic::child::reactions,
+         basic::child::reaction, "n + O16",
+         basic::child::crossSection,
+         basic::child::XYs1d, "eval"
+      );
+
+      using misc::values;
+      std::ostringstream oss;
+
+      // I'll only print every [stride] vector elements from the vectors
+      // as extracted below, so as not to have a gigantic string to compare
+      // with. There's nothing wrong with gigantic strings, except that I
+      // don't want to hardcode, in this or any test file, a literal string
+      // that's hundreds of pages long! :-)
+      const int stride = 200;
+      int count;
+
+      // values<void> ==> node (that is, generic node in original form)
+      auto vnode = n(values<void>);
+      CHECK(vnode.metadata.size() == 0);
+      CHECK(vnode.children.size() == 1);
+
+      // values<> ==> vector<double>
+      count = 0;
+      for (auto v : n(values<>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<double> ==> vector<double>
+      count = 0;
+      for (auto v : n(values<double>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<float> ==> vector<float>
+      count = 0;
+      for (auto v : n(values<float>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<vector<double>> ==> vector<double>
+      count = 0;
+      for (auto v : n(values<std::vector<double>>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<vector<float>> ==> vector<float>
+      count = 0;
+      for (auto v : n(values<std::vector<float>>))
+         if (count++ % stride == 0)
+            oss << v << std::endl;
+      oss << std::endl;
+
+      // values<vector<pair<double,double>>> ==> vector<pair<double,double>>
+      count = 0;
+      for (auto v : n(values<std::vector<std::pair<double,double>>>))
+         if (count++ % stride == 0)
+            oss << v.first << ", " << v.second << std::endl;
+
+      CHECK(oss.str() == values_string);
+   } // GIVEN
 }
