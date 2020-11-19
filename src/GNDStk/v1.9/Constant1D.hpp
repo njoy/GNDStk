@@ -10,12 +10,6 @@
 
 namespace njoy {
 namespace GNDStk {
-
-/* forward declaration of the component and convert functions */
-namespace v1_9 { class Constant1D; }
-void convert( const node&, v1_9::Constant1D& );
-void convert( const v1_9::Constant1D&, node& );
-
 namespace v1_9 {
 
   /**
@@ -150,8 +144,8 @@ namespace v1_9 {
      */
     Constant1D( const std::string& label, double constant,
                 double domainMin, double domainMax,
-                const std::string& constantLabel, const std::string& domainLabel,
-                const std::string& constantUnit, const std::string& domainUnit ) :
+                const std::string& domainLabel, const std::string& constantLabel,
+                const std::string& domainUnit, const std::string& constantUnit ) :
       Constant1D( std::string( label ), constant, domainMin, domainMax, std::nullopt,
                   Axes( { Axis( 0, constantLabel, constantUnit ),
                           Axis( 1, domainLabel, domainUnit ) } ) ) {}

@@ -83,8 +83,8 @@ SCENARIO( "Constant1D" ) {
       std::string constantUnit = "fm";
 
       Constant1D chunk( label, constant, domainMin, domainMax,
-                        constantLabel, domainLabel,
-                        constantUnit, domainUnit );
+                        domainLabel, constantLabel,
+                        domainUnit, constantUnit );
 
       THEN( "an Constant1D can be constructed and members can be tested" ) {
 

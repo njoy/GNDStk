@@ -9,12 +9,6 @@
 
 namespace njoy {
 namespace GNDStk {
-
-/* forward declaration of the component and convert functions */
-namespace v1_9 { class Axis; }
-void convert( const node&, v1_9::Axis& );
-void convert( const v1_9::Axis&, node& );
-
 namespace v1_9 {
 
   /**

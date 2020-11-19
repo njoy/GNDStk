@@ -9,12 +9,6 @@
 
 namespace njoy {
 namespace GNDStk {
-
-/* forward declaration of the component and convert functions */
-namespace v1_9 { class Axes; }
-void convert( const node&, v1_9::Axes& );
-void convert( const v1_9::Axes&, node& );
-
 namespace v1_9 {
 
   /**
@@ -174,6 +168,7 @@ void convert( const node& core, v1_9::Axes& component ) {
 
   component = v1_9::Axes( core );
 }
+
 /**
  *  @brief Convert a component to a core GNDS node
  *
