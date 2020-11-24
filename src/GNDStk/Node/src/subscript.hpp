@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 /*
-Node's bracket operators, operator[], complement its call operators, but with
+Node's subscript operators, operator[], complement its call operators, but with
 some crucial differences.
 
 The generalized call operators, operator(), allow for any number of arguments,

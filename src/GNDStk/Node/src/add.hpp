@@ -188,7 +188,7 @@ typename std::enable_if<
 ) {
    try {
       for (const T &value : container)
-         add(kwd.one(),value);
+         add(--kwd,value); // --kwd: child_t<...,allow::one,...>
    } catch (...) {
       log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;
@@ -215,7 +215,7 @@ typename std::enable_if<
 ) {
    try {
       for (const T &value : container)
-         add(kwd.one(),value);
+         add(--kwd,value); // --kwd: child_t<...,allow::one,...>
    } catch (...) {
       log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
       throw;

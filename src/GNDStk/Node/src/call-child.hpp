@@ -28,7 +28,9 @@ decltype(auto) operator()(
       // As above, don't need or want:
       //    if (kwd.name == "")
       //       detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(kwd.one(), detail::label_is(label), found);
+
+      // --kwd: child_t<...,allow::one,...>
+      return child(--kwd, detail::label_is(label), found);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
       throw;

@@ -19,8 +19,7 @@ std::ostream &write(std::ostream &os) const
          log::error("ostream << nlohmann::json returned with !ostream");
          log::member("JSON.write(ostream)");
       }
-   }
-   catch (...) {
+   } catch (...) {
       log::error("ostream << nlohmann::json threw an exception");
       log::member("JSON.write(ostream)");
       os.setstate(std::ios::failbit);
