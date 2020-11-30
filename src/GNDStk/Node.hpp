@@ -104,6 +104,12 @@ public:
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call.hpp"
 
+   // ------------------------
+   // operator[]
+   // ------------------------
+
+   #include "GNDStk/Node/src/subscript.hpp"
+
 }; // class Node
 
 
