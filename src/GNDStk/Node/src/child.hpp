@@ -67,7 +67,6 @@ CONTAINER<Node> child(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // child(child_t<TYPE,one,...>, filter parameter [,found])
 // -----------------------------------------------------------------------------
@@ -98,14 +97,13 @@ TYPE child(
 // variant
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER, class FILTER, class FILT>
-typename detail::oneof<TYPE,Ts...>::type child(
+typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
    const child_t<std::variant<Ts...>,allow::one,CONVERTER,FILTER> &kwd,
    const FILT &filt,
    bool &found = detail::default_bool
 ) const {
    return child(TYPE{}/kwd, filt, found);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -165,14 +163,13 @@ template<
    template<class...> class CONTAINER = std::vector,
    class... Ts, class CONVERTER, class FILTER, class FILT
 >
-CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
+CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type> child(
    const child_t<std::variant<Ts...>,allow::many,CONVERTER,FILTER> &kwd,
    const FILT &filt,
    bool &found = detail::default_bool
 ) const {
    return child<CONTAINER>(TYPE{}/kwd, filt, found);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -225,7 +222,7 @@ TYPE child(
 }
 
 template<class TYPE, class... Ts, class CONVERTER, class FILTER>
-typename detail::oneof<TYPE,Ts...>::type child(
+typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
    const child_t<std::variant<Ts...>,allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -248,7 +245,7 @@ template<
    template<class...> class CONTAINER = std::vector,
    class... Ts, class CONVERTER, class FILTER
 >
-CONTAINER<typename detail::oneof<TYPE,Ts...>::type> child(
+CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type> child(
    const child_t<std::variant<Ts...>,allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {

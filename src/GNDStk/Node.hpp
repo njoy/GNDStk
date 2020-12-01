@@ -58,6 +58,7 @@ public:
    #include "GNDStk/Node/src/sort.hpp"
    #include "GNDStk/Node/src/compare.hpp"
    #include "GNDStk/Node/src/shuffle.hpp"
+   #include "GNDStk/Node/src/count.hpp"
 
    // miscellaneous specialty functions:
    // documentation, cdata, ...

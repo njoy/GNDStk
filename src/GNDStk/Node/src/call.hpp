@@ -37,6 +37,7 @@ decltype(auto) operator()(
 
 // ------------------------
 // (child_t, string, ...)
+// (child_t, char *, ...)
 // ------------------------
 
 template<
@@ -60,11 +61,6 @@ decltype(auto) operator()(
       throw;
    }
 }
-
-
-// ------------------------
-// (child_t, char *, ...)
-// ------------------------
 
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
 template<
@@ -105,11 +101,11 @@ decltype(auto) operator()(
       // C++ doesn't have stream output for regex, which one might think
       // would print the string from which the regex was created. In fact,
       // regex might not even use, or keep, its original string initializer;
-      // tus it doesn't have, say, .str() or .c_str(). All of this is why
+      // thus it doesn't have, say, .str() or .c_str(). All of this is why
       // our diagnostic below doesn't print label's (regex) value.
       log::function(
          "Node(child_t(\"{}\"),label,...) with a std::regex label,\n"
-         "NOT a std::string label",
+         "not a std::string label",
          kwd.name
       );
       throw;
