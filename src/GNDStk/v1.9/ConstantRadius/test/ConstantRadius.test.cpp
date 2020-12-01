@@ -33,33 +33,83 @@ SCENARIO( "ConstantRadius" ) {
 
         verifyChunk( chunk );
       } // THEN
+    } // WHEN
 
-      THEN( "it can be converted to a core node" ) {
+    WHEN( "the data is constructed from a node" ) {
 
-        node core = chunk.node();
+      node core = chunk();
+      const node ccore = chunk();
+      ConstantRadius chunk( core );
+      ConstantRadius cchunk( ccore );
 
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
+      THEN( "an Axes can be constructed and members can be tested" ) {
+
+        verifyChunk( chunk );
+        verifyChunk( cchunk );
+      } // THEN
+
+      THEN( "only the non-const node remains in sync with the internal node" ) {
+
+        CHECK( &core == &chunk.node() );
+        CHECK( &ccore != &cchunk.node() );
       } // THEN
     } // WHEN
 
-    WHEN( "the data is taken from a node" ) {
+    WHEN( "the data is copied" ) {
 
       node core = chunk();
-
+      const node ccore = chunk();
       ConstantRadius chunk( core );
+      ConstantRadius cchunk( ccore );
 
-      THEN( "an ConstantRadius can be constructed and members can be tested" ) {
+      // copy constructor
+      ConstantRadius copy( chunk );
+      ConstantRadius ccopy( cchunk );
 
-        verifyChunk( chunk );
+      // copy assignment
+      ConstantRadius assign;
+      ConstantRadius cassign;
+      assign = chunk;
+      cassign = cchunk;
+
+      THEN( "an Axes can be constructed and members can be tested" ) {
+
+        verifyChunk( copy );
+        verifyChunk( ccopy );
+        verifyChunk( assign );
+        verifyChunk( cassign );
       } // THEN
 
-      THEN( "it can be converted to a core node" ) {
+      THEN( "none of the nodes remains in sync with the internal nodes" ) {
 
-        node core = chunk.node();
+        CHECK( &core != &copy.node() );
+        CHECK( &ccore != &ccopy.node() );
+        CHECK( &core != &assign.node() );
+        CHECK( &ccore != &cassign.node() );
+      } // THEN
+    } // WHEN
 
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
+    WHEN( "the data is moved" ) {
+
+      node core = chunk();
+      const node ccore = chunk();
+      ConstantRadius chunk( core );
+      ConstantRadius cchunk( ccore );
+
+      // move constructor
+      ConstantRadius move( std::move( chunk ) );
+      ConstantRadius cmove( std::move( cchunk ) );
+
+      THEN( "an Axes can be constructed and members can be tested" ) {
+
+        verifyChunk( move );
+        verifyChunk( cmove );
+      } // THEN
+
+      THEN( "only the non-const node remains in sync with the internal node" ) {
+
+        CHECK( &core == &move.node() );
+        CHECK( &ccore != &cmove.node() );
       } // THEN
     } // WHEN
   } // GIVEN

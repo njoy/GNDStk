@@ -19,9 +19,6 @@ namespace v1_9 {
    */
   class ConstantRadius : protected Constant1D {
 
-    /* type aliases */
-    using NodeType = GNDStk::node;
-
     /* auxiliary functions */
     void verify() {
 
@@ -36,7 +33,7 @@ namespace v1_9 {
     /**
      *  @brief Default constructor (required for the core GNDS interface)
      */
-    ConstantRadius() = default;
+    ConstantRadius() : Constant1D() {}
 
     /**
      *  @brief Constructor using a Constant1D (move semantics)
@@ -50,12 +47,73 @@ namespace v1_9 {
     }
 
     /**
-     *  @brief Constructor to initialise the component using a core GNDS node
+     *  @brief Constructor using a Constant1D (move semantics)
+     *
+     *  @param[in] constant    the Constant1D instance
+     */
+    ConstantRadius( ConstantRadius&& constant ) :
+      Constant1D( std::move( constant ) ) {
+
+      this->verify();
+    }
+
+    /**
+     *  @brief Copy constructor
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  copy constructor.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    ConstantRadius( const ConstantRadius& component ) :
+      Constant1D( component.node() ) {
+
+      this->verify();
+    }
+
+    /**
+     *  @brief Copy assignment
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  copy assignment.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    ConstantRadius& operator=( const ConstantRadius& component ) {
+
+      Constant1D::operator=( component );
+      this->verify();
+      return *this;
+    }
+
+    /**
+     *  @brief Constructor
+     *
+     *  The internal node reference is initialised to the given node reference,
+     *  which means that the tree where the node came from will remain in sync
+     *  with this component. The derived component's data is then synced to the
+     *  references internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    ConstantRadius( const NodeType& core ) :
-      ConstantRadius( Constant1D( core ) ) {}
+    ConstantRadius( NodeType& core ) : Constant1D( core ) {
+
+      this->verify();
+    }
+
+    /**
+     *  @brief Constructor
+     *
+     *  The internal node reference is initialised with a copy of the given
+     *  node, and a link to any outside node is therefore severed. The derived
+     *  component's data is then synced to the copied internal node.
+     *
+     *  @param[in] core    the core GNDS node that makes up the component
+     */
+    ConstantRadius( const NodeType& core ) : Constant1D( core ) {
+
+      this->verify();
+    }
 
     /**
      *  @brief Constructor
