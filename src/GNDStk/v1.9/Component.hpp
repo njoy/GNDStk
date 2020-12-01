@@ -71,6 +71,9 @@ namespace v1_9 {
     /**
      *  @brief Move constructor
      *
+     *  The internal node is moved, and a link to any outside node is
+     *  therefore maintained.
+     *
      *  @param[in] component    the component to be moved
      */
     Component( Component&& component ) :

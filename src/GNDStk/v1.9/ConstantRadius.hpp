@@ -60,9 +60,6 @@ namespace v1_9 {
     /**
      *  @brief Copy constructor
      *
-     *  Since this component has children nodes, we cannot rely on the Component
-     *  copy constructor.
-     *
      *  @param[in] component    the component to be copied
      */
     ConstantRadius( const ConstantRadius& component ) :
@@ -73,9 +70,6 @@ namespace v1_9 {
 
     /**
      *  @brief Copy assignment
-     *
-     *  Since this component has children nodes, we cannot rely on the Component
-     *  copy assignment.
      *
      *  @param[in] component    the component to be copied
      */
@@ -89,11 +83,6 @@ namespace v1_9 {
     /**
      *  @brief Constructor
      *
-     *  The internal node reference is initialised to the given node reference,
-     *  which means that the tree where the node came from will remain in sync
-     *  with this component. The derived component's data is then synced to the
-     *  references internal node.
-     *
      *  @param[in] core    the core GNDS node that makes up the component
      */
     ConstantRadius( NodeType& core ) : Constant1D( core ) {
@@ -103,10 +92,6 @@ namespace v1_9 {
 
     /**
      *  @brief Constructor
-     *
-     *  The internal node reference is initialised with a copy of the given
-     *  node, and a link to any outside node is therefore severed. The derived
-     *  component's data is then synced to the copied internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */

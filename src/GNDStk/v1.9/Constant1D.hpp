@@ -97,53 +97,7 @@ namespace v1_9 {
     Constant1D() : Component() {}
 
     /**
-     *  @brief Copy constructor
-     *
-     *  Since this component has children nodes, we cannot rely on the Component
-     *  copy constructor.
-     *
-     *  @param[in] component    the component to be copied
-     */
-    Constant1D( const Constant1D& component ) : Component( component.node() ) {
-
-      this->sync();
-    }
-
-    /**
-     *  @brief Copy assignment
-     *
-     *  Since this component has children nodes, we cannot rely on the Component
-     *  copy assignment.
-     *
-     *  @param[in] component    the component to be copied
-     */
-    Constant1D& operator=( const Constant1D& component ) {
-
-      Component::operator=( component );
-      this->sync();
-      return *this;
-    }
-
-    /**
-     *  @brief Move constructor
-     *
-     *  Since this component has children nodes, we cannot rely on the Component
-     *  move constructor. We need to sync the object with the internal node.
-     *
-     *  @param[in] component    the component to be copied
-     */
-    Constant1D( Constant1D&& component ) : Component( std::move( component ) ) {
-
-      this->sync();
-    }
-
-    /**
      *  @brief Constructor
-     *
-     *  The internal node reference is initialised to the given node reference,
-     *  which means that the tree where the node came from will remain in sync
-     *  with this component. The derived component's data is then synced to the
-     *  references internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
@@ -154,10 +108,6 @@ namespace v1_9 {
 
     /**
      *  @brief Constructor
-     *
-     *  The internal node reference is initialised with a copy of the given
-     *  node, and a link to any outside node is therefore severed. The derived
-     *  component's data is then synced to the copied internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
