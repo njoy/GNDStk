@@ -2,10 +2,12 @@
 #define NJOY_GNDSTK_V1_9_AXIS
 
 // system includes
+#include <memory>
 #include <optional>
 
 // other includes
 #include "GNDStk.hpp"
+#include "GNDStk/v1.9/Component.hpp"
 
 namespace njoy {
 namespace GNDStk {
@@ -21,64 +23,83 @@ namespace v1_9 {
    *
    *  See GNDS v1.9 specifications section 5.1.2
    */
-  class Axis {
+  class Axis : public Component {
 
     /* keys */
     struct keys {
 
-      static inline const auto index = unsigned{} / GNDStk::basic::index;
-      static inline const auto label = std::string{} / GNDStk::basic::label;
-      static inline const auto unit = std::string{} / GNDStk::basic::unit;
+      static inline const auto index = GNDStk::basic::index;
+      static inline const auto label = GNDStk::basic::label;
+      static inline const auto unit = GNDStk::basic::unit;
     };
 
-    /* type aliases */
-    using NodeType = GNDStk::node;
-
-    /* fields */
+    /* data fields */
     unsigned int index_;                                // required
     std::string label_;                                 // required
     std::optional< std::string > unit_ = std::nullopt;  // optional, no default
 
     /* auxiliary functions */
-    static Axis fromNode( const NodeType& core ) {
+    void sync() {
 
       // verify the node name
-      if ( core.name != "axis" ) {
+      if ( this->node().name != "axis" ) {
 
-        log::error( "Expected an \"axis\" node, found \"{}\" instead", core.name );
+        log::error( "Expected an \"axis\" node, found \"{}\" instead",
+                    this->node().name );
         throw std::exception();
       }
 
       // verify required attributes and children
-      if ( !core.has( keys::index ) || !core.has( keys::label ) ) {
+      if ( !this->node().has( keys::index ) ||
+           !this->node().has( keys::label ) ) {
 
         log::error( "Some or all of the required attributes and/or children for "
                     "the \"axis\" node are missing"  );
+        //!@todo print out the node content?
         throw std::exception();
       }
 
-      // create the component
-      return Axis( core( keys::index ), core( keys::label ),
-                   core.has( keys::unit )
-                     ? std::make_optional( core( keys::unit ) )
-                     : std::nullopt );
+      // sync the component
+      this->index_ = this->node()( unsigned{} / keys::index );
+      this->label_ = this->node()( keys::label );
+      this->unit_ = this->node().has( keys::unit )
+                      ? std::make_optional( this->node()( keys::unit ) )
+                      : std::nullopt;
     }
 
   public :
 
     /* constructors */
-
-    /**
-     *  @brief Default constructor (required for the core GNDS interface)
-     */
     Axis() = default;
 
     /**
-     *  @brief Constructor to initialise the component using a core GNDS node
+     *  @brief Constructor
+     *
+     *  The internal node reference is initialised to the given node reference,
+     *  which means that the tree where the node came from will remain in sync
+     *  with this component. The derived component's data is then synced to the
+     *  references internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Axis( const NodeType& core ) : Axis( fromNode( core ) ) {}
+    Axis( NodeType& core ) : Component( core ) {
+
+      this->sync();
+    }
+
+    /**
+     *  @brief Constructor
+     *
+     *  The internal node reference is initialised with a copy of the given
+     *  node, and a link to any outside node is therefore severed. The derived
+     *  component's data is then synced to the copied internal node.
+     *
+     *  @param[in] core    the core GNDS node that makes up the component
+     */
+    Axis( const NodeType& core ) : Component( core ) {
+
+      this->sync();
+    }
 
     /**
      *  @brief Full constructor with move semantics
@@ -89,8 +110,17 @@ namespace v1_9 {
      */
     Axis( unsigned int index, std::string&& label,
           std::optional< std::string >&& unit ) :
-      index_( index ), label_( std::move( label ) ),
-      unit_( std::move( unit ) ) {}
+      Component(), index_( index ), label_( std::move( label ) ),
+      unit_( std::move( unit ) ) {
+
+      this->node().name = "axis";
+      this->node().add( "index", this->index_ );
+      this->node().add( "label", this->label_ );
+      if ( this->unit() ) {
+
+        this->node().add( "unit", this->unit_.value() );
+      };
+    }
 
     /**
      *  @brief Convenience constructor
@@ -134,23 +164,6 @@ namespace v1_9 {
      *  @return The unit of the axis
      */
     const std::optional< std::string >& unit() const { return this->unit_; }
-
-    /**
-     *  @brief Retrieve a core GNDS node for this component
-     *
-     *  @return The core GNDS node constructed from the component
-     */
-    NodeType node() const {
-
-      NodeType core( "axis" );
-      core.add( "index", this->index() );
-      core.add( "label", this->label() );
-      if ( this->unit() ) {
-
-        core.add( "unit", this->unit().value() );
-      };
-      return core;
-    }
   };
 
 } // v1_9 namespace

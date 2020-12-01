@@ -31,40 +31,9 @@ SCENARIO( "Axis" ) {
 
         verifyChunk( chunk );
       } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
-      } // THEN
     } // WHEN
 
-    WHEN( "the data is taken from a node" ) {
-
-      node core = chunk();
-
-      Axis chunk( core );
-
-      THEN( "an Axis can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
-      } // THEN
-    } // WHEN
-  } // GIVEN
-
-  GIVEN( "valid data for a Axis without a unit" ) {
-
-    WHEN( "the data is given explicitly" ) {
+    WHEN( "the data is given explicitly without a unit" ) {
 
       unsigned int index = 1;
       std::string label = "energy_in";
@@ -75,33 +44,83 @@ SCENARIO( "Axis" ) {
 
         verifyChunkWithOptionalUnit( chunk );
       } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunkWithOptionalUnit() == chunk.node() );
-      } // THEN
     } // WHEN
 
-    WHEN( "the data is taken from a node" ) {
+    WHEN( "the data is constructed from a node" ) {
 
-      node core = chunkWithOptionalUnit();
-
+      node core = chunk();
+      const node ccore = chunk();
       Axis chunk( core );
+      Axis cchunk( ccore );
 
       THEN( "an Axis can be constructed and members can be tested" ) {
 
-        verifyChunkWithOptionalUnit( chunk );
+        verifyChunk( chunk );
+        verifyChunk( cchunk );
       } // THEN
 
-      THEN( "it can be converted to a core node" ) {
+      THEN( "only the non-const node remains in sync with the internal node" ) {
 
-        node core = chunk.node();
+        CHECK( &core == &chunk.node() );
+        CHECK( &ccore != &cchunk.node() );
+      } // THEN
+    } // WHEN
 
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunkWithOptionalUnit() == chunk.node() );
+    WHEN( "the data is copied" ) {
+
+      node core = chunk();
+      const node ccore = chunk();
+      Axis chunk( core );
+      Axis cchunk( ccore );
+
+      // copy constructor
+      Axis copy( chunk );
+      Axis ccopy( cchunk );
+
+      // copy assignment
+      Axis assign;
+      Axis cassign;
+      assign = chunk;
+      cassign = cchunk;
+
+      THEN( "an Axis can be constructed and members can be tested" ) {
+
+        verifyChunk( copy );
+        verifyChunk( ccopy );
+        verifyChunk( assign );
+        verifyChunk( cassign );
+      } // THEN
+
+      THEN( "none of the nodes remains in sync with the internal nodes" ) {
+
+        CHECK( &core != &copy.node() );
+        CHECK( &ccore != &ccopy.node() );
+        CHECK( &core != &assign.node() );
+        CHECK( &ccore != &cassign.node() );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is moved" ) {
+
+      node core = chunk();
+      const node ccore = chunk();
+      Axis chunk( core );
+      Axis cchunk( ccore );
+
+      // move constructor
+      Axis move( std::move( chunk ) );
+      Axis cmove( std::move( cchunk ) );
+
+      THEN( "an Axis can be constructed and members can be tested" ) {
+
+        verifyChunk( move );
+        verifyChunk( cmove );
+      } // THEN
+
+      THEN( "only the non-const node remains in sync with the internal node" ) {
+
+        CHECK( &core == &move.node() );
+        CHECK( &ccore != &cmove.node() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -134,6 +153,9 @@ void verifyChunk( const Axis& chunk ) {
   CHECK( "energy_in" == chunk.label() );
   CHECK( std::nullopt != chunk.unit() );
   CHECK( "eV" == chunk.unit().value() );
+
+  //! @todo there is currently no operator==() available to compare nodes
+  // CHECK( chunk() == chunk.node() );
 }
 
 node chunkWithOptionalUnit() {
