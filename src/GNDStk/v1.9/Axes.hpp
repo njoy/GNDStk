@@ -71,7 +71,11 @@ namespace v1_9 {
   public :
 
     /* constructors */
-    Axes() = default;
+
+    /**
+     *  @brief Default constructor (required for the core GNDS interface)
+     */
+    Axes() : Component() {}
 
     /**
      *  @brief Copy constructor
@@ -194,7 +198,7 @@ namespace v1_9 {
      *
      *  @return The number of axis
      */
-    auto size() const { return this->axis().size(); }
+    std::size_t size() const { return this->axis().size(); }
 
     /**
      *  @brief Return the axis with the given index
