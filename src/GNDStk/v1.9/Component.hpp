@@ -25,7 +25,7 @@ namespace v1_9 {
   private:
 
     /* node fields */
-    std::unique_ptr< NodeType > pointer_ = std::make_unique< NodeType >( "unassigned" );
+    std::unique_ptr< NodeType > pointer_ = std::make_unique< NodeType >( "" );
     NodeType& node_ = *( this->pointer_ );
 
   protected :
@@ -60,8 +60,11 @@ namespace v1_9 {
      */
     Component& operator=( const Component& component ) {
 
-      this->pointer_ = std::make_unique< NodeType >( component.node() );
-      this->node_ = *( this->pointer_ );
+      if ( ! this->pointer_ ) {
+
+        this->pointer_ = std::make_unique< NodeType >();
+      }
+      *this->pointer_ = NodeType( component.node() );
       return *this;
     }
 
@@ -83,7 +86,7 @@ namespace v1_9 {
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Component( NodeType& core ) : node_( core ) {}
+    Component( NodeType& core ) : pointer_( nullptr ), node_( core ) {}
 
     /**
      *  @brief Constructor
@@ -106,6 +109,10 @@ namespace v1_9 {
      */
     NodeType& node() {
 
+      if ( this->pointer_ ) {
+
+        return *this->pointer_;
+      }
       return this->node_;
     }
 
@@ -116,6 +123,10 @@ namespace v1_9 {
      */
     const NodeType& node() const {
 
+      if ( this->pointer_ ) {
+
+        return *this->pointer_;
+      }
       return this->node_;
     }
   };

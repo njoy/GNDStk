@@ -70,7 +70,52 @@ namespace v1_9 {
   public :
 
     /* constructors */
-    Axis() = default;
+
+    /**
+     *  @brief Default constructor (required for the core GNDS interface)
+     */
+    Axis() : Component() {}
+
+    /**
+     *  @brief Copy constructor
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  copy constructor.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    Axis( const Axis& component ) : Component( component.node() ) {
+
+      this->sync();
+    }
+
+    /**
+     *  @brief Copy assignment
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  copy assignment.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    Axis& operator=( const Axis& component ) {
+
+      Component::operator=( component );
+      this->sync();
+      return *this;
+    }
+
+    /**
+     *  @brief Move constructor
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  move constructor. We need to sync the object with the internal node.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    Axis( Axis&& component ) : unit_(), Component( std::move( component ) ) {
+
+      this->sync();
+    }
 
     /**
      *  @brief Constructor
