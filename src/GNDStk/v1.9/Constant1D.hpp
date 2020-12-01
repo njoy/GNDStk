@@ -6,6 +6,7 @@
 
 // other includes
 #include "GNDStk.hpp"
+#include "GNDStk/v1.9/Component.hpp"
 #include "GNDStk/v1.9/Axes.hpp"
 
 namespace njoy {
@@ -18,21 +19,18 @@ namespace v1_9 {
    *
    *  See GNDS v1.9 specifications section 6.2.3
    */
-  class Constant1D {
+  class Constant1D : public Component {
 
     /* keys */
     struct keys {
 
-      static inline const auto label = std::string{} / GNDStk::basic::label;
-      static inline const auto constant = double{} / GNDStk::basic::constant;
-      static inline const auto domainMin = double{} / GNDStk::basic::domainMin;
-      static inline const auto domainMax = double{} / GNDStk::basic::domainMax;
-      static inline const auto outerDomainValue = double{} / GNDStk::basic::outerDomainValue;
-      static inline const auto axes = Axes{} / GNDStk::basic::axes;
+      static inline const auto label = GNDStk::basic::label;
+      static inline const auto constant = GNDStk::basic::constant;
+      static inline const auto min = GNDStk::basic::domainMin;
+      static inline const auto max = GNDStk::basic::domainMax;
+      static inline const auto outer = GNDStk::basic::outerDomainValue;
+      static inline const auto axes = GNDStk::basic::axes;
     };
-
-    /* type aliases */
-    using NodeType = GNDStk::node;
 
     /* fields */
     std::string label_;
@@ -43,37 +41,6 @@ namespace v1_9 {
     Axes axes_;
 
     /* auxiliary functions */
-    static Constant1D fromNode( const NodeType& core ) {
-
-      namespace gnds = GNDStk::basic;
-
-      // verify the node name
-      if ( core.name != "constant1d" ) {
-
-        log::error( "Expected a \"constant1d\" node, found \"{}\" instead", core.name );
-        throw std::exception();
-      }
-
-      // verify required attributes and children
-      if ( !core.has( keys::label ) || !core.has( keys::constant ) ||
-           !core.has( keys::domainMin ) || !core.has( keys::domainMax ) ||
-           !core.has( keys::axes ) ) {
-
-        log::error( "Some or all of the required attributes and/or children for "
-                    "the \"constant1d\" node are missing"  );
-        throw std::exception();
-      }
-
-      // create the component
-      return Constant1D(
-               core( keys::label ), core( keys::constant ),
-               core( keys::domainMin ), core( keys::domainMax ),
-               core.has( keys::outerDomainValue )
-                 ? std::make_optional( core( keys::outerDomainValue ) )
-                 : std::nullopt,
-               core( keys::axes ) );
-    }
-
     void verify() {
 
       if ( this->axes().size() != 2 ) {
@@ -84,6 +51,42 @@ namespace v1_9 {
       }
     }
 
+    void sync() {
+
+      // verify the node name
+      if ( this->node().name != "constant1d" ) {
+
+        log::error( "Expected a \"constant1d\" node, found \"{}\" instead",
+                    this->node().name );
+        throw std::exception();
+      }
+
+      // verify required attributes and children
+      if ( !this->node().has( keys::label ) ||
+           !this->node().has( keys::constant ) ||
+           !this->node().has( keys::min ) ||
+           !this->node().has( keys::max ) ||
+           !this->node().has( keys::axes ) ) {
+
+        log::error( "Some or all of the required attributes and/or children for "
+                    "the \"constant1d\" node are missing"  );
+        throw std::exception();
+      }
+
+      // sync the component
+      this->label_ = this->node()( std::string{} / keys::label );
+      this->constant_ = this->node()( double{} / keys::constant );
+      this->min_ = this->node()( double{} / keys::min );
+      this->max_ = this->node()( double{} / keys::max );
+      this->outer_ = this->node().has( keys::outer )
+                         ? std::make_optional( this->node()( double{} / keys::outer ) )
+                         : std::nullopt;
+      this->axes_ = Axes( this->node()( keys::axes ) );
+
+      // perform verification
+      this->verify();
+    }
+
   public :
 
     /* constructors */
@@ -91,16 +94,76 @@ namespace v1_9 {
     /**
      *  @brief Default constructor (required for the core GNDS interface)
      */
-    Constant1D() = default;
+    Constant1D() : Component() {}
 
     /**
-     *  @brief Constructor to initialise the component using a core GNDS node
+     *  @brief Copy constructor
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  copy constructor.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    Constant1D( const Constant1D& component ) : Component( component.node() ) {
+
+      this->sync();
+    }
+
+    /**
+     *  @brief Copy assignment
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  copy assignment.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    Constant1D& operator=( const Constant1D& component ) {
+
+      Component::operator=( component );
+      this->sync();
+      return *this;
+    }
+
+    /**
+     *  @brief Move constructor
+     *
+     *  Since this component has children nodes, we cannot rely on the Component
+     *  move constructor. We need to sync the object with the internal node.
+     *
+     *  @param[in] component    the component to be copied
+     */
+    Constant1D( Constant1D&& component ) : Component( std::move( component ) ) {
+
+      this->sync();
+    }
+
+    /**
+     *  @brief Constructor
+     *
+     *  The internal node reference is initialised to the given node reference,
+     *  which means that the tree where the node came from will remain in sync
+     *  with this component. The derived component's data is then synced to the
+     *  references internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
-    Constant1D( const NodeType& core ) : Constant1D( fromNode( core ) ) {
+    Constant1D( NodeType& core ) : Component( core ) {
 
-      this->verify();
+      this->sync();
+    }
+
+    /**
+     *  @brief Constructor
+     *
+     *  The internal node reference is initialised with a copy of the given
+     *  node, and a link to any outside node is therefore severed. The derived
+     *  component's data is then synced to the copied internal node.
+     *
+     *  @param[in] core    the core GNDS node that makes up the component
+     */
+    Constant1D( const NodeType& core ) : Component( core ) {
+
+      this->sync();
     }
 
     /**
@@ -121,6 +184,17 @@ namespace v1_9 {
       axes_( std::move( axes ) ) {
 
       this->verify();
+
+      this->node().name = "constant1d";
+      this->node().add( "label", this->label_ );
+      this->node().add( "constant", this->constant_ );
+      this->node().add( "domainMin", this->min_ );
+      this->node().add( "domainMax", this->max_ );
+      if ( this->outerDomainValue() ) {
+
+        this->node().add( "outerDomainValue", this->outer_.value() );
+      };
+      this->node().add( "axes" ) = this->axes_.node();
     }
 
     /**
@@ -205,26 +279,6 @@ namespace v1_9 {
      *  @return The axes of the constant
      */
     const Axes& axes() const { return this->axes_; }
-
-    /**
-     *  @brief Retrieve a core GNDS node for this component
-     *
-     *  @return The core GNDS node constructed from the component
-     */
-    NodeType node() const {
-
-      NodeType core( "constant1d" );
-      core.add( "label", this->label() );
-      core.add( "constant", this->constant() );
-      core.add( "domainMin", this->domainMin() );
-      core.add( "domainMax", this->domainMax() );
-      if ( this->outerDomainValue() ) {
-
-        core.add( "outerDomainValue", this->outerDomainValue().value() );
-      }
-      core.add( "axes" ) = this->axes().node();
-      return core;
-    }
   };
 
 } // v1_9 namespace

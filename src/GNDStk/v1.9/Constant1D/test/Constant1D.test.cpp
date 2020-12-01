@@ -19,7 +19,7 @@ SCENARIO( "Constant1D" ) {
 
   GIVEN( "valid data for a Constant1D" ) {
 
-    WHEN( "the data is given explicitly - full move constructor" ) {
+    WHEN( "the data is given explicitly" ) {
 
       std::string label = "eval";
       double constant = 9.41;
@@ -35,88 +35,83 @@ SCENARIO( "Constant1D" ) {
 
         verifyChunk( chunk );
       } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
-      } // THEN
     } // WHEN
 
-    WHEN( "the data is given explicitly - full copy constructor" ) {
-
-      std::string label = "eval";
-      double constant = 9.41;
-      double domainMin = 1e-5;
-      double domainMax = 3e+4;
-      Axes axes( { Axis( 1, "energy_in", "eV" ),
-                   Axis( 0, "radius", "fm" ) } );
-
-      Constant1D chunk( label, constant, domainMin, domainMax,
-                        std::nullopt, axes );
-
-      THEN( "an Constant1D can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the data is given explicitly - convenience constructor" ) {
-
-      std::string label = "eval";
-      double constant = 9.41;
-      double domainMin = 1e-5;
-      double domainMax = 3e+4;
-      std::string domainLabel = "energy_in";
-      std::string domainUnit = "eV";
-      std::string constantLabel = "radius";
-      std::string constantUnit = "fm";
-
-      Constant1D chunk( label, constant, domainMin, domainMax,
-                        domainLabel, constantLabel,
-                        domainUnit, constantUnit );
-
-      THEN( "an Constant1D can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-
-      THEN( "it can be converted to a core node" ) {
-
-        node core = chunk.node();
-
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
-      } // THEN
-    } // WHEN
-
-    WHEN( "the data is taken from a node" ) {
+    WHEN( "the data is constructed from a node" ) {
 
       node core = chunk();
-
+      const node ccore = chunk();
       Constant1D chunk( core );
+      Constant1D cchunk( ccore );
 
-      THEN( "an Constant1D can be constructed and members can be tested" ) {
+      THEN( "an Axes can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
+        verifyChunk( cchunk );
       } // THEN
 
-      THEN( "it can be converted to a core node" ) {
+      THEN( "only the non-const node remains in sync with the internal node" ) {
 
-        node core = chunk.node();
+        CHECK( &core == &chunk.node() );
+        CHECK( &ccore != &cchunk.node() );
+      } // THEN
+    } // WHEN
 
-        //! @todo there is currently no operator==() available to compare nodes
-        // CHECK( chunk() == chunk.node() );
+    WHEN( "the data is copied" ) {
+
+      node core = chunk();
+      const node ccore = chunk();
+      Constant1D chunk( core );
+      Constant1D cchunk( ccore );
+
+      // copy constructor
+      Constant1D copy( chunk );
+      Constant1D ccopy( cchunk );
+
+      // copy assignment
+      Constant1D assign;
+      Constant1D cassign;
+      assign = chunk;
+      cassign = cchunk;
+
+      THEN( "an Axes can be constructed and members can be tested" ) {
+
+        verifyChunk( copy );
+        verifyChunk( ccopy );
+        verifyChunk( assign );
+        verifyChunk( cassign );
+      } // THEN
+
+      THEN( "none of the nodes remains in sync with the internal nodes" ) {
+
+        CHECK( &core != &copy.node() );
+        CHECK( &ccore != &ccopy.node() );
+        CHECK( &core != &assign.node() );
+        CHECK( &ccore != &cassign.node() );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is moved" ) {
+
+      node core = chunk();
+      const node ccore = chunk();
+      Constant1D chunk( core );
+      Constant1D cchunk( ccore );
+
+      // move constructor
+      Constant1D move( std::move( chunk ) );
+      Constant1D cmove( std::move( cchunk ) );
+
+      THEN( "an Axes can be constructed and members can be tested" ) {
+
+        verifyChunk( move );
+        verifyChunk( cmove );
+      } // THEN
+
+      THEN( "only the non-const node remains in sync with the internal node" ) {
+
+        CHECK( &core == &move.node() );
+        CHECK( &ccore != &cmove.node() );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -197,6 +192,9 @@ void verifyChunk( const Constant1D& chunk ) {
   CHECK( "energy_in" == chunk.axes().axis(1).label() );
   CHECK( std::nullopt != chunk.axes().axis(1).unit() );
   CHECK( "eV" == chunk.axes().axis(1).unit().value() );
+
+  //! @todo there is currently no operator==() available to compare nodes
+  // CHECK( chunk() == chunk.node() );
 }
 
 node invalidChunk() {
