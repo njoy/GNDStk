@@ -116,7 +116,7 @@ size_t count(
    return count(
       kwd.name,
       [kwd,label](const Node &n)
-      { return kwd.filter(n) && detail::label_is(label); }
+         { return kwd.filter(n) && detail::label_is(label)(n); }
    );
 }
 
@@ -132,6 +132,6 @@ size_t count(
    return count(
       kwd.name,
       [kwd,labelRegex](const Node &n)
-      { return kwd.filter(n) && detail::label_is_regex(labelRegex); }
+         { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); }
    );
 }

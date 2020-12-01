@@ -24,10 +24,13 @@ decltype(auto) operator()(
    std::string &&label,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
+   // as above, don't need or want (kwd.name == "") conditional
    try {
-      // As above, don't need or want (kwd.name == "") conditional here
+      // total filter
+      auto filter = [kwd,label](const Node &n)
+         { return kwd.filter(n) && detail::label_is(label)(n); };
       // --kwd: child_t<...,allow::one,...>
-      return child(--kwd, detail::label_is(label), found);
+      return child(--kwd+filter, found);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
       throw;
@@ -42,8 +45,10 @@ decltype(auto) operator()(
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
    try {
-      // Comments as above
-      return child(--kwd, detail::label_is_regex(labelRegex), found);
+      // similar to std::string case
+      auto filter = [kwd,labelRegex](const Node &n)
+         { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); };
+      return child(--kwd+filter, found);
    } catch (...) {
       log::function(
          "Node(child_t(\"{}\"),label) with a std::regex label,\n"

@@ -24,6 +24,7 @@ decltype(auto) operator()(
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
+      // ""?
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
       // -kwd: child_t<void,...> (not to be confused with --kwd)
@@ -51,11 +52,14 @@ decltype(auto) operator()(
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
+      // ""?
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
+      // total filter
+      auto filter = [kwd,label](const Node &n)
+         { return kwd.filter(n) && detail::label_is(label)(n); };
       // -(--kwd): child_t<void,allow::one,...>
-      return child(-(--kwd), detail::label_is(label), found)
-                  (std::forward<KEYWORDS>(keywords)...);
+      return child(-(--kwd)+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
       throw;
@@ -92,11 +96,14 @@ decltype(auto) operator()(
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
+      // ""?
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
+      // total filter
+      auto filter = [kwd,labelRegex](const Node &n)
+         { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); };
       // -(--kwd): child_t<void,allow::one,...>
-      return child(-(--kwd), detail::label_is_regex(labelRegex), found)
-                  (std::forward<KEYWORDS>(keywords)...);
+      return child(-(--kwd)+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       // C++ doesn't have stream output for regex, which one might think
       // would print the string from which the regex was created. In fact,
