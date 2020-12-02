@@ -133,6 +133,26 @@ namespace v1_9 {
     using Constant1D::node;
 
     /**
+     *  @brief Return the radius unit as an enumeration value
+     *
+     *  @return The radius unit
+     */
+    units::Length radiusUnit() const {
+
+      return units::fromString< units::Length >( this->axes().axis(0).unit().value() );
+    }
+
+    /**
+     *  @brief Return the energy unit as an enumeration value
+     *
+     *  @return The energy unit
+     */
+    units::Energy energyUnit() const {
+
+      return units::fromString< units::Energy >( this->axes().axis(1).unit().value() );
+    }
+
+    /**
      *  @brief Return the radius value
      *
      *  @return The radius value

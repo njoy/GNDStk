@@ -167,6 +167,9 @@ void verifyChunk( const ConstantRadius& chunk ) {
   CHECK( 1e-5 == Approx( chunk.energyMin() ) );
   CHECK( 30000. == Approx( chunk.energyMax() ) );
 
+  CHECK( units::Length::fm == chunk.radiusUnit() );
+  CHECK( units::Energy::eV == chunk.energyUnit() );
+
   CHECK( "eval" == chunk.label() );
   CHECK( 9.41 == Approx( chunk.constant() ) );
   CHECK( 1e-5 == Approx( chunk.domainMin() ) );
