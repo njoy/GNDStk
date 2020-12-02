@@ -79,11 +79,6 @@ namespace v1_9 {
     /**
      *  @brief Constructor
      *
-     *  The internal node reference is initialised to the given node reference,
-     *  which means that the tree where the node came from will remain in sync
-     *  with this component. The derived component's data is then synced to the
-     *  references internal node.
-     *
      *  @param[in] core    the core GNDS node that makes up the component
      */
     Axis( NodeType& core ) : Component( core ) {
@@ -93,10 +88,6 @@ namespace v1_9 {
 
     /**
      *  @brief Constructor
-     *
-     *  The internal node reference is initialised with a copy of the given
-     *  node, and a link to any outside node is therefore severed. The derived
-     *  component's data is then synced to the copied internal node.
      *
      *  @param[in] core    the core GNDS node that makes up the component
      */
