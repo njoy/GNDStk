@@ -76,5 +76,15 @@ SCENARIO( "Energy" ) {
         CHECK( true == in.fail() );
       } // THEN
     } // WHEN
+
+    WHEN( "isEnergyUnit is used" ) {
+
+      THEN( "registered units return true, unregistered units return false" ) {
+
+        CHECK( true == units::isEnergyUnit( "eV" ) );
+        CHECK( true == units::isEnergyUnit( "MeV" ) );
+        CHECK( false == units::isEnergyUnit( "unregistered" ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO

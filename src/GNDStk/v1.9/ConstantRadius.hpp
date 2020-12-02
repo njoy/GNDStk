@@ -24,8 +24,43 @@ namespace v1_9 {
     /* auxiliary functions */
     void verify() {
 
-      // verify that the axis(0) is a length
       // verify that the axis(1) is an energy
+      decltype(auto) energy = this->axes().axis(1).unit();
+      if ( energy ){
+
+        if ( false == units::isEnergyUnit( energy.value() ) ) {
+
+          log::error( "Expected a registered energy unit for the axis with "
+                      "index 1, found \'{}\'",
+                      energy.value() );
+          throw std::exception();
+        }
+      }
+      else {
+
+        log::error( "Expected an energy unit for the axis with index 1, "
+                    "found none" );
+        throw std::exception();
+      }
+
+      // verify that the axis(0) is a length
+      decltype(auto) length = this->axes().axis(0).unit();
+      if ( length ){
+
+        if ( false == units::isLengthUnit( length.value() ) ) {
+
+          log::error( "Expected a registered length unit for the axis with "
+                      "index 0, found \'{}\'",
+                      length.value() );
+          throw std::exception();
+        }
+      }
+      else {
+
+        log::error( "Expected a length unit for the axis with index 1, "
+                    "found none" );
+        throw std::exception();
+      }
     }
 
   public :

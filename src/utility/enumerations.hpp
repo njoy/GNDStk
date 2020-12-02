@@ -13,6 +13,21 @@ template < typename Enumeration >
 struct EnumerationMap {};
 
 /**
+ *  @brief Return whether or not a string is a symbol for an enumeration
+ *
+ *  @param[in] value    the enumeration value
+ *
+ *  @return true/false
+ */
+template < typename Enumeration,
+           typename = typename std::enable_if< std::is_enum< Enumeration >::value >::type >
+bool isSymbol( const std::string& symbol ) {
+
+  return EnumerationMap< Enumeration >::symbols.find( symbol )
+           != EnumerationMap< Enumeration >::symbols.end();
+}
+
+/**
  *  @brief Return a string symbol of the enumeration value
  *
  *  @param[in] value    the enumeration value

@@ -12,6 +12,8 @@ using ConstantRadius = v1_9::ConstantRadius;
 node chunk();
 void verifyChunk( const ConstantRadius& );
 node invalidChunk();
+node invalidLengthUnit();
+node invalidEnergyUnit();
 
 SCENARIO( "ConstantRadius" ) {
 
@@ -120,6 +122,15 @@ SCENARIO( "ConstantRadius" ) {
         CHECK_THROWS( ConstantRadius( invalidChunk() ) );
       } // THEN
     } // WHEN
+
+    WHEN( "when the units are wrong" ) {
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( ConstantRadius( invalidEnergyUnit() ) );
+        CHECK_THROWS( ConstantRadius( invalidLengthUnit() ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO
 
@@ -178,4 +189,58 @@ node invalidChunk() {
 
   // wrong name for the node
   return node( "wrongName" );
+}
+
+node invalidLengthUnit() {
+
+  node chunk( "constant1d" );
+  chunk.add( "label", "eval" );
+  chunk.add( "constant", 9.41 );
+  chunk.add( "domainMin", 1e-5 );
+  chunk.add( "domainMax", 30000. );
+
+  node axis1( "axis" );
+  axis1.add( "index", "1" );
+  axis1.add( "label", "energy_in" );
+  axis1.add( "unit", "eV" );
+
+  node axis2( "axis" );
+  axis2.add( "index", "0" );
+  axis2.add( "label", "radius" );
+  axis2.add( "unit", "not valid" );
+
+  node axes( "axes" );
+  axes.add( "axis" ) = axis1;
+  axes.add( "axis" ) = axis2;
+
+  chunk.add( "axes" ) = axes;
+
+  return chunk;
+}
+
+node invalidEnergyUnit() {
+
+  node chunk( "constant1d" );
+  chunk.add( "label", "eval" );
+  chunk.add( "constant", 9.41 );
+  chunk.add( "domainMin", 1e-5 );
+  chunk.add( "domainMax", 30000. );
+
+  node axis1( "axis" );
+  axis1.add( "index", "1" );
+  axis1.add( "label", "energy_in" );
+  axis1.add( "unit", "not valid" );
+
+  node axis2( "axis" );
+  axis2.add( "index", "0" );
+  axis2.add( "label", "radius" );
+  axis2.add( "unit", "fm" );
+
+  node axes( "axes" );
+  axes.add( "axis" ) = axis1;
+  axes.add( "axis" ) = axis2;
+
+  chunk.add( "axes" ) = axes;
+
+  return chunk;
 }

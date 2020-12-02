@@ -83,5 +83,16 @@ SCENARIO( "Length" ) {
         CHECK( true == in.fail() );
       } // THEN
     } // WHEN
+
+    WHEN( "isLengthUnit is used" ) {
+
+      THEN( "registered units return true, unregistered units return false" ) {
+
+        CHECK( true == units::isLengthUnit( "m" ) );
+        CHECK( true == units::isLengthUnit( "cm" ) );
+        CHECK( true == units::isLengthUnit( "fm" ) );
+        CHECK( false == units::isLengthUnit( "unregistered" ) );
+      } // THEN
+    } // WHEN
   } // GIVEN
 } // SCENARIO

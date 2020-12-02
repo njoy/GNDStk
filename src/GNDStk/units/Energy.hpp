@@ -27,6 +27,18 @@ namespace units {
   using utility::operator>>;
   using utility::operator<<;
 
+  /**
+   *  @brief Return whether or not a string is a valid energy unit
+   *
+   *  @param[in] string    the string to be verified
+   *
+   *  @return true/false
+   */
+  bool isEnergyUnit( const std::string& string ) {
+
+    return utility::isSymbol< Energy >( string );
+  }
+
 } // units namespace
 } // GNDStk namespace
 } // njoy namespace
