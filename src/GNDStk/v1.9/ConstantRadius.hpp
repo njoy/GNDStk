@@ -49,40 +49,6 @@ namespace v1_9 {
     }
 
     /**
-     *  @brief Constructor using a Constant1D (move semantics)
-     *
-     *  @param[in] constant    the Constant1D instance
-     */
-    ConstantRadius( ConstantRadius&& constant ) :
-      Constant1D( std::move( constant ) ) {
-
-      this->verify();
-    }
-
-    /**
-     *  @brief Copy constructor
-     *
-     *  @param[in] component    the component to be copied
-     */
-    ConstantRadius( const ConstantRadius& component ) :
-      Constant1D( component.node() ) {
-
-      this->verify();
-    }
-
-    /**
-     *  @brief Copy assignment
-     *
-     *  @param[in] component    the component to be copied
-     */
-    ConstantRadius& operator=( const ConstantRadius& component ) {
-
-      Constant1D::operator=( component );
-      this->verify();
-      return *this;
-    }
-
-    /**
      *  @brief Constructor
      *
      *  @param[in] core    the core GNDS node that makes up the component
