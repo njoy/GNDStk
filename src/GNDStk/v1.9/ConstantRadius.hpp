@@ -5,6 +5,8 @@
 
 // other includes
 #include "GNDStk.hpp"
+#include "GNDStk/units/Energy.hpp"
+#include "GNDStk/units/Length.hpp"
 #include "GNDStk/v1.9/Constant1D.hpp"
 
 namespace njoy {
@@ -112,11 +114,13 @@ namespace v1_9 {
      */
     ConstantRadius( const std::string& label, double radius,
                     double energyMin, double energyMax,
-                    const std::string& energyUnit,
-                    const std::string& radiusUnit ) :
+                    units::Energy energyUnit = units::Energy::eV,
+                    units::Length radiusUnit = units::Length::fm ) :
       ConstantRadius(
         Constant1D( label, radius, energyMin, energyMax,
-                    "energy_in", "radius", energyUnit, radiusUnit ) ) {}
+                    "energy_in", "radius",
+                    units::toString( energyUnit ),
+                    units::toString( radiusUnit ) ) ) {}
 
     /* methods */
 

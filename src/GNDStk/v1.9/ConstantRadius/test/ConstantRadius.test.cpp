@@ -23,11 +23,8 @@ SCENARIO( "ConstantRadius" ) {
       double radius = 9.41;
       double energyMin = 1e-5;
       double energyMax = 3e+4;
-      std::string radiusUnit = "fm";
-      std::string energyUnit = "eV";
 
-      ConstantRadius chunk( label, radius, energyMin, energyMax,
-                            energyUnit, radiusUnit );
+      ConstantRadius chunk( label, radius, energyMin, energyMax );
 
       THEN( "an ConstantRadius can be constructed and members can be tested" ) {
 
