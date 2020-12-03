@@ -248,7 +248,7 @@ inline const child_t<void,allow::one>
    g                               ("g"                               );
 inline const child_t<void,allow::one>
    gaugeBoson                      ("gaugeBoson"                      );
-inline const child_t<void,allow::one>
+inline const child_t<void,allow::one> // <== fixme should this be a many?
    gaugeBosons                     ("gaugeBosons"                     );
 inline const child_t<void,allow::one>
    generalEvaporation              ("generalEvaporation"              );
