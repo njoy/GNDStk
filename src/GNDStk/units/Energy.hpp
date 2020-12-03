@@ -46,21 +46,19 @@ namespace units {
 namespace njoy {
 namespace utility {
 
-  using Energy = GNDStk::units::Energy;
-
   template <>
-  struct EnumerationMap< Energy > {
+  struct EnumerationMap< GNDStk::units::Energy > {
 
-    static inline const std::map< Energy, const std::string > values{
+    static inline const std::map< GNDStk::units::Energy, const std::string > values{
 
-      { Energy::eV,  "eV" },
-      { Energy::MeV, "MeV" }
+      { GNDStk::units::Energy::eV,  "eV" },
+      { GNDStk::units::Energy::MeV, "MeV" }
     };
 
-    static inline const std::map< const std::string, Energy > symbols{
+    static inline const std::map< const std::string, GNDStk::units::Energy > symbols{
 
-      { "eV",  Energy::eV },
-      { "MeV", Energy::MeV }
+      { "eV",  GNDStk::units::Energy::eV },
+      { "MeV", GNDStk::units::Energy::MeV }
     };
   };
 

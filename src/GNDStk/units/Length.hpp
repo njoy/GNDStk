@@ -47,23 +47,21 @@ namespace units {
 namespace njoy {
 namespace utility {
 
-  using Length = GNDStk::units::Length;
-
   template <>
-  struct EnumerationMap< Length > {
+  struct EnumerationMap< GNDStk::units::Length > {
 
-    static inline const std::map< Length, const std::string > values{
+    static inline const std::map< GNDStk::units::Length, const std::string > values{
 
-      { Length::m,  "m" },
-      { Length::cm, "cm" },
-      { Length::fm, "fm" }
+      { GNDStk::units::Length::m,  "m" },
+      { GNDStk::units::Length::cm, "cm" },
+      { GNDStk::units::Length::fm, "fm" }
     };
 
-    static inline const std::map< const std::string, Length > symbols{
+    static inline const std::map< const std::string, GNDStk::units::Length > symbols{
 
-      { "m",  Length::m },
-      { "cm", Length::cm },
-      { "fm", Length::fm }
+      { "m",  GNDStk::units::Length::m },
+      { "cm", GNDStk::units::Length::cm },
+      { "fm", GNDStk::units::Length::fm }
     };
   };
 
