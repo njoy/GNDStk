@@ -5,16 +5,16 @@
 
 /*
 These return the size_t number of times a child node of the given name is seen,
-subject to any filter condition that might be given.
+subject to any filter condition that might be provided.
 
 A child_t's TYPE, ALLOW, and CONVERTER are irrelevant for the purposes of these
 functions. No conversion (as normally CONVERTER performs) is applied, because no
 nodes are converted to TYPE; our purpose is merely to count nodes. We emphasize
 in particular that a child_t's ALLOW is ignored here; allow::one does NOT mean
 we'll look only for one, as we normally do. Indeed, we anticipate that someone
-might use count()'s result to branch. Example: do nothing if count() == 0; use
-an allow::one child_t for a subsequent query if count() == 1; use an allow::many
-child_t for a subsequent query if count() > 1.
+might use count()'s result in a conditional, e.g.: do nothing if count() == 0;
+use an allow::one child_t object for a subsequent query if count() == 1; use an
+allow::many child_t object for a subsequent query if count() > 1.
 
 Variations for count(...)'s parameters are as follows:
 
@@ -26,12 +26,11 @@ Variations for count(...)'s parameters are as follows:
 
 All are const, as we're just counting something - not modifying the *this node.
 
-The above variations were chosen to largely match what we've provided for doing
-child node queries, except that we chose one simplification in order to avoid
-needing considerable extra machinery here: we have no count() analogs of the
-variadic operator()s that support, well, any number of arguments. In practice,
-this means that instead of writing, say, something like the following for a node
-n and child_t objects A-G:
+The above variations were chosen to align with what we've provided for doing
+child node queries, except that we chose one important simplification in order
+to avoid needing considerable extra machinery here: we have no count() analogs
+of the variadic operator()s. In practice, this means that instead of writing,
+say, something like the following for a node n and child_t objects A-G:
 
    size_t size = n.count(A,B,C,D,E,F,G);
 
@@ -45,14 +44,13 @@ our "head count" is as with the analogous query functions: the child_t's filter,
 if any, is applied, and in addition the std::string or std::regex label must
 match a "label" metadatum in order for a node to increment the count. Note also
 that, here, we don't need a char *label case explicitly, because we don't have
-operator()'s variadic argument pack that a char * would inadvertently match. It
-implicitly converts to std::string here.
+operator()'s variadic argument pack that a char * would inadvertently match in
+lieu of matching std::string. It does implicitly convert to a std::string here.
 */
 
 
-
 // -----------------------------------------------------------------------------
-// Node.count(...)
+// Node.count
 // -----------------------------------------------------------------------------
 
 // ------------------------

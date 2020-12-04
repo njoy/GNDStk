@@ -3,7 +3,7 @@
 // documentation
 // doc (short version, for user ease)
 //
-// Look around for the "..." content that appears in places like this:
+// Look around for the CDATA content that appears in places like this:
 //
 //    <documentations>
 //       <documentation>

@@ -116,7 +116,7 @@ inline const child_t<void,allow::many>
    axis                            ("axis"                            );
 inline const child_t<void,allow::one>
    background                      ("background"                      );
-inline const child_t<void,allow::one>
+inline const child_t<void,allow::one> // <== fixme should this be a many?
    baryon                          ("baryon"                          );
 inline const child_t<void,allow::one>
    baryons                         ("baryons"                         );
@@ -246,9 +246,9 @@ inline const child_t<void,allow::one>
    freeAtomCrossSection            ("freeAtomCrossSection"            );
 inline const child_t<void,allow::one>
    g                               ("g"                               );
-inline const child_t<void,allow::one>
-   gaugeBoson                      ("gaugeBoson"                      );
 inline const child_t<void,allow::one> // <== fixme should this be a many?
+   gaugeBoson                      ("gaugeBoson"                      );
+inline const child_t<void,allow::one>
    gaugeBosons                     ("gaugeBosons"                     );
 inline const child_t<void,allow::one>
    generalEvaporation              ("generalEvaporation"              );

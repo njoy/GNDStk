@@ -4,23 +4,23 @@
 using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node shuffle()") {
-   Tree<> tree("n-008_O_016.xml");
+   Tree<> tree("n-069_Tm_170-covar.xml");
 
-   GIVEN("something") {
-      Node<> n;
-      THEN("something else") {
-         CHECK(n.empty());
-      }
+   GIVEN("A GNDS tree") {
+      Tree<> copy = tree;
+      copy.shuffle();
 
-      WHEN("foo") {
-         THEN("bar") {
-            CHECK(true);
+      WHEN("We randomly shuffle the tree") {
+         THEN("Printed, it looks different from the original") {
+            std::ostringstream oss1; oss1 << tree; // original
+            std::ostringstream oss2; oss2 << copy; // shuffled
+            CHECK(oss1.str() != oss2.str());
          }
       }
 
-      WHEN("one") {
-         THEN("two") {
-            CHECK(true);
+      WHEN("We do an order-independent comparison of shuffled and original") {
+         THEN("They're still the same GNDS tree") {
+            CHECK(tree == copy);
          }
       }
    }

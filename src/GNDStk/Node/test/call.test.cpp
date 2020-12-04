@@ -230,6 +230,11 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       // Below, we'll exercise every variation of node::operator()
 
+      THEN("node::operator() with no arguments returns *this") {
+         CHECK(&top == &top());
+         CHECK(&ctop == &ctop());
+      }
+
       THEN("Calling node.top(child_t,child_t,meta_t) gives us a metadatum") {
          CHECK(top.has(
             misc::child::styles,

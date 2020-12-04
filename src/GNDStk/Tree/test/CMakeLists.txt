@@ -1,5 +1,6 @@
 
 add_executable( GNDStk.Tree.test
+                special.test.cpp
                 clear.test.cpp
                 child.test.cpp
                 decl.test.cpp
