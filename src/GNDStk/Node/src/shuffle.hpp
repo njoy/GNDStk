@@ -10,11 +10,21 @@ Node &shuffle()
    for (auto &c : children)
       c->shuffle();
 
+   // random number seed
+   const unsigned seed =
+      std::chrono::system_clock::now().time_since_epoch().count();
+
    // shuffle metadata
-   std::random_shuffle(metadata.begin(), metadata.end());
+   std::shuffle(
+      metadata.begin(), metadata.end(),
+      std::default_random_engine(seed)
+   );
 
    // shuffle children
-   std::random_shuffle(children.begin(), children.end());
+   std::shuffle(
+      children.begin(), children.end(),
+      std::default_random_engine(seed+1)
+   );
 
    // done
    return *this;
