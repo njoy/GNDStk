@@ -47,7 +47,7 @@ const Node &one(
    if (nboth) {
       if (nboth > 1)
          log::warning(
-            "Node.one(\"{}\") called, but {} matching nodes were found;\n",
+            "Node.one(\"{}\") called, but {} matching nodes were found;\n"
             "returning the first one that was found",
             key, nboth
          );

@@ -12,7 +12,7 @@
 
 
 // ------------------------
-// C++
+// C++ #includes
 // ------------------------
 
 // miscellaneous
@@ -43,7 +43,7 @@
 
 
 // ------------------------
-// GNDS
+// GNDStk #includes
 // ------------------------
 
 namespace njoy {
@@ -67,12 +67,12 @@ namespace GNDStk {
 #include "GNDStk/meta_t.hpp"
 #include "GNDStk/child_t.hpp"
 #include "GNDStk/keyword.hpp"
+#include "GNDStk/comma.hpp"
 
 // sets of meta_t/child_t
 #include "GNDStk/common.hpp"
 #include "GNDStk/basic.hpp"
 #include "GNDStk/misc.hpp"
-#include "GNDStk/typed.hpp"
 
 // tree: primary constructs
 #include "GNDStk/Node.hpp"
@@ -80,6 +80,37 @@ namespace GNDStk {
 
 // xml/json/tree conversions
 #include "GNDStk/convert.hpp"
+
+
+// ------------------------
+// GNDStk "core interface"
+// ------------------------
+
+/*
+In a user code, writing this:
+
+   using namespace njoy::GNDStk::core;
+
+gives the same effect as writing this:
+
+   using namespace njoy::GNDStk;
+   using namespace njoy::GNDStk::basic;
+
+Meaning: We consider our "core interface" to consist of everything in GNDStk::
+proper, plus our basic:: set of meta_t and child_t keywords. Those are the
+meta_t and child_t objects with <void> type, so that they return metadata and
+nodes in their original tree form. Note that basic:: itself brings in meta_t
+and child_t objects from its own nested meta:: and child:: namespaces. Those
+are separate because there's a small amount of overlap between allowable GNDS
+metadatum names and node names. With this scheme, if a name you wish to use
+isn't one of the overlapping names, just use it. If it is, then prefix with
+meta:: or child:: depending on which one you want.
+*/
+
+namespace core {
+   using namespace GNDStk;
+   using namespace basic;
+}
 
 } // namespace GNDStk
 } // namespace njoy

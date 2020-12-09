@@ -10,6 +10,30 @@ template<class NODEFROM, class NODETO>
 void node2Node(const NODEFROM &, NODETO &);
 
 
+// -----------------------------------------------------------------------------
+// call_operator_child_t
+// -----------------------------------------------------------------------------
+
+template<allow ALLOW>
+class call_operator_child_t {
+   // Here's what we really want the static_assert to say:
+   //
+   //    Misuse of child_t with <allow::many> in Node's call operator.
+   //    Child_t with allow::many can only be used in Node's operator():
+   //      - at the end; or
+   //      - followed by a std::string or char* label; or
+   //      - followed by a std::regex for match with label.
+   //    Quick fix: downgrade to allow::one using predecrement: --child_t
+   //
+   // It seems that a static_assert string's formatting (say, with \n)
+   // is not necessarily respected by the compiler.
+
+   static_assert(
+      ALLOW == allow::one,
+     "Misuse of child_t with <allow::many> in Node's call operator"
+   );
+};
+
 
 // -----------------------------------------------------------------------------
 // apply_converter
@@ -37,7 +61,6 @@ public:
       // no action
    }
 };
-
 
 
 // -----------------------------------------------------------------------------
@@ -96,7 +119,6 @@ public:
 };
 
 
-
 // -----------------------------------------------------------------------------
 // extract_found
 // -----------------------------------------------------------------------------
@@ -117,7 +139,6 @@ inline bool &extract_found(const T &, ARGS &&...args)
 {
    return extract_found(std::forward<ARGS>(args)...);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -230,7 +251,6 @@ public:
 };
 
 
-
 // -----------------------------------------------------------------------------
 // child_ref
 // allow::one
@@ -311,7 +331,6 @@ public:
       return childNodeRef;
    }
 };
-
 
 
 // -----------------------------------------------------------------------------

@@ -1,5 +1,8 @@
 
-// (child_t)
+// ------------------------
+// ()(child_t)
+// ------------------------
+
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -17,7 +20,9 @@ decltype(auto) operator()(
    }
 }
 
-// (child_t, string)
+// ------------------------
+// ()(child_t, string)
+// ------------------------
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -37,7 +42,10 @@ decltype(auto) operator()(
    }
 }
 
-// (child_t, regex)
+// ------------------------
+// ()(child_t, regex)
+// ------------------------
+
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,

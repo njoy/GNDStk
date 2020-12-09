@@ -27,8 +27,18 @@ decltype(auto) operator()(
       // ""?
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
-      // -kwd: child_t<void,...> (not to be confused with --kwd)
-      return child(-kwd,found)(std::forward<KEYWORDS>(keywords)...);
+
+      // This triggers a static assertion failure if, and only if, someone
+      // sends operator() an allow::many child_t that is not followed by a
+      // string, char*, or regex, and is not at operator()'s end...
+      (void)detail::call_operator_child_t<ALLOW>{};
+
+      // Use -- to downgrade to allow::one (so unchanged if already allow::one,
+      // and just one error (the static assertion failure as described above),
+      // as opposed to two errors, if an allow::many. Finally, use unary minus
+      // to make the child_t's type <void>, so that we can continue to dig down
+      // further into the tree structure.
+      return child(---kwd,found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),...)", kwd.name);
       throw;
@@ -58,8 +68,8 @@ decltype(auto) operator()(
       // total filter
       auto filter = [kwd,label](const Node &n)
          { return kwd.filter(n) && detail::label_is(label)(n); };
-      // -(--kwd): child_t<void,allow::one,...>
-      return child(-(--kwd)+filter, found)(std::forward<KEYWORDS>(keywords)...);
+      // ---kwd: child_t<void,allow::one,...>
+      return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
       throw;
@@ -102,8 +112,8 @@ decltype(auto) operator()(
       // total filter
       auto filter = [kwd,labelRegex](const Node &n)
          { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); };
-      // -(--kwd): child_t<void,allow::one,...>
-      return child(-(--kwd)+filter, found)(std::forward<KEYWORDS>(keywords)...);
+      // ---kwd: child_t<void,allow::one,...>
+      return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       // C++ doesn't have stream output for regex, which one might think
       // would print the string from which the regex was created. In fact,

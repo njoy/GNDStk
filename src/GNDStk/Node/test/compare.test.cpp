@@ -1,7 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk;
+using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing GNDStk Node operator==() and operator!=") {
    Tree<> oh("n-008_O_016.xml");
@@ -46,9 +46,6 @@ SCENARIO("Testing GNDStk Node operator==() and operator!=") {
    }
 
    GIVEN("Two equal trees") {
-      // some meta_t<void>s and child_t<void)s
-      using namespace basic;
-
       /*
         <mass>
           <double label="eval" value="0.0" unit="amu"/>

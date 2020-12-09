@@ -1,7 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk;
+using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing GNDStk Node count()") {
    const Tree<> tree("n-008_O_016.xml");
@@ -15,8 +15,6 @@ SCENARIO("Testing GNDStk Node count()") {
    //    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd, regex  &labelRegex
 
    GIVEN("A GNDS tree") {
-      using namespace basic;
-
       auto version1 = [](const node &n) { return n(version) == "1.0"; };
       auto version2 = [](const node &n) { return n(version) == "2.0"; };
       auto symbolH  = [](const node &n) { return n(symbol)[0] == 'H'; };

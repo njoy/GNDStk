@@ -1,15 +1,13 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk;
+using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing certain special functions in GNDStk Node") {
    Tree<> t("n-008_O_016.xml");
    const Tree<> &c = t; // const version
 
    GIVEN("A GNDS tree") {
-      using namespace basic;
-
       // Get the documentation CDATA text string directly, for
       // use in checking if our direct function gets it properly
       const std::string thedocs = t(
