@@ -4,6 +4,12 @@ add_executable( GNDStk.Node.test
                 clear.test.cpp
                 child.test.cpp
                 sort.test.cpp
+                compare.test.cpp
+                count.test.cpp
+                has.test.cpp
+                shuffle.test.cpp
+                special.test.cpp
+                subscript.test.cpp
                 meta.test.cpp
                 assign.test.cpp
                 many.test.cpp

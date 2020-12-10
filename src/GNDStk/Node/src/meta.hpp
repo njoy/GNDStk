@@ -68,7 +68,7 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
-// Node.meta(meta_t)
+// Node.meta(meta_t<non-void>)
 // -----------------------------------------------------------------------------
 
 // TYPE
@@ -94,7 +94,7 @@ TYPE meta(
 // variant
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER>
-typename detail::oneof<TYPE,Ts...>::type meta(
+typename detail::oneof<TYPE,std::variant<Ts...>>::type meta(
    const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {

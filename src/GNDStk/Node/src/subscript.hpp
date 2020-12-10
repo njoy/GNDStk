@@ -1,10 +1,10 @@
 
 // -----------------------------------------------------------------------------
-// DISCUSSION
+// Discussion
 // -----------------------------------------------------------------------------
 
 /*
-Node's bracket operators, operator[], complement its call operators, but with
+Node's subscript operators, operator[], complement its call operators, but with
 some crucial differences.
 
 The generalized call operators, operator(), allow for any number of arguments,
@@ -106,21 +106,22 @@ as a compiler's determination of a function template parameter's type.
 // node[meta_t]
 // -----------------------------------------------------------------------------
 
-// The <void> cases are special and can just fall back on operator(), which
-// gives [const] std::string *reference* (thus lvalue if non-const) already.
-
-
 // ------------------------
 // <void>
 // ------------------------
 
+// The <void> cases are special and can just fall back on operator(), which
+// gives [const] std::string *reference* (thus lvalue if non-const) already.
+
 // <void> const
+// Return type: const std::string &
 const std::string &operator[](const meta_t<void> &kwd) const
 {
    return (*this)(kwd);
 }
 
 // <void>
+// Return type: std::string &
 std::string &operator[](const meta_t<void> &kwd)
 {
    return (*this)(kwd);
@@ -131,18 +132,21 @@ std::string &operator[](const meta_t<void> &kwd)
 // <TYPE>
 // ------------------------
 
+// meta_ref<CONST=true>, in contrast to meta_ref<CONST=false>, dispenses
+// with the assignment operators of the latter class, for obvious reasons.
+// You can still use the result of this function as an rvalue, though, and
+// it has the same conversion operators that meta_ref<CONST=false> has.
+
 // <TYPE> const
+// Return type: meta_ref
 template<class TYPE, class CONVERTER>
 auto operator[](const meta_t<TYPE,CONVERTER> &kwd) const
 {
-   // meta_ref<CONST=true>, in contrast to meta_ref<CONST=false>, dispenses
-   // with the assignment operators of the latter class, for obvious reasons.
-   // You can still use the result of this function as an rvalue, though, and
-   // it has the same conversion operators that meta_ref<CONST=false> has.
    return detail::meta_ref<Node,true, TYPE,CONVERTER>(kwd,*this);
 }
 
 // <TYPE>
+// Return type: meta_ref
 template<class TYPE, class CONVERTER>
 auto operator[](const meta_t<TYPE,CONVERTER> &kwd)
 {
@@ -157,7 +161,7 @@ auto operator[](const meta_t<TYPE,CONVERTER> &kwd)
 
 /*
 For now, we won't make or use our lvalue-enabling class, child_ref, for the
-case of allow::many, because it isn't clear what semantics we'd want when the
+allow::many cases, because it isn't clear what semantics we'd want when the
 lvalue represents a container of some kind. Say, for example, that we're in
 an <axes> node n, and wrote:
 
@@ -176,14 +180,14 @@ completely replacing them with the nodes in the assignment's RHS? Until/unless
 we decide what's best, I'll have operator[] for allow::many child_t objects do
 what operator() does. So, fow now: defined, but not usable as an lvalue.
 
-Note: for now, eight cases are written separately:
+Note: for now, 2x2x2=8 cases are written separately:
 
-   - <void> or <TYPE>
+   - void or TYPE
    - const or non-const
    - allow::one or allow::many
 
 in order to avoid overload ambiguities. If and when we make a viable child_ref
-for allow::many, we can probably reduce this to four (two <void>, two <TYPE>).
+for allow::many, we can probably reduce this to four: two <void>, two <TYPE>.
 */
 
 
@@ -194,41 +198,39 @@ for allow::many, we can probably reduce this to four (two <void>, two <TYPE>).
 // We'll write decltype(auto) everywhere here, so that return types won't need
 // to be changed if and when we can fold allow::one and allow::many together.
 
-// <void> const
-// The return type will be const Node & or std::vector<Node>,
-// depending on whether ALLOW is allow::one or allow::many.
+// <void,one> const
+// Return type: const Node &
 template<class FILTER>
 decltype(auto) operator[](
    const child_t<void,allow::one,void,FILTER> &kwd
 ) const {
-   // std::cout << "case 1" << std::endl;
    return (*this)(kwd);
 }
 
-template<class FILTER>
-decltype(auto) operator[](
-   const child_t<void,allow::many,void,FILTER> &kwd
-) const {
-   // std::cout << "case 2" << std::endl;
-   return (*this)(kwd);
-}
-
-// <void>
-// The return type will be Node & or std::vector<Node>,
-// depending on whether ALLOW is allow::one or allow::many.
+// <void,one>
+// Return type: Node &
 template<class FILTER>
 decltype(auto) operator[](
    const child_t<void,allow::one,void,FILTER> &kwd
 ) {
-   // std::cout << "case 3" << std::endl;
    return (*this)(kwd);
 }
 
+// <void,many> const
+// Return type: std::vector<Node>
+template<class FILTER>
+decltype(auto) operator[](
+   const child_t<void,allow::many,void,FILTER> &kwd
+) const {
+   return (*this)(kwd);
+}
+
+// <void,many>
+// Return type: std::vector<Node>
 template<class FILTER>
 decltype(auto) operator[](
    const child_t<void,allow::many,void,FILTER> &kwd
 ) {
-   // std::cout << "case 4" << std::endl;
    return (*this)(kwd);
 }
 
@@ -237,39 +239,42 @@ decltype(auto) operator[](
 // <TYPE>
 // ------------------------
 
-// <TYPE> const
+// Analog of node[meta_t<TYPE>] comment regarding CONST true/false applies.
+
+// <TYPE,one> const
+// Return type: child_ref
 template<class TYPE, class CONVERTER, class FILTER>
 auto operator[](const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd) const
 {
-   // std::cout << "case 5" << std::endl;
-   // Comment similar to the one for the meta_t analog of this function
    return detail::child_ref<
       Node, true,
       TYPE, allow::one, CONVERTER, FILTER
    >(kwd,*this);
 }
 
-template<class TYPE, class CONVERTER, class FILTER>
-auto operator[](const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd) const
-{
-   // std::cout << "case 6" << std::endl;
-   return (*this)(kwd);
-}
-
-// <TYPE>
+// <TYPE,one>
+// Return type: child_ref
 template<class TYPE, class CONVERTER, class FILTER>
 auto operator[](const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd)
 {
-   // std::cout << "case 7" << std::endl;
    return detail::child_ref<
       Node, false,
       TYPE, allow::one, CONVERTER, FILTER
    >(kwd,*this);
 }
 
+// <TYPE,many> const
+// Return type: std::vector<TYPE>
+template<class TYPE, class CONVERTER, class FILTER>
+auto operator[](const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd) const
+{
+   return (*this)(kwd);
+}
+
+// <TYPE,many>
+// Return type: std::vector<TYPE>
 template<class TYPE, class CONVERTER, class FILTER>
 auto operator[](const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd)
 {
-   // std::cout << "case 8" << std::endl;
    return (*this)(kwd);
 }

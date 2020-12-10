@@ -56,6 +56,9 @@ public:
    #include "GNDStk/Node/src/add.hpp"
    #include "GNDStk/Node/src/write.hpp"
    #include "GNDStk/Node/src/sort.hpp"
+   #include "GNDStk/Node/src/compare.hpp"
+   #include "GNDStk/Node/src/shuffle.hpp"
+   #include "GNDStk/Node/src/count.hpp"
 
    // miscellaneous specialty functions:
    // documentation, cdata, ...
@@ -89,20 +92,25 @@ public:
    // support those would complicate these files, and require that you invoke
    // operator() in awkward functional form, e.g. mynode.operator()<TYPE>(...).
 
-   // meta
+   // meta-specific
    #include "GNDStk/Node/src/call-meta.hpp"
 
-   // child
+   // child-specific
    #define GNDSTK_CONST const
    #include "GNDStk/Node/src/call-child.hpp"
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call-child.hpp"
 
-   // general
+   // general multi-argument
    #define GNDSTK_CONST const
    #include "GNDStk/Node/src/call.hpp"
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call.hpp"
+
+   // no-argument operator() returns the current node; this is the natural
+   // extension of the multi-argument behavior
+   const Node &operator()() const { return *this; }
+   Node &operator()() { return *this; }
 
    // ------------------------
    // operator[]

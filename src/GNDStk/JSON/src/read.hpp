@@ -15,8 +15,7 @@ std::istream &read(std::istream &is)
          log::error("istream >> nlohmann::json returned with !istream");
          log::member("JSON.read(istream)");
       }
-   }
-   catch (...) {
+   } catch (...) {
       log::error("istream >> nlohmann::json threw an exception");
       log::member("JSON.read(istream)");
       is.setstate(std::ios::failbit);

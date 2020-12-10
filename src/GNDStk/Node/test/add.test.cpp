@@ -52,7 +52,6 @@ SCENARIO("Testing GNDStk Node add()") {
    GIVEN("A default-constructed node") {
       Node<> n;
       n.name = "name";
-      // debug = true;
 
       // metadata, string key, various value types
       WHEN("We add a metadata pair") {

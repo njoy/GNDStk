@@ -18,7 +18,7 @@ bool convert(
    const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
    Tree<METADATA_CONTAINER_TO,CHILDREN_CONTAINER_TO> &to
 ) {
-   // casts are used here because the template arguments may be different
+   // void* because template arguments could differ
    if ((void*)&to == (void*)&from)
       return true;
 
@@ -90,8 +90,7 @@ bool convert(
                return false;
          }
       }
-   }
-   catch (...) {
+   } catch (...) {
       log::function("convert(XML,Tree)");
       throw;
    }

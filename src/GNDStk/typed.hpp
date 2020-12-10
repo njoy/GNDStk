@@ -5,6 +5,9 @@
 // all of the types. See more comments in the specific files #included below.
 // -----------------------------------------------------------------------------
 
+// fixme Consider deleting all this, given that we're beginning to build
+// a high-level interface in a different manner.
+
 namespace typed {
 
 #include "GNDStk/typed/src/meta.hpp"

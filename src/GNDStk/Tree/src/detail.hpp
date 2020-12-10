@@ -36,7 +36,7 @@ inline void warning_tree_io_data(
 // format_tree_read
 inline const std::string format_tree_read =
    "file::tree not allowed in tree.read(). Our \"tree\" file format is intended"
-   "only for debug writing, not for reading. Consider xml, json, or hdf5"
+   "mainly for debug writing, not for reading. Consider xml, json, or hdf5"
 ;
 
 } // namespace detail
