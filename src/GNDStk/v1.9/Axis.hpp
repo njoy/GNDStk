@@ -49,6 +49,32 @@ namespace v1_9 {
         throw std::exception();
       }
 
+      // new interface soon:
+      //
+      // // create the extraction query
+      // auto extract = ( unsigned{} / keys::index,
+      //                  keys::label,
+      //                  std::optional< std::string >{} / keys::unit );
+      //
+      // // extract the data
+      // bool found = false;
+      // auto tuple = this->node()( extract, found );
+      // if ( !found ) {
+      //
+      //   // the query did not work
+      //   log::error( "Some or all of the required attributes and/or children for "
+      //               "the \"axis\" node are missing"  );
+      //   //!@todo print out the node content?
+      //   throw std::exception();
+      // }
+      // else {
+      //
+      //   // sync the component
+      //   this->index_ = std::get< 0 >( tuple );
+      //   this->label_ = std::get< 1 >( tuple );
+      //   this->unit_ = std::get< 2 >( tuple );
+      // }
+
       // verify required attributes and children
       if ( !this->node().has( keys::index ) ||
            !this->node().has( keys::label ) ) {
