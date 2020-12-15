@@ -16,7 +16,7 @@ auto operator()(
    bool &found
 ) GNDSTK_CONST {
    log::debug(
-     "operator()(tuple<...>), size == {}",
+     "operator()(tuple<...>), tuple size == {}",
       sizeof...(Ks)
    );
 
@@ -29,7 +29,7 @@ auto operator()(
       //    std::make_tuple(operator()(std::get<0>(tup),head_found)),
       // because doing so would decay references to non-references. That would
       // mean, ultimately, that meta_t<void> and child_t<void> instances inside
-      // our keywords<...> objects, which are returned by our comma operators,
+      // our keywords<...> objects, which are returned by our | (or) operators,
       // would no longer produce [possibly const] *references* to std::string
       // and Node, respectively, but would surreptitiously lose the references.
       // We don't want to lose the references, though, because our multi-query
@@ -63,7 +63,7 @@ auto operator()(
 }
 
 
-// ()(tuple<child_t, string|regex, ...>)
+// ()(tuple<child_t, string/regex, ...>)
 template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER,
    class SECOND,
@@ -81,8 +81,8 @@ auto operator()(
    bool &found
 ) GNDSTK_CONST {
    log::debug(
-     "operator()(child, string|regex, tuple<...>), size == 2+{}",
-      sizeof...(TAIL)
+     "operator()(tuple<child_t, string/regex, ...>), tuple size == {}",
+      2 + sizeof...(TAIL)
    );
 
    bool head_found = false;
@@ -126,7 +126,7 @@ auto operator()(
    const std::tuple<> &tup,
    bool &found
 ) GNDSTK_CONST {
-   log::debug("operator()(tuple<>), size == 0");
+   log::debug("operator()(tuple<>), tuple size == 0");
    found = true;
    return tup;
 }
@@ -143,7 +143,7 @@ auto operator()(
    bool &found = detail::default_bool // means "found all" in this context
 ) GNDSTK_CONST {
    log::debug(
-     "operator()(keywords<...>), size == {}",
+     "operator()(keywords<...>), keywords size == {}",
       sizeof...(Ks)
    );
 

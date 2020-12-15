@@ -25,6 +25,7 @@
 #include <iomanip>
 #include <iostream>
 #include <map>
+#include <optional>
 #include <random>
 #include <regex>
 #include <set>
@@ -56,7 +57,7 @@ namespace GNDStk {
 #include "GNDStk/XML.hpp"
 #include "GNDStk/JSON.hpp"
 
-// string|node to|from type
+// string/node to/from type
 #include "GNDStk/string2type.hpp"
 #include "GNDStk/type2string.hpp"
 #include "GNDStk/node2type.hpp"
@@ -67,7 +68,7 @@ namespace GNDStk {
 #include "GNDStk/meta_t.hpp"
 #include "GNDStk/child_t.hpp"
 #include "GNDStk/keyword.hpp"
-#include "GNDStk/comma.hpp"
+#include "GNDStk/or.hpp"
 
 // sets of meta_t/child_t
 #include "GNDStk/common.hpp"

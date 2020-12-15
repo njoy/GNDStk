@@ -495,12 +495,15 @@ public:
 // general
 template<class T>
 class isVoid {
+public:
+   static constexpr bool value = false;
 };
 
 // void
 template<>
 class isVoid<void> {
 public:
+   static constexpr bool value = true;
    using type = void;
 };
 
@@ -513,12 +516,15 @@ public:
 template<class T>
 class isNotVoid {
 public:
+   static constexpr bool value = true;
    using type = T;
 };
 
 // void
 template<>
 class isNotVoid<void> {
+public:
+   static constexpr bool value = false;
 };
 
 } // namespace detail

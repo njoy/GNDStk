@@ -299,7 +299,7 @@ inline void node2Node(const NODEFROM &from, NODETO &to)
 
    // metadata
    for (auto &m : from.metadata)
-      to.add(m);
+      to.add(m.first,m.second);
 
    // children
    for (auto &c : from.children)

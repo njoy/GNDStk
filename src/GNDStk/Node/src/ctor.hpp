@@ -72,7 +72,7 @@ Node(
 
 // child_t<TYPE,...>, T
 //
-// T must be convertible, in the C++ sense, to TYPE.
+// TYPE must be constructible from T.
 //
 // Then, the child_t's converter converts TYPE(value) to a Node. (If child_t
 // has our default converter, this means that convert(TYPE,Node) is called.)
@@ -80,15 +80,15 @@ Node(
 // Remark, to prevent confusion: two concepts of conversion apply here. TYPE
 // and T are given separately, to prevent "conflicting types for TYPE deduced"
 // compiler errors in the event that the "value" parameter's type, T, doesn't
-// exactly match with TYPE - but is *convertible* (in the C++ sense) to TYPE.
+// exactly match with TYPE - but is usable to construct a value of type TYPE.
 // In that case, after all, it's reasonable for someone to have sent T value
-// here, and we handle it by converting (again, in the C++ sense) T value to
-// TYPE(value). Then, once we have an object of type TYPE, we do the usual
-// GNDStk action when a child_t<TYPE> is involved: we convert (in the GNDStk
-// sense) the TYPE object to a node, using the child_t's converter.
+// here, and we handle it by constructing an object of type TYPE from it; and
+// then, once we have an object of type TYPE, we do the usual GNDStk action
+// when a child_t<TYPE> is involved: we convert (in the GNDStk sense) the TYPE
+// object to a node, using the child_t's converter.
 template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T,
-   class = typename std::enable_if<std::is_convertible<T,TYPE>::value>::type
+   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 Node(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,

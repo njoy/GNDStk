@@ -11,6 +11,44 @@ void node2Node(const NODEFROM &, NODETO &);
 
 
 // -----------------------------------------------------------------------------
+// is_optional
+// -----------------------------------------------------------------------------
+
+// default
+template<class T>
+class is_optional {
+public:
+   static constexpr bool value = false;
+};
+
+// optional
+template<class T>
+class is_optional<std::optional<T>> {
+public:
+   static constexpr bool value = true;
+};
+
+
+// -----------------------------------------------------------------------------
+// remove_optional
+// -----------------------------------------------------------------------------
+
+// default
+template<class T>
+class remove_optional {
+public:
+   using type = T;
+};
+
+// optional
+template<class T>
+class remove_optional<std::optional<T>> {
+public:
+   using type = T;
+};
+
+
+// -----------------------------------------------------------------------------
 // call_operator_child_t
 // -----------------------------------------------------------------------------
 
