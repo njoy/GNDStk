@@ -60,7 +60,7 @@ namespace v1_9 {
 
       for ( auto& child : this->node().children ) {
 
-        if ( child->name == "axis" ){
+        if ( child->name == "axis" ) {
 
           this->axis_.emplace_back( *child );
         }

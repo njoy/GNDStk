@@ -25,13 +25,15 @@ namespace v1_9 {
    */
   class Axis : public Component {
 
-    /* keys */
-    struct keys {
+    /* query object */
+    static inline const auto query = (
 
-      static inline const auto index = GNDStk::basic::index;
-      static inline const auto label = GNDStk::basic::label;
-      static inline const auto unit = GNDStk::basic::unit;
-    };
+      unsigned{} / GNDStk::basic::index |
+      GNDStk::basic::label |
+      // placeholder till std::optional is available
+      // std::optional< double >{} / GNDStk::basic::unit |
+      GNDStk::basic::label
+    );
 
     /* data fields */
     unsigned int index_;                                // required
@@ -49,48 +51,28 @@ namespace v1_9 {
         throw std::exception();
       }
 
-      // new interface soon:
-      //
-      // // create the extraction query
-      // auto extract = ( unsigned{} / keys::index,
-      //                  keys::label,
-      //                  std::optional< std::string >{} / keys::unit );
-      //
-      // // extract the data
-      // bool found = false;
-      // auto tuple = this->node()( extract, found );
-      // if ( !found ) {
-      //
-      //   // the query did not work
-      //   log::error( "Some or all of the required attributes and/or children for "
-      //               "the \"axis\" node are missing"  );
-      //   //!@todo print out the node content?
-      //   throw std::exception();
-      // }
-      // else {
-      //
-      //   // sync the component
-      //   this->index_ = std::get< 0 >( tuple );
-      //   this->label_ = std::get< 1 >( tuple );
-      //   this->unit_ = std::get< 2 >( tuple );
-      // }
+      // extract the data
+      bool found = false;
+      auto tuple = this->node()( query, found );
+      if ( !found ) {
 
-      // verify required attributes and children
-      if ( !this->node().has( keys::index ) ||
-           !this->node().has( keys::label ) ) {
-
+        // the query did not work
         log::error( "Some or all of the required attributes and/or children for "
                     "the \"axis\" node are missing"  );
         //!@todo print out the node content?
         throw std::exception();
       }
+      else {
 
-      // sync the component
-      this->index_ = this->node()( unsigned{} / keys::index );
-      this->label_ = this->node()( keys::label );
-      this->unit_ = this->node().has( keys::unit )
-                      ? std::make_optional( this->node()( keys::unit ) )
-                      : std::nullopt;
+        // sync the component
+        this->index_ = std::get< 0 >( tuple );
+        this->label_ = std::get< 1 >( tuple );
+        // placeholder till std::optional is available
+        // this->unit_ = std::get< 2 >( tuple );
+        this->unit_ = this->node().has( GNDStk::basic::unit )
+                        ? std::make_optional( this->node()( GNDStk::basic::unit ) )
+                        : std::nullopt;
+      }
     }
 
   public :

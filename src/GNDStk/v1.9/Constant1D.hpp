@@ -21,16 +21,18 @@ namespace v1_9 {
    */
   class Constant1D : public Component {
 
-    /* keys */
-    struct keys {
+    /* query object */
+    static inline const auto query = (
 
-      static inline const auto label = GNDStk::basic::label;
-      static inline const auto constant = GNDStk::basic::constant;
-      static inline const auto min = GNDStk::basic::domainMin;
-      static inline const auto max = GNDStk::basic::domainMax;
-      static inline const auto outer = GNDStk::basic::outerDomainValue;
-      static inline const auto axes = GNDStk::basic::axes;
-    };
+      GNDStk::basic::label |
+      double{} / GNDStk::basic::constant |
+      double{} / GNDStk::basic::domainMin |
+      double{} / GNDStk::basic::domainMax |
+      // placeholder till std::optional is available
+      // std::optional< double >{} / GNDStk::basic::outerDomainValue |
+      double{} / GNDStk::basic::domainMax |
+      GNDStk::basic::axes
+    );
 
     /* fields */
     std::string label_;
@@ -61,27 +63,31 @@ namespace v1_9 {
         throw std::exception();
       }
 
-      // verify required attributes and children
-      if ( !this->node().has( keys::label ) ||
-           !this->node().has( keys::constant ) ||
-           !this->node().has( keys::min ) ||
-           !this->node().has( keys::max ) ||
-           !this->node().has( keys::axes ) ) {
+      // extract the data
+      bool found = false;
+      auto tuple = this->node()( query, found );
+      if ( !found ) {
 
+        // the query did not work
         log::error( "Some or all of the required attributes and/or children for "
                     "the \"constant1d\" node are missing"  );
+        //!@todo print out the node content?
         throw std::exception();
       }
+      else {
 
-      // sync the component
-      this->label_ = this->node()( std::string{} / keys::label );
-      this->constant_ = this->node()( double{} / keys::constant );
-      this->min_ = this->node()( double{} / keys::min );
-      this->max_ = this->node()( double{} / keys::max );
-      this->outer_ = this->node().has( keys::outer )
-                         ? std::make_optional( this->node()( double{} / keys::outer ) )
-                         : std::nullopt;
-      this->axes_ = Axes( this->node()( keys::axes ) );
+        // sync the component
+        this->label_ = std::get< 0 >( tuple );
+        this->constant_ = std::get< 1 >( tuple );
+        this->min_ = std::get< 2 >( tuple );
+        this->max_ = std::get< 3 >( tuple );
+        // placeholder till std::optional is available
+        // this->outer_ = std::get< 4 >( tuple );
+        this->outer_ = this->node().has( GNDStk::basic::outerDomainValue )
+                           ? std::make_optional( this->node()( double{} / GNDStk::basic::outerDomainValue ) )
+                           : std::nullopt;
+        this->axes_ = std::move( Axes( std::get< 5 >( tuple ) ) );
+      }
 
       // perform verification
       this->verify();
