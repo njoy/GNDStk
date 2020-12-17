@@ -259,8 +259,8 @@ typename std::enable_if<
 // depending on whether or not the second parameter's type is std::optional.
 // Here, however, unlike in the meta_t case, differences in logical structure
 // arise from the optional-or-not difference. To write this function as we did
-// for meta_t (including having a default type T and default value), we handle
-// the optional-ness with an if-constexpr.
+// for meta_t (including having a default type T and default value), we use an
+// if-constexpr to handle the structural differences.
 template<
    class T = Node, allow ALLOW, class FILTER,
    class = typename std::enable_if<

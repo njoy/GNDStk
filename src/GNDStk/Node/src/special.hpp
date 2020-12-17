@@ -140,15 +140,15 @@ std::string &pcdata(bool &found = detail::default_bool)
 
 // ------------------------
 // comment()
-// comment(size_t)
+// comment(std::size_t)
 // ------------------------
 
 // const
 const std::string &comment(
-   const size_t i = 0,
+   const std::size_t i = 0,
    bool &found = detail::default_bool
 ) const {
-   size_t count = 0;
+   std::size_t count = 0;
 
    for (auto &c : children)
       if (c->name == "comment" && count++ == i)
@@ -161,7 +161,7 @@ const std::string &comment(
 
 // non-const
 std::string &comment(
-   const size_t i = 0,
+   const std::size_t i = 0,
    bool &found = detail::default_bool
 ) {
    return const_cast<std::string &>(std::as_const(*this).comment(i,found));

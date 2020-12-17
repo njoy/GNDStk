@@ -40,7 +40,7 @@ decltype(auto) operator()(
       // further into the tree structure.
       return child(---kwd,found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
-      log::function("Node(child_t(\"{}\"),...)", kwd.name);
+      log::member("Node(child_t(\"{}\"),...)", kwd.name);
       throw;
    }
 }
@@ -57,7 +57,7 @@ template<
 >
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   std::string &&label,
+   const std::string label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
@@ -71,7 +71,7 @@ decltype(auto) operator()(
       // ---kwd: child_t<void,allow::one,...>
       return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
-      log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
+      log::member("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
       throw;
    }
 }
@@ -101,7 +101,7 @@ template<
 >
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   std::regex &&labelRegex,
+   const std::regex labelRegex,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
@@ -119,8 +119,8 @@ decltype(auto) operator()(
       // would print the string from which the regex was created. In fact,
       // regex might not even use, or keep, its original string initializer;
       // thus it doesn't have, say, .str() or .c_str(). All of this is why
-      // our diagnostic below doesn't print label's (regex) value.
-      log::function(
+      // the following diagnostic doesn't print label's (regex) value.
+      log::member(
          "Node(child_t(\"{}\"),label,...) with a std::regex label,\n"
          "not a std::string label",
          kwd.name

@@ -103,6 +103,14 @@ public:
    using type = std::string;
 };
 
+// char[N]
+template<std::size_t N>
+class is_string_or_regex<char[N]> {
+public:
+   static constexpr bool value = true;
+   using type = std::string;
+};
+
 // regex
 template<>
 class is_string_or_regex<std::regex> {
@@ -229,8 +237,8 @@ We omit the _t here for brevity.
 // ==> keywords<meta_t/child_t, meta_t/child_t>
 template<
    class LHS, class RHS,
-   class=typename std::enable_if<detail::is_meta_or_child_t<RHS>::value>::type,
-   class=typename std::enable_if<detail::is_meta_or_child_t<LHS>::value>::type
+   class=typename std::enable_if<detail::is_meta_or_child_t<LHS>::value>::type,
+   class=typename std::enable_if<detail::is_meta_or_child_t<RHS>::value>::type
 >
 auto operator|(
    const LHS &lhs,
