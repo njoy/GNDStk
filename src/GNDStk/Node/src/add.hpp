@@ -1,13 +1,11 @@
 
 // -----------------------------------------------------------------------------
 // Node.add() metadata
+// Direct; no meta_t
 // -----------------------------------------------------------------------------
 
-// ------------------------
-// general
-// ------------------------
-
-// string,T
+// string, T
+// Return value: a reference to the key/value pair just added
 template<class T, class CONVERTER = detail::convert_t>
 metaPair &add(
    const std::string &key,
@@ -27,41 +25,102 @@ metaPair &add(
 }
 
 
-// pair<S,T>, iff S is convertible to std::string
-template<class S, class T, class CONVERTER = detail::convert_t>
-typename std::enable_if<
-   std::is_convertible<S,std::string>::value,
-   metaPair &
->::type add(
-   const std::pair<S,T> &pair,
+// string, optional<T>
+// Return value
+//    == "did the optional have a value"
+//    == "we actually added something"
+template<class T, class CONVERTER = detail::convert_t>
+bool add(
+   const std::string &key,
+   const std::optional<T> &opt,
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return add(std::string(pair.first), pair.second, converter);
+   std::string to;
+   try {
+      if (opt)
+         converter(opt.value(),to);
+      else
+         return false;
+   } catch (...) {
+      log::member("Node.add(\"{}\",std::optional)", key);
+      throw;
+   }
+   metadata.push_back(metaPair(key,to));
+   return true;
 }
 
 
 
+// -----------------------------------------------------------------------------
+// Node.add() metadata
+// With meta_t
+// -----------------------------------------------------------------------------
+
 // ------------------------
-// meta_t
+// <void>, T
+// Works if T itself
+// is an optional
 // ------------------------
 
-// void
+// The meta_t<void> means that the meta_t doesn't impose any particular type.
+// So, we'll accept any type; and, then, the function to which we forward will
+// do the usual GNDStk action of calling a convert function to make the T value
+// into a std::string (the raw tree form of a metadatum value). The return type
+// is decltype(auto) because this function might (and, in typical use, probably
+// will) forward to add(string,T), but *might* forward to add(string,optional)
+// instead - if, well, T is a std::optional. In the former case, metaPair & is
+// returned. In the latter case, bool is returned.
 template<class T = std::string>
-typename std::enable_if<
-   std::is_convertible<T,std::string>::value,
-   metaPair &
->::type add(
+decltype(auto) add(
    const meta_t<void> &kwd,
    const T &value = T{}
 ) {
-   return add(kwd.name, std::string(value));
+   return add(kwd.name, value);
 }
 
 
-// TYPE
+// ------------------------
+// <TYPE> or <optional>,
+// T or optional
+// ------------------------
+
+/*
+Below, we have the following cases:
+
+      meta_t<> type:   given:        returns:
+      --------------   -----------   --------
+   1.          TYPE             T    metaPair &
+   2.          TYPE    optional<T>   metaPair & (or throws)
+   3. optional<TYPE>            T    metaPair &
+   4. optional<TYPE>   optional<T>   bool
+
+In case (1), neither the meta_t nor the given value involves optionals. The
+value is inserted into the node's metadata container, and a reference to the
+inserted (key,value) pair is returned.
+
+In case (2), the meta_t's type is not optional, and so the given optional
+parameter *must* actually have a value. If it doesn't, an error is thrown.
+If it does have a value, then we add the value, and return a metaPair &.
+
+In case (3), an actual value is given, even though the meta_t says optional.
+That's perfectly fine - we do in fact have a value, so it's irrelevant that
+it's optional. We add the value, and return a metaPair &.
+
+In case (4), the meta_t says it's optional, and the given value is optional
+as well. So, the function's scenario is, in short, "everything is optional."
+This function forwards to our add(string,optional) overload, which in turn
+is fine with the optional value being present or absent. That function, and
+thus this one, returns true or false, depending on whether the optional had
+a value or not (equivalently, whether the value was inserted or not).
+
+In all cases, TYPE must be constructible from a T.
+*/
+
+
+// 1. <TYPE>, T
 template<class TYPE, class CONVERTER, class T = TYPE>
 typename std::enable_if<
-   std::is_convertible<T,TYPE>::value,
+   std::is_constructible<TYPE,T>::value,
    metaPair &
 >::type add(
    const meta_t<TYPE,CONVERTER> &kwd,
@@ -71,14 +130,66 @@ typename std::enable_if<
 }
 
 
+// 2. <TYPE>, optional<T>
+// The optional must have a value, because the meta_t stipulates a hard type,
+// not an optional. (add()s for meta_t<std::optional> are written separately.)
+template<class TYPE, class CONVERTER, class T>
+typename std::enable_if<
+   std::is_constructible<TYPE,T>::value,
+   metaPair &
+>::type add(
+   const meta_t<TYPE,CONVERTER> &kwd,
+   const std::optional<T> &opt
+) {
+   if (opt)
+      return add(kwd, opt.value());
+   else {
+      log::error(
+         "Node.add() called with a meta_t< non-std::optional >,\n"
+         "along with a std::optional that has no value"
+      );
+      log::member("Node.add(meta_t(\"{}\"),std::optional)", kwd.name);
+      throw std::exception{};
+   }
+}
+
+
+// 3. <optional<TYPE>>, T
+// The optional aspect is effectively ignored, because we're sending an actual
+// value. That the meta_t says it's optional doesn't matter - this is an add()
+// function, not a query, and we're getting the value. Formulating as follows
+// means that this function returns a metaPair &, not a bool, given that it
+// forwards to our add(string,T), not our add(string,optional<T>).
+template<class TYPE, class CONVERTER, class T = TYPE>
+typename std::enable_if<
+   std::is_constructible<TYPE,T>::value,
+   metaPair &
+>::type add(
+   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   const T &value = T{}
+) {
+   return add(TYPE{}/kwd, value);
+}
+
+
+// 4. <optional<TYPE>>, optional<T>
+template<class TYPE, class CONVERTER, class T>
+typename std::enable_if<
+   std::is_constructible<TYPE,T>::value,
+   bool
+>::type add(
+   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   const std::optional<T> &opt
+) {
+   return opt ? (add(TYPE{}/kwd, opt.value()), true) : false;
+}
+
+
 
 // -----------------------------------------------------------------------------
 // Node.add() children
+// Direct; no child_t
 // -----------------------------------------------------------------------------
-
-// ------------------------
-// general
-// ------------------------
 
 // string
 // Builds a new child node with the given name.
@@ -93,12 +204,12 @@ Node &add(const std::string &name = "")
 
 
 // T
-// Accepts a convertible-to-node value.
+// Accepts a T, where Node is constructible from a T.
 // Builds a new child node from the value.
 // Returns a reference to the new node.
 template<class T>
 typename std::enable_if<
-   std::is_convertible<T,Node>::value,
+   std::is_constructible<Node,T>::value,
    Node &
 >::type add(const T &value)
 {
@@ -106,56 +217,102 @@ typename std::enable_if<
 }
 
 
-
-// ------------------------
-// child_t, ...
-// ------------------------
-
-// Remark. The first two accept a general ALLOW child_t (either "one" or "many")
-// and return a reference to the added value. The "many" is allowed here - hence
-// the general ALLOW instead of just "one" - because it's perfectly reasonable
-// to add just a single value in this case, even if multiple values are allowed.
-// The second two functions accept only a "many" child_t, because they receive
-// containers of values. (They also return void, as there's not generally just
-// one added value to which we'd be able to return a reference.)
-
-
-// <void,ALLOW,void,FILTER>
-// Accepts a convertible-to-node value.
-// Builds a new child node from the value.
-// Gives the new node the name from the keyword object.
-// Returns a reference to the new node.
-template<allow ALLOW, class T, class FILTER>
+// optional<T>
+// Accepts an optional<T>, where Node is constructible from a T.
+// If the optional has a value:
+//    Builds a new child node from the value.
+//    Returns true.
+// If the optional does not have a value:
+//    Does nothing: NO new Node, not even a blank one, is added.
+//    Returns false.
+template<class T>
 typename std::enable_if<
-   std::is_convertible<T,Node>::value,
-   Node &
->::type add(
+   std::is_constructible<Node,T>::value,
+   bool
+>::type add(const std::optional<T> &opt)
+{
+   return opt ? (add() = Node(opt.value()), true) : false;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Node.add() children
+// With child_t
+// -----------------------------------------------------------------------------
+
+// Remark. Some of these accept a general ALLOW child_t (either allow::one or
+// allow::many) along with just one value. The allow::many is permissible here
+// because it's perfectly reasonable to add just one value in this case; after
+// all, we might be adding multiple values, but doing so one-by-one. We'll also
+// have some functions that accept only an allow::many child_t, because they
+// receive containers of values.
+
+
+// ------------------------
+// <void>, T
+// Works if T itself
+// is an optional
+// ------------------------
+
+// As is true of its meta_t counterpart, this function's behavior is different
+// depending on whether or not the second parameter's type is std::optional.
+// Here, however, unlike in the meta_t case, differences in logical structure
+// arise from the optional-or-not difference. To write this function as we did
+// for meta_t (including having a default type T and default value), we handle
+// the optional-ness with an if-constexpr.
+template<
+   class T = Node, allow ALLOW, class FILTER,
+   class = typename std::enable_if<
+      std::is_constructible<
+         Node,
+         typename detail::remove_optional<T>::type
+      >::value
+   >::type
+>
+decltype(auto) add(
    const child_t<void,ALLOW,void,FILTER> &kwd,
-   const T &value
+   const T &value = T{}
 ) {
    try {
-      Node &n = add(value);
-      n.name = kwd.name;
-      return n;
+      if constexpr (!detail::is_optional<T>::value) {
+         // T != optional; return a Node &
+         Node &n = add(value);
+         n.name = kwd.name;
+         return n;
+      } else {
+         // T == optional; return a bool
+         if (!value)
+            return false; // <== as with meta_t, nothing new gets added
+         Node &n = add(value.value());
+         n.name = kwd.name;
+         return true;
+      }
    } catch (...) {
-      log::member("Node.add(child_t(\"{}\"),value)", kwd.name);
+      if constexpr (!detail::is_optional<T>::value)
+         log::member("Node.add(child_t(\"{}\"),value)", kwd.name);
+      else
+         log::member("Node.add(child_t(\"{}\"),std::optional)", kwd.name);
       throw;
    }
 }
 
 
-// <TYPE,ALLOW,CONVERTER,FILTER>
-// Accepts a convertible-to-TYPE value.
-// Builds a new child node from the value.
-// Gives the new node the name from the keyword object.
-// Returns a reference to the new node.
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T>
+// ------------------------
+// <TYPE> or <optional>,
+// T or optional
+// ------------------------
+
+// These are analogous to the similarly structured non-<void> metadata add()s.
+
+// 1. <TYPE>, T
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T = TYPE>
 typename std::enable_if<
-   std::is_convertible<T,TYPE>::value,
+   std::is_constructible<TYPE,T>::value,
    Node &
 >::type add(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const T &value
+   const T &value = T{}
 ) {
    try {
       Node &n = add();
@@ -169,47 +326,81 @@ typename std::enable_if<
 }
 
 
-// <void,many,void,FILTER>
-// Accepts a container of convertible-to-node values.
-// Builds new child nodes from the values.
-// Gives each new node the name from the keyword object.
-// No returned reference, because we entered numerous new values.
-template<
-   template<class...> class CONTAINER = std::vector,
-   class FILTER,
-   class T = Node, class... Args
->
+// 2. <TYPE>, optional<T>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T>
 typename std::enable_if<
-   std::is_convertible<T,Node>::value,
-   void
+   std::is_constructible<TYPE,T>::value,
+   Node &
 >::type add(
-   const child_t<void,allow::many,void,FILTER> &kwd,
-   const CONTAINER<T,Args...> &container
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const std::optional<T> &opt
 ) {
-   try {
-      for (const T &value : container)
-         add(--kwd,value); // --kwd: child_t<...,allow::one,...>
-   } catch (...) {
-      log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
-      throw;
+   if (opt)
+      return add(kwd, opt.value());
+   else {
+      log::error(
+         "Node.add() called with a child_t< non-std::optional >,\n"
+         "along with a std::optional that has no value"
+      );
+      log::member("Node.add(child_t(\"{}\"),std::optional)", kwd.name);
+      throw std::exception{};
    }
 }
 
 
-// <TYPE,many,CONVERTER,FILTER>
-// Accepts a container of convertible-to-TYPE values.
-// Builds new child nodes from the values.
-// Gives each new node the name from the keyword object.
-// No returned reference, because we entered numerous new values.
+// 3. <optional<TYPE>>, T
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T = TYPE>
+typename std::enable_if<
+   std::is_constructible<TYPE,T>::value,
+   Node &
+>::type add(
+   const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const T &value = T{}
+) {
+   return add(TYPE{}/kwd, value);
+}
+
+
+// 4. <optional<TYPE>>, optional<T>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T>
+typename std::enable_if<
+   std::is_constructible<TYPE,T>::value,
+   bool
+>::type add(
+   const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const std::optional<T> &opt
+) {
+   return opt ? (add(TYPE{}/kwd, opt.value()), true) : false;
+}
+
+
+// ------------------------
+// child_t w/allow::many
+// ------------------------
+
+// This takes a container, and builds on our non-container overloads. The add()
+// that it calls, for each container element, can return either Node & or bool,
+// depending on whether or not std::optional is involved. However, those Node &
+// or bool returns will generally be different for different container elements.
+// So, this function doesn't return anything. The relatively complex template
+// specification is designed to handle both child_t<void> and child_t<TYPE>, as
+// well as T being either a std::optional or something else.
+
+// <...,many,...>, container<T>
 template<
    class TYPE, class CONVERTER, class FILTER,
    template<class...> class CONTAINER = std::vector,
-   class T = TYPE, class... Args
+   class T = // <== Node (for <void>), else TYPE
+      typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+   class... Args,
+   class = typename std::enable_if<
+      std::is_constructible<
+         typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+         typename detail::remove_optional<T>::type
+      >::value
+   >::type
 >
-typename std::enable_if<
-   std::is_convertible<T,TYPE>::value,
-   void
->::type add(
+void add(
    const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {

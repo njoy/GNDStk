@@ -1,7 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk;
+using namespace njoy::GNDStk::core;
 
 // I'm arguably overdoing it in this file, testing so many different
 // permutations of essentially the same underlying capability. We do
@@ -443,7 +443,6 @@ SCENARIO("Testing GNDStk Node has*() functions") {
 
       WHEN("has(multi-argument) is called") {
          // for some basic (meaning <void> typed) meta_t and child_t objects
-         using namespace basic;
          const meta_t<> foo("bar");
 
          // works where it should

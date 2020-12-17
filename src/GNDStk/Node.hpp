@@ -101,6 +101,12 @@ public:
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call-child.hpp"
 
+   // keywords<...> tuple wrapper
+   #define GNDSTK_CONST const
+   #include "GNDStk/Node/src/call-keywords.hpp"
+   #define GNDSTK_CONST
+   #include "GNDStk/Node/src/call-keywords.hpp"
+
    // general multi-argument
    #define GNDSTK_CONST const
    #include "GNDStk/Node/src/call.hpp"

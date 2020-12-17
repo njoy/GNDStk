@@ -10,6 +10,7 @@
 std::istream &read(std::istream &is)
 {
    // call pugi::xml_document's read capability
+   const std::streampos pos = is.tellg();
    try {
       // load
       const pugi::xml_parse_result load = doc.load(
@@ -20,22 +21,38 @@ std::istream &read(std::istream &is)
       );
 
       // check for errors
-      if (load.description() != std::string("No error")) {
-         log::error(
-            "pugi::xml_document.load() reported an error:\n"
-            "Parse error: {}\n"
-            "Char offset: {}",
-            load.description(),
-            load.offset
-         );
+      // note: we've noticed that pugi doesn't (or, at least, doesn't
+      // always) arrange for !is when pugi::xml_document.load() fails
+      const bool pugierr = load.description() != std::string("No error");
+      if (pugierr || !is) {
+         // print error
+         if (pugierr) {
+            // pugierr
+            log::error(
+               "pugi::xml_document.load(istream,...) reported an error:\n"
+               "Parse error: {}\n"
+               "Char offset: {}",
+               load.description(),
+               load.offset
+            );
+         } else {
+            // !is
+            // given the earlier comment about pugi and !is, it may
+            // not be possible to get here, but we'll cover it...
+            log::error(
+               "pugi::xml_document.load(istream,...) returned with !istream"
+            );
+         }
+         // context and cleanup
          log::member("XML.read(istream)");
-         // apparently, pugi doesn't do this if load() fails; so we will:
-         is.setstate(std::ios::failbit);
+         detail::failback(is,pos);
       }
    } catch (...) {
+      // print error
       log::error("pugi::xml_document.load() threw an exception");
+      // context and cleanup
       log::member("XML.read(istream)");
-      is.setstate(std::ios::failbit);
+      detail::failback(is,pos);
    }
 
    // done

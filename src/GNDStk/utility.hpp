@@ -67,6 +67,14 @@ public:
    bool operator()(const NODE &) const { return true; }
 };
 
+// failback
+inline void failback(std::istream &is, const std::streampos pos)
+{
+   is.clear();
+   is.seekg(pos);
+   is.setstate(std::ios::failbit);
+}
+
 } // namespace detail
 
 
@@ -90,10 +98,10 @@ inline std::string diagnostic(
    const std::string &prefix = ""
 ) {
    static std::map<std::string,std::string> codes = {
-      { "debug",   "\033[37;21m" }, // white
       { "info",    "\033[36;21m" }, // cyan
       { "warning", "\033[33;1m"  }, // yellow
-      { "error",   "\033[31;21m" }  // red
+      { "error",   "\033[31;21m" }, // red
+      { "debug",   "\033[37;21m" }  // white
    };
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off
@@ -127,10 +135,10 @@ inline std::string diagnostic(
 // -----------------------------------------------------------------------------
 
 // Convenient, namespace-scope booleans for fine-tuning diagnostic output
-inline bool notes     = true; // general info messages
-inline bool debugging = true; // debug calls
-inline bool warnings  = true; // warnings
-inline bool context   = true; // any of our context-printing info messages
+inline bool notes     = true;  // general info messages
+inline bool warnings  = true;  // warnings
+inline bool context   = true;  // any of our context-printing info messages
+inline bool debugging = false; // debug calls
 // We don't provide a way to suppress errors; too much could go wrong
 
 namespace log {
@@ -146,16 +154,6 @@ inline void info(const std::string &str, Args &&...args)
    if (notes) {
       const std::string msg = detail::diagnostic("info",str);
       Log::info(msg.c_str(), std::forward<Args>(args)...);
-   }
-}
-
-// debug
-template<class... Args>
-inline void debug(const std::string &str, Args &&...args)
-{
-   if (debugging) {
-      const std::string msg = detail::diagnostic("debug",str);
-      Log::debug(msg.c_str(), std::forward<Args>(args)...);
    }
 }
 
@@ -175,6 +173,16 @@ inline void error(const std::string &str, Args &&...args)
 {
    const std::string msg = detail::diagnostic("error",str);
    Log::error(msg.c_str(), std::forward<Args>(args)...);
+}
+
+// debug
+template<class... Args>
+inline void debug(const std::string &str, Args &&...args)
+{
+   if (debugging) {
+      const std::string msg = detail::diagnostic("debug",str);
+      Log::debug(msg.c_str(), std::forward<Args>(args)...);
+   }
 }
 
 // ------------------------
@@ -487,12 +495,15 @@ public:
 // general
 template<class T>
 class isVoid {
+public:
+   static constexpr bool value = false;
 };
 
 // void
 template<>
 class isVoid<void> {
 public:
+   static constexpr bool value = true;
    using type = void;
 };
 
@@ -505,12 +516,15 @@ public:
 template<class T>
 class isNotVoid {
 public:
+   static constexpr bool value = true;
    using type = T;
 };
 
 // void
 template<>
 class isNotVoid<void> {
+public:
+   static constexpr bool value = false;
 };
 
 } // namespace detail

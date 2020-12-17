@@ -193,7 +193,7 @@ inline auto operator--(
 
 // -----------------------------------------------------------------------------
 // --pre, ++pre
-// Downgrade|upgrade to allow::one|many
+// Downgrade/upgrade to allow::one/many
 // -----------------------------------------------------------------------------
 
 // --child_t

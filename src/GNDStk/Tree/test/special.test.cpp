@@ -1,8 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk;
-using namespace basic;
+using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing comment() and comments() in GNDStk Tree") {
    // tree

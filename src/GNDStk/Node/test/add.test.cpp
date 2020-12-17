@@ -55,13 +55,6 @@ SCENARIO("Testing GNDStk Node add()") {
 
       // metadata, string key, various value types
       WHEN("We add a metadata pair") {
-         n.add(std::make_pair("a","b"));
-         CHECK(n.metadata.size() == 1);
-         CHECK(n.metadata[0].first == "a");
-         CHECK(n.metadata[0].second == "b");
-      }
-
-      WHEN("We add another metadata pair") {
          n.add(std::string("one"), std::string("two"));
          n.add("1","2");
          THEN("node add() returns a reference to the pair") {
@@ -73,8 +66,6 @@ SCENARIO("Testing GNDStk Node add()") {
 
       n.add("3",3.1416);
       n.add("4",dimensions2d(12,34));
-      n.add(std::make_pair(std::string("5"),dimensions2d(56,78)));
-      n.add(std::make_pair("6",9));
 
       // metadata, meta_t key
       auto v   = keyword.meta<void>("AStringViaVoid");
