@@ -11,7 +11,7 @@ const nodeType &top() const
          log::error("Tree has no top-level GNDS node");
          throw std::exception{};
       }
-      for (auto &c : children)
+      for (auto &c : this->children)
          if (c->name != "xml" && c->name != "json" && c->name != "hdf5")
             return *c;
       log::error("Tree's top-level GNDS node not found");

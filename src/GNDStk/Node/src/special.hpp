@@ -3,7 +3,7 @@
 // documentation
 // doc (short version, for user ease)
 //
-// Look around for the "..." content that appears in places like this:
+// Look around for the CDATA content that appears in places like this:
 //
 //    <documentations>
 //       <documentation>
@@ -140,17 +140,17 @@ std::string &pcdata(bool &found = detail::default_bool)
 
 // ------------------------
 // comment()
-// comment(size_t)
+// comment(std::size_t)
 // ------------------------
 
 // const
 const std::string &comment(
-   const size_t i = 0,
+   const std::size_t i = 0,
    bool &found = detail::default_bool
 ) const {
-   size_t count = 0;
+   std::size_t count = 0;
 
-   for (auto c : children)
+   for (auto &c : children)
       if (c->name == "comment" && count++ == i)
          return c->meta("text",found);
 
@@ -161,7 +161,7 @@ const std::string &comment(
 
 // non-const
 std::string &comment(
-   const size_t i = 0,
+   const std::size_t i = 0,
    bool &found = detail::default_bool
 ) {
    return const_cast<std::string &>(std::as_const(*this).comment(i,found));
@@ -184,24 +184,21 @@ std::string &comment(
 //    </data>
 // One could argue that the second comment here really isn't important.
 // However, GNDStk is careful to maintain ALL information that's present
-// in any GNDS files it reads. We don't make decisions about importance.
+// in a GNDS file it reads; it does not make decisions about importance.
 
 // const
 template<
    template<class...> class CONTAINER = std::vector,
-   class T = std::string, class... Args
+   class... Args
 >
-typename std::enable_if<
-   std::is_convertible<std::string,T>::value,
-   CONTAINER<T,Args...>
->::type
+CONTAINER<std::string,Args...>
 comments(bool &found = detail::default_bool) const
 {
-   CONTAINER<T,Args...> container;
+   CONTAINER<std::string,Args...> container;
    const std::string *text;
-   for (auto c : children)
+   for (auto &c : children)
       if (c->name == "comment" && (text = &c->meta("text",found),found))
-         container.push_back(T(*text));
+         container.push_back(*text);
    return container;
 }
 

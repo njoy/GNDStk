@@ -1,14 +1,15 @@
 
 // -----------------------------------------------------------------------------
 // Convenience functions, so you don't need to bother with the "found" flag
-// in each respective function. (The "found" flag in turn was a convenience,
-// for when you *expect* that something might or might not be there, and you
-// just want to know as much, without fussing with diagnostics or exceptions.)
+// in each respective function as outlined below. (The "found" flag in turn
+// was a convenience, for when you *expected* that something might or might
+// not be there, and you just want to know as much, without fussing with
+// diagnostics or exceptions.)
 //
 // Note: don't call any of these with your own bool "found" trailing parameter;
-// they put that in themselves, and the underlying functions don't want two
+// they put that in themselves, and the underlying functions shouldn't get two
 // of them. We could write extra code to deal with that, but we judge that the
-// additional complexity probably isn't worth it.
+// additional complexity isn't worth it.
 // -----------------------------------------------------------------------------
 
 /*
@@ -26,14 +27,14 @@ Usage sketch:
    }
 
    // Option 2: use has() to "pre-check" the call:
-   if (tree.has(reactionSuite,PoPs,chemicalElements)) { // <== Use has()!
+   if (tree.has(reactionSuite,PoPs,chemicalElements)) {
       auto foo = tree(reactionSuite,PoPs,chemicalElements);
       ...
    }
 
 Node's (by extension Tree's) "call operator", operator(), is illustrated
 in the above example. There are, however, several data-access functions,
-not just the call operator. Here's what you should use:
+not just the call operator. Here's what you should use for each:
 
    Use this:       To see if this will succeed:
    --------------------------------------------
@@ -44,15 +45,25 @@ not just the call operator. Here's what you should use:
    has(*)          (*), a.k.a. operator()(*)
    --------------------------------------------
 
-For simplicity, our "has" functions just do straight forwardings of their
-arguments. Some of the respective function templates use SFINAE to constrain
-overload resolution; we do *not* replicate that here. If a given "has" call
-triggers compiler gibberish, consider looking at the call you mean to test,
-and see if that produces a more useful diagnostic. (We may reconsider our
-straight-forwarding choice for these functions, if users report significant
-issues with compiler diagnostics.) Also, be sure that you're *not* sending
-the boolean flag (for "found") as the last parameter to a "has" function,
-as you can with the regular calls.
+Avoid a mistake we've seen: n.has_many(parameters) does NOT check if node n
+contains each of the given parameters (say, interpreted as child nodes and/or
+metadata); and, likewise, n.has_one(parameter) does not check if n has the
+given parameter. Rather, each has_foo(something) function "tests" the call
+foo(something) to see if it will work, i.e., if it won't throw an exception.
+Multiple parameters don't mean multiple checks; it means multiple parameters
+in a single underlying function call that's checked.
+
+For simplicity, each "has" function (left column) just does a std::forward
+of its arguments to the function it's designed to test (right column). Some
+of the respective functions (technically function templates) use SFINAE to
+constrain overload resolution, but for simplicity here, our has*() functions
+do *not* replicate that. If a given "has" call triggers compiler gibberish,
+consider looking at the call you mean to test, and see if that produces a
+more useful diagnostic. (We may reconsider this choice - of doing a simple
+forwarding of arguments - if users report significant issues with compiler
+diagnostics. Doing so, however, would somewhat complicate the present code.)
+Also, be sure that you never send the "found" bool (available in all of the
+underlying functions) to any has*(), as we provide that automatically.
 */
 
 

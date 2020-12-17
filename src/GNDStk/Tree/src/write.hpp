@@ -57,7 +57,7 @@ std::ostream &write(
          throw std::exception{};
       } else {
          // default: our internal tree file format
-         if (!empty()) {
+         if (!this->empty()) {
             if (GNDStk::decl)
                decl().write(os,0);
             top().write(os,0); // 0 is level

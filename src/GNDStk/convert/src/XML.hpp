@@ -77,13 +77,15 @@ inline bool convert(const XML &from, XML &to)
    // that matter its copy constructor, because, for whatever reason, the
    // pugi library makes those private. (And, perhaps, those have shallow-
    // copy semantics, too. I haven't checked into that, because we can't
-   // use those anyway.) For now, I'll write something simple that works,
-   // albeit not very efficiently: write "from" to a stringstream, then
-   // read "to" out of the stringstream. The GNDS documents that I've seen
-   // so far aren't large enough to make this untenable. We can revisit
-   // this issue if and when it becomes necessary to be more efficient.
+   // use those anyway.)
 
-   // save indentation
+   // For now, I'll write something simple that works, although not very
+   // efficiently: write "from" to a stringstream, then read "to" out of
+   // the stringstream. The GNDS files that I've seen so far aren't large
+   // enough to make this untenable. We can revisit this issue if and when
+   // it becomes necessary to be more efficient.
+
+   // back up indentation
    const int indent = GNDStk::indent;
    GNDStk::indent = 0; // saves memory in the stringstream
 

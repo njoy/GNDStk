@@ -33,7 +33,7 @@ inline void convert(const T &value, std::ostream &os)
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
-      size_t n = 0; \
+      std::size_t n = 0; \
       for (const T &v : value) \
          if (!(os << (n++ ? " " : "") && (convert(v,os),os))) \
             break; /* stream appears to be broken anyway */ \

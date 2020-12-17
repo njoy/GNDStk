@@ -56,7 +56,8 @@ inline auto operator/(
    const std::string &name
 ) {
    meta_t<TYPE,CONVERTER> ret = kwd;
-   return ret.name = name, ret;
+   ret.name = name;
+   return ret;
 }
 
 // meta_t/char*

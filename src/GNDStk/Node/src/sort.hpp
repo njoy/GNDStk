@@ -16,15 +16,16 @@
 private:
 
 // less
-bool less(const Node &b) const
+static bool less(const Node &a, const Node &b)
 {
-   const Node &a = *this;
-
    if (a.name < b.name) return true;
    if (b.name < a.name) return false;
 
    if (a.metadata.size() < b.metadata.size()) return true;
    if (b.metadata.size() < a.metadata.size()) return false;
+
+   if (a.children.size() < b.children.size()) return true;
+   if (b.children.size() < a.children.size()) return false;
 
    for (auto i = a.metadata.begin(),
              j = b.metadata.begin();  i != a.metadata.end();  ++i, ++j) {
@@ -32,13 +33,10 @@ bool less(const Node &b) const
       if (*j < *i) return false;
    }
 
-   if (a.children.size() < b.children.size()) return true;
-   if (b.children.size() < a.children.size()) return false;
-
    for (auto i = a.children.begin(),
              j = b.children.begin();  i != a.children.end();  ++i, ++j) {
-      if ((*i)->less(**j)) return true;
-      if ((*j)->less(**i)) return false;
+      if (less(**i,**j)) return true;
+      if (less(**j,**i)) return false;
    }
 
    return false;
@@ -49,8 +47,7 @@ void sort_metadata()
 {
    std::sort(
       metadata.begin(),
-      metadata.end(),
-      [](const metaPair &a, const metaPair &b) { return a < b; }
+      metadata.end()
    );
 }
 
@@ -60,7 +57,7 @@ void sort_childptr()
    std::sort(
       children.begin(),
       children.end(),
-      [](const childPtr &a, const childPtr &b) { return a->less(*b); }
+      [](const childPtr &a, const childPtr &b) { return less(*a,*b); }
    );
 }
 
@@ -68,10 +65,9 @@ void sort_childptr()
 
 // -----------------------------------------------------------------------------
 // sort
-// Public, for us[ers].
 // -----------------------------------------------------------------------------
 
-public:
+public: // undo the above private
 
 Node &sort()
 {

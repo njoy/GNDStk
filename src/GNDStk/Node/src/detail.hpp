@@ -10,6 +10,96 @@ template<class NODEFROM, class NODETO>
 void node2Node(const NODEFROM &, NODETO &);
 
 
+// -----------------------------------------------------------------------------
+// is_optional
+// -----------------------------------------------------------------------------
+
+// default
+template<class T>
+class is_optional {
+public:
+   static constexpr bool value = false;
+};
+
+// optional
+template<class T>
+class is_optional<std::optional<T>> {
+public:
+   static constexpr bool value = true;
+};
+
+
+// -----------------------------------------------------------------------------
+// remove_optional
+// -----------------------------------------------------------------------------
+
+// default
+template<class T>
+class remove_optional {
+public:
+   using type = T;
+};
+
+// optional
+template<class T>
+class remove_optional<std::optional<T>> {
+public:
+   using type = T;
+};
+
+
+// -----------------------------------------------------------------------------
+// keyname
+// -----------------------------------------------------------------------------
+
+template<class TYPE, class CONVERTER>
+std::string keyname(const meta_t<TYPE,CONVERTER> &m)
+{
+   return "meta_t(\"" + m.name + "\")";
+}
+
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &c)
+{
+   return "child_t(\"" + c.name + "\")";
+}
+
+inline std::string keyname(const std::string &s)
+{
+   return "string(\"" + s + "\")";
+}
+
+inline std::string keyname(const std::regex &)
+{
+   // regex generally doesn't keep the original string around :-/
+   return "regex";
+}
+
+
+// -----------------------------------------------------------------------------
+// call_operator_child_t
+// -----------------------------------------------------------------------------
+
+template<allow ALLOW>
+class call_operator_child_t {
+   // Here's what we really want the static_assert to say:
+   //
+   //    Misuse of child_t with <allow::many> in Node's call operator.
+   //    Child_t with allow::many can only be used in Node's operator():
+   //      - at the end; or
+   //      - followed by a std::string or char* label; or
+   //      - followed by a std::regex for match with label.
+   //    Quick fix: downgrade to allow::one using predecrement: --child_t
+   //
+   // It seems that a static_assert string's formatting (say, with \n)
+   // is not necessarily respected by the compiler.
+
+   static_assert(
+      ALLOW == allow::one,
+     "Misuse of child_t with <allow::many> in Node's call operator"
+   );
+};
+
 
 // -----------------------------------------------------------------------------
 // apply_converter
@@ -39,11 +129,11 @@ public:
 };
 
 
-
 // -----------------------------------------------------------------------------
+// label_is*
+// -----------------------------------------------------------------------------
+
 // label_is
-// -----------------------------------------------------------------------------
-
 class label_is {
    std::string want;
 
@@ -65,6 +155,34 @@ public:
    }
 };
 
+// label_is_regex
+// Like label_is, but with a regex match. A regex match is *not* our default
+// behavior in the functions users will typically call for making queries
+// like "find a node with label == something." We made this choice because
+// we noticed that actual, specific GNDS labels - what users will usually
+// want to provide - often contain characters like '+' that have a special
+// meaning in regular expressions! Interpreted as regular expressions rather
+// than as ordinary strings, such GNDS labels will most likely be ill-formed,
+// and this can trigger exceptions in C++'s regex-related functions. We want
+// to provide a regex capability, however, for users who really wish to use
+// it. Hence this class, and the functions in which it's used.
+class label_is_regex {
+   std::regex want;
+
+public:
+   explicit label_is_regex(const std::regex &reg) : want(reg) { }
+
+   template<class NODE>
+   bool operator()(const NODE &n) const
+   {
+      bool found;
+      const std::string &label = n.meta("label",found);
+      // Here, "label" is the std::string metadatum we just found, and "want",
+      // originally coming from a query of some kind, is the regular expression
+      // against which to match the label.
+      return found && std::regex_match(label,want);
+   }
+};
 
 
 // -----------------------------------------------------------------------------
@@ -89,7 +207,6 @@ inline bool &extract_found(const T &, ARGS &&...args)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // meta_ref
 // -----------------------------------------------------------------------------
@@ -112,7 +229,7 @@ in our raw data structures. Normally, one uses meta_t<TYPE = void> to retrieve
 metadata in their raw form; in that case, our various accessors return const or
 non-const std::string &. For types other than <void>, meta_t converts the raw
 string to the given type, and the accessors return by value. That non-void type
-COULD by std::string, if, for whatever reason, you don't want to use <void> and
+COULD be std::string, if, for whatever reason, you don't want to use <void> and
 receive references to the raw internal strings. You might use <std::string>, for
 example, if you wanted a custom std::string to/from std::string converter other
 than the identity function.
@@ -120,7 +237,7 @@ than the identity function.
 Class meta_ref has assignment from TYPE and from std::string, and similarly for
 conversion. When TYPE *is* std::string, we use SFINAE to disable the std::string
 versions - which would have duplicate signatures to those of the TYPE versions
-in that case, and thus cause the general TYPE versions to apply. The std::string
+in that case. Thus, we cause the general TYPE versions to apply. The std::string
 versions are disabled, not the TYPE versions, so that the converter is still
 applied. (Especially considering that you'd likely be using meta_t<std::string>
 over meta_t<void> precisely to get a non-identity string/string converter.)
@@ -147,7 +264,8 @@ public:
       const meta_t<TYPE,CONVERTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &node
    ) :
-      kwd(kwd), metaValueString(node(-kwd))
+      kwd(kwd), // original meta_t
+      metaValueString(node(-kwd)) // -kwd so meta_t<void> ==> reference to raw
    { }
 
    // ------------------------
@@ -199,7 +317,6 @@ public:
 };
 
 
-
 // -----------------------------------------------------------------------------
 // child_ref
 // allow::one
@@ -229,7 +346,8 @@ public:
       const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &node
    ) :
-      kwd(kwd), childNodeRef(node(-kwd))
+      kwd(kwd), // original child_t
+      childNodeRef(node(-kwd)) // -kwd so child_t<void> ==> reference to raw
    { }
 
    // ------------------------
@@ -279,7 +397,6 @@ public:
       return childNodeRef;
    }
 };
-
 
 
 // -----------------------------------------------------------------------------

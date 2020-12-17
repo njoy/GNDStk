@@ -9,7 +9,11 @@
 // of any exception-context printing, and let that be handled by a supervisory
 // code (e.g. a debugger). For now, we'll leave it at that.
 
+
+// ------------------------
 // (child_t, ...)
+// ------------------------
+
 template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER,
    class... KEYWORDS
@@ -20,38 +24,58 @@ decltype(auto) operator()(
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
+      // ""?
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(-kwd,found)(std::forward<KEYWORDS>(keywords)...);
+
+      // This triggers a static assertion failure if, and only if, someone
+      // sends operator() an allow::many child_t that is not followed by a
+      // string, char*, or regex, and is not at operator()'s end...
+      (void)detail::call_operator_child_t<ALLOW>{};
+
+      // Use -- to downgrade to allow::one (so unchanged if already allow::one,
+      // and just one error (the static assertion failure as described above),
+      // as opposed to two errors, if an allow::many. Finally, use unary minus
+      // to make the child_t's type <void>, so that we can continue to dig down
+      // further into the tree structure.
+      return child(---kwd,found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
-      log::function("Node(child_t(\"{}\"),...)", kwd.name);
+      log::member("Node(child_t(\"{}\"),...)", kwd.name);
       throw;
    }
 }
 
+
+// ------------------------
 // (child_t, string, ...)
+// (child_t, char *, ...)
+// ------------------------
+
 template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER,
    class... KEYWORDS
 >
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   std::string &&label,
+   const std::string label,
    KEYWORDS &&...keywords
 ) GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
+      // ""?
       if (kwd.name == "")
          detail::apply_converter<TYPE>{}(kwd,*this);
-      return child(-kwd.one(), detail::label_is(label), found)
-                  (std::forward<KEYWORDS>(keywords)...);
+      // total filter
+      auto filter = [kwd,label](const Node &n)
+         { return kwd.filter(n) && detail::label_is(label)(n); };
+      // ---kwd: child_t<void,allow::one,...>
+      return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
-      log::function("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
+      log::member("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
       throw;
    }
 }
 
-// (child_t, char *, ...)
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
 template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER,
@@ -64,6 +88,45 @@ decltype(auto) operator()(
 ) GNDSTK_CONST {
    // Forward to the string overload
    return (*this)(kwd, std::string(label), std::forward<KEYWORDS>(keywords)...);
+}
+
+
+// ------------------------
+// (child_t, regex, ...)
+// ------------------------
+
+template<
+   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class... KEYWORDS
+>
+decltype(auto) operator()(
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const std::regex labelRegex,
+   KEYWORDS &&...keywords
+) GNDSTK_CONST {
+   bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
+   try {
+      // ""?
+      if (kwd.name == "")
+         detail::apply_converter<TYPE>{}(kwd,*this);
+      // total filter
+      auto filter = [kwd,labelRegex](const Node &n)
+         { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); };
+      // ---kwd: child_t<void,allow::one,...>
+      return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
+   } catch (...) {
+      // C++ doesn't have stream output for regex, which one might think
+      // would print the string from which the regex was created. In fact,
+      // regex might not even use, or keep, its original string initializer;
+      // thus it doesn't have, say, .str() or .c_str(). All of this is why
+      // the following diagnostic doesn't print label's (regex) value.
+      log::member(
+         "Node(child_t(\"{}\"),label,...) with a std::regex label,\n"
+         "not a std::string label",
+         kwd.name
+      );
+      throw;
+   }
 }
 
 #undef GNDSTK_CONST

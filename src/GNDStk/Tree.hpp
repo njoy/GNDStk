@@ -10,24 +10,8 @@ template<
    template<class...> class CHILDREN_CONTAINER  // container type for children
 >
 class Tree : public Node<METADATA_CONTAINER,CHILDREN_CONTAINER> {
-public:
    using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
-
-   // ------------------------
-   // From Node
-   // ------------------------
-
-   using nodeType::name;
-   using nodeType::metadata;
-   using nodeType::children;
-
-   using nodeType::empty;
-
-   using nodeType::meta;
-   using nodeType::one;
-   using nodeType::many;
-   using nodeType::child;
-   using nodeType::operator();
+public:
 
    // ------------------------
    // Simple functions

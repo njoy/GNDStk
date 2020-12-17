@@ -35,8 +35,7 @@ std::ostream &write(std::ostream &os) const
          log::error("pugi::xml_document.save(ostream) returned with !ostream");
          log::member("XML.write(ostream)");
       }
-   }
-   catch (...) {
+   } catch (...) {
       log::error("pugi::xml_document.save(ostream) threw an exception");
       log::member("XML.write(ostream)");
       os.setstate(std::ios::failbit);

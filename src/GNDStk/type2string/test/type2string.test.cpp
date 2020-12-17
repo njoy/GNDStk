@@ -33,7 +33,7 @@ namespace GNDStk {
 
 using namespace njoy::GNDStk;
 
-SCENARIO("Testing GNDStk convert(type,ostream|string)") {
+SCENARIO("Testing GNDStk convert(type,ostream/string)") {
 
    // ------------------------
    // convert(*,ostream)

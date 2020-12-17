@@ -108,7 +108,7 @@ SCENARIO("Testing GNDStk child_t operators") {
    // -child_t
    // ------------------------
 
-   GIVEN("A child_t<type,one|many,converter>") {
+   GIVEN("A child_t<type,one/many,converter>") {
       child_t<char,allow::one, converterA> foo("foo");
       child_t<int, allow::many,converterB> bar("bar");
       WHEN("We apply operator-") {
@@ -118,7 +118,7 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void,one|many>") {
+   GIVEN("A child_t<void,one/many>") {
       child_t<void,allow::one > foo("foo");
       child_t<void,allow::many> bar("bar");
       WHEN("We apply operator-") {
@@ -132,7 +132,7 @@ SCENARIO("Testing GNDStk child_t operators") {
    // type/child_t
    // ------------------------
 
-   GIVEN("A child_t<type,one|many,converter>") {
+   GIVEN("A child_t<type,one/many,converter>") {
       child_t<char,allow::one, converterA> foo("foo");
       child_t<int, allow::many,converterB> bar("bar");
       WHEN("We apply type/child_t") {
@@ -142,7 +142,7 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void,one|many>") {
+   GIVEN("A child_t<void,one/many>") {
       child_t<void,allow::one > foo("foo");
       child_t<void,allow::many> bar("bar");
       WHEN("We apply type/child_t") {
@@ -156,7 +156,7 @@ SCENARIO("Testing GNDStk child_t operators") {
    // child_t/converter
    // ------------------------
 
-   GIVEN("A child_t<type,one|many,converter>") {
+   GIVEN("A child_t<type,one/many,converter>") {
       child_t<char,  allow::one, converterA> foo("foo");
       child_t<int,   allow::many,converterB> bar("bar");
       child_t<float, allow::one            > one("one");
@@ -176,7 +176,7 @@ SCENARIO("Testing GNDStk child_t operators") {
    // one(child_t)
    // ------------------------
 
-   GIVEN("A child_t<void|type,one|many[,converter]>") {
+   GIVEN("A child_t<void/type,one/many[,converter]>") {
       child_t<char,allow::one, converterA> a("a");
       child_t<int, allow::many,converterB> b("b");
       child_t<void,allow::one            > c("c");
@@ -194,7 +194,7 @@ SCENARIO("Testing GNDStk child_t operators") {
    // many(child_t)
    // ------------------------
 
-   GIVEN("A child_t<void|type,one|many[,converter]>") {
+   GIVEN("A child_t<void/type,one/many[,converter]>") {
       child_t<char,allow::one, converterA> a("a");
       child_t<int, allow::many,converterB> b("b");
       child_t<void,allow::one            > c("c");

@@ -10,16 +10,17 @@
 std::istream &read(std::istream &is)
 {
    // call nlohmann::json's read capability
+   const std::streampos pos = is.tellg();
    try {
       if (!(is >> doc)) {
          log::error("istream >> nlohmann::json returned with !istream");
          log::member("JSON.read(istream)");
+         detail::failback(is,pos);
       }
-   }
-   catch (...) {
+   } catch (...) {
       log::error("istream >> nlohmann::json threw an exception");
       log::member("JSON.read(istream)");
-      is.setstate(std::ios::failbit);
+      detail::failback(is,pos);
    }
 
    // done
