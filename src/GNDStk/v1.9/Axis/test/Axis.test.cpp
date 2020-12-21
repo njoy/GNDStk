@@ -59,10 +59,13 @@ SCENARIO( "Axis" ) {
         verifyChunk( cchunk );
       } // THEN
 
-      THEN( "only the non-const node remains in sync with the internal node" ) {
+      THEN( "only the non-const node and its children remains in sync with "
+            "the internal node" ) {
 
         CHECK( &core == &chunk.node() );
         CHECK( &ccore != &cchunk.node() );
+
+        // axis has no children
       } // THEN
     } // WHEN
 
@@ -91,12 +94,15 @@ SCENARIO( "Axis" ) {
         verifyChunk( cassign );
       } // THEN
 
-      THEN( "none of the nodes remains in sync with the internal nodes" ) {
+      THEN( "none of the nodes and its children remains in sync with the "
+            "internal nodes" ) {
 
         CHECK( &core != &copy.node() );
         CHECK( &ccore != &ccopy.node() );
         CHECK( &core != &assign.node() );
         CHECK( &ccore != &cassign.node() );
+
+        // axis has no children
       } // THEN
     } // WHEN
 
@@ -117,10 +123,13 @@ SCENARIO( "Axis" ) {
         verifyChunk( cmove );
       } // THEN
 
-      THEN( "only the non-const node remains in sync with the internal node" ) {
+      THEN( "only the non-const node and its children remains in sync with "
+            "the internal node" ) {
 
-        CHECK( &core == &move.node() );
-        CHECK( &ccore != &cmove.node() );
+        CHECK( &core == &chunk.node() );
+        CHECK( &ccore != &cchunk.node() );
+
+        // axis has no children
       } // THEN
     } // WHEN
   } // GIVEN
@@ -147,15 +156,14 @@ node chunk() {
   return chunk;
 }
 
-void verifyChunk( const Axis& chunk ) {
+void verifyChunk( const Axis& component ) {
 
-  CHECK( 1 == chunk.index() );
-  CHECK( "energy_in" == chunk.label() );
-  CHECK( std::nullopt != chunk.unit() );
-  CHECK( "eV" == chunk.unit().value() );
+  CHECK( 1 == component.index() );
+  CHECK( "energy_in" == component.label() );
+  CHECK( std::nullopt != component.unit() );
+  CHECK( "eV" == component.unit().value() );
 
-  //! @todo there is currently no operator==() available to compare nodes
-  // CHECK( chunk() == chunk.node() );
+  CHECK( chunk() == component.node() );
 }
 
 node chunkWithOptionalUnit() {

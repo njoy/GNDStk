@@ -22,17 +22,15 @@ namespace v1_9 {
   class Constant1D : public Component {
 
     /* query object */
-    static inline const auto query = (
-
-      GNDStk::basic::label |
-      double{} / GNDStk::basic::constant |
-      double{} / GNDStk::basic::domainMin |
-      double{} / GNDStk::basic::domainMax |
-      // placeholder till std::optional is available
-      // std::optional< double >{} / GNDStk::basic::outerDomainValue |
-      double{} / GNDStk::basic::domainMax |
-      GNDStk::basic::axes
-    );
+    static inline
+    const auto query = GNDStk::basic::label |
+                       double{} / GNDStk::basic::constant |
+                       double{} / GNDStk::basic::domainMin |
+                       double{} / GNDStk::basic::domainMax |
+                       // placeholder till std::optional is available
+                       // std::optional< double >{} / GNDStk::basic::outerDomainValue |
+                       double{} / GNDStk::basic::domainMax |
+                       GNDStk::basic::axes;
 
     /* fields */
     std::string label_;

@@ -26,14 +26,12 @@ namespace v1_9 {
   class Axis : public Component {
 
     /* query object */
-    static inline const auto query = (
-
-      unsigned{} / GNDStk::basic::index |
-      GNDStk::basic::label |
-      // placeholder till std::optional is available
-      // std::optional< double >{} / GNDStk::basic::unit |
-      GNDStk::basic::label
-    );
+    static inline 
+    const auto query = unsigned{} / GNDStk::basic::index |
+                       GNDStk::basic::label |
+                       // placeholder till std::optional is available
+                       // std::optional< std::string >{} / GNDStk::basic::unit |
+                       GNDStk::basic::label;
 
     /* data fields */
     unsigned int index_;                                // required

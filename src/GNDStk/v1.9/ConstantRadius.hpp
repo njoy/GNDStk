@@ -57,7 +57,7 @@ namespace v1_9 {
       }
       else {
 
-        log::error( "Expected a length unit for the axis with index 1, "
+        log::error( "Expected a length unit for the axis with index 0, "
                     "found none" );
         throw std::exception();
       }

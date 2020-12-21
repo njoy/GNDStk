@@ -50,10 +50,14 @@ SCENARIO( "Constant1D" ) {
         verifyChunk( cchunk );
       } // THEN
 
-      THEN( "only the non-const node remains in sync with the internal node" ) {
+      THEN( "only the non-const node and its children remains in sync with "
+            "the internal node" ) {
 
         CHECK( &core == &chunk.node() );
         CHECK( &ccore != &cchunk.node() );
+
+        CHECK( &core( basic::axes ) == &chunk.node()( basic::axes ) );
+        CHECK( &ccore( basic::axes ) != &cchunk.node()( basic::axes ) );
       } // THEN
     } // WHEN
 
@@ -82,12 +86,18 @@ SCENARIO( "Constant1D" ) {
         verifyChunk( cassign );
       } // THEN
 
-      THEN( "none of the nodes remains in sync with the internal nodes" ) {
+      THEN( "none of the nodes and its children remains in sync with the "
+            "internal nodes" ) {
 
         CHECK( &core != &copy.node() );
         CHECK( &ccore != &ccopy.node() );
         CHECK( &core != &assign.node() );
         CHECK( &ccore != &cassign.node() );
+
+        CHECK( &core( basic::axes ) != &copy.node()( basic::axes ) );
+        CHECK( &ccore( basic::axes ) != &ccopy.node()( basic::axes ) );
+        CHECK( &core( basic::axes ) != &assign.node()( basic::axes ) );
+        CHECK( &ccore( basic::axes ) != &cassign.node()( basic::axes ) );
       } // THEN
     } // WHEN
 
@@ -108,10 +118,14 @@ SCENARIO( "Constant1D" ) {
         verifyChunk( cmove );
       } // THEN
 
-      THEN( "only the non-const node remains in sync with the internal node" ) {
+      THEN( "only the non-const node and its children remains in sync with "
+            "the internal node" ) {
 
-        CHECK( &core == &move.node() );
-        CHECK( &ccore != &cmove.node() );
+        CHECK( &core == &chunk.node() );
+        CHECK( &ccore != &cchunk.node() );
+
+        CHECK( &core( basic::axes ) == &chunk.node()( basic::axes ) );
+        CHECK( &ccore( basic::axes ) != &cchunk.node()( basic::axes ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -174,27 +188,26 @@ node chunk() {
   return chunk;
 }
 
-void verifyChunk( const Constant1D& chunk ) {
+void verifyChunk( const Constant1D& component ) {
 
-  CHECK( "eval" == chunk.label() );
-  CHECK( 9.41 == Approx( chunk.constant() ) );
-  CHECK( 1e-5 == Approx( chunk.domainMin() ) );
-  CHECK( 30000. == Approx( chunk.domainMax() ) );
+  CHECK( "eval" == component.label() );
+  CHECK( 9.41 == Approx( component.constant() ) );
+  CHECK( 1e-5 == Approx( component.domainMin() ) );
+  CHECK( 30000. == Approx( component.domainMax() ) );
 
-  CHECK( 2 == chunk.axes().size() );
+  CHECK( 2 == component.axes().size() );
 
-  CHECK( 0 == chunk.axes().axis(0).index() );
-  CHECK( "radius" == chunk.axes().axis(0).label() );
-  CHECK( std::nullopt != chunk.axes().axis(0).unit() );
-  CHECK( "fm" == chunk.axes().axis(0).unit().value() );
+  CHECK( 0 == component.axes().axis(0).index() );
+  CHECK( "radius" == component.axes().axis(0).label() );
+  CHECK( std::nullopt != component.axes().axis(0).unit() );
+  CHECK( "fm" == component.axes().axis(0).unit().value() );
 
-  CHECK( 1 == chunk.axes().axis(1).index() );
-  CHECK( "energy_in" == chunk.axes().axis(1).label() );
-  CHECK( std::nullopt != chunk.axes().axis(1).unit() );
-  CHECK( "eV" == chunk.axes().axis(1).unit().value() );
+  CHECK( 1 == component.axes().axis(1).index() );
+  CHECK( "energy_in" == component.axes().axis(1).label() );
+  CHECK( std::nullopt != component.axes().axis(1).unit() );
+  CHECK( "eV" == component.axes().axis(1).unit().value() );
 
-  //! @todo there is currently no operator==() available to compare nodes
-  // CHECK( chunk() == chunk.node() );
+  CHECK( chunk() == component.node() );
 }
 
 node invalidChunk() {

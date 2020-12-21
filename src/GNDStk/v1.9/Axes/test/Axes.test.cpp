@@ -10,6 +10,15 @@ using namespace njoy::GNDStk;
 using Axis = v1_9::Axis;
 using Axes = v1_9::Axes;
 
+// query objects
+const auto axis1 = --basic::axis
+                   + [] ( const auto& node )
+                        { return node( basic::index ) == "1"; };
+
+const auto axis0 = --basic::axis
+                   + [] ( const auto& node )
+                        { return node( basic::index ) == "0"; };
+
 node chunk();
 void verifyChunk( const Axes& );
 node invalidChunk();
@@ -44,10 +53,16 @@ SCENARIO( "Axes" ) {
         verifyChunk( cchunk );
       } // THEN
 
-      THEN( "only the non-const node remains in sync with the internal node" ) {
+      THEN( "only the non-const node and its children remains in sync with "
+            "the internal node" ) {
 
         CHECK( &core == &chunk.node() );
         CHECK( &ccore != &cchunk.node() );
+
+        CHECK( &core( axis0 ) == &chunk.node()( axis0 ) );
+        CHECK( &core( axis1 ) == &chunk.node()( axis1 ) );
+        CHECK( &ccore( axis0 ) != &cchunk.node()( axis0 ) );
+        CHECK( &ccore( axis1 ) != &cchunk.node()( axis1 ) );
       } // THEN
     } // WHEN
 
@@ -76,12 +91,23 @@ SCENARIO( "Axes" ) {
         verifyChunk( cassign );
       } // THEN
 
-      THEN( "none of the nodes remains in sync with the internal nodes" ) {
+      THEN( "none of the nodes and its children remains in sync with the "
+            "internal nodes" ) {
 
         CHECK( &core != &copy.node() );
         CHECK( &ccore != &ccopy.node() );
         CHECK( &core != &assign.node() );
         CHECK( &ccore != &cassign.node() );
+
+        CHECK( &core( axis0 ) != &copy.node()( axis0 ) );
+        CHECK( &core( axis1 ) != &copy.node()( axis1 ) );
+        CHECK( &ccore( axis0 ) != &ccopy.node()( axis0 ) );
+        CHECK( &ccore( axis1 ) != &ccopy.node()( axis1 ) );
+
+        CHECK( &core( axis0 ) != &assign.node()( axis0 ) );
+        CHECK( &core( axis1 ) != &assign.node()( axis1 ) );
+        CHECK( &ccore( axis0 ) != &cassign.node()( axis0 ) );
+        CHECK( &ccore( axis1 ) != &cassign.node()( axis1 ) );
       } // THEN
     } // WHEN
 
@@ -102,10 +128,16 @@ SCENARIO( "Axes" ) {
         verifyChunk( cmove );
       } // THEN
 
-      THEN( "only the non-const node remains in sync with the internal node" ) {
+      THEN( "only the non-const node and its children remains in sync with "
+            "the internal node" ) {
 
-        CHECK( &core == &move.node() );
-        CHECK( &ccore != &cmove.node() );
+        CHECK( &core == &chunk.node() );
+        CHECK( &ccore != &cchunk.node() );
+
+        CHECK( &core( axis0 ) == &chunk.node()( axis0 ) );
+        CHECK( &core( axis1 ) == &chunk.node()( axis1 ) );
+        CHECK( &ccore( axis0 ) != &cchunk.node()( axis0 ) );
+        CHECK( &ccore( axis1 ) != &cchunk.node()( axis1 ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -142,33 +174,32 @@ node chunk() {
   return chunk;
 }
 
-void verifyChunk( const Axes& chunk ) {
+void verifyChunk( const Axes& component ) {
 
-  CHECK( 2 == chunk.axis().size() );
-  CHECK( 2 == chunk.size() );
+  CHECK( 2 == component.axis().size() );
+  CHECK( 2 == component.size() );
 
-  CHECK( 0 == chunk.axis()[0].index() );
-  CHECK( "radius" == chunk.axis()[0].label() );
-  CHECK( std::nullopt != chunk.axis()[0].unit() );
-  CHECK( "fm" == chunk.axis()[0].unit().value() );
+  CHECK( 0 == component.axis()[0].index() );
+  CHECK( "radius" == component.axis()[0].label() );
+  CHECK( std::nullopt != component.axis()[0].unit() );
+  CHECK( "fm" == component.axis()[0].unit().value() );
 
-  CHECK( 1 == chunk.axis()[1].index() );
-  CHECK( "energy_in" == chunk.axis()[1].label() );
-  CHECK( std::nullopt != chunk.axis()[1].unit() );
-  CHECK( "eV" == chunk.axis()[1].unit().value() );
+  CHECK( 1 == component.axis()[1].index() );
+  CHECK( "energy_in" == component.axis()[1].label() );
+  CHECK( std::nullopt != component.axis()[1].unit() );
+  CHECK( "eV" == component.axis()[1].unit().value() );
 
-  CHECK( 0 == chunk.axis(0).index() );
-  CHECK( "radius" == chunk.axis(0).label() );
-  CHECK( std::nullopt != chunk.axis(0).unit() );
-  CHECK( "fm" == chunk.axis(0).unit().value() );
+  CHECK( 0 == component.axis(0).index() );
+  CHECK( "radius" == component.axis(0).label() );
+  CHECK( std::nullopt != component.axis(0).unit() );
+  CHECK( "fm" == component.axis(0).unit().value() );
 
-  CHECK( 1 == chunk.axis(1).index() );
-  CHECK( "energy_in" == chunk.axis(1).label() );
-  CHECK( std::nullopt != chunk.axis(1).unit() );
-  CHECK( "eV" == chunk.axis(1).unit().value() );
+  CHECK( 1 == component.axis(1).index() );
+  CHECK( "energy_in" == component.axis(1).label() );
+  CHECK( std::nullopt != component.axis(1).unit() );
+  CHECK( "eV" == component.axis(1).unit().value() );
 
-  //! @todo there is currently no operator==() available to compare nodes
-  // CHECK( chunk() == chunk.node() );
+  CHECK( chunk() == component.node() );
 }
 
 node invalidChunk() {
