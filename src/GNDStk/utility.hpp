@@ -89,6 +89,29 @@ inline void failback(std::istream &is, const std::streampos pos)
 inline bool align = true;  // extra spaces, to line stuff up for easy reading
 inline bool color = false; // default: impose no ANSI escape-sequence clutter
 
+// fixme A possible concern here is that the alignment, as controlled by the
+// align bool, is only applied to the message string that's sent as the first
+// parameter to our log:: functions - not to the entire message that might be
+// constructed and printed.
+//
+// Imagine that you wrote:
+//
+//    log::error("Some information: {}", someStringParameterWithNewlines);
+//
+// Our log:: functions ultimately forward their own parameters to the external
+// Log library for final handling. Before doing so, they process the message
+// string ("Some information: {}", in our example above). If align == true,
+// they create a *modified* message string - with spacing for alignment after
+// any newlines. However, content that arrives through the "{}"s, from other
+// parameters, and that has newlines, doesn't get alignment spacing. Someone
+// might then see the diagnostic, and believe that our alignment flag is broken.
+//
+// We should consider solutions to this - ones that don't require replicating
+// too much content from the external Log library, and that allow us to still
+// take advantage of its convenient "{}" notation for writing parameters. For
+// now, a few particular "long" diagnostic messages in GNDStk are formatted
+// and printed completely into the format string, so that we avoid this issue.
+
 namespace detail {
 
 // diagnostic
@@ -106,7 +129,7 @@ inline std::string diagnostic(
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off
    static const std::string reset = "\033[0m";  // all color/decorations off
-   static const size_t warn = 7; // length of "warning", the longest label
+   static const std::size_t warn = 7; // length of "warning", the longest label
 
    // full text, including the (possibly underlined) prefix if one was provided
    const std::string text = prefix == ""

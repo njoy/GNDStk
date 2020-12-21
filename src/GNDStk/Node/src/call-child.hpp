@@ -15,18 +15,20 @@ decltype(auto) operator()(
       // because the effect will happen next...
       return child(kwd,found);
    } catch (...) {
-      log::function("Node(child_t(\"{}\"))", kwd.name);
+      log::member("Node(child_t(\"{}\"))", kwd.name);
       throw;
    }
 }
 
+
 // ------------------------
 // ()(child_t, string)
 // ------------------------
+
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   std::string &&label,
+   const std::string label,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
    // as above, don't need or want (kwd.name == "") conditional
@@ -37,10 +39,11 @@ decltype(auto) operator()(
       // --kwd: child_t<...,allow::one,...>
       return child(--kwd+filter, found);
    } catch (...) {
-      log::function("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
+      log::member("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
       throw;
    }
 }
+
 
 // ------------------------
 // ()(child_t, regex)
@@ -49,7 +52,7 @@ decltype(auto) operator()(
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   std::regex &&labelRegex,
+   const std::regex labelRegex,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
    try {
@@ -58,7 +61,7 @@ decltype(auto) operator()(
          { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); };
       return child(--kwd+filter, found);
    } catch (...) {
-      log::function(
+      log::member(
          "Node(child_t(\"{}\"),label) with a std::regex label,\n"
          "not a std::string label",
          kwd.name

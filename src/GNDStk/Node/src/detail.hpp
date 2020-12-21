@@ -49,6 +49,34 @@ public:
 
 
 // -----------------------------------------------------------------------------
+// keyname
+// -----------------------------------------------------------------------------
+
+template<class TYPE, class CONVERTER>
+std::string keyname(const meta_t<TYPE,CONVERTER> &m)
+{
+   return "meta_t(\"" + m.name + "\")";
+}
+
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &c)
+{
+   return "child_t(\"" + c.name + "\")";
+}
+
+inline std::string keyname(const std::string &s)
+{
+   return "string(\"" + s + "\")";
+}
+
+inline std::string keyname(const std::regex &)
+{
+   // regex generally doesn't keep the original string around :-/
+   return "regex";
+}
+
+
+// -----------------------------------------------------------------------------
 // call_operator_child_t
 // -----------------------------------------------------------------------------
 

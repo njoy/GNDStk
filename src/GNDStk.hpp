@@ -98,14 +98,13 @@ gives the same effect as writing this:
    using namespace njoy::GNDStk::basic;
 
 Meaning: We consider our "core interface" to consist of everything in GNDStk::
-proper, plus our basic:: set of meta_t and child_t keywords. Those are the
-meta_t and child_t objects with <void> type, so that they return metadata and
-nodes in their original tree form. Note that basic:: itself brings in meta_t
-and child_t objects from its own nested meta:: and child:: namespaces. Those
-are separate because there's a small amount of overlap between allowable GNDS
-metadatum names and node names. With this scheme, if a name you wish to use
-isn't one of the overlapping names, just use it. If it is, then prefix with
-meta:: or child:: depending on which one you want.
+proper, plus our basic:: set of meta_t and child_t objects. Those are the ones
+with <void> type, so that they return metadata and nodes in their original tree
+form. Note that basic:: itself brings in meta_t and child_t objects from its
+own nested meta:: and child:: namespaces. Those are separate because there's
+a small amount of overlap between allowable GNDS metadatum names and node names.
+With this scheme, if a name you wish to use isn't one of the overlapping names,
+just use it. If it is, then prefix with meta:: or child:: as necessary.
 */
 
 namespace core {

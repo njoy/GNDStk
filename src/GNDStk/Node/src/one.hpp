@@ -37,7 +37,7 @@ const Node &one(
    // nname: #times node name matches key
    // nboth: #times node name matches key AND ALSO the filter condition is met
    const Node *theone = nullptr;
-   size_t nname = 0, nboth = 0;
+   std::size_t nname = 0, nboth = 0;
    for (auto &c : children)
       if (std::regex_match(c->name, std::regex(key)) &&
           (nname++, filter(*c)) && nboth++ == 0)
