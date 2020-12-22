@@ -28,14 +28,12 @@ namespace v1_9 {
     static inline
     const auto query = unsigned{} / GNDStk::basic::index |
                        GNDStk::basic::label |
-                       // placeholder till std::optional is available
-                       // std::optional< std::string >{} / GNDStk::basic::unit |
-                       GNDStk::basic::label;
+                       std::optional< std::string >{} / GNDStk::basic::unit;
 
     /* data fields */
-    unsigned int index_;                                // required
-    std::string label_;                                 // required
-    std::optional< std::string > unit_ = std::nullopt;  // optional, no default
+    unsigned int index_;                 // required
+    std::string label_;                  // required
+    std::optional< std::string > unit_;  // optional, no default
 
     /* auxiliary functions */
     void sync() {
@@ -64,11 +62,7 @@ namespace v1_9 {
         // sync the component
         this->index_ = std::get< 0 >( tuple );
         this->label_ = std::get< 1 >( tuple );
-        // placeholder till std::optional is available
-        // this->unit_ = std::get< 2 >( tuple );
-        this->unit_ = this->node().has( GNDStk::basic::unit )
-                        ? std::make_optional( this->node()( GNDStk::basic::unit ) )
-                        : std::nullopt;
+        this->unit_ = std::get< 2 >( tuple );
       }
     }
 

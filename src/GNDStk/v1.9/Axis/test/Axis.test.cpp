@@ -175,11 +175,13 @@ node chunkWithOptionalUnit() {
   return chunk;
 }
 
-void verifyChunkWithOptionalUnit( const Axis& chunk ) {
+void verifyChunkWithOptionalUnit( const Axis& component ) {
 
-  CHECK( 1 == chunk.index() );
-  CHECK( "energy_in" == chunk.label() );
-  CHECK( std::nullopt == chunk.unit() );
+  CHECK( 1 == component.index() );
+  CHECK( "energy_in" == component.label() );
+  CHECK( std::nullopt == component.unit() );
+
+  CHECK( chunkWithOptionalUnit() == component.node() );
 }
 
 node invalidChunk() {

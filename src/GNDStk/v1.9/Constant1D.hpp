@@ -27,9 +27,7 @@ namespace v1_9 {
                        double{} / GNDStk::basic::constant |
                        double{} / GNDStk::basic::domainMin |
                        double{} / GNDStk::basic::domainMax |
-                       // placeholder till std::optional is available
-                       // std::optional< double >{} / GNDStk::basic::outerDomainValue |
-                       double{} / GNDStk::basic::domainMax |
+                       std::optional< double >{} / GNDStk::basic::outerDomainValue |
                        GNDStk::basic::axes;
 
     /* fields */
@@ -37,7 +35,7 @@ namespace v1_9 {
     double constant_;
     double min_;
     double max_;
-    std::optional< double > outer_ = std::nullopt;  // optional, no default
+    std::optional< double > outer_; // optional, no default
     Axes axes_;
 
     /* auxiliary functions */
@@ -79,11 +77,7 @@ namespace v1_9 {
         this->constant_ = std::get< 1 >( tuple );
         this->min_ = std::get< 2 >( tuple );
         this->max_ = std::get< 3 >( tuple );
-        // placeholder till std::optional is available
-        // this->outer_ = std::get< 4 >( tuple );
-        this->outer_ = this->node().has( GNDStk::basic::outerDomainValue )
-                           ? std::make_optional( this->node()( double{} / GNDStk::basic::outerDomainValue ) )
-                           : std::nullopt;
+        this->outer_ = std::get< 4 >( tuple );
         this->axes_ = std::move( Axes( std::get< 5 >( tuple ) ) );
       }
 
