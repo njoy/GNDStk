@@ -58,7 +58,6 @@ public:
 // is_meta_or_child_t
 // ------------------------
 
-// default
 template<class T>
 class is_meta_or_child_t {
 public:
@@ -253,7 +252,7 @@ auto operator|(
 // ==> keywords<child_t, string/regex>
 template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER, class RHS,
-   class=typename std::enable_if<detail::is_string_or_regex<RHS>::value>::type
+   class right = typename detail::is_string_or_regex<RHS>::type
 >
 auto operator|(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &lhs,
@@ -261,7 +260,6 @@ auto operator|(
 ) {
    log::debug("or: child_t | string/regex");
    using LHS = child_t<TYPE,ALLOW,CONVERTER,FILTER>;
-   using right = typename detail::is_string_or_regex<RHS>::type;
    return keywords<LHS,right>(keywords<LHS>(lhs),right(rhs));
 }
 
@@ -287,16 +285,13 @@ template<
    class... LHS, class RHS,
    class = typename std::enable_if<
       detail::is_child_t<typename keywords<LHS...>::last_t>::value
-      >::type,
-   class = typename std::enable_if<
-      detail::is_string_or_regex<RHS>::value
-   >::type
+   >::type,
+   class right = typename detail::is_string_or_regex<RHS>::type
 >
 auto operator|(
    const keywords<LHS...> &lhs,
    const RHS &rhs
 ) {
    log::debug("or: keywords<...,child_t> | string/regex");
-   using right = typename detail::is_string_or_regex<RHS>::type;
    return keywords<LHS...,right>(lhs,right(rhs));
 }

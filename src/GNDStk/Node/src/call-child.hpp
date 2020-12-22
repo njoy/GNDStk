@@ -15,7 +15,7 @@ decltype(auto) operator()(
       // because the effect will happen next...
       return child(kwd,found);
    } catch (...) {
-      log::member("Node(child_t(\"{}\"))", kwd.name);
+      log::member("Node(" + detail::keyname(kwd) + ")");
       throw;
    }
 }
@@ -39,7 +39,7 @@ decltype(auto) operator()(
       // --kwd: child_t<...,allow::one,...>
       return child(--kwd+filter, found);
    } catch (...) {
-      log::member("Node(child_t(\"{}\"),label=\"{}\")", kwd.name, label);
+      log::member("Node(" + detail::keyname(kwd) + ",label=\"{}\")", label);
       throw;
    }
 }
@@ -62,9 +62,8 @@ decltype(auto) operator()(
       return child(--kwd+filter, found);
    } catch (...) {
       log::member(
-         "Node(child_t(\"{}\"),label) with a std::regex label,\n"
-         "not a std::string label",
-         kwd.name
+         "Node(" + detail::keyname(kwd) + ",label) with a std::regex label,\n"
+         "not a std::string label"
       );
       throw;
    }

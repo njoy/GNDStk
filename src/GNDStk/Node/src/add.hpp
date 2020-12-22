@@ -148,7 +148,7 @@ typename std::enable_if<
          "Node.add() called with a meta_t< non-std::optional >,\n"
          "along with a std::optional that has no value"
       );
-      log::member("Node.add(meta_t(\"{}\"),std::optional)", kwd.name);
+      log::member("Node.add(" + detail::keyname(kwd) + ",std::optional)");
       throw std::exception{};
    }
 }
@@ -290,9 +290,9 @@ decltype(auto) add(
       }
    } catch (...) {
       if constexpr (!detail::is_optional<T>::value)
-         log::member("Node.add(child_t(\"{}\"),value)", kwd.name);
+         log::member("Node.add(" + detail::keyname(kwd) + ",value)");
       else
-         log::member("Node.add(child_t(\"{}\"),std::optional)", kwd.name);
+         log::member("Node.add(" + detail::keyname(kwd) + ",std::optional)");
       throw;
    }
 }
@@ -320,7 +320,7 @@ typename std::enable_if<
       n.name = kwd.name;
       return n;
    } catch (...) {
-      log::member("Node.add(child_t(\"{}\"),value)", kwd.name);
+      log::member("Node.add(" + detail::keyname(kwd) + ",value)");
       throw;
    }
 }
@@ -342,7 +342,7 @@ typename std::enable_if<
          "Node.add() called with a child_t< non-std::optional >,\n"
          "along with a std::optional that has no value"
       );
-      log::member("Node.add(child_t(\"{}\"),std::optional)", kwd.name);
+      log::member("Node.add(" + detail::keyname(kwd) + ",std::optional)");
       throw std::exception{};
    }
 }
@@ -408,7 +408,7 @@ void add(
       for (const T &value : container)
          add(--kwd,value); // --kwd: child_t<...,allow::one,...>
    } catch (...) {
-      log::member("Node.add(child_t(\"{}\"),container<value>)", kwd.name);
+      log::member("Node.add(" + detail::keyname(kwd) + ",container<value>)");
       throw;
    }
 }

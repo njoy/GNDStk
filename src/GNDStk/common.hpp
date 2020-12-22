@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Set of meta_t and child_t keywords that are useful enough as-is that we wish
-// to share them in other sets of keywords. (Which are in other namespaces.)
+// Set of meta_t and child_t objects that are useful enough as-is that we
+// wish to include them in other sets of such objects, in other namespaces.
 // -----------------------------------------------------------------------------
 
 #include "GNDStk/common/src/detail.hpp"
