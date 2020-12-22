@@ -35,10 +35,10 @@ Tree &reset(
    // Warn if the given child_t doesn't look valid for a top-level GNDS node
    if (!kwd.canBeTopLevel) {
       log::warning(
-         "Tree.reset(child_t(\"{}\")) called, but the node as given by the\n"
+         "Tree.reset(" + detail::keyname(kwd) + ") called, "
+         "but the node as given by the\n"
          "child_t object is not encoded as being suitable for a top-level\n"
-         "GNDS node (bool child_t.canBeTopLevel is false)",
-         kwd.name
+         "GNDS node (bool child_t.canBeTopLevel is false)"
       );
    }
 
@@ -61,10 +61,10 @@ Tree &reset(
          // any use for version and encoding?
       } else {
          log::error(
-            "Internal error in Tree.reset(child_t(\"{}\"),format,...):\n"
+            "Internal error in Tree.reset(" + detail::keyname(kwd) +
+            ",format,...):\n"
             "Unrecognized file format; apparently, we missed something. "
-            "Please report this to us",
-            kwd.name
+            "Please report this to us"
          );
          throw std::exception{};
       }
@@ -74,7 +74,7 @@ Tree &reset(
       return *this;
 
    } catch (...) {
-      log::member("Tree.reset(child_t(\"{}\"),format,...)", kwd.name);
+      log::member("Tree.reset(" + detail::keyname(kwd) + ",format,...)");
       throw;
    }
 }
@@ -106,7 +106,7 @@ Tree &reset(
       return reset(kwd, file::xml, version, encoding);
 
    } catch (...) {
-      log::member("Tree.reset(child_t(\"{}\"),\"{}\",...)", kwd.name, form);
+      log::member("Tree.reset(" + detail::keyname(kwd) + ",\"{}\",...)", form);
       throw;
    }
 }

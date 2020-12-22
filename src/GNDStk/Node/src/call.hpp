@@ -40,7 +40,7 @@ decltype(auto) operator()(
       // further into the tree structure.
       return child(---kwd,found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
-      log::member("Node(child_t(\"{}\"),...)", kwd.name);
+      log::member("Node(" + detail::keyname(kwd) + ",...)");
       throw;
    }
 }
@@ -71,7 +71,7 @@ decltype(auto) operator()(
       // ---kwd: child_t<void,allow::one,...>
       return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
-      log::member("Node(child_t(\"{}\"),label=\"{}\",...)", kwd.name, label);
+      log::member("Node(" + detail::keyname(kwd) + ",label=\"{}\",...)", label);
       throw;
    }
 }
@@ -121,9 +121,8 @@ decltype(auto) operator()(
       // thus it doesn't have, say, .str() or .c_str(). All of this is why
       // the following diagnostic doesn't print label's (regex) value.
       log::member(
-         "Node(child_t(\"{}\"),label,...) with a std::regex label,\n"
-         "not a std::string label",
-         kwd.name
+         "Node(" + detail::keyname(kwd) + ",label,...) with "
+         "a std::regex label,\nnot a std::string label"
       );
       throw;
    }

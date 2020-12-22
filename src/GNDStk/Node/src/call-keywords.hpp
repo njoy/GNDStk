@@ -33,9 +33,7 @@ template<
    class TYPE, allow ALLOW, class CONVERTER, class FILTER,
    class SECOND,
    class... TAIL,
-   class = typename std::enable_if<
-      detail::is_string_or_regex<SECOND>::value
-   >::type
+   class = typename detail::is_string_or_regex<SECOND>::type
 >
 auto operator()(
    const std::tuple<
@@ -56,19 +54,10 @@ auto operator()(
    bool head_found = true;
 
    const auto head =
-      std::tuple<
-         decltype(
-            operator()(
-               std::get<0>(tup),
-               std::get<1>(tup)
-            )
-         )
+      std::tuple<decltype(
+         operator()(std::get<0>(tup), std::get<1>(tup)))
       >(
-         operator()(
-            std::get<0>(tup),
-            std::get<1>(tup),
-            head_found
-         )
+         operator()(std::get<0>(tup), std::get<1>(tup), head_found)
       );
 
    if (!head_found) {
@@ -95,7 +84,6 @@ auto operator()(
    found = head_found && tail_found;
    return std::tuple_cat(head,tail);
 }
-
 
 
 // ------------------------
@@ -128,7 +116,9 @@ auto operator()(
    // std::tuple, even though this would be syntactically valid without it.
    bool head_found = true;
 
-   const auto head = std::tuple<decltype(operator()(std::get<0>(tup)))>(
+   const auto head = std::tuple<decltype(
+      operator()(std::get<0>(tup)))
+   >(
       operator()(std::get<0>(tup), head_found)
    );
 
@@ -185,14 +175,16 @@ auto operator()(
          return ret;
       throw std::exception{};
    } catch (...) {
-      // Construct and print error
+      // Construct and print error. The message is short and generic if an
+      // error other than !found occurred in the try{} - which we suppose
+      // could happen - and very informative if, as is likely, we came here
+      // because nothing was found and the caller didn't send the found flag.
       std::string errorMessage = "Error during multi-query.";
       if (missing.size() > 0) {
          errorMessage +=
             " " +
             std::to_string(missing.size()) +
-            " element" +
-            (missing.size() == 1 ? "" : "s") +
+            " element" + (missing.size() == 1 ? "" : "s") +
             " not found:";
          for (auto &m : missing)
             errorMessage += m;

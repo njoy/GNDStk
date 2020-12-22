@@ -99,7 +99,7 @@ SCENARIO("Testing GNDStk Tree meta()") {
       // Smart keyword lookup
       // ------------------------
 
-      WHEN("We try various metadata extractions with meta_t keywords") {
+      WHEN("We try various metadata extractions with meta_t objects") {
          // *** version ***
          // extract as double or string
          // appears in declaration node

@@ -65,7 +65,7 @@ Node(
       *this = value;
       name = kwd.name; // overrides any name from the above assignment
    } catch (...) {
-      log::ctor("Node(child_t(\"{}\"),value)", kwd.name);
+      log::ctor("Node(" + detail::keyname(kwd) + ",value)");
       throw;
    }
 }
@@ -98,7 +98,7 @@ Node(
       kwd.converter(TYPE(value),*this);
       name = kwd.name; // overrides any name from the above conversion
    } catch (...) {
-      log::ctor("Node(child_t(\"{}\"),value)", kwd.name);
+      log::ctor("Node(" + detail::keyname(kwd) + ",value)");
       throw;
    }
 }

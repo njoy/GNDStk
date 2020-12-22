@@ -170,7 +170,7 @@ Tree(
    try {
       reset(kwd, form, version, encoding);
    } catch (...) {
-      log::ctor("Tree(child_t(\"{}\"))", kwd.name);
+      log::ctor("Tree(" + detail::keyname(kwd) + ")");
       throw;
    }
 }
@@ -186,7 +186,7 @@ Tree(
    try {
       reset(kwd, type, version, encoding);
    } catch (...) {
-      log::ctor("Tree(child_t(\"{}\"),type=\"{}\")", kwd.name, type);
+      log::ctor("Tree(" + detail::keyname(kwd) + ",type=\"{}\")", type);
       throw;
    }
 }
