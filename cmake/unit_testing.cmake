@@ -25,6 +25,7 @@ add_subdirectory( src/GNDStk/child_t/test )
 add_subdirectory( src/GNDStk/convert/test )
 add_subdirectory( src/GNDStk/utility/test )
 
+add_subdirectory( src/GNDStk/enums/GridStyle/test )
 add_subdirectory( src/GNDStk/enums/Interpolation/test )
 add_subdirectory( src/GNDStk/enums/units/Energy/test )
 add_subdirectory( src/GNDStk/enums/units/Length/test )
