@@ -1,5 +1,5 @@
-#ifndef NJOY_GNDSTK_UNITS_ENERGY
-#define NJOY_GNDSTK_UNITS_ENERGY
+#ifndef NJOY_GNDSTK_ENUMS_UNITS_ENERGY
+#define NJOY_GNDSTK_ENUMS_UNITS_ENERGY
 
 // system includes
 
@@ -8,6 +8,7 @@
 
 namespace njoy {
 namespace GNDStk {
+namespace enums {
 namespace units {
 
   /**
@@ -40,6 +41,7 @@ namespace units {
   }
 
 } // units namespace
+} // enums namespace
 } // GNDStk namespace
 } // njoy namespace
 
@@ -51,20 +53,20 @@ namespace enumeration {
    *  @brief Template specialisation to convert Energy to/from strings
    */
   template <>
-  struct Map< GNDStk::units::Energy > {
+  struct Map< GNDStk::enums::units::Energy > {
 
-    static inline const std::map< GNDStk::units::Energy,
+    static inline const std::map< GNDStk::enums::units::Energy,
                                   const std::string > values{
 
-      { GNDStk::units::Energy::eV,  "eV" },
-      { GNDStk::units::Energy::MeV, "MeV" }
+      { GNDStk::enums::units::Energy::eV,  "eV" },
+      { GNDStk::enums::units::Energy::MeV, "MeV" }
     };
 
     static inline const std::map< const std::string,
-                                  GNDStk::units::Energy > symbols{
+                                  GNDStk::enums::units::Energy > symbols{
 
-      { "eV",  GNDStk::units::Energy::eV },
-      { "MeV", GNDStk::units::Energy::MeV }
+      { "eV",  GNDStk::enums::units::Energy::eV },
+      { "MeV", GNDStk::enums::units::Energy::MeV }
     };
   };
 

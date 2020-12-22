@@ -1,5 +1,5 @@
-#ifndef NJOY_GNDSTK_UNITS_LENGTH
-#define NJOY_GNDSTK_UNITS_LENGTH
+#ifndef NJOY_GNDSTK_ENUMS_UNITS_LENGTH
+#define NJOY_GNDSTK_ENUMS_UNITS_LENGTH
 
 // system includes
 
@@ -8,6 +8,7 @@
 
 namespace njoy {
 namespace GNDStk {
+namespace enums {
 namespace units {
 
   /**
@@ -41,6 +42,7 @@ namespace units {
   }
 
 } // units namespace
+} // enums namespace
 } // GNDStk namespace
 } // njoy namespace
 
@@ -52,22 +54,22 @@ namespace enumeration {
    *  @brief Template specialisation to convert Length to/from strings
    */
   template <>
-  struct Map< GNDStk::units::Length > {
+  struct Map< GNDStk::enums::units::Length > {
 
-    static inline const std::map< GNDStk::units::Length,
+    static inline const std::map< GNDStk::enums::units::Length,
                                   const std::string > values{
 
-      { GNDStk::units::Length::m,  "m" },
-      { GNDStk::units::Length::cm, "cm" },
-      { GNDStk::units::Length::fm, "fm" }
+      { GNDStk::enums::units::Length::m,  "m" },
+      { GNDStk::enums::units::Length::cm, "cm" },
+      { GNDStk::enums::units::Length::fm, "fm" }
     };
 
     static inline const std::map< const std::string,
-                                  GNDStk::units::Length > symbols{
+                                  GNDStk::enums::units::Length > symbols{
 
-      { "m",  GNDStk::units::Length::m },
-      { "cm", GNDStk::units::Length::cm },
-      { "fm", GNDStk::units::Length::fm }
+      { "m",  GNDStk::enums::units::Length::m },
+      { "cm", GNDStk::enums::units::Length::cm },
+      { "fm", GNDStk::enums::units::Length::fm }
     };
   };
 

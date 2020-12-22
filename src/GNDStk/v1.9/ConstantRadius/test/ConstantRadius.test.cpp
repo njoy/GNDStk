@@ -181,8 +181,8 @@ void verifyChunk( const ConstantRadius& component ) {
   CHECK( 1e-5 == Approx( component.energyMin() ) );
   CHECK( 30000. == Approx( component.energyMax() ) );
 
-  CHECK( units::Length::fm == component.radiusUnit() );
-  CHECK( units::Energy::eV == component.energyUnit() );
+  CHECK( enums::units::Length::fm == component.radiusUnit() );
+  CHECK( enums::units::Energy::eV == component.energyUnit() );
 
   CHECK( "eval" == component.label() );
   CHECK( 9.41 == Approx( component.constant() ) );

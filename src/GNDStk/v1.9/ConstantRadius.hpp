@@ -5,8 +5,8 @@
 
 // other includes
 #include "GNDStk.hpp"
-#include "GNDStk/units/Energy.hpp"
-#include "GNDStk/units/Length.hpp"
+#include "GNDStk/enums/units/Energy.hpp"
+#include "GNDStk/enums/units/Length.hpp"
 #include "GNDStk/v1.9/Constant1D.hpp"
 
 namespace njoy {
@@ -28,7 +28,7 @@ namespace v1_9 {
       decltype(auto) energy = this->axes().axis(1).unit();
       if ( energy ){
 
-        if ( false == units::isEnergyUnit( energy.value() ) ) {
+        if ( false == enums::units::isEnergyUnit( energy.value() ) ) {
 
           log::error( "Expected a registered energy unit for the axis with "
                       "index 1, found \'{}\'",
@@ -47,7 +47,7 @@ namespace v1_9 {
       decltype(auto) length = this->axes().axis(0).unit();
       if ( length ){
 
-        if ( false == units::isLengthUnit( length.value() ) ) {
+        if ( false == enums::units::isLengthUnit( length.value() ) ) {
 
           log::error( "Expected a registered length unit for the axis with "
                       "index 0, found \'{}\'",
@@ -115,13 +115,13 @@ namespace v1_9 {
      */
     ConstantRadius( const std::string& label, double radius,
                     double energyMin, double energyMax,
-                    units::Energy energyUnit = units::Energy::eV,
-                    units::Length radiusUnit = units::Length::fm ) :
+                    enums::units::Energy energyUnit = enums::units::Energy::eV,
+                    enums::units::Length radiusUnit = enums::units::Length::fm ) :
       ConstantRadius(
         Constant1D( label, radius, energyMin, energyMax,
                     "energy_in", "radius",
-                    units::toString( energyUnit ),
-                    units::toString( radiusUnit ) ) ) {}
+                    enums::units::toString( energyUnit ),
+                    enums::units::toString( radiusUnit ) ) ) {}
 
     /* methods */
 
@@ -137,9 +137,9 @@ namespace v1_9 {
      *
      *  @return The radius unit
      */
-    units::Length radiusUnit() const {
+    enums::units::Length radiusUnit() const {
 
-      return units::fromString< units::Length >( this->axes().axis(0).unit().value() );
+      return enums::units::fromString< enums::units::Length >( this->axes().axis(0).unit().value() );
     }
 
     /**
@@ -147,9 +147,9 @@ namespace v1_9 {
      *
      *  @return The energy unit
      */
-    units::Energy energyUnit() const {
+    enums::units::Energy energyUnit() const {
 
-      return units::fromString< units::Energy >( this->axes().axis(1).unit().value() );
+      return enums::units::fromString< enums::units::Energy >( this->axes().axis(1).unit().value() );
     }
 
     /**

@@ -1,15 +1,15 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "GNDStk/units/Energy.hpp"
+#include "GNDStk/enums/units/Length.hpp"
 
 // other includes
 
 // convenience typedefs
 using namespace njoy::GNDStk;
-using Energy = units::Energy;
+using Length = enums::units::Length;
 
-SCENARIO( "Energy" ) {
+SCENARIO( "Length" ) {
 
   GIVEN( "valid unit values and symbols" ) {
 
@@ -17,8 +17,9 @@ SCENARIO( "Energy" ) {
 
       THEN( "no exception is thrown and the correct string is returned" ) {
 
-        CHECK( "eV" == units::toString( Energy::eV ) );
-        CHECK( "MeV" == units::toString( Energy::MeV ) );
+        CHECK( "m" == enums::units::toString( Length::m ) );
+        CHECK( "cm" == enums::units::toString( Length::cm ) );
+        CHECK( "fm" == enums::units::toString( Length::fm ) );
       } // THEN
     } // WHEN
 
@@ -26,13 +27,14 @@ SCENARIO( "Energy" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( Energy::eV == units::fromString< Energy >( "eV" ) );
-        CHECK( Energy::MeV == units::fromString< Energy >( "MeV" ) );
+        CHECK( Length::m == enums::units::fromString< Length >( "m" ) );
+        CHECK( Length::cm == enums::units::fromString< Length >( "cm" ) );
+        CHECK( Length::fm == enums::units::fromString< Length >( "fm" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
 
-        CHECK_THROWS( units::fromString< Energy >( "unregistered" ) );
+        CHECK_THROWS( enums::units::fromString< Length >( "unregistered" ) );
       } // THEN
     } // WHEN
 
@@ -41,9 +43,9 @@ SCENARIO( "Energy" ) {
       THEN( "no exception is thrown and the symbol is written to the stream" ) {
 
         std::ostringstream out;
-        out << Energy::eV << ' ' << Energy::MeV;
+        out << Length::m << ' ' << Length::cm << ' ' << Length::fm;
 
-        CHECK( "eV MeV" == out.str() );
+        CHECK( "m cm fm" == out.str() );
       } // THEN
     } // WHEN
 
@@ -51,39 +53,45 @@ SCENARIO( "Energy" ) {
 
       THEN( "the stream is not in fail() when the symbol is registered" ) {
 
-        Energy value;
-        std::istringstream in( "eV MeV" );
+        Length value;
+        std::istringstream in( "m cm fm" );
 
         in >> value;
-        CHECK( Energy::eV == value );
+        CHECK( Length::m == value );
         CHECK( false == in.fail() );
         CHECK( false == in.eof() );
 
         in >> value;
-        CHECK( Energy::MeV == value );
+        CHECK( Length::cm == value );
+        CHECK( false == in.fail() );
+        CHECK( false == in.eof() );
+
+        in >> value;
+        CHECK( Length::fm == value );
         CHECK( false == in.fail() );
         CHECK( true == in.eof() );
-    } // THEN
+      } // THEN
 
       THEN( "the stream is in fail() and the position has not changed when "
             "the symbol is not registered" ) {
 
-        Energy value = Energy::eV;
+        Length value = Length::m;
         std::istringstream in( "unregistered" );
         in >> value;
 
-        CHECK( Energy::eV == value );
+        CHECK( Length::m == value );
         CHECK( true == in.fail() );
       } // THEN
     } // WHEN
 
-    WHEN( "isEnergyUnit is used" ) {
+    WHEN( "isLengthUnit is used" ) {
 
       THEN( "registered units return true, unregistered units return false" ) {
 
-        CHECK( true == units::isEnergyUnit( "eV" ) );
-        CHECK( true == units::isEnergyUnit( "MeV" ) );
-        CHECK( false == units::isEnergyUnit( "unregistered" ) );
+        CHECK( true == enums::units::isLengthUnit( "m" ) );
+        CHECK( true == enums::units::isLengthUnit( "cm" ) );
+        CHECK( true == enums::units::isLengthUnit( "fm" ) );
+        CHECK( false == enums::units::isLengthUnit( "unregistered" ) );
       } // THEN
     } // WHEN
   } // GIVEN
