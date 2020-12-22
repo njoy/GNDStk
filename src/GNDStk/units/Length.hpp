@@ -4,7 +4,7 @@
 // system includes
 
 // other includes
-#include "utility/enumerations.hpp"
+#include "utility/enumeration.hpp"
 
 namespace njoy {
 namespace GNDStk {

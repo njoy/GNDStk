@@ -2,7 +2,6 @@
 #define NJOY_GNDSTK_V1_9_AXIS
 
 // system includes
-#include <memory>
 #include <optional>
 
 // other includes
@@ -26,7 +25,7 @@ namespace v1_9 {
   class Axis : public Component {
 
     /* query object */
-    static inline 
+    static inline
     const auto query = unsigned{} / GNDStk::basic::index |
                        GNDStk::basic::label |
                        // placeholder till std::optional is available
