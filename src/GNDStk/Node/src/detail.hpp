@@ -52,23 +52,45 @@ public:
 // keyname
 // -----------------------------------------------------------------------------
 
+// meta_t<TYPE>
 template<class TYPE, class CONVERTER>
-std::string keyname(const meta_t<TYPE,CONVERTER> &m)
-{
+std::string keyname(
+   const meta_t<TYPE,CONVERTER> &m
+) {
    return "meta_t(\"" + m.name + "\")";
 }
 
+// meta_t<optional<TYPE>>
+template<class TYPE, class CONVERTER>
+std::string keyname(
+   const meta_t<std::optional<TYPE>,CONVERTER> &m
+) {
+   return "optional meta_t(\"" + m.name + "\")";
+}
+
+// child_t<TYPE>
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
-std::string keyname(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &c)
-{
+std::string keyname(
+   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &c
+) {
    return "child_t(\"" + c.name + "\")";
 }
 
+// child_t<optional<TYPE>>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(
+   const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
+) {
+   return "optional child_t(\"" + c.name + "\")";
+}
+
+// string
 inline std::string keyname(const std::string &s)
 {
    return "string(\"" + s + "\")";
 }
 
+// regex
 inline std::string keyname(const std::regex &)
 {
    // regex generally doesn't keep the original string around :-/

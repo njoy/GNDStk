@@ -71,7 +71,10 @@ std::string &meta(
 // Node.meta(meta_t<non-void>)
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // TYPE
+// ------------------------
+
 template<class TYPE, class CONVERTER>
 TYPE meta(
    const meta_t<TYPE,CONVERTER> &kwd,
@@ -80,23 +83,55 @@ TYPE meta(
    try {
       // call meta(string), with the meta_t's key
       const std::string &value = meta(kwd.name,found);
-      // convert value, if any, to the appropriate type
+      // convert value, if any, to an object of the appropriate type
       TYPE type{};
       if (found)
          kwd.converter(value,type);
       return type;
    } catch (...) {
-      log::member("Node.meta(meta_t(\"{}\"))", kwd.name);
+      log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
    }
 }
 
+
+// ------------------------
+// optional<TYPE>
+// ------------------------
+
+template<class TYPE, class CONVERTER>
+std::optional<TYPE> meta(
+   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      // Local "found", so that found == default can't trigger any exceptions;
+      // but we still place in a try{}, in case an exception otherwise arises.
+      bool f;
+      const TYPE obj = meta(TYPE{}/kwd,f);
+      // The "found" status affects our behavior here, but for optional we'll
+      // always *return* with found == true. After all, being optional means
+      // something can be (1) there or (2) not there. That condition is always
+      // true. :-) And, this way, if an optional element isn't there, then its
+      // absence won't break a multi-query.
+      found = true;
+      return f ? std::optional<TYPE>(obj) : std::nullopt;
+   } catch (...) {
+      log::member("Node.meta(" + detail::keyname(kwd) + ")");
+      throw;
+   }
+}
+
+
+// ------------------------
 // variant
+// ------------------------
+
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER>
 typename detail::oneof<TYPE,std::variant<Ts...>>::type meta(
    const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return meta(meta_t<TYPE,CONVERTER>(kwd.name,kwd.converter),found);
+   return meta(TYPE{}/kwd, found);
 }

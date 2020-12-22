@@ -55,7 +55,10 @@ CONTAINER<Node> child(
 // child(child_t<TYPE,one,...>[,found])
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // TYPE
+// ------------------------
+
 template<class TYPE, class CONVERTER, class FILTER>
 TYPE child(
    const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd,
@@ -64,18 +67,44 @@ TYPE child(
    try {
       // call one(string), with the child_t's key
       const Node &value = one(kwd.name, kwd.filter, found);
-      // convert value, if any, to the appropriate type
+      // convert value, if any, to an object of the appropriate type
       TYPE type{};
       if (found)
          kwd.converter(value,type);
       return type;
    } catch (...) {
-      log::member("Node.child(child_t<type,allow::one>(\"{}\"))", kwd.name);
+      log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
       throw;
    }
 }
 
+
+// ------------------------
+// optional<TYPE>
+// ------------------------
+
+template<class TYPE, class CONVERTER, class FILTER>
+std::optional<TYPE> child(
+   const child_t<std::optional<TYPE>,allow::one,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      // Comments as in the meta() analog of this child() function
+      bool f;
+      const TYPE obj = child(TYPE{}/kwd,f);
+      found = true;
+      return f ? std::optional<TYPE>(obj) : std::nullopt;
+   } catch (...) {
+      log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
+      throw;
+   }
+}
+
+
+// ------------------------
 // variant
+// ------------------------
+
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER, class FILTER>
 typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
@@ -90,7 +119,10 @@ typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
 // child(child_t<TYPE,many>[,found])
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // TYPE
+// ------------------------
+
 template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
@@ -117,7 +149,7 @@ CONTAINER<TYPE> child(
             if (std::regex_match(c->name, std::regex(kwd.name)) &&
                 kwd.filter(*c)
             ) {
-               // convert c to the appropriate type
+               // convert *c to an object of the appropriate type
                TYPE type{};
                kwd.converter(*c,type);
                container.push_back(type);
@@ -126,7 +158,7 @@ CONTAINER<TYPE> child(
          }
       }
    } catch (...) {
-      log::member("Node.child(child_t<type,allow::many>(\"{}\"))", kwd.name);
+      log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
       throw;
    }
 
@@ -134,7 +166,60 @@ CONTAINER<TYPE> child(
    return container;
 }
 
+
+// ------------------------
+// optional<TYPE>
+// ------------------------
+
+// fixme Be sure this is the meaning we want...
+//
+// With an allow::many child_t, as we have here, it's permissible (without
+// an exception being thrown) to extract any number of values - including
+// zero - into the container. In some sense, then, the allow::many means
+// it's *optional* to have any matching values at all. So the question is:
+// how should we handle child_t<std::optional<TYPE>,allow::many>, with two
+// different "optional" aspects being involved? We'll do this:
+//
+//    A container<TYPE>, *not* a container<optional<TYPE>>, is produced,
+//    even though it's a child_t<optional<TYPE>>. (If we had a container
+//    of optionals, then when, and from where, would any nullopt values
+//    arise? We're filling the container with what we do find, in which
+//    case there'd be no real meaning associated any nullopt values.)
+//
+//    Consistent with the behavior of std::optional elsewhere in GNDStk's
+//    queries, we'll *always* return from here with found == true. That's
+//    already the case with allow::many if container.size() > 0 on output,
+//    but now we'll unconditionally return found == true, even for 0 size.
+//
+// We may change this, if doing something else proves to make more sense,
+// or to be more useful. It's possible, for example, that for the sake of
+// consistency we should always return objects that involve precisely the
+// type that's given in the child_t, even in cases like this in which such
+// a modification seems to be sensible from a practical standpoint.
+
+template<
+   template<class...> class CONTAINER = std::vector,
+   class TYPE, class CONVERTER, class FILTER
+>
+CONTAINER<TYPE> child(
+   const child_t<std::optional<TYPE>,allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      // The behavior described above makes this easy as well.
+      // That wasn't our intention, but we don't mind too much.
+      return found = true, child(TYPE{}/kwd);
+   } catch (...) {
+      log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
+      throw;
+   }
+}
+
+
+// ------------------------
 // variant
+// ------------------------
+
 // With caller-specified type
 template<
    class TYPE,

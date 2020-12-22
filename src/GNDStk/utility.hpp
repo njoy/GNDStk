@@ -154,15 +154,37 @@ inline std::string diagnostic(
 
 
 // -----------------------------------------------------------------------------
-// Shortcuts to njoy::Log functions
+// Flags for fine-tuning diagnostic output
 // -----------------------------------------------------------------------------
 
-// Convenient, namespace-scope booleans for fine-tuning diagnostic output
-inline bool notes     = true;  // general info messages
-inline bool warnings  = true;  // warnings
-inline bool context   = true;  // any of our context-printing info messages
-inline bool debugging = false; // debug calls
+// Names of these flags align with those in our log:: functions (see below),
+// for consistency and predictability. These are in namespace GNDStk while
+// those are in namespace GNDStk::log, so the names don't conflict.
+
+// Print info messages? (with log::info())
+inline bool info = true;
+
+// Print warnings? (with log::warning())
+inline bool  warning  = true;
+inline bool &warnings = warning; // alias; plural may "read" better
+
+// Print debug messages? (with log::debug())
+inline bool debug = false;
+
+// Print context information? This affects all of these:
+// log::function()
+// log::member()
+// log::ctor()
+// log::assign()
+inline bool context = true;
+
 // We don't provide a way to suppress errors; too much could go wrong
+
+
+
+// -----------------------------------------------------------------------------
+// Shortcuts to njoy::Log functions
+// -----------------------------------------------------------------------------
 
 namespace log {
 
@@ -174,7 +196,7 @@ namespace log {
 template<class... Args>
 inline void info(const std::string &str, Args &&...args)
 {
-   if (notes) {
+   if (GNDStk::info) {
       const std::string msg = detail::diagnostic("info",str);
       Log::info(msg.c_str(), std::forward<Args>(args)...);
    }
@@ -184,7 +206,7 @@ inline void info(const std::string &str, Args &&...args)
 template<class... Args>
 inline void warning(const std::string &str, Args &&...args)
 {
-   if (warnings) {
+   if (GNDStk::warning) {
       const std::string msg = detail::diagnostic("warning",str);
       Log::warning(msg.c_str(), std::forward<Args>(args)...);
    }
@@ -202,7 +224,7 @@ inline void error(const std::string &str, Args &&...args)
 template<class... Args>
 inline void debug(const std::string &str, Args &&...args)
 {
-   if (debugging) {
+   if (GNDStk::debug) {
       const std::string msg = detail::diagnostic("debug",str);
       Log::debug(msg.c_str(), std::forward<Args>(args)...);
    }
@@ -218,7 +240,7 @@ inline void debug(const std::string &str, Args &&...args)
 template<class... Args>
 inline void function(const std::string &str, Args &&...args)
 {
-   if (context) {
+   if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "function "+str, "Context");
       Log::info(msg.c_str(), std::forward<Args>(args)...);
@@ -229,7 +251,7 @@ inline void function(const std::string &str, Args &&...args)
 template<class... Args>
 inline void member(const std::string &str, Args &&...args)
 {
-   if (context) {
+   if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "member "+str, "Context");
       Log::info(msg.c_str(), std::forward<Args>(args)...);
@@ -240,7 +262,7 @@ inline void member(const std::string &str, Args &&...args)
 template<class... Args>
 inline void ctor(const std::string &str, Args &&...args)
 {
-   if (context) {
+   if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "constructor "+str, "Context");
       Log::info(msg.c_str(), std::forward<Args>(args)...);
@@ -251,7 +273,7 @@ inline void ctor(const std::string &str, Args &&...args)
 template<class... Args>
 inline void assign(const std::string &str, Args &&...args)
 {
-   if (context) {
+   if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "assignment "+str, "Context");
       Log::info(msg.c_str(), std::forward<Args>(args)...);
