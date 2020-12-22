@@ -22,10 +22,10 @@ namespace units {
     MeV
   };
 
-  using utility::fromString;
-  using utility::toString;
-  using utility::operator>>;
-  using utility::operator<<;
+  using utility::enumeration::fromString;
+  using utility::enumeration::toString;
+  using utility::enumeration::operator>>;
+  using utility::enumeration::operator<<;
 
   /**
    *  @brief Return whether or not a string is a valid energy unit
@@ -36,7 +36,7 @@ namespace units {
    */
   bool isEnergyUnit( const std::string& string ) {
 
-    return utility::isSymbol< Energy >( string );
+    return utility::enumeration::isSymbol< Energy >( string );
   }
 
 } // units namespace
@@ -45,23 +45,30 @@ namespace units {
 
 namespace njoy {
 namespace utility {
+namespace enumeration {
 
+  /**
+   *  @brief Template specialisation to convert Energy to/from strings
+   */
   template <>
-  struct EnumerationMap< GNDStk::units::Energy > {
+  struct Map< GNDStk::units::Energy > {
 
-    static inline const std::map< GNDStk::units::Energy, const std::string > values{
+    static inline const std::map< GNDStk::units::Energy,
+                                  const std::string > values{
 
       { GNDStk::units::Energy::eV,  "eV" },
       { GNDStk::units::Energy::MeV, "MeV" }
     };
 
-    static inline const std::map< const std::string, GNDStk::units::Energy > symbols{
+    static inline const std::map< const std::string,
+                                  GNDStk::units::Energy > symbols{
 
       { "eV",  GNDStk::units::Energy::eV },
       { "MeV", GNDStk::units::Energy::MeV }
     };
   };
 
+} // enumeration namespace
 } // utility namespace
 } // njoy namespace
 

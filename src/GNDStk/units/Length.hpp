@@ -23,10 +23,10 @@ namespace units {
     fm
   };
 
-  using utility::fromString;
-  using utility::toString;
-  using utility::operator>>;
-  using utility::operator<<;
+  using utility::enumeration::fromString;
+  using utility::enumeration::toString;
+  using utility::enumeration::operator>>;
+  using utility::enumeration::operator<<;
 
   /**
    *  @brief Return whether or not a string is a valid energy unit
@@ -37,7 +37,7 @@ namespace units {
    */
   bool isLengthUnit( const std::string& string ) {
 
-    return utility::isSymbol< Length >( string );
+    return utility::enumeration::isSymbol< Length >( string );
   }
 
 } // units namespace
@@ -46,18 +46,24 @@ namespace units {
 
 namespace njoy {
 namespace utility {
+namespace enumeration {
 
+  /**
+   *  @brief Template specialisation to convert Length to/from strings
+   */
   template <>
-  struct EnumerationMap< GNDStk::units::Length > {
+  struct Map< GNDStk::units::Length > {
 
-    static inline const std::map< GNDStk::units::Length, const std::string > values{
+    static inline const std::map< GNDStk::units::Length,
+                                  const std::string > values{
 
       { GNDStk::units::Length::m,  "m" },
       { GNDStk::units::Length::cm, "cm" },
       { GNDStk::units::Length::fm, "fm" }
     };
 
-    static inline const std::map< const std::string, GNDStk::units::Length > symbols{
+    static inline const std::map< const std::string,
+                                  GNDStk::units::Length > symbols{
 
       { "m",  GNDStk::units::Length::m },
       { "cm", GNDStk::units::Length::cm },
@@ -65,6 +71,7 @@ namespace utility {
     };
   };
 
+} // enumeration namespace
 } // utility namespace
 } // njoy namespace
 
