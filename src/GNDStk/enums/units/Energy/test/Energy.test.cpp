@@ -63,7 +63,7 @@ SCENARIO( "Energy" ) {
         CHECK( Energy::MeV == value );
         CHECK( false == in.fail() );
         CHECK( true == in.eof() );
-    } // THEN
+      } // THEN
 
       THEN( "the stream is in fail() and the position has not changed when "
             "the symbol is not registered" ) {
