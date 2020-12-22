@@ -36,6 +36,7 @@
 //       <axis index="0" label="radius" unit="fm"/></axes></constant1d>
 
 // Array-like container nodes - GNDS 1.9 specifications chapter 5
+#include "GNDStk/v1.9/Values.hpp"
 #include "GNDStk/v1.9/Axis.hpp"
 #include "GNDStk/v1.9/Axes.hpp"
 

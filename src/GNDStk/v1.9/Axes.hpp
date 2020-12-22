@@ -19,6 +19,8 @@ namespace v1_9 {
    *  This component in used in most functional containers (e.g. Constant1D or
    *  XYs1D).
    *
+   *  @todo not implemented: grid child instead of axis child (exception raised)
+   *
    *  See GNDS v1.9 specifications section 5.1.1
    */
   class Axes : public Component {
@@ -63,6 +65,12 @@ namespace v1_9 {
         if ( child->name == "axis" ) {
 
           this->axis_.emplace_back( *child );
+        }
+        else if ( child->name == "axis" ) {
+
+          log::error( "An \"axes\" node uses a \"grid\" node, this is "
+                      "currently unsupported"  );
+          throw std::exception();
         }
       }
       this->sort();

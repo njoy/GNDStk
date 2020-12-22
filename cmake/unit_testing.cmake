@@ -28,6 +28,7 @@ add_subdirectory( src/GNDStk/utility/test )
 add_subdirectory( src/GNDStk/units/Energy/test )
 add_subdirectory( src/GNDStk/units/Length/test )
 
+add_subdirectory( src/GNDStk/v1.9/Values/test )
 add_subdirectory( src/GNDStk/v1.9/Axis/test )
 add_subdirectory( src/GNDStk/v1.9/Axes/test )
 
