@@ -10,6 +10,7 @@ template<class NODEFROM, class NODETO>
 void node2Node(const NODEFROM &, NODETO &);
 
 
+
 // -----------------------------------------------------------------------------
 // is_optional
 // -----------------------------------------------------------------------------
@@ -29,6 +30,7 @@ public:
 };
 
 
+
 // -----------------------------------------------------------------------------
 // remove_optional
 // -----------------------------------------------------------------------------
@@ -46,6 +48,7 @@ class remove_optional<std::optional<T>> {
 public:
    using type = T;
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -93,9 +96,10 @@ inline std::string keyname(const std::string &s)
 // regex
 inline std::string keyname(const std::regex &)
 {
-   // regex generally doesn't keep the original string around :-/
+   // regex generally doesn't keep the initialization string around
    return "regex";
 }
+
 
 
 // -----------------------------------------------------------------------------
@@ -114,13 +118,15 @@ class call_operator_child_t {
    //    Quick fix: downgrade to allow::one using predecrement: --child_t
    //
    // It seems that a static_assert string's formatting (say, with \n)
-   // is not necessarily respected by the compiler.
+   // is not necessarily respected by the compiler. Under the cirsumstances,
+   // we judge that a more-succint message is best.
 
    static_assert(
       ALLOW == allow::one,
      "Misuse of child_t with <allow::many> in Node's call operator"
    );
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -149,6 +155,7 @@ public:
       // no action
    }
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -207,6 +214,7 @@ public:
 };
 
 
+
 // -----------------------------------------------------------------------------
 // extract_found
 // -----------------------------------------------------------------------------
@@ -229,12 +237,15 @@ inline bool &extract_found(const T &, ARGS &&...args)
 }
 
 
+
 // -----------------------------------------------------------------------------
 // meta_ref
+// For operator[](meta_t<TYPE>)
+// Note: operator[](meta_t<void>) doesn't use meta_ref
 // -----------------------------------------------------------------------------
 
 /*
-Note that these make use of SFINAE as described here:
+Note that these make use of a particular SFINAE variation as described here:
 
    https://stackoverflow.com/questions/27433093
 
@@ -271,23 +282,24 @@ template<
 >
 class meta_ref {
 
-   // data
    const meta_t<TYPE,CONVERTER> kwd;
+
+   // [const] std::string reference to the actual, in-node value
    typename std::conditional<
       CONST,
       const std::string,
       std::string
-   >::type &metaValueString;
+   >::type &metaValueRef;
 
 public:
 
    // constructor
    meta_ref(
       const meta_t<TYPE,CONVERTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &node
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
       kwd(kwd), // original meta_t
-      metaValueString(node(-kwd)) // -kwd so meta_t<void> ==> reference to raw
+      metaValueRef(parent(-kwd)) // -kwd so meta_t<void> ==> reference to raw
    { }
 
    // ------------------------
@@ -295,24 +307,26 @@ public:
    // disabled if CONST==true
    // ------------------------
 
+   // = TYPE
    template<bool CONSTANT = CONST>
    typename std::enable_if<
      !CONSTANT,
       meta_ref
    >::type &operator=(const TYPE &obj)
    {
-      kwd.converter(obj,metaValueString);
+      kwd.converter(obj,metaValueRef="");
       return *this;
    }
 
-   // if TYPE != std::string
+   // = std::string
+   // if std::string is different from TYPE
    template<bool CONSTANT = CONST, class T = TYPE>
    typename std::enable_if<
      !CONSTANT && !std::is_same<T,std::string>::value,
       meta_ref
    >::type &operator=(const std::string &s)
    {
-      metaValueString = s;
+      metaValueRef = s;
       return *this;
    }
 
@@ -320,41 +334,50 @@ public:
    // conversion
    // ------------------------
 
+   // to TYPE()
    operator TYPE() const
    {
-      TYPE obj;
-      kwd.converter(metaValueString,obj);
+      TYPE obj{};
+      kwd.converter(metaValueRef,obj);
       return obj;
    }
 
-   // if  TYPE != std::string
+   // to std::string()
+   // if std::string is different from TYPE
    template<class T = TYPE>
    operator typename std::enable_if<
      !std::is_same<T,std::string>::value,
       std::string
    >::type() const
    {
-      return metaValueString;
+      return metaValueRef;
    }
 };
 
 
+
 // -----------------------------------------------------------------------------
 // child_ref
-// allow::one
+// For operator[](child_t<TYPE,one>)
+// Note: operator[](child_t<void,one>) doesn't use child_ref
 // -----------------------------------------------------------------------------
 
-// Similar comments apply to those regarding meta_ref.
+// fixme Some consolidation of the child_ref variations may be possible,
+// although they're a bit structurally different from one another. Using,
+// e.g., an "if constexpr" may make things shorter, but the result may
+// or may not be clearer. For now, I'll make this available, and will
+// look into the consolidation question another time.
 
-// Default == the allow::one case; we'll specialize for allow::many
+// Default == this case; we'll specialize for others
 template<
    class NODE, bool CONST,
    class TYPE, allow ALLOW, class CONVERTER, class FILTER
 >
 class child_ref {
 
-   // data
    const child_t<TYPE,allow::one,CONVERTER,FILTER> kwd;
+
+   // [const] node reference to the actual node
    typename std::conditional<
       CONST,
       const NODE,
@@ -366,10 +389,10 @@ public:
    // constructor
    child_ref(
       const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &node
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
       kwd(kwd), // original child_t
-      childNodeRef(node(-kwd)) // -kwd so child_t<void> ==> reference to raw
+      childNodeRef(parent(-kwd)) // -kwd so child_t<void> ==> reference to raw
    { }
 
    // ------------------------
@@ -377,17 +400,19 @@ public:
    // disabled if CONST==true
    // ------------------------
 
+   // = TYPE
    template<bool CONSTANT = CONST>
    typename std::enable_if<
      !CONSTANT,
       child_ref
    >::type &operator=(const TYPE &obj)
    {
-      kwd.converter(obj,childNodeRef);
+      kwd.converter(obj,childNodeRef.clear());
       return *this;
    }
 
-   // if TYPE != NODE
+   // = NODE (as in child_ref's template argument called NODE)
+   // if NODE is different from TYPE
    template<bool CONSTANT = CONST, class T = TYPE>
    typename std::enable_if<
      !CONSTANT && !std::is_same<T,NODE>::value,
@@ -402,14 +427,16 @@ public:
    // conversion
    // ------------------------
 
+   // to TYPE()
    operator TYPE() const
    {
-      TYPE obj;
+      TYPE obj{};
       kwd.converter(childNodeRef,obj);
       return obj;
    }
 
-   // if TYPE != NODE
+   // to NODE() (as in child_ref's template argument called NODE)
+   // if NODE is different from TYPE
    template<class T = TYPE>
    operator typename std::enable_if<
      !std::is_same<T,NODE>::value,
@@ -421,17 +448,188 @@ public:
 };
 
 
+
 // -----------------------------------------------------------------------------
 // child_ref
-// allow::many
+// For operator[](child_t<void,many>)
+// -----------------------------------------------------------------------------
+
+template<
+   class NODE, bool CONST,
+   class FILTER
+>
+class child_ref<
+   NODE, CONST,
+   void, allow::many, void, FILTER
+> {
+
+   // Note: for now (and perhaps forever), we're not providing direct access
+   // to our (private) childNodePtr vector. Given the purpose of the present
+   // class - the return from Node's operator[](child_t<void,many,...>) - we
+   // don't think anyone should be messing with it. Someone who wants to change
+   // the number of such child nodes, for example, should do so by other means,
+   // and via the parent node.
+
+   // vector of [const] node pointers to the actual nodes
+   std::vector<
+      typename std::conditional<CONST, const NODE *, NODE *>::type
+   > childNodePtr;
+
+public:
+
+   // constructor
+   child_ref(
+      const child_t<void,allow::many,void,FILTER> &kwd,
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
+   ) {
+      // similar to Node.many(), except here we create a vector of pointers
+      try {
+         if (kwd.name == "")
+            childNodePtr.push_back(&parent);
+         else {
+            const std::regex regex(kwd.name);
+            for (auto &c : parent.children)
+               if (std::regex_match(c->name, regex) && kwd.filter(*c))
+                  childNodePtr.push_back(&(*c));
+         }
+      } catch (...) {
+         log::ctor("child_ref<...,void,many,...>" + detail::keyname(kwd));
+         throw;
+      }
+   }
+
+   // size
+   std::size_t size() const
+   {
+      return childNodePtr.size();
+   }
+
+   // operator[]
+   auto &operator[](const std::size_t n) const
+   {
+      return *childNodePtr[n];
+   }
+
+   // ------------------------
+   // conversion
+   // ------------------------
+
+   // to vector<NODE>
+   operator std::vector<NODE>() const
+   {
+      std::vector<NODE> vec;
+      vec.reserve(size());
+      for (auto &elem : childNodePtr)
+         vec.push_back(*elem);
+      return vec;
+   }
+};
+
+
+
+// -----------------------------------------------------------------------------
+// child_ref
+// For operator[](child_t<TYPE,many>)
 // -----------------------------------------------------------------------------
 
 template<
    class NODE, bool CONST,
    class TYPE, class CONVERTER, class FILTER
 >
-class child_ref<NODE,CONST,TYPE,allow::many,CONVERTER,FILTER> {
-   // Unused for now
+class child_ref<
+   NODE, CONST,
+   TYPE, allow::many, CONVERTER, FILTER
+> {
+
+   const child_t<TYPE,allow::many,CONVERTER,FILTER> kwd;
+
+   // vector of [const] node pointers to the actual nodes
+   std::vector<
+      typename std::conditional<CONST, const NODE *, NODE *>::type
+   > childNodePtr;
+
+public:
+
+   // constructor
+   child_ref(
+      const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
+   ) :
+      kwd(kwd) // original child_t
+   {
+      // similar to Node.many(), except here we create a vector of pointers
+      try {
+         if (kwd.name == "")
+            childNodePtr.push_back(&parent);
+         else {
+            const std::regex regex(kwd.name);
+            for (auto &c : parent.children)
+               if (std::regex_match(c->name, regex) && kwd.filter(*c))
+                  childNodePtr.push_back(&(*c));
+         }
+      } catch (...) {
+         log::ctor("child_ref<...,void,many,...>" + detail::keyname(kwd));
+         throw;
+      }
+   }
+
+   // size
+   std::size_t size() const
+   {
+      return childNodePtr.size();
+   }
+
+   // operator[]
+   auto operator[](const std::size_t n) const
+   {
+      // leverage the capabilities of the allow::one child_ref
+      return child_ref<
+         NODE, CONST,
+         TYPE, allow::one, CONVERTER, FILTER
+      >(
+         // As always, -- downgrades many to one. The /"" changes the lookup
+         // name to "", which means "use the current node" (in this case the
+         // node *childNodePtr[n]), which is appropriate here because we're
+         // not digging further into the tree; we're making the [n] element
+         // of the current "smart object" usable as its own smart object.
+         --kwd/"",
+         *childNodePtr[n]
+      );
+   }
+
+   // ------------------------
+   // conversion
+   // ------------------------
+
+   // to vector<TYPE>
+   operator std::vector<TYPE>() const
+   {
+      std::vector<TYPE> vec;
+      vec.reserve(size());
+      for (auto &elem : childNodePtr) {
+         TYPE obj{};
+         kwd.converter(*elem,obj);
+         vec.push_back(obj);
+      }
+      return vec;
+   }
+
+   // to vector<NODE>
+   // if NODE is different from TYPE
+   template<class T = TYPE>
+   operator std::vector<
+      typename std::enable_if<
+        !std::is_same<T,NODE>::value,
+         NODE
+      >::type
+   >() const
+   {
+      std::vector<NODE> vec;
+      vec.reserve(size());
+      for (auto &elem : childNodePtr)
+         vec.push_back(*elem);
+      return vec;
+   }
 };
 
 } // namespace detail
