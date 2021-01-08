@@ -66,12 +66,8 @@ struct temp_t {
    double value;
    std::string unit;
    temp_t() { }
-   temp_t(
-      const double value,
-      const std::string &unit
-   ) :
-      value(value),
-      unit(unit)
+   temp_t(const double value, const std::string &unit) :
+      value(value), unit(unit)
    { }
 };
 

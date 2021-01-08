@@ -8,12 +8,23 @@
 
 namespace common {
 
-// values
+// numeric
 template<class T = double>
 inline const child_t<
-   typename detail::values_type<T>::type,
+   // for general T, the following produces a vector<T>;
+   // for T already a vector, it remains as-is
+   typename detail::numeric_type<T>::type,
    allow::one,
-   typename detail::values_type<T>::converter
-> values("values");
+   detail::convert_pcdata_text_t
+> numeric("pcdata");
+
+// shortcuts for numeric; each gives a vector
+inline const auto ints = numeric<int>/"pcdata";
+inline const auto floats = numeric<float>/"pcdata";
+inline const auto doubles = numeric<double>/"pcdata";
+// fixme I'm not sure why the "pcdata" name doesn't come over automatically
+// from numeric; it probably relates to order-of-initialization rules (or
+// lack of rules?) for variable templates. We'll figure that out sometime.
+// For now, the shortcuts are given the name directly, so it doesn't matter.
 
 } // namespace common

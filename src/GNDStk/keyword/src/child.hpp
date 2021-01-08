@@ -3,7 +3,8 @@
 // keyword_t.child()
 // -----------------------------------------------------------------------------
 
-// fixme Allow these to accept filter
+// We could allow for a filter argument as well, but it probably just
+// isn't worth it, given the ability to add a filter by using operator+.
 
 
 // child[<[void[,ALLOW]]>](name[,top])

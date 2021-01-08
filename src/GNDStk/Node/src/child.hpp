@@ -184,7 +184,7 @@ CONTAINER<TYPE> child(
 //    even though it's a child_t<optional<TYPE>>. (If we had a container
 //    of optionals, then when, and from where, would any nullopt values
 //    arise? We're filling the container with what we do find, in which
-//    case there'd be no real meaning associated any nullopt values.)
+//    case there'd be no real meaning associated with any nullopt values.)
 //
 //    Consistent with the behavior of std::optional elsewhere in GNDStk's
 //    queries, we'll *always* return from here with found == true. That's

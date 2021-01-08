@@ -94,11 +94,11 @@ SCENARIO("Testing GNDStk Node add()") {
       // ------------------------
       // ------------------------
 
-      auto foo  = keyword.child<void,allow::one>("foo");
-      auto foos = keyword.child<
+      auto foo = keyword.child<void,allow::one>("foo");
+      auto numbers = keyword.child<
          std::vector<double>,
          allow::one
-      >("values",misc::child::convert_pcdata_text);
+      >("pcdata",detail::convert_pcdata_text_t{});
 
       auto nrepeat = keyword.child<void,allow::many>("repeated node");
       Node<> node1; node1.name = "aa11";
@@ -121,7 +121,7 @@ SCENARIO("Testing GNDStk Node add()") {
 
       Node<std::deque,std::list> n3; n3.name = "SubNode 6";
       n.add(foo,n3);
-      n.add(foos,std::vector<double>{ 1.2, 3.4, 5.6, 7.8 });
+      n.add("values").add(numbers,std::vector<double>{ 1.2, 3.4, 5.6, 7.8 });
 
       n.write(std::cout);
    }

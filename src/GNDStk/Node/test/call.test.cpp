@@ -61,11 +61,61 @@ inline void convert(const Node<> &n, isotope_t &iso)
 
 
 // -----------------------------------------------------------------------------
-// values_string
+// numeric_string
 // -----------------------------------------------------------------------------
 
-static const std::string values_string =
+static const std::string numeric_string =
 R"***(1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05
+1.1e+06
+1.6505e+06
+1.744e+06
+1.9e+06
+2.84e+06
+3.209e+06
+3.755e+06
+4.45e+06
+4.5935e+06
+4.82e+06
+5.35e+06
+5.694e+06
+6.0715e+06
+6.378e+06
+6.683e+06
+7.42e+06
+8.42e+06
+9.675e+06
+1.17e+07
+1.389e+07
+1.81e+07
+2.65e+07
+1.06e+08
+
+1e-05
 1.1e+06
 1.6505e+06
 1.744e+06
@@ -826,20 +876,23 @@ SCENARIO("Testing GNDStk Node operator()") {
 
 
    // ------------------------
-   // Test our values<>
+   // Test our numeric<>
    // variable template
    // ------------------------
 
-   GIVEN("Testing node(values<*>) for various *") {
+   GIVEN("Testing node(numeric<*>) for various *") {
       const node n = tree(
          basic::child::reactionSuite,
          basic::child::reactions,
          basic::child::reaction, "n + O16",
          basic::child::crossSection,
-         basic::child::XYs1d, "eval"
+         basic::child::XYs1d, "eval",
+       --basic::child::values
       );
 
-      using misc::values;
+      using misc::numeric;
+      using misc::doubles;
+      using misc::floats;
       std::ostringstream oss;
 
       // I'll only print every [stride] vector elements from the vectors
@@ -850,52 +903,54 @@ SCENARIO("Testing GNDStk Node operator()") {
       const int stride = 200;
       int count;
 
-      // values<void> ==> node (that is, generic node in original form)
-      auto vnode = n(values<void>);
-      CHECK(vnode.metadata.size() == 0);
-      CHECK(vnode.children.size() == 1);
-
-      // values<> ==> vector<double>
+      // numeric<> ==> vector<double>
       count = 0;
-      for (auto v : n(values<>))
-         if (count++ % stride == 0)
-            oss << v << std::endl;
+      for (auto v : n(numeric<>))
+         if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
-      // values<double> ==> vector<double>
+      // numeric<double> ==> vector<double>
       count = 0;
-      for (auto v : n(values<double>))
-         if (count++ % stride == 0)
-            oss << v << std::endl;
+      for (auto v : n(numeric<double>))
+         if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
-      // values<float> ==> vector<float>
+      // doubles: same as numeric<double>
       count = 0;
-      for (auto v : n(values<float>))
-         if (count++ % stride == 0)
-            oss << v << std::endl;
+      for (auto v : n(doubles))
+         if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
-      // values<vector<double>> ==> vector<double>
+      // numeric<float> ==> vector<float>
       count = 0;
-      for (auto v : n(values<std::vector<double>>))
-         if (count++ % stride == 0)
-            oss << v << std::endl;
+      for (auto v : n(numeric<float>))
+         if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
-      // values<vector<float>> ==> vector<float>
+      // floats: same as numeric<float>
       count = 0;
-      for (auto v : n(values<std::vector<float>>))
-         if (count++ % stride == 0)
-            oss << v << std::endl;
+      for (auto v : n(floats))
+         if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
-      // values<vector<pair<double,double>>> ==> vector<pair<double,double>>
+      // numeric<vector<double>> ==> vector<double>
       count = 0;
-      for (auto v : n(values<std::vector<std::pair<double,double>>>))
+      for (auto v : n(numeric<std::vector<double>>))
+         if (count++ % stride == 0) oss << v << std::endl;
+      oss << std::endl;
+
+      // numeric<vector<float>> ==> vector<float>
+      count = 0;
+      for (auto v : n(numeric<std::vector<float>>))
+         if (count++ % stride == 0) oss << v << std::endl;
+      oss << std::endl;
+
+      // numeric<vector<pair<double,double>>> ==> vector<pair<double,double>>
+      count = 0;
+      for (auto v : n(numeric<std::vector<std::pair<double,double>>>))
          if (count++ % stride == 0)
             oss << v.first << ", " << v.second << std::endl;
 
-      CHECK(oss.str() == values_string);
+      CHECK(oss.str() == numeric_string);
    } // GIVEN
 }

@@ -187,8 +187,11 @@ SCENARIO("Testing GNDStk keyword") {
    auto myshape   = keyword.meta<shape_t  >("shape"  );
 
    // for children
-   auto myvalues =
-      keyword.child<values_t,allow::one>("values",convert_pcdata_text);
+   // The following is just like GNDStk::common::numeric<double>,
+   // or equivalently, GNDStk::[basic or core]::numeric<double>.
+   auto mynumbers = keyword.child<values_t,allow::one>
+      ("pcdata",detail::convert_pcdata_text_t{});
+
    // In the following, a name of "" means to stay at the current node
    auto mymanifest = keyword.child<manifest_t,allow::one>("");
 
@@ -245,7 +248,7 @@ SCENARIO("Testing GNDStk keyword") {
          // Extract <array> values into our values_t type,
          // which is vector<double>.
          // Specifically: myshape keyword ==> shape_t
-         auto val = arr(myvalues);
+         auto val = arr(--child::values,mynumbers);
          CHECK(val[0] == 0.015);
          CHECK(val[1] == 0);
          CHECK(val[2] == 0);
