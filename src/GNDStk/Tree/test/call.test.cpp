@@ -90,9 +90,10 @@ SCENARIO("Testing GNDStk tree operator()") {
       const meta_t<std::string> sframe     ("projectileFrame");
 
       WHEN("We call tree operator() with (child_t,meta_t)") {
-         CHECK( tree(::xml,sversion   ) == "1.0"   );
-         CHECK( tree(::xml,dversion   ) ==  1.0    );
-         CHECK( tree(::xml,sencoding  ) == "UTF-8" );
+         CHECK( tree(::xml,sversion ) == "1.0"   );
+         CHECK( tree(::xml,dversion ) ==  1.0    );
+         CHECK( tree(::xml,sencoding) == "UTF-8" );
+
          CHECK( tree(reactionSuite,sprojectile) == "n"     );
          CHECK( tree(reactionSuite,cprojectile) == 'n'     );
          CHECK( tree(reactionSuite,vtarget    ) == "O16"   );

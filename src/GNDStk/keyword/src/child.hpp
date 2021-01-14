@@ -3,57 +3,48 @@
 // keyword_t.child()
 // -----------------------------------------------------------------------------
 
-// We could allow for a filter argument as well, but it probably just
-// isn't worth it, given the ability to add a filter by using operator+.
+// child(name,converter,filter,top)
+// To make a child_t<TYPE,...>
+template<
+   class TYPE,
+   allow ALLOW = allow::one,
+   class CONVERTER = typename detail::default_converter<TYPE>::type,
+   class FILTER = detail::noFilter
+>
+static child_t<
+   typename detail::isNotVoid<TYPE>::type, // ensure TYPE != void
+   ALLOW,
+   CONVERTER,
+   FILTER
+> child(
+   const std::string &name,
+   const TYPE &object = TYPE{},
+   const CONVERTER &converter = CONVERTER{},
+   const FILTER &filter = FILTER{},
+   const bool top = false
+) {
+   return child_t<TYPE,ALLOW,CONVERTER,FILTER>
+      (name,object,converter,filter,top);
+}
 
 
-// child[<[void[,ALLOW]]>](name[,top])
+// child(name,filter,top)
+// To make a child_t<void,...>
 template<
    class TYPE = void,
-   allow ALLOW = allow::one
+   allow ALLOW = allow::one,
+   class FILTER = detail::noFilter
 >
 static child_t<
-   typename detail::isVoid<TYPE>::type,
-   ALLOW
+   typename detail::isVoid<TYPE>::type, // ensure TYPE == void
+   ALLOW,
+   void,
+   FILTER
 > child(
    const std::string &name,
+   const FILTER &filter = FILTER{},
    const bool top = false
 ) {
-   return child_t<void,ALLOW>{name,top};
-}
-
-
-// child<TYPE[,ALLOW[,CONVERTER]]>(name[,top[,converter]])
-template<
-   class TYPE,
-   allow ALLOW = allow::one,
-   class CONVERTER = detail::convert_t
->
-static child_t<
-   typename detail::isNotVoid<TYPE>::type,
-   ALLOW, CONVERTER
-> child(
-   const std::string &name,
-   const bool top = false,
-   const CONVERTER &converter = CONVERTER{}
-) {
-   return child_t<TYPE,ALLOW,CONVERTER>{name,top,converter};
-}
-
-
-// child<TYPE[,ALLOW[,CONVERTER]]>(name,converter[,top])
-template<
-   class TYPE,
-   allow ALLOW = allow::one,
-   class CONVERTER = detail::convert_t
->
-static child_t<
-   typename detail::isNotVoid<TYPE>::type,
-   ALLOW, CONVERTER
-> child(
-   const std::string &name,
-   const CONVERTER &converter,
-   const bool top = false
-) {
-   return child_t<TYPE,ALLOW,CONVERTER>{name,top,converter};
+   return child_t<void,ALLOW,void,FILTER>
+      (name,filter,top);
 }

@@ -5,13 +5,17 @@ namespace child {
 // Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-// Note: the trues mean "allowed as a top-level node"
-inline const child_t<void,allow::one>
-   reactionSuite      ("reactionSuite",       true),
-   covarianceSuite    ("covarianceSuite",     true),
-   PoPs               ("PoPs",                true),
-   thermalScattering  ("thermalScattering",   true),
-   fissionFragmentData("fissionFragmentData", true);
+// Note: the ~ (tilde) makes them allowed as top-level nodes
+inline const auto
+   PoPs                = ~child_t<void,allow::one>("PoPs");
+inline const auto
+   reactionSuite       = ~child_t<void,allow::one>("reactionSuite");
+inline const auto
+   covarianceSuite     = ~child_t<void,allow::one>("covarianceSuite");
+inline const auto
+   thermalScattering   = ~child_t<void,allow::one>("thermalScattering");
+inline const auto
+   fissionFragmentData = ~child_t<void,allow::one>("fissionFragmentData");
 
 
 

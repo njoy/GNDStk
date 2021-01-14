@@ -33,12 +33,12 @@ Tree &reset(
    clear();
 
    // Warn if the given child_t doesn't look valid for a top-level GNDS node
-   if (!kwd.canBeTopLevel) {
+   if (!kwd.top()) {
       log::warning(
          "Tree.reset(" + detail::keyname(kwd) + ") called, "
          "but the node as given by the\n"
          "child_t object is not encoded as being suitable for a top-level\n"
-         "GNDS node (bool child_t.canBeTopLevel is false)"
+         "GNDS node (bool child_t.top() is false)"
       );
    }
 

@@ -13,13 +13,20 @@ template<
 >
 class meta_t {
 public:
-   // name, converter
+   // name, object, converter
    std::string name;
+   const TYPE object;
    CONVERTER converter; // optional custom converter; needs operator()
 
    // ctor
-   explicit meta_t(const std::string &n, const CONVERTER &c = CONVERTER{}) :
-      name(n), converter(c)
+   explicit meta_t(
+      const std::string &n,
+      const TYPE &t = TYPE{},
+      const CONVERTER &c = CONVERTER{}
+   ) :
+      name(n),
+      object(t),
+      converter(c)
    { }
 
    // basic()
@@ -69,8 +76,9 @@ public:
 // -----------------------------------------------------------------------------
 
 // Macro
-// For meta_t building. This macro doesn't allow for the (optional) converter;
-// for that, construct a meta_t directly.
+// For meta_t building.
+// This macro doesn't allow for the (optional) TYPE object or the converter.
+// For those, construct a meta_t directly.
 #define GNDSTK_MAKE_META(TYPE,name) \
    inline const meta_t<TYPE> name(#name)
 // Note: we won't #undef this eventually, as we normally would,

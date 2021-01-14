@@ -132,7 +132,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has_many("externalFiles"));
 
             auto bad_filter = [](const node &n)
-               { assert(false); return false; };
+               { assert(false); return false; }; // <== won't be invoked
             CHECK(n.has_many(""));
             CHECK(c.has_many("",bad_filter));
          }
@@ -213,7 +213,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has_child(s/++externalFiles));
 
             auto bad_filter = [](const node &n)
-               { assert(false); return false; };
+               { assert(false); return false; }; // <== won't be invoked
 
             CHECK(n.has_child(  --empty));
             CHECK(n.has_child(  ++empty));
@@ -340,7 +340,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has(s/++externalFiles));
 
             auto bad_filter = [](const node &n)
-               { assert(false); return false; };
+               { assert(false); return false; }; // <== won't be invoked
 
             CHECK(n.has(  --empty));
             CHECK(n.has(  ++empty));

@@ -183,14 +183,14 @@ SCENARIO("Testing GNDStk keyword") {
 
    // for metadata
    auto myversion = keyword.meta<version_t>("version");
-   auto mydate    = keyword.meta<date_t   >("date"   );
-   auto myshape   = keyword.meta<shape_t  >("shape"  );
+   auto mydate    = keyword.meta<date_t,detail::convert_t>("date");
+   auto myshape   = keyword.meta<shape_t>("shape",shape_t{},detail::convert_t{});
 
    // for children
    // The following is just like GNDStk::common::numeric<double>,
    // or equivalently, GNDStk::[basic or core]::numeric<double>.
    auto mynumbers = keyword.child<values_t,allow::one>
-      ("pcdata",detail::convert_pcdata_text_t{});
+      ("pcdata",values_t{},detail::convert_pcdata_text_t{});
 
    // In the following, a name of "" means to stay at the current node
    auto mymanifest = keyword.child<manifest_t,allow::one>("");
@@ -303,43 +303,102 @@ SCENARIO("Testing GNDStk keyword") {
 
 
    // ------------------------
-   // Exercise keyword builder
+   // Exercise keyword
+   // builder...
    // ------------------------
 
    // To properly test this, we should really have something like the Boost
    // demangle library, to print a representation of the *type* that's being
    // created. For now, let's just make sure that the expressions are valid.
 
-   // metadata
-   auto m01 = keyword.meta<         >("m01");
-   auto m02 = keyword.meta<char     >("m02");
-   auto m03 = keyword.meta<int      >("m03");
-   auto m04 = keyword.meta<float    >("m04");
-   auto m05 = keyword.meta<double   >("m05");
-   auto m06 = keyword.meta<version_t>("m06");
-   auto m07 = keyword.meta<date_t   >("m07");
-   auto m08 = keyword.meta<shape_t  >("m08");
+   // ------------------------
+   // ...metadata, type
+   // ------------------------
 
-   // basic children, no metadata/children requirements
-   auto c01 = keyword.child<                >("c01");
-   auto c02 = keyword.child<                >("c02",true );
-   auto c03 = keyword.child<                >("c03",false);
-   auto c04 = keyword.child<void            >("c04");
-   auto c05 = keyword.child<void            >("c05",true );
-   auto c06 = keyword.child<void            >("c06",false);
-   auto c07 = keyword.child<void,allow::many>("c07");
-   auto c08 = keyword.child<void,allow::many>("c08",true );
-   auto c09 = keyword.child<void,allow::many>("c09",false);
-   auto c10 = keyword.child<void,allow::one >("c10");
-   auto c11 = keyword.child<void,allow::one >("c11",true );
-   auto c12 = keyword.child<void,allow::one >("c12",false);
-   auto c13 = keyword.child<int             >("c13");
-   auto c14 = keyword.child<int             >("c14",true );
-   auto c15 = keyword.child<int             >("c15",false);
-   auto c16 = keyword.child<int, allow::many>("c16");
-   auto c17 = keyword.child<int, allow::many>("c17",true );
-   auto c18 = keyword.child<int, allow::many>("c18",false);
-   auto c19 = keyword.child<int, allow::one >("c19");
-   auto c20 = keyword.child<int, allow::one >("c20",true );
-   auto c21 = keyword.child<int, allow::one >("c21",false);
+   {
+      { auto m = keyword.meta                        ("m"                        ); }
+      { auto m = keyword.meta                        ("m", 0                     ); }
+      { auto m = keyword.meta                        ("m", 0, detail::convert_t{}); }
+      { auto m = keyword.meta<                     > ("m"                        ); }
+      { auto m = keyword.meta<                     > ("m", 0                     ); }
+      { auto m = keyword.meta<                     > ("m", 0, detail::convert_t{}); }
+      { auto m = keyword.meta<int                  > ("m"                        ); }
+      { auto m = keyword.meta<int                  > ("m", 0                     ); }
+      { auto m = keyword.meta<int                  > ("m", 0, detail::convert_t{}); }
+      { auto m = keyword.meta<int,detail::convert_t> ("m"                        ); }
+      { auto m = keyword.meta<int,detail::convert_t> ("m", 0                     ); }
+      { auto m = keyword.meta<int,detail::convert_t> ("m", 0, detail::convert_t{}); }
+   }
+
+   // ------------------------
+   // ...metadata, void
+   // ------------------------
+
+   {
+      { auto m = keyword.meta       ("m"); }
+      { auto m = keyword.meta<    > ("m"); }
+      { auto m = keyword.meta<void> ("m"); }
+   }
+
+   // ------------------------
+   // ...children, type
+   // ------------------------
+
+   // The commented-out cases are ambiguous:
+   // TYPE for <non-void>, or FILTER for <void>?
+   {
+      { auto c = keyword.child                                                    ("c"                                                   ); }
+   // { auto c = keyword.child                                                    ("c", 0                                                ); }
+      { auto c = keyword.child                                                    ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child                                                    ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child                                                    ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<                                                 > ("c"                                                   ); }
+   // { auto c = keyword.child<                                                 > ("c", 0                                                ); }
+      { auto c = keyword.child<                                                 > ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<                                                 > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<                                                 > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int                                              > ("c"                                                   ); }
+      { auto c = keyword.child<int                                              > ("c", 0                                                ); }
+      { auto c = keyword.child<int                                              > ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int                                              > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int                                              > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int,allow::one                                   > ("c"                                                   ); }
+      { auto c = keyword.child<int,allow::one                                   > ("c", 0                                                ); }
+      { auto c = keyword.child<int,allow::one                                   > ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int,allow::one                                   > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int,allow::one                                   > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c"                                                   ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0                                                ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c"                                                   ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0                                                ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+   }
+
+   // ------------------------
+   // ...children, void
+   // ------------------------
+
+   // The commented-out cases are ambiguous, as above.
+   {
+      { auto c = keyword.child                                   ("c"                           ); }
+   // { auto c = keyword.child                                   ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child                                   ("c", detail::noFilter{}, false); }
+      { auto c = keyword.child<                                > ("c"                           ); }
+   // { auto c = keyword.child<                                > ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child<                                > ("c", detail::noFilter{}, false); }
+      { auto c = keyword.child<void                            > ("c"                           ); }
+      { auto c = keyword.child<void                            > ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child<void                            > ("c", detail::noFilter{}, false); }
+      { auto c = keyword.child<void,allow::one                 > ("c"                           ); }
+      { auto c = keyword.child<void,allow::one                 > ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child<void,allow::one                 > ("c", detail::noFilter{}, false); }
+      { auto c = keyword.child<void,allow::one,detail::noFilter> ("c"                           ); }
+      { auto c = keyword.child<void,allow::one,detail::noFilter> ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child<void,allow::one,detail::noFilter> ("c", detail::noFilter{}, false); }
+   }
 }
