@@ -246,7 +246,7 @@ public:
 // in some other way than by using this macro.
 
 #define GNDSTK_MAKE_CHILD(type,name,ALLOW) \
-   inline const child_t<type,ALLOW> name(#name)
+   inline const child_t<type,allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.

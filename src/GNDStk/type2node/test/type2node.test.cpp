@@ -7,9 +7,8 @@
 using namespace njoy::GNDStk;
 
 static const std::string correct_node =
-R"***(values:
-   pcdata:
-      text: 1 2.3 4.56
+R"***(pcdata:
+   text: 1 2.3 4.56
 )***";
 
 SCENARIO("Testing GNDStk convert(type,node)") {
@@ -30,14 +29,11 @@ SCENARIO("Testing GNDStk convert(type,node)") {
       detail::convert_pcdata_text_t{}(container,n);
 
       // one way to check the node
-      CHECK(n.name == "values");
-      CHECK(n.metadata.size() == 0);
-      CHECK(n.children.size() == 1);
-      CHECK(n.children[0]->name == "pcdata");
-      CHECK(n.one("pcdata").metadata.size() == 1);
-      CHECK(n.one("pcdata").children.size() == 0);
-      CHECK(n.one("pcdata").metadata[0].first == "text");
-      CHECK(n.one("pcdata").metadata[0].second == "1 2.3 4.56");
+      CHECK(n.name == "pcdata");
+      CHECK(n.metadata.size() == 1);
+      CHECK(n.children.size() == 0);
+      CHECK(n.metadata[0].first == "text");
+      CHECK(n.metadata[0].second == "1 2.3 4.56");
 
       // a shorter way
       std::ostringstream oss; oss << n;
