@@ -6,7 +6,10 @@
 
 // string, T
 // Return value: a reference to the key/value pair just added
-template<class T, class CONVERTER = detail::convert_t>
+template<
+   class T,
+   class CONVERTER = typename detail::default_converter<T>::type
+>
 metaPair &add(
    const std::string &key,
    const T &value,
@@ -29,7 +32,10 @@ metaPair &add(
 // Return value
 //    == "did the optional have a value"
 //    == "we actually added something"
-template<class T, class CONVERTER = detail::convert_t>
+template<
+   class T,
+   class CONVERTER = typename detail::default_converter<T>::type
+>
 bool add(
    const std::string &key,
    const std::optional<T> &opt,
@@ -38,7 +44,7 @@ bool add(
    std::string to;
    try {
       if (opt)
-         converter(opt.value(),to);
+         converter(*opt,to);
       else
          return false;
    } catch (...) {
@@ -142,7 +148,7 @@ typename std::enable_if<
    const std::optional<T> &opt
 ) {
    if (opt)
-      return add(kwd, opt.value());
+      return add(kwd,*opt);
    else {
       log::error(
          "Node.add() called with a meta_t< non-std::optional >,\n"
@@ -157,9 +163,10 @@ typename std::enable_if<
 // 3. <optional<TYPE>>, T
 // The optional aspect is effectively ignored, because we're sending an actual
 // value. That the meta_t says it's optional doesn't matter - this is an add()
-// function, not a query, and we're getting the value. Formulating as follows
-// means that this function returns a metaPair &, not a bool, given that it
-// forwards to our add(string,T), not our add(string,optional<T>).
+// function, not a query, and we're getting the value as the second parameter.
+// Formulating this function in the following manner means that it returns a
+// metaPair &, not a bool, given that it forwards to our add(string,T), not to
+// our add(string,optional<T>).
 template<class TYPE, class CONVERTER, class T = TYPE>
 typename std::enable_if<
    std::is_constructible<TYPE,T>::value,
@@ -168,7 +175,14 @@ typename std::enable_if<
    const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
    const T &value = T{}
 ) {
-   return add(TYPE{}/kwd, value);
+   // We still do the kwd.object vs. TYPE{} selection business, as we do in
+   // similar constructs elsewhere, on the principle that we try to maintain,
+   // as deeply as possible, a TYPE's value that was used when setting up the
+   // query object (in this case meta_t) in the first place. Eventually, in
+   // places like this, we may be able to combine some SFINAE for "is default
+   // constructible" with an if-constexpr, and thereby relax, if only in one
+   // small place, a requirement that TYPE be default constructible.
+   return add((kwd.object ? *kwd.object : TYPE{})/kwd, value);
 }
 
 
@@ -181,7 +195,7 @@ typename std::enable_if<
    const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
    const std::optional<T> &opt
 ) {
-   return opt ? (add(TYPE{}/kwd, opt.value()), true) : false;
+   return opt ? (add(kwd,*opt), true) : false;
 }
 
 
@@ -231,7 +245,7 @@ typename std::enable_if<
    bool
 >::type add(const std::optional<T> &opt)
 {
-   return opt ? (add() = Node(opt.value()), true) : false;
+   return opt ? (add() = Node(*opt), true) : false;
 }
 
 
@@ -284,7 +298,7 @@ decltype(auto) add(
          // T == optional; return a bool
          if (!value)
             return false; // <== as with meta_t, nothing new gets added
-         Node &n = add(value.value());
+         Node &n = add(*value);
          n.name = kwd.name;
          return true;
       }
@@ -336,7 +350,7 @@ typename std::enable_if<
    const std::optional<T> &opt
 ) {
    if (opt)
-      return add(kwd, opt.value());
+      return add(kwd,*opt);
    else {
       log::error(
          "Node.add() called with a child_t< non-std::optional >,\n"
@@ -357,7 +371,7 @@ typename std::enable_if<
    const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const T &value = T{}
 ) {
-   return add(TYPE{}/kwd, value);
+   return add((kwd.object ? *kwd.object : TYPE{})/kwd, value);
 }
 
 
@@ -370,7 +384,7 @@ typename std::enable_if<
    const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const std::optional<T> &opt
 ) {
-   return opt ? (add(TYPE{}/kwd, opt.value()), true) : false;
+   return opt ? (add(kwd,*opt), true) : false;
 }
 
 

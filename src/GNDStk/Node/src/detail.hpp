@@ -10,6 +10,7 @@ template<class NODEFROM, class NODETO>
 void node2Node(const NODEFROM &, NODETO &);
 
 
+
 // -----------------------------------------------------------------------------
 // is_optional
 // -----------------------------------------------------------------------------
@@ -29,6 +30,7 @@ public:
 };
 
 
+
 // -----------------------------------------------------------------------------
 // remove_optional
 // -----------------------------------------------------------------------------
@@ -46,6 +48,7 @@ class remove_optional<std::optional<T>> {
 public:
    using type = T;
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -93,9 +96,10 @@ inline std::string keyname(const std::string &s)
 // regex
 inline std::string keyname(const std::regex &)
 {
-   // regex generally doesn't keep the original string around :-/
+   // regex generally doesn't keep the initialization string around
    return "regex";
 }
+
 
 
 // -----------------------------------------------------------------------------
@@ -114,13 +118,15 @@ class call_operator_child_t {
    //    Quick fix: downgrade to allow::one using predecrement: --child_t
    //
    // It seems that a static_assert string's formatting (say, with \n)
-   // is not necessarily respected by the compiler.
+   // is not necessarily respected by the compiler. Under the circumstances,
+   // we judge that a more-succint message is best.
 
    static_assert(
       ALLOW == allow::one,
      "Misuse of child_t with <allow::many> in Node's call operator"
    );
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -134,8 +140,8 @@ public:
    template<class KEYWORD, class NODE>
    void operator()(const KEYWORD &kwd, const NODE &node) const
    {
-      TYPE type{};
-      kwd.converter(node,type);
+      TYPE obj = kwd.object;
+      kwd.converter(node,obj);
    }
 };
 
@@ -149,6 +155,7 @@ public:
       // no action
    }
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -171,9 +178,20 @@ public:
       // with the metadata key called "label"
       const std::string &label = n.meta("label",found);
 
-      // If it's found, AND has the value we want,
-      // then return true; otherwise return false
-      return found && label == want;
+      // If label is found and has the value we want,
+      // or label is not found but the value we want
+      // is given as the empty string "", then return
+      // true. Otherwise, return false.
+      return found ? label == want : want == "";
+
+      // Note: cases of label == "" actually happen.
+      // Here's an example, from dec-094_Pu_235.xml:
+      //    <double label="" value="5951400.0" unit="eV"/>
+      // In this case, a query like:
+      //    node(Double,"")
+      // will thus succeed (found, and label == want).
+      // It would also have succeeded if label wasn't
+      // there (!found, but want == "").
    }
 };
 
@@ -199,12 +217,10 @@ public:
    {
       bool found;
       const std::string &label = n.meta("label",found);
-      // Here, "label" is the std::string metadatum we just found, and "want",
-      // originally coming from a query of some kind, is the regular expression
-      // against which to match the label.
       return found && std::regex_match(label,want);
    }
 };
+
 
 
 // -----------------------------------------------------------------------------
@@ -229,65 +245,69 @@ inline bool &extract_found(const T &, ARGS &&...args)
 }
 
 
+
 // -----------------------------------------------------------------------------
 // meta_ref
+// For operator[](meta_t<TYPE>)
+// Note: operator[](meta_t<void>) doesn't use meta_ref
 // -----------------------------------------------------------------------------
 
 /*
-Note that these make use of SFINAE as described here:
-
-   https://stackoverflow.com/questions/27433093
-
-in three ways. (1) To handle const-ness or lack thereof of the node that comes
-to the constructor. (2) To disable the assignment operators if the associated
-node is const. (3) To fold the two assignments (if applicable re: const) and
-the two conversions into one apiece, in the unusual but possible case of the
-meta_t's TYPE being std::string. (1) and (2), at least, could have been achieved
-by having two classes - say, meta_ref and meta_ref_const - but the SFINAE scheme
-reduces code repetition, if perhaps at the cost of some slight obfuscation.
+These make use of SFINAE in three ways: (1) To handle constness, or lack of
+constness, of the node that comes to the constructor. (2) To disable assignment
+if the associated node is const. (3) To fold the two assignments (if applicable)
+and the two conversions into one apiece, in the unusual but possible case that
+the meta_t's TYPE is std::string. (1) and (2) could have been achieved by having
+two classes - say, meta_ref and meta_ref_const - but the SFINAE scheme reduces
+code repetition.
 
 Remark with regards to TYPE == std::string. Metadata are stored as std::strings
 in our raw data structures. Normally, one uses meta_t<TYPE = void> to retrieve
-metadata in their raw form; in that case, our various accessors return const or
+metadata in their raw form. In that case, our various accessors return const or
 non-const std::string &. For types other than <void>, meta_t converts the raw
 string to the given type, and the accessors return by value. That non-void type
-COULD be std::string, if, for whatever reason, you don't want to use <void> and
-receive references to the raw internal strings. You might use <std::string>, for
-example, if you wanted a custom std::string to/from std::string converter other
-than the identity function.
+could, however, be std::string itself, if, for whatever reason, you don't want
+to use <void> and receive references to the raw internal strings. You might use
+std::string, for example, if you wished to use a custom std::string to/from
+std::string converter other than the identity function.
 
 Class meta_ref has assignment from TYPE and from std::string, and similarly for
 conversion. When TYPE *is* std::string, we use SFINAE to disable the std::string
-versions - which would have duplicate signatures to those of the TYPE versions
-in that case. Thus, we cause the general TYPE versions to apply. The std::string
-versions are disabled, not the TYPE versions, so that the converter is still
-applied. (Especially considering that you'd likely be using meta_t<std::string>
-over meta_t<void> precisely to get a non-identity string/string converter.)
+functions - which would otherwise have duplicate signatures to those of the TYPE
+functions. Thus, we cause the general TYPE functions to apply. The std::string
+functions are disabled, not the TYPE functions, so that the converter is still
+applied. (Especially considering that you'd likely be using meta_t<std::string>,
+in place of meta_t<void>, precisely so that you can use a non-identity string to
+string conversion.)
 */
 
 template<
-   class NODE, bool CONST,
-   class TYPE, class CONVERTER
+   class NODE, bool CONST, // node type, and its constness status
+   class TYPE, class CONVERTER // for the meta_t
 >
 class meta_ref {
 
-   // data
    const meta_t<TYPE,CONVERTER> kwd;
+
+   // [const] std::string reference to the actual, in-node metadatum value
    typename std::conditional<
       CONST,
       const std::string,
       std::string
-   >::type &metaValueString;
+   >::type &metaValueRef;
 
 public:
 
+   // ------------------------
    // constructor
+   // ------------------------
+
    meta_ref(
       const meta_t<TYPE,CONVERTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &node
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
       kwd(kwd), // original meta_t
-      metaValueString(node(-kwd)) // -kwd so meta_t<void> ==> reference to raw
+      metaValueRef(parent(-kwd)) // -kwd so meta_t<void>; reference to raw
    { }
 
    // ------------------------
@@ -295,24 +315,26 @@ public:
    // disabled if CONST==true
    // ------------------------
 
+   // = TYPE
    template<bool CONSTANT = CONST>
    typename std::enable_if<
      !CONSTANT,
       meta_ref
    >::type &operator=(const TYPE &obj)
    {
-      kwd.converter(obj,metaValueString);
+      kwd.converter(obj,metaValueRef="");
       return *this;
    }
 
-   // if TYPE != std::string
+   // = std::string
+   // if std::string != TYPE
    template<bool CONSTANT = CONST, class T = TYPE>
    typename std::enable_if<
      !CONSTANT && !std::is_same<T,std::string>::value,
       meta_ref
    >::type &operator=(const std::string &s)
    {
-      metaValueString = s;
+      metaValueRef = s;
       return *this;
    }
 
@@ -320,41 +342,58 @@ public:
    // conversion
    // ------------------------
 
+   // to TYPE
    operator TYPE() const
    {
-      TYPE obj;
-      kwd.converter(metaValueString,obj);
+      TYPE obj{};
+      kwd.converter(metaValueRef,obj);
       return obj;
    }
 
-   // if  TYPE != std::string
+   // to std::string
+   // if std::string != TYPE
    template<class T = TYPE>
    operator typename std::enable_if<
      !std::is_same<T,std::string>::value,
       std::string
    >::type() const
    {
-      return metaValueString;
+      return metaValueRef;
    }
 };
 
 
+
 // -----------------------------------------------------------------------------
 // child_ref
-// allow::one
+// Default
 // -----------------------------------------------------------------------------
 
-// Similar comments apply to those regarding meta_ref.
-
-// Default == the allow::one case; we'll specialize for allow::many
 template<
    class NODE, bool CONST,
    class TYPE, allow ALLOW, class CONVERTER, class FILTER
 >
 class child_ref {
+   // nothing
+};
 
-   // data
+
+
+// -----------------------------------------------------------------------------
+// child_ref
+// For operator[](child_t<TYPE,one>)
+// Note: operator[](child_t<void,one>) doesn't use child_ref
+// -----------------------------------------------------------------------------
+
+template<
+   class NODE, bool CONST, // node type, and its constness status
+   class TYPE, class CONVERTER, class FILTER // for the child_t
+>
+class child_ref<NODE,CONST,TYPE,allow::one,CONVERTER,FILTER>
+{
    const child_t<TYPE,allow::one,CONVERTER,FILTER> kwd;
+
+   // [const] node reference to the actual node
    typename std::conditional<
       CONST,
       const NODE,
@@ -363,13 +402,16 @@ class child_ref {
 
 public:
 
+   // ------------------------
    // constructor
+   // ------------------------
+
    child_ref(
       const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &node
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
       kwd(kwd), // original child_t
-      childNodeRef(node(-kwd)) // -kwd so child_t<void> ==> reference to raw
+      childNodeRef(parent(-kwd)) // -kwd so child_t<void>; reference to raw
    { }
 
    // ------------------------
@@ -377,17 +419,19 @@ public:
    // disabled if CONST==true
    // ------------------------
 
+   // = TYPE
    template<bool CONSTANT = CONST>
    typename std::enable_if<
      !CONSTANT,
       child_ref
    >::type &operator=(const TYPE &obj)
    {
-      kwd.converter(obj,childNodeRef);
+      kwd.converter(obj,childNodeRef.clear());
       return *this;
    }
 
-   // if TYPE != NODE
+   // = NODE (as in child_ref's template argument called NODE)
+   // if NODE != TYPE
    template<bool CONSTANT = CONST, class T = TYPE>
    typename std::enable_if<
      !CONSTANT && !std::is_same<T,NODE>::value,
@@ -402,14 +446,16 @@ public:
    // conversion
    // ------------------------
 
+   // to TYPE
    operator TYPE() const
    {
-      TYPE obj;
+      TYPE obj{};
       kwd.converter(childNodeRef,obj);
       return obj;
    }
 
-   // if TYPE != NODE
+   // to NODE() (as in child_ref's template argument called NODE)
+   // if NODE != TYPE
    template<class T = TYPE>
    operator typename std::enable_if<
      !std::is_same<T,NODE>::value,
@@ -421,17 +467,162 @@ public:
 };
 
 
+
 // -----------------------------------------------------------------------------
 // child_ref
-// allow::many
+// For operator[](child_t<TYPE,many>)
+// Note: works - and indeed is used - when TYPE == void.
 // -----------------------------------------------------------------------------
 
 template<
-   class NODE, bool CONST,
-   class TYPE, class CONVERTER, class FILTER
+   class NODE, bool CONST, // node type, and its constness status
+   class TYPE, class CONVERTER, class FILTER // for the child_t
 >
-class child_ref<NODE,CONST,TYPE,allow::many,CONVERTER,FILTER> {
-   // Unused for now
+class child_ref<NODE,CONST,TYPE,allow::many,CONVERTER,FILTER>
+{
+   const child_t<TYPE,allow::many,CONVERTER,FILTER> kwd;
+
+   // vector of [const] node pointers to the actual nodes
+   std::vector<
+      typename std::conditional<
+         CONST,
+         const NODE,
+         NODE
+      >::type *
+   > childNodePtr;
+
+public:
+
+   // ------------------------
+   // constructor
+   // ------------------------
+
+   child_ref(
+      const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
+      typename std::conditional<CONST, const NODE, NODE>::type &parent
+   ) :
+      kwd(kwd) // original child_t
+   {
+      // resembles the Node.many() code, but
+      // here we create a vector of pointers
+      try {
+         if (kwd.name == "")
+            childNodePtr.push_back(&parent);
+         else {
+            const std::regex regex(kwd.name);
+            for (auto &c : parent.children)
+               if (std::regex_match(c->name, regex) && kwd.filter(*c))
+                  childNodePtr.push_back(&(*c));
+         }
+      } catch (...) {
+         log::ctor("child_ref<allow::many>" + detail::keyname(kwd));
+         throw;
+      }
+   }
+
+   // ------------------------
+   // misc. functions
+   // ------------------------
+
+   // size
+   std::size_t size() const
+   {
+      return childNodePtr.size();
+   }
+
+   // operator[]
+   decltype(auto) operator[](const std::size_t n) const
+   {
+      if constexpr (std::is_same<TYPE,void>::value) {
+         // for TYPE == void
+         // returns: [const] NODE &
+         return *childNodePtr[n];
+      } else {
+         // for TYPE != void
+         // leverage the capabilities of the allow::one child_ref
+         return child_ref<NODE,CONST,TYPE,allow::one,CONVERTER,FILTER>(
+            // As always, -- downgrades many to one. The /"" changes the lookup
+            // name to "", which means "use the current node" (in this case the
+            // node *childNodePtr[n]), which is appropriate here because we're
+            // not digging further into the tree; we're making the [n] element
+            // of the current "smart object" usable as its own smart object.
+            --kwd/"",
+            *childNodePtr[n]
+         );
+      }
+   }
+
+   // ------------------------
+   // assignment
+   // ------------------------
+
+   // child_ref for allow::many child_t objects, as opposed to child_ref for
+   // allow::one child_t objects, has no assignment operators. Presumably,
+   // an assignment operator's purpose in this case would be to allow someone
+   // to remake the entire set of the (generally many) child nodes to which
+   // we're pointing in our childNodePtr vector of pointers to nodes. Such an
+   // action, however, should be done by others means, and through the parent
+   // node (in which case the current class isn't involved anyway). Besides,
+   // it isn't clear what sorts of "remake" we'd want to allow. Element-by-
+   // element replacement of the pointed-to nodes with an equal number of new
+   // ones? A different number of new ones? Something else?
+
+   // ------------------------
+   // conversion
+   // ------------------------
+
+   // The SFINAE is such that we'll have conversion operators as follows:
+   //
+   // if TYPE == most things:
+   //    operator vector<NODE>()
+   //    operator vector<TYPE>() (converter is applied)
+   //
+   // if TYPE == void:
+   //    operator vector<NODE>()
+   //
+   // if TYPE == NODE:
+   //    operator vector<TYPE>() (TYPE *is* NODE, but converter is applied)
+   //
+   // Remember, NODE is the version of Node<> with which we instantiated
+   // this child_ref.
+   //
+   // The case of TYPE == NODE is analogous to the case of TYPE == std::string
+   // for the meta_ref class. See the discussion above the code for that class.
+
+   // to vector<TYPE>
+   template<class T = TYPE>
+   operator std::vector<
+      typename std::enable_if<
+        !std::is_same<T,void>::value,
+         TYPE
+      >::type
+   >() const
+   {
+      std::vector<TYPE> vec;
+      vec.reserve(size());
+      for (auto &elem : childNodePtr) {
+         TYPE obj{};
+         kwd.converter(*elem,obj);
+         vec.push_back(obj);
+      }
+      return vec;
+   }
+
+   // to vector<NODE>
+   template<class T = TYPE>
+   operator std::vector<
+      typename std::enable_if<
+        !std::is_same<T,NODE>::value, // <== includes TYPE == void
+         NODE
+      >::type
+   >() const
+   {
+      std::vector<NODE> vec;
+      vec.reserve(size());
+      for (auto &elem : childNodePtr)
+         vec.push_back(*elem);
+      return vec;
+   }
 };
 
 } // namespace detail

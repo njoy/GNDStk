@@ -5,7 +5,6 @@
 using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node meta()") {
-
    GIVEN("The top-level node from a tree object") {
       Tree<> tree("n-069_Tm_170-covar.xml");
       const Node<> &consttop = tree.top(); // top-level GNDS node
@@ -64,5 +63,4 @@ SCENARIO("Testing GNDStk Node meta()") {
          CHECK(d ==  1.99 );
       }
    }
-
 }

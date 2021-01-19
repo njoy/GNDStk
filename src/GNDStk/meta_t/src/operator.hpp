@@ -23,21 +23,21 @@ inline auto operator-(const meta_t<TYPE,CONVERTER> &kwd)
 
 // T/meta_t<TYPE,CONVERTER>
 template<class T, class TYPE, class CONVERTER>
-inline auto operator/(const T &, const meta_t<TYPE,CONVERTER> &kwd)
+inline auto operator/(const T &object, const meta_t<TYPE,CONVERTER> &kwd)
 {
    // Keep the old converter.
    // You must change that separately if it's necessary to do so,
-   // e.g. because it can't convert to a T.
-   return meta_t<T,CONVERTER>(kwd.name, kwd.converter);
+   // e.g. because its convert()s handled TYPE, but not T.
+   return meta_t<T,CONVERTER>(kwd.name, object, kwd.converter);
 }
 
 // T/meta_t<void>
 template<class T>
-inline auto operator/(const T &, const meta_t<void> &kwd)
+inline auto operator/(const T &object, const meta_t<void> &kwd)
 {
    // Use our default converter. (The input, a meta_t<void>, doesn't have one.)
    // You must change that separately if the default isn't wanted.
-   return meta_t<T>(kwd.name);
+   return meta_t<T>(kwd.name, object);
 }
 
 
@@ -115,7 +115,7 @@ inline meta_t<
    const C &converter
 ) {
    // Keep the old type
-   return meta_t<TYPE,C>(kwd.name, converter);
+   return meta_t<TYPE,C>(kwd.name, kwd.object, converter);
 }
 
 // meta_t<void>/C
@@ -137,7 +137,7 @@ inline meta_t<
 
 // -----------------------------------------------------------------------------
 // post--
-// Downgrade converter to its default
+// Change converter to its default
 // -----------------------------------------------------------------------------
 
 // meta_t<TYPE>--
@@ -148,5 +148,8 @@ inline auto operator--(
    const meta_t<TYPE,CONVERTER> &kwd,
    const int
 ) {
-   return meta_t<TYPE,typename detail::default_converter<TYPE>::type>(kwd.name);
+   return meta_t<TYPE,typename detail::default_converter<TYPE>::type>(
+      kwd.name,
+      kwd.object
+   );
 }

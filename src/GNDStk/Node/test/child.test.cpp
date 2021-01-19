@@ -108,7 +108,7 @@ SCENARIO("Testing GNDStk Node child()") {
          // below, we'll exercise every variation of node::child()
          auto temp = top(
             misc::child::styles,   // from GNDStk
-            misc::child::evaluated // from GNDStk
+            --misc::child::evaluated // from GNDStk
          ).child(
             temperature // ours, as set up earlier
          );

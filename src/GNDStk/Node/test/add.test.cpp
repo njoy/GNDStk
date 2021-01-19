@@ -94,11 +94,11 @@ SCENARIO("Testing GNDStk Node add()") {
       // ------------------------
       // ------------------------
 
-      auto foo  = keyword.child<void,allow::one>("foo");
-      auto foos = keyword.child<
+      auto foo = keyword.child<void,allow::one>("foo");
+      auto numbers = keyword.child<
          std::vector<double>,
          allow::one
-      >("values",misc::child::convert_pcdata_text);
+         >("pcdata",std::vector<double>{},detail::convert_pcdata_text_t{});
 
       auto nrepeat = keyword.child<void,allow::many>("repeated node");
       Node<> node1; node1.name = "aa11";
@@ -114,14 +114,17 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(nrepeat,vec);
       n.add(nrepeat,node5);
 
-      auto drepeat = keyword.child<dim2d,allow::many>("dimension");
+      // dim2d doesn't happen to have a default constructor, so we'll need
+      // to give it a value in the following child_t. For just the .add()s,
+      // the value isn't used.
+      auto drepeat = keyword.child<dim2d,allow::many>("dimension",dim2d{0,0});
       const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);
 
       Node<std::deque,std::list> n3; n3.name = "SubNode 6";
       n.add(foo,n3);
-      n.add(foos,std::vector<double>{ 1.2, 3.4, 5.6, 7.8 });
+      n.add("values").add(numbers,std::vector<double>{ 1.2, 3.4, 5.6, 7.8 });
 
       n.write(std::cout);
    }

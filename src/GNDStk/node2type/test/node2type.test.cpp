@@ -39,11 +39,10 @@ SCENARIO("Testing GNDStk convert(node,type)") {
 
    WHEN("We make a node foo with particular content") {
       Node<> foo("foo");
-      // If a node has a child named "pcdata", which in turn has a metadatum
-      // named "text", then the convert(node,container) function, where
-      // container is something like vector<T>, will attempt to fill the
-      // container with the contents of the "text" metadatum's value.
-      foo.add("pcdata").add("text","12 34 56 78 90");
+      // If a node has a "text" metadatum, then the convert(node,container)
+      // function, where container is e.g. vector<T>, will attempt to fill
+      // the container with the contents of the "text" metadatum's value.
+      foo.add("text","12 34 56 78 90");
 
       // Update, 2020-10-19. The relevant convert() functionality has been
       // reformulated into the detail::convert_pcdata_text_t callable object,

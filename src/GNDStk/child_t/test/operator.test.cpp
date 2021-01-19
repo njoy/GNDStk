@@ -129,6 +129,45 @@ SCENARIO("Testing GNDStk child_t operators") {
    }
 
    // ------------------------
+   // ~child_t
+   // !child_t
+   // top()
+   // top(bool)
+   // ------------------------
+
+   GIVEN("Some child_t objects") {
+      const child_t<char,allow::one, converterA> foo("foo");
+      const child_t<int, allow::many,converterB> bar("bar");
+      child_t<void,allow::one > one("one");
+      one.top(true);
+      child_t<void,allow::many> two("two");
+      two.top(true);
+
+      CHECK(foo.top() == false);
+      CHECK(bar.top() == false);
+      CHECK(one.top() == true);
+      CHECK(two.top() == true);
+
+      WHEN("We apply ~child_t") {
+         THEN("Top-level is enabled") {
+            CHECK((~foo).top() == true);
+            CHECK((~bar).top() == true);
+            CHECK((~one).top() == true);
+            CHECK((~two).top() == true);
+         }
+      }
+
+      WHEN("We apply !child_t") {
+         THEN("Top-level is disabled") {
+            CHECK((!foo).top() == false);
+            CHECK((!bar).top() == false);
+            CHECK((!one).top() == false);
+            CHECK((!two).top() == false);
+         }
+      }
+   }
+
+   // ------------------------
    // type/child_t
    // ------------------------
 

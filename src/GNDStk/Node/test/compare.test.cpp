@@ -86,7 +86,7 @@ SCENARIO("Testing GNDStk Node operator==() and operator!=") {
       WHEN("We change a metadatum value somewhere") {
          o2 = oh;
          o2(reactionSuite,PoPs,
-            gaugeBosons,--gaugeBoson,child::spin,fraction,unit) = "hfoo";
+            gaugeBosons,--gaugeBoson,child::spin,--fraction,unit) = "hfoo";
          THEN("operator== fails") {
             CHECK(o2 != oh);
          }

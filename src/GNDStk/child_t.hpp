@@ -69,60 +69,58 @@ public:
    // data
    // ------------------------
 
-   // name, converter, filter, can be top level?
+   // name, object, converter, filter
    std::string name;
+   const TYPE object;
    CONVERTER converter; // optional custom converter; needs operator()
    FILTER filter; // optional custom filter; needs operator()
+private:
+   // allowable as top-level?
+   // We make this private, with a setter and a getter, so that the setter
+   // can register the name as "allowable as top-level" if we set to true.
    bool canBeTopLevel;
+public:
 
    // ------------------------
    // constructors
    // ------------------------
 
-   // ctor(name)
-   // ctor(name,top)
-   // ctor(name,top,converter)
-   // ctor(name,top,converter,filter)
+   // name
+   // name, converter
+   // name, converter, filter
+   // name, converter, filter, top
    explicit child_t(
       const std::string &n,
-      const bool top = false,
+      const TYPE &t = TYPE{},
       const CONVERTER &c = CONVERTER{},
-      const FILTER &f = FILTER{}
+      const FILTER &f = FILTER{},
+      const bool canbetop = false
    ) :
-      name(n), converter(c), filter(f), canBeTopLevel(top)
+      name(n), object(t), converter(c), filter(f)
    {
-      if (top) detail::AllowedTop.insert(name);
-   }
-
-   // ctor(name,converter)
-   // ctor(name,converter,top)
-   // ctor(name,converter,top,filter)
-   child_t(
-      const std::string &n,
-      const CONVERTER &c,
-      const bool top = false,
-      const FILTER &f = FILTER{}
-   ) :
-      name(n), converter(c), filter(f), canBeTopLevel(top)
-   {
-      if (top) detail::AllowedTop.insert(name);
-   }
-
-   // ctor(name,converter,filter)
-   // ctor(name,converter,filter,top)
-   child_t(
-      const std::string &n,
-      const CONVERTER &c,
-      const FILTER &f,
-      const bool top = false
-   ) :
-      name(n), converter(c), filter(f), canBeTopLevel(top)
-   {
-      if (top) detail::AllowedTop.insert(name);
+      top(canbetop);
    }
 
    // ------------------------
-   // Simple functions
+   // top(): allowable
+   // as top-level node?
+   // ------------------------
+
+   // top()
+   bool top() const
+   {
+      return canBeTopLevel;
+   }
+
+   // top(bool)
+   void top(const bool t)
+   {
+      if (t) detail::AllowedTop.insert(name);
+      canBeTopLevel = t;
+   }
+
+   // ------------------------
+   // simple functions
    // ------------------------
 
    // basic()
@@ -140,7 +138,7 @@ public:
    auto one() const
    {
       return child_t<TYPE,allow::one,CONVERTER,FILTER>(
-         name, converter, filter, canBeTopLevel
+         name, object, converter, filter, canBeTopLevel
       );
    }
 
@@ -149,7 +147,7 @@ public:
    auto many() const
    {
       return child_t<TYPE,allow::many,CONVERTER,FILTER>(
-         name, converter, filter, canBeTopLevel
+         name, object, converter, filter, canBeTopLevel
       );
    }
 };
@@ -173,42 +171,51 @@ public:
    // data
    // ------------------------
 
-   // name, filter, can be top level?
+   // name, filter
    std::string name;
    FILTER filter; // optional custom filter; needs operator()
+private:
+   // allowable as top-level?
    bool canBeTopLevel;
+public:
 
    // ------------------------
    // constructors
    // ------------------------
 
-   // ctor(name)
-   // ctor(name,top)
-   // ctor(name,top,filter)
+   // name
+   // name, filter
+   // name, filter, top
    explicit child_t(
       const std::string &n,
-      const bool top = false,
-      const FILTER &f = FILTER{}
+      const FILTER &f = FILTER{},
+      const bool t = false
    ) :
-      name(n), filter(f), canBeTopLevel(top)
+      name(n), filter(f)
    {
-      if (top) detail::AllowedTop.insert(name);
-   }
-
-   // ctor(name,filter)
-   // ctor(name,filter,top)
-   explicit child_t(
-      const std::string &n,
-      const FILTER &f,
-      const bool top = false
-   ) :
-      name(n), filter(f), canBeTopLevel(top)
-   {
-      if (top) detail::AllowedTop.insert(name);
+      top(t);
    }
 
    // ------------------------
-   // Simple functions
+   // top(): allowable
+   // as top-level node?
+   // ------------------------
+
+   // top()
+   bool top() const
+   {
+      return canBeTopLevel;
+   }
+
+   // top(bool)
+   void top(const bool t)
+   {
+      if (t) detail::AllowedTop.insert(name);
+      canBeTopLevel = t;
+   }
+
+   // ------------------------
+   // simple functions
    // ------------------------
 
    // basic()
@@ -240,13 +247,13 @@ public:
 // Macro
 // -----------------------------------------------------------------------------
 
-// For child_t building. This macro doesn't handle the optional "top level"
+// For child_t building. This macro doesn't handle the optional "top-level"
 // flag, the converter, or the filter; we don't believe those will be needed
 // very often. If you do need to provide one or both, construct a child_t
 // in some other way than by using this macro.
 
-#define GNDSTK_MAKE_CHILD(type,name,ALLOW) \
-   inline const child_t<type,ALLOW> name(#name)
+#define GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
+   inline const child_t<TYPE,allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.

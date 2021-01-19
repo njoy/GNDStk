@@ -426,7 +426,7 @@ bool node2XML(const NODE &node, pugi::xml_node &x)
 
 inline void check_top(
    const std::string &top,
-   const std::string &type,
+   const std::string &classname,
    const std::string &context
 ) {
    if (AllowedTop.find(top) == AllowedTop.end()) {
@@ -436,7 +436,7 @@ inline void check_top(
       for (const std::string &n : detail::AllowedTop)
          message += "   \"" + n + "\"\n";
       message += "Creating node \"{}\" anyway...";
-      log::warning(message, top, type, top);
+      log::warning(message, top, classname, top);
       log::function(context);
    }
 }

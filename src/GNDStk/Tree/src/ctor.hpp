@@ -91,13 +91,13 @@ explicit Tree(const std::string &filename, const file form = file::null)
 // file name, string
 // Example:
 //    Tree<> t("n-008_O_016.xml", "xml");
-Tree(const std::string &filename, const std::string &type)
+Tree(const std::string &filename, const std::string &filetype)
 {
    try {
-      if (!read(filename,type))
+      if (!read(filename,filetype))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(\"{}\",type=\"{}\")", filename, type);
+      log::ctor("Tree(\"{}\",type=\"{}\")", filename, filetype);
       throw;
    }
 }
@@ -121,13 +121,13 @@ explicit Tree(std::istream &is, const file form = file::null)
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree<> t(ifs, "xml");
-Tree(std::istream &is, const std::string &type)
+Tree(std::istream &is, const std::string &filetype)
 {
    try {
-      if (!read(is,type))
+      if (!read(is,filetype))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(istream,format)", type);
+      log::ctor("Tree(istream,format)", filetype);
       throw;
    }
 }
@@ -179,14 +179,14 @@ Tree(
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 Tree(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const std::string &type,
+   const std::string &filetype,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
-      reset(kwd, type, version, encoding);
+      reset(kwd, filetype, version, encoding);
    } catch (...) {
-      log::ctor("Tree(" + detail::keyname(kwd) + ",type=\"{}\")", type);
+      log::ctor("Tree(" + detail::keyname(kwd) + ",type=\"{}\")", filetype);
       throw;
    }
 }

@@ -17,6 +17,42 @@ inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 
 
 // -----------------------------------------------------------------------------
+// operator~: Allow as top-level
+// operator!: Disallow as top-level
+//
+// We don't expect much use of these, but someone may occasionally find the
+// first (more likely) or the second (less likely) to be helpful. The unary
+// operators that we chose for these purposes seemed like the best, given a
+// limited selection. One could think: (T)ilde for (T)op; Not for Not.
+// -----------------------------------------------------------------------------
+
+// operator~
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator~(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+{
+   auto ret = kwd;
+   ret.top(true);
+   return ret;
+}
+
+// operator!
+// fixme This switches off the canBeTopLevel flag in an individual child_t,
+// but we actually use the namespace-scope set<string> AllowedTop when we
+// determine if a particular name is allowed as a top-level node. So, turning
+// of a child_t's previously-true top-level designator does not, at the moment,
+// have any meaningful effect anywhere. We'll look at this more carefully
+// sometime; for now, it just isn't a super important issue.
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+inline auto operator!(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+{
+   auto ret = kwd;
+   ret.top(false);
+   return ret;
+}
+
+
+
+// -----------------------------------------------------------------------------
 // T/child_t
 // Change type to T
 // See meta_t analogs for relevant remarks
@@ -25,29 +61,31 @@ inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // T/child_t<TYPE,ALLOW,CONVERTER,FILTER>
 template<class T, class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator/(
-   const T &,
+   const T &object,
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd
 ) {
    return child_t<T,ALLOW,CONVERTER,FILTER>(
       kwd.name,
+      object,
       kwd.converter,
       kwd.filter,
-      kwd.canBeTopLevel
+      kwd.top()
    );
 }
 
 // T/child_t<void,ALLOW,void,FILTER>
 template<class T, allow ALLOW, class FILTER>
 inline auto operator/(
-   const T &,
+   const T &object,
    const child_t<void,ALLOW,void,FILTER> &kwd
 ) {
    using CONVERTER = typename detail::default_converter<T>::type;
    return child_t<T,ALLOW,CONVERTER,FILTER>(
       kwd.name,
+      object,
       CONVERTER{}, // because the input child_t didn't have one
       kwd.filter,
-      kwd.canBeTopLevel
+      kwd.top()
    );
 }
 
@@ -134,9 +172,10 @@ inline child_t<
 ) {
    return child_t<TYPE,ALLOW,C,FILTER>(
       kwd.name,
+      kwd.object,
       converter, // the new one; not kwd.converter!
       kwd.filter,
-      kwd.canBeTopLevel
+      kwd.top()
    );
 }
 
@@ -162,7 +201,7 @@ inline child_t<
 
 // -----------------------------------------------------------------------------
 // post--
-// Downgrade converter to its default
+// Change converter to its default
 // -----------------------------------------------------------------------------
 
 // child_t<TYPE>--
@@ -174,9 +213,10 @@ inline auto operator--(
    using C = typename detail::default_converter<TYPE>::type;
    return child_t<TYPE,ALLOW,C,FILTER>(
       kwd.name,
+      kwd.object,
       C{},
       kwd.filter,
-      kwd.canBeTopLevel
+      kwd.top()
    );
 }
 
@@ -225,9 +265,10 @@ inline auto operator+(
 ) {
    return child_t<TYPE,ALLOW,CONVERTER,F>(
       kwd.name,
+      kwd.object,
       kwd.converter,
       filter, // the new one
-      kwd.canBeTopLevel
+      kwd.top()
    );
 }
 
@@ -240,6 +281,6 @@ inline auto operator+(
    return child_t<void,ALLOW,void,F>(
       kwd.name,
       filter, // the new one
-      kwd.canBeTopLevel
+      kwd.top()
    );
 }

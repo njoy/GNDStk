@@ -132,7 +132,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has_many("externalFiles"));
 
             auto bad_filter = [](const node &n)
-               { assert(false); return false; };
+               { assert(false); return false; }; // <== won't be invoked
             CHECK(n.has_many(""));
             CHECK(c.has_many("",bad_filter));
          }
@@ -213,7 +213,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has_child(s/++externalFiles));
 
             auto bad_filter = [](const node &n)
-               { assert(false); return false; };
+               { assert(false); return false; }; // <== won't be invoked
 
             CHECK(n.has_child(  --empty));
             CHECK(n.has_child(  ++empty));
@@ -340,7 +340,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has(s/++externalFiles));
 
             auto bad_filter = [](const node &n)
-               { assert(false); return false; };
+               { assert(false); return false; }; // <== won't be invoked
 
             CHECK(n.has(  --empty));
             CHECK(n.has(  ++empty));
@@ -446,31 +446,31 @@ SCENARIO("Testing GNDStk Node has*() functions") {
          const meta_t<> foo("bar");
 
          // works where it should
-         CHECK(n.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(n.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                      Double,value));
-         CHECK(c.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(c.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                      Double,unit));
-         CHECK(n.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(n.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                      Double,"eval",value));
-         CHECK(c.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(c.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                      Double,"eval",unit));
-         CHECK(n.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(n.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                      Double,std::regex(".*"),value));
-         CHECK(c.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(c.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                      Double,std::regex(".*"),unit));
 
          // fails where it should
-         CHECK(!n.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(!n.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                       Double,foo));
-         CHECK(!c.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(!c.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                       Double,foo));
-         CHECK(!n.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(!n.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                       Double,"bad label",value));
-         CHECK(!c.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(!c.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                       Double,"another bad label",unit));
-         CHECK(!n.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(!n.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                       Double,std::regex("foo.*"),value));
-         CHECK(!c.has(PoPs,gaugeBosons,gaugeBoson,mass,
+         CHECK(!c.has(PoPs,gaugeBosons,--gaugeBoson,mass,
                       Double,std::regex(".*bar"),unit));
       }
    }
