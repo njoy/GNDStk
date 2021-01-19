@@ -56,7 +56,7 @@ namespace v1_9 {
 
         // the query did not work
         log::error( "Some or all of the required attributes and/or children for "
-                    "the \"values\" node are missing"  );
+                    "the \"values\" node are missing" );
         //!@todo print out the node content?
         throw std::exception();
       }

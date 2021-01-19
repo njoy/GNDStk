@@ -31,9 +31,9 @@ namespace v1_9 {
                        std::optional< std::string >{} / GNDStk::basic::unit;
 
     /* data fields */
-    unsigned int index_;                 // required
-    std::string label_;                  // required
-    std::optional< std::string > unit_;  // optional, no default
+    unsigned int index_;
+    std::string label_;
+    std::optional< std::string > unit_;
 
     /* auxiliary functions */
     void sync() {
@@ -53,7 +53,7 @@ namespace v1_9 {
 
         // the query did not work
         log::error( "Some or all of the required attributes and/or children for "
-                    "the \"axis\" node are missing"  );
+                    "the \"axis\" node are missing" );
         //!@todo print out the node content?
         throw std::exception();
       }

@@ -56,7 +56,7 @@ namespace v1_9 {
       if ( !this->node().has( keys::axis ) ) {
 
         log::error( "Some or all of the required attributes and/or children for "
-                    "the \"axes\" node are missing"  );
+                    "the \"axes\" node are missing" );
         throw std::exception();
       }
 
@@ -69,7 +69,7 @@ namespace v1_9 {
         else if ( child->name == "axis" ) {
 
           log::error( "An \"axes\" node uses a \"grid\" node, this is "
-                      "currently unsupported"  );
+                      "currently unsupported" );
           throw std::exception();
         }
       }
