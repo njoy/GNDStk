@@ -173,8 +173,8 @@ SCENARIO("Testing GNDStk tree operator()") {
 
       WHEN("We call tree operator() with (child_t,...) (various ...s)") {
          // dvalue = double version of "value" metadatum
-         CHECK(tree(reactionSuite,styles,evaluated,temperature,dvalue) == 0.0);
-         CHECK(tree(reactionSuite,styles,evaluated,temperature,unit  ) == "K");
+         CHECK(tree(reactionSuite,styles,--evaluated,temperature,dvalue) == 0.0);
+         CHECK(tree(reactionSuite,styles,--evaluated,temperature,unit  ) == "K");
 
          // child::reaction has ALLOW == allow::many, so the following
          // gives us back a container (std::vector by default).

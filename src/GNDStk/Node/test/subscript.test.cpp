@@ -219,7 +219,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("const works as expected") {
             // v will be a detail::meta_ref<Node,CONST=true,version_t>,
             // where version_t is our custom type defined above
-            auto v = c(reactionSuite,styles,evaluated)
+            auto v = c(reactionSuite,styles,--evaluated)
                [meta_t<version_t>("version")];
 
             // for const, assignment isn't available; neither of these compile:
@@ -247,7 +247,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
-            auto v = n(reactionSuite,styles,evaluated)
+            auto v = n(reactionSuite,styles,--evaluated)
                [meta_t<version_t>("version")];
 
             // Assignment is available now, because the above came from our
@@ -270,12 +270,12 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // as something that's usable (when applied to non-const nodes
             // anyway) as an lvalue.
 
-            auto &EvaluatedNode = n(reactionSuite,styles,evaluated);
+            auto &EvaluatedNode = n(reactionSuite,styles,--evaluated);
             const meta_t<version_t> myversion("version");
 
             // Actually writes into the tree...
             EvaluatedNode[myversion] = "123.456.789";
-            CHECK(tree(reactionSuite,styles,evaluated,basic::version) ==
+            CHECK(tree(reactionSuite,styles,--evaluated,basic::version) ==
                   "123.456.789");
             // can still use as rvalue, and implicitly converts to string...
             std::string foo = EvaluatedNode[myversion];
@@ -283,7 +283,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
             // Also actually writes into the tree...
             EvaluatedNode[myversion] = version_t(12,34,56);
-            CHECK(tree(reactionSuite,styles,evaluated,basic::version) ==
+            CHECK(tree(reactionSuite,styles,--evaluated,basic::version) ==
                   "12.34.56");
             // can still use as rvalue, and implicitly converts to version_t...
             version_t bar = EvaluatedNode[myversion];
@@ -479,7 +479,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("const works as expected") {
             // t will be a detail::child_ref<Node,CONST=true,temp_t>,
             // where temp_t is our custom type defined above
-            auto t = c(reactionSuite,styles,evaluated)
+            auto t = c(reactionSuite,styles,--evaluated)
                [child_t<temp_t,allow::one>("temperature")];
 
             // for const, assignment isn't available; neither of these compile:
@@ -508,7 +508,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
-            auto t = n(reactionSuite,styles,evaluated)
+            auto t = n(reactionSuite,styles,--evaluated)
                [child_t<temp_t,allow::one>("temperature")];
 
             // assignment is available now:
@@ -533,7 +533,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // how it produces an lvalue.
 
             // parent node of <temperature>
-            auto &parent = n(reactionSuite,styles,evaluated);
+            auto &parent = n(reactionSuite,styles,--evaluated);
             // back up <temperature>, so we can restore it
             const auto backup = parent(temperature);
 
@@ -542,12 +542,12 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
             // [] gives lvalue, so this actually writes into the tree...
             parent[temp] = node{"temperature"};
-            CHECK(tree(reactionSuite,styles,evaluated,temperature)
+            CHECK(tree(reactionSuite,styles,--evaluated,temperature)
                   == node{"temperature"});
 
             // restore from backup
             parent[temp] = backup;
-            CHECK(tree(reactionSuite,styles,evaluated,temperature)
+            CHECK(tree(reactionSuite,styles,--evaluated,temperature)
                   != node{"temperature"}); // has other than just its name :-)
 
             // can still use as rvalue, and implicitly converts to node...
@@ -557,9 +557,9 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
             // this also writes into the tree...
             parent[temp] = temp_t(1.0,"C");
-            CHECK(tree(reactionSuite,styles,evaluated,temperature,
+            CHECK(tree(reactionSuite,styles,--evaluated,temperature,
                        double{}/value) == 1);
-            CHECK(tree(reactionSuite,styles,evaluated,temperature,
+            CHECK(tree(reactionSuite,styles,--evaluated,temperature,
                        unit) == "C");
 
             // can still use as rvalue, and implicitly converts to temp_t...

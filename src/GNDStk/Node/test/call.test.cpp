@@ -288,13 +288,13 @@ SCENARIO("Testing GNDStk Node operator()") {
       THEN("Calling node.top(child_t,child_t,meta_t) gives us a metadatum") {
          CHECK(top.has(
             misc::child::styles,
-            misc::child::evaluated,
+            --misc::child::evaluated,
             temperature
          ));
 
          auto temp = top(
             misc::child::styles,   // from GNDStk
-            misc::child::evaluated, // from GNDStk
+            --misc::child::evaluated, // from GNDStk
             temperature // ours, as set up earlier
          );
          CHECK(temp.value == 0.0);

@@ -171,9 +171,9 @@ SCENARIO("Testing GNDStk keyword") {
       CHECK(tree(covarianceSuite,format) == 1.9);
       CHECK(tree(covarianceSuite,styles).metadata.size() == 0);
       CHECK(tree(covarianceSuite,styles).children.size() == 1);
-      CHECK(tree(covarianceSuite,styles,evaluated).metadata.size() == 4);
-      CHECK(tree(covarianceSuite,styles,evaluated).children.size() == 2);
-      CHECK(tree(covarianceSuite,styles,evaluated,misc::meta::label) == "eval");
+      CHECK(tree(covarianceSuite,styles,--evaluated).metadata.size() == 4);
+      CHECK(tree(covarianceSuite,styles,--evaluated).children.size() == 2);
+      CHECK(tree(covarianceSuite,styles,--evaluated,misc::meta::label) == "eval");
    } // WHEN
 
 
@@ -213,14 +213,14 @@ SCENARIO("Testing GNDStk keyword") {
 
       THEN("Try extracting covarianceSuite/styles/evaluated/version") {
          // Now extract <evaluated> version
-         vers = tree(covarianceSuite,styles,evaluated,myversion);
+         vers = tree(covarianceSuite,styles,--evaluated,myversion);
          CHECK(vers.major == 8);
          CHECK(vers.minor == 0);
          CHECK(vers.patch == 1);
       }
 
       // For brevity, let's make a shortcut to <evaluated>
-      auto &eval = tree(covarianceSuite,styles,evaluated);
+      auto &eval = tree(covarianceSuite,styles,--evaluated);
 
       THEN("Try extracting covarianceSuite/styles/evaluated/date") {
          // Extract date in <evaluated>, via the shortcut
@@ -233,8 +233,8 @@ SCENARIO("Testing GNDStk keyword") {
 
       // Pull out <array>, to make some upcoming queries shorter
       auto &arr = tree(
-         covarianceSuite, parameterCovariances, parameterCovariance,
-         parameterCovarianceMatrix, array);
+         covarianceSuite, parameterCovariances, --parameterCovariance,
+         --parameterCovarianceMatrix, array);
 
       THEN("Try extracting .../array/shape") {
          // Extract <array> shape into our shape type
@@ -296,7 +296,7 @@ SCENARIO("Testing GNDStk keyword") {
         ".../<parameterCovariance>") {
       auto man = tree(
          covarianceSuite, parameterCovariances,
-         parameterCovariance, mymanifest
+         --parameterCovariance, mymanifest
       );
       CHECK(man.information == manifest_parameterCovariances);
    }
