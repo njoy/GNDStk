@@ -5,13 +5,17 @@ namespace child {
 // Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-// Note: the trues mean "allowed as a top-level node"
-inline const child_t<void,allow::one>
-   reactionSuite      ("reactionSuite",       true),
-   covarianceSuite    ("covarianceSuite",     true),
-   PoPs               ("PoPs",                true),
-   thermalScattering  ("thermalScattering",   true),
-   fissionFragmentData("fissionFragmentData", true);
+// Note: the ~ (tilde) makes them allowed as top-level nodes
+inline const auto
+   PoPs                = ~child_t<void,allow::one>("PoPs");
+inline const auto
+   reactionSuite       = ~child_t<void,allow::one>("reactionSuite");
+inline const auto
+   covarianceSuite     = ~child_t<void,allow::one>("covarianceSuite");
+inline const auto
+   thermalScattering   = ~child_t<void,allow::one>("thermalScattering");
+inline const auto
+   fissionFragmentData = ~child_t<void,allow::one>("fissionFragmentData");
 
 
 
@@ -71,10 +75,22 @@ GNDSTK_MAKE_CHILD(void, nuclides, one);
 GNDSTK_MAKE_CHILD(void, nuclide,  many);
 
 GNDSTK_MAKE_CHILD(void, productions, one);
+// The GNDS manual says:
+//    production: [optional, must appear one time]
+// but we think that that's wrong. It actually does appear more than once
+// in some parent nodes in some GNDS files. We think the manual makes the
+// same mistake at least two more times - with <conversion> and <weighted>.
+// Both sometimes appear multiple times under a single parent in some GNDS
+// files, but the manual says "must appear one time" for both. (The manual
+// says "must appear at least one time" elsewhere, for things that can
+// appear multiple times under a single parent.)
 GNDSTK_MAKE_CHILD(void, production,  many);
 
 GNDSTK_MAKE_CHILD(void, products, one);
 GNDSTK_MAKE_CHILD(void, product,  many);
+
+GNDSTK_MAKE_CHILD(void, productYields, one);
+GNDSTK_MAKE_CHILD(void, productYield, many);
 
 GNDSTK_MAKE_CHILD(void, reactions, one);
 GNDSTK_MAKE_CHILD(void, reaction,  many);
@@ -113,29 +129,6 @@ GNDSTK_MAKE_CHILD(void, summand,  many);
 // Do more sorting/categorization
 // Some may actually be singular/plural pairs
 
-// allow::many cases
-GNDSTK_MAKE_CHILD(void, add, many);
-GNDSTK_MAKE_CHILD(void, averageParameterCovariance, many);
-GNDSTK_MAKE_CHILD(void, column, many);
-GNDSTK_MAKE_CHILD(void, conversion, many);
-GNDSTK_MAKE_CHILD(void, covariance, many);
-GNDSTK_MAKE_CHILD(void, covarianceMatrix, many);
-GNDSTK_MAKE_CHILD(void, crossSectionSum, many);
-GNDSTK_MAKE_CHILD(void, decay, many);
-GNDSTK_MAKE_CHILD(void, discrete, many);
-GNDSTK_MAKE_CHILD(void, grid, many);
-GNDSTK_MAKE_CHILD(void, Legendre, many);
-GNDSTK_MAKE_CHILD(void, metaStable, many);
-GNDSTK_MAKE_CHILD(void, multiplicitySum, many);
-GNDSTK_MAKE_CHILD(void, parameterLink, many);
-GNDSTK_MAKE_CHILD(void, regions1d, many);
-GNDSTK_MAKE_CHILD(void, section, many);
-GNDSTK_MAKE_CHILD(void, shell, many);
-GNDSTK_MAKE_CHILD(void, values, many);
-GNDSTK_MAKE_CHILD(void, weighted, many);
-GNDSTK_MAKE_CHILD(void, XYs1d, many);
-GNDSTK_MAKE_CHILD(void, XYs2d, many);
-
 // allow::one cases
 GNDSTK_MAKE_CHILD(void, aliases, one);
 GNDSTK_MAKE_CHILD(void, angular, one);
@@ -161,7 +154,6 @@ GNDSTK_MAKE_CHILD(void, continuum, one);
 GNDSTK_MAKE_CHILD(void, CoulombPlusNuclearElastic, one);
 GNDSTK_MAKE_CHILD(void, covarianceSections, one);
 GNDSTK_MAKE_CHILD(void, crossSection, one);
-GNDSTK_MAKE_CHILD(void, crossSectionReconstructed, one);
 GNDSTK_MAKE_CHILD(void, crossSections, one);
 GNDSTK_MAKE_CHILD(void, cutoffEnergy, one);
 GNDSTK_MAKE_CHILD(void, data, one);
@@ -183,12 +175,10 @@ GNDSTK_MAKE_CHILD(void, e_max, one);
 GNDSTK_MAKE_CHILD(void, ENDFconversionFlags, one);
 GNDSTK_MAKE_CHILD(void, energy, one);
 GNDSTK_MAKE_CHILD(void, energyAngular, one);
-GNDSTK_MAKE_CHILD(void, evaluated, one);
 GNDSTK_MAKE_CHILD(void, evaporation, one);
 GNDSTK_MAKE_CHILD(void, f, one);
 GNDSTK_MAKE_CHILD(void, fastRegion, one);
 GNDSTK_MAKE_CHILD(void, fissionEnergyReleased, one);
-GNDSTK_MAKE_CHILD(void, fraction, one);
 GNDSTK_MAKE_CHILD(void, freeAtomCrossSection, one);
 GNDSTK_MAKE_CHILD(void, g, one);
 GNDSTK_MAKE_CHILD(void, generalEvaporation, one);
@@ -203,7 +193,6 @@ GNDSTK_MAKE_CHILD(void, incoherentInelastic, one);
 GNDSTK_MAKE_CHILD(void, incoherentPhotonScattering, one);
 GNDSTK_MAKE_CHILD(void, incompleteReactions, one);
 GNDSTK_MAKE_CHILD(void, institution, one);
-GNDSTK_MAKE_CHILD(void, integer, one);
 GNDSTK_MAKE_CHILD(void, intensity, one);
 GNDSTK_MAKE_CHILD(void, internalConversionCoefficients, one);
 GNDSTK_MAKE_CHILD(void, internalPairFormationCoefficient, one);
@@ -226,8 +215,6 @@ GNDSTK_MAKE_CHILD(void, nuclearTerm, one);
 GNDSTK_MAKE_CHILD(void, nucleus, one);
 GNDSTK_MAKE_CHILD(void, orphanProducts, one);
 GNDSTK_MAKE_CHILD(void, outputChannel, one);
-GNDSTK_MAKE_CHILD(void, parameterCovariance, one);
-GNDSTK_MAKE_CHILD(void, parameterCovarianceMatrix, one);
 GNDSTK_MAKE_CHILD(void, parameterCovariances, one);
 GNDSTK_MAKE_CHILD(void, parameters, one);
 GNDSTK_MAKE_CHILD(void, parity, one);
@@ -237,8 +224,6 @@ GNDSTK_MAKE_CHILD(void, polynomial1d, one);
 GNDSTK_MAKE_CHILD(void, positronEmissionIntensity, one);
 GNDSTK_MAKE_CHILD(void, primaryGamma, one);
 GNDSTK_MAKE_CHILD(void, probability, one);
-GNDSTK_MAKE_CHILD(void, productYield, one);
-GNDSTK_MAKE_CHILD(void, productYields, one);
 GNDSTK_MAKE_CHILD(void, projectileEnergyDomain, one);
 GNDSTK_MAKE_CHILD(void, promptGammaEnergy, one);
 GNDSTK_MAKE_CHILD(void, promptNeutronKE, one);
@@ -261,7 +246,6 @@ GNDSTK_MAKE_CHILD(void, RutherfordScattering, one);
 GNDSTK_MAKE_CHILD(void, S_alpha_beta, one);
 GNDSTK_MAKE_CHILD(void, scatteringFactor, one);
 GNDSTK_MAKE_CHILD(void, scatteringRadius, one);
-GNDSTK_MAKE_CHILD(void, shortRangeSelfScalingVariance, one);
 GNDSTK_MAKE_CHILD(void, simpleMaxwellianFission, one);
 GNDSTK_MAKE_CHILD(void, spin, one);
 GNDSTK_MAKE_CHILD(void, S_table, one);
@@ -284,8 +268,38 @@ GNDSTK_MAKE_CHILD(void, unresolvedRegion, one);
 GNDSTK_MAKE_CHILD(void, unspecified, one);
 GNDSTK_MAKE_CHILD(void, weightedFunctionals, one);
 GNDSTK_MAKE_CHILD(void, xml, one);
-GNDSTK_MAKE_CHILD(void, XYs3d, one);
 GNDSTK_MAKE_CHILD(void, yields, one);
+
+// allow::many cases
+GNDSTK_MAKE_CHILD(void, add, many);
+GNDSTK_MAKE_CHILD(void, averageParameterCovariance, many);
+GNDSTK_MAKE_CHILD(void, column, many);
+GNDSTK_MAKE_CHILD(void, conversion, many);
+GNDSTK_MAKE_CHILD(void, covariance, many);
+GNDSTK_MAKE_CHILD(void, covarianceMatrix, many);
+GNDSTK_MAKE_CHILD(void, crossSectionReconstructed, many);
+GNDSTK_MAKE_CHILD(void, crossSectionSum, many);
+GNDSTK_MAKE_CHILD(void, decay, many);
+GNDSTK_MAKE_CHILD(void, discrete, many);
+GNDSTK_MAKE_CHILD(void, evaluated, many);
+GNDSTK_MAKE_CHILD(void, fraction, many);
+GNDSTK_MAKE_CHILD(void, grid, many);
+GNDSTK_MAKE_CHILD(void, integer, many);
+GNDSTK_MAKE_CHILD(void, Legendre, many);
+GNDSTK_MAKE_CHILD(void, metaStable, many);
+GNDSTK_MAKE_CHILD(void, multiplicitySum, many);
+GNDSTK_MAKE_CHILD(void, parameterCovariance, many);
+GNDSTK_MAKE_CHILD(void, parameterCovarianceMatrix, many);
+GNDSTK_MAKE_CHILD(void, parameterLink, many);
+GNDSTK_MAKE_CHILD(void, regions1d, many);
+GNDSTK_MAKE_CHILD(void, section, many);
+GNDSTK_MAKE_CHILD(void, shell, many);
+GNDSTK_MAKE_CHILD(void, shortRangeSelfScalingVariance, many);
+GNDSTK_MAKE_CHILD(void, values, many);
+GNDSTK_MAKE_CHILD(void, weighted, many);
+GNDSTK_MAKE_CHILD(void, XYs1d, many);
+GNDSTK_MAKE_CHILD(void, XYs2d, many);
+GNDSTK_MAKE_CHILD(void, XYs3d, many);
 
 
 

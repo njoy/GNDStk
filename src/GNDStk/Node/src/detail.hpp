@@ -140,8 +140,8 @@ public:
    template<class KEYWORD, class NODE>
    void operator()(const KEYWORD &kwd, const NODE &node) const
    {
-      TYPE type{};
-      kwd.converter(node,type);
+      TYPE obj = kwd.object;
+      kwd.converter(node,obj);
    }
 };
 
@@ -178,9 +178,20 @@ public:
       // with the metadata key called "label"
       const std::string &label = n.meta("label",found);
 
-      // If it's found, AND has the value we want,
-      // then return true; otherwise return false
-      return found && label == want;
+      // If label is found and has the value we want,
+      // or label is not found but the value we want
+      // is given as the empty string "", then return
+      // true. Otherwise, return false.
+      return found ? label == want : want == "";
+
+      // Note: cases of label == "" actually happen.
+      // Here's an example, from dec-094_Pu_235.xml:
+      //    <double label="" value="5951400.0" unit="eV"/>
+      // In this case, a query like:
+      //    node(Double,"")
+      // will thus succeed (found, and label == want).
+      // It would also have succeeded if label wasn't
+      // there (!found, but want == "").
    }
 };
 
@@ -206,9 +217,6 @@ public:
    {
       bool found;
       const std::string &label = n.meta("label",found);
-      // Here, "label" is the std::string metadatum we just found, and "want",
-      // originally coming from a query of some kind, is the regular expression
-      // against which to match the label.
       return found && std::regex_match(label,want);
    }
 };
@@ -334,7 +342,7 @@ public:
    // conversion
    // ------------------------
 
-   // to TYPE()
+   // to TYPE
    operator TYPE() const
    {
       TYPE obj{};
@@ -438,7 +446,7 @@ public:
    // conversion
    // ------------------------
 
-   // to TYPE()
+   // to TYPE
    operator TYPE() const
    {
       TYPE obj{};

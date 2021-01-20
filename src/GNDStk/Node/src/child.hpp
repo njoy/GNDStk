@@ -68,10 +68,10 @@ TYPE child(
       // call one(string), with the child_t's key
       const Node &value = one(kwd.name, kwd.filter, found);
       // convert value, if any, to an object of the appropriate type
-      TYPE type{};
+      TYPE obj = kwd.object;
       if (found)
-         kwd.converter(value,type);
-      return type;
+         kwd.converter(value,obj);
+      return obj;
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
       throw;
@@ -91,7 +91,7 @@ std::optional<TYPE> child(
    try {
       // Comments as in the meta() analog of this child() function
       bool f;
-      const TYPE obj = child(TYPE{}/kwd,f);
+      const TYPE obj = child((kwd.object ? *kwd.object : TYPE{})/kwd, f);
       found = true;
       return f ? std::optional<TYPE>(obj) : std::nullopt;
    } catch (...) {
@@ -111,7 +111,8 @@ typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
    const child_t<std::variant<Ts...>,allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child(TYPE{}/kwd, found);
+   const auto ptr = std::get_if<TYPE>(&kwd.object);
+   return child((ptr ? *ptr : TYPE{})/kwd, found);
 }
 
 
@@ -139,9 +140,9 @@ CONTAINER<TYPE> child(
       // ""
       // meaning: return a container with the converted-to-TYPE current node
       if (kwd.name == "") {
-         TYPE type{};
-         kwd.converter(*this,type);
-         container.push_back(type);
+         TYPE obj = kwd.object;
+         kwd.converter(*this,obj);
+         container.push_back(obj);
          found = true;
       } else {
          // search in the current node's children
@@ -150,9 +151,9 @@ CONTAINER<TYPE> child(
                 kwd.filter(*c)
             ) {
                // convert *c to an object of the appropriate type
-               TYPE type{};
-               kwd.converter(*c,type);
-               container.push_back(type);
+               TYPE obj = kwd.object;
+               kwd.converter(*c,obj);
+               container.push_back(obj);
                found = true;
             }
          }
@@ -208,7 +209,7 @@ CONTAINER<TYPE> child(
    try {
       // The behavior described above makes this easy as well.
       // That wasn't our intention, but we don't mind too much.
-      return found = true, child(TYPE{}/kwd);
+      return found = true, child((kwd.object ? *kwd.object : TYPE{})/kwd);
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
       throw;
@@ -230,5 +231,6 @@ CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type> child(
    const child_t<std::variant<Ts...>,allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   return child<CONTAINER>(TYPE{}/kwd, found);
+   const auto ptr = std::get_if<TYPE>(&kwd.object);
+   return child<CONTAINER>((ptr ? *ptr : TYPE{})/kwd, found);
 }

@@ -20,13 +20,18 @@ namespace child {
 // Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-// Note: the trues mean "allowed as a top-level node"
-inline const child_t<void,allow::one>
-   PoPs               ("PoPs"               , true),
-   covarianceSuite    ("covarianceSuite"    , true),
-   reactionSuite      ("reactionSuite"      , true),
-   thermalScattering  ("thermalScattering"  , true),
-   fissionFragmentData("fissionFragmentData", true);
+// Note: the ~ (tilde) makes them allowed as top-level nodes
+inline const auto
+   PoPs                = ~child_t<void,allow::one>("PoPs");
+inline const auto
+   reactionSuite       = ~child_t<void,allow::one>("reactionSuite");
+inline const auto
+   covarianceSuite     = ~child_t<void,allow::one>("covarianceSuite");
+inline const auto
+   thermalScattering   = ~child_t<void,allow::one>("thermalScattering");
+inline const auto
+   fissionFragmentData = ~child_t<void,allow::one>("fissionFragmentData");
+
 
 
 // -----------------------------------------------------------------------------
@@ -57,7 +62,6 @@ inline const child_t<void,allow::one>
    T_M                             ("T_M"                             ),
    T_effective                     ("T_effective"                     ),
    U                               ("U"                               ),
-   XYs3d                           ("XYs3d"                           ),
    aliases                         ("aliases"                         ),
    angular                         ("angular"                         ),
    angularEnergy                   ("angularEnergy"                   ),
@@ -87,7 +91,6 @@ inline const child_t<void,allow::one>
    continuum                       ("continuum"                       ),
    covarianceSections              ("covarianceSections"              ),
    crossSection                    ("crossSection"                    ),
-   crossSectionReconstructed       ("crossSectionReconstructed"       ),
    crossSections                   ("crossSections"                   ),
    cutoffEnergy                    ("cutoffEnergy"                    ),
    data                            ("data"                            ),
@@ -108,14 +111,12 @@ inline const child_t<void,allow::one>
    e_max                           ("e_max"                           ),
    energy                          ("energy"                          ),
    energyAngular                   ("energyAngular"                   ),
-   evaluated                       ("evaluated"                       ),
    evaporation                     ("evaporation"                     ),
    externalFiles                   ("externalFiles"                   ),
    f                               ("f"                               ),
    fastRegion                      ("fastRegion"                      ),
    fissionComponents               ("fissionComponents"               ),
    fissionEnergyReleased           ("fissionEnergyReleased"           ),
-   fraction                        ("fraction"                        ),
    freeAtomCrossSection            ("freeAtomCrossSection"            ),
    g                               ("g"                               ),
    gaugeBosons                     ("gaugeBosons"                     ),
@@ -131,7 +132,6 @@ inline const child_t<void,allow::one>
    incoherentPhotonScattering      ("incoherentPhotonScattering"      ),
    incompleteReactions             ("incompleteReactions"             ),
    institution                     ("institution"                     ),
-   integer                         ("integer"                         ),
    intensity                       ("intensity"                       ),
    internalConversionCoefficients  ("internalConversionCoefficients"  ),
    internalPairFormationCoefficient("internalPairFormationCoefficient"),
@@ -154,8 +154,6 @@ inline const child_t<void,allow::one>
    nuclides                        ("nuclides"                        ),
    orphanProducts                  ("orphanProducts"                  ),
    outputChannel                   ("outputChannel"                   ),
-   parameterCovariance             ("parameterCovariance"             ),
-   parameterCovarianceMatrix       ("parameterCovarianceMatrix"       ),
    parameterCovariances            ("parameterCovariances"            ),
    parameters                      ("parameters"                      ),
    parity                          ("parity"                          ),
@@ -166,7 +164,6 @@ inline const child_t<void,allow::one>
    positronEmissionIntensity       ("positronEmissionIntensity"       ),
    primaryGamma                    ("primaryGamma"                    ),
    probability                     ("probability"                     ),
-   productYield                    ("productYield"                    ),
    productYields                   ("productYields"                   ),
    productions                     ("productions"                     ),
    products                        ("products"                        ),
@@ -191,7 +188,6 @@ inline const child_t<void,allow::one>
    scatteringAtoms                 ("scatteringAtoms"                 ),
    scatteringFactor                ("scatteringFactor"                ),
    scatteringRadius                ("scatteringRadius"                ),
-   shortRangeSelfScalingVariance   ("shortRangeSelfScalingVariance"   ),
    simpleMaxwellianFission         ("simpleMaxwellianFission"         ),
    spectra                         ("spectra"                         ),
    spin                            ("spin"                            ),
@@ -227,6 +223,7 @@ inline const child_t<void,allow::many>
    Legendre                        ("Legendre"                        ),
    XYs1d                           ("XYs1d"                           ),
    XYs2d                           ("XYs2d"                           ),
+   XYs3d                           ("XYs3d"                           ),
    add                             ("add"                             ),
    averageEnergy                   ("averageEnergy"                   ),
    averageParameterCovariance      ("averageParameterCovariance"      ),
@@ -240,29 +237,37 @@ inline const child_t<void,allow::many>
    conversion                      ("conversion"                      ),
    covariance                      ("covariance"                      ),
    covarianceMatrix                ("covarianceMatrix"                ),
+   crossSectionReconstructed       ("crossSectionReconstructed"       ),
    crossSectionSum                 ("crossSectionSum"                 ),
    decay                           ("decay"                           ),
    decayMode                       ("decayMode"                       ),
    discrete                        ("discrete"                        ),
    duration                        ("duration"                        ),
+   evaluated                       ("evaluated"                       ),
    externalFile                    ("externalFile"                    ),
    fissionComponent                ("fissionComponent"                ),
+   fraction                        ("fraction"                        ),
    gaugeBoson                      ("gaugeBoson"                      ),
    grid                            ("grid"                            ),
+   integer                         ("integer"                         ),
    isotope                         ("isotope"                         ),
    lepton                          ("lepton"                          ),
    metaStable                      ("metaStable"                      ),
    multiplicitySum                 ("multiplicitySum"                 ),
    nuclide                         ("nuclide"                         ),
+   parameterCovariance             ("parameterCovariance"             ),
+   parameterCovarianceMatrix       ("parameterCovarianceMatrix"       ),
    parameterLink                   ("parameterLink"                   ),
    product                         ("product"                         ),
    production                      ("production"                      ),
+   productYield                    ("productYield"                    ),
    reaction                        ("reaction"                        ),
    regions1d                       ("regions1d"                       ),
    resonanceReaction               ("resonanceReaction"               ),
    scatteringAtom                  ("scatteringAtom"                  ),
    section                         ("section"                         ),
    shell                           ("shell"                           ),
+   shortRangeSelfScalingVariance   ("shortRangeSelfScalingVariance"   ),
    spectrum                        ("spectrum"                        ),
    spinGroup                       ("spinGroup"                       ),
    sum                             ("sum"                             ),

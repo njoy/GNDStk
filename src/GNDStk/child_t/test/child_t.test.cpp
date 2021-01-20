@@ -16,52 +16,60 @@ public:
 };
 
 SCENARIO("Testing GNDStk child_t<TYPE,ALLOW,CONVERTER>") {
+   const auto filter = detail::noFilter{};
 
    // child_t<TYPE,...>
    GIVEN("The child_t<TYPE,...> class") {
       WHEN("Constructed with (name)") {
-         child_t<double> foo("foo");
+         const child_t<double>
+            foo("foo");
          CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == false);
-      }
-
-      WHEN("Constructed with (name,top=true)") {
-         child_t<double> foo("foo",true);
-         CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == true);
-      }
-
-      WHEN("Constructed with (name,top=true,converter)") {
-         child_t<double,allow::one,converter> foo("foo",true,converter{});
-         CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == true);
+         CHECK(foo.top() == false);
       }
 
       WHEN("Constructed with (name,converter)") {
-         child_t<double,allow::one,converter> foo("foo",converter{});
+         const child_t<double,allow::one,converter>
+            foo("foo", 0.0, converter{});
          CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == false);
+         CHECK(foo.top() == false);
       }
 
-      WHEN("Constructed with (name,converter,top=true)") {
-         child_t<double,allow::one,converter> foo("foo",converter{},true);
+      WHEN("Constructed with (name,converter,filter)") {
+         const child_t<double,allow::one,converter>
+            foo("foo", 0.0, converter{}, filter);
          CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == true);
+         CHECK(foo.top() == false);
+      }
+
+      WHEN("Constructed with (name,converter,filter,top)") {
+         const child_t<double,allow::one,converter>
+            foo("foo", 0.0, converter{}, filter, true);
+         CHECK(foo.name == "foo");
+         CHECK(foo.top() == true);
       }
    }
 
    // child_t<void,...>
    GIVEN("The child_t<void,...> class") {
       WHEN("Constructed with (name)") {
-         child_t<void> foo("foo");
+         const child_t<void>
+            foo("foo");
          CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == false);
+         CHECK(foo.top() == false);
       }
 
-      WHEN("Constructed with (name,top=true)") {
-         child_t<void> foo("foo",true);
+      WHEN("Constructed with (name,filter)") {
+         const child_t<void>
+            foo("foo", filter);
          CHECK(foo.name == "foo");
-         CHECK(foo.canBeTopLevel == true);
+         CHECK(foo.top() == false);
+      }
+
+      WHEN("Constructed with (name,filter,top)") {
+         const child_t<void>
+            foo("foo", filter, true);
+         CHECK(foo.name == "foo");
+         CHECK(foo.top() == true);
       }
    }
 }
