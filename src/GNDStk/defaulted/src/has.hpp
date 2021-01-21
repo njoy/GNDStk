@@ -22,6 +22,7 @@
 // value, even if only their default. So, a call to is_default() may be clearer.
 bool has_value() const
 {
+   // has *non-default* value
    return opt.has_value();
 }
 

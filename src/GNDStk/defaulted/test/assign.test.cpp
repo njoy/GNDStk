@@ -52,7 +52,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/default = w/default"
          {
             defaulted<double> a(1.2);
-            defaulted<double> b(5.6);
+            const defaulted<double> b(5.6);
             a = b;
             CHECK(a == 5.6);
             CHECK(!a.is_default());
@@ -61,7 +61,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/default = w/hard value"
          {
             defaulted<double> a(1.2);
-            defaulted<double> b(5.6, 7.8);
+            const defaulted<double> b(5.6, 7.8);
             a = b;
             CHECK(a == 7.8);
             CHECK(!a.is_default());
@@ -70,7 +70,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/hard value = w/default"
          {
             defaulted<double> a(1.2, 3.4);
-            defaulted<double> b(5.6);
+            const defaulted<double> b(5.6);
             a = b;
             CHECK(a == 5.6);
             CHECK(!a.is_default());
@@ -79,7 +79,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/hard value = w/hard value"
          {
             defaulted<double> a(1.2, 3.4);
-            defaulted<double> b(5.6, 7.8);
+            const defaulted<double> b(5.6, 7.8);
             a = b;
             CHECK(a == 7.8);
             CHECK(!a.is_default());
@@ -96,7 +96,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/default = w/default"
          {
             defaulted<double> a(1.2);
-            defaulted<int> b(56);
+            const defaulted<int> b(56);
             a = b;
             CHECK(a == 56);
             CHECK(!a.is_default());
@@ -105,7 +105,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/default = w/hard value"
          {
             defaulted<double> a(1.2);
-            defaulted<int> b(56, 78);
+            const defaulted<int> b(56, 78);
             a = b;
             CHECK(a == 78);
             CHECK(!a.is_default());
@@ -114,7 +114,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/hard value = w/default"
          {
             defaulted<double> a(1.2, 3.4);
-            defaulted<int> b(56);
+            const defaulted<int> b(56);
             a = b;
             CHECK(a == 56);
             CHECK(!a.is_default());
@@ -123,7 +123,7 @@ SCENARIO("Testing defaulted<T>'s assignment operators") {
          // case: "w/hard value = w/hard value"
          {
             defaulted<double> a(1.2, 3.4);
-            defaulted<int> b(56, 78);
+            const defaulted<int> b(56, 78);
             a = b;
             CHECK(a == 78);
             CHECK(!a.is_default());

@@ -5,11 +5,7 @@
 #include "GNDStk.hpp"
 
 SCENARIO("Testing defaulted<T>") {
-
-   GIVEN("foo") {
-   }
-
-   GIVEN("bar") {
-   }
-
+   // fixme
+   // Is there really anything to do here, for defaulted<T>
+   // in general, that isn't already in other tests?
 }

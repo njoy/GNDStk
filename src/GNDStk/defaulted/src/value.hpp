@@ -8,8 +8,8 @@
 // ------------------------
 
 // These are here largely so this class is more consistent with std::optional,
-// which many users may be familiar with. Note that value() and operator* are
-// like conversion to T, except that they return const T &, not T.
+// which many users may be familiar with. Note that our value() and operator*
+// are like our conversion to T, except that they return const T &, not T.
 
 // value(), const
 // We don't have a non-const version of this, because def (the default value)
