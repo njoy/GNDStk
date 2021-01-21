@@ -44,7 +44,7 @@ bool add(
    std::string to;
    try {
       if (opt)
-         converter(*opt,to);
+         converter(opt.value(),to);
       else
          return false;
    } catch (...) {
@@ -148,7 +148,7 @@ typename std::enable_if<
    const std::optional<T> &opt
 ) {
    if (opt)
-      return add(kwd,*opt);
+      return add(kwd,opt.value());
    else {
       log::error(
          "Node.add() called with a meta_t< non-std::optional >,\n"
@@ -195,7 +195,7 @@ typename std::enable_if<
    const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
    const std::optional<T> &opt
 ) {
-   return opt ? (add(kwd,*opt), true) : false;
+   return opt ? (add(kwd,opt.value()), true) : false;
 }
 
 
@@ -245,7 +245,7 @@ typename std::enable_if<
    bool
 >::type add(const std::optional<T> &opt)
 {
-   return opt ? (add() = Node(*opt), true) : false;
+   return opt ? (add() = Node(opt.value()), true) : false;
 }
 
 
@@ -350,7 +350,7 @@ typename std::enable_if<
    const std::optional<T> &opt
 ) {
    if (opt)
-      return add(kwd,*opt);
+      return add(kwd,opt.value());
    else {
       log::error(
          "Node.add() called with a child_t< non-std::optional >,\n"
@@ -384,7 +384,7 @@ typename std::enable_if<
    const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const std::optional<T> &opt
 ) {
-   return opt ? (add(kwd,*opt), true) : false;
+   return opt ? (add(kwd,opt.value()), true) : false;
 }
 
 
