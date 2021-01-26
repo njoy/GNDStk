@@ -59,12 +59,12 @@ defaulted(const defaulted &other) :
 
 // template "copy"
 template<
-   class U = T, bool writes = WRITES,
+   class U = T,
    class = typename std::enable_if<
-      std::is_convertible<U,T>::value
+      std::is_constructible<T,U>::value
    >::type
 >
-defaulted(const defaulted<U,writes> &other) :
+defaulted(const defaulted<U> &other) :
    def(T(other.get_default())),
    opt(other.get_optional())
 { }

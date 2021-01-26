@@ -8,38 +8,19 @@ This class represents an "optional, with default" concept, for handling values
 in GNDS files that can appear optionally, but are considered to have particular
 defaults when they don't appear.
 
-Template parameter T:
-This is, as you'd expect, the underlying type. A defaulted<T> contains a default
+T is, as you'd expect, the underlying type. A defaulted<T> contains a default
 value of type T, which *must* be provided in any constructor you call, as well
 as a std::optional<T> that optionally contains what we'll call a "hard value":
 a value that's considered to be other than the default.
 
-Template parameter WRITES:
-We plan to use this when integrating native handling of defaulted objects into
-GNDStk. The question is: In applicable output functions (for example, GNDStk's
-Node::add() functions), should an "optional, with default" value be written out
-unconditionally - whether its value is its default, or a hard value - or should
-it only be written if it has a non-default value? After all, the idea of a value
-having a default suggests that we don't necessarily want to clutter a GNDS file
-with something's value even when that value is the default. If we always wanted
-to write *defaults*, that arguably would defeat the purpose of having them.
-
-We decided to make WRITES be a template parameter, not a data member, in part
-because we don't really anticipate that someone would wish to modify such a
-property after setting up an object in the first place. And, because compilers
-generally pad data structures so that they align well in memory, it turns out
-that including this single extra bool as a data member would typically increase
-an object's sizeof() by - for small Ts, at least - a relatively large amount.
-Given these two factors, we believe that having WRITES be a template parameter
-will probably serve us best.
-
 Note that you can give a defaulted<T> a hard value that happens to equal its
-default. If you do, then the value is indeed considered to be a hard value -
-not the default. That is, the data structure does distinguish those situations,
-as we believe it should.
+default. If you do, then the value is considered to be a hard value - not the
+default. That is to say, the data structure does distinguish "has its default"
+versus "has a value that coincidentally happens to equal its default." It's an
+issue of how you construct and then modify (or don't modify) the object.
 */
 
-template<class T, bool WRITES = false>
+template<class T>
 class defaulted {
 
    // ------------------------
@@ -88,7 +69,4 @@ public:
 
    // reset(), a.k.a. clear()
    #include "GNDStk/defaulted/src/reset.hpp"
-
-   // writes(), quiet(): new defaulted with WRITES flag true or false
-   #include "GNDStk/defaulted/src/writes.hpp"
 };

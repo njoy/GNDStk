@@ -108,7 +108,7 @@ std::optional<TYPE> meta(
       // Local "found", because found == default can lead to exceptions.
       // We still place in a try{}, in case an exception otherwise arises.
       bool f;
-      const TYPE obj = meta((kwd.object ? *kwd.object : TYPE{})/kwd, f);
+      const TYPE obj = meta((kwd.object ? kwd.object.value() : TYPE{})/kwd, f);
       // The "found" status affects our behavior here, but for optional we'll
       // always *return* with found == true. After all, being optional means
       // something can be (1) there or (2) not there. That condition is always
@@ -116,6 +116,30 @@ std::optional<TYPE> meta(
       // absence won't break a multi-query.
       found = true;
       return f ? std::optional<TYPE>(obj) : std::nullopt;
+   } catch (...) {
+      log::member("Node.meta(" + detail::keyname(kwd) + ")");
+      throw;
+   }
+}
+
+
+// ------------------------
+// defaulted<TYPE>
+// ------------------------
+
+template<class TYPE, class CONVERTER>
+defaulted<TYPE> meta(
+   const meta_t<defaulted<TYPE>,CONVERTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      // Comments similar to those for std::optional above
+      bool f; // local "found"
+      const TYPE obj = meta(kwd.object.value()/kwd, f);
+      found = true; // always
+      return f
+         ? defaulted<TYPE>(kwd.object.get_default(),obj)
+         : defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;

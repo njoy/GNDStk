@@ -6,8 +6,7 @@ add_executable( GNDStk.defaulted.test
                 get.test.cpp
                 has.test.cpp
                 reset.test.cpp
-                value.test.cpp
-                writes.test.cpp )
+                value.test.cpp )
 target_compile_options( GNDStk.defaulted.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

@@ -19,7 +19,7 @@
 // use const &; it's the reverse that's of course disallowed.)
 const T &value() const
 {
-   return opt ? opt.value() : def;
+   return opt.has_value() ? opt.value() : def;
 }
 
 // *, const

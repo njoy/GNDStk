@@ -32,19 +32,26 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// remove_optional
+// remove_opt_def
 // -----------------------------------------------------------------------------
 
 // default
 template<class T>
-class remove_optional {
+class remove_opt_def {
 public:
    using type = T;
 };
 
 // optional
 template<class T>
-class remove_optional<std::optional<T>> {
+class remove_opt_def<std::optional<T>> {
+public:
+   using type = T;
+};
+
+// defaulted
+template<class T>
+class remove_opt_def<defaulted<T>> {
 public:
    using type = T;
 };
@@ -54,6 +61,10 @@ public:
 // -----------------------------------------------------------------------------
 // keyname
 // -----------------------------------------------------------------------------
+
+// ------------------------
+// For meta_t
+// ------------------------
 
 // meta_t<TYPE>
 template<class TYPE, class CONVERTER>
@@ -71,6 +82,19 @@ std::string keyname(
    return "optional meta_t(\"" + m.name + "\")";
 }
 
+// meta_t<defaulted<TYPE>>
+template<class TYPE, class CONVERTER>
+std::string keyname(
+   const meta_t<defaulted<TYPE>,CONVERTER> &m
+) {
+   return "optional-with-default meta_t(\"" + m.name + "\")";
+}
+
+
+// ------------------------
+// For child_t
+// ------------------------
+
 // child_t<TYPE>
 template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
@@ -86,6 +110,19 @@ std::string keyname(
 ) {
    return "optional child_t(\"" + c.name + "\")";
 }
+
+// child_t<defaulted<TYPE>>
+template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(
+   const child_t<defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &c
+) {
+   return "optional-with-default child_t(\"" + c.name + "\")";
+}
+
+
+// ------------------------
+// For string, regex
+// ------------------------
 
 // string
 inline std::string keyname(const std::string &s)

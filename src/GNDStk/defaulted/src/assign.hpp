@@ -67,12 +67,12 @@ defaulted &operator=(const defaulted &other)
 
 // template "copy"
 template<
-   class U = T, bool writes = WRITES,
+   class U = T,
    class = typename std::enable_if<
-      std::is_convertible<U,T>::value
+      std::is_constructible<T,U>::value
    >::type
 >
-defaulted &operator=(const defaulted<U,writes> &other)
+defaulted &operator=(const defaulted<U> &other)
 {
    opt = T(U(other));
    return *this;
@@ -81,6 +81,6 @@ defaulted &operator=(const defaulted<U,writes> &other)
 // move
 defaulted &operator=(defaulted &&other)
 {
-   opt = std::move(other.opt ? other.opt.value() : other.def);
+   opt = std::move(other.opt.has_value() ? other.opt.value() : other.def);
    return *this;
 }
