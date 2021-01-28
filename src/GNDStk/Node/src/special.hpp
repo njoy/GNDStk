@@ -43,10 +43,10 @@ const std::string &documentation(bool &found = detail::default_bool) const
       // or rather in the GNDS tree equivalent (XML is for illustration).
       bool found = false;
       return
-         (s = &n(               text,found), found) ||
-         (s = &n(         cdata,text,found), found) ||
-         (s = &n(     doc,cdata,text,found), found) ||
-         (s = &n(docs,doc,cdata,text,found), found);
+            (s = &n(               text,found), found)
+         || (s = &n(         cdata,text,found), found)
+         || (s = &n(     doc,cdata,text,found), found)
+         || (s = &n(docs,doc,cdata,text,found), found);
    };
 
    // this?
@@ -171,7 +171,7 @@ std::string &comment(
 // ------------------------
 // comments()
 // plural :-)
-// returns a std::vector,
+// Returns: std::vector,
 // or other container
 // ------------------------
 

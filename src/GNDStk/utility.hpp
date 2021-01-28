@@ -11,8 +11,8 @@ inline int indent = 3;
 // Should Tree.write() also print the tree's declaration node if it exists?
 inline bool decl = false;
 
-// file format
-enum class file {
+// file type
+enum class FileType {
    null, // default, automagick, etc.
    tree, // our own simple text format
    // give users easy-to-type lowercase as well as acronym-style uppercase...
@@ -21,8 +21,8 @@ enum class file {
    hdf5, HDF5 = hdf5
 };
 
-// allow
-enum class allow {
+// Allow
+enum class Allow {
    one,
    many
 };
@@ -398,30 +398,30 @@ inline bool has_extension(const std::string &str)
 inline bool endsin_xml(const std::string &str)
 {
    return
-      endsin(str,".xml" ) ||
-      endsin(str,".XML" );
+        endsin(str,".xml" )
+     || endsin(str,".XML" );
 }
 
 // json
 inline bool endsin_json(const std::string &str)
 {
    return
-      endsin(str,".json") ||
-      endsin(str,".JSON");
+        endsin(str,".json")
+     || endsin(str,".JSON");
 }
 
 // hdf5
 inline bool endsin_hdf5(const std::string &str)
 {
    return
-      endsin(str,".hdf" ) ||
-      endsin(str,".HDF" ) ||
-      endsin(str,".h5"  ) ||
-      endsin(str,".H5"  ) ||
-      endsin(str,".hdf5") ||
-      endsin(str,".HDF5") ||
-      endsin(str,".he5" ) ||
-      endsin(str,".HE5" );
+        endsin(str,".hdf" )
+     || endsin(str,".HDF" )
+     || endsin(str,".h5"  )
+     || endsin(str,".H5"  )
+     || endsin(str,".hdf5")
+     || endsin(str,".HDF5")
+     || endsin(str,".he5" )
+     || endsin(str,".HE5" );
 }
 
 
@@ -436,8 +436,7 @@ inline bool endsin_hdf5(const std::string &str)
 inline bool eq_null(const std::string &str)
 {
    return
-      nocasecmp(str,"null") ||
-      str == "";
+      nocasecmp(str,"null") || str == "";
 }
 
 // tree
@@ -465,10 +464,10 @@ inline bool eq_json(const std::string &str)
 inline bool eq_hdf5(const std::string &str)
 {
    return
-      nocasecmp(str,"hdf" ) ||
-      nocasecmp(str,"h5"  ) ||
-      nocasecmp(str,"hdf5") ||
-      nocasecmp(str,"he5" );
+        nocasecmp(str,"hdf" )
+     || nocasecmp(str,"h5"  )
+     || nocasecmp(str,"hdf5")
+     || nocasecmp(str,"he5" );
 }
 
 
@@ -609,14 +608,14 @@ public:
 
 namespace detail {
 
-inline std::string print_format(const file f, const bool brief = false)
+inline std::string print_format(const FileType f, const bool brief = false)
 {
-   return std::string(brief ? "" : "file::") + (
-      f == file::null ? "null"
-    : f == file::tree ? "tree"
-    : f == file::xml  ? "XML"
-    : f == file::json ? "JSON"
-    : f == file::hdf5 ? "HDF5"
+   return std::string(brief ? "" : "FileType::") + (
+      f == FileType::null ? "null"
+    : f == FileType::tree ? "tree"
+    : f == FileType::xml  ? "XML"
+    : f == FileType::json ? "JSON"
+    : f == FileType::hdf5 ? "HDF5"
     : "unknown"
    );
 }

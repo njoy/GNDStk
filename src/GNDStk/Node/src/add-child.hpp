@@ -7,11 +7,11 @@
 // Terminology: as for the Node.add()s for metadata.
 //
 // Remark. Some of the child_t add()s accept a general ALLOW child_t (either
-// allow::one or allow::many) along with just *one* value. The allow::many
+// Allow::one or Allow::many) along with just *one* value. The Allow::many
 // is permissible here - even with just one value - because we could certainly
 // wish to add multiple values one-by-one.
 //
-// Naturally, we'll also have add() functions that accept only an allow::many
+// Naturally, we'll also have add() functions that accept only an Allow::many
 // child_t, and receive containers of values.
 
 
@@ -21,9 +21,9 @@
 // 1-argument:
 //    string
 //    plain
-//    defaulted
+//    Defaulted
 // Guaranteed to add something
-// Returns reference to added node
+// Returns: reference to added node
 // -----------------------------------------------------------------------------
 
 // 0-argument
@@ -51,12 +51,12 @@ Node &add(
 // 1-argument: optional
 // Not available, because adding it couldn't be certain
 
-// 1-argument: defaulted
+// 1-argument: Defaulted
 template<
    class T,
    class = typename std::enable_if<std::is_constructible<Node,T>::value>::type
 >
-Node &add(const defaulted<T> &def)
+Node &add(const Defaulted<T> &def)
 {
    return add(def.value());
 }
@@ -66,16 +66,16 @@ Node &add(const defaulted<T> &def)
 // -----------------------------------------------------------------------------
 // child_t<void>, *
 // Guaranteed to add something
-// Returns reference to added node
+// Returns: reference to added node
 // -----------------------------------------------------------------------------
 
 // Similar in principle to its meta_t counterpart. Bounces to one of the above
 // add() functions; and like those, doesn't allow std::optional.
 
 // child_t<void>, plain
-// child_t<void>, defaulted
+// child_t<void>, Defaulted
 template<
-   class T = Node, allow ALLOW, class FILTER,
+   class T = Node, Allow ALLOW, class FILTER,
    class = typename std::enable_if<std::is_constructible<Node,T>::value>::type,
    class = typename std::enable_if<!detail::is_optional<T>::value>::type
 >
@@ -93,12 +93,12 @@ Node &add(
 // -----------------------------------------------------------------------------
 // child_t<plain>, *
 // Guaranteed to add something
-// Returns reference to added node
+// Returns: reference to added node
 // -----------------------------------------------------------------------------
 
 // child_t<plain>, plain
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T = TYPE,
    class = typename std::enable_if<!detail::is_optional<T>::value>::type,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
@@ -121,15 +121,15 @@ Node &add(
 // child_t<plain>, optional
 // Not available, because adding it couldn't be certain
 
-// child_t<plain>, defaulted
+// child_t<plain>, Defaulted
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 Node &add(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const defaulted<T> &def
+   const Defaulted<T> &def
 ) {
    return add(kwd, def.value());
 }
@@ -141,9 +141,9 @@ Node &add(
 // -----------------------------------------------------------------------------
 
 // child_t<optional>, plain
-// Returns Node &
+// Returns: Node &
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T = TYPE,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
@@ -155,9 +155,9 @@ Node &add(
 }
 
 // child_t<optional>, optional
-// Returns bool: was something added?
+// Returns: bool: was something added?
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
@@ -168,16 +168,16 @@ bool add(
    return opt.has_value() ? (add(kwd, opt.value()), true) : false;
 }
 
-// child_t<optional>, defaulted
-// Returns bool: was something added?
+// child_t<optional>, Defaulted
+// Returns: bool: was something added?
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
    const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
-   const defaulted<T> &def
+   const Defaulted<T> &def
 ) {
    return def.has_value() ? (add(kwd, def.value()), true) : false;
 }
@@ -185,47 +185,47 @@ bool add(
 
 
 // -----------------------------------------------------------------------------
-// child_t<defaulted>, *
+// child_t<Defaulted>, *
 // -----------------------------------------------------------------------------
 
-// child_t<defaulted>, plain
-// Returns Node &
+// child_t<Defaulted>, plain
+// Returns: Node &
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T = TYPE,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 Node &add(
-   const child_t<defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const child_t<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const T &val = T{}
 ) {
    return add(TYPE{}/kwd, val);
 }
 
-// child_t<defaulted>, optional
-// Returns bool: was something added?
+// child_t<Defaulted>, optional
+// Returns: bool: was something added?
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
-   const child_t<defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const child_t<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const std::optional<T> &opt
 ) {
    return opt.has_value() ? (add(kwd, opt.value()), true) : false;
 }
 
-// child_t<defaulted>, defaulted
-// Returns bool: was something added?
+// child_t<Defaulted>, Defaulted
+// Returns: bool: was something added?
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
-   const child_t<defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
-   const defaulted<T> &def
+   const child_t<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const Defaulted<T> &def
 ) {
    return def.has_value() ? (add(kwd, def.value()), true) : false;
 }
@@ -233,7 +233,7 @@ bool add(
 
 
 // -----------------------------------------------------------------------------
-// child_t<*> with allow::many, and a container
+// child_t<*> with Allow::many, and a container
 // -----------------------------------------------------------------------------
 
 // This takes a container, and builds on our non-container overloads. The add()
@@ -244,7 +244,7 @@ bool add(
 
 // The relatively complicated template specification is designed to handle both
 // child_t<void> and child_t<TYPE>, and T (for the container elements) being a
-// plain type, a std::optional<something>, or a defaulted<something>.
+// plain type, a std::optional<something>, or a Defaulted<something>.
 
 template<
    // re: the child_t
@@ -264,18 +264,18 @@ template<
    class = typename std::enable_if<
       std::is_constructible<
          typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
-         // remove type, if inside optional<> or defaulted<>
+         // remove type, if inside optional<> or Defaulted<>
          typename detail::remove_opt_def<T>::type
       >::value
    >::type
 >
 void add(
-   const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
+   const child_t<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
    const CONTAINER<T,Args...> &container
 ) {
    try {
       for (const T &val : container)
-         add(--kwd,val); // --kwd: child_t w/allow::one
+         add(--kwd,val); // --kwd: child_t w/Allow::one
    } catch (...) {
       log::member("Node.add(" + detail::keyname(kwd) + ",container)");
       throw;

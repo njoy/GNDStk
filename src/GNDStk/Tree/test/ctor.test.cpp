@@ -81,19 +81,19 @@ bool ctor()
    // construct from the source tree into other tree varieties,
    // and check that the contents of each such result are the same
    return
-      ctor<decltype(from)                          >(from,ossf) &&
-      ctor<decltype(from), std::deque              >(from,ossf) &&
-      ctor<decltype(from), std::deque , std::deque >(from,ossf) &&
-      ctor<decltype(from), std::deque , std::list  >(from,ossf) &&
-      ctor<decltype(from), std::deque , std::vector>(from,ossf) &&
-      ctor<decltype(from), std::list               >(from,ossf) &&
-      ctor<decltype(from), std::list  , std::deque >(from,ossf) &&
-      ctor<decltype(from), std::list  , std::list  >(from,ossf) &&
-      ctor<decltype(from), std::list  , std::vector>(from,ossf) &&
-      ctor<decltype(from), std::vector             >(from,ossf) &&
-      ctor<decltype(from), std::vector, std::deque >(from,ossf) &&
-      ctor<decltype(from), std::vector, std::list  >(from,ossf) &&
-      ctor<decltype(from), std::vector, std::vector>(from,ossf)
+        ctor<decltype(from)                          >(from,ossf)
+     && ctor<decltype(from), std::deque              >(from,ossf)
+     && ctor<decltype(from), std::deque , std::deque >(from,ossf)
+     && ctor<decltype(from), std::deque , std::list  >(from,ossf)
+     && ctor<decltype(from), std::deque , std::vector>(from,ossf)
+     && ctor<decltype(from), std::list               >(from,ossf)
+     && ctor<decltype(from), std::list  , std::deque >(from,ossf)
+     && ctor<decltype(from), std::list  , std::list  >(from,ossf)
+     && ctor<decltype(from), std::list  , std::vector>(from,ossf)
+     && ctor<decltype(from), std::vector             >(from,ossf)
+     && ctor<decltype(from), std::vector, std::deque >(from,ossf)
+     && ctor<decltype(from), std::vector, std::list  >(from,ossf)
+     && ctor<decltype(from), std::vector, std::vector>(from,ossf)
    ;
 }
 
@@ -219,7 +219,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
 
       WHEN("We call: Tree(top-level node, file format)") {
-         Tree<> t(reactionSuite, file::json);
+         Tree<> t(reactionSuite, FileType::json);
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "json");
             CHECK(t.decl().metadata.size() == 0);
@@ -231,7 +231,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
 
       WHEN("We call: Tree(top-level node, file format, version)") {
-         Tree<> t(covarianceSuite, file::null, "2.0");
+         Tree<> t(covarianceSuite, FileType::null, "2.0");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "xml");
             CHECK(t.decl().metadata.size() == 2);
@@ -245,7 +245,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
 
       WHEN("We call: Tree(top-level node, file format, version, encoding)") {
-         Tree<> t(covarianceSuite, file::xml, "3.0", "UTF-9");
+         Tree<> t(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "xml");
             CHECK(t.decl().metadata.size() == 2);

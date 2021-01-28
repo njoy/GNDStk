@@ -14,10 +14,10 @@ std::istream &read(std::istream &is)
    try {
       // load
       const pugi::xml_parse_result load = doc.load(
-         is,
-         pugi::parse_default |
-         pugi::parse_declaration | // preserve <?xml ...?> material
-         pugi::parse_comments      // preserve <!-- comment --> material
+           is,
+           pugi::parse_default
+         | pugi::parse_declaration // preserve <?xml ...?> material
+         | pugi::parse_comments    // preserve <!-- comment --> material
       );
 
       // check for errors

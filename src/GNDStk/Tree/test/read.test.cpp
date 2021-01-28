@@ -159,11 +159,11 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
       WHEN("We test read(filename, file format") {
          // xml
-         tree.read(xfilename,file::null); CHECK(compare(tree));
-         tree.read(xfilename,file::xml ); CHECK(compare(tree));
+         tree.read(xfilename,FileType::null); CHECK(compare(tree));
+         tree.read(xfilename,FileType::xml ); CHECK(compare(tree));
          // json
-         tree.read(jfilename,file::null); CHECK(compare(tree));
-         tree.read(jfilename,file::json); CHECK(compare(tree));
+         tree.read(jfilename,FileType::null); CHECK(compare(tree));
+         tree.read(jfilename,FileType::json); CHECK(compare(tree));
       }
 
       WHEN("We test read(filename, string") {
@@ -180,14 +180,14 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       WHEN("We test read(istream, file format") {
          // xml
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,file::null); CHECK(compare(tree));
+         tree.read(xifs,FileType::null); CHECK(compare(tree));
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,file::xml ); CHECK(compare(tree));
+         tree.read(xifs,FileType::xml ); CHECK(compare(tree));
          // json
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,file::null); CHECK(compare(tree));
+         tree.read(jifs,FileType::null); CHECK(compare(tree));
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,file::json); CHECK(compare(tree));
+         tree.read(jifs,FileType::json); CHECK(compare(tree));
       }
 
       WHEN("We test read(istream, string") {

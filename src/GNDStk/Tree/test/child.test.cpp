@@ -13,7 +13,7 @@ using namespace misc;
 
 // ------------------------
 // Custom type, function,
-// and extraction keyword
+// and keyword
 // ------------------------
 
 // type: xml_t
@@ -37,7 +37,7 @@ inline void convert(const NODE &node, xml_t &out)
 // keyword: my_xml_keyword
 // Users can write custom child_t objects like this, and then use them in
 // child() functions. Here, "xml" is what the keyword uses to look up nodes
-// that can be converted to xml_t objects via the convert() function above.
+// that can be converted to xml_t objects via the above convert().
 inline const child_t<xml_t> my_xml_keyword("xml");
 
 
@@ -84,8 +84,8 @@ template<class NODE>
 inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 {
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
-   // and format keyword - which return, respectively, string, string, string,
-   // and double. I.e. just what we need in our own custom type.
+   // and format keywords - which return, respectively, string, string,
+   // string, and double. I.e. just what we need in our own custom type.
    out.projectile = node.meta(meta::projectile);
    out.target     = node.meta(meta::target);
    out.evaluation = node.meta(meta::evaluation);
@@ -140,18 +140,18 @@ SCENARIO("Testing GNDStk tree child()") {
          // a custom type.
          found = false;
          const Node<> &cnode = c.child(child::xml,found);
-         CHECK(found == true);
+         CHECK(found);
          found = false;
          Node<> &tnode = t.child(child::xml,found);
-         CHECK(found == true);
+         CHECK(found);
       }
 
       WHEN("We call tree.child() to get the covarianceSuite node") {
          // IN CASE OF ERROR: Same note as immediately above.
          found = false; auto &cnode = c.child(covarianceSuite,found);
-         CHECK(found == true);
+         CHECK(found);
          found = false; auto &tnode = t.child(covarianceSuite,found);
-         CHECK(found == true);
+         CHECK(found);
       }
 
       // Let's try our own custom keyword, which was set up near the

@@ -4,8 +4,8 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-SCENARIO("Testing defaulted<T>") {
+SCENARIO("Testing Defaulted<T>") {
    // fixme
-   // Is there really anything to do here, for defaulted<T>
+   // Is there really anything to do here, for Defaulted<T>
    // in general, that isn't already in other tests?
 }

@@ -9,21 +9,21 @@
 // ------------------------
 
 // = T
-defaulted &operator=(const T &val)
+Defaulted &operator=(const T &val)
 {
    this->opt = val;
    return *this;
 }
 
 // = optional<T>
-defaulted &operator=(const std::optional<T> &opt)
+Defaulted &operator=(const std::optional<T> &opt)
 {
    this->opt = opt;
    return *this;
 }
 
 // = nullopt
-defaulted &operator=(const std::nullopt_t nullopt)
+Defaulted &operator=(const std::nullopt_t nullopt)
 {
    this->opt = nullopt;
    return *this;
@@ -41,7 +41,7 @@ defaulted &operator=(const std::nullopt_t nullopt)
 // any existing one disappearing into the ether (which of course is completely
 // normal for the left-hand-side of an assignmment). This effect - ending up
 // with a hard value in each case - is easy to remember, and seems reasonable,
-// given that we're assigning from something that, as a "defaulted" object,
+// given that we're assigning from something that, as a "Defaulted" object,
 // can be considered to always have a value. (Its default, if nothing else.)
 //
 // A case could perhaps be made that if the RIGHT-hand-side doesn't have a hard
@@ -59,7 +59,7 @@ defaulted &operator=(const std::nullopt_t nullopt)
 // into *this as a hard value.
 
 // copy
-defaulted &operator=(const defaulted &other)
+Defaulted &operator=(const Defaulted &other)
 {
    opt = T(other);
    return *this;
@@ -72,14 +72,14 @@ template<
       std::is_constructible<T,U>::value
    >::type
 >
-defaulted &operator=(const defaulted<U> &other)
+Defaulted &operator=(const Defaulted<U> &other)
 {
    opt = T(U(other));
    return *this;
 }
 
 // move
-defaulted &operator=(defaulted &&other)
+Defaulted &operator=(Defaulted &&other)
 {
    opt = std::move(other.opt.has_value() ? other.opt.value() : other.def);
    return *this;

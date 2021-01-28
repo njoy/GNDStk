@@ -76,7 +76,7 @@ SCENARIO("Testing GNDStk Node many()") {
             bool found = false;
             CHECK(Rs.has_many(""));
             auto vec = Rs.many("",found); // ensure this version works
-            CHECK(found == true);
+            CHECK(found);
             vec = Rs.many(""); // and this one
             CHECK(vec.size() == 1);
             std::ostringstream oss1; oss1 << Rs.sort();
@@ -90,7 +90,7 @@ SCENARIO("Testing GNDStk Node many()") {
             bool found = false;
             CHECK(Rs.has_many("",filter));
             auto vec = Rs.many("",filter,found); // ensure this version works
-            CHECK(found == true);
+            CHECK(found);
             vec = Rs.many("",filter); // and this one
             CHECK(vec.size() == 1);
             std::ostringstream oss1; oss1 << Rs.sort();

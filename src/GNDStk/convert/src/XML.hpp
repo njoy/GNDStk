@@ -121,9 +121,7 @@ inline bool convert(const JSON &j, XML &x)
 
    // convert
    try {
-      return
-         convert(j,t) &&
-         convert(t,x);
+      return convert(j,t) && convert(t,x);
    } catch (...) {
       log::function("convert(JSON,XML)");
       throw;

@@ -73,21 +73,21 @@ inline void convert(const Node<> &n, isotope_t &iso)
    iso.nuclides = &n(misc::child::nuclides);
 }
 
-// keywords with allow::one
+// keywords with Allow::one
 auto temperature =
-   keyword.child<temperature_t,allow::one>("temperature");
+   keyword.child<temperature_t,Allow::one>("temperature");
 auto styles =
-   keyword.child<void,allow::one>("styles");
+   keyword.child<void,Allow::one>("styles");
 auto documentations =
-   keyword.child<std::variant<foo_t,bar_t>,allow::one>("documentations");
+   keyword.child<std::variant<foo_t,bar_t>,Allow::one>("documentations");
 
-// keywords with allow::many
+// keywords with Allow::many
 auto isotope =
-   keyword.child<isotope_t,allow::many>("isotope");
+   keyword.child<isotope_t,Allow::many>("isotope");
 auto isotope_node =
-   keyword.child<void,allow::many>("isotope");
+   keyword.child<void,Allow::many>("isotope");
 auto nuclide_foo_or_bar_node =
-   keyword.child<std::variant<foo_t,bar_t>,allow::many>("nuclide");
+   keyword.child<std::variant<foo_t,bar_t>,Allow::many>("nuclide");
 
 
 // -----------------------------------------------------------------------------
@@ -227,8 +227,8 @@ SCENARIO("Testing GNDStk Node child()") {
       // n: non-const <reactions> node
       node &n = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<void,allow::one> reaction("reaction");
-      const child_t<void,allow::one> nonsense("nonsense");
+      const child_t<void,Allow::one> reaction("reaction");
+      const child_t<void,Allow::one> nonsense("nonsense");
 
       THEN("child(child_t) works") {
          // reference return; so, its address is available
@@ -302,8 +302,8 @@ SCENARIO("Testing GNDStk Node child()") {
       // c: const <reactions> node
       const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<void,allow::one> reaction("reaction");
-      const child_t<void,allow::one> nonsense("nonsense");
+      const child_t<void,Allow::one> reaction("reaction");
+      const child_t<void,Allow::one> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          (void)&c.child(reaction);
@@ -350,8 +350,8 @@ SCENARIO("Testing GNDStk Node child()") {
       // c: const <reactions> node
       const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<void,allow::many> reaction("reaction");
-      const child_t<void,allow::many> nonsense("nonsense");
+      const child_t<void,Allow::many> reaction("reaction");
+      const child_t<void,Allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c.child(reaction).size() == 60);
@@ -396,8 +396,8 @@ SCENARIO("Testing GNDStk Node child()") {
       // c: const <reactions> node
       const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<reaction_t,allow::one> reaction("reaction");
-      const child_t<nonsense_t,allow::one> nonsense("nonsense");
+      const child_t<reaction_t,Allow::one> reaction("reaction");
+      const child_t<nonsense_t,Allow::one> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c.child(reaction).label == "n + O16");
@@ -436,9 +436,9 @@ SCENARIO("Testing GNDStk Node child()") {
       // c: const <reactions> node
       const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<std::variant<int,reaction_t,double>,allow::one>
+      const child_t<std::variant<int,reaction_t,double>,Allow::one>
          reaction("reaction");
-      const child_t<std::variant<double,nonsense_t,int>,allow::one>
+      const child_t<std::variant<double,nonsense_t,int>,Allow::one>
          nonsense("nonsense");
 
       // For brevity
@@ -482,8 +482,8 @@ SCENARIO("Testing GNDStk Node child()") {
       // c: const <reactions> node
       const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<reaction_t,allow::many> reaction("reaction");
-      const child_t<nonsense_t,allow::many> nonsense("nonsense");
+      const child_t<reaction_t,Allow::many> reaction("reaction");
+      const child_t<nonsense_t,Allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c.child(reaction).size() == 60);
@@ -531,9 +531,9 @@ SCENARIO("Testing GNDStk Node child()") {
       // c: const <reactions> node
       const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
-      const child_t<std::variant<int,reaction_t,double>,allow::many>
+      const child_t<std::variant<int,reaction_t,double>,Allow::many>
          reaction("reaction");
-      const child_t<std::variant<double,nonsense_t,int>,allow::many>
+      const child_t<std::variant<double,nonsense_t,int>,Allow::many>
          nonsense("nonsense");
 
       // For brevity

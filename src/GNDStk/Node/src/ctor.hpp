@@ -43,7 +43,7 @@ Node(const std::string &name) :
 }
 
 // child_t<*>
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Node(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
    name(kwd.name)
 {
@@ -56,7 +56,7 @@ Node(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
 // ------------------------
 
 // child_t<void,...>, Node
-template<allow ALLOW, class FILTER>
+template<Allow ALLOW, class FILTER>
 Node(
    const child_t<void,ALLOW,void,FILTER> &kwd,
    const Node &value
@@ -87,7 +87,7 @@ Node(
 // when a child_t<TYPE> is involved: we convert (in the GNDStk sense) the TYPE
 // object to a node, using the child_t's converter.
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 Node(

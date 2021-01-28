@@ -7,15 +7,15 @@ namespace child {
 
 // Note: the ~ (tilde) makes them allowed as top-level nodes
 inline const auto
-   PoPs                = ~child_t<void,allow::one>("PoPs");
+   PoPs                = ~child_t<void,Allow::one>("PoPs");
 inline const auto
-   reactionSuite       = ~child_t<void,allow::one>("reactionSuite");
+   reactionSuite       = ~child_t<void,Allow::one>("reactionSuite");
 inline const auto
-   covarianceSuite     = ~child_t<void,allow::one>("covarianceSuite");
+   covarianceSuite     = ~child_t<void,Allow::one>("covarianceSuite");
 inline const auto
-   thermalScattering   = ~child_t<void,allow::one>("thermalScattering");
+   thermalScattering   = ~child_t<void,Allow::one>("thermalScattering");
 inline const auto
-   fissionFragmentData = ~child_t<void,allow::one>("fissionFragmentData");
+   fissionFragmentData = ~child_t<void,Allow::one>("fissionFragmentData");
 
 
 
@@ -129,7 +129,7 @@ GNDSTK_MAKE_CHILD(void, summand,  many);
 // Do more sorting/categorization
 // Some may actually be singular/plural pairs
 
-// allow::one cases
+// Allow::one cases
 GNDSTK_MAKE_CHILD(void, aliases, one);
 GNDSTK_MAKE_CHILD(void, angular, one);
 GNDSTK_MAKE_CHILD(void, angularEnergy, one);
@@ -270,7 +270,7 @@ GNDSTK_MAKE_CHILD(void, weightedFunctionals, one);
 GNDSTK_MAKE_CHILD(void, xml, one);
 GNDSTK_MAKE_CHILD(void, yields, one);
 
-// allow::many cases
+// Allow::many cases
 GNDSTK_MAKE_CHILD(void, add, many);
 GNDSTK_MAKE_CHILD(void, averageParameterCovariance, many);
 GNDSTK_MAKE_CHILD(void, column, many);
@@ -309,16 +309,16 @@ GNDSTK_MAKE_CHILD(void, XYs3d, many);
 
 // Double
 // Not called double, for obvious reasons.
-inline const child_t<void,allow::one> Double("double");
+inline const child_t<void,Allow::one> Double("double");
 
 // cdata, comment
 // These are where XML <![CDATA[...]]> or <!-- ... --> (comment) material
 // resides. It's reasonable to extract such content into std::strings. We
 // then store these as nodes of those respective names, each with one metadatum
 // having a key of "text" and a value containing the original content.
-inline const child_t<std::string,allow::one,detail::text_metadatum_to_string>
+inline const child_t<std::string,Allow::one,detail::text_metadatum_to_string>
    cdata("cdata");
-inline const child_t<std::string,allow::many,detail::text_metadatum_to_string>
+inline const child_t<std::string,Allow::many,detail::text_metadatum_to_string>
    comment("comment");
 
 // pcdata
@@ -333,7 +333,7 @@ inline const child_t<std::string,allow::many,detail::text_metadatum_to_string>
 // in its original form and thus dig further down to its "text" metadatum, at
 // which point we can decide elsewhere what's appropriate for that. (Read into
 // a vector of ints? A vector of doubles? Something else?)
-inline const child_t<void,allow::one>
+inline const child_t<void,Allow::one>
    pcdata("pcdata");
 
 } // namespace child

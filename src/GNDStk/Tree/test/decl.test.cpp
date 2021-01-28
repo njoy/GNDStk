@@ -28,17 +28,17 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().children.size() == 0);
       }
 
-      WHEN("We call reset(reactionSuite, file::json)") {
+      WHEN("We call reset(reactionSuite, FileType::json)") {
          Tree<> t;
-         t.reset(reactionSuite, file::json);
+         t.reset(reactionSuite, FileType::json);
          CHECK(t.decl().name == "json");
          CHECK(t.decl().metadata.size() == 0);
          CHECK(t.decl().children.size() == 0);
       }
 
-      WHEN("We call reset(covarianceSuite, file::null, \"2.0\")") {
+      WHEN("We call reset(covarianceSuite, FileType::null, \"2.0\")") {
          Tree<> t;
-         t.reset(covarianceSuite, file::null, "2.0");
+         t.reset(covarianceSuite, FileType::null, "2.0");
          CHECK(t.decl().name == "xml");
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "2.0");
@@ -46,9 +46,9 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().children.size() == 0);
       }
 
-      WHEN("We call reset(covarianceSuite, file::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("We call reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
          Tree<> t;
-         t.reset(covarianceSuite, file::xml, "3.0", "UTF-9");
+         t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          CHECK(t.decl().name == "xml");
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "3.0");

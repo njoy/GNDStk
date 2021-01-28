@@ -2,16 +2,16 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-SCENARIO("Testing defaulted<T>'s get_*() functions") {
-   using njoy::GNDStk::defaulted;
+SCENARIO("Testing Defaulted<T>'s get_*() functions") {
+   using njoy::GNDStk::Defaulted;
 
    // ------------------------
    // With
-   // defaulted(default)
+   // Defaulted(default)
    // ------------------------
 
-   WHEN("We construct a defaulted(default value)") {
-      const defaulted<int> d(123);
+   WHEN("We construct a Defaulted(default value)") {
+      const Defaulted<int> d(123);
 
       THEN("get_default() and get_optional() work as expected") {
          CHECK(d.get_default() == 123);
@@ -27,11 +27,11 @@ SCENARIO("Testing defaulted<T>'s get_*() functions") {
 
    // ------------------------
    // With
-   // defaulted(default,value)
+   // Defaulted(default,value)
    // ------------------------
 
-   WHEN("We construct a defaulted(default value, value)") {
-      const defaulted<int> d(123,456);
+   WHEN("We construct a Defaulted(default value, value)") {
+      const Defaulted<int> d(123,456);
 
       THEN("get_default() and get_optional() work as expected") {
          CHECK(d.get_default() == 123);

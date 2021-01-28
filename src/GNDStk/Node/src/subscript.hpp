@@ -171,14 +171,14 @@ auto operator[](const meta_t<TYPE,CONVERTER> &kwd)
 
 // Returns: const Node &
 template<class FILTER>
-const Node &operator[](const child_t<void,allow::one,void,FILTER> &kwd) const
+const Node &operator[](const child_t<void,Allow::one,void,FILTER> &kwd) const
 {
    return (*this)(kwd);
 }
 
 // Returns: Node &
 template<class FILTER>
-Node &operator[](const child_t<void,allow::one,void,FILTER> &kwd)
+Node &operator[](const child_t<void,Allow::one,void,FILTER> &kwd)
 {
    return (*this)(kwd);
 }
@@ -190,14 +190,14 @@ Node &operator[](const child_t<void,allow::one,void,FILTER> &kwd)
 // ------------------------
 
 // Returns: child_ref, knowing it references const
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 auto operator[](const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) const
 {
    return detail::child_ref<Node,true, TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
 }
 
 // Returns: child_ref, knowing it references non-const
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 auto operator[](const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return detail::child_ref<Node,false,TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);

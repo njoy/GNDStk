@@ -24,28 +24,28 @@ SCENARIO("Testing GNDStk child_t<TYPE,ALLOW,CONVERTER>") {
          const child_t<double>
             foo("foo");
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == false);
+         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,converter)") {
-         const child_t<double,allow::one,converter>
+         const child_t<double,Allow::one,converter>
             foo("foo", 0.0, converter{});
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == false);
+         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,converter,filter)") {
-         const child_t<double,allow::one,converter>
+         const child_t<double,Allow::one,converter>
             foo("foo", 0.0, converter{}, filter);
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == false);
+         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,converter,filter,top)") {
-         const child_t<double,allow::one,converter>
+         const child_t<double,Allow::one,converter>
             foo("foo", 0.0, converter{}, filter, true);
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == true);
+         CHECK(foo.top());
       }
    }
 
@@ -55,21 +55,21 @@ SCENARIO("Testing GNDStk child_t<TYPE,ALLOW,CONVERTER>") {
          const child_t<void>
             foo("foo");
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == false);
+         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,filter)") {
          const child_t<void>
             foo("foo", filter);
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == false);
+         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,filter,top)") {
          const child_t<void>
             foo("foo", filter, true);
          CHECK(foo.name == "foo");
-         CHECK(foo.top() == true);
+         CHECK(foo.top());
       }
    }
 }

@@ -15,7 +15,7 @@
 // ------------------------
 
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class... KEYWORDS
 >
 decltype(auto) operator()(
@@ -29,13 +29,13 @@ decltype(auto) operator()(
          detail::apply_converter<TYPE>{}(kwd,*this);
 
       // This triggers a static assertion failure if, and only if, someone
-      // sends operator() an allow::many child_t that is not followed by a
+      // sends operator() an Allow::many child_t that is not followed by a
       // string, char*, or regex, and is not at operator()'s end...
       (void)detail::call_operator_child_t<ALLOW>{};
 
-      // Use -- to downgrade to allow::one (so unchanged if already allow::one,
+      // Use -- to downgrade to Allow::one (so unchanged if already Allow::one,
       // and just one error (the static assertion failure as described above),
-      // as opposed to two errors, if an allow::many. Finally, use unary minus
+      // as opposed to two errors, if an Allow::many. Finally, use unary minus
       // to make the child_t's type <void>, so that we can continue to dig down
       // further into the tree structure.
       return child(---kwd,found)(std::forward<KEYWORDS>(keywords)...);
@@ -52,7 +52,7 @@ decltype(auto) operator()(
 // ------------------------
 
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class... KEYWORDS
 >
 decltype(auto) operator()(
@@ -68,7 +68,7 @@ decltype(auto) operator()(
       // total filter
       auto filter = [kwd,label](const Node &n)
          { return kwd.filter(n) && detail::label_is(label)(n); };
-      // ---kwd: child_t<void,allow::one,...>
+      // ---kwd: child_t<void,Allow::one,...>
       return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       log::member("Node(" + detail::keyname(kwd) + ",label=\"{}\",...)", label);
@@ -78,7 +78,7 @@ decltype(auto) operator()(
 
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class... KEYWORDS
 >
 decltype(auto) operator()(
@@ -96,7 +96,7 @@ decltype(auto) operator()(
 // ------------------------
 
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class... KEYWORDS
 >
 decltype(auto) operator()(
@@ -112,7 +112,7 @@ decltype(auto) operator()(
       // total filter
       auto filter = [kwd,labelRegex](const Node &n)
          { return kwd.filter(n) && detail::label_is_regex(labelRegex)(n); };
-      // ---kwd: child_t<void,allow::one,...>
+      // ---kwd: child_t<void,Allow::one,...>
       return child(---kwd+filter, found)(std::forward<KEYWORDS>(keywords)...);
    } catch (...) {
       // C++ doesn't have stream output for regex, which one might think

@@ -49,9 +49,9 @@ public:
    using type = T;
 };
 
-// defaulted
+// Defaulted
 template<class T>
-class remove_opt_def<defaulted<T>> {
+class remove_opt_def<Defaulted<T>> {
 public:
    using type = T;
 };
@@ -82,10 +82,10 @@ std::string keyname(
    return "optional meta_t(\"" + m.name + "\")";
 }
 
-// meta_t<defaulted<TYPE>>
+// meta_t<Defaulted<TYPE>>
 template<class TYPE, class CONVERTER>
 std::string keyname(
-   const meta_t<defaulted<TYPE>,CONVERTER> &m
+   const meta_t<Defaulted<TYPE>,CONVERTER> &m
 ) {
    return "optional-with-default meta_t(\"" + m.name + "\")";
 }
@@ -96,7 +96,7 @@ std::string keyname(
 // ------------------------
 
 // child_t<TYPE>
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &c
 ) {
@@ -104,17 +104,17 @@ std::string keyname(
 }
 
 // child_t<optional<TYPE>>
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
    const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
    return "optional child_t(\"" + c.name + "\")";
 }
 
-// child_t<defaulted<TYPE>>
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+// child_t<Defaulted<TYPE>>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
-   const child_t<defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &c
+   const child_t<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
    return "optional-with-default child_t(\"" + c.name + "\")";
 }
@@ -143,24 +143,24 @@ inline std::string keyname(const std::regex &)
 // call_operator_child_t
 // -----------------------------------------------------------------------------
 
-template<allow ALLOW>
+template<Allow ALLOW>
 class call_operator_child_t {
    // Here's what we really want the static_assert to say:
    //
-   //    Misuse of child_t with <allow::many> in Node's call operator.
-   //    Child_t with allow::many can only be used in Node's operator():
+   //    Misuse of child_t with <Allow::many> in Node's call operator.
+   //    Child_t with Allow::many can only be used in Node's operator():
    //      - at the end; or
    //      - followed by a std::string or char* label; or
    //      - followed by a std::regex for match with label.
-   //    Quick fix: downgrade to allow::one using predecrement: --child_t
+   //    Quick fix: downgrade to Allow::one using predecrement: --child_t
    //
    // It seems that a static_assert string's formatting (say, with \n)
    // is not necessarily respected by the compiler. Under the circumstances,
    // we judge that a more-succint message is best.
 
    static_assert(
-      ALLOW == allow::one,
-     "Misuse of child_t with <allow::many> in Node's call operator"
+      ALLOW == Allow::one,
+     "Misuse of child_t with <Allow::many> in Node's call operator"
    );
 };
 
@@ -403,12 +403,12 @@ public:
 
 // -----------------------------------------------------------------------------
 // child_ref
-// Default
+// The default does nothing; see the Allow::one and Allow::many specializations.
 // -----------------------------------------------------------------------------
 
 template<
    class NODE, bool CONST,
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER
 >
 class child_ref {
    // nothing
@@ -426,9 +426,9 @@ template<
    class NODE, bool CONST, // node type, and its constness status
    class TYPE, class CONVERTER, class FILTER // for the child_t
 >
-class child_ref<NODE,CONST,TYPE,allow::one,CONVERTER,FILTER>
+class child_ref<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>
 {
-   const child_t<TYPE,allow::one,CONVERTER,FILTER> kwd;
+   const child_t<TYPE,Allow::one,CONVERTER,FILTER> kwd;
 
    // [const] node reference to the actual node
    typename std::conditional<
@@ -444,7 +444,7 @@ public:
    // ------------------------
 
    child_ref(
-      const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd,
+      const child_t<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
       kwd(kwd), // original child_t
@@ -515,9 +515,9 @@ template<
    class NODE, bool CONST, // node type, and its constness status
    class TYPE, class CONVERTER, class FILTER // for the child_t
 >
-class child_ref<NODE,CONST,TYPE,allow::many,CONVERTER,FILTER>
+class child_ref<NODE,CONST,TYPE,Allow::many,CONVERTER,FILTER>
 {
-   const child_t<TYPE,allow::many,CONVERTER,FILTER> kwd;
+   const child_t<TYPE,Allow::many,CONVERTER,FILTER> kwd;
 
    // vector of [const] node pointers to the actual nodes
    std::vector<
@@ -535,7 +535,7 @@ public:
    // ------------------------
 
    child_ref(
-      const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
+      const child_t<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
       kwd(kwd) // original child_t
@@ -552,7 +552,7 @@ public:
                   childNodePtr.push_back(&(*c));
          }
       } catch (...) {
-         log::ctor("child_ref<allow::many>" + detail::keyname(kwd));
+         log::ctor("child_ref<Allow::many>" + detail::keyname(kwd));
          throw;
       }
    }
@@ -571,13 +571,13 @@ public:
    decltype(auto) operator[](const std::size_t n) const
    {
       if constexpr (std::is_same<TYPE,void>::value) {
-         // for TYPE == void
-         // returns: [const] NODE &
+         // For TYPE == void
+         // Returns: [const] NODE &
          return *childNodePtr[n];
       } else {
-         // for TYPE != void
-         // leverage the capabilities of the allow::one child_ref
-         return child_ref<NODE,CONST,TYPE,allow::one,CONVERTER,FILTER>(
+         // For TYPE != void
+         // Leverage the capabilities of the Allow::one child_ref
+         return child_ref<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>(
             // As always, -- downgrades many to one. The /"" changes the lookup
             // name to "", which means "use the current node" (in this case the
             // node *childNodePtr[n]), which is appropriate here because we're
@@ -593,8 +593,8 @@ public:
    // assignment
    // ------------------------
 
-   // child_ref for allow::many child_t objects, as opposed to child_ref for
-   // allow::one child_t objects, has no assignment operators. Presumably,
+   // child_ref for Allow::many child_t objects, as opposed to child_ref for
+   // Allow::one child_t objects, has no assignment operators. Presumably,
    // an assignment operator's purpose in this case would be to allow someone
    // to remake the entire set of the (generally many) child nodes to which
    // we're pointing in our childNodePtr vector of pointers to nodes. Such an

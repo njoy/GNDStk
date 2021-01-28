@@ -7,7 +7,7 @@
 // To make a child_t<TYPE,...>
 template<
    class TYPE,
-   allow ALLOW = allow::one,
+   Allow ALLOW = Allow::one,
    class CONVERTER = typename detail::default_converter<TYPE>::type,
    class FILTER = detail::noFilter
 >
@@ -32,7 +32,7 @@ static child_t<
 // To make a child_t<void,...>
 template<
    class TYPE = void,
-   allow ALLOW = allow::one,
+   Allow ALLOW = Allow::one,
    class FILTER = detail::noFilter
 >
 static child_t<

@@ -124,12 +124,12 @@ std::optional<TYPE> meta(
 
 
 // ------------------------
-// defaulted<TYPE>
+// Defaulted<TYPE>
 // ------------------------
 
 template<class TYPE, class CONVERTER>
-defaulted<TYPE> meta(
-   const meta_t<defaulted<TYPE>,CONVERTER> &kwd,
+Defaulted<TYPE> meta(
+   const meta_t<Defaulted<TYPE>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -138,8 +138,8 @@ defaulted<TYPE> meta(
       const TYPE obj = meta(kwd.object.value()/kwd, f);
       found = true; // always
       return f
-         ? defaulted<TYPE>(kwd.object.get_default(),obj)
-         : defaulted<TYPE>(kwd.object.get_default());
+         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
+         : Defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;

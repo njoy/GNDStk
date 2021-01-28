@@ -76,8 +76,8 @@ explicit Tree(const JSON &j)
 
 // file name, file format
 // Example:
-//    Tree<> t("n-008_O_016.xml", file::xml);
-explicit Tree(const std::string &filename, const file form = file::null)
+//    Tree<> t("n-008_O_016.xml", FileType::xml);
+explicit Tree(const std::string &filename, const FileType form = FileType::null)
 {
    try {
       if (!read(filename,form))
@@ -105,8 +105,8 @@ Tree(const std::string &filename, const std::string &filetype)
 // istream, file format
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
-//    Tree<> t(ifs, file::xml);
-explicit Tree(std::istream &is, const file form = file::null)
+//    Tree<> t(ifs, FileType::xml);
+explicit Tree(std::istream &is, const FileType form = FileType::null)
 {
    try {
       if (!read(is,form))
@@ -142,7 +142,7 @@ Tree(std::istream &is, const std::string &filetype)
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
 //
 // Examples:
-//    Tree<> newtree(reactionSuite, file::xml, "1.0", "UTF-8");
+//    Tree<> newtree(reactionSuite, FileType::xml, "1.0", "UTF-8");
 // or
 //    Tree<> newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
@@ -159,10 +159,10 @@ Tree(std::istream &is, const std::string &filetype)
 // arguments to be *file* names (not top-level node names).
 
 // keyword, file format
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const file form = file::xml,
+   const FileType form = FileType::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -176,7 +176,7 @@ Tree(
 }
 
 // keyword, string
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &filetype,

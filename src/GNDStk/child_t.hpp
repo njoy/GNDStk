@@ -18,7 +18,7 @@ TYPE
 
 ALLOW
 
-   A value, of enum class allow, that indicates whether or not the kind of
+   A value, of enum class Allow, that indicates whether or not the kind of
    node in question is expected to appear one time, or any number of times.
    Consider, for example, that an XML-format GNDS might have:
 
@@ -37,8 +37,8 @@ ALLOW
       tree(...,axes,axis)
 
    gives back a container of axis objects, not a single axis object, because
-   our child_t axis keyword has ALLOW == allow::any. Note that axes, not to be
-   confused with axis, has ALLOW == allow::one because it's expected just once.
+   our child_t axis keyword has ALLOW == Allow::any. Note that axes, not to be
+   confused with axis, has ALLOW == Allow::one because it's expected just once.
 
 CONVERTER
 
@@ -58,7 +58,7 @@ FILTER
 
 template<
    class TYPE = void, // default means current Node type
-   allow ALLOW = allow::one, // one, or any number allowed?
+   Allow ALLOW = Allow::one, // one, or any number allowed?
    class CONVERTER = typename detail::default_converter<TYPE>::type,
    class FILTER = detail::noFilter
 >
@@ -134,19 +134,19 @@ public:
    }
 
    // one()
-   // Produce an equivalent child_t, but formulated as allow::one
+   // Produce an equivalent child_t, but formulated as Allow::one
    auto one() const
    {
-      return child_t<TYPE,allow::one,CONVERTER,FILTER>(
+      return child_t<TYPE,Allow::one,CONVERTER,FILTER>(
          name, object, converter, filter, canBeTopLevel
       );
    }
 
    // many()
-   // Produce an equivalent child_t, but formulated as allow::many
+   // Produce an equivalent child_t, but formulated as Allow::many
    auto many() const
    {
-      return child_t<TYPE,allow::many,CONVERTER,FILTER>(
+      return child_t<TYPE,Allow::many,CONVERTER,FILTER>(
          name, object, converter, filter, canBeTopLevel
       );
    }
@@ -158,7 +158,7 @@ public:
 // void
 // -----------------------------------------------------------------------------
 
-template<allow ALLOW, class CONVERTER, class FILTER>
+template<Allow ALLOW, class CONVERTER, class FILTER>
 class child_t<void,ALLOW,CONVERTER,FILTER> {
    static_assert(
       std::is_same<CONVERTER,void>::value,
@@ -227,17 +227,17 @@ public:
    }
 
    // one()
-   // Produce an equivalent child_t, but formulated as allow::one
+   // Produce an equivalent child_t, but formulated as Allow::one
    auto one() const
    {
-      return child_t<void,allow::one,void,FILTER>(name,filter,canBeTopLevel);
+      return child_t<void,Allow::one,void,FILTER>(name,filter,canBeTopLevel);
    }
 
    // many()
-   // Produce an equivalent child_t, but formulated as allow::many
+   // Produce an equivalent child_t, but formulated as Allow::many
    auto many() const
    {
-      return child_t<void,allow::many,void,FILTER>(name,filter,canBeTopLevel);
+      return child_t<void,Allow::many,void,FILTER>(name,filter,canBeTopLevel);
    }
 };
 
@@ -253,7 +253,7 @@ public:
 // in some other way than by using this macro.
 
 #define GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
-   inline const child_t<TYPE,allow::ALLOW> name(#name)
+   inline const child_t<TYPE,Allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.

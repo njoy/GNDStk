@@ -89,8 +89,8 @@ SCENARIO("Testing GNDStk Tree meta()") {
          // comes back as false. (If we didn't send it at all, then attempting
          // to look up a nonexistent metadata key would trigger an error).
          // Const version, then non-const...
-         CHECK((found = true, c.meta("foo", found), found == false));
-         CHECK((found = true, t.meta("bar", found), found == false));
+         CHECK((found = true, c.meta("foo", found), !found));
+         CHECK((found = true, t.meta("bar", found), !found));
       }
 
 
@@ -141,33 +141,33 @@ SCENARIO("Testing GNDStk Tree meta()") {
 
          // Test found
          CHECK((found = false,
-                c.decl().meta<double     > (version    ,found) ==  1.0    &&
-                found));
+                c.decl().meta<double     > (version    ,found) ==  1.0
+                && found));
          CHECK((found = false,
-                c.decl().meta<std::string> (version    ,found) == "1.0"   &&
-                found));
+                c.decl().meta<std::string> (version    ,found) == "1.0"
+                && found));
          CHECK((found = false,
-                c.decl().meta              (encoding   ,found) == "UTF-8" &&
-                found));
+                c.decl().meta              (encoding   ,found) == "UTF-8"
+                && found));
          CHECK((found = false,
-                c.top() .meta<char       > (projectile ,found) == 'n'     &&
-                found));
+                c.top() .meta<char       > (projectile ,found) == 'n'
+                && found));
          CHECK((found = false,
-                c.top() .meta<std::string> (projectile ,found) == "n"     &&
-                found));
+                c.top() .meta<std::string> (projectile ,found) == "n"
+                && found));
          CHECK((found = false,
-                c.top() .meta              (target     ,found) == "Tm170" &&
-                found));
+                c.top() .meta              (target     ,found) == "Tm170"
+                && found));
          CHECK((found = false,
-                c.top() .meta              (format     ,found) ==  1.9    &&
-                found));
+                c.top() .meta              (format     ,found) ==  1.9
+                && found));
 
          // Test not-found
          meta_t<int> foo("foo");
          meta_t<std::variant<int,double>> bar("bar");
-         CHECK((found = true, c.meta        (foo,found), found == false));
-         CHECK((found = true, c.meta<int   >(bar,found), found == false));
-         CHECK((found = true, c.meta<double>(bar,found), found == false));
+         CHECK((found = true, c.meta        (foo,found), !found));
+         CHECK((found = true, c.meta<int   >(bar,found), !found));
+         CHECK((found = true, c.meta<double>(bar,found), !found));
       }
 
 

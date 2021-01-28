@@ -47,7 +47,7 @@ public:
 };
 
 // child_t
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 class is_child_t<child_t<TYPE,ALLOW,CONVERTER,FILTER>> {
 public:
    static constexpr bool value = true;
@@ -62,8 +62,8 @@ template<class T>
 class is_meta_or_child_t {
 public:
    static constexpr bool value =
-      is_meta_t <T>::value ||
-      is_child_t<T>::value;
+       is_meta_t <T>::value
+    || is_child_t<T>::value;
 };
 
 
@@ -148,8 +148,8 @@ public:
       >::type,
       // ensure RHS \in {meta_t, child_t, string, regex}
       class = typename std::enable_if<
-         detail::is_meta_or_child_t<RHS>::value ||
-         detail::is_string_or_regex<RHS>::value
+          detail::is_meta_or_child_t<RHS>::value
+       || detail::is_string_or_regex<RHS>::value
       >::type
    >
    keywords(const keywords<LHS...> &lhs, const RHS &rhs) :
@@ -180,7 +180,7 @@ public:
 
 
 // just child_t
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 class keywords<child_t<TYPE,ALLOW,CONVERTER,FILTER>> {
    using C = child_t<TYPE,ALLOW,CONVERTER,FILTER>;
 public:
@@ -251,7 +251,7 @@ auto operator|(
 // 2. child_t | string/regex
 // ==> keywords<child_t, string/regex>
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER, class RHS,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class RHS,
    class right = typename detail::is_string_or_regex<RHS>::type
 >
 auto operator|(

@@ -17,7 +17,7 @@
 
 std::istream &read(
    std::istream &is,
-   file form = file::null
+   FileType form = FileType::null
 ) {
    // clear
    // Remark as in read(string). Note that we need the clear() here, too,
@@ -25,18 +25,18 @@ std::istream &read(
    clear();
 
    // ------------------------
-   // file::tree
+   // FileType::tree
    // Not allowed in read
    // ------------------------
 
-   if (form == file::tree) {
+   if (form == FileType::tree) {
       log::error(detail::format_tree_read);
       log::member("Tree.read(istream)");
       throw std::exception{};
    }
 
    // ------------------------
-   // file::xml,json,hdf5
+   // FileType::xml,json,hdf5
    // Check: consistent
    // initial content?
    // ------------------------
@@ -65,35 +65,35 @@ std::istream &read(
       throw std::exception{};
    } else if (is.peek() == '<') {
       // looks like XML
-      if (form == file::null) {
-         form = file::xml;
+      if (form == FileType::null) {
+         form = FileType::xml;
          magic = "Assuming XML, based on the first character of the istream";
-      } else if (form != file::xml) {
+      } else if (form != FileType::xml) {
          detail::warning_tree_io_data(form, "XML");
          magic = "Using " + detail::print_format(form) + request;
       }
    } else if (is.peek() == 137) {
       // looks like HDF5
-      if (form == file::null) {
-         form = file::hdf5;
+      if (form == FileType::null) {
+         form = FileType::hdf5;
          magic = "Assuming HDF5, based on the first character of the istream";
-      } else if (form != file::hdf5) {
+      } else if (form != FileType::hdf5) {
          detail::warning_tree_io_data(form, "HDF5");
          magic = "Using " + detail::print_format(form) + request;
       }
    } else {
       // looks like JSON (via process of elimination)
-      if (form == file::null) {
-         form = file::json;
+      if (form == FileType::null) {
+         form = FileType::json;
          magic = "Assuming JSON, based on the first character of the istream";
-      } else if (form != file::json) {
+      } else if (form != FileType::json) {
          detail::warning_tree_io_data(form, "JSON");
          magic = "Using " + detail::print_format(form) + request;
       }
    }
 
-   // The above logic is such that form cannot henceforth be file::tree,
-   // which would have triggered a return, or file::null, which would have
+   // The above logic is such that form cannot henceforth be FileType::tree,
+   // which would have triggered a return, or FileType::null, which would have
    // become one of {xml,json,hdf5} somewhere in the above conditional.
 
    // ------------------------
@@ -103,19 +103,19 @@ std::istream &read(
    try {
       // Obey form, independent of whatever might or might not have been
       // warned about above. Note that if the original form parameter was
-      // file::null, then form would have been modified, above, to the
+      // FileType::null, then form would have been modified, above, to the
       // likely correct file format, based on the peek() calls.
-      if (form == file::xml) {
+      if (form == FileType::xml) {
          // assume XML; so, create tree by converting from a temporary XML...
          XML tmp;
          if (!tmp.read(is) || !convert(tmp, *this))
             throw std::exception{};
-      } else if (form == file::json) {
+      } else if (form == FileType::json) {
          // assume JSON; so, create tree by converting from a temporary JSON...
          JSON tmp;
          if (!tmp.read(is) || !convert(tmp, *this))
             throw std::exception{};
-      } else if (form == file::hdf5) {
+      } else if (form == FileType::hdf5) {
          log::error("Tree.read() for HDF5 is not implemented yet");
          throw std::exception{};
       } else {
@@ -146,7 +146,7 @@ std::istream &read(
 
 bool read(
    const std::string &filename,
-   const file form = file::null
+   const FileType form = FileType::null
 ) {
    // ------------------------
    // Clear current contents
@@ -157,31 +157,31 @@ bool read(
    clear();
 
    // ------------------------
-   // file::tree
+   // FileType::tree
    // Not allowed in read
    // ------------------------
 
    // Error; this file format isn't allowed for read() (only for write())
-   if (form == file::tree) {
+   if (form == FileType::tree) {
       log::error(detail::format_tree_read);
       log::member("Tree.read(\"{}\",format)", filename);
       throw std::exception{};
    }
 
    // ------------------------
-   // file::xml,json,hdf5
+   // FileType::xml,json,hdf5
    // Check: consistent name?
    // ------------------------
 
-   if (form == file::xml && has_extension(filename)
+   if (form == FileType::xml && has_extension(filename)
        && !endsin_xml(filename)) {
       detail::warning_tree_io_name("read", "xml",  filename, "XML" );
    }
-   if (form == file::json && has_extension(filename)
+   if (form == FileType::json && has_extension(filename)
        && !endsin_json(filename)) {
       detail::warning_tree_io_name("read", "json", filename, "JSON");
    }
-   if (form == file::hdf5 && has_extension(filename)
+   if (form == FileType::hdf5 && has_extension(filename)
        && !endsin_hdf5(filename)) {
       detail::warning_tree_io_name("read", "hdf5", filename, "HDF5");
    }
@@ -221,11 +221,11 @@ std::istream &read(
    const std::string &form
 ) {
    try {
-      if (eq_null(form)) return read(is,file::null);
-      if (eq_tree(form)) return read(is,file::tree);
-      if (eq_xml (form)) return read(is,file::xml );
-      if (eq_json(form)) return read(is,file::json);
-      if (eq_hdf5(form)) return read(is,file::hdf5);
+      if (eq_null(form)) return read(is,FileType::null);
+      if (eq_tree(form)) return read(is,FileType::tree);
+      if (eq_xml (form)) return read(is,FileType::xml );
+      if (eq_json(form)) return read(is,FileType::json);
+      if (eq_hdf5(form)) return read(is,FileType::hdf5);
 
       // unrecognized file format
       log::warning(
@@ -235,7 +235,7 @@ std::istream &read(
       );
 
       // fallback: automagick
-      return read(is,file::null);
+      return read(is,FileType::null);
    } catch (...) {
       log::member("Tree.read(istream,\"{}\")", form);
       throw;
@@ -253,11 +253,11 @@ bool read(
    const std::string &form
 ) {
    try {
-      if (eq_null(form)) return read(filename,file::null);
-      if (eq_tree(form)) return read(filename,file::tree);
-      if (eq_xml (form)) return read(filename,file::xml );
-      if (eq_json(form)) return read(filename,file::json);
-      if (eq_hdf5(form)) return read(filename,file::hdf5);
+      if (eq_null(form)) return read(filename,FileType::null);
+      if (eq_tree(form)) return read(filename,FileType::tree);
+      if (eq_xml (form)) return read(filename,FileType::xml );
+      if (eq_json(form)) return read(filename,FileType::json);
+      if (eq_hdf5(form)) return read(filename,FileType::hdf5);
 
       // unrecognized file format
       log::warning(
@@ -267,7 +267,7 @@ bool read(
       );
 
       // fallback: automagick
-      return read(filename,file::null);
+      return read(filename,FileType::null);
    } catch (...) {
       log::member("Tree.read(\"{}\",\"{}\")", filename, form);
       throw;

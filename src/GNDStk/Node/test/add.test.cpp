@@ -82,7 +82,7 @@ SCENARIO("Testing GNDStk Node add()") {
       // these need the = TYPE on class T in the metadata node.add() functions:
       n.add(dim,{321,987});
       auto optdim = keyword.meta<std::optional<dimensions2d>>("OptDim");
-      auto defdim = defaulted<dimensions2d>({1,2})/keyword.meta<>("DefDim");
+      auto defdim = Defaulted<dimensions2d>({1,2})/keyword.meta<>("DefDim");
       n.add(optdim,{321,987});
       n.add(defdim,{321,987});
 
@@ -99,13 +99,13 @@ SCENARIO("Testing GNDStk Node add()") {
       // ------------------------
       // ------------------------
 
-      auto foo = keyword.child<void,allow::one>("foo");
+      auto foo = keyword.child<void,Allow::one>("foo");
       auto numbers = keyword.child<
          std::vector<double>,
-         allow::one
+         Allow::one
          >("pcdata",std::vector<double>{},detail::convert_pcdata_text_t{});
 
-      auto nrepeat = keyword.child<void,allow::many>("repeated node");
+      auto nrepeat = keyword.child<void,Allow::many>("repeated node");
       Node<> node1; node1.name = "aa11";
       Node<> node2; node2.name = "bb22";
       Node<> node3; node3.name = "cc33";
@@ -122,7 +122,7 @@ SCENARIO("Testing GNDStk Node add()") {
       // dim2d doesn't happen to have a default constructor, so we'll need
       // to give it a value in the following child_t. For just the .add()s,
       // the value isn't used.
-      auto drepeat = keyword.child<dim2d,allow::many>("dimension",dim2d{0,0});
+      auto drepeat = keyword.child<dim2d,Allow::many>("dimension",dim2d{0,0});
       const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);

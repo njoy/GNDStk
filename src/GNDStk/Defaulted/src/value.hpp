@@ -34,7 +34,7 @@ const T &operator*() const
 }
 
 // ->
-// Helpful mainly if T is a nontrivial type. With a defaulted<std::vector>
+// Helpful mainly if T is a nontrivial type. With a Defaulted<std::vector>
 // object, for example, you could write object->size().
 const T *operator->() const
 {
@@ -58,7 +58,7 @@ const T *operator->() const
 // Our current "optional, with default" class contrasts with std::optional<T>
 // in the following manner. We dispense with std::optional<T>'s conversion to
 // bool,and instead have a conversion to T that's always both unambiguous and
-// meaningful (a defaulted<T> always has a value in some sense - its default,
+// meaningful (a Defaulted<T> always has a value in some sense - its default,
 // if nothing else). (As we'll see elsewhere, we'll also keep has_value() in
 // this class, with the meaning: "do we have a value other than the default?")
 

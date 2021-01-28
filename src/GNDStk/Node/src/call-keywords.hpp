@@ -30,7 +30,7 @@ auto operator()(
 // ------------------------
 
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class SECOND,
    class... TAIL,
    class = typename detail::is_string_or_regex<SECOND>::type
@@ -62,9 +62,9 @@ auto operator()(
 
    if (!head_found) {
       missing.push_back(
-         "\nElement: " +
-         detail::keyname(std::get<0>(tup)) +  ", " +
-         detail::keyname(std::get<1>(tup))
+         "\nElement: "
+         + detail::keyname(std::get<0>(tup)) +  ", "
+         + detail::keyname(std::get<1>(tup))
       );
    }
 
@@ -124,8 +124,8 @@ auto operator()(
 
    if (!head_found) {
       missing.push_back(
-         "\nElement: " +
-         detail::keyname(std::get<0>(tup))
+         "\nElement: "
+         + detail::keyname(std::get<0>(tup))
       );
    }
 
@@ -182,10 +182,10 @@ auto operator()(
       std::string errorMessage = "Error during multi-query.";
       if (missing.size() > 0) {
          errorMessage +=
-            " " +
-            std::to_string(missing.size()) +
-            " element" + (missing.size() == 1 ? "" : "s") +
-            " not found:";
+            " "
+            + std::to_string(missing.size())
+            + " element" + (missing.size() == 1 ? "" : "s")
+            + " not found:";
          for (auto &m : missing)
             errorMessage += m;
       }

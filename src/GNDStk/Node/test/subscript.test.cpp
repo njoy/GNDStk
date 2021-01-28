@@ -120,9 +120,9 @@ struct axis_t {
 inline bool operator==(const axis_t &a, const axis_t &b)
 {
    return
-      a.index == b.index &&
-      a.label == b.label &&
-      a.unit  == b.unit;
+        a.index == b.index
+     && a.label == b.label
+     && a.unit  == b.unit;
 }
 
 // operator==
@@ -275,16 +275,16 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
             // Actually writes into the tree...
             EvaluatedNode[myversion] = "123.456.789";
-            CHECK(tree(reactionSuite,styles,--evaluated,basic::version) ==
-                  "123.456.789");
+            CHECK(tree(reactionSuite,styles,--evaluated,basic::version)
+                  == "123.456.789");
             // can still use as rvalue, and implicitly converts to string...
             std::string foo = EvaluatedNode[myversion];
             CHECK(foo == "123.456.789");
 
             // Also actually writes into the tree...
             EvaluatedNode[myversion] = version_t(12,34,56);
-            CHECK(tree(reactionSuite,styles,--evaluated,basic::version) ==
-                  "12.34.56");
+            CHECK(tree(reactionSuite,styles,--evaluated,basic::version)
+                  == "12.34.56");
             // can still use as rvalue, and implicitly converts to version_t...
             version_t bar = EvaluatedNode[myversion];
             CHECK(bar.major == 12);
@@ -442,7 +442,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             axis[1] = node{"foobar"};
             bool found = false;
             axes.one("foobar",found); // parent axes now has a "foobar" node
-            CHECK(found == true);
+            CHECK(found);
             // restore
             axis[1] = backup;
             // actually, for "mu" even to work here,
@@ -480,7 +480,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // t will be a detail::child_ref<Node,CONST=true,temp_t>,
             // where temp_t is our custom type defined above
             auto t = c(reactionSuite,styles,--evaluated)
-               [child_t<temp_t,allow::one>("temperature")];
+               [child_t<temp_t,Allow::one>("temperature")];
 
             // for const, assignment isn't available; neither of these compile:
             // t = node{};
@@ -509,7 +509,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
             auto t = n(reactionSuite,styles,--evaluated)
-               [child_t<temp_t,allow::one>("temperature")];
+               [child_t<temp_t,Allow::one>("temperature")];
 
             // assignment is available now:
             t = node{};

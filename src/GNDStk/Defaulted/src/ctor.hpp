@@ -14,18 +14,18 @@
 // ------------------------
 
 // default value
-explicit defaulted(const T &def) :
+explicit Defaulted(const T &def) :
    def(def)
 { }
 
 // default value, T
-defaulted(const T &def, const T &val) :
+Defaulted(const T &def, const T &val) :
    def(def),
    opt(val)
 { }
 
 // default value, std::optional<T>
-defaulted(const T &def, const std::optional<T> &opt) :
+Defaulted(const T &def, const std::optional<T> &opt) :
    def(def),
    opt(opt)
 { }
@@ -41,7 +41,7 @@ defaulted(const T &def, const std::optional<T> &opt) :
 //    constructor(nullopt_t)
 // That is, the present class, as compared with std::optional, just requires
 // a stipulated default value as the first argument.
-defaulted(const T &def, const std::nullopt_t) :
+Defaulted(const T &def, const std::nullopt_t) :
    def(def)
 { }
 
@@ -52,7 +52,7 @@ defaulted(const T &def, const std::nullopt_t) :
 // ------------------------
 
 // copy
-defaulted(const defaulted &other) :
+Defaulted(const Defaulted &other) :
    def(other.def),
    opt(other.opt)
 { }
@@ -64,13 +64,13 @@ template<
       std::is_constructible<T,U>::value
    >::type
 >
-defaulted(const defaulted<U> &other) :
+Defaulted(const Defaulted<U> &other) :
    def(T(other.get_default())),
    opt(other.get_optional())
 { }
 
 // move
-defaulted(defaulted &&other) :
+Defaulted(Defaulted &&other) :
    def(std::move(other.def)),
    opt(std::move(other.opt))
 { }

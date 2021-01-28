@@ -13,7 +13,7 @@ inline void warning_tree_io_name(
    const std::string &name
 ) {
    log::warning(
-      "tree.{}() called with format file::{} and filename \"{}\",\n"
+      "tree.{}() called with format FileType::{} and filename \"{}\",\n"
       "but the filename extension does not appear to be one for {}",
       op, fileformat, filename, name
    );
@@ -22,7 +22,7 @@ inline void warning_tree_io_name(
 
 // warning_tree_io_data
 inline void warning_tree_io_data(
-   const file f,
+   const FileType f,
    const std::string &appears
 ) {
    log::warning(
@@ -35,8 +35,10 @@ inline void warning_tree_io_data(
 
 // format_tree_read
 inline const std::string format_tree_read =
-   "file::tree not allowed in tree.read(). Our \"tree\" file format is intended"
-   "mainly for debug writing, not for reading. Consider xml, json, or hdf5"
+   "FileType::tree not allowed in tree.read(). "
+   "Our \"tree\" file format is intended"
+   "mainly for debug writing, not for reading. "
+   "Consider xml, json, or hdf5"
 ;
 
 } // namespace detail

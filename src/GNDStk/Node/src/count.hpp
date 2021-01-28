@@ -10,11 +10,11 @@ seen, subject to any filter condition that might be provided.
 A child_t's TYPE, ALLOW, and CONVERTER are irrelevant for the purposes of these
 functions. No conversion (as normally CONVERTER performs) is applied, because no
 nodes are converted to TYPE; our purpose is merely to count nodes. We emphasize
-in particular that a child_t's ALLOW is ignored here; allow::one does NOT mean
+in particular that a child_t's ALLOW is ignored here; Allow::one does NOT mean
 we'll look only for one, as we normally do. Indeed, we anticipate that someone
 might use count()'s result in a conditional, e.g.: do nothing if count() == 0;
-use an allow::one child_t object for a subsequent query if count() == 1; use an
-allow::many child_t object for a subsequent query if count() > 1.
+use an Allow::one child_t object for a subsequent query if count() == 1; use an
+Allow::many child_t object for a subsequent query if count() > 1.
 
 Variations for count(...)'s parameters are as follows:
 
@@ -95,7 +95,7 @@ std::size_t count(
 // child_t
 // ------------------------
 
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::size_t count(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd
 ) const {
@@ -106,7 +106,7 @@ std::size_t count(
 // child_t, string
 // ------------------------
 
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::size_t count(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    std::string &&label // additional filter: string match label with this
@@ -122,7 +122,7 @@ std::size_t count(
 // child_t, regex
 // ------------------------
 
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::size_t count(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    std::regex &&labelRegex // additional filter: regex match label with this

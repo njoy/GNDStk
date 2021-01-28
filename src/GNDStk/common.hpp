@@ -14,7 +14,7 @@ inline const child_t<
    // for general T, the following produces a vector<T>;
    // for T already a vector, it remains as-is
    typename detail::numeric_type<T>::type,
-   allow::one,
+   Allow::one,
    detail::convert_pcdata_text_t
 > numeric("pcdata");
 

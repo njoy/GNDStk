@@ -39,8 +39,8 @@ const Node &one(
    const Node *theone = nullptr;
    std::size_t nname = 0, nboth = 0;
    for (auto &c : children)
-      if (std::regex_match(c->name, std::regex(key)) &&
-          (nname++, filter(*c)) && nboth++ == 0)
+      if (std::regex_match(c->name, std::regex(key))
+          && (nname++, filter(*c)) && nboth++ == 0)
          theone = &(*c);
 
    // found

@@ -264,13 +264,13 @@ SCENARIO("Testing GNDStk Node operator()") {
    // tree
    Tree<> tree("n-008_O_016.xml");
 
-   // keywords with allow::one
-   auto temperature = keyword.child<temperature_t,allow::one>("temperature");
-   auto styles = keyword.child<void,allow::one>("styles");
+   // keywords with Allow::one
+   auto temperature = keyword.child<temperature_t,Allow::one>("temperature");
+   auto styles = keyword.child<void,Allow::one>("styles");
 
-   // keywords with allow::many
-   auto isotope = keyword.child<isotope_t,allow::many>("isotope");
-   auto isotope_node = keyword.child<void,allow::many>("isotope");
+   // keywords with Allow::many
+   auto isotope = keyword.child<isotope_t,Allow::many>("isotope");
+   auto isotope_node = keyword.child<void,Allow::many>("isotope");
 
    GIVEN("The top-level node from a tree object") {
 
@@ -344,13 +344,13 @@ SCENARIO("Testing GNDStk Node operator()") {
          // "projectile" is found
          bool found = false;
          ctop(projectile,found);
-         CHECK(found == true);
+         CHECK(found);
 
          // "bar" is not found
          const meta_t<char> foo("bar");
          found = true;
          ctop(foo,found);
-         CHECK(found == false);
+         CHECK(!found);
 
          // should get a reference back for the non-const version
          // of the node, when () is invoked with a <void> meta_t
@@ -378,8 +378,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // n: non-const <reactions> node
       node &n = tree(reactionSuite,reactions);
 
-      const child_t<void,allow::one> reaction("reaction");
-      const child_t<void,allow::one> nonsense("nonsense");
+      const child_t<void,Allow::one> reaction("reaction");
+      const child_t<void,Allow::one> nonsense("nonsense");
 
       THEN("(child_t) works") {
          // reference return; so, its address is available
@@ -452,8 +452,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<void,allow::one> reaction("reaction");
-      const child_t<void,allow::one> nonsense("nonsense");
+      const child_t<void,Allow::one> reaction("reaction");
+      const child_t<void,Allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          (void)&c(reaction);
@@ -500,8 +500,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<void,allow::many> reaction("reaction");
-      const child_t<void,allow::many> nonsense("nonsense");
+      const child_t<void,Allow::many> reaction("reaction");
+      const child_t<void,Allow::many> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(reaction).size() == 60);
@@ -541,8 +541,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<reaction_t,allow::one> reaction("reaction");
-      const child_t<nonsense_t,allow::one> nonsense("nonsense");
+      const child_t<reaction_t,Allow::one> reaction("reaction");
+      const child_t<nonsense_t,Allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(reaction).label == "n + O16");
@@ -581,8 +581,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const node &c = tree(reactionSuite,reactions);
 
-      const child_t<reaction_t,allow::many> reaction("reaction");
-      const child_t<nonsense_t,allow::many> nonsense("nonsense");
+      const child_t<reaction_t,Allow::many> reaction("reaction");
+      const child_t<nonsense_t,Allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c(reaction).size() == 60);
@@ -636,8 +636,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // n: non-const <reactions> node
       Tree<> &n = tree;
 
-      const child_t<void,allow::one> reaction("reaction");
-      const child_t<void,allow::one> nonsense("nonsense");
+      const child_t<void,Allow::one> reaction("reaction");
+      const child_t<void,Allow::one> nonsense("nonsense");
 
       THEN("(child_t) works") {
          (void)&n(suite,reactions,reaction);
@@ -654,15 +654,19 @@ SCENARIO("Testing GNDStk Node operator()") {
          (void)&n(suite,reactions,reaction,found);
          CHECK(found);
          found = false;
-         CHECK((n(suite,reactions,reaction,found)(label) == "n + O16" && found));
+         CHECK((n(suite,reactions,reaction,found)(label) == "n + O16"
+                && found));
          found = false;
-         CHECK((n(suite,reactions,reaction,found)(ENDF_MT) == 2 && found));
+         CHECK((n(suite,reactions,reaction,found)(ENDF_MT) == 2
+                && found));
          n(suite,reactions,reaction,found)(-ENDF_MT) = "0";
          found = false;
-         CHECK((n(suite,reactions,reaction,found)(ENDF_MT) == 0 && found));
+         CHECK((n(suite,reactions,reaction,found)(ENDF_MT) == 0
+                && found));
          n(suite,reactions,reaction,found)(-ENDF_MT) = "2";
          found = false;
-         CHECK((n(suite,reactions,reaction,found)(ENDF_MT) == 2 && found));
+         CHECK((n(suite,reactions,reaction,found)(ENDF_MT) == 2
+                && found));
          // <reaction> was found, above, but <nonsense> shouldn't be...
          found = true;
          (void)&n(suite,reactions,nonsense,found);
@@ -684,16 +688,20 @@ SCENARIO("Testing GNDStk Node operator()") {
          (void)&n(suite,reactions,reaction,twon,found);
          CHECK(found);
          found = false;
-         CHECK(n(suite,reactions,reaction,twon,found)(label) == "2n + O15 + photon");
+         CHECK(n(suite,reactions,reaction,twon,found)(label)
+               == "2n + O15 + photon");
          CHECK(found);
          found = false;
-         CHECK((n(suite,reactions,reaction,twon,found)(ENDF_MT) == 16 && found));
+         CHECK((n(suite,reactions,reaction,twon,found)(ENDF_MT) == 16
+                && found));
          n(suite,reactions,reaction,twon,found)(-ENDF_MT) = "0";
          found = false;
-         CHECK((n(suite,reactions,reaction,twon,found)(ENDF_MT) == 0 && found));
+         CHECK((n(suite,reactions,reaction,twon,found)(ENDF_MT) == 0
+                && found));
          n(suite,reactions,reaction,twon,found)(-ENDF_MT) = "16";
          found = false;
-         CHECK((n(suite,reactions,reaction,twon,found)(ENDF_MT) == 16 && found));
+         CHECK((n(suite,reactions,reaction,twon,found)(ENDF_MT) == 16
+                && found));
          found = true;
          (void)&n(suite,reactions,nonsense,twon,found);
          CHECK(!found);
@@ -706,8 +714,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<void,allow::one> reaction("reaction");
-      const child_t<void,allow::one> nonsense("nonsense");
+      const child_t<void,Allow::one> reaction("reaction");
+      const child_t<void,Allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          (void)&c(suite,reactions,reaction);
@@ -720,9 +728,11 @@ SCENARIO("Testing GNDStk Node operator()") {
          (void)&c(suite,reactions,reaction,found);
          CHECK(found);
          found = false;
-         CHECK((c(suite,reactions,reaction,found)(label) == "n + O16" && found));
+         CHECK((c(suite,reactions,reaction,found)(label) == "n + O16"
+                && found));
          found = false;
-         CHECK((c(suite,reactions,reaction,found)(ENDF_MT) == 2 && found));
+         CHECK((c(suite,reactions,reaction,found)(ENDF_MT) == 2
+                && found));
          found = true;
          (void)&c(suite,reactions,nonsense,found);
          CHECK(!found);
@@ -739,10 +749,12 @@ SCENARIO("Testing GNDStk Node operator()") {
          (void)&c(suite,reactions,reaction,twon,found);
          CHECK(found);
          found = false;
-         CHECK(c(suite,reactions,reaction,twon,found)(label) == "2n + O15 + photon");
+         CHECK(c(suite,reactions,reaction,twon,found)(label)
+               == "2n + O15 + photon");
          CHECK(found);
          found = false;
-         CHECK((c(suite,reactions,reaction,twon,found)(ENDF_MT) == 16 && found));
+         CHECK((c(suite,reactions,reaction,twon,found)(ENDF_MT) == 16
+                && found));
          found = true;
          (void)&c(suite,reactions,nonsense,twon,found);
          CHECK(!found);
@@ -754,8 +766,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<void,allow::many> reaction("reaction");
-      const child_t<void,allow::many> nonsense("nonsense");
+      const child_t<void,Allow::many> reaction("reaction");
+      const child_t<void,Allow::many> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(suite,reactions,reaction).size() == 60);
@@ -765,13 +777,17 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       THEN("(child_t,found) const works") {
          bool found = false;
-         CHECK((c(suite,reactions,reaction,found).size() == 60 && found));
+         CHECK((c(suite,reactions,reaction,found).size() == 60
+                && found));
          found = false;
-         CHECK((c(suite,reactions,reaction,found)[0](label) == "n + O16" && found));
+         CHECK((c(suite,reactions,reaction,found)[0](label) == "n + O16"
+                && found));
          found = false;
-         CHECK((c(suite,reactions,reaction,found)[0](ENDF_MT) == 2 && found));
+         CHECK((c(suite,reactions,reaction,found)[0](ENDF_MT) == 2
+                && found));
          found = true;
-         CHECK((c(suite,reactions,nonsense,found).size() == 0 && !found));
+         CHECK((c(suite,reactions,nonsense,found).size() == 0
+                && !found));
       }
 
       THEN("(child_t,string) const works") {
@@ -781,10 +797,12 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       THEN("(child_t,string,found) const works") {
          bool found = false;
-         CHECK(c(suite,reactions,reaction,twon,found)(label) == "2n + O15 + photon");
+         CHECK(c(suite,reactions,reaction,twon,found)(label)
+               == "2n + O15 + photon");
          CHECK(found);
          found = false;
-         CHECK((c(suite,reactions,reaction,twon,found)(ENDF_MT) == 16 && found));
+         CHECK((c(suite,reactions,reaction,twon,found)(ENDF_MT) == 16
+                && found));
          found = true;
          CHECK((c(suite,reactions,nonsense,twon,found), !found));
       }
@@ -795,8 +813,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<reaction_t,allow::one> reaction("reaction");
-      const child_t<nonsense_t,allow::one> nonsense("nonsense");
+      const child_t<reaction_t,Allow::one> reaction("reaction");
+      const child_t<nonsense_t,Allow::one> nonsense("nonsense");
 
       THEN("(child_t) const works") {
          CHECK(c(suite,reactions,reaction).label == "n + O16");
@@ -821,7 +839,8 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       THEN("(child_t,string,found) const works") {
          bool found = false;
-         CHECK(c(suite,reactions,reaction,twon,found).label == "2n + O15 + photon");
+         CHECK(c(suite,reactions,reaction,twon,found).label
+               == "2n + O15 + photon");
          CHECK(found);
          found = false;
          CHECK((c(suite,reactions,reaction,twon,found).ENDF_MT == 16 && found));
@@ -836,8 +855,8 @@ SCENARIO("Testing GNDStk Node operator()") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
-      const child_t<reaction_t,allow::many> reaction("reaction");
-      const child_t<nonsense_t,allow::many> nonsense("nonsense");
+      const child_t<reaction_t,Allow::many> reaction("reaction");
+      const child_t<nonsense_t,Allow::many> nonsense("nonsense");
 
       THEN("child(child_t) const works") {
          CHECK(c(suite,reactions,reaction).size() == 60);
@@ -847,11 +866,14 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       THEN("child(child_t,found) const works") {
          bool found = false;
-         CHECK((c(suite,reactions,reaction,found).size() == 60 && found));
+         CHECK((c(suite,reactions,reaction,found).size() == 60
+                && found));
          found = false;
-         CHECK((c(suite,reactions,reaction,found)[0].label == "n + O16" && found));
+         CHECK((c(suite,reactions,reaction,found)[0].label == "n + O16"
+                && found));
          found = false;
-         CHECK((c(suite,reactions,reaction,found)[0].ENDF_MT == 2 && found));
+         CHECK((c(suite,reactions,reaction,found)[0].ENDF_MT == 2
+                && found));
          found = true;
          c(suite,reactions,nonsense,found)[0];
          CHECK(!found);
@@ -864,10 +886,12 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       THEN("child(child_t,string,found) const works") {
          bool found = false;
-         CHECK(c(suite,reactions,reaction,twon,found).label == "2n + O15 + photon");
+         CHECK(c(suite,reactions,reaction,twon,found).label
+               == "2n + O15 + photon");
          CHECK(found);
          found = false;
-         CHECK((c(suite,reactions,reaction,twon,found).ENDF_MT == 16 && found));
+         CHECK((c(suite,reactions,reaction,twon,found).ENDF_MT == 16
+                && found));
          found = true;
          c(suite,reactions,nonsense,twon,found);
          CHECK(!found);

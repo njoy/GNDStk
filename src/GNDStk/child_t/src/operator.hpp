@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------------
 
 // operator-
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd.basic();
@@ -27,7 +27,7 @@ inline auto operator-(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // -----------------------------------------------------------------------------
 
 // operator~
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator~(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    auto ret = kwd;
@@ -42,7 +42,7 @@ inline auto operator~(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // of a child_t's previously-true top-level designator does not, at the moment,
 // have any meaningful effect anywhere. We'll look at this more carefully
 // sometime; for now, it just isn't a super important issue.
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator!(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    auto ret = kwd;
@@ -59,7 +59,7 @@ inline auto operator!(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // -----------------------------------------------------------------------------
 
 // T/child_t<TYPE,ALLOW,CONVERTER,FILTER>
-template<class T, class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class T, class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator/(
    const T &object,
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd
@@ -74,7 +74,7 @@ inline auto operator/(
 }
 
 // T/child_t<void,ALLOW,void,FILTER>
-template<class T, allow ALLOW, class FILTER>
+template<class T, Allow ALLOW, class FILTER>
 inline auto operator/(
    const T &object,
    const child_t<void,ALLOW,void,FILTER> &kwd
@@ -102,7 +102,7 @@ inline auto operator/(
 // -----------------------------------------------------------------------------
 
 // child_t/string
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator/(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &name
@@ -111,7 +111,7 @@ inline auto operator/(
    return ret.name = name, ret;
 }
 
-template<allow ALLOW, class FILTER>
+template<Allow ALLOW, class FILTER>
 inline auto operator/(
    const child_t<void,ALLOW,void,FILTER> &kwd,
    const std::string &name
@@ -122,7 +122,7 @@ inline auto operator/(
 
 // child_t/char*
 // Forwards to child_t/string
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator/(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const char *const name
@@ -130,7 +130,7 @@ inline auto operator/(
    return kwd/std::string(name);
 }
 
-template<allow ALLOW, class FILTER>
+template<Allow ALLOW, class FILTER>
 inline auto operator/(
    const child_t<void,ALLOW,void,FILTER> &kwd,
    const char *const name
@@ -145,7 +145,7 @@ inline auto operator/(
 // regex match-anything
 // -----------------------------------------------------------------------------
 
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator*(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd/".*";
@@ -160,7 +160,7 @@ inline auto operator*(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // -----------------------------------------------------------------------------
 
 // child_t<TYPE,ALLOW,CONVERTER,FILTER>/C
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class C>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class C>
 inline child_t<
    typename detail::isNotVoid<TYPE>::type, // for SFINAE
    ALLOW,
@@ -180,7 +180,7 @@ inline child_t<
 }
 
 // child_t<void,ALLOW,void,FILTER>/C
-template<class TYPE, allow ALLOW, class FILTER, class C>
+template<class TYPE, Allow ALLOW, class FILTER, class C>
 inline child_t<
    typename detail::isVoid<TYPE>::type, // for SFINAE
    ALLOW,
@@ -205,7 +205,7 @@ inline child_t<
 // -----------------------------------------------------------------------------
 
 // child_t<TYPE>--
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator--(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const int
@@ -221,7 +221,7 @@ inline auto operator--(
 }
 
 // child_t<void>--
-template<allow ALLOW, class FILTER>
+template<Allow ALLOW, class FILTER>
 inline auto operator--(
    const child_t<void,ALLOW,void,FILTER> &kwd,
    const int
@@ -233,18 +233,18 @@ inline auto operator--(
 
 // -----------------------------------------------------------------------------
 // --pre, ++pre
-// Downgrade/upgrade to allow::one/many
+// Downgrade/upgrade to Allow::one/many
 // -----------------------------------------------------------------------------
 
 // --child_t
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator--(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd.one();
 }
 
 // ++child_t
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator++(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd.many();
@@ -258,7 +258,7 @@ inline auto operator++(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // -----------------------------------------------------------------------------
 
 // child_t<TYPE,ALLOW,CONVERTER,FILTER> + F
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER, class F>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class F>
 inline auto operator+(
    const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const F &filter
@@ -273,7 +273,7 @@ inline auto operator+(
 }
 
 // child_t<void,ALLOW,void,FILTER> + F
-template<allow ALLOW, class FILTER, class F>
+template<Allow ALLOW, class FILTER, class F>
 inline auto operator+(
    const child_t<void,ALLOW,void,FILTER> &kwd,
    const F &filter

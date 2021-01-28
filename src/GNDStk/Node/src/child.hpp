@@ -2,13 +2,13 @@
 // -----------------------------------------------------------------------------
 // Node.child(child_t<*>)
 //
-// ALLOW == allow::one
+// ALLOW == Allow::one
 // The child_t encodes the notion that we're only supposed to have one child
 // node of this name. (Independent of the fact that many child nodes of the
 // same name are allowed in, e.g., XML.) In these cases the child() functions
 // return single values.
 //
-// ALLOW == allow::many
+// ALLOW == Allow::many
 // The child_t encodes the notion that any number of child nodes of this name
 // can occur. In these cases the child() functions return containers of values.
 //
@@ -23,7 +23,7 @@
 // one, const
 template<class FILTER>
 const Node &child(
-   const child_t<void,allow::one,void,FILTER> &kwd,
+   const child_t<void,Allow::one,void,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return one(kwd.name, kwd.filter, found);
@@ -32,7 +32,7 @@ const Node &child(
 // one, non-const
 template<class FILTER>
 Node &child(
-   const child_t<void,allow::one,void,FILTER> &kwd,
+   const child_t<void,Allow::one,void,FILTER> &kwd,
    bool &found = detail::default_bool
 ) {
    return one(kwd.name, kwd.filter, found);
@@ -44,7 +44,7 @@ template<
    class FILTER
 >
 CONTAINER<Node> child(
-   const child_t<void,allow::many,void,FILTER> &kwd,
+   const child_t<void,Allow::many,void,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    return many<CONTAINER>(kwd.name, kwd.filter, found);
@@ -61,7 +61,7 @@ CONTAINER<Node> child(
 
 template<class TYPE, class CONVERTER, class FILTER>
 TYPE child(
-   const child_t<TYPE,allow::one,CONVERTER,FILTER> &kwd,
+   const child_t<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -73,7 +73,7 @@ TYPE child(
          kwd.converter(value,obj);
       return obj;
    } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
    }
 }
@@ -85,7 +85,7 @@ TYPE child(
 
 template<class TYPE, class CONVERTER, class FILTER>
 std::optional<TYPE> child(
-   const child_t<std::optional<TYPE>,allow::one,CONVERTER,FILTER> &kwd,
+   const child_t<std::optional<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -95,19 +95,19 @@ std::optional<TYPE> child(
       found = true;
       return f ? std::optional<TYPE>(obj) : std::nullopt;
    } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
    }
 }
 
 
 // ------------------------
-// defaulted<TYPE>
+// Defaulted<TYPE>
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-defaulted<TYPE> child(
-   const child_t<defaulted<TYPE>,allow::one,CONVERTER,FILTER> &kwd,
+Defaulted<TYPE> child(
+   const child_t<Defaulted<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -115,10 +115,10 @@ defaulted<TYPE> child(
       const TYPE obj = child(kwd.object.value()/kwd, f);
       found = true;
       return f
-         ? defaulted<TYPE>(kwd.object.get_default(),obj)
-         : defaulted<TYPE>(kwd.object.get_default());
+         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
+         : Defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
    }
 }
@@ -131,7 +131,7 @@ defaulted<TYPE> child(
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER, class FILTER>
 typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
-   const child_t<std::variant<Ts...>,allow::one,CONVERTER,FILTER> &kwd,
+   const child_t<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    const auto ptr = std::get_if<TYPE>(&kwd.object);
@@ -152,7 +152,7 @@ template<
    class TYPE, class CONVERTER, class FILTER
 >
 CONTAINER<TYPE> child(
-   const child_t<TYPE,allow::many,CONVERTER,FILTER> &kwd,
+   const child_t<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    // container
@@ -170,8 +170,8 @@ CONTAINER<TYPE> child(
       } else {
          // search in the current node's children
          for (auto &c : children) {
-            if (std::regex_match(c->name, std::regex(kwd.name)) &&
-                kwd.filter(*c)
+            if (std::regex_match(c->name, std::regex(kwd.name))
+                && kwd.filter(*c)
             ) {
                // convert *c to an object of the appropriate type
                TYPE obj = kwd.object;
@@ -182,7 +182,7 @@ CONTAINER<TYPE> child(
          }
       }
    } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
    }
 
@@ -197,11 +197,11 @@ CONTAINER<TYPE> child(
 
 // fixme Be sure this is the meaning we want...
 //
-// With an allow::many child_t, as we have here, it's permissible (without
+// With an Allow::many child_t, as we have here, it's permissible (without
 // an exception being thrown) to extract any number of values - including
-// zero - into the container. In some sense, then, the allow::many means
+// zero - into the container. In some sense, then, the Allow::many means
 // it's *optional* to have any matching values at all. So the question is:
-// how should we handle child_t<std::optional<TYPE>,allow::many>, with two
+// how should we handle child_t<std::optional<TYPE>,Allow::many>, with two
 // different "optional" aspects being involved? We'll do this:
 //
 //    A container<TYPE>, *not* a container<optional<TYPE>>, is produced,
@@ -212,7 +212,7 @@ CONTAINER<TYPE> child(
 //
 //    Consistent with the behavior of std::optional elsewhere in GNDStk's
 //    queries, we'll *always* return from here with found == true. That's
-//    already the case with allow::many if container.size() > 0 on output,
+//    already the case with Allow::many if container.size() > 0 on output,
 //    but now we'll unconditionally return found == true, even for 0 size.
 //
 // We may change this, if doing something else proves to make more sense,
@@ -226,22 +226,24 @@ template<
    class TYPE, class CONVERTER, class FILTER
 >
 CONTAINER<TYPE> child(
-   const child_t<std::optional<TYPE>,allow::many,CONVERTER,FILTER> &kwd,
+   const child_t<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
       // The behavior described above makes this easy as well.
       // That wasn't our intention, but we don't mind too much.
-      return found = true, child((kwd.object ? kwd.object.value() : TYPE{})/kwd);
+      return
+         found = true,
+         child((kwd.object ? kwd.object.value() : TYPE{})/kwd);
    } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
    }
 }
 
 
 // ------------------------
-// defaulted<TYPE>
+// Defaulted<TYPE>
 // ------------------------
 
 // Comments similar to those for the optional case above
@@ -250,13 +252,13 @@ template<
    class TYPE, class CONVERTER, class FILTER
 >
 CONTAINER<TYPE> child(
-   const child_t<defaulted<TYPE>,allow::many,CONVERTER,FILTER> &kwd,
+   const child_t<Defaulted<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
       return found = true, child(kwd.object.value()/kwd);
    } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
    }
 }
@@ -273,7 +275,7 @@ template<
    class... Ts, class CONVERTER, class FILTER
 >
 CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type> child(
-   const child_t<std::variant<Ts...>,allow::many,CONVERTER,FILTER> &kwd,
+   const child_t<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    const auto ptr = std::get_if<TYPE>(&kwd.object);

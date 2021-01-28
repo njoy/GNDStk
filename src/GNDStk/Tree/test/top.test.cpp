@@ -30,9 +30,9 @@ SCENARIO("Testing GNDStk tree top()") {
          }
       }
 
-      WHEN("We call reset(reactionSuite, file::json)") {
+      WHEN("We call reset(reactionSuite, FileType::json)") {
          Tree<> t;
-         t.reset(reactionSuite, file::json);
+         t.reset(reactionSuite, FileType::json);
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "reactionSuite");
             CHECK(t.top().metadata.size() == 0);
@@ -40,9 +40,9 @@ SCENARIO("Testing GNDStk tree top()") {
          }
       }
 
-      WHEN("We call reset(covarianceSuite, file::null, \"2.0\")") {
+      WHEN("We call reset(covarianceSuite, FileType::null, \"2.0\")") {
          Tree<> t;
-         t.reset(covarianceSuite, file::null, "2.0");
+         t.reset(covarianceSuite, FileType::null, "2.0");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "covarianceSuite");
             CHECK(t.top().metadata.size() == 0);
@@ -50,9 +50,9 @@ SCENARIO("Testing GNDStk tree top()") {
          }
       }
 
-      WHEN("We call reset(covarianceSuite, file::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("We call reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
          Tree<> t;
-         t.reset(covarianceSuite, file::xml, "3.0", "UTF-9");
+         t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "covarianceSuite");
             CHECK(t.top().metadata.size() == 0);
