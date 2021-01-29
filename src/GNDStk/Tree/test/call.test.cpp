@@ -27,7 +27,7 @@ inline void convert(const NODE &node, xml_t &out)
    out.encoding = node.meta(encoding);
 }
 
-inline const child_t<xml_t> xml("xml");
+inline const Child<xml_t> xml("xml");
 
 
 // ------------------------
@@ -53,7 +53,7 @@ inline void convert(const NODE &node, reactionSuite_t &out)
    out.frame      = node.meta(projectileFrame);
 }
 
-inline const child_t<reactionSuite_t> rsuite("reactionSuite");
+inline const Child<reactionSuite_t> rsuite("reactionSuite");
 
 
 // -----------------------------------------------------------------------------
@@ -69,27 +69,27 @@ SCENARIO("Testing GNDStk tree operator()") {
       // optional return flag
       bool found;
 
-      // nonsense meta_t and child_t
-      const meta_t <void> foo("bar");
-      const child_t<void> bar("foo");
+      // nonsense Meta and Child
+      const Meta <void> foo("bar");
+      const Child<void> bar("foo");
 
 
       // ------------------------
-      // operator()(meta_t)
+      // operator()(Meta)
       // ------------------------
 
-      const meta_t<std::string> sversion   ("version");
-      const meta_t<double     > dversion   ("version");
-      const meta_t<std::string> sencoding  ("encoding");
-      const meta_t<std::string> sprojectile("projectile");
-      const meta_t<char       > cprojectile("projectile");
-      const meta_t<void       > vtarget    ("target");
-      const meta_t<std::string> sevaluation("evaluation");
-      const meta_t<std::string> sformat    ("format");
-      const meta_t<double     > dformat    ("format");
-      const meta_t<std::string> sframe     ("projectileFrame");
+      const Meta<std::string> sversion   ("version");
+      const Meta<double     > dversion   ("version");
+      const Meta<std::string> sencoding  ("encoding");
+      const Meta<std::string> sprojectile("projectile");
+      const Meta<char       > cprojectile("projectile");
+      const Meta<void       > vtarget    ("target");
+      const Meta<std::string> sevaluation("evaluation");
+      const Meta<std::string> sformat    ("format");
+      const Meta<double     > dformat    ("format");
+      const Meta<std::string> sframe     ("projectileFrame");
 
-      WHEN("We call tree operator() with (child_t,meta_t)") {
+      WHEN("We call tree operator() with (Child,Meta)") {
          CHECK( tree(::xml,sversion ) == "1.0"   );
          CHECK( tree(::xml,dversion ) ==  1.0    );
          CHECK( tree(::xml,sencoding) == "UTF-8" );
@@ -109,10 +109,10 @@ SCENARIO("Testing GNDStk tree operator()") {
 
 
       // ------------------------
-      // operator()(child_t)
+      // operator()(Child)
       // ------------------------
 
-      WHEN("We call tree operator() with (child_t)") {
+      WHEN("We call tree operator() with (Child)") {
          auto x = tree(::xml);
          CHECK(x.version == 1.0);
          CHECK(x.encoding == "UTF-8");
@@ -131,10 +131,10 @@ SCENARIO("Testing GNDStk tree operator()") {
 
 
       // ------------------------
-      // operator()(child_t, meta_t)
+      // operator()(Child, Meta)
       // ------------------------
 
-      WHEN("We call tree operator() with (child_t,meta_t)") {
+      WHEN("We call tree operator() with (Child,Meta)") {
          CHECK( tree( reactionSuite, projectile) == "n");
          CHECK( tree( reactionSuite, target) == "O16");
          CHECK( tree( reactionSuite, evaluation) == "ENDF/B-8.0");
@@ -150,10 +150,10 @@ SCENARIO("Testing GNDStk tree operator()") {
 
 
       // ------------------------
-      // operator()(child_t, child_t)
+      // operator()(Child, Child)
       // ------------------------
 
-      WHEN("We call tree operator() with (child_t,child_t)") {
+      WHEN("We call tree operator() with (Child,Child)") {
          CHECK( tree( reactionSuite, styles ).metadata.size() == 0);
          CHECK( tree( reactionSuite, styles ).children.size() == 1);
          CHECK( tree( reactionSuite, PoPs   ).metadata.size() == 3);
@@ -168,10 +168,10 @@ SCENARIO("Testing GNDStk tree operator()") {
 
 
       // ------------------------
-      // operator()(child_t, ...)
+      // operator()(Child, ...)
       // ------------------------
 
-      WHEN("We call tree operator() with (child_t,...) (various ...s)") {
+      WHEN("We call tree operator() with (Child,...) (various ...s)") {
          // dvalue = double version of "value" metadatum
          CHECK(tree(reactionSuite,styles,--evaluated,temperature,dvalue) == 0.0);
          CHECK(tree(reactionSuite,styles,--evaluated,temperature,unit  ) == "K");

@@ -95,30 +95,30 @@ SCENARIO("Testing GNDStk Tree meta()") {
 
 
       // ------------------------
-      // meta(meta_t)
+      // meta(Meta)
       // Smart keyword lookup
       // ------------------------
 
-      WHEN("We try various metadata extractions with meta_t objects") {
+      WHEN("We try various metadata extractions with Meta objects") {
          // *** version ***
          // extract as double or string
          // appears in declaration node
-         const meta_t<std::variant<double,std::string>> version("version");
+         const Meta<std::variant<double,std::string>> version("version");
 
          // *** encoding ***
          // extract as string
          // appears in declaration node
-         const meta_t<std::string> encoding("encoding");
+         const Meta<std::string> encoding("encoding");
 
          // *** projectile ***
          // extract as char or string
          // appears in top-level GNDS node
-         const meta_t<std::variant<char,std::string>> projectile("projectile");
+         const Meta<std::variant<char,std::string>> projectile("projectile");
 
          // *** target ***
-         // extract as string (void ==> string w/meta_t)
+         // extract as string (void ==> string w/Meta)
          // appears in top-level GNDS node
-         const meta_t<void> target("target");
+         const Meta<void> target("target");
          // meta<void> cases should trigger [const] reference returns...
          (void)&c.top().meta(target);
          (void)&t.top().meta(target);
@@ -126,7 +126,7 @@ SCENARIO("Testing GNDStk Tree meta()") {
          // *** format ***
          // extract as double
          // appears in top-level GNDS node
-         const meta_t<double> format("format");
+         const Meta<double> format("format");
 
          // IMPORTANT NOTE: Floating-point comparisons aren't necessarily
          // reliable. Keep this in mind if you ever encounter issues with
@@ -163,8 +163,8 @@ SCENARIO("Testing GNDStk Tree meta()") {
                 && found));
 
          // Test not-found
-         meta_t<int> foo("foo");
-         meta_t<std::variant<int,double>> bar("bar");
+         Meta<int> foo("foo");
+         Meta<std::variant<int,double>> bar("bar");
          CHECK((found = true, c.meta        (foo,found), !found));
          CHECK((found = true, c.meta<int   >(bar,found), !found));
          CHECK((found = true, c.meta<double>(bar,found), !found));

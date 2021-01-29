@@ -35,10 +35,10 @@ inline void convert(const NODE &node, xml_t &out)
 }
 
 // keyword: my_xml_keyword
-// Users can write custom child_t objects like this, and then use them in
+// Users can write custom Child objects like this, and then use them in
 // child() functions. Here, "xml" is what the keyword uses to look up nodes
 // that can be converted to xml_t objects via the above convert().
-inline const child_t<xml_t> my_xml_keyword("xml");
+inline const Child<xml_t> my_xml_keyword("xml");
 
 
 
@@ -94,7 +94,7 @@ inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 
 // keyword: my_covarianceSuite_keyword
 // Can extract objects of either of the types defined just above!
-inline const child_t<
+inline const Child<
    std::variant<
       covarianceSuite_type_1,
       covarianceSuite_type_2
@@ -123,7 +123,7 @@ SCENARIO("Testing GNDStk tree child()") {
       bool found;
 
       // ------------------------
-      // child(child_t)
+      // child(Child)
       // Smart keyword lookup
       // ------------------------
 
@@ -132,8 +132,8 @@ SCENARIO("Testing GNDStk tree child()") {
 
       WHEN("We call tree.child() to get the declaration node") {
          // NOTE FOR THE FUTURE, IF AN ERROR EVER HAPPENS BELOW:
-         // Our built-in keyword child::xml is currently a child_t<void,...>.
-         // It may someday change to child_t<something other than void,...>,
+         // Our built-in keyword child::xml is currently a Child<void,...>.
+         // It may someday change to Child<something other than void,...>,
          // at which time the Node<> return PROBABLY WON'T WORK! void, in
          // this context, means that the "smart keyword" really just returns
          // a raw Node, even though in principle it could give us back

@@ -57,7 +57,7 @@ inline std::set<std::string> AllowedDecl = {
 // allowable top-level GNDS nodes
 inline std::set<std::string> AllowedTop = {
    // added as they're identified
-   // in our child_t class
+   // in our Child class
 };
 
 // noFilter
@@ -496,7 +496,7 @@ public:
 // Consider the functionality (currently Node::meta() and Node::child()) that
 // use is_oneof. (Or, rather, use its sidekick oneof, defined soon.) Invoked
 // with a particular type from the variant, a call - say, to meta() - might
-// look like n.template meta<type>(M), where n is a node, and M is a meta_t
+// look like n.template meta<type>(M), where n is a node, and M is a Meta
 // with the variant type. In contrast, one could merely write n.meta(M) for
 // the full variant, i.e. with no specific member type stipulated. By making
 // the is_oneof SFINAE work for the full variant as well, however, not just

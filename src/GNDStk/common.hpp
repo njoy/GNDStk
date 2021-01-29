@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Set of meta_t and child_t objects that are useful enough as-is that we
-// wish to include them in other sets of such objects, in other namespaces.
+// Set of Meta and Child objects that are useful enough as-is that we wish
+// to include them in other sets of such objects, in other namespaces.
 // -----------------------------------------------------------------------------
 
 #include "GNDStk/common/src/detail.hpp"
@@ -10,7 +10,7 @@ namespace common {
 
 // numeric
 template<class T = double>
-inline const child_t<
+inline const Child<
    // for general T, the following produces a vector<T>;
    // for T already a vector, it remains as-is
    typename detail::numeric_type<T>::type,

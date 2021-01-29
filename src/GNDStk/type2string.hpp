@@ -2,7 +2,7 @@
 /*
 Description of convert(type,string)
 
-Brief: type ==> string ==> node.meta(meta_t<type>)
+Brief: type ==> string ==> node.meta(Meta<type>)
 
 These are essentially the reverse of the convert(string,type) functions.
 The description of those, seen in reverse, applies here.

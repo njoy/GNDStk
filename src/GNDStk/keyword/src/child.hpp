@@ -4,14 +4,14 @@
 // -----------------------------------------------------------------------------
 
 // child(name,converter,filter,top)
-// To make a child_t<TYPE,...>
+// To make a Child<TYPE,...>
 template<
    class TYPE,
    Allow ALLOW = Allow::one,
    class CONVERTER = typename detail::default_converter<TYPE>::type,
    class FILTER = detail::noFilter
 >
-static child_t<
+static Child<
    typename detail::isNotVoid<TYPE>::type, // ensure TYPE != void
    ALLOW,
    CONVERTER,
@@ -23,19 +23,18 @@ static child_t<
    const FILTER &filter = FILTER{},
    const bool top = false
 ) {
-   return child_t<TYPE,ALLOW,CONVERTER,FILTER>
-      (name,object,converter,filter,top);
+   return Child<TYPE,ALLOW,CONVERTER,FILTER>(name,object,converter,filter,top);
 }
 
 
 // child(name,filter,top)
-// To make a child_t<void,...>
+// To make a Child<void,...>
 template<
    class TYPE = void,
    Allow ALLOW = Allow::one,
    class FILTER = detail::noFilter
 >
-static child_t<
+static Child<
    typename detail::isVoid<TYPE>::type, // ensure TYPE == void
    ALLOW,
    void,
@@ -45,6 +44,5 @@ static child_t<
    const FILTER &filter = FILTER{},
    const bool top = false
 ) {
-   return child_t<void,ALLOW,void,FILTER>
-      (name,filter,top);
+   return Child<void,ALLOW,void,FILTER>(name,filter,top);
 }

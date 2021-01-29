@@ -7,80 +7,80 @@
 
 // -----------------------------------------------------------------------------
 // Helper classes:
-//    is_meta_t
-//    is_child_t
-//    is_meta_or_child_t
-//    is_string_or_regex
+//    IsMeta
+//    IsChild
+//    IsMetaOrChild
+//    IsStringOrRegex
 // for SFINAE.
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
 // ------------------------
-// is_meta_t
+// IsMeta
 // ------------------------
 
 // default
 template<class T>
-class is_meta_t {
+class IsMeta {
 public:
    static constexpr bool value = false;
 };
 
-// meta_t
+// Meta
 template<class TYPE, class CONVERTER>
-class is_meta_t<meta_t<TYPE,CONVERTER>> {
+class IsMeta<Meta<TYPE,CONVERTER>> {
 public:
    static constexpr bool value = true;
 };
 
 
 // ------------------------
-// is_child_t
+// IsChild
 // ------------------------
 
 // default
 template<class T>
-class is_child_t {
+class IsChild {
 public:
    static constexpr bool value = false;
 };
 
-// child_t
+// Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class is_child_t<child_t<TYPE,ALLOW,CONVERTER,FILTER>> {
+class IsChild<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
 public:
    static constexpr bool value = true;
 };
 
 
 // ------------------------
-// is_meta_or_child_t
+// IsMetaOrChild
 // ------------------------
 
 template<class T>
-class is_meta_or_child_t {
+class IsMetaOrChild {
 public:
    static constexpr bool value =
-       is_meta_t <T>::value
-    || is_child_t<T>::value;
+       IsMeta <T>::value
+    || IsChild<T>::value;
 };
 
 
 // ------------------------
-// is_string_or_regex
+// IsStringOrRegex
 // ------------------------
 
 // default
 template<class T>
-class is_string_or_regex {
+class IsStringOrRegex {
 public:
    static constexpr bool value = false;
 };
 
 // string
 template<>
-class is_string_or_regex<std::string> {
+class IsStringOrRegex<std::string> {
 public:
    static constexpr bool value = true;
    using type = std::string;
@@ -88,7 +88,7 @@ public:
 
 // char *
 template<>
-class is_string_or_regex<char *> {
+class IsStringOrRegex<char *> {
 public:
    static constexpr bool value = true;
    using type = std::string;
@@ -96,7 +96,7 @@ public:
 
 // const char *
 template<>
-class is_string_or_regex<const char *> {
+class IsStringOrRegex<const char *> {
 public:
    static constexpr bool value = true;
    using type = std::string;
@@ -104,7 +104,7 @@ public:
 
 // char[N]
 template<std::size_t N>
-class is_string_or_regex<char[N]> {
+class IsStringOrRegex<char[N]> {
 public:
    static constexpr bool value = true;
    using type = std::string;
@@ -112,7 +112,7 @@ public:
 
 // regex
 template<>
-class is_string_or_regex<std::regex> {
+class IsStringOrRegex<std::regex> {
 public:
    static constexpr bool value = true;
    using type = std::regex;
@@ -146,10 +146,10 @@ public:
             std::tuple<LHS...,RHS>
          >::value
       >::type,
-      // ensure RHS \in {meta_t, child_t, string, regex}
+      // ensure RHS \in {Meta, Child, string, regex}
       class = typename std::enable_if<
-          detail::is_meta_or_child_t<RHS>::value
-       || detail::is_string_or_regex<RHS>::value
+          detail::IsMetaOrChild<RHS>::value
+       || detail::IsStringOrRegex<RHS>::value
       >::type
    >
    keywords(const keywords<LHS...> &lhs, const RHS &rhs) :
@@ -169,20 +169,20 @@ class keywords<>
 };
 
 
-// just meta_t
+// just Meta
 template<class TYPE, class CONVERTER>
-class keywords<meta_t<TYPE,CONVERTER>> {
-   using M = meta_t<TYPE,CONVERTER>;
+class keywords<Meta<TYPE,CONVERTER>> {
+   using M = Meta<TYPE,CONVERTER>;
 public:
    std::tuple<M> tup;
    explicit keywords(const M &m) : tup(m) { }
 };
 
 
-// just child_t
+// just Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class keywords<child_t<TYPE,ALLOW,CONVERTER,FILTER>> {
-   using C = child_t<TYPE,ALLOW,CONVERTER,FILTER>;
+class keywords<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
+   using C = Child<TYPE,ALLOW,CONVERTER,FILTER>;
 public:
    std::tuple<C> tup;
    explicit keywords(const C &c) : tup(c) { }
@@ -201,97 +201,92 @@ CASES
 
 Below, keywords<...> doesn't include <>; at least one element must exist.
 
-In the table:
-   meta  means meta_t
-   child means child_t
-We omit the _t here for brevity.
-
 ---------------------------------------+-------------------------------
    CASE                                |  RESULT
 ---------------------------------------+-------------------------------
-1. meta/child | meta/child             |
-   a. meta  | meta                     |  keywords<meta,meta>
-   b. meta  | child                    |  keywords<meta,child>
-   c. child | meta                     |  keywords<child,meta>
-   d. child | child                    |  keywords<child,child>
+1. Meta/Child | Meta/Child             |
+   a. Meta  | Meta                     |  keywords<Meta,Meta>
+   b. Meta  | Child                    |  keywords<Meta,Child>
+   c. Child | Meta                     |  keywords<Child,Meta>
+   d. Child | Child                    |  keywords<Child,Child>
 ---------------------------------------+-------------------------------
-2. child | string/regex                |
-   a. child | string                   |  keywords<child,string>
-   b. child | char *                   |  keywords<child,string>
-   c. child | regex                    |  keywords<child,regex>
+2. Child | string/regex                |
+   a. Child | string                   |  keywords<Child,string>
+   b. Child | char *                   |  keywords<Child,string>
+   c. Child | regex                    |  keywords<Child,regex>
 ---------------------------------------+-------------------------------
-3. keywords<...> | meta/child          |
-   a. keywords<...> | meta             |  keywords<...,meta>
-   b. keywords<...> | child            |  keywords<...,child>
+3. keywords<...> | Meta/Child          |
+   a. keywords<...> | Meta             |  keywords<...,Meta>
+   b. keywords<...> | Child            |  keywords<...,Child>
 ---------------------------------------+-------------------------------
-4. keywords<...,child> | string/regex  |
-   a. keywords<...,child> | string     |  keywords<...,child,string>
-   b. keywords<...,child> | char *     |  keywords<...,child,string>
-   c. keywords<...,child> | regex      |  keywords<...,child,regex>
+4. keywords<...,Child> | string/regex  |
+   a. keywords<...,Child> | string     |  keywords<...,Child,string>
+   b. keywords<...,Child> | char *     |  keywords<...,Child,string>
+   c. keywords<...,Child> | regex      |  keywords<...,Child,regex>
 ---------------------------------------+-------------------------------
 */
 
 
-// 1. meta_t/child_t | meta_t/child_t
-// ==> keywords<meta_t/child_t, meta_t/child_t>
+// 1. Meta/Child | Meta/Child
+// ==> keywords<Meta/Child, Meta/Child>
 template<
    class LHS, class RHS,
-   class=typename std::enable_if<detail::is_meta_or_child_t<LHS>::value>::type,
-   class=typename std::enable_if<detail::is_meta_or_child_t<RHS>::value>::type
+   class=typename std::enable_if<detail::IsMetaOrChild<LHS>::value>::type,
+   class=typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
 >
 auto operator|(
    const LHS &lhs,
    const RHS &rhs
 ) {
-   log::debug("or: meta_t/child_t | meta_t/child_t");
+   log::debug("or: Meta/Child | Meta/Child");
    return keywords<LHS,RHS>(keywords<LHS>(lhs),rhs);
 }
 
 
-// 2. child_t | string/regex
-// ==> keywords<child_t, string/regex>
+// 2. Child | string/regex
+// ==> keywords<Child, string/regex>
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class RHS,
-   class right = typename detail::is_string_or_regex<RHS>::type
+   class right = typename detail::IsStringOrRegex<RHS>::type
 >
 auto operator|(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &lhs,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &lhs,
    const RHS &rhs
 ) {
-   log::debug("or: child_t | string/regex");
-   using LHS = child_t<TYPE,ALLOW,CONVERTER,FILTER>;
+   log::debug("or: Child | string/regex");
+   using LHS = Child<TYPE,ALLOW,CONVERTER,FILTER>;
    return keywords<LHS,right>(keywords<LHS>(lhs),right(rhs));
 }
 
 
-// 3. keywords<...> | meta_t/child_t
-// ==> keywords<..., meta_t/child_t>
+// 3. keywords<...> | Meta/Child
+// ==> keywords<..., Meta/Child>
 template<
    class... LHS, class RHS,
-   class=typename std::enable_if<detail::is_meta_or_child_t<RHS>::value>::type
+   class=typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
 >
 auto operator|(
    const keywords<LHS...> &lhs,
    const RHS &rhs
 ) {
-   log::debug("or: keywords<...> | meta_t/child_t");
+   log::debug("or: keywords<...> | Meta/Child");
    return keywords<LHS...,RHS>(lhs,rhs);
 }
 
 
-// 4. keywords<...,child_t> | string/regex
-// ==> keywords<..., child_t, string/regex>
+// 4. keywords<...,Child> | string/regex
+// ==> keywords<..., Child, string/regex>
 template<
    class... LHS, class RHS,
    class = typename std::enable_if<
-      detail::is_child_t<typename keywords<LHS...>::last_t>::value
+      detail::IsChild<typename keywords<LHS...>::last_t>::value
    >::type,
-   class right = typename detail::is_string_or_regex<RHS>::type
+   class right = typename detail::IsStringOrRegex<RHS>::type
 >
 auto operator|(
    const keywords<LHS...> &lhs,
    const RHS &rhs
 ) {
-   log::debug("or: keywords<...,child_t> | string/regex");
+   log::debug("or: keywords<...,Child> | string/regex");
    return keywords<LHS...,right>(lhs,right(rhs));
 }

@@ -8,20 +8,20 @@ Node's subscript operators, operator[], complement its call operators, but with
 some crucial differences.
 
 The generalized call operators, operator(), allow for any number of arguments,
-where the arguments (generally child_t, and possibly meta_t at the end, with
-some caveats) represent a path down which to follow, in the node, to get to a
-final child node or metadatum that should be retrieved. Unless the final value
-is retrieved with a <void> child_t or meta_t - meaning raw form - a conversion
-to some stipulated type is applied. In that case, the result is necessarily
-returned by value, not by reference, and thus cannot be used as an lvalue.
+where the arguments (generally Child, and possibly Meta at the end, with some
+caveats) represent a path down which to follow, in the node, to get to a final
+child node or metadatum that should be retrieved. Unless the final value is
+retrieved with a <void> Child or Meta - meaning raw form - a conversion to some
+stipulated type is applied. In that case, the result is necessarily returned by
+value, not by reference, and thus cannot be used as an lvalue.
 
-So, for example, with child_t A, B, and C, and meta_t<int> D, we *cannot* write:
+So, for example, with Child A, B, and C, and Meta<int> D, we *cannot* write:
 
    // no! :-(
    node(A,B,C,D) = 10; // compiler error
 
 because the left-hand side isn't an lvalue. It is, rather, a returned-by-value
-int, because D, being a meta_t<int>, caused the internal std::string metadatum
+int, because D, being a Meta<int>, caused the internal std::string metadatum
 (that's paired with node(A,B,C)'s D metadata key) to be converted to an int.
 
 The above raises a question: how can we *set* some metadatum or child node,
@@ -82,8 +82,8 @@ that we need in order for it to behave as an lvalue.
 
 The smart object produced by operator[] is equipped with assignment from, and
 conversion to, both the raw metadatum type (std::string), and the type (here,
-int) that's encoded in the meta_t object. (Recall that D in our examples above
-is a meta_t<int>.) So, one *could* write this:
+int) that's encoded in the Meta object. (Recall that D in our examples above
+is a Meta<int>.) So, one *could* write this:
 
    auto L = int(node(A,B,C)[D]); // int(...) forces auto to be int
 
@@ -107,7 +107,7 @@ template parameter's type.
 
 
 // -----------------------------------------------------------------------------
-// node[meta_t]
+// node[Meta]
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -119,13 +119,13 @@ template parameter's type.
 // gives [const] std::string & (thus lvalue if non-const).
 
 // Returns: const std::string &
-const std::string &operator[](const meta_t<void> &kwd) const
+const std::string &operator[](const Meta<void> &kwd) const
 {
    return (*this)(kwd);
 }
 
 // Returns: std::string &
-std::string &operator[](const meta_t<void> &kwd)
+std::string &operator[](const Meta<void> &kwd)
 {
    return (*this)(kwd);
 }
@@ -143,14 +143,14 @@ std::string &operator[](const meta_t<void> &kwd)
 
 // Returns: meta_ref, knowing it references const
 template<class TYPE, class CONVERTER>
-auto operator[](const meta_t<TYPE,CONVERTER> &kwd) const
+auto operator[](const Meta<TYPE,CONVERTER> &kwd) const
 {
    return detail::meta_ref<Node,true, TYPE,CONVERTER>(kwd,*this);
 }
 
 // Returns: meta_ref, knowing it references non-const
 template<class TYPE, class CONVERTER>
-auto operator[](const meta_t<TYPE,CONVERTER> &kwd)
+auto operator[](const Meta<TYPE,CONVERTER> &kwd)
 {
    return detail::meta_ref<Node,false,TYPE,CONVERTER>(kwd,*this);
 }
@@ -158,7 +158,7 @@ auto operator[](const meta_t<TYPE,CONVERTER> &kwd)
 
 
 // -----------------------------------------------------------------------------
-// node[child_t]
+// node[Child]
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -171,14 +171,14 @@ auto operator[](const meta_t<TYPE,CONVERTER> &kwd)
 
 // Returns: const Node &
 template<class FILTER>
-const Node &operator[](const child_t<void,Allow::one,void,FILTER> &kwd) const
+const Node &operator[](const Child<void,Allow::one,void,FILTER> &kwd) const
 {
    return (*this)(kwd);
 }
 
 // Returns: Node &
 template<class FILTER>
-Node &operator[](const child_t<void,Allow::one,void,FILTER> &kwd)
+Node &operator[](const Child<void,Allow::one,void,FILTER> &kwd)
 {
    return (*this)(kwd);
 }
@@ -191,14 +191,14 @@ Node &operator[](const child_t<void,Allow::one,void,FILTER> &kwd)
 
 // Returns: child_ref, knowing it references const
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-auto operator[](const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) const
+auto operator[](const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) const
 {
    return detail::child_ref<Node,true, TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
 }
 
 // Returns: child_ref, knowing it references non-const
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-auto operator[](const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+auto operator[](const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return detail::child_ref<Node,false,TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
 }

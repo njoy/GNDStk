@@ -30,14 +30,14 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(n.has_meta("projectile"));
             CHECK(c.has_meta("projectileFrame"));
             CHECK(n.has_meta(".*Frame")); // regex
-            // meta(meta_t<void>)
-            CHECK(n.has_meta(meta_t<>("projectile")));
-            CHECK(c.has_meta(meta_t<>("projectileFrame")));
-            CHECK(n.has_meta(meta_t<>(".*Frame")));
-            // meta(meta_t<non-void>)
-            CHECK(n.has_meta(meta_t<char>("projectile")));
-            CHECK(c.has_meta(meta_t<std::string>("projectileFrame")));
-            CHECK(n.has_meta(meta_t<std::string>(".*Frame")));
+            // meta(Meta<void>)
+            CHECK(n.has_meta(Meta<>("projectile")));
+            CHECK(c.has_meta(Meta<>("projectileFrame")));
+            CHECK(n.has_meta(Meta<>(".*Frame")));
+            // meta(Meta<non-void>)
+            CHECK(n.has_meta(Meta<char>("projectile")));
+            CHECK(c.has_meta(Meta<std::string>("projectileFrame")));
+            CHECK(n.has_meta(Meta<std::string>(".*Frame")));
          }
 
          THEN("has_meta(*) fails where meta(*) would fail") {
@@ -45,14 +45,14 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(!n.has_meta("projectile ")); // extra space at end
             CHECK(!c.has_meta(".*foobar"));
             CHECK(!n.has_meta(""));
-            // meta(meta_t<void>)
-            CHECK(!n.has_meta(meta_t<>("projectile ")));
-            CHECK(!c.has_meta(meta_t<>(".*foobar")));
-            CHECK(!n.has_meta(meta_t<>("")));
-            // meta(meta_t<non-void>)
-            CHECK(!n.has_meta(meta_t<int>("projectile ")));
-            CHECK(!c.has_meta(meta_t<float>(".*foobar")));
-            CHECK(!n.has_meta(meta_t<double>("")));
+            // meta(Meta<void>)
+            CHECK(!n.has_meta(Meta<>("projectile ")));
+            CHECK(!c.has_meta(Meta<>(".*foobar")));
+            CHECK(!n.has_meta(Meta<>("")));
+            // meta(Meta<non-void>)
+            CHECK(!n.has_meta(Meta<int>("projectile ")));
+            CHECK(!c.has_meta(Meta<float>(".*foobar")));
+            CHECK(!n.has_meta(Meta<double>("")));
          }
       }
 
@@ -159,29 +159,29 @@ SCENARIO("Testing GNDStk Node has*() functions") {
       // ------------------------
 
       // We'll need calls for these cases:
-      //    child(child_t<void,one>) [const]
-      //    child(child_t<void,many>)
-      //    child(child_t<TYPE,one>)
-      //    child(child_t<TYPE,many>)
+      //    child(Child<void,one>) [const]
+      //    child(Child<void,many>)
+      //    child(Child<TYPE,one>)
+      //    child(Child<TYPE,many>)
 
       WHEN("has_child(*) is called") {
 
          // we'll change these up, using operators,
          // to test various child() calls
-         const child_t<void> PoPs("PoPs");
-         const child_t<void> styles("styles");
-         const child_t<void> externalFiles("externalFiles");
-         const child_t<void> foo("foo");
-         const child_t<void> Foo("Foo");
-         const child_t<void> Bar("Bar");
-         const child_t<void> empty("");
+         const Child<void> PoPs("PoPs");
+         const Child<void> styles("styles");
+         const Child<void> externalFiles("externalFiles");
+         const Child<void> foo("foo");
+         const Child<void> Foo("Foo");
+         const Child<void> Bar("Bar");
+         const Child<void> empty("");
 
          // made-up node-to-string converter, just for the sake of trying
          // it out; GNDStk actually has one already, by virtue of the fact
          // that node has stream output
          auto conv = [](const node &n, std::string &str)
             { str = "We have here a node named " + n.name; };
-         const std::string s = ""; // for TYPE{}/child_t
+         const std::string s = ""; // for TYPE{}/Child
 
          THEN("has_child(*) succeeds where child(*) would succeed") {
             // some filters
@@ -258,59 +258,59 @@ SCENARIO("Testing GNDStk Node has*() functions") {
       }
 
       // ------------------------
-      // has(meta_t)
-      // For operator()(meta_t)
+      // has(Meta)
+      // For operator()(Meta)
       // Similar to has_meta
-      // for meta_t
+      // for Meta
       // ------------------------
 
-      WHEN("has(meta_t) is called") {
-         THEN("has(meta_t) succeeds where (meta_t) would succeed") {
-            // (meta_t<void>)
-            CHECK(n.has(meta_t<>("projectile")));
-            CHECK(c.has(meta_t<>("projectileFrame")));
-            CHECK(n.has(meta_t<>(".*Frame")));
-            // (meta_t<non-void>)
-            CHECK(n.has(meta_t<char>("projectile")));
-            CHECK(c.has(meta_t<std::string>("projectileFrame")));
-            CHECK(n.has(meta_t<std::string>(".*Frame")));
+      WHEN("has(Meta) is called") {
+         THEN("has(Meta) succeeds where (Meta) would succeed") {
+            // (Meta<void>)
+            CHECK(n.has(Meta<>("projectile")));
+            CHECK(c.has(Meta<>("projectileFrame")));
+            CHECK(n.has(Meta<>(".*Frame")));
+            // (Meta<non-void>)
+            CHECK(n.has(Meta<char>("projectile")));
+            CHECK(c.has(Meta<std::string>("projectileFrame")));
+            CHECK(n.has(Meta<std::string>(".*Frame")));
          }
 
-         THEN("has(meta_t) fails where (meta_t) would fail") {
-            // (meta_t<void>)
-            CHECK(!n.has(meta_t<>("projectile ")));
-            CHECK(!c.has(meta_t<>(".*foobar")));
-            CHECK(!n.has(meta_t<>("")));
-            // (meta_t<non-void>)
-            CHECK(!n.has(meta_t<int>("projectile ")));
-            CHECK(!c.has(meta_t<float>(".*foobar")));
-            CHECK(!n.has(meta_t<double>("")));
+         THEN("has(Meta) fails where (Meta) would fail") {
+            // (Meta<void>)
+            CHECK(!n.has(Meta<>("projectile ")));
+            CHECK(!c.has(Meta<>(".*foobar")));
+            CHECK(!n.has(Meta<>("")));
+            // (Meta<non-void>)
+            CHECK(!n.has(Meta<int>("projectile ")));
+            CHECK(!c.has(Meta<float>(".*foobar")));
+            CHECK(!n.has(Meta<double>("")));
          }
       }
 
       // ------------------------
-      // has(child_t)
-      // For operator()(child_t)
+      // has(Child)
+      // For operator()(Child)
       // Similar to has_child
-      // for child_t, but also
+      // for Child, but also
       // allows label stuff
       // ------------------------
 
-      WHEN("has(child_t) is called") {
+      WHEN("has(Child) is called") {
 
-         const child_t<void> PoPs("PoPs");
-         const child_t<void> styles("styles");
-         const child_t<void> externalFiles("externalFiles");
-         const child_t<void> foo("foo");
-         const child_t<void> Foo("Foo");
-         const child_t<void> Bar("Bar");
-         const child_t<void> empty("");
+         const Child<void> PoPs("PoPs");
+         const Child<void> styles("styles");
+         const Child<void> externalFiles("externalFiles");
+         const Child<void> foo("foo");
+         const Child<void> Foo("Foo");
+         const Child<void> Bar("Bar");
+         const Child<void> empty("");
 
          auto conv = [](const node &n, std::string &str)
             { str = "We have here a node named " + n.name; };
          std::string s = "";
 
-         THEN("has(child_t) succeeds where (child_t) would succeed") {
+         THEN("has(Child) succeeds where (Child) would succeed") {
             // some filters
             auto filter1 = [](const node &n)
                { return n.meta("version") == "1.0"; };
@@ -353,7 +353,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has(s/++empty/conv + bad_filter));
          }
 
-         THEN("has(child_t) fails where (child_t) would fail") {
+         THEN("has(Child) fails where (Child) would fail") {
             // some filters
             auto filter1 = [](const node &n)
                { return n.meta("version") == "1.0"; };
@@ -384,13 +384,13 @@ SCENARIO("Testing GNDStk Node has*() functions") {
          }
       }
 
-      const child_t<> styles("styles");
-      const child_t<> evaluated("evaluated");
-      const child_t<> externalFiles("externalFiles");
-      const child_t<> externalFile("externalFile");
+      const Child<> styles("styles");
+      const Child<> evaluated("evaluated");
+      const Child<> externalFiles("externalFiles");
+      const Child<> externalFile("externalFile");
       const std::string s = "";
 
-      WHEN("has(child_t,string) is called") {
+      WHEN("has(Child,string) is called") {
          CHECK( n(styles).has(  --evaluated,"eval"));
          CHECK( n(styles).has(  ++evaluated,"eval"));
          CHECK( n(styles).has(s/--evaluated,"eval"));
@@ -409,7 +409,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
          CHECK(!c(styles).has(s/++evaluated,"bar"));
       }
 
-      WHEN("has(child_t,regex) is called") {
+      WHEN("has(Child,regex) is called") {
          CHECK( n(externalFiles).has(  --externalFile,std::regex("cov.*")));
          CHECK( n(externalFiles).has(  ++externalFile,std::regex("cov.*")));
          CHECK( n(externalFiles).has(s/--externalFile,std::regex("cov.*")));
@@ -442,8 +442,8 @@ SCENARIO("Testing GNDStk Node has*() functions") {
       // action occurs.
 
       WHEN("has(multi-argument) is called") {
-         // for some basic (meaning <void> typed) meta_t and child_t objects
-         const meta_t<> foo("bar");
+         // for some basic (meaning <void> typed) Meta and Child objects
+         const Meta<> foo("bar");
 
          // works where it should
          CHECK(n.has(PoPs,gaugeBosons,--gaugeBoson,mass,

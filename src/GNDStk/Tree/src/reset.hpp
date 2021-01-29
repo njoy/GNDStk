@@ -24,7 +24,7 @@
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const FileType form = FileType::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
@@ -32,13 +32,13 @@ Tree &reset(
    // Begin a new tree
    clear();
 
-   // Warn if the given child_t doesn't look valid for a top-level GNDS node
+   // Warn if the given Child doesn't look valid for a top-level GNDS node
    if (!kwd.top()) {
       log::warning(
          "Tree.reset(" + detail::keyname(kwd) + ") called, "
          "but the node as given by the\n"
-         "child_t object is not encoded as being suitable for a top-level\n"
-         "GNDS node (bool child_t.top() is false)"
+         "Child object is not encoded as being suitable for a top-level\n"
+         "GNDS node (bool Child.top() is false)"
       );
    }
 
@@ -90,7 +90,7 @@ Tree &reset(
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &form,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

@@ -158,7 +158,7 @@ SCENARIO("Testing GNDStk keyword") {
    // exercise some built-ins
    // ------------------------
 
-   WHEN("We access a tree using some built-in child_t and meta_t objects") {
+   WHEN("We access a tree using some built-in Child and Meta objects") {
       CHECK(tree(xml).metadata.size() == 2);
       CHECK(tree(xml).children.size() == 0);
       CHECK(tree(xml,version) == "1.0");
@@ -202,7 +202,7 @@ SCENARIO("Testing GNDStk keyword") {
    // use them
    // ------------------------
 
-   WHEN("We build our own child_t and meta_t objects, using keyword_t") {
+   WHEN("We build our own Child and Meta objects, using keyword_t") {
 
       THEN("Try extracting xml version") {
          // Extract <xml> version into *our* version type

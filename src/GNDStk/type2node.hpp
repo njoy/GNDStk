@@ -2,7 +2,7 @@
 /*
 Description of convert(type,node)
 
-Brief: type ==> node ==> node.child(child_t<type>)
+Brief: type ==> node ==> node.child(Child<type>)
 
 These are essentially the reverse of the convert(node,type) functions.
 The description of those, seen in reverse, applies here.
@@ -45,10 +45,10 @@ with the intention of creating a <values> node as above!)
 
 That, then, was our motivation for no longer providing these.
 
-Built-in GNDStk constructs (in particular, certain child_t objects) that relied
+Built-in GNDStk constructs (in particular, certain Child objects) that relied
 previously on these now-deleted convert() functions, are instead now outfitted
 with custom converters that do the same job. (We note as an FYI to readers here
-that a GNDStk meta_t or child_t custom converter object is roughly analogous to
-a custom comparison object or lambda that can be provided optionally as the last
+that a GNDStk Meta or Child custom converter object is roughly analogous to a
+custom comparison object or lambda that can be provided optionally as the last
 argument of certain std::sort() overloads.)
 */

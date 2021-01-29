@@ -17,62 +17,62 @@ struct converterB {
 };
 
 
-// is_void(meta_t)
-bool is_void(const meta_t<void>)
+// is_void(Meta)
+bool is_void(const Meta<void>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_void(const meta_t<TYPE,CONVERTER>)
+bool is_void(const Meta<TYPE,CONVERTER>)
 { return false; }
 
 
-// is_int(meta_t)
+// is_int(Meta)
 template<class CONVERTER>
-bool is_int(const meta_t<int,CONVERTER>)
+bool is_int(const Meta<int,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_int(const meta_t<TYPE,CONVERTER>)
+bool is_int(const Meta<TYPE,CONVERTER>)
 { return false; }
 
 
-// is_float(meta_t)
+// is_float(Meta)
 template<class CONVERTER>
-bool is_float(const meta_t<float,CONVERTER>)
+bool is_float(const Meta<float,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_float(const meta_t<TYPE,CONVERTER>)
+bool is_float(const Meta<TYPE,CONVERTER>)
 { return false; }
 
 
-// is_double(meta_t)
+// is_double(Meta)
 template<class CONVERTER>
-bool is_double(const meta_t<double,CONVERTER>)
+bool is_double(const Meta<double,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_double(const meta_t<TYPE,CONVERTER>)
+bool is_double(const Meta<TYPE,CONVERTER>)
 { return false; }
 
 
-// is_converterA(meta_t)
+// is_converterA(Meta)
 template<class TYPE>
-bool is_converterA(const meta_t<TYPE,converterA>)
+bool is_converterA(const Meta<TYPE,converterA>)
 { return true; }
 
 template<class TYPE>
-bool is_converterA(const meta_t<TYPE,converterB>)
+bool is_converterA(const Meta<TYPE,converterB>)
 { return false; }
 
 
-// is_converterB(meta_t)
+// is_converterB(Meta)
 template<class TYPE>
-bool is_converterB(const meta_t<TYPE,converterB>)
+bool is_converterB(const Meta<TYPE,converterB>)
 { return true; }
 
 template<class TYPE>
-bool is_converterB(const meta_t<TYPE,converterA>)
+bool is_converterB(const Meta<TYPE,converterA>)
 { return false; }
 
 
@@ -81,22 +81,22 @@ bool is_converterB(const meta_t<TYPE,converterA>)
 // SCENARIO
 // ------------------------
 
-SCENARIO("Testing GNDStk meta_t operators") {
+SCENARIO("Testing GNDStk Meta operators") {
 
    // ------------------------
-   // -meta_t
+   // -Meta
    // ------------------------
 
-   GIVEN("A meta_t<type,converter>") {
-      meta_t<char,converterA> foo("foo");
+   GIVEN("A Meta<type,converter>") {
+      Meta<char,converterA> foo("foo");
       WHEN("We apply operator-") {
          // it becomes <void>
          CHECK(is_void(-foo));
       }
    }
 
-   GIVEN("A meta_t<void>") {
-      meta_t<void> bar("bar");
+   GIVEN("A Meta<void>") {
+      Meta<void> bar("bar");
       WHEN("We apply operator-") {
          // it remains <void>
          CHECK(is_void(-bar));
@@ -104,21 +104,21 @@ SCENARIO("Testing GNDStk meta_t operators") {
    }
 
    // ------------------------
-   // type/meta_t
+   // type/Meta
    // ------------------------
 
-   GIVEN("A meta_t<type,converter>") {
-      meta_t<int,converterB> bar("bar");
-      WHEN("We apply type/meta_t") {
+   GIVEN("A Meta<type,converter>") {
+      Meta<int,converterB> bar("bar");
+      WHEN("We apply type/Meta") {
          // change the type to the new one
          CHECK(is_float(float{}/bar));
          CHECK(is_double(double{}/bar));
       }
    }
 
-   GIVEN("A meta_t<void>") {
-      meta_t<void> foo("foo");
-      WHEN("We apply type/meta_t") {
+   GIVEN("A Meta<void>") {
+      Meta<void> foo("foo");
+      WHEN("We apply type/Meta") {
          // change the type to the new one
          CHECK(is_float(float{}/foo));
          CHECK(is_double(double{}/foo));
@@ -126,28 +126,28 @@ SCENARIO("Testing GNDStk meta_t operators") {
    }
 
    // ------------------------
-   // meta_t/converter
+   // Meta/converter
    // ------------------------
 
-   GIVEN("A meta_t<type,converter>") {
-      meta_t<char,converterA> foo("foo");
-      meta_t<float> bar("bar");
-      WHEN("We apply meta_t/converter") {
+   GIVEN("A Meta<type,converter>") {
+      Meta<char,converterA> foo("foo");
+      Meta<float> bar("bar");
+      WHEN("We apply Meta/converter") {
          // change the converter as given
          CHECK(is_converterB(foo/converterB{}));
          CHECK(is_converterA(bar/converterA{}));
       }
    }
 
-   // Note: /converter is not applicable for meta_t<void>
+   // Note: /converter is not applicable for Meta<void>
 
    // ------------------------
    // Try some combos
    // ------------------------
 
-   GIVEN("Various meta_t objects") {
-      meta_t<void> voidone("voidone");
-      meta_t<void> voidmany("voidmany");
+   GIVEN("Various Meta objects") {
+      Meta<void> voidone("voidone");
+      Meta<void> voidmany("voidmany");
       auto foo = 100 / voidone / converterA{};
       auto bar = 1.2 / voidmany/ converterB{};
       CHECK(is_int(foo));

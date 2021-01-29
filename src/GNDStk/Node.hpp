@@ -86,13 +86,13 @@ public:
    // child functions, except that the std::string parameter versions of those
    // are intentionally unsupported, as it would be indeterminate as to whether
    // we'd want the meta or child (std::string) function. This also reflects
-   // the fact that performing node accesses with meta_t/child_t parameters -
-   // not with std::string parameters - should be preferred. meta_t and child_t
-   // compile-time encode that we want, respectively, metadata or children.
-   // Note: for variant-based meta_t and child_t objects, you should still
-   // call meta<TYPE>() or child<TYPE>() directly. Having operator() cases to
-   // support those would complicate these files, and require that you invoke
-   // operator() in awkward functional form, e.g. mynode.operator()<TYPE>(...).
+   // the fact that performing node accesses with Meta/Child parameters - not
+   // with std::string parameters - should be preferred. Meta and Child compile-
+   // time encode that we want, respectively, metadata or children. Note: for
+   // variant-based Meta and Child objects, you should still call meta<TYPE>()
+   // or child<TYPE>() directly. Having operator() cases to support those would
+   // complicate these files, and require that you invoke operator() in awkward
+   // functional form, e.g. mynode.operator()<TYPE>(...).
 
    // meta-specific
    #include "GNDStk/Node/src/call-meta.hpp"

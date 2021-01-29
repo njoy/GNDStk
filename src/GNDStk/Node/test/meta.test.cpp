@@ -45,8 +45,8 @@ SCENARIO("Testing GNDStk Node meta()") {
          }
       }
 
-      WHEN("node.meta(meta_t) is called") {
-         // string and void meta_t ==> string
+      WHEN("node.meta(Meta) is called") {
+         // string and void Meta ==> string
          auto sstring = keyword.meta<std::string>("evaluation");
          auto vstring = keyword.meta<void       >("evaluation");
          std::string sstr = top.meta(sstring);

@@ -161,7 +161,7 @@ Tree(std::istream &is, const std::string &filetype)
 // keyword, file format
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const FileType form = FileType::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
@@ -178,7 +178,7 @@ Tree(
 // keyword, string
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &filetype,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string

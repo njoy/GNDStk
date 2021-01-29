@@ -25,7 +25,7 @@ auto operator()(
 
 
 // ------------------------
-// ()(tuple<child_t,
+// ()(tuple<Child,
 //    string/regex, ...>)
 // ------------------------
 
@@ -33,11 +33,11 @@ template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class SECOND,
    class... TAIL,
-   class = typename detail::is_string_or_regex<SECOND>::type
+   class = typename detail::IsStringOrRegex<SECOND>::type
 >
 auto operator()(
    const std::tuple<
-      child_t<TYPE,ALLOW,CONVERTER,FILTER>,
+      Child<TYPE,ALLOW,CONVERTER,FILTER>,
       SECOND,
       TAIL...
    > &tup,
@@ -46,7 +46,7 @@ auto operator()(
 ) GNDSTK_CONST {
 
    log::debug(
-     "Node(tuple<child_t, string/regex, ...>), tuple size == {}",
+     "Node(tuple<Child, string/regex, ...>), tuple size == {}",
       2 + sizeof...(TAIL)
    );
 
@@ -106,7 +106,7 @@ auto operator()(
    // We *don't* simply write:
    //    std::make_tuple(operator()(std::get<0>(tup),head_found)),
    // because doing so would decay references to non-references. That would
-   // mean, ultimately, that meta_t<void> and child_t<void> instances inside
+   // mean, ultimately, that Meta<void> and Child<void> instances inside
    // our keywords<...> objects, which are returned by our | (or) operators,
    // would no longer produce [possibly const] *references* to std::string
    // and Node, respectively, but would surreptitiously lose the references.

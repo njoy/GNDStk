@@ -1,11 +1,11 @@
 
 // ------------------------
-// ()(child_t)
+// ()(Child)
 // ------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
    try {
@@ -22,12 +22,12 @@ decltype(auto) operator()(
 
 
 // ------------------------
-// ()(child_t, string)
+// ()(Child, string)
 // ------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string label,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {
@@ -36,7 +36,7 @@ decltype(auto) operator()(
       // total filter
       auto filter = [kwd,label](const Node &n)
          { return kwd.filter(n) && detail::label_is(label)(n); };
-      // --kwd: child_t<...,Allow::one,...>
+      // --kwd: Child<...,Allow::one,...>
       return child(--kwd+filter, found);
    } catch (...) {
       log::member("Node(" + detail::keyname(kwd) + ",label=\"{}\")", label);
@@ -46,12 +46,12 @@ decltype(auto) operator()(
 
 
 // ------------------------
-// ()(child_t, regex)
+// ()(Child, regex)
 // ------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::regex labelRegex,
    bool &found = detail::default_bool
 ) GNDSTK_CONST {

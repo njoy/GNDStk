@@ -17,83 +17,83 @@ struct converterB {
 };
 
 
-// is_void(child_t)
+// is_void(Child)
 template<Allow ALLOW>
-bool is_void(const child_t<void,ALLOW>)
+bool is_void(const Child<void,ALLOW>)
 { return true; }
 
 template<class TYPE, Allow ALLOW, class CONVERTER>
-bool is_void(const child_t<TYPE,ALLOW,CONVERTER>)
+bool is_void(const Child<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
-// is_int(child_t)
+// is_int(Child)
 template<Allow ALLOW, class CONVERTER>
-bool is_int(const child_t<int,ALLOW,CONVERTER>)
+bool is_int(const Child<int,ALLOW,CONVERTER>)
 { return true; }
 
 template<class TYPE, Allow ALLOW, class CONVERTER>
-bool is_int(const child_t<TYPE,ALLOW,CONVERTER>)
+bool is_int(const Child<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
-// is_float(child_t)
+// is_float(Child)
 template<Allow ALLOW, class CONVERTER>
-bool is_float(const child_t<float,ALLOW,CONVERTER>)
+bool is_float(const Child<float,ALLOW,CONVERTER>)
 { return true; }
 
 template<class TYPE, Allow ALLOW, class CONVERTER>
-bool is_float(const child_t<TYPE,ALLOW,CONVERTER>)
+bool is_float(const Child<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
-// is_double(child_t)
+// is_double(Child)
 template<Allow ALLOW, class CONVERTER>
-bool is_double(const child_t<double,ALLOW,CONVERTER>)
+bool is_double(const Child<double,ALLOW,CONVERTER>)
 { return true; }
 
 template<class TYPE, Allow ALLOW, class CONVERTER>
-bool is_double(const child_t<TYPE,ALLOW,CONVERTER>)
+bool is_double(const Child<TYPE,ALLOW,CONVERTER>)
 { return false; }
 
 
-// is_converterA(child_t)
+// is_converterA(Child)
 template<class TYPE, Allow ALLOW>
-bool is_converterA(const child_t<TYPE,ALLOW,converterA>)
+bool is_converterA(const Child<TYPE,ALLOW,converterA>)
 { return true; }
 
 template<class TYPE, Allow ALLOW>
-bool is_converterA(const child_t<TYPE,ALLOW,converterB>)
+bool is_converterA(const Child<TYPE,ALLOW,converterB>)
 { return false; }
 
 
-// is_converterB(child_t)
+// is_converterB(Child)
 template<class TYPE, Allow ALLOW>
-bool is_converterB(const child_t<TYPE,ALLOW,converterB>)
+bool is_converterB(const Child<TYPE,ALLOW,converterB>)
 { return true; }
 
 template<class TYPE, Allow ALLOW>
-bool is_converterB(const child_t<TYPE,ALLOW,converterA>)
+bool is_converterB(const Child<TYPE,ALLOW,converterA>)
 { return false; }
 
 
-// is_one(child_t)
+// is_one(Child)
 template<class TYPE, class CONVERTER>
-bool is_one(const child_t<TYPE,Allow::one,CONVERTER>)
+bool is_one(const Child<TYPE,Allow::one,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_one(const child_t<TYPE,Allow::many,CONVERTER>)
+bool is_one(const Child<TYPE,Allow::many,CONVERTER>)
 { return false; }
 
 
-// is_many(child_t)
+// is_many(Child)
 template<class TYPE, class CONVERTER>
-bool is_many(const child_t<TYPE,Allow::many,CONVERTER>)
+bool is_many(const Child<TYPE,Allow::many,CONVERTER>)
 { return true; }
 
 template<class TYPE, class CONVERTER>
-bool is_many(const child_t<TYPE,Allow::one,CONVERTER>)
+bool is_many(const Child<TYPE,Allow::one,CONVERTER>)
 { return false; }
 
 
@@ -102,15 +102,15 @@ bool is_many(const child_t<TYPE,Allow::one,CONVERTER>)
 // SCENARIO
 // ------------------------
 
-SCENARIO("Testing GNDStk child_t operators") {
+SCENARIO("Testing GNDStk Child operators") {
 
    // ------------------------
-   // -child_t
+   // -Child
    // ------------------------
 
-   GIVEN("A child_t<type,one/many,converter>") {
-      child_t<char,Allow::one, converterA> foo("foo");
-      child_t<int, Allow::many,converterB> bar("bar");
+   GIVEN("A Child<type,one/many,converter>") {
+      Child<char,Allow::one, converterA> foo("foo");
+      Child<int, Allow::many,converterB> bar("bar");
       WHEN("We apply operator-") {
          // both become <void>
          CHECK(is_void(-foo));
@@ -118,9 +118,9 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   GIVEN("A child_t<void,one/many>") {
-      child_t<void,Allow::one > foo("foo");
-      child_t<void,Allow::many> bar("bar");
+   GIVEN("A Child<void,one/many>") {
+      Child<void,Allow::one > foo("foo");
+      Child<void,Allow::many> bar("bar");
       WHEN("We apply operator-") {
          // both remain <void>
          CHECK(is_void(-foo));
@@ -129,18 +129,18 @@ SCENARIO("Testing GNDStk child_t operators") {
    }
 
    // ------------------------
-   // ~child_t
-   // !child_t
+   // ~Child
+   // !Child
    // top()
    // top(bool)
    // ------------------------
 
-   GIVEN("Some child_t objects") {
-      const child_t<char,Allow::one, converterA> foo("foo");
-      const child_t<int, Allow::many,converterB> bar("bar");
-      child_t<void,Allow::one > one("one");
+   GIVEN("Some Child objects") {
+      const Child<char,Allow::one, converterA> foo("foo");
+      const Child<int, Allow::many,converterB> bar("bar");
+      Child<void,Allow::one > one("one");
       one.top(true);
-      child_t<void,Allow::many> two("two");
+      Child<void,Allow::many> two("two");
       two.top(true);
 
       CHECK(!foo.top());
@@ -148,7 +148,7 @@ SCENARIO("Testing GNDStk child_t operators") {
       CHECK(one.top());
       CHECK(two.top());
 
-      WHEN("We apply ~child_t") {
+      WHEN("We apply ~Child") {
          THEN("Top-level is enabled") {
             CHECK((~foo).top());
             CHECK((~bar).top());
@@ -157,7 +157,7 @@ SCENARIO("Testing GNDStk child_t operators") {
          }
       }
 
-      WHEN("We apply !child_t") {
+      WHEN("We apply !Child") {
          THEN("Top-level is disabled") {
             CHECK(!(!foo).top());
             CHECK(!(!bar).top());
@@ -168,23 +168,23 @@ SCENARIO("Testing GNDStk child_t operators") {
    }
 
    // ------------------------
-   // type/child_t
+   // type/Child
    // ------------------------
 
-   GIVEN("A child_t<type,one/many,converter>") {
-      child_t<char,Allow::one, converterA> foo("foo");
-      child_t<int, Allow::many,converterB> bar("bar");
-      WHEN("We apply type/child_t") {
+   GIVEN("A Child<type,one/many,converter>") {
+      Child<char,Allow::one, converterA> foo("foo");
+      Child<int, Allow::many,converterB> bar("bar");
+      WHEN("We apply type/Child") {
          // change the type to the new one
          CHECK(is_float(float{}/foo));
          CHECK(is_double(double{}/bar));
       }
    }
 
-   GIVEN("A child_t<void,one/many>") {
-      child_t<void,Allow::one > foo("foo");
-      child_t<void,Allow::many> bar("bar");
-      WHEN("We apply type/child_t") {
+   GIVEN("A Child<void,one/many>") {
+      Child<void,Allow::one > foo("foo");
+      Child<void,Allow::many> bar("bar");
+      WHEN("We apply type/Child") {
          // change the type to the new one
          CHECK(is_float(float{}/foo));
          CHECK(is_double(double{}/bar));
@@ -192,15 +192,15 @@ SCENARIO("Testing GNDStk child_t operators") {
    }
 
    // ------------------------
-   // child_t/converter
+   // Child/converter
    // ------------------------
 
-   GIVEN("A child_t<type,one/many,converter>") {
-      child_t<char,  Allow::one, converterA> foo("foo");
-      child_t<int,   Allow::many,converterB> bar("bar");
-      child_t<float, Allow::one            > one("one");
-      child_t<double,Allow::many           > two("two");
-      WHEN("We apply child_t/converter") {
+   GIVEN("A Child<type,one/many,converter>") {
+      Child<char,  Allow::one, converterA> foo("foo");
+      Child<int,   Allow::many,converterB> bar("bar");
+      Child<float, Allow::one            > one("one");
+      Child<double,Allow::many           > two("two");
+      WHEN("We apply Child/converter") {
          // change the converter as given
          CHECK(is_converterB(foo/converterB{}));
          CHECK(is_converterA(bar/converterA{}));
@@ -209,18 +209,18 @@ SCENARIO("Testing GNDStk child_t operators") {
       }
    }
 
-   // Note: /converter is not applicable for child_t<void>
+   // Note: /converter is not applicable for Child<void>
 
    // ------------------------
-   // one(child_t)
+   // one(Child)
    // ------------------------
 
-   GIVEN("A child_t<void/type,one/many[,converter]>") {
-      child_t<char,Allow::one, converterA> a("a");
-      child_t<int, Allow::many,converterB> b("b");
-      child_t<void,Allow::one            > c("c");
-      child_t<void,Allow::many           > d("d");
-      WHEN("We apply one(child_t)") {
+   GIVEN("A Child<void/type,one/many[,converter]>") {
+      Child<char,Allow::one, converterA> a("a");
+      Child<int, Allow::many,converterB> b("b");
+      Child<void,Allow::one            > c("c");
+      Child<void,Allow::many           > d("d");
+      WHEN("We apply one(Child)") {
          // one() downgrades to find::one
          CHECK(is_one(a.one()));
          CHECK(is_one(b.one()));
@@ -230,15 +230,15 @@ SCENARIO("Testing GNDStk child_t operators") {
    }
 
    // ------------------------
-   // many(child_t)
+   // many(Child)
    // ------------------------
 
-   GIVEN("A child_t<void/type,one/many[,converter]>") {
-      child_t<char,Allow::one, converterA> a("a");
-      child_t<int, Allow::many,converterB> b("b");
-      child_t<void,Allow::one            > c("c");
-      child_t<void,Allow::many           > d("d");
-      WHEN("We apply many(child_t)") {
+   GIVEN("A Child<void/type,one/many[,converter]>") {
+      Child<char,Allow::one, converterA> a("a");
+      Child<int, Allow::many,converterB> b("b");
+      Child<void,Allow::one            > c("c");
+      Child<void,Allow::many           > d("d");
+      WHEN("We apply many(Child)") {
          // many() upgrades to find::many
          CHECK(is_many(a.many()));
          CHECK(is_many(b.many()));
@@ -251,9 +251,9 @@ SCENARIO("Testing GNDStk child_t operators") {
    // Try some combos
    // ------------------------
 
-   GIVEN("Various child_t objects") {
-      child_t<void,Allow::one > voidone("voidone");
-      child_t<void,Allow::many> voidmany("voidmany");
+   GIVEN("Various Child objects") {
+      Child<void,Allow::one > voidone("voidone");
+      Child<void,Allow::many> voidmany("voidmany");
 
       auto foo = (1.2/voidmany/converterA{}).one();
       CHECK(is_one(foo));

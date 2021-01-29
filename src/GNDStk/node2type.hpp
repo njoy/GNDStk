@@ -2,7 +2,7 @@
 /*
 Description of convert(node,type)
 
-Brief: node.child(child_t<type>) ==> node ==> type
+Brief: node.child(Child<type>) ==> node ==> type
 
 These are analogous to the convert(string,type) functions, and the description
 of those largely applies here.

@@ -70,45 +70,45 @@ metaPair &add(
 
 
 // -----------------------------------------------------------------------------
-// meta_t<void>, *
+// Meta<void>, *
 // Guaranteed to add something
 // Returns: reference to added metadatum pair
 // -----------------------------------------------------------------------------
 
-// A meta_t<void> means that the meta_t imposes no particular type, and thus
-// no particular behavior as far as the meta_t itself is concerned. So, here,
-// we just extract the meta_t's name, and bounce to one of the (string,*) cases
+// A Meta<void> means that the Meta imposes no particular type, and thus
+// no particular behavior as far as the Meta itself is concerned. So, here,
+// we just extract the Meta's name, and bounce to one of the (string,*) cases
 // above, which behave according to *'s type. The below add() bounces to the
 // correct string case above, for both plain and Defaulted; and, like those,
 // cases, doesn't handle optional.
 
-// meta_t<void>, plain
-// meta_t<void>, Defaulted
+// Meta<void>, plain
+// Meta<void>, Defaulted
 template<
    class T = std::string,
    class CONVERTER = typename detail::default_converter<T>::type,
    class = typename std::enable_if<!detail::is_optional<T>::value>::type
 >
 metaPair &add(
-   const meta_t<void> &kwd,
+   const Meta<void> &kwd,
    const T &val = T{}, // <== via SFINAE, T != optional
    const CONVERTER &converter = CONVERTER{}
 ) {
    return add(kwd.name, val, converter);
 }
 
-// meta_t<void>, optional
+// Meta<void>, optional
 // Not available, because adding it couldn't be certain
 
 
 
 // -----------------------------------------------------------------------------
-// meta_t<plain>, *
+// Meta<plain>, *
 // Guaranteed to add something
 // Returns: reference to added metadatum pair
 // -----------------------------------------------------------------------------
 
-// meta_t<plain>, plain
+// Meta<plain>, plain
 template<
    class TYPE, class CONVERTER,
    class T = TYPE,
@@ -116,23 +116,23 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 metaPair &add(
-   const meta_t<TYPE,CONVERTER> &kwd,
+   const Meta<TYPE,CONVERTER> &kwd,
    const T &val = T{} // <== via SFINAE, T != optional
 ) {
    return add(kwd.name, TYPE(val), kwd.converter);
 }
 
-// meta_t<plain>, optional
+// Meta<plain>, optional
 // Not available, because adding it couldn't be certain
 
-// meta_t<plain>, Defaulted
+// Meta<plain>, Defaulted
 template<
    class TYPE, class CONVERTER,
    class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 metaPair &add(
-   const meta_t<TYPE,CONVERTER> &kwd,
+   const Meta<TYPE,CONVERTER> &kwd,
    const Defaulted<T> &def
 ) {
    return add(kwd, def.value());
@@ -141,10 +141,10 @@ metaPair &add(
 
 
 // -----------------------------------------------------------------------------
-// meta_t<optional>, *
+// Meta<optional>, *
 // -----------------------------------------------------------------------------
 
-// meta_t<optional>, plain
+// Meta<optional>, plain
 // Returns: metaPair &
 template<
    class TYPE, class CONVERTER,
@@ -152,13 +152,13 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 metaPair &add(
-   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   const Meta<std::optional<TYPE>,CONVERTER> &kwd,
    const T &val = T{}
 ) {
    return add(kwd.name, TYPE(val), kwd.converter);
 }
 
-// meta_t<optional>, optional
+// Meta<optional>, optional
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,
@@ -166,7 +166,7 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
-   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   const Meta<std::optional<TYPE>,CONVERTER> &kwd,
    const std::optional<T> &opt
 ) {
    return opt.has_value()
@@ -174,7 +174,7 @@ bool add(
       :  false;
 }
 
-// meta_t<optional>, Defaulted
+// Meta<optional>, Defaulted
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,
@@ -182,7 +182,7 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
-   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   const Meta<std::optional<TYPE>,CONVERTER> &kwd,
    const Defaulted<T> &def
 ) {
    return def.has_value()
@@ -193,10 +193,10 @@ bool add(
 
 
 // -----------------------------------------------------------------------------
-// meta_t<Defaulted>, *
+// Meta<Defaulted>, *
 // -----------------------------------------------------------------------------
 
-// meta_t<Defaulted>, plain
+// Meta<Defaulted>, plain
 // Returns: metaPair &
 template<
    class TYPE, class CONVERTER,
@@ -204,13 +204,13 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 metaPair &add(
-   const meta_t<Defaulted<TYPE>,CONVERTER> &kwd,
+   const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    const T &val = T{}
 ) {
    return add(kwd.name, TYPE(val), kwd.converter);
 }
 
-// meta_t<Defaulted>, optional
+// Meta<Defaulted>, optional
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,
@@ -218,7 +218,7 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
-   const meta_t<Defaulted<TYPE>,CONVERTER> &kwd,
+   const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    const std::optional<T> &opt
 ) {
    return opt.has_value()
@@ -226,7 +226,7 @@ bool add(
       :  false;
 }
 
-// meta_t<Defaulted>, Defaulted
+// Meta<Defaulted>, Defaulted
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,
@@ -234,7 +234,7 @@ template<
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 bool add(
-   const meta_t<Defaulted<TYPE>,CONVERTER> &kwd,
+   const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    const Defaulted<T> &def
 ) {
    return def.has_value()

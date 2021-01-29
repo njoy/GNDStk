@@ -4,12 +4,12 @@
 // -----------------------------------------------------------------------------
 
 // meta(name,converter)
-// To make a meta_t<TYPE,...>
+// To make a Meta<TYPE,...>
 template<
    class TYPE,
    class CONVERTER = typename detail::default_converter<TYPE>::type
 >
-static meta_t<
+static Meta<
    typename detail::isNotVoid<TYPE>::type, // ensure TYPE != void
    CONVERTER
 > meta(
@@ -17,19 +17,19 @@ static meta_t<
    const TYPE &object = TYPE{},
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return meta_t<TYPE,CONVERTER>{name,object,converter};
+   return Meta<TYPE,CONVERTER>{name,object,converter};
 }
 
 
 // meta(name)
-// To make a meta_t<void>
+// To make a Meta<void>
 template<
    class TYPE = void
 >
-static meta_t<
+static Meta<
    typename detail::isVoid<TYPE>::type // ensure TYPE == void
 > meta(
    const std::string &name
 ) {
-   return meta_t<void>(name);
+   return Meta<void>(name);
 }

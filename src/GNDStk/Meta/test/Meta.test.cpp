@@ -15,25 +15,25 @@ public:
    }
 };
 
-SCENARIO("Testing GNDStk meta_t<TYPE,CONVERTER>") {
+SCENARIO("Testing GNDStk Meta<TYPE,CONVERTER>") {
 
-   // meta_t<TYPE,CONVERTER>
-   GIVEN("The meta_t<TYPE,CONVERTER> class") {
+   // Meta<TYPE,CONVERTER>
+   GIVEN("The Meta<TYPE,CONVERTER> class") {
       WHEN("Constructed with (name)") {
-         meta_t<double> foo("foo");
+         Meta<double> foo("foo");
          CHECK(foo.name == "foo");
       }
 
       WHEN("Constructed with (name,converter)") {
-         meta_t<double,converter> bar("bar",double{},converter{});
+         Meta<double,converter> bar("bar",double{},converter{});
          CHECK(bar.name == "bar");
       }
    }
 
-   // meta_t<void>
-   GIVEN("The meta_t<void> class") {
+   // Meta<void>
+   GIVEN("The Meta<void> class") {
       WHEN("Constructed with (name)") {
-         meta_t<void> foo("foo");
+         Meta<void> foo("foo");
          CHECK(foo.name == "foo");
       }
    }

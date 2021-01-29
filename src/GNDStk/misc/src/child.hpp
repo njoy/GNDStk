@@ -7,21 +7,21 @@ namespace child {
 
 // Note: the ~ (tilde) makes them allowed as top-level nodes
 inline const auto
-   PoPs                = ~child_t<void,Allow::one>("PoPs");
+   PoPs                = ~Child<void,Allow::one>("PoPs");
 inline const auto
-   reactionSuite       = ~child_t<void,Allow::one>("reactionSuite");
+   reactionSuite       = ~Child<void,Allow::one>("reactionSuite");
 inline const auto
-   covarianceSuite     = ~child_t<void,Allow::one>("covarianceSuite");
+   covarianceSuite     = ~Child<void,Allow::one>("covarianceSuite");
 inline const auto
-   thermalScattering   = ~child_t<void,Allow::one>("thermalScattering");
+   thermalScattering   = ~Child<void,Allow::one>("thermalScattering");
 inline const auto
-   fissionFragmentData = ~child_t<void,Allow::one>("fissionFragmentData");
+   fissionFragmentData = ~Child<void,Allow::one>("fissionFragmentData");
 
 
 
 // -----------------------------------------------------------------------------
 // Keywords
-// Of type child_t
+// Of type Child
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -309,16 +309,16 @@ GNDSTK_MAKE_CHILD(void, XYs3d, many);
 
 // Double
 // Not called double, for obvious reasons.
-inline const child_t<void,Allow::one> Double("double");
+inline const Child<void,Allow::one> Double("double");
 
 // cdata, comment
 // These are where XML <![CDATA[...]]> or <!-- ... --> (comment) material
 // resides. It's reasonable to extract such content into std::strings. We
 // then store these as nodes of those respective names, each with one metadatum
 // having a key of "text" and a value containing the original content.
-inline const child_t<std::string,Allow::one,detail::text_metadatum_to_string>
+inline const Child<std::string,Allow::one,detail::text_metadatum_to_string>
    cdata("cdata");
-inline const child_t<std::string,Allow::many,detail::text_metadatum_to_string>
+inline const Child<std::string,Allow::many,detail::text_metadatum_to_string>
    comment("comment");
 
 // pcdata
@@ -329,11 +329,11 @@ inline const child_t<std::string,Allow::many,detail::text_metadatum_to_string>
 // metadatum with a key of "text" and a value containing the original content:
 // the "1.2 ..." in the above example. Our examination of many GNDS files shows
 // that some pcdata nodes contain integers, while others contain doubles. We
-// therefore define pcdata as a child_t with <void>, so that we can access it
+// therefore define pcdata as a Child with <void>, so that we can access it
 // in its original form and thus dig further down to its "text" metadatum, at
 // which point we can decide elsewhere what's appropriate for that. (Read into
 // a vector of ints? A vector of doubles? Something else?)
-inline const child_t<void,Allow::one>
+inline const Child<void,Allow::one>
    pcdata("pcdata");
 
 } // namespace child

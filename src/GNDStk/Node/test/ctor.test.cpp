@@ -119,10 +119,10 @@ SCENARIO("Testing GNDStk Node constructors") {
    }
 
    // ------------------------
-   // child_t<*> (from which
+   // Child<*> (from which
    // we get the node's name
    // ------------------------
-   WHEN("A node is constructed from a child_t") {
+   WHEN("A node is constructed from a Child") {
       Node<> n(basic::child::reactionSuite);
       CHECK(n.name == "reactionSuite");
       CHECK(n.metadata.size() == 0);
@@ -130,7 +130,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    }
 
    // ------------------------
-   // child_t<void>, Node
+   // Child<void>, Node
    // ------------------------
    GIVEN ("A node with some metadata and children") {
       // to be used...
@@ -143,25 +143,25 @@ SCENARIO("Testing GNDStk Node constructors") {
       nd.add("child1");
       nd.add("child2");
 
-      // child_t<void,one>
-      WHEN("Another node is constructed from (child_t<one>,node)") {
-         Node<> n(child_t<void,Allow::one>("ONE"),nv);
-         CHECK(n.name == "ONE"); // name taken from the child_t, not from nv
+      // Child<void,one>
+      WHEN("Another node is constructed from (Child<one>,node)") {
+         Node<> n(Child<void,Allow::one>("ONE"),nv);
+         CHECK(n.name == "ONE"); // name taken from the Child, not from nv
          CHECK(n.metadata.size() == 2);
          CHECK(n.children.size() == 1);
       }
 
-      // child_t<void,many>, just to be different from the <one> case above
-      WHEN("Another node is constructed from (child_t<many>,node)") {
-         Node<> n(child_t<void,Allow::many>("TWO"),nd);
+      // Child<void,many>, just to be different from the <one> case above
+      WHEN("Another node is constructed from (Child<many>,node)") {
+         Node<> n(Child<void,Allow::many>("TWO"),nd);
          CHECK(n.name == "TWO"); // as above
          CHECK(n.metadata.size() == 1);
          CHECK(n.children.size() == 2);
       }
 
       // With a yyyymmdd, which can implcitly convert to a Node
-      WHEN("Another node is constructed from (child_t<many>,type)") {
-         Node<> n(child_t<void,Allow::many>("THREE"),yyyymmdd{1776,7,4});
+      WHEN("Another node is constructed from (Child<many>,type)") {
+         Node<> n(Child<void,Allow::many>("THREE"),yyyymmdd{1776,7,4});
          CHECK(n.name == "THREE");
          CHECK(n.metadata.size() == 3);
          CHECK(n.meta("Year" ) == "1776");
@@ -172,13 +172,13 @@ SCENARIO("Testing GNDStk Node constructors") {
    }
 
    // ------------------------
-   // child_t<TYPE>, TYPE
+   // Child<TYPE>, TYPE
    // ------------------------
-   GIVEN("Some child_t<type> objects") {
-      const child_t<yyyymmdd,Allow::one> ymd("YearMonthDay",yyyymmdd{0,0,0});
-      const child_t<mmddyyyy,Allow::one> mdy("MonthDayYear",mmddyyyy{0,0,0});
+   GIVEN("Some Child<type> objects") {
+      const Child<yyyymmdd,Allow::one> ymd("YearMonthDay",yyyymmdd{0,0,0});
+      const Child<mmddyyyy,Allow::one> mdy("MonthDayYear",mmddyyyy{0,0,0});
 
-      WHEN("A node is constructed with (child_t<type>,type)") {
+      WHEN("A node is constructed with (Child<type>,type)") {
          Node<> n(ymd,yyyymmdd{1776,7,4});
          CHECK(n.name == "YearMonthDay");
          CHECK(n.metadata.size() == 3);
@@ -188,7 +188,7 @@ SCENARIO("Testing GNDStk Node constructors") {
          CHECK(n.children.size() == 0);
       }
 
-      WHEN("A node is constructed with (child_t<type>,type)") {
+      WHEN("A node is constructed with (Child<type>,type)") {
          Node<> n(mdy,mmddyyyy{6,21,1788});
          CHECK(n.name == "MonthDayYear");
          CHECK(n.metadata.size() == 3);
@@ -200,7 +200,7 @@ SCENARIO("Testing GNDStk Node constructors") {
 
       // mix things up a bit, considering that
       // mmddyyyy has a conversion to yyyymmdd
-      WHEN("Same, with (child_t<type>, other type convertible to type)") {
+      WHEN("Same, with (Child<type>, other type convertible to type)") {
          Node<> n(ymd,mmddyyyy{6,21,1788});
          CHECK(n.name == "YearMonthDay");
          CHECK(n.metadata.size() == 3);

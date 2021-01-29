@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// child_t
+// Child
 // -----------------------------------------------------------------------------
 
 /*
@@ -11,10 +11,9 @@
 TYPE
 
    The type to which GNDStk should convert a Node<> that's extracted from
-   a Tree<> with the child_t object. If TYPE is void, then GNDStk uses
-   Node<*> (the child node, in its original form in the tree), where *
-   is whatever template parameters are in play with the particular Tree<>
-   being queried.
+   a Tree<> with the Child object. If TYPE is void, then GNDStk uses Node<*>
+   (the child node, in its original form in the tree), where * is whatever
+   template parameters are in play with the particular Tree<> being queried.
 
 ALLOW
 
@@ -31,13 +30,13 @@ ALLOW
 
    In other words: there are (or can be) any number of <axis> nodes within
    an enclosing context (here, <axes>). ALLOW is a template parameter because
-   it affects the *type* that's pulled from the Tree when the child_t object
+   it affects the *type* that's pulled from the Tree when the Child object
    is used for a query. For example,
 
       tree(...,axes,axis)
 
    gives back a container of axis objects, not a single axis object, because
-   our child_t axis keyword has ALLOW == Allow::any. Note that axes, not to be
+   our Child axis keyword has ALLOW == Allow::any. Note that axes, not to be
    confused with axis, has ALLOW == Allow::one because it's expected just once.
 
 CONVERTER
@@ -62,7 +61,7 @@ template<
    class CONVERTER = typename detail::default_converter<TYPE>::type,
    class FILTER = detail::noFilter
 >
-class child_t {
+class Child {
 public:
 
    // ------------------------
@@ -89,7 +88,7 @@ public:
    // name, converter
    // name, converter, filter
    // name, converter, filter, top
-   explicit child_t(
+   explicit Child(
       const std::string &n,
       const TYPE &t = TYPE{},
       const CONVERTER &c = CONVERTER{},
@@ -124,29 +123,29 @@ public:
    // ------------------------
 
    // basic()
-   // Produce a similar but voidified child_t
-   // See remarks for meta_t's basic(); similar remarks apply here
+   // Produce a similar but voidified Child
+   // See remarks for Meta's basic(); similar remarks apply here
    auto basic() const
    {
-      return child_t<void,ALLOW,void,FILTER>(
+      return Child<void,ALLOW,void,FILTER>(
          name, filter, canBeTopLevel // converter not possible here
       );
    }
 
    // one()
-   // Produce an equivalent child_t, but formulated as Allow::one
+   // Produce an equivalent Child, but formulated as Allow::one
    auto one() const
    {
-      return child_t<TYPE,Allow::one,CONVERTER,FILTER>(
+      return Child<TYPE,Allow::one,CONVERTER,FILTER>(
          name, object, converter, filter, canBeTopLevel
       );
    }
 
    // many()
-   // Produce an equivalent child_t, but formulated as Allow::many
+   // Produce an equivalent Child, but formulated as Allow::many
    auto many() const
    {
-      return child_t<TYPE,Allow::many,CONVERTER,FILTER>(
+      return Child<TYPE,Allow::many,CONVERTER,FILTER>(
          name, object, converter, filter, canBeTopLevel
       );
    }
@@ -159,10 +158,10 @@ public:
 // -----------------------------------------------------------------------------
 
 template<Allow ALLOW, class CONVERTER, class FILTER>
-class child_t<void,ALLOW,CONVERTER,FILTER> {
+class Child<void,ALLOW,CONVERTER,FILTER> {
    static_assert(
       std::is_same<CONVERTER,void>::value,
-     "Can't create child_t<void,...> with non-default CONVERTER"
+     "Can't create Child<void,...> with non-default CONVERTER"
    );
 
 public:
@@ -186,7 +185,7 @@ public:
    // name
    // name, filter
    // name, filter, top
-   explicit child_t(
+   explicit Child(
       const std::string &n,
       const FILTER &f = FILTER{},
       const bool t = false
@@ -219,25 +218,25 @@ public:
    // ------------------------
 
    // basic()
-   // Produce a similar but voidified child_t. In the present specialization,
+   // Produce a similar but voidified Child. In the present specialization,
    // we're already void; this is here for consistency with the general case.
    auto basic() const
    {
-      return child_t<void,ALLOW,void,FILTER>(name,filter,canBeTopLevel);
+      return Child<void,ALLOW,void,FILTER>(name,filter,canBeTopLevel);
    }
 
    // one()
-   // Produce an equivalent child_t, but formulated as Allow::one
+   // Produce an equivalent Child, but formulated as Allow::one
    auto one() const
    {
-      return child_t<void,Allow::one,void,FILTER>(name,filter,canBeTopLevel);
+      return Child<void,Allow::one,void,FILTER>(name,filter,canBeTopLevel);
    }
 
    // many()
-   // Produce an equivalent child_t, but formulated as Allow::many
+   // Produce an equivalent Child, but formulated as Allow::many
    auto many() const
    {
-      return child_t<void,Allow::many,void,FILTER>(name,filter,canBeTopLevel);
+      return Child<void,Allow::many,void,FILTER>(name,filter,canBeTopLevel);
    }
 };
 
@@ -247,13 +246,13 @@ public:
 // Macro
 // -----------------------------------------------------------------------------
 
-// For child_t building. This macro doesn't handle the optional "top-level"
+// For Child building. This macro doesn't handle the optional "top-level"
 // flag, the converter, or the filter; we don't believe those will be needed
-// very often. If you do need to provide one or both, construct a child_t
+// very often. If you do need to provide one or both, construct a Child
 // in some other way than by using this macro.
 
 #define GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
-   inline const child_t<TYPE,Allow::ALLOW> name(#name)
+   inline const Child<TYPE,Allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.
@@ -264,4 +263,4 @@ public:
 // Operators
 // -----------------------------------------------------------------------------
 
-#include "GNDStk/child_t/src/operator.hpp"
+#include "GNDStk/Child/src/operator.hpp"

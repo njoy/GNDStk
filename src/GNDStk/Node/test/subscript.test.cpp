@@ -15,7 +15,7 @@ using namespace njoy::GNDStk::core;
 
 // ------------------------
 // version_t
-// used with meta_t
+// used with Meta
 // ------------------------
 
 struct version_t {
@@ -59,7 +59,7 @@ inline std::ostream &operator<<(std::ostream &s, const version_t &obj)
 
 // ------------------------
 // temp_t
-// used with child_t
+// used with Child
 // ------------------------
 
 struct temp_t {
@@ -94,7 +94,7 @@ inline void convert(const temp_t &t, node &n)
 
 // ------------------------
 // axis_t
-// used with child_t
+// used with Child
 // ------------------------
 
 struct axis_t {
@@ -172,13 +172,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
    GIVEN("const and non-const nodes") {
 
       // ------------------------
-      // [meta_t<void>]
+      // [Meta<void>]
       // ------------------------
 
-      // For meta_t<void>, [] returns the same thing () does: a const
+      // For Meta<void>, [] returns the same thing () does: a const
       // or non-const reference to the actual metadata value.
 
-      WHEN("We call [meta_t<void>]") {
+      WHEN("We call [Meta<void>]") {
 
          // ------------
          // CONST
@@ -208,10 +208,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [meta_t<TYPE>]
+      // [Meta<TYPE>]
       // ------------------------
 
-      WHEN("We call [meta_t<TYPE>]") {
+      WHEN("We call [Meta<TYPE>]") {
 
          // ------------
          // CONST
@@ -220,7 +220,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // v will be a detail::meta_ref<Node,CONST=true,version_t>,
             // where version_t is our custom type defined above
             auto v = c(reactionSuite,styles,--evaluated)
-               [meta_t<version_t>("version")];
+               [Meta<version_t>("version")];
 
             // for const, assignment isn't available; neither of these compile:
             // v = version_t(8,0,3);
@@ -248,7 +248,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
             auto v = n(reactionSuite,styles,--evaluated)
-               [meta_t<version_t>("version")];
+               [Meta<version_t>("version")];
 
             // Assignment is available now, because the above came from our
             // non-const node. The following illustrates the real point of
@@ -271,7 +271,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // anyway) as an lvalue.
 
             auto &EvaluatedNode = n(reactionSuite,styles,--evaluated);
-            const meta_t<version_t> myversion("version");
+            const Meta<version_t> myversion("version");
 
             // Actually writes into the tree...
             EvaluatedNode[myversion] = "123.456.789";
@@ -295,13 +295,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<void,one>]
+      // [Child<void,one>]
       // ------------------------
 
-      // For child_t<void,one>, [] returns the same thing () does: a const
+      // For Child<void,one>, [] returns the same thing () does: a const
       // or non-const reference to the actual child node.
 
-      WHEN("We call [child_t<void,one>]") {
+      WHEN("We call [Child<void,one>]") {
 
          // ------------
          // CONST
@@ -329,7 +329,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             n[reactionSuite].name = "REACTIONSUITE";
             // which of course leads to this sort of thing...
             CHECK(n.one("REACTIONSUITE").name == "REACTIONSUITE");
-            n[child_t<>("REACTIONSUITE")].name = "reactionSuite";
+            n[Child<>("REACTIONSUITE")].name = "reactionSuite";
             // try assigning the whole node...
             n[reactionSuite] = c[reactionSuite];
          }
@@ -337,7 +337,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<void,many>]
+      // [Child<void,many>]
       // ------------------------
 
       /*
@@ -359,7 +359,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
                ...
       */
 
-      WHEN("We call [child_t<void,many>]") {
+      WHEN("We call [Child<void,many>]") {
 
          // ------------
          // CONST
@@ -390,7 +390,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // be confused with the one applied to axes in order to get
             // axis in the first place) that returns references to the
             // in-tree nodes. We'll see this shortly.
-            auto axis = axes[basic::axis]; // basic::axis: child_t<void,many>
+            auto axis = axes[basic::axis]; // basic::axis: Child<void,many>
 
             // size() is available
             CHECK(axis.size() == 3);
@@ -467,10 +467,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<TYPE,one>]
+      // [Child<TYPE,one>]
       // ------------------------
 
-      WHEN("We call [child_t<TYPE,one>]") {
+      WHEN("We call [Child<TYPE,one>]") {
 
          // ------------
          // CONST
@@ -480,7 +480,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // t will be a detail::child_ref<Node,CONST=true,temp_t>,
             // where temp_t is our custom type defined above
             auto t = c(reactionSuite,styles,--evaluated)
-               [child_t<temp_t,Allow::one>("temperature")];
+               [Child<temp_t,Allow::one>("temperature")];
 
             // for const, assignment isn't available; neither of these compile:
             // t = node{};
@@ -509,7 +509,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
             auto t = n(reactionSuite,styles,--evaluated)
-               [child_t<temp_t,Allow::one>("temperature")];
+               [Child<temp_t,Allow::one>("temperature")];
 
             // assignment is available now:
             t = node{};
@@ -537,8 +537,8 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // back up <temperature>, so we can restore it
             const auto backup = parent(temperature);
 
-            // child_t for our temp_t
-            const child_t<temp_t> temp("temperature");
+            // Child for our temp_t
+            const Child<temp_t> temp("temperature");
 
             // [] gives lvalue, so this actually writes into the tree...
             parent[temp] = node{"temperature"};
@@ -571,10 +571,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<TYPE,many>]
+      // [Child<TYPE,many>]
       // ------------------------
 
-      WHEN("We call [child_t<TYPE,many>]") {
+      WHEN("We call [Child<TYPE,many>]") {
 
          // ------------
          // CONST
@@ -600,14 +600,14 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // nodes in the tree (not copies), also knows about the type (in
             // this case axis_t{}) that was used for its creation, and provides
             // functionality that takes advantage of all that.
-            auto axis = axes[axis_t{}/basic::axis]; // [child_t<axis_t,many>]
+            auto axis = axes[axis_t{}/basic::axis]; // [Child<axis_t,many>]
 
             // size() is available
             CHECK(axis.size() == 3);
 
             // At this point, you can say axis[0], axis[1] etc. and get
             // objects of the same type as those illustrated earlier for
-            // the [child_t<TYPE,one>] cases.
+            // the [Child<TYPE,one>] cases.
 
             // axis converts to a std::vector<axis_t>. Also, although
             // it's not really the point of the current test, axis[0]
@@ -652,7 +652,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // nodes in the tree (not copies), also knows about the type (in
             // this case axis_t{}) that was used for its creation, and provides
             // functionality that takes advantage of all that.
-            auto axis = axes[axis_t{}/basic::axis]; // [child_t<axis_t,many>]
+            auto axis = axes[axis_t{}/basic::axis]; // [Child<axis_t,many>]
 
             // size() is available
             CHECK(axis.size() == 3);

@@ -2,7 +2,7 @@
 /*
 Description of convert(string,type)
 
-Brief: node.meta(meta_t<type>) ==> string ==> type
+Brief: node.meta(Meta<type>) ==> string ==> type
 
 These are called from some of node's meta() functions, in order to convert
 a string argument (from the value portion of a metadata key/value pair) to

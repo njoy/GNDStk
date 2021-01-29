@@ -56,7 +56,9 @@ SCENARIO("Testing GNDStk Node add()") {
       // metadata, string key, various value types
       WHEN("We add a metadata pair") {
          n.add(std::string("one"), std::string("two"));
+         CHECK(n.metadata.size() == 1);
          n.add("1","2");
+         CHECK(n.metadata.size() == 2);
          THEN("node add() returns a reference to the pair") {
             auto &pair = n.add("foobar", "foo bar");
             CHECK(pair.first == "foobar");
@@ -67,7 +69,7 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add("3",3.1416);
       n.add("4",dimensions2d(12,34));
 
-      // metadata, meta_t key
+      // metadata, Meta key
       auto v   = keyword.meta<void>("AStringViaVoid");
       auto str = keyword.meta<std::string>("AString");
       auto dbl = keyword.meta<double>("ADouble");
@@ -79,12 +81,16 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(dbl);
       n.add(dbl,1.23);
       n.add(dim);
+      CHECK(n.metadata.size() == 12);
       // these need the = TYPE on class T in the metadata node.add() functions:
       n.add(dim,{321,987});
+      CHECK(n.metadata.back().second == "321,987");
       auto optdim = keyword.meta<std::optional<dimensions2d>>("OptDim");
       auto defdim = Defaulted<dimensions2d>({1,2})/keyword.meta<>("DefDim");
       n.add(optdim,{321,987});
+      CHECK(n.metadata.back().second == "321,987");
       n.add(defdim,{321,987});
+      CHECK(n.metadata.back().second == "321,987");
 
       // children, empty / name / other node
       n.add(); // no name child
@@ -120,7 +126,7 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(nrepeat,node5);
 
       // dim2d doesn't happen to have a default constructor, so we'll need
-      // to give it a value in the following child_t. For just the .add()s,
+      // to give it a value in the following Child. For just the .add()s,
       // the value isn't used.
       auto drepeat = keyword.child<dim2d,Allow::many>("dimension",dim2d{0,0});
       const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);

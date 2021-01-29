@@ -63,60 +63,60 @@ public:
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// For meta_t
+// For Meta
 // ------------------------
 
-// meta_t<TYPE>
+// Meta<TYPE>
 template<class TYPE, class CONVERTER>
 std::string keyname(
-   const meta_t<TYPE,CONVERTER> &m
+   const Meta<TYPE,CONVERTER> &m
 ) {
-   return "meta_t(\"" + m.name + "\")";
+   return "Meta(\"" + m.name + "\")";
 }
 
-// meta_t<optional<TYPE>>
+// Meta<optional<TYPE>>
 template<class TYPE, class CONVERTER>
 std::string keyname(
-   const meta_t<std::optional<TYPE>,CONVERTER> &m
+   const Meta<std::optional<TYPE>,CONVERTER> &m
 ) {
-   return "optional meta_t(\"" + m.name + "\")";
+   return "optional Meta(\"" + m.name + "\")";
 }
 
-// meta_t<Defaulted<TYPE>>
+// Meta<Defaulted<TYPE>>
 template<class TYPE, class CONVERTER>
 std::string keyname(
-   const meta_t<Defaulted<TYPE>,CONVERTER> &m
+   const Meta<Defaulted<TYPE>,CONVERTER> &m
 ) {
-   return "optional-with-default meta_t(\"" + m.name + "\")";
+   return "optional-with-default Meta(\"" + m.name + "\")";
 }
 
 
 // ------------------------
-// For child_t
+// For Child
 // ------------------------
 
-// child_t<TYPE>
+// Child<TYPE>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &c
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &c
 ) {
-   return "child_t(\"" + c.name + "\")";
+   return "Child(\"" + c.name + "\")";
 }
 
-// child_t<optional<TYPE>>
+// Child<optional<TYPE>>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
-   const child_t<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
+   const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
-   return "optional child_t(\"" + c.name + "\")";
+   return "optional Child(\"" + c.name + "\")";
 }
 
-// child_t<Defaulted<TYPE>>
+// Child<Defaulted<TYPE>>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
-   const child_t<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &c
+   const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
-   return "optional-with-default child_t(\"" + c.name + "\")";
+   return "optional-with-default Child(\"" + c.name + "\")";
 }
 
 
@@ -140,27 +140,27 @@ inline std::string keyname(const std::regex &)
 
 
 // -----------------------------------------------------------------------------
-// call_operator_child_t
+// CallOpChildAssertion
 // -----------------------------------------------------------------------------
 
 template<Allow ALLOW>
-class call_operator_child_t {
+class CallOpChildAssertion {
    // Here's what we really want the static_assert to say:
    //
-   //    Misuse of child_t with <Allow::many> in Node's call operator.
-   //    Child_t with Allow::many can only be used in Node's operator():
+   //    Misuse of Child with <Allow::many> in Node's call operator.
+   //    A Child object with Allow::many can only be used in Node's operator():
    //      - at the end; or
    //      - followed by a std::string or char* label; or
    //      - followed by a std::regex for match with label.
-   //    Quick fix: downgrade to Allow::one using predecrement: --child_t
+   //    Quick fix: downgrade to Allow::one using predecrement: --Child
    //
    // It seems that a static_assert string's formatting (say, with \n)
    // is not necessarily respected by the compiler. Under the circumstances,
-   // we judge that a more-succint message is best.
+   // we judge that a brief message is best for now.
 
    static_assert(
       ALLOW == Allow::one,
-     "Misuse of child_t with <Allow::many> in Node's call operator"
+     "Misuse of Child with <Allow::many> in Node's call operator"
    );
 };
 
@@ -285,8 +285,8 @@ inline bool &extract_found(const T &, ARGS &&...args)
 
 // -----------------------------------------------------------------------------
 // meta_ref
-// For operator[](meta_t<TYPE>)
-// Note: operator[](meta_t<void>) doesn't use meta_ref
+// For operator[](Meta<TYPE>)
+// Note: operator[](Meta<void>) doesn't use meta_ref
 // -----------------------------------------------------------------------------
 
 /*
@@ -294,14 +294,14 @@ These make use of SFINAE in three ways: (1) To handle constness, or lack of
 constness, of the node that comes to the constructor. (2) To disable assignment
 if the associated node is const. (3) To fold the two assignments (if applicable)
 and the two conversions into one apiece, in the unusual but possible case that
-the meta_t's TYPE is std::string. (1) and (2) could have been achieved by having
+the Meta's TYPE is std::string. (1) and (2) could have been achieved by having
 two classes - say, meta_ref and meta_ref_const - but the SFINAE scheme reduces
 code repetition.
 
 Remark with regards to TYPE == std::string. Metadata are stored as std::strings
-in our raw data structures. Normally, one uses meta_t<TYPE = void> to retrieve
-metadata in their raw form. In that case, our various accessors return const or
-non-const std::string &. For types other than <void>, meta_t converts the raw
+in our raw data structures. Normally, one uses Meta<TYPE = void> to retrieve
+metadata in their raw form. In that case, our various accessors return const
+or non-const std::string &. For types other than <void>, Meta converts the raw
 string to the given type, and the accessors return by value. That non-void type
 could, however, be std::string itself, if, for whatever reason, you don't want
 to use <void> and receive references to the raw internal strings. You might use
@@ -313,18 +313,18 @@ conversion. When TYPE *is* std::string, we use SFINAE to disable the std::string
 functions - which would otherwise have duplicate signatures to those of the TYPE
 functions. Thus, we cause the general TYPE functions to apply. The std::string
 functions are disabled, not the TYPE functions, so that the converter is still
-applied. (Especially considering that you'd likely be using meta_t<std::string>,
-in place of meta_t<void>, precisely so that you can use a non-identity string to
+applied. (Especially considering that you'd likely be using Meta<std::string>,
+in place of Meta<void>, precisely so that you can use a non-identity string to
 string conversion.)
 */
 
 template<
    class NODE, bool CONST, // node type, and its constness status
-   class TYPE, class CONVERTER // for the meta_t
+   class TYPE, class CONVERTER // for the Meta
 >
 class meta_ref {
 
-   const meta_t<TYPE,CONVERTER> kwd;
+   const Meta<TYPE,CONVERTER> kwd;
 
    // [const] std::string reference to the actual, in-node metadatum value
    typename std::conditional<
@@ -340,11 +340,11 @@ public:
    // ------------------------
 
    meta_ref(
-      const meta_t<TYPE,CONVERTER> &kwd,
+      const Meta<TYPE,CONVERTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
-      kwd(kwd), // original meta_t
-      metaValueRef(parent(-kwd)) // -kwd so meta_t<void>; reference to raw
+      kwd(kwd), // original Meta
+      metaValueRef(parent(-kwd)) // -kwd so Meta<void>; reference to raw
    { }
 
    // ------------------------
@@ -418,17 +418,17 @@ class child_ref {
 
 // -----------------------------------------------------------------------------
 // child_ref
-// For operator[](child_t<TYPE,one>)
-// Note: operator[](child_t<void,one>) doesn't use child_ref
+// For operator[](Child<TYPE,one>)
+// Note: operator[](Child<void,one>) doesn't use child_ref
 // -----------------------------------------------------------------------------
 
 template<
    class NODE, bool CONST, // node type, and its constness status
-   class TYPE, class CONVERTER, class FILTER // for the child_t
+   class TYPE, class CONVERTER, class FILTER // for the Child
 >
 class child_ref<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>
 {
-   const child_t<TYPE,Allow::one,CONVERTER,FILTER> kwd;
+   const Child<TYPE,Allow::one,CONVERTER,FILTER> kwd;
 
    // [const] node reference to the actual node
    typename std::conditional<
@@ -444,11 +444,11 @@ public:
    // ------------------------
 
    child_ref(
-      const child_t<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
+      const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
-      kwd(kwd), // original child_t
-      childNodeRef(parent(-kwd)) // -kwd so child_t<void>; reference to raw
+      kwd(kwd), // original Child
+      childNodeRef(parent(-kwd)) // -kwd so Child<void>; reference to raw
    { }
 
    // ------------------------
@@ -507,17 +507,17 @@ public:
 
 // -----------------------------------------------------------------------------
 // child_ref
-// For operator[](child_t<TYPE,many>)
+// For operator[](Child<TYPE,many>)
 // Note: works - and indeed is used - when TYPE == void.
 // -----------------------------------------------------------------------------
 
 template<
    class NODE, bool CONST, // node type, and its constness status
-   class TYPE, class CONVERTER, class FILTER // for the child_t
+   class TYPE, class CONVERTER, class FILTER // for the Child
 >
 class child_ref<NODE,CONST,TYPE,Allow::many,CONVERTER,FILTER>
 {
-   const child_t<TYPE,Allow::many,CONVERTER,FILTER> kwd;
+   const Child<TYPE,Allow::many,CONVERTER,FILTER> kwd;
 
    // vector of [const] node pointers to the actual nodes
    std::vector<
@@ -535,10 +535,10 @@ public:
    // ------------------------
 
    child_ref(
-      const child_t<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
+      const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
       typename std::conditional<CONST, const NODE, NODE>::type &parent
    ) :
-      kwd(kwd) // original child_t
+      kwd(kwd) // original Child
    {
       // resembles the Node.many() code, but
       // here we create a vector of pointers
@@ -593,8 +593,8 @@ public:
    // assignment
    // ------------------------
 
-   // child_ref for Allow::many child_t objects, as opposed to child_ref for
-   // Allow::one child_t objects, has no assignment operators. Presumably,
+   // child_ref for Allow::many Child objects, as opposed to child_ref for
+   // Allow::one Child objects, has no assignment operators. Presumably,
    // an assignment operator's purpose in this case would be to allow someone
    // to remake the entire set of the (generally many) child nodes to which
    // we're pointing in our childNodePtr vector of pointers to nodes. Such an
