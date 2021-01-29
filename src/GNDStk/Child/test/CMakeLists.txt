@@ -11,4 +11,4 @@ $<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags
 
 ${CXX_appended_flags} ${GNDStk_appended_flags} )
 target_link_libraries( GNDStk.Child.test PUBLIC GNDStk ) 
-add_test( NAME GNDStk.child COMMAND GNDStk.Child.test )
+add_test( NAME GNDStk.Child COMMAND GNDStk.Child.test )
