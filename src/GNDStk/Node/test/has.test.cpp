@@ -11,14 +11,14 @@ using namespace njoy::GNDStk::core;
 SCENARIO("Testing GNDStk Node has*() functions") {
    Tree<> tree("n-008_O_016.xml");
 
-   // We'll use a mixture of const and non-const nodes in the tests,
+   // We'll use a mixture of const and non-const Nodes in the tests,
    // just to change things up. All has* functions are const.
    Node<> &n = tree.top();
    CHECK(n.name == "reactionSuite");
    const Node<> &c = tree.top();
    CHECK(c.name == "reactionSuite");
 
-   GIVEN("A GNDS node") {
+   GIVEN("A GNDS Node") {
 
       // ------------------------
       // has_meta
@@ -63,9 +63,9 @@ SCENARIO("Testing GNDStk Node has*() functions") {
       WHEN("has_one(*) is called") {
          THEN("has_one(*) succeeds where one(*) would succeed") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.1"; };
 
             // with filter
@@ -77,12 +77,12 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has_one("externalFiles"));
 
             // one(""), i.e. with the empty string, has a special meaning:
-            // return the current node - which always succeeds. (The filter,
+            // return the current Node - which always succeeds. (The filter,
             // if any, isn't even invoked in that case!) Users don't normally
             // need to call one() this way; the behavior exists to support
             // certain features in more-advanced query functions. For our
             // present purposes, however, we should, and do, check the case.
-            auto bad_filter = [](const node &n)
+            auto bad_filter = [](const Node<> &n)
                { assert(false); return false; }; // <== won't be invoked
             CHECK(n.has_one(""));
             CHECK(c.has_one("",bad_filter)); // still succeeds
@@ -90,9 +90,9 @@ SCENARIO("Testing GNDStk Node has*() functions") {
 
          THEN("has_one(*) fails where one(*) would fail") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.2"; }; // oops, 0.2
 
             // with filter
@@ -118,9 +118,9 @@ SCENARIO("Testing GNDStk Node has*() functions") {
       WHEN("has_many(*) is called") {
          THEN("has_many(*) succeeds where many(*) would succeed") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.1"; };
 
             // with filter
@@ -131,7 +131,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(n.has_many("styles"));
             CHECK(c.has_many("externalFiles"));
 
-            auto bad_filter = [](const node &n)
+            auto bad_filter = [](const Node<> &n)
                { assert(false); return false; }; // <== won't be invoked
             CHECK(n.has_many(""));
             CHECK(c.has_many("",bad_filter));
@@ -139,9 +139,9 @@ SCENARIO("Testing GNDStk Node has*() functions") {
 
          THEN("has_many(*) fails where many(*) would fail") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.2"; };
 
             // with filter
@@ -176,18 +176,18 @@ SCENARIO("Testing GNDStk Node has*() functions") {
          const Child<void> Bar("Bar");
          const Child<void> empty("");
 
-         // made-up node-to-string converter, just for the sake of trying
+         // made-up Node-to-string converter, just for the sake of trying
          // it out; GNDStk actually has one already, by virtue of the fact
-         // that node has stream output
-         auto conv = [](const node &n, std::string &str)
-            { str = "We have here a node named " + n.name; };
+         // that Node has stream output
+         auto conv = [](const Node<> &n, std::string &str)
+            { str = "We have here a Node named " + n.name; };
          const std::string s = ""; // for TYPE{}/Child
 
          THEN("has_child(*) succeeds where child(*) would succeed") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.1"; };
 
             // with filter
@@ -212,7 +212,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has_child(s/--externalFiles/conv));
             CHECK(c.has_child(s/++externalFiles));
 
-            auto bad_filter = [](const node &n)
+            auto bad_filter = [](const Node<> &n)
                { assert(false); return false; }; // <== won't be invoked
 
             CHECK(n.has_child(  --empty));
@@ -228,9 +228,9 @@ SCENARIO("Testing GNDStk Node has*() functions") {
 
          THEN("has_child(*) fails where child(*) would fail") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.2"; };
 
             // with filter
@@ -306,15 +306,15 @@ SCENARIO("Testing GNDStk Node has*() functions") {
          const Child<void> Bar("Bar");
          const Child<void> empty("");
 
-         auto conv = [](const node &n, std::string &str)
-            { str = "We have here a node named " + n.name; };
+         auto conv = [](const Node<> &n, std::string &str)
+            { str = "We have here a Node named " + n.name; };
          std::string s = "";
 
          THEN("has(Child) succeeds where (Child) would succeed") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.1"; };
 
             // with filter
@@ -339,7 +339,7 @@ SCENARIO("Testing GNDStk Node has*() functions") {
             CHECK(c.has(s/--externalFiles/conv));
             CHECK(c.has(s/++externalFiles));
 
-            auto bad_filter = [](const node &n)
+            auto bad_filter = [](const Node<> &n)
                { assert(false); return false; }; // <== won't be invoked
 
             CHECK(n.has(  --empty));
@@ -355,9 +355,9 @@ SCENARIO("Testing GNDStk Node has*() functions") {
 
          THEN("has(Child) fails where (Child) would fail") {
             // some filters
-            auto filter1 = [](const node &n)
+            auto filter1 = [](const Node<> &n)
                { return n.meta("version") == "1.0"; };
-            auto filter2 = [](const node &n)
+            auto filter2 = [](const Node<> &n)
                { return n.meta("format") == "0.2"; };
 
             // with filter

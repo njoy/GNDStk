@@ -30,7 +30,7 @@ The above variations were chosen to align with what we've provided for doing
 child node queries, except that we chose one important simplification in order
 to avoid needing considerable extra machinery here: we have no count() analogs
 of the variadic operator()s. In practice, this means that instead of writing,
-say, something like the following for a node n and Child objects A-G:
+say, something like the following for a Node n and Child objects A-G:
 
    std::size_t size = n.count(A,B,C,D,E,F,G);
 
@@ -42,7 +42,7 @@ We write variations (1) and (2) together, with a FILTER default that means,
 in effect, no filter. For the Child cases (3)-(5), the selection of nodes for
 our "head count" is as with the analogous query functions: the Child's filter,
 if any, is applied, and in addition the std::string or std::regex label must
-match a "label" metadatum in order for a node to increment the count. Note also
+match a "label" metadatum in order for a Node to increment the count. Note also
 that, here, we don't need a char *label case explicitly, because we don't have
 operator()'s variadic argument pack that a char * would inadvertently match in
 lieu of matching std::string. It does implicitly convert to a std::string here.

@@ -211,7 +211,7 @@ public:
    {
       bool found;
 
-      // In node n, look for the value associated
+      // In Node n, look for the value associated
       // with the metadata key called "label"
       const std::string &label = n.meta("label",found);
 
@@ -235,7 +235,7 @@ public:
 // label_is_regex
 // Like label_is, but with a regex match. A regex match is *not* our default
 // behavior in the functions users will typically call for making queries
-// like "find a node with label == something." We made this choice because
+// like "find a Node with label == something." We made this choice because
 // we noticed that actual, specific GNDS labels - what users will usually
 // want to provide - often contain characters like '+' that have a special
 // meaning in regular expressions! Interpreted as regular expressions rather
@@ -291,8 +291,8 @@ inline bool &extract_found(const T &, ARGS &&...args)
 
 /*
 These make use of SFINAE in three ways: (1) To handle constness, or lack of
-constness, of the node that comes to the constructor. (2) To disable assignment
-if the associated node is const. (3) To fold the two assignments (if applicable)
+constness, of the Node that comes to the constructor. (2) To disable assignment
+if the associated Node is const. (3) To fold the two assignments (if applicable)
 and the two conversions into one apiece, in the unusual but possible case that
 the Meta's TYPE is std::string. (1) and (2) could have been achieved by having
 two classes - say, meta_ref and meta_ref_const - but the SFINAE scheme reduces
@@ -319,14 +319,14 @@ string conversion.)
 */
 
 template<
-   class NODE, bool CONST, // node type, and its constness status
+   class NODE, bool CONST, // Node type, and its constness status
    class TYPE, class CONVERTER // for the Meta
 >
 class meta_ref {
 
    const Meta<TYPE,CONVERTER> kwd;
 
-   // [const] std::string reference to the actual, in-node metadatum value
+   // [const] std::string reference to the actual, in-Node metadatum value
    typename std::conditional<
       CONST,
       const std::string,
@@ -423,14 +423,14 @@ class child_ref {
 // -----------------------------------------------------------------------------
 
 template<
-   class NODE, bool CONST, // node type, and its constness status
+   class NODE, bool CONST, // Node type, and its constness status
    class TYPE, class CONVERTER, class FILTER // for the Child
 >
 class child_ref<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>
 {
    const Child<TYPE,Allow::one,CONVERTER,FILTER> kwd;
 
-   // [const] node reference to the actual node
+   // [const] Node reference to the actual Node
    typename std::conditional<
       CONST,
       const NODE,
@@ -512,14 +512,14 @@ public:
 // -----------------------------------------------------------------------------
 
 template<
-   class NODE, bool CONST, // node type, and its constness status
+   class NODE, bool CONST, // Node type, and its constness status
    class TYPE, class CONVERTER, class FILTER // for the Child
 >
 class child_ref<NODE,CONST,TYPE,Allow::many,CONVERTER,FILTER>
 {
    const Child<TYPE,Allow::many,CONVERTER,FILTER> kwd;
 
-   // vector of [const] node pointers to the actual nodes
+   // vector of [const] Node pointers to the actual Nodes
    std::vector<
       typename std::conditional<
          CONST,
@@ -579,8 +579,8 @@ public:
          // Leverage the capabilities of the Allow::one child_ref
          return child_ref<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>(
             // As always, -- downgrades many to one. The /"" changes the lookup
-            // name to "", which means "use the current node" (in this case the
-            // node *childNodePtr[n]), which is appropriate here because we're
+            // name to "", which means "use the current Node" (in this case the
+            // Node *childNodePtr[n]), which is appropriate here because we're
             // not digging further into the tree; we're making the [n] element
             // of the current "smart object" usable as its own smart object.
             --kwd/"",

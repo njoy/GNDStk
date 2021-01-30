@@ -20,7 +20,7 @@ public:
 class convert_pcdata_text_t {
 public:
 
-   // node to container
+   // Node to container
    template<
       template<class...> class METADATA_CONTAINER,
       template<class...> class CHILDREN_CONTAINER,
@@ -45,17 +45,17 @@ public:
                return;
             }
          log::error(
-           "Unable to find metadatum key \"text\" in the current node (\"{}\")",
+           "Unable to find metadatum key \"text\" in the current Node (\"{}\")",
             node.name
          );
          throw std::exception{};
       } catch (...) {
-         log::function("convert_pcdata_text_t(node,container)");
+         log::function("convert_pcdata_text_t(Node,container)");
          throw;
       }
    }
 
-   // container to node
+   // container to Node
    template<
       class CONTAINER,
       template<class...> class METADATA_CONTAINER,
@@ -71,7 +71,7 @@ public:
          std::string &destination = node.add("text","").second;
          convert(container, destination);
       } catch (...) {
-         log::function("convert_pcdata_text_t(container,node)");
+         log::function("convert_pcdata_text_t(container,Node)");
          throw;
       }
    }

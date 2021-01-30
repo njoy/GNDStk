@@ -12,7 +12,7 @@ bool operator==(
 ) const {
    const auto &one = *this;
 
-   // same node?
+   // same Node?
    // void* because template arguments could differ
    if ((void*)&one == (void*)&two)
       return true;
@@ -41,7 +41,7 @@ bool operator==(
    // Here, we need the moral equivalent of the metadata test, but for children.
    // This requires ordering (and recursively so), as for sort(). (And note the
    // caveat described above our sort()'s less() helper.) For now, let's compare
-   // printed versions of the nodes in *sorted* form. (This will, in effect, do
+   // printed versions of the Nodes in *sorted* form. (This will, in effect, do
    // the above comparisons again. Oh well.) We'll optimize later if necessary.
 
    const int indent = GNDStk::indent; // back up indentation

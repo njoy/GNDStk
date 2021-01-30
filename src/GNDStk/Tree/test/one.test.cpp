@@ -4,12 +4,12 @@
 
 using namespace njoy::GNDStk;
 
-SCENARIO("Testing GNDStk tree one()") {
+SCENARIO("Testing GNDStk Tree one()") {
 
-   GIVEN("A tree read from n-069_Tm_170-covar.xml") {
-      // c: a const tree
+   GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
+      // c: a const Tree
       const Tree<> c("n-069_Tm_170-covar.xml");
-      // t: a non-const tree
+      // t: a non-const Tree
       Tree<> t = c;
       // found flag
       bool found;
@@ -54,7 +54,7 @@ SCENARIO("Testing GNDStk tree one()") {
          CHECK(tnode.meta("evaluation") == "ENDF/B-8.0");
       }
 
-      WHEN("We look for a nonexistent tree node") {
+      WHEN("We look for a nonexistent Tree node") {
          // Non-existent child of the Tree...
 
          // const

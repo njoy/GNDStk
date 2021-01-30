@@ -36,7 +36,7 @@ Tree &reset(
    if (!kwd.top()) {
       log::warning(
          "Tree.reset(" + detail::keyname(kwd) + ") called, "
-         "but the node as given by the\n"
+         "but the Node as given by the\n"
          "Child object is not encoded as being suitable for a top-level\n"
          "GNDS node (bool Child.top() is false)"
       );

@@ -42,7 +42,7 @@ bool convert(
 inline bool convert(const XML &x, JSON &j)
 {
    // temporary
-   tree t;
+   Tree<> t;
 
    // convert
    try {

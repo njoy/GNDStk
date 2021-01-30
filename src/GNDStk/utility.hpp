@@ -291,21 +291,19 @@ inline void assign(const std::string &str, Args &&...args)
 
 #define GNDSTK_DEFAULT_CONTAINER std::vector
 
-// Node, node
+// Node
 template<
    template<class...> class = GNDSTK_DEFAULT_CONTAINER,
    template<class...> class = GNDSTK_DEFAULT_CONTAINER
 >
 class Node;
-using node = Node<>;
 
-// Tree, tree
+// Tree
 template<
    template<class...> class = GNDSTK_DEFAULT_CONTAINER,
    template<class...> class = GNDSTK_DEFAULT_CONTAINER
 >
 class Tree;
-using tree = Tree<>;
 
 // XML, JSON
 class XML;
@@ -496,7 +494,7 @@ public:
 // Consider the functionality (currently Node::meta() and Node::child()) that
 // use is_oneof. (Or, rather, use its sidekick oneof, defined soon.) Invoked
 // with a particular type from the variant, a call - say, to meta() - might
-// look like n.template meta<type>(M), where n is a node, and M is a Meta
+// look like n.template meta<type>(M), where n is a Node, and M is a Meta
 // with the variant type. In contrast, one could merely write n.meta(M) for
 // the full variant, i.e. with no specific member type stipulated. By making
 // the is_oneof SFINAE work for the full variant as well, however, not just

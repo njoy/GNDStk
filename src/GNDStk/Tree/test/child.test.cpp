@@ -24,7 +24,7 @@ public:
    std::string encoding;
 };
 
-// convert(): callback for GNDStk; converts a node to an xml_t.
+// convert(): callback for GNDStk; converts a Node to an xml_t.
 // Given that Node is templated, it's easiest to write functions
 // like this by using template<class NODE> as I do here...
 template<class NODE>
@@ -70,7 +70,7 @@ public:
    double format;
 };
 
-// From a node, build a covarianceSuite_type_1
+// From a Node, build a covarianceSuite_type_1
 template<class NODE>
 inline void convert(const NODE &, covarianceSuite_type_1 &out)
 {
@@ -79,7 +79,7 @@ inline void convert(const NODE &, covarianceSuite_type_1 &out)
    out.bar = 456;
 }
 
-// From a node, build a covarianceSuite_type_2
+// From a Node, build a covarianceSuite_type_2
 template<class NODE>
 inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 {
@@ -107,9 +107,9 @@ inline const Child<
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk tree child()") {
+SCENARIO("Testing GNDStk Tree child()") {
 
-   GIVEN("A tree read from n-069_Tm_170-covar.xml") {
+   GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
       // c: a const tree
       const Tree<> c("n-069_Tm_170-covar.xml");
       // t: a non-const tree
@@ -117,7 +117,7 @@ SCENARIO("Testing GNDStk tree child()") {
 
       // Note: Tree's child() function can give back either the declaration
       // node, or the top-level GNDS node; we consider both of those to be
-      // a Tree's children. If you dig further into the tree, you'll actually
+      // a Tree's children. If you dig further into the Tree, you'll actually
       // be using Node's child() function, not Tree's.
 
       bool found;
@@ -130,7 +130,7 @@ SCENARIO("Testing GNDStk tree child()") {
       // child::xml is the smart keyword for retrieving the xml node.
       // Note that we'll work with both const and non-const trees.
 
-      WHEN("We call tree.child() to get the declaration node") {
+      WHEN("We call Tree.child() to get the declaration node") {
          // NOTE FOR THE FUTURE, IF AN ERROR EVER HAPPENS BELOW:
          // Our built-in keyword child::xml is currently a Child<void,...>.
          // It may someday change to Child<something other than void,...>,
@@ -146,7 +146,7 @@ SCENARIO("Testing GNDStk tree child()") {
          CHECK(found);
       }
 
-      WHEN("We call tree.child() to get the covarianceSuite node") {
+      WHEN("We call Tree.child() to get the covarianceSuite node") {
          // IN CASE OF ERROR: Same note as immediately above.
          found = false; auto &cnode = c.child(covarianceSuite,found);
          CHECK(found);
@@ -156,14 +156,14 @@ SCENARIO("Testing GNDStk tree child()") {
 
       // Let's try our own custom keyword, which was set up near the
       // beginning of this test file.
-      WHEN("We try tree.child(a custom keyword)") {
+      WHEN("We try Tree.child(a custom keyword)") {
          const xml_t x = c.child(my_xml_keyword);
          CHECK(x.version == 1.0);
          CHECK(x.encoding == "UTF-8");
       }
 
       // Another custom keyword, this one to test child() for std::variant.
-      WHEN("We try tree.child<type>(a custom keyword using variant)") {
+      WHEN("We try Tree.child<type>(a custom keyword using variant)") {
          // Here, the same keyword can extract objects of either of the two
          // types that we set it up to be able to extract...
          covarianceSuite_type_1 one =

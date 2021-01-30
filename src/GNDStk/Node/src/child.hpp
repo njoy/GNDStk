@@ -161,14 +161,14 @@ CONTAINER<TYPE> child(
 
    try {
       // ""
-      // meaning: return a container with the converted-to-TYPE current node
+      // meaning: return a container with the converted-to-TYPE current Node
       if (kwd.name == "") {
          TYPE obj = kwd.object;
          kwd.converter(*this,obj);
          container.push_back(obj);
          found = true;
       } else {
-         // search in the current node's children
+         // search in the current Node's children
          for (auto &c : children) {
             if (std::regex_match(c->name, std::regex(kwd.name))
                 && kwd.filter(*c)

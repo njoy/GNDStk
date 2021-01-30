@@ -60,10 +60,10 @@ inline const Child<reactionSuite_t> rsuite("reactionSuite");
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk tree operator()") {
+SCENARIO("Testing GNDStk Tree operator()") {
 
-   GIVEN("A tree read from n-008_O_016.xml") {
-      // tree: a const tree
+   GIVEN("A Tree read from n-008_O_016.xml") {
+      // tree: a const Tree
       const Tree<> tree("n-008_O_016.xml");
 
       // optional return flag
@@ -89,18 +89,18 @@ SCENARIO("Testing GNDStk tree operator()") {
       const Meta<double     > dformat    ("format");
       const Meta<std::string> sframe     ("projectileFrame");
 
-      WHEN("We call tree operator() with (Child,Meta)") {
-         CHECK( tree(::xml,sversion ) == "1.0"   );
-         CHECK( tree(::xml,dversion ) ==  1.0    );
-         CHECK( tree(::xml,sencoding) == "UTF-8" );
+      WHEN("We call Tree operator() with (Child,Meta)") {
+         CHECK( (tree(::xml,sversion ) == "1.0"   ) );
+         CHECK( (tree(::xml,dversion ) ==  1.0    ) );
+         CHECK( (tree(::xml,sencoding) == "UTF-8" ) );
 
-         CHECK( tree(reactionSuite,sprojectile) == "n"     );
-         CHECK( tree(reactionSuite,cprojectile) == 'n'     );
-         CHECK( tree(reactionSuite,vtarget    ) == "O16"   );
-         CHECK( tree(reactionSuite,sevaluation) == "ENDF/B-8.0" );
-         CHECK( tree(reactionSuite,sformat    ) == "1.9"   );
-         CHECK( tree(reactionSuite,dformat    ) ==  1.9    );
-         CHECK( tree(reactionSuite,sframe     ) == "lab"   );
+         CHECK( (tree(reactionSuite,sprojectile) == "n"     ) );
+         CHECK( (tree(reactionSuite,cprojectile) == 'n'     ) );
+         CHECK( (tree(reactionSuite,vtarget    ) == "O16"   ) );
+         CHECK( (tree(reactionSuite,sevaluation) == "ENDF/B-8.0" ) );
+         CHECK( (tree(reactionSuite,sformat    ) == "1.9"   ) );
+         CHECK( (tree(reactionSuite,dformat    ) ==  1.9    ) );
+         CHECK( (tree(reactionSuite,sframe     ) == "lab"   ) );
 
          // found
          found = false; CHECK( (tree(::xml,dversion,found),  found) );
@@ -173,8 +173,10 @@ SCENARIO("Testing GNDStk tree operator()") {
 
       WHEN("We call tree operator() with (Child,...) (various ...s)") {
          // dvalue = double version of "value" metadatum
-         CHECK(tree(reactionSuite,styles,--evaluated,temperature,dvalue) == 0.0);
-         CHECK(tree(reactionSuite,styles,--evaluated,temperature,unit  ) == "K");
+         CHECK(tree(reactionSuite,styles,--evaluated,temperature,dvalue)
+               == 0.0);
+         CHECK(tree(reactionSuite,styles,--evaluated,temperature,unit  )
+               == "K");
 
          // child::reaction has ALLOW == Allow::many, so the following
          // gives us back a container (std::vector by default).

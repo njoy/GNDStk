@@ -75,10 +75,10 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
 
       WHEN("Testing cdata()") {
          {
-            node &n = t(reactionSuite,documentations,documentation);
+            Node<> &n = t(reactionSuite,documentations,documentation);
             CHECK(n.cdata() == thedocs);
          } {
-            const node &n = c(reactionSuite,documentations,documentation);
+            const Node<> &n = c(reactionSuite,documentations,documentation);
             CHECK(n.cdata() == thedocs);
          }
       }

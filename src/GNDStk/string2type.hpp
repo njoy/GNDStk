@@ -2,9 +2,9 @@
 /*
 Description of convert(string,type)
 
-Brief: node.meta(Meta<type>) ==> string ==> type
+Brief: Node.meta(Meta<type>) ==> string ==> type
 
-These are called from some of node's meta() functions, in order to convert
+These are called from some of Node's meta() functions, in order to convert
 a string argument (from the value portion of a metadata key/value pair) to
 some particular type, possibly user-defined.
 

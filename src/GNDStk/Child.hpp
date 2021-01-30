@@ -102,7 +102,7 @@ public:
 
    // ------------------------
    // top(): allowable
-   // as top-level node?
+   // as a top-level node?
    // ------------------------
 
    // top()
@@ -197,7 +197,7 @@ public:
 
    // ------------------------
    // top(): allowable
-   // as top-level node?
+   // as a top-level node?
    // ------------------------
 
    // top()

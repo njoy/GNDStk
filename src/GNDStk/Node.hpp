@@ -86,7 +86,7 @@ public:
    // child functions, except that the std::string parameter versions of those
    // are intentionally unsupported, as it would be indeterminate as to whether
    // we'd want the meta or child (std::string) function. This also reflects
-   // the fact that performing node accesses with Meta/Child parameters - not
+   // the fact that performing Node accesses with Meta/Child parameters - not
    // with std::string parameters - should be preferred. Meta and Child compile-
    // time encode that we want, respectively, metadata or children. Note: for
    // variant-based Meta and Child objects, you should still call meta<TYPE>()
@@ -115,7 +115,7 @@ public:
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call.hpp"
 
-   // no-argument operator() returns the current node; this is the natural
+   // no-argument operator() returns the current Node; this is the natural
    // extension of the multi-argument behavior
    const Node &operator()() const { return *this; }
    Node &operator()() { return *this; }

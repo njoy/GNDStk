@@ -49,7 +49,7 @@ void convert(const dim2d &d, Node<> &out)
 
 SCENARIO("Testing GNDStk Node add()") {
 
-   GIVEN("A default-constructed node") {
+   GIVEN("A default-constructed Node") {
       Node<> n;
       n.name = "name";
 
@@ -59,7 +59,7 @@ SCENARIO("Testing GNDStk Node add()") {
          CHECK(n.metadata.size() == 1);
          n.add("1","2");
          CHECK(n.metadata.size() == 2);
-         THEN("node add() returns a reference to the pair") {
+         THEN("Node add() returns a reference to the pair") {
             auto &pair = n.add("foobar", "foo bar");
             CHECK(pair.first == "foobar");
             CHECK(pair.second == "foo bar");
@@ -82,7 +82,7 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(dbl,1.23);
       n.add(dim);
       CHECK(n.metadata.size() == 12);
-      // these need the = TYPE on class T in the metadata node.add() functions:
+      // these need the = TYPE on class T in the metadata Node.add() functions:
       n.add(dim,{321,987});
       CHECK(n.metadata.back().second == "321,987");
       auto optdim = keyword.meta<std::optional<dimensions2d>>("OptDim");

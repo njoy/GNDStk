@@ -85,7 +85,7 @@ Node(
 // here, and we handle it by constructing an object of type TYPE from it; and
 // then, once we have an object of type TYPE, we do the usual GNDStk action
 // when a Child<TYPE> is involved: we convert (in the GNDStk sense) the TYPE
-// object to a node, using the Child's converter.
+// object to a Node, using the Child's converter.
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type

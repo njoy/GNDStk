@@ -20,12 +20,12 @@ struct reaction_t {
    int ENDF_MT;
 };
 
-void convert(const node &n, reaction_t &r);
+void convert(const Node<> &n, reaction_t &r);
 
 struct nonsense_t {
 };
 
-void convert(const node &n, nonsense_t &r);
+void convert(const Node<> &n, nonsense_t &r);
 
 
 // -----------------------------------------------------------------------------
@@ -278,14 +278,14 @@ SCENARIO("Testing GNDStk Node operator()") {
       const Node<> &ctop = tree.top();
       Node<> &top = tree.top();
 
-      // Below, we'll exercise every variation of node::operator()
+      // Below, we'll exercise every variation of Node::operator()
 
-      THEN("node::operator() with no arguments returns *this") {
+      THEN("Node::operator() with no arguments returns *this") {
          CHECK(&top == &top());
          CHECK(&ctop == &ctop());
       }
 
-      THEN("Calling node.top(Child,Child,Meta) gives us a metadatum") {
+      THEN("Calling Node.top(Child,Child,Meta) gives us a metadatum") {
          CHECK(top.has(
             misc::child::styles,
             --misc::child::evaluated,
@@ -301,7 +301,7 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(temp.unit  == "K");
       }
 
-      THEN("Calling node.top(Child,...,Child) gives us a child node") {
+      THEN("Calling Node.top(Child,...,Child) gives us a child node") {
          auto &styles_const = ctop(styles);
          CHECK(styles_const.metadata.size() == 0);
          CHECK(styles_const.children.size() == 1);
@@ -337,7 +337,7 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(iso_node[2].name == "isotope");
       }
 
-      THEN("Calling node.top(Meta) gives us a metadatum") {
+      THEN("Calling Node.top(Meta) gives us a metadatum") {
          const Meta<char> projectile("projectile");
          CHECK(ctop(projectile) == 'n');
 
@@ -353,7 +353,7 @@ SCENARIO("Testing GNDStk Node operator()") {
          CHECK(!found);
 
          // should get a reference back for the non-const version
-         // of the node, when () is invoked with a <void> Meta
+         // of the Node, when () is invoked with a <void> Meta
          const Meta<void> proj("projectile");
          top(proj) = "N"; // was "n"
          CHECK(ctop(projectile) == 'N');
@@ -362,7 +362,7 @@ SCENARIO("Testing GNDStk Node operator()") {
 
 
    // ------------------------
-   // Try various node
+   // Try various Node
    // operator() cases
    // ------------------------
 
@@ -374,9 +374,9 @@ SCENARIO("Testing GNDStk Node operator()") {
    const char *const twon = "2n + O15 + photon";
 
    // case: <void,one>
-   GIVEN("Testing node(Child<void,one>[,string][,found])") {
+   GIVEN("Testing Node(Child<void,one>[,string][,found])") {
       // n: non-const <reactions> node
-      node &n = tree(reactionSuite,reactions);
+      Node<> &n = tree(reactionSuite,reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -386,7 +386,7 @@ SCENARIO("Testing GNDStk Node operator()") {
          (void)&n(reaction);
          // Note: the n(reaction) instances below - not the further label or
          // ENDF_MT accesses - are really the tests. n(reaction) gives us a
-         // non-const node &, from which we should be able to do the rest
+         // non-const Node &, from which we should be able to do the rest
          CHECK(n(reaction)(label) == "n + O16");
          CHECK(n(reaction)(ENDF_MT) == 2);
          n(reaction)(-ENDF_MT) = "0"; // non-const; can set
@@ -448,9 +448,9 @@ SCENARIO("Testing GNDStk Node operator()") {
 
    // case: <void,one> const
    // Like the above, except this one is const
-   GIVEN("Testing node(Child<void,one>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<void,one>[,string][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(reactionSuite,reactions);
+      const Node<> &c = tree(reactionSuite,reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -496,9 +496,9 @@ SCENARIO("Testing GNDStk Node operator()") {
    }
 
    // case: <void,many> const
-   GIVEN("Testing node(Child<void,many>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<void,many>[,string][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(reactionSuite,reactions);
+      const Node<> &c = tree(reactionSuite,reactions);
 
       const Child<void,Allow::many> reaction("reaction");
       const Child<void,Allow::many> nonsense("nonsense");
@@ -537,9 +537,9 @@ SCENARIO("Testing GNDStk Node operator()") {
    }
 
    // case: <type,one> const
-   GIVEN("Testing node(Child<type,one>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<type,one>[,string][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(reactionSuite,reactions);
+      const Node<> &c = tree(reactionSuite,reactions);
 
       const Child<reaction_t,Allow::one> reaction("reaction");
       const Child<nonsense_t,Allow::one> nonsense("nonsense");
@@ -577,9 +577,9 @@ SCENARIO("Testing GNDStk Node operator()") {
    }
 
    // case: <type,many> const
-   GIVEN("Testing node(Child<type,many>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<type,many>[,string][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(reactionSuite,reactions);
+      const Node<> &c = tree(reactionSuite,reactions);
 
       const Child<reaction_t,Allow::many> reaction("reaction");
       const Child<nonsense_t,Allow::many> nonsense("nonsense");
@@ -632,7 +632,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    auto suite = reactionSuite;
 
    // case: <void,one>
-   GIVEN("Testing node(Child<void,one>[,string][,found])") {
+   GIVEN("Testing Node(Child<void,one>[,string][,found])") {
       // n: non-const <reactions> node
       Tree<> &n = tree;
 
@@ -710,7 +710,7 @@ SCENARIO("Testing GNDStk Node operator()") {
 
    // case: <void,one> const
    // Like the above, except this one is const
-   GIVEN("Testing node(Child<void,one>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<void,one>[,string][,found]) const") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
@@ -762,7 +762,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    }
 
    // case: <void,many> const
-   GIVEN("Testing node(Child<void,many>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<void,many>[,string][,found]) const") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
@@ -809,7 +809,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    }
 
    // case: <type,one> const
-   GIVEN("Testing node(Child<type,one>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<type,one>[,string][,found]) const") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
@@ -851,7 +851,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    }
 
    // case: <type,many> const
-   GIVEN("Testing node(Child<type,many>[,string][,found]) const") {
+   GIVEN("Testing Node(Child<type,many>[,string][,found]) const") {
       // c: const <reactions> node
       const Tree<> &c = tree;
 
@@ -904,8 +904,8 @@ SCENARIO("Testing GNDStk Node operator()") {
    // variable template
    // ------------------------
 
-   GIVEN("Testing node(numeric<*>) for various *") {
-      const node n = tree(
+   GIVEN("Testing Node(numeric<*>) for various *") {
+      const Node<> n = tree(
          basic::child::reactionSuite,
          basic::child::reactions,
          basic::child::reaction, "n + O16",

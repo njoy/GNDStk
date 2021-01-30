@@ -19,7 +19,7 @@ struct reaction_t {
    int ENDF_MT;
 };
 
-void convert(const node &n, reaction_t &r)
+void convert(const Node<> &n, reaction_t &r)
 {
    r.label = n(basic::meta::label);
    r.ENDF_MT = n(misc::meta::ENDF_MT);
@@ -28,7 +28,7 @@ void convert(const node &n, reaction_t &r)
 struct nonsense_t {
 };
 
-void convert(const node &n, nonsense_t &r)
+void convert(const Node<> &n, nonsense_t &r)
 {
 }
 
@@ -104,8 +104,8 @@ SCENARIO("Testing GNDStk Node child()") {
       const Node<> &ctop = tree.top();
       Node<> &top = tree.top();
 
-      WHEN("We use node.child() to extract a child node") {
-         // below, we'll exercise every variation of node::child()
+      WHEN("We use Node.child() to extract a child node") {
+         // below, we'll exercise every variation of Node::child()
          auto temp = top(
             misc::child::styles,   // from GNDStk
             --misc::child::evaluated // from GNDStk
@@ -204,7 +204,7 @@ SCENARIO("Testing GNDStk Node child()") {
 
    // ------------------------
    // Mechanically try every
-   // node.child() case
+   // Node.child() case
    // ------------------------
 
    using misc::meta::label;
@@ -219,13 +219,13 @@ SCENARIO("Testing GNDStk Node child()") {
    // to it; which is fine in these cases because the old filter in those
    // Child objects was the default of "no filter".) These aren't really
    // the same tests any longer, but we're leaving them in for good measure.
-   auto twon = [](const node &n)
+   auto twon = [](const Node<> &n)
       { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
 
    // case: <void,one>
-   GIVEN("Testing node.child(Child<void,one>[+filter][,found])") {
+   GIVEN("Testing Node.child(Child<void,one>[+filter][,found])") {
       // n: non-const <reactions> node
-      node &n = tree(misc::child::reactionSuite,misc::child::reactions);
+      Node<> &n = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -235,7 +235,7 @@ SCENARIO("Testing GNDStk Node child()") {
          (void)&n.child(reaction);
          // Note: the n.child(reaction) instances below - not the further label
          // or ENDF_MT accesses - are really the tests. n.child(reaction) gives
-         // us a non-const node &, from which we should be able to do the rest
+         // us a non-const Node &, from which we should be able to do the rest
          CHECK(n.child(reaction)(label) == "n + O16");
          CHECK(n.child(reaction)(ENDF_MT) == 2);
          n.child(reaction)(-ENDF_MT) = "0"; // non-const; can set
@@ -298,9 +298,9 @@ SCENARIO("Testing GNDStk Node child()") {
 
    // case: <void,one> const
    // Like the above, except this one is const
-   GIVEN("Testing node.child(Child<void,one>[+filter][,found]) const") {
+   GIVEN("Testing Node.child(Child<void,one>[+filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -346,9 +346,9 @@ SCENARIO("Testing GNDStk Node child()") {
    }
 
    // case: <void,many> const
-   GIVEN("Testing node.child(Child<void,many>[+filter][,found]) const") {
+   GIVEN("Testing Node.child(Child<void,many>[+filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<void,Allow::many> reaction("reaction");
       const Child<void,Allow::many> nonsense("nonsense");
@@ -392,9 +392,9 @@ SCENARIO("Testing GNDStk Node child()") {
    }
 
    // case: <type,one> const
-   GIVEN("Testing node.child(Child<type,one>[+filter][,found]) const") {
+   GIVEN("Testing Node.child(Child<type,one>[+filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<reaction_t,Allow::one> reaction("reaction");
       const Child<nonsense_t,Allow::one> nonsense("nonsense");
@@ -432,9 +432,9 @@ SCENARIO("Testing GNDStk Node child()") {
    }
 
    // case: <variant,one> const
-   GIVEN("Testing node.child(Child<variant,one>[+filter][,found]) const") {
+   GIVEN("Testing Node.child(Child<variant,one>[+filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<std::variant<int,reaction_t,double>,Allow::one>
          reaction("reaction");
@@ -478,9 +478,9 @@ SCENARIO("Testing GNDStk Node child()") {
    }
 
    // case: <type,many> const
-   GIVEN("Testing node.child(Child<type,many>[+filter][,found]) const") {
+   GIVEN("Testing Node.child(Child<type,many>[+filter][,found]) const") {
       // c: const <reactions> node
-      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<reaction_t,Allow::many> reaction("reaction");
       const Child<nonsense_t,Allow::many> nonsense("nonsense");
@@ -526,10 +526,10 @@ SCENARIO("Testing GNDStk Node child()") {
    }
 
    // case: <variant,many> const
-   GIVEN("Testing node.child(Child<variant,many>[+filter][,found]) const") {
+   GIVEN("Testing Node.child(Child<variant,many>[+filter][,found]) const") {
 
       // c: const <reactions> node
-      const node &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<std::variant<int,reaction_t,double>,Allow::many>
          reaction("reaction");

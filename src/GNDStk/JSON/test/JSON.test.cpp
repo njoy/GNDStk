@@ -104,10 +104,10 @@ SCENARIO("Testing GNDStk JSON") {
    // read a JSON
    JSON j("n-069_Tm_170-covar.json");
 
-   // construct a tree from the JSON
-   tree t(j);
+   // construct a Tree from the JSON
+   Tree<> t(j);
 
-   // the tree should be non-empty
+   // the Tree should be non-empty
    CHECK(!t.empty());
 
 
@@ -115,9 +115,9 @@ SCENARIO("Testing GNDStk JSON") {
    // clear
    // ------------------------
 
-   WHEN("We clear() a JSON, and convert() it to a tree") {
+   WHEN("We clear() a JSON, and convert() it to a Tree") {
       convert(j.clear(),t);
-      THEN("The tree should be empty()") {
+      THEN("The Tree should be empty()") {
          CHECK(t.empty());
       }
    }
@@ -168,26 +168,26 @@ SCENARIO("Testing GNDStk JSON") {
    WHEN("We construct a JSON from an XML") {
       const XML x("n-069_Tm_170-covar.xml");
       const JSON j(x);
-      THEN("They should produce equivalent trees") {
+      THEN("They should produce equivalent Trees") {
          CHECK(!j.empty());
          // We sort() before comparison basically because the nlohmann json
          // library will have reordered things in j, and we need to compare
          // with x (which didn't come through nlohmann json in any manner)
-         std::ostringstream oss1; oss1 << tree(x).sort();
-         std::ostringstream oss2; oss2 << tree(j).sort();
+         std::ostringstream oss1; oss1 << Tree<>(x).sort();
+         std::ostringstream oss2; oss2 << Tree<>(j).sort();
          CHECK(oss1.str() == oss2.str());
       }
    }
 
-   // from tree
-   WHEN("We construct a JSON from a tree") {
-      const tree t("n-069_Tm_170-covar.xml");
+   // from Tree
+   WHEN("We construct a JSON from a Tree") {
+      const Tree<> t("n-069_Tm_170-covar.xml");
       const JSON j(t);
-      THEN("It should produce an equivalent tree") {
+      THEN("It should produce an equivalent Tree") {
          CHECK(!j.empty());
          // Comment as above regarding sort()...
-         std::ostringstream oss1; oss1 << tree(t).sort();
-         std::ostringstream oss2; oss2 << tree(j).sort();
+         std::ostringstream oss1; oss1 << Tree<>(t).sort();
+         std::ostringstream oss2; oss2 << Tree<>(j).sort();
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -195,10 +195,10 @@ SCENARIO("Testing GNDStk JSON") {
    // from filename
    WHEN("We construct a JSON from a file") {
       const JSON j("n-069_Tm_170-covar.json");
-      THEN("It should produce an equivalent to the tree made from the file") {
+      THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!j.empty());
-         std::ostringstream oss1; oss1 << tree("n-069_Tm_170-covar.json");
-         std::ostringstream oss2; oss2 << tree(j);
+         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.json");
+         std::ostringstream oss2; oss2 << Tree<>(j);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -207,10 +207,10 @@ SCENARIO("Testing GNDStk JSON") {
    WHEN("We construct a JSON from an istream") {
       std::ifstream ifs("n-069_Tm_170-covar.json");
       const JSON j(ifs);
-      THEN("It should produce an equivalent to the tree made from the file") {
+      THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!j.empty());
-         std::ostringstream oss1; oss1 << tree("n-069_Tm_170-covar.json");
-         std::ostringstream oss2; oss2 << tree(j);
+         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.json");
+         std::ostringstream oss2; oss2 << Tree<>(j);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -252,10 +252,10 @@ SCENARIO("Testing GNDStk JSON") {
    WHEN("We read a JSON from an istream") {
       std::ifstream ifs("n-069_Tm_170-covar.json");
       const JSON j(ifs);
-      THEN("It should produce an equivalent to the tree made from the file") {
+      THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!j.empty());
-         std::ostringstream oss1; oss1 << tree("n-069_Tm_170-covar.json");
-         std::ostringstream oss2; oss2 << tree(j);
+         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.json");
+         std::ostringstream oss2; oss2 << Tree<>(j);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -263,10 +263,10 @@ SCENARIO("Testing GNDStk JSON") {
    // from file
    WHEN("We read a JSON from a file") {
       const JSON j("n-069_Tm_170-covar.json");
-      THEN("It should produce an equivalent to the tree made from the file") {
+      THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!j.empty());
-         std::ostringstream oss1; oss1 << tree("n-069_Tm_170-covar.json");
-         std::ostringstream oss2; oss2 << tree(j);
+         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.json");
+         std::ostringstream oss2; oss2 << Tree<>(j);
          CHECK(oss1.str() == oss2.str());
       }
    }

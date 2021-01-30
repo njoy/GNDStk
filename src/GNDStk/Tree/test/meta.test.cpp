@@ -7,10 +7,10 @@ using namespace misc;
 
 SCENARIO("Testing GNDStk Tree meta()") {
 
-   GIVEN("A tree read from n-069_Tm_170-covar.xml") {
-      // c: a const tree
+   GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
+      // c: a const Tree
       const Tree<> c("n-069_Tm_170-covar.xml");
-      // t: a non-const tree
+      // t: a non-const Tree
       Tree<> t = c;
 
       // ------------------------
@@ -185,7 +185,7 @@ SCENARIO("Testing GNDStk Tree meta()") {
       t.top().meta("projectile") = "abc"; // change projectile string
       CHECK(t.top() .meta("projectile") == "abc"); // verify that it changed
 
-      WHEN("We try assignment: tree.meta(keyword) = ...") {
+      WHEN("We try assignment: Tree.meta(keyword) = ...") {
          // assignments "work" (don't cause a crash) for nonexistent metadata
          // keys, but give back found == false
          CHECK((found = true, t.meta("foo key",found) = "foo value", !found));

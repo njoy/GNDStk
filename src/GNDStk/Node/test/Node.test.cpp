@@ -5,20 +5,11 @@
 #include "GNDStk.hpp"
 using namespace njoy::GNDStk;
 
-SCENARIO("Testing GNDStk Node (templated), node (not templated)") {
+SCENARIO("Testing GNDStk Node") {
 
    // Node (upper-case N): takes 0, 1, or 2 template parameters
    GIVEN("A Node<default,default>") {
       Node<> n;
-      CHECK(n.empty());
-      CHECK(n.name == "");
-      CHECK(n.metadata.size() == 0);
-      CHECK(n.children.size() == 0);
-   }
-
-   // node (lower-case n) is the same as Node<>
-   GIVEN("A node") {
-      node n;
       CHECK(n.empty());
       CHECK(n.name == "");
       CHECK(n.metadata.size() == 0);

@@ -18,7 +18,7 @@ SCENARIO("Testing GNDStk Tree (templated), tree (not templated)") {
 
    // tree (lower-case t): shorthand alias for Tree<>
    GIVEN("A tree") {
-      tree tree;
+      Tree<> tree;
       CHECK(tree.empty());
    }
 

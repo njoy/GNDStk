@@ -64,7 +64,7 @@ SCENARIO("Testing GNDStk Node operator==() and operator!=") {
         </halflife>
       */
 
-      WHEN("We change a node name somewhere") {
+      WHEN("We change a Node name somewhere") {
          o2 = oh;
          o2(reactionSuite,PoPs,
             gaugeBosons,--gaugeBoson).name = "foo";
@@ -92,7 +92,7 @@ SCENARIO("Testing GNDStk Node operator==() and operator!=") {
          }
       }
 
-      WHEN("We remove a node somewhere") {
+      WHEN("We remove a Node somewhere") {
          o2 = oh;
          o2(reactionSuite,PoPs).children.pop_back();
          THEN("operator== fails") {

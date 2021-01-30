@@ -15,13 +15,13 @@ std::ostream &write(std::ostream &os, const int level = 0) const
 
    // write name
    if (!(os << icurr << name << ":" << std::endl))
-      log::error("ostream << node.name returned with !ostream");
+      log::error("ostream << Node.name returned with !ostream");
 
    // write metadata
    if (os)
       for (const auto &meta : metadata)
          if (!(os << inext << meta.first << ": " << meta.second << std::endl)) {
-            log::error("ostream << node.metadata returned with !ostream");
+            log::error("ostream << Node.metadata returned with !ostream");
             break;
          }
 
@@ -29,7 +29,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
    if (os)
       for (const auto &c : children)
          if (c && !c->write(os,level+1)) {
-            log::error("ostream << node.children returned with !ostream");
+            log::error("ostream << Node.children returned with !ostream");
             break;
          }
 

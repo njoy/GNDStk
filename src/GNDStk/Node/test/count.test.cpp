@@ -5,7 +5,7 @@ using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing GNDStk Node count()") {
    const Tree<> tree("n-008_O_016.xml");
-   const node n = tree.top();
+   const Node<> n = tree.top();
 
    // count() cases to check:
    //    const string &key
@@ -15,10 +15,10 @@ SCENARIO("Testing GNDStk Node count()") {
    //    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, regex  &labelRegex
 
    GIVEN("A GNDS tree") {
-      auto version1 = [](const node &n) { return n(version) == "1.0"; };
-      auto version2 = [](const node &n) { return n(version) == "2.0"; };
-      auto symbolH  = [](const node &n) { return n(symbol)[0] == 'H'; };
-      auto symbolB  = [](const node &n) { return n(symbol)[0] == 'B'; };
+      auto version1 = [](const Node<> &n) { return n(version) == "1.0"; };
+      auto version2 = [](const Node<> &n) { return n(version) == "2.0"; };
+      auto symbolH  = [](const Node<> &n) { return n(symbol)[0] == 'H'; };
+      auto symbolB  = [](const Node<> &n) { return n(symbol)[0] == 'B'; };
 
       // count(string)
       THEN("count(string) works") {
@@ -60,8 +60,8 @@ SCENARIO("Testing GNDStk Node count()") {
 
       // count(Child+filter, string label)
       THEN("count(Child+filter, string label) works") {
-         auto endfmt1 = [](const node &n) { return n(int{}/ENDF_MT) == 1; };
-         auto endfmt2 = [](const node &n) { return n(int{}/ENDF_MT) == 2; };
+         auto endfmt1 = [](const Node<> &n) { return n(int{}/ENDF_MT) == 1; };
+         auto endfmt2 = [](const Node<> &n) { return n(int{}/ENDF_MT) == 2; };
          CHECK(n(reactions).count(reaction+endfmt1, "n + O16") == 0);
          CHECK(n(reactions).count(reaction+endfmt2, "n + O16") == 1);
       }
@@ -74,9 +74,9 @@ SCENARIO("Testing GNDStk Node count()") {
 
       // count(Child+filter, regex label)
       THEN("count(Child+filter, regex label) works") {
-         auto f1 = [](const node &n)
+         auto f1 = [](const Node<> &n)
             { int mt = n(int{}/ENDF_MT); return mt > 600; };
-         auto f2 = [](const node &n)
+         auto f2 = [](const Node<> &n)
             { int mt = n(int{}/ENDF_MT); return 660 <= mt && mt <= 665; };
          CHECK(n(reactions).count(reaction+f1,std::regex("H1 \\+ .*")) == 3);
          CHECK(n(reactions).count(reaction+f2,std::regex("H2 \\+ .*")) == 6);

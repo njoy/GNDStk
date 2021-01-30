@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-SCENARIO("Testing GNDStk tree top()") {
+SCENARIO("Testing GNDStk Tree top()") {
    using namespace njoy::GNDStk;
    using namespace misc;
 

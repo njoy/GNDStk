@@ -117,7 +117,7 @@ inline bool convert(const XML &from, XML &to)
 inline bool convert(const JSON &j, XML &x)
 {
    // temporary
-   tree t;
+   Tree<> t;
 
    // convert
    try {

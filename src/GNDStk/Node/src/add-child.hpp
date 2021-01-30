@@ -23,7 +23,7 @@
 //    plain
 //    Defaulted
 // Guaranteed to add something
-// Returns: reference to added node
+// Returns: reference to added Node
 // -----------------------------------------------------------------------------
 
 // 0-argument
@@ -66,7 +66,7 @@ Node &add(const Defaulted<T> &def)
 // -----------------------------------------------------------------------------
 // Child<void>, *
 // Guaranteed to add something
-// Returns: reference to added node
+// Returns: reference to added Node
 // -----------------------------------------------------------------------------
 
 // Similar in principle to its Meta counterpart. Bounces to one of the above
@@ -93,7 +93,7 @@ Node &add(
 // -----------------------------------------------------------------------------
 // Child<plain>, *
 // Guaranteed to add something
-// Returns: reference to added node
+// Returns: reference to added Node
 // -----------------------------------------------------------------------------
 
 // Child<plain>, plain

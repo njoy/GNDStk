@@ -74,7 +74,7 @@ bool ctor()
    // read a meaningful GNDS hierarchy into a "source" tree
    const Tree<M,C> from("n-069_Tm_170-covar.xml");
 
-   // print the tree to a string, which we'll use for comparison
+   // print the Tree to a string, which we'll use for comparison
    std::ostringstream ossf;
    ossf << from;
 
@@ -134,7 +134,7 @@ SCENARIO("Testing GNDStk tree constructors") {
 
       WHEN("We construct a tree from the XML object") {
          // We should get the same result for the tree constructed via the
-         // XML as we do for a tree that's read directly from the same file
+         // XML as we do for a Tree that's read directly from the same file
          std::ostringstream oss1; oss1 << Tree<>(x);
          std::ostringstream oss2; oss2 << Tree<>("n-026_Fe_056.xml");
          CHECK(oss1.str() == oss2.str());
@@ -147,7 +147,7 @@ SCENARIO("Testing GNDStk tree constructors") {
 
       WHEN("We construct a tree from the JSON object") {
          // We should get the same result for the tree constructed via the
-         // JSON as we do for a tree that's read directly from the same file
+         // JSON as we do for a Tree that's read directly from the same file
          std::ostringstream oss1; oss1 << Tree<>(j);
          std::ostringstream oss2; oss2 << Tree<>("n-069_Tm_170-covar.json");
          CHECK(oss1.str() == oss2.str());

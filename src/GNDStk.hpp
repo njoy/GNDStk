@@ -57,7 +57,7 @@ namespace GNDStk {
 #include "GNDStk/XML.hpp"
 #include "GNDStk/JSON.hpp"
 
-// string/node to/from type
+// string/Node to/from type
 #include "GNDStk/string2type.hpp"
 #include "GNDStk/type2string.hpp"
 #include "GNDStk/node2type.hpp"

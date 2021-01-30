@@ -4,10 +4,10 @@
 using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing comment() and comments() in GNDStk Tree") {
-   // tree
+   // Tree
    Tree<> t("n-026_Fe_056.xml");
 
-   // non-const and const nodes
+   // non-const and const Nodes
    Node<> &n = t(
       --reactionSuite,
       --resonances,
@@ -26,7 +26,7 @@ SCENARIO("Testing comment() and comments() in GNDStk Tree") {
       title = " energy | capture | elastic  ",
       width = "        |  width  |  width   ";
 
-   GIVEN("A GNDS node") {
+   GIVEN("A GNDStk Node") {
 
       // ------------------------
       // comment()
