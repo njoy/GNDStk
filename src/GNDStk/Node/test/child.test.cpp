@@ -19,7 +19,7 @@ struct reaction_t {
    int ENDF_MT;
 };
 
-void convert(const Node<> &n, reaction_t &r)
+void convert(const Node &n, reaction_t &r)
 {
    r.label = n(basic::meta::label);
    r.ENDF_MT = n(misc::meta::ENDF_MT);
@@ -28,7 +28,7 @@ void convert(const Node<> &n, reaction_t &r)
 struct nonsense_t {
 };
 
-void convert(const Node<> &n, nonsense_t &r)
+void convert(const Node &n, nonsense_t &r)
 {
 }
 
@@ -44,7 +44,7 @@ struct temperature_t {
    std::string unit;
 };
 
-inline void convert(const Node<> &n, temperature_t &temp)
+inline void convert(const Node &n, temperature_t &temp)
 {
    temp.value = n(misc::meta::dvalue);
    temp.unit  = n(misc::meta::unit);
@@ -54,19 +54,19 @@ inline void convert(const Node<> &n, temperature_t &temp)
 struct foo_t { std::string foo_id; };
 struct bar_t { std::string bar_id; };
 
-inline void convert(const Node<> &n, foo_t &foo)
+inline void convert(const Node &n, foo_t &foo)
    { bool found; foo.foo_id = n(misc::meta::id,found); }
-inline void convert(const Node<> &n, bar_t &bar)
+inline void convert(const Node &n, bar_t &bar)
    { bool found; bar.bar_id = n(misc::meta::id,found); }
 
 // isotope_t
 struct isotope_t {
    std::string symbol;
    int A;
-   const Node<> *nuclides;
+   const Node *nuclides;
 };
 
-inline void convert(const Node<> &n, isotope_t &iso)
+inline void convert(const Node &n, isotope_t &iso)
 {
    iso.symbol = n(misc::meta::symbol);
    iso.A = n(misc::meta::A);
@@ -97,12 +97,12 @@ auto nuclide_foo_or_bar_node =
 SCENARIO("Testing GNDStk Node child()") {
 
    // tree
-   Tree<> tree("n-008_O_016.xml");
+   Tree tree("n-008_O_016.xml");
 
    GIVEN("The top-level node from a tree object") {
       // top-level GNDS node, const and non-const
-      const Node<> &ctop = tree.top();
-      Node<> &top = tree.top();
+      const Node &ctop = tree.top();
+      Node &top = tree.top();
 
       WHEN("We use Node.child() to extract a child node") {
          // below, we'll exercise every variation of Node::child()
@@ -187,8 +187,8 @@ SCENARIO("Testing GNDStk Node child()") {
    // By extension, this tests detail::text_metadatum_to_string()
    GIVEN("A tree object") {
       // top-level GNDS node, const and non-const
-      const Node<> &ctop = tree.top();
-      Node<> &top = tree.top();
+      const Node &ctop = tree.top();
+      Node &top = tree.top();
 
       WHEN("We extract the CDATA description") {
          auto descr = tree(
@@ -219,13 +219,13 @@ SCENARIO("Testing GNDStk Node child()") {
    // to it; which is fine in these cases because the old filter in those
    // Child objects was the default of "no filter".) These aren't really
    // the same tests any longer, but we're leaving them in for good measure.
-   auto twon = [](const Node<> &n)
+   auto twon = [](const Node &n)
       { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
 
    // case: <void,one>
    GIVEN("Testing Node.child(Child<void,one>[+filter][,found])") {
       // n: non-const <reactions> node
-      Node<> &n = tree(misc::child::reactionSuite,misc::child::reactions);
+      Node &n = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -300,7 +300,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // Like the above, except this one is const
    GIVEN("Testing Node.child(Child<void,one>[+filter][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -348,7 +348,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <void,many> const
    GIVEN("Testing Node.child(Child<void,many>[+filter][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<void,Allow::many> reaction("reaction");
       const Child<void,Allow::many> nonsense("nonsense");
@@ -394,7 +394,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <type,one> const
    GIVEN("Testing Node.child(Child<type,one>[+filter][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<reaction_t,Allow::one> reaction("reaction");
       const Child<nonsense_t,Allow::one> nonsense("nonsense");
@@ -434,7 +434,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <variant,one> const
    GIVEN("Testing Node.child(Child<variant,one>[+filter][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<std::variant<int,reaction_t,double>,Allow::one>
          reaction("reaction");
@@ -480,7 +480,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // case: <type,many> const
    GIVEN("Testing Node.child(Child<type,many>[+filter][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<reaction_t,Allow::many> reaction("reaction");
       const Child<nonsense_t,Allow::many> nonsense("nonsense");
@@ -529,7 +529,7 @@ SCENARIO("Testing GNDStk Node child()") {
    GIVEN("Testing Node.child(Child<variant,many>[+filter][,found]) const") {
 
       // c: const <reactions> node
-      const Node<> &c = tree(misc::child::reactionSuite,misc::child::reactions);
+      const Node &c = tree(misc::child::reactionSuite,misc::child::reactions);
 
       const Child<std::variant<int,reaction_t,double>,Allow::many>
          reaction("reaction");

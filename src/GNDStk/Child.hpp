@@ -10,10 +10,9 @@
 
 TYPE
 
-   The type to which GNDStk should convert a Node<> that's extracted from
-   a Tree<> with the Child object. If TYPE is void, then GNDStk uses Node<*>
-   (the child node, in its original form in the tree), where * is whatever
-   template parameters are in play with the particular Tree<> being queried.
+   The type to which GNDStk should convert a Node that's extracted from a Tree
+   with the Child object. If TYPE is void, then GNDStk uses Node - the child
+   node, in its original form in the tree.
 
 ALLOW
 

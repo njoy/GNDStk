@@ -10,7 +10,7 @@ SCENARIO("Testing GNDStk Node many()") {
 
    GIVEN("A tree read from a particular example GNDS file") {
       // tree
-      const Tree<> tree("n-008_O_016.xml");
+      const Tree tree("n-008_O_016.xml");
 
       // chemicalElements / chemicalElement
       WHEN("We extract all <chemicalElement> nodes within <chemicalElements>") {
@@ -38,15 +38,15 @@ SCENARIO("Testing GNDStk Node many()") {
          const auto &Rs = tree(reactionSuite,reactions);
 
          // filter that requires: Node has metadata label="n + *"
-         auto nplus = [](const Node<> &n)
+         auto nplus = [](const Node &n)
             { return 0 == strncmp(n(label).c_str(), "n + ", 4); };
 
          // filter that requires: Node has metadata ENDF_MT="600"
-         auto endf_mt_600 = [](const Node<> &n)
+         auto endf_mt_600 = [](const Node &n)
             { return n(ENDF_MT) == 600; };
 
          // filter that requires: both of the above
-         auto filter_both = [nplus,endf_mt_600](const Node<> &n)
+         auto filter_both = [nplus,endf_mt_600](const Node &n)
             { return nplus(n) && endf_mt_600(n); };
 
          THEN("There are 15 <reaction> Nodes with label=\"n + *\"") {
@@ -86,7 +86,7 @@ SCENARIO("Testing GNDStk Node many()") {
 
          THEN("As above, with filter") {
             // filter should be ignored when used with key==""
-            auto filter = [](const Node<> &n) { return false; };
+            auto filter = [](const Node &n) { return false; };
             bool found = false;
             CHECK(Rs.has_many("",filter));
             auto vec = Rs.many("",filter,found); // ensure this version works

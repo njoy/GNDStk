@@ -33,7 +33,7 @@ struct dim2d {
    dim2d(const int r, const int c) : rows(r), cols(c) { }
 };
 
-void convert(const dim2d &d, Node<> &out)
+void convert(const dim2d &d, Node &out)
 {
    out.name = "unused";
    out.add("numberOfRows",d.rows);
@@ -50,7 +50,7 @@ void convert(const dim2d &d, Node<> &out)
 SCENARIO("Testing GNDStk Node add()") {
 
    GIVEN("A default-constructed Node") {
-      Node<> n;
+      Node n;
       n.name = "name";
 
       // metadata, string key, various value types
@@ -96,8 +96,8 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(); // no name child
       n.add("SubNode 2");
       n.add(std::string("SubNode 3"));
-      Node<> n1; n1.name = "SubNode 4";
-      Node<std::deque,std::list> n2; n2.name = "SubNode 5";
+      Node n1; n1.name = "SubNode 4";
+      Node n2; n2.name = "SubNode 5";
       n.add(n1);
       n.add(n2);
 
@@ -112,12 +112,12 @@ SCENARIO("Testing GNDStk Node add()") {
          >("pcdata",std::vector<double>{},detail::convert_pcdata_text_t{});
 
       auto nrepeat = keyword.child<void,Allow::many>("repeated node");
-      Node<> node1; node1.name = "aa11";
-      Node<> node2; node2.name = "bb22";
-      Node<> node3; node3.name = "cc33";
-      Node<> node4; node4.name = "dd44";
-      Node<> node5; node5.name = "ee55";
-      std::vector<Node<>> vec;
+      Node node1; node1.name = "aa11";
+      Node node2; node2.name = "bb22";
+      Node node3; node3.name = "cc33";
+      Node node4; node4.name = "dd44";
+      Node node5; node5.name = "ee55";
+      std::vector<Node> vec;
       vec.push_back(node1);
       vec.push_back(node2);
       vec.push_back(node3);
@@ -133,7 +133,7 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);
 
-      Node<std::deque,std::list> n3; n3.name = "SubNode 6";
+      Node n3; n3.name = "SubNode 6";
       n.add(foo,n3);
       n.add("values").add(numbers,std::vector<double>{ 1.2, 3.4, 5.6, 7.8 });
 

@@ -20,12 +20,12 @@ struct reaction_t {
    int ENDF_MT;
 };
 
-void convert(const Node<> &n, reaction_t &r);
+void convert(const Node &n, reaction_t &r);
 
 struct nonsense_t {
 };
 
-void convert(const Node<> &n, nonsense_t &r);
+void convert(const Node &n, nonsense_t &r);
 
 
 // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ struct temperature_t {
    std::string unit;
 };
 
-inline void convert(const Node<> &n, temperature_t &temp)
+inline void convert(const Node &n, temperature_t &temp)
 {
    temp.value = n(misc::meta::dvalue);
    temp.unit  = n(misc::meta::unit);
@@ -49,10 +49,10 @@ inline void convert(const Node<> &n, temperature_t &temp)
 struct isotope_t {
    std::string symbol;
    int A;
-   const Node<> *nuclides;
+   const Node *nuclides;
 };
 
-inline void convert(const Node<> &n, isotope_t &iso)
+inline void convert(const Node &n, isotope_t &iso)
 {
    iso.symbol = n(misc::meta::symbol);
    iso.A = n(misc::meta::A);
@@ -262,7 +262,7 @@ R"***(1e-05
 SCENARIO("Testing GNDStk Node operator()") {
 
    // tree
-   Tree<> tree("n-008_O_016.xml");
+   Tree tree("n-008_O_016.xml");
 
    // keywords with Allow::one
    auto temperature = keyword.child<temperature_t,Allow::one>("temperature");
@@ -275,8 +275,8 @@ SCENARIO("Testing GNDStk Node operator()") {
    GIVEN("The top-level node from a tree object") {
 
       // top-level GNDS node, const and non-const
-      const Node<> &ctop = tree.top();
-      Node<> &top = tree.top();
+      const Node &ctop = tree.top();
+      Node &top = tree.top();
 
       // Below, we'll exercise every variation of Node::operator()
 
@@ -376,7 +376,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <void,one>
    GIVEN("Testing Node(Child<void,one>[,string][,found])") {
       // n: non-const <reactions> node
-      Node<> &n = tree(reactionSuite,reactions);
+      Node &n = tree(reactionSuite,reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -450,7 +450,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // Like the above, except this one is const
    GIVEN("Testing Node(Child<void,one>[,string][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(reactionSuite,reactions);
+      const Node &c = tree(reactionSuite,reactions);
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -498,7 +498,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <void,many> const
    GIVEN("Testing Node(Child<void,many>[,string][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(reactionSuite,reactions);
+      const Node &c = tree(reactionSuite,reactions);
 
       const Child<void,Allow::many> reaction("reaction");
       const Child<void,Allow::many> nonsense("nonsense");
@@ -539,7 +539,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <type,one> const
    GIVEN("Testing Node(Child<type,one>[,string][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(reactionSuite,reactions);
+      const Node &c = tree(reactionSuite,reactions);
 
       const Child<reaction_t,Allow::one> reaction("reaction");
       const Child<nonsense_t,Allow::one> nonsense("nonsense");
@@ -579,7 +579,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <type,many> const
    GIVEN("Testing Node(Child<type,many>[,string][,found]) const") {
       // c: const <reactions> node
-      const Node<> &c = tree(reactionSuite,reactions);
+      const Node &c = tree(reactionSuite,reactions);
 
       const Child<reaction_t,Allow::many> reaction("reaction");
       const Child<nonsense_t,Allow::many> nonsense("nonsense");
@@ -634,7 +634,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <void,one>
    GIVEN("Testing Node(Child<void,one>[,string][,found])") {
       // n: non-const <reactions> node
-      Tree<> &n = tree;
+      Tree &n = tree;
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -712,7 +712,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // Like the above, except this one is const
    GIVEN("Testing Node(Child<void,one>[,string][,found]) const") {
       // c: const <reactions> node
-      const Tree<> &c = tree;
+      const Tree &c = tree;
 
       const Child<void,Allow::one> reaction("reaction");
       const Child<void,Allow::one> nonsense("nonsense");
@@ -764,7 +764,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <void,many> const
    GIVEN("Testing Node(Child<void,many>[,string][,found]) const") {
       // c: const <reactions> node
-      const Tree<> &c = tree;
+      const Tree &c = tree;
 
       const Child<void,Allow::many> reaction("reaction");
       const Child<void,Allow::many> nonsense("nonsense");
@@ -811,7 +811,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <type,one> const
    GIVEN("Testing Node(Child<type,one>[,string][,found]) const") {
       // c: const <reactions> node
-      const Tree<> &c = tree;
+      const Tree &c = tree;
 
       const Child<reaction_t,Allow::one> reaction("reaction");
       const Child<nonsense_t,Allow::one> nonsense("nonsense");
@@ -853,7 +853,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // case: <type,many> const
    GIVEN("Testing Node(Child<type,many>[,string][,found]) const") {
       // c: const <reactions> node
-      const Tree<> &c = tree;
+      const Tree &c = tree;
 
       const Child<reaction_t,Allow::many> reaction("reaction");
       const Child<nonsense_t,Allow::many> nonsense("nonsense");
@@ -905,7 +905,7 @@ SCENARIO("Testing GNDStk Node operator()") {
    // ------------------------
 
    GIVEN("Testing Node(numeric<*>) for various *") {
-      const Node<> n = tree(
+      const Node n = tree(
          basic::child::reactionSuite,
          basic::child::reactions,
          basic::child::reaction, "n + O16",

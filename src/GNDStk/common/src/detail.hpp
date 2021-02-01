@@ -1,18 +1,6 @@
 
 namespace detail {
 
-// text_metadatum_to_string
-// Helper for cdata and comment
-class text_metadatum_to_string {
-public:
-   template<class NODE>
-   void operator()(const NODE &node, std::string &to) const
-   {
-      to = node.meta("text");
-   }
-};
-
-
 // -----------------------------------------------------------------------------
 // convert_pcdata_text_t
 // -----------------------------------------------------------------------------
@@ -21,15 +9,9 @@ class convert_pcdata_text_t {
 public:
 
    // Node to container
-   template<
-      template<class...> class METADATA_CONTAINER,
-      template<class...> class CHILDREN_CONTAINER,
-      class CONTAINER
-   >
-   void operator()(
-      const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
-      CONTAINER &container
-   ) const {
+   template<class CONTAINER>
+   void operator()(const Node &node, CONTAINER &container) const
+   {
       try {
          // Context:
          // We're inside of a <pcdata> node that's inside of a <values> node
@@ -56,15 +38,9 @@ public:
    }
 
    // container to Node
-   template<
-      class CONTAINER,
-      template<class...> class METADATA_CONTAINER,
-      template<class...> class CHILDREN_CONTAINER
-   >
-   void operator()(
-      const CONTAINER &container,
-      Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
-   ) const {
+   template<class CONTAINER>
+   void operator()(const CONTAINER &container, Node &node) const
+   {
       try {
          node.clear();
          node.name = "pcdata";

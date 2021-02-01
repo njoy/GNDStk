@@ -111,9 +111,9 @@ SCENARIO("Testing GNDStk Tree child()") {
 
    GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
       // c: a const tree
-      const Tree<> c("n-069_Tm_170-covar.xml");
+      const Tree c("n-069_Tm_170-covar.xml");
       // t: a non-const tree
-      Tree<> t = c;
+      Tree t = c;
 
       // Note: Tree's child() function can give back either the declaration
       // node, or the top-level GNDS node; we consider both of those to be
@@ -134,15 +134,15 @@ SCENARIO("Testing GNDStk Tree child()") {
          // NOTE FOR THE FUTURE, IF AN ERROR EVER HAPPENS BELOW:
          // Our built-in keyword child::xml is currently a Child<void,...>.
          // It may someday change to Child<something other than void,...>,
-         // at which time the Node<> return PROBABLY WON'T WORK! void, in
+         // at which time the Node return PROBABLY WON'T WORK! void, in
          // this context, means that the "smart keyword" really just returns
          // a raw Node, even though in principle it could give us back
          // a custom type.
          found = false;
-         const Node<> &cnode = c.child(child::xml,found);
+         const Node &cnode = c.child(child::xml,found);
          CHECK(found);
          found = false;
-         Node<> &tnode = t.child(child::xml,found);
+         Node &tnode = t.child(child::xml,found);
          CHECK(found);
       }
 

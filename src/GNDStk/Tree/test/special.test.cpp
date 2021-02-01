@@ -5,10 +5,10 @@ using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing comment() and comments() in GNDStk Tree") {
    // Tree
-   Tree<> t("n-026_Fe_056.xml");
+   Tree t("n-026_Fe_056.xml");
 
    // non-const and const Nodes
-   Node<> &n = t(
+   Node &n = t(
       --reactionSuite,
       --resonances,
       --resolved,
@@ -19,7 +19,7 @@ SCENARIO("Testing comment() and comments() in GNDStk Tree") {
       --table,
       --data
    );
-   const Node<> &c = n;
+   const Node &c = n;
 
    // correct comments
    const std::string

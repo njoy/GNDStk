@@ -8,14 +8,8 @@
 // Tree ==> XML
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-bool convert(
-   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &tree,
-   XML &x
-) {
+inline bool convert(const Tree &tree, XML &x)
+{
    // clear
    x.clear();
 
@@ -117,7 +111,7 @@ inline bool convert(const XML &from, XML &to)
 inline bool convert(const JSON &j, XML &x)
 {
    // temporary
-   Tree<> t;
+   Tree t;
 
    // convert
    try {

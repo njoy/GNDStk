@@ -15,7 +15,7 @@
 // -----------------------------------------------------------------------------
 
 // reset(top-level node, file format[, version[, encoding]])
-// Example: Tree<> t(child::reactionSuite, FileType::xml);
+// Example: Tree t(child::reactionSuite, FileType::xml);
 
 
 // -----------------------------------------------------------------------------

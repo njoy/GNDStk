@@ -174,8 +174,8 @@ class CallOpChildAssertion {
 template<class TYPE>
 class apply_converter {
 public:
-   template<class KEYWORD, class NODE>
-   void operator()(const KEYWORD &kwd, const NODE &node) const
+   template<class KEYWORD>
+   void operator()(const KEYWORD &kwd, const Node &node) const
    {
       TYPE obj = kwd.object;
       kwd.converter(node,obj);
@@ -186,8 +186,8 @@ public:
 template<>
 class apply_converter<void> {
 public:
-   template<class KEYWORD, class NODE>
-   void operator()(const KEYWORD &, const NODE &) const
+   template<class KEYWORD>
+   void operator()(const KEYWORD &, const Node &) const
    {
       // no action
    }
@@ -620,7 +620,7 @@ public:
    // if TYPE == NODE:
    //    operator vector<TYPE>() (TYPE *is* NODE, but converter is applied)
    //
-   // Remember, NODE is the version of Node<> with which we instantiated
+   // Remember, NODE is the version of Node with which we instantiated
    // this child_ref.
    //
    // The case of TYPE == NODE is analogous to the case of TYPE == std::string

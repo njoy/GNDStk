@@ -207,7 +207,7 @@ R"***({
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk tree write() and operator<<") {
-   Tree<> tree;
+   Tree tree;
 
    // ------------------------
    // Empty tree

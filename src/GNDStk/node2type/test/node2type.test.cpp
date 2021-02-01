@@ -9,8 +9,8 @@ using namespace njoy::GNDStk;
 SCENARIO("Testing GNDStk convert(Node,type)") {
 
    WHEN("We make Nodes foo and bar") {
-      Node<> foo("foo");
-      Node<> bar("bar");
+      Node foo("foo");
+      Node bar("bar");
 
       foo.add("meta1","value1");
 
@@ -38,7 +38,7 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
    }
 
    WHEN("We make a Node foo with particular content") {
-      Node<> foo("foo");
+      Node foo("foo");
       // If a Node has a "text" metadatum, then the convert(Node,container)
       // function, where container is e.g. vector<T>, will attempt to fill
       // the container with the contents of the "text" metadatum's value.

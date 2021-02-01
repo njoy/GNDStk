@@ -20,20 +20,10 @@ to an istream prior to operator>>.
 
 // -----------------------------------------------------------------------------
 // convert(Node,Node)
-// We may or may not really care about allowing for different container
-// types in both the input and the output, but supporting it is harmless.
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM,
-   template<class...> class METADATA_CONTAINER_TO,
-   template<class...> class CHILDREN_CONTAINER_TO
->
-inline void convert(
-   const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from,
-         Node<METADATA_CONTAINER_TO,  CHILDREN_CONTAINER_TO  > &to
-) {
+inline void convert(const Node &from, Node &to)
+{
    try {
       to = from;
    } catch (...) {

@@ -3,13 +3,8 @@
 // operator==
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER_TWO,
-   template<class...> class CHILDREN_CONTAINER_TWO
->
-bool operator==(
-   const Node<METADATA_CONTAINER_TWO,CHILDREN_CONTAINER_TWO> &two
-) const {
+bool operator==(const Node &two) const
+{
    const auto &one = *this;
 
    // same Node?
@@ -64,13 +59,8 @@ bool operator==(
 // operator!=
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER_TWO,
-   template<class...> class CHILDREN_CONTAINER_TWO
->
-bool operator!=(
-   const Node<METADATA_CONTAINER_TWO,CHILDREN_CONTAINER_TWO> &two
-) const {
+bool operator!=(const Node &two) const
+{
    try {
       return !(*this == two);
    } catch (...) {

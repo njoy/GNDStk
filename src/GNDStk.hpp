@@ -60,8 +60,6 @@ namespace GNDStk {
 // string/Node to/from type
 #include "GNDStk/string2type.hpp"
 #include "GNDStk/type2string.hpp"
-#include "GNDStk/node2type.hpp"
-#include "GNDStk/type2node.hpp"
 
 // Meta, Child, and related
 #include "GNDStk/convert_t.hpp"
@@ -70,20 +68,33 @@ namespace GNDStk {
 #include "GNDStk/keyword.hpp"
 #include "GNDStk/or.hpp"
 
-// sets of Meta/Child
-#include "GNDStk/common.hpp"
-#include "GNDStk/basic.hpp"
-#include "GNDStk/misc.hpp"
-
 // optional, with default
 #include "GNDStk/Defaulted.hpp"
 
-// tree: primary constructs
+// sets of Meta/Child
+#include "GNDStk/basic.hpp"
+#include "GNDStk/misc.hpp"
+
+// Tree: primary constructs
 #include "GNDStk/Node.hpp"
 #include "GNDStk/Tree.hpp"
 
+// fixme This really belongs with basic.hpp and misc.hpp above, but I had to
+// move it here due to some ordering issues that arose when I de-templated
+// Node and Tree. We'll deal with this later; it's an internal issue, not
+// something that will affect users in any manner.
+#include "GNDStk/common.hpp"
+
+// Node to/from type
+#include "GNDStk/node2type.hpp"
+#include "GNDStk/type2node.hpp"
+
 // xml/json/tree conversions
 #include "GNDStk/convert.hpp"
+
+// fixme See above fixme
+namespace basic { using namespace common; }
+namespace misc  { using namespace common; }
 
 
 // ------------------------

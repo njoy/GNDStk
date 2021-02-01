@@ -50,7 +50,7 @@ SCENARIO("Testing GNDStk XML") {
    XML x("n-069_Tm_170-covar.xml");
 
    // construct a Tree from the XML
-   Tree<> t(x);
+   Tree t(x);
 
    // the Tree should be non-empty
    CHECK(!t.empty());
@@ -115,20 +115,20 @@ SCENARIO("Testing GNDStk XML") {
       const XML x(j);
       THEN("They should produce equivalent Trees") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree<>(j);
-         std::ostringstream oss2; oss2 << Tree<>(x);
+         std::ostringstream oss1; oss1 << Tree(j);
+         std::ostringstream oss2; oss2 << Tree(x);
          CHECK(oss1.str() == oss2.str());
       }
    }
 
    // from Tree
    WHEN("We construct an XML from a Tree") {
-      const Tree<> t("n-069_Tm_170-covar.json");
+      const Tree t("n-069_Tm_170-covar.json");
       const XML x(t);
       THEN("It should produce an equivalent Tree") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree<>(t);
-         std::ostringstream oss2; oss2 << Tree<>(x);
+         std::ostringstream oss1; oss1 << Tree(t);
+         std::ostringstream oss2; oss2 << Tree(x);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -140,8 +140,8 @@ SCENARIO("Testing GNDStk XML") {
       const XML x("n-069_Tm_170-covar.xml");
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.xml");
-         std::ostringstream oss2; oss2 << Tree<>(x);
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.xml");
+         std::ostringstream oss2; oss2 << Tree(x);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -152,8 +152,8 @@ SCENARIO("Testing GNDStk XML") {
       const XML x(ifs);
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.xml");
-         std::ostringstream oss2; oss2 << Tree<>(x);
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.xml");
+         std::ostringstream oss2; oss2 << Tree(x);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -197,8 +197,8 @@ SCENARIO("Testing GNDStk XML") {
       const XML x(ifs);
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.xml");
-         std::ostringstream oss2; oss2 << Tree<>(x);
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.xml");
+         std::ostringstream oss2; oss2 << Tree(x);
          CHECK(oss1.str() == oss2.str());
       }
    }
@@ -208,8 +208,8 @@ SCENARIO("Testing GNDStk XML") {
       const XML x("n-069_Tm_170-covar.xml");
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree<>("n-069_Tm_170-covar.xml");
-         std::ostringstream oss2; oss2 << Tree<>(x);
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.xml");
+         std::ostringstream oss2; oss2 << Tree(x);
          CHECK(oss1.str() == oss2.str());
       }
    }

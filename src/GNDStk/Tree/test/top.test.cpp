@@ -7,7 +7,7 @@ SCENARIO("Testing GNDStk Tree top()") {
    using namespace misc;
 
    GIVEN("A tree read from n-069_Tm_170-covar.xml") {
-      Tree<> t("n-069_Tm_170-covar.xml");
+      Tree t("n-069_Tm_170-covar.xml");
 
       CHECK(t.top().name == "covarianceSuite");
       CHECK(t.top().metadata.size() == 4);
@@ -21,7 +21,7 @@ SCENARIO("Testing GNDStk Tree top()") {
    GIVEN("An empty tree") {
 
       WHEN("We call reset(reactionSuite)") {
-         Tree<> t;
+         Tree t;
          t.reset(reactionSuite);
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "reactionSuite");
@@ -31,7 +31,7 @@ SCENARIO("Testing GNDStk Tree top()") {
       }
 
       WHEN("We call reset(reactionSuite, FileType::json)") {
-         Tree<> t;
+         Tree t;
          t.reset(reactionSuite, FileType::json);
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "reactionSuite");
@@ -41,7 +41,7 @@ SCENARIO("Testing GNDStk Tree top()") {
       }
 
       WHEN("We call reset(covarianceSuite, FileType::null, \"2.0\")") {
-         Tree<> t;
+         Tree t;
          t.reset(covarianceSuite, FileType::null, "2.0");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "covarianceSuite");
@@ -51,7 +51,7 @@ SCENARIO("Testing GNDStk Tree top()") {
       }
 
       WHEN("We call reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
-         Tree<> t;
+         Tree t;
          t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "covarianceSuite");
@@ -61,7 +61,7 @@ SCENARIO("Testing GNDStk Tree top()") {
       }
 
       WHEN("We call reset(PoPs, \"hdf5\")") {
-         Tree<> t;
+         Tree t;
          t.reset(PoPs, "hdf5");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "PoPs");
@@ -71,7 +71,7 @@ SCENARIO("Testing GNDStk Tree top()") {
       }
 
       WHEN("We call reset(PoPs, \"tree\", \"4.0\")") {
-         Tree<> t;
+         Tree t;
          t.reset(PoPs, "tree", "4.0");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "PoPs");
@@ -81,7 +81,7 @@ SCENARIO("Testing GNDStk Tree top()") {
       }
 
       WHEN("We call reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
-         Tree<> t;
+         Tree t;
          t.reset(thermalScattering, "xml", "5.0", "UTF-10");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "thermalScattering");

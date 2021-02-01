@@ -6,7 +6,7 @@ using namespace njoy::GNDStk;
 SCENARIO("Testing GNDStk Tree clear()") {
 
    GIVEN("A default-constructed tree") {
-      Tree<> tree;
+      Tree tree;
       THEN("It checks as being empty()") {
          CHECK(tree.empty());
       }

@@ -8,9 +8,9 @@ SCENARIO("Testing GNDStk Tree many()") {
 
    GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
       // c: a const Tree
-      const Tree<> c("n-069_Tm_170-covar.xml");
+      const Tree c("n-069_Tm_170-covar.xml");
       // t: a non-const Tree
-      Tree<> t = c;
+      Tree t = c;
       // found flag
       bool found;
 

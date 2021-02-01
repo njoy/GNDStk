@@ -74,13 +74,13 @@ struct temp_t {
 namespace njoy {
 namespace GNDStk {
 
-inline void convert(const Node<> &n, temp_t &t)
+inline void convert(const Node &n, temp_t &t)
 {
    t.value = n(double{}/basic::value);
    t.unit  = n(basic::unit);
 }
 
-inline void convert(const temp_t &t, Node<> &n)
+inline void convert(const temp_t &t, Node &n)
 {
    assert(n.empty());
    n.name = "temperature";
@@ -135,7 +135,7 @@ namespace njoy {
 namespace GNDStk {
 
 // Node ==> axis_t
-inline void convert(const Node<> &n, axis_t &a)
+inline void convert(const Node &n, axis_t &a)
 {
    a.index = n(int{}/basic::index);
    a.label = n(      basic::label);
@@ -143,7 +143,7 @@ inline void convert(const Node<> &n, axis_t &a)
 }
 
 // axis_t ==> Node
-inline void convert(const axis_t &a, Node<> &n)
+inline void convert(const axis_t &a, Node &n)
 {
    assert(n.empty());
    n.name = "axis";
@@ -163,11 +163,11 @@ inline void convert(const axis_t &a, Node<> &n)
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk Node operator[]") {
-   Tree<> tree("n-008_O_016.xml");
+   Tree tree("n-008_O_016.xml");
 
    // const and non-const Node, for testing
-   const Node<> &c = tree;
-   Node<> &n = tree;
+   const Node &c = tree;
+   Node &n = tree;
 
    GIVEN("const and non-const Nodes") {
 
@@ -366,7 +366,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          // ------------
 
          THEN("const works as expected") {
-            const Node<> &axes = tree(
+            const Node &axes = tree(
                reactionSuite,
                reactions,
                reaction, "n + O16",
@@ -411,7 +411,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // Finally, the axis object has a conversion to a straight vector
             // of Nodes - that is, the Nodes are copies of the ones in the
             // original tree.
-            std::vector<Node<>> v = axis;
+            std::vector<Node> v = axis;
             CHECK(v.size() == 3);
             CHECK(v[0] == axis[0]);
             CHECK(v[1] == axis[1]);
@@ -425,7 +425,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          // Much like the above const case, but we'll change things
          // up a bit, and we can assign as well (because non-const)
          THEN("non-const works as expected") {
-            Node<> &axes = tree(
+            Node &axes = tree(
                reactionSuite, reactions, reaction, "n + O16",
                outputChannel, products, product, "n",
                distribution, angularTwoBody, "eval",
@@ -457,7 +457,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(&axes(basic::axis,"P(mu|energy_in)") == &axis[2]);
 
             // Finally, test conversion...
-            std::vector<Node<>> v = axis;
+            std::vector<Node> v = axis;
             CHECK(v.size() == 3);
             CHECK(v[0] == axis[0]);
             CHECK(v[1] == axis[1]);
@@ -483,7 +483,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
                [Child<temp_t,Allow::one>("temperature")];
 
             // for const, assignment isn't available; neither of these compile:
-            // t = Node<>{};
+            // t = Node{};
             // t = temp_t(0.0, "K");
 
             // t's type, as created by [] and described above, is, like its
@@ -491,7 +491,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // for various uses. It is NOT just an rvalue temp_t, as
             // would have been created by () rather than [].
             const temp_t t_new = t; // t can become a temp_t
-            const Node<> mynode = t; // t can become a Node
+            const Node mynode = t; // t can become a Node
 
             CHECK(t_new.value == 0.0);
             CHECK(t_new.unit  == "K");
@@ -517,7 +517,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
             // conversion
             const temp_t t_new = t; // t can become a temp_t
-            const Node<> mynode = t; // t can become a Node
+            const Node mynode = t; // t can become a Node
 
             CHECK(t_new.value == 0.0);
             CHECK(t_new.unit  == "K");
@@ -543,15 +543,15 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // [] gives lvalue, so this actually writes into the tree...
             parent[temp] = Node{"temperature"};
             CHECK(tree(reactionSuite,styles,--evaluated,temperature)
-                  == Node<>{"temperature"});
+                  == Node{"temperature"});
 
             // restore from backup
             parent[temp] = backup;
             CHECK(tree(reactionSuite,styles,--evaluated,temperature)
-                  != Node<>{"temperature"}); // has other than just its name :-)
+                  != Node{"temperature"}); // has other than just its name :-)
 
             // can still use as rvalue, and implicitly converts to Node...
-            Node<> foo = parent[temp];
+            Node foo = parent[temp];
             CHECK(foo.metadata.size() == 2);
             CHECK(foo.children.size() == 0);
 
@@ -581,7 +581,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          // ------------
 
          THEN("const works as expected") {
-            const Node<> &axes = tree(
+            const Node &axes = tree(
                reactionSuite,
                reactions,
                reaction, "n + O16",
@@ -618,13 +618,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(vector_axis[1] == axis_t(axis[1]));
             CHECK(vector_axis[2] == axis_t(axis[2]));
 
-            // axis converts to a std::vector<Node<>>. Also, axis[0] etc.
+            // axis converts to a std::vector<Node>. Also, axis[0] etc.
             // can convert to Node.
-            std::vector<Node<>> vector_node = axis;
+            std::vector<Node> vector_node = axis;
             CHECK(vector_node.size() == 3);
-            CHECK(vector_node[0] == Node<>(axis[0]));
-            CHECK(vector_node[1] == Node<>(axis[1]));
-            CHECK(vector_node[2] == Node<>(axis[2]));
+            CHECK(vector_node[0] == Node(axis[0]));
+            CHECK(vector_node[1] == Node(axis[1]));
+            CHECK(vector_node[2] == Node(axis[2]));
          }
 
          // ------------
@@ -633,7 +633,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
          // Much like the above const case
          THEN("non-const works as expected") {
-            Node<> &axes = tree(
+            Node &axes = tree(
                reactionSuite,
                reactions,
                reaction, "n + O16",
@@ -661,10 +661,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // Setting axis[0] to be the same as axis[1] isn't something we'd
             // actually want to do, but it doesn't mess up any further tests...
             CHECK(axis_t(axis[0]) != axis_t(axis[1]));
-            CHECK(Node<>(axis[0]) != Node<>(axis[1]));
+            CHECK(Node(axis[0]) != Node(axis[1]));
             axis[0] = axis_t(axis[1]); // assign
             CHECK(axis_t(axis[0]) == axis_t(axis[1]));
-            CHECK(Node<>(axis[0]) == Node<>(axis[1]));
+            CHECK(Node(axis[0]) == Node(axis[1]));
 
             // axis converts to a std::vector<axis_t>. Also, although
             // it's not really the point of the current test, axis[0]
@@ -675,13 +675,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(vector_axis[1] == axis_t(axis[1]));
             CHECK(vector_axis[2] == axis_t(axis[2]));
 
-            // axis converts to a std::vector<Node<>>. Also, axis[0] etc.
+            // axis converts to a std::vector<Node>. Also, axis[0] etc.
             // can convert to Node.
-            std::vector<Node<>> vector_node = axis;
+            std::vector<Node> vector_node = axis;
             CHECK(vector_node.size() == 3);
-            CHECK(vector_node[0] == Node<>(axis[0]));
-            CHECK(vector_node[1] == Node<>(axis[1]));
-            CHECK(vector_node[2] == Node<>(axis[2]));
+            CHECK(vector_node[0] == Node(axis[0]));
+            CHECK(vector_node[1] == Node(axis[1]));
+            CHECK(vector_node[2] == Node(axis[2]));
          }
       }
    }

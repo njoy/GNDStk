@@ -64,7 +64,7 @@ SCENARIO("Testing GNDStk Tree operator()") {
 
    GIVEN("A Tree read from n-008_O_016.xml") {
       // tree: a const Tree
-      const Tree<> tree("n-008_O_016.xml");
+      const Tree tree("n-008_O_016.xml");
 
       // optional return flag
       bool found;

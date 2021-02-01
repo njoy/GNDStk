@@ -285,34 +285,7 @@ inline void assign(const std::string &str, Args &&...args)
 
 
 // -----------------------------------------------------------------------------
-// Forward declarations: some classes
-// These are needed for the upcoming forward declarations of convert().
-// -----------------------------------------------------------------------------
-
-#define GNDSTK_DEFAULT_CONTAINER std::vector
-
-// Node
-template<
-   template<class...> class = GNDSTK_DEFAULT_CONTAINER,
-   template<class...> class = GNDSTK_DEFAULT_CONTAINER
->
-class Node;
-
-// Tree
-template<
-   template<class...> class = GNDSTK_DEFAULT_CONTAINER,
-   template<class...> class = GNDSTK_DEFAULT_CONTAINER
->
-class Tree;
-
-// XML, JSON
-class XML;
-class JSON;
-
-
-
-// -----------------------------------------------------------------------------
-// Forward declarations: convert
+// Forward declarations: some classes; convert
 // We're not fans of having lots of forward declarations, but these are here
 // because (1) the relevant classes (Tree, XML, JSON) use these functions in,
 // e.g., their constructors, which are defined in-class; and (2) the convert()
@@ -322,31 +295,28 @@ class JSON;
 // define the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
-// Note: the template arguments below are all CONTAINER types. These template
-// arguments are: MONE, CONE, MTWO, CTWO, M, and C. Normally we'd give longer,
-// more-descriptive names, as we do elsewhere. These mere forward declarations
-// for convert() are, however, shorter and clearer with the abbreviated names.
+// Node
+class Node;
+
+// Tree
+class Tree;
+
+// XML, JSON
+class XML;
+class JSON;
 
 // Tree to {Tree,XML,JSON}
-template<template<class...> class MONE, template<class...> class CONE,
-         template<class...> class MTWO, template<class...> class CTWO>
-bool convert(const Tree<MONE,CONE> &, Tree<MTWO,CTWO> &);
-
-template<template<class...> class M, template<class...> class C>
-bool convert(const Tree<M,C> &, XML &);
-
-template<template<class...> class M, template<class...> class C>
-bool convert(const Tree<M,C> &, JSON &);
+bool convert(const Tree &, Tree &);
+bool convert(const Tree &, XML  &);
+bool convert(const Tree &, JSON &);
 
 // XML to {Tree,XML,JSON}
-template<template<class...> class M, template<class...> class C>
-bool convert(const XML &, Tree<M,C> &);
-bool convert(const XML &, XML  &);
-bool convert(const XML &, JSON &);
+bool convert(const XML  &, Tree &);
+bool convert(const XML  &, XML  &);
+bool convert(const XML  &, JSON &);
 
 // JSON to {Tree,XML,JSON}
-template<template<class...> class M, template<class...> class C>
-bool convert(const JSON &, Tree<M,C> &);
+bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
 

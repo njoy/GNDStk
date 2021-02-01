@@ -49,8 +49,8 @@ R"***(covarianceSuite:
 
 SCENARIO("Testing GNDStk Node write() and operator<<") {
    GIVEN("A top-level node from a tree object") {
-      const Tree<> tree("n-069_Tm_170-covar.xml");
-      const Node<> &top = tree.top(); // top-level GNDS node
+      const Tree tree("n-069_Tm_170-covar.xml");
+      const Node &top = tree.top(); // top-level GNDS node
 
       WHEN("We call Node.write(ostream)") {
          std::ostringstream oss;

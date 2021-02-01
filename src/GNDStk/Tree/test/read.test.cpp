@@ -52,7 +52,7 @@ R"***(covarianceSuite:
             value: 0.0
 )***";
 
-bool compare(Tree<> &t)
+bool compare(Tree &t)
 {
    std::ostringstream oss;
    t.sort().write(oss);
@@ -65,7 +65,7 @@ bool compare(Tree<> &t)
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk tree read() and operator>>") {
-   Tree<> t1, t2, t3, t4;
+   Tree t1, t2, t3, t4;
 
    GIVEN("Some trees") {
 
@@ -150,7 +150,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
    GIVEN("Some trees") {
       using namespace njoy::GNDStk;
-      Tree<> tree;
+      Tree tree;
 
       const std::string xfilename = "n-069_Tm_170-covar.xml";
       const std::string jfilename = "n-069_Tm_170-covar.json";

@@ -6,9 +6,9 @@ using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node meta()") {
    GIVEN("The top-level Node from a tree object") {
-      Tree<> tree("n-069_Tm_170-covar.xml");
-      const Node<> &consttop = tree.top(); // top-level GNDS node
-      Node<> &top = tree.top(); // top-level GNDS node
+      Tree tree("n-069_Tm_170-covar.xml");
+      const Node &consttop = tree.top(); // top-level GNDS node
+      Node &top = tree.top(); // top-level GNDS node
 
       THEN("We can use meta() to extract metadata") {
          CHECK(consttop.has_meta("projectile"));

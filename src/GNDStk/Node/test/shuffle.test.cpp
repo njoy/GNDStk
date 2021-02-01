@@ -4,10 +4,10 @@
 using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node shuffle()") {
-   Tree<> tree("n-069_Tm_170-covar.xml");
+   Tree tree("n-069_Tm_170-covar.xml");
 
    GIVEN("A GNDS tree") {
-      Tree<> copy = tree;
+      Tree copy = tree;
       copy.shuffle();
 
       WHEN("We randomly shuffle the tree") {

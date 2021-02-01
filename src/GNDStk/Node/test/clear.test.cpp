@@ -5,7 +5,7 @@ using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node clear()") {
    GIVEN("A default-constructed Node") {
-      Node<> n;
+      Node n;
       THEN("It checks as being empty()") {
          CHECK(n.empty());
       }

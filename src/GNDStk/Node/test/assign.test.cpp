@@ -5,10 +5,10 @@ using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node assignment") {
    GIVEN("A tree read from a GNDS file") {
-      Tree<> tree("n-008_O_016.xml");
+      Tree tree("n-008_O_016.xml");
 
       WHEN("We assign: Node = tree.top") {
-         Node<> node;
+         Node node;
 
          // put some initial content into the node...
          node.add("key","value");

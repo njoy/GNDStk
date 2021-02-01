@@ -9,23 +9,23 @@ SCENARIO("Testing GNDStk Node one()") {
 
    GIVEN("A tree object") {
       // tree
-      Tree<> tree("n-008_O_016.xml");
+      Tree tree("n-008_O_016.xml");
 
       // Node: reactionSuite
-      Node<> &rsuite = tree(misc::child::reactionSuite);
-      const Node<> &const_rsuite = rsuite;
+      Node &rsuite = tree(misc::child::reactionSuite);
+      const Node &const_rsuite = rsuite;
 
       WHEN("We extract one PoPs Node") {
          // From the reactionSuite Node, let's get one PoPs Node; one,
          // in fact is all there is. If there were many, we'd probably
          // want to use many() instead of one().
          CHECK(rsuite.has_one("PoPs"));
-         Node<> &pops = rsuite.one("PoPs");
+         Node &pops = rsuite.one("PoPs");
          CHECK(pops.meta("name") == "protare_internal");
 
          // const version
          CHECK(const_rsuite.has_one("PoPs"));
-         const Node<> &cpops = const_rsuite.one("PoPs");
+         const Node &cpops = const_rsuite.one("PoPs");
          CHECK(cpops.meta("name") == "protare_internal");
       }
 
@@ -36,18 +36,18 @@ SCENARIO("Testing GNDStk Node one()") {
       // ------------------------
 
       // non-const and const Nodes
-      Node<> &rs = tree(reactionSuite,reactions);
-      const Node<> rsconst = rs; // non-reference, makes some CHECKs better
+      Node &rs = tree(reactionSuite,reactions);
+      const Node rsconst = rs; // non-reference, makes some CHECKs better
 
       // filter for nodes that have label="2n + *"
-      auto twon = [](const Node<> &n)
+      auto twon = [](const Node &n)
          { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
 
       // case 1
       WHEN("We test node.one(key,filter) const")
       {
          CHECK(rsconst.has_one("reaction",twon));
-         const Node<> &r = rsconst.one("reaction",twon);
+         const Node &r = rsconst.one("reaction",twon);
          CHECK(r(label) == "2n + O15 + photon");
          CHECK(r(ENDF_MT) == 16);
          // with key "": returns reference to *this; ignores filter
@@ -60,7 +60,7 @@ SCENARIO("Testing GNDStk Node one()") {
       {
          bool found = false;
          CHECK(rsconst.has_one("reaction",twon));
-         const Node<> &r = rsconst.one("reaction",twon,found);
+         const Node &r = rsconst.one("reaction",twon,found);
          CHECK(found);
          CHECK(r(label) == "2n + O15 + photon");
          CHECK(r(ENDF_MT) == 16);
@@ -76,7 +76,7 @@ SCENARIO("Testing GNDStk Node one()") {
       WHEN("We test node.one(key,filter)")
       {
          // like case 1, but non-const version
-         Node<> &r = rs.one("reaction",twon);
+         Node &r = rs.one("reaction",twon);
          CHECK(r(label) == "2n + O15 + photon");
          CHECK(r(ENDF_MT) == 16);
          CHECK(&rs.one("",twon) == &rs);
@@ -87,7 +87,7 @@ SCENARIO("Testing GNDStk Node one()") {
       {
          // like case 2, but non-const version
          bool found = false;
-         Node<> &r = rs.one("reaction",twon,found);
+         Node &r = rs.one("reaction",twon,found);
          CHECK(found);
          CHECK(r(label) == "2n + O15 + photon");
          CHECK(r(ENDF_MT) == 16);
@@ -101,7 +101,7 @@ SCENARIO("Testing GNDStk Node one()") {
       WHEN("We test node.one(key) const")
       {
          // like case 1, but without the filter
-         const Node<> &r = rsconst.one("reaction");
+         const Node &r = rsconst.one("reaction");
          CHECK(r(label) == "n + O16");
          CHECK(r(ENDF_MT) == 2);
          CHECK(&rsconst.one("") == &rsconst);
@@ -112,7 +112,7 @@ SCENARIO("Testing GNDStk Node one()") {
       {
          // like case 2, but without the filter
          bool found = false;
-         const Node<> &r = rsconst.one("reaction",found);
+         const Node &r = rsconst.one("reaction",found);
          CHECK(found);
          CHECK(r(label) == "n + O16");
          CHECK(r(ENDF_MT) == 2);
@@ -126,7 +126,7 @@ SCENARIO("Testing GNDStk Node one()") {
       WHEN("We test node.one(key)")
       {
          // like case 3, but without the filter
-         Node<> &r = rs.one("reaction");
+         Node &r = rs.one("reaction");
          CHECK(r(label) == "n + O16");
          CHECK(r(ENDF_MT) == 2);
          CHECK(&rs.one("") == &rs);
@@ -137,7 +137,7 @@ SCENARIO("Testing GNDStk Node one()") {
       {
          // like case 4, but without the filter
          bool found = false;
-         Node<> &r = rs.one("reaction",found);
+         Node &r = rs.one("reaction",found);
          CHECK(found);
          CHECK(r(label) == "n + O16");
          CHECK(r(ENDF_MT) == 2);

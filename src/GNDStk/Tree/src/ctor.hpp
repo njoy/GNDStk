@@ -21,22 +21,6 @@ Tree(const Tree &from) : nodeType{}
    }
 }
 
-// templated "copy"
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM
->
-Tree(const Tree<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
-{
-   try {
-      if (!convert(from,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("Tree(Tree<different>)");
-      throw;
-   }
-}
-
 
 
 // -----------------------------------------------------------------------------
@@ -76,7 +60,7 @@ explicit Tree(const JSON &j)
 
 // file name, file format
 // Example:
-//    Tree<> t("n-008_O_016.xml", FileType::xml);
+//    Tree t("n-008_O_016.xml", FileType::xml);
 explicit Tree(const std::string &filename, const FileType form = FileType::null)
 {
    try {
@@ -90,7 +74,7 @@ explicit Tree(const std::string &filename, const FileType form = FileType::null)
 
 // file name, string
 // Example:
-//    Tree<> t("n-008_O_016.xml", "xml");
+//    Tree t("n-008_O_016.xml", "xml");
 Tree(const std::string &filename, const std::string &filetype)
 {
    try {
@@ -105,7 +89,7 @@ Tree(const std::string &filename, const std::string &filetype)
 // istream, file format
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
-//    Tree<> t(ifs, FileType::xml);
+//    Tree t(ifs, FileType::xml);
 explicit Tree(std::istream &is, const FileType form = FileType::null)
 {
    try {
@@ -120,7 +104,7 @@ explicit Tree(std::istream &is, const FileType form = FileType::null)
 // istream, string
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
-//    Tree<> t(ifs, "xml");
+//    Tree t(ifs, "xml");
 Tree(std::istream &is, const std::string &filetype)
 {
    try {
@@ -142,9 +126,9 @@ Tree(std::istream &is, const std::string &filetype)
 // Idea: User wants to begin building a brand-new GNDS tree from scratch.
 //
 // Examples:
-//    Tree<> newtree(reactionSuite, FileType::xml, "1.0", "UTF-8");
+//    Tree newtree(reactionSuite, FileType::xml, "1.0", "UTF-8");
 // or
-//    Tree<> newtree(reactionSuite, "xml", "1.0", "UTF-8");
+//    Tree newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
 // Note that the first argument is NOT quoted (""). It isn't the name of the
 // top-level node that we want; rather, it's one of our "smart keywords."

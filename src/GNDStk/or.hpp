@@ -127,7 +127,7 @@ public:
 // -----------------------------------------------------------------------------
 
 // default
-// Note: sizeof...(Ks) >= 1, because we specialize the <> case
+// Note: sizeof...(Ks) >= 1, because we'll specialize the <> case
 template<class... Ks>
 class keywords {
 public:
@@ -159,7 +159,7 @@ public:
 
 
 // <>
-// non-constructible
+// intentionally non-constructible
 template<>
 class keywords<>
 {
@@ -227,6 +227,10 @@ Below, keywords<...> doesn't include <>; at least one element must exist.
 */
 
 
+// ------------------------
+// Bootstrap keywords<...>
+// ------------------------
+
 // 1. Meta/Child | Meta/Child
 // ==> keywords<Meta/Child, Meta/Child>
 template<
@@ -235,8 +239,8 @@ template<
    class=typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
 >
 auto operator|(
-   const LHS &lhs,
-   const RHS &rhs
+   const LHS &lhs, // via SFINAE: Meta or Child
+   const RHS &rhs  // via SFINAE: Meta or Child
 ) {
    log::debug("or: Meta/Child | Meta/Child");
    return keywords<LHS,RHS>(keywords<LHS>(lhs),rhs);
@@ -251,13 +255,17 @@ template<
 >
 auto operator|(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &lhs,
-   const RHS &rhs
+   const RHS &rhs // via SFINAE: string (or char * etc.) or regex
 ) {
    log::debug("or: Child | string/regex");
    using LHS = Child<TYPE,ALLOW,CONVERTER,FILTER>;
    return keywords<LHS,right>(keywords<LHS>(lhs),right(rhs));
 }
 
+
+// ------------------------
+// Append to keywords<...>
+// ------------------------
 
 // 3. keywords<...> | Meta/Child
 // ==> keywords<..., Meta/Child>
@@ -267,7 +275,7 @@ template<
 >
 auto operator|(
    const keywords<LHS...> &lhs,
-   const RHS &rhs
+   const RHS &rhs // via SFINAE: Meta or Child
 ) {
    log::debug("or: keywords<...> | Meta/Child");
    return keywords<LHS...,RHS>(lhs,rhs);
@@ -285,7 +293,7 @@ template<
 >
 auto operator|(
    const keywords<LHS...> &lhs,
-   const RHS &rhs
+   const RHS &rhs // via SFINAE: string (or char * etc.) or regex
 ) {
    log::debug("or: keywords<...,Child> | string/regex");
    return keywords<LHS...,right>(lhs,right(rhs));

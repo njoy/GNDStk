@@ -15,16 +15,6 @@ Node(const Node &from)
    *this = from;
 }
 
-// templated "copy"
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM
->
-Node(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
-{
-   *this = from;
-}
-
 
 
 // -----------------------------------------------------------------------------

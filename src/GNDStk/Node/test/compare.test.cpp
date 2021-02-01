@@ -4,10 +4,10 @@
 using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing GNDStk Node operator==() and operator!=") {
-   Tree<> oh("n-008_O_016.xml");
-   Tree<> o2 = oh;
-   Tree<> tm("n-069_Tm_170-covar.xml");
-   Tree<> t2 = tm;
+   Tree oh("n-008_O_016.xml");
+   Tree o2 = oh;
+   Tree tm("n-069_Tm_170-covar.xml");
+   Tree t2 = tm;
 
    GIVEN("Two different GNDS trees") {
       WHEN("We try all four comparisons") {

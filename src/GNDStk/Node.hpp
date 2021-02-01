@@ -1,14 +1,11 @@
 
 #include "GNDStk/Node/src/detail.hpp"
+std::ostream &operator<<(std::ostream &os, const Node &obj);
 
 // -----------------------------------------------------------------------------
 // Node
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER, // container type for metadata
-   template<class...> class CHILDREN_CONTAINER  // container type for children
->
 class Node {
    using metaPair = std::pair<std::string,std::string>;
    using childPtr = std::unique_ptr<Node>;
@@ -22,10 +19,10 @@ public:
    // Simple node for our tree structure:
    //    name
    //    metadata (container of string pairs)
-   //    children (container of pointers to other Node<>s)
+   //    children (container of pointers to other Nodes)
    std::string name;
-   METADATA_CONTAINER<metaPair> metadata;
-   CHILDREN_CONTAINER<childPtr> children;
+   std::vector<metaPair> metadata;
+   std::vector<childPtr> children;
 
    // ------------------------
    // Simple functions
@@ -61,10 +58,6 @@ public:
    #include "GNDStk/Node/src/compare.hpp"
    #include "GNDStk/Node/src/shuffle.hpp"
    #include "GNDStk/Node/src/count.hpp"
-
-   // miscellaneous specialty functions:
-   // documentation, cdata, ...
-   #include "GNDStk/Node/src/special.hpp"
 
    // access
    // These form bases for the operator()s
@@ -121,6 +114,13 @@ public:
    Node &operator()() { return *this; }
 
    // ------------------------
+   // miscellaneous specialty functions:
+   // documentation, cdata, ...
+   // ------------------------
+
+   #include "GNDStk/Node/src/special.hpp"
+
+   // ------------------------
    // operator[]
    // ------------------------
 
@@ -134,14 +134,8 @@ public:
 // operator<<
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-inline std::ostream &operator<<(
-   std::ostream &os,
-   const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
-) {
+inline std::ostream &operator<<(std::ostream &os, const Node &obj)
+{
    try {
       return obj.write(os);
    } catch (...) {

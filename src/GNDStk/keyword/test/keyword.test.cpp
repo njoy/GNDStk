@@ -152,7 +152,7 @@ SCENARIO("Testing GNDStk keyword") {
    using namespace misc;
 
    // tree
-   const njoy::GNDStk::Tree<> tree("n-069_Tm_170-covar.xml");
+   const njoy::GNDStk::Tree tree("n-069_Tm_170-covar.xml");
 
    // ------------------------
    // exercise some built-ins
