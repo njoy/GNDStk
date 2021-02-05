@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # GNDStk documentation build configuration file, created by
-# sphinx-quickstart on Mon Feb  1 14:25:36 2021.
+# sphinx-quickstart on Wed Feb  3 00:01:43 2021.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -31,7 +31,7 @@ import os
 extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['.templates']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
@@ -67,7 +67,7 @@ release = '1.0'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['.build','color.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -85,9 +85,9 @@ exclude_patterns = ['_build']
 #show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-# pygments_style = 'sphinx'
-# pygments_style = 'default'
-pygments_style = 'sphinx'
+#pygments_style = 'sphinx'
+pygments_style = 'default'
+#pygments_style = 'monokai'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
@@ -129,10 +129,8 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
-html_css_files = [
-    'css/custom.css',
-]
+html_static_path = ['.static']
+html_css_files = ['css/color.css']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -261,3 +259,13 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+#rst_prolog = "\n.. include:: colorzzz.rst\n"
+
+rst_prolog = """
+.. include:: color.rst
+"""
+
+#rst_prolog = """
+# .. include:: <s5defs.txt>
+# """
