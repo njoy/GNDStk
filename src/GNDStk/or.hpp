@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 // fixme
 // Material here should be rearranged at some point, to be consistent with the
-// general NJOY source structure. For now, we're making it available quickly.
+// general NJOY21 source structure. For now, we're making it available quickly.
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------

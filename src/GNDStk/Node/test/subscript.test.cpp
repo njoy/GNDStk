@@ -217,7 +217,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          // CONST
          // ------------
          THEN("const works as expected") {
-            // v will be a detail::meta_ref<Node,CONST=true,version_t>,
+            // v will be a detail::MetaRef<Node,CONST=true,version_t>,
             // where version_t is our custom type defined above
             auto v = c(reactionSuite,styles,--evaluated)
                [Meta<version_t>("version")];
@@ -477,7 +477,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          // ------------
 
          THEN("const works as expected") {
-            // t will be a detail::child_ref<Node,CONST=true,temp_t>,
+            // t will be a detail::ChildRef<Node,CONST=true,temp_t>,
             // where temp_t is our custom type defined above
             auto t = c(reactionSuite,styles,--evaluated)
                [Child<temp_t,Allow::one>("temperature")];

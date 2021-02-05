@@ -136,23 +136,23 @@ std::string &operator[](const Meta<void> &kwd)
 // const and non-const
 // ------------------------
 
-// Note: meta_ref<Node,true,...>, in contrast to meta_ref<Node,false,...>,
+// Note: MetaRef<Node,true,...>, in contrast to MetaRef<Node,false,...>,
 // dispenses with the assignment operators, for obvious reasons. You can
 // still use the result of the const operator[] as an rvalue, though, and
 // it has the same conversion operators that the non-const operator[] has.
 
-// Returns: meta_ref, knowing it references const
+// Returns: MetaRef, knowing it references const
 template<class TYPE, class CONVERTER>
 auto operator[](const Meta<TYPE,CONVERTER> &kwd) const
 {
-   return detail::meta_ref<Node,true, TYPE,CONVERTER>(kwd,*this);
+   return detail::MetaRef<Node,true, TYPE,CONVERTER>(kwd,*this);
 }
 
-// Returns: meta_ref, knowing it references non-const
+// Returns: MetaRef, knowing it references non-const
 template<class TYPE, class CONVERTER>
 auto operator[](const Meta<TYPE,CONVERTER> &kwd)
 {
-   return detail::meta_ref<Node,false,TYPE,CONVERTER>(kwd,*this);
+   return detail::MetaRef<Node,false,TYPE,CONVERTER>(kwd,*this);
 }
 
 
@@ -189,16 +189,16 @@ Node &operator[](const Child<void,Allow::one,void,FILTER> &kwd)
 // const and non-const
 // ------------------------
 
-// Returns: child_ref, knowing it references const
+// Returns: ChildRef, knowing it references const
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 auto operator[](const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) const
 {
-   return detail::child_ref<Node,true, TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
+   return detail::ChildRef<Node,true, TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
 }
 
-// Returns: child_ref, knowing it references non-const
+// Returns: ChildRef, knowing it references non-const
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 auto operator[](const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
-   return detail::child_ref<Node,false,TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
+   return detail::ChildRef<Node,false,TYPE,ALLOW,CONVERTER,FILTER>(kwd,*this);
 }
