@@ -8,6 +8,7 @@
    :numbered:
 
    class.rst
+   node.rst
    function.rst
    io.rst
    utility.rst

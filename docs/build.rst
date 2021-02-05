@@ -13,7 +13,7 @@ system. Adapt as our instructions as is necessary for your own platform.
 
 
 ========================================
-Downloading
+Download
 ========================================
 
 Enter the directory in which you'd like GNDStk to reside. This might be your
@@ -48,7 +48,7 @@ something else.
 
 
 ========================================
-CMake
+Build & Test
 ========================================
 
 Some people prefer, as you may, to create a ``build`` directory in which to
@@ -164,11 +164,11 @@ An important goal for us is that GNDStk be accessible, and as minimally
 intrusive as possible, to a wide variety of researchers.
 
 If you're using libraries other than GNDStk, they may impose their own build
-systems -- possibly ones you like, possibly ones you don't, but either way,
-ones you're stuck with for better or for worse. You may, on the other hand,
+systems -- possibly ones you like, possibly ones you don't, but ones you're
+stuck with either way, for better or for worse. You may, on the other hand,
 be using your preferred build system. Regardless of what build monstrosity
 you may or may not be dealing with, we want GNDStk to impose as little
-additional complexity -- and grief -- as possible.
+additional complexity -- and grief -- as is possible.
 
 In the above spirit, and if you're using a Linux or Linux-based machine, you
 may find that the contents of the following simple shell script can be adapted
@@ -192,25 +192,26 @@ You could try the above on, say, the simplest possible GNDStk-aware ``app.cpp``:
 If you can make this work, then you're welcome to adapt our script, or its
 contents, as may be necessary or helpful within your own build regime.
 
-**Some caveats**. Use of the sample script assumes that you downloaded GNDStk,
-and ran ``cmake ..`` (and in a ``build`` directory), as outlined earlier. You
-can easily adjust the script if, for whatever reason, you configured things in
-a different manner. Realize, however, that the ``cmake ..`` in some form, or
-steps that had the same effect, must have happened, in order for GNDStk's
-dependencies to have been downloaded into the ``_deps`` directory that makes
-several appearances throughout the script's compilation command.
+**Some caveats**. Use of the sample script assumes that you've downloaded
+GNDStk, and run ``cmake ..`` (and in a ``build`` directory), as outlined
+earlier. You can easily adjust the script if, for whatever reason, you
+configured things in a different manner. Realize, however, that
+the ``cmake ..`` in some form, or steps that created the same effect, must
+have happened in order for GNDStk's dependencies to have been downloaded
+into the ``_deps`` directory that makes several appearances throughout the
+sample shell script's compilation command.
 
 Be aware also that the script reflects dependencies, and their locations in
 directories, that are correct at the time of this writing. While we intend to
-update these instructions if and when relevant changes occur in GNDStk, it's
-possible that some detective work may prove to be necessary if dependencies
-change but we drop the documentation ball. If, for instance, we decide to
-explore someday one of those deep mysteries of the universe that regularly
+update these instructions if and when we make relevant changes to GNDStk, it's
+possible that some detective work may prove to be necessary if we drop the
+documentation ball after dependencies do change. If, for instance, we decide
+to explore someday one of those deep mysteries of the universe that regularly
 visits our world through computers, such as why ``pugixml.cpp`` ended up in
 ``src/src/`` rather than just in ``src/``, then it's possible, even as much
 as we try to behave, that we'll make a quick change to our own make system's
-actions without changing these instructions for a simple script quite so
-quickly.
+actions without updating these instructions for a simple script in an entirely
+timely manner.
 
 
 
@@ -225,15 +226,15 @@ far less complex than they'd otherwise be; and their disadvantages, generally
 distilling down to some variation of "builds can take longer," are
 straightforward to mitigate with careful design. We designed GNDStk carefully.
 
-Our library does, however, have one dependency, ``pugixml``
+Our library does, however, have one *dependency*, ``pugixml``
 (https://pugixml.org/), that has a single C++ source (not header) file. That's
 why our sample shell script, if you read that section, needed to compile one
-``.cpp`` file (other than your own) directly.
+``.cpp`` file, other than your own, directly.
 
-We mention this not so as to conclude this chapter with any particular profound
-point, but merely for informational purposes. If you're unfamiliar with the
-header-only concept, or with how to write such libraries in C++, then you might
-find it helpful -- or more importantly, fun -- to learn more. With respect to
-GNDStk, knowing that it's formulated in this manner may allow you, in one way
-or another, to make the best use of GNDStk in your own build system, and in
-your own application.
+We mention our library's header-only nature not so as to conclude this chapter
+with any particular profound point, but largely for informational purposes. If
+you're unfamiliar with the header-only concept, or with how to write or to use
+such libraries in C++, then you might find it helpful -- or more importantly,
+fun -- to learn more. With respect to GNDStk, knowing that it's formulated in
+this fashion may allow you, in one way or another, to make the best use of
+GNDStk in your own build system, and in your own application.

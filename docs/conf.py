@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'GNDStk'
-copyright = u'2021, Martin Staley'
+copyright = u'2021, Triad National Security'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
