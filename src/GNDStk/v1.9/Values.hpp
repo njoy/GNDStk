@@ -30,7 +30,8 @@ namespace v1_9 {
     static inline
     const auto query = std::optional< std::string >{} / GNDStk::basic::valueType |
                        std::optional< unsigned >{} / GNDStk::basic::start |
-                       std::optional< unsigned >{} / GNDStk::basic::length;
+                       std::optional< unsigned >{} / GNDStk::basic::length |
+                       std::vector< T >{} / GNDStk::basic::numeric< T >;
 
     /* data fields */
     std::vector< T > values_;            // required
@@ -63,7 +64,7 @@ namespace v1_9 {
       else {
 
         // sync the component
-        detail::convert_pcdata_text_t{}( this->node(), this->values_ );
+        this->values_ = std::move( std::get< 3 >( tuple ) );
         if ( std::get< 0 >( tuple ) ) {
 
           this->value_type_ = std::get< 0 >( tuple ).value();
@@ -139,10 +140,11 @@ namespace v1_9 {
       out << this->values().back();
 
       this->node().name = "values";
-      detail::set_pcdata_text( this->node() ) = out.str();
+      
       this->node().add( "valueType", this->valueType() );
       this->node().add( "start", this->start() );
       this->node().add( "length", this->length() );
+      this->node().add( GNDStk::basic::numeric< T >{}, out.str() );
     }
 
     /* methods */
