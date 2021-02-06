@@ -107,7 +107,7 @@ auto operator()(
    //    std::make_tuple(operator()(std::get<0>(tup),head_found)),
    // because doing so would decay references to non-references. That would
    // mean, ultimately, that Meta<void> and Child<void> instances inside
-   // our keywords<...> objects, which are returned by our | (or) operators,
+   // our KeywordTup<...> objects, which are returned by our | (or) operators,
    // would no longer produce [possibly const] *references* to std::string
    // and Node, respectively, but would surreptitiously lose the references.
    // We don't want to lose the references, though, because our multi-query
@@ -149,19 +149,19 @@ auto operator()(
 
 
 // -----------------------------------------------------------------------------
-// ()(keywords<...>)
+// ()(KeywordTup<...>)
 // -----------------------------------------------------------------------------
 
 public:
 
 template<class... Ks>
 auto operator()(
-   const keywords<Ks...> &kwds,
+   const KeywordTup<Ks...> &kwds,
    bool &found = detail::default_bool // means "found all" in this context
 ) GNDSTK_CONST {
 
    log::debug(
-     "Node(keywords<...>), keywords size == {}",
+     "Node(KeywordTup<...>), KeywordTup size == {}",
       sizeof...(Ks)
    );
 
@@ -201,7 +201,7 @@ auto operator()(
          },
          kwds.tup
       );
-      log::member("Node(keywords({})", names);
+      log::member("Node(KeywordTup({})", names);
       throw;
    }
 }

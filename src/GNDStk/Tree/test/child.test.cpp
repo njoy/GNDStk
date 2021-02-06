@@ -84,7 +84,7 @@ template<class NODE>
 inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 {
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
-   // and format keywords - which return, respectively, string, string,
+   // and format Meta objects - which return, respectively, string, string,
    // string, and double. I.e. just what we need in our own custom type.
    out.projectile = node.meta(meta::projectile);
    out.target     = node.meta(meta::target);

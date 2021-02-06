@@ -264,11 +264,11 @@ SCENARIO("Testing GNDStk Node operator()") {
    // tree
    Tree tree("n-008_O_016.xml");
 
-   // keywords with Allow::one
+   // Child objects with Allow::one
    auto temperature = keyword.child<temperature_t,Allow::one>("temperature");
    auto styles = keyword.child<void,Allow::one>("styles");
 
-   // keywords with Allow::many
+   // Child objects with Allow::many
    auto isotope = keyword.child<isotope_t,Allow::many>("isotope");
    auto isotope_node = keyword.child<void,Allow::many>("isotope");
 

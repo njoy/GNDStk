@@ -73,7 +73,7 @@ inline void convert(const Node &n, isotope_t &iso)
    iso.nuclides = &n(misc::child::nuclides);
 }
 
-// keywords with Allow::one
+// Child objects with Allow::one
 auto temperature =
    keyword.child<temperature_t,Allow::one>("temperature");
 auto styles =
@@ -81,7 +81,7 @@ auto styles =
 auto documentations =
    keyword.child<std::variant<foo_t,bar_t>,Allow::one>("documentations");
 
-// keywords with Allow::many
+// Child objects with Allow::many
 auto isotope =
    keyword.child<isotope_t,Allow::many>("isotope");
 auto isotope_node =

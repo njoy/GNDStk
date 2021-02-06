@@ -8,7 +8,7 @@ download, to install, and to use. GNDStk resides on Github, and uses CMake as
 its primary build system.
 
 The following description is based on commands that work for us, on a Linux
-system. Adapt as our instructions as is necessary for your own platform.
+system. Adapt our instructions as necessary for your own platform.
 
 
 

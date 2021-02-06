@@ -131,16 +131,16 @@ Tree(std::istream &is, const std::string &filetype)
 //    Tree newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
 // Note that the first argument is NOT quoted (""). It isn't the name of the
-// top-level node that we want; rather, it's one of our "smart keywords."
-// These keywords encode lots of information in them, including the quoted
-// name that we'd otherwise have expected above, and, importantly, a boolean
-// value that indicates whether or not the name encoded within the keyword
-// is allowed (per the GNDS specification) as a top-level node. (If it isn't
-// so allowed, then we shouldn't be starting a new tree from it!) Note, also,
-// that by requiring the use of one of our keywords as the first argument to
-// each of the below constructors, we avoid the situation of the constructors
-// being ambiguous with other Tree constructors that take their (string) first
-// arguments to be *file* names (not top-level node names).
+// top-level node that we want; rather, it's one of our Child "query objects."
+// These encode lots of information in them, including the quoted name that
+// we'd otherwise have expected above, and, importantly, a boolean value that
+// indicates whether or not the name encoded within the object is allowed (per
+// the GNDS specification) as a top-level node. (If it isn't so allowed, then
+// we shouldn't be starting a new tree from it!) Note, also, that by requiring
+// the use of a Child object as the first argument to each of the below
+// constructors, we avoid the situation of the constructors being ambiguous
+// with other Tree constructors that take their (string) first arguments to
+// be *file* names (not top-level node names).
 
 // keyword, file format
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
