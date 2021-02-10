@@ -61,9 +61,7 @@ public:
 template<class T>
 class IsMetaOrChild {
 public:
-   static constexpr bool value =
-       IsMeta <T>::value
-    || IsChild<T>::value;
+   static constexpr bool value = IsMeta<T>::value || IsChild<T>::value;
 };
 
 
@@ -118,6 +116,79 @@ public:
    using type = std::regex;
 };
 
+
+// ------------------------
+// IsPairChildStringOrRegex
+// ------------------------
+
+// default
+template<class T>
+class IsPairChildStringOrRegex {
+public:
+   static constexpr bool value = false;
+};
+
+// pair
+template<class FIRST, class SECOND>
+class IsPairChildStringOrRegex<std::pair<FIRST,SECOND>> {
+public:
+   static constexpr bool value =
+      IsChild<FIRST>::value && IsStringOrRegex<SECOND>::value;
+};
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// Helper functionality for std::tuple
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// ------------------------
+// tupleAllButLast
+// ------------------------
+
+// These are adapted from: https://stackoverflow.com/questions/51810702
+
+template<class... Args, std::size_t... Is>
+constexpr auto tupleAllButLastHelper(
+   const std::tuple<Args...> &tup,
+   std::index_sequence<Is...>
+) {
+   return std::tuple(std::get<Is>(tup)...);
+}
+
+template<
+   class... Args,
+   class = typename std::enable_if<0 < sizeof...(Args)>::type
+>
+constexpr auto tupleAllButLast(const std::tuple<Args...> &tup)
+{
+   return tupleAllButLastHelper(
+      tup,
+      std::make_index_sequence<sizeof...(Args) - 1>{}
+   );
+}
+
+
+// ------------------------
+// tupleReplaceLast
+// ------------------------
+
+// Given a tuple with at least one element, make a new tuple that's mostly the
+// same, except for a different last element, which can be of a different type.
+
+template<
+   class... Args, class RHS,
+   class = typename std::enable_if<0 < sizeof...(Args)>::type
+>
+constexpr auto tupleReplaceLast(const std::tuple<Args...> &tup, const RHS &rhs)
+{
+   return std::tuple_cat(tupleAllButLast(tup), std::tuple<RHS>(rhs));
+}
+
 } // namespace detail
 
 
@@ -127,16 +198,17 @@ public:
 // -----------------------------------------------------------------------------
 
 // default
-// Note: sizeof...(Ks) >= 1, because we'll specialize the <> case
 template<class... Ks>
 class KeywordTup {
 public:
    std::tuple<Ks...> tup;
 
    using last_t =
-      // sans std::decay, const &ness can break is_something<> traits :-/
+      // Sans std::decay, const &ness can break detail::IsSomething<> traits.
+      // Note: sizeof...(Ks) >= 1 here, because we'll specialize the <> case
       typename std::decay<decltype(std::get<sizeof...(Ks)-1>(tup))>::type;
 
+   // KeywordTup(KeywordTup, RHS)
    template<
       class... LHS, class RHS,
       // ensure Ks... == LHS... RHS
@@ -146,14 +218,20 @@ public:
             std::tuple<LHS...,RHS>
          >::value
       >::type,
-      // ensure RHS \in {Meta, Child, string, regex}
+      // ensure RHS \in {Meta, Child, pair<Child,string|regex>, string, regex}
       class = typename std::enable_if<
           detail::IsMetaOrChild<RHS>::value
-       || detail::IsStringOrRegex<RHS>::value
+       || detail::IsStringOrRegex<RHS>::value /// qqq can eventually remove??
+       || detail::IsPairChildStringOrRegex<RHS>::value
       >::type
    >
    KeywordTup(const KeywordTup<LHS...> &lhs, const RHS &rhs) :
       tup(std::tuple_cat(lhs.tup, std::tuple<RHS>(rhs)))
+   { }
+
+   // KeywordTup(tuple)
+   KeywordTup(const std::tuple<Ks...> &tup) :
+      tup(tup)
    { }
 };
 
@@ -189,6 +267,37 @@ public:
 };
 
 
+// std::pair<Child,string>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+class KeywordTup<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>> {
+   using CPAIR = std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>;
+public:
+   using last_t = CPAIR;
+   std::tuple<CPAIR> tup;
+   explicit KeywordTup(const CPAIR &cpair) : tup(cpair) { }
+};
+
+
+// std::pair<Child,regex>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+class KeywordTup<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>> {
+   using CPAIR = std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>;
+public:
+   using last_t = CPAIR;
+   std::tuple<CPAIR> tup;
+   explicit KeywordTup(const CPAIR &cpair) : tup(cpair) { }
+};
+
+
+// function: toKeywordTup
+template<class... Args>
+constexpr auto toKeywordTup(
+   const std::tuple<Args...> &tup
+) {
+   return KeywordTup<Args...>(tup);
+}
+
+
 
 // -----------------------------------------------------------------------------
 // operator|
@@ -201,29 +310,29 @@ CASES
 
 Below, KeywordTup<...> doesn't include <>; at least one element must exist.
 
------------------------------------------+-------------------------------
+-----------------------------------------+------------------------------------
    CASE                                  |  RESULT
------------------------------------------+-------------------------------
+-----------------------------------------+------------------------------------
 1. Meta/Child | Meta/Child               |
    a. Meta  | Meta                       |  KeywordTup<Meta,Meta>
    b. Meta  | Child                      |  KeywordTup<Meta,Child>
    c. Child | Meta                       |  KeywordTup<Child,Meta>
    d. Child | Child                      |  KeywordTup<Child,Child>
------------------------------------------+-------------------------------
+-----------------------------------------+------------------------------------
 2. Child | string/regex                  |
-   a. Child | string                     |  KeywordTup<Child,string>
-   b. Child | char *                     |  KeywordTup<Child,string>
-   c. Child | regex                      |  KeywordTup<Child,regex>
------------------------------------------+-------------------------------
+   a. Child | string                     |  KeywordTup<pair<Child,string>>
+   b. Child | char *                     |  KeywordTup<pair<Child,string>>
+   c. Child | regex                      |  KeywordTup<pair<Child,regex>>
+-----------------------------------------+------------------------------------
 3. KeywordTup<...> | Meta/Child          |
    a. KeywordTup<...> | Meta             |  KeywordTup<...,Meta>
    b. KeywordTup<...> | Child            |  KeywordTup<...,Child>
------------------------------------------+-------------------------------
+-----------------------------------------+------------------------------------
 4. KeywordTup<...,Child> | string/regex  |
-   a. KeywordTup<...,Child> | string     |  KeywordTup<...,Child,string>
-   b. KeywordTup<...,Child> | char *     |  KeywordTup<...,Child,string>
-   c. KeywordTup<...,Child> | regex      |  KeywordTup<...,Child,regex>
------------------------------------------+-------------------------------
+   a. KeywordTup<...,Child> | string     |  KeywordTup<...,pair<Child,string>>
+   b. KeywordTup<...,Child> | char *     |  KeywordTup<...,pair<Child,string>>
+   c. KeywordTup<...,Child> | regex      |  KeywordTup<...,pair<Child,regex>>
+-----------------------------------------+------------------------------------
 */
 
 
@@ -235,32 +344,35 @@ Below, KeywordTup<...> doesn't include <>; at least one element must exist.
 // ==> KeywordTup<Meta/Child, Meta/Child>
 template<
    class LHS, class RHS,
-   class=typename std::enable_if<detail::IsMetaOrChild<LHS>::value>::type,
-   class=typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
+   class = typename std::enable_if<detail::IsMetaOrChild<LHS>::value>::type,
+   class = typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
 >
 auto operator|(
    const LHS &lhs, // via SFINAE: Meta or Child
    const RHS &rhs  // via SFINAE: Meta or Child
 ) {
-   log::debug("or: Meta/Child | Meta/Child");
+   log::debug("or #1: Meta/Child | Meta/Child");
    return KeywordTup<LHS,RHS>(KeywordTup<LHS>(lhs),rhs);
 }
 
 
 // 2. Child | string/regex
-// ==> KeywordTup<Child, string/regex>
+// ==> KeywordTup<pair<Child,string/regex>>
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class RHS,
-   class right = typename detail::IsStringOrRegex<RHS>::type
+   class StringOrRegex = typename detail::IsStringOrRegex<RHS>::type
 >
 auto operator|(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &lhs,
    const RHS &rhs // via SFINAE: string (or char * etc.) or regex
 ) {
-   log::debug("or: Child | string/regex");
+   log::debug("or #2: Child | string/regex");
    using LHS = Child<TYPE,ALLOW,CONVERTER,FILTER>;
-   return KeywordTup<LHS,right>(KeywordTup<LHS>(lhs),right(rhs));
+   return KeywordTup<std::pair<LHS,StringOrRegex>>(
+      std::pair<LHS,StringOrRegex>(lhs,StringOrRegex(rhs))
+   );
 }
+
 
 
 // ------------------------
@@ -271,30 +383,38 @@ auto operator|(
 // ==> KeywordTup<..., Meta/Child>
 template<
    class... LHS, class RHS,
-   class=typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
+   class = typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
 >
 auto operator|(
    const KeywordTup<LHS...> &lhs,
    const RHS &rhs // via SFINAE: Meta or Child
 ) {
-   log::debug("or: KeywordTup<...> | Meta/Child");
+   log::debug("or #3: KeywordTup<...> | Meta/Child");
    return KeywordTup<LHS...,RHS>(lhs,rhs);
 }
 
 
 // 4. KeywordTup<...,Child> | string/regex
-// ==> KeywordTup<..., Child, string/regex>
+// ==> KeywordTup<..., pair<Child,string/regex>>
 template<
    class... LHS, class RHS,
    class = typename std::enable_if<
       detail::IsChild<typename KeywordTup<LHS...>::last_t>::value
    >::type,
-   class right = typename detail::IsStringOrRegex<RHS>::type
+   class StringOrRegex = typename detail::IsStringOrRegex<RHS>::type
 >
 auto operator|(
    const KeywordTup<LHS...> &lhs,
    const RHS &rhs // via SFINAE: string (or char * etc.) or regex
 ) {
-   log::debug("or: KeywordTup<...,Child> | string/regex");
-   return KeywordTup<LHS...,right>(lhs,right(rhs));
+   log::debug("or #4: KeywordTup<...,Child> | string/regex");
+   return toKeywordTup(
+      detail::tupleReplaceLast(
+         lhs.tup,
+         std::make_pair(
+            std::get<sizeof...(LHS)-1>(lhs.tup),
+            StringOrRegex(rhs)
+         )
+      )
+   );
 }

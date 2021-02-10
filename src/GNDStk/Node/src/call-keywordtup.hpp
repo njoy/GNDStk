@@ -3,16 +3,13 @@
 // Multi-query
 // -----------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------
+// ------------------------
 // Private helpers
-// -----------------------------------------------------------------------------
+// ------------------------
 
 private:
 
-// ------------------------
-// ()(tuple<>)
-// ------------------------
-
+// (tuple<>)
 auto operator()(
    const std::tuple<> &tup,
    bool &found,
@@ -24,72 +21,7 @@ auto operator()(
 }
 
 
-// ------------------------
-// ()(tuple<Child,
-//    string/regex, ...>)
-// ------------------------
-
-template<
-   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class SECOND,
-   class... TAIL,
-   class = typename detail::IsStringOrRegex<SECOND>::type
->
-auto operator()(
-   const std::tuple<
-      Child<TYPE,ALLOW,CONVERTER,FILTER>,
-      SECOND,
-      TAIL...
-   > &tup,
-   bool &found,
-   std::vector<std::string> &missing
-) GNDSTK_CONST {
-
-   log::debug(
-     "Node(tuple<Child, string/regex, ...>), tuple size == {}",
-      2 + sizeof...(TAIL)
-   );
-
-   // Process tup's <0> and <1>
-   bool head_found = true;
-
-   const auto head =
-      std::tuple<decltype(
-         operator()(std::get<0>(tup), std::get<1>(tup)))
-      >(
-         operator()(std::get<0>(tup), std::get<1>(tup), head_found)
-      );
-
-   if (!head_found) {
-      missing.push_back(
-         "\nElement: "
-         + detail::keyname(std::get<0>(tup)) +  ", "
-         + detail::keyname(std::get<1>(tup))
-      );
-   }
-
-   // Process tup's <2...>
-   bool tail_found = true;
-
-   const auto tail = operator()( // <== already gives a tuple
-      std::apply(
-         [](auto, auto, auto... tail) { return std::make_tuple(tail...); },
-         tup
-      ),
-      tail_found,
-      missing
-   );
-
-   // Done
-   found = head_found && tail_found;
-   return std::tuple_cat(head,tail);
-}
-
-
-// ------------------------
-// ()(tuple<...>)
-// ------------------------
-
+// (tuple<...>)
 template<class... Ks>
 auto operator()(
    const std::tuple<Ks...> &tup,
@@ -118,21 +50,15 @@ auto operator()(
 
    const auto head = std::tuple<decltype(
       operator()(std::get<0>(tup)))
-   >(
-      operator()(std::get<0>(tup), head_found)
-   );
+   >( operator()(std::get<0>(tup), head_found) );
 
-   if (!head_found) {
-      missing.push_back(
-         "\nElement: "
-         + detail::keyname(std::get<0>(tup))
-      );
-   }
+   if (!head_found)
+      missing.push_back("\nElement: " + detail::keyname(std::get<0>(tup)));
 
    // Process tup's <1...>
    bool tail_found = true;
 
-   const auto tail = operator()( // <== already gives a tuple
+   const auto tail = operator()( // <== gives a tuple
       std::apply(
          [](auto, auto... tail) { return std::make_tuple(tail...); },
          tup
@@ -147,9 +73,9 @@ auto operator()(
 }
 
 
-
 // -----------------------------------------------------------------------------
-// ()(KeywordTup<...>)
+// Public
+// (KeywordTup<...>)
 // -----------------------------------------------------------------------------
 
 public:
@@ -175,8 +101,8 @@ auto operator()(
          return ret;
       throw std::exception{};
    } catch (...) {
-      // Construct and print error. The message is short and generic if an
-      // error other than !found occurred in the try{} - which we suppose
+      // Construct and print an error. The message is short and generic if
+      // an error other than !found occurred in the try{} - which we suppose
       // could happen - and very informative if, as is likely, we came here
       // because nothing was found and the caller didn't send the found flag.
       std::string errorMessage = "Error during multi-query.";
@@ -184,14 +110,14 @@ auto operator()(
          errorMessage +=
             " "
             + std::to_string(missing.size())
-            + " element" + (missing.size() == 1 ? "" : "s")
+            + " element" + (missing.size() == 1 ? " was" : "s were")
             + " not found:";
          for (auto &m : missing)
             errorMessage += m;
       }
       log::error(errorMessage);
 
-      // Construct and print context
+      // Construct and print the context
       std::string names;
       std::apply(
          [&names](const Ks &... key) {

@@ -138,6 +138,27 @@ inline std::string keyname(const std::regex &)
 }
 
 
+// ------------------------
+// For pair<Child,string/regex>
+// ------------------------
+
+// pair<Child,string>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(
+   const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string> &p
+) {
+   return "pair(" + keyname(p.first) + "," + keyname(p.second) + ")";
+}
+
+// pair<Child,regex>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(
+   const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex> &p
+) {
+   return "pair(" + keyname(p.first) + "," + keyname(p.second) + ")";
+}
+
+
 
 // -----------------------------------------------------------------------------
 // CallOpChildAssertion

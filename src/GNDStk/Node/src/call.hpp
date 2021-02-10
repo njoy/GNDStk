@@ -128,4 +128,5 @@ decltype(auto) operator()(
    }
 }
 
+
 #undef GNDSTK_CONST

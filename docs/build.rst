@@ -157,7 +157,13 @@ our repository, through building and running its full suite of tests:
 
 
 ========================================
-Bash Script
+Building Your Code
+========================================
+
+
+
+========================================
+Alternative: Bash Script
 ========================================
 
 An important goal for us is that GNDStk be accessible, and as minimally

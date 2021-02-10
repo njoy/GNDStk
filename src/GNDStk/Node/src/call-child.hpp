@@ -69,4 +69,27 @@ decltype(auto) operator()(
    }
 }
 
+
+// ------------------------
+// ()(pair<Child,string/regex>)
+// ------------------------
+
+template<
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
+   class SECOND,
+   class = typename detail::IsStringOrRegex<SECOND>::type
+>
+decltype(auto) operator()(
+   const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,SECOND> &pair,
+   bool &found = detail::default_bool
+) GNDSTK_CONST {
+   try {
+      return (*this)(pair.first, pair.second, found);
+   } catch (...) {
+      log::member("Node(" + detail::keyname(pair) + ")");
+      throw;
+   }
+}
+
+
 #undef GNDSTK_CONST

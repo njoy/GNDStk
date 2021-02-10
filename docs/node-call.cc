@@ -7,3 +7,5 @@ decltype(auto) operator()( const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, const 
 decltype(auto) operator()( const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, const char *const label, KEYWORDS &&...kwds );
 decltype(auto) operator()( const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, const regex labelRegex,  KEYWORDS &&...kwds ) const;
 decltype(auto) operator()( const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, const regex labelRegex,  KEYWORDS &&...kwds );
+decltype(auto) operator()( const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, const pair<Child,label>, KEYWORDS &&...kwds ) const;
+decltype(auto) operator()( const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd, const pair<Child,label>, KEYWORDS &&...kwds );
