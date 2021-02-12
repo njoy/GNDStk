@@ -7,11 +7,11 @@
 Sequence Queries
 ========================================
 
---------------------
+----------------------------
 Node.operator(...)
---------------------
+----------------------------
 
-.. literalinclude:: node-call.cc
+.. literalinclude:: files/code-tables/node-call.cc
    :language: cpp
    :linenos:
 
@@ -19,11 +19,11 @@ Node.operator(...)
 Multi-Queries
 ========================================
 
---------------------
+----------------------------
 Node.operator( | )
---------------------
+----------------------------
 
-.. literalinclude:: node-multi.cc
+.. literalinclude:: files/code-tables/node-multi.cc
    :language: cpp
    :linenos:
 

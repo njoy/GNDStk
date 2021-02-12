@@ -18,7 +18,6 @@ public:
 };
 
 
-
 // -----------------------------------------------------------------------------
 // default_converter
 // Used for selecting the CONVERTER template argument of the Meta and Child

@@ -16,7 +16,7 @@ COMPILE="
   -Wall -Wextra -Wpedantic"
 
 # pugixml.cpp is the only C++ source file, other than your own,
-# that needs to be compiled. We'll arrange to build it *once*:
+# that needs to be compiled. We'll arrange to build it *once*.
 if [ ! -f "pugixml.o" ]; then
 $COMPILE \
    $GNDSTKDIR/build/_deps/pugixml-adapter-src/src/src/pugixml.cpp \

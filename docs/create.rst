@@ -11,20 +11,20 @@ Direct
 Using "Query" Objects
 ========================================
 
---------------------
+----------------------------
 Metadata
---------------------
+----------------------------
 
 Need a legend for things like this....
 
-.. literalinclude:: node-add-meta.cc
+.. literalinclude:: files/code-tables/node-add-meta.cc
    :language: cpp
    :linenos:
 
---------------------
+----------------------------
 Children
---------------------
+----------------------------
 
-.. literalinclude:: node-add-child.cc
+.. literalinclude:: files/code-tables/node-add-child.cc
    :language: cpp
    :linenos:

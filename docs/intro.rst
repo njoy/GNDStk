@@ -116,5 +116,15 @@ has become an international standard as part of the OECD/NEA.
 Acknowledgements
 ========================================
 
-Special thanks to: Jeremy Conlin, Wim Haeck, Nathan Gibson, and Patrick Talou.
-fixme Come up with a more substantial paragraph here.
+The author wishes to thank several individuals for the support and ideas that
+they provided throughout this endeavor. An introduction to GNDS, to the broader
+NJOY21 project, and to the need for quality software for working with the GNDS
+format, was provided by Nuclear Data team leader Jeremy Conlin. Materials and
+Physical Data (XCP-5) group leader Patrick Talou tirelessly ensured financial
+support for the project, and positive encouragement for its personnel. Nathan
+Gibson constructed the build system currently in use not only for GNDStk but
+for many other elements of NJOY21. Finally, Wim Haeck was a source of copious
+and invaluable comments, ideas, and discussions, without which GNDStk wouldn't
+be what it is today.
+
+**Martin Staley, Los Alamos National Laboratory, February 2021**

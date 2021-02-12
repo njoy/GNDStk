@@ -157,8 +157,56 @@ our repository, through building and running its full suite of tests:
 
 
 ========================================
-Building Your Code
+Your Own Application
 ========================================
+
+Let's outline how you can interface your own application code with GNDStk,
+using CMake.
+
+First, you should have downloaded the GNDStk repository as described above.
+Building and running its test suite isn't a prerequisite for our present
+purposes, but certainly wouldn't hurt. Any problems you might encounter in
+that process would no doubt show themselves again, in some form, here.
+
+Now assume you have some directory, call it MyApp, for your application, with
+the following file structure:
+
+.. code:: text
+
+   MyApp/
+      CMakeLists.txt
+      dependencies/
+         GNDStk/
+      src/
+         app.cpp
+
+``GNDStk/`` is the cloned GNDStk repository. (If you downloaded it elsewhere
+and don't want a duplicate, then perhaps make it a symlink here , a.k.a. a
+shortcut, to the cloned repo.) Next, for our simple illustration here, let
+``app.cpp`` be a single C++ source file that contains all of your code to be
+used with GNDStk. The remaining structure is typical for applications that
+use CMake.
+
+A working ``CMakeLists.txt`` for the above is as follows:
+
+.. literalinclude:: files/build-cmake/MyApp/CMakeLists.txt
+
+And, the simplest possible GNDStk-aware ``app.cpp`` would be:
+
+.. literalinclude:: files/build-cmake/MyApp/src/app.cpp
+
+Finally, building ``app`` should be as simple as this:
+
+.. code:: console
+
+   cd MyApp  # <== If you're not there already
+   mkdir build
+   cd build
+   cmake ..
+   make
+
+If all went well, ``app.cpp`` should have been compiled into an executable
+file called ``app``.
 
 
 
@@ -166,67 +214,63 @@ Building Your Code
 Alternative: Bash Script
 ========================================
 
-An important goal for us is that GNDStk be accessible, and as minimally
-intrusive as possible, to a wide variety of researchers.
+An important goal for us is that GNDStk be accessible, with as minimally
+intrusive a build process as possible, to a wide variety of researchers.
 
 If you're using libraries other than GNDStk, they may impose their own build
 systems -- possibly ones you like, possibly ones you don't, but ones you're
-stuck with either way, for better or for worse. You may, on the other hand,
-be using your preferred build system. Regardless of what build monstrosity
-you may or may not be dealing with, we want GNDStk to impose as little
-additional complexity -- and grief -- as is possible.
+stuck with, regardless, for better or for worse. You may, on the other hand,
+be using your preferred and well-liked build system. Independent of what you
+may or may not be working with in that respect, we want GNDStk to impose as
+little additional complexity as it can.
 
 In the above spirit, and if you're using a Linux or Linux-based machine, you
 may find that the contents of the following simple shell script can be adapted
 easily to your needs:
 
-.. literalinclude:: bash-build-script.sh
+.. literalinclude:: files/build-bash/bash-build-script.sh
 
-Begin, as you can see, by specifying the directory into which you placed the
-base GNDStk directory. The script immediately uses this value to create a simple
-compilation command, in this case one that uses ``g++`` as its C++ compiler.
-Next, the script checks to see if a certain ``.cpp`` file, from one of GNDStk's
-dependencies, has been compiled. If it hasn't been, yet, then it is now.
-Finally, another compilation command builds your own application -- illustrated
-in this simple example as a single C++ source file called ``app.cpp``, to be
-compiled into an executable called ``app``.
+Begin, as you can see, by specifying the base GNDStk directory you cloned. The
+script immediately uses this value to create a simple compilation command, in
+this case one that uses ``g++`` as its C++ compiler. Next, the script checks
+to see if a certain ``.cpp`` file, from one of GNDStk's dependencies, has been
+compiled. If it hasn't been, yet, then it is now. Finally, another compilation
+command builds your own application -- illustrated in this simple example as
+a single C++ source file called ``app.cpp``. Consider trying this first with
+the minimal ``app.cpp`` that was shown in the section on CMake builds.
 
-You could try the above on, say, the simplest possible GNDStk-aware ``app.cpp``:
+You're welcome to adapt our script, or its contents, as may be necessary or
+helpful within your own build regime.
 
-.. literalinclude:: app.cpp
-
-If you can make this work, then you're welcome to adapt our script, or its
-contents, as may be necessary or helpful within your own build regime.
-
-**Some caveats**. Use of the sample script assumes that you've downloaded
+**Some caveats**. Use of the sample bash script assumes that you've downloaded
 GNDStk, and run ``cmake ..`` (and in a ``build`` directory), as outlined
 earlier. You can easily adjust the script if, for whatever reason, you
 configured things in a different manner. Realize, however, that
 the ``cmake ..`` in some form, or steps that created the same effect, must
 have happened in order for GNDStk's dependencies to have been downloaded
 into the ``_deps`` directory that makes several appearances throughout the
-sample shell script's compilation command.
+script's compilation command.
 
 Be aware also that the script reflects dependencies, and their locations in
 directories, that are correct at the time of this writing. While we intend to
 update these instructions if and when we make relevant changes to GNDStk, it's
 possible that some detective work may prove to be necessary if we drop the
-documentation ball after dependencies do change. If, for instance, we decide
-to explore someday one of those deep mysteries of the universe that regularly
-visits our world through computers, such as why ``pugixml.cpp`` ended up in
-``src/src/`` rather than just in ``src/``, then it's possible, even as much
-as we try to behave, that we'll make a quick change to our own make system's
-actions without updating these instructions for a simple script in an entirely
-timely manner.
+documentation ball after dependencies do, for whatever reason, change. If, for
+instance, we decide to explore someday one of those deep mysteries of the
+universe that regularly visits our world through computers, such as why
+``pugixml.cpp`` ended up in ``src/src/`` rather than just in ``src/``, then
+it's possible, even as much as we try to behave, that we'll make a quick change
+to our own make system's actions without updating these instructions for a
+simple script in an entirely timely manner.
 
 
 
 ========================================
-GNDStk is Header-Only
+Header-Only Library
 ========================================
 
-GNDStk, proper, is a C++ *header-only library*, for which you can find plenty
-of information online if you're unfamiliar with the concept. In our opinion,
+GNDStk, proper, is a C++ *header-only library*. You can find plenty of
+information online if you're unfamiliar with the concept. In our opinion,
 header-only libraries provide a multitude of advantages, such as making builds
 far less complex than they'd otherwise be; and their disadvantages, generally
 distilling down to some variation of "builds can take longer," are
