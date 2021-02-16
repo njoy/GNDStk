@@ -79,7 +79,12 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(dbl);
       n.add(dbl,1.23);
       n.add(dim);
+      // these need the = TYPE on class T in the metadata node.add() functions:
       n.add(dim,{321,987});
+      auto optdim = keyword.meta<std::optional<dimensions2d>>("OptDim");
+      auto defdim = defaulted<dimensions2d>({1,2})/keyword.meta<>("DefDim");
+      n.add(optdim,{321,987});
+      n.add(defdim,{321,987});
 
       // children, empty / name / other node
       n.add(); // no name child

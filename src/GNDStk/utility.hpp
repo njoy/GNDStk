@@ -572,6 +572,33 @@ public:
    static constexpr bool value = false;
 };
 
+
+// ------------------------
+// isIterable
+// ------------------------
+
+// fixme
+// At some point, we really need a reliable "is_container" traits class.
+// For now, I'll use this.
+
+template<class T, class = void>
+class isIterable {
+public:
+   static constexpr bool value = false;
+};
+
+template<class T>
+class isIterable<
+   T,
+   std::void_t<
+      decltype(std::declval<T>().begin()),
+      decltype(std::declval<T>().end())
+   >
+> {
+public:
+   static constexpr bool value = true;
+};
+
 } // namespace detail
 
 

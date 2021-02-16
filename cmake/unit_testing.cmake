@@ -11,6 +11,7 @@ enable_testing()
 #######################################################################
 
 add_subdirectory( src/GNDStk/test )
+add_subdirectory( src/GNDStk/defaulted/test )
 add_subdirectory( src/GNDStk/Tree/test )
 add_subdirectory( src/GNDStk/type2string/test )
 add_subdirectory( src/GNDStk/node2type/test )

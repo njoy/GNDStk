@@ -53,7 +53,9 @@ public:
    #include "GNDStk/Node/src/ctor.hpp"
    #include "GNDStk/Node/src/assign.hpp"
 
-   #include "GNDStk/Node/src/add.hpp"
+   #include "GNDStk/Node/src/add-meta.hpp"
+   #include "GNDStk/Node/src/add-child.hpp"
+
    #include "GNDStk/Node/src/write.hpp"
    #include "GNDStk/Node/src/sort.hpp"
    #include "GNDStk/Node/src/compare.hpp"

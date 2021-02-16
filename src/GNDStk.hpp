@@ -75,6 +75,9 @@ namespace GNDStk {
 #include "GNDStk/basic.hpp"
 #include "GNDStk/misc.hpp"
 
+// optional, with default
+#include "GNDStk/defaulted.hpp"
+
 // tree: primary constructs
 #include "GNDStk/Node.hpp"
 #include "GNDStk/Tree.hpp"

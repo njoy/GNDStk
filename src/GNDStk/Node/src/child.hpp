@@ -91,9 +91,32 @@ std::optional<TYPE> child(
    try {
       // Comments as in the meta() analog of this child() function
       bool f;
-      const TYPE obj = child((kwd.object ? *kwd.object : TYPE{})/kwd, f);
+      const TYPE obj = child((kwd.object ? kwd.object.value() : TYPE{})/kwd, f);
       found = true;
       return f ? std::optional<TYPE>(obj) : std::nullopt;
+   } catch (...) {
+      log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
+      throw;
+   }
+}
+
+
+// ------------------------
+// defaulted<TYPE>
+// ------------------------
+
+template<class TYPE, class CONVERTER, class FILTER>
+defaulted<TYPE> child(
+   const child_t<defaulted<TYPE>,allow::one,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      bool f;
+      const TYPE obj = child(kwd.object.value()/kwd, f);
+      found = true;
+      return f
+         ? defaulted<TYPE>(kwd.object.get_default(),obj)
+         : defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with allow::one)");
       throw;
@@ -209,7 +232,29 @@ CONTAINER<TYPE> child(
    try {
       // The behavior described above makes this easy as well.
       // That wasn't our intention, but we don't mind too much.
-      return found = true, child((kwd.object ? *kwd.object : TYPE{})/kwd);
+      return found = true, child((kwd.object ? kwd.object.value() : TYPE{})/kwd);
+   } catch (...) {
+      log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
+      throw;
+   }
+}
+
+
+// ------------------------
+// defaulted<TYPE>
+// ------------------------
+
+// Comments similar to those for the optional case above
+template<
+   template<class...> class CONTAINER = std::vector,
+   class TYPE, class CONVERTER, class FILTER
+>
+CONTAINER<TYPE> child(
+   const child_t<defaulted<TYPE>,allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      return found = true, child(kwd.object.value()/kwd);
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with allow::many)");
       throw;
