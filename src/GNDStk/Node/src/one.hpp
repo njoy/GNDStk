@@ -39,8 +39,8 @@ const Node &one(
    const Node *theone = nullptr;
    std::size_t nname = 0, nboth = 0;
    for (auto &c : children)
-      if (std::regex_match(c->name, std::regex(key)) &&
-          (nname++, filter(*c)) && nboth++ == 0)
+      if (std::regex_match(c->name, std::regex(key))
+          && (nname++, filter(*c)) && nboth++ == 0)
          theone = &(*c);
 
    // found
@@ -61,14 +61,14 @@ const Node &one(
    if (!detail::sent(found)) {
       if (nname == 0)
          log::error(
-            "Node.one(\"{}\"): no nodes matching the key were found", key);
+            "Node.one(\"{}\"): no Nodes matching the key were found", key);
       else if (nname == 1)
          log::error(
-            "Node.one(\"{}\"): a node matching the key was found,\n"
+            "Node.one(\"{}\"): a Node matching the key was found,\n"
             "but it didn't pass the filter condition", key);
       else
          log::error(
-            "Node.one(\"{}\"): {} nodes matching the key were found,\n"
+            "Node.one(\"{}\"): {} Nodes matching the key were found,\n"
             "but none of them passed the filter condition", key, nname);
       throw std::exception{};
    }

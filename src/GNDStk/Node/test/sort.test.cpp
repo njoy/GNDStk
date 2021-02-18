@@ -49,13 +49,13 @@ R"***(covarianceSuite:
 
 SCENARIO("Testing GNDStk Node sort()") {
    GIVEN("A top-level node from a tree object") {
-      Tree<> tree("n-069_Tm_170-covar.xml");
-      Node<> &top = tree.top(); // top-level GNDS node
+      Tree tree("n-069_Tm_170-covar.xml");
+      Node &top = tree.top(); // top-level GNDS node
 
-      WHEN("We call node.sort()") {
+      WHEN("We call Node.sort()") {
          std::ostringstream oss;
          top.sort().write(oss);
-         THEN("We get properly reordered node content") {
+         THEN("We get properly reordered Node content") {
             CHECK(oss.str() == correct_sorted_written_node);
          }
       }

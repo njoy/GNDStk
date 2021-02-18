@@ -17,7 +17,7 @@
 
 std::ostream &write(
    std::ostream &os,
-   const file form = file::null
+   const FileType form = FileType::null
 ) const {
 
    // Discussion.
@@ -36,7 +36,7 @@ std::ostream &write(
    // we care about, at least - we're doing *output*) whose first character
    // we can peek() in order to guess at the file type. We therefore have our
    // else { } catchall, below, write the tree in our basic tree-output form,
-   // whether file::null or file::tree arrived as the format. An argument
+   // whether FileType::null or FileType::tree arrived as the format. A case
    // could be made that write(ostream,format) should require that a format
    // be given, considering that we don't, here, have a file or filename to
    // examine. On the other hand, we like having format be optional, to make
@@ -45,13 +45,13 @@ std::ostream &write(
    // no opportunity to explicitly provide a format.
 
    try {
-      if (form == file::xml) {
+      if (form == FileType::xml) {
          // write via a temporary xml object...
          XML(*this).write(os);
-      } else if (form == file::json) {
+      } else if (form == FileType::json) {
          // write via a temporary json object...
          JSON(*this).write(os);
-      } else if (form == file::hdf5) {
+      } else if (form == FileType::hdf5) {
          // write via a temporary hdf5 object...
          log::error("Tree.write() for HDF5 is not implemented yet");
          throw std::exception{};
@@ -85,42 +85,42 @@ std::ostream &write(
 
 bool write(
    const std::string &filename,
-   file form = file::null
+   FileType form = FileType::null
 ) const {
 
    // ------------------------
-   // file::null
+   // FileType::null
    // Decide from file name
    // ------------------------
 
-   if (form == file::null) {
+   if (form == FileType::null) {
       if (endsin_xml (filename))
-         form = file::xml;
+         form = FileType::xml;
       else if (endsin_json(filename))
-         form = file::json;
+         form = FileType::json;
       else if (endsin_hdf5(filename))
-         form = file::hdf5;
+         form = FileType::hdf5;
       else
-         form = file::tree;
+         form = FileType::tree;
    }
 
    // ------------------------
-   // file::xml,json,hdf5
+   // FileType::xml,json,hdf5
    // Check: consistent name?
    // ------------------------
 
    // Note that the above code block may have changed "form",
    // via automagick file type detection. So...
 
-   if (form == file::xml && has_extension(filename)
+   if (form == FileType::xml && has_extension(filename)
        && !endsin_xml (filename)) {
       detail::warning_tree_io_name("write", "xml",  filename, "XML" );
    }
-   if (form == file::json && has_extension(filename)
+   if (form == FileType::json && has_extension(filename)
        && !endsin_json(filename)) {
       detail::warning_tree_io_name("write", "json", filename, "JSON");
    }
-   if (form == file::hdf5 && has_extension(filename)
+   if (form == FileType::hdf5 && has_extension(filename)
        && !endsin_hdf5(filename)) {
       detail::warning_tree_io_name("write", "hdf5", filename, "HDF5");
    }
@@ -156,11 +156,11 @@ std::ostream &write(
    const std::string &form
 ) const {
    try {
-      if (eq_null(form)) return write(os,file::null);
-      if (eq_tree(form)) return write(os,file::tree);
-      if (eq_xml (form)) return write(os,file::xml );
-      if (eq_json(form)) return write(os,file::json);
-      if (eq_hdf5(form)) return write(os,file::hdf5);
+      if (eq_null(form)) return write(os,FileType::null);
+      if (eq_tree(form)) return write(os,FileType::tree);
+      if (eq_xml (form)) return write(os,FileType::xml );
+      if (eq_json(form)) return write(os,FileType::json);
+      if (eq_hdf5(form)) return write(os,FileType::hdf5);
 
       // unrecognized file format
       log::warning(
@@ -170,7 +170,7 @@ std::ostream &write(
       );
 
       // fallback: automagick
-      return write(os,file::null);
+      return write(os,FileType::null);
    } catch (...) {
       log::member("Tree.write(ostream,\"{}\")", form);
       throw;
@@ -188,11 +188,11 @@ bool write(
    const std::string &form
 ) const {
    try {
-      if (eq_null(form)) return write(filename,file::null);
-      if (eq_tree(form)) return write(filename,file::tree);
-      if (eq_xml (form)) return write(filename,file::xml );
-      if (eq_json(form)) return write(filename,file::json);
-      if (eq_hdf5(form)) return write(filename,file::hdf5);
+      if (eq_null(form)) return write(filename,FileType::null);
+      if (eq_tree(form)) return write(filename,FileType::tree);
+      if (eq_xml (form)) return write(filename,FileType::xml );
+      if (eq_json(form)) return write(filename,FileType::json);
+      if (eq_hdf5(form)) return write(filename,FileType::hdf5);
 
       // unrecognized file format
       log::warning(
@@ -203,7 +203,7 @@ bool write(
       );
 
       // fallback: automagick
-      return write(filename,file::null);
+      return write(filename,FileType::null);
    } catch (...) {
       log::member("Tree.write(\"{}\",\"{}\")", filename, form);
       throw;

@@ -9,12 +9,9 @@ bool has_top() const
    // Does the tree have something that looks like a top-level GNDS node,
    // defined as something that *doesn't* look like a declaration node?
    int count = 0;
-   for (auto &c : this->children) {
-      if (c->name != "xml" &&
-          c->name != "json" &&
-          c->name != "hdf5")
+   for (auto &c : this->children)
+      if (c->name != "xml" && c->name != "json" && c->name != "hdf5")
          count++;
-   }
 
    // Ill-formed if there's more than one such node
    if (count > 1) {

@@ -5,10 +5,10 @@
 using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node meta()") {
-   GIVEN("The top-level node from a tree object") {
-      Tree<> tree("n-069_Tm_170-covar.xml");
-      const Node<> &consttop = tree.top(); // top-level GNDS node
-      Node<> &top = tree.top(); // top-level GNDS node
+   GIVEN("The top-level Node from a tree object") {
+      Tree tree("n-069_Tm_170-covar.xml");
+      const Node &consttop = tree.top(); // top-level GNDS node
+      Node &top = tree.top(); // top-level GNDS node
 
       THEN("We can use meta() to extract metadata") {
          CHECK(consttop.has_meta("projectile"));
@@ -21,7 +21,7 @@ SCENARIO("Testing GNDStk Node meta()") {
 
       top.meta("format") = "1.99";
 
-      WHEN("node.meta(\"key\") is called on a non-const node") {
+      WHEN("Node.meta(\"key\") is called on a non-const Node") {
          // get reference back; can set
          THEN("It returns a reference that can be assigned") {
             CHECK(consttop.has_meta("format"));
@@ -33,7 +33,7 @@ SCENARIO("Testing GNDStk Node meta()") {
          double f = top.meta(format);
          CHECK(f == 1.99);
 
-         WHEN("node.meta(\"key\",found) is called for a key that isn't there") {
+         WHEN("Node.meta(\"key\",found) is called for a key that isn't there") {
             // try something that doesn't work
             auto foobar = keyword.meta<double>("foobar");
             CHECK(!top.has_meta(foobar)); // doesn't have
@@ -45,8 +45,8 @@ SCENARIO("Testing GNDStk Node meta()") {
          }
       }
 
-      WHEN("node.meta(meta_t) is called") {
-         // string and void meta_t ==> string
+      WHEN("Node.meta(Meta) is called") {
+         // string and void Meta ==> string
          auto sstring = keyword.meta<std::string>("evaluation");
          auto vstring = keyword.meta<void       >("evaluation");
          std::string sstr = top.meta(sstring);

@@ -39,11 +39,7 @@ explicit XML(const JSON &j)
 
 
 // Tree
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-explicit XML(const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &t)
+explicit XML(const Tree &t)
 {
    try {
       if (!convert(t,*this))

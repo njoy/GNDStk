@@ -2,8 +2,7 @@
 namespace meta {
 
 // -----------------------------------------------------------------------------
-// Keywords
-// Of type meta_t
+// Meta Objects
 // -----------------------------------------------------------------------------
 
 // bool
@@ -96,7 +95,7 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 
 
 // -----------------------------------------------------------------------------
-// Keywords
+// Meta Objects
 // Special cases
 // -----------------------------------------------------------------------------
 
@@ -107,36 +106,36 @@ GNDSTK_MAKE_META(std::string, decayRate); // always has double and "1/s"?
 // ------------------------
 
 // constant
-inline const meta_t<std::variant<int,double>>
+inline const Meta<std::variant<int,double>>
 constant("constant");
 
 // degreesOfFreedom
 // I'd have expected an int for this, always, but some of the GNDS files have
 // a non-integral double. Perhaps we could arrange to always read as a double.
-inline const meta_t<std::variant<int,double>>
+inline const Meta<std::variant<int,double>>
 degreesOfFreedom("degreesOfFreedom");
 
 // value
-inline const meta_t<std::variant<int,double,std::string>>
+inline const Meta<std::variant<int,double,std::string>>
 value("value");
 
 // [ids]value
 // Shorthands for specific cases.
 // Prefixes {i,d,s} mean {int,double,string}.
-inline const meta_t<int        > ivalue("value");
-inline const meta_t<double     > dvalue("value");
-inline const meta_t<std::string> svalue("value");
+inline const Meta<int        > ivalue("value");
+inline const Meta<double     > dvalue("value");
+inline const Meta<std::string> svalue("value");
 
 // channelSpin
 // This actually looks to me like it's always either an int, or some kind
 // of fraction, so figure out something clever in place of variant. Perhaps
 // a rational-number class?
-inline const meta_t<std::variant<int,std::string>>
+inline const Meta<std::variant<int,std::string>>
 channelSpin("channelSpin");
 
 // spin
 // Same remark as for channelSpin.
-inline const meta_t<std::variant<int,std::string>>
+inline const Meta<std::variant<int,std::string>>
 spin("spin");
 
 } // namespace meta

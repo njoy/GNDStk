@@ -4,13 +4,13 @@
 
 using namespace njoy::GNDStk;
 
-SCENARIO("Testing GNDStk tree one()") {
+SCENARIO("Testing GNDStk Tree one()") {
 
-   GIVEN("A tree read from n-069_Tm_170-covar.xml") {
-      // c: a const tree
-      const Tree<> c("n-069_Tm_170-covar.xml");
-      // t: a non-const tree
-      Tree<> t = c;
+   GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
+      // c: a const Tree
+      const Tree c("n-069_Tm_170-covar.xml");
+      // t: a non-const Tree
+      Tree t = c;
       // found flag
       bool found;
 
@@ -24,14 +24,14 @@ SCENARIO("Testing GNDStk tree one()") {
          // const
          found = false;
          auto &cnode = c.one("xml",found);
-         CHECK(found == true);
+         CHECK(found);
          CHECK(cnode.name == "xml");
          CHECK(cnode.meta("version") == "1.0");
 
          // non-const
          found = false;
          auto &tnode = t.one("xml",found);
-         CHECK(found == true);
+         CHECK(found);
          CHECK(tnode.name == "xml");
          CHECK(tnode.meta("encoding") == "UTF-8");
       }
@@ -42,30 +42,30 @@ SCENARIO("Testing GNDStk tree one()") {
          // const
          found = false;
          auto &cnode = c.one("covarianceSuite",found);
-         CHECK(found == true);
+         CHECK(found);
          CHECK(cnode.name == "covarianceSuite");
          CHECK(cnode.meta("target") == "Tm170");
 
          // non-const
          found = false;
          auto &tnode = t.one("covarianceSuite",found);
-         CHECK(found == true);
+         CHECK(found);
          CHECK(tnode.name == "covarianceSuite");
          CHECK(tnode.meta("evaluation") == "ENDF/B-8.0");
       }
 
-      WHEN("We look for a nonexistent tree node") {
+      WHEN("We look for a nonexistent Tree node") {
          // Non-existent child of the Tree...
 
          // const
          found = true;
          auto &cnode = c.one("foo",found);
-         CHECK(found == false);
+         CHECK(!found);
 
          // non-const
          found = true;
          auto &tnode = t.one("bar",found);
-         CHECK(found == false);
+         CHECK(!found);
       }
 
       // Illustrate that Tree's one(string) functions return references,
@@ -73,11 +73,11 @@ SCENARIO("Testing GNDStk tree one()") {
       (void)&c.one("xml");
       (void)&c.one("covarianceSuite");
       (void)&c.one("foo",found);
-      CHECK(found == false);
+      CHECK(!found);
 
       (void)&t.one("xml");
       (void)&t.one("covarianceSuite");
       (void)&t.one("bar",found);
-      CHECK(found == false);
+      CHECK(!found);
    }
 }

@@ -46,12 +46,12 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
-// Node.meta(meta_t<void>)
+// Node.meta(Meta<void>)
 // -----------------------------------------------------------------------------
 
 // const
 const std::string &meta(
-   const meta_t<void> &kwd,
+   const Meta<void> &kwd,
    bool &found = detail::default_bool
 ) const {
    return meta(kwd.name,found);
@@ -59,7 +59,7 @@ const std::string &meta(
 
 // non-const
 std::string &meta(
-   const meta_t<void> &kwd,
+   const Meta<void> &kwd,
    bool &found = detail::default_bool
 ) {
    return meta(kwd.name,found);
@@ -68,7 +68,7 @@ std::string &meta(
 
 
 // -----------------------------------------------------------------------------
-// Node.meta(meta_t<non-void>)
+// Node.meta(Meta<non-void>)
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -77,11 +77,11 @@ std::string &meta(
 
 template<class TYPE, class CONVERTER>
 TYPE meta(
-   const meta_t<TYPE,CONVERTER> &kwd,
+   const Meta<TYPE,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      // call meta(string), with the meta_t's key
+      // call meta(string), with the Meta's key
       const std::string &value = meta(kwd.name,found);
       // convert value, if any, to an object of the appropriate type
       TYPE obj = kwd.object;
@@ -101,7 +101,7 @@ TYPE meta(
 
 template<class TYPE, class CONVERTER>
 std::optional<TYPE> meta(
-   const meta_t<std::optional<TYPE>,CONVERTER> &kwd,
+   const Meta<std::optional<TYPE>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -124,12 +124,12 @@ std::optional<TYPE> meta(
 
 
 // ------------------------
-// defaulted<TYPE>
+// Defaulted<TYPE>
 // ------------------------
 
 template<class TYPE, class CONVERTER>
-defaulted<TYPE> meta(
-   const meta_t<defaulted<TYPE>,CONVERTER> &kwd,
+Defaulted<TYPE> meta(
+   const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -138,8 +138,8 @@ defaulted<TYPE> meta(
       const TYPE obj = meta(kwd.object.value()/kwd, f);
       found = true; // always
       return f
-         ? defaulted<TYPE>(kwd.object.get_default(),obj)
-         : defaulted<TYPE>(kwd.object.get_default());
+         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
+         : Defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
@@ -154,7 +154,7 @@ defaulted<TYPE> meta(
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER>
 typename detail::oneof<TYPE,std::variant<Ts...>>::type meta(
-   const meta_t<std::variant<Ts...>,CONVERTER> &kwd,
+   const Meta<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    const auto ptr = std::get_if<TYPE>(&kwd.object);

@@ -15,16 +15,6 @@ Node(const Node &from)
    *this = from;
 }
 
-// templated "copy"
-template<
-   template<class...> class METADATA_CONTAINER_FROM,
-   template<class...> class CHILDREN_CONTAINER_FROM
->
-Node(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
-{
-   *this = from;
-}
-
 
 
 // -----------------------------------------------------------------------------
@@ -33,7 +23,7 @@ Node(const Node<METADATA_CONTAINER_FROM,CHILDREN_CONTAINER_FROM> &from)
 
 // ------------------------
 // Name: directly, or from
-// a child_t
+// a Child object
 // ------------------------
 
 // string
@@ -42,9 +32,9 @@ Node(const std::string &name) :
 {
 }
 
-// child_t<*>
-template<class TYPE, allow ALLOW, class CONVERTER, class FILTER>
-Node(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
+// Child<*>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+Node(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
    name(kwd.name)
 {
 }
@@ -52,13 +42,13 @@ Node(const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
 
 // ------------------------
 // Name and value, using
-// a child_t
+// a Child object
 // ------------------------
 
-// child_t<void,...>, Node
-template<allow ALLOW, class FILTER>
+// Child<void,...>, Node
+template<Allow ALLOW, class FILTER>
 Node(
-   const child_t<void,ALLOW,void,FILTER> &kwd,
+   const Child<void,ALLOW,void,FILTER> &kwd,
    const Node &value
 ) {
    try {
@@ -70,11 +60,11 @@ Node(
    }
 }
 
-// child_t<TYPE,...>, T
+// Child<TYPE,...>, T
 //
 // TYPE must be constructible from T.
 //
-// Then, the child_t's converter converts TYPE(value) to a Node. (If child_t
+// Then, the Child's converter converts TYPE(value) to a Node. (If the Child
 // has our default converter, this means that convert(TYPE,Node) is called.)
 //
 // Remark, to prevent confusion: two concepts of conversion apply here. TYPE
@@ -84,14 +74,14 @@ Node(
 // In that case, after all, it's reasonable for someone to have sent T value
 // here, and we handle it by constructing an object of type TYPE from it; and
 // then, once we have an object of type TYPE, we do the usual GNDStk action
-// when a child_t<TYPE> is involved: we convert (in the GNDStk sense) the TYPE
-// object to a node, using the child_t's converter.
+// when a Child<TYPE> is involved: we convert (in the GNDStk sense) the TYPE
+// object to a Node, using the Child's converter.
 template<
-   class TYPE, allow ALLOW, class CONVERTER, class FILTER, class T,
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
    class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
 >
 Node(
-   const child_t<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const T &value
 ) {
    try {

@@ -5,15 +5,15 @@ using namespace njoy::GNDStk;
 
 SCENARIO("Testing GNDStk Node empty()") {
 
-   GIVEN("A default-constructed node") {
-      Node<> n;
+   GIVEN("A default-constructed Node") {
+      Node n;
       THEN("It's empty") {
          CHECK(n.empty()); // it's empty
       }
    }
 
-   GIVEN("Another default-constructed node") {
-      Node<> n;
+   GIVEN("Another default-constructed Node") {
+      Node n;
       THEN("It's initially empty") {
          CHECK(n.empty());
       }
@@ -25,8 +25,8 @@ SCENARIO("Testing GNDStk Node empty()") {
       }
    }
 
-   GIVEN("An initially empty node") {
-      Node<> n;
+   GIVEN("An initially empty Node") {
+      Node n;
       CHECK(n.empty());
       WHEN("It's given a metadatum") {
          n.add("foo","bar");
@@ -35,10 +35,10 @@ SCENARIO("Testing GNDStk Node empty()") {
       }
    }
 
-   GIVEN("An initially empty node") {
-      Node<> n;
+   GIVEN("An initially empty Node") {
+      Node n;
       CHECK(n.empty());
-      WHEN("It's given an empty child node") {
+      WHEN("It's given an empty child Node") {
          n.add();
          CHECK(n.children.size() == 1);
          CHECK(!n.empty()); // it's not empty
@@ -46,10 +46,10 @@ SCENARIO("Testing GNDStk Node empty()") {
       }
    }
 
-   GIVEN("An initially empty node") {
-      Node<> n;
+   GIVEN("An initially empty Node") {
+      Node n;
       CHECK(n.empty());
-      WHEN("It's given a named child node") {
+      WHEN("It's given a named child Node") {
          n.add("child");
          CHECK(n.children.size() == 1);
          CHECK(!n.empty()); // it's not empty

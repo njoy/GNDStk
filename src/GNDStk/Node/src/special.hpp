@@ -12,7 +12,7 @@
 //    </documentations>
 //
 // in typical GNDS data. (XML is shown for illustration.) We cast a broad net,
-// so we can find this content whether we're in the outer tree/node (above the
+// so we can find this content whether we're in the outer Tree/Node (above the
 // top-level GNDS node), or inside the top-level node, or in fact inside *any*
 // node from which we can drill down as above, beginning with a documentations,
 // documentation, or CDATA node, or even directly to a text metadatum.
@@ -43,14 +43,14 @@ const std::string &documentation(bool &found = detail::default_bool) const
       // or rather in the GNDS tree equivalent (XML is for illustration).
       bool found = false;
       return
-         (s = &n(               text,found), found) ||
-         (s = &n(         cdata,text,found), found) ||
-         (s = &n(     doc,cdata,text,found), found) ||
-         (s = &n(docs,doc,cdata,text,found), found);
+            (s = &n(               text,found), found)
+         || (s = &n(         cdata,text,found), found)
+         || (s = &n(     doc,cdata,text,found), found)
+         || (s = &n(docs,doc,cdata,text,found), found);
    };
 
    // this?
-   // I.e., look in the present node
+   // I.e., look in the present Node
    const std::string *s;
    if (look(*this,s))
       return found = true, *s;
@@ -171,7 +171,7 @@ std::string &comment(
 // ------------------------
 // comments()
 // plural :-)
-// returns a std::vector,
+// Returns: std::vector,
 // or other container
 // ------------------------
 

@@ -5,12 +5,8 @@
 // Tree
 // -----------------------------------------------------------------------------
 
-template<
-   template<class...> class METADATA_CONTAINER, // container type for metadata
-   template<class...> class CHILDREN_CONTAINER  // container type for children
->
-class Tree : public Node<METADATA_CONTAINER,CHILDREN_CONTAINER> {
-   using nodeType = Node<METADATA_CONTAINER,CHILDREN_CONTAINER>;
+class Tree : public Node {
+   using nodeType = Node;
 public:
 
    // ------------------------
@@ -55,14 +51,8 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-inline std::istream &operator>>(
-   std::istream &is,
-   Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
-) {
+inline std::istream &operator>>(std::istream &is, Tree &obj)
+{
    try {
       return obj.read(is);
    } catch (...) {
@@ -72,14 +62,8 @@ inline std::istream &operator>>(
 }
 
 // operator<<
-template<
-   template<class...> class METADATA_CONTAINER,
-   template<class...> class CHILDREN_CONTAINER
->
-inline std::ostream &operator<<(
-   std::ostream &os,
-   const Tree<METADATA_CONTAINER,CHILDREN_CONTAINER> &obj
-) {
+inline std::ostream &operator<<(std::ostream &os, const Tree &obj)
+{
    try {
       return obj.write(os);
    } catch (...) {

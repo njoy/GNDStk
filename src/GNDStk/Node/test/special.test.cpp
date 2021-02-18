@@ -4,8 +4,8 @@
 using namespace njoy::GNDStk::core;
 
 SCENARIO("Testing certain special functions in GNDStk Node") {
-   Tree<> t("n-008_O_016.xml");
-   const Tree<> &c = t; // const version
+   Tree t("n-008_O_016.xml");
+   const Tree &c = t; // const version
 
    GIVEN("A GNDS tree") {
       // Get the documentation CDATA text string directly, for
@@ -75,10 +75,10 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
 
       WHEN("Testing cdata()") {
          {
-            node &n = t(reactionSuite,documentations,documentation);
+            Node &n = t(reactionSuite,documentations,documentation);
             CHECK(n.cdata() == thedocs);
          } {
-            const node &n = c(reactionSuite,documentations,documentation);
+            const Node &n = c(reactionSuite,documentations,documentation);
             CHECK(n.cdata() == thedocs);
          }
       }

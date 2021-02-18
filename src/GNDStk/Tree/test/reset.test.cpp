@@ -20,7 +20,7 @@ SCENARIO("Testing GNDStk tree reset()") {
 
       WHEN("We call "
            "Tree.reset(reactionSuite)") {
-         Tree<> t;
+         Tree t;
          t.reset(reactionSuite);
 
          THEN("Declaration- and top-level-node queries can be made") {
@@ -36,9 +36,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(reactionSuite, file::json)") {
-         Tree<> t;
-         t.reset(reactionSuite, file::json);
+           "Tree.reset(reactionSuite, FileType::json)") {
+         Tree t;
+         t.reset(reactionSuite, FileType::json);
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "json");
@@ -51,9 +51,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(covarianceSuite, file::null, \"2.0\")") {
-         Tree<> t;
-         t.reset(covarianceSuite, file::null, "2.0");
+           "Tree.reset(covarianceSuite, FileType::null, \"2.0\")") {
+         Tree t;
+         t.reset(covarianceSuite, FileType::null, "2.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "xml");
@@ -68,9 +68,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(covarianceSuite, file::xml, \"3.0\", \"UTF-9\")") {
-         Tree<> t;
-         t.reset(covarianceSuite, file::xml, "3.0", "UTF-9");
+           "Tree.reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
+         Tree t;
+         t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "xml");
@@ -86,7 +86,7 @@ SCENARIO("Testing GNDStk tree reset()") {
 
       WHEN("We call "
            "Tree.reset(PoPs, \"hdf5\")") {
-         Tree<> t;
+         Tree t;
          t.reset(PoPs, "hdf5");
 
          THEN("Declaration- and top-level-node queries can be made") {
@@ -102,7 +102,7 @@ SCENARIO("Testing GNDStk tree reset()") {
 
       WHEN("We call "
            "Tree.reset(PoPs, \"tree\", \"4.0\")") {
-         Tree<> t;
+         Tree t;
          t.reset(PoPs, "tree", "4.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
@@ -119,7 +119,7 @@ SCENARIO("Testing GNDStk tree reset()") {
 
       WHEN("We call "
            "Tree.reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
-         Tree<> t;
+         Tree t;
          t.reset(thermalScattering, "xml", "5.0", "UTF-10");
 
          THEN("Declaration- and top-level-node queries can be made") {

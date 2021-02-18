@@ -1,12 +1,14 @@
 
 // -----------------------------------------------------------------------------
-// Set of miscellaneous meta_t and child_t objects. These are miscellaneous
+// Set of miscellaneous Meta and Child objects. These are "miscellaneous"
 // in the sense that some use <void>, meaning they'll retrieve metadata and
 // child nodes in their original form in the GNDS tree, while others stipulate
-// specific types. We've split these out from other sets of meta_t and child_t
+// specific types. We've split these out from other sets of Meta and Child
 // objects because we may phase them out over time, to be replaced with ones
 // that use various custom types, as GNDStk continues to develop.
 // -----------------------------------------------------------------------------
+
+#include "GNDStk/misc/src/detail.hpp"
 
 namespace misc {
 
@@ -15,6 +17,6 @@ namespace misc {
 
 using namespace meta;
 using namespace child;
-using namespace common;
+// using namespace common;
 
 } // namespace misc

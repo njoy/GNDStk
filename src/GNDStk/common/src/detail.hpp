@@ -1,18 +1,6 @@
 
 namespace detail {
 
-// text_metadatum_to_string
-// Helper for cdata and comment
-class text_metadatum_to_string {
-public:
-   template<class NODE>
-   void operator()(const NODE &node, std::string &to) const
-   {
-      to = node.meta("text");
-   }
-};
-
-
 // -----------------------------------------------------------------------------
 // convert_pcdata_text_t
 // -----------------------------------------------------------------------------
@@ -20,16 +8,10 @@ public:
 class convert_pcdata_text_t {
 public:
 
-   // node to container
-   template<
-      template<class...> class METADATA_CONTAINER,
-      template<class...> class CHILDREN_CONTAINER,
-      class CONTAINER
-   >
-   void operator()(
-      const Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node,
-      CONTAINER &container
-   ) const {
+   // Node to container
+   template<class CONTAINER>
+   void operator()(const Node &node, CONTAINER &container) const
+   {
       try {
          // Context:
          // We're inside of a <pcdata> node that's inside of a <values> node
@@ -45,33 +27,27 @@ public:
                return;
             }
          log::error(
-           "Unable to find metadatum key \"text\" in the current node (\"{}\")",
+           "Unable to find metadatum key \"text\" in the current Node (\"{}\")",
             node.name
          );
          throw std::exception{};
       } catch (...) {
-         log::function("convert_pcdata_text_t(node,container)");
+         log::function("convert_pcdata_text_t(Node,container)");
          throw;
       }
    }
 
-   // container to node
-   template<
-      class CONTAINER,
-      template<class...> class METADATA_CONTAINER,
-      template<class...> class CHILDREN_CONTAINER
-   >
-   void operator()(
-      const CONTAINER &container,
-      Node<METADATA_CONTAINER,CHILDREN_CONTAINER> &node
-   ) const {
+   // container to Node
+   template<class CONTAINER>
+   void operator()(const CONTAINER &container, Node &node) const
+   {
       try {
          node.clear();
          node.name = "pcdata";
          std::string &destination = node.add("text","").second;
          convert(container, destination);
       } catch (...) {
-         log::function("convert_pcdata_text_t(container,node)");
+         log::function("convert_pcdata_text_t(container,Node)");
          throw;
       }
    }

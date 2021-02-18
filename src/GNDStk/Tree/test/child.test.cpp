@@ -13,7 +13,7 @@ using namespace misc;
 
 // ------------------------
 // Custom type, function,
-// and extraction keyword
+// and keyword
 // ------------------------
 
 // type: xml_t
@@ -24,7 +24,7 @@ public:
    std::string encoding;
 };
 
-// convert(): callback for GNDStk; converts a node to an xml_t.
+// convert(): callback for GNDStk; converts a Node to an xml_t.
 // Given that Node is templated, it's easiest to write functions
 // like this by using template<class NODE> as I do here...
 template<class NODE>
@@ -35,10 +35,10 @@ inline void convert(const NODE &node, xml_t &out)
 }
 
 // keyword: my_xml_keyword
-// Users can write custom child_t objects like this, and then use them in
+// Users can write custom Child objects like this, and then use them in
 // child() functions. Here, "xml" is what the keyword uses to look up nodes
-// that can be converted to xml_t objects via the convert() function above.
-inline const child_t<xml_t> my_xml_keyword("xml");
+// that can be converted to xml_t objects via the above convert().
+inline const Child<xml_t> my_xml_keyword("xml");
 
 
 
@@ -70,7 +70,7 @@ public:
    double format;
 };
 
-// From a node, build a covarianceSuite_type_1
+// From a Node, build a covarianceSuite_type_1
 template<class NODE>
 inline void convert(const NODE &, covarianceSuite_type_1 &out)
 {
@@ -79,13 +79,13 @@ inline void convert(const NODE &, covarianceSuite_type_1 &out)
    out.bar = 456;
 }
 
-// From a node, build a covarianceSuite_type_2
+// From a Node, build a covarianceSuite_type_2
 template<class NODE>
 inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 {
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
-   // and format keyword - which return, respectively, string, string, string,
-   // and double. I.e. just what we need in our own custom type.
+   // and format Meta objects - which return, respectively, string, string,
+   // string, and double. I.e. just what we need in our own custom type.
    out.projectile = node.meta(meta::projectile);
    out.target     = node.meta(meta::target);
    out.evaluation = node.meta(meta::evaluation);
@@ -94,7 +94,7 @@ inline void convert(const NODE &node, covarianceSuite_type_2 &out)
 
 // keyword: my_covarianceSuite_keyword
 // Can extract objects of either of the types defined just above!
-inline const child_t<
+inline const Child<
    std::variant<
       covarianceSuite_type_1,
       covarianceSuite_type_2
@@ -107,63 +107,63 @@ inline const child_t<
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk tree child()") {
+SCENARIO("Testing GNDStk Tree child()") {
 
-   GIVEN("A tree read from n-069_Tm_170-covar.xml") {
+   GIVEN("A Tree read from n-069_Tm_170-covar.xml") {
       // c: a const tree
-      const Tree<> c("n-069_Tm_170-covar.xml");
+      const Tree c("n-069_Tm_170-covar.xml");
       // t: a non-const tree
-      Tree<> t = c;
+      Tree t = c;
 
       // Note: Tree's child() function can give back either the declaration
       // node, or the top-level GNDS node; we consider both of those to be
-      // a Tree's children. If you dig further into the tree, you'll actually
+      // a Tree's children. If you dig further into the Tree, you'll actually
       // be using Node's child() function, not Tree's.
 
       bool found;
 
       // ------------------------
-      // child(child_t)
+      // child(Child)
       // Smart keyword lookup
       // ------------------------
 
       // child::xml is the smart keyword for retrieving the xml node.
       // Note that we'll work with both const and non-const trees.
 
-      WHEN("We call tree.child() to get the declaration node") {
+      WHEN("We call Tree.child() to get the declaration node") {
          // NOTE FOR THE FUTURE, IF AN ERROR EVER HAPPENS BELOW:
-         // Our built-in keyword child::xml is currently a child_t<void,...>.
-         // It may someday change to child_t<something other than void,...>,
-         // at which time the Node<> return PROBABLY WON'T WORK! void, in
+         // Our built-in keyword child::xml is currently a Child<void,...>.
+         // It may someday change to Child<something other than void,...>,
+         // at which time the Node return PROBABLY WON'T WORK! void, in
          // this context, means that the "smart keyword" really just returns
          // a raw Node, even though in principle it could give us back
          // a custom type.
          found = false;
-         const Node<> &cnode = c.child(child::xml,found);
-         CHECK(found == true);
+         const Node &cnode = c.child(child::xml,found);
+         CHECK(found);
          found = false;
-         Node<> &tnode = t.child(child::xml,found);
-         CHECK(found == true);
+         Node &tnode = t.child(child::xml,found);
+         CHECK(found);
       }
 
-      WHEN("We call tree.child() to get the covarianceSuite node") {
+      WHEN("We call Tree.child() to get the covarianceSuite node") {
          // IN CASE OF ERROR: Same note as immediately above.
          found = false; auto &cnode = c.child(covarianceSuite,found);
-         CHECK(found == true);
+         CHECK(found);
          found = false; auto &tnode = t.child(covarianceSuite,found);
-         CHECK(found == true);
+         CHECK(found);
       }
 
       // Let's try our own custom keyword, which was set up near the
       // beginning of this test file.
-      WHEN("We try tree.child(a custom keyword)") {
+      WHEN("We try Tree.child(a custom keyword)") {
          const xml_t x = c.child(my_xml_keyword);
          CHECK(x.version == 1.0);
          CHECK(x.encoding == "UTF-8");
       }
 
       // Another custom keyword, this one to test child() for std::variant.
-      WHEN("We try tree.child<type>(a custom keyword using variant)") {
+      WHEN("We try Tree.child<type>(a custom keyword using variant)") {
          // Here, the same keyword can extract objects of either of the two
          // types that we set it up to be able to extract...
          covarianceSuite_type_1 one =

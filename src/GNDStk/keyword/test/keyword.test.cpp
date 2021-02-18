@@ -152,13 +152,13 @@ SCENARIO("Testing GNDStk keyword") {
    using namespace misc;
 
    // tree
-   const njoy::GNDStk::tree tree("n-069_Tm_170-covar.xml");
+   const njoy::GNDStk::Tree tree("n-069_Tm_170-covar.xml");
 
    // ------------------------
    // exercise some built-ins
    // ------------------------
 
-   WHEN("We access a tree using some built-in child_t and meta_t objects") {
+   WHEN("We access a tree using some built-in Child and Meta objects") {
       CHECK(tree(xml).metadata.size() == 2);
       CHECK(tree(xml).children.size() == 0);
       CHECK(tree(xml,version) == "1.0");
@@ -189,11 +189,11 @@ SCENARIO("Testing GNDStk keyword") {
    // for children
    // The following is just like GNDStk::common::numeric<double>,
    // or equivalently, GNDStk::[basic or core]::numeric<double>.
-   auto mynumbers = keyword.child<values_t,allow::one>
+   auto mynumbers = keyword.child<values_t,Allow::one>
       ("pcdata",values_t{},detail::convert_pcdata_text_t{});
 
    // In the following, a name of "" means to stay at the current node
-   auto mymanifest = keyword.child<manifest_t,allow::one>("");
+   auto mymanifest = keyword.child<manifest_t,Allow::one>("");
 
    auto vers = tree(xml,myversion);
 
@@ -202,7 +202,7 @@ SCENARIO("Testing GNDStk keyword") {
    // use them
    // ------------------------
 
-   WHEN("We build our own child_t and meta_t objects, using keyword_t") {
+   WHEN("We build our own Child and Meta objects, using keyword_t") {
 
       THEN("Try extracting xml version") {
          // Extract <xml> version into *our* version type
@@ -362,21 +362,21 @@ SCENARIO("Testing GNDStk keyword") {
       { auto c = keyword.child<int                                              > ("c", 0, detail::convert_t{}                           ); }
       { auto c = keyword.child<int                                              > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
       { auto c = keyword.child<int                                              > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
-      { auto c = keyword.child<int,allow::one                                   > ("c"                                                   ); }
-      { auto c = keyword.child<int,allow::one                                   > ("c", 0                                                ); }
-      { auto c = keyword.child<int,allow::one                                   > ("c", 0, detail::convert_t{}                           ); }
-      { auto c = keyword.child<int,allow::one                                   > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
-      { auto c = keyword.child<int,allow::one                                   > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c"                                                   ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0                                                ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}                           ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c"                                                   ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0                                                ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}                           ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
-      { auto c = keyword.child<int,allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int,Allow::one                                   > ("c"                                                   ); }
+      { auto c = keyword.child<int,Allow::one                                   > ("c", 0                                                ); }
+      { auto c = keyword.child<int,Allow::one                                   > ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int,Allow::one                                   > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int,Allow::one                                   > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t                 > ("c"                                                   ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t                 > ("c", 0                                                ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t                 > ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t,detail::noFilter> ("c"                                                   ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t,detail::noFilter> ("c", 0                                                ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}                           ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}, detail::noFilter{}       ); }
+      { auto c = keyword.child<int,Allow::one,detail::convert_t,detail::noFilter> ("c", 0, detail::convert_t{}, detail::noFilter{}, false); }
    }
 
    // ------------------------
@@ -394,11 +394,11 @@ SCENARIO("Testing GNDStk keyword") {
       { auto c = keyword.child<void                            > ("c"                           ); }
       { auto c = keyword.child<void                            > ("c", detail::noFilter{}       ); }
       { auto c = keyword.child<void                            > ("c", detail::noFilter{}, false); }
-      { auto c = keyword.child<void,allow::one                 > ("c"                           ); }
-      { auto c = keyword.child<void,allow::one                 > ("c", detail::noFilter{}       ); }
-      { auto c = keyword.child<void,allow::one                 > ("c", detail::noFilter{}, false); }
-      { auto c = keyword.child<void,allow::one,detail::noFilter> ("c"                           ); }
-      { auto c = keyword.child<void,allow::one,detail::noFilter> ("c", detail::noFilter{}       ); }
-      { auto c = keyword.child<void,allow::one,detail::noFilter> ("c", detail::noFilter{}, false); }
+      { auto c = keyword.child<void,Allow::one                 > ("c"                           ); }
+      { auto c = keyword.child<void,Allow::one                 > ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child<void,Allow::one                 > ("c", detail::noFilter{}, false); }
+      { auto c = keyword.child<void,Allow::one,detail::noFilter> ("c"                           ); }
+      { auto c = keyword.child<void,Allow::one,detail::noFilter> ("c", detail::noFilter{}       ); }
+      { auto c = keyword.child<void,Allow::one,detail::noFilter> ("c", detail::noFilter{}, false); }
    }
 }

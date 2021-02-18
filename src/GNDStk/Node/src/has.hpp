@@ -45,7 +45,7 @@ not just the call operator. Here's what you should use for each:
    has(*)          (*), a.k.a. operator()(*)
    --------------------------------------------
 
-Avoid a mistake we've seen: n.has_many(parameters) does NOT check if node n
+Avoid a mistake we've seen: n.has_many(parameters) does NOT check if Node n
 contains each of the given parameters (say, interpreted as child nodes and/or
 metadata); and, likewise, n.has_one(parameter) does not check if n has the
 given parameter. Rather, each has_foo(something) function "tests" the call

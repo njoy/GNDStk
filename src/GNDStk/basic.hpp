@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Set of meta_t and child_t objects all of which use <void>, meaning they'll
+// Set of Meta and Child objects all of which use <void>, meaning they'll
 // retrieve metadata and child nodes in their original form in the GNDS tree.
 // -----------------------------------------------------------------------------
 
@@ -11,6 +11,6 @@ namespace basic {
 
 using namespace meta;
 using namespace child;
-using namespace common;
+// using namespace common;
 
 } // namespace basic

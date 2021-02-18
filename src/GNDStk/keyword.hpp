@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // This file defines constructs that are intended to help us, and users,
-// create meta_t and child_t objects.
+// create Meta and Child objects.
 // -----------------------------------------------------------------------------
 
 // keyword_t
@@ -13,5 +13,5 @@ public:
 
 // keyword
 // An object of the keyword_t type.
-// Useful for creating meta_t and child_t objects.
+// Useful for creating Meta and Child objects.
 inline const keyword_t keyword;

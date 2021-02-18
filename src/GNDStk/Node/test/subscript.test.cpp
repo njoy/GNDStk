@@ -15,7 +15,7 @@ using namespace njoy::GNDStk::core;
 
 // ------------------------
 // version_t
-// used with meta_t
+// used with Meta
 // ------------------------
 
 struct version_t {
@@ -59,7 +59,7 @@ inline std::ostream &operator<<(std::ostream &s, const version_t &obj)
 
 // ------------------------
 // temp_t
-// used with child_t
+// used with Child
 // ------------------------
 
 struct temp_t {
@@ -74,13 +74,13 @@ struct temp_t {
 namespace njoy {
 namespace GNDStk {
 
-inline void convert(const node &n, temp_t &t)
+inline void convert(const Node &n, temp_t &t)
 {
    t.value = n(double{}/basic::value);
    t.unit  = n(basic::unit);
 }
 
-inline void convert(const temp_t &t, node &n)
+inline void convert(const temp_t &t, Node &n)
 {
    assert(n.empty());
    n.name = "temperature";
@@ -94,7 +94,7 @@ inline void convert(const temp_t &t, node &n)
 
 // ------------------------
 // axis_t
-// used with child_t
+// used with Child
 // ------------------------
 
 struct axis_t {
@@ -120,9 +120,9 @@ struct axis_t {
 inline bool operator==(const axis_t &a, const axis_t &b)
 {
    return
-      a.index == b.index &&
-      a.label == b.label &&
-      a.unit  == b.unit;
+        a.index == b.index
+     && a.label == b.label
+     && a.unit  == b.unit;
 }
 
 // operator==
@@ -134,16 +134,16 @@ inline bool operator!=(const axis_t &a, const axis_t &b)
 namespace njoy {
 namespace GNDStk {
 
-// node ==> axis_t
-inline void convert(const node &n, axis_t &a)
+// Node ==> axis_t
+inline void convert(const Node &n, axis_t &a)
 {
    a.index = n(int{}/basic::index);
    a.label = n(      basic::label);
    a.unit  = n(      basic::unit );
 }
 
-// axis_t ==> node
-inline void convert(const axis_t &a, node &n)
+// axis_t ==> Node
+inline void convert(const axis_t &a, Node &n)
 {
    assert(n.empty());
    n.name = "axis";
@@ -163,22 +163,22 @@ inline void convert(const axis_t &a, node &n)
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk Node operator[]") {
-   Tree<> tree("n-008_O_016.xml");
+   Tree tree("n-008_O_016.xml");
 
-   // const and non-const node, for testing
-   const node &c = tree;
-   node &n = tree;
+   // const and non-const Node, for testing
+   const Node &c = tree;
+   Node &n = tree;
 
-   GIVEN("const and non-const nodes") {
+   GIVEN("const and non-const Nodes") {
 
       // ------------------------
-      // [meta_t<void>]
+      // [Meta<void>]
       // ------------------------
 
-      // For meta_t<void>, [] returns the same thing () does: a const
+      // For Meta<void>, [] returns the same thing () does: a const
       // or non-const reference to the actual metadata value.
 
-      WHEN("We call [meta_t<void>]") {
+      WHEN("We call [Meta<void>]") {
 
          // ------------
          // CONST
@@ -208,19 +208,19 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [meta_t<TYPE>]
+      // [Meta<TYPE>]
       // ------------------------
 
-      WHEN("We call [meta_t<TYPE>]") {
+      WHEN("We call [Meta<TYPE>]") {
 
          // ------------
          // CONST
          // ------------
          THEN("const works as expected") {
-            // v will be a detail::meta_ref<Node,CONST=true,version_t>,
+            // v will be a detail::MetaRef<Node,CONST=true,version_t>,
             // where version_t is our custom type defined above
             auto v = c(reactionSuite,styles,--evaluated)
-               [meta_t<version_t>("version")];
+               [Meta<version_t>("version")];
 
             // for const, assignment isn't available; neither of these compile:
             // v = version_t(8,0,3);
@@ -248,10 +248,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
             auto v = n(reactionSuite,styles,--evaluated)
-               [meta_t<version_t>("version")];
+               [Meta<version_t>("version")];
 
             // Assignment is available now, because the above came from our
-            // non-const node. The following illustrates the real point of
+            // non-const Node. The following illustrates the real point of
             // using the [] operator: to get an lvalue:
             v = version_t(8,0,3);
             v = "8.0.3";
@@ -265,26 +265,26 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(v_new.patch == 3);
             CHECK(str == "8.0.3");
 
-            // Let's exercise [] obtained from a non-const node, not so much
+            // Let's exercise [] obtained from a non-const Node, not so much
             // for the sake of more tests, but to illustrate []'s main purpose
-            // as something that's usable (when applied to non-const nodes
+            // as something that's usable (when applied to non-const Nodes
             // anyway) as an lvalue.
 
             auto &EvaluatedNode = n(reactionSuite,styles,--evaluated);
-            const meta_t<version_t> myversion("version");
+            const Meta<version_t> myversion("version");
 
             // Actually writes into the tree...
             EvaluatedNode[myversion] = "123.456.789";
-            CHECK(tree(reactionSuite,styles,--evaluated,basic::version) ==
-                  "123.456.789");
+            CHECK(tree(reactionSuite,styles,--evaluated,basic::version)
+                  == "123.456.789");
             // can still use as rvalue, and implicitly converts to string...
             std::string foo = EvaluatedNode[myversion];
             CHECK(foo == "123.456.789");
 
             // Also actually writes into the tree...
             EvaluatedNode[myversion] = version_t(12,34,56);
-            CHECK(tree(reactionSuite,styles,--evaluated,basic::version) ==
-                  "12.34.56");
+            CHECK(tree(reactionSuite,styles,--evaluated,basic::version)
+                  == "12.34.56");
             // can still use as rvalue, and implicitly converts to version_t...
             version_t bar = EvaluatedNode[myversion];
             CHECK(bar.major == 12);
@@ -295,13 +295,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<void,one>]
+      // [Child<void,one>]
       // ------------------------
 
-      // For child_t<void,one>, [] returns the same thing () does: a const
+      // For Child<void,one>, [] returns the same thing () does: a const
       // or non-const reference to the actual child node.
 
-      WHEN("We call [child_t<void,one>]") {
+      WHEN("We call [Child<void,one>]") {
 
          // ------------
          // CONST
@@ -329,15 +329,15 @@ SCENARIO("Testing GNDStk Node operator[]") {
             n[reactionSuite].name = "REACTIONSUITE";
             // which of course leads to this sort of thing...
             CHECK(n.one("REACTIONSUITE").name == "REACTIONSUITE");
-            n[child_t<>("REACTIONSUITE")].name = "reactionSuite";
-            // try assigning the whole node...
+            n[Child<>("REACTIONSUITE")].name = "reactionSuite";
+            // try assigning the whole Node...
             n[reactionSuite] = c[reactionSuite];
          }
       }
 
 
       // ------------------------
-      // [child_t<void,many>]
+      // [Child<void,many>]
       // ------------------------
 
       /*
@@ -359,14 +359,14 @@ SCENARIO("Testing GNDStk Node operator[]") {
                ...
       */
 
-      WHEN("We call [child_t<void,many>]") {
+      WHEN("We call [Child<void,many>]") {
 
          // ------------
          // CONST
          // ------------
 
          THEN("const works as expected") {
-            const node &axes = tree(
+            const Node &axes = tree(
                reactionSuite,
                reactions,
                reaction, "n + O16",
@@ -383,35 +383,35 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
             // auto gives a certain type of object that, under the hood,
             // encapsulates a vector of pointers to [const, in this case]
-            // nodes. The vector of pointers is (intentionally) unavailable
+            // Nodes. The vector of pointers is (intentionally) unavailable
             // outside of the class. The key here is that the axis object
             // will be equipped with some capabilities that users should
             // find to be convenient, such as its own operator[] (not to
             // be confused with the one applied to axes in order to get
             // axis in the first place) that returns references to the
-            // in-tree nodes. We'll see this shortly.
-            auto axis = axes[basic::axis]; // basic::axis: child_t<void,many>
+            // in-tree Nodes. We'll see this shortly.
+            auto axis = axes[basic::axis]; // basic::axis: Child<void,many>
 
             // size() is available
             CHECK(axis.size() == 3);
 
             // We can use [] on axis to get references to the (still in-tree)
-            // nodes; dereferencing from the pointers happens in the []:
+            // Nodes; dereferencing from the pointers happens in the []:
             (void)&axis[0];
             (void)&axis[1];
             (void)&axis[2];
 
             // So, using the above axis[n] constructs allows you to work
-            // directly with the in-tree nodes. Let's illustrate that we
+            // directly with the in-tree Nodes. Let's illustrate that we
             // indeed reference what we think we do:
             CHECK(&axes(basic::axis,"energy_in") == &axis[0]);
             CHECK(&axes(basic::axis,"mu") == &axis[1]);
             CHECK(&axes(basic::axis,"P(mu|energy_in)") == &axis[2]);
 
             // Finally, the axis object has a conversion to a straight vector
-            // of nodes - that is, the nodes are copies of the ones in the
+            // of Nodes - that is, the Nodes are copies of the ones in the
             // original tree.
-            std::vector<node> v = axis;
+            std::vector<Node> v = axis;
             CHECK(v.size() == 3);
             CHECK(v[0] == axis[0]);
             CHECK(v[1] == axis[1]);
@@ -425,7 +425,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
          // Much like the above const case, but we'll change things
          // up a bit, and we can assign as well (because non-const)
          THEN("non-const works as expected") {
-            node &axes = tree(
+            Node &axes = tree(
                reactionSuite, reactions, reaction, "n + O16",
                outputChannel, products, product, "n",
                distribution, angularTwoBody, "eval",
@@ -439,10 +439,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // It's non-const. Let's back up axis[1], change it, ensure
             // the change "took" in the original tree, then restore.
             auto backup = axis[1];
-            axis[1] = node{"foobar"};
+            axis[1] = Node{"foobar"};
             bool found = false;
-            axes.one("foobar",found); // parent axes now has a "foobar" node
-            CHECK(found == true);
+            axes.one("foobar",found); // parent axes now has a "foobar" Node
+            CHECK(found);
             // restore
             axis[1] = backup;
             // actually, for "mu" even to work here,
@@ -457,7 +457,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(&axes(basic::axis,"P(mu|energy_in)") == &axis[2]);
 
             // Finally, test conversion...
-            std::vector<node> v = axis;
+            std::vector<Node> v = axis;
             CHECK(v.size() == 3);
             CHECK(v[0] == axis[0]);
             CHECK(v[1] == axis[1]);
@@ -467,23 +467,23 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<TYPE,one>]
+      // [Child<TYPE,one>]
       // ------------------------
 
-      WHEN("We call [child_t<TYPE,one>]") {
+      WHEN("We call [Child<TYPE,one>]") {
 
          // ------------
          // CONST
          // ------------
 
          THEN("const works as expected") {
-            // t will be a detail::child_ref<Node,CONST=true,temp_t>,
+            // t will be a detail::ChildRef<Node,CONST=true,temp_t>,
             // where temp_t is our custom type defined above
             auto t = c(reactionSuite,styles,--evaluated)
-               [child_t<temp_t,allow::one>("temperature")];
+               [Child<temp_t,Allow::one>("temperature")];
 
             // for const, assignment isn't available; neither of these compile:
-            // t = node{};
+            // t = Node{};
             // t = temp_t(0.0, "K");
 
             // t's type, as created by [] and described above, is, like its
@@ -491,7 +491,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // for various uses. It is NOT just an rvalue temp_t, as
             // would have been created by () rather than [].
             const temp_t t_new = t; // t can become a temp_t
-            const node mynode         = t; // t can become a node
+            const Node mynode = t; // t can become a Node
 
             CHECK(t_new.value == 0.0);
             CHECK(t_new.unit  == "K");
@@ -509,15 +509,15 @@ SCENARIO("Testing GNDStk Node operator[]") {
          THEN("non-const works as expected") {
             // as for the const case, above, but assignment is now available
             auto t = n(reactionSuite,styles,--evaluated)
-               [child_t<temp_t,allow::one>("temperature")];
+               [Child<temp_t,Allow::one>("temperature")];
 
             // assignment is available now:
-            t = node{};
+            t = Node{};
             t = temp_t(0.0, "K");
 
             // conversion
             const temp_t t_new = t; // t can become a temp_t
-            const node mynode         = t; // t can become a node
+            const Node mynode = t; // t can become a Node
 
             CHECK(t_new.value == 0.0);
             CHECK(t_new.unit  == "K");
@@ -529,29 +529,29 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(mynode(basic::unit ) == "K");
             CHECK(mynode.children.size() == 0);
 
-            // Let's exercise [], obtained from a non-const node, to illustrate
+            // Let's exercise [], obtained from a non-const Node, to illustrate
             // how it produces an lvalue.
 
-            // parent node of <temperature>
+            // parent Node of <temperature>
             auto &parent = n(reactionSuite,styles,--evaluated);
             // back up <temperature>, so we can restore it
             const auto backup = parent(temperature);
 
-            // child_t for our temp_t
-            const child_t<temp_t> temp("temperature");
+            // Child for our temp_t
+            const Child<temp_t> temp("temperature");
 
             // [] gives lvalue, so this actually writes into the tree...
-            parent[temp] = node{"temperature"};
+            parent[temp] = Node{"temperature"};
             CHECK(tree(reactionSuite,styles,--evaluated,temperature)
-                  == node{"temperature"});
+                  == Node{"temperature"});
 
             // restore from backup
             parent[temp] = backup;
             CHECK(tree(reactionSuite,styles,--evaluated,temperature)
-                  != node{"temperature"}); // has other than just its name :-)
+                  != Node{"temperature"}); // has other than just its name :-)
 
-            // can still use as rvalue, and implicitly converts to node...
-            node foo = parent[temp];
+            // can still use as rvalue, and implicitly converts to Node...
+            Node foo = parent[temp];
             CHECK(foo.metadata.size() == 2);
             CHECK(foo.children.size() == 0);
 
@@ -571,17 +571,17 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
 
       // ------------------------
-      // [child_t<TYPE,many>]
+      // [Child<TYPE,many>]
       // ------------------------
 
-      WHEN("We call [child_t<TYPE,many>]") {
+      WHEN("We call [Child<TYPE,many>]") {
 
          // ------------
          // CONST
          // ------------
 
          THEN("const works as expected") {
-            const node &axes = tree(
+            const Node &axes = tree(
                reactionSuite,
                reactions,
                reaction, "n + O16",
@@ -600,14 +600,14 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // nodes in the tree (not copies), also knows about the type (in
             // this case axis_t{}) that was used for its creation, and provides
             // functionality that takes advantage of all that.
-            auto axis = axes[axis_t{}/basic::axis]; // [child_t<axis_t,many>]
+            auto axis = axes[axis_t{}/basic::axis]; // [Child<axis_t,many>]
 
             // size() is available
             CHECK(axis.size() == 3);
 
             // At this point, you can say axis[0], axis[1] etc. and get
             // objects of the same type as those illustrated earlier for
-            // the [child_t<TYPE,one>] cases.
+            // the [Child<TYPE,one>] cases.
 
             // axis converts to a std::vector<axis_t>. Also, although
             // it's not really the point of the current test, axis[0]
@@ -618,13 +618,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(vector_axis[1] == axis_t(axis[1]));
             CHECK(vector_axis[2] == axis_t(axis[2]));
 
-            // axis converts to a std::vector<node>. Also, axis[0] etc.
-            // can convert to node.
-            std::vector<node> vector_node = axis;
+            // axis converts to a std::vector<Node>. Also, axis[0] etc.
+            // can convert to Node.
+            std::vector<Node> vector_node = axis;
             CHECK(vector_node.size() == 3);
-            CHECK(vector_node[0] == node(axis[0]));
-            CHECK(vector_node[1] == node(axis[1]));
-            CHECK(vector_node[2] == node(axis[2]));
+            CHECK(vector_node[0] == Node(axis[0]));
+            CHECK(vector_node[1] == Node(axis[1]));
+            CHECK(vector_node[2] == Node(axis[2]));
          }
 
          // ------------
@@ -633,7 +633,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
 
          // Much like the above const case
          THEN("non-const works as expected") {
-            node &axes = tree(
+            Node &axes = tree(
                reactionSuite,
                reactions,
                reaction, "n + O16",
@@ -652,7 +652,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // nodes in the tree (not copies), also knows about the type (in
             // this case axis_t{}) that was used for its creation, and provides
             // functionality that takes advantage of all that.
-            auto axis = axes[axis_t{}/basic::axis]; // [child_t<axis_t,many>]
+            auto axis = axes[axis_t{}/basic::axis]; // [Child<axis_t,many>]
 
             // size() is available
             CHECK(axis.size() == 3);
@@ -661,10 +661,10 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // Setting axis[0] to be the same as axis[1] isn't something we'd
             // actually want to do, but it doesn't mess up any further tests...
             CHECK(axis_t(axis[0]) != axis_t(axis[1]));
-            CHECK(node(axis[0]) != node(axis[1]));
+            CHECK(Node(axis[0]) != Node(axis[1]));
             axis[0] = axis_t(axis[1]); // assign
             CHECK(axis_t(axis[0]) == axis_t(axis[1]));
-            CHECK(node(axis[0]) == node(axis[1]));
+            CHECK(Node(axis[0]) == Node(axis[1]));
 
             // axis converts to a std::vector<axis_t>. Also, although
             // it's not really the point of the current test, axis[0]
@@ -675,13 +675,13 @@ SCENARIO("Testing GNDStk Node operator[]") {
             CHECK(vector_axis[1] == axis_t(axis[1]));
             CHECK(vector_axis[2] == axis_t(axis[2]));
 
-            // axis converts to a std::vector<node>. Also, axis[0] etc.
-            // can convert to node.
-            std::vector<node> vector_node = axis;
+            // axis converts to a std::vector<Node>. Also, axis[0] etc.
+            // can convert to Node.
+            std::vector<Node> vector_node = axis;
             CHECK(vector_node.size() == 3);
-            CHECK(vector_node[0] == node(axis[0]));
-            CHECK(vector_node[1] == node(axis[1]));
-            CHECK(vector_node[2] == node(axis[2]));
+            CHECK(vector_node[0] == Node(axis[0]));
+            CHECK(vector_node[1] == Node(axis[1]));
+            CHECK(vector_node[2] == Node(axis[2]));
          }
       }
    }
