@@ -1,12 +1,12 @@
 
 ################################################################################
-**QUICK START & TUTORIAL**
+**INTRODUCTION & PRIMER**
 ################################################################################
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :numbered:
 
    intro.rst
    build.rst
-   tut.rst
+   primer.rst

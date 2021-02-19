@@ -10,8 +10,8 @@
 
 inline bool convert(const Tree &from, Tree &to)
 {
-   // void* because template arguments could differ
-   if ((void*)&to == (void*)&from)
+   // same Tree?
+   if (&to == &from)
       return true;
 
    // clear

@@ -108,7 +108,8 @@ std::optional<TYPE> meta(
       // Local "found", because found == default can lead to exceptions.
       // We still place in a try{}, in case an exception otherwise arises.
       bool f;
-      const TYPE obj = meta((kwd.object ? kwd.object.value() : TYPE{})/kwd, f);
+      const TYPE obj =
+         meta((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
       // The "found" status affects our behavior here, but for optional we'll
       // always *return* with found == true. After all, being optional means
       // something can be (1) there or (2) not there. That condition is always

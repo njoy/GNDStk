@@ -91,7 +91,8 @@ std::optional<TYPE> child(
    try {
       // Comments as in the meta() analog of this child() function
       bool f;
-      const TYPE obj = child((kwd.object ? kwd.object.value() : TYPE{})/kwd, f);
+      const TYPE obj =
+         child((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
       found = true;
       return f ? std::optional<TYPE>(obj) : std::nullopt;
    } catch (...) {
@@ -195,46 +196,49 @@ CONTAINER<TYPE> child(
 // optional<TYPE>
 // ------------------------
 
-// fixme Be sure this is the meaning we want...
+// With an Allow::many Child, as we have here, it's permissible (without an
+// exception being thrown) to extract any number of values - including none -
+// into the container. In some sense, then, Allow::many means it's optional
+// to have *any* matching values. So the question is: how should we handle
+// Child<std::optional<TYPE>,Allow::many>, given that two different "optional"
+// concepts are involved?
 //
-// With an Allow::many Child, as we have here, it's permissible (without
-// an exception being thrown) to extract any number of values - including
-// zero - into the container. In some sense, then, the Allow::many means
-// it's *optional* to have any matching values at all. So the question is:
-// how should we handle Child<std::optional<TYPE>,Allow::many>, with two
-// different "optional" aspects being involved? We'll do this:
+// Creating a container<std::optional<TYPE>> wouldn't really make sense.
+// With a container of optionals, when, and from where, would any nullopt
+// values arise? We're filling the container with what we do find, in which
+// case there's no real meaning associated with any nullopt values.
 //
-//    A container<TYPE>, *not* a container<optional<TYPE>>, is produced,
-//    even though it's a Child<optional<TYPE>>. (If we had a container
-//    of optionals, then when, and from where, would any nullopt values
-//    arise? We're filling the container with what we do find, in which
-//    case there'd be no real meaning associated with any nullopt values.)
+// We could dispense with "optional" altogether, and return container<TYPE>,
+// with length 0 (i.e. no elements in the container) if no values are found.
+// That's arguably a resonable behavior, but is the same behavior we'd have
+// if the Child didn't have a std::optional type in the first place.
 //
-//    Consistent with the behavior of std::optional elsewhere in GNDStk's
-//    queries, we'll *always* return from here with found == true. That's
-//    already the case with Allow::many if container.size() > 0 on output,
-//    but now we'll unconditionally return found == true, even for 0 size.
+// So, let's give the optional encoding (as in Child<std::optional<TYPE>>)
+// some meaning, in the following way. We'll return an optional container,
+// with no value (so that optional.has_value() == false) in the event that
+// the container would have no elements. Else, optional.has_value() will be
+// true, with a container that has >= 1 element.
 //
-// We may change this, if doing something else proves to make more sense,
-// or to be more useful. It's possible, for example, that for the sake of
-// consistency we should always return objects that involve precisely the
-// type that's given in the Child, even in cases like this in which such
-// a modification seems to be sensible from a practical standpoint.
+// Consistent with the behavior of std::optional elsewhere in GNDStk, we'll
+// always return from here with found == true. That's already the case with
+// Allow::many if container.size() > 0 on output, but now we unconditionally
+// return found == true, even for "0 size", which, as we'd said, now means
+// that there's no value in the optional.
 
 template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
 >
-CONTAINER<TYPE> child(
+std::optional<CONTAINER<TYPE>> child(
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      // The behavior described above makes this easy as well.
-      // That wasn't our intention, but we don't mind too much.
-      return
-         found = true,
-         child((kwd.object ? kwd.object.value() : TYPE{})/kwd);
+      bool f;
+      const auto container =
+         child((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
+      found = true;
+      return f ? std::optional<CONTAINER<TYPE>>(container) : std::nullopt;
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
@@ -246,17 +250,26 @@ CONTAINER<TYPE> child(
 // Defaulted<TYPE>
 // ------------------------
 
-// Comments similar to those for the optional case above
+// Similar to the optional case. We'll return a Defaulted<CONTAINER<TYPE>>,
+// with the default value being a container of one value - the value from
+// the original Defaulted<TYPE> in the Child object.
 template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
 >
-CONTAINER<TYPE> child(
+Defaulted<CONTAINER<TYPE>> child(
    const Child<Defaulted<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      return found = true, child(kwd.object.value()/kwd);
+      bool f;
+      const auto container = child(kwd.object.value()/kwd, f);
+      found = true;
+      return f
+         ? Defaulted<CONTAINER<TYPE>>(
+              CONTAINER<TYPE>(1, kwd.object.get_default()), container)
+         : Defaulted<CONTAINER<TYPE>>(
+              CONTAINER<TYPE>(1, kwd.object.get_default()));
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;

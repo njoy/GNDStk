@@ -1,0 +1,4 @@
+<axes>
+   <axis index="1" label="energy_in" unit="eV"/>
+   <axis index="0" label="radius" unit="fm"/>
+</axes>

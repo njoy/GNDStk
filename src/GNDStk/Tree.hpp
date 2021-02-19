@@ -42,6 +42,38 @@ public:
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
 
+   // ------------------------
+   // Comparison
+   // ------------------------
+
+   // We pull out top() first, rather than deferring immediately to Node's
+   // operator==, because Tree can contain a "declaration node" that might
+   // indicate properties such as whether the data came from an XML file or
+   // a JSON file. Those properties can be put to good use for other things,
+   // but won't play a role in a Tree comparison.
+
+   // operator==
+   bool operator==(const Tree &other) const
+   {
+      try {
+         return top() == other.top();
+      } catch (...) {
+         log::function("Tree == Tree");
+         throw;
+      }
+   }
+
+   // operator!=
+   bool operator!=(const Tree &other) const
+   {
+      try {
+         return !(*this == other);
+      } catch (...) {
+         log::function("Tree != Tree");
+         throw;
+      }
+   }
+
 }; // class Tree
 
 
