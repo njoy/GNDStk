@@ -28,16 +28,7 @@ class Defaulted {
    // ------------------------
 
    // The default
-   // Unconditionally const, regardless of whether or not *this is const.
-   // We think it's most reasonable to say that a "Defaulted" object's
-   // default value is defined once, when the object is constructed, and
-   // then the stipulated default is fixed in stone. Otherwise, we'd need
-   // to ask questions like this: If a Defaulted object with one default
-   // is assigned to a Defaulted object with a different default, then is
-   // only the value - or the default as well - assigned? Either behavior
-   // would arguably be reasonable, if we accepted the notion that an
-   // initially provided default should be possible to change.
-   const T def;
+   T def;
 
    // An optional non-default value
    std::optional<T> opt;

@@ -8,8 +8,7 @@ using namespace njoy::GNDStk;
 
 static const std::string correct_node =
 R"***(pcdata:
-   text: 1 2.3 4.56
-)***";
+   text: 1 2.3 4.56)***";
 
 SCENARIO("Testing GNDStk convert(type,Node)") {
 

@@ -48,7 +48,7 @@ own source files need it.
 Recommended Starting Point
 --------------------------------
 
-For most users, most of the time, we suggest this starting point:
+**For most users, most of the time, we suggest this starting point:**
 
 .. literalinclude:: tutorial/minimal-recommended.cpp
    :language: cpp
@@ -193,6 +193,7 @@ or different locations.
 ========================================
 Read and Write GNDS
 ========================================
+
 
 --------------------------------
 Read XML
@@ -567,14 +568,334 @@ files, and perhaps for writing them in that manner as well.
 Data Structure "Direct"
 ========================================
 
+In this section, we'll talk about some of the basic internal constructs of some
+of GNDStk's classes: more importantly, ``Tree`` and ``Node``; less importantly,
+``XML`` and ``JSON``. We'll describe member *data* -- with an important message
+to users first -- and also some of the member *functions* that you're likely to
+find useful. For now, here, we won't cover the plethora of member functions that
+support our "smart query system." Those need their own dedicated, and detailed,
+discussion.
+
+
+
+--------------------------------
+About Direct Access
+--------------------------------
+
+**Right away, we strongly suggest that most users avoid direct access of member
+data in these classes!** An exception is the ``name`` string in ``Tree`` and
+``Node``, which you might well wish to access. It's rather inoculous. Other
+member data, at this time, consists of containers for metadata and child nodes.
+
+In most cases, we hope you'll prefer to use GNDStk's rich variety of powerful
+higher-level capabilities, in our "smart query system," for pulling data from,
+or pushing data to, the metadata and child-node containers. (We're talking right
+now about capabilities that are still in our core interface -- not in our
+"high-level" interface that provides classes tailored to specific versions
+of the GNDS standard.) The basics of our "smart query system" are described
+in an upcoming section of this document.
+
+Our query system was designed precisely so that you'll have something much more
+concise and powerful than you will by directly accessing the containers in
+question. And, most likely, also safer to use, insofar as working directly with
+the internals of data structures, especially those that were designed by other
+people, invariably runs some risks. C++ containers aren't rocket science (and,
+besides, some GNDStk users may well *be* rocket scientists), so we do in fact
+provide public access to these structures, in the interest of supporting users
+who are comfortable and capable with the C++ language.
+
+Finally, we believe that if you understand the basic internal data format, then
+you may find the behavior of the higher-level capabilities, and our motivation
+for creating them, to be more clear.
+
+
+
+--------------------------------
+Tree vs. Node
+--------------------------------
+
+We've already seen ``Tree`` in some examples. It's the class to use when you
+want to read or write an entire GNDS tree. ``Tree`` is derived from another
+important class: ``Node``. At the time of this writing, ``Tree`` contains no
+additional *data* beyond what it gets from ``Node``. It does, however, contain
+some additional member functions, and it makes some slight changes to some of
+the member functions that otherwise gets from its ``Node`` base.
+
+Here's a short sketch of our arrangement:
+
+.. literalinclude:: tutorial/tree-and-node.hpp
+   :language: cpp
+
+The GNDS standard is essentially a tree structure, and this is reflected in
+our classes, with ``Tree`` being intended for the top-level (root) node, and
+``Node`` for all others.
+
+Some readers may realize, correctly, that a typical tree structure's top-level
+node could be treated in exactly the same way as all of its other nodes. One
+doesn't generally need different data types for a tree's root node and its other
+nodes, including leaves. Roughly speaking, tree nodes all "look the same," with
+similar contents as well as relationships to their child nodes.
+
+That's all true, and it could be described as the theoretical/mathematical view
+of tree structures. From a practical/engineering standpoint, some utility can
+sometimes be had in treating a top-level node differently from the others.
+That's the reasoning for ``Tree`` versus ``Node``.
+
+As a derived class, ``Tree`` automatically inherits most of its functionality
+from ``Node``, as we want it to. In a handful of respects, however, ``Tree``
+will reflect the fact that it's there to represent an entire GNDS hierarchy,
+not just a portion thereof. For example, it tries to ensure that the top-level
+GNDS node isn't *any* valid GNDS node, but one of the few that's valid as a
+*top-level* GNDS node. (GNDStk, it turns out, emits a warning, but not an error,
+if you try to write a ``Tree`` that doesn't have a top-level GNDS node with a
+valid name.)
+
+One could also imagine extra functionality that a ``Tree``, but not a ``Node``,
+could be equipped with. In the typical case that a GNDS tree is read from a
+file, for example, we *could* have the ``Tree`` structure store the file name.
+Then, perhaps, we could equip ``Tree`` with a member function like
+``overwrite()`` or ``rewrite()`` that would replace the original file (say,
+after a user has made changes that they wished to make to the GNDS data) without
+requiring that the file name be repeated. (Analogy: a image-editing GUI that
+provides, in its File menu, an item like ``Overwrite <original.jpg>``, in
+addition to a ``Save As...`` and an ``Export``.) GNDStk does not, at the time
+of this writing, provide this particular capability. By making ``Tree``
+different from ``Node``, however, we allow for the possibility of such things
+being added, painlessly, at a later time.
+
+
+
+--------------------------------
+Content Preservation
+--------------------------------
+
+An important initial design decision that we made for our ``Tree`` and ``Node``
+classes is that they faithfully represent precisely the content from any GNDS
+file we may read into them. The fundamental motivation here is simple: data
+evaluators work hard to create good data, and we don't want to take any
+actions that might, in any way, change or lose anything.
+
+Consider, as a simple example, this small fragment of content from near the
+beginning of our favorite ``n-094_Pu_239.xml`` example GNDS file:
+
+.. literalinclude:: tutorial/mass-double-fragment.xml
+   :language: xml
+
+We could probably all agree that the label ``"eval"`` and unit ``"amu"`` should
+be stored as strings. But what about the value ``"1.00866491574"``? We *could*
+store it as a ``double``, if we're presumptuous enough to assume that a user
+intends to use it as a ``double`` -- not a ``float``, say, or
+a ``long double``. We'd also be assuming, there, that a user doesn't mind the
+expensive of presumptively "floating-point" content from GNDS files being
+converted *en masse* from the original XML character strings to floating-points,
+regardless of which GNDS content the user might actually access. On top of
+that, we'd be glossing over the various complexities that can (and do) arise
+when decimal representations of floating-point numbers are converted to internal
+binary floating-points, and back again. (The "back again" part is especially
+relevant if someone plans, say, to read a GNDS file, add new data and/or fix
+old data in selected areas, and then write the entire GNDS file back out again.)
+
+Instead of making wild assumptions, we'll opt instead to preserve original
+content -- that is, to respect precisely what exists in a GNDS file to begin
+with.
+
+To this end, all individual data, regardless of what they may appear to be
+(string, floating-point, integer, single character, etc.), are stored as
+strings. More precisely, as C++ ``std::strings``. Node names (``"mass"``) are
+stored as strings. Metadata key/value pairs are stored as C++ ``std::pairs``
+of strings; think ``{"label","eval"}``. Even the content in GNDS ``values``
+nodes, like this one (the first in ``n-094_Pu_239.xml``):
+
+.. literalinclude:: tutorial/xml-values-fragment.xml
+   :language: xml
+
+are stored, in a ``Node``, as long strings. (We could reasonably split out such
+thing into ``std::vector<std::string>s``, too, but decided to not even do that.
+To perform such a split everywhere, automatically, would take time, and a user
+might not even intend to access any specific portion of GNDS data.)
+
+No worries, though: our core interface, and especially the smart query system
+that we've spoken of, has plenty of functionality for serving its internal
+strings to you as floating-points, for instance; or for re-forming long strings,
+like the ones just described, into vectors of strings, or vectors of
+floating-points, or vectors of just about anything you may wish to create. When
+we speak of content preservation, then, we're saying that an input text
+file -- XML or JSON, for now -- is factored into its underlying tree structure,
+but with its individual meaningful parts (neglecting, as usual, whitespace)
+still stored as text, with no modifications.
+
+A given user's application code will almost certainly have its own internal
+classes that contain GNDS data, or data computed from GNDS data, in ways that
+work well for the user's application. Someone may also have classes specifically
+intended to mirror the content in various GNDS nodes, just in a different way.
+(GNDStk's own "high-level interface" will provide precisely such classes.) Such
+classes can certainly make assumptions we didn't want GNDStk to make -- like,
+for example, that we do want ``double`` for that numerical value above. Or, for
+that matter, that perhaps the ``unit``, ``"amu"`` above should be an entry in
+some C++ enumerator for allowable units -- no longer a string at all. We're
+happy to report that our core interface, and in particular our smart query
+system, is designed to help you interact well, and easily, with GNDStk's
+internal string storage.
+
+We'll write more about the above considerations elsewhere. For now, let's return
+to the main point of this chapter, and describe GNDStk's two major classes that
+store GNDS data.
+
+
+
+--------------------------------
+Node
+--------------------------------
+
+We'll write first about ``Node`` (for general nodes), because ``Tree`` (for the
+root node only) derives from ``Node``. Recall that the member data in ``Node``
+looks like this:
+
+.. literalinclude:: tutorial/node-data.hpp
+   :language: cpp
+
+In short, inlining the ``metaPair`` and ``childPtr`` types and omitting the
+``std::`` prefix for brevity:
+
+.. literalinclude:: tutorial/node-data-brief.hpp
+   :language: cpp
+
+The above evinces a simple tree structure that's entirely sufficient for
+representing the contents of any GNDS node.
+
+Let's provide a short but concrete example. Here's some XML content from near
+the top of the ``n-094_Pu_239.xml`` GNDS file:
+
+.. literalinclude:: tutorial/evaluated-node.xml
+   :language: xml
+
+Here, an outer ``evaluated`` node (XML "element") contains four metadata
+key/value pairs (XML "attributes") and two child elements. The first child
+element, ``temperature``, contains two metadata pairs but no further child
+nodes. The second child element, ``projectileEnergyDomain``, contains three
+metadata pairs but no further child nodes.
+
+At the risk of continuing a narrative of statements that are no doubt obvious,
+here's precisely how the above ``evaluated`` node is represented in a ``Node``:
+
+.. code::
+
+   name: "evaluated"
+
+   metadata[0]: {"label", "eval"}
+   metadata[1]: {"date", "2017-12-01"}
+   metadata[2]: {"library", "ENDF/B"}
+   metadata[3]: {"version", "8.0.5"}
+
+   children[0]: pointer to another Node, with:
+
+      name: "temperature"
+
+      metadata[0]: {"value", "0.0"}
+      metadata[1]: {"unit", "K"}
+
+   children[1]: pointer to another Node, with:
+
+      name: "projectileEnergyDomain"
+
+      metadata[0]: {"min", "1e-05"}
+      metadata[1]: {"max", "20000000.0"}
+      metadata[2]: {"unit", "eV"}
+
+Here, ``{"foo", "bar"}`` is a C++ ``std::pair<std::string,std::string>``,
+and is thus accessible in the customary manner: ``.first`` for the ``"foo"``
+and ``.second`` for the ``"bar"``.
+
+We use C++ ``std::unique_ptr<Node>s`` for the pointers to child nodes.
+
+
+
+--------------------------------
+Points about Pointers
+--------------------------------
+
+A couple of early users asked us about the motivation for using pointers,
+so we'll briefly address, here, the concerns that they raised, in case other
+users wonder the same things.
+
+One person wondered why ``children`` is a vector of pointers -- not a vector
+of Nodes, which would *appear* at least to be simpler. Of course, a ``Node``
+can't directly contain another ``Node`` -- C++ wouldn't allow it -- but
+could indeed contain a ``vector`` of ``Nodes``. (C++ ``vectors`` themselves
+involve pointers, so pointers are still involved, they're just not explicit.)
+
+Without delving into a discussion that's well beyond the scope of this
+document, we'll say only that implementing a Node's ``children`` as a vector
+of ``Nodes`` would likely wreak havoc on efficiency, both in space (memory)
+and in time, when objects like ``Tree`` and ``Node`` are being read from a
+file or otherwise created or modified. Considerable memory fragmentation
+could also come about.
+
+Another user wanted to write code that copied some of ``children's`` pointers.
+The attempt to do so was stymied due to ``std::unique_ptr's`` intentional
+lack of a copy constructor, as ``unique_ptr`` is designed to be the exclusive
+"owner" of the object to which it points. GNDStk uses ``unique_ptr`` quite
+intentionally, precisely to deal with the ownership issue cleanly and clearly
+while also benefitting from ``unique_ptr's`` automatic handling of an object's
+memory footprint.
+
+A code shouldn't attempt to take any actions that would break the ownership
+rules ``unique_ptr`` manifests, and a C++ compiler will say so loudly if one
+tries. Anyone who really wishes to make their own pointer -- say, a raw
+pointer -- to an object to which one of our ``unique_ptrs`` already refers,
+can always dereference the ``unique_ptr`` (giving a reference to a ``const``
+or non-``const`` Node, and effectively losing the ``unique_ptr`` aspect), then
+take the address to get a pointer again: basically ``&(*uptr)``, where ``uptr``
+is a ``unique_ptr`` in one of our ``children`` vectors. (Do not, of course,
+``delete`` the Node through such a pointer; leave its management to the original
+``unique_ptr``!) We recommend that anyone who does this, or anything similar,
+be sufficiently familiar with the C++ language, as well as justifiably confident
+that there isn't a better way to accomplish the goal at hand.
+
+
+
+--------------------------------
+Tree
+--------------------------------
+
+``Tree`` derives from ``Node``, so what we've already spoken about, in terms
+of memberdata, still applies. Some additional points are in order, however,
+owing to ``Tree's`` status as the root node in our internal representation
+of a GNDS hierarchy.
+
+
+
+--------------------------------
+Direct-Access Examples
+--------------------------------
+
+
+
+--------------------------------
+XML and JSON
+--------------------------------
+
+
+
 ========================================
 Smart Query System
 ========================================
+
+
 
 ========================================
 GNDS Creation
 ========================================
 
+node ctors
+tree ctors
+add()s
+
+
+
 ========================================
 Advanced Examples
 ========================================
+
+Largely continue query system discussion.
+Not sure about "advanced examples" characterization.

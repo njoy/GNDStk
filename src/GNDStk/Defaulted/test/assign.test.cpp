@@ -55,7 +55,7 @@ SCENARIO("Testing Defaulted<T>'s assignment operators") {
             const Defaulted<double> b(5.6);
             a = b;
             CHECK(a == 5.6);
-            CHECK(!a.is_default());
+            CHECK(a.is_default());
          }
 
          // case: "w/default = w/hard value"
@@ -73,7 +73,7 @@ SCENARIO("Testing Defaulted<T>'s assignment operators") {
             const Defaulted<double> b(5.6);
             a = b;
             CHECK(a == 5.6);
-            CHECK(!a.is_default());
+            CHECK(a.is_default());
          }
 
          // case: "w/hard value = w/hard value"
@@ -99,7 +99,7 @@ SCENARIO("Testing Defaulted<T>'s assignment operators") {
             const Defaulted<int> b(56);
             a = b;
             CHECK(a == 56);
-            CHECK(!a.is_default());
+            CHECK(a.is_default());
          }
 
          // case: "w/default = w/hard value"
@@ -117,7 +117,7 @@ SCENARIO("Testing Defaulted<T>'s assignment operators") {
             const Defaulted<int> b(56);
             a = b;
             CHECK(a == 56);
-            CHECK(!a.is_default());
+            CHECK(a.is_default());
          }
 
          // case: "w/hard value = w/hard value"
@@ -142,7 +142,7 @@ SCENARIO("Testing Defaulted<T>'s assignment operators") {
             Defaulted<double> a(1.2);
             a = Defaulted<double>(5.6);
             CHECK(a == 5.6);
-            CHECK(!a.is_default());
+            CHECK(a.is_default());
          }
 
          // case: "w/default = w/hard value"
@@ -158,7 +158,7 @@ SCENARIO("Testing Defaulted<T>'s assignment operators") {
             Defaulted<double> a(1.2, 3.4);
             a = Defaulted<double>(5.6);
             CHECK(a == 5.6);
-            CHECK(!a.is_default());
+            CHECK(a.is_default());
          }
 
          // case: "w/hard value = w/hard value"

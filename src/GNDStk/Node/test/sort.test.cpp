@@ -44,8 +44,7 @@ R"***(covarianceSuite:
             unit: eV
          temperature:
             unit: K
-            value: 0.0
-)***";
+            value: 0.0)***";
 
 SCENARIO("Testing GNDStk Node sort()") {
    GIVEN("A top-level node from a tree object") {

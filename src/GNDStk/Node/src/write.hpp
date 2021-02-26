@@ -14,21 +14,21 @@ std::ostream &write(std::ostream &os, const int level = 0) const
    const std::string inext(indent*(level+1),' '); // next ...
 
    // write name
-   if (!(os << icurr << name << ":" << std::endl))
+   if (!(os << icurr << name << ":"))
       log::error("ostream << Node.name returned with !ostream");
 
    // write metadata
    if (os)
       for (const auto &meta : metadata)
-         if (!(os << inext << meta.first << ": " << meta.second << std::endl)) {
+         if (!(os << "\n" << inext << meta.first << ": " << meta.second)) {
             log::error("ostream << Node.metadata returned with !ostream");
             break;
          }
 
    // write children
    if (os)
-      for (const auto &c : children)
-         if (c && !c->write(os,level+1)) {
+      for (const auto &childptr : children)
+         if (childptr && !(os << "\n" && childptr->write(os,level+1))) {
             log::error("ostream << Node.children returned with !ostream");
             break;
          }
@@ -38,7 +38,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
       log::member("Node.write(ostream)");
 
    // done
-   return os;
+   return os << std::flush;
 }
 
 

@@ -221,7 +221,6 @@ public:
       // ensure RHS \in {Meta, Child, pair<Child,string|regex>, string, regex}
       class = typename std::enable_if<
           detail::IsMetaOrChild<RHS>::value
-       || detail::IsStringOrRegex<RHS>::value /// qqq can eventually remove??
        || detail::IsPairChildStringOrRegex<RHS>::value
       >::type
    >
@@ -289,12 +288,38 @@ public:
 };
 
 
-// function: toKeywordTup
+
+// -----------------------------------------------------------------------------
+// toKeywordTup
+// -----------------------------------------------------------------------------
+
+// for std::tuple
 template<class... Args>
 constexpr auto toKeywordTup(
    const std::tuple<Args...> &tup
 ) {
    return KeywordTup<Args...>(tup);
+}
+
+// for KeywordTup
+template<class... Args>
+constexpr auto toKeywordTup(const KeywordTup<Args...> &kwds)
+{
+   return kwds;
+}
+
+// for Meta, Child, and pair<Child,string/regex>
+// Returns a 1-element KeywordTup made from the object
+template<
+   class T,
+   class = typename std::enable_if<
+       detail::IsMetaOrChild<T>::value
+    || detail::IsPairChildStringOrRegex<T>::value
+   >::type
+>
+constexpr auto toKeywordTup(const T &obj)
+{
+   return KeywordTup<T>(obj);
 }
 
 

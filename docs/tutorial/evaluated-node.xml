@@ -1,0 +1,4 @@
+<evaluated label="eval" date="2017-12-01" library="ENDF/B" version="8.0.5">
+  <temperature value="0.0" unit="K"/>
+  <projectileEnergyDomain min="1e-05" max="20000000.0" unit="eV"/>
+</evaluated>

@@ -13,7 +13,14 @@ public:
    template<class FROM, class TO>
    void operator()(const FROM &from, TO &to) const
    {
-      convert(from,to);
+      if constexpr (
+         std::is_constructible<TO,FROM>::value ||
+         std::is_convertible<FROM,TO>::value
+      ) {
+         to = TO(from);
+      } else {
+         convert(from,to);
+      }
    }
 };
 

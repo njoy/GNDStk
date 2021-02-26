@@ -7,6 +7,7 @@
 
 class Tree : public Node {
    using nodeType = Node;
+
 public:
 
    // ------------------------
