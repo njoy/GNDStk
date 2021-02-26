@@ -1,0 +1,31 @@
+{
+   "employees": {
+      "employee0": {
+         "name": {
+            "attributes": {
+               "first": "Doc",
+               "last": "Jones"
+            }
+         },
+         "nodeName": "employee"
+      },
+      "employee1": {
+         "name": {
+            "attributes": {
+               "first": "Grumpy",
+               "last": "Smith"
+            }
+         },
+         "nodeName": "employee"
+      },
+      "employee2": {
+         "name": {
+            "attributes": {
+               "first": "Happy",
+               "last": "Earp"
+            }
+         },
+         "nodeName": "employee"
+      }
+   }
+}

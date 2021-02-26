@@ -8,8 +8,7 @@ bool operator==(const Node &two) const
    const auto &one = *this;
 
    // same Node?
-   // void* because template arguments could differ
-   if ((void*)&one == (void*)&two)
+   if (&one == &two)
       return true;
 
    // ------------------------

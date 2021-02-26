@@ -13,10 +13,8 @@
 
 // value(), const
 // We don't have a non-const version of this, because def (the default value)
-// is always const, and *might* be returned (and by reference) here. So, this
-// function's non-const analog would still have to return const T &, and thus
-// just isn't needed. (As ever, non-const objects can still go to places that
-// use const &; it's the reverse that's of course disallowed.)
+// might be returned (and by reference) here. We don't want someone to
+// inadvertently change the default value.
 const T &value() const
 {
    return opt.has_value() ? opt.value() : def;

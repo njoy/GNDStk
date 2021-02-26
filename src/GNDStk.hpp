@@ -96,6 +96,9 @@ namespace GNDStk {
 namespace basic { using namespace common; }
 namespace misc  { using namespace common; }
 
+// Component base for high-level data classes
+#include "GNDStk/Component.hpp"
+
 
 // ------------------------
 // GNDStk "core interface"
