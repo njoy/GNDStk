@@ -1,9 +1,11 @@
-# GitHub workflow to enable continuous integratoin
+# GitHub workflow to enable continuous integration
 name: Continuous Integration
 
 # This workflow is triggered on pushes and pull requests to the repository.
-on: 
-  pull_request: 
+on:
+  push:
+    branches: '**'
+  pull_request:
     branches: 'master'
 
 jobs:
@@ -18,17 +20,25 @@ jobs:
     steps:
     - name: which CXX
       run: |
-        which ${{matrix.cxx}} 
+        which ${{matrix.cxx}}
         ${{matrix.cxx}} --version
     - uses: actions/checkout@v2
     - name: mkdir bin
-      run: mkdir bin 
+      run: mkdir bin
     - name: cmake
-      run: cmake -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ..  
+      run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ..
       working-directory: ./bin
     - name: make
-      run: make
+      run: make -j2
       working-directory: ./bin
     - name: ctest
       run: ctest -j2
       working-directory: ./bin
+    - name: make GNDStk.python
+      run: make GNDStk.python -j2
+      working-directory: ./bin
+    - name: python -m unittest
+      run: |
+        cp ../bin/*.so .
+        python3 -m unittest discover -v -p "Test*"
+      working-directory: ./python

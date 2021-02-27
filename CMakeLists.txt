@@ -29,6 +29,12 @@ include( cmake/GNDStk_dependencies.cmake )
 # Project targets
 ########################################################################
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# GNDStk : library
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+include_directories( src/ )
+
 add_library( GNDStk INTERFACE )
 target_include_directories( GNDStk INTERFACE src/ )
 target_link_libraries( GNDStk
@@ -38,6 +44,21 @@ target_link_libraries( GNDStk
     INTERFACE nlohmann_json::nlohmann_json
     )
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# GNDStk : python bindings
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+include_directories( python/src/ )
+
+pybind11_add_module( GNDStk.python
+    EXCLUDE_FROM_ALL
+    python/src/GNDStk.python.cpp
+    )
+target_link_libraries( GNDStk.python PRIVATE GNDStk )
+target_compile_options( GNDStk.python PRIVATE "-fPIC" )
+target_compile_options( GNDStk.python PRIVATE "-fvisibility=hidden" )
+set_target_properties( GNDStk.python PROPERTIES OUTPUT_NAME GNDStk )
+set_target_properties( GNDStk.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
 
 #######################################################################
 # Top-level Only
