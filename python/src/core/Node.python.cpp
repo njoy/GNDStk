@@ -14,6 +14,7 @@ namespace core {
 
     // type aliases
     using Component = njoy::GNDStk::core::Node;
+    using ConstRefComponent = std::reference_wrapper< const Component >;
 
     // create the core component
     python::class_< Component > component(
@@ -61,12 +62,58 @@ namespace core {
       &Component::name,
       "The name of the node"
     )
+    .def_readonly(
+
+      "metadata",
+      &Component::metadata,
+      "The metadata of the node"
+    )
+    .def_property_readonly(
+
+      "children",
+      // we cannot expose a vector of unique pointers, so we need to transform
+      // them into a vector of references first (since this is readonly, we use
+      // const references)
+      [] ( const Component& self ) -> std::vector< ConstRefComponent > {
+
+        std::vector< ConstRefComponent > children;
+        for (auto& pointer : self.children ) {
+
+          children.push_back( std::cref( *pointer ) );
+        }
+        return children;
+      },
+      "The children of the node"
+    )
     // add a public member function
     .def(
 
       "empty",
       &Component::empty,
       "Return whether or not the node is empty"
+    )
+    // add a public member function
+    .def(
+
+      "clear",
+      &Component::clear,
+      "Clear the content of the node and return the resulting empty node"
+    )
+    // add a new custom function
+    .def(
+
+      "to_string",
+      [] ( const Component& self ) -> std::string {
+
+        if ( !self.empty() ) {
+
+          std::ostringstream out;
+          self.write( out );
+          return out.str();
+        }
+        return "";
+      },
+      "Return a string representation of the node"
     );
   }
 }
