@@ -7,6 +7,12 @@
 // namespace aliases
 namespace python = pybind11;
 
+// core interface declarations
+namespace core {
+
+  void wrapNode( python::module& );
+}
+
 /**
  *  @brief GNDStk python bindings
  *
@@ -15,15 +21,13 @@ namespace python = pybind11;
  */
 PYBIND11_MODULE( GNDStk, module ) {
 
-  module.def(
+  // create the core submodule
+  python::module submodule = module.def_submodule(
 
-    "add",
-    [] ( int left, int right ) { return left + right; },
-    python::arg( "left" ), python::arg( "right" ),
-    "Return the sum of two integers\n\n"
-    "This function does not throw an exception.\n\n"
-    "Arguments:\n"
-    "    left    the integer on the left\n"
-    "    right   the integer on the right"
+    "core",
+    "core - GNDS core interface components"
   );
+
+  // wrap core components
+  core::wrapNode( submodule );
 }
