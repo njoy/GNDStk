@@ -85,7 +85,45 @@ namespace core {
       },
       "The children of the node"
     )
-    // add a public member function
+    .def(
+
+      "add",
+      // we need to define one of these for every type we want to use since
+      // python does not have a concept of templates
+      [] ( Component& self, const std::string& name, const std::string& value )
+         { return self.add( name, value ); },
+      python::arg( "name" ), python::arg( "value" ),
+      "Add the name,value pair as metadata to the node.\n\n"
+      "Arguments:\n"
+      "    name    the name of the metadata\n"
+      "    value   the value of the metadata\n"
+    )    // add a public member function
+    .def(
+
+      "add",
+      // we need to define one of these for every type we want to use since
+      // python does not have a concept of templates
+      [] ( Component& self, const std::string& name, int value )
+         { return self.add( name, value ); },
+      python::arg( "name" ), python::arg( "value" ),
+      "Add the name,value pair as metadata to the node.\n\n"
+      "Arguments:\n"
+      "    name    the name of the metadata\n"
+      "    value   the value of the metadata\n"
+    )    // add a public member function
+    .def(
+
+      "add",
+      // we need to define one of these for every type we want to use since
+      // python does not have a concept of templates
+      [] ( Component& self, const std::string& name, double value )
+         { return self.add( name, value ); },
+      python::arg( "name" ), python::arg( "value" ),
+      "Add the name,value pair as metadata to the node.\n\n"
+      "Arguments:\n"
+      "    name    the name of the metadata\n"
+      "    value   the value of the metadata\n"
+    )    // add a public member function
     .def(
 
       "empty",
