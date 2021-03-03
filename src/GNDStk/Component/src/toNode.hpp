@@ -8,7 +8,7 @@ operator Node() const
 {
    try {
       // starter node
-      Node node(DERIVED::gnds());
+      Node node(DERIVED::GNDSField());
 
       // make tuple (of individual keys) from DERIVED::keys()
       const auto tup = toKeywordTup(DERIVED::keys()).tup;

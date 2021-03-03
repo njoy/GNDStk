@@ -17,15 +17,15 @@
 // new(), below, but to no real effect: the result would be replaced, anyway,
 // when the derived class' own members are initialized in its constructor.
 
-void query(const Node &node)
+void query(const Node &node) const
 {
    // does the node have the name we expect?
-   if (node.name != DERIVED::gnds()) {
+   if (node.name != DERIVED::GNDSField()) {
       log::error(
         "Name \"{}\" in Node sent to Component::query() is not the "
         "expected GNDS name \"{}\"",
          node.name,
-         DERIVED::gnds()
+         DERIVED::GNDSField()
       );
       log::member("Component.query(Node(\"{}\"))", node.name);
       throw std::exception{};

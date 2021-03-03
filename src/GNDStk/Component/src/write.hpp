@@ -9,15 +9,16 @@ std::ostream &write(std::ostream &os, const int level = 0) const
       // Indent, write header, newline
       detail::indentString(
          os, level,
-         detail::colorize_component(DERIVED::name()) + " " +
-         detail::colorize_brace("{") +
-         (comments
-             ? " " +
-               detail::colorize_comment(
-                  std::string("// GNDS: ") + DERIVED::gnds())
-             : ""
-         ) +
-         "\n"
+         detail::colorize_component(DERIVED::className()) + " "
+          + detail::colorize_brace("{")
+          + (comments
+              ? " " +
+                detail::colorize_comment(
+                   std::string("// GNDS: ") + DERIVED::GNDSField()
+                )
+              : ""
+            )
+          + "\n"
       );
 
       // Make tuple (of individual keys) from DERIVED::keys()
@@ -71,9 +72,16 @@ std::ostream &write(std::ostream &os, const int level = 0) const
       // Indent, write footer, NO newline
       detail::indentString(
          os, level,
-         detail::colorize_brace("}") + " "
-       + detail::colorize_comment(std::string("// ") + DERIVED::name())
+         detail::colorize_brace("}")
+          + (comments
+              ? " " +
+                detail::colorize_comment(
+                   std::string("// ") + DERIVED::className()
+                )
+              : ""
+            )
       );
+
       return os;
 
    } catch (...) {
