@@ -41,6 +41,11 @@ if(NOT json_POPULATED)
   add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
+FetchContent_Declare( pybind11
+    GIT_REPOSITORY  https://github.com/pybind/pybind11
+    GIT_TAG         v2.6.1
+    GIT_SHALLOW     TRUE
+    )
 
 
 ########################################################################
@@ -52,4 +57,5 @@ FetchContent_MakeAvailable(
     Log
     pugixml-adapter
     json
+    pybind11
     )

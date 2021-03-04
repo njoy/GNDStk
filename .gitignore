@@ -4,3 +4,4 @@ bin*
 build
 *~
 metaconfigure/*.pyc
+docs/.build
