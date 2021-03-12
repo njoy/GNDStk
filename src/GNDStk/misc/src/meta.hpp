@@ -21,6 +21,7 @@ GNDSTK_MAKE_META(int, columns);
 GNDSTK_MAKE_META(int, ENDF_MT);
 GNDSTK_MAKE_META(int, index);
 GNDSTK_MAKE_META(int, L);
+GNDSTK_MAKE_META(int, lowerIndex);
 GNDSTK_MAKE_META(int, MAT);
 GNDSTK_MAKE_META(int, matrixStartIndex);
 GNDSTK_MAKE_META(int, metaStableIndex);

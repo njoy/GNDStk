@@ -63,6 +63,7 @@ inline const Meta<void>
    label                          ("label"                          ),
    length                         ("length"                         ),
    library                        ("library"                        ),
+   lowerIndex                     ("lowerIndex"                     ),
    material                       ("material"                       ),
    matrixStartIndex               ("matrixStartIndex"               ),
    max                            ("max"                            ),
@@ -100,5 +101,17 @@ inline const Meta<void>
    value                          ("value"                          ),
    valueType                      ("valueType"                      ),
    version                        ("version"                        );
+
+// fixme Probably redo this entire file based on high-level interface experience
+// fixme Same with misc:: namespace entries, assuming we keep misc::
+// Additional ones I've encountered while writing the high-level interface
+inline const Meta<void>
+   confidence  ("confidence"  ),
+   lower       ("lower"       ),
+   upper       ("upper"       ),
+   offset      ("offset"      ),
+   permutation ("permutation" ),
+   storageOrder("storageOrder"),
+   sep         ("sep"         );
 
 } // namespace meta

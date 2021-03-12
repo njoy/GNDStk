@@ -1,0 +1,1417 @@
+{
+
+    "link": {
+        "namespace":"gpdc",
+        "description": "\\FIXME: Is this format used?",
+
+        "attributes": {
+            "href": {
+                "type": "bodyText",
+                "description": "The URL or xpath-like string pointing to the referred to element",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "column": {
+        "namespace":"gpdc",
+        "description": [
+            "Container which holds the name, units, etc. describing a column of data."
+        ],
+
+        "attributes": {
+            "index": {
+                "type": "Integer32",
+                "description": "An integer value in the range 0 to (N-1) that represents the order of the column.",
+                "required": true,
+                "default": null
+            },
+            "name": {
+                "type": "XMLName",
+                "description": "A string representing the name of the column.",
+                "required": true,
+                "default": null
+            },
+            "unit": {
+                "type": "XMLName",
+                "description": "The unit of the data in the column.",
+                "required": false,
+                "default": null
+            },
+            "types": {
+                "type": "XMLName",
+                "description": "Comma separated list of valid GNDS types denoting what types of elements are allowed in each cell in the column.",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "axes": {
+        "namespace":"gpdc",
+        "description": [
+            "Many of the data containers represent functions that have independent and dependent axes. ",
+            "The \\element{axes} node provides a way to assign a label and unit to each axis. ",
+            "If an \\element{axes} node is present, each independent and dependent axis must have an ",
+            "\\element{axis} or \\element{grid} node. ",
+            "The \\element{axis} or \\element{grid} nodes are indexed 0 to $n$ where $n$ is the number of independent axes. ",
+            "For the function $x_0(x_n, ..., x_1)$, index 0 is for dependent axis $x_0$, 1 is for ",
+            "independent axis $x_1$, ... and $n$ is for the independent axis $x_n$. ",
+            "Note: Two types of axes nodes are allowed: ",
+            "\\begin{itemize}",
+            "\\item One type gives an xlink to another axes node ",
+            "\\item The other lists the axes explicitly.",
+            "\\end{itemize}"
+        ],
+
+        "attributes": {
+            "href": {
+                "type": "UTF8Text",
+                "description": "A the URL, in xpath syntax, of another \\element{axes} element",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+            "axis": {
+                "namespace":"gpdc",
+                "description": "This node stores an \\element{index}, \\element{label} and \\element{unit} for an axis.",
+                "occurrence": "1+",
+                "required": false
+            },
+            "grid": {
+                "namespace":"gpdc",
+                "description": "Stores a list of boundaries or points along this axis, e.g. to define group boundaries for grouped data.",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "axis": {
+        "namespace":"gpdc",
+        "description": "This node stores an \\element{index}, \\element{label} and \\element{unit} for an axis.",
+
+        "attributes": {
+            "index": {
+                "type": "Integer32",
+                "description": [
+                    "An integer that indicates which independent/dependent axis this \\element{axis}  ",
+                    "node belongs to as defined in Section~\\ref{format:axes}."
+                ],
+                "required": false,
+                "default": null
+            },
+            "label": {
+                "type": "XMLName",
+                "description": "A unique label",
+                "required": false,
+                "default": null
+            },
+            "unit": {
+                "type": "XMLName",
+                "description": "The unit for the axis.",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "constant1d": {
+        "namespace":"gpdc",
+        "description": "Describes a constant one-dimensional function, $f(x) = C$.",
+
+        "attributes": {
+            "constant": {
+                "type": "Float64",
+                "description": "The value of the data.",
+                "required": false,
+                "default": null
+            },
+            "label": {
+                "type": "XMLName",
+                "description": "Unique label",
+                "required": false,
+                "default": null
+            },
+            "value": {
+                "type": "Float64",
+                "description": "When a constant1d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "default": null
+            },
+            "domainMin": {
+                "type": "Float64",
+                "description": "$y(x_1)$ is only valid (i.e., defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
+                "required": false,
+                "default": null
+            },
+            "domainMax": {
+                "type": "Float64",
+                "description": "See \\attr{domainMin}.",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+            "axes": {
+                "namespace":"gpdc",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "grid": {
+        "namespace":"gpdc",
+        "description": [
+            "The \\element{grid} node is like the \\element{axis} but adds a list of values that the function is evaluated at for the ",
+            "independent axis defined by the  \\element{grid}. The \\element{grid} has the same three attributes (\\element{index}, ",
+            "\\element{label}, and \\element{unit}) as the \\element{axis} node and adds the attributes \\element{style} ",
+            "and \\element{interpolation}. In addition, the \\element{grid} node has a \\element{values} child node ",
+            "that contains the list of values the function is evaluated at or parameters the function is specified at as ",
+            "indicated by the \\element{style} attribute. "
+        ],
+
+        "attributes": {
+            "index": {
+                "type": "Integer32",
+                "description": [
+                    "An integer that indicates which independent/dependent axis this \\element{grid}  ",
+                    "node belongs to."
+                ],
+                "required": false,
+                "default": null
+            },
+            "interpolation": {
+                "type": "interpolation",
+                "description": [
+                    "Defines the interpolation to be used between consecutive domain points along this axis.  ",
+                    "Note, this attribute is required when \\element{style} is \\attr{points} or \\attr{boundaries} and ",
+                    "interpolation is other than \\attr{lin-lin}."
+                ],
+                "required": false,
+                "default": "interpolation_t::lin_lin"
+            },
+            "label": {
+                "type": "XMLName",
+                "description": "A unique label",
+                "required": false,
+                "default": null
+            },
+            "style": {
+                "type": "UTF8Text",
+                "description": [
+                    "A string denoting the type of grid associated with this axis.   Allowed values are `none', `points', ",
+                    "`boundaries' and `parameters'."
+                ],
+                "required": false,
+                "default": null
+            },
+            "unit": {
+                "type": "XMLName",
+                "description": "The unit for the axis.",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childUnique" : "yes",
+        "childNodes": {
+            "values": {
+                "namespace":"gpdc",
+                "description": "List of values defining the grid.",
+                "occurrence": "choice",
+                "required": false
+            },
+            "link": {
+                "namespace":"gpdc",
+                "description": "Link to a list of values defining the grid.",
+                "occurrence": "choice",
+                "required": false
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "regions1d": {
+        "namespace":"gpdc",
+        "description": null,
+
+        "attributes": {
+            "label": {
+                "type": "XMLName",
+                "description": "A unique label",
+                "required": false,
+                "default": null
+            },
+            "value": {
+                "type": "Float64",
+                "description": "When an XYs2d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+            "XYs1d": {
+                "namespace":"gpdc",
+                "description": "list of 1 or more 1d functional containers.",
+                "occurrence": "1+",
+                "required": true
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "namespace":"gpdc",
+                "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "XYs1d": {
+        "namespace":"gpdc",
+        "description": [
+            "This node stores a single-valued function $x_0(x_1)$ (i.e., $y(x)$) as a tabulated list of $(x_i,y_i)$ pairs with $x_i < x_{i+1}$. ",
+            "It may appear on its own (i.e. when storing an energy-dependent cross section or multiplicity), or it may appear inside ",
+            "of another functional data container such as \\element{regions1d} or \\element{XYs2d}."
+        ],
+
+        "attributes": {
+            "index": {
+                "type": "Integer32",
+                "description": "Integer index, used when the \\element{XYs1d} appears inside a \\element{regions1d}.",
+                "required": false,
+                "default": null
+            },
+            "interpolation": {
+                "type": "interpolation",
+                "description": "The rule for interpolating $y$ along the $x$ axis.",
+                "required": false,
+                "default": "interpolation_t::lin_lin"
+            },
+            "label": {
+                "type": "XMLName",
+                "description": "Unique label. When the \\element{XYs1d} appears as a form, the label indicates the associated style.",
+                "required": false,
+                "default": null
+            },
+            "value": {
+                "type": "Float64",
+                "description": "When an XYs1d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+            "axes": {
+                "namespace":"gpdc",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "namespace":"gpdc",
+                "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "occurrence": "1",
+                "required": false
+            },
+            "values": {
+                "namespace":"gpdc",
+                "description": "Contains the list of the $n$ pairs of $x_i, y_i$ as the list $x_0\\ y_0\\ x_1\\ y_1\\ ...\\ x_{n-1}\\ y_{n-1}$.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+    "columnHeaders": {
+        "namespace":"gpdc",
+        "description": "Contains a list of N `header' nodes where N is the number of columns.",
+
+        "attributes": {
+        },
+
+        "childNodes": {
+            "column": {
+                "namespace":"gpdc",
+                "description": "Container which holds the name, units, etc. describing a column of data.",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "values": {
+        "namespace":"gpdc",
+        "description": [
+            "Data containers have meta-data and data. In most cases the data have one common meta-data, ",
+            "which is the \\element{type} of data.  For, this reason, many of the containers ",
+            "store their data in a \\element{values} node where, if needed, \\element{type} is stored. ",
+            "This node also allows for compressing leading and trailing zero data. If the \\element{start} attribute ",
+            "is defined, it specifies the first non-zero data value. If the sum of the \\element{start} ",
+            "and the number of data values is less than the value of the \\element{length} attribute, then the ",
+            "the \\element{length} value represents the total number of data values including the  ",
+            "non-specified leading and trailing zeros.  ",
+            "All data in this node must be of the same type and separated by one or more white spaces."
+        ],
+
+        "attributes": {
+            "valueType": {
+                "type": "UTF8Text",
+                "description": [
+                    "Specifies the type of data ",
+                    "in the body (e.g., Integer32, Float64).  Only one type of data can be stored ",
+                    "in each instance of a values node."
+                ],
+                "required": false,
+                "default": "\"Float64\""
+            },
+            "start": {
+                "type": "Integer32",
+                "description": "For start=\"N\", the first N values are zero and are not stored.",
+                "required": false,
+                "default": "0"
+            },
+            "length": {
+                "type": "Integer32",
+                "description": [
+                    "The total number of data values including leading and trailing zero ",
+                    "values that are not stored.  This attribute should only be used when ",
+                    "the sum of \\attr{start} and the number of listed values do not ",
+                    "added to the total number of data values which only happens when there are trailing zeros not ",
+                    "listed in the Body text. "
+                ],
+                "required": false,
+                "default": null
+            }
+        },
+
+        "childNodes": {
+        },
+
+        "bodyText": "Contains the data sequentially list for the parent node.",
+        "rootNode": false
+    },
+
+
+
+    "uncertainty": {
+        "namespace":"gpdc",
+        "description": "Stores the uncertainty for a scalar quantity, e.g. mass or energy.",
+
+        "attributes": {
+        },
+
+        "childNodes": {
+            "standard": {
+                "namespace":"gpdc",
+                "description": "Stores a normally-distributed uncertainty.",
+                "occurrence": "1",
+                "required": false
+            },
+            "logNormal": {
+                "namespace":"gpdc",
+                "description": "Stores a log-normal-distributed uncertainty.",
+                "occurrence": "1",
+                "required": false
+            },
+            "confidenceIntervals": {
+                "namespace":"gpdc",
+                "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+
+        "bodyText": null,
+        "rootNode": false
+    },
+
+
+
+    "standard": {
+        "namespace":"gpdc",
+        "attributes": {
+        },
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "namespace":"gpdc",
+                "description": "Stores $\\sigma$ for the normal distribution.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store the standard deviation of a standard Gaussian uncertainty distribution. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} node."
+        ],
+        "rootNode": false
+    },
+
+
+
+    "logNormal": {
+        "namespace":"gpdc",
+        "attributes": {
+        },
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "namespace":"gpdc",
+                "description": "Stores $\\sigma$ for the log-normal distribution.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store the standard deviation $\\sigma$ of a log-normal uncertainty distribution, $X = e^{\\mu + \\sigma Z}$. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "rootNode": false
+    },
+
+
+
+    "confidenceIntervals": {
+        "namespace":"gpdc",
+        "attributes": {
+        },
+        "bodyText": null,
+        "childNodes": {
+            "interval": {
+                "namespace":"gpdc",
+                "description": "Stores one confidence interval.",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Stores a list of intervals along with the confidence that the `true value' lies within each interval. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "rootNode": false
+    },
+
+
+
+    "pdf": {
+        "namespace":"gpdc",
+        "attributes": {
+        },
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "namespace":"gpdc",
+                "description": "Probability distribution stored as an XYs1d.",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions1d": {
+                "namespace":"gpdc",
+                "description": "Probability distribution stored as a regions1d.",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores an explicit probability distribution for the parent quantity.",
+        "rootNode": false
+    },
+
+
+
+    "double": {
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "Unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "default": null,
+                "description": "e.g. `kg' or `m'",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "numeric value",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+        },
+        "description": "Stores a double-precision quantity along with a unit, optional label and uncertainty",
+        "rootNode": false
+    },
+
+
+
+    "interval": {
+        "namespace":"gpdc",
+        "attributes": {
+            "confidence": {
+                "default": null,
+                "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
+                "required": true,
+                "type": "Float64"
+            },
+            "lower": {
+                "default": null,
+                "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
+                "required": true,
+                "type": "Float64"
+            },
+            "upper": {
+                "default": null,
+                "description": "Value to add to the mean to obtain the upper limit for this interval.",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+        },
+        "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+        "rootNode": false
+    },
+
+    "integer":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "Unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "default": null,
+                "description": "e.g. `kg' or `m'",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": null,
+                "required": false,
+                "type": "Integer32"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+        },
+        "description": [
+            "The \\element{integer} physical quantity is used to store quantities that can only be integers. ",
+            "It is similar to the \\element{double}, except that the value must be an integer ",
+            "(e.g. value=`1' rather than value=`1.0').  ",
+            "Uncertainties are also treated differently: rather than an \\element{uncertainty} node, ",
+            "tentative assignments are indicated by storing each possible assignment along with a likelihood."
+        ],
+        "rootNode": false
+    },
+
+    "fraction":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "Unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "default": null,
+                "description": "e.g. `J/s'",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "numeric value",
+                "required": true,
+                "type": "Fraction32"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+        },
+        "description": [
+            "The \\element{fraction} physical quantity is used to store values that can only be ",
+            "integers or fractions.  It is nearly identical to the \\element{integer}, ",
+            "but the value in this case may either be an integer or a ratio of integers separated ",
+            "by the `/' character, as in `3/2'.  Values like `1.5' are not allowed.  "
+        ],
+        "rootNode": false
+    },
+
+    "string":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "Unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "default": null,
+                "description": "A valid unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "contains a string composed of printable ascii characters (e.g., `stable').",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+        },
+        "description": "The \\element{string} physical quantity is used to store quantities that cannot be represented numerically. The main examples are half-lives for\nstable particles, which are best represented as the string `stable'.",
+        "rootNode": false
+    },
+
+    "link":{
+        "namespace":"gpdc",
+        "attributes": {
+            "href": {
+                "default": null,
+                "description": "The URL or xpath-like string pointing to the referred to element",
+                "required": false,
+                "type": "bodyText"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+        },
+        "description": "\\FIXME: Is this format used?",
+        "rootNode": false
+    },
+
+
+
+    "array":{
+        "namespace":"gpdc",
+        "attributes": {
+            "shape": {
+                "default": null,
+                "description": [
+                    "a comma-separated list of integers representing the length of ",
+                    "the array along each dimension. The integer type is Integer32."
+                ],
+                "required": true,
+                "type": "IntegerTuple"
+            },
+            "compression": {
+                "default": "\"none\"",
+                "description": [
+                    "A flag indicating whether a sparse storage scheme is being used, ",
+                    "and if so which scheme is used.  Allowed value is either ",
+                    "`none', `diagonal', `flattened' or `embedded'.  Projects can also define their own",
+                    "compression schemes."
+                ],
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "symmetry": {
+                "default": null,
+                "description": [
+                    "Allows for storing values in only ",
+                    "the upper- or lower-diagonal hyper-triangle. If \\attrval{permutation} is `none',  ",
+                    "non-stored values are zero. Otherwise, they are determine by the \\attrval{permutation} attribute."
+                ],
+                "required": true,
+                "type": "UTF8Text"
+            },
+            "permutation": {
+                "default": null,
+                "description": [
+                    "If \\attrval{symmetry} is other then `none',  ",
+                    "this attribute specifies whether the permutation of two indices is +1 or -1. Allowed  ",
+                    "values are `none', `+1' `-1."
+                ],
+                "required": true,
+                "type": "UTF8Text"
+            },
+            "storageOrder": {
+                "default": "\"row-major\"",
+                "description": [
+                    "Indicates whether the data are stored in row-major  ",
+                    "or column-major order (i.e., whether the last or first index is varying the fastest).  ",
+                    "Allowed values are `row-major' or `column-major',"
+                ],
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "offset": {
+                "default": null,
+                "description": [
+                    "Required if this array is nested inside an \\attrval{embedded} array; not allowed otherwise; ",
+                    "Gives the starting indices for a sub-array nested inside an array that uses \\attrval{embedded} compression.  ",
+                    "A comma-separated list of integers equal in dimension to the parent array. The integer type is Integer32.,"
+                ],
+                "required": false,
+                "type": "IntegerTuple"
+            }
+        },
+        "bodyText": [
+            "A list of \\element{values} nodes that depends on the value of the \\attr{compression} attribute.  ",
+            "The \\attr{label} attribute of each \\element{values} node designates the type of data stored in  ",
+            "that node. For the \\element{values} nodes containing the data of the array, label shall ",
+            "not be specified. For each \\element{values} node the \\attr{index} and \\attr{style} ",
+            "attributes shall not be used. The allowed \\textbf{values} nodes for different combinations are: ",
+            "",
+            "\\begin{description}",
+            "\\item[compression=`none':] in this case the array only contains a \\element{values} node that",
+            "    contains the array data. The \\attr{label} attribute of the \\element{values} node shall",
+            "    not be used. The number of data in  the \\element{values} node",
+            "    depends on the array shape and the values of the \\attr{symmetry} and \\attr{storageOrder} attributes.",
+            "",
+            "\\item[compression=`diagonal':] if all off-diagonal nodes are zero, then the",
+            "diagonal array only needs to contain a \\element{values} node, ",
+            "with size = N (the smallest array dimension). ",
+            "If some off-diagonal nodes are included, then the array contains two \\element{values} ",
+            "nodes. One node has label=\"startingIndices\" and contains the starting indices. The ",
+            "other node contains the array data and its \\attr{label} attribute shall ",
+            "not be used. ",
+            "",
+            "\\item[compression=`flattened':] In this case the array contains three \\element{values} nodes.",
+            "    One node contains a list of starting indices in the flattened array and has \\attr{label}=\"starts\". Another node",
+            "    contains the number of values given after each `start' and has \\attr{label}=\"lengths\".",
+            "    The third node contains the array data and its \\attr{label} attribute shall",
+            "    not be used.  The \\attr{starts} and \\attr{lengths} both shall have data",
+            "    type Integer32, and must have the same size.",
+            "",
+            "\\item[compression=`embedded':] contains 0 or more child \\element{array} nodes.",
+            "    Each child array shall have the same data type as the parent array,",
+            "    must have an \\attr{offset} attribute, and must obey size restrictions as described in",
+            "    Section~\\ref{embeddeddef}.",
+            "\\end{description}"
+        ],
+        "childNodes": {
+            "values": {
+                "namespace":"gpdc",
+                "description": "The container holding the array values themselves.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "rootNode": false
+    },
+
+
+
+    "table":{
+        "namespace":"gpdc",
+        "attributes": {
+            "columns": {
+                "default": null,
+                "description": "The number of columns of the table.",
+                "required": true,
+                "type": "Integer32"
+            },
+            "rows": {
+                "default": null,
+                "description": "The number of rows of the table.",
+                "required": true,
+                "type": "Integer32"
+            },
+            "storageOrder": {
+                "default": "\"row-major\"",
+                "description": "Allowed value is one of `row-major' and `column-major'",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "columnHeaders": {
+                "namespace":"gpdc",
+                "description": "Contains a list of N `header' nodes where N is the number of columns.",
+                "occurrence": "1",
+                "required": true
+            },
+            "data": {
+                "namespace":"gpdc",
+                "description": "The data for the table, consisting of M $\\times$ N cells.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "rootNode": false
+    },
+
+
+
+    "data":{
+        "namespace":"gpdc",
+        "attributes": {
+            "sep": {
+                "default": "\"whiteSpace\"",
+                "description": [
+                    "Valid options are \"whiteSpace\", \",\", ",
+                    "\"td\", \"tr\" or \"tc\". The standard rules for \"whiteSpace\" and \"comma\" separators, ",
+                    "apply. The other separator options are described below."
+                ],
+                "required": false,
+                "type": "UTF8Text"
+            }
+        },
+        "bodyText": [
+            "The layout of the table data depends on the values of the \\textbf{storageOrder} and \\textbf{sep} attributes.  ",
+            "\\begin{description}",
+            "\\item[sep=`whiteSpace' or `,']",
+            "    In this case the table has no child node, and the body of the table consists of a",
+            "    \\textbf{sep}-separated list containing M $\\times$ N values. The order of data depends on the storageOrder.",
+            "    This option can only be used if all data in the table are numeric types.",
+            "\\item[sep=`td']",
+            "    In this case every cell in the table is explicitly contained inside `<td>' and `</td>' (or `<td/>', ",
+            "    to indicate an empty cell). The order of data depends on the storageOrder. This option can handle",
+            "    multiple data types, but if only a few cells contain non-numeric data the following two options may",
+            "    be more concise.",
+            "\\item[storageOrder=`row-major', sep=`tr']",
+            "    In this case each row of the table is stored inside `<tr sep=\"...\">' and `</tr>'. Each row can define",
+            "    its own separator, which may be `whiteSpace' (the default), `td' or `,'. Any row containing non-numeric",
+            "    data must have `sep=\"td\"'.",
+            "\\item[storageOrder=`column-major', sep=`tc']",
+            "    In this case each column of the table is stored inside `<tc sep=\"...\">' and `</tc>'.",
+            "    Each column can define its own separator, which may be `whiteSpace' (the default),",
+            "    `td' or `,'. Any column containing non-numeric data must have `sep=\"td\"'.  This storage",
+            "    is recommended whenever some columns contain only numeric data while",
+            "    others contain mixed data types, since it helps reduce the size of the numeric columns.",
+            "\\end{description}"
+        ],
+        "childNodes": {
+        },
+        "description": "The data for the table, consisting of M $\\times$ N cells.",
+        "rootNode": false
+    },
+
+
+
+    "Ys1d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "interpolation": {
+                "default": "interpolation_t::lin_lin",
+                "description": "The rule for interpolating $y$ rule along the $x$ axis.",
+                "required": false,
+                "type": "interpolation"
+            },
+            "label": {
+                "default": null,
+                "description": "Unique label. When the \\element{Ys1d} appears as a form, the label indicates associated style.",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "namespace":"gpdc",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "occurrence": "1",
+                "required": true
+            },
+            "values": {
+                "namespace":"gpdc",
+                "description": "Contains the list of $y_i$ values.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This node stores a tabulated representation of the single-valued function $x_0(x_1)$. This is like the ",
+            "\\element{XYs1d} node (see Section~\\ref{format:XYs1d}) except that the independent axis must be a ",
+            "\\element{grid} node (see Section~\\ref{format:grid}) that either stores a list of $x_i$ values or links to another grid that stores the list.  ",
+            "This node is useful when many tabulated $x_0(x_1)$'s contain the same $x_i$ points. Only one of the \\element{Ys1d} node ",
+            "needs to store the $x_i$ values and the others can link to it, allowing for reduced redundancy and storage.  ",
+            "The $x_i$ values must statisfy $x_i < x_{i+1}$.  The $y_i$ are stored in the \\element{values} child node.  "
+        ],
+        "rootNode": false
+    },
+
+
+
+    "Legendre":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "Unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "When a Legendre series appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "type": "Float64"
+            },
+            "lowerIndex": {
+                "default": "0",
+                "description": [
+                    "Used if the first \\attr{lowerIndex} coefficients are all zero. The upperIndex is equal to lowerIndex plus the number of coefficients ",
+                    "in the \\element{values} node, so it is not stored."
+                ],
+                "required": false,
+                "type": "Integer32"
+            },
+            "domainMin": {
+                "default": "-1",
+                "description": "$y(x_1)$ is only valid (i.e., defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
+                "required": false,
+                "type": "Float64"
+            },
+            "domainMax": {
+                "default": "1",
+                "description": "See \\attr{domainMin}.",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "values": {
+                "namespace":"gpdc",
+                "description": [
+                    "The specifications of the \\element{values} node are given in Section~\\ref{format:values}.  ",
+                    "The numeric values are the coefficients $C_i$ listed by consecutive order $i$ starting with \\attr{lowerIndex}."
+                ],
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "rootNode": false
+    },
+
+
+
+    "polynomial1d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "Unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "When a polynomial1d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "type": "Float64"
+            },
+            "lowerIndex": {
+                "default": "0",
+                "description": [
+                    "Used if the first \\attr{lowerIndex} coefficients are all zero. The upperIndex is equal to lowerIndex plus the number of coefficients ",
+                    "in the \\element{values} node, so it is not stored."
+                ],
+                "required": false,
+                "type": "Integer32"
+            },
+            "domainMin": {
+                "default": null,
+                "description": "$y(x_1)$ is only valid (i.e., defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
+                "required": false,
+                "type": "Float64"
+            },
+            "domainMax": {
+                "default": null,
+                "description": "See \\attr{domainMin}.",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "namespace":"gpdc",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "occurrence": "1",
+                "required": true
+            },
+            "uncertainty": {
+                "namespace":"gpdc",
+                "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "occurrence": "1",
+                "required": false
+            },
+            "values": {
+                "namespace":"gpdc",
+                "description": [
+                    "The specifications of the \\element{values} node are given in Section~\\ref{format:values}.  ",
+                    "The numeric values are the coefficients $C_i$ listed by consecutive order $i$ starting with lowerIndex."
+                ],
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "rootNode": false
+    },
+
+
+
+    "XYs2d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "index": {
+                "default": null,
+                "description": "Integer index, required when the \\element{XYs2d} appears inside a \\element{regions2d}.",
+                "required": false,
+                "type": "Integer32"
+            },
+            "interpolation": {
+                "default": "interpolation_t::lin_lin",
+                "description": "The rule for interpolating $x_0$ along the $x_2$ axis.",
+                "required": false,
+                "type": "interpolation"
+            },
+            "interpolationQualifier": {
+                "default": null,
+                "description": "The interpolation qualifier.",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "When an XYs2d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "Legendre": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "choice2+",
+                "required": false
+            },
+            "XYs1d": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "choice2+",
+                "required": false
+            },
+            "regions1d": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "choice2+",
+                "required": false
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "1",
+                "required": false
+             },
+            "uncertainty": {
+                "namespace":"gpdc",
+                "description": "Uncertainty and/or covariance for this two-dimensional function.",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "This node stores a 2-dimensional function $x_0(x_2, x_1)$",
+        "rootNode": false
+    },
+
+
+
+    "XYs3d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "interpolation": {
+                "default": "interpolation_t::lin_lin",
+                "description": "The rule for interpolating $x_0$ along the $x_3$ axis.",
+                "required": false,
+                "type": "interpolation"
+            },
+            "interpolationQualifier": {
+                "default": null,
+                "description": "The interpolation qualifier.",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "XYs2d": {
+                "namespace":"gpdc",
+                "description": "2 or more 2d functional containers.",
+                "occurrence": "choice2+",
+                "required": false
+            },
+            "regions2d": {
+                "namespace":"gpdc",
+                "description": "2 or more 2d functional containers.",
+                "occurrence": "choice2+",
+                "required": false
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "This node store the 3-dimensional function $x_0(x_3, x_2, x_1)$",
+        "rootNode": false
+    },
+
+
+
+    "regions2d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "A unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "When a regions2d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "XYs2d": {
+                "namespace":"gpdc",
+                "description": "list of 1 or more 2d functional containers.",
+                "occurrence": "1+",
+                "required": true
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "namespace":"gpdc",
+                "description": "Uncertainty and/or covariance for this two-dimensional function.",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "rootNode": false
+    },
+
+
+
+    "regions3d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "A unique label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "description": "When a regions3d appears inside a higher-dimensional container, the value corresponds to the next higher dimension.",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "XYs3d": {
+                "namespace":"gpdc",
+                "description": "list of 1 or more 3d functional containers.",
+                "occurrence": "1+",
+                "required": true
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": null,
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "namespace":"gpdc",
+                "description": "Uncertainty and/or covariance for this three-dimensional function.",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "rootNode": false
+    },
+
+
+
+    "gridded1d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "A unique identifier.",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "array": {
+                "namespace":"gpdc",
+                "description": "An \\element{array} node representing the $x_0$ values.",
+                "occurrence": "1",
+                "required": true
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "A one-dimensional function defined on a grid or set of groups.",
+        "rootNode": false
+    },
+
+
+
+    "gridded2d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "An unique identifier.",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "array": {
+                "namespace":"gpdc",
+                "description": "An \\element{array} node representing the $x_0$ values.",
+                "occurrence": "1",
+                "required": true
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "A two-dimensional function defined on a grid or set of groups.",
+        "rootNode": false
+    },
+
+
+
+    "gridded3d":{
+        "namespace":"gpdc",
+        "attributes": {
+            "label": {
+                "default": null,
+                "description": "An unique identifier.",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "array": {
+                "namespace":"gpdc",
+                "description": "An \\element{array} node representing the $x_0$ values.",
+                "occurrence": "1",
+                "required": true
+            },
+            "axes": {
+                "namespace":"gpdc",
+                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "A three-dimensional function defined on a grid or set of groups.",
+        "rootNode": false
+    }
+
+}

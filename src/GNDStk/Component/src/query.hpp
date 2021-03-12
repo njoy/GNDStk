@@ -32,27 +32,32 @@ void query(const Node &node) const
    }
 
    try {
-      // retrieve node's data by doing a multi-query
-      const auto tup = node(toKeywordTup(DERIVED::keys()));
+      if constexpr (
+         std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
+      ) {
+         // consistency check
+         assert(0 == links.size());
+      } else {
+         // retrieve node's data by doing a multi-query
+         const auto tup = node(toKeywordTup(DERIVED::keys()));
 
-      // consistency check
-      assert(std::tuple_size<decltype(tup)>::value == links.size());
+         // consistency check
+         assert(std::tuple_size<decltype(tup)>::value == links.size());
 
-      // apply links:
-      // Node ==> derived-class data
-      // Below, each apply'd "result" is one particular element - one
-      // retrieved value - from the above multi-query on the node.
-
-      std::apply(
-         [this](const auto &... result) {
-            std::size_t n = 0;
-           ((*(typename detail::remove_cvref<decltype(result)>::type *)
-               links[n++] = result),
-            ...);
-         },
-         tup
-      );
-
+         // apply links:
+         // Node ==> derived-class data
+         // Below, each apply'd "result" is one particular element - one
+         // retrieved value - from the above multi-query on the node.
+         std::apply(
+            [this](const auto &... result) {
+               std::size_t n = 0;
+              ((*(typename detail::remove_cvref<decltype(result)>::type *)
+                  links[n++] = result),
+               ...);
+            },
+            tup
+         );
+      }
    } catch (...) {
       log::member("Component.query(Node(\"{}\"))", node.name);
       throw;
