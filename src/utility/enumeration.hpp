@@ -67,7 +67,7 @@ const Enumeration& fromString( const std::string& symbol ) {
   auto found = Map< Enumeration >::symbols.find( symbol );
   if ( found == Map< Enumeration >::symbols.end() ) {
 
-    Log::error( "An enumeration symbol for {} has no registered value: \'{}\'",
+    Log::error( "An enumeration symbol for {} has no registered value: \"{}\"",
                 typeid( Enumeration ).name(), symbol );
     throw std::exception();
   }

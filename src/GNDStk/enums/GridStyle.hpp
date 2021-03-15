@@ -50,7 +50,7 @@ namespace utility {
 namespace enumeration {
 
   /**
-   *  @brief Template specialisation to convert Length to/from strings
+   *  @brief Template specialisation to convert GridStyle to/from strings
    */
   template <>
   struct Map< GNDStk::enums::GridStyle > {
