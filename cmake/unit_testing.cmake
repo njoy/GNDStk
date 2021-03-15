@@ -25,3 +25,5 @@ add_subdirectory( src/GNDStk/keyword/test )
 add_subdirectory( src/GNDStk/Child/test )
 add_subdirectory( src/GNDStk/convert/test )
 add_subdirectory( src/GNDStk/utility/test )
+
+add_subdirectory( src/GNDStk/enums/Interpolation/test )
