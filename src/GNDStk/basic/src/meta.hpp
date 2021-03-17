@@ -112,6 +112,7 @@ inline const Meta<void>
    offset      ("offset"      ),
    permutation ("permutation" ),
    storageOrder("storageOrder"),
-   sep         ("sep"         );
+   sep         ("sep"         ),
+   outerDomainValue("outerDomainValue");
 
 } // namespace meta

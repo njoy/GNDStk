@@ -12,8 +12,13 @@ inline const std::string directory =
    "/home/kim/xcp5/GNDStk/json/";
 
 inline const std::vector<std::string> files = {
-   "gnds.json"
+   "abstract.json",
+   "documentation.json",
+   "gnds2.json"
+   ///,   "pops.json"
 };
+
+inline const bool debugging = true;
 
 
 
@@ -139,6 +144,9 @@ inline void check_class(const nlohmann::json &value, const std::string &key)
 inline void check_metadata(const nlohmann::json &attrs)
 {
    for (const auto &field : attrs.items()) {
+      if (debugging)
+         std::cout << "   Field: " << field.key() << std::endl;
+
       // each attribute should contain these items
       assert(field.value().size() == 4);
       assert(field.value().contains("type"));
@@ -152,6 +160,9 @@ inline void check_metadata(const nlohmann::json &attrs)
 inline void check_children(const nlohmann::json &elems)
 {
    for (const auto &field : elems.items()) {
+      if (debugging)
+         std::cout << "   Field: " << field.key() << std::endl;
+
       // each child node should contain these items
       assert(field.value().size() == 4);
       assert(field.value().contains("namespace"));
@@ -161,7 +172,10 @@ inline void check_children(const nlohmann::json &elems)
 
       // consistency check
       const std::string occur = field.value()["occurrence"];
-      if (occur == "0+" || occur == "choice" || occur == "choice2")
+      if (occur == "0+" ||
+          occur == "choice" ||
+          occur == "choice2" ||
+          occur == "choice2+")
          assert(!field.value()["required"]);
    }
 }
@@ -219,8 +233,8 @@ inline void write_class_prefix(
       << large << "\n"
       << "\n"
       << "namespace " << nsname << " {\n\n"
-      << "class " << clname << " : public Component<" << clname << "> {\n"
-      << "public:" << std::endl;
+      << "class " << clname << " : public Component<" << clname << "> {"
+      << std::endl;
 }
 
 // write_class_suffix
@@ -234,6 +248,12 @@ inline void write_class_suffix(
    os << "\n   " << small << "\n";
    os << "\n   " << clname << " &operator=(const " << clname << " &) = default;";
    os << "\n   " << clname << " &operator=(" << clname << " &&) = default;\n";
+
+   os << "\n   " << small;
+   os << "\n   // custom functionality";
+   os << "\n   " << small << "\n";
+   os << "\n   #include \"" << nsname << "-" << clname << ".hpp\"\n";
+
    os << "\n}; // class " << clname << "\n";
    os << "\n} // namespace " << nsname << std::endl;
 }
@@ -267,13 +287,20 @@ public:
 
 
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Functions - for class content
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// write_keys
 // -----------------------------------------------------------------------------
 
 // names and keys for the Component base
 inline void write_keys(
    std::ostream &os,
    const std::string &key,
+   const std::string &clname,
    std::vector<infoMetadata> &vecInfoMetadata,
    std::vector<infoChildren> &vecInfoChildren
 ) {
@@ -284,6 +311,7 @@ inline void write_keys(
    os << "\n   " << small << "\n";
    os << "   // for Component";
    os << "\n   " << small << "\n\n";
+   os << "   friend class Component<" << clname << ">;\n\n";
    os << "   static auto className() { return \"" << name << "\"; }\n";
    os << "   static auto GNDSField() { return \"" << gnds << "\"; }\n";
 
@@ -300,34 +328,28 @@ inline void write_keys(
       os << "      return\n";
       std::size_t count = 0;
 
-      // keys for metadata
-      //    std::string fullVarType;
-      //    std::string varType;
-      //    std::string varName;
-      //    bool        hasDefault;
-      //    std::string theDefault;
+      // metadata
+      if (vecInfoMetadata.size())
+         os << "         // metadata\n";
       for (const auto &m : vecInfoMetadata) {
          os << "         ";
          os << m.fullVarType << "{";
          os << m.theDefault;
-         os << "} / basic::meta::"
-            << m.varName;
+         os << "}\n            / ";
+         os << "Meta<>(\"" << m.varName << "\")";
          os << (++count < total ? " |\n" : "\n");
       }
 
-      // keys for children
-      //    std::string fullVarType;
-      //    std::string halfVarType;
-      //    std::string varType;
-      //    std::string varName;
-      //    bool        isVector;
+      // children
+      if (vecInfoChildren.size())
+         os << "         // children\n";
       for (const auto &c : vecInfoChildren) {
          os << "         ";
          os << c.halfVarType << "{";
          // doesn't exist now in infoChildren; may or may not ever be needed...
          ///os << c.theDefault;
-         os << "} / " << (c.isVector ? "++" : "--") << "basic::child::"
-            << c.varName;
+         os << "}\n            / " << (c.isVector ? "++" : "--");
+         os << "Child<>(\"" << c.varName << "\")";
          os << (++count < total ? " |\n" : "\n");
       }
 
@@ -336,17 +358,22 @@ inline void write_keys(
    }
 
    // keys end
-   os << "   }\n";
+   os << "   }\n\n";
+   os << "public:\n";
 }
 
 
+
+// -----------------------------------------------------------------------------
 // write_metadata
+// -----------------------------------------------------------------------------
+
 inline void write_metadata(
-   std::ostream &os,
+   std::ostream &ossm,
    const nlohmann::json &attrs,
    std::vector<infoMetadata> &vecInfoMetadata
 ) {
-   os << "\n   // metadata\n";
+   ossm << "\n      // metadata\n";
    for (const auto &field : attrs.items()) {
 
       // has default?
@@ -374,7 +401,7 @@ inline void write_metadata(
       const std::string varName = variableName(field.key());
 
       // write
-      os << "   " << fullVarType << " " << varName << ";" << std::endl;
+      ossm << "      " << fullVarType << " " << varName << ";" << std::endl;
 
       // vecInfoMetadata
       vecInfoMetadata.push_back(infoMetadata{});
@@ -389,14 +416,18 @@ inline void write_metadata(
 }
 
 
+
+// -----------------------------------------------------------------------------
 // write_children
+// -----------------------------------------------------------------------------
+
 inline void write_children(
-   std::ostream &os,
+   std::ostream &ossc,
    const nlohmann::json &elems,
    std::vector<infoChildren> &vecInfoChildren,
    const std::string &clname, NameDeps &ndep
 ) {
-   os << "\n   // children\n";
+   ossc << "\n      // children\n";
    for (const auto &field : elems.items()) {
 
       // optional?
@@ -406,7 +437,11 @@ inline void write_children(
 
       // vector?
       const std::string occur = field.value()["occurrence"];
-      const bool vec = occur == "0+" || occur == "1+" || occur == "2+";
+      const bool vec =
+         occur == "0+" ||
+         occur == "1+" ||
+         occur == "2+" ||
+         occur == "choice2+";
       const std::string vecPrefix = vec ? "std::vector<" : "";
       const std::string vecSuffix = vec ? ">" : "";
 
@@ -423,9 +458,9 @@ inline void write_children(
       const std::string varName = variableName(field.key());
 
       // write
-      os << "   " << fullVarType << " " << varName << ";" << std::endl;
+      ossc << "      " << fullVarType << " " << varName << ";" << std::endl;
 
-      // zzz
+      // qqq
       // save dependency
       if (varType != clname  // not its own dependency
           ///&& vecPrefix == "" // or else incomplete type is allowable
@@ -443,7 +478,48 @@ inline void write_children(
 }
 
 
+
+// -----------------------------------------------------------------------------
+// write_class_getset
+// -----------------------------------------------------------------------------
+
+inline void write_class_getset(
+   std::ostream &os,
+   ///const std::string &clname,
+   std::vector<infoMetadata> &vecInfoMetadata,
+   std::vector<infoChildren> &vecInfoChildren
+) {
+   const auto total = vecInfoMetadata.size() + vecInfoChildren.size();
+   if (total == 0)
+      return;
+
+   for (const auto &m : vecInfoMetadata) {
+      os << "\n";
+      os << "   // " << m.varName << "\n";
+      os << "   const auto &" << m.varName << "() const\n";
+      os << "    { return content." << m.varName << "; }\n\n";
+      os << "   const auto &" << m.varName;
+      os << "(const " << m.fullVarType << " &obj)\n";
+      os << "    { return content." << m.varName << " = obj; }\n";
+   }
+
+   for (const auto &c : vecInfoChildren) {
+      os << "\n";
+      os << "   // " << c.varName << "\n";
+      os << "   const auto &" << c.varName << "() const\n";
+      os << "    { return content." << c.varName << "; }\n\n";
+      os << "   const auto &" << c.varName;
+      os << "(const " << c.fullVarType << " &obj)\n";
+      os << "    { return content." << c.varName << " = obj; }\n";
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
 // write_class_ctor
+// -----------------------------------------------------------------------------
+
 inline void write_class_ctor(
    std::ostream &os,
    const std::string &clname,
@@ -476,15 +552,15 @@ inline void write_class_ctor(
    os << "   " << clname << "() :\n";
 
    // base constructor call
-   os << "      Component(\n";
+   os << "      Component{\n";
    count = 0;
    for (const auto &m : vecInfoMetadata)
-      os << "         this->" << m.varName
+      os << "         content." << m.varName
          << (++count < total ? ",\n" : "\n");
    for (const auto &c : vecInfoChildren)
-      os << "         this->" << c.varName
+      os << "         content." << c.varName
          << (++count < total ? ",\n" : "\n");
-   os << "      )";
+   os << "      }";
 
    // these need initialization
    for (const auto &m : vecInfoMetadata)
@@ -493,6 +569,7 @@ inline void write_class_ctor(
 
    os << "\n";
    os << "   {\n";
+   os << "      Component::construct();\n";
    os << "   }\n";
    os << "\n";
 
@@ -505,25 +582,20 @@ inline void write_class_ctor(
    os << "   " << clname << "(const " << clname << " &other) :\n";
 
    // base constructor call
-   os << "      Component(\n";
+   os << "      Component{\n";
    count = 0;
    for (const auto &m : vecInfoMetadata)
-      os << "         this->" << m.varName
+      os << "         content." << m.varName
          << (++count < total ? ",\n" : "\n");
    for (const auto &c : vecInfoChildren)
-      os << "         this->" << c.varName
+      os << "         content." << c.varName
          << (++count < total ? ",\n" : "\n");
-   os << "      ),\n";
+   os << "      }";
 
    // fields
-   count = 0;
-   for (const auto &m : vecInfoMetadata)
-      os << "      " << m.varName << "(other." << m.varName << ")"
-         << (++count < total ? ",\n" : "\n");
-   for (const auto &c : vecInfoChildren)
-      os << "      " << c.varName << "(other." << c.varName << ")"
-         << (++count < total ? ",\n" : "\n");
+   os << (total ? ",\n      content{other.content}\n" : "\n");
    os << "   {\n";
+   os << "      Component::construct();\n";
    os << "   }\n";
    os << "\n";
 
@@ -533,9 +605,10 @@ inline void write_class_ctor(
 
    os << "   // node\n";
    os << "   " << clname << "(const Node &node) :\n";
-   os << "      " << clname << "()\n";
+   os << "      " << clname << "{}\n";
    os << "   {\n";
-   os << "      query(node);\n";
+   os << "      Component::query(node);\n";
+   os << "      Component::construct();\n";
    os << "   }\n";
 
    // ------------------------
@@ -558,27 +631,33 @@ inline void write_class_ctor(
       os << "   ) :\n";
 
       // base constructor call
-      os << "      Component(\n";
+      os << "      Component{\n";
       count = 0;
       for (const auto &m : vecInfoMetadata)
-         os << "         this->" << m.varName
+         os << "         content." << m.varName
             << (++count < total ? ",\n" : "\n");
       for (const auto &c : vecInfoChildren)
-         os << "         this->" << c.varName
+         os << "         content." << c.varName
             << (++count < total ? ",\n" : "\n");
-      os << "      ),\n";
+      os << "      }";
 
       // fields
-      count = 0;
-      for (const auto &m : vecInfoMetadata)
-         os << "      " << m.varName << "(" << m.varName << ")"
-            << (++count < total ? ",\n" : "\n");
-      for (const auto &c : vecInfoChildren)
-         os << "      " << c.varName << "(" << c.varName << ")"
-            << (++count < total ? ",\n" : "\n");
+      if (total) {
+         os << ",\n";
+         os << "      content{\n";
+         count = 0;
+         for (const auto &m : vecInfoMetadata)
+            os << "         " << m.varName << (++count < total ? ",\n" : "\n");
+         for (const auto &c : vecInfoChildren)
+            os << "         " << c.varName << (++count < total ? ",\n" : "\n");
+         os << "      }\n";
+      } else {
+         os << "\n";
+      }
 
       // body
       os << "   {\n";
+      os << "      Component::construct();\n";
       os << "   }\n";
    }
 }
@@ -612,12 +691,16 @@ void make_forward(std::ostream &os, const J &theclass)
 // to their printed code. We compute these pairs first, so that we can print the
 // code for each class later - after a dependency-aware ordering is computed.
 inline VectorNameDeps classDependencies;
+inline VectorNameDeps sortedClassDependencies;
 inline std::map<std::string,std::string> classMap;
 
 // make_class
 template<class J>
 void make_class(const J &theclass)
 {
+   if (debugging)
+      std::cout << "Class: " << className(theclass.key()) << std::endl;
+
    const auto key   = theclass.key();
    const auto value = theclass.value();
    check_class(value,key);
@@ -653,16 +736,28 @@ void make_class(const J &theclass)
 
    // names, keys
    // As needed by the Component base
-   write_keys(oss, key, vecInfoMetadata, vecInfoChildren);
+   write_keys(oss, key, clname, vecInfoMetadata, vecInfoChildren);
 
-   // metadata/children computed earlier
-   if (attrs.size() != 0 || elems.size() != 0)
+   // metadata/children (computed earlier)
+   if (attrs.size() != 0 || elems.size() != 0) {
       oss << "\n   " << small
-          << "\n   // fields"
+          << "\n   // raw GNDS content"
+          << "\n   " << small
+          << "\n"
+          << "\n   struct {"
+          << ossm.str()
+          << ossc.str()
+          << "   } content;\n";
+   }
+
+   // get/set
+   if (attrs.size() != 0 || elems.size() != 0) {
+      oss << "\n   " << small
+          << "\n   // get/set"
           << "\n   " << small
           << "\n";
-   oss << ossm.str();
-   oss << ossc.str();
+   }
+   write_class_getset(oss, vecInfoMetadata, vecInfoChildren);
 
    // constructors
    oss << "\n   " << small
@@ -690,40 +785,50 @@ int main()
    std::ofstream ofs("out.cc");
    write_file_prefix(ofs);
 
-   // json files
+   // json files - for forward declarations
    nlohmann::json jdoc;
-   for (auto &file : files) {
+   bool first = true;
 
+   for (auto &file : files) {
       // read
       read(file,jdoc);
 
-      // forward declarations of classes; some need others
-      ofs << "\n" << large << "\n";
-      ofs << "// Forward declarations\n";
-      ofs << large << "\n\n";
+      if (first) {
+         first = false;
+         // forward declarations of classes; some need others
+         ofs << "\n" << large << "\n";
+         ofs << "// Forward declarations\n";
+         ofs << large << "\n\n";
+      } else
+         ofs << "\n";
+
       for (const auto &theclass : jdoc.items())
          make_forward(ofs,theclass);
+   }
+
+   // json files
+   for (auto &file : files) {
+      // read
+      read(file,jdoc);
 
       // classes
       for (const auto &theclass : jdoc.items())
          make_class(theclass);
-      //printDepVec("OLD", classDependencies);
+   }
 
-      // compute an ordering that respects dependencies
-      VectorNameDeps sortedClassDependencies;
-      while (classDependencies.size() > 0)
-         insertNDep((*classDependencies.begin()).name,
-                    classDependencies, sortedClassDependencies);
+   // compute an ordering that respects dependencies
+   while (classDependencies.size() > 0)
+      insertNDep((*classDependencies.begin()).name,
+                 classDependencies, sortedClassDependencies);
 
-      // print dependencies
-      printDepVec("NEW", sortedClassDependencies);
+   // print dependencies
+   printDepVec("NEW", sortedClassDependencies);
 
-      // print classes, using the computed ordering
-      for (auto &obj : sortedClassDependencies) {
-         auto iter = classMap.find(obj.name);
-         assert(iter != classMap.end());
-         ofs << iter->second;
-      }
+   // print classes, using the computed ordering
+   for (auto &obj : sortedClassDependencies) {
+      auto iter = classMap.find(obj.name);
+      assert(iter != classMap.end());
+      ofs << iter->second;
    }
 
    // output file end
