@@ -1,0 +1,248 @@
+{
+    "__namespace__":"basic",
+    "XMLName":{
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": [
+            "XMLName represents the set and sequence of characters that are allowed for node and attribute ",
+            "names. Some meta-languages and programming languages (e.g., C and Python) allow a name to start ",
+            "with the underscore character. While other programming languages (e.g., FORTRAN) do not. For maximum ",
+            "compatibility an XMLName text shall not start with an underscore character."],
+        "name": "XMLName",
+        "allowedValueDescription": [
+            "XMLNames shall begin with a character from the ISO basic Latin alphabet.  All other ",
+            "characters shall be from the following: ISO basic Latin alphabet, Arabic numerals, and/or an underscore. ",
+            "There is no limit on the length of a name, except that it shall contain at least 1 character."]
+    },
+
+    "attributeValue": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": ["This represents the set and sequence of characters that are allowed for attribute values."],
+        "name": "attributeValue",
+        "allowedValueDescription": ["The allowed values for",
+            "an attribute will depend on the attribute/node and, in general, should be specified by the ",
+            "project defining the attribute/node. A project can use any UTF-8 character in a value deemed necessary. ",
+            "However, some general rules apply: ",
+            "\\begin{itemize}",
+            "\\item If a value of an attribute is an Integer32, UInteger32, ",
+            "Float64 or other defined type then it shall follow the specification for an ",
+            "Integer32, UInteger32, Float64 or the other defined type, respectively",
+            "(see Sections~\\ref{format:basic:Integer32}, \\ref{format:basic:UInteger32} and \\ref{format:basic:Float64}).",
+            "\\item If any part of the value of an attribute is an Integer32, UInteger32, ",
+            "Float64 or other defined type then that part shall follow the specification for an ",
+            "Integer32, UInteger32, Float64 or the other defined type, respectively.",
+            "\\noindent For example, if an attribute value contains a Float64 with units, as in `mass=``3.2 kg''', ",
+            "the numeric part of the attribute value shall follow the Float64 specification.",
+            "\\end{itemize}"]},
+
+    "bodyText": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": [
+            "In general, any UTF-8 character is allowed. However, the allowed characters ",
+            "for a node's body can be limited by its parent node's specifications."],
+        "name": "bodyText",
+        "allowedValueDescription": ["Any UTF-8 character is allowed."]},
+
+    "UTF8Text": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": ["This is text composed of any sequence of UTF-8 characters."],
+        "name": "UTF8Text",
+        "allowedValueDescription": ["Any sequence of 0 or more UTF-8 characters."]},
+
+    "printableText": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": ["This is text composed of only the printable ascii characters."],
+        "name": "printableText",
+        "allowedValueDescription": [
+            "Any sequence of the ascii characters ",
+            "between the space character (decimal 32) to the tilde character ",
+            "('\\textasciitilde' or decimal 126) inclusive."]},
+
+    "quotedText": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents a UTF8Text string that is contained between two matching quote characters. The allowed quote characters are the ascii double quote character (i.e., \" or decimal 34) and the ascii single quote character (i.e., ' or decimal 39).",
+        "name": "quotedText",
+        "allowedValueDescription": ["A UTF8Text string contained between matching single or double quote characters. ",
+            "\\noindent For example, the quoted string ``abc 123 xyz'' is expressed as",
+            "\\begin{verbatim}",
+            "\"abc 123 xyz\"",
+            "\\end{verbatim}",
+            "or",
+            "\\begin{verbatim}",
+            "'abc 123 xyz'",
+            "\\end{verbatim}",
+            "\\noindent",
+            "This is not the same as",
+            "\\begin{verbatim}",
+            "'abc 123 xyz '",
+            "\\end{verbatim}",
+            "\\noindent as leading and trailing spaces are part of the string."]},
+
+    "tdText": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents a UTF8Text string that is contained between the XML start and end elements that define a standard html table cell (i.e., ``<td>'' and ``</td>'').",
+        "name": "tdText",
+        "allowedValueDescription": ["The XML element ``<td>'' and the UTF8Text string it contains.",
+            "\\noindent For example, the quoted string ``abc 123 xyz'' is expressed as",
+            "\\begin{verbatim}",
+            "<td>abc 123 xyz</td>",
+            "\\end{verbatim}",
+            "\\noindent This is not the same as",
+            "\\begin{verbatim}",
+            "<td> abc 123 xyz</td>",
+            "\\end{verbatim}",
+            "\\noindent as leading and trailing spaces are part of the string."]},
+
+    "IntegerTuple": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This is text node composed of a comma-delimited list of integers. It is used to denote starting indices within an array. The integer type is Integer32.",
+        "name": "IntegerTuple",
+        "allowedValueDescription": "Any integer (0-9), the comma `,', and any printable whitespace character.\n\n    \\noindent For example, the array index [3][4][7] can be represented as the IntegerTuple `3, 4, 7'."},
+
+    "Integer32": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": [
+            "This represents the allowed set and sequence of characters, and values that are allowed for a ",
+            "32-bit signed integer."],
+        "name": "Integer32",
+        "allowedValueDescription": [
+            "Any integer in the range [ $-2^{31}$ to $2^{31}$ ) --",
+            "note that the lower limit is inclusive and the upper limit is exclusive. The minimum allowed",
+            "value (i.e., $-2^{31}$ = -2147483648) is defined to be \\textbf{Integer32$\\_$Min} and the maximum allowed",
+            "value (i.e., $2^{31}$ - 1 = 2147483647) is defined to be \\textbf{Integer32$\\_$Max}.",
+            "The Python regular expression (see Section~\\ref{sec:pres}) for an \\textbf{Integer32} shall be",
+            "\\begin{verbatim}",
+            "`[+-]?([1-9][0-9]*|0+)'",
+            "\\end{verbatim}",
+            "with the restriction that the value shall be in the range [\\textbf{Integer32$\\_$Min},",
+            "\\textbf{Integer32$\\_$Max]}."],
+        "C_equivalent": "int32$\\_$t"},
+
+    "UInteger32": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents the allowed set and sequence of characters, and values that are allowed for a 32-bit unsigned integer.",
+        "name": "UInteger32",
+        "allowedValueDescription": ["Any integer in the range [ 0 to $2^{32}$ ).",
+            "An unsigned integer is represented in the",
+            "same way as a signed integer, with the exception that a minus sign (e.g., `-') is not allowed).",
+            "The minimum allowed value (i.e., 0) is defined to be \\textbf{UInteger32\\_Min} and the maximum allowed",
+            "value (i.e., $2^{32} - 1$) is defined to be \\textbf{UInteger32\\_Max}.",
+            "The Python regular expression (see Section~\\ref{sec:pres}) for an \\textbf{UInteger32} shall be",
+            "    \\begin{verbatim}",
+            "    `+?([1-9][0-9]*|0+)'",
+            "    \\end{verbatim}"],
+        "C_equivalent": "uint32$\\_$t"},
+
+    "Float64": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents the allowed set and sequence of characters, and values for a 64-bit floating point number.",
+        "name": "Float64",
+        "allowedValueDescription": ["Any normalised or denormalised IEEE-754 binary64~\\cite{IEEEFloats}",
+            "value. The Python regular expression (see Section~\\ref{sec:pres}) for a Float64 shall be",
+            "\\begin{verbatim}",
+            "'[+-]?([0-9]+\\.?[0-9]*|\\.[0-9]+)([eE](+|-)?[0-9]+)?'",
+            "\\end{verbatim}",
+            "\\noindent",
+            "with the restriction that the value shall only be in the range for a normalised or denormalised IEEE-754",
+            "binary64 value.  The number of significant digits (base 10) in a normalised IEEE-754 binary64 value is",
+            "about 16, and is fewer for a denormalised value. The string representation of a Float64 value can have",
+            "more significant digits than are supported by a normalised or denormalised IEEE-754 binary64 value;",
+            "however, these additional digits will generally be ignored when the value is read into a Float64 variable."],
+        "C_equivalent": "double"},
+
+    "Fraction32": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents the allowed set and sequence of characters, and values that are allowed for a faction given as the ratio of two Integer32 values.",
+        "name": "Fraction32",
+        "allowedValueDescription": "All Fraction32 are represented as `i1 / i2' or `i3' where i1, i2 and i3 are Integer32s. Spaces are allowed around all Integer32 values. Example are `1/2', ` 1 / 2 ', `5 / 32 ' and `2'."},
+
+    "Boolean": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents the allowed set and sequence of characters that represent the Boolean \\attrval{true} and \\attrval{false} values in general-purpose data containers.",
+        "name": "Boolean",
+        "allowedValueDescription": "The allowed strings are `true' and `false'. For a table cell, the allowed values are `\\texttt{<true/>}' and  `\\texttt{<false/>}'.",
+        "comment": "the standard XML attribute value representation for Boolean values true and false are `true' and `false' respectively.",
+        "C_equivalent": "bool"},
+
+    "whiteSpace": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents the allowed set and sequence of characters for a white space.",
+        "name": "whiteSpace",
+        "allowedValueDescription": "Any of the characters shown in Table~\\ref{table:ValidWhiteSpaces}"},
+
+    "Empty": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This is the token that states that the value of the cell in a table is empty.",
+        "name": "Empty",
+        "allowedValueDescription": "The ASCII string `\\texttt{<td/>}'."},
+
+    "date": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "Most recent modification date. May appear on an evaluation or on some style of data within the evaluation.",
+        "name": "date",
+        "allowedValueDescription": "Recommended format is a numerical date of the form `YYYY-MM-DD', e.g. `2019-05-01'."},
+
+    "parity": {
+        "__class__": "nodes.EnumeratedTypeNode",
+        "description": "Parity is a particle property related to the (anti)-symmetry of the wave function to reflection.",
+        "name": "parity",
+        "allowedValues":["+1", "-1"]},
+
+    "frame": {
+        "__class__": "nodes.EnumeratedTypeNode",
+        "description": "Tells what reference frame a projectile, product, distribution or double-differential cross section is given in.",
+        "name": "frame",
+        "allowedValues":["lab", "centerOfMass"]},
+
+    "interpolation": {
+         "__class__": "nodes.EnumeratedTypeNode",
+        "description": "Rule for interpolating between two points in a 1-dimensional function.",
+        "name": "interpolation",
+        "allowedValues":["flat", "charged-particle", "lin-lin", "lin-log", "log-lin", "log-log"]},
+
+    "interpolationQualifier": {
+         "__class__": "nodes.EnumeratedTypeNode",
+        "description": "Rule for interpolating between two N-dimensional functions inside an (N+1)-dimensional function.",
+        "name": "interpolationQualifier",
+        "allowedValues":["direct", "unitBase", "correspondingEnergies", "correspondingPoints"]},
+
+    "Float32": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "Floating point number that can be stored at reduced precision",
+        "name": "Float32",
+        "allowedValueDescription": "n/a",
+        "comment": "Since only ASCII representation of data types is being considered here, and since Float32 is a subset of Float64, this is probably not needed.",
+        "implementationStatus": "Not implemented as of GNDS-1.9"},
+
+    "Integer64": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "This represents the allowed set and sequence of characters, and values for a 64-bit signed integer.",
+        "name": "Integer64",
+        "allowedValueDescription": ["Any integer in the range [ $-2^{63}$ to $2^{63}$ ).  The minimum ",
+            "allowed value (i.e., $-2^{63}$) is defined to be \\textbf{Integer64\\_Min} and the maximum allowed",
+            "value (i.e., $2^{63} - 1$) is defined to be \\textbf{Integer64\\_Max}.",
+            "The Python regular expression (see Section~\\ref{sec:pres}) for an \\textbf{Integer64} shall be",
+            "\\begin{verbatim}",
+            "`[+-]?([1-9][0-9]*|0+)'",
+            "\\end{verbatim}",
+            "\\noindent with the restriction that the value shall be in the range ",
+            "[\\textbf{Integer64\\_Min}, \\textbf{Integer64\\_Max}]."],
+        "C_equivalent": "int64\\_t",
+        "comment": "Currently not needed so not defined.",
+        "implementationStatus": "Not implemented as of GNDS-1.9"},
+
+    "Hexadecimal": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "Typical hexadecimal number",
+        "name": "Hexadecimal",
+        "allowedValueDescription": "n/a",
+        "comment": "Currently not needed so not defined.",
+        "implementationStatus": "Not implemented as of GNDS-1.9"},
+
+    "Octal": {
+        "__class__": "nodes.ElementaryTypeNode",
+        "description": "Typical octal number",
+        "name": "Octal",
+        "allowedValueDescription": "n/a",
+        "comment": "Currently not needed so not defined.",
+        "implementationStatus": "Not implemented as of GNDS-1.9"}
+}

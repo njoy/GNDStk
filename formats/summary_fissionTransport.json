@@ -1,0 +1,613 @@
+{
+    "__namespace__":"fissionTransport",
+    "fissionComponents":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "fissionComponent": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "fissionComponent",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": [
+            "Nuclear data evaluations sometimes break a reaction up into multiple components,",
+            "but only supply a cross section (not outgoing products) for each component.",
+            "For example, cross sections for first-chance, second-chance, etc. fission",
+            "may be stored, even though product distributions are only given for total fission.",
+            "The \\element{fissionComponent} node supports storing this type of incomplete",
+            "reaction. "
+        ],
+        "name": "fissionComponents",
+        "required": false,
+        "rootNode": false
+    },
+    "fissionComponent":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "ENDF_MT": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "integer MT number (e.g., `20' for 2$^{nd}$-chance fission).",
+                "name": "ENDF_MT",
+                "required": false,
+                "type": "Integer32"
+            },
+            "fissionGenre": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "fissionGenre",
+                "required": true,
+                "type": "XMLName"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "crossSection": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "crossSection",
+                "occurrence": "1",
+                "required": false
+            },
+            "outputChannel": {
+                "__class__": "nodes.ChildNode",
+                "description": "Describes the secondary particle emissions from the reaction",
+                "name": "outputChannel",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Fission without pre-fission particle emission is known as first chance fission, while the emission of ",
+            "one (n,nf) or two neutrons (n,2nf) are known as second and third chance fission, respectively. ",
+            "It can be advantageous to separate out these as distinct components.",
+            "The \\element{fissionComponent} supports storing",
+            "each of these fission chances. The \\element{fissionComponent} node is similar to a \\element{reaction}:",
+            "it contains a cross section and an outputChannel along with a Q-value.",
+            "The list of reaction products is generally empty, however."],
+        "name": "fissionComponent",
+        "required": false,
+        "rootNode": false
+    },
+    "fissionEnergyReleased":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "delayedBetaEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Total energy released by delayed $\\beta$'s.",
+                "name": "delayedBetaEnergy",
+                "occurrence": "1",
+                "required": false
+            },
+            "delayedGammaEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Total energy released by the emission of delayed $\\gamma$ rays.",
+                "name": "delayedGammaEnergy",
+                "occurrence": "1",
+                "required": false
+            },
+            "delayedNeutronKE": {
+                "__class__": "nodes.ChildNode",
+                "description": "Kinetic energy of the delayed fission neutrons.",
+                "name": "delayedNeutronKE",
+                "occurrence": "1",
+                "required": false
+            },
+            "neutrinoEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Energy carried away by neutrinos.",
+                "name": "neutrinoEnergy",
+                "occurrence": "1",
+                "required": false
+            },
+            "nonNeutrinoEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Total energy less the energy of the neutrinos {\\tt (ET - ENU)}",
+                "name": "nonNeutrinoEnergy",
+                "occurrence": "1",
+                "required": false
+            },
+            "promptGammaEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Total energy released by the emission of prompt $\\gamma$ rays.",
+                "name": "promptGammaEnergy",
+                "occurrence": "1",
+                "required": false
+            },
+            "promptNeutronKE": {
+                "__class__": "nodes.ChildNode",
+                "description": "Kinetic energy of the prompt fission neutrons.",
+                "name": "promptNeutronKE",
+                "occurrence": "1",
+                "required": false
+            },
+            "promptProductKE": {
+                "__class__": "nodes.ChildNode",
+                "description": "Kinetic energy of the fission products (following prompt neutron emission from the fission fragments).",
+                "name": "promptProductKE",
+                "occurrence": "1",
+                "required": false
+            },
+            "totalEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Sum of the partial energies. This sum is the total energy release\nper fission and by definition is the fission $Q$-value.",
+                "name": "totalEnergy",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "fissionEnergyReleased",
+        "required": false,
+        "rootNode": false
+    },
+    "delayedBetaEnergy":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Total energy released by delayed $\\beta$'s.  This corresponds to ENDF's \\texttt{EB}.",
+        "name": "delayedBetaEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "totalEnergy":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Sum of the partial energies. This sum is the total energy release\nper fission and by definition is the fission $Q$-value.  This corresponds to ENDF's \\texttt{ET}.",
+        "name": "totalEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "delayedGammaEnergy":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Total energy released by the emission of delayed $\\gamma$ rays.  This corresponds to ENDF's \\texttt{EGD}.",
+        "name": "delayedGammaEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "nonNeutrinoEnergy":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Total energy less the energy of the neutrinos {\\tt (ET - ENU)}.",
+        "name": "nonNeutrinoEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "promptGammaEnergy":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Total energy released by the emission of prompt $\\gamma$ rays.  This corresponds to ENDF's \\texttt{EGP}.",
+        "name": "promptGammaEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "neutrinoEnergy":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Energy carried away by neutrinos.  This corresponds to ENDF's \\texttt{ENU}.",
+        "name": "neutrinoEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "promptProductKE":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Kinetic energy of the fission products (following prompt neutron emission from the fission fragments).  This corresponds to ENDF's \\texttt{EFR}.",
+        "name": "promptProductKE",
+        "required": false,
+        "rootNode": false
+    },
+    "promptNeutronKE":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Kinetic energy of the prompt fission neutrons.  This corresponds to ENDF's \\texttt{ENP}.",
+        "name": "promptNeutronKE",
+        "required": false,
+        "rootNode": false
+    },
+    "delayedNeutronKE":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Kinetic energy of the delayed fission neutrons.  This corresponds to ENDF's \\texttt{END}.",
+        "name": "delayedNeutronKE",
+        "required": false,
+        "rootNode": false
+    },
+    "Watt" : {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "U": {
+                "__class__": "nodes.ChildNode",
+                "description": "A constant introduced to define the proper upper limit for the final particle energy such that $0 \\leq E' \\leq (E - U)$., discussed in section \\ref{format:transport:U}",
+                "name": "U",
+                "occurrence": "1",
+                "required": true
+            },
+            "a": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains one \\XYsOneD\\ or \\regionsOneD\\ functional data container that represents a valid $a(E)$.",
+                "name": "a",
+                "occurrence": "1",
+                "required": true
+            },
+            "b": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains one \\XYsOneD\\ or \\regionsOneD\\ functional data container that represents a valid $b(E)$.",
+                "name": "b",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This subsection provides the specification for the \\element{Watt} energy representation ",
+            "(equivalent to the ENDF-6 format's MF=5, LF=11 format).  This is essentially a Lorentz-boosted Maxwellian.",
+            "\\begin{displaymath}",
+            "     P(E'|E) = \\frac{{e^{ - E'/a} }}{I}\\sinh \\left( {\\sqrt{bE'} } \\right)",
+            "\\end{displaymath}",
+            "where",
+            "\\begin{varlist}",
+            "\\item[$I$] is the normalisation constant:",
+            "     \\begin{eqnarray*}",
+            "          I &= &\\frac{1}{2}\\sqrt {\\frac{{\\pi a^3 b}}{4}} \\exp \\left(",
+            "          {\\frac{{ab}}{4}} \\right)",
+            "          \\left[ {\\mbox{erf} {\\left( {\\sqrt {\\frac{{E - U}}{a}}",
+            "          - \\sqrt {\\frac{{ab}}{4}} } \\right) + \\mbox{erf}\\left( {\\sqrt",
+            "          {\\frac{{E - U}}{a}}  + \\sqrt {\\frac{{ab}}{4}} } \\right)}} \\right] \\\\",
+            "          &-& a\\exp \\left[ { - \\left( {\\frac{{E - U}}{a}} \\right)} \\right]\\sinh",
+            "          \\sqrt {b(E - U)}  \\\\",
+            "     \\end{eqnarray*}",
+            "\\item[$a$ and $b$] are tabulated energy-dependent parameters;",
+            "\\item[$U$] is a constant introduced to",
+            "     define the proper upper limit for the final particle energy such that",
+            "     $0 \\leq E' \\leq (E - U)$.",
+            "\\end{varlist}"
+        ],
+        "name": "Watt",
+        "required": false,
+        "rootNode": false
+    },
+    "b":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {},
+        "description":  "b for Watt spectrum",
+         "name": "b",
+         "required": false,
+        "rootNode": false
+    },
+    "simpleMaxwellianFission":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "U": {
+                "__class__": "nodes.ChildNode",
+                "description": "A constant introduced to define the proper upper limit for the final particle energy such that $0 \\leq E' \\leq (E - U)$.",
+                "name": "U",
+                "occurrence": "1",
+                "required": false
+            },
+            "theta": {
+                "__class__": "nodes.ChildNode",
+                "description": "The effective emission temperature.",
+                "name": "theta",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "This element is the format for ENDF-6's Simple Maxwellian Fission Spectrum (MF=5, LF=7).\n",
+            "\\begin{displaymath}\n",
+            "    f(E \\to E') = \\frac{\\sqrt{E'}}{I} e^{{ - E'} / {\\theta (E)}}\n",
+            "\\end{displaymath}\n",
+            "where the parameters $U$ and $\\theta$ are given in sections \\ref{format:transport:U} and \\ref{format:transport:theta} respectively and $I$ is given by",
+            "\\begin{displaymath}\n",
+            "    I = \\theta^{3/2}",
+            "    \\left[ \\frac{\\sqrt \\pi }{2} \\mbox{erf} \\left(",
+            "    \\sqrt{(E - U) / \\theta } \\right) - \\sqrt{(E - U) / \\theta }",
+            "    \\; e^{ {-(E - U)/\\theta }}",
+            "    \\right]",
+            "\\end{displaymath}\n"
+        ],
+        "name": "simpleMaxwellianFission",
+        "required": false,
+        "rootNode": false
+    },
+    "MadlandNix":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "EFH": {
+                "__class__": "nodes.ChildNode",
+                "description": "The $E_F(H)$ value.",
+                "name": "EFH",
+                "occurrence": "1",
+                "required": true
+            },
+            "EFL": {
+                "__class__": "nodes.ChildNode",
+                "description": "The $E_F(L)$ value.",
+                "name": "EFL",
+                "occurrence": "1",
+                "required": true
+            },
+            "T_M": {
+                "__class__": "nodes.ChildNode",
+                "description": "Temperature like parameter tabulated as a function of incident neutron energy, given as an \\element{XYs1d}.  The $y$-axis unit must be an energy unit.",
+                "name": "T_M",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "The \\element{MadlandNix} element encodes the energy-dependent fission neutron spectrum using Madland and",
+            "Nix's parameterisation.  This format is equivalent to ENDF-6's MF=5, LF=12.  ",
+            "The distribution is parametrically given by,",
+            "\\begin{eqnarray*}",
+            "     P(E'|E) &=&\\frac{1}{2}\\left[ {g(E',E_{F}(L)) + g(E',E_{F}(H))}\\right] \\\\",
+            "     g(E',E_{F}) &=&\\frac{1}{3\\sqrt{(E_{F} \\; T_{M})}}",
+            "          \\left[ {u_2^{3/2} \\mbox{E}_1 (u_2 ) - u_1^{3/2} \\mbox{E}_1 (u_1 ) +",
+            "          \\gamma \\left(\\frac{3}{2}, u_2 \\right) -",
+            "          \\gamma \\left(\\frac{3}{2}, u_1 \\right)} \\right] \\\\",
+            "     u_1  &= &{\\left( {\\sqrt {E'}  - \\sqrt {E_{F}} } \\right)^2 } / T_{M} \\\\",
+            "     u_2  &= &{\\left( {\\sqrt {E'}  + \\sqrt {E_{F}} } \\right)^2 } / T_{M}",
+            "\\end{eqnarray*}",
+            "where:",
+            "\\begin{varlist}",
+            "\\item[$E_{F}(X)$] are constant, which",
+            "     represent the average kinetic energy per nucleon of the",
+            "     fission fragment; arguments $L$ and $H$ refer to the average light",
+            "     fragment (given by the parameter \\attr{EFL} in the file) and the average heavy fragment",
+            "     (given by the parameter \\attr{EFH} in the file), respectively.",
+            "\\item[$T_{M}$] parameter tabulated as a function of incident neutron energy",
+            "\\item[E$_{1}(x)$] is the exponential integral",
+            "\\item[$\\gamma (a,x)$] is the incomplete gamma function.",
+            "     The integral of this spectrum between zero and infinity",
+            "     is one.",
+            "\\end{varlist}",
+            "Note the range of $E'$ is such that $0\\le E'\\le\\infty$.  Physically, energy conservation",
+            "cuts off the integral at finite $E'_{\\max }$ but the dependence of $g(E',E_F)$ on $E'$ ensures",
+            "that the contribution from large values of $E'$ is negligible."
+        ],
+        "name": "MadlandNix",
+        "required": false,
+        "rootNode": false
+    },
+    "T_M":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The table of \\attr{T{\\textunderscore}M} values vs. incident energy.",
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Temperature-like parameter tabulated as a function of incident neutron energy, given as an \\element{XYs1d}. ",
+        "name": "T_M",
+        "required": true,
+        "rootNode": false
+    },
+    "EFL":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "An energy unit.",
+                "name": "unit",
+                "required": true,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The value of $E_F(L)$ itself.",
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "The $E_F(L)$ value.",
+        "name": "EFL",
+        "required": true,
+        "rootNode": false
+    },
+    "EFH":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "An energy unit.",
+                "name": "unit",
+                "required": true,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The value of $E_F(H)$ itself.",
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "The $E_F(H)$ value.",
+        "name": "EFH",
+        "required": true,
+        "rootNode": false
+    }
+}
