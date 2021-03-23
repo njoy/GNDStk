@@ -1,6 +1,6 @@
 {
     "__namespace__":"transport",
-    "reactionSuite":{
+    "reactionSuite": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -147,7 +147,7 @@
         "allowedValues":["nuclear", "atomic", "thermalNeutronScatteringLaw"]
     },
 
-    "reactions":{
+    "reactions": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -171,7 +171,7 @@
         "required": false,
         "rootNode": false
     },
-    "reaction":{
+    "reaction": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -179,8 +179,8 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["The ENDF MT number for this reaction. This attribute is currently required, ",
-				"but should be considered deprecated. Future evaluations may include reactions ",
-				"with no MT equivalent, so codes should not rely on the \\texttt{ENDF\\_MT}."],
+                                "but should be considered deprecated. Future evaluations may include reactions ",
+                                "with no MT equivalent, so codes should not rely on the \\texttt{ENDF\\_MT}."],
                 "name": "ENDF_MT",
                 "required": true,
                 "type": "Integer32"
@@ -231,7 +231,7 @@
         "required": false,
         "rootNode": false
     },
-    "sums":{
+    "sums": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -260,7 +260,7 @@
         "required": false,
         "rootNode": false
     },
-    "outputChannel":{
+    "outputChannel": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -311,7 +311,7 @@
         "required": false,
         "rootNode": false
     },
-    "crossSections":{
+    "crossSections": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -330,7 +330,7 @@
         "required": false,
         "rootNode": false
     },
-    "crossSection":{
+    "crossSection": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -406,7 +406,7 @@
         "required": false,
         "rootNode": false
     },
-    "resonancesWithBackground":{
+    "resonancesWithBackground": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -450,7 +450,7 @@
         "required": false,
         "rootNode": false
     },
-    "resonancesLink":{
+    "resonancesLink": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -478,7 +478,7 @@
         "required": false,
         "rootNode": false
     },
-    "background":{
+    "background": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -513,7 +513,7 @@
         "required": false,
         "rootNode": false
     },
-    "resolvedRegion":{
+    "resolvedRegion": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -543,7 +543,7 @@
         "required": false,
         "rootNode": false
     },
-    "unresolvedRegion":{
+    "unresolvedRegion": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -573,7 +573,7 @@
         "required": false,
         "rootNode": false
     },
-    "fastRegion":{
+    "fastRegion": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -603,7 +603,7 @@
         "required": false,
         "rootNode": false
     },
-    "URR_probabilityTables1d":{
+    "URR_probabilityTables1d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -634,17 +634,17 @@
             }
         },
         "description": [ "The \\element{URR\\_probabilityTables1d} gives probability distributions for the",
-            "cross section as a function of incident energy, $P(\\sigma | E)$. It is derived from the",
-            "average widths and level spacings in the \\element{unresolved} resonance section, and is used in",
-            "in Monte Carlo transport codes. The child \\element{XYs2d} or \\element{regions2d} should",
-            "generally use an \\attr{interpolationQualifier} like `unitBase' since the cross section domain",
-            "varies with incident energy."
-        ],
+                         "cross section as a function of incident energy, $P(\\sigma | E)$. It is derived from the",
+                         "average widths and level spacings in the \\element{unresolved} resonance section, and is used in",
+                         "in Monte Carlo transport codes. The child \\element{XYs2d} or \\element{regions2d} should",
+                         "generally use an \\attr{interpolationQualifier} like `unitBase' since the cross section domain",
+                         "varies with incident energy."
+                       ],
         "name": "URR_probabilityTables1d",
         "required": false,
         "rootNode": false
     },
-    "crossSectionSum":{
+    "crossSectionSum": {
         "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
@@ -694,7 +694,7 @@
         "required": false,
         "rootNode": false
     },
-    "doubleDifferentialCrossSection":{
+    "doubleDifferentialCrossSection": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -775,29 +775,29 @@
         "required": false,
         "rootNode": false
     },
-    "coherentPhoton":{
+    "coherentPhoton": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "bodyText": null,
         "childNodes": {},
         "description":  "coherentPhoton for doubleDifferentialCrossSection",
-         "name": "coherentPhoton",
-         "required": false,
+        "name": "coherentPhoton",
+        "required": false,
         "rootNode": false
     },
-    "incoherentPhoton":{
+    "incoherentPhoton": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "bodyText": null,
         "childNodes": {},
         "description":  "incoherentPhoton for doubleDifferentialCrossSection",
-         "name": "incoherentPhoton",
-         "required": false,
+        "name": "incoherentPhoton",
+        "required": false,
         "rootNode": false
     },
-    "multiplicities":{
+    "multiplicities": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -816,7 +816,7 @@
         "required": false,
         "rootNode": false
     },
-    "multiplicity":{
+    "multiplicity": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -878,7 +878,7 @@
         "required": false,
         "rootNode": false
     },
-    "branching1d":{
+    "branching1d": {
         "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
@@ -900,7 +900,7 @@
         "rootNode": false
     },
 
-    "orphanProducts":{
+    "orphanProducts": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -929,7 +929,7 @@
         "required": false,
         "rootNode": false
     },
-    "orphanProduct":{
+    "orphanProduct": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -937,8 +937,8 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["The ENDF MT number for this orphanProduct. This attribute is currently required, ",
-				"but should be considered deprecated. Future evaluations may include reactions ",
-				"with no MT equivalent, so codes should not rely on the \\texttt{ENDF\\_MT}."],
+                                "but should be considered deprecated. Future evaluations may include reactions ",
+                                "with no MT equivalent, so codes should not rely on the \\texttt{ENDF\\_MT}."],
                 "name": "ENDF_MT",
                 "required": true,
                 "type": "Integer32"
@@ -976,7 +976,7 @@
         "required": false,
         "rootNode": false
     },
-    "multiplicitySum":{
+    "multiplicitySum": {
         "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
@@ -1019,7 +1019,7 @@
         "required": false,
         "rootNode": false
     },
-    "distribution":{
+    "distribution": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1148,7 +1148,7 @@
         "required": false,
         "rootNode": false
     },
-    "branching3d":{
+    "branching3d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1176,7 +1176,7 @@
         "required": false,
         "rootNode": false
     },
-    "multiGroup3d":{
+    "multiGroup3d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1215,7 +1215,7 @@
         "required": false,
         "rootNode": false
     },
-    "NBodyPhaseSpace":{
+    "NBodyPhaseSpace": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1243,7 +1243,7 @@
         "required": false,
         "rootNode": false
     },
-    "angular_uncorrelated":{
+    "angular_uncorrelated": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1276,7 +1276,7 @@
         "required": false,
         "rootNode": false
     },
-    "energy_uncorrelated":{
+    "energy_uncorrelated": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1366,7 +1366,7 @@
         "required": false,
         "rootNode": false
     },
-    "angularEnergy":{
+    "angularEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1402,7 +1402,7 @@
         "required": false,
         "rootNode": false
     },
-    "energyAngular":{
+    "energyAngular": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -1438,7 +1438,7 @@
         "required": false,
         "rootNode": false
     },
-    "angularTwoBody":{
+    "angularTwoBody": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -1508,7 +1508,7 @@
         "required": false,
         "rootNode": false
     },
-    "uncorrelated":{
+    "uncorrelated": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -1551,7 +1551,7 @@
         "required": false,
         "rootNode": false
     },
-    "recoil":{
+    "recoil": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -1571,7 +1571,7 @@
         "required": false,
         "rootNode": false
     },
-    "KalbachMann":{
+    "KalbachMann": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -1621,7 +1621,7 @@
         "required": false,
         "rootNode": false
     },
-    "generalEvaporation":{
+    "generalEvaporation": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1660,7 +1660,7 @@
         "required": false,
         "rootNode": false
     },
-    "weightedFunctionals":{
+    "weightedFunctionals": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1696,7 +1696,7 @@
         "required": false,
         "rootNode": false
     },
-    "evaporation":{
+    "evaporation": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1731,7 +1731,7 @@
         "required": false,
         "rootNode": false
     },
-    "unspecified":{
+    "unspecified": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -1759,7 +1759,7 @@
         "required": false,
         "rootNode": false
     },
-    "discreteGamma":{
+    "discreteGamma": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1799,13 +1799,13 @@
             }
         },
         "description": ["This format is to store the discrete energy of a photon from a bound level-bound ",
-			"level transition in which either the initial or final level is unspecified.  ",
-			"The photon energy is simply $E_\\gamma'$.\n"],
+                        "level transition in which either the initial or final level is unspecified.  ",
+                        "The photon energy is simply $E_\\gamma'$.\n"],
         "name": "discreteGamma",
         "required": false,
         "rootNode": false
     },
-    "photonEmissionProbabilities":{
+    "photonEmissionProbabilities": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1824,7 +1824,7 @@
         "required": false,
         "rootNode": false
     },
-    "primaryGamma":{
+    "primaryGamma": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1878,23 +1878,23 @@
             }
         },
         "description": ["This format is to store the discrete energy of a photon from an unbound level-bound level transition.  ",
-			"The unbound level is above the target+projectile separation energy. ",
-			"The photon energy depends on the incident projectile energy $E$ and an optional parameter $E^0_\\gamma$.",
-            "Ignoring the recoil of the residual nucleus, ",
-			"\n\\begin{displaymath}\n\tE_\\gamma'   =  E^0_\\gamma   +   E \\; \\frac{M_{\\scriptsize{\\textrm{target}}}}{M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}}}.\n\\end{displaymath}\n",
-            "Including the recoil, one finds ",
-            "\n\\begin{displaymath}\n\tE_\\gamma'   =  E^0_\\gamma   +   E \\; \\frac{M_{\\scriptsize{\\textrm{target}}}}{M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}}} \\left(1-\\frac{Q}{(M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}})c^2}\\right).\n\\end{displaymath}\n",
-            "where $Q=M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}} - M_{\\scriptsize{\\textrm{residual}}}$.",
-            "The optional parameter $E^0_\\gamma$ is",
-            "\n\\begin{displaymath}\n\tE^0_\\gamma  =  Q \\; \\left(1-\\frac{Q}{2(M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}})c^2}\\right).\n\\end{displaymath}\n",
-            "Thus, if the final state of the residual nucleus is known, then $M_{\\scriptsize{\\textrm{residual}}}$ is known, enabling both the recoil corrections and complete specification of $E^0_\\gamma$.",
-            "Furthermore, one has the additional information needed to continue the secondary cascade induced in the residual nucleus by the present primary gamma."
-        ],
+                        "The unbound level is above the target+projectile separation energy. ",
+                        "The photon energy depends on the incident projectile energy $E$ and an optional parameter $E^0_\\gamma$.",
+                        "Ignoring the recoil of the residual nucleus, ",
+                        "\n\\begin{displaymath}\n\tE_\\gamma'   =  E^0_\\gamma   +   E \\; \\frac{M_{\\scriptsize{\\textrm{target}}}}{M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}}}.\n\\end{displaymath}\n",
+                        "Including the recoil, one finds ",
+                        "\n\\begin{displaymath}\n\tE_\\gamma'   =  E^0_\\gamma   +   E \\; \\frac{M_{\\scriptsize{\\textrm{target}}}}{M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}}} \\left(1-\\frac{Q}{(M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}})c^2}\\right).\n\\end{displaymath}\n",
+                        "where $Q=M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}} - M_{\\scriptsize{\\textrm{residual}}}$.",
+                        "The optional parameter $E^0_\\gamma$ is",
+                        "\n\\begin{displaymath}\n\tE^0_\\gamma  =  Q \\; \\left(1-\\frac{Q}{2(M_{\\scriptsize{\\textrm{target}}} + M_{\\scriptsize{\\textrm{projectile}}})c^2}\\right).\n\\end{displaymath}\n",
+                        "Thus, if the final state of the residual nucleus is known, then $M_{\\scriptsize{\\textrm{residual}}}$ is known, enabling both the recoil corrections and complete specification of $E^0_\\gamma$.",
+                        "Furthermore, one has the additional information needed to continue the secondary cascade induced in the residual nucleus by the present primary gamma."
+                       ],
         "name": "primaryGamma",
         "required": false,
         "rootNode": false
     },
-    "production":{
+    "production": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1946,7 +1946,7 @@
         "required": false,
         "rootNode": false
     },
-    "productions":{
+    "productions": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1969,7 +1969,7 @@
         "required": false,
         "rootNode": false
     },
-    "incompleteReactions":{
+    "incompleteReactions": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1994,26 +1994,26 @@
         "required": false,
         "rootNode": false
     },
-    "summands":{
-       "__class__": "nodes.Node",
-       "abstractNode": null,
-       "attributes": {},
-       "bodyText": null,
-       "childNodes": {
-           "add": {
-               "__class__": "nodes.ChildNode",
-               "description": null,
-               "name": "add",
-               "occurrence": "1+",
-               "required": false
-           }
-       },
-       "description": null,
-       "name": "summands",
-       "required": false,
-       "rootNode": false
+    "summands": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "add": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "add",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "summands",
+        "required": false,
+        "rootNode": false
     },
-    "add":{
+    "add": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -2033,7 +2033,7 @@
         "required": false,
         "rootNode": false
     },
-    "f":{
+    "f": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2059,7 +2059,7 @@
         "required": false,
         "rootNode": false
     },
-    "g":{
+    "g": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2085,7 +2085,7 @@
         "required": false,
         "rootNode": false
     },
-    "r":{
+    "r": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2111,7 +2111,7 @@
         "required": false,
         "rootNode": false
     },
-    "a":{
+    "a": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2137,7 +2137,7 @@
         "required": false,
         "rootNode": false
     },
-    "theta":{
+    "theta": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2163,7 +2163,7 @@
         "required": false,
         "rootNode": false
     },
-    "U":{
+    "U": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -2191,7 +2191,7 @@
         "required": false,
         "rootNode": false
     },
-    "forward":{
+    "forward": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2202,7 +2202,7 @@
         "required": false,
         "rootNode": false
     },
-    "isotropic2d":{
+    "isotropic2d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2213,7 +2213,7 @@
         "required": false,
         "rootNode": false
     },
-    "weighted":{
+    "weighted": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -2277,7 +2277,7 @@
         "required": true,
         "rootNode": false
     },
-    "reference":{
+    "reference": {
         "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {

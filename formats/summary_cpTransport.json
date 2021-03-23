@@ -1,6 +1,6 @@
 {
     "__namespace__":"cpTransport",
-    "RutherfordScattering":{
+    "RutherfordScattering": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -16,7 +16,7 @@
         "required": false,
         "rootNode": false
     },
-    "CoulombPlusNuclearElastic":{
+    "CoulombPlusNuclearElastic": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -94,14 +94,14 @@
             }
         },
         "description": [
-          "This is either a container holding the differential charged particle scattering cross section or a reference to said container. ",
-          "It may appear inside a \\texttt{doubleDifferentialCrossSection}, \\texttt{crossSection} or \\texttt{distribution} node."
+            "This is either a container holding the differential charged particle scattering cross section or a reference to said container. ",
+            "It may appear inside a \\texttt{doubleDifferentialCrossSection}, \\texttt{crossSection} or \\texttt{distribution} node."
         ],
         "name": "CoulombPlusNuclearElastic",
         "required": false,
         "rootNode": false
     },
-    "nuclearPlusInterference":{
+    "nuclearPlusInterference": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -161,7 +161,7 @@
         "required": false,
         "rootNode": false
     },
-    "nuclearAmplitudeExpansion":{
+    "nuclearAmplitudeExpansion": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -226,7 +226,7 @@
         "required": false,
         "rootNode": false
     },
-    "nuclearTerm":{
+    "nuclearTerm": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -252,7 +252,7 @@
         "required": false,
         "rootNode": false
     },
-    "realInterferenceTerm":{
+    "realInterferenceTerm": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -278,7 +278,7 @@
         "required": false,
         "rootNode": false
     },
-    "imaginaryInterferenceTerm":{
+    "imaginaryInterferenceTerm": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},

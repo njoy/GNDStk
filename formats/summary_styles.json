@@ -1,6 +1,6 @@
 {
     "__namespace__":"styles",
-    "styles":{
+    "styles": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -78,22 +78,22 @@
             }
         },
         "description": [ "The \\element{styles} node contains a list of \\element{style} nodes. Each style describes either information about its ",
-                        "evaluated data or information about its processed data. For example, the \\element{heated} style (see ",
-                        "Section~\\ref{format:styles:heated}) defines cross sections that have been heated (i.e., Doppler broadened) to a ",
-                        "temperature $T$. The following is an example of a \\element{heated} style: ",
-                        "\n\\begin{minted}[frame=single,fontsize=\\small]{xml}\n",
-                        "    <heated label=\"heated1\" derivedFrom=\"...\" date=\"2016-01-01\">\n",
-                        "        <temperature value=\"600\" unit=\"K\"/></heated>\n",
-                        "\\end{minted}\n",
-                        "In this example, all cross section forms (i.e., representations) with their style attribute equal to \\attrval{heated1}",
-                        "have been heated to 600 K on the date 2016-01-01. The \\attr{derivedFrom} attribute indicates the style before heating.",
-                        "In addition, the code that heated the cross sections and its input should be listed under a \\code\\ element.\n"],
+                         "evaluated data or information about its processed data. For example, the \\element{heated} style (see ",
+                         "Section~\\ref{format:styles:heated}) defines cross sections that have been heated (i.e., Doppler broadened) to a ",
+                         "temperature $T$. The following is an example of a \\element{heated} style: ",
+                         "\n\\begin{minted}[frame=single,fontsize=\\small]{xml}\n",
+                         "    <heated label=\"heated1\" derivedFrom=\"...\" date=\"2016-01-01\">\n",
+                         "        <temperature value=\"600\" unit=\"K\"/></heated>\n",
+                         "\\end{minted}\n",
+                         "In this example, all cross section forms (i.e., representations) with their style attribute equal to \\attrval{heated1}",
+                         "have been heated to 600 K on the date 2016-01-01. The \\attr{derivedFrom} attribute indicates the style before heating.",
+                         "In addition, the code that heated the cross sections and its input should be listed under a \\code\\ element.\n"],
         "name": "styles",
         "required": true,
         "rootNode": false
     },
 
-    "evaluated":{
+    "evaluated": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -113,14 +113,14 @@
                 "required": true,
                 "type": "XMLName"
             },
-           "derivedFrom": {
+            "derivedFrom": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from. For example, multi-group data are often derived from a \\element{heated} style.",
                 "name": "derivedFrom",
                 "required": false,
                 "type": "XMLName"
-             },
+            },
             "library": {
                 "__class__": "nodes.Attribute",
                 "default": null,
@@ -172,7 +172,7 @@
         "rootNode": false
     },
 
-    "projectileEnergyDomain":{
+    "projectileEnergyDomain": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -211,7 +211,7 @@
         "required": true,
         "rootNode": false
     },
-    "temperature":{
+    "temperature": {
         "__class__": "nodes.Node",
         "abstractNode": "PhysicalQuantity",
         "attributes": {
@@ -243,7 +243,7 @@
         "rootNode": false
     },
 
-    "crossSectionReconstructed":{
+    "crossSectionReconstructed": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -263,14 +263,14 @@
                 "required": true,
                 "type": "XMLName"
             },
-           "derivedFrom": {
+            "derivedFrom": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Contains the label of another style from which reconstructed cross sections were derived.  The derivedFrom style is usually `evaluated'.",
                 "name": "derivedFrom",
                 "required": false,
                 "type": "XMLName"
-             }
+            }
         },
         "bodyText": null,
         "childNodes": {
@@ -295,7 +295,7 @@
         "rootNode": false
     },
 
-    "angularDistributionReconstructed":{
+    "angularDistributionReconstructed": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -315,14 +315,14 @@
                 "required": true,
                 "type": "XMLName"
             },
-           "derivedFrom": {
+            "derivedFrom": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Contains the label of another style from which reconstructed angular distribution were derived.  The derivedFrom style is usually `evaluated'.",
                 "name": "derivedFrom",
                 "required": false,
                 "type": "XMLName"
-             }
+            }
         },
         "bodyText": null,
         "childNodes": {
@@ -347,7 +347,7 @@
         "rootNode": false
     },
 
-    "CoulombPlusNuclearElasticMuCutoff":{
+    "CoulombPlusNuclearElasticMuCutoff": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -395,7 +395,7 @@
         "rootNode": false
     },
 
-    "heated":{
+    "heated": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -447,7 +447,7 @@
         "rootNode": false
     },
 
-    "averageProductData":{
+    "averageProductData": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -467,14 +467,14 @@
                 "required": true,
                 "type": "XMLName"
             },
-           "derivedFrom": {
+            "derivedFrom": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Contains the label of another style from which reconstructed cross sections were derived.  The derivedFrom style is usually `evaluated'.",
                 "name": "derivedFrom",
                 "required": false,
                 "type": "XMLName"
-             }
+            }
         },
         "bodyText": null,
         "childNodes": {
@@ -499,7 +499,7 @@
         "rootNode": false
     },
 
-    "MonteCarlo_cdf":{
+    "MonteCarlo_cdf": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -547,7 +547,7 @@
         "rootNode": false
     },
 
-    "griddedCrossSection":{
+    "griddedCrossSection": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -599,7 +599,7 @@
         "rootNode": false
     },
 
-    "heatedMultiGroup":{
+    "heatedMultiGroup": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -662,7 +662,7 @@
         "rootNode": false
     },
 
-    "transportables":{
+    "transportables": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -682,7 +682,7 @@
         "rootNode": false
     },
 
-    "transportable":{
+    "transportable": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -719,7 +719,7 @@
         "rootNode": false
     },
 
-    "multiGroup":{
+    "multiGroup": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -748,7 +748,7 @@
         "rootNode": false
     },
 
-    "flux":{
+    "flux": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -780,7 +780,7 @@
         "rootNode": false
     },
 
-    "inverseSpeed":{
+    "inverseSpeed": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -800,7 +800,7 @@
         "rootNode": false
     },
 
-    "SnElasticUpScatter":{
+    "SnElasticUpScatter": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -845,7 +845,7 @@
         "rootNode": false
     },
 
-    "URR_probabilityTables":{
+    "URR_probabilityTables": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -882,7 +882,7 @@
         "rootNode": false
     },
 
-    "Bondarenko":{
+    "Bondarenko": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -926,7 +926,7 @@
         "required": false,
         "rootNode": false
     },
-    "sigmaZeros":{
+    "sigmaZeros": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -946,7 +946,7 @@
         "rootNode": false
     },
 
-    "multiBand":{
+    "multiBand": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -991,7 +991,7 @@
         "rootNode": false
     },
 
-    "equalProbableBins":{
+    "equalProbableBins": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1036,7 +1036,7 @@
         "rootNode": false
     },
 
-    "realization":{
+    "realization": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {

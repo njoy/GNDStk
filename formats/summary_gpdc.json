@@ -1,6 +1,6 @@
 {
     "__namespace__":"gpdc",
-    "double":{
+    "double": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
@@ -44,7 +44,7 @@
         "required": false,
         "rootNode": false
     },
-    "integer":{
+    "integer": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
@@ -86,7 +86,7 @@
         "required": false,
         "rootNode": false
     },
-    "fraction":{
+    "fraction": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
@@ -127,7 +127,7 @@
         "required": false,
         "rootNode": false
     },
-    "string":{
+    "string": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
@@ -163,7 +163,7 @@
         "required": false,
         "rootNode": false
     },
-    "link":{
+    "link": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -188,7 +188,7 @@
         "rootNode": false
     },
 
-    "uncertainty":{
+    "uncertainty": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -274,7 +274,7 @@
         "required": false,
         "rootNode": false
     },
-    "listOfCovariances":{
+    "listOfCovariances": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -289,18 +289,18 @@
             }
         },
         "description": [
-                    "Stores a list of covariance matrices (or a list of links to covariance matrices).",
-                    "This option is generally used for higher-dimensional functions. For example,",
-                    "if an angular distribution $P(\\mu|E)$ is stored as an energy-dependent list of",
-                    "\\element{Legendre} expansions, the full covariance may be decomposed into energy-dependent",
-                    "covariance matrices for each combination of $L_i$ and $L_j$. The \\element{listOfCovariances}",
-                    "lists all of these covariances."
+            "Stores a list of covariance matrices (or a list of links to covariance matrices).",
+            "This option is generally used for higher-dimensional functions. For example,",
+            "if an angular distribution $P(\\mu|E)$ is stored as an energy-dependent list of",
+            "\\element{Legendre} expansions, the full covariance may be decomposed into energy-dependent",
+            "covariance matrices for each combination of $L_i$ and $L_j$. The \\element{listOfCovariances}",
+            "lists all of these covariances."
         ],
         "name": "listOfCovariances",
         "required": false,
         "rootNode": false
     },
-    "covariance":{
+    "covariance": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -324,15 +324,15 @@
         "bodyText": null,
         "childNodes": {},
         "description": [
-                    "Stores a covariance matrix (or a link to a covariance matrix),",
-                    "usually for a 1-dimensional function."
+            "Stores a covariance matrix (or a link to a covariance matrix),",
+            "usually for a 1-dimensional function."
         ],
         "name": "covariance",
         "required": false,
         "rootNode": false
     },
 
-    "standard":{
+    "standard": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -354,7 +354,7 @@
         "required": false,
         "rootNode": false
     },
-    "logNormal":{
+    "logNormal": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -376,7 +376,7 @@
         "required": false,
         "rootNode": false
     },
-    "confidenceIntervals":{
+    "confidenceIntervals": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -398,12 +398,12 @@
         "required": false,
         "rootNode": false
     },
-    "interval":{
+    "interval": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "confidence": {
-               "__class__": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
                 "name": "confidence",
@@ -411,7 +411,7 @@
                 "type": "Float64"
             },
             "lower": {
-               "__class__": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
                 "name": "lower",
@@ -419,7 +419,7 @@
                 "type": "Float64"
             },
             "upper": {
-               "__class__": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Value to add to the mean to obtain the upper limit for this interval.",
                 "name": "upper",
@@ -434,7 +434,7 @@
         "required": false,
         "rootNode": false
     },
-    "pdf":{
+    "pdf": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -461,7 +461,7 @@
         "rootNode": false
     },
 
-    "axes":{
+    "axes": {
         "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
@@ -509,7 +509,7 @@
         "required": false,
         "rootNode": false
     },
-    "axis":{
+    "axis": {
         "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
@@ -548,7 +548,7 @@
         "required": false,
         "rootNode": false
     },
-    "grid":{
+    "grid": {
         "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
@@ -633,11 +633,11 @@
         "required": false,
         "rootNode": false
     },
-    "values":{
+    "values": {
         "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
-             "valueType": {
+            "valueType": {
                 "__class__": "nodes.Attribute",
                 "default": "Float64",
                 "description": [
@@ -657,7 +657,7 @@
                 "required": false,
                 "type": "Integer32"
             },
-             "length": {
+            "length": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
@@ -671,7 +671,7 @@
                 "required": false,
                 "type": "Integer32"
             }
-         },
+        },
         "bodyText": "Contains a space-delimited ordered list of data for the parent node.",
         "childNodes": {},
         "description": [
@@ -689,7 +689,7 @@
         "required": false,
         "rootNode": false
     },
-    "array":{
+    "array": {
         "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
@@ -830,7 +830,7 @@
         "required": false,
         "rootNode": false
     },
-    "table":{
+    "table": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -881,7 +881,7 @@
         "required": false,
         "rootNode": false
     },
-    "columnHeaders":{
+    "columnHeaders": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -900,7 +900,7 @@
         "required": true,
         "rootNode": false
     },
-    "column":{
+    "column": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -946,7 +946,7 @@
         "required": true,
         "rootNode": false
     },
-    "data":{
+    "data": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -994,7 +994,7 @@
         "rootNode": false
     },
 
-    "XYs1d":{
+    "XYs1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1064,7 +1064,7 @@
         "required": false,
         "rootNode": false
     },
-    "Ys1d":{
+    "Ys1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1114,7 +1114,7 @@
         "required": false,
         "rootNode": false
     },
-    "Legendre":{
+    "Legendre": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1180,7 +1180,7 @@
         "required": false,
         "rootNode": false
     },
-    "polynomial1d":{
+    "polynomial1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1260,7 +1260,7 @@
         "required": false,
         "rootNode": false
     },
-    "constant1d":{
+    "constant1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1321,7 +1321,7 @@
         "rootNode": false
     },
 
-    "xs_pdf_cdf1d":{
+    "xs_pdf_cdf1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1369,7 +1369,7 @@
         "required": false,
         "rootNode": false
     },
-    "xs_in_xs_pdf_cdf1d":{
+    "xs_in_xs_pdf_cdf1d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1388,7 +1388,7 @@
         "required": false,
         "rootNode": false
     },
-    "pdf_in_xs_pdf_cdf1d":{
+    "pdf_in_xs_pdf_cdf1d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1407,7 +1407,7 @@
         "required": false,
         "rootNode": false
     },
-    "cdf_in_xs_pdf_cdf1d":{
+    "cdf_in_xs_pdf_cdf1d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1427,7 +1427,7 @@
         "rootNode": false
     },
 
-    "XYs2d":{
+    "XYs2d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1472,7 +1472,7 @@
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
-             },
+            },
             "function1ds": {
                 "__class__": "nodes.ChildNode",
                 "description": "Contains the list of 1-dimensional functions $x_0(x_1)$ that represent $x_0(x_2, x_1)$ at various points along $x_2$.",
@@ -1508,7 +1508,7 @@
                 "name": "functional",
                 "occurrence": "1+",
                 "required": false
-             }
+            }
         },
         "description": "This node stores a list of 1-dimensional functions.",
         "name": "function1ds",
@@ -1516,7 +1516,7 @@
         "rootNode": false
     },
 
-    "XYs3d":{
+    "XYs3d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1581,7 +1581,7 @@
                 "name": "functional",
                 "occurrence": "1+",
                 "required": false
-             }
+            }
         },
         "description": "This node stores a list of 2-dimensional functions.",
         "name": "function2ds",
@@ -1589,7 +1589,7 @@
         "rootNode": false
     },
 
-    "regions1d":{
+    "regions1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1641,7 +1641,7 @@
         "rootNode": false
     },
 
-    "regions2d":{
+    "regions2d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1693,7 +1693,7 @@
         "rootNode": false
     },
 
-    "regions3d":{
+    "regions3d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1757,7 +1757,7 @@
                 "name": "functional",
                 "occurrence": "1+",
                 "required": false
-             }
+            }
         },
         "description": "This node stores a list of 3-dimensional functions.",
         "name": "function3ds",
@@ -1765,7 +1765,7 @@
         "rootNode": false
     },
 
-    "gridded1d":{
+    "gridded1d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1800,7 +1800,7 @@
         "required": false,
         "rootNode": false
     },
-    "gridded2d":{
+    "gridded2d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
@@ -1835,7 +1835,7 @@
         "required": false,
         "rootNode": false
     },
-    "gridded3d":{
+    "gridded3d": {
         "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {

@@ -1,6 +1,6 @@
 {
     "__namespace__":"fpy",
-    "productYields":{
+    "productYields": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -19,7 +19,7 @@
         "required": true,
         "rootNode": false
     },
-    "productYield":{
+    "productYield": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -54,7 +54,7 @@
         "required": true,
         "rootNode": false
     },
-    "nuclides":{
+    "nuclides": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -79,7 +79,7 @@
         "required": true,
         "rootNode": false
     },
-    "elapsedTimes":{
+    "elapsedTimes": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -98,7 +98,7 @@
         "required": false,
         "rootNode": false
     },
-    "elapsedTime":{
+    "elapsedTime": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -146,7 +146,7 @@
         "required": true,
         "rootNode": false
     },
-    "time":{
+    "time": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -178,7 +178,7 @@
         "required": true,
         "rootNode": false
     },
-    "yields":{
+    "yields": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -211,7 +211,7 @@
         "required": false,
         "rootNode": false
     },
-    "incidentEnergies":{
+    "incidentEnergies": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -230,11 +230,11 @@
         "required": false,
         "rootNode": false
     },
-    "incidentEnergy":{
+    "incidentEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
-             "label": {
+            "label": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The index of this element.",
@@ -265,7 +265,7 @@
         "required": false,
         "rootNode": false
     },
-    "energy":{
+    "energy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},

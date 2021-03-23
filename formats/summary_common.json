@@ -1,6 +1,6 @@
 {
     "__namespace__":"common",
-    "Q":{
+    "Q": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {},
@@ -48,7 +48,7 @@
         "required": false,
         "rootNode": false
     },
-    "product":{
+    "product": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -98,7 +98,7 @@
         "required": false,
         "rootNode": false
     },
-    "products":{
+    "products": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -117,7 +117,7 @@
         "required": false,
         "rootNode": false
     },
-    "mass":{
+    "mass": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {},
@@ -136,7 +136,7 @@
         "required": false,
         "rootNode": false
     },
-    "energy":{
+    "energy": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {},
@@ -155,7 +155,7 @@
         "required": false,
         "rootNode": false
     },
-    "probability":{
+    "probability": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -174,7 +174,7 @@
         "required": false,
         "rootNode": false
     },
-    "temperature":{
+    "temperature": {
         "__class__": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {
@@ -202,7 +202,7 @@
         "required": false,
         "rootNode": false
     },
-    "externalFiles":{
+    "externalFiles": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -221,7 +221,7 @@
         "required": false,
         "rootNode": false
     },
-    "externalFile":{
+    "externalFile": {
         "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {

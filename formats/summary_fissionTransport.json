@@ -1,6 +1,6 @@
 {
     "__namespace__":"fissionTransport",
-    "fissionComponents":{
+    "fissionComponents": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -26,7 +26,7 @@
         "required": false,
         "rootNode": false
     },
-    "fissionComponent":{
+    "fissionComponent": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -84,7 +84,7 @@
         "required": false,
         "rootNode": false
     },
-    "fissionEnergyReleased":{
+    "fissionEnergyReleased": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -168,7 +168,7 @@
         "required": false,
         "rootNode": false
     },
-    "delayedBetaEnergy":{
+    "delayedBetaEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -187,7 +187,7 @@
         "required": false,
         "rootNode": false
     },
-    "totalEnergy":{
+    "totalEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -206,7 +206,7 @@
         "required": false,
         "rootNode": false
     },
-    "delayedGammaEnergy":{
+    "delayedGammaEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -225,7 +225,7 @@
         "required": false,
         "rootNode": false
     },
-    "nonNeutrinoEnergy":{
+    "nonNeutrinoEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -244,7 +244,7 @@
         "required": false,
         "rootNode": false
     },
-    "promptGammaEnergy":{
+    "promptGammaEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -270,7 +270,7 @@
         "required": false,
         "rootNode": false
     },
-    "neutrinoEnergy":{
+    "neutrinoEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -289,7 +289,7 @@
         "required": false,
         "rootNode": false
     },
-    "promptProductKE":{
+    "promptProductKE": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -315,7 +315,7 @@
         "required": false,
         "rootNode": false
     },
-    "promptNeutronKE":{
+    "promptNeutronKE": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -341,7 +341,7 @@
         "required": false,
         "rootNode": false
     },
-    "delayedNeutronKE":{
+    "delayedNeutronKE": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -423,18 +423,18 @@
         "required": false,
         "rootNode": false
     },
-    "b":{
+    "b": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "bodyText": null,
         "childNodes": {},
         "description":  "b for Watt spectrum",
-         "name": "b",
-         "required": false,
+        "name": "b",
+        "required": false,
         "rootNode": false
     },
-    "simpleMaxwellianFission":{
+    "simpleMaxwellianFission": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -473,7 +473,7 @@
         "required": false,
         "rootNode": false
     },
-    "MadlandNix":{
+    "MadlandNix": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -535,7 +535,7 @@
         "required": false,
         "rootNode": false
     },
-    "T_M":{
+    "T_M": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -554,7 +554,7 @@
         "required": true,
         "rootNode": false
     },
-    "EFL":{
+    "EFL": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -582,7 +582,7 @@
         "required": true,
         "rootNode": false
     },
-    "EFH":{
+    "EFH": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {

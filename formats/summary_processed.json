@@ -1,6 +1,6 @@
 {
     "__namespace__":"processed",
-    "multiGroup3d":{
+    "multiGroup3d": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -36,7 +36,7 @@
         "required": false,
         "rootNode": false
     },
-    "LLNLAngularEnergyOfAngularEnergy":{
+    "LLNLAngularEnergyOfAngularEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -55,7 +55,7 @@
         "required": false,
         "rootNode": false
     },
-    "LLNLAngularOfAngularEnergy":{
+    "LLNLAngularOfAngularEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -74,7 +74,7 @@
         "required": false,
         "rootNode": false
     },
-    "LLNLAngularEnergy":{
+    "LLNLAngularEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -117,7 +117,7 @@
         "required": true,
         "rootNode": false
     },
-    "angularEnergyMC":{
+    "angularEnergyMC": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -166,7 +166,7 @@
         "required": false,
         "rootNode": false
     },
-    "energyAngularMC":{
+    "energyAngularMC": {
         "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
@@ -215,7 +215,7 @@
         "required": false,
         "rootNode": false
     },
-    "averageProductEnergy":{
+    "averageProductEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -241,7 +241,7 @@
         "required": false,
         "rootNode": false
     },
-    "averageProductMomentum":{
+    "averageProductMomentum": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -267,7 +267,7 @@
         "required": false,
         "rootNode": false
     },
-    "availableMomentum":{
+    "availableMomentum": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -293,7 +293,7 @@
         "required": false,
         "rootNode": false
     },
-    "availableEnergy":{
+    "availableEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},

@@ -1,6 +1,6 @@
 {
     "__namespace__":"tsl",
-    "thermalNeutronScatteringLaw1d":{
+    "thermalNeutronScatteringLaw1d": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -32,7 +32,7 @@
         "rootNode": false
     },
 
-    "thermalNeutronScatteringLaw":{
+    "thermalNeutronScatteringLaw": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -64,7 +64,7 @@
         "rootNode": false
     },
 
-    "thermalNeutronScatteringLaw_coherentElastic":{
+    "thermalNeutronScatteringLaw_coherentElastic": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -130,7 +130,7 @@
             "Here $f_j(T)$ is material dependent and plays the role of the crystallographic structure factors  ",
             "and $W$ is the Debye Waller factor.",
             "\n\n",
-	    "Two types of data containers can be used to store the energy- and temperature-dependent coherent elastic scattering factor: ",
+            "Two types of data containers can be used to store the energy- and temperature-dependent coherent elastic scattering factor: ",
             "\\begin{itemize} ",
             "\\item Using an `S\\_table' that stores the cumulative sum of the structure factor $$S(E,T) = \\sum\\limits_{i=1}^{E_i < E} s_i (T)$$",
             "$S(E,T)$ uses histogram interpolation along incident energy $E$, i.e. the cumulative structure factor is flat until the next Bragg edge is encountered. ",
@@ -138,13 +138,13 @@
             "\\item Storing a list of Bragg edges which include the temperature-dependent structure factor $s_j(T)$ and Bragg energy $E_j(T)$ for ",
             "each Bragg edge. ",
             "\\end{itemize}",
-        "Parameterized coherent and incoherent elastic scattering were added to the ENDF format in the early 1990's.  "
+            "Parameterized coherent and incoherent elastic scattering were added to the ENDF format in the early 1990's.  "
         ],
         "name": "thermalNeutronScatteringLaw_coherentElastic",
         "required": false,
         "rootNode": false
     },
-    "S_table":{
+    "S_table": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -167,7 +167,7 @@
         "rootNode": false
     },
 
-    "BraggEdges":{
+    "BraggEdges": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -186,7 +186,7 @@
         "required": true,
         "rootNode": false
     },
-    "BraggEdge":{
+    "BraggEdge": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -225,7 +225,7 @@
         "required": false,
         "rootNode": false
     },
-    "BraggEnergy":{
+    "BraggEnergy": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -244,7 +244,7 @@
         "required": false,
         "rootNode": false
     },
-    "structureFactor":{
+    "structureFactor": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -264,7 +264,7 @@
         "rootNode": false
     },
 
-    "thermalNeutronScatteringLaw_incoherentElastic":{
+    "thermalNeutronScatteringLaw_incoherentElastic": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -344,7 +344,7 @@
         "required": false,
         "rootNode": false
     },
-    "DebyeWallerIntegral":{
+    "DebyeWallerIntegral": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -364,7 +364,7 @@
         "rootNode": false
     },
 
-    "thermalNeutronScatteringLaw_incoherentInelastic":{
+    "thermalNeutronScatteringLaw_incoherentInelastic": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -459,19 +459,19 @@
         "required": false,
         "rootNode": false
     },
-    "scatteringAtom":{
+    "scatteringAtom": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
-           "pid": {
+            "pid": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Particle id for this scatterer. Note that the pid will often be an element (i.e. 'Zr') rather than a nuclide.",
                 "name": "pid",
                 "required": true,
                 "type": "XMLName"
-           },
-           "primaryScatterer": {
+            },
+            "primaryScatterer": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Denotes that the current scattering atom is the primary one.",
@@ -565,7 +565,7 @@
         "required": true,
         "rootNode": false
     },
-    "scatteringAtoms":{
+    "scatteringAtoms": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -587,7 +587,7 @@
         "required": true,
         "rootNode": false
     },
-    "e_critical":{
+    "e_critical": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -615,7 +615,7 @@
         "required": false,
         "rootNode": false
     },
-    "e_max":{
+    "e_max": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -643,7 +643,7 @@
         "required": true,
         "rootNode": false
     },
-    "boundAtomCrossSection":{
+    "boundAtomCrossSection": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -671,7 +671,7 @@
         "required": true,
         "rootNode": false
     },
-    "coherentAtomCrossSection":{
+    "coherentAtomCrossSection": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -699,7 +699,7 @@
         "required": false,
         "rootNode": false
     },
-    "selfScatteringKernel":{
+    "selfScatteringKernel": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -763,7 +763,7 @@
         "required": true,
         "rootNode": false
     },
-    "distinctScatteringKernel":{
+    "distinctScatteringKernel": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -783,7 +783,7 @@
         "rootNode": false
     },
 
-    "selfScatteringKernelGaussianApproximation":{
+    "selfScatteringKernelGaussianApproximation": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -821,7 +821,7 @@
         "required": false,
         "rootNode": false
     },
-    "phononSpectrum":{
+    "phononSpectrum": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -841,7 +841,7 @@
         "rootNode": false
     },
 
-    "selfScatteringKernelSCTApproximation":{
+    "selfScatteringKernelSCTApproximation": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -873,7 +873,7 @@
         "required": false,
         "rootNode": false
     },
-    "T_effective":{
+    "T_effective": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},

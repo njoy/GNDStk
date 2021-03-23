@@ -1,6 +1,6 @@
 {
     "__namespace__":"resonances",
-    "resonances":{
+    "resonances": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -53,7 +53,7 @@
         "required": false,
         "rootNode": false
     },
-    "scatteringRadius":{
+    "scatteringRadius": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -95,12 +95,12 @@
                          "or an energy dependent function of the same style. The use of an ",
                          "energy dependent function for the scattering radius is deprecated.",
                          " ",
-    		     "For a given evaluation label there can only be one  \\element{XYs1d}, \\element{regions1d} or \\element{constant1d}"],
+                         "For a given evaluation label there can only be one  \\element{XYs1d}, \\element{regions1d} or \\element{constant1d}"],
         "name": "scatteringRadius",
         "required": true,
         "rootNode": false
     },
-    "hardSphereRadius":{
+    "hardSphereRadius": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -141,13 +141,13 @@
                          "constant value or an energy dependent function of the same style. The ",
                          "use of an energy dependent function for the scattering radius is ",
                          "deprecated.",
-    		     " ",
-    		     "For a given evaluation label there can only be one  XYs1d, regions1d or constant1d"],
+                         " ",
+                         "For a given evaluation label there can only be one  XYs1d, regions1d or constant1d"],
         "name": "hardSphereRadius",
         "required": false,
         "rootNode": false
     },
-    "resolved":{
+    "resolved": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "childUnique" : "yesLabel",
@@ -182,7 +182,7 @@
             "RMatrix": {
                 "__class__": "nodes.ChildNode",
                 "description": ["The resonance parameters are given using the R-matrix formalism.",
-    			   "More than one is only allowed if they are different in the style label"],
+                                "More than one is only allowed if they are different in the style label"],
                 "name": "RMatrix",
                 "occurrence": "choice",
                 "required": false
@@ -191,7 +191,7 @@
                 "__class__": "nodes.ChildNode",
                 "description": [ "The resonance parameters are given using the deprecated ",
                                  "ENDF Breit-Wigner formalism.",
-    			     "More than one is only allowed if they are different in the style label"],
+                                 "More than one is only allowed if they are different in the style label"],
                 "name": "BreitWigner",
                 "occurrence": "choice",
                 "required": false
@@ -200,7 +200,7 @@
                 "__class__": "nodes.ChildNode",
                 "description": [ "Resonance parameters are broken up into several sections, with interference",
                                  "between sections ignored. This option is deprecated but appears in older evaluations."
-                ],
+                               ],
                 "name": "energyIntervals",
                 "occurrence": "choice",
                 "required": false
@@ -226,7 +226,7 @@
         "rootNode": false
     },
 
-    "energyIntervals":{
+    "energyIntervals": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "childUnique" : "yesLabel",
@@ -260,7 +260,7 @@
         "required": false,
         "rootNode": false
     },
-    "energyInterval":{
+    "energyInterval": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -321,7 +321,7 @@
         "rootNode": false
     },
 
-    "RMatrix":{
+    "RMatrix": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -447,7 +447,7 @@
         "required": false,
         "rootNode": false
     },
-    "resonanceReactions":{
+    "resonanceReactions": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -468,7 +468,7 @@
         "required": true,
         "rootNode": false
     },
-    "resonanceReaction":{
+    "resonanceReaction": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -550,7 +550,7 @@
         "required": true,
         "rootNode": false
     },
-    "spinGroups":{
+    "spinGroups": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -572,7 +572,7 @@
         "required": true,
         "rootNode": false
     },
-    "spinGroup":{
+    "spinGroup": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -627,7 +627,7 @@
         "required": true,
         "rootNode": false
     },
-    "channels":{
+    "channels": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -654,7 +654,7 @@
         "required": false,
         "rootNode": false
     },
-    "channel":{
+    "channel": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -739,7 +739,7 @@
         "required": false,
         "rootNode": false
     },
-    "resonanceParameters":{
+    "resonanceParameters": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -772,7 +772,7 @@
         "required": true,
         "rootNode": false
     },
-    "BreitWigner":{
+    "BreitWigner": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -860,7 +860,7 @@
         "required": false,
         "rootNode": false
     },
-    "unresolved":{
+    "unresolved": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "childUnique" : "yesLabel",
@@ -895,8 +895,8 @@
             "tabulatedWidths": {
                 "__class__": "nodes.ChildNode",
                 "description": ["The unresolved resonance parameters.",
-    			    " ",
-    			   "Only one instance per evaluation label is allowed."],
+                                " ",
+                                "Only one instance per evaluation label is allowed."],
                 "name": "tabulatedWidths",
                 "occurrence": "choice",
                 "required": false
@@ -910,7 +910,7 @@
         "required": false,
         "rootNode": false
     },
-    "tabulatedWidths":{
+    "tabulatedWidths": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -996,7 +996,7 @@
         "required": true,
         "rootNode": false
     },
-    "Ls":{
+    "Ls": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1017,7 +1017,7 @@
         "required": true,
         "rootNode": false
     },
-    "L":{
+    "L": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1058,7 +1058,7 @@
         "required": true,
         "rootNode": false
     },
-    "Js":{
+    "Js": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1081,7 +1081,7 @@
         "required": true,
         "rootNode": false
     },
-    "J":{
+    "J": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -1130,7 +1130,7 @@
         "required": true,
         "rootNode": false
     },
-    "levelSpacing":{
+    "levelSpacing": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1167,7 +1167,7 @@
         "required": true,
         "rootNode": false
     },
-    "widths":{
+    "widths": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -1193,7 +1193,7 @@
         "required": true,
         "rootNode": false
     },
-    "width":{
+    "width": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {

@@ -1,6 +1,6 @@
 {
     "__namespace__":"covariance",
-    "covarianceSuite":{
+    "covarianceSuite": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -56,7 +56,7 @@
             "externalFiles": {
                 "__class__": "nodes.ChildNode",
                 "description": ["Stores a list of external files related to this \\elemlink{covarianceSuite}.",
-    			    "Often used to link a \\elemlink{reactionSuite} to one or more \\elemlink{covarianceSuite} files."],
+                                "Often used to link a \\elemlink{reactionSuite} to one or more \\elemlink{covarianceSuite} files."],
                 "name": "externalFiles",
                 "occurrence": "1",
                 "required": false
@@ -79,23 +79,23 @@
             "parameterCovariances": {
                 "__class__": "nodes.ChildNode",
                 "description": ["contains covariance for paramters.",
-    			    "This may be resoanance parameters or covariance matrices for other ",
-    			   " nuclear data described by parameters"],
+                                "This may be resoanance parameters or covariance matrices for other ",
+                                " nuclear data described by parameters"],
                 "name": "parameterCovariances",
                 "occurrence": "1",
                 "required": false
             }
         },
         "description": ["Stores covariance data for various reaction and materials.",
-    		    "Covariance matrix data my be given for the combination of a projectile and target given,",
-    		    "as well as for any other combination. Therefore, one or more",
+                        "Covariance matrix data my be given for the combination of a projectile and target given,",
+                        "as well as for any other combination. Therefore, one or more",
                         "\\elemlink{reactionSuite} elements and other related files may be listed",
-    		    "in the \\elemlink{externalFiles} link."],
+                        "in the \\elemlink{externalFiles} link."],
         "name": "covarianceSuite",
         "required": false,
         "rootNode": true
     },
-    "covarianceSections":{
+    "covarianceSections": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -111,16 +111,16 @@
             }
         },
         "description": ["Stores covariance matrices for continuous data. ",
-    		    "The grid on which the covariance data are given will usually be different from the one ",
-    		    " the orignal data are given on. Therefore the axes data will most often be given as ",
-    		    "\\elemlink{grid} elements.",
-    		    "This element can contain covariance matrices and cross covariance matrices for many different types of data." ],
+                        "The grid on which the covariance data are given will usually be different from the one ",
+                        " the orignal data are given on. Therefore the axes data will most often be given as ",
+                        "\\elemlink{grid} elements.",
+                        "This element can contain covariance matrices and cross covariance matrices for many different types of data." ],
         "name": "covarianceSections",
         "required": false,
         "rootNode": false
     },
 
-    "covarianceMatrix":{
+    "covarianceMatrix": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -128,11 +128,11 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["If \\elemlink{covarianceMatrix} is a direct child of \\elemlink{section}, ",
-    			    " the label refers to the style of the evalutions this covariance matrix refers to.",
-    			    " In this case, the label is required, otherwise if \\elemlink{covarianceMatrix} is a ",
-    			    " child of \\elemlink{mixed}, it is optional. In the latter case it may be used to ensure ",
-    			    " that each \\elemlink{covarianceMatrix} in \\elemlink{mixed} has a unique label by which ",
-    			    " it can be refered to in a link"],
+                                " the label refers to the style of the evalutions this covariance matrix refers to.",
+                                " In this case, the label is required, otherwise if \\elemlink{covarianceMatrix} is a ",
+                                " child of \\elemlink{mixed}, it is optional. In the latter case it may be used to ensure ",
+                                " that each \\elemlink{covarianceMatrix} in \\elemlink{mixed} has a unique label by which ",
+                                " it can be refered to in a link"],
                 "name": "label",
                 "required": false,
                 "type": "XMLName"
@@ -145,7 +145,7 @@
                 "required": false,
                 "type": "frame"
             },
-    	"type": {
+            "type": {
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Options are `relative' or `absolute'",
@@ -174,17 +174,17 @@
             }
         },
         "description": ["A covariance matrix can be either absolute or relative with the respect to the ",
-    			    " data it referes to. Choices are: ",
-    			    "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",
-                                "  \\item[absolute:] the covariance matrix data are given absolute. ",
-    			    "  \\item[relative:] the covariance matrix data are given relative to the data it refers to.",
-                               "\\end{description}" ],
+                        " data it referes to. Choices are: ",
+                        "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",
+                        "  \\item[absolute:] the covariance matrix data are given absolute. ",
+                        "  \\item[relative:] the covariance matrix data are given relative to the data it refers to.",
+                        "\\end{description}" ],
         "name": "covarianceMatrix",
         "required": false,
         "rootNode": false
     },
 
-    "sandwichProduct":{
+    "sandwichProduct": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -236,7 +236,7 @@
         "required": false,
         "rootNode": false
     },
-    "covariance":{
+    "covariance": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -256,7 +256,7 @@
         "required": false,
         "rootNode": false
     },
-    "rowSensitivity":{
+    "rowSensitivity": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -277,7 +277,7 @@
         "required": false,
         "rootNode": false
     },
-    "columnSensitivity":{
+    "columnSensitivity": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -300,7 +300,7 @@
         "rootNode": false
     },
 
-    "parameterCovariances":{
+    "parameterCovariances": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -309,7 +309,7 @@
             "averageParameterCovariance": {
                 "__class__": "nodes.ChildNode",
                 "description": ["Gives the covariance matrix data on average parameters, for example ",
-    			   " average resonance parameters in the resolved range"],
+                                " average resonance parameters in the resolved range"],
                 "name": "averageParameterCovariance",
                 "occurrence": "1+",
                 "required": false
@@ -317,7 +317,7 @@
             "parameterCovariance": {
                 "__class__": "nodes.ChildNode",
                 "description": ["Gives the covariance matrix for parameters, for example resonance parameters in ",
-    			   " the resolved range."],
+                                " the resolved range."],
                 "name": "parameterCovariance",
                 "occurrence": "1+",
                 "required": false
@@ -328,28 +328,28 @@
         "required": false,
         "rootNode": false
     },
-    "parameters":{
+    "parameters": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "bodyText": null,
         "childNodes": {
-    	"parameterLink": {
+            "parameterLink": {
                 "__class__": "nodes.ChildNode",
                 "description": ["Links the  indices in the ",
-    		            "parameter covariance matrix to the correct parameter." ],
+                                "parameter covariance matrix to the correct parameter." ],
                 "name": "parameterLink",
                 "occurrence": "1+",
                 "required": false
             }
         },
         "description": ["Collects the elemlink{parameterLink} elements  that  allow to link the indices in the ",
-    		   "parameter covariance matrix to the correct parameters."],
+                        "parameter covariance matrix to the correct parameters."],
         "name": "parameters",
         "required": false,
         "rootNode": false
     },
-    "parameterCovariance":{
+    "parameterCovariance": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -357,7 +357,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description":  ["Used to make the \\element{covariance}{parameterCovariance} unique within ",
-    			     "\\elemlink{parameterCovariances}. No other restrictions on the label exist."],
+                                 "\\elemlink{parameterCovariances}. No other restrictions on the label exist."],
                 "name": "label",
                 "required": false,
                 "type": "XMLName"
@@ -382,13 +382,13 @@
             }
         },
         "description": ["Container for \\elemlink{parameterCovarianceMatrix} containing the actual parameter covariance matrix.",
-    		    "Storing the data in the container, allows to give different   parameter covariance matrices, ",
-    		   "depending on the evaluation."],
+                        "Storing the data in the container, allows to give different   parameter covariance matrices, ",
+                        "depending on the evaluation."],
         "name": "parameterCovariance",
         "required": false,
         "rootNode": false
     },
-    "parameterCovarianceMatrix":{
+    "parameterCovarianceMatrix": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -427,17 +427,17 @@
             }
         },
         "description": ["The parameter covariance matrix can be either absolute or relative with the respect to the ",
-    			    " . Choices are: ",
-    			    "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",
-                                "  \\item[absolute:] the parameters covariance matrix data is  given absolute. ",
-                                "  \\item[absoluteCovariance:] the parameters covariance matrix data is  given absolute. ",
-    			    "  \\item[relative:] the parameter covariance matrix data are given relative to the parameters.",
-                               "\\end{description}" ],
+                        " . Choices are: ",
+                        "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",
+                        "  \\item[absolute:] the parameters covariance matrix data is  given absolute. ",
+                        "  \\item[absoluteCovariance:] the parameters covariance matrix data is  given absolute. ",
+                        "  \\item[relative:] the parameter covariance matrix data are given relative to the parameters.",
+                        "\\end{description}" ],
         "name": "parameterCovariancMatrix",
         "required": false,
         "rootNode": false
     },
-    "parameterLink":{
+    "parameterLink": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -453,7 +453,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["The link is used to make each \\element{covariance}{parameterLink} unique within ",
-    			   "\\elemlink{parameters}. No other restrictions are put on the value."],
+                                "\\elemlink{parameters}. No other restrictions are put on the value."],
                 "name": "label",
                 "required": false,
                 "type": "XMLName"
@@ -462,7 +462,7 @@
                 "__class__": "nodes.Attribute",
                 "default": 0,
                 "description": ["The starting index  for this set of parameters in the covariance matrix given in ",
-    			   " the \\element{array} element of the \\elemlink{parameterCovarianceMatrix}"],
+                                " the \\element{array} element of the \\elemlink{parameterCovarianceMatrix}"],
                 "name": "matrixStartIndex",
                 "required": false,
                 "type": "Integer32"
@@ -479,24 +479,24 @@
         "bodyText": null,
         "childNodes": {},
         "description": ["The reference given can be of several different types. Depending on the type, ",
-    		    " the numbering of the parameters is as follows: ",
-    		    "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",
+                        " the numbering of the parameters is as follows: ",
+                        "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",
                         "  \\item[table:] The table is counted row-major and all entries are counted. In this case ",
-    		    " \\texttt{nParameters} should be equal to row count times column count. For example, ",
+                        " \\texttt{nParameters} should be equal to row count times column count. For example, ",
                         " the table object for \\elemlink{BreitWigner} resonance parameters lists L and J values, which ",
-    		    " are not usually referenced in the covariance matrix. However, the covariance matrix must list ",
-    		    " a zero entry for all terms involving L and J. This allows for easy referencing of an entire table ",
-    		    " object, rather than having to give an explicit reference to each individual resonance parameter.",
-    		    "  \\item[scatteringRadius:] It is aassumed that the scattering radius contains only ",
-    		    "    a \\elemlink{constant1d} element for the selected evaluation. In this case \\texttt{nParameters} ",
-    		    " should be 1",
-    		    " \\item Any references that references exactly one value, for example a \\elemlink{constant1d} ",
-                       "\\end{description}"],
+                        " are not usually referenced in the covariance matrix. However, the covariance matrix must list ",
+                        " a zero entry for all terms involving L and J. This allows for easy referencing of an entire table ",
+                        " object, rather than having to give an explicit reference to each individual resonance parameter.",
+                        "  \\item[scatteringRadius:] It is aassumed that the scattering radius contains only ",
+                        "    a \\elemlink{constant1d} element for the selected evaluation. In this case \\texttt{nParameters} ",
+                        " should be 1",
+                        " \\item Any references that references exactly one value, for example a \\elemlink{constant1d} ",
+                        "\\end{description}"],
         "name": "parameterLink",
         "required": false,
         "rootNode": false
     },
-    "shortRangeSelfScalingVariance":{
+    "shortRangeSelfScalingVariance": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -512,7 +512,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["Only used to ensure that the \\element{shortRangeSelfScalingVarianc} is ",
-    			   "unique within \\elemlink{mixed}. No other restrictions are put on the label."],
+                                "unique within \\elemlink{mixed}. No other restrictions are put on the label."],
                 "name": "label",
                 "required": false,
                 "type": "XMLName"
@@ -521,7 +521,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["Options are `relative' or `absolute' to indicate whether the data ",
-    			    " are given absolute or relative with respect to the underlying data."],
+                                " are given absolute or relative with respect to the underlying data."],
                 "name": "type",
                 "required": false,
                 "type": "XMLName"
@@ -538,49 +538,49 @@
             }
         },
         "description":["Gives a covariance matrix for a short-range self-scaling variance.",
-    		   "The matrix will only have elements on the diagonal given on an evalutor grid ",
-    		   "$\\Delta E_{k}$ with diagonal elements $F_{k}$.",
-    		   " In order to calculate the covariance matrix on the user energy grid of $\\Delta E_{kj}$ ",
-    		   "there are two options:",
-    		   "\\begin{itemize}",
-    		   "\\item  The variance contribution $\\textrm{Var}(X_{jj})$  to the processed group ",
-    		   "variance for the energy group ",
-    		   "$(E_{j},E_{j+1})$ is inversely proportional to its width $\\Delta E_{j}$ when ",
-    		   "$(E_{j},E_{j+1})$ lies within $(E_{k},E_{k+1})$ and is obtained from the relation:",
-    		   "$$\\textrm{Var}(X_{jj} )= F_{k} \\frac{\\Delta E_{k}} {\\Delta E_{j}}$$",
-    		   "where $E_{k} \\leq E_{j} \\leq E_{j+1} \\leq  E_{k+1}$.",
-    		   " This form is applicable in the resonance range where the covariances in the other sub-subsections ",
-    		   "define ``average'' coarse energy-grid uncertainties, while the actual pointwise cross-section ",
-    		   "values may fluctuate by orders of magnitude. The evaluator must be aware that the actual ",
-    		   "uncertainty in the cross sections depends on the user's energy-grid. The user should be ",
-    		   "aware of possible processing problems, for example when the union grid of the user's ",
-    		   "energy group structure and the covariance grid nearly coincide at some energy. ",
-    		   "This form should not be used to specify the uncertainty on the actual value of pointwise cross sections.",
-    		   "\\item The variance contribution $\\textrm{Var}(X_{jj})$  to the processed group variance for ",
-    		   "the energy group $(E_{j},E_{j+1})$ is directly proportional to the width $\\Delta E_{j}$ when ",
-    		   "$(E_{j},E_{j+1})$ lies within $(E_{k},E_{k+1})$. It is obtained from the relation:",
-    		   "$$ \\textrm{Var}(X_{jj}) = F_{k} \\left [  1 - ",
-    		   " \\frac{\\Delta E_{j}} {\\Delta E_{k}} \\right ]$$",
+                       "The matrix will only have elements on the diagonal given on an evalutor grid ",
+                       "$\\Delta E_{k}$ with diagonal elements $F_{k}$.",
+                       " In order to calculate the covariance matrix on the user energy grid of $\\Delta E_{kj}$ ",
+                       "there are two options:",
+                       "\\begin{itemize}",
+                       "\\item  The variance contribution $\\textrm{Var}(X_{jj})$  to the processed group ",
+                       "variance for the energy group ",
+                       "$(E_{j},E_{j+1})$ is inversely proportional to its width $\\Delta E_{j}$ when ",
+                       "$(E_{j},E_{j+1})$ lies within $(E_{k},E_{k+1})$ and is obtained from the relation:",
+                       "$$\\textrm{Var}(X_{jj} )= F_{k} \\frac{\\Delta E_{k}} {\\Delta E_{j}}$$",
+                       "where $E_{k} \\leq E_{j} \\leq E_{j+1} \\leq  E_{k+1}$.",
+                       " This form is applicable in the resonance range where the covariances in the other sub-subsections ",
+                       "define ``average'' coarse energy-grid uncertainties, while the actual pointwise cross-section ",
+                       "values may fluctuate by orders of magnitude. The evaluator must be aware that the actual ",
+                       "uncertainty in the cross sections depends on the user's energy-grid. The user should be ",
+                       "aware of possible processing problems, for example when the union grid of the user's ",
+                       "energy group structure and the covariance grid nearly coincide at some energy. ",
+                       "This form should not be used to specify the uncertainty on the actual value of pointwise cross sections.",
+                       "\\item The variance contribution $\\textrm{Var}(X_{jj})$  to the processed group variance for ",
+                       "the energy group $(E_{j},E_{j+1})$ is directly proportional to the width $\\Delta E_{j}$ when ",
+                       "$(E_{j},E_{j+1})$ lies within $(E_{k},E_{k+1})$. It is obtained from the relation:",
+                       "$$ \\textrm{Var}(X_{jj}) = F_{k} \\left [  1 - ",
+                       " \\frac{\\Delta E_{j}} {\\Delta E_{k}} \\right ]$$",
                        " where $E_{k} \\leq E_{j} <  E_{j+1} \\leq  E_{k+1}$. ",
-    		   " This form is applicable in cases when experimental evidence suggests the possibility of structure ",
-    		   "in the cross sections, but the experimental resolution is not sufficient to determine the ",
-    		   "detailed shape, which is then approximated by a smooth curve. It describes the  maximum uncertainty ",
-    		   "in the cross section due to possible fine-structure, which vanishes when the user's energy grid ",
-    		   "is equal or coarser than the covariance grid. The physical consequence of this property is that ",
-    		   "it increases the absolute variance when the user defines an energy grid more refined than the ",
-    		   "covariance grid (thus avoiding zero-eigenvalue problems), but will not affect any coarse energy-group ",
-    		   "uncertainties. The increase in the variance remains finite (limited to $F_{k})$ and is ",
-    		   "applicable to defining the uncertainties of pointwise cross sections.",
+                       " This form is applicable in cases when experimental evidence suggests the possibility of structure ",
+                       "in the cross sections, but the experimental resolution is not sufficient to determine the ",
+                       "detailed shape, which is then approximated by a smooth curve. It describes the  maximum uncertainty ",
+                       "in the cross section due to possible fine-structure, which vanishes when the user's energy grid ",
+                       "is equal or coarser than the covariance grid. The physical consequence of this property is that ",
+                       "it increases the absolute variance when the user defines an energy grid more refined than the ",
+                       "covariance grid (thus avoiding zero-eigenvalue problems), but will not affect any coarse energy-group ",
+                       "uncertainties. The increase in the variance remains finite (limited to $F_{k})$ and is ",
+                       "applicable to defining the uncertainties of pointwise cross sections.",
                        "\\end{itemize}\n\n",
-    		   "Note that the $\\textrm{Var}(X_{jj})$ are variances in average cross sections. ",
-    		   "This rule suffices for arbitrary group boundaries if subgroup boundaries are chosen to include all ",
+                       "Note that the $\\textrm{Var}(X_{jj})$ are variances in average cross sections. ",
+                       "This rule suffices for arbitrary group boundaries if subgroup boundaries are chosen to include all ",
                        " the $E_{k}$. No contributions to off-diagonal multigroup covariance matrix elements are ",
-    		   "generated by this covariance section."],
+                       "generated by this covariance section."],
         "name": "shortRangeSelfScalingVariance",
         "required": false,
         "rootNode": false
     },
-    "mixed":{
+    "mixed": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -588,7 +588,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description":  [" The label refers to the style of the evalutions this covariance matrix refers to and",
-    			    " it is required."],
+                                 " it is required."],
                 "name": "label",
                 "required": true,
                 "type": "XMLName"
@@ -619,15 +619,15 @@
             }
         },
         "description": ["If more than one explicit covariance matrix, short term scaling data or ",
-    		    "different sum relationships are needed to describe the covariance information, ",
-    		    "the data needs to be put into a \\element{mixed} container. ",
-    		    "All child elements of \\element{mixed}  can be processed separately but need ",
-    		    " to be added together to yield the covariance matrix for the section."],
+                        "different sum relationships are needed to describe the covariance information, ",
+                        "the data needs to be put into a \\element{mixed} container. ",
+                        "All child elements of \\element{mixed}  can be processed separately but need ",
+                        " to be added together to yield the covariance matrix for the section."],
         "name": "mixed",
         "required": false,
         "rootNode": false
     },
-    "averageParameterCovariance":{
+    "averageParameterCovariance": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -674,13 +674,13 @@
             }
         },
         "description": ["Covariance data are given for average parameters, as used in the unresolved resonance range.",
-    		    "Even so the unresolved resonance parameters may be given as energy dependent values, ",
-    		    " the covariance data are given for energy indedependent, i.e. energy averaged, parameters."],
+                        "Even so the unresolved resonance parameters may be given as energy dependent values, ",
+                        " the covariance data are given for energy indedependent, i.e. energy averaged, parameters."],
         "name": "averageParameterCovariance",
         "required": false,
         "rootNode": false
     },
-    "section":{
+    "section": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -696,7 +696,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description":["The label must be unique among all \\elemlink{section} elements in a \\elemlink{crossSections} element.",
-    			  "No other restrictions are placed on the label."],
+                               "No other restrictions are placed on the label."],
                 "name": "label",
                 "required": false,
                 "type": "XMLName"
@@ -715,8 +715,8 @@
             "columnData": {
                 "__class__": "nodes.ChildNode",
                 "description":["Defines what data lie along the columns of the covariance.",
-    			   "Required if crossTerm is true.",
-    			  "Otherwise it is assumed to be the same as rowData."],
+                               "Required if crossTerm is true.",
+                               "Otherwise it is assumed to be the same as rowData."],
                 "name": "columnData",
                 "occurrence": "1",
                 "required": false
@@ -724,7 +724,7 @@
             "covarianceMatrix": {
                 "__class__": "nodes.ChildNode",
                 "description": ["Contains the covariance data if only one \\elemlink{covarianceMatrix} element is needed",
-    			   " to describe the covariance data for this section and the desired style."],
+                                " to describe the covariance data for this section and the desired style."],
                 "name": "covarianceMatrix",
                 "occurrence": "choice",
                 "required": false
@@ -739,20 +739,20 @@
             "mixed": {
                 "__class__": "nodes.ChildNode",
                 "description": ["Contains more than one covariance matrix. ",
-    			    "All matrices need to be added in order to get the full covariance matrix."],
+                                "All matrices need to be added in order to get the full covariance matrix."],
                 "name": "mixed",
                 "occurrence": "choice",
                 "required": false
             }
         },
         "description": ["Within the \\elemlink{covarianceSections}, most covariance data are organised into section nodes. ",
-    		    "Each section represents either the covariance for a single quantity, or a cross-term between two ",
+                        "Each section represents either the covariance for a single quantity, or a cross-term between two ",
                         "different quantities."],
         "name": "section",
         "required": false,
         "rootNode": false
     },
-    "rowData":{
+    "rowData": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -800,9 +800,9 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["An xPath expression linking to the covariant quantity. ",
-    			    "The link may contain a reference to an external file referenced in \\elemlink{externalFiles}.",
-    			    " For some covariance matrices, such as a \\elemlink{parameterCovariance} this attribute may be omitted,",
-    			    " as more explicit references are given for the parameters." ],
+                                "The link may contain a reference to an external file referenced in \\elemlink{externalFiles}.",
+                                " For some covariance matrices, such as a \\elemlink{parameterCovariance} this attribute may be omitted,",
+                                " as more explicit references are given for the parameters." ],
                 "name": "href",
                 "required": false,
                 "type": "XMLName"
@@ -811,17 +811,17 @@
         "bodyText": null,
         "childNodes": {},
         "description": ["The rowData contains a link to the quantity (cross section, multiplicity, etc.) ",
-    		    "corresponding to the rows of the covariance matrix. The domain information \\texttt{domainMin}, ",
-    		    "\\texttt{domainMax}, and  \\texttt{domainUnit} are necessary  when a higher-dimensional covariance ",
-    		    "such as for the outgoing energy",
+                        "corresponding to the rows of the covariance matrix. The domain information \\texttt{domainMin}, ",
+                        "\\texttt{domainMax}, and  \\texttt{domainUnit} are necessary  when a higher-dimensional covariance ",
+                        "such as for the outgoing energy",
                         " spectrum $P(E' | E)$ is divided into multiple sections, each of which applies to part",
                         "of the incident energy domain. If given, all three \\texttt{domainMin}, ",
-    		    " \\texttt{domainMax}, and  \\texttt{domainUnit} are required."],
+                        " \\texttt{domainMax}, and  \\texttt{domainUnit} are required."],
         "name": "rowData",
         "required": false,
         "rootNode": false
     },
-    "columnData":{
+    "columnData": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -877,14 +877,14 @@
         "bodyText": null,
         "childNodes": {},
         "description": ["The columnData contains a link to the quantity (cross section, multiplicity, etc.) ",
-    		    "corresponding to the columns of the covariance matrix. ",
-    		    "The element \\elemlink{columnData} is only needed if this is a ",
-    		    "cross term connecting two different quantities."],
+                        "corresponding to the columns of the covariance matrix. ",
+                        "The element \\elemlink{columnData} is only needed if this is a ",
+                        "cross term connecting two different quantities."],
         "name": "columnData",
         "required": false,
         "rootNode": false
     },
-    "sum":{
+    "sum": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -916,11 +916,11 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description":  ["If \\elemlink{sum} is a direct child of \\elemlink{section}, ",
-    		    " the label refers to the style of the evalutions this sum relationship refers to.",
-    		    " In this case, the label is required, otherwise if \\elemlink{sum} is a ",
-    		    " child of \\elemlink{mixed}, it is optional. In the latter case it may be used to ensure ",
-    		    " that each \\elemlink{sum} in \\elemlink{mixed} has a unique label by which ",
-    		    " it can refered to in a link"],
+                                 " the label refers to the style of the evalutions this sum relationship refers to.",
+                                 " In this case, the label is required, otherwise if \\elemlink{sum} is a ",
+                                 " child of \\elemlink{mixed}, it is optional. In the latter case it may be used to ensure ",
+                                 " that each \\elemlink{sum} in \\elemlink{mixed} has a unique label by which ",
+                                 " it can refered to in a link"],
                 "name": "label",
                 "required": false,
                 "type": "XMLName"
@@ -937,48 +937,48 @@
             }
         },
         "description": ["If, in a given range, the underlying data can be described by a sum over a different set of data, ",
-    		    " then the covariance matrix can be calculated from the covariance information of this set of data.",
-    		    " This implies cross correlation between these different sets of data."],
+                        " then the covariance matrix can be calculated from the covariance information of this set of data.",
+                        " This implies cross correlation between these different sets of data."],
         "name": "sum",
         "required": false,
         "rootNode": false
     },
-    "summand":{
-            "__class__": "nodes.Node",
-            "abstractNode": null,
-            "attributes": {
-                "ENDF_MFMT": {
-                    "__class__": "nodes.Attribute",
-                    "default": null,
-                    "description": null,
-                    "name": "ENDF_MFMT",
-                    "required": false,
-                    "type": "XMLName"
-                },
-                "coefficient": {
-                    "__class__": "nodes.Attribute",
-                    "default": null,
-    	        "description":  ["The coefficient by which to weigh this reaction data in this range to ",
-                                     " calculate the final covariance data."],
-
-                    "name": "coefficient",
-                    "required": false,
-                    "type": "Float64"
-                },
-                "href": {
-                    "__class__": "nodes.Attribute",
-                    "default": null,
-                    "description": null,
-                    "name": "href",
-                    "required": false,
-                    "type": "bodyText"
-                }
+    "summand": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "ENDF_MFMT": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "ENDF_MFMT",
+                "required": false,
+                "type": "XMLName"
             },
-            "bodyText": null,
-            "childNodes": {},
-            "description": ["Indicates how the constituents for this covariance matrix data are to be summed."],
-            "name": "summand",
-            "required": false,
-            "rootNode": false
+            "coefficient": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description":  ["The coefficient by which to weigh this reaction data in this range to ",
+                                 " calculate the final covariance data."],
+
+                "name": "coefficient",
+                "required": false,
+                "type": "Float64"
+            },
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "href",
+                "required": false,
+                "type": "bodyText"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": ["Indicates how the constituents for this covariance matrix data are to be summed."],
+        "name": "summand",
+        "required": false,
+        "rootNode": false
     }
 }

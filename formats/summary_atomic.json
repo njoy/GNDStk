@@ -1,6 +1,6 @@
 {
     "__namespace__":"atomic",
-    "coherentPhotonScattering":{
+    "coherentPhotonScattering": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -104,7 +104,7 @@
         "required": false,
         "rootNode": false
     },
-    "imaginaryAnomalousFactor":{
+    "imaginaryAnomalousFactor": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -130,7 +130,7 @@
         "required": false,
         "rootNode": false
     },
-    "incoherentPhotonScattering":{
+    "incoherentPhotonScattering": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
@@ -250,7 +250,7 @@
         "required": false,
         "rootNode": false
     },
-    "realAnomalousFactor":{
+    "realAnomalousFactor": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -276,7 +276,7 @@
         "required": false,
         "rootNode": false
     },
-    "scatteringFactor":{
+    "scatteringFactor": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -302,7 +302,7 @@
         "required": false,
         "rootNode": false
     },
-    "formFactor":{
+    "formFactor": {
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
