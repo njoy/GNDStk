@@ -78,7 +78,7 @@
             },
             "pid": {
                 "__class__": "nodes.Attribute",
-                "default": "n",
+                "default": null,
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
                 "required": true,
@@ -86,7 +86,7 @@
             },
             "productFrame": {
                 "__class__": "nodes.Attribute",
-                "default": "lab",
+                "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
                 "required": true,
@@ -378,7 +378,7 @@
             },
             "pid": {
                 "__class__": "nodes.Attribute",
-                "default": "n",
+                "default": null,
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
                 "required": true,
@@ -386,7 +386,7 @@
             },
             "productFrame": {
                 "__class__": "nodes.Attribute",
-                "default": "lab",
+                "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
                 "required": true,

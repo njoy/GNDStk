@@ -1544,7 +1544,7 @@
             "discreteEnergy": {
                 "__class__": "nodes.ChildNode",
                 "description": "Emitted particle energy.",
-                "name": "energy",
+                "name": "discreteEnergy",
                 "occurrence": "1",
                 "required": true
             },
@@ -1615,7 +1615,7 @@
             }
         },
         "description": "This is the energy of the discrete emitted particle.",
-        "name": "energy",
+        "name": "discreteEnergy",
         "required": false,
         "rootNode": false
     },

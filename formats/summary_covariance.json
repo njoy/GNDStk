@@ -433,7 +433,7 @@
                         "  \\item[absoluteCovariance:] the parameters covariance matrix data is  given absolute. ",
                         "  \\item[relative:] the parameter covariance matrix data are given relative to the parameters.",
                         "\\end{description}" ],
-        "name": "parameterCovariancMatrix",
+        "name": "parameterCovarianceMatrix",
         "required": false,
         "rootNode": false
     },

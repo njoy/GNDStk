@@ -596,7 +596,7 @@
             },
             "parity": {
                 "__class__": "nodes.Attribute",
-                "default": 1,
+                "default": null,
                 "description": "The parity for the spin group, either \\texttt{1} or \\texttt{-1}.",
                 "name": "parity",
                 "required": true,
