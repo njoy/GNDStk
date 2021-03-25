@@ -20,7 +20,7 @@ https://git.oecd-nea.org/science/wpec/gnds/formats:
    Conventions/summary_abstract.json
    PoPs/summary_pops.json
 
-We're putting this into version control to track the changes, which we hope
+We're putting this into version control to track our changes, which we hope
 will be relatively small. (Except for some prettyprinting we'll do, through
 an editor, as the first change.) Substantive changes are geared towards the
-goal of making our automatic code-generation tool work more smoothly.
+goal of helping our automatic code-generation tool to work more smoothly.

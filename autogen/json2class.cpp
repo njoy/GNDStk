@@ -9,7 +9,24 @@ using namespace njoy::GNDStk::core;
 inline const std::string large = "// " + std::string(77,'-');
 inline const std::string small = "// " + std::string(24,'-');
 
-// re: files
+// for extra chatter
+inline const bool debugging = false;
+
+
+
+// -----------------------------------------------------------------------------
+// Files
+// -----------------------------------------------------------------------------
+
+inline const std::string directory =
+   "./"; // needs the '/'
+
+inline const std::vector<std::string> files = {
+   "generalPurpose.json",
+   "reactionSuite.json"
+};
+
+/*
 inline const std::string directory =
    "../../GNDStk/formats/";
 
@@ -32,8 +49,7 @@ inline const std::vector<std::string> files = {
    "summary_transport.json",
    "summary_tsl.json"
 };
-
-inline const bool debugging = false;
+*/
 
 
 
@@ -48,6 +64,7 @@ inline const bool debugging = false;
 // JSON attributes{} "type" to GNDStk/C++ type
 inline const std::map<std::string,std::string> mapMetaType {
    { "interpolation", "interpolation_t" },
+   { "interaction",   "interaction_t" },
    { "encoding",      "encoding_t" },
    { "frame",         "frame_t" },
    { "Boolean",       "bool" }
@@ -73,6 +90,9 @@ inline const std::map<std::string,std::string> mapMetaDefault {
    { "ascii", "encoding_t::ascii" },
    { "utf8",  "encoding_t::utf8" },
 
+   { "Float64",  "\"Float64\"" },
+
+   // interpolation
    { "flat",              "interpolation_t::flat" },
    { "charged-particle",  "interpolation_t::charged_particle" },
    { "lin-lin",           "interpolation_t::lin_lin" },
@@ -80,6 +100,16 @@ inline const std::map<std::string,std::string> mapMetaDefault {
    { "log-lin",           "interpolation_t::log_lin" },
    { "log-log",           "interpolation_t::log_log" },
    { "\\\\attr{lin-lin}", "interpolation_t::lin_lin" }, // :-/
+
+   // interaction
+   { "nuclear", "interaction_t::nuclear" },
+   { "atomic", "interaction_t::atomic" },
+   { "thermalNeutronScatteringLaw",
+         "interaction_t::thermalNeutronScatteringLaw" },
+
+   // frame
+   { "lab",          "frame_t::lab" },
+   { "centerOfMass", "frame_t::centerOfMass" },
 
    { "row-major",    "storage_order_t::row_major" },
    { "column-major", "storage_order_t::column_major" },
@@ -397,12 +427,12 @@ inline std::string to_string(const nlohmann::json &j)
 // -----------------------------------------------------------------------------
 
 void write_metadata(
-   std::ostream &oss, // in caller, this is a temporary ostringstream
+   std::ostream &ossm, // in caller, this is a temporary ostringstream
    const nlohmann::json &attrs,
    std::vector<infoMetadata> &vecInfoMetadata // output
 ) {
    // here, we're within the public struct for raw GNDS content
-   oss << "\n      // metadata\n";
+   ossm << "\n      // metadata\n";
    for (const auto &field : attrs.items()) {
 
       // re: default
@@ -449,7 +479,10 @@ void write_metadata(
       const std::string varName = fieldName(field);
 
       // write
-      oss << "      " << fullVarType << " " << varName << ";" << std::endl;
+      ossm << "      " << fullVarType << " " << varName;
+      if (hasDefault)
+         ossm << "{" << theDefault << "}";
+      ossm << ";" << std::endl;
 
       // add to vecInfoMetadata, to be used later
       vecInfoMetadata.push_back(infoMetadata{});
@@ -469,7 +502,7 @@ void write_metadata(
 // -----------------------------------------------------------------------------
 
 void write_children(
-   std::ostream &oss, // in caller, this is a temporary ostringstream
+   std::ostream &ossc, // in caller, this is a temporary ostringstream
    const nlohmann::json &elems,
    std::vector<infoChildren> &vecInfoChildren, // output
 
@@ -480,7 +513,7 @@ void write_children(
    const std::multimap<std::string,std::string> &class2nspace
 ) {
    // here, we're within the public struct for raw GNDS content
-   oss << "\n      // children\n";
+   ossc << "\n      // children\n";
    for (const auto &field : elems.items()) {
 
       // optional?
@@ -575,7 +608,7 @@ void write_children(
       const std::string varName = fieldName(field);
 
       // write
-      oss << "      " << fullVarType << " " << varName << ";" << std::endl;
+      ossc << "      " << fullVarType << " " << varName << ";" << std::endl;
 
       // save as a dependency - if it's not its own dependency (in which case
       // presumably a pointer is involved, or we're out of luck in any event)
@@ -763,10 +796,12 @@ void write_class_ctor(
    // base constructor call
    write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
 
+   /*
    // initialize metadata with defaults
    for (const auto &m : vecInfoMetadata)
       if (m.hasDefault)
          os << ",\n      " << m.varName << "(" << m.theDefault << ")";
+   */
 
    // body
    os << "\n";
@@ -1039,6 +1074,7 @@ int main()
    // files *do* have same-named classes in different namespaces.
    std::multimap<std::string,std::string> class2nspace;
    nlohmann::json jdoc;
+   std::cout << "Preprocessing..." << std::endl;
    for (auto &file : files) {
       read(file,jdoc);
       ofs << "\n";
@@ -1054,6 +1090,7 @@ int main()
 
    // Print classes into temporary strings, because they have to be reordered
    // later (per dependencies) for final output
+   std::cout << "\nBuilding classes..." << std::endl;
    for (auto &file : files) {
       read(file,jdoc);
       const std::string file_namespace = jdoc["__namespace__"];

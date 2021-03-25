@@ -1,4 +1,8 @@
 
+// fixme
+// The enum handling in this file should probably be replaced with
+// what @whaeck has done in that respect, using other NJOY constructs.
+
 // -----------------------------------------------------------------------------
 // This file contains miscellaneous types and classes that help with our
 // high-level GNDS interface.
@@ -34,19 +38,13 @@ enum class interpolation_t {
    log_log
 };
 
-
-// ------------------------
 // operator>>
-// ------------------------
-
-// Should perhaps just make a std::map for operator>> and operator<<
-
 inline std::istream &operator>>(std::istream &is, interpolation_t &obj)
 {
    std::string str;
    is >> str;
 
-   if (str == "flat") 
+   if (str == "flat")
       obj = interpolation_t::flat;
    else if (str == "charged-particle")
       obj = interpolation_t::charged_particle;
@@ -74,11 +72,7 @@ inline std::istream &operator>>(std::istream &is, interpolation_t &obj)
    return is;
 }
 
-
-// ------------------------
 // operator<<
-// ------------------------
-
 inline std::ostream &operator<<(std::ostream &os, const interpolation_t &obj)
 {
    if (obj == interpolation_t::flat)
@@ -137,11 +131,7 @@ public:
    Integer32 denominator() const { return den; }
 };
 
-
-// ------------------------
 // operator>>
-// ------------------------
-
 inline std::istream &operator>>(std::istream &is, Fraction32 &obj)
 {
    try {
@@ -162,11 +152,7 @@ inline std::istream &operator>>(std::istream &is, Fraction32 &obj)
    return is;
 }
 
-
-// ------------------------
 // operator<<
-// ------------------------
-
 inline std::ostream &operator<<(std::ostream &os, const Fraction32 &obj)
 {
    os << obj.num;
@@ -253,11 +239,7 @@ public:
    }
 };
 
-
-// ------------------------
 // operator>>
-// ------------------------
-
 inline std::istream &operator>>(std::istream &is, IntegerTuple &obj)
 {
    obj.clear();
@@ -283,15 +265,138 @@ inline std::istream &operator>>(std::istream &is, IntegerTuple &obj)
    return is;
 }
 
-
-// ------------------------
 // operator<<
-// ------------------------
-
 inline std::ostream &operator<<(std::ostream &os, const IntegerTuple &obj)
 {
    std::size_t n = 0;
    while (n < obj.size())
       os << (n ? "," : "") << obj[n];
+   return os;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// interaction_t
+// For the GNDS basic data type "interaction"
+// -----------------------------------------------------------------------------
+
+enum class interaction_t {
+   unknown,
+   nuclear,
+   atomic,
+   thermalNeutronScatteringLaw
+};
+
+// operator>>
+inline std::istream &operator>>(std::istream &is, interaction_t &obj)
+{
+   std::string str;
+   is >> str;
+
+   if (str == "nuclear")
+      obj = interaction_t::nuclear;
+   else if (str == "atomic")
+      obj = interaction_t::atomic;
+   else if (str == "thermalNeutronScatteringLaw")
+      obj = interaction_t::thermalNeutronScatteringLaw;
+   else {
+      obj = interaction_t::unknown;
+      if (!is)
+         log::error(
+           "Error reading interaction value from std::istream");
+      else
+         log::error(
+           "Unrecognized value {} for interaction. Valid values are:\n"
+           "nuclear, atomic, thermalNeutronScatteringLaw.", str);
+      log::function("std::istream >> interaction_t");
+      throw std::exception{};
+   }
+
+   return is;
+}
+
+// operator<<
+inline std::ostream &operator<<(std::ostream &os, const interaction_t &obj)
+{
+   if (obj == interaction_t::nuclear)
+      os << "nuclear";
+   else if (obj == interaction_t::atomic)
+      os << "atomic";
+   else if (obj == interaction_t::thermalNeutronScatteringLaw)
+      os << "thermalNeutronScatteringLaw";
+   else {
+      if (!os)
+         log::error(
+           "Error writing interaction value to std::ostream");
+      else
+         log::error(
+           "Unknown value for interaction. Valid values are:\n"
+           "nuclear, atomic, thermalNeutronScatteringLaw.");
+      log::function("std::ostream << interaction_t");
+      throw std::exception{};
+   }
+
+   return os;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// frame_t
+// For the GNDS basic data type "frame"
+// -----------------------------------------------------------------------------
+
+enum class frame_t {
+   unknown,
+   lab,
+   centerOfMass
+};
+
+// operator>>
+inline std::istream &operator>>(std::istream &is, frame_t &obj)
+{
+   std::string str;
+   is >> str;
+
+   if (str == "lab")
+      obj = frame_t::lab;
+   else if (str == "centerOfMass")
+      obj = frame_t::centerOfMass;
+   else {
+      obj = frame_t::unknown;
+      if (!is)
+         log::error(
+           "Error reading frame value from std::istream");
+      else
+         log::error(
+           "Unrecognized value {} for frame. Valid values are:\n"
+           "lab, centerOfMass.", str);
+      log::function("std::istream >> frame_t");
+      throw std::exception{};
+   }
+
+   return is;
+}
+
+// operator<<
+inline std::ostream &operator<<(std::ostream &os, const frame_t &obj)
+{
+   if (obj == frame_t::lab)
+      os << "lab";
+   else if (obj == frame_t::centerOfMass)
+      os << "centerOfMass";
+   else {
+      if (!os)
+         log::error(
+           "Error writing frame value to std::ostream");
+      else
+         log::error(
+           "Unknown value for frame. Valid values are:\n"
+           "lab, centerOfMass.");
+      log::function("std::ostream << frame_t");
+      throw std::exception{};
+   }
+
    return os;
 }

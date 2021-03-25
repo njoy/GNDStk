@@ -18,4 +18,4 @@ const T &get_default() const
 const std::optional<T> &get_optional() const
 {
    return opt;
-}   
+}
