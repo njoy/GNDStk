@@ -29,6 +29,8 @@ include( cmake/GNDStk_dependencies.cmake )
 # Project targets
 ########################################################################
 
+include_directories( src/ )
+
 add_library( GNDStk INTERFACE )
 target_include_directories( GNDStk INTERFACE src/ )
 target_link_libraries( GNDStk
@@ -38,6 +40,14 @@ target_link_libraries( GNDStk
     INTERFACE nlohmann_json::nlohmann_json
     )
 
+add_executable( json2class.exe
+    EXCLUDE_FROM_ALL
+    autogen/json2class.cpp
+    )
+target_link_libraries( json2class.exe
+    PRIVATE GNDStk
+    PRIVATE nlohmann_json::nlohmann_json
+    )
 
 #######################################################################
 # Top-level Only
