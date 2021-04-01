@@ -9,15 +9,25 @@
 using namespace njoy::GNDStk;
 using Axis = v1_9::gpdc::Axis;
 
+Node defaultChunk();
+void verifyDefaultChunk( const Axis& );
 Node chunk();
 void verifyChunk( const Axis& );
-Node chunkWithOptionalUnit();
-void verifyChunkWithOptionalUnit( const Axis& );
 Node invalidChunk();
 
 SCENARIO( "Axis" ) {
 
   GIVEN( "valid data for a Axis" ) {
+
+    WHEN( "the default constructor is used" ) {
+
+      Axis chunk;
+
+      THEN( "an Axis can be constructed and members can be tested" ) {
+
+        verifyDefaultChunk( chunk );
+      } // THEN
+    } // WHEN
 
     WHEN( "the data is given explicitly" ) {
 
@@ -33,19 +43,6 @@ SCENARIO( "Axis" ) {
       } // THEN
     } // WHEN
 
-//    WHEN( "the data is given explicitly without a unit" ) {
-//
-//      unsigned int index = 1;
-//      std::string label = "energy_in";
-//
-//      Axis chunk( index, label );
-//
-//      THEN( "an Axis can be constructed and members can be tested" ) {
-//
-//        verifyChunkWithOptionalUnit( chunk );
-//      } // THEN
-//    } // WHEN
-
     WHEN( "the data is constructed from a node" ) {
 
       Node core = chunk();
@@ -54,6 +51,45 @@ SCENARIO( "Axis" ) {
       THEN( "an Axis can be constructed and members can be tested" ) {
 
         verifyChunk( chunk );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is copied" ) {
+
+      Node core = chunk();
+      Axis chunk( core );
+
+      // copy constructor
+      Axis copy( chunk );
+
+      // copy assignment
+      Axis assign;
+      assign = chunk;
+
+      THEN( "an Axis can be constructed and members can be tested" ) {
+
+        verifyChunk( copy );
+        verifyChunk( assign );
+      } // THEN
+    } // WHEN
+
+    WHEN( "the data is moved" ) {
+
+      Node core = chunk();
+      Axis chunk( core );
+      Axis chunk2( core );
+
+      // move constructor
+      Axis move( std::move( chunk ) );
+
+      // copy assignment
+      Axis assign;
+      assign = std::move( chunk2 );
+
+      THEN( "an Axis can be constructed and members can be tested" ) {
+
+        verifyChunk( move );
+        verifyChunk( assign );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -70,6 +106,22 @@ SCENARIO( "Axis" ) {
   } // GIVEN
 } // SCENARIO
 
+Node defaultChunk() {
+
+  Node chunk( "axis" );
+
+  return chunk;
+}
+
+void verifyDefaultChunk( const Axis& component ) {
+
+  CHECK( std::nullopt == component.index() );
+  CHECK( std::nullopt == component.label() );
+  CHECK( std::nullopt == component.unit() );
+
+  CHECK( defaultChunk() == Node( component ) );
+}
+
 Node chunk() {
 
   Node chunk( "axis" );
@@ -82,30 +134,19 @@ Node chunk() {
 
 void verifyChunk( const Axis& component ) {
 
-  CHECK( 1 == component.index() );
-  CHECK( "energy_in" == component.label() );
+  CHECK( std::nullopt != component.index() );
+  CHECK( std::nullopt != component.label() );
   CHECK( std::nullopt != component.unit() );
+
+  CHECK( 1 == component.index().value() );
+  CHECK( "energy_in" == component.label().value() );
   CHECK( "eV" == component.unit().value() );
 
-  CHECK( chunk() == Node( component ) );
-}
-
-Node chunkWithOptionalUnit() {
-
-  Node chunk( "axis" );
-  chunk.add( "index", "1" );
-  chunk.add( "label", "energy_in" );
-
-  return chunk;
-}
-
-void verifyChunkWithOptionalUnit( const Axis& component ) {
-
   CHECK( 1 == component.index() );
   CHECK( "energy_in" == component.label() );
-  CHECK( std::nullopt == component.unit() );
+  CHECK( "eV" == component.unit() );
 
-  CHECK( chunkWithOptionalUnit() == Node( component ) );
+  CHECK( chunk() == Node( component ) );
 }
 
 Node invalidChunk() {
