@@ -30,3 +30,5 @@ add_subdirectory( src/GNDStk/enums/GridStyle/test )
 add_subdirectory( src/GNDStk/enums/Interpolation/test )
 add_subdirectory( src/GNDStk/enums/units/Energy/test )
 add_subdirectory( src/GNDStk/enums/units/Length/test )
+
+add_subdirectory( src/GNDStk/v1.9/gpdc/Axis/test )
