@@ -31,9 +31,9 @@ class CrossSection : public Component<CrossSection> {
       return
          // children
          std::optional<gpdc::XYs1d>{}
-            / --Child<>("XYs1d") |
+            / ++Child<>("XYs1d") |
          std::optional<gpdc::Regions1d>{}
-            / --Child<>("regions1d")
+            / ++Child<>("regions1d")
       ;
    }
 
@@ -45,8 +45,8 @@ public:
 
    struct {
       // children
-      std::optional<gpdc::XYs1d> XYs1d;
-      std::optional<gpdc::Regions1d> regions1d;
+      std::optional<std::vector<gpdc::XYs1d>> XYs1d;
+      std::optional<std::vector<gpdc::Regions1d>> regions1d;
    } content;
 
    // ------------------------

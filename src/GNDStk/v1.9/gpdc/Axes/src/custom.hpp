@@ -1,7 +1,7 @@
 public:
 
   /* type aliases */
-  using AxisOrGrid = std::variant< const Axis, const Grid >;
+  using AxisOrGrid = std::variant< Axis, Grid >;
   using RefWrapAxisOrGrid = std::variant< std::reference_wrapper< const Axis >,
                                           std::reference_wrapper< const Grid > >;
 
