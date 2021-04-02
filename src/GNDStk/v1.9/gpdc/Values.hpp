@@ -118,9 +118,10 @@ public:
       },
       content{
          length,
-         start == 0 ? Defaulted<Integer32>{0} : Defaulted<Integer32>{ start },
-         valueType == "Float64" ? Defaulted<UTF8Text>{"Float64"} :
-                                  Defaulted<UTF8Text>{ valueType },
+         start == 0 ? Defaulted<Integer32>{ start }
+                    : Defaulted<Integer32>{ 0, start },
+         valueType == "Float64" ? Defaulted<UTF8Text>{ valueType } :
+                                  Defaulted<UTF8Text>{ "Float64", valueType },
          values
       }
    {

@@ -7,11 +7,13 @@
 #include "GNDStk.hpp"
 #include "GNDStk/v1.9/gpdc/Axes.hpp"
 #include "GNDStk/v1.9/gpdc/Values.hpp"
+#include "GNDStk/enums/Interpolation.hpp"
 
 namespace njoy {
 namespace GNDStk {
 
 using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk::enums;
 
 namespace v1_9 {
 namespace gpdc {
@@ -32,7 +34,7 @@ class XYs1d : public Component<XYs1d> {
          // metadata
          std::optional<Integer32>{}
             / Meta<>("index") |
-         Defaulted<interpolation_t>{interpolation_t::lin_lin}
+         Defaulted<Interpolation>{Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -55,7 +57,7 @@ public:
    struct {
       // metadata
       std::optional<Integer32> index;
-      Defaulted<interpolation_t> interpolation{interpolation_t::lin_lin};
+      Defaulted<Interpolation> interpolation{Interpolation::linlin};
       std::optional<XMLName> label;
       std::optional<Float64> outerDomainValue;
 
@@ -72,7 +74,7 @@ public:
    const auto &index() const
     { return content.index; }
    const auto &interpolation() const
-    { return content.interpolation; }
+    { return content.interpolation.value(); }
    const auto &label() const
     { return content.label; }
    const auto &outerDomainValue() const
@@ -128,7 +130,7 @@ public:
    // fields
    explicit XYs1d(
       const std::optional<Integer32> &index,
-      const Defaulted<interpolation_t> &interpolation,
+      const Interpolation &interpolation,
       const std::optional<XMLName> &label,
       const std::optional<Float64> &outerDomainValue,
       const std::optional<gpdc::Axes> &axes,
@@ -144,7 +146,9 @@ public:
       },
       content{
          index,
-         interpolation,
+         interpolation == Interpolation::linlin
+             ? Defaulted<Interpolation>{ interpolation }
+             : Defaulted<Interpolation>{ Interpolation::linlin, interpolation },
          label,
          outerDomainValue,
          axes,
