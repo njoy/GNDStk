@@ -33,3 +33,4 @@ add_subdirectory( src/GNDStk/enums/units/Length/test )
 
 add_subdirectory( src/GNDStk/v1.9/gpdc/Axis/test )
 add_subdirectory( src/GNDStk/v1.9/gpdc/Axes/test )
+add_subdirectory( src/GNDStk/v1.9/gpdc/Values/test )

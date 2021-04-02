@@ -33,7 +33,8 @@ class Values : public Component<Values> {
          Defaulted<Integer32>{0}
             / Meta<>("start") |
          Defaulted<UTF8Text>{"Float64"}
-            / Meta<>("valueType")
+            / Meta<>("valueType") |
+         std::vector< double >{} / GNDStk::basic::numeric< double >
       ;
    }
 
@@ -48,6 +49,7 @@ public:
       std::optional<Integer32> length;
       Defaulted<Integer32> start{0};
       Defaulted<UTF8Text> valueType{"Float64"};
+      std::vector< double > values;
    } content;
 
    // ------------------------
@@ -55,12 +57,14 @@ public:
    // ------------------------
 
    // metadata
-   const auto &length() const
-    { return content.length; }
+   std::size_t length() const
+    { return content.length ?  content.length.value() : content.values.size(); }
    const auto &start() const
-    { return content.start; }
+    { return content.start.value(); }
    const auto &valueType() const
-    { return content.valueType; }
+    { return content.valueType.value(); }
+   const auto &values() const
+    { return content.values; }
 
    // ------------------------
    // constructors
@@ -71,7 +75,8 @@ public:
       Component{
          content.length,
          content.start,
-         content.valueType
+         content.valueType,
+         content.values
       }
    {
       Component::construct();
@@ -82,7 +87,8 @@ public:
       Component{
          content.length,
          content.start,
-         content.valueType
+         content.valueType,
+         content.values
       },
       content{other.content}
    {
@@ -100,18 +106,22 @@ public:
    // fields
    explicit Values(
       const std::optional<Integer32> &length,
-      const Defaulted<Integer32> &start,
-      const Defaulted<UTF8Text> &valueType
+      Integer32 start,
+      UTF8Text valueType,
+      const std::vector< double > &values
    ) :
       Component{
          content.length,
          content.start,
-         content.valueType
+         content.valueType,
+         content.values
       },
       content{
          length,
-         start,
-         valueType
+         start == 0 ? Defaulted<Integer32>{0} : Defaulted<Integer32>{ start },
+         valueType == "Float64" ? Defaulted<UTF8Text>{"Float64"} :
+                                  Defaulted<UTF8Text>{ valueType },
+         values
       }
    {
       Component::construct();
