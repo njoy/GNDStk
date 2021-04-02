@@ -16,8 +16,8 @@ private:
     // useful lambdas
     auto compare = [] ( const auto& left, const auto& right )
                       { return left.index().value() < right.index().value(); };
-    auto index = [] ( const auto& variant )
-                    { return variant.get().index().value(); };
+    auto getIndex = [] ( const auto& variant )
+                       { return variant.get().index().value(); };
 
     // sort everything on index
     if ( this->content.axis ) {
@@ -30,8 +30,8 @@ private:
     }
     std::sort( this->children_.begin(), this->children_.end(),
                [&] ( const auto& left, const auto& right )
-                   { return std::visit( index, left ) <
-                            std::visit( index, right ); } );
+                   { return std::visit( getIndex, left ) <
+                            std::visit( getIndex, right ); } );
   }
 
   template < typename Type, typename... Types >
@@ -73,7 +73,28 @@ public:
     // sort on indices
     this->sort();
 
+    // useful lambdas
+    auto getIndex = [] ( const auto& variant )
+                       { return variant.get().index().value(); };
+
     // verify indices
+    for ( unsigned int i = 0; i < this->children_.size(); ++i ) {
+
+      auto index = std::visit( getIndex, this->children_[i] );
+      if ( i != index ) {
+
+        log::error( "Expected index {} but found {} instead", i, index );
+        throw std::exception();
+      }
+    }
+
+    // href cannot appear together with axis and grid
+    if ( this->href() && ( this->axis() || this->grid() ) ) {
+
+      log::error( "An href reference cannot appear in an axes node with axis "
+                  "and/or grid child nodes" );
+      throw std::exception();
+    }
   }
 
   /**

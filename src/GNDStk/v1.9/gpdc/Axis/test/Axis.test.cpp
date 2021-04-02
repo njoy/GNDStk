@@ -13,7 +13,7 @@ Node defaultChunk();
 void verifyDefaultChunk( const Axis& );
 Node chunk();
 void verifyChunk( const Axis& );
-Node invalidChunk();
+Node invalidName();
 
 SCENARIO( "Axis" ) {
 
@@ -100,7 +100,7 @@ SCENARIO( "Axis" ) {
 
       THEN( "an exception is thrown" ) {
 
-        CHECK_THROWS( Axis( invalidChunk() ) );
+        CHECK_THROWS( Axis( invalidName() ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -149,7 +149,7 @@ void verifyChunk( const Axis& component ) {
   CHECK( chunk() == Node( component ) );
 }
 
-Node invalidChunk() {
+Node invalidName() {
 
   // wrong name for the node
   return Node( "wrongName" );

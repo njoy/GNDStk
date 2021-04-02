@@ -15,6 +15,7 @@ Node defaultChunk();
 void verifyDefaultChunk( const Axes& );
 Node chunk();
 void verifyChunk( const Axes& );
+Node invalidName();
 Node invalidChunk();
 
 SCENARIO( "Axes" ) {
@@ -33,10 +34,10 @@ SCENARIO( "Axes" ) {
 
     WHEN( "the data is given explicitly" ) {
 
-      std::vector< Axis > axes = { Axis( 1, "energy_in", "eV" ),
+      std::vector< Axis > axis = { Axis( 1, "energy_in", "eV" ),
                                    Axis( 0, "radius", "fm" ) };
 
-      Axes chunk( std::nullopt, axes, std::nullopt );
+      Axes chunk( std::nullopt, axis, std::nullopt );
 
       THEN( "an Axes can be constructed and members can be tested" ) {
 
@@ -46,13 +47,13 @@ SCENARIO( "Axes" ) {
 
     WHEN( "a custom constructor is used" ) {
 
-      std::vector< std::variant< Axis, Grid > > axes = {
+      std::vector< std::variant< Axis, Grid > > elements = {
 
         Axis( 1, "energy_in", "eV" ),
         Axis( 0, "radius", "fm" )
       };
 
-      Axes chunk( axes );
+      Axes chunk( elements );
 
       THEN( "an Axes can be constructed and members can be tested" ) {
 
@@ -117,7 +118,29 @@ SCENARIO( "Axes" ) {
 
       THEN( "an exception is thrown" ) {
 
+        CHECK_THROWS( Axes( invalidName() ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "when the node is illegal" ) {
+
+      THEN( "an exception is thrown" ) {
+
         CHECK_THROWS( Axes( invalidChunk() ) );
+      } // THEN
+    } // WHEN
+
+    WHEN( "when the axis indices are wrong" ) {
+
+      std::vector< std::variant< Axis, Grid > > elements = {
+
+        Axis( 2, "energy_in", "eV" ), // the index should have been 1
+        Axis( 0, "radius", "fm" )
+      };
+
+      THEN( "an exception is thrown" ) {
+
+        CHECK_THROWS( Axes( elements ) );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -193,8 +216,23 @@ void verifyChunk( const Axes& component ) {
 //  CHECK( chunk() == Node( component ) );
 }
 
-Node invalidChunk() {
+Node invalidName() {
 
   // wrong name for the node
   return Node( "wrongName" );
+}
+
+Node invalidChunk() {
+
+  Node chunk( "axes" );
+  chunk.add( "href", "1" );
+
+  // href and axis nodes are not allowed
+  Node axis1( "axis" );
+  axis1.add( "index", "1" );
+  axis1.add( "label", "energy_in" );
+  axis1.add( "unit", "eV" );
+  chunk.add( "axis" ) = axis1;
+
+  return chunk;
 }
