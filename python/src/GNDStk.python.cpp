@@ -13,6 +13,12 @@ namespace core {
   void wrapNode( python::module& );
 }
 
+// v1.9 interface declarations
+namespace v1_9 {
+
+  void wrapGeneralPurposeDataContainers( python::module& );
+}
+
 /**
  *  @brief GNDStk python bindings
  *
@@ -22,12 +28,22 @@ namespace core {
 PYBIND11_MODULE( GNDStk, module ) {
 
   // create the core submodule
-  python::module submodule = module.def_submodule(
+  python::module coremodule = module.def_submodule(
 
     "core",
     "core - GNDS core interface components"
   );
 
   // wrap core components
-  core::wrapNode( submodule );
+  core::wrapNode( coremodule );
+
+  // create the core submodule
+  python::module v1_9_module = module.def_submodule(
+
+    "v1_9",
+    "v1.9 - GNDS v1.9 standard components"
+  );
+
+  // wrap GNDS v1.9 standard components
+  v1_9::wrapGeneralPurposeDataContainers( v1_9_module );
 }

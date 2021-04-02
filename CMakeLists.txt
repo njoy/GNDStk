@@ -63,6 +63,8 @@ pybind11_add_module( GNDStk.python
     EXCLUDE_FROM_ALL
     python/src/GNDStk.python.cpp
     python/src/core/Node.python.cpp
+    python/src/v1.9/gpdc.python.cpp
+    python/src/v1.9/gpdc/Axis.python.cpp
     )
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
 target_compile_options( GNDStk.python PRIVATE "-fPIC" )
