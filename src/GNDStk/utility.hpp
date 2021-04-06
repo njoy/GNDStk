@@ -7,6 +7,10 @@
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
 
+// parents
+// Should Node's debugging output print addresses and parent-node addresses?
+inline bool parents = false;
+
 // decl
 // Should Tree.write() also print the tree's declaration node if it exists?
 inline bool decl = false;

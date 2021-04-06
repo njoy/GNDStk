@@ -17,6 +17,7 @@
 
 // miscellaneous
 #include <algorithm>
+#undef NDEBUG
 #include <cassert>
 #include <cctype>
 #include <chrono>

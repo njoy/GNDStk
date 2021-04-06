@@ -17,6 +17,12 @@ std::ostream &write(std::ostream &os, const int level = 0) const
    if (!(os << icurr << name << ":"))
       log::error("ostream << Node.name returned with !ostream");
 
+   // possibly write address and parent-node information
+   if (parents)
+      if (!(os << " (address " << this << ", parent " << &parent() << ")"))
+         log::error("ostream << (Node address/parent information) "
+                    "returned with !ostream");
+
    // write metadata
    if (os)
       for (const auto &meta : metadata)

@@ -6,8 +6,6 @@
 // -----------------------------------------------------------------------------
 
 class Tree : public Node {
-   using nodeType = Node;
-
 public:
 
    // ------------------------
@@ -17,13 +15,13 @@ public:
    // clear
    Tree &clear()
    {
-      return this->nodeType::clear(), *this;
+      return this->Node::clear(), *this;
    }
 
    // sort
    Tree &sort()
    {
-      return this->nodeType::sort(), *this;
+      return this->Node::sort(), *this;
    }
 
    // ------------------------

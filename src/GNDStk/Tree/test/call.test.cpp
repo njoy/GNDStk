@@ -188,11 +188,11 @@ SCENARIO("Testing GNDStk Tree operator()") {
          // At present, need to split and use child() (...) in
          // order to <direct-specify> an output container type
          found = false;
-         auto dq =
+         auto deq =
             tree(reactionSuite,reactions).
             child<std::deque>(reaction,found);
          CHECK(found);
-         CHECK(dq.size() == 60);
+         CHECK(deq.size() == 60);
 
          CHECK(
             tree
@@ -200,6 +200,6 @@ SCENARIO("Testing GNDStk Tree operator()") {
             (crossSection,XYs1d)[0]
             (axes,axis).size() == 2
          );
-      }
+      } // WHEN
    }
 }

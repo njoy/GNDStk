@@ -12,7 +12,7 @@
 // The Child encodes the notion that any number of child nodes of this name
 // can occur. In these cases the child() functions return containers of values.
 //
-// Non-const versions aren't needed for most, as they return by value.
+// Non-const versions aren't needed for most of these, as they return by value.
 // -----------------------------------------------------------------------------
 
 

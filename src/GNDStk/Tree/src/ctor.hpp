@@ -10,7 +10,7 @@ Tree() = default;
 Tree(Tree &&) = default;
 
 // copy
-Tree(const Tree &from) : nodeType{}
+Tree(const Tree &from) : Node{}
 {
    try {
       if (!convert(from,*this))

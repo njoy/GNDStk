@@ -51,16 +51,16 @@ Tree &reset(
        || form == FileType::tree
       ) {
          // xml, null, tree
-         nodeType::add("xml");
+         add("xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
       } else if (form == FileType::json) {
          // json
-         nodeType::add("json");
+         add("json");
          // any use for version and encoding?
       } else if (form == FileType::hdf5) {
          // hdf5
-         nodeType::add("hdf5");
+         add("hdf5");
          // any use for version and encoding?
       } else {
          log::error(
@@ -73,7 +73,7 @@ Tree &reset(
       }
 
       // GNDS node: "reactionSuite", etc.
-      nodeType::add(kwd.name);
+      add(kwd.name);
       return *this;
 
    } catch (...) {

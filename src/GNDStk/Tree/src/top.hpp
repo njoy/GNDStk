@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // const
-const nodeType &top() const
+const Node &top() const
 {
    try {
       if (!has_top()) {
@@ -23,7 +23,7 @@ const nodeType &top() const
 }
 
 // non-const
-nodeType &top()
+Node &top()
 {
-   return const_cast<nodeType &>(std::as_const(*this).top());
+   return const_cast<Node &>(std::as_const(*this).top());
 }

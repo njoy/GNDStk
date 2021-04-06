@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Randomly shuffle the metadata and child nodes. This capability should
+// Randomly shuffle the metadata and children. This capability should
 // be helpful for validating functions like Node's sort() and operator==.
 // -----------------------------------------------------------------------------
 

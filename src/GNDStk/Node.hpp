@@ -18,11 +18,16 @@ public:
 
    // Simple node for our tree structure:
    //    name
-   //    metadata (container of string pairs)
-   //    children (container of pointers to other Nodes)
+   //    metadata   (container of string pairs)
+   //    children   (container of pointers to other Nodes)
+   //    parentNode (pointer to parent node)
    std::string name;
    std::vector<metaPair> metadata;
    std::vector<childPtr> children;
+private:
+   // Private, because users really shouldn't deal with it; use parent()
+   Node *parentNode = nullptr;
+public:
 
    // ------------------------
    // Simple functions
@@ -42,6 +47,11 @@ public:
    {
       return name == "" && metadata.size() == 0 && children.size() == 0;
    }
+
+   // parent
+   // Assumes that this Node's constness determines its parent's constness
+   const Node &parent() const { return *parentNode; }
+         Node &parent()       { return *parentNode; }
 
    // ------------------------
    // General functions
@@ -125,6 +135,18 @@ public:
    // ------------------------
 
    #include "GNDStk/Node/src/subscript.hpp"
+
+   // ------------------------
+   // destructor
+   // ------------------------
+
+   ~Node()
+   {
+      // Ensure that each child has the current Node as a parent.
+      // fixme This is just a validity check; consider removing it.
+      for (auto &c : children)
+         assert(c->parentNode == this);
+   }
 
 }; // class Node
 
