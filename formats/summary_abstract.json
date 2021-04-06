@@ -1,0 +1,244 @@
+{
+    "__namespace__":"abstract",
+    "Specifications": {
+        "__class__": "nodes.Node",
+        "abstractNode": "abstract node's name",
+        "attributes": {
+            "attribute1": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Description of attribute.",
+                "name": "attribute1",
+                "required": true,
+                "type": "Integer32"
+            },
+            "attribute2": {
+                "__class__": "nodes.Attribute",
+                "default": "1.0",
+                "description": "Description of attribute.",
+                "name": "attribute2",
+                "required": false,
+                "type": "Float64"
+            },
+            "attribute3": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Description of attribute.",
+                "name": "attribute3",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": "Description of body text.",
+        "childNodes": {
+            "childNode1": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of node.",
+                "name": "childNode1",
+                "occurrence": "1+",
+                "required": true
+            },
+            "childNode2": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of node.",
+                "name": "childNode2",
+                "occurrence": "1",
+                "required": false
+            },
+            "childNode3": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of node.",
+                "name": "childNodeWithChoice1",
+                "occurrence": "choice",
+                "required": false
+            },
+            "childNode4": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of node.",
+                "name": "childNodeWithChoice2",
+                "occurrence": "choice",
+                "required": false
+            }
+        },
+        "description": [
+            "The specification for each container will contain the container's nodeName, abstract node, attributes and body (i.e., child nodes or text).",
+            "An abstract node\\footnote{In this sense, an abstract node is like an abstract base class in C++ or Python.}",
+            "describes attributes and/or body common to several containers and, in itself, is not an actual node (container). The general specification looks like"
+        ],
+        "name": "node",
+        "required": false,
+        "rootNode": false
+    },
+    "labelNode": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The label is used to allow an xlink to uniquely address to the node (container).",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "Many nodes (containers) can reside in other nodes. When more than one node of the same type is embedded in another node,",
+            "a unique way is needed to address a specific node. The label attribute provides this capability.  An xlink can address a",
+            "child node with a unique label even when embedded in a parent node containing more than one child nodes of the same type."
+        ],
+        "name": "label",
+        "required": false,
+        "rootNode": false
+    },
+    "functionalNode": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A label is required for a top-level functional node, but not for lower-dimensional functions appearing inside another functional node.",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "For an $n$-dimensional function, this is its associated $x_{n+1}$ value. Required for all functional nodes that are nested inside higher-dimension functional nodes.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\elemlink{axes} node.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            },
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": "A list of numeric values. The meaning of the numbers depends on the type of function.",
+                "name": "values",
+                "occurrence": "choice",
+                "required": false
+            },
+            "functional": {
+                "__class__": "nodes.ChildNode",
+                "description": "A list of lower-dimensional functions contained inside this function.",
+                "name": "functional",
+                "occurrence": "choice2+",
+                "required": false
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "The \\elemlink{uncertainty} node.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "This section lists attributes and child nodes common to functional nodes (containers). These are the `outerDomainValue' attribute and the child node \\elemlink{axes}.",
+        "name": "functional",
+        "required": false,
+        "rootNode": false
+    },
+    "textNode": {
+        "__class__": "nodes.Node",
+        "attributes": {
+            "encoding": {
+                "__class__": "nodes.Attribute",
+                "default": "ascii",
+                "description": "One of `ascii' or `utf8'. Defines the allowed character set for the body.",
+                "name": "encoding",
+                "required": false,
+                "type": "XMLName"
+            },
+            "markup": {
+                "__class__": "nodes.Attribute",
+                "default": "none",
+                "description": "One of `none', `xml', `xhtml', `latex', or other markups defined by a project.",
+                "name": "markup",
+                "required": false,
+                "type": "attributeValue"
+            }
+        },
+        "bodyText": ["The list of characters. The value for the encoding attribute defines the allowed character set. .",
+                     "If the data are being stored in an XML file and if the body contains XML markup characters ",
+                     "(e.g., '<', '>'), then the characters must wrapped in special XML CDATA\\footnote{An XML CDATA ",
+                     "section is need whenever a string contains characters that are normally reserved for xml ",
+                     "markup, such as `<', `>', `/', and `\\&'.} section."],
+        "childNodes": {},
+        "description": "This node stores a list of characters. This node can be used to store documentation, for example.",
+        "name": "text",
+        "required": false,
+        "rootNode": false
+    },
+    "physicalQuantityNode": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The label is used to allow an xlink to uniquely address to the node (container).",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": "",
+                "description": "String name of the unit for this quantity. The unit can be omitted if the quantity is unitless.",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Determined by the sub-class. Value is usually a Float64, but may also be Integer32, Fraction32 or String.",
+                "name": "value",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "documentation": {
+                "__class__": "nodes.ChildNode",
+                "description": "Documentation specific to the physical quantity.",
+                "name": "documentation",
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "The \\elemlink{uncertainty} node.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": ["Within, for example, a particle property, each possible assignment is a physical quantity",
+                        "with a value, a unit and optional documentation and uncertainty information.",
+                        "Each physical quantity is assigned a label, so that if the database contains multiple",
+                        "possible assignments for a particle's property one can uniquely identify each possible",
+                        "assignment by the corresponding label.\n\nFor most properties in the particle database,",
+                        "the \\attr{value} is a floating-point number. However, the database also supports storing",
+                        "values that are integers (e.g. for parity), fractions (for spin) and strings",
+                        "(for values like `stable'). Since slightly different rules apply to each type of quantity,",
+                        "they are given unique abstract node names: \\element{Float64}, \\element{Integer32}, \\element{Fraction32}",
+                        "and \\element{String}. This section defines the abstract node used by the physical quantities."],
+        "name": "physicalQuantity",
+        "required": false,
+        "rootNode": false
+    }
+}

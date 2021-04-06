@@ -17,42 +17,47 @@
 // new(), below, but to no real effect: the result would be replaced, anyway,
 // when the derived class' own members are initialized in its constructor.
 
-void query(const Node &node)
+void query(const Node &node) const
 {
    // does the node have the name we expect?
-   if (node.name != DERIVED::gnds()) {
+   if (node.name != DERIVED::GNDSField()) {
       log::error(
         "Name \"{}\" in Node sent to Component::query() is not the "
         "expected GNDS name \"{}\"",
          node.name,
-         DERIVED::gnds()
+         DERIVED::GNDSField()
       );
       log::member("Component.query(Node(\"{}\"))", node.name);
       throw std::exception{};
    }
 
    try {
-      // retrieve node's data by doing a multi-query
-      const auto tup = node(toKeywordTup(DERIVED::keys()));
+      if constexpr (
+         std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
+      ) {
+         // consistency check
+         assert(0 == links.size());
+      } else {
+         // retrieve node's data by doing a multi-query
+         const auto tup = node(toKeywordTup(DERIVED::keys()));
 
-      // consistency check
-      assert(std::tuple_size<decltype(tup)>::value == links.size());
+         // consistency check
+         assert(std::tuple_size<decltype(tup)>::value == links.size());
 
-      // apply links:
-      // Node ==> derived-class data
-      // Below, each apply'd "result" is one particular element - one
-      // retrieved value - from the above multi-query on the node.
-
-      std::apply(
-         [this](const auto &... result) {
-            std::size_t n = 0;
-           ((*(typename detail::remove_cvref<decltype(result)>::type *)
-               links[n++] = result),
-            ...);
-         },
-         tup
-      );
-
+         // apply links:
+         // Node ==> derived-class data
+         // Below, each apply'd "result" is one particular element - one
+         // retrieved value - from the above multi-query on the node.
+         std::apply(
+            [this](const auto &... result) {
+               std::size_t n = 0;
+              ((*(typename detail::remove_cvref<decltype(result)>::type *)
+                  links[n++] = result),
+               ...);
+            },
+            tup
+         );
+      }
    } catch (...) {
       log::member("Component.query(Node(\"{}\"))", node.name);
       throw;

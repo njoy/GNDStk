@@ -38,6 +38,14 @@ class Component {
    // Constructor; intentionally *private*
    #include "GNDStk/Component/src/ctor.hpp"
 
+   // construct()
+   // Hook by which a derived-class constructor, built by our auto-generation
+   // process from a JSON-format GNDS spec, can run arbitrary additional code.
+   void construct()
+   {
+      detail::derived_construct(*static_cast<DERIVED*>(this));
+   }
+
 public:
 
    #include "GNDStk/Component/src/query.hpp"

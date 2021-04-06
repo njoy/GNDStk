@@ -1,0 +1,1133 @@
+{
+    "__namespace__": "documentation",
+    "documentation": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "authors": {
+                "__class__": "nodes.ChildNode",
+                "description": "The list of authors",
+                "name": "authors",
+                "occurrence": "1",
+                "required": false
+            },
+            "doi": {
+                "__class__": "nodes.ChildNode",
+                "description": "The Document Object Identifier",
+                "name": "doi",
+                "occurrence": "1",
+                "required": false
+            },
+            "collaborations": {
+                "__class__": "nodes.ChildNode",
+                "description": "The name(s) of the collaboration(s) of the author(s) (e.g. CIELO or n\\_TOF)",
+                "name": "collaborations",
+                "occurrence": "1",
+                "required": false
+            },
+            "copyright": {
+                "__class__": "nodes.ChildNode",
+                "description": "Copyright information",
+                "name": "copyright",
+                "occurrence": "1",
+                "required": false
+            },
+            "evaluationDate": {
+                "__class__": "nodes.ChildNode",
+                "description": "The date this evaluation was performed",
+                "name": "evaluationDate",
+                "occurrence": "1",
+                "required": false
+            },
+            "cutoffDate": {
+                "__class__": "nodes.ChildNode",
+                "description": "Only experimental data before this date are considered in this evaluation",
+                "name": "cutoffDate",
+                "occurrence": "1",
+                "required": false
+            },
+            "acceptanceDate": {
+                "__class__": "nodes.ChildNode",
+                "description": "The date this evaluation was accepted into a library",
+                "name": "acceptanceDate",
+                "occurrence": "1",
+                "required": false
+            },
+            "acknowledgements": {
+                "__class__": "nodes.ChildNode",
+                "description": "Statements acknowledging contributions of some other sort (e.g. funding) not otherwise covered here",
+                "name": "acknowledgements",
+                "occurrence": "1",
+                "required": false
+            },
+            "version": {
+                "__class__": "nodes.ChildNode",
+                "description": "Version of the current evaluation or document, using whatever scheme is appropriate for the library to which the (partial) evaluation belongs",
+                "name": "version",
+                "occurrence": "1",
+                "required": false
+            },
+            "keywords": {
+                "__class__": "nodes.ChildNode",
+                "description": "A collection of NSR, PACS or PhySH keywords associated with this evaluation",
+                "name": "keywords",
+                "occurrence": "1",
+                "required": false
+            },
+            "title": {
+                "__class__": "nodes.ChildNode",
+                "description": "The title of the evaluation",
+                "name": "title",
+                "occurrence": "1",
+                "required": false
+            },
+            "abstract": {
+                "__class__": "nodes.ChildNode",
+                "description": "An abstract summarizing the evaluation",
+                "name": "abstract",
+                "occurrence": "1",
+                "required": false
+            },
+            "body": {
+                "__class__": "nodes.ChildNode",
+                "description": "The main body of text describing the evaluation.  For translated ENDF-6 data, the entire MF1/MT451 text goes here.",
+                "name": "body",
+                "occurrence": "1",
+                "required": true
+            },
+            "computerCodes": {
+                "__class__": "nodes.ChildNode",
+                "description": "The list of programs used to perform this evaluation",
+                "name": "computerCodes",
+                "occurrence": "1",
+                "required": false
+            },
+            "experimentalDataSets": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of references to the experimental data sets used and any corrections/rescalings used in the evaluation process",
+                "name": "experimentalDataSets",
+                "occurrence": "1",
+                "required": false
+            },
+            "bibliography": {
+                "__class__": "nodes.ChildNode",
+                "description": "The list of references used in the evaluation documentation",
+                "name": "bibliography",
+                "occurrence": "1",
+                "required": false
+            },
+            "endfCompatible": {
+                "__class__": "nodes.ChildNode",
+                "description": "Documentation restricted to plain ascii with 66 characters per line, for backwards compatibility with ENDF-6.",
+                "name": "endfCompatible",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "documentation",
+        "rootNode": false
+    },
+    "authors": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "author": {
+                "__class__": "nodes.ChildNode",
+                "description": "Each author has their own \\element{author} node providing contact information, etc.",
+                "name": "author",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "authors",
+        "rootNode": false
+    },
+    "author": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Label node to assist in linking to this list item.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "name": {
+                "__class__": "nodes.ChildNode",
+                "description": "Name of author",
+                "name": "name",
+                "occurrence": "1",
+                "required": true
+            },
+            "email": {
+                "__class__": "nodes.ChildNode",
+                "description": "Email address of author",
+                "name": "email",
+                "occurrence": "1",
+                "required": false
+            },
+            "affiliations": {
+                "__class__": "nodes.ChildNode",
+                "description": "Institutional affilation(s) of the author",
+                "name": "affiliations",
+                "occurrence": "1",
+                "required": false
+            },
+            "note": {
+                "__class__": "nodes.ChildNode",
+                "description": "Any special note pertaining to the author",
+                "name": "note",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "author",
+        "rootNode": false
+    },
+    "name": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The name of the author; use \\attr{encoding}=\\attrval{utf-8}",
+                    "\\attr{markup}=\\attrval{latex} if needed."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "name",
+        "rootNode": false
+    },
+    "email": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The email address of the author.  Unlike the \\element{name}, \\element{affiliation} and \\element{collaboration} elements, email does not require the optional unicode encoding.  However we use the \\element{text} node here for consistency."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "email",
+        "rootNode": false
+    },
+    "affiliations": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "affiliation": {
+                "__class__": "nodes.ChildNode",
+                "description": "Each affiliation is described in an \\element{affiliation} element.",
+                "name": "affilation",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "affiliations",
+        "rootNode": false
+    },
+    "affiliation": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Label node to assist in linking to this list item.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Author affiliation to either an institution or collaboration; use \\attr{encoding}=\\attrval{utf-8}",
+                    "or \\attr{markup}=\\attrval{latex} if needed."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "affiliation",
+        "rootNode": false
+    },
+    "note": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Note pertaining to this author."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "note",
+        "rootNode": false
+    },
+    "collaborations": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "collaboration": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Each collaboration is listed in the \\element{collaboration} element."
+                ],
+                "name": "collaboration",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "collaborations",
+        "rootNode": false
+    },
+    "collaboration": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Label node to assist in linking to this list item.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "link": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Hyperlink to the collaboration web page."
+                ],
+                "name": "link",
+                "occurrence": "1",
+                "required": false
+            },
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "The collaboration name, may be in unicode or use alternative markups.",
+                "name": "text",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "collaboration",
+        "rootNode": false
+    },
+    "title": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The title may be plain ascii text (\\attr{encoding}=\\attrval{ascii}),",
+                    "use more complex encoding (\\attr{encoding}=\\attrval{utf-8}) or may be written",
+                    "in a markup language like \\LaTeX\\ (\\attr{markup}=\\attrval{latex}) or HTML",
+                    "(\\attr{markup}=\\attrval{html}). %; please keep the title to one line."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Use this markup to provide the title of the evaluation/document.",
+        "name": "title",
+        "rootNode": false
+    },
+    "abstract": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The abstract may be plain ascii text (\\attr{encoding}=\\attrval{ascii}), use more complex encoding",
+                    "(\\attr{encoding}=\\attrval{utf-8}) or may be written in a markup language like \\LaTeX\\",
+                    "(\\attr{markup}=\\attrval{latex}) or HTML (\\attr{markup}=\\attrval{html}).",
+                    "%; please keep the abstract to at most one page, but preferably one paragraph."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "If needed, use this markup to provide a short summary of the documentation.",
+        "name": "abstract",
+        "rootNode": false
+    },
+    "body": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The body may be plain ascii text (\\attr{encoding}=\\attrval{ascii}), use more complex encoding",
+                    "(\\attr{encoding}=\\attrval{utf-8}) or may be written in a markup language like \\LaTeX\\",
+                    "(\\attr{markup}=\\attrval{latex}) or HTML (\\attr{markup}=\\attrval{html})."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Use this markup for the main text of the documentation.  An ENDF-6's entire MF1/MT451 file is equivalent to this element.",
+        "name": "body",
+        "rootNode": false
+    },
+    "doi": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "link": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The URL to which the DOI refers"
+                ],
+                "name": "link",
+                "occurrence": "1",
+                "required": false
+            },
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "The actual DOI identifier; this should be plain ascii encoding and plain text markup",
+                "name": "text",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "The Digital Object Identifier (DOI) is a unique identifier affixed to a document or dataset \\cite{doi}.",
+            "A DOI is a character string that uniquely identifies a piece of information and is associated with the URL",
+            "where the information may be found."
+        ],
+        "name": "doi",
+        "rootNode": false
+    },
+    "copyright": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "link": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "A link to the text of the copyright statement"
+                ],
+                "name": "link",
+                "occurrence": "1",
+                "required": false
+            },
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "The text of the copyright statement",
+                "name": "text",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "The \\element{copyright} element provides a way for evaluators to add or link to a copyright statement for the (partial) evaluation.",
+        "name": "copyright",
+        "rootNode": false
+    },
+    "evaluationDate": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "date": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The evaluation date in ISO-8601 format \\cite{datetime} using the \\element{date} markup from Ref.~\\cite{GPDCs}."
+                ],
+                "name": "date",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This markup provides a space for the evaluators to date when the evaluation and documentation were complete.",
+            "This date is assigned by the evaluation authors/evaluators.  This date is equivalent to ENDF-6's EDATE."
+        ],
+        "name": "evaluationDate",
+        "rootNode": false
+    },
+    "acceptanceDate": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "date": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The evaluation date in ISO-8601 format \\cite{datetime} using the \\element{date} markup from Ref.~\\cite{GPDCs}."
+                ],
+                "name": "date",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This markup provides a space for the date when the evaluation was accepted into a particular library.",
+            "This date is assigned by each data project.  This date is equivalent to ENDF-6's DDATE."
+        ],
+        "name": "acceptanceDate",
+        "rootNode": false
+    },
+    "cutoffDate": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "date": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The evaluation date in ISO-8601 format \\cite{datetime} using the \\element{date} markup from Ref.~\\cite{GPDCs}."
+                ],
+                "name": "date",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "The \\element{cutoffDate} is used to state that no experimental data after the cutoff date",
+            "is used in the current evaluation.  This markup is equivalent to the ENSDF CUT field \\cite{ensdf}.",
+            "This markup should not be used as a replacement for explicitly listing what data is used in the evaluation."
+        ],
+        "name": "cutoffDate",
+        "rootNode": false
+    },
+    "version": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "The version information.",
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            },
+            "date": {
+                "__class__": "nodes.ChildNode",
+                "description": "Revision date for this version stored in ISO-8601 format.",
+                "name": "date",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Used to state the version of a document or code using whatever markup is appropriate.",
+            "Usually versions are simple numbers (e.g. subversion revision numbers),",
+            "but they can be much more complex (MacOS Sierra for instance).  Given this, we use a",
+            "\\element{text} low level container to store the version information itself.",
+            "When used at the \\element{documentation} level, it refers to the version of the evaluation",
+            "and is thus equivalent to ENDF-6's NMOD/RDATE flags."
+        ],
+        "name": "version",
+        "rootNode": false
+    },
+    "acknowledgements": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "acknowledgement": {
+                "__class__": "nodes.ChildNode",
+                "description": "Statement acknowledging contributions of some other sort (e.g. funding) not otherwise covered.",
+                "name": "acknowledgement",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "A collection of acknowledgement statements.",
+        "name": "acknowledgements",
+        "rootNode": false
+    },
+    "acknowledgement": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Statement acknowledging contributions of some other sort (e.g. funding) not otherwise covered."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This element allows one to acknowledge contributions of some other sort (e.g. funding) not otherwise covered.",
+            "All United States Department of Energy funded work require a statement of the funding used and this statement should be placed here."
+        ],
+        "name": "acknowledgement",
+        "rootNode": false
+    },
+    "keywords": {
+        "__class__": "nodes.Node",
+        "description":
+        [
+            "Both the American Physical Society and the National Nuclear Data Center use keywording systems to categorize documents.  ",
+            "The \\element{keywords} element allows us to collect these keywords together.  \n\n",
+            "The National Nuclear Data Center uses the Nuclear Science References (NSR) keywording system.  ",
+            "The American Physical Society's Physics and Astronomy Classification Scheme (PACS) system is another keywording ",
+            "system for categorizing documents.  ",
+            "The APS has stated that this keyword system is obsolete and will be replaced with the Physics Subject Headings (PhySH)",
+            "system~\\cite{PhySH}.\\footnote{For more information, see \\url{https://journals.aps.org/PACS} and ",
+            "\\url{https://journals.aps.org/authors/physh}.}  We note that it is unlikely that older papers will be recoded or that",
+            "older papers will have their PACS codes removed.  Therefore we expect that the present markup will be relevant for ",
+            "the forseeable future."
+        ],
+        "name": "keywords",
+        "attributes": {},
+        "childNodes": {
+            "keyword": {
+                "__class__": "nodes.ChildNode",
+                "description": "A NSR, PACS or PhySH keyword associated with this evaluation",
+                "name": "keyword",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "occurrence": "1",
+        "required": false
+    },
+    "keyword": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "description": "A NSR, PACS or PhySH keyword associated with this evaluation",
+        "name": "keyword",
+        "attributes": {
+            "type": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The name of the keywording scheme used, either \"nsr\", \"pacs\" or \"physh\"",
+                "name": "type",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "A keyword. For computer readability, only ascii encoding with plain text markup shall be used.",
+                "name": "text",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "occurrence": "1",
+        "required": false
+    },
+    "computerCodes": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "computerCode": {
+                "__class__": "nodes.ChildNode",
+                "description": "Each set of code and inputs has a \\element{computerCode} node.",
+                "name": "computerCode",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Lists the programs used while preparing the evaluation, along with code inputs.",
+        "name": "computerCodes",
+        "rootNode": false
+    },
+    "computerCode": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Label node to assist in linking to this list item.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "name": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The name of the code, using all the same restrictions, etc. as the \\hyperlink{sec:name}{\\element{name}} markup introduced above in the",
+                    "\\hyperlink{sec:author}{\\element{author}} markup.  This includes allowing unicode program names (such as CEA's GALILE\\'E processing code \\cite{galilee})."
+                ],
+                "name": "name",
+                "occurrence": "1",
+                "required": true
+            },
+            "version": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The version of the code, with all the restrictions and allowances of the \\hyperlink{sec:version}{\\element{version}} markup introduced above."
+                ],
+                "name": "version",
+                "occurrence": "1",
+                "required": true
+            },
+            "executionArguments": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The command line arguments used when invoking this code."
+                ],
+                "name": "executionArguments",
+                "occurrence": "1",
+                "required": false
+            },
+            "codeRepo": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Information for accessing the source code repository for this program."
+                ],
+                "name": "codeRepo",
+                "occurrence": "1",
+                "required": false
+            },
+            "note": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Any note describing extra information needed to run the code in the manner needed to reproduce the evaluation."
+                ],
+                "name": "note",
+                "occurrence": "1",
+                "required": false
+            },
+            "inputDecks": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The list of inputs for the code used."
+                ],
+                "name": "inputDecks",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Contains the information pertaining to a code used in the evaluation process and the inputs for that code.",
+        "name": "computerCode",
+        "rootNode": false
+    },
+    "codeRepo": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A name or label referring to this code repository.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "format": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The source control format (e.g. \\attrval{git}, \\attrval{subversion} or \\attrval{mercurial}).",
+                "name": "format",
+                "required": true,
+                "type": "XMLName"
+            },
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Hyperlink to the source code repository.",
+                "name": "href",
+                "required": true,
+                "type": "XMLName"
+            },
+            "revisionID": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Revision identifier. Could be a tag, svn revision number or git commit hash for example.",
+                "name": "revisionID",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "The \\element{codeRepo} element provides a mechanism for referencing the exact version of a computer code used in the evaluation.",
+            "This markup is meant to point to the exact revision of a code in a generally available code repository."
+        ],
+        "name": "codeRepo",
+        "rootNode": false
+    },
+    "inputDecks": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "inputDeck": {
+                "__class__": "nodes.ChildNode",
+                "description": "Inputs for a \\element{computerCode} node.",
+                "name": "inputDeck",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Lists the inputs for a given code.",
+        "name": "inputDecks",
+        "rootNode": false
+    },
+    "inputDeck": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A name or label to refer to this input deck.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "filename": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "File name (possibly including relative path) for this input deck.",
+                "name": "filename",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "The actual text in the input file for the code used.  If the input uses a structured format such as XML, escape it with CDATA tags.",
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "The \\element{inputDeck} contains the actual code inputs.  The name of the element was chosen to avoid any confusion with other uses of the word ``input'' while evoking the mental image of a stack of punch cards such as used in the early days of nuclear data.",
+        "name": "inputDeck",
+        "rootNode": false
+    },
+    "executionArguments": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Details for invoking this code."
+                ],
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Use this markup to list any special command line specifics used to invoke this code.",
+        "name": "executionArguments",
+        "rootNode": false
+    },
+    "experimentalDataSets": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "exforDataSet": {
+                "__class__": "nodes.ChildNode",
+                "description": "One for each EXFOR data set.",
+                "name": "exforDataSet",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Container for experimental data sets.  Currently only EXFOR data set child elements (\\element{exforDataSet}) are defined.",
+            "This top-level tag is so-named so that other child elements can be added, say for XUNDL datasets or for simple tables of XYdY pairs for raw experimental data,",
+            "without distorting the meaning of the top-level tag."
+        ],
+        "name": "experimentalDataSets",
+        "rootNode": false
+    },
+    "exforDataSet": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "entry": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The EXFOR `ENTRY' identifier (a 5 character ascii string).",
+                "name": "entry",
+                "required": true,
+                "type": "XMLName"
+            },
+            "subentry": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "The EXFOR `SUBENT' (subentry) is an 3 character ascii string comprised of integers only.",
+                    "Each subentry corresponds to a unique dataset within the experiment detailed in the EXFOR entry.",
+                    "The subentry labeled `001' is the documentation subentry for that EXFOR entry and should not be referred to here."
+                ],
+                "name": "subentry",
+                "required": true,
+                "type": "XMLName"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Label node to assist in linking to this list item.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "retrievalDate": {
+                "__class__": "nodes.ChildNode",
+                "description": "The date the EXFOR subentry was retrieved.",
+                "name": "retrievalDate",
+                "occurrence": "1",
+                "required": true
+            },
+            "covarianceScript": {
+                "__class__": "nodes.ChildNode",
+                "description": "The script describing the generation of covariance data..",
+                "name": "covarianceScript",
+                "occurrence": "1",
+                "required": false
+            },
+            "correctionScript": {
+                "__class__": "nodes.ChildNode",
+                "description": "The script describing any modifications to the data.",
+                "name": "correctionScript",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Contains a reference to a specific EXFOR subentry (specified with the \\attr{SUBENT} attribute) and details of the retrieval and any corrections, rescalings, etc.",
+            "This markup does not contain the full EXFOR entry or subentry -- these are already stored in the master EXFOR database at the IAEA.  This markup provides a scheme to reference the datasets only.",
+            "",
+            "We note that we only support the covariance generate scripts and correction scripts provided by V. Zerkin in his EXFOR Web application \\cite{exforApp}.",
+            "Other schemes could be designed but for the present none have been enumerated.  If the current markup is insufficient to describe modifications/corrections to a data set,",
+            "the evaluator should consider documenting it in the main \\element{body} element."
+        ],
+        "name": "exforDataSet",
+        "rootNode": false
+    },
+    "retrievalDate": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "date": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The date that an item was retrieved from the web, in ISO-8601 format \\cite{datetime} using the \\element{date} markup from Ref.~\\cite{GPDCs}."
+                ],
+                "name": "date",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "The date that an item was retrieved from the web.  Currently only used within \\element{exforDataSet} elements.",
+        "name": "retrievalDate",
+        "rootNode": false
+    },
+    "covarianceScript": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "Covariance generation script. The syntax is XML, so it must use \\attr{markup}=\\attrval{XML} and be escaped with CDATA tags.",
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "V. Zerkin's EXFOR retrieval web application \\cite{exforApp} provides a mechanism for computing covariance matrices based off the statistical and systematic errors presented in an EXFOR entry.",
+            "This markup provides the means to place this script directly in the documentation for future reference and for reconstructing the covariance used at a later date."
+        ],
+        "name": "covarianceScript",
+        "rootNode": false
+    },
+    "correctionScript": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "Correction script text. Currently only plain text is supported.",
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "V. Zerkin's EXFOR retrieval web application \\cite{exforApp} provides a mechanism for rudimentary data correction of an EXFOR entry.",
+            "This markup provides the means to place this script directly in the documentation for future reference and for reconstructing the covariance used at a later date."
+        ],
+        "name": "correctionScript",
+        "rootNode": false
+    },
+    "bibliography": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "bibitem": {
+                "__class__": "nodes.ChildNode",
+                "description": "Each entry in the bibliography has a unique \\element{bibitem}.",
+                "name": "bibitem",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "The bibliography markup gives the evaluator the tools to provide references for this evaluation with a system as flexible as \\LaTeX\\ or as simple as plain text.",
+            "Our notation here is clearly inspired by \\LaTeX\\ and should be familiar to many scientists and engineers.  The \\element{bibliography} element is the outer container",
+            "for all of the \\element{bibitem}s (in keeping with \\LaTeX\\ notation)."
+        ],
+        "name": "bibliography",
+        "rootNode": false
+    },
+    "bibitem": {
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "The {\\em unique} reference to this bibitem.  When using \\LaTeX markup, it is natural to use this as the key used when cross referencing with \\LaTeX's \\verb+\\cite{}+ command."
+                ],
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The text of the reference.  Allowed values of the \\attr{markup} attribute are \\attrval{ascii}, \\attrval{bibtex}, \\attrval{latex}, \\attrval{bibtexml} and \\attrval{openXML}."
+                ],
+                "name": "text",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": [
+            "The \\element{bibitem} element contains the actual bibliographic reference.",
+            "The \\attr{label} attribute provides the landing point for hyperreferences to a \\element{bibitem} and must be unique."
+        ],
+        "name": "bibitem",
+        "rootNode": false
+    },
+    "endfCompatible": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "text": {
+                "__class__": "nodes.ChildNode",
+                "description": "Text content of ENDF-6 compatible documentation. Restricted to ASCII characters.",
+                "name": "text",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Documentation in ENDF-6 is stored in MF1 MT451. This section contains free-form text which cannot be",
+            "broken up into the various sections supported by the \\element{documentation} node without manual intervention.",
+            "The \\element{endfCompatible} node is provided to support backwards compatibility and translating back to ENDF-6.",
+            "This node is expected to eventually be deprecated, but in the meantime evaluators should consider providing a short",
+            "summary of the documentation in ENDF-6 compatible form."
+        ],
+        "name": "endfCompatible",
+        "rootNode": false
+    }
+}

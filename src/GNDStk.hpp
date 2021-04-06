@@ -20,6 +20,7 @@
 #include <cassert>
 #include <cctype>
 #include <chrono>
+#include <cstdint>
 #include <cstdio>
 #include <fstream>
 #include <iomanip>
@@ -98,6 +99,9 @@ namespace misc  { using namespace common; }
 
 // Component base for high-level data classes
 #include "GNDStk/Component.hpp"
+
+// Additional support constructs for high-level data classes
+#include "GNDStk/Support.hpp"
 
 
 // ------------------------

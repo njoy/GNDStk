@@ -1,0 +1,26 @@
+
+This directory contains changes we'll be making to the following files from
+https://git.oecd-nea.org/science/wpec/gnds/formats:
+
+   Styles/summary_styles.json
+   DataContainers/summary_basic.json
+   DataContainers/summary_gpdc.json
+   Documentation/summary_documentation.json
+   TopLevel/summary_appData.json
+   TopLevel/summary_atomic.json
+   TopLevel/summary_common.json
+   TopLevel/summary_covariance.json
+   TopLevel/summary_cpTransport.json
+   TopLevel/summary_fissionTransport.json
+   TopLevel/summary_fpy.json
+   TopLevel/summary_processed.json
+   TopLevel/summary_resonance.json
+   TopLevel/summary_transport.json
+   TopLevel/summary_tsl.json
+   Conventions/summary_abstract.json
+   PoPs/summary_pops.json
+
+We're putting this into version control to track our changes, which we hope
+will be relatively small. (Except for some prettyprinting we'll do, through
+an editor, as the first change.) Substantive changes are geared towards the
+goal of helping our automatic code-generation tool to work more smoothly.

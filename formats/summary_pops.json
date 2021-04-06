@@ -1,0 +1,1917 @@
+{
+    "__namespace__":"pops",
+    "PoPs_database": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "name": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Name of the PoPs library, e.g. `ENDF-VIII'",
+                "name": "name",
+                "required": true,
+                "type": "XMLName"
+            },
+            "version": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": ["Library version / release number, e.g. `VIII.1' or `8.1\\_beta'"],
+                "name": "version",
+                "required": true,
+                "type": "XMLName"
+            },
+            "format": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "PoPs format version, e.g. `1.0.1'",
+                "name": "format",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "styles": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines the styles of data appearing in the database. Only required in stand-alone databases.",
+                "name": "styles",
+                "occurrence": "1",
+                "required": false
+            },
+            "documentation": {
+                "__class__": "nodes.ChildNode",
+                "description": "Top-level documentation applying to the entire PoPs database.",
+                "name": "documentation",
+                "occurrence": "1",
+                "required": false
+            },
+            "aliases": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines `alias particles' that point to other particles. Often used to identify metastable states, for example.",
+                "name": "aliases",
+                "occurrence": "1",
+                "required": false
+            },
+            "gaugeBosons": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains definitions for gauge bosons, notably the photon.",
+                "name": "gaugeBosons",
+                "occurrence": "1",
+                "required": false
+            },
+            "leptons": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains definitions for leptons, notably the electron and electron anti-neutrino",
+                "name": "leptons",
+                "occurrence": "1",
+                "required": false
+            },
+            "baryons": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains definitions of baryons such as the neutron and proton.",
+                "name": "baryons",
+                "occurrence": "1",
+                "required": false
+            },
+            "chemicalElements": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains definitions for chemical elements, which in turn contain a list of isomers, nuclides and nuclei",
+                "name": "chemicalElements",
+                "occurrence": "1",
+                "required": false
+            },
+            "unorthodoxes": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains definitions for `unorthodox' particles, such as representative fission products.",
+                "name": "unorthodoxes",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "This is the root node for a full particle database. Within the database, particles are organised into different families and/or groups. ",
+            "Each particle in the database must have a unique `id'. A PoPs database may be a stand-alone file, or it may appear ",
+            "inside a reactionSuite."
+        ],
+        "name": "PoPs",
+        "required": false,
+        "rootNode": true
+    },
+
+    "aliases": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "alias": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines an alias pointing to another particle in the database.",
+                "name": "alias",
+                "occurrence": "0+",
+                "required": false
+            },
+            "metaStable": {
+                "__class__": "nodes.ChildNode",
+                "description": ["Defines a metastable particle, with a particle id like `Al26\\_m1'."],
+                "name": "metaStable",
+                "occurrence": "0+",
+                "required": false
+            }
+        },
+        "description": [
+            "Particles may sometimes be known by more than one name. Examples include the $\\alpha$ particle, ",
+            "which is synonymous with the nucleus of a He4 atom, the photon which goes by several names including ",
+            "`gamma' and `x-ray', and isomeric nuclear states which can be referred to either by isomer index or by nuclear level index. ",
+            "The \\element{aliases} node contains a list of \\element{alias} and \\element{metastable} nodes ",
+            "that allow for alternate ids to be assigned to a particle."
+        ],
+        "name": "aliases",
+        "required": false,
+        "rootNode": false
+    },
+    "alias": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "alias id. For example, alias `gamma' and/or `x-ray' may be used to refer to the photon.",
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            },
+            "pid": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Equal to the `id' of the nuclide this alias points to, for example `photon' for alias `gamma'.",
+                "name": "pid",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Alias particle. The alias `id' must not match the id of any other particle or alias in the database.",
+        "name": "alias",
+        "required": false,
+        "rootNode": false
+    },
+    "metaStable": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": ["Metastable id, e.g. `Am242\\_m1'."],
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            },
+            "metaStableIndex": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Index for metastable states, equal to `1' for lowest-energy metastable, `2' for second metastable, etc.",
+                "name": "metaStableIndex",
+                "required": true,
+                "type": "Integer32"
+            },
+            "pid": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": ["Equal to the `id' of the nuclide this metastable points to, for example `Am242\\_e2' for metastable `Am242\\_m1'."],
+                "name": "pid",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "A \\element{metaStable} node is a special type of alias pointing to a relatively long-lived excited nuclear level. ",
+            "In addition to the \\textbf{id} and \\textbf{pid}, it also defines a meta-stable index that shall be `1' ",
+            "for the lowest-energy metastable state, `2' for the second-lowest, etc.\n",
+            "Metastables are a useful way to identify nuclear levels that live long enough to accumulate and potentially ",
+            "change reaction rates during a radiation transport calculation. The definition of metastable states is often ",
+            "problem-specific. For some applications such as inertial confinement fusion, a micro-second half-life can be ",
+            "long enough to qualify a state as meta-stable, while for other applications much longer half-lives are required. ",
+            "A particle database allows users to define their own \\element{metaStable} nodes for more flexible control over ",
+            "what nuclear states to consider as meta-stable."
+        ],
+        "name": "metaStable",
+        "required": false,
+        "rootNode": false
+    },
+
+    "gaugeBosons": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "gaugeBoson": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines one gauge boson particle.",
+                "name": "gaugeBoson",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Collection of gauge bosons.",
+        "name": "gaugeBosons",
+        "required": false,
+        "rootNode": false
+    },
+    "gaugeBoson": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id, e.g. `photon' or `gluon'.",
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "charge": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "charge",
+                "occurrence": "1",
+                "required": false
+            },
+            "halflife": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "halflife",
+                "occurrence": "1",
+                "required": false
+            },
+            "mass": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "mass",
+                "occurrence": "1",
+                "required": false
+            },
+            "spin": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "spin",
+                "occurrence": "1",
+                "required": false
+            },
+            "parity": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "parity",
+                "occurrence": "1",
+                "required": false
+            },
+            "decayData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of nuclide decay.",
+                "name": "decayData",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Defines a gauge boson, notably including the photon.",
+        "name": "gaugeBoson",
+        "required": false,
+        "rootNode": false
+    },
+
+    "leptons": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "lepton": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines one lepton particle.",
+                "name": "lepton",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Collection of leptons.",
+        "name": "leptons",
+        "required": false,
+        "rootNode": false
+    },
+    "lepton": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "generation": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Lepton generation, i.e. `1' for the electron and `2' for muon.",
+                "name": "generation",
+                "required": false,
+                "type": "XMLName"
+            },
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id, e.g. `e-' for the electron.",
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "charge": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "charge",
+                "occurrence": "1",
+                "required": false
+            },
+            "halflife": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "halflife",
+                "occurrence": "1",
+                "required": false
+            },
+            "mass": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "mass",
+                "occurrence": "1",
+                "required": false
+            },
+            "spin": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "spin",
+                "occurrence": "1",
+                "required": false
+            },
+            "parity": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "parity",
+                "occurrence": "1",
+                "required": false
+            },
+            "decayData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of nuclide decay.",
+                "name": "decayData",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Defines a lepton, including the electron, muon, tau, neutrinos and their anti-particles.",
+        "name": "lepton",
+        "required": false,
+        "rootNode": false
+    },
+
+    "baryons": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "baryon": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines a baryon (a composite particle made up of three quarks)",
+                "name": "baryon",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Contains definitions of baryons such as the neutron and proton.",
+        "name": "baryons",
+        "required": false,
+        "rootNode": false
+    },
+    "baryon": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "",
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "charge": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "charge",
+                "occurrence": "1",
+                "required": false
+            },
+            "halflife": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "halflife",
+                "occurrence": "1",
+                "required": false
+            },
+            "mass": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "mass",
+                "occurrence": "1",
+                "required": false
+            },
+            "spin": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "spin",
+                "occurrence": "1",
+                "required": false
+            },
+            "parity": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "parity",
+                "occurrence": "1",
+                "required": false
+            },
+            "decayData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of nuclide decay.",
+                "name": "decayData",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Defines a baryon (a composite particle made up of three quarks)",
+        "name": "baryon",
+        "required": false,
+        "rootNode": false
+    },
+
+    "chemicalElements": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "chemicalElement": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines a chemical element (i.e. a group of particles with the same proton number Z).",
+                "name": "chemicalElement",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Contains definitions for chemical elements, which in turn contain a list of isomers, nuclides and nuclei",
+        "name": "chemicalElements",
+        "required": false,
+        "rootNode": false
+    },
+    "chemicalElement": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "symbol": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Standard chemical symbol, e.g. `Au' or `C'",
+                "name": "symbol",
+                "required": true,
+                "type": "XMLName"
+            },
+            "Z": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Proton number `Z'",
+                "name": "Z",
+                "required": true,
+                "type": "Integer32"
+            },
+            "name": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Full name, e.g. `Gold' or `Carbon'",
+                "name": "name",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "atomic": {
+                "__class__": "nodes.ChildNode",
+                "description": "Atomic properties of a chemical element (assumed to be independent of neutron number N).",
+                "name": "atomic",
+                "occurrence": "1",
+                "required": false
+            },
+            "isotopes": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "isotopes",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Defines a chemical element (i.e. a group of particles with the same proton number Z). ",
+            "A chemicalElement is not a particle and does not define a mass or decay properties. ",
+            "If a `natural abundance' particle is required, it shall be entered in the database as a \\element{nuclide} ",
+            "node with A = 0, as in `Fe0'."
+        ],
+        "name": "chemicalElement",
+        "required": false,
+        "rootNode": false
+    },
+
+    "atomic": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "configurations": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "configurations",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Stores atomic properties of a chemicalElement, including electron subshells and decay properties.",
+        "name": "atomic",
+        "required": false,
+        "rootNode": false
+    },
+    "configurations": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "configuration": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "configuration",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "List of atomic electron configurations.",
+        "name": "configurations",
+        "required": false,
+        "rootNode": false
+    },
+    "configuration": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "subshell": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Electron subshell indicator, e.g. `1s1/2'.",
+                "name": "subshell",
+                "required": true,
+                "type": "attributeValue"
+            },
+            "electronNumber": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Number of electrons in the given subshell.",
+                "name": "electronNumber",
+                "required": true,
+                "type": "Integer32"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "bindingEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Electron binding energy.",
+                "name": "bindingEnergy",
+                "occurrence": "1",
+                "required": true
+            },
+            "decayData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Decay properties for electron vacancies in this subshell (i.e. atomic relaxation).",
+                "name": "decayData",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "",
+        "name": "configuration",
+        "required": false,
+        "rootNode": false
+    },
+    "bindingEnergy": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Binding energy. Recommended unit: `eV', `MeV', etc.",
+                "name": "double",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Binding energy for an atomic or nuclear sub-shell.",
+        "name": "bindingEnergy",
+        "required": false,
+        "rootNode": false
+    },
+
+    "isotopes": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "isotope": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "isotope",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "List of isotopes for a chemicalElement",
+        "name": "isotopes",
+        "required": false,
+        "rootNode": false
+    },
+    "isotope": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "A": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Nucleon number `A'",
+                "name": "A",
+                "required": true,
+                "type": "Integer32"
+            },
+            "symbol": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Chemical element symbol + nucleon number A, e.g. `Fe56'",
+                "name": "symbol",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "nuclides": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "nuclides",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Defines the total nucleon number `A', and contains a list of nuclides with the ",
+            "same number of protons (Z) and neutrons (A)."
+        ],
+        "name": "isotope",
+        "required": false,
+        "rootNode": false
+    },
+
+    "nuclides": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "nuclide": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "nuclide",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "List of `nuclide' nodes, including ground state and excited states",
+        "name": "nuclides",
+        "required": false,
+        "rootNode": false
+    },
+    "nuclide": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": ["Nuclide id, of the form `Th232' (ground state) or `Th232\\_e4' (4th excited state)"],
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "charge": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "charge",
+                "occurrence": "1",
+                "required": false
+            },
+            "mass": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "mass",
+                "occurrence": "1",
+                "required": false
+            },
+            "spin": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "spin",
+                "occurrence": "1",
+                "required": false
+            },
+            "parity": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "parity",
+                "occurrence": "1",
+                "required": false
+            },
+            "nucleus": {
+                "__class__": "nodes.ChildNode",
+                "description": "Particle corresponding to this nuclide with all electrons removed.",
+                "name": "nucleus",
+                "occurrence": "1",
+                "required": false
+            },
+            "decayData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of nuclide decay.",
+                "name": "decayData",
+                "occurrence": "1",
+                "required": false
+            },
+            "fissionFragmentData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of products, delayed neutrons, etc. produced by spontaneous fission.",
+                "name": "fissionFragmentData",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "A nuclide is a particle consisting of a nucleus (in ground or excited state) ",
+            "plus a full complement of Z electrons."
+        ],
+        "name": "nuclide",
+        "required": false,
+        "rootNode": false
+    },
+    "nucleus": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": ["nucleus id, of the form `th232' (ground state) or `th232\\_e4' (4th excited state)"],
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            },
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Excited state index. `0' = ground state, `1' = 1st excited, etc.",
+                "name": "index",
+                "required": true,
+                "type": "Integer32"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "charge": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "charge",
+                "occurrence": "1",
+                "required": false
+            },
+            "energy": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "energy",
+                "occurrence": "1",
+                "required": false
+            },
+            "halflife": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "halflife",
+                "occurrence": "1",
+                "required": false
+            },
+            "spin": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "spin",
+                "occurrence": "1",
+                "required": false
+            },
+            "parity": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "parity",
+                "occurrence": "1",
+                "required": false
+            },
+            "decayData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of nucleus decay.",
+                "name": "decayData",
+                "occurrence": "1",
+                "required": false
+            },
+            "fissionFragmentData": {
+                "__class__": "nodes.ChildNode",
+                "description": "Description of products, delayed neutrons, etc. produced by spontaneous fission.",
+                "name": "fissionFragmentData",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Particle definition for a bare nucleus (no electrons).",
+        "name": "nucleus",
+        "required": false,
+        "rootNode": false
+    },
+
+    "unorthodoxes": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "nuclide": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "unorthodox",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "List of `unorthodox' particles, such as representative fission products.",
+        "name": "unorthodoxes",
+        "required": false,
+        "rootNode": false
+    },
+    "unorthodox": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "id": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unorthodox particle id.",
+                "name": "id",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "charge": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "charge",
+                "occurrence": "1",
+                "required": false
+            },
+            "mass": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "mass",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "An unorthodox particle is particle-like but often cannot be assigned specific particle properties like spin and parity. ",
+            "Such particles show up in thermal neutron scattering law files (describing molecules with bulk properties like porosity) ",
+            "and as representative fission products. They usually only contain a \\element{mass}, although some other properties may also be pertinent."
+        ],
+        "name": "unorthodox",
+        "required": false,
+        "rootNode": false
+    },
+
+    "mass": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Particle mass. Recommended units are `amu' or `MeV/c/c'.",
+                "name": "double",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Particle mass.",
+        "name": "mass",
+        "required": false,
+        "rootNode": false
+    },
+    "spin": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childUnique":"yesLabel",
+        "childNodes": {
+            "fraction": {
+                "__class__": "nodes.ChildNode",
+                "description": "Spin assignment. Recommended unit is `hbar'. Multiple `fraction' entries may be used to indicate uncertain spin assignments.",
+                "name": "fraction",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Particle spin. Recommended unit is `hbar'.",
+        "name": "spin",
+        "required": false,
+        "rootNode": false
+    },
+    "parity": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childUnique":"yesLabel",
+        "childNodes": {
+            "integer": {
+                "__class__": "nodes.ChildNode",
+                "description": "Parity assignment (unitless). Multiple `integer' entries may be used to indicate uncertain parity assignment.",
+                "name": "integer",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Particle parity (unitless).",
+        "name": "parity",
+        "required": false,
+        "rootNode": false
+    },
+    "charge": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "integer": {
+                "__class__": "nodes.ChildNode",
+                "description": "Net charge. Recommended unit is the elementary charge `e'.",
+                "name": "integer",
+                "occurrence": "choice",
+                "required": false
+            },
+            "fraction": {
+                "__class__": "nodes.ChildNode",
+                "description": "Fractional net charge. Recommended unit is the elementary charge `e'.",
+                "name": "fraction",
+                "occurrence": "choice",
+                "required": false
+            }
+        },
+        "description": "Particle charge, may be integer or fraction.",
+        "name": "charge",
+        "required": false,
+        "rootNode": false
+    },
+    "energy": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Excitation energy. Recommended unit: `eV', `MeV', etc.",
+                "name": "double",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": "Excitation energy (for excited-state particles).",
+        "name": "energy",
+        "required": false,
+        "rootNode": false
+    },
+    "halflife": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childUnique":"yesLabel",
+        "childNodes": {
+            "string": {
+                "__class__": "nodes.ChildNode",
+                "description": "Mainly used for stable particles, i.e. halflife = `stable'.",
+                "name": "string",
+                "occurrence": "choice",
+                "required": false
+            },
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Numeric value of halflife. Recommended unit = `s'.",
+                "name": "double",
+                "occurrence": "choice",
+                "required": false
+            }
+        },
+        "description": ["Choices for the the string element are `stable' or `unstable', otherwise a halflife is given in the double element"],
+        "name": "halflife",
+        "required": false,
+        "rootNode": false
+    },
+
+    "decayData": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "decayModes": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of decay modes.",
+                "name": "decayModes",
+                "occurrence": "1",
+                "required": false
+            },
+            "averageEnergies": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of average energies for each type of emitted particle.",
+                "name": "averageEnergies",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Unstable particles undergo decay, emitting other particles in the process. The \\element{decayData} node ",
+            "stores details about possible ways that a particle can decay. This node is designed to be flexible enough ",
+            "to describe decays with varying levels of detail. This flexibility is useful since some decays are ",
+            "very well known (including all the details of what particles and excited nucleus energy levels are involved), ",
+            "while other decays are more difficult to measure and may include a `continuum' portion ",
+            "in addition to discrete particle emission."
+        ],
+        "name": "decayData",
+        "required": false,
+        "rootNode": false
+    },
+
+    "decayModes": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "decayMode": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "decayMode",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "List of decay modes, each containing a probability and list of decay products.",
+        "name": "decayModes",
+        "required": false,
+        "rootNode": false
+    },
+    "decayMode": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label for this decay mode.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "mode": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Type of decay, e.g. `electroMagnetic', `beta+', etc.",
+                "name": "mode",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "probability": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability that this decay mode occurs. Probability of all `decayMode' nodes should sum to 1.0.",
+                "name": "probability",
+                "occurrence": "1",
+                "required": true
+            },
+            "internalConversionCoefficients": {
+                "__class__": "nodes.ChildNode",
+                "description": "Proportional to the probability that the decay proceeds through internal conversion.",
+                "name": "internalConversionCoefficients",
+                "occurrence": "1",
+                "required": false
+            },
+            "photonEmissionProbabilities": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability that photons are emitted as part of the decay.",
+                "name": "photonEmissionProbabilities",
+                "occurrence": "1",
+                "required": false
+            },
+            "Q": {
+                "__class__": "nodes.ChildNode",
+                "description": "Decay Q-value.",
+                "name": "Q",
+                "occurrence": "1",
+                "required": false
+            },
+            "decayPath": {
+                "__class__": "nodes.ChildNode",
+                "description": "Lists specific decay products including excited states where possible.",
+                "name": "decayPath",
+                "occurrence": "1",
+                "required": false
+            },
+            "spectra": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains a list of outgoing energy spectra for various types of decay products.",
+                "name": "spectra",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Description of a single decay mode. Lists the type of decay, a probability, an optional decay Q-value, ",
+            "a `decay path' showing how the decay proceeds and optionally a list of spectra for different types of decay products."
+        ],
+        "name": "decayMode",
+        "required": false,
+        "rootNode": false
+    },
+
+    "probability": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Numeric value of the probability (unitless). Should be in the range (0, 1]",
+                "name": "double",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Probability that a particular \\element{decayMode} occurs.",
+        "name": "probability",
+        "required": false,
+        "rootNode": false
+    },
+
+    "internalConversionCoefficients": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "shell": {
+                "__class__": "nodes.ChildNode",
+                "description": "Internal conversion coefficient for a single electron shell.",
+                "name": "shell",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Contains a list of coefficients corresponding to the probability that the decay proceeds by converting an ",
+            "electron from a particular electron shell."
+        ],
+        "name": "internalConversionCoefficients",
+        "required": false,
+        "rootNode": false
+    },
+    "photonEmissionProbabilities": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "shell": {
+                "__class__": "nodes.ChildNode",
+                "description": "Photon emission probabilities for internal conversion in specified electron shell.",
+                "name": "shell",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Contains a list of probabilities that internal conversion for a particular electron shell will be ",
+            "accompanied by photon emission."
+        ],
+        "name": "photonEmissionProbabilities",
+        "required": false,
+        "rootNode": false
+    },
+    "shell": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Label of the shell, e.g. `1s1/2'.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Probability associated with this shell (e.g. internal conversion coefficient or pair-production coefficient).",
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": " \\kern-1ex",
+                "description": "Internal conversion or pair production coefficient unit and is usually dimensionless.",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "Defines the probability that a process like internal conversion or pair production occurs ",
+            "through a particular electron shell."
+        ],
+        "name": "shell",
+        "required": false,
+        "rootNode": false
+    },
+
+    "Q": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Numeric value of the decay Q-value, recommended unit `eV' or `MeV'.",
+                "name": "double",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Q-value for this decay mode.",
+        "name": "Q",
+        "required": false,
+        "rootNode": false
+
+    },
+
+    "decayPath": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "decay": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "decay",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Shows how a decay proceeds. It contains one or more \\element{decay} nodes, ",
+            "each representing one step in the decay. For example, the \\element{decayPath} node for the beta-decay of a light, ",
+            "neutron-rich nucleus could contain multiple \\element{decay} nodes, each representing a single beta-decay towards stability. ",
+            "\nIn general only using one \\element{decay} node per \\element{decayPath} is recommended, then looking up each of the ",
+            "resulting products in PoPs to determine whether and how they decay. However, the \\element{decayPath} is meant to ",
+            "also be general enough to handle data like the ENDF decay sub-library where the exact identity (including excitation energy) ",
+            "of each intermediate state may not be specified."
+        ],
+        "name": "decayPath",
+        "required": false,
+        "rootNode": false
+    },
+    "decay": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Index, must be unique within the parent \\element{decayPath} node.",
+                "name": "index",
+                "required": true,
+                "type": "Integer32"
+            },
+            "type": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Type of decay, e.g. `electroMagnetic'.",
+                "name": "type",
+                "required": false,
+                "type": "XMLName"
+            },
+            "complete": {
+                "__class__": "nodes.Attribute",
+                "default": "false",
+                "description": "Whether the decay scheme is considered complete by the evaluator.",
+                "name": "complete",
+                "required": false,
+                "type": "Boolean"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "products": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of decay products.",
+                "name": "products",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Single step in a decay. Includes a decay type and a list of products.",
+        "name": "decay",
+        "required": false,
+        "rootNode": false
+    },
+    "products": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "product": {
+                "__class__": "nodes.ChildNode",
+                "description": "Single decay product.",
+                "name": "product",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "List of decay products.",
+        "name": "products",
+        "required": false,
+        "rootNode": false
+    },
+    "product": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique decay product label.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "pid": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Decay product particle id.",
+                "name": "pid",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Single decay product.",
+        "name": "product",
+        "required": false,
+        "rootNode": false
+    },
+
+    "spectra": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "spectrum": {
+                "__class__": "nodes.ChildNode",
+                "description": "Spectrum for one type of outgoing particle.",
+                "name": "spectrum",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store outgoing energy probability distributions for each type of emitted particle. ",
+            "The use of \\element{decayMode} elements is preferred where possible since that supports decays to ",
+            "specific final states, but the spectra node is still important for cases when specific ",
+            "decay paths are too complicated to measure."
+        ],
+        "name": "spectra",
+        "required": false,
+        "rootNode": false
+    },
+    "spectrum": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label for this spectrum. Usually identical to the pid attribute value.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "pid": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "id of the particle corresponding to this decay spectrum.",
+                "name": "pid",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "continuum": {
+                "__class__": "nodes.ChildNode",
+                "description": "Spectrum for continuum emission of particles.",
+                "name": "continuum",
+                "occurrence": "1",
+                "required": false
+            },
+            "discrete": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of particles emitted with a specific `discrete' energy.",
+                "name": "discrete",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": [
+            "Stores the outgoing spectrum for one type of emitted particle. The spectrum can be broken down into a sum ",
+            "of \\element{discrete} and \\element{continuum} nodes. The sum of all \\element{discrete} node intensities ",
+            "plus the integral of the \\element{continuum} node contribution should equal 1.0."
+        ],
+        "name": "spectrum",
+        "required": false,
+        "rootNode": false
+    },
+    "continuum": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "Continuum energy spectrum stored as a 1-dimensional function.",
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Stores the smooth part of the emitted particle spectrum as a 1-dimensional function of outgoing particle energy. ",
+            "If no discrete emission is present, the continuum portion is a probability density function and should integrate to one. ",
+            "If discrete emissions are present, the continuum should integrate to (1 - sum of discrete intensities)."
+        ],
+        "name": "continuum",
+        "required": false,
+        "rootNode": false
+    },
+    "discrete": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "type": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Type of transition for beta and electron capture. For example, `allowed', `first-forbidden', etc.",
+                "name": "type",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "discreteEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Emitted particle energy.",
+                "name": "discreteEnergy",
+                "occurrence": "1",
+                "required": true
+            },
+            "intensity": {
+                "__class__": "nodes.ChildNode",
+                "description": "Relative intensity of discrete radiation (usually normalised such that most intense branch = 1.0).",
+                "name": "intensity",
+                "occurrence": "1",
+                "required": true
+            },
+            "internalConversionCoefficients": {
+                "__class__": "nodes.ChildNode",
+                "description": "Proportional to the probability that the decay proceeds through internal conversion.",
+                "name": "internalConversionCoefficients",
+                "occurrence": "1",
+                "required": false
+            },
+            "internalPairFormationCoefficient": {
+                "__class__": "nodes.ChildNode",
+                "description": "Proportional to the probability that an electron/positron pair are formed as part of the decay.",
+                "name": "internalPairFormationCoefficient",
+                "occurrence": "1",
+                "required": false
+            },
+            "photonEmissionProbabilities": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability that photons are emitted as part of the decay.",
+                "name": "photonEmissionProbabilities",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores a single discrete particle emission, including the energy of the emitted particle and the intensity of emission.",
+        "name": "discrete",
+        "required": false,
+        "rootNode": false
+    },
+
+    "discreteEnergy": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "",
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "",
+                "name": "unit",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty on the intensity.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "This is the energy of the discrete emitted particle.",
+        "name": "discreteEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "intensity": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "",
+                "name": "value",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty on the intensity.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Relative intensity of this decay branch (usually normalised so the most intense branch has intenisty = 1).",
+        "name": "intensity",
+        "required": false,
+        "rootNode": false
+    },
+    "internalPairFormationCoefficient": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "",
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": " \\kern-1ex",
+                "description": "Usually dimensionless",
+                "name": "unit",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Related to the probability of forming an electron/positron pair.",
+        "name": "internalPairFormationCoefficient",
+        "required": false,
+        "rootNode": false
+    },
+
+    "averageEnergies": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "averageEnergy": {
+                "__class__": "nodes.ChildNode",
+                "description": "Mean energy for one type of decay product.",
+                "name": "averageEnergy",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "For complex decays such as spontaneous fission, it is sometimes useful to store information about the ",
+            "average energy for each category of outgoing particle."
+        ],
+        "name": "averageEnergies",
+        "required": false,
+        "rootNode": false
+    },
+    "averageEnergy": {
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Name of outgoing particle.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Energy unit, e.g. `eV' or `MeV'.",
+                "name": "unit",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Stores the mean outgoing energy for one type of decay product, e.g. `n', `photon' or `e-'. ",
+            "Note that the type of product is identified by the `label' attribute, but in the future this may change to a `pid'."
+        ],
+        "name": "averageEnergy",
+        "required": false,
+        "rootNode": false
+    },
+    "uncertainty": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "standard": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a normally-distributed uncertainty.",
+                "name": "standard",
+                "occurrence": "1",
+                "required": false
+            },
+            "logNormal": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a log-normal-distributed uncertainty.",
+                "name": "logNormal",
+                "occurrence": "1",
+                "required": false
+            },
+            "confidenceIntervals": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+                "name": "confidenceIntervals",
+                "occurrence": "1",
+                "required": false
+            },
+            "pdf": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a probability distribution as a 1-dimensional function.",
+                "name": "pdf",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores the uncertainty for a scalar quantity, e.g. probability or mean energy.",
+        "name": "uncertainty",
+        "required": false,
+        "rootNode": false
+    },
+    "standard": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores $\\sigma$ for the normal distribution.",
+                "name": "double",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store the standard deviation of a standard Gaussian uncertainty distribution. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "name": "standard",
+        "required": false,
+        "rootNode": false
+    },
+    "logNormal": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores $\\sigma$ for the log-normal distribution.",
+                "name": "double",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store the standard deviation $\\sigma$ of a log-normal uncertainty distribution, $X = \\exp{\\mu + \\sigma Z}$. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "name": "logNormal",
+        "required": false,
+        "rootNode": false
+    },
+    "confidenceIntervals": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "interval": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores one confidence interval.",
+                "name": "interval",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Stores a list of intervals along with the confidence that the `true value' lies within each interval. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "name": "confidenceIntervals",
+        "required": false,
+        "rootNode": false
+    },
+    "interval": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "confidence": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
+                "name": "confidence",
+                "required": true,
+                "type": "Float64"
+            },
+            "lower": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
+                "name": "lower",
+                "required": true,
+                "type": "Float64"
+            },
+            "upper": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Value to add to the mean to obtain the upper limit for this interval.",
+                "name": "upper",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+        "name": "interval",
+        "required": false,
+        "rootNode": false
+    },
+    "pdf": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability distribution stored as an XYs1d.",
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability distribution stored as a regions1d.",
+                "name": "regions1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores an explicit probability distribution for the parent quantity.",
+        "name": "pdf",
+        "required": false,
+        "rootNode": false
+    }
+
+}
