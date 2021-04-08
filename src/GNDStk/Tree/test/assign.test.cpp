@@ -35,7 +35,7 @@ SCENARIO("Testing GNDStk tree assignments")
       WHEN("We try Tree's move assignment") {
          left = Tree("n-069_Tm_170-covar.xml");
          std::ostringstream ossl; ossl << left;
-         Tree right("n-069_Tm_170-covar.xml");
+         const Tree right("n-069_Tm_170-covar.xml");
          std::ostringstream ossr; ossr << right;
          CHECK(ossl.str() == ossr.str());
       }

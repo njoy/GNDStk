@@ -176,8 +176,8 @@ SCENARIO("Testing GNDStk Node child()") {
 
          CHECK(iso_bar_node.size() == 1);
          CHECK(iso_bar_node[0].bar_id == "H2");
-      }
-   }
+      } // WHEN
+   } // GIVEN
 
 
    // ------------------------

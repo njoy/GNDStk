@@ -38,7 +38,7 @@ void query(const Node &node) const
          // consistency check
          assert(0 == links.size());
       } else {
-         // retrieve node's data by doing a multi-query
+         // retrieve the node's data by doing a multi-query
          const auto tup = node(toKeywordTup(DERIVED::keys()));
 
          // consistency check

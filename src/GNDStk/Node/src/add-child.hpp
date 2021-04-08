@@ -9,7 +9,7 @@
 // Remark. Some of the Child add()s accept a general ALLOW Child (either
 // Allow::one or Allow::many) along with just *one* value. The Allow::many
 // is permissible here - even with just one value - because we could certainly
-// wish to add multiple values one-by-one.
+// intend to add multiple values one-by-one.
 //
 // Naturally, we'll also have add() functions that accept only an Allow::many
 // Child, and receive containers of values.
@@ -31,9 +31,10 @@
 Node &add(const std::string &name = "")
 {
    children.push_back(std::make_unique<Node>());
-   Node &n = *children.back();
-   n.name = name;
-   return n;
+   Node &newChild = *children.back();
+   newChild.name = name;
+   newChild.parentNode = this;
+   return newChild;
 }
 
 // 1-argument: plain
@@ -70,7 +71,7 @@ Node &add(const Defaulted<T> &def)
 // -----------------------------------------------------------------------------
 
 // Similar in principle to its Meta counterpart. Bounces to one of the above
-// add() functions; and like those, doesn't allow std::optional.
+// add() functions; and, like those, doesn't allow std::optional.
 
 // Child<void>, plain
 // Child<void>, Defaulted

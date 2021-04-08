@@ -90,8 +90,8 @@ namespace pugi
 }
 */
 
-// internal_xml_node2Node
-inline bool internal_xml_node2Node(const std::string &str)
+// internal_error_xml_node2Node
+inline bool internal_error_xml_node2Node(const std::string &str)
 {
    log::error(
       "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
@@ -132,17 +132,17 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
 
       // I don't think that the following should ever appear in this context
       if (xsub.type() == pugi::node_document)
-         return internal_xml_node2Node("node_document");
+         return internal_error_xml_node2Node("node_document");
       if (xsub.type() == pugi::node_declaration)
-         return internal_xml_node2Node("node_declaration");
+         return internal_error_xml_node2Node("node_declaration");
 
       // For now I won't handle these; let's ensure that we don't see them
       if (xsub.type() == pugi::node_null)
-         return internal_xml_node2Node("node_null");
+         return internal_error_xml_node2Node("node_null");
       if (xsub.type() == pugi::node_pi)
-         return internal_xml_node2Node("node_pi");
+         return internal_error_xml_node2Node("node_pi");
       if (xsub.type() == pugi::node_doctype)
-         return internal_xml_node2Node("node_doctype");
+         return internal_error_xml_node2Node("node_doctype");
 
       // ------------------------
       // element (typical case)
@@ -218,7 +218,7 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
 // to reformulate all this in a shorter way, but this is what we have for now.
 
 // Helper
-inline bool internal_json2node(const std::string &str)
+inline bool internal_error_json2node(const std::string &str)
 {
    log::error(
       "Internal error in detail::json2node(nlohmann::json,Node):\n"
@@ -235,15 +235,15 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 {
    // the node sent here should be fresh, ready to receive entries...
    if (!node.empty())
-      return internal_json2node("!node.empty()");
+      return internal_error_json2node("!node.empty()");
 
    // non-object cases were handled before a caller calls this function...
    if (!iter->is_object())
-      return internal_json2node("!iter->is_object()");
+      return internal_error_json2node("!iter->is_object()");
 
-   // any "attributes" key should have been handled at the parent level...
+   // any "attributes" key should have been handled in the caller...
    if (iter.key() == "attributes")
-      return internal_json2node("iter.key() == \"attributes\"");
+      return internal_error_json2node("iter.key() == \"attributes\"");
 
    // key,value ==> node name, json value to bring in
    node.name = iter.key();
@@ -277,7 +277,7 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
          node.add().name = elem.key();
       } else {
          // no other cases are handled right now
-         return internal_json2node("unhandled JSON value type");
+         return internal_error_json2node("unhandled JSON value type");
       }
    }
 
@@ -288,8 +288,8 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 
 
 // Node ==> Node
-template<class NODEFROM, class NODETO>
-inline void node2Node(const NODEFROM &from, NODETO &to)
+template<class NODE>
+inline void node2Node(const NODE &from, NODE &to)
 {
    // clear
    to.clear();

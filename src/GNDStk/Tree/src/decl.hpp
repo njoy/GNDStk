@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // const
-const nodeType &decl() const
+const Node &decl() const
 {
    try {
       if (!has_decl()) {
@@ -23,7 +23,7 @@ const nodeType &decl() const
 }
 
 // non-const
-nodeType &decl()
+Node &decl()
 {
-   return const_cast<nodeType &>(std::as_const(*this).decl());
+   return const_cast<Node &>(std::as_const(*this).decl());
 }

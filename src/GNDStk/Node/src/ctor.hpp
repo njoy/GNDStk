@@ -7,12 +7,31 @@
 Node() = default;
 
 // move
-Node(Node &&) = default;
+Node(Node &&other) :
+   name(std::move(other.name)),
+   metadata(std::move(other.metadata)),
+   children(std::move(other.children))
+   // but don't move the parentNode pointer!
+{
+   // The above move of the children vector *copies* (it doesn't move) the
+   // elements themselves. Therefore, an update of this->children's parentNode
+   // pointers is not needed here; it's handled in the copy constructor below.
+
+   // validate
+   for (auto &c : children)
+      assert(c->parentNode == this);
+}
 
 // copy
-Node(const Node &from)
+Node(const Node &other)
 {
-   *this = from;
+   // This assignment ends up updating this->children's parentNode pointers,
+   // so there's no need to do it directly in this function.
+   *this = other;
+
+   // validate
+   for (auto &c : children)
+      assert(c->parentNode == this);
 }
 
 
@@ -52,8 +71,11 @@ Node(
    const Node &value
 ) {
    try {
-      *this = value;
+      *this = value; // <== updates this->children's parentNode pointers
       name = kwd.name; // overrides any name from the above assignment
+      // validate
+      for (auto &c : children)
+         assert(c->parentNode == this);
    } catch (...) {
       log::ctor("Node(" + detail::keyname(kwd) + ",value)");
       throw;
@@ -87,6 +109,9 @@ Node(
    try {
       kwd.converter(TYPE(value),*this);
       name = kwd.name; // overrides any name from the above conversion
+      // validate
+      for (auto &c : children)
+         assert(c->parentNode == this);
    } catch (...) {
       log::ctor("Node(" + detail::keyname(kwd) + ",value)");
       throw;

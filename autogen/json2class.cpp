@@ -1026,7 +1026,9 @@ void make_class(
    // save content
    if (debugging)
       std::cout << "ndep.name == " << ndep.name << std::endl;
-   assert(classMap.insert(std::make_pair(ndep.name,oss.str())).second);
+   const bool inserted =
+      classMap.insert(std::make_pair(ndep.name,oss.str())).second;
+   assert(inserted);
 }
 
 
