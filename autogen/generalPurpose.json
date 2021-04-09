@@ -1,5 +1,5 @@
 {
-    "__namespace__":"gpdc",
+    "__namespace__":"containers",
 
     "XYs1d": {
         "__class__": "nodes.Node",

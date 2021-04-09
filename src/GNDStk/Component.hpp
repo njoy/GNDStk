@@ -41,9 +41,10 @@ class Component {
    // construct()
    // Hook by which a derived-class constructor, built by our auto-generation
    // process from a JSON-format GNDS spec, can run arbitrary additional code.
-   void construct()
+   void construct() const
    {
-      detail::derived_construct(*static_cast<DERIVED*>(this));
+      if constexpr (&Component::construct != &DERIVED::construct)
+         static_cast<DERIVED*>(this)->construct();
    }
 
 public:
@@ -51,7 +52,6 @@ public:
    #include "GNDStk/Component/src/query.hpp"
    #include "GNDStk/Component/src/toNode.hpp"
    #include "GNDStk/Component/src/write.hpp"
-   #include "GNDStk/Component/src/pybind.hpp"
 
 }; // class Component
 

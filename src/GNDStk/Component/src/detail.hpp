@@ -270,34 +270,4 @@ bool writeComponentPart(
    return true;
 }
 
-
-
-// -----------------------------------------------------------------------------
-// For calling DERIVED::construct() when it exists
-// -----------------------------------------------------------------------------
-
-// has_construct
-// Uses SFINAE to determine if DERIVED has construct()
-// Adapted from an answer here: https://stackoverflow.com/questions/257288
-template<class DERIVED>
-class has_construct
-{
-   static_assert(sizeof(char) != sizeof(double), "Really?");
-   template<class D> static char   test(decltype(&D::construct));
-   template<class D> static double test(...);
-public:
-   enum { value = sizeof(test<DERIVED>(0)) == sizeof(char) };
-};
-
-// derived_construct
-template<class DERIVED>
-void derived_construct(DERIVED &obj)
-{
-   if constexpr (has_construct<DERIVED>::value) {
-      obj.construct();
-   } else {
-      // nothing; DERIVED doesn't have construct()
-   }
-}
-
 } // namespace detail

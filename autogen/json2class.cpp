@@ -41,7 +41,7 @@ inline const std::vector<std::string> files = {
    "summary_documentation.json",
    "summary_fissionTransport.json",
    "summary_fpy.json",
-   "summary_gpdc.json",
+   "summary_containers.json",
    "summary_pops.json",
    "summary_processed.json",
    "summary_resonance.json",
@@ -63,10 +63,10 @@ inline const std::vector<std::string> files = {
 
 // JSON attributes{} "type" to GNDStk/C++ type
 inline const std::map<std::string,std::string> mapMetaType {
-   { "interpolation", "interpolation_t" },
-   { "interaction",   "interaction_t" },
-   { "encoding",      "encoding_t" },
-   { "frame",         "frame_t" },
+   { "interpolation", "Interpolation" },
+   { "interaction",   "Interaction" },
+   { "encoding",      "Encoding" },
+   { "frame",         "Frame" },
    { "Boolean",       "bool" }
 };
 
@@ -87,35 +87,34 @@ inline const std::map<std::string,std::string> mapMetaType {
 
 // JSON attributes{} "default" to GNDStk default
 inline const std::map<std::string,std::string> mapMetaDefault {
-   { "ascii", "encoding_t::ascii" },
-   { "utf8",  "encoding_t::utf8" },
+   { "ascii", "Encoding::ascii" },
+   { "utf8",  "Encoding::utf8" },
 
    { "Float64",  "\"Float64\"" },
 
    // interpolation
-   { "flat",              "interpolation_t::flat" },
-   { "charged-particle",  "interpolation_t::charged_particle" },
-   { "lin-lin",           "interpolation_t::lin_lin" },
-   { "lin-log",           "interpolation_t::lin_log" },
-   { "log-lin",           "interpolation_t::log_lin" },
-   { "log-log",           "interpolation_t::log_log" },
-   { "\\\\attr{lin-lin}", "interpolation_t::lin_lin" }, // :-/
+   { "flat",              "Interpolation::flat" },
+   { "charged-particle",  "Interpolation::charged_particle" },
+   { "lin-lin",           "Interpolation::lin_lin" },
+   { "lin-log",           "Interpolation::lin_log" },
+   { "log-lin",           "Interpolation::log_lin" },
+   { "log-log",           "Interpolation::log_log" },
+   { "\\\\attr{lin-lin}", "Interpolation::lin_lin" }, // :-/
 
    // interaction
-   { "nuclear", "interaction_t::nuclear" },
-   { "atomic", "interaction_t::atomic" },
-   { "thermalNeutronScatteringLaw",
-         "interaction_t::thermalNeutronScatteringLaw" },
+   { "nuclear", "Interaction::nuclear" },
+   { "atomic",  "Interaction::atomic" },
+   { "thermalNeutronScatteringLaw","Interaction::thermalNeutronScatteringLaw" },
 
    // frame
-   { "lab",          "frame_t::lab" },
-   { "centerOfMass", "frame_t::centerOfMass" },
+   { "lab",          "Frame::lab" },
+   { "centerOfMass", "Frame::centerOfMass" },
 
-   { "row-major",    "storage_order_t::row_major" },
-   { "column-major", "storage_order_t::column_major" },
+   { "row-major",    "StorageOrder::row_major" },
+   { "column-major", "StorageOrder::column_major" },
 
-   { "lab",          "frame_t::lab" },
-   { "centerOfMass", "frame_t::centerOfMass" },
+   { "lab",          "Frame::lab" },
+   { "centerOfMass", "Frame::centerOfMass" },
 
    // Some of this must have utility for processing the JSONs into the manual
    { "`' (i.e. unitless)", "" }, // what's the `' all about?
@@ -306,7 +305,7 @@ inline void write_file_prefix(std::ostream &os)
       << "\n";
 
    // namespace begin
-   os << "namespace v_1_9 {\n\n" << std::endl;
+   os << "namespace v1_9 {\n\n" << std::endl;
 }
 
 // write_file_suffix
@@ -314,7 +313,7 @@ inline void write_file_suffix(std::ostream &os)
 {
    // namespace end
    os << "\n"
-      << "} // namespace v_1_9\n";
+      << "} // namespace v1_9\n";
 
    // main (stub)
    os
