@@ -56,7 +56,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
 bool write(const std::string &filename, const int level = 0) const
 {
    // open file
-   std::ofstream ofs(filename.c_str());
+   std::ofstream ofs(filename);
    if (!ofs) {
       log::error("Could not open file \"{}\" for output", filename);
       log::member("Node.write(\"{}\")", filename);

@@ -43,8 +43,6 @@ class Component {
    // process from a JSON-format GNDS spec, can run arbitrary additional code.
    void construct() const
    {
-      if constexpr (&Component::construct != &DERIVED::construct)
-         static_cast<DERIVED*>(this)->construct();
    }
 
 public:
@@ -52,6 +50,19 @@ public:
    #include "GNDStk/Component/src/query.hpp"
    #include "GNDStk/Component/src/toNode.hpp"
    #include "GNDStk/Component/src/write.hpp"
+
+   // help
+   // Override this function in a derived class in order to provide help,
+   // e.g. for Python bindings, regarding a given subject.
+   static std::string help(const std::string &/*subject*/ = "")
+   {
+      return "No description available";
+      // Suggestion:
+      // If subject == "", return help for the class
+      // If subject == "constructor", return help for the constructor
+      // If subject == "foo", return help for the "foo" parameter
+      // Etc.
+   }
 
 }; // class Component
 

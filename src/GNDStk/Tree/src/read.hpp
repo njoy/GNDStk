@@ -191,7 +191,7 @@ bool read(
    // ------------------------
 
    try {
-      std::ifstream ifs(filename.c_str());
+      std::ifstream ifs(filename);
       if (!ifs) {
          log::error("Could not open input file \"{}\"", filename);
          throw std::exception{};

@@ -130,7 +130,7 @@ bool write(
    // ------------------------
 
    try {
-      std::ofstream ofs(filename.c_str());
+      std::ofstream ofs(filename);
       if (!ofs) {
          log::error("Could not open output file \"{}\"", filename);
          throw std::exception{};
