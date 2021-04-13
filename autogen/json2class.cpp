@@ -447,6 +447,7 @@ public:
    std::string varName;
    bool        hasDefault;
    std::string theDefault;
+   bool        isDefaulted;
 };
 
 // infoChildren
@@ -542,6 +543,7 @@ void write_metadata(
       vecInfoMetadata.back().varName     = varName;
       vecInfoMetadata.back().hasDefault  = hasDefault;
       vecInfoMetadata.back().theDefault  = theDefault;
+      vecInfoMetadata.back().isDefaulted = def;
    }
 } // write_metadata
 
@@ -764,7 +766,9 @@ void write_getset(
          // getter
          os << "\n";
          os << "   const auto &" << m.varName << "() const\n";
-         os << "    { return content." << m.varName << "; }";
+         os << "    { return content." << m.varName;
+         if (m.isDefaulted) os << ".value()";
+         os << "; }";
          // setter
          // os << "   const auto &" << m.varName;
          // os << "(const " << m.fullVarType << " &obj)\n";
@@ -781,7 +785,8 @@ void write_getset(
          // getter
          os << "\n";
          os << "   const auto &" << c.varName << "() const\n";
-         os << "    { return content." << c.varName << "; }";
+         os << "    { return content." << c.varName;
+         os << "; }";
          // setter
          // os << "   const auto &" << c.varName;
          // os << "(const " << c.fullVarType << " &obj)\n";
@@ -1506,10 +1511,10 @@ int main()
              << "#include \"GNDStk.hpp\"\n"
              << "\n";
          if (obj.dependencies.size() > 0) {
-            hpp << "// class dependencies\n";
+            hpp << "// dependencies\n";
             for (const auto &dep : obj.dependencies)
                hpp << "#include \"GNDStk/" << Version << "/"
-                   << dep.first << "/" << dep.second << ".hpp\n";
+                   << dep.first << "/" << dep.second << ".hpp\"\n";
             hpp << "\n";
          }
          hpp << "namespace njoy {\n";
