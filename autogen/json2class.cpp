@@ -27,6 +27,14 @@ const std::string Version = "v1.9";
 // Base GNDStk directory
 // Auto-generated files will be placed into appropriate descendants of this
 const std::string GNDSDir = "./testdir";
+///const std::string GNDSDir = "./GNDStk";
+
+
+// ------------------------
+// Simple example JSONs for
+// a few basic containers,
+// plus reactionSuite
+// ------------------------
 
 // Directory in which the input JSON files reside
 const std::string JSONDir = ".";
@@ -36,6 +44,11 @@ const std::vector<std::string> files = {
    "generalPurpose.json",
    "reactionSuite.json"
 };
+
+
+// ------------------------
+// "Full" JSON containers
+// ------------------------
 
 /*
 const std::string JSONDir = "../formats";
@@ -105,10 +118,10 @@ std::string capitalize(const std::string &str)
 
 // JSON attributes{} "type" to GNDStk/C++ type
 const std::map<std::string,std::string> mapMetaType {
-   { "interpolation", "Interpolation" },
-   { "interaction",   "Interaction" },
-   { "encoding",      "Encoding" },
-   { "frame",         "Frame" },
+   { "interpolation", "enums::Interpolation" },
+   { "interaction",   "enums::Interaction" },
+   { "encoding",      "enums::Encoding" },
+   { "frame",         "enums::Frame" },
    { "Boolean",       "bool" }
 };
 
@@ -135,13 +148,13 @@ const std::map<std::string,std::string> mapMetaDefault {
    { "Float64",  "\"Float64\"" },
 
    // interpolation
-   { "flat",              "Interpolation::flat" },
-   { "charged-particle",  "Interpolation::charged_particle" },
-   { "lin-lin",           "Interpolation::lin_lin" },
-   { "lin-log",           "Interpolation::lin_log" },
-   { "log-lin",           "Interpolation::log_lin" },
-   { "log-log",           "Interpolation::log_log" },
-   { "\\\\attr{lin-lin}", "Interpolation::lin_lin" }, // :-/
+   { "flat",              "enums::Interpolation::flat" },
+   { "charged-particle",  "enums::Interpolation::chargedparticle" },
+   { "lin-lin",           "enums::Interpolation::linlin" },
+   { "lin-log",           "enums::Interpolation::linlog" },
+   { "log-lin",           "enums::Interpolation::loglin" },
+   { "log-log",           "enums::Interpolation::loglog" },
+   { "\\\\attr{lin-lin}", "enums::Interpolation::linlin" }, // :-/
 
    // interaction
    { "nuclear", "Interaction::nuclear" },
@@ -149,14 +162,14 @@ const std::map<std::string,std::string> mapMetaDefault {
    { "thermalNeutronScatteringLaw","Interaction::thermalNeutronScatteringLaw" },
 
    // frame
-   { "lab",          "Frame::lab" },
-   { "centerOfMass", "Frame::centerOfMass" },
+   { "lab",          "enums::Frame::lab" },
+   { "centerOfMass", "enums::Frame::centerOfMass" },
 
-   { "row-major",    "StorageOrder::row_major" },
-   { "column-major", "StorageOrder::column_major" },
+   { "row-major",    "enums::StorageOrder::row_major" },
+   { "column-major", "enums::StorageOrder::column_major" },
 
-   { "lab",          "Frame::lab" },
-   { "centerOfMass", "Frame::centerOfMass" },
+   { "lab",          "enums::Frame::lab" },
+   { "centerOfMass", "enums::Frame::centerOfMass" },
 
    // Some of this must have utility for processing the JSONs into the manual
    { "`' (i.e. unitless)", "" }, // what's the `' all about?
@@ -972,20 +985,11 @@ void write_class_ctor(
       // base constructor call
       write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
 
-      // zzz begin
       // initialize fields
       os << ",\n";
       os << "      content{\n";
       count = 0;
       for (const auto &m : vecInfoMetadata) {
-         /*
-         start == 0
-            ? Defaulted<Integer32>{ start }
-            : Defaulted<Integer32>{ 0, start },
-         valueType == "Float64"
-            ? Defaulted<UTF8Text>{ valueType } :
-              Defaulted<UTF8Text>{ "Float64", valueType },
-         */
          if (m.isDefaulted) {
             os << "         " << m.varName << " == " << m.theDefault << "\n";
             os << "            ? " << m.fullVarType
@@ -1000,7 +1004,6 @@ void write_class_ctor(
       for (const auto &c : vecInfoChildren)
          os << "         " << c.varName << (++count < total ? ",\n" : "\n");
       os << "      }\n";
-      // zzz end
 
       // body
       os << "   {\n";
@@ -1083,6 +1086,15 @@ void make_forward(
       const std::string test = nsdir + "/" + clname + "/test";
       system(("mkdir -p " + src ).c_str());
       system(("mkdir -p " + test).c_str());
+
+      // create custom.hpp, but ONLY if it's not already there
+      const std::string custom = src + "/custom.hpp";
+      std::ifstream cstm(custom);
+      if (!cstm) {
+         std::cout << "   No file " << custom << std::endl;
+         std::cout << "   ...So, creating a blank one" << std::endl;
+         std::ofstream cstm(custom,std::ofstream::app);
+      }
 
       const std::string clhpp   = nsdir   + "/" + clname + ".hpp";
       const std::string nscpppy = nsdirpy + ".python.cpp";
