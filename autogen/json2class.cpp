@@ -940,6 +940,73 @@ void write_class_ctor(
       os << "      construct();\n";
       os << "   }\n";
    }
+
+   // ------------------------
+   // ctor: fields but without
+   // Defaulted<>, if there
+   // are any Defaulted<>s
+   // ------------------------
+
+   bool def = false;
+   for (const auto &m : vecInfoMetadata)
+      if (m.isDefaulted)
+         def = true;
+   // infoChildren doesn't have isDefaulted, so isn't here
+
+   if (total > 0 && def) {
+      os << "\n   // fields, without Defaulted<>\n";
+
+      // signature
+      count = 0;
+      os << "   explicit " << clname << "(\n";
+      for (const auto &m : vecInfoMetadata)
+         os << "      const " << (m.isDefaulted ? m.varType : m.fullVarType)
+            << " &" << m.varName
+            << (++count < total ? ",\n" : "\n");
+      for (const auto &c : vecInfoChildren)
+         os << "      const " << c.fullVarType
+            << " &" << c.varName
+            << (++count < total ? ",\n" : "\n");
+      os << "   ) :\n";
+
+      // base constructor call
+      write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+
+      // zzz begin
+      // initialize fields
+      os << ",\n";
+      os << "      content{\n";
+      count = 0;
+      for (const auto &m : vecInfoMetadata) {
+         /*
+         start == 0
+            ? Defaulted<Integer32>{ start }
+            : Defaulted<Integer32>{ 0, start },
+         valueType == "Float64"
+            ? Defaulted<UTF8Text>{ valueType } :
+              Defaulted<UTF8Text>{ "Float64", valueType },
+         */
+         if (m.isDefaulted) {
+            os << "         " << m.varName << " == " << m.theDefault << "\n";
+            os << "            ? " << m.fullVarType
+               << "{" << m.theDefault << "}\n";
+            os << "            : " << m.fullVarType
+               << "{" << m.theDefault << "," << m.varName << "}";
+            os << (++count < total ? ",\n" : "\n");
+         } else {
+            os << "         " << m.varName << (++count < total ? ",\n" : "\n");
+         }
+      }
+      for (const auto &c : vecInfoChildren)
+         os << "         " << c.varName << (++count < total ? ",\n" : "\n");
+      os << "      }\n";
+      // zzz end
+
+      // body
+      os << "   {\n";
+      os << "      construct();\n";
+      os << "   }\n";
+   }
 }
 
 
