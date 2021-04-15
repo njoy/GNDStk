@@ -36,7 +36,7 @@ std::ostream &write(
    // we care about, at least - we're doing *output*) whose first character
    // we can examine in order to guess at the file type. We therefore have our
    // else { } catchall, below, write the Tree in our basic Tree-output form,
-   // whether FileType::null or FileType::tree arrived as the format. A case
+   // whether FileType::null or FileType::text arrived as the format. A case
    // could be made that write(ostream,format) should require that a format
    // be given, considering that we don't, here, have a file or filename to
    // examine. On the other hand, we like having format be optional, to make
@@ -101,7 +101,7 @@ bool write(
       else if (endsin_hdf5(filename))
          format = FileType::hdf5;
       else
-         format = FileType::tree;
+         format = FileType::text;
    }
 
    // ------------------------
@@ -157,7 +157,7 @@ std::ostream &write(
 ) const {
    try {
       if (eq_null(format)) return write(os,FileType::null);
-      if (eq_tree(format)) return write(os,FileType::tree);
+      if (eq_text(format)) return write(os,FileType::text);
       if (eq_xml (format)) return write(os,FileType::xml );
       if (eq_json(format)) return write(os,FileType::json);
       if (eq_hdf5(format)) return write(os,FileType::hdf5);
@@ -189,7 +189,7 @@ bool write(
 ) const {
    try {
       if (eq_null(format)) return write(filename,FileType::null);
-      if (eq_tree(format)) return write(filename,FileType::tree);
+      if (eq_text(format)) return write(filename,FileType::text);
       if (eq_xml (format)) return write(filename,FileType::xml );
       if (eq_json(format)) return write(filename,FileType::json);
       if (eq_hdf5(format)) return write(filename,FileType::hdf5);

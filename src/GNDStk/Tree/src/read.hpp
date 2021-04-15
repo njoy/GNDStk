@@ -25,11 +25,11 @@ std::istream &read(
    clear();
 
    // ------------------------
-   // FileType::tree
+   // FileType::text
    // Not allowed in read
    // ------------------------
 
-   if (format == FileType::tree) {
+   if (format == FileType::text) {
       log::error(detail::format_tree_read);
       log::member("Tree.read(istream)");
       throw std::exception{};
@@ -99,7 +99,7 @@ std::istream &read(
       }
    }
 
-   // The above logic is such that format cannot henceforth be FileType::tree,
+   // The above logic is such that format cannot henceforth be FileType::text,
    // which would have triggered a return, or FileType::null, which would have
    // become one of {xml,json,hdf5} somewhere in the above conditional.
 
@@ -163,12 +163,12 @@ bool read(
    clear();
 
    // ------------------------
-   // FileType::tree
+   // FileType::text
    // Not allowed in read
    // ------------------------
 
    // This format ("debugging output") is only for write(), not for read()
-   if (format == FileType::tree) {
+   if (format == FileType::text) {
       log::error(detail::format_tree_read);
       log::member("Tree.read(\"{}\",format)", filename);
       throw std::exception{};
@@ -228,7 +228,7 @@ std::istream &read(
 ) {
    try {
       if (eq_null(format)) return read(is,FileType::null);
-      if (eq_tree(format)) return read(is,FileType::tree);
+      if (eq_text(format)) return read(is,FileType::text);
       if (eq_xml (format)) return read(is,FileType::xml );
       if (eq_json(format)) return read(is,FileType::json);
       if (eq_hdf5(format)) return read(is,FileType::hdf5);
@@ -260,7 +260,7 @@ bool read(
 ) {
    try {
       if (eq_null(format)) return read(filename,FileType::null);
-      if (eq_tree(format)) return read(filename,FileType::tree);
+      if (eq_text(format)) return read(filename,FileType::text);
       if (eq_xml (format)) return read(filename,FileType::xml );
       if (eq_json(format)) return read(filename,FileType::json);
       if (eq_hdf5(format)) return read(filename,FileType::hdf5);

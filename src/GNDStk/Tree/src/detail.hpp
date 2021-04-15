@@ -35,7 +35,7 @@ inline void warning_tree_io_data(
 
 // format_tree_read
 inline const std::string format_tree_read =
-   "FileType::tree not allowed in tree.read(). "
+   "FileType::text not allowed in tree.read(). "
    "Our \"tree\" file format is intended"
    "mainly for debug writing, not for reading. "
    "Consider xml, json, or hdf5"

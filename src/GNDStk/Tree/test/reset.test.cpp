@@ -103,7 +103,7 @@ SCENARIO("Testing GNDStk tree reset()") {
       WHEN("We call "
            "Tree.reset(PoPs, \"tree\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "tree", "4.0");
+         t.reset(PoPs, "text", "4.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "xml");

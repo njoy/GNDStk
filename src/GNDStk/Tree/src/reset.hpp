@@ -48,7 +48,7 @@ Tree &reset(
       // for the GNDS hierarchy.
       if (format == FileType::xml
        || format == FileType::null
-       || format == FileType::tree
+       || format == FileType::text
       ) {
          // xml, null, tree
          add("xml");
@@ -98,7 +98,7 @@ Tree &reset(
    try {
       // recognized file formats
       if (eq_null(format)) return reset(kwd, FileType::null, version, encoding);
-      if (eq_tree(format)) return reset(kwd, FileType::tree, version, encoding);
+      if (eq_text(format)) return reset(kwd, FileType::text, version, encoding);
       if (eq_xml (format)) return reset(kwd, FileType::xml,  version, encoding);
       if (eq_json(format)) return reset(kwd, FileType::json, version, encoding);
       if (eq_hdf5(format)) return reset(kwd, FileType::hdf5, version, encoding);

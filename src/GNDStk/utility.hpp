@@ -15,10 +15,12 @@ inline bool parents = false;
 // Should Tree.write() also print the tree's declaration node if it exists?
 inline bool decl = false;
 
-// file type
+// file type / format
 enum class FileType {
-   null, // default, automagick, etc.
-   tree, // our own simple text format
+   // default, automagick, etc.
+   null,
+   // our own simple text format (for writing only)
+   text,
    // give users easy-to-type lowercase as well as acronym-style uppercase...
    xml,  XML  = xml,
    json, JSON = json,
@@ -412,10 +414,10 @@ inline bool eq_null(const std::string &str)
 }
 
 // tree
-inline bool eq_tree(const std::string &str)
+inline bool eq_text(const std::string &str)
 {
    return
-      nocasecmp(str,"tree");
+      nocasecmp(str,"text");
 }
 
 // xml
@@ -584,7 +586,7 @@ inline std::string print_format(const FileType f, const bool brief = false)
 {
    return std::string(brief ? "" : "FileType::") + (
       f == FileType::null ? "null"
-    : f == FileType::tree ? "tree"
+    : f == FileType::text ? "text"
     : f == FileType::xml  ? "XML"
     : f == FileType::json ? "JSON"
     : f == FileType::hdf5 ? "HDF5"
