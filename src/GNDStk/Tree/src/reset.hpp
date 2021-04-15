@@ -25,7 +25,7 @@
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const FileType form = FileType::xml,
+   const FileType format = FileType::xml,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
@@ -46,19 +46,19 @@ Tree &reset(
       // Declaration node: "xml", etc.
       // This can specify an eventual intended file format
       // for the GNDS hierarchy.
-      if (form == FileType::xml
-       || form == FileType::null
-       || form == FileType::tree
+      if (format == FileType::xml
+       || format == FileType::null
+       || format == FileType::tree
       ) {
          // xml, null, tree
          add("xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
-      } else if (form == FileType::json) {
+      } else if (format == FileType::json) {
          // json
          add("json");
          // any use for version and encoding?
-      } else if (form == FileType::hdf5) {
+      } else if (format == FileType::hdf5) {
          // hdf5
          add("hdf5");
          // any use for version and encoding?
@@ -91,25 +91,27 @@ Tree &reset(
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree &reset(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const std::string &form,
+   const std::string &format,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
       // recognized file formats
-      if (eq_null(form)) return reset(kwd, FileType::null, version, encoding);
-      if (eq_tree(form)) return reset(kwd, FileType::tree, version, encoding);
-      if (eq_xml (form)) return reset(kwd, FileType::xml,  version, encoding);
-      if (eq_json(form)) return reset(kwd, FileType::json, version, encoding);
-      if (eq_hdf5(form)) return reset(kwd, FileType::hdf5, version, encoding);
+      if (eq_null(format)) return reset(kwd, FileType::null, version, encoding);
+      if (eq_tree(format)) return reset(kwd, FileType::tree, version, encoding);
+      if (eq_xml (format)) return reset(kwd, FileType::xml,  version, encoding);
+      if (eq_json(format)) return reset(kwd, FileType::json, version, encoding);
+      if (eq_hdf5(format)) return reset(kwd, FileType::hdf5, version, encoding);
 
       // fallback: use XML
       // Note: we should consider making this an error
-      log::warning("Unrecognized file format \"{}\"; defaulting to XML", form);
+      log::warning(
+         "Unrecognized file format \"{}\"; defaulting to XML", format);
       return reset(kwd, FileType::xml, version, encoding);
 
    } catch (...) {
-      log::member("Tree.reset(" + detail::keyname(kwd) + ",\"{}\",...)", form);
+      log::member(
+         "Tree.reset(" + detail::keyname(kwd) + ",\"{}\",...)", format);
       throw;
    }
 }

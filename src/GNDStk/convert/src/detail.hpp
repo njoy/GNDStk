@@ -90,11 +90,11 @@ namespace pugi
 }
 */
 
-// internal_error_xml_node2Node
-inline bool internal_error_xml_node2Node(const std::string &str)
+// internal_error_xml2node
+inline bool internal_error_xml2node(const std::string &str)
 {
    log::error(
-      "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
+      "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
       "type pugi::{} found, but not handled, as sub-element",
       str
    );
@@ -104,12 +104,12 @@ inline bool internal_error_xml_node2Node(const std::string &str)
 
 // pugi::xml_node ==> Node
 template<class NODE>
-bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
+bool xml2node(const pugi::xml_node &xnode, NODE &node)
 {
    // check destination node
    if (!node.empty()) {
       log::error(
-         "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
+         "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
          "destination Node is supposed to arrive here empty, but didn't"
       );
       throw std::exception{};
@@ -124,7 +124,7 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
       node.add(xattr.name(), xattr.value());
 
    // children (sub-nodes)
-   for (const pugi::xml_node &xsub : xnode.children()) {
+   for (const pugi::xml_node &xsub : xnode) {
 
       // ------------------------
       // not handled right now
@@ -132,17 +132,17 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
 
       // I don't think that the following should ever appear in this context
       if (xsub.type() == pugi::node_document)
-         return internal_error_xml_node2Node("node_document");
+         return internal_error_xml2node("node_document");
       if (xsub.type() == pugi::node_declaration)
-         return internal_error_xml_node2Node("node_declaration");
+         return internal_error_xml2node("node_declaration");
 
       // For now I won't handle these; let's ensure that we don't see them
       if (xsub.type() == pugi::node_null)
-         return internal_error_xml_node2Node("node_null");
+         return internal_error_xml2node("node_null");
       if (xsub.type() == pugi::node_pi)
-         return internal_error_xml_node2Node("node_pi");
+         return internal_error_xml2node("node_pi");
       if (xsub.type() == pugi::node_doctype)
-         return internal_error_xml_node2Node("node_doctype");
+         return internal_error_xml2node("node_doctype");
 
       // ------------------------
       // element (typical case)
@@ -150,7 +150,7 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
 
       if (xsub.type() == pugi::node_element) {
          try {
-            if (!xml_node2Node(xsub,node.add()))
+            if (!xml2node(xsub,node.add()))
                return false;
          } catch (...) {
             // recursive; no point printing error context, so just throw
@@ -194,7 +194,7 @@ bool xml_node2Node(const pugi::xml_node &xnode, NODE &node)
       // ------------------------
 
       log::error(
-         "Internal error in detail::xml_node2Node(pugi::xml_node,Node):\n"
+         "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
          "we've encountered a pugi:: node type that we don't know about"
       );
       throw std::exception{};

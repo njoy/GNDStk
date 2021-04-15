@@ -27,7 +27,7 @@ const std::string Version = "v1.9";
 // Base GNDStk directory
 // Auto-generated files will be placed into appropriate descendants of this
 const std::string GNDSDir = "./testdir";
-///const std::string GNDSDir = "./GNDStk";
+// const std::string GNDSDir = "./GNDStk";
 
 
 // ------------------------

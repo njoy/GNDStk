@@ -43,15 +43,21 @@ std::istream &read(std::istream &is)
                "pugi::xml_document.load(istream,...) returned with !istream"
             );
          }
-         // context and cleanup
+
+         // print context
          log::member("XML.read(istream)");
+
+         // cleanup
          detail::failback(is,pos);
       }
    } catch (...) {
       // print error
       log::error("pugi::xml_document.load() threw an exception");
-      // context and cleanup
+
+      // print context
       log::member("XML.read(istream)");
+
+      // cleanup
       detail::failback(is,pos);
    }
 
