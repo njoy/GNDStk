@@ -58,17 +58,18 @@ std::istream &read(
    std::string magic;
    static const std::string request = ", because it was requested";
 
-   // Examine the stream's first character ("file magic number")
+   // Retrieve the stream's first character ("file magic number")
    int magicNumber;
    do {
       magicNumber = is.get();
    } while (isspace(magicNumber));
    is.unget();
 
+   // Checks
    if (magicNumber == EOF) {
-      log::error("The istream is empty");
+      log::info("No content in the istream");
       log::member("Tree.read(istream)");
-      throw std::exception{};
+      return is;
    } else if (magicNumber == '<') {
       // looks like XML
       if (format == FileType::null) {
@@ -113,11 +114,11 @@ std::istream &read(
       // likely correct file format, based on the call to determine the file
       // magic number.
       if (format == FileType::xml) {
-         // assume XML; so, create tree by converting from a temporary XML...
+         // assume XML; so, create Tree by converting from a temporary XML...
          if (!convert(XML(is), *this))
             throw std::exception{};
       } else if (format == FileType::json) {
-         // assume JSON; so, create tree by converting from a temporary JSON...
+         // assume JSON; so, create Tree by converting from a temporary JSON...
          if (!convert(JSON(is), *this))
             throw std::exception{};
       } else if (format == FileType::hdf5) {
@@ -157,8 +158,8 @@ bool read(
    // Clear current contents
    // ------------------------
 
-   // Note that this happens even if something below fails. This is reasonable
-   // behavior; an empty tree is a reminder that the read attempt failed.
+   // Note that this happens even if something below fails. This makes
+   // sense, given that the intention was to replace prior contents.
    clear();
 
    // ------------------------
@@ -166,7 +167,7 @@ bool read(
    // Not allowed in read
    // ------------------------
 
-   // Error; this file format isn't allowed for read() (only for write())
+   // This format ("debugging output") is only for write(), not for read()
    if (format == FileType::tree) {
       log::error(detail::format_tree_read);
       log::member("Tree.read(\"{}\",format)", filename);
@@ -234,7 +235,7 @@ std::istream &read(
 
       // unrecognized file format
       log::warning(
-         "Unrecognized file format in call to tree.read(istream,\"{}\").\n"
+         "Unrecognized file format in call to Tree.read(istream,\"{}\").\n"
          "We'll guess from the stream contents",
          format
       );

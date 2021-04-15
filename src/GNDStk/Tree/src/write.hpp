@@ -35,12 +35,12 @@ std::ostream &write(
    // a filename whose extension can be examined, nor an existing file (that
    // we care about, at least - we're doing *output*) whose first character
    // we can examine in order to guess at the file type. We therefore have our
-   // else { } catchall, below, write the tree in our basic tree-output form,
+   // else { } catchall, below, write the Tree in our basic Tree-output form,
    // whether FileType::null or FileType::tree arrived as the format. A case
    // could be made that write(ostream,format) should require that a format
    // be given, considering that we don't, here, have a file or filename to
    // examine. On the other hand, we like having format be optional, to make
-   // our various tree I/O functions be as consistent with one another as
+   // our various Tree I/O functions be as consistent with one another as
    // possible. Note, also, that if the user calls operator<<, then there's
    // no opportunity to explicitly provide a format.
 
@@ -56,7 +56,7 @@ std::ostream &write(
          log::error("Tree.write() for HDF5 is not implemented yet");
          throw std::exception{};
       } else {
-         // default: our internal tree file format
+         // default: our internal Tree file format
          if (!this->empty()) {
             if (GNDStk::decl)
                decl().write(os,0);

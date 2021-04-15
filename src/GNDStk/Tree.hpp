@@ -102,3 +102,18 @@ inline std::ostream &operator<<(std::ostream &os, const Tree &obj)
       throw;
    }
 }
+
+// Tree << std::string
+// Treating the std::string as a "file" with XML, JSON, etc. content,
+// read it into the Tree
+inline Tree &operator<<(Tree &tree, const std::string &str)
+{
+   try {
+      std::istringstream iss(str);
+      iss >> tree;
+      return tree;
+   } catch (...) {
+      log::function("Tree << string");
+      throw;
+   }
+}
