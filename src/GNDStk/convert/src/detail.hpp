@@ -429,7 +429,7 @@ inline void check_top(
    const std::string &classname,
    const std::string &context
 ) {
-   if (AllowedTop.find(top) == AllowedTop.end()) {
+   if (GNDStk::top && AllowedTop.find(top) == AllowedTop.end()) {
       std::string message =
          "Name \"{}\" in {} object's top-level node is not recognized\n"
          "in our list of allowable names for top-level GNDS nodes:\n";

@@ -1,279 +1,56 @@
 
 // -----------------------------------------------------------------------------
 // Tree.read()
+// Cases are as with Node.read(), to which these defer with decl == true,
+// meaning that, for Tree, we preserve any declaration node.
 // -----------------------------------------------------------------------------
 
-// Cases:
-// 1. read(istream,   file format)
-// 2. read(file name, file format) calls 1 after making istream from file name
-// 3. read(istream,   string     ) calls 1 after making file format from string
-// 4. read(file name, string     ) calls 2 after making file format from string
-
-
-
-// -----------------------------------------------------------------------------
 // 1. read(istream, file format)
-// -----------------------------------------------------------------------------
-
 std::istream &read(
    std::istream &is,
    FileType format = FileType::null
 ) {
-   // clear
-   // Remark as in read(string). Note that we need the clear() here, too,
-   // because this function might be called directly, not via read(string).
-   clear();
-
-   // ------------------------
-   // FileType::text
-   // Not allowed in read
-   // ------------------------
-
-   if (format == FileType::text) {
-      log::error(detail::format_tree_read);
-      log::member("Tree.read(istream)");
-      throw std::exception{};
-   }
-
-   // ------------------------
-   // FileType::xml,json,hdf5
-   // Check: consistent
-   // initial content?
-   // ------------------------
-
-   // Description of the "file magic number" in case something goes wrong.
-   // This may be important for diagnostics purposes in, for example, cases
-   // where the file isn't valid in any format we recognize. Unless format
-   // is stipulated, we assume XML if the stream begins with '<', HDF5 if
-   // it begins with character 137, and JSON (for which the first file
-   // character isn't set in stone) if neither. The choice is thus based
-   // on file contents, not file extension. (Indeed, if this read() function
-   // is called directly, there is no file name/extension - there's just
-   // an istream.) Imagine that someone tries to open a bad .XML file, one
-   // that doesn't begin with '<'. Via the above process, we end up assuming
-   // below (unless format was provided) that it's JSON, and the diagnostic
-   // message mentions "JSON" - which would be confusing to a user who knows
-   // they wrote something.XML. So, when applicable, we'll include in our
-   // diagnostic the file type assumption we make, to clarify the error.
-   std::string magic;
-   static const std::string request = ", because it was requested";
-
-   // Retrieve the stream's first character ("file magic number")
-   int magicNumber;
-   do {
-      magicNumber = is.get();
-   } while (isspace(magicNumber));
-   is.unget();
-
-   // Checks
-   if (magicNumber == EOF) {
-      log::info("No content in the istream");
-      log::member("Tree.read(istream)");
-      return is;
-   } else if (magicNumber == '<') {
-      // looks like XML
-      if (format == FileType::null) {
-         format = FileType::xml;
-         magic = "Assuming XML, based on the first character of the istream";
-      } else if (format != FileType::xml) {
-         detail::warning_tree_io_data(format, "XML");
-         magic = "Using " + detail::print_format(format) + request;
-      }
-   } else if (magicNumber == 137) {
-      // looks like HDF5
-      if (format == FileType::null) {
-         format = FileType::hdf5;
-         magic = "Assuming HDF5, based on the first character of the istream";
-      } else if (format != FileType::hdf5) {
-         detail::warning_tree_io_data(format, "HDF5");
-         magic = "Using " + detail::print_format(format) + request;
-      }
-   } else {
-      // looks like JSON (via process of elimination)
-      if (format == FileType::null) {
-         format = FileType::json;
-         magic = "Assuming JSON, based on the first character of the istream";
-      } else if (format != FileType::json) {
-         detail::warning_tree_io_data(format, "JSON");
-         magic = "Using " + detail::print_format(format) + request;
-      }
-   }
-
-   // The above logic is such that format cannot henceforth be FileType::text,
-   // which would have triggered a return, or FileType::null, which would have
-   // become one of {xml,json,hdf5} somewhere in the above conditional.
-
-   // ------------------------
-   // Read and convert
-   // ------------------------
-
    try {
-      // Obey format, independent of whatever might or might not have been
-      // warned about above. Note that if the original format parameter was
-      // FileType::null, then format would have been modified, above, to the
-      // likely correct file format, based on the call to determine the file
-      // magic number.
-      if (format == FileType::xml) {
-         // assume XML; so, create Tree by converting from a temporary XML...
-         if (!convert(XML(is), *this))
-            throw std::exception{};
-      } else if (format == FileType::json) {
-         // assume JSON; so, create Tree by converting from a temporary JSON...
-         if (!convert(JSON(is), *this))
-            throw std::exception{};
-      } else if (format == FileType::hdf5) {
-         log::error("Tree.read() for HDF5 is not implemented yet");
-         throw std::exception{};
-      } else {
-         // The earlier logic is such that this shouldn't happen; consider
-         // removing at some point
-         log::error(
-            "Internal error: unrecognized file format. "
-            "Please report this to us"
-         );
-         throw std::exception{};
-      }
+      return this->Node::read(is, format, true);
    } catch (...) {
-      if (magic != "")
-         log::info(magic);
       log::member("Tree.read(istream)");
       throw;
    }
-
-   // done
-   return is;
 }
 
-
-
-// -----------------------------------------------------------------------------
 // 2. read(file name, file format)
-// -----------------------------------------------------------------------------
-
 bool read(
    const std::string &filename,
    const FileType format = FileType::null
 ) {
-   // ------------------------
-   // Clear current contents
-   // ------------------------
-
-   // Note that this happens even if something below fails. This makes
-   // sense, given that the intention was to replace prior contents.
-   clear();
-
-   // ------------------------
-   // FileType::text
-   // Not allowed in read
-   // ------------------------
-
-   // This format ("debugging output") is only for write(), not for read()
-   if (format == FileType::text) {
-      log::error(detail::format_tree_read);
-      log::member("Tree.read(\"{}\",format)", filename);
-      throw std::exception{};
-   }
-
-   // ------------------------
-   // FileType::xml,json,hdf5
-   // Check: consistent name?
-   // ------------------------
-
-   if (format == FileType::xml && has_extension(filename)
-       && !endsin_xml(filename)) {
-      detail::warning_tree_io_name("read", "xml",  filename, "XML" );
-   }
-   if (format == FileType::json && has_extension(filename)
-       && !endsin_json(filename)) {
-      detail::warning_tree_io_name("read", "json", filename, "JSON");
-   }
-   if (format == FileType::hdf5 && has_extension(filename)
-       && !endsin_hdf5(filename)) {
-      detail::warning_tree_io_name("read", "hdf5", filename, "HDF5");
-   }
-
-   // ------------------------
-   // Open and read
-   // ------------------------
-
    try {
-      std::ifstream ifs(filename);
-      if (!ifs) {
-         log::error("Could not open input file \"{}\"", filename);
-         throw std::exception{};
-      }
-
-      // Call read(istream) to do the remaining work. Note that although the
-      // filename is no longer available there, the function can, and does,
-      // do additional checking (complimentary to what we already did above),
-      // based on looking at the content that we'll be attempting to read.
-      if (!read(ifs,format))
-         throw std::exception{};
-      return bool(ifs);
+      return this->Node::read(filename, format, true);
    } catch (...) {
       log::member("Tree.read(\"{}\")", filename);
       throw;
    }
 }
 
-
-
-// -----------------------------------------------------------------------------
 // 3. read(istream,string)
-// -----------------------------------------------------------------------------
-
 std::istream &read(
    std::istream &is,
    const std::string &format
 ) {
    try {
-      if (eq_null(format)) return read(is,FileType::null);
-      if (eq_text(format)) return read(is,FileType::text);
-      if (eq_xml (format)) return read(is,FileType::xml );
-      if (eq_json(format)) return read(is,FileType::json);
-      if (eq_hdf5(format)) return read(is,FileType::hdf5);
-
-      // unrecognized file format
-      log::warning(
-         "Unrecognized file format in call to Tree.read(istream,\"{}\").\n"
-         "We'll guess from the stream contents",
-         format
-      );
-
-      // fallback: automagick
-      return read(is,FileType::null);
+      return this->Node::read(is, format, true);
    } catch (...) {
       log::member("Tree.read(istream,\"{}\")", format);
       throw;
    }
 }
 
-
-
-// -----------------------------------------------------------------------------
 // 4. read(filename,string)
-// -----------------------------------------------------------------------------
-
 bool read(
    const std::string &filename,
    const std::string &format
 ) {
    try {
-      if (eq_null(format)) return read(filename,FileType::null);
-      if (eq_text(format)) return read(filename,FileType::text);
-      if (eq_xml (format)) return read(filename,FileType::xml );
-      if (eq_json(format)) return read(filename,FileType::json);
-      if (eq_hdf5(format)) return read(filename,FileType::hdf5);
-
-      // unrecognized file format
-      log::warning(
-         "Unrecognized file format in call to Tree.read(\"{}\",\"{}\").\n"
-         "We'll guess from the file contents",
-         filename, format
-      );
-
-      // fallback: automagick
-      return read(filename,FileType::null);
+      return this->Node::read(filename, format, true);
    } catch (...) {
       log::member("Tree.read(\"{}\",\"{}\")", filename, format);
       throw;

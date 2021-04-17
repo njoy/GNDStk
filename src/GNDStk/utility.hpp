@@ -11,6 +11,11 @@ inline int indent = 3;
 // Should Node's debugging output print addresses and parent-node addresses?
 inline bool parents = false;
 
+// top
+// When reading, check whether the document node is in our list of allowable
+// GNDS top-level nodes
+inline bool top = false;
+
 // decl
 // Should Tree.write() also print the tree's declaration node if it exists?
 inline bool decl = false;
@@ -317,11 +322,13 @@ bool convert(const Tree &, XML  &);
 bool convert(const Tree &, JSON &);
 
 // XML to {Tree,XML,JSON}
+bool convert(const XML  &, Node &, const bool);
 bool convert(const XML  &, Tree &);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
 
 // JSON to {Tree,XML,JSON}
+bool convert(const JSON &, Node &, const bool);
 bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);

@@ -41,7 +41,7 @@ inline auto operator~(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // determine if a particular name is allowed as a top-level node. So, turning
 // of a Child's previously-true top-level designator does not, at the moment,
 // have any meaningful effect anywhere. We'll look at this more carefully
-// sometime; for now, it just isn't a super important issue.
+// sometime. For now, this just isn't a super important issue.
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator!(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {

@@ -114,15 +114,15 @@ bool write(
 
    if (format == FileType::xml && has_extension(filename)
        && !endsin_xml (filename)) {
-      detail::warning_tree_io_name("write", "xml",  filename, "XML" );
+      detail::warning_io_name("write", "xml",  filename, "XML" );
    }
    if (format == FileType::json && has_extension(filename)
        && !endsin_json(filename)) {
-      detail::warning_tree_io_name("write", "json", filename, "JSON");
+      detail::warning_io_name("write", "json", filename, "JSON");
    }
    if (format == FileType::hdf5 && has_extension(filename)
        && !endsin_hdf5(filename)) {
-      detail::warning_tree_io_name("write", "hdf5", filename, "HDF5");
+      detail::warning_io_name("write", "hdf5", filename, "HDF5");
    }
 
    // ------------------------
