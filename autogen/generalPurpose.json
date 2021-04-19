@@ -1,5 +1,30 @@
 {
-    "__namespace__":"gpdc",
+    "__namespace__":"containers",
+
+    "link": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The URL or xpath-like string pointing to the referred-to element",
+                "name": "href",
+                "required": false,
+                "type": "bodyText"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "Used to explicitly link to another part of the GNDS document (or an external document).",
+            "For example, if both axis grids in a \\elemlink{gridded2d}",
+            "container are identical, the \\element{link} can be used rather than repeating the grid values."
+        ],
+        "name": "link",
+        "required": false,
+        "rootNode": false
+    },
 
     "XYs1d": {
         "__class__": "nodes.Node",
@@ -216,6 +241,13 @@
                 "__class__": "nodes.ChildNode",
                 "description": "List of values defining the grid.",
                 "name": "values",
+                "occurrence": "choice",
+                "required": false
+            },
+            "link": {
+                "__class__": "nodes.ChildNode",
+                "description": "Link to a list of values defining the grid.",
+                "name": "link",
                 "occurrence": "choice",
                 "required": false
             }

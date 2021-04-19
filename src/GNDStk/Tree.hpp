@@ -1,6 +1,4 @@
 
-#include "GNDStk/Tree/src/detail.hpp"
-
 // -----------------------------------------------------------------------------
 // Tree
 // -----------------------------------------------------------------------------
@@ -30,7 +28,6 @@ public:
 
    #include "GNDStk/Tree/src/has_decl.hpp"
    #include "GNDStk/Tree/src/has_top.hpp"
-
    #include "GNDStk/Tree/src/decl.hpp"
    #include "GNDStk/Tree/src/top.hpp"
 
@@ -82,10 +79,10 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, Tree &obj)
+inline std::istream &operator>>(std::istream &is, Tree &tree)
 {
    try {
-      return obj.read(is);
+      return tree.read(is);
    } catch (...) {
       log::function("istream >> Tree");
       throw;
@@ -93,12 +90,25 @@ inline std::istream &operator>>(std::istream &is, Tree &obj)
 }
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const Tree &obj)
+inline std::ostream &operator<<(std::ostream &os, const Tree &tree)
 {
    try {
-      return obj.write(os);
+      return tree.write(os);
    } catch (...) {
       log::function("ostream << Tree");
+      throw;
+   }
+}
+
+// Tree << std::string
+// Comment as for Node << std::string
+inline void operator<<(Tree &tree, const std::string &str)
+{
+   try {
+      std::istringstream iss(str);
+      iss >> tree;
+   } catch (...) {
+      log::function("Tree << string");
       throw;
    }
 }

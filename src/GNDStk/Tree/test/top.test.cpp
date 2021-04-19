@@ -72,7 +72,7 @@ SCENARIO("Testing GNDStk Tree top()") {
 
       WHEN("We call reset(PoPs, \"tree\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "tree", "4.0");
+         t.reset(PoPs, "text", "4.0");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "PoPs");
             CHECK(t.top().metadata.size() == 0);

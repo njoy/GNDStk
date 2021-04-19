@@ -11,14 +11,21 @@ inline int indent = 3;
 // Should Node's debugging output print addresses and parent-node addresses?
 inline bool parents = false;
 
+// top
+// When reading, check whether the document node is in our list of allowable
+// GNDS top-level nodes
+inline bool top = false;
+
 // decl
 // Should Tree.write() also print the tree's declaration node if it exists?
 inline bool decl = false;
 
-// file type
+// file type / format
 enum class FileType {
-   null, // default, automagick, etc.
-   tree, // our own simple text format
+   // default, automagick, etc.
+   null,
+   // our own simple text format (for writing only)
+   text,
    // give users easy-to-type lowercase as well as acronym-style uppercase...
    xml,  XML  = xml,
    json, JSON = json,
@@ -315,11 +322,13 @@ bool convert(const Tree &, XML  &);
 bool convert(const Tree &, JSON &);
 
 // XML to {Tree,XML,JSON}
+bool convert(const XML  &, Node &, const bool);
 bool convert(const XML  &, Tree &);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
 
 // JSON to {Tree,XML,JSON}
+bool convert(const JSON &, Node &, const bool);
 bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
@@ -412,10 +421,10 @@ inline bool eq_null(const std::string &str)
 }
 
 // tree
-inline bool eq_tree(const std::string &str)
+inline bool eq_text(const std::string &str)
 {
    return
-      nocasecmp(str,"tree");
+      nocasecmp(str,"text");
 }
 
 // xml
@@ -584,7 +593,7 @@ inline std::string print_format(const FileType f, const bool brief = false)
 {
    return std::string(brief ? "" : "FileType::") + (
       f == FileType::null ? "null"
-    : f == FileType::tree ? "tree"
+    : f == FileType::text ? "text"
     : f == FileType::xml  ? "XML"
     : f == FileType::json ? "JSON"
     : f == FileType::hdf5 ? "HDF5"

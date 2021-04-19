@@ -7,10 +7,10 @@
 Tree &operator=(Tree &&) = default;
 
 // copy
-Tree &operator=(const Tree &from)
+Tree &operator=(const Tree &other)
 {
    try {
-      if (!convert(from,*this))
+      if (!convert(other,*this))
          throw std::exception{};
    } catch (...) {
       log::assign("Tree = Tree");

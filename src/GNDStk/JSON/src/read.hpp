@@ -35,7 +35,7 @@ std::istream &read(std::istream &is)
 bool read(const std::string &filename)
 {
    // open file
-   std::ifstream ifs(filename.c_str());
+   std::ifstream ifs(filename);
    if (!ifs) {
       log::error("Could not open file \"{}\" for input", filename);
       log::member("JSON.read(\"{}\")", filename);

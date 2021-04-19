@@ -10,10 +10,10 @@ Tree() = default;
 Tree(Tree &&) = default;
 
 // copy
-Tree(const Tree &from) : Node{}
+Tree(const Tree &other) : Node{}
 {
    try {
-      if (!convert(from,*this))
+      if (!convert(other,*this))
          throw std::exception{};
    } catch (...) {
       log::ctor("Tree(Tree)");
@@ -61,10 +61,12 @@ explicit Tree(const JSON &j)
 // file name, file format
 // Example:
 //    Tree t("n-008_O_016.xml", FileType::xml);
-explicit Tree(const std::string &filename, const FileType form = FileType::null)
-{
+explicit Tree(
+   const std::string &filename,
+   const FileType format = FileType::null
+) {
    try {
-      if (!read(filename,form))
+      if (!read(filename,format))
          throw std::exception{};
    } catch (...) {
       log::ctor("Tree(\"{}\")", filename);
@@ -90,10 +92,10 @@ Tree(const std::string &filename, const std::string &filetype)
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, FileType::xml);
-explicit Tree(std::istream &is, const FileType form = FileType::null)
+explicit Tree(std::istream &is, const FileType format = FileType::null)
 {
    try {
-      if (!read(is,form))
+      if (!read(is,format))
          throw std::exception{};
    } catch (...) {
       log::ctor("Tree(istream,string)");
@@ -146,13 +148,13 @@ Tree(std::istream &is, const std::string &filetype)
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const FileType form = FileType::xml,
+   const FileType format = FileType::xml,
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
-      reset(kwd, form, version, encoding);
+      reset(kwd, format, version, encoding);
    } catch (...) {
       log::ctor("Tree(" + detail::keyname(kwd) + ")");
       throw;

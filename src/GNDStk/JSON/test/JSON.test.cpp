@@ -117,8 +117,12 @@ SCENARIO("Testing GNDStk JSON") {
 
    WHEN("We clear() a JSON, and convert() it to a Tree") {
       convert(j.clear(),t);
-      THEN("The Tree should be empty()") {
-         CHECK(t.empty());
+      THEN("The Tree should have only an empty declaration node") {
+         CHECK(t.children.size() == 1);
+         CHECK(t.has_decl());
+         CHECK(t.decl().name == "json");
+         CHECK(t.decl().metadata.size() == 0);
+         CHECK(t.decl().children.size() == 0);
       }
    }
 

@@ -190,7 +190,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
 
       WHEN("We call: Tree(top-level node, string, version)") {
-         Tree t(PoPs, "tree", "4.0");
+         Tree t(PoPs, "text", "4.0");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "xml");
             CHECK(t.decl().metadata.size() == 2);

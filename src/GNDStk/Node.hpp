@@ -1,6 +1,6 @@
 
 #include "GNDStk/Node/src/detail.hpp"
-std::ostream &operator<<(std::ostream &os, const Node &obj);
+std::ostream &operator<<(std::ostream &os, const Node &node);
 
 // -----------------------------------------------------------------------------
 // Node
@@ -63,7 +63,9 @@ public:
    #include "GNDStk/Node/src/add-meta.hpp"
    #include "GNDStk/Node/src/add-child.hpp"
 
+   #include "GNDStk/Node/src/read.hpp"
    #include "GNDStk/Node/src/write.hpp"
+
    #include "GNDStk/Node/src/sort.hpp"
    #include "GNDStk/Node/src/compare.hpp"
    #include "GNDStk/Node/src/shuffle.hpp"
@@ -153,15 +155,43 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// operator<<
+// I/O
 // -----------------------------------------------------------------------------
 
-inline std::ostream &operator<<(std::ostream &os, const Node &obj)
+// operator>>
+inline std::istream &operator>>(std::istream &is, Node &node)
 {
    try {
-      return obj.write(os);
+      return node.read(is);
+   } catch (...) {
+      log::function("istream >> Node");
+      throw;
+   }
+}
+
+// operator<<
+inline std::ostream &operator<<(std::ostream &os, const Node &node)
+{
+   try {
+      return node.write(os);
    } catch (...) {
       log::function("ostream << Node");
+      throw;
+   }
+}
+
+// Node << std::string
+// Treating the std::string as a "file" with XML, JSON, etc. content, read it
+// into the Node. We return void, not the Node, so users don't incorrectly think
+// that the <<s can be stacked together in the way they can with stream output.
+// We're reading into ONE Node, so stacking the <<s doesn't really make sense.
+inline void operator<<(Node &node, const std::string &str)
+{
+   try {
+      std::istringstream iss(str);
+      iss >> node;
+   } catch (...) {
+      log::function("Node << string");
       throw;
    }
 }

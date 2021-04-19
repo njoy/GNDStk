@@ -67,7 +67,7 @@ SCENARIO("Testing GNDStk tree decl()") {
 
       WHEN("We call reset(PoPs, \"tree\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "tree", "4.0");
+         t.reset(PoPs, "text", "4.0");
          CHECK(t.decl().name == "xml");
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "4.0");

@@ -20,7 +20,7 @@ public:
    // empty
    bool empty() const
    {
-      return doc.children().end() == doc.children().begin();
+      return doc.end() == doc.begin();
    }
 
    // constructors, assignment

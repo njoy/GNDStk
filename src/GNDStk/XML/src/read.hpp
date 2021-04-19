@@ -43,15 +43,21 @@ std::istream &read(std::istream &is)
                "pugi::xml_document.load(istream,...) returned with !istream"
             );
          }
-         // context and cleanup
+
+         // print context
          log::member("XML.read(istream)");
+
+         // cleanup
          detail::failback(is,pos);
       }
    } catch (...) {
       // print error
       log::error("pugi::xml_document.load() threw an exception");
-      // context and cleanup
+
+      // print context
       log::member("XML.read(istream)");
+
+      // cleanup
       detail::failback(is,pos);
    }
 
@@ -67,7 +73,7 @@ std::istream &read(std::istream &is)
 bool read(const std::string &filename)
 {
    // open file
-   std::ifstream ifs(filename.c_str());
+   std::ifstream ifs(filename);
    if (!ifs) {
       log::error("Could not open file \"{}\" for input", filename);
       log::member("XML.read(\"{}\")", filename);

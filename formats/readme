@@ -20,7 +20,8 @@ https://git.oecd-nea.org/science/wpec/gnds/formats:
    Conventions/summary_abstract.json
    PoPs/summary_pops.json
 
-We're putting this into version control to track our changes, which we hope
-will be relatively small. (Except for some prettyprinting we'll do, through
-an editor, as the first change.) Substantive changes are geared towards the
-goal of helping our automatic code-generation tool to work more smoothly.
+We're putting these into version control in order to track our changes, which
+we hope will be relatively small. (Except for some prettyprinting we'll do,
+through an editor, as the first change.) Substantive changes are geared towards
+the goal of helping our automatic code-generation tool to work more smoothly.
+Note that summary_gpdc.json is being renamed to summary_containers.json.
