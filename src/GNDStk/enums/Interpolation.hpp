@@ -4,10 +4,7 @@
 // system includes
 
 // other includes
-#include "utility/enumeration.hpp"
 
-namespace njoy {
-namespace GNDStk {
 namespace enums {
 
   /**
@@ -26,11 +23,6 @@ namespace enums {
     chargedparticle = 6
   };
 
-  using utility::enumeration::fromString;
-  using utility::enumeration::toString;
-  using utility::enumeration::operator>>;
-  using utility::enumeration::operator<<;
-
   /**
    *  @brief Return whether or not a string is a valid interpolation scheme
    *
@@ -38,18 +30,10 @@ namespace enums {
    *
    *  @return true/false
    */
-  bool isInterpolationScheme( const std::string& string ) {
+  inline bool isInterpolationScheme( const std::string& string ) {
 
-    return utility::enumeration::isSymbol< Interpolation >( string );
+    return isSymbol< Interpolation >( string );
   }
-
-} // enums namespace
-} // GNDStk namespace
-} // njoy namespace
-
-namespace njoy {
-namespace utility {
-namespace enumeration {
 
   /**
    *  @brief Template specialisation to convert Length to/from strings
@@ -80,8 +64,6 @@ namespace enumeration {
     };
   };
 
-} // enumeration namespace
-} // utility namespace
-} // njoy namespace
+} // enums namespace
 
 #endif

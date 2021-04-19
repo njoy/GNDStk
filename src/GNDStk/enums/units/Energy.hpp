@@ -4,10 +4,7 @@
 // system includes
 
 // other includes
-#include "utility/enumeration.hpp"
 
-namespace njoy {
-namespace GNDStk {
 namespace enums {
 namespace units {
 
@@ -23,10 +20,10 @@ namespace units {
     MeV
   };
 
-  using utility::enumeration::fromString;
-  using utility::enumeration::toString;
-  using utility::enumeration::operator>>;
-  using utility::enumeration::operator<<;
+  using enums::fromString;
+  using enums::toString;
+  using enums::operator>>;
+  using enums::operator<<;
 
   /**
    *  @brief Return whether or not a string is a valid energy unit
@@ -35,19 +32,12 @@ namespace units {
    *
    *  @return true/false
    */
-  bool isEnergyUnit( const std::string& string ) {
+  inline bool isEnergyUnit( const std::string& string ) {
 
-    return utility::enumeration::isSymbol< Energy >( string );
+    return GNDStk::enums::isSymbol< GNDStk::enums::units::Energy >( string );
   }
 
 } // units namespace
-} // enums namespace
-} // GNDStk namespace
-} // njoy namespace
-
-namespace njoy {
-namespace utility {
-namespace enumeration {
 
   /**
    *  @brief Template specialisation to convert Energy to/from strings
@@ -70,8 +60,6 @@ namespace enumeration {
     };
   };
 
-} // enumeration namespace
-} // utility namespace
-} // njoy namespace
+} // enums namespace
 
 #endif
