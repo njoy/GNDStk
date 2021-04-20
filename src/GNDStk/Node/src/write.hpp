@@ -9,21 +9,21 @@
 
 std::ostream &write(std::ostream &os, const int level = 0) const
 {
-   // indentation
-   const std::string icurr(indent* level   ,' '); // current indentation #spaces
-   const std::string inext(indent*(level+1),' '); // next ...
+   // indentation: spaces for current and next levels
+   const std::string icurr(indent* level   ,' ');
+   const std::string inext(indent*(level+1),' ');
 
-   // write name
+   // name
    if (!(os << icurr << name << ":"))
       log::error("ostream << Node.name returned with !ostream");
 
-   // possibly write address and parent-node information
-   if (parents)
+   // address and parent-node information (optionally)
+   if (os && parents)
       if (!(os << " (address " << this << ", parent " << &parent() << ")"))
          log::error("ostream << (Node address/parent information) "
                     "returned with !ostream");
 
-   // write metadata
+   // metadata
    if (os)
       for (const auto &meta : metadata)
          if (!(os << "\n" << inext << meta.first << ": " << meta.second)) {
@@ -31,7 +31,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
             break;
          }
 
-   // write children
+   // children
    if (os)
       for (const auto &childptr : children)
          if (childptr && !(os << "\n" && childptr->write(os,level+1))) {

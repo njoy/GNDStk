@@ -94,14 +94,16 @@ bool write(
    // ------------------------
 
    if (format == FileType::null) {
-      if (endsin_xml (filename))
+      if (has_extension(filename) && endsin_xml(filename))
          format = FileType::xml;
-      else if (endsin_json(filename))
+      else if (has_extension(filename) && endsin_json(filename))
          format = FileType::json;
-      else if (endsin_hdf5(filename))
+      else if (has_extension(filename) && endsin_hdf5(filename))
          format = FileType::hdf5;
-      else
+      else {
+         // fallback: our simple output text format
          format = FileType::text;
+      }
    }
 
    // ------------------------
@@ -109,11 +111,13 @@ bool write(
    // Check: consistent name?
    // ------------------------
 
-   // Note that the above code block may have changed "format",
-   // via automagick file type detection. So...
+   // The above code block might have changed format via automagick file type
+   // detection, but wouldn't have changed it in a manner that would cause any
+   // of the following warnings.
 
+   // Caller asked for XML, but there's an extension that isn't XML...
    if (format == FileType::xml && has_extension(filename)
-       && !endsin_xml (filename)) {
+       && !endsin_xml(filename)) {
       detail::warning_io_name("write", "xml",  filename, "XML" );
    }
    if (format == FileType::json && has_extension(filename)

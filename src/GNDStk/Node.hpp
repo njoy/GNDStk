@@ -169,17 +169,6 @@ inline std::istream &operator>>(std::istream &is, Node &node)
    }
 }
 
-// operator<<
-inline std::ostream &operator<<(std::ostream &os, const Node &node)
-{
-   try {
-      return node.write(os);
-   } catch (...) {
-      log::function("ostream << Node");
-      throw;
-   }
-}
-
 // Node << std::string
 // Treating the std::string as a "file" with XML, JSON, etc. content, read it
 // into the Node. We return void, not the Node, so users don't incorrectly think
@@ -192,6 +181,17 @@ inline void operator<<(Node &node, const std::string &str)
       iss >> node;
    } catch (...) {
       log::function("Node << string");
+      throw;
+   }
+}
+
+// operator<<
+inline std::ostream &operator<<(std::ostream &os, const Node &node)
+{
+   try {
+      return node.write(os);
+   } catch (...) {
+      log::function("ostream << Node");
       throw;
    }
 }

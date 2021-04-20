@@ -17,7 +17,7 @@ inline bool parents = false;
 inline bool top = false;
 
 // decl
-// Should Tree.write() also print the tree's declaration node if it exists?
+// Should Tree.write() also print the tree's declaration node, if it exists?
 inline bool decl = false;
 
 // file type / format

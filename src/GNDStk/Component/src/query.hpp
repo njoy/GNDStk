@@ -5,7 +5,7 @@
 
 // Retrieve a Node's data, and, via the links, get it into the fields in the
 // derived-class object. We'd have preferred to call this in the constructor,
-// above, so that users wouldn't need to call it directly in the constructors
+// so that users wouldn't need to call it directly in the constructors
 // of their derived classes that accept Nodes. However, data initialization
 // order in derived classes is such that their member data won't have been
 // initialized (and thus would contain garbage data) when the Component base

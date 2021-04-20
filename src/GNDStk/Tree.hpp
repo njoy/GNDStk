@@ -89,17 +89,6 @@ inline std::istream &operator>>(std::istream &is, Tree &tree)
    }
 }
 
-// operator<<
-inline std::ostream &operator<<(std::ostream &os, const Tree &tree)
-{
-   try {
-      return tree.write(os);
-   } catch (...) {
-      log::function("ostream << Tree");
-      throw;
-   }
-}
-
 // Tree << std::string
 // Comment as for Node << std::string
 inline void operator<<(Tree &tree, const std::string &str)
@@ -109,6 +98,17 @@ inline void operator<<(Tree &tree, const std::string &str)
       iss >> tree;
    } catch (...) {
       log::function("Tree << string");
+      throw;
+   }
+}
+
+// operator<<
+inline std::ostream &operator<<(std::ostream &os, const Tree &tree)
+{
+   try {
+      return tree.write(os);
+   } catch (...) {
+      log::function("ostream << Tree");
       throw;
    }
 }
