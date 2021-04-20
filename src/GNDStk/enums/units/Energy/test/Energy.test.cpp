@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "GNDStk/enums/units/Energy.hpp"
+#include "GNDStk.hpp"
 
 // other includes
 

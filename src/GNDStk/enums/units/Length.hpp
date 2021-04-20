@@ -4,10 +4,7 @@
 // system includes
 
 // other includes
-#include "utility/enumeration.hpp"
 
-namespace njoy {
-namespace GNDStk {
 namespace enums {
 namespace units {
 
@@ -24,10 +21,10 @@ namespace units {
     fm
   };
 
-  using utility::enumeration::fromString;
-  using utility::enumeration::toString;
-  using utility::enumeration::operator>>;
-  using utility::enumeration::operator<<;
+  using enums::fromString;
+  using enums::toString;
+  using enums::operator>>;
+  using enums::operator<<;
 
   /**
    *  @brief Return whether or not a string is a valid energy unit
@@ -36,19 +33,12 @@ namespace units {
    *
    *  @return true/false
    */
-  bool isLengthUnit( const std::string& string ) {
+  inline bool isLengthUnit( const std::string& string ) {
 
-    return utility::enumeration::isSymbol< Length >( string );
+    return GNDStk::enums::isSymbol< GNDStk::enums::units::Length >( string );
   }
 
 } // units namespace
-} // enums namespace
-} // GNDStk namespace
-} // njoy namespace
-
-namespace njoy {
-namespace utility {
-namespace enumeration {
 
   /**
    *  @brief Template specialisation to convert Length to/from strings
@@ -73,8 +63,6 @@ namespace enumeration {
     };
   };
 
-} // enumeration namespace
-} // utility namespace
-} // njoy namespace
+} // enums namespace
 
 #endif
