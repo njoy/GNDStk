@@ -1,14 +1,12 @@
-#ifndef NJOY_UTILITY_ENUMERATION
-#define NJOY_UTILITY_ENUMERATION
+#ifndef NJOY_GNDSTK_ENUMS_ENUMERATION
+#define NJOY_GNDSTK_ENUMS_ENUMERATION
 
 // system includes
 
 // other includes
 #include "Log.hpp"
 
-namespace njoy {
-namespace utility {
-namespace enumeration {
+namespace enums {
 
 /**
  *  @brief Forward declaration of the templated enumeration Map used to convert
@@ -126,8 +124,6 @@ std::ostream& operator<<( std::ostream& out, const Enumeration& value ) {
   return out << toString( value );
 }
 
-} // enumeration namespace
-} // utility namespace
-} // njoy namespace
+} // enums namespace
 
 #endif

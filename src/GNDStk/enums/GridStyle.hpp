@@ -1,13 +1,10 @@
-#ifndef NJOY_GNDSTK_INTERPOLATION
-#define NJOY_GNDSTK_INTERPOLATION
+#ifndef NJOY_GNDSTK_GRIDSTYLE
+#define NJOY_GNDSTK_GRIDSTYLE
 
 // system includes
 
 // other includes
-#include "utility/enumeration.hpp"
 
-namespace njoy {
-namespace GNDStk {
 namespace enums {
 
   /**
@@ -24,11 +21,6 @@ namespace enums {
     parameters
   };
 
-  using utility::enumeration::fromString;
-  using utility::enumeration::toString;
-  using utility::enumeration::operator>>;
-  using utility::enumeration::operator<<;
-
   /**
    *  @brief Return whether or not a string is a valid grid style
    *
@@ -36,18 +28,10 @@ namespace enums {
    *
    *  @return true/false
    */
-  bool isGridStyle( const std::string& string ) {
+  inline bool isGridStyle( const std::string& string ) {
 
-    return utility::enumeration::isSymbol< GridStyle >( string );
+    return isSymbol< GridStyle >( string );
   }
-
-} // enums namespace
-} // GNDStk namespace
-} // njoy namespace
-
-namespace njoy {
-namespace utility {
-namespace enumeration {
 
   /**
    *  @brief Template specialisation to convert GridStyle to/from strings
@@ -74,8 +58,6 @@ namespace enumeration {
     };
   };
 
-} // enumeration namespace
-} // utility namespace
-} // njoy namespace
+} // enums namespace
 
 #endif

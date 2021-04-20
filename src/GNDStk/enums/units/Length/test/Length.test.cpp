@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "GNDStk/enums/units/Length.hpp"
+#include "GNDStk.hpp"
 
 // other includes
 
