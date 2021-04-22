@@ -318,7 +318,7 @@ bool check_special(const NODE &node, const std::string &label)
 {
    if (node.children.size() != 0) {
       log::error(
-         "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+         "Internal error in detail::node2xml(Node,pugi::xml_node):\n"
          "ill-formed <" + label + "> node; "
          "should have 0 children, but has {}",
          node.children.size()
@@ -329,7 +329,7 @@ bool check_special(const NODE &node, const std::string &label)
 
    if (node.metadata.size() != 1) {
       log::error(
-         "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+         "Internal error in detail::node2xml(Node,pugi::xml_node):\n"
          "ill-formed <" + label + "> node; "
          "should have 1 metadatum, but has {}",
          node.metadata.size()
@@ -340,7 +340,7 @@ bool check_special(const NODE &node, const std::string &label)
 
    if (node.metadata.begin()->first != "text") {
       log::error(
-         "Internal error in detail::node2XML(Node,pugi::xml_node):\n"
+         "Internal error in detail::node2xml(Node,pugi::xml_node):\n"
          "ill-formed <" + label + "> node; "
          "should have metadatum key \"text\", but has key \"{}\"",
          node.metadata.begin()->first
@@ -383,9 +383,9 @@ bool write_comment(const NODE &node, pugi::xml_node &xnode)
 
 
 
-// node2XML
+// node2xml
 template<class NODE>
-bool node2XML(const NODE &node, pugi::xml_node &x)
+bool node2xml(const NODE &node, pugi::xml_node &x)
 {
    // name
    pugi::xml_node xnode = x.append_child(node.name.c_str());
@@ -406,7 +406,7 @@ bool node2XML(const NODE &node, pugi::xml_node &x)
             { if (write_comment(*child,xnode)) continue; else return false; }
 
          // typical element
-         if (!node2XML(*child,xnode))
+         if (!node2xml(*child,xnode))
             return false;
       } catch (...) {
          // recursive; no point in printing error context; just throw
@@ -425,18 +425,18 @@ bool node2XML(const NODE &node, pugi::xml_node &x)
 // -----------------------------------------------------------------------------
 
 inline void check_top(
-   const std::string &top,
+   const std::string &name,
    const std::string &classname,
    const std::string &context
 ) {
-   if (GNDStk::top && AllowedTop.find(top) == AllowedTop.end()) {
+   if (GNDStk::top && AllowedTop.find(name) == AllowedTop.end()) {
       std::string message =
          "Name \"{}\" in {} object's top-level node is not recognized\n"
          "in our list of allowable names for top-level GNDS nodes:\n";
       for (const std::string &n : detail::AllowedTop)
          message += "   \"" + n + "\"\n";
       message += "Creating node \"{}\" anyway...";
-      log::warning(message, top, classname, top);
+      log::warning(message, name, classname, name);
       log::function(context);
    }
 }

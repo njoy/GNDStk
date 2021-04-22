@@ -79,9 +79,7 @@ SCENARIO("Testing GNDStk Node many()") {
             CHECK(found);
             vec = Rs.many(""); // and this one
             CHECK(vec.size() == 1);
-            std::ostringstream oss1; oss1 << Rs.sort();
-            std::ostringstream oss2; oss2 << vec[0].sort();
-            CHECK(oss1.str() == oss2.str());
+            CHECK(Rs == vec[0]);
          }
 
          THEN("As above, with filter") {
@@ -93,9 +91,7 @@ SCENARIO("Testing GNDStk Node many()") {
             CHECK(found);
             vec = Rs.many("",filter); // and this one
             CHECK(vec.size() == 1);
-            std::ostringstream oss1; oss1 << Rs.sort();
-            std::ostringstream oss2; oss2 << vec[0].sort();
-            CHECK(oss1.str() == oss2.str());
+            CHECK(Rs == vec[0]);
          }
       }
    }

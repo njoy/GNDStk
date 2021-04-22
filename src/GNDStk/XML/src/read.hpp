@@ -67,7 +67,7 @@ std::istream &read(std::istream &is)
 
 
 // ------------------------
-// read(filename)
+// read(file name)
 // ------------------------
 
 bool read(const std::string &filename)

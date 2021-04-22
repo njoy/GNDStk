@@ -22,7 +22,8 @@
 
 // one, const
 template<class FILTER>
-const Node &child(
+const Node &
+child(
    const Child<void,Allow::one,void,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -31,7 +32,8 @@ const Node &child(
 
 // one, non-const
 template<class FILTER>
-Node &child(
+Node &
+child(
    const Child<void,Allow::one,void,FILTER> &kwd,
    bool &found = detail::default_bool
 ) {
@@ -43,7 +45,8 @@ template<
    template<class...> class CONTAINER = std::vector,
    class FILTER
 >
-CONTAINER<Node> child(
+CONTAINER<Node>
+child(
    const Child<void,Allow::many,void,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -60,7 +63,8 @@ CONTAINER<Node> child(
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-TYPE child(
+TYPE
+child(
    const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -84,7 +88,8 @@ TYPE child(
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-std::optional<TYPE> child(
+std::optional<TYPE>
+child(
    const Child<std::optional<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -107,7 +112,8 @@ std::optional<TYPE> child(
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-Defaulted<TYPE> child(
+Defaulted<TYPE>
+child(
    const Child<Defaulted<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -131,7 +137,8 @@ Defaulted<TYPE> child(
 
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER, class FILTER>
-typename detail::oneof<TYPE,std::variant<Ts...>>::type child(
+typename detail::oneof<TYPE,std::variant<Ts...>>::type
+child(
    const Child<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -152,7 +159,8 @@ template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
 >
-CONTAINER<TYPE> child(
+CONTAINER<TYPE>
+child(
    const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -229,7 +237,8 @@ template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
 >
-std::optional<CONTAINER<TYPE>> child(
+std::optional<CONTAINER<TYPE>>
+child(
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -257,7 +266,8 @@ template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
 >
-Defaulted<CONTAINER<TYPE>> child(
+Defaulted<CONTAINER<TYPE>>
+child(
    const Child<Defaulted<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -287,7 +297,8 @@ template<
    template<class...> class CONTAINER = std::vector,
    class... Ts, class CONVERTER, class FILTER
 >
-CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type> child(
+CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type>
+child(
    const Child<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {

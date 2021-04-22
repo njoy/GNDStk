@@ -46,7 +46,6 @@ SCENARIO("Testing GNDStk tree constructors") {
          // The two trees should be the same
          std::ostringstream oss1; oss1 << one;
          std::ostringstream oss2; oss2 << two;
-
          CHECK(oss1.str() == oss2.str());
       }
    }

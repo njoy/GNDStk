@@ -16,15 +16,11 @@ inline bool parents = false;
 // GNDS top-level nodes
 inline bool top = false;
 
-// decl
-// Should Tree.write() also print the tree's declaration node if it exists?
-inline bool decl = false;
-
 // file type / format
 enum class FileType {
    // default, automagick, etc.
    null,
-   // our own simple text format (for writing only)
+   // our plain text format (for writing only)
    text,
    // give users easy-to-type lowercase as well as acronym-style uppercase...
    xml,  XML  = xml,
@@ -316,18 +312,22 @@ class Tree;
 class XML;
 class JSON;
 
+// Node to {XML,JSON}
+bool convert(const Node &, XML  &x);
+bool convert(const Node &, JSON &j);
+
 // Tree to {Tree,XML,JSON}
 bool convert(const Tree &, Tree &);
 bool convert(const Tree &, XML  &);
 bool convert(const Tree &, JSON &);
 
-// XML to {Tree,XML,JSON}
+// XML to {Node,Tree,XML,JSON}
 bool convert(const XML  &, Node &, const bool);
 bool convert(const XML  &, Tree &);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
 
-// JSON to {Tree,XML,JSON}
+// JSON to {Node,Tree,XML,JSON}
 bool convert(const JSON &, Node &, const bool);
 bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);

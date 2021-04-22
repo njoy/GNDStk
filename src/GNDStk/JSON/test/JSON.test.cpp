@@ -174,12 +174,7 @@ SCENARIO("Testing GNDStk JSON") {
       const JSON j(x);
       THEN("They should produce equivalent Trees") {
          CHECK(!j.empty());
-         // We sort() before comparison basically because the nlohmann json
-         // library will have reordered things in j, and we need to compare
-         // with x (which didn't come through nlohmann json in any manner)
-         std::ostringstream oss1; oss1 << Tree(x).sort();
-         std::ostringstream oss2; oss2 << Tree(j).sort();
-         CHECK(oss1.str() == oss2.str());
+         CHECK(Tree(x) == Tree(j));
       }
    }
 
@@ -189,14 +184,11 @@ SCENARIO("Testing GNDStk JSON") {
       const JSON j(t);
       THEN("It should produce an equivalent Tree") {
          CHECK(!j.empty());
-         // Comment as above regarding sort()...
-         std::ostringstream oss1; oss1 << Tree(t).sort();
-         std::ostringstream oss2; oss2 << Tree(j).sort();
-         CHECK(oss1.str() == oss2.str());
+         CHECK(t == Tree(j));
       }
    }
 
-   // from filename
+   // from file name
    WHEN("We construct a JSON from a file") {
       const JSON j("n-069_Tm_170-covar.json");
       THEN("It should produce an equivalent to the Tree made from the file") {

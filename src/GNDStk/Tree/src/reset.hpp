@@ -14,12 +14,12 @@
 // function is just intended to be a convenience.
 // -----------------------------------------------------------------------------
 
-// reset(top-level node, file format[, version[, encoding]])
+// reset(top-level node, FileType [, version[, encoding]])
 // Example: Tree t(child::reactionSuite, FileType::xml);
 
 
 // -----------------------------------------------------------------------------
-// reset(kwd, file format, ...)
+// reset(kwd, FileType, ...)
 // -----------------------------------------------------------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>

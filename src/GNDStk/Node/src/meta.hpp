@@ -6,7 +6,8 @@
 // -----------------------------------------------------------------------------
 
 // const
-const std::string &meta(
+const std::string &
+meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) const {
@@ -36,7 +37,8 @@ const std::string &meta(
 }
 
 // non-const
-std::string &meta(
+std::string &
+meta(
    const std::string &key,
    bool &found = detail::default_bool
 ) {
@@ -50,7 +52,8 @@ std::string &meta(
 // -----------------------------------------------------------------------------
 
 // const
-const std::string &meta(
+const std::string &
+meta(
    const Meta<void> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -58,7 +61,8 @@ const std::string &meta(
 }
 
 // non-const
-std::string &meta(
+std::string &
+meta(
    const Meta<void> &kwd,
    bool &found = detail::default_bool
 ) {
@@ -76,7 +80,8 @@ std::string &meta(
 // ------------------------
 
 template<class TYPE, class CONVERTER>
-TYPE meta(
+TYPE
+meta(
    const Meta<TYPE,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -100,7 +105,8 @@ TYPE meta(
 // ------------------------
 
 template<class TYPE, class CONVERTER>
-std::optional<TYPE> meta(
+std::optional<TYPE>
+meta(
    const Meta<std::optional<TYPE>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -129,7 +135,8 @@ std::optional<TYPE> meta(
 // ------------------------
 
 template<class TYPE, class CONVERTER>
-Defaulted<TYPE> meta(
+Defaulted<TYPE>
+meta(
    const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -154,7 +161,8 @@ Defaulted<TYPE> meta(
 
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER>
-typename detail::oneof<TYPE,std::variant<Ts...>>::type meta(
+typename detail::oneof<TYPE,std::variant<Ts...>>::type
+meta(
    const Meta<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {

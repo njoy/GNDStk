@@ -58,7 +58,7 @@ explicit Tree(const JSON &j)
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
-// file name, file format
+// file name, FileType
 // Example:
 //    Tree t("n-008_O_016.xml", FileType::xml);
 explicit Tree(
@@ -77,18 +77,18 @@ explicit Tree(
 // file name, string
 // Example:
 //    Tree t("n-008_O_016.xml", "xml");
-Tree(const std::string &filename, const std::string &filetype)
+Tree(const std::string &filename, const std::string &format)
 {
    try {
-      if (!read(filename,filetype))
+      if (!read(filename,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(\"{}\",type=\"{}\")", filename, filetype);
+      log::ctor("Tree(\"{}\",type=\"{}\")", filename, format);
       throw;
    }
 }
 
-// istream, file format
+// istream, FileType
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, FileType::xml);
@@ -107,13 +107,13 @@ explicit Tree(std::istream &is, const FileType format = FileType::null)
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, "xml");
-Tree(std::istream &is, const std::string &filetype)
+Tree(std::istream &is, const std::string &format)
 {
    try {
-      if (!read(is,filetype))
+      if (!read(is,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(istream,format)", filetype);
+      log::ctor("Tree(istream,format)", format);
       throw;
    }
 }
@@ -144,7 +144,7 @@ Tree(std::istream &is, const std::string &filetype)
 // with other Tree constructors that take their (string) first arguments to
 // be *file* names (not top-level node names).
 
-// keyword, file format
+// keyword, FileType
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -165,14 +165,14 @@ Tree(
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 Tree(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
-   const std::string &filetype,
+   const std::string &format,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 ) {
    try {
-      reset(kwd, filetype, version, encoding);
+      reset(kwd, format, version, encoding);
    } catch (...) {
-      log::ctor("Tree(" + detail::keyname(kwd) + ",type=\"{}\")", filetype);
+      log::ctor("Tree(" + detail::keyname(kwd) + ",type=\"{}\")", format);
       throw;
    }
 }
