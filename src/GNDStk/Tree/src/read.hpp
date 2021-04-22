@@ -1,14 +1,14 @@
 
 // -----------------------------------------------------------------------------
 // Tree.read()
-// Cases are as with Node.read(), to which these defer with decl == true,
+// Cases are as for Node.read(), to which these defer with decl == true,
 // meaning that, for Tree, we preserve any declaration node.
 // -----------------------------------------------------------------------------
 
-// 1. read(istream, file format)
+// 1. read(istream, FileType)
 std::istream &read(
    std::istream &is,
-   FileType format = FileType::null
+   const FileType format = FileType::null
 ) {
    try {
       return this->Node::read(is, format, true);
@@ -18,7 +18,7 @@ std::istream &read(
    }
 }
 
-// 2. read(file name, file format)
+// 2. read(file name, FileType)
 bool read(
    const std::string &filename,
    const FileType format = FileType::null
@@ -31,7 +31,7 @@ bool read(
    }
 }
 
-// 3. read(istream,string)
+// 3. read(istream, string)
 std::istream &read(
    std::istream &is,
    const std::string &format
@@ -44,7 +44,7 @@ std::istream &read(
    }
 }
 
-// 4. read(filename,string)
+// 4. read(file name, string)
 bool read(
    const std::string &filename,
    const std::string &format

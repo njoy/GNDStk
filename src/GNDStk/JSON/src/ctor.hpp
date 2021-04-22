@@ -6,10 +6,8 @@
 // default
 JSON() = default;
 
-
 // move
 JSON(JSON &&) = default;
-
 
 // copy
 JSON(const JSON &j)
@@ -20,7 +18,6 @@ catch (...) {
    log::ctor("JSON(JSON)");
    throw;
 }
-
 
 // XML
 explicit JSON(const XML &x)
@@ -34,6 +31,17 @@ explicit JSON(const XML &x)
    }
 }
 
+// Node
+explicit JSON(const Node &n)
+{
+   try {
+      if (!convert(n,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(Node)");
+      throw;
+   }
+}
 
 // Tree
 explicit JSON(const Tree &t)
@@ -47,8 +55,7 @@ explicit JSON(const Tree &t)
    }
 }
 
-
-// filename
+// file name
 explicit JSON(const std::string &filename)
 {
    try {
@@ -59,7 +66,6 @@ explicit JSON(const std::string &filename)
       throw;
    }
 }
-
 
 // istream
 explicit JSON(std::istream &is)

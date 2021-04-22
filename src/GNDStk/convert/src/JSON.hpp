@@ -5,20 +5,93 @@
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
+// Node ==> JSON
+// -----------------------------------------------------------------------------
+
+inline bool convert(const Node &node, JSON &j)
+{
+   // clear
+   j.clear();
+
+   // See comments for convert(Node,XML); smiilar ones apply here, except
+   // that JSON files don't have declaration nodes.
+
+   static const std::string context = "convert(Node,JSON)";
+   try {
+
+      // Probably a regular Node
+      if (node.name != "")
+         return detail::node2json(node, j.doc);
+
+      // Probably a Tree...
+
+      if (node.metadata.size() != 0) {
+         log::warning(
+            "Encountered Node with empty name \"\",\n"
+            "but the Node also contains metadata.\n"
+            "Not expected in this context. We'll ignore the metadata."
+         );
+         log::function(context);
+      }
+
+      bool found_decl = false;
+      bool found_top  = false;
+
+      for (auto &c : node.children) {
+         if (c->name == "xml" || c->name == "json" || c->name == "hdf5") {
+            // looks like a declaration node
+            if (found_decl) {
+               // already seen
+               log::warning(
+                  "Encountered Node with empty name \"\",\n"
+                  "and > 1 child nodes that look like "
+                  "declaration nodes.\n"
+                  "Not expected in this context. "
+                  "For JSON, we're ignoring declaration nodes anyway."
+               );
+               log::function(context);
+            }
+            found_decl = true;
+         } else {
+            // looks like a regular node
+            if (found_top) {
+               // already seen
+               log::warning(
+                  "Encountered Node with empty name \"\",\n"
+                  "and > 1 child nodes that look like "
+                  "regular (non-declaration) nodes.\n"
+                  "Not expected in this context. "
+                  "We'll convert all the child nodes."
+               );
+               log::function(context);
+            }
+            if (!detail::node2json(*c, j.doc))
+               return false;
+            found_top = true;
+         }
+      }
+
+   } catch (...) {
+      log::function("convert(Tree,JSON)");
+      throw;
+   }
+
+   // done
+   return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
 // Tree ==> JSON
 // -----------------------------------------------------------------------------
 
 inline bool convert(const Tree &tree, JSON &j)
 {
-   // clear
-   j.clear();
-
-   // convert
    try {
-      if (!tree.has_top())
-         return true;
-      detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
-      return detail::node2json(tree.top(), j.doc);
+      if (tree.has_top())
+         detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
+      return convert(*(const Node *)&tree, j);
    } catch (...) {
       log::function("convert(Tree,JSON)");
       throw;

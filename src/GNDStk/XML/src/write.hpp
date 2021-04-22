@@ -7,7 +7,7 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os) const
+std::ostream &write(std::ostream &os, const bool decl = true) const
 {
    // ...fixme Can we prevent pugixml from emitting a newline at the end?
    // ...Concept: output functions shouldn't *assume* that someone who prints
@@ -28,7 +28,13 @@ std::ostream &write(std::ostream &os) const
    // call pugi::xml_document's write capability
    try {
       // save
-      doc.save(os, std::string(indent,' ').c_str());
+      doc.save(
+         os,
+         std::string(indent,' ').c_str(),
+         decl
+          ? pugi::format_default
+          : pugi::format_default | pugi::format_no_declaration
+      );
 
       // check for errors
       if (!os) {
@@ -47,10 +53,10 @@ std::ostream &write(std::ostream &os) const
 
 
 // ------------------------
-// write(filename)
+// write(file name)
 // ------------------------
 
-bool write(const std::string &filename) const
+bool write(const std::string &filename, const bool decl = true) const
 {
    // open file
    std::ofstream ofs(filename);
@@ -61,7 +67,7 @@ bool write(const std::string &filename) const
    }
 
    // write to ostream
-   if (!write(ofs)) {
+   if (!write(ofs,decl)) {
       log::member("XML.write(\"{}\")", filename);
       return false;
    }

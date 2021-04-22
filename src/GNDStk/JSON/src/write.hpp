@@ -7,8 +7,10 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os) const
+std::ostream &write(std::ostream &os, const bool decl = true) const
 {
+   (void)decl; // ignored
+
    // call nlohmann::json's write capability
    try {
       // intentional: no << std::endl
@@ -31,10 +33,10 @@ std::ostream &write(std::ostream &os) const
 
 
 // ------------------------
-// write(filename)
+// write(file name)
 // ------------------------
 
-bool write(const std::string &filename) const
+bool write(const std::string &filename, const bool decl = true) const
 {
    // open file
    std::ofstream ofs(filename);
@@ -45,7 +47,7 @@ bool write(const std::string &filename) const
    }
 
    // write to ostream
-   if (!write(ofs)) {
+   if (!write(ofs,decl)) {
       log::member("JSON.write(\"{}\")", filename);
       return false;
    }

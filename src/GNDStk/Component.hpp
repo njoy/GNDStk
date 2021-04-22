@@ -75,5 +75,5 @@ public:
 template<class DERIVED>
 std::ostream &operator<<(std::ostream &os, const Component<DERIVED> &obj)
 {
-   return obj.write(os,0); // 0 == starting indentation level
+   return obj.write(os);
 }

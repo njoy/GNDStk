@@ -119,9 +119,7 @@ SCENARIO("Testing GNDStk XML") {
       const XML x(j);
       THEN("They should produce equivalent Trees") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree(j);
-         std::ostringstream oss2; oss2 << Tree(x);
-         CHECK(oss1.str() == oss2.str());
+         CHECK(Tree(j) == Tree(x)); // == ignores declaration node
       }
    }
 
@@ -131,13 +129,11 @@ SCENARIO("Testing GNDStk XML") {
       const XML x(t);
       THEN("It should produce an equivalent Tree") {
          CHECK(!x.empty());
-         std::ostringstream oss1; oss1 << Tree(t);
-         std::ostringstream oss2; oss2 << Tree(x);
-         CHECK(oss1.str() == oss2.str());
+         CHECK(t == Tree(x)); // == ignores declaration node
       }
    }
 
-   // from filename
+   // from file name
    // Note: Things like this are of course tested indirectly
    // all over the place.
    WHEN("We construct an XML from a file") {

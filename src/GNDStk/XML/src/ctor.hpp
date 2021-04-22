@@ -6,10 +6,8 @@
 // default
 XML() = default;
 
-
 // move
 XML(XML &&) = default;
-
 
 // copy
 // Note: pugi::xml_document's is inaccessible
@@ -24,7 +22,6 @@ XML(const XML &x)
    }
 }
 
-
 // JSON
 explicit XML(const JSON &j)
 {
@@ -37,6 +34,17 @@ explicit XML(const JSON &j)
    }
 }
 
+// Node
+explicit XML(const Node &n)
+{
+   try {
+      if (!convert(n,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(Node)");
+      throw;
+   }
+}
 
 // Tree
 explicit XML(const Tree &t)
@@ -50,8 +58,7 @@ explicit XML(const Tree &t)
    }
 }
 
-
-// filename
+// file name
 explicit XML(const std::string &filename)
 {
    try {
@@ -62,7 +69,6 @@ explicit XML(const std::string &filename)
       throw;
    }
 }
-
 
 // istream
 explicit XML(std::istream &is)

@@ -5,16 +5,20 @@
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-// Tree ==> XML
+// Node ==> XML
 // -----------------------------------------------------------------------------
 
-inline bool convert(const Tree &tree, XML &x)
+inline bool convert(const Node &node, XML &x)
 {
    // clear
    x.clear();
 
-   // The way we're storing things in our tree structure, the declaration node
-   // might contain, e.g., the following, if the tree was built from an XML:
+   // We recognize here that the Node could in fact be the base of a Tree,
+   // which might have a declaration node. If it does, then we'll preserve
+   // the declaration node's information in the output XML object.
+   //
+   // The way we're storing things in Tree, a declaration node might contain,
+   // for example, the following, if the Tree was built from an XML:
    //
    //    name: "xml"
    //    metadata:
@@ -23,29 +27,100 @@ inline bool convert(const Tree &tree, XML &x)
    //    children:
    //       N/A
    //
-   // or the following if the tree was built from a JSON:
+   // or this if the Tree was built from a JSON:
    //
    //    name: "json"
    //    metadata:
-   //       (nothing; empty container)
+   //       (nothing; empty vector)
    //    children:
    //       N/A
    //
-   // or something else if the tree was built in another manner. In an XML file,
-   // the declaration node is the thing like: <?xml version="1.0"...?>
+   // or something else if the Tree was built in another manner. In an XML
+   // file, the declaration node is the thing like: <?xml version="1.0"...?>.
 
+   static const std::string context = "convert(Node,XML)";
    try {
-      // declaration node
-      if (tree.has_decl()) {
-         pugi::xml_node xdecl = x.doc.append_child(pugi::node_declaration);
-         for (auto &meta : tree.decl().metadata)
-            xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
+
+      if (node.name != "") {
+         // A Tree should have name == "" at the root level, so we don't
+         // consider this to be a Tree. Just do a straight Node conversion.
+         return detail::node2xml(node, x.doc);
       }
-      // top-level GNDS node
-      if (!tree.has_top())
-         return true;
-      detail::check_top(tree.top().name, "Tree", "convert(Tree,XML)");
-      return detail::node2XML(tree.top(), x.doc);
+
+      // Henceforth it's presumably a Tree, unless someone gave the name ""
+      // to a regular node, which they really shouldn't have done...
+
+      if (node.metadata.size() != 0) {
+         log::warning(
+            "Encountered Node with empty name \"\",\n"
+            "but the Node also contains metadata.\n"
+            "Not expected in this context. We'll ignore the metadata."
+         );
+         log::function(context);
+      }
+
+      pugi::xml_node xdecl;
+      bool found_decl = false;
+      bool found_top  = false;
+
+      for (auto &c : node.children) {
+         if (c->name == "xml" || c->name == "json" || c->name == "hdf5") {
+            // looks like a declaration node
+            if (found_decl) {
+               // already seen
+               log::warning(
+                  "Encountered Node with empty name \"\",\n"
+                  "and > 1 child nodes that look like "
+                  "declaration nodes.\n"
+                  "Not expected in this context. "
+                  "We'll combine the metadata."
+               );
+               log::function(context);
+            } else
+               xdecl = x.doc.append_child(pugi::node_declaration);
+            for (auto &meta : c->metadata)
+               xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
+            found_decl = true;
+         } else {
+            // looks like a regular node
+            if (found_top) {
+               // already seen
+               log::warning(
+                  "Encountered Node with empty name \"\",\n"
+                  "and > 1 child nodes that look like "
+                  "regular (non-declaration) nodes.\n"
+                  "Not expected in this context. "
+                  "We'll convert all the child nodes."
+               );
+               log::function(context);
+            }
+            if (!detail::node2xml(*c, x.doc))
+               return false;
+            found_top = true;
+         }
+      }
+
+   } catch (...) {
+      log::function(context);
+      throw;
+   }
+
+   // done
+   return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Tree ==> XML
+// -----------------------------------------------------------------------------
+
+inline bool convert(const Tree &tree, XML &x)
+{
+   try {
+      if (tree.has_top())
+         detail::check_top(tree.top().name, "Tree", "convert(Tree,XML)");
+      return convert(*(const Node *)&tree, x);
    } catch (...) {
       log::function("convert(Tree,XML)");
       throw;
@@ -106,7 +181,7 @@ inline bool convert(const XML &from, XML &to)
 // JSON ==> XML
 // -----------------------------------------------------------------------------
 
-// Goes through a tree. Could be made more efficient if written more directly.
+// Goes through a tree. Could be made more efficient if written directly.
 // We'll revisit this if it becomes more of an issue.
 inline bool convert(const JSON &j, XML &x)
 {

@@ -5,10 +5,10 @@
 
 // Cases:
 //
-// 1. read(istream,   file format)
-// 2. read(file name, file format) calls 1 after making istream from file name
-// 3. read(istream,   string     ) calls 1 after making file format from string
-// 4. read(file name, string     ) calls 2 after making file format from string
+// 1. read(istream,   FileType)
+// 2. read(file name, FileType) calls 1 after making istream from file name
+// 3. read(istream,   string  ) calls 1 after making FileType from string
+// 4. read(file name, string  ) calls 2 after making FileType from string
 //
 // Discussion
 //
@@ -28,10 +28,10 @@
 // called by the Tree read() functions, however, and those call these with decl
 // set to true, precisely so that they preserve declaration nodes.
 //
-// If decl == false, we'll find any non-declaration node in the input that's
-// being read, and place it directly into the *this node. Any declaration node
-// that's present, in the input, will be ignored. This behavior reflects what
-// we want for "regular" Node objects.
+// If decl == false, we'll find any NON-declaration node in the input, and
+// place it directly into the *this node. Any declaration node that's present,
+// in the input, will be ignored. This behavior reflects what we want for
+// "regular" Node objects.
 //
 // If decl == true, we'll make *this be a Node with an empty name, "". Then,
 // we'll place any input non-declaration node into one of its children. And,
@@ -42,7 +42,7 @@
 
 
 // -----------------------------------------------------------------------------
-// 1. read(istream, file format)
+// 1. read(istream, FileType)
 // -----------------------------------------------------------------------------
 
 std::istream &read(
@@ -181,7 +181,7 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// 2. read(file name, file format)
+// 2. read(file name, FileType)
 // -----------------------------------------------------------------------------
 
 bool read(
@@ -209,7 +209,7 @@ bool read(
    // Check: consistent name?
    // ------------------------
 
-   // If we requested XML, but the filename has an extension that's not xml...
+   // If we requested XML, but the file name has an extension that's not xml...
    if (format == FileType::xml && has_extension(filename)
        && !endsin_xml(filename)) {
       detail::warning_io_name("read", "xml",  filename, "XML" );
@@ -235,7 +235,7 @@ bool read(
       }
 
       // Call read(istream) to do the remaining work. Note that although the
-      // filename is no longer available there, that function can, and does,
+      // file name is no longer available there, that function can, and does,
       // do additional checking (complimentary to what we already did above),
       // based on examining the content that we'll be attempting to read.
       if (!read(ifs, format, decl))
@@ -250,7 +250,7 @@ bool read(
 
 
 // -----------------------------------------------------------------------------
-// 3. read(istream,string)
+// 3. read(istream, string)
 // -----------------------------------------------------------------------------
 
 std::istream &read(
@@ -283,7 +283,7 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// 4. read(filename,string)
+// 4. read(file name, string)
 // -----------------------------------------------------------------------------
 
 bool read(
