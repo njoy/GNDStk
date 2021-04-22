@@ -11,35 +11,35 @@
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "constant1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "XYs1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "regions1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "polynomial1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "gridded1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Grouped Q-value, weighted by the cross-section and optionally by the flux. Appears in processed files only.",
                 "name": "gridded1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },

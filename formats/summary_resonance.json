@@ -64,7 +64,7 @@
                 "__class__": "nodes.ChildNode",
                 "description": "The scattering radius is a constant value.",
                 "name": "constant1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "XYs1d": {
@@ -72,7 +72,7 @@
                 "description": [ "The scattering radius is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
@@ -80,7 +80,7 @@
                 "description": [ "The scattering radius is an energy dependent function with ",
                                  "multiple interpolation range." ],
                 "name": "regions1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },
@@ -111,7 +111,7 @@
                 "__class__": "nodes.ChildNode",
                 "description": "The channel radius is a constant value.",
                 "name": "constant1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "XYs1d": {
@@ -119,7 +119,7 @@
                 "description": [ "The channel radius is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
@@ -127,7 +127,7 @@
                 "description": [ "The channel radius is an energy dependent function with ",
                                  "multiple interpolation range." ],
                 "name": "regions1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },

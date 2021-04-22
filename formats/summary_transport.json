@@ -341,63 +341,63 @@
                 "__class__": "nodes.ChildNode",
                 "description": "For pointwise data using a single interpolation everywhere.",
                 "name": "XYs1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Cross section stored in multiple regions, with different interpolations and/or discontinuities.",
                 "name": "regions1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "resonancesWithBackground": {
                 "__class__": "nodes.ChildNode",
                 "description": "Indicates that resonance parameters need to be reconstructed and added to the background to obtain the cross section.",
                 "name": "resonancesWithBackground",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "CoulombPlusNuclearElastic": {
                 "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "thermalNeutronScatteringLaw1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "This contains a reference to the double-differential thermal neutron scattering law cross section.",
                 "name": "thermalNeutronScatteringLaw1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "reference": {
                 "__class__": "nodes.ChildNode",
                 "description": "Link to another cross section form, e.g. in another reaction.",
                 "name": "reference",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "gridded1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Grouped (and possibly flux-weighted) cross section. Appears in processed files only.",
                 "name": "gridded1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "Ys1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Y-values, used when a common grid is used for multiple reaction cross sections for more efficient Monte Carlo sampling. Appears in processed files only.",
                 "name": "Ys1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "URR_probabilityTables1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores cross section probability tables $P(\\sigma | E)$ to better capture the rapid cross section fluctuations possible in the unresolved resonance region. This element appears in processed files only.",
                 "name": "URR_probabilityTables1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },
@@ -827,49 +827,49 @@
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "constant1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "constant1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "polynomial1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "branching1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Multiplicity is computed from decay branching ratios listed in the \\elemlink{PoPs} database.",
                 "name": "branching1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "reference": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "reference",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "gridded1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Grouped multiplicy, weighted by the cross-section and optionally by the flux. Appears in processed files only.",
                 "name": "gridded1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "regions1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },
@@ -1030,49 +1030,49 @@
                 "__class__": "nodes.ChildNode",
                 "description": "This format is used to describe the distribution in energy and angle of particles described by two-body kinematics.  Since the energy of a particle emitted with a particular scattering cosine $\\mu$ is determined by kinematics, it is only necessary to give $P(\\mu|E)$.",
                 "name": "angularTwoBody",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "uncorrelated": {
                 "__class__": "nodes.ChildNode",
                 "description": "The outgoing energy and angular data are uncorrelated with respect to the projectile's energy and can thus be written as a product of the outgoing energy probability times the outgoing angular probability as $P(\\mu,E'|E) = P(E'|E) \\, P(\\mu|E)$.  Both $P(\\mu,E'|E)$ and $P(E'|E)$ must be normalised to 1.",
                 "name": "uncorrelated",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "angularEnergy": {
                 "__class__": "nodes.ChildNode",
                 "description": "The distribution is a hierarchy in $E$, then $\\mu$ and finally $E',P$. That is, the data are given at a list of $E$ values. For each $E$, there is an associated $P(\\mu,E')$. Each $P(\\mu,E')$ is given as a list $\\mu$ values. For each $\\mu$, there is an associated $f(E')$. The $f(E')$ can be  an \\XYsOneD\\ or \\regionsOneD\\ functional data container.",
                 "name": "angularEnergy",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "LLNLAngularEnergy": {
                 "__class__": "nodes.ChildNode",
                 "description": "The distribution is the product of $P(\\mu,E) \\times P(E' | E,\\mu)$. This is used in legacy (ENDL) evaluations at LLNL. It is similar to the \\element{angularEnergyMC} node and may be merged with that node in the future.",
                 "name": "angularEnergy",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "energyAngular": {
                 "__class__": "nodes.ChildNode",
                 "description": "The distribution is stored as a hierarchy in $E$, then $E'$ and finally $\\mu,P$. That is, the data are given at a list of $E$ values. For each $E$, there is an associated $P(E',\\mu)$. Each $P(E',\\mu)$ is given as a list $E'$ values. For each $E'$, there is an associated $f(\\mu)$. The $f(\\mu)$ can be an \\XYsOneD, \\regionsOneD\\ or \\LegendreOneD\\ functional data container.",
                 "name": "energyAngular",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "KalbachMann": {
                 "__class__": "nodes.ChildNode",
                 "description": " The distribution is defined using Kalbach-Mann systematics.",
                 "name": "KalbachMann",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "reference": {
                 "__class__": "nodes.ChildNode",
                 "description": "Contains a link to another \\element{distribution} form.",
                 "name": "reference",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "branching3d": {
@@ -1083,63 +1083,63 @@
                     "of discrete excited states (e.g. after inelastic scattering)."
                 ],
                 "name": "branching3d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "CoulombPlusNuclearElastic": {
                 "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "thermalNeutronScatteringLaw": {
                 "__class__": "nodes.ChildNode",
                 "description": "This contains a reference to the double-differential thermal neutron scattering law cross section.",
                 "name": "thermalNeutronScatteringLaw",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "coherentPhotonScattering": {
                 "__class__": "nodes.ChildNode",
                 "description": "Describes coherent photon scattering off of an atom.",
                 "name": "coherentPhotonScattering",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "incoherentPhotonScattering": {
                 "__class__": "nodes.ChildNode",
                 "description": "Describes incoherent photon scattering off of an atom.",
                 "name": "incoherentPhotonScattering",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "unspecified": {
                 "__class__": "nodes.ChildNode",
                 "description": "The distribution is not specified\\footnote{This often happens for reactions with a heavy product, often called the residual, where the evaluator does not give the heavy product's distribution information.  It also happens in legacy ENDF files where only the neutron and maybe the gamma distributions are given by the evaluator.}.",
                 "name": "unspecified",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "multiGroup3d": {
                 "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). This is a multi-group Legendre expanded representation with grouped integration over $E$ and $E'$. The representation is used by deterministic transport codes.",
                 "name": "multiGroup3d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "angularEnergyMC": {
                 "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). The distribution is the product of $P(\\mu,E) \\times P(E' | E,\\mu)$. This representation is used by Monte Carlo transport codes.",
                 "name": "angularEnergyMC",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "energyAngularMC": {
                 "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). The distribution is the product of $P(E',E) \\times P(\\mu | E,E')$. This representation is used by Monte Carlo transport codes.",
                 "name": "energyAngularMC",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },
