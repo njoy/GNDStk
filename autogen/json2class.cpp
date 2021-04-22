@@ -51,7 +51,7 @@ const std::vector<std::string> files = {
 // ------------------------
 
 /*
-const std::string JSONDir = "../formats";
+const std::string JSONDir = "../formats/v1.9";
 
 const std::vector<std::string> files = {
    "summary_abstract.json",

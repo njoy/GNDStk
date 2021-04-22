@@ -154,14 +154,14 @@
                 "__class__": "nodes.ChildNode",
                 "description": "For pointwise data using a single interpolation everywhere.",
                 "name": "XYs1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Cross section stored in multiple regions, with different interpolations and/or discontinuities.",
                 "name": "regions1d",
-                "occurrence": "choice",
+                "occurrence": "choice+",
                 "required": false
             }
         },
