@@ -1,9 +1,6 @@
+
 #ifndef NJOY_GNDSTK_ENUMS_UNITS_ENERGY
 #define NJOY_GNDSTK_ENUMS_UNITS_ENERGY
-
-// system includes
-
-// other includes
 
 namespace enums {
 namespace units {
@@ -37,13 +34,14 @@ namespace units {
     return GNDStk::enums::isSymbol< GNDStk::enums::units::Energy >( string );
   }
 
-} // units namespace
+} // namespace units
 
   /**
    *  @brief Template specialisation to convert Energy to/from strings
    */
   template <>
-  struct Map< GNDStk::enums::units::Energy > {
+  class Map< GNDStk::enums::units::Energy > {
+  public:
 
     static inline const std::map< GNDStk::enums::units::Energy,
                                   const std::string > values{
@@ -60,6 +58,6 @@ namespace units {
     };
   };
 
-} // enums namespace
+} // namespace enums
 
 #endif

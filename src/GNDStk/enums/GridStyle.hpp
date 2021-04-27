@@ -1,9 +1,6 @@
+
 #ifndef NJOY_GNDSTK_GRIDSTYLE
 #define NJOY_GNDSTK_GRIDSTYLE
-
-// system includes
-
-// other includes
 
 namespace enums {
 
@@ -37,7 +34,8 @@ namespace enums {
    *  @brief Template specialisation to convert GridStyle to/from strings
    */
   template <>
-  struct Map< GNDStk::enums::GridStyle > {
+  class Map< GNDStk::enums::GridStyle > {
+  public:
 
     static inline const std::map< GNDStk::enums::GridStyle,
                                   const std::string > values{
@@ -58,6 +56,6 @@ namespace enums {
     };
   };
 
-} // enums namespace
+} // namespace enums
 
 #endif

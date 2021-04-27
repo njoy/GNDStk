@@ -53,11 +53,7 @@ namespace GNDStk {
 
 // basic
 #include "GNDStk/utility.hpp"
-#include "GNDStk/enums/enumeration.hpp"
-#include "GNDStk/enums/GridStyle.hpp"
-#include "GNDStk/enums/Interpolation.hpp"
-#include "GNDStk/enums/units/Energy.hpp"
-#include "GNDStk/enums/units/Length.hpp"
+#include "GNDStk/enums.hpp"
 
 // external-library wrappers
 #include "GNDStk/XML.hpp"

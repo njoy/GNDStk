@@ -1,9 +1,6 @@
+
 #ifndef NJOY_GNDSTK_INTERPOLATION
 #define NJOY_GNDSTK_INTERPOLATION
-
-// system includes
-
-// other includes
 
 namespace enums {
 
@@ -36,10 +33,11 @@ namespace enums {
   }
 
   /**
-   *  @brief Template specialisation to convert Length to/from strings
+   *  @brief Template specialisation to convert Interpolation to/from strings
    */
   template <>
-  struct Map< GNDStk::enums::Interpolation > {
+  class Map< GNDStk::enums::Interpolation > {
+  public:
 
     static inline const std::map< GNDStk::enums::Interpolation,
                                   const std::string > values{
@@ -64,6 +62,6 @@ namespace enums {
     };
   };
 
-} // enums namespace
+} // namespace enums
 
 #endif

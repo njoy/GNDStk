@@ -334,6 +334,7 @@ void check_children(const nlohmann::json &elems)
       const std::string occur = field.value()["occurrence"];
       if (occur == "0+" ||
           occur == "choice" ||
+          occur == "choice+" ||
           occur == "choice2" ||
           occur == "choice2+")
          assert(!field.value()["required"]);
@@ -353,7 +354,7 @@ void check_children(const nlohmann::json &elems)
 // write_file_autogen
 void write_file_autogen(std::ostream &os)
 {
-   os << "\n// THIS FILE IS AUTO-GENERATED!"
+   os << "\n// THIS FILE WAS AUTO-GENERATED!"
       << "\n// DO NOT MODIFY!\n";
 }
 
@@ -455,21 +456,31 @@ void write_class_suffix(
 // infoMetadata
 class infoMetadata {
 public:
-   std::string fullVarType; // with any optional<>, defaulted<>, vector<>
+   // metadata can end up with:
+   //    - optional
+   //    - defaulted
+   // but not vector
+   std::string fullVarType; // with any optional<>, defaulted<>
    std::string varType;     // underlying type
    std::string varName;
    bool        hasDefault;
    std::string theDefault;
+   bool        isOptional;
    bool        isDefaulted;
 };
 
 // infoChildren
 class infoChildren {
 public:
-   std::string fullVarType; // with any optional<>, defaulted<>, vector<>
+   // children can end up with:
+   //    - optional
+   //    - vector
+   // but not defaulted
+   std::string fullVarType; // with any optional<> or vector<>
    std::string halfVarType; // withOUT any vector<>
    std::string varType;     // underlying type
    std::string varName;
+   bool        isOptional;
    bool        isVector;
 };
 
@@ -531,6 +542,12 @@ void write_metadata(
       const std::string defPrefix = def ? "Defaulted<" : "";
       const std::string defSuffix = def ? ">" : "";
 
+      // sanity check
+      assert(
+         (optPrefix == ""  &&  defPrefix == "") || // neither, or...
+         (optPrefix == "") != (defPrefix == "")    // XOR
+      );
+
       // type
       const std::string varType = metaType(field);
 
@@ -556,6 +573,7 @@ void write_metadata(
       vecInfoMetadata.back().varName     = varName;
       vecInfoMetadata.back().hasDefault  = hasDefault;
       vecInfoMetadata.back().theDefault  = theDefault;
+      vecInfoMetadata.back().isOptional  = opt;
       vecInfoMetadata.back().isDefaulted = def;
    }
 } // write_metadata
@@ -656,6 +674,7 @@ void write_children(
       }
 
       // full type (including any optional or vector)
+      // If both, it's a vector<optional>; the reverse would make less sense
       const std::string fullVarType =
          optPrefix + vecPrefix +
          varType +
@@ -687,6 +706,7 @@ void write_children(
       vecInfoChildren.back().halfVarType = halfVarType;
       vecInfoChildren.back().varType     = varType;
       vecInfoChildren.back().varName     = varName;
+      vecInfoChildren.back().isOptional  = opt;
       vecInfoChildren.back().isVector    = vec;
    }
 } // write_children
@@ -763,49 +783,137 @@ void write_keys(
 
 
 // -----------------------------------------------------------------------------
-// write_getset
+// write_getters
 // -----------------------------------------------------------------------------
 
-void write_getset(
+void write_getters(
    std::ostream &os,
    std::vector<infoMetadata> &vecInfoMetadata,
    std::vector<infoChildren> &vecInfoChildren
 ) {
+   os << "\n   " << small
+      << "\n   // getters"
+      << "\n   " << small
+      << "\n";
+
    if (vecInfoMetadata.size()) {
-      os << "\n   // metadata";
       for (const auto &m : vecInfoMetadata) {
          // comment
-         // os << "   // " << m.varName << "\n";
-         // getter
-         os << "\n";
+         os << "\n   // " << m.varName << "\n";
+
+         // getter: const
          os << "   const auto &" << m.varName << "() const\n";
          os << "    { return content." << m.varName;
          if (m.isDefaulted) os << ".value()";
-         os << "; }";
-         // setter
-         // os << "   const auto &" << m.varName;
-         // os << "(const " << m.fullVarType << " &obj)\n";
-         // os << "    { return content." << m.varName << " = obj; }\n";
+         os << "; }\n";
+         // getter: non-const
+         os << "   auto &" << m.varName << "()\n";
+         os << "    { return content." << m.varName;
+         if (m.isDefaulted) os << ".value()";
+         os << "; }\n";
       }
-      os << "\n";
    }
 
    if (vecInfoChildren.size()) {
-      os << "\n   // children";
       for (const auto &c : vecInfoChildren) {
          // comment
-         // os << "   // " << c.varName << "\n";
-         // getter
-         os << "\n";
+         os << "\n   // " << c.varName << "\n";
+
+         // getter: const
          os << "   const auto &" << c.varName << "() const\n";
          os << "    { return content." << c.varName;
-         os << "; }";
-         // setter
-         // os << "   const auto &" << c.varName;
-         // os << "(const " << c.fullVarType << " &obj)\n";
-         // os << "    { return content." << c.varName << " = obj; }\n";
+         os << "; }\n";
+         // getter: non-const
+         os << "   auto &" << c.varName << "()\n";
+         os << "    { return content." << c.varName;
+         os << "; }\n";
       }
-      os << "\n";
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// write_setters
+// -----------------------------------------------------------------------------
+
+/*
+------------------------
+metadata
+------------------------
+
+fullVarType     Want
+   T               name(T)
+   opt<T>          name(T), name(opt<T>)
+   def<T>          name(T), name(def<T>)
+
+------------------------
+children
+------------------------
+
+fullVarType     Want
+   T               name(T)
+   vec<T>          name(vec<T>)
+   opt<T>          name(opt<T>), name(T)
+   opt<vec<T>>     name(opt<vec<T>>), name(vec<T>)
+
+Need to think about variant possibilities too (children case only)
+   variant<A,B,...>
+   vector<variant<A,B,...>>
+*/
+
+void write_setters(
+   std::ostream &os,
+   std::vector<infoMetadata> &vecInfoMetadata,
+   std::vector<infoChildren> &vecInfoChildren
+) {
+   os << "\n   " << small
+      << "\n   // setters"
+      << "\n   " << small
+      << "\n";
+
+   if (vecInfoMetadata.size()) {
+      for (const auto &m : vecInfoMetadata) {
+         // comment
+         os << "\n   // " << m.varName << "\n";
+
+         // setter(s)
+         {
+            os << "   auto &" << m.varName;
+            os << "(const " << m.varType << " &obj)\n";
+            os << "    { content." << m.varName << " = obj; return *this; }\n";
+         }
+         if (m.fullVarType != m.varType) {
+            os << "   auto &" << m.varName;
+            os << "(const " << m.fullVarType << " &obj)\n";
+            os << "    { content." << m.varName << " = obj; return *this; }\n";
+         }
+      }
+   }
+
+   if (vecInfoChildren.size()) {
+      for (const auto &c : vecInfoChildren) {
+         // comment
+         os << "\n   // " << c.varName << "\n";
+
+         // setter(s)
+         if (c.isOptional) {
+            if (c.isVector) {
+               os << "   auto &" << c.varName;
+               os << "(const std::vector<" << c.varType << "> &obj)\n   ";
+               os << " { content." << c.varName << " = obj; return *this; }\n";
+            } else {
+               os << "   auto &" << c.varName;
+               os << "(const " << c.varType << " &obj)\n   ";
+               os << " { content." << c.varName << " = obj; return *this; }\n";
+            }
+         }
+         {
+            os << "   auto &" << c.varName;
+            os << "(const " << c.fullVarType << " &obj)\n";
+            os << "    { content." << c.varName << " = obj; return *this; }\n";
+         }
+      }
    }
 }
 
@@ -836,20 +944,6 @@ void write_class_ctor(
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren
 ) {
-   // class infoMetadata
-   //    std::string fullVarType;
-   //    std::string varType;
-   //    std::string varName;
-   //    bool        hasDefault;
-   //    std::string theDefault;
-
-   // class infoChildren
-   //    std::string fullVarType;
-   //    std::string halfVarType;
-   //    std::string varType;
-   //    std::string varName;
-   //    bool        isVector;
-
    const auto total = vecInfoMetadata.size() + vecInfoChildren.size();
    std::size_t count;
 
@@ -1243,11 +1337,8 @@ void make_class(
 
    // get/set
    if (vecInfoMetadata.size() || vecInfoChildren.size()) {
-      oss << "\n   " << small
-          << "\n   // getters" // "\n   // get/set"
-          << "\n   " << small
-          << "\n";
-      write_getset(oss, vecInfoMetadata, vecInfoChildren);
+      write_getters(oss, vecInfoMetadata, vecInfoChildren);
+      write_setters(oss, vecInfoMetadata, vecInfoChildren);
    }
 
    // constructors
@@ -1405,22 +1496,6 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
          std::vector<infoChildren>
       >
    > class2info;
-
-   struct infoMetadata {
-      std::string fullVarType; // with any optional<>, defaulted<>, vector<>
-      std::string varType;     // underlying type
-      std::string varName;
-      bool        hasDefault;
-      std::string theDefault;
-   };
-
-   struct infoChildren {
-      std::string fullVarType; // with any optional<>, defaulted<>, vector<>
-      std::string halfVarType; // withOUT any vector<>
-      std::string varType;     // underlying type
-      std::string varName;
-      bool        isVector;
-   };
    */
 
    const auto info = class2info.find(obj.name);

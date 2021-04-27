@@ -11,7 +11,7 @@ using Interpolation = enums::Interpolation;
 
 SCENARIO( "Interpolation" ) {
 
-  GIVEN( "valid unit values and symbols" ) {
+  GIVEN( "valid interpolation values and symbols" ) {
 
     WHEN( "toString is used" ) {
 
@@ -110,7 +110,7 @@ SCENARIO( "Interpolation" ) {
 
     WHEN( "isInterpolationScheme is used" ) {
 
-      THEN( "registered units return true, unregistered units return false" ) {
+      THEN( "registered interpolation values return true, unregistered interpolation values return false" ) {
 
         CHECK( true == enums::isInterpolationScheme( "flat" ) );
         CHECK( true == enums::isInterpolationScheme( "lin-lin" ) );

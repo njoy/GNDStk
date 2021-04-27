@@ -9,6 +9,7 @@ std::ostream &operator<<(std::ostream &os, const Node &node);
 class Node {
    using metaPair = std::pair<std::string,std::string>;
    using childPtr = std::unique_ptr<Node>;
+   friend class Tree;
 
 public:
 
@@ -51,7 +52,7 @@ public:
    // parent
    // Assumes that this Node's constness determines its parent's constness
    const Node &parent() const { return *parentNode; }
-         Node &parent()       { return *parentNode; }
+   Node &parent() { return *parentNode; }
 
    // ------------------------
    // General functions
@@ -120,7 +121,7 @@ public:
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call.hpp"
 
-   // no-argument operator() returns the current Node; this is the natural
+   // No-argument operator() returns the current Node; this is the natural
    // extension of the multi-argument behavior
    const Node &operator()() const { return *this; }
    Node &operator()() { return *this; }
@@ -170,6 +171,7 @@ inline std::istream &operator>>(std::istream &is, Node &node)
 }
 
 // Node << std::string
+// Note that this is an INPUT operator to Node!
 // Treating the std::string as a "file" with XML, JSON, etc. content, read it
 // into the Node. We return void, not the Node, so users don't incorrectly think
 // that the <<s can be stacked together in the way they can with stream output.

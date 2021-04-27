@@ -6,8 +6,8 @@
 
 // 1. write(ostream, FileType)
 std::ostream &write(
-   std::ostream &os,
-   FileType format = FileType::null,
+   std::ostream &os = std::cout,
+   const FileType format = FileType::null,
    const bool decl = true
 ) const {
    try {

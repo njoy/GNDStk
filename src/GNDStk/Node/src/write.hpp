@@ -97,7 +97,7 @@ bool write(const std::string &filename, const int level) const
 // -----------------------------------------------------------------------------
 
 std::ostream &write(
-   std::ostream &os,
+   std::ostream &os = std::cout,
    const FileType format = FileType::null,
    const bool decl = false
 ) const {

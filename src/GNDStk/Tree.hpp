@@ -38,6 +38,12 @@ public:
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
 
+   // No-argument operator() returns the top-level Node. This overrides
+   // the base Node class' no-argument operator(), which returns itself.
+   const Node &operator()() const { return top(); }
+   Node &operator()() { return top(); }
+   using Node::operator(); // or the above would disappear Node's goodies
+
    // ------------------------
    // Comparison
    // ------------------------
@@ -90,7 +96,8 @@ inline std::istream &operator>>(std::istream &is, Tree &tree)
 }
 
 // Tree << std::string
-// Comment as for Node << std::string
+// Note that this is an INPUT operator to Tree!
+// Other comments as for Node << std::string
 inline void operator<<(Tree &tree, const std::string &str)
 {
    try {
