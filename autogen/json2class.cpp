@@ -1119,12 +1119,12 @@ void write_class_ctor(
 const std::string HPPforVersion = GNDSDir + "/src/GNDStk/" + Version + ".hpp";
 
 // Helpers
-class NSFile {
+class NSFile { // "namespace-specific file"
 public:
    std::string filePythonCPP;
 };
 
-class CLFile {
+class CLFile { // "class-specific files"
 public:
    std::string fileHPP;
    std::string filePythonCPP;
@@ -1133,7 +1133,7 @@ public:
 // namespace name, file name (Python CPP for the namespace)
 std::map<std::string,NSFile> namespace2file;
 
-// {namespace,class} name, file names (GNDStk HPP and Python CPP for the class)
+// {namespace,class} names, file names (GNDStk HPP and Python CPP for the class)
 std::map<std::pair<std::string,std::string>,CLFile> class2files;
 
 
@@ -1248,6 +1248,7 @@ void make_forward(
 // to their printed code. We compute these pairs first, so that we can print the
 // code for each class later - after a dependency-aware ordering is determined.
 std::vector<NameDeps> classDependencies;
+std::vector<NameDeps> sortedClassDependencies;
 std::map<std::pair<std::string,std::string>,std::string> classCodeMap;
 
 std::map<
@@ -1407,9 +1408,9 @@ void file_python_namespace(
 
    cpp << "// " << nsname << " declarations\n";
    cpp << "namespace " << nsname << " {\n";
-   for (auto cl : class2files)
-      if (cl.first.first == nsname)
-         cpp << "   void wrap" << cl.first.second << "(python::module &);\n";
+   for (auto &cl : sortedClassDependencies)
+      if (cl.name.first == nsname)
+         cpp << "   void wrap" << cl.name.second << "(python::module &);\n";
    cpp << "} // namespace " << nsname << "\n";
    cpp << "\n";
 
@@ -1423,9 +1424,9 @@ void file_python_namespace(
    cpp << "   );\n";
 
    cpp << "\n   // wrap " << nsname << " components\n";
-   for (auto cl : class2files)
-      if (cl.first.first == nsname)
-         cpp << "   " << nsname << "::wrap" << cl.first.second
+   for (auto &cl : sortedClassDependencies)
+      if (cl.name.first == nsname)
+         cpp << "   " << nsname << "::wrap" << cl.name.second
              << "(submodule);\n";
    cpp << "};\n";
 
@@ -1607,7 +1608,6 @@ int main()
    }
 
    // Compute an ordering that respects dependencies
-   std::vector<NameDeps> sortedClassDependencies;
    while (classDependencies.size() > 0)
       insertNDep((*classDependencies.begin()).name,
                  classDependencies, sortedClassDependencies);
