@@ -1061,7 +1061,7 @@ void write_class_ctor(
    // infoChildren doesn't have isDefaulted, so isn't here
 
    if (total > 0 && def) {
-      os << "\n   // fields, without Defaulted<>\n";
+      os << "\n   // fields, with T replacing Defaulted<T>\n";
 
       // signature
       count = 0;

@@ -59,6 +59,74 @@ child(
 // -----------------------------------------------------------------------------
 
 // ------------------------
+// variant_find
+// helper
+// ------------------------
+
+private:
+
+template<std::size_t n, std::size_t size, class KWD, class... Ts>
+void variant_find(
+   const KWD &kwd,
+   const std::vector<std::string> &names,
+   bool &found,
+   std::variant<Ts...> &var,
+   // variant alternative# that may have already been found...
+   std::size_t already
+) const {
+   if constexpr (n < size) {
+      bool f = false; // local "found"
+      const Node &node = one(names[n], kwd.filter, f);
+
+      if (f) {
+         if (found) {
+            log::warning(
+               "A node for key \"{}\" from Child<variant<...>>'s name,\n"
+               "   \"{}\"\n"
+               "was already found. "
+               "Now, a node for key \"{}\" has also been found.\n"
+               + std::string(
+                  names[n] == names[already]
+                  ? "No wonder; those keys are duplicates in the name!\n"
+                  : ""
+               ) +
+               "Keeping the position <{}> \"{}\" variant alternative.",
+               names[already], kwd.name, names[n], already, names[already]
+            );
+            log::member(
+               "Node.child(" + detail::keyname(kwd) + " with Allow::one)"
+            );
+         } else {
+            // convert the node to an object of the n-th variant alternative
+            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            kwd.converter(node,alt);
+            var = alt;
+            already = n;
+            found = true;
+         }
+      }
+
+      // Proceed to the next alternative in the variant.
+      // Do this even if a match was already found, above,
+      // so that we can warn if there are multiple matches.
+      variant_find<n+1,size>(kwd, names, found, var, already);
+
+   } else {
+      if (!found && !detail::sent(found)) {
+         log::error(
+            "No nodes matching any token in the Child<variant<...>> object's\n"
+            "name were found (or passed the filter condition, "
+            "if one was given)."
+         );
+         throw std::exception{};
+      }
+   }
+}
+
+public:
+
+
+// ------------------------
 // TYPE
 // ------------------------
 
@@ -69,13 +137,42 @@ child(
    bool &found = detail::default_bool
 ) const {
    try {
-      // call one(string), with the Child's key
-      const Node &value = one(kwd.name, kwd.filter, found);
-      // convert value, if any, to an object of the appropriate type
       TYPE obj = kwd.object;
-      if (found)
-         kwd.converter(value,obj);
+
+      if constexpr (detail::isVariant<TYPE>::value) {
+         // split kwd.name into tokens
+         std::string s;
+         std::vector<std::string> names;
+         std::istringstream iss(kwd.name);
+         while (iss >> s)
+            names.push_back(s);
+
+         // consistency check: the number of tokens in kwd.name
+         // should equal the number of alternatives in the variant
+         if (names.size() != std::variant_size_v<TYPE>) {
+            log::error(
+               "The number of tokens in the Child<std::variant<...>>'s name,\n"
+               "   \"{}\"\n"
+               "is {}, but the number of alternatives in the variant is {}.\n"
+               "Those two numbers must equal one another.",
+               kwd.name, names.size(), std::variant_size_v<TYPE>
+            );
+            throw std::exception{};
+         }
+
+         // remember that obj, in this context, is a variant
+         found = false;
+         variant_find<0,std::variant_size_v<TYPE>>(kwd, names, found, obj, 0);
+      } else {
+         // call one(string), with the Child's key
+         const Node &node = one(kwd.name, kwd.filter, found);
+         // convert the node, if found, to an object of the appropriate type
+         if (found)
+            kwd.converter(node,obj);
+      }
+
       return obj;
+
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;

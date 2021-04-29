@@ -460,6 +460,23 @@ inline bool eq_hdf5(const std::string &str)
 namespace detail {
 
 // ------------------------
+// isVariant
+// ------------------------
+
+template<class T>
+class isVariant {
+public:
+   static constexpr bool value = false;
+};
+
+template<class... Ts>
+class isVariant<std::variant<Ts...>> {
+public:
+   static constexpr bool value = true;
+};
+
+
+// ------------------------
 // is_oneof
 // ------------------------
 
