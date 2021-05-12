@@ -1,5 +1,5 @@
 
-template<class DERIVED>
+template<class DERIVED, bool bodyText = false>
 class Component;
 
 // for printing
@@ -17,8 +17,8 @@ inline bool comments = true;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED>
-class Component {
+template<class DERIVED, bool bodyText>
+class Component : public detail::BodyText<bodyText> {
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -58,9 +58,9 @@ public:
    {
       return "No description available";
       // Suggestion:
-      // If subject == "", return help for the class
-      // If subject == "constructor", return help for the constructor
-      // If subject == "foo", return help for the "foo" parameter
+      //    If subject == "", return help for the class
+      //    If subject == "constructor", return help for the constructor
+      //    If subject == "foo", return help for the "foo" parameter
       // Etc.
    }
 
@@ -72,8 +72,10 @@ public:
 // operator<<
 // -----------------------------------------------------------------------------
 
-template<class DERIVED>
-std::ostream &operator<<(std::ostream &os, const Component<DERIVED> &obj)
-{
+template<class DERIVED, bool bodyText>
+std::ostream &operator<<(
+   std::ostream &os,
+   const Component<DERIVED,bodyText> &obj
+) {
    return obj.write(os);
 }

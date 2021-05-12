@@ -40,7 +40,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
          // happen to have longer names, then the printing that does appear
          // might use more spacing than it really needs to. By choosing not
          // to factor this in, on a case-by-case basis, all objects of this
-         // particular Component<DERIVED> type print with consistent spacing.
+         // particular Component<...> type will print with consistent spacing.
          // We prefer this behavior, and it's also slightly simpler to write.
          std::size_t maxlen = 0;
          if (njoy::GNDStk::align)

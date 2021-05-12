@@ -168,7 +168,10 @@ bool writeComponentPart(
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
 ) {
-   if constexpr (std::is_base_of<Component<T>,T>::value) {
+   if constexpr (
+      std::is_base_of<Component<T,false>,T>::value ||
+      std::is_base_of<Component<T,true >,T>::value
+   ) {
       value.write(os,level);
    } else {
       // The ostringstream intermediary allows us to properly indent
@@ -269,5 +272,23 @@ bool writeComponentPart(
       return false; // <== caller won't print newline
    return true;
 }
+
+
+
+// -----------------------------------------------------------------------------
+// BodyText
+// -----------------------------------------------------------------------------
+
+// default
+template<bool bodyText>
+class BodyText {
+};
+
+// for bodyText == true
+template<>
+class BodyText<true> {
+public:
+   // fixme Something fabulous and exciting here
+}; // class BodyText
 
 } // namespace detail
