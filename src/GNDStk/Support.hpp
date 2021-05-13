@@ -1,7 +1,8 @@
 
 // -----------------------------------------------------------------------------
-// This file contains miscellaneous types and classes that help with our
-// high-level GNDS interface.
+// Miscellaneous support constructs for our various version-specific GNDS
+// Standard Interfaces. These could perhaps have gone into utility.hpp
+// or elsewhere, but it seemed appropriate that they have their own place.
 // -----------------------------------------------------------------------------
 
 // Use fixed-width integral types to align with GNDS specs
@@ -189,3 +190,115 @@ inline std::ostream &operator<<(std::ostream &os, const IntegerTuple &obj)
       os << (n ? "," : "") << obj[n];
    return os;
 }
+
+
+
+// -----------------------------------------------------------------------------
+// access(vector,n,...)
+// Index into vector data member of class.
+// Intended for use in our auto-generated Standard Interface classes.
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// const
+template<class T>
+const T &access(
+   const std::vector<T> &vec,
+   const std::size_t n,
+   const std::string &nsname, // name of enclosing class' namespace
+   const std::string &clname, // name of enclosing class
+   const std::string &field   // name of enclosing class' field we're accessing
+) {
+   try {
+
+      // index must be in range
+      const std::size_t size = vec.size();
+      if (!(n < size)) {
+         if (size > 0)
+            log::error(
+              "index ({}) is out of range [0..{}] (the vector size is {})",
+               n, size-1, size
+            );
+         else
+            log::error(
+              "index ({}) is out of range, because the vector is empty",
+               n
+            );
+         throw std::exception{};
+      }
+
+      // we're good
+      return vec[n];
+
+   } catch (...) {
+      // context
+      // Example: prints "containers::Axes.axis(100)" (but 100 is out-of-range)
+      log::member("{}::{}.{}({})", nsname, clname, field, n);
+      throw;
+   }
+}
+
+
+// non-const
+template<class T>
+T &access(
+   std::vector<T> &vec,
+   const std::size_t n,
+   const std::string &nsname,
+   const std::string &clname,
+   const std::string &field
+) {
+   return const_cast<T &>(access(std::as_const(vec), n, nsname, clname, field));
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// access(optional<vector>,n,...)
+// As above, but for *optional* vector data member.
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+// const
+template<class T>
+const T &access(
+   const std::optional<std::vector<T>> &opt,
+   const std::size_t n,
+   const std::string &nsname,
+   const std::string &clname,
+   const std::string &field
+) {
+   try {
+      // optional must have value
+      if (!opt.has_value()) {
+         log::error("optional {} does not have a value", field);
+         throw std::exception{};
+      }
+   } catch (...) {
+      // context
+      log::member("{}::{}.{}({})", nsname, clname, field, n);
+      throw;
+   }
+
+   // outside of try{}, so log::member context won't appear twice if error
+   return access((*opt), n, nsname, clname, field);
+}
+
+
+// non-const
+template<class T>
+T &access(
+   std::optional<std::vector<T>> &opt,
+   const std::size_t n,
+   const std::string &nsname,
+   const std::string &clname,
+   const std::string &field
+) {
+   return const_cast<T &>(access(std::as_const(opt), n, nsname, clname, field));
+}
+
+} // namespace detail

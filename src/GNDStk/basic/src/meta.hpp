@@ -102,9 +102,9 @@ inline const Meta<void>
    valueType                      ("valueType"                      ),
    version                        ("version"                        );
 
-// fixme Probably redo this entire file based on high-level interface experience
+// fixme Probably redo this entire file based on Standard Interface experience
 // fixme Same with misc:: namespace entries, assuming we keep misc::
-// Additional ones I've encountered while writing the high-level interface
+// Additional ones I've encountered while writing the Standard Interface
 inline const Meta<void>
    confidence  ("confidence"  ),
    lower       ("lower"       ),

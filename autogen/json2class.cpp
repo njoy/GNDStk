@@ -26,8 +26,8 @@ const std::string Version = "v1.9";
 
 // Base GNDStk directory
 // Auto-generated files will be placed into appropriate descendants of this
-const std::string GNDSDir = "./testdir";
-// const std::string GNDSDir = "./GNDStk";
+// const std::string GNDSDir = "./testdir";
+const std::string GNDSDir = "./GNDStk";
 
 
 // ------------------------
@@ -424,9 +424,13 @@ void write_class_suffix(
 ) {
    // boilerplate assignment operators
    os << "\n   " << small
-      << "\n   // assignment: copy, move"
-      << "\n   " << small << "\n"
+      << "\n   // assignment"
+      << "\n   " << small
+      << "\n"
+      << "\n   // copy"
       << "\n   " << clname << " &operator=(const " << clname << " &) = default;"
+      << "\n"
+      << "\n   // move"
       << "\n   " << clname << " &operator=(" << clname << " &&) = default;\n";
 
    // #include for custom code
@@ -740,6 +744,7 @@ void write_keys(
    os << "   static auto GNDSField() { return \"" << gnds << "\"; }\n";
 
    // keys begin
+   os << "\n";
    os << "   static auto keys()\n";
    os << "   {\n";
 
@@ -789,13 +794,16 @@ void write_keys(
 void write_getters(
    std::ostream &os,
    std::vector<infoMetadata> &vecInfoMetadata,
-   std::vector<infoChildren> &vecInfoChildren
+   std::vector<infoChildren> &vecInfoChildren,
+   const std::string &nsname
 ) {
    os << "\n   " << small
       << "\n   // getters"
+      << "\n   // const and non-const"
       << "\n   " << small
       << "\n";
 
+   // metadata
    if (vecInfoMetadata.size()) {
       for (const auto &m : vecInfoMetadata) {
          // comment
@@ -806,6 +814,7 @@ void write_getters(
          os << "    { return content." << m.varName;
          if (m.isDefaulted) os << ".value()";
          os << "; }\n";
+
          // getter: non-const
          os << "   auto &" << m.varName << "()\n";
          os << "    { return content." << m.varName;
@@ -814,6 +823,7 @@ void write_getters(
       }
    }
 
+   // children
    if (vecInfoChildren.size()) {
       for (const auto &c : vecInfoChildren) {
          // comment
@@ -823,10 +833,31 @@ void write_getters(
          os << "   const auto &" << c.varName << "() const\n";
          os << "    { return content." << c.varName;
          os << "; }\n";
+
          // getter: non-const
          os << "   auto &" << c.varName << "()\n";
          os << "    { return content." << c.varName;
          os << "; }\n";
+
+         // getter for [optional] vector
+         if (c.isVector) {
+            // comment
+            os << "\n   // " << c.varName << "(n)\n";
+
+            // const
+            os << "   const auto &" << c.varName;
+            os << "(const std::size_t n) const\n";
+            os << "    { return detail::access(content." << c.varName;
+            os << ",n,\"" << nsname << "\",className(),\"" << c.varName;
+            os << "\"); }\n";
+
+            // non-const
+            os << "   auto &" << c.varName;
+            os << "(const std::size_t n)\n";
+            os << "    { return detail::access(content." << c.varName;
+            os << ",n,\"" << nsname << "\",className(),\"" << c.varName;
+            os << "\"); }\n";
+         }
       }
    }
 }
@@ -844,8 +875,8 @@ metadata
 
 fullVarType     Want
    T               name(T)
-   opt<T>          name(T), name(opt<T>)
-   def<T>          name(T), name(def<T>)
+   opt<T>          name(opt<T>), name(T) (maybe don't need second)
+   def<T>          name(def<T>), name(T)
 
 ------------------------
 children
@@ -854,12 +885,15 @@ children
 fullVarType     Want
    T               name(T)
    vec<T>          name(vec<T>)
-   opt<T>          name(opt<T>), name(T)
-   opt<vec<T>>     name(opt<vec<T>>), name(vec<T>)
+   opt<T>          name(opt<T>), name(T) (maybe don't need second)
+   opt<vec<T>>     name(opt<vec<T>>), name(vec<T>) (maybe don't need second)
 
+fixme
 Need to think about variant possibilities too (children case only)
    variant<A,B,...>
    vector<variant<A,B,...>>
+These come about when dealing with a child node's "occurrence"
+being "choice" or "choice+".
 */
 
 void write_setters(
@@ -869,50 +903,88 @@ void write_setters(
 ) {
    os << "\n   " << small
       << "\n   // setters"
+      << "\n   // non-const only"
       << "\n   " << small
       << "\n";
+
+   // ------------------------
+   // metadata
+   // ------------------------
 
    if (vecInfoMetadata.size()) {
       for (const auto &m : vecInfoMetadata) {
          // comment
          os << "\n   // " << m.varName << "\n";
 
-         // setter(s)
+         // setters...
+
+         // ...for type as-is
          {
-            os << "   auto &" << m.varName;
-            os << "(const " << m.varType << " &obj)\n";
-            os << "    { content." << m.varName << " = obj; return *this; }\n";
-         }
-         if (m.fullVarType != m.varType) {
             os << "   auto &" << m.varName;
             os << "(const " << m.fullVarType << " &obj)\n";
             os << "    { content." << m.varName << " = obj; return *this; }\n";
          }
+
+         /*
+         // May never need this; T converts to optional<T>
+         // ...for T, if type is optional<T>
+         if (m.isOptional) {
+            os << "   auto &" << m.varName;
+            os << "(const " << m.varType << " &obj)\n";
+            os << "    { content." << m.varName << " = obj; return *this; }\n";
+         }
+         */
+
+         // ...for T, if type is Defaulted<T>
+         if (m.isDefaulted) {
+            os << "   auto &" << m.varName;
+            os << "(const " << m.varType << " &obj)\n";
+            os << "    { content." << m.varName << " = obj; return *this; }\n";
+         }
       }
    }
+
+   // Reminder:
+   //    metadata can have: optional, defaulted (but not vector)
+   //    children can have: optional, vector (but not defaulted)
+
+   // ------------------------
+   // children
+   // ------------------------
 
    if (vecInfoChildren.size()) {
       for (const auto &c : vecInfoChildren) {
          // comment
          os << "\n   // " << c.varName << "\n";
 
-         // setter(s)
-         if (c.isOptional) {
-            if (c.isVector) {
-               os << "   auto &" << c.varName;
-               os << "(const std::vector<" << c.varType << "> &obj)\n   ";
-               os << " { content." << c.varName << " = obj; return *this; }\n";
-            } else {
-               os << "   auto &" << c.varName;
-               os << "(const " << c.varType << " &obj)\n   ";
-               os << " { content." << c.varName << " = obj; return *this; }\n";
-            }
-         }
+         // setters...
+
+         // ...for type as-is
          {
             os << "   auto &" << c.varName;
             os << "(const " << c.fullVarType << " &obj)\n";
             os << "    { content." << c.varName << " = obj; return *this; }\n";
          }
+
+         /*
+         // May never need this; T converts to optional<T>
+         // ...for T, if type is optional<T>
+         if (c.isOptional && !c.isVector) {
+            os << "   auto &" << c.varName;
+            os << "(const " << c.varType << " &obj)\n";
+            os << "    { content." << c.varName << " = obj; return *this; }\n";
+         }
+         */
+
+         /*
+         // May never need this; T converts to optional<T>
+         // ...for vector<T>, if type is optional<vector<T>>
+         if (c.isOptional &&  c.isVector) {
+            os << "   auto &" << c.varName;
+            os << "(const std::vector<" << c.varType << "> &obj)\n";
+            os << "    { content." << c.varName << " = obj; return *this; }\n";
+         }
+         */
       }
    }
 }
@@ -989,11 +1061,33 @@ void write_class_ctor(
    os << "\n";
 
    // ------------------------
+   // ctor: move
+   // ------------------------
+
+   // signature
+   os << "   // move\n";
+   os << "   " << clname << "(" << clname << " &&other) :\n";
+
+   // base constructor call
+   write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+
+   // copy fields
+   if (total)
+      os << ",\n      content{std::move(other.content)}";
+
+   // body
+   os << "\n";
+   os << "   {\n";
+   os << "      construct();\n";
+   os << "   }\n";
+   os << "\n";
+
+   // ------------------------
    // ctor: node
    // ------------------------
 
    // signature; and delegate to default ctor
-   os << "   // node\n";
+   os << "   // from node\n";
    os << "   " << clname << "(const Node &node) :\n";
 
    // base constructor call
@@ -1011,7 +1105,7 @@ void write_class_ctor(
    // ------------------------
 
    if (total > 0) {
-      os << "\n   // fields\n";
+      os << "\n   // from fields\n";
 
       // signature
       // Note: we don't really need "explicit" unless this constructor can be
@@ -1061,7 +1155,7 @@ void write_class_ctor(
    // infoChildren doesn't have isDefaulted, so isn't here
 
    if (total > 0 && def) {
-      os << "\n   // fields, with T replacing Defaulted<T>\n";
+      os << "\n   // from fields, with T replacing Defaulted<T>\n";
 
       // signature
       count = 0;
@@ -1338,13 +1432,13 @@ void make_class(
 
    // get/set
    if (vecInfoMetadata.size() || vecInfoChildren.size()) {
-      write_getters(oss, vecInfoMetadata, vecInfoChildren);
+      write_getters(oss, vecInfoMetadata, vecInfoChildren, file_namespace);
       write_setters(oss, vecInfoMetadata, vecInfoChildren);
    }
 
    // constructors
    oss << "\n   " << small
-       << "\n   // constructors"
+       << "\n   // construction"
        << "\n   " << small
        << "\n";
    write_class_ctor(oss, clname, vecInfoMetadata, vecInfoChildren);
@@ -1662,10 +1756,11 @@ int main()
          hpp << "\n#ifndef " << guard;
          hpp << "\n#define " << guard << "\n";
          hpp << "\n"
+             << "// core interface\n"
              << "#include \"GNDStk.hpp\"\n"
              << "\n";
          if (obj.dependencies.size() > 0) {
-            hpp << "// dependencies\n";
+            hpp << "// " << Version << " dependencies\n";
             for (const auto &dep : obj.dependencies)
                hpp << "#include \"GNDStk/" << Version << "/"
                    << dep.first << "/" << dep.second << ".hpp\"\n";
