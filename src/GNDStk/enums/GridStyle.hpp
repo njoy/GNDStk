@@ -6,7 +6,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class giving acceptable grid styles
+   *  @brief Enumeration class giving acceptable grid style values
    *
    *  See GNDS v1.9 specifications section 5.1.3
    */

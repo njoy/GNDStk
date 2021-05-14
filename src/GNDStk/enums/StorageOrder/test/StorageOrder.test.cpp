@@ -7,18 +7,18 @@
 
 // convenience typedefs
 using namespace njoy::GNDStk;
-using Frame = enums::Frame;
+using StorageOrder = enums::StorageOrder;
 
-SCENARIO( "Frame" ) {
+SCENARIO( "StorageOrder" ) {
 
-  GIVEN( "valid frame values and symbols" ) {
+  GIVEN( "valid storage order values and symbols" ) {
 
     WHEN( "toString is used" ) {
 
       THEN( "no exception is thrown and the correct string is returned" ) {
 
-        CHECK( "lab" == enums::toString( Frame::lab ) );
-        CHECK( "centerOfMass" == enums::toString( Frame::centerOfMass ) );
+        CHECK( "rowMajor" == enums::toString( StorageOrder::rowMajor ) );
+        CHECK( "columnMajor" == enums::toString( StorageOrder::columnMajor ) );
       } // THEN
     } // WHEN
 
@@ -26,13 +26,13 @@ SCENARIO( "Frame" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( Frame::lab == enums::fromString< Frame >( "lab" ) );
-        CHECK( Frame::centerOfMass == enums::fromString< Frame >( "centerOfMass" ) );
+        CHECK( StorageOrder::rowMajor == enums::fromString< StorageOrder >( "rowMajor" ) );
+        CHECK( StorageOrder::columnMajor == enums::fromString< StorageOrder >( "columnMajor" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
 
-        CHECK_THROWS( enums::fromString< Frame >( "unregistered" ) );
+        CHECK_THROWS( enums::fromString< StorageOrder >( "unregistered" ) );
       } // THEN
     } // WHEN
 
@@ -41,9 +41,9 @@ SCENARIO( "Frame" ) {
       THEN( "no exception is thrown and the symbol is written to the stream" ) {
 
         std::ostringstream out;
-        out << Frame::lab << ' ' << Frame::centerOfMass;
+        out << StorageOrder::rowMajor << ' ' << StorageOrder::columnMajor;
 
-        CHECK( "lab centerOfMass" == out.str() );
+        CHECK( "rowMajor columnMajor" == out.str() );
       } // THEN
     } // WHEN
 
@@ -51,16 +51,16 @@ SCENARIO( "Frame" ) {
 
       THEN( "the stream is not in fail() when the symbol is registered" ) {
 
-        Frame value;
-        std::istringstream in( "lab centerOfMass" );
+        StorageOrder value;
+        std::istringstream in( "rowMajor columnMajor" );
 
         in >> value;
-        CHECK( Frame::lab == value );
+        CHECK( StorageOrder::rowMajor == value );
         CHECK( false == in.fail() );
         CHECK( false == in.eof() );
 
         in >> value;
-        CHECK( Frame::centerOfMass == value );
+        CHECK( StorageOrder::columnMajor == value );
         CHECK( false == in.fail() );
         CHECK( true == in.eof() );
       } // THEN
@@ -68,22 +68,22 @@ SCENARIO( "Frame" ) {
       THEN( "the stream is in fail() and the position has not changed when "
             "the symbol is not registered" ) {
 
-        Frame value = Frame::centerOfMass;
+        StorageOrder value = StorageOrder::columnMajor;
         std::istringstream in( "unregistered" );
         in >> value;
 
-        CHECK( Frame::centerOfMass == value );
+        CHECK( StorageOrder::columnMajor == value );
         CHECK( true == in.fail() );
       } // THEN
     } // WHEN
 
-    WHEN( "isFrame is used" ) {
+    WHEN( "isStorageOrder is used" ) {
 
-      THEN( "registered frame values return true, unregistered frame values return false" ) {
+      THEN( "registered storage order values return true, unregistered storage order values return false" ) {
 
-        CHECK( true == enums::isFrame( "lab" ) );
-        CHECK( true == enums::isFrame( "centerOfMass" ) );
-        CHECK( false == enums::isFrame( "unregistered" ) );
+        CHECK( true == enums::isStorageOrder( "rowMajor" ) );
+        CHECK( true == enums::isStorageOrder( "columnMajor" ) );
+        CHECK( false == enums::isStorageOrder( "unregistered" ) );
       } // THEN
     } // WHEN
   } // GIVEN

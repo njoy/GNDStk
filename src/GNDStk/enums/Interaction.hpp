@@ -6,7 +6,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class giving acceptable interaction schemes
+   *  @brief Enumeration class giving acceptable interaction values
    *
    *  See GNDS v1.9 specifications section 3.5.3
    */
@@ -18,13 +18,13 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid interaction scheme
+   *  @brief Return whether or not a string is a valid interaction
    *
    *  @param[in] string    the string to be verified
    *
    *  @return true/false
    */
-  inline bool isInteractionScheme( const std::string& string ) {
+  inline bool isInteraction( const std::string& string ) {
 
     return isSymbol< Interaction >( string );
   }

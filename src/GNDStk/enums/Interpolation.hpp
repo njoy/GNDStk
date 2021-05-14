@@ -6,7 +6,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class giving acceptable interpolation schemes
+   *  @brief Enumeration class giving acceptable interpolation values
    *
    *  See GNDS v1.9 specifications section 3.5.3
    */
@@ -21,13 +21,13 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid interpolation scheme
+   *  @brief Return whether or not a string is a valid interpolation
    *
    *  @param[in] string    the string to be verified
    *
    *  @return true/false
    */
-  inline bool isInterpolationScheme( const std::string& string ) {
+  inline bool isInterpolation( const std::string& string ) {
 
     return isSymbol< Interpolation >( string );
   }

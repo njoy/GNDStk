@@ -17,13 +17,13 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid frame scheme
+   *  @brief Return whether or not a string is a valid frame
    *
    *  @param[in] string    the string to be verified
    *
    *  @return true/false
    */
-  inline bool isFrameScheme( const std::string& string ) {
+  inline bool isFrame( const std::string& string ) {
 
     return isSymbol< Frame >( string );
   }

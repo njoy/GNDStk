@@ -85,14 +85,14 @@ SCENARIO( "Interaction" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "isInteractionScheme is used" ) {
+    WHEN( "isInteraction is used" ) {
 
       THEN( "registered interaction values return true, unregistered interaction values return false" ) {
 
-        CHECK( true == enums::isInteractionScheme( "nuclear" ) );
-        CHECK( true == enums::isInteractionScheme( "atomic" ) );
-        CHECK( true == enums::isInteractionScheme( "thermalNeutronScatteringLaw" ) );
-        CHECK( false == enums::isInteractionScheme( "unregistered" ) );
+        CHECK( true == enums::isInteraction( "nuclear" ) );
+        CHECK( true == enums::isInteraction( "atomic" ) );
+        CHECK( true == enums::isInteraction( "thermalNeutronScatteringLaw" ) );
+        CHECK( false == enums::isInteraction( "unregistered" ) );
       } // THEN
     } // WHEN
   } // GIVEN
