@@ -194,7 +194,7 @@ inline std::ostream &operator<<(std::ostream &os, const IntegerTuple &obj)
 
 
 // -----------------------------------------------------------------------------
-// access(vector,n,...)
+// getter(vector,n,...)
 // Index into vector data member of class.
 // Intended for use in our auto-generated Standard Interface classes.
 // -----------------------------------------------------------------------------
@@ -203,7 +203,7 @@ namespace detail {
 
 // const
 template<class T>
-const T &access(
+const T &getter(
    const std::vector<T> &vec,
    const std::size_t n,
    const std::string &nsname, // name of enclosing class' namespace
@@ -233,8 +233,10 @@ const T &access(
 
    } catch (...) {
       // context
-      // Example: prints "containers::Axes.axis(100)" (but 100 is out-of-range)
-      log::member("{}::{}.{}({})", nsname, clname, field, n);
+      // Example: prints "getter containers::Axes.axis(100)"
+      log::member(
+        "getter {}::{}.{}({}) on vector",
+         nsname, clname, field, n);
       throw;
    }
 }
@@ -242,14 +244,14 @@ const T &access(
 
 // non-const
 template<class T>
-T &access(
+T &getter(
    std::vector<T> &vec,
    const std::size_t n,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
 ) {
-   return const_cast<T &>(access(std::as_const(vec), n, nsname, clname, field));
+   return const_cast<T &>(getter(std::as_const(vec), n, nsname, clname, field));
 }
 
 } // namespace detail
@@ -257,7 +259,7 @@ T &access(
 
 
 // -----------------------------------------------------------------------------
-// access(optional<vector>,n,...)
+// getter(optional<vector>,n,...)
 // As above, but for *optional* vector data member.
 // -----------------------------------------------------------------------------
 
@@ -265,7 +267,7 @@ namespace detail {
 
 // const
 template<class T>
-const T &access(
+const T &getter(
    const std::optional<std::vector<T>> &opt,
    const std::size_t n,
    const std::string &nsname,
@@ -275,30 +277,147 @@ const T &access(
    try {
       // optional must have value
       if (!opt.has_value()) {
-         log::error("optional {} does not have a value", field);
+         log::error("optional vector {} does not have a value", field);
          throw std::exception{};
       }
    } catch (...) {
       // context
-      log::member("{}::{}.{}({})", nsname, clname, field, n);
+      log::member(
+        "getter {}::{}.{}({}) on optional<vector>",
+         nsname, clname, field, n);
       throw;
    }
 
    // outside of try{}, so log::member context won't appear twice if error
-   return access((*opt), n, nsname, clname, field);
+   return getter((*opt), n, nsname, clname, field);
 }
 
 
 // non-const
 template<class T>
-T &access(
+T &getter(
    std::optional<std::vector<T>> &opt,
    const std::size_t n,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
 ) {
-   return const_cast<T &>(access(std::as_const(opt), n, nsname, clname, field));
+   return const_cast<T &>(getter(std::as_const(opt), n, nsname, clname, field));
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// getter<T>(variant,...)
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+template<class T, class... Ts>
+const std::optional<T> getter(
+   const std::variant<Ts...> &choice,
+   const std::string &nsname,
+   const std::string &clname,
+   const std::string &field
+) {
+   try {
+      return std::holds_alternative<T>(choice)
+         ? std::optional<T>(std::get<T>(choice))
+         : std::optional<T>();
+   } catch (...) {
+      // context
+      log::member(
+        "getter {}::{}.{}() on variant",
+         nsname, clname, field);
+      throw;
+   }
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// getter<T>(vector<variant>,n,...)
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+template<class T, class... Ts>
+const std::optional<T> getter(
+   const std::vector<std::variant<Ts...>> &choice,
+   const std::size_t n,
+   const std::string &nsname,
+   const std::string &clname,
+   const std::string &field
+) {
+   try {
+      return getter<T>(
+         // no <T>, so calls getter(generic vector); it isn't recursive...
+         getter(choice, n, nsname, clname, field), // returns scalar variant
+         nsname,
+         clname,
+         field
+      );
+   } catch (...) {
+      // context
+      log::member(
+        "getter {}::{}.{}({}) on vector<variant>",
+         nsname, clname, field, n);
+      throw;
+   }
+}
+
+} // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// setter(vector<variant>,n,optional,...)
+// -----------------------------------------------------------------------------
+
+namespace detail {
+
+template<class T, class... Ts>
+void setter(
+   std::vector<std::variant<Ts...>> &vec,
+   const std::size_t n,
+   const std::optional<T> &opt,
+   const std::string &nsname,
+   const std::string &clname,
+   const std::string &field
+) {
+   try {
+
+      // index must be in range
+      const std::size_t size = vec.size();
+      if (!(n < size)) {
+         if (size > 0)
+            log::error(
+              "index ({}) is out of range [0..{}] (the vector size is {})",
+               n, size-1, size
+            );
+         else
+            log::error(
+              "index ({}) is out of range, because the vector is empty",
+               n
+            );
+         throw std::exception{};
+      }
+
+      // we're good
+      if (opt)
+         vec[n] = *opt;
+
+   } catch (...) {
+      // context
+      log::member(
+        "setter {}::{}.{}({})",
+         nsname, clname, field, n);
+      throw;
+   }
 }
 
 } // namespace detail

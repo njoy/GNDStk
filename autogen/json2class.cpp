@@ -12,30 +12,10 @@ const auto small = "// " + std::string(24,'-');
 // re: extra chatter
 const bool debugging = false;
 
-std::string replace(std::string str, const char from, const char to)
-{
-   for (auto i = str.size(); i--; )
-      if (str[i] == from)
-         str[i] = to;
-   return str;
-}
-
-std::string uppercase(std::string str)
-{
-   for (auto i = str.size(); i--; )
-      str[i] = toupper(str[i]);
-   return str;
-}
-
-std::string capitalize(std::string str)
-{
-   return str.size() ? (str[0] = toupper(str[0]), str) : str;
-}
-
 
 
 // -----------------------------------------------------------------------------
-// Base directory, GNDS version, and files
+// Base directory, GNDS version, and JSON files
 // -----------------------------------------------------------------------------
 
 // Base directory (of the GNDStk repo); no / at end
@@ -139,6 +119,26 @@ const std::map<std::string,std::string> mapMetaDefault {
 // -----------------------------------------------------------------------------
 // Miscellaneous functions
 // -----------------------------------------------------------------------------
+
+std::string replace(std::string str, const char from, const char to)
+{
+   for (auto i = str.size(); i--; )
+      if (str[i] == from)
+         str[i] = to;
+   return str;
+}
+
+std::string uppercase(std::string str)
+{
+   for (auto i = str.size(); i--; )
+      str[i] = toupper(str[i]);
+   return str;
+}
+
+std::string capitalize(std::string str)
+{
+   return str.size() ? (str[0] = toupper(str[0]), str) : str;
+}
 
 // metaType
 std::string metaType(const nlohmann::json &value)
@@ -422,8 +422,9 @@ public:
    std::string fullVarType; // with any optional<> or vector<>
    std::string halfVarType; // withOUT any vector<>
    bool        isOptional;
-   bool        isVector;    // if isChoice, then "choice+" was used
+   bool        isVector;    // if also isChoice, then "choice+" was used
    bool        isChoice;    // is part of a set of choices
+   std::string varNameSeq;
 };
 
 // to_string
@@ -533,11 +534,10 @@ void compute_children(
    NameDeps &ndep,
    const std::multimap<std::string,std::string> &class2nspace
 ) {
-   assert(vecInfoChildren.size() == 0);
-
    // here, we're within the public struct for raw GNDS content
    ossc << "\n      // children\n";
 
+   std::string names;
    for (const auto &field : elems.items()) {
       // optional?
       const bool opt = !field.value()["required"];
@@ -571,11 +571,8 @@ void compute_children(
       if (choice)
          assert(opt);
 
-      // zzz continue dealing with variant/choice/choice+
-
       // type (and compute and prepend its namespace)
-      std::string varType = className(field.value());
-      std::string ns;
+      std::string ns, varType = className(field.value());
       {
          // Determine what namespace varType belongs in. The scenario: we're
          // inside of a file with "__namespace__" file_namespace, in a class
@@ -643,10 +640,12 @@ void compute_children(
 
       // name
       const std::string varName = fieldName(field.value());
+      if (choice)
+         names += (names == "" ? "" : " ") + varName;
 
-      // write
-      ossc << "      " << fullVarType << " " << varName;
-      ossc << ";\n";
+      // write to struct {...} content
+      if (!choice)
+         ossc << "      " << fullVarType << " " << varName << ";\n";
 
       // save as a dependency - if it's not its own dependency (in which case,
       // presumably, a pointer is involved, or we're out of luck in any event)
@@ -656,6 +655,7 @@ void compute_children(
 
       // vecInfoChildren
       vecInfoChildren.push_back(infoChildren{});
+
       vecInfoChildren.back().varName     = varName;
       vecInfoChildren.back().varType     = varType;
       vecInfoChildren.back().fullVarType = fullVarType;
@@ -664,6 +664,25 @@ void compute_children(
       vecInfoChildren.back().isVector    = vec;
       vecInfoChildren.back().isChoice    = choice;
    }
+
+   for (const auto &c : vecInfoChildren)
+      if (c.isChoice) {
+         vecInfoChildren.push_back(infoChildren{});
+
+         vecInfoChildren.back().varName     = "choice";
+         vecInfoChildren.back().varType     = "VARIANT";
+         vecInfoChildren.back().fullVarType = c.isVector
+            ? "std::vector<VARIANT>"
+            : "VARIANT";
+         vecInfoChildren.back().halfVarType = "VARIANT";
+         vecInfoChildren.back().isOptional  = false;
+         vecInfoChildren.back().isVector    = c.isVector;
+         vecInfoChildren.back().isChoice    = false; // for choice itself
+         vecInfoChildren.back().varNameSeq  = names;
+         ossc << "      " << vecInfoChildren.back().fullVarType << " "
+              << vecInfoChildren.back().varName << ";\n";
+         break;
+      }
 } // compute_children
 
 
@@ -679,6 +698,18 @@ void write_keys(
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren
 ) {
+   // using VARIANT = ..., if necessary
+   for (const auto &child : vecInfoChildren)
+      if (child.isChoice) {
+         os << "\n   using VARIANT = std::variant<";
+         std::size_t count = 0;
+         for (const auto &c : vecInfoChildren)
+            if (c.isChoice)
+               os << (count++ ? "," : "") << "\n      " << c.varType;
+         os << "\n   >;\n";
+         break;
+      }
+
    // names
    const std::string name = className(value);
    const std::string gnds = GNDSField(value);
@@ -698,29 +729,29 @@ void write_keys(
    os << "   {\n";
 
    // keys
-   auto total = vecInfoMetadata.size() + vecInfoChildren.size();
-   if (total == 0) {
+   if (vecInfoMetadata.size() + vecInfoChildren.size() == 0)
       os << "      return std::tuple<>{};\n";
-   } else {
-      os << "      return\n";
+   else {
+      os << "      return";
 
       // metadata
-      if (vecInfoMetadata.size()) os << "         // metadata\n";
+      std::size_t count = 0;
       for (const auto &m : vecInfoMetadata)
-         os << "         "
-            << m.fullVarType << "{" << m.theDefault
-            << "}\n            / "
-            << "Meta<>(\""  << m.varName << "\")" << (--total ? " |\n" : "\n");
+         os << (count++ ? " |\n" : "\n         // metadata\n")
+            << "         " << m.fullVarType << "{" << m.theDefault << "}\n"
+            << "            / Meta<>(\""  << m.varName << "\")";
 
       // children
-      if (vecInfoChildren.size()) os << "         // children\n";
+      if (vecInfoChildren.size() && count)
+         os << " |";
+      count = 0;
       for (const auto &c : vecInfoChildren)
-         os << "         "
-            << c.halfVarType << "{" // halfVarType: w/o any std::vector<>
-            << "}\n            / " << (c.isVector ? "++" : "--")
-            << "Child<>(\"" << c.varName << "\")" << (--total ? " |\n" : "\n");
-
-      os << "      ;\n";
+      if (!c.isChoice)
+         os << (count++ ? " |\n" : "\n         // children\n")
+            << "         " << c.halfVarType << "{}\n" // w/o any std::vector<>
+            << "            / " << (c.isVector ? "++" : "--") << "Child<>(\""
+            << (c.varNameSeq == "" ? c.varName : c.varNameSeq) << "\")";
+      os << "\n      ;\n";
    }
 
    // keys end
@@ -741,66 +772,100 @@ void write_getters(
    const std::vector<infoChildren> &vecInfoChildren,
    const std::string &nsname
 ) {
-   os << "\n   " << small
-      << "\n   // getters"
-      << "\n   // const and non-const"
-      << "\n   " << small << "\n";
+   os << "\n   " << small;
+   os << "\n   // getters";
+   os << "\n   // const and non-const";
+   os << "\n   " << small << "\n";
 
+   // ------------------------
    // metadata
-   if (vecInfoMetadata.size()) {
-      for (const auto &m : vecInfoMetadata) {
+   // ------------------------
+
+   for (const auto &m : vecInfoMetadata) {
+      // comment
+      os << "\n   // " << m.varName << "\n";
+
+      // getter: const
+      os << "   const auto &" << m.varName << "() const\n";
+      os << "    { return content." << m.varName;
+      if (m.isDefaulted) os << ".value()";
+      os << "; }\n";
+
+      // getter: non-const
+      os << "   auto &" << m.varName << "()\n";
+      os << "    { return content." << m.varName;
+      if (m.isDefaulted) os << ".value()";
+      os << "; }\n";
+   }
+
+   // ------------------------
+   // children
+   // ------------------------
+
+   bool isVec = false;
+   for (const auto &c : vecInfoChildren) {
+      if (c.isChoice) {
+         isVec = c.isVector; // <== all should be consistent in this regard
+         continue;
+      }
+
+      // comment
+      os << "\n   // " << c.varName << "\n";
+
+      // getter: const
+      os << "   const auto &" << c.varName << "() const\n";
+      os << "    { return content." << c.varName;
+      os << "; }\n";
+
+      // getter: non-const
+      os << "   auto &" << c.varName << "()\n";
+      os << "    { return content." << c.varName;
+      os << "; }\n";
+
+      // getters for [optional] vector: accept (const std::size_t n)
+      if (c.isVector) {
          // comment
-         os << "\n   // " << m.varName << "\n";
+         os << "\n   // " << c.varName << "(n)\n";
 
          // getter: const
-         os << "   const auto &" << m.varName << "() const\n";
-         os << "    { return content." << m.varName;
-         if (m.isDefaulted) os << ".value()";
-         os << "; }\n";
+         os << "   const auto &" << c.varName;
+         os << "(const std::size_t n) const\n";
+         os << "    { return detail::getter(" << c.varName;
+         os << "(),n,\"" << nsname << "\",className(),\"" << c.varName;
+         os << "\"); }\n";
 
          // getter: non-const
-         os << "   auto &" << m.varName << "()\n";
-         os << "    { return content." << m.varName;
-         if (m.isDefaulted) os << ".value()";
-         os << "; }\n";
+         os << "   auto &" << c.varName;
+         os << "(const std::size_t n)\n";
+         os << "    { return detail::getter(" << c.varName;
+         os << "(),n,\"" << nsname << "\",className(),\"" << c.varName;
+         os << "\"); }\n";
       }
    }
 
-   // children
-   if (vecInfoChildren.size()) {
-      for (const auto &c : vecInfoChildren) {
-         // comment
-         os << "\n   // " << c.varName << "\n";
+   for (const auto &c : vecInfoChildren) {
+      if (!c.isChoice)
+         continue;
+      os << "\n";
+      os << "   // optional " << c.varName << "\n";
 
-         // getter: const
-         os << "   const auto &" << c.varName << "() const\n";
-         os << "    { return content." << c.varName;
-         os << "; }\n";
-
-         // getter: non-const
-         os << "   auto &" << c.varName << "()\n";
-         os << "    { return content." << c.varName;
-         os << "; }\n";
-
-         // getters for [optional] vector: accept (const std::size_t n)
-         if (c.isVector) {
-            // comment
-            os << "\n   // " << c.varName << "(n)\n";
-
-            // getter: const
-            os << "   const auto &" << c.varName;
-            os << "(const std::size_t n) const\n";
-            os << "    { return detail::access(content." << c.varName;
-            os << ",n,\"" << nsname << "\",className(),\"" << c.varName;
-            os << "\"); }\n";
-
-            // getter: non-const
-            os << "   auto &" << c.varName;
-            os << "(const std::size_t n)\n";
-            os << "    { return detail::access(content." << c.varName;
-            os << ",n,\"" << nsname << "\",className(),\"" << c.varName;
-            os << "\"); }\n";
-         }
+      // getters, using individual names
+      if (isVec) {
+         // choice is a vector<variant>
+         os << "   auto " << c.varName << "(const std::size_t n) const\n";
+         os << "   {\n";
+         os << "      return detail::getter<" << c.varType << ">\n";
+         os << "         (choice(),n,\"" << nsname << "\",className(),\"";
+         os << c.varName << "\");\n";
+         os << "   }\n";
+      } else {
+         // choice is a variant
+         os << "   auto " << c.varName << "() const\n";
+         os << "   {\n";
+         os << "      return detail::getter<" << c.varType << ">\n";
+         os << "         (choice(),\"" << nsname << "\",className(),\"";
+         os << c.varName << "\");\n";
+         os << "   }\n";
       }
    }
 }
@@ -811,18 +876,11 @@ void write_getters(
 // write_setters
 // -----------------------------------------------------------------------------
 
-/*
-fixme
-Need to think about variant possibilities too (children case only)
-   variant<A,B,...>
-   vector<variant<A,B,...>>
-These arise when dealing with a child's "occurrence" = "choice"/"choice+"
-*/
-
 void write_setters(
    std::ostream &os,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren
+   const std::vector<infoChildren> &vecInfoChildren,
+   const std::string &nsname
 ) {
    os << "\n   " << small;
    os << "\n   // setters";
@@ -837,28 +895,26 @@ void write_setters(
    // metadata
    // ------------------------
 
-   if (vecInfoMetadata.size()) {
-      for (const auto &m : vecInfoMetadata) {
-         // comment
-         os << "\n   // " << m.varName << "\n";
+   for (const auto &m : vecInfoMetadata) {
+      // comment
+      os << "\n   // " << m.varName << "\n";
 
-         // setter, for T as-is
-         {
-            os << "   auto &" << m.varName;
-            os << "(const " << m.fullVarType << " &obj)\n";
-            os << "    { content." << m.varName << " = obj; return *this; }\n";
-         }
+      // setter, for T as-is
+      {
+         os << "   auto &" << m.varName;
+         os << "(const " << m.fullVarType << " &obj)\n";
+         os << "    { content." << m.varName << " = obj; return *this; }\n";
+      }
 
-         // setter, for T, if type is optional<T>
-         // shouldn't need; T will convert to optional<T>
+      // setter, for T, if type is optional<T>
+      // shouldn't need; T will convert to optional<T>
 
-         // setter, for T, if type is Defaulted<T>
-         // fixme Do we need this?
-         if (m.isDefaulted) {
-            os << "   auto &" << m.varName;
-            os << "(const " << m.varType << " &obj)\n";
-            os << "    { content." << m.varName << " = obj; return *this; }\n";
-         }
+      // setter, for T, if type is Defaulted<T>
+      // fixme Do we need this?
+      if (m.isDefaulted) {
+         os << "   auto &" << m.varName;
+         os << "(const " << m.varType << " &obj)\n";
+         os << "    { content." << m.varName << " = obj; return *this; }\n";
       }
    }
 
@@ -866,23 +922,52 @@ void write_setters(
    // children
    // ------------------------
 
-   if (vecInfoChildren.size()) {
-      for (const auto &c : vecInfoChildren) {
-         // comment
-         os << "\n   // " << c.varName << "\n";
+   bool isVec = false;
+   for (const auto &c : vecInfoChildren) {
+      if (c.isChoice) {
+         isVec = c.isVector; // <== all should be consistent in this regard
+         continue;
+      }
 
-         // setter, for T as-is
-         {
-            os << "   auto &" << c.varName;
-            os << "(const " << c.fullVarType << " &obj)\n";
-            os << "    { content." << c.varName << " = obj; return *this; }\n";
-         }
+      // comment
+      os << "\n   // " << c.varName << "\n";
 
-         // setter, for T, if type is optional<T>
-         // shouldn't need; T will convert to optional<T>
+      // setter, for T as-is
+      {
+         os << "   auto &" << c.varName;
+         os << "(const " << c.fullVarType << " &obj)\n";
+         os << "    { content." << c.varName << " = obj; return *this; }\n";
+      }
 
-         // setter, for vector<T>, if type is optional<vector<T>>
-         // equivalent to the above
+      // setter, for T, if type is optional<T>
+      // shouldn't need; T will convert to optional<T>
+
+      // setter, for vector<T>, if type is optional<vector<T>>
+      // equivalent to the above
+   }
+
+   for (const auto &c : vecInfoChildren) {
+      if (!c.isChoice)
+         continue;
+      os << "\n";
+      os << "   // " << c.varName << "\n";
+
+      // getters, using individual names
+      if (isVec) {
+         // choice is a vector<variant>
+         os << "   auto &" << c.varName << "(\n";
+         os << "      const std::size_t n,\n";
+         os << "      const std::optional<" << c.varType << "> &obj\n";
+         os << "   ) {\n";
+         os << "      detail::setter(choice(),n,obj,\"" << nsname;
+         os << "\",className(),\"" << c.varName << "\");\n";
+         os << "      return *this;\n";
+         os << "   }\n";
+      } else {
+         // choice is a variant
+         os << "   auto &" << c.varName << "(const std::optional<";
+         os << c.varType << "> &obj)\n";
+         os << "    { if (obj) choice(*obj); return *this; }\n";
       }
    }
 }
@@ -896,17 +981,22 @@ void write_setters(
 // helper
 void write_component_base(
    std::ostream &os,
-   const std::size_t total,
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren
 ) {
+   os << "      Component{";
+
+   // metadata
    std::size_t count = 0;
-   os << "      Component{\n";
    for (const auto &m : vecInfoMetadata)
-      os << "         content." + m.varName + (++count < total ? ",\n" : "\n");
+      os << (count++ ? ",\n" : "\n") << "         content." + m.varName;
+
+   // children
    for (const auto &c : vecInfoChildren)
-      os << "         content." + c.varName + (++count < total ? ",\n" : "\n");
-   os << "      }";
+   if (!c.isChoice)
+      os << (count++ ? ",\n" : "\n") << "         content." + c.varName;
+
+   os << "\n      }";
 }
 
 // helper
@@ -919,13 +1009,15 @@ void write_ctor_body(std::ostream &os, const bool query = false)
    os << "   }\n";
 }
 
+
+
+// write_class_ctor
 void write_class_ctor(
    std::ostream &os,
    const std::string &clname,
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren
 ) {
-   const auto total = vecInfoMetadata.size() + vecInfoChildren.size();
    std::size_t count;
    os << "\n";
 
@@ -933,12 +1025,10 @@ void write_class_ctor(
    // ctor: default
    // ------------------------
 
-   // signature
+   // signature, and base constructor call
    os << "   // default\n";
    os << "   " << clname << "() :\n";
-
-   // base constructor call
-   write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren);
 
    // body
    os << "\n";
@@ -949,12 +1039,10 @@ void write_class_ctor(
    // ctor: copy
    // ------------------------
 
-   // signature
+   // signature, and base constructor call
    os << "   // copy\n";
    os << "   " << clname << "(const " << clname << " &other) :\n";
-
-   // base constructor call
-   write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren);
 
    // copy fields
    os << ",\n      content{other.content}";
@@ -968,12 +1056,10 @@ void write_class_ctor(
    // ctor: move
    // ------------------------
 
-   // signature
+   // signature, and base constructor call
    os << "   // move\n";
    os << "   " << clname << "(" << clname << " &&other) :\n";
-
-   // base constructor call
-   write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren);
 
    // copy fields
    os << ",\n      content{std::move(other.content)}";
@@ -987,12 +1073,10 @@ void write_class_ctor(
    // ctor: node
    // ------------------------
 
-   // signature
+   // signature, and base constructor call
    os << "   // from node\n";
    os << "   " << clname << "(const Node &node) :\n";
-
-   // base constructor call
-   write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren);
 
    // body
    os << "\n";
@@ -1002,41 +1086,41 @@ void write_class_ctor(
    // ctor: fields
    // ------------------------
 
-   if (total > 0) {
-      os << "\n   // from fields\n";
+   if (vecInfoMetadata.size() + vecInfoChildren.size() == 0)
+      return;
+   os << "\n   // from fields\n";
 
-      // signature
-      // Note: we don't really need "explicit" unless this constructor can be
-      // called with one argument. We'll always put it in, however, just in
-      // case someone modifies the auto-generated constructor (say, giving its
-      // arguments defaults) in such a way that is *can* be called with one
-      // argument. (But we'd rather nobody modify the auto-generated classes.)
-      count = 0;
-      os << "   explicit " << clname << "(\n";
-      for (const auto &m : vecInfoMetadata)
-         os << "      const " << m.fullVarType << " &" << m.varName
-            << (++count < total ? ",\n" : "\n");
-      for (const auto &c : vecInfoChildren)
-         os << "      const " << c.fullVarType << " &" << c.varName
-            << (++count < total ? ",\n" : "\n");
-      os << "   ) :\n";
+   // signature, and base constructor call
+   // Note: we don't really need "explicit" unless this constructor can be
+   // called with one argument. We'll always put it in, however, just in
+   // case someone modifies the auto-generated constructor (say, giving its
+   // arguments defaults) in such a way that is *can* be called with one
+   // argument. (But we'd rather nobody modify the auto-generated classes.)
+   count = 0;
+   os << "   explicit " << clname << "(";
+   for (const auto &m : vecInfoMetadata)
+      os << (count++ ? ",\n" : "\n")
+         << "      const " << m.fullVarType << " &" << m.varName;
+   for (const auto &c : vecInfoChildren)
+   if (!c.isChoice)
+      os << (count++ ? ",\n" : "\n")
+         << "      const " << c.fullVarType << " &" << c.varName;
+   os << "\n   ) :\n";
+   write_component_base(os, vecInfoMetadata, vecInfoChildren);
 
-      // base constructor call
-      write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
+   // initialize fields
+   os << ",\n";
+   os << "      content{";
+   count = 0;
+   for (const auto &m : vecInfoMetadata)
+      os << (count++ ? ",\n" : "\n") << "         " << m.varName;
+   for (const auto &c : vecInfoChildren)
+   if (!c.isChoice)
+      os << (count++ ? ",\n" : "\n") << "         " << c.varName;
+   os << "\n      }\n";
 
-      // initialize fields
-      os << ",\n";
-      os << "      content{\n";
-      count = 0;
-      for (const auto &m : vecInfoMetadata)
-         os << "         " << m.varName << (++count < total ? ",\n" : "\n");
-      for (const auto &c : vecInfoChildren)
-         os << "         " << c.varName << (++count < total ? ",\n" : "\n");
-      os << "      }\n";
-
-      // body
-      write_ctor_body(os);
-   }
+   // body
+   write_ctor_body(os);
 
    // ------------------------
    // ctor: fields but without
@@ -1044,52 +1128,49 @@ void write_class_ctor(
    // are any Defaulted<>s
    // ------------------------
 
-   bool def = false; // are there any Defaulted<>s
+   bool def = false; // are there any Defaulted<>s?
    for (const auto &m : vecInfoMetadata)
       if (m.isDefaulted)
          def = true;
    // infoChildren doesn't have isDefaulted, so isn't a factor here
+   if (!def)
+      return;
+   os << "\n   // from fields, with T replacing Defaulted<T>\n";
 
-   if (total > 0 && def) {
-      os << "\n   // from fields, with T replacing Defaulted<T>\n";
+   // signature, and base constructor call
+   count = 0;
+   os << "   explicit " << clname << "(";
+   for (const auto &m : vecInfoMetadata)
+      os << (count++ ? ",\n" : "\n") << "      const "
+         << (m.isDefaulted ? m.varType : m.fullVarType) << " &" << m.varName;
+   for (const auto &c : vecInfoChildren)
+   if (!c.isChoice)
+      os << (count++ ? ",\n" : "\n") << "      const "
+         << c.fullVarType << " &" << c.varName;
+   os << "\n   ) :\n";
+   write_component_base(os, vecInfoMetadata, vecInfoChildren);
 
-      // signature
-      count = 0;
-      os << "   explicit " << clname << "(\n";
-      for (const auto &m : vecInfoMetadata)
-         os << "      const " << (m.isDefaulted ? m.varType : m.fullVarType)
-            << " &" << m.varName << (++count < total ? ",\n" : "\n");
-      for (const auto &c : vecInfoChildren)
-         os << "      const " << c.fullVarType
-            << " &" << c.varName << (++count < total ? ",\n" : "\n");
-      os << "   ) :\n";
+   // initialize fields
+   os << ",\n";
+   os << "      content{";
+   count = 0;
+   for (const auto &m : vecInfoMetadata)
+      if (m.isDefaulted)
+         os << (count++ ? ",\n" : "\n") << "         " << m.varName
+            << " == " << m.theDefault << "\n"
+            << "            ? " << m.fullVarType
+            << "{" << m.theDefault << "}\n"
+            << "            : " << m.fullVarType
+            << "{" << m.theDefault << "," << m.varName << "}";
+      else
+         os << (count++ ? ",\n" : "\n") << "         " << m.varName;
+   for (const auto &c : vecInfoChildren)
+      if (!c.isChoice)
+         os << (count++ ? ",\n" : "\n") << "         " << c.varName;
+   os << "\n      }\n";
 
-      // base constructor call
-      write_component_base(os, total, vecInfoMetadata, vecInfoChildren);
-
-      // initialize fields
-      os << ",\n";
-      os << "      content{\n";
-      count = 0;
-      for (const auto &m : vecInfoMetadata) {
-         if (m.isDefaulted) {
-            os << "         " << m.varName << " == " << m.theDefault << "\n";
-            os << "            ? " << m.fullVarType
-               << "{" << m.theDefault << "}\n";
-            os << "            : " << m.fullVarType
-               << "{" << m.theDefault << "," << m.varName << "}";
-            os << (++count < total ? ",\n" : "\n");
-         } else {
-            os << "         " << m.varName << (++count < total ? ",\n" : "\n");
-         }
-      }
-      for (const auto &c : vecInfoChildren)
-         os << "         " << c.varName << (++count < total ? ",\n" : "\n");
-      os << "      }\n";
-
-      // body
-      write_ctor_body(os);
-   }
+   // body
+   write_ctor_body(os);
 }
 
 
@@ -1222,8 +1303,6 @@ void make_forward(
 // make_class
 // -----------------------------------------------------------------------------
 
-// zzz working here
-
 // For dependencies: (1) The dependencies themselves. (2) A map from class names
 // to their printed code. We compute these pairs first, so that we can print the
 // code for each class later - after a dependency-aware ordering is determined.
@@ -1274,10 +1353,8 @@ void make_class(
    // output: class begin
    std::ostringstream oss;
    write_class_prefix(oss, file_namespace, clname);
-   const auto attrs = value["attributes"];
-   check_metadata(attrs);
-   const auto elems = value["childNodes"];
-   check_children(elems);
+   const auto attrs = value["attributes"]; check_metadata(attrs);
+   const auto elems = value["childNodes"]; check_children(elems);
 
    // metadata
    std::vector<infoMetadata> vecInfoMetadata;
@@ -1332,7 +1409,7 @@ void make_class(
    // output: getters, setters
    if (vecInfoMetadata.size() || vecInfoChildren.size()) {
       write_getters(oss, vecInfoMetadata, vecInfoChildren, file_namespace);
-      write_setters(oss, vecInfoMetadata, vecInfoChildren);
+      write_setters(oss, vecInfoMetadata, vecInfoChildren, file_namespace);
    }
 
    // output: constructors
