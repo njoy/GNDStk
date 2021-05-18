@@ -11,7 +11,7 @@ using Interpolation = enums::Interpolation;
 
 SCENARIO( "Interpolation" ) {
 
-  GIVEN( "valid unit values and symbols" ) {
+  GIVEN( "valid interpolation values and symbols" ) {
 
     WHEN( "toString is used" ) {
 
@@ -108,17 +108,17 @@ SCENARIO( "Interpolation" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "isInterpolationScheme is used" ) {
+    WHEN( "isInterpolation is used" ) {
 
-      THEN( "registered units return true, unregistered units return false" ) {
+      THEN( "registered interpolation values return true, unregistered interpolation values return false" ) {
 
-        CHECK( true == enums::isInterpolationScheme( "flat" ) );
-        CHECK( true == enums::isInterpolationScheme( "lin-lin" ) );
-        CHECK( true == enums::isInterpolationScheme( "lin-log" ) );
-        CHECK( true == enums::isInterpolationScheme( "log-lin" ) );
-        CHECK( true == enums::isInterpolationScheme( "log-log" ) );
-        CHECK( true == enums::isInterpolationScheme( "charged-particle" ) );
-        CHECK( false == enums::isInterpolationScheme( "unregistered" ) );
+        CHECK( true == enums::isInterpolation( "flat" ) );
+        CHECK( true == enums::isInterpolation( "lin-lin" ) );
+        CHECK( true == enums::isInterpolation( "lin-log" ) );
+        CHECK( true == enums::isInterpolation( "log-lin" ) );
+        CHECK( true == enums::isInterpolation( "log-log" ) );
+        CHECK( true == enums::isInterpolation( "charged-particle" ) );
+        CHECK( false == enums::isInterpolation( "unregistered" ) );
       } // THEN
     } // WHEN
   } // GIVEN

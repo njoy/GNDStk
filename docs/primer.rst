@@ -811,7 +811,7 @@ We use C++ ``std::unique_ptr<Node>s`` for the pointers to child nodes.
 
 
 --------------------------------
-Points about Pointers
+Pointers about Pointers
 --------------------------------
 
 A couple of early users asked us about the motivation for using pointers,
@@ -859,7 +859,7 @@ Tree
 --------------------------------
 
 ``Tree`` derives from ``Node``, so what we've already spoken about, in terms
-of memberdata, still applies. Some additional points are in order, however,
+of member data, still applies. Some additional points are in order, however,
 owing to ``Tree's`` status as the root node in our internal representation
 of a GNDS hierarchy.
 

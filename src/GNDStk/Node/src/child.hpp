@@ -54,9 +54,102 @@ child(
 }
 
 
+
 // -----------------------------------------------------------------------------
 // child(Child<TYPE,one,...>[,found])
 // -----------------------------------------------------------------------------
+
+// ------------------------
+// variant_find_one
+// helper
+// ------------------------
+
+private:
+
+template<std::size_t n, std::size_t size, class KWD, class... Ts>
+void variant_find_one(
+   const KWD &kwd,
+   const std::vector<std::string> &names,
+   bool &found,
+   std::variant<Ts...> &var,
+   // variant alternative# that may have already been found...
+   std::size_t selectedAlternative
+) const {
+   if constexpr (n < size) {
+      bool f = false; // local "found"
+      const Node &node = one(names[n], kwd.filter, f);
+
+      if (f) { // if one() found anything for the <n> alternative
+         if (found) // if already global "found", then warning...
+         {
+            // The situation here is as follows. In the present context, we're
+            // supposed to find exactly one matching child node (of *this) over
+            // all variant alternatives ("outer" loop in this function's caller)
+            // and all child nodes ("inner" loop, done within the above one()
+            // call). One match, that is, in a sort of two-loop/two-dimensional
+            // sense. The one() call above will have triggered a warning if more
+            // than one child node matched with the current variant alternative.
+            // Right now, we have a situation in which a match was already found
+            // somewhere, somehow, in a previous variant alternative. It could
+            // be a match of the same child node or a different one. Either way,
+            // it's a match of some child node, in an earlier alternative. (Not
+            // *just* a match of an earlier child in the current alternative,
+            // without anything yet from an earlier alternative - "if (found)"
+            // won't quite yet be true in that scenario, but one() would have
+            // just emitted a warning.)
+
+            // warning
+            log::warning(
+               "A node for <{}> \"{}\" from Child<variant<...>>'s name,\n"
+               "   \"{}\"\n"
+               "was already found. "
+               "Now, a node for <{}> \"{}\" has also been found.\n"
+               + std::string(
+                  names[n] == names[selectedAlternative]
+                  ? "No wonder; those keys are duplicates in the name!\n"
+                  : ""
+               ) +
+               "Keeping the position <{}> \"{}\" variant alternative.",
+               selectedAlternative, names[selectedAlternative], // already
+               kwd.name,
+               n, names[n], // new one
+               selectedAlternative, names[selectedAlternative]  // keeping
+            );
+
+            // context
+            log::member(
+               "Node.child(" + detail::keyname(kwd) + " with Allow::one)"
+            );
+         } else { // not already global "found"...
+            // convert the Node to an object of the n-th variant alternative
+            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            kwd.converter(node,alt);
+            var = alt;
+            selectedAlternative = n;
+            found = true;
+         }
+      }
+
+      // Proceed to the next alternative in the variant.
+      // Do this even if a match was already found, above,
+      // so that we can warn if there are multiple matches.
+      variant_find_one<n+1,size>(kwd, names, found, var, selectedAlternative);
+
+   } else {
+      // done with recursion
+      if (!found && !detail::sent(found)) {
+         log::error(
+            "No nodes matching any tokens in the Child<variant<...>> object's\n"
+            "name were found (or passed the filter condition, "
+            "if one was given)."
+         );
+         throw std::exception{};
+      }
+   }
+}
+
+public:
+
 
 // ------------------------
 // TYPE
@@ -69,13 +162,31 @@ child(
    bool &found = detail::default_bool
 ) const {
    try {
-      // call one(string), with the Child's key
-      const Node &value = one(kwd.name, kwd.filter, found);
-      // convert value, if any, to an object of the appropriate type
       TYPE obj = kwd.object;
-      if (found)
-         kwd.converter(value,obj);
+
+      if constexpr (detail::isVariant<TYPE>::value) {
+         // ------------------------
+         // variant obj
+         // ------------------------
+
+         const auto names = detail::name_split(kwd);
+         found = false;
+         variant_find_one<0,std::variant_size_v<TYPE>>(kwd,names,found,obj,0);
+
+      } else {
+         // ------------------------
+         // non-variant obj
+         // ------------------------
+
+         // call one(string), with the Child's key
+         const Node &node = one(kwd.name, kwd.filter, found);
+         // convert the node, if found, to an object of the appropriate type
+         if (found)
+            kwd.converter(node,obj);
+      }
+
       return obj;
+
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -147,9 +258,94 @@ child(
 }
 
 
+
 // -----------------------------------------------------------------------------
 // child(Child<TYPE,many>[,found])
 // -----------------------------------------------------------------------------
+
+// ------------------------
+// variant_find_many
+// helper
+// ------------------------
+
+private:
+
+template<
+   std::size_t n, std::size_t size,
+   template<class...> class CONTAINER,
+   class KWD, class... Ts
+>
+bool variant_find_many(
+   const Node &c, // child node from loop in caller
+   CONTAINER<std::variant<Ts...>> &container,
+   const KWD &kwd,
+   const std::vector<std::string> &names,
+   bool &found,
+   std::size_t selectedAlternative
+) const {
+   if constexpr (n < size) {
+      if (std::regex_match(c.name,std::regex(names[n])) && kwd.filter(c)) {
+         if (found)
+         {
+            // This function (variant_find_many()) is for building a container
+            // of std::variant objects from each matching child of the caller's
+            // *this node. Given that we're building a container, it's normal
+            // and expected that multiple matches may occur. Bear in mind, then,
+            // that the following message does not (and should not) warn about
+            // multiple matching child nodes. Rather, the warning relates to the
+            // situation of the current child node (c) matching against multiple
+            // different alternatives in the std::variant. This shouldn't happen
+            // if the names[n] (the whitespace-separated names we obtained from
+            // kwd.name) are distinct. However: (1) a user could make a mistake
+            // in that regard; and (2) as elsewhere, we do a regex match, which
+            // could concievably lead to multiple matches if the regexes aren't
+            // formulated in a manner that prevents - as they should - multiple
+            // matches. (We don't anticipate heavy use of actual, non-trivial
+            // regexes, but should certainly warn of problems nonetheless.)
+
+            log::warning(
+               "Node \"{}\" matched with <{}> \"{}\" from "
+               "Child<variant<...>>'s name,\n"
+               "   {}\n"
+               "but also matches with the <{}> \"{}\" alternative.\n"
+               + std::string(
+                  names[n] == names[selectedAlternative]
+                  ? "No wonder; those keys are duplicates in the name!\n"
+                  : ""
+               ) +
+               "Keeping the position <{}> \"{}\" variant alternative.\n",
+               c.name, // current node's name
+               selectedAlternative, names[selectedAlternative], // already
+               kwd.name,
+               n, names[n], // new one
+               selectedAlternative, names[selectedAlternative]  // keeping
+            );
+
+            // context
+            log::member(
+               "Node.child(" + detail::keyname(kwd) + " with Allow::many)"
+            );
+         } else {
+            // not (found)
+            // convert the Node to an object of the n-th variant alternative
+            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            kwd.converter(c,alt);
+            container.push_back(alt);
+            selectedAlternative = n;
+            found = true;
+         }
+      } // if regex_match + filter
+
+      // Proceed to the next alternative in the variant
+      return variant_find_many<n+1,size>
+         (c, container, kwd, names, found, selectedAlternative);
+   } // if constexpr (n < size)
+
+   return found;
+}
+
+public:
+
 
 // ------------------------
 // TYPE
@@ -169,27 +365,47 @@ child(
    found = false;
 
    try {
-      // ""
-      // meaning: return a container with the converted-to-TYPE current Node
-      if (kwd.name == "") {
-         TYPE obj = kwd.object;
-         kwd.converter(*this,obj);
-         container.push_back(obj);
-         found = true;
-      } else {
-         // search in the current Node's children
+
+      if constexpr (detail::isVariant<TYPE>::value) {
+         // ------------------------
+         // variant obj
+         // ------------------------
+
+         const auto names = detail::name_split(kwd);
          for (auto &c : children) {
-            if (std::regex_match(c->name, std::regex(kwd.name))
-                && kwd.filter(*c)
-            ) {
-               // convert *c to an object of the appropriate type
-               TYPE obj = kwd.object;
-               kwd.converter(*c,obj);
-               container.push_back(obj);
+            bool f = false; // per-child "found", over variant alternatives
+            if (variant_find_many<0,std::variant_size_v<TYPE>>
+                (*c, container, kwd, names, f, 0))
                found = true;
-            }
+         }
+
+      } else {
+         // ------------------------
+         // non-variant obj
+         // ------------------------
+
+         // ""
+         // meaning: return a container with the converted-to-TYPE current Node
+         if (kwd.name == "") {
+            TYPE obj = kwd.object;
+            kwd.converter(*this,obj);
+            container.push_back(obj);
+            found = true;
+         } else {
+            // search in the current Node's children
+            for (auto &c : children)
+               if (std::regex_match(c->name, std::regex(kwd.name)) &&
+                   kwd.filter(*c)
+               ) {
+                  // convert *c to an object of the appropriate type
+                  TYPE obj = kwd.object;
+                  kwd.converter(*c,obj);
+                  container.push_back(obj);
+                  found = true;
+               }
          }
       }
+
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;

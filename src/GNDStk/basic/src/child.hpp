@@ -276,9 +276,9 @@ inline const Child<void,Allow::many>
    weighted                        ("weighted"                        ),
    width                           ("width"                           );
 
-// fixme Probably redo this entire file based on high-level interface experience
+// fixme Probably redo this entire file based on Standard Interface experience
 // fixme Same with misc:: namespace entries, assuming we keep misc::
-// Additional ones I've encountered while writing the high-level interface
+// Additional ones I've encountered while writing the Standard Interface
 inline const Child<void,Allow::many> interval("interval");
 inline const Child<void,Allow::one > confidenceIntervals("confidenceIntervals");
 inline const Child<void,Allow::one > logNormal("logNormal");

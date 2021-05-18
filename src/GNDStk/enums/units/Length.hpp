@@ -1,9 +1,6 @@
+
 #ifndef NJOY_GNDSTK_ENUMS_UNITS_LENGTH
 #define NJOY_GNDSTK_ENUMS_UNITS_LENGTH
-
-// system includes
-
-// other includes
 
 namespace enums {
 namespace units {
@@ -38,13 +35,14 @@ namespace units {
     return GNDStk::enums::isSymbol< GNDStk::enums::units::Length >( string );
   }
 
-} // units namespace
+} // namespace units
 
   /**
    *  @brief Template specialisation to convert Length to/from strings
    */
   template <>
-  struct Map< GNDStk::enums::units::Length > {
+  class Map< GNDStk::enums::units::Length > {
+  public:
 
     static inline const std::map< GNDStk::enums::units::Length,
                                   const std::string > values{
@@ -63,6 +61,6 @@ namespace units {
     };
   };
 
-} // enums namespace
+} // namespace enums
 
 #endif

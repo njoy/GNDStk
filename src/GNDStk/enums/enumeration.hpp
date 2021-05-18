@@ -1,10 +1,6 @@
+
 #ifndef NJOY_GNDSTK_ENUMS_ENUMERATION
 #define NJOY_GNDSTK_ENUMS_ENUMERATION
-
-// system includes
-
-// other includes
-#include "Log.hpp"
 
 namespace enums {
 
@@ -13,7 +9,7 @@ namespace enums {
  *         enumeration values to/from string
  */
 template < typename Enumeration >
-struct Map {};
+class Map {};
 
 /**
  *  @brief Return whether or not a string is a symbol for an enumeration
@@ -44,7 +40,7 @@ const std::string& toString( const Enumeration& value ) {
   auto found = Map< Enumeration >::values.find( value );
   if ( found == Map< Enumeration >::values.end() ) {
 
-    Log::error( "An enumeration value for {} has no registered symbol",
+    log::error( "An enumeration value for {} has no registered symbol",
                 typeid( Enumeration ).name() );
     throw std::exception();
   }
@@ -65,7 +61,7 @@ const Enumeration& fromString( const std::string& symbol ) {
   auto found = Map< Enumeration >::symbols.find( symbol );
   if ( found == Map< Enumeration >::symbols.end() ) {
 
-    Log::error( "An enumeration symbol for {} has no registered value: \"{}\"",
+    log::error( "An enumeration symbol for {} has no registered value: \"{}\"",
                 typeid( Enumeration ).name(), symbol );
     throw std::exception();
   }
@@ -124,6 +120,6 @@ std::ostream& operator<<( std::ostream& out, const Enumeration& value ) {
   return out << toString( value );
 }
 
-} // enums namespace
+} // namespace enums
 
 #endif

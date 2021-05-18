@@ -723,4 +723,38 @@ inline const std::string error_format_read =
    "Consider xml, json, or hdf5"
 ;
 
+
+
+// -----------------------------------------------------------------------------
+// name_split
+// Helper for certain queries that involve std::variant
+// -----------------------------------------------------------------------------
+
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+auto name_split(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+{
+   // split kwd.name into whitespace-separated tokens
+   std::string s;
+   std::vector<std::string> names;
+   std::istringstream iss(kwd.name);
+   while (iss >> s)
+      names.push_back(s);
+
+   // consistency check: the number of extracted tokens
+   // should equal the number of alternatives in the variant
+   if (names.size() != std::variant_size_v<TYPE>) {
+      log::error(
+         "The number of tokens in the Child<std::variant<...>>'s name,\n"
+         "   \"{}\"\n"
+         "is {}, but the number of alternatives in the variant is {}.\n"
+         "Those two numbers must equal one another.",
+         kwd.name, names.size(), std::variant_size_v<TYPE>
+      );
+      throw std::exception{};
+   }
+
+   // done
+   return names;
+}
+
 } // namespace detail

@@ -31,7 +31,7 @@ import os
 extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['.templates']
+templates_path = ['_templates']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
@@ -67,7 +67,7 @@ release = '1.0'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['.build','color.rst','files/*']
+exclude_patterns = ['_build','color.rst','files/*']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -129,7 +129,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['.static']
+html_static_path = ['_static']
 html_css_files = ['css/color.css']
 
 # Add any extra paths that contain custom files (such as robots.txt or

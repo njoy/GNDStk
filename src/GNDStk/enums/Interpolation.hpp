@@ -1,15 +1,12 @@
+
 #ifndef NJOY_GNDSTK_INTERPOLATION
 #define NJOY_GNDSTK_INTERPOLATION
-
-// system includes
-
-// other includes
 
 namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class giving acceptable interpolation schemes
+   *  @brief Enumeration class giving acceptable interpolation values
    *
    *  See GNDS v1.9 specifications section 3.5.3
    */
@@ -24,22 +21,23 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid interpolation scheme
+   *  @brief Return whether or not a string is a valid interpolation
    *
    *  @param[in] string    the string to be verified
    *
    *  @return true/false
    */
-  inline bool isInterpolationScheme( const std::string& string ) {
+  inline bool isInterpolation( const std::string& string ) {
 
     return isSymbol< Interpolation >( string );
   }
 
   /**
-   *  @brief Template specialisation to convert Length to/from strings
+   *  @brief Template specialisation to convert Interpolation to/from strings
    */
   template <>
-  struct Map< GNDStk::enums::Interpolation > {
+  class Map< GNDStk::enums::Interpolation > {
+  public:
 
     static inline const std::map< GNDStk::enums::Interpolation,
                                   const std::string > values{
@@ -64,6 +62,6 @@ namespace enums {
     };
   };
 
-} // enums namespace
+} // namespace enums
 
 #endif

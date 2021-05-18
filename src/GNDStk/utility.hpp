@@ -460,6 +460,23 @@ inline bool eq_hdf5(const std::string &str)
 namespace detail {
 
 // ------------------------
+// isVariant
+// ------------------------
+
+template<class T>
+class isVariant {
+public:
+   static constexpr bool value = false;
+};
+
+template<class... Ts>
+class isVariant<std::variant<Ts...>> {
+public:
+   static constexpr bool value = true;
+};
+
+
+// ------------------------
 // is_oneof
 // ------------------------
 
@@ -473,7 +490,7 @@ public:
    static constexpr bool value = false;
 };
 
-// variant<Ts...> itself
+// T is variant<Ts...> itself
 // Consider the functionality (currently Node::meta() and Node::child()) that
 // use is_oneof. (Or, rather, use its sidekick oneof, defined soon.) Invoked
 // with a particular type from the variant, a call - say, to meta() - might
@@ -494,7 +511,7 @@ public:
    static constexpr bool value = true;
 };
 
-// possibly one of the Ts...
+// T is one of the Ts in variant<Ts...>
 template<class T, class... Ts>
 class is_oneof<T, std::variant<Ts...>> {
 public:
