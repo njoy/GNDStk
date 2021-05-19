@@ -198,7 +198,7 @@ public:
       },
       content{other.content}
    {
-      construct();
+      construct(other);
    }
 
    // move
@@ -214,7 +214,7 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct();
+      construct(other);
    }
 
    // from node
@@ -230,7 +230,7 @@ public:
       }
    {
       query(node);
-      construct();
+      construct(node);
    }
 
    // from fields

@@ -252,6 +252,8 @@ void check_class(const std::string &key, const nlohmann::json &value)
    assert(value.contains("name"));
    assert(value.contains("attributes"));
    assert(value.contains("childNodes"));
+   assert(value.contains("description"));
+   assert(value.contains("bodyText"));
 }
 
 // check_metadata
@@ -1000,12 +1002,15 @@ void write_component_base(
 }
 
 // helper
-void write_ctor_body(std::ostream &os, const bool query = false)
-{
+void write_ctor_body(
+   std::ostream &os,
+   const std::string &param,
+   const bool query = false
+) {
    os << "   {\n";
    if (query)
       os << "      query(node);\n";
-   os << "      construct();\n";
+   os << "      construct(" << param << ");\n";
    os << "   }\n";
 }
 
@@ -1032,7 +1037,7 @@ void write_class_ctor(
 
    // body
    os << "\n";
-   write_ctor_body(os);
+   write_ctor_body(os,"");
    os << "\n";
 
    // ------------------------
@@ -1049,7 +1054,7 @@ void write_class_ctor(
 
    // body
    os << "\n";
-   write_ctor_body(os);
+   write_ctor_body(os,"other");
    os << "\n";
 
    // ------------------------
@@ -1066,7 +1071,7 @@ void write_class_ctor(
 
    // body
    os << "\n";
-   write_ctor_body(os);
+   write_ctor_body(os,"other");
    os << "\n";
 
    // ------------------------
@@ -1080,7 +1085,7 @@ void write_class_ctor(
 
    // body
    os << "\n";
-   write_ctor_body(os,true);
+   write_ctor_body(os,"node",true);
 
    // ------------------------
    // ctor: fields
@@ -1120,7 +1125,7 @@ void write_class_ctor(
    os << "\n      }\n";
 
    // body
-   write_ctor_body(os);
+   write_ctor_body(os,"");
 
    // ------------------------
    // ctor: fields but without
@@ -1170,7 +1175,7 @@ void write_class_ctor(
    os << "\n      }\n";
 
    // body
-   write_ctor_body(os);
+   write_ctor_body(os,"");
 }
 
 

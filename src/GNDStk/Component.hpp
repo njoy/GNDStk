@@ -39,11 +39,11 @@ class Component : public detail::BodyText<bodyText> {
    #include "GNDStk/Component/src/ctor.hpp"
 
    // construct()
-   // Hook by which a derived-class constructor, built by our auto-generation
-   // process from a JSON-format GNDS spec, can run arbitrary additional code.
-   void construct() const
-   {
-   }
+   // Hooks by which derived-class constructors, built by our auto-generation
+   // process from JSON-format GNDS specs, can run arbitrary additional code.
+   void construct() const { }
+   void construct(const DERIVED &) const { }
+   void construct(const Node &) const { }
 
 public:
 
