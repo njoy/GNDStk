@@ -88,18 +88,38 @@ public:
    auto &choice(const std::size_t n)
     { return detail::getter(choice(),n,"transport",className(),"choice"); }
 
-   // optional XYs1d
+   // choice(label)
+   const auto &choice(const std::string &label) const
+    { return detail::getter(choice(),label,"transport",className(),"choice"); }
+   auto &choice(const std::string &label)
+    { return detail::getter(choice(),label,"transport",className(),"choice"); }
+
+   // optional XYs1d(n)
    auto XYs1d(const std::size_t n) const
    {
       return detail::getter<containers::XYs1d>
          (choice(),n,"transport",className(),"XYs1d");
    }
 
-   // optional regions1d
+   // optional XYs1d(label)
+   auto XYs1d(const std::string &label) const
+   {
+      return detail::getter<containers::XYs1d>
+         (choice(),label,"transport",className(),"XYs1d");
+   }
+
+   // optional regions1d(n)
    auto regions1d(const std::size_t n) const
    {
       return detail::getter<containers::Regions1d>
          (choice(),n,"transport",className(),"regions1d");
+   }
+
+   // optional regions1d(label)
+   auto regions1d(const std::string &label) const
+   {
+      return detail::getter<containers::Regions1d>
+         (choice(),label,"transport",className(),"regions1d");
    }
 
    // ------------------------

@@ -98,6 +98,12 @@ public:
    auto &axis(const std::size_t n)
     { return detail::getter(axis(),n,"containers",className(),"axis"); }
 
+   // axis(label)
+   const auto &axis(const std::string &label) const
+    { return detail::getter(axis(),label,"containers",className(),"axis"); }
+   auto &axis(const std::string &label)
+    { return detail::getter(axis(),label,"containers",className(),"axis"); }
+
    // grid
    const auto &grid() const
     { return content.grid; }
@@ -109,6 +115,12 @@ public:
     { return detail::getter(grid(),n,"containers",className(),"grid"); }
    auto &grid(const std::size_t n)
     { return detail::getter(grid(),n,"containers",className(),"grid"); }
+
+   // grid(label)
+   const auto &grid(const std::string &label) const
+    { return detail::getter(grid(),label,"containers",className(),"grid"); }
+   auto &grid(const std::string &label)
+    { return detail::getter(grid(),label,"containers",className(),"grid"); }
 
    // ------------------------
    // setters

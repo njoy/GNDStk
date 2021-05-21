@@ -125,6 +125,15 @@ inline std::string colorize(
 // writeComponentPart
 // -----------------------------------------------------------------------------
 
+// Cases:
+//    std::string
+//    T
+//    std::vector<T>
+//    std::optional<T>
+//    Defaulted<T>
+//    std::variant<Ts...>
+
+
 // ------------------------
 // for string
 // ------------------------
@@ -271,6 +280,25 @@ bool writeComponentPart(
    else
       return false; // <== caller won't print newline
    return true;
+}
+
+
+// ------------------------
+// for variant
+// ------------------------
+
+template<class... Ts>
+bool writeComponentPart(
+   std::ostream &os, const int level, const std::variant<Ts...> &var,
+   const std::string &label, const std::size_t maxlen
+) {
+   return std::visit(
+      [&os,level,&label,maxlen](auto &&alternative)
+      {
+         return writeComponentPart(os, level, alternative, label, maxlen);
+      },
+      var
+   );
 }
 
 

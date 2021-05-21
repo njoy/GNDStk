@@ -67,7 +67,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
                         links[n++],
                         detail::getName(key),
                         maxlen
-                     ) && (os << '\n') // no "if" in fold expression :-/
+                     ) && (os << '\n') // no if()s in fold expressions :-/
                   ),
                   ...
                );

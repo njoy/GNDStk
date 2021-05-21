@@ -768,6 +768,54 @@ void write_keys(
 // write_getters
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// Helpers
+// ------------------------
+
+void getter_param_1(
+   std::ostream &os,
+   const std::string &nsname,
+   const std::string &varName,
+   const std::string &paramType, const std::string &paramName
+) {
+   // comment
+   os << "\n   // " << varName << "(" << paramName << ")\n";
+
+   // getter: const
+   os << "   const auto &" << varName;
+   os << "(const " << paramType << paramName << ") const\n";
+   os << "    { return detail::getter(" << varName;
+   os << "()," << paramName << ",\"" << nsname << "\",className(),\"";
+   os << varName << "\"); }\n";
+
+   // getter: non-const
+   os << "   auto &" << varName;
+   os << "(const " << paramType << paramName << ")\n";
+   os << "    { return detail::getter(" << varName;
+   os << "()," << paramName << ",\"" << nsname << "\",className(),\"";
+   os << varName << "\"); }\n";
+}
+
+void getter_param_2(
+   std::ostream &os,
+   const std::string &nsname,
+   const std::string &varType, const std::string &varName,
+   const std::string &paramType, const std::string &paramName
+) {
+   // choice is a vector<variant>
+   os << "\n   // optional " << varName << "(" << paramName << ")\n";
+   os << "   auto " << varName << "(const " << paramType << paramName;
+   os << ") const\n" << "   {\n";
+   os << "      return detail::getter<" << varType << ">\n";
+   os << "         (choice()," << paramName << ",\"" << nsname;
+   os << "\",className(),\""; os << varName << "\");\n"; os << "   }\n";
+}
+
+
+// ------------------------
+// write_getters
+// ------------------------
+
 void write_getters(
    std::ostream &os,
    const std::vector<infoMetadata> &vecInfoMetadata,
@@ -813,12 +861,10 @@ void write_getters(
 
       // comment
       os << "\n   // " << c.varName << "\n";
-
       // getter: const
       os << "   const auto &" << c.varName << "() const\n";
       os << "    { return content." << c.varName;
       os << "; }\n";
-
       // getter: non-const
       os << "   auto &" << c.varName << "()\n";
       os << "    { return content." << c.varName;
@@ -826,42 +872,21 @@ void write_getters(
 
       // getters for [optional] vector: accept (const std::size_t n)
       if (c.isVector) {
-         // comment
-         os << "\n   // " << c.varName << "(n)\n";
-
-         // getter: const
-         os << "   const auto &" << c.varName;
-         os << "(const std::size_t n) const\n";
-         os << "    { return detail::getter(" << c.varName;
-         os << "(),n,\"" << nsname << "\",className(),\"" << c.varName;
-         os << "\"); }\n";
-
-         // getter: non-const
-         os << "   auto &" << c.varName;
-         os << "(const std::size_t n)\n";
-         os << "    { return detail::getter(" << c.varName;
-         os << "(),n,\"" << nsname << "\",className(),\"" << c.varName;
-         os << "\"); }\n";
+         getter_param_1(os, nsname, c.varName, "std::size_t ",  "n");
+         getter_param_1(os, nsname, c.varName, "std::string &", "label");
       }
    }
 
    for (const auto &c : vecInfoChildren) {
       if (!c.isChoice)
          continue;
-      os << "\n";
-      os << "   // optional " << c.varName << "\n";
 
-      // getters, using individual names
       if (isVec) {
-         // choice is a vector<variant>
-         os << "   auto " << c.varName << "(const std::size_t n) const\n";
-         os << "   {\n";
-         os << "      return detail::getter<" << c.varType << ">\n";
-         os << "         (choice(),n,\"" << nsname << "\",className(),\"";
-         os << c.varName << "\");\n";
-         os << "   }\n";
+         getter_param_2(os,nsname,c.varType,c.varName,"std::size_t ", "n");
+         getter_param_2(os,nsname,c.varType,c.varName,"std::string &","label");
       } else {
          // choice is a variant
+         os << "\n   // optional " << c.varName << "\n";
          os << "   auto " << c.varName << "() const\n";
          os << "   {\n";
          os << "      return detail::getter<" << c.varType << ">\n";

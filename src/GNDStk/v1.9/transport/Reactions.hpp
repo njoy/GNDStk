@@ -82,6 +82,12 @@ public:
    auto &reaction(const std::size_t n)
     { return detail::getter(reaction(),n,"transport",className(),"reaction"); }
 
+   // reaction(label)
+   const auto &reaction(const std::string &label) const
+    { return detail::getter(reaction(),label,"transport",className(),"reaction"); }
+   auto &reaction(const std::string &label)
+    { return detail::getter(reaction(),label,"transport",className(),"reaction"); }
+
    // ------------------------
    // setters
    // non-const only
