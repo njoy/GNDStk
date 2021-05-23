@@ -35,8 +35,9 @@ class XYs1d : public Component<XYs1d> {
 
    friend class Component<XYs1d>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "XYs1d"; }
-   static auto GNDSField() { return "XYs1d"; }
+   static auto GNDSName() { return "XYs1d"; }
 
    static auto keys()
    {

@@ -31,8 +31,9 @@ class Values : public Component<Values> {
 
    friend class Component<Values>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Values"; }
-   static auto GNDSField() { return "values"; }
+   static auto GNDSName() { return "values"; }
 
    static auto keys()
    {

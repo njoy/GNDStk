@@ -34,8 +34,9 @@ class Reaction : public Component<Reaction> {
 
    friend class Component<Reaction>;
 
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "Reaction"; }
-   static auto GNDSField() { return "reaction"; }
+   static auto GNDSName() { return "reaction"; }
 
    static auto keys()
    {

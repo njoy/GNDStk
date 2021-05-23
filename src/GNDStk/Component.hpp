@@ -45,6 +45,9 @@ class Component : public detail::BodyText<bodyText> {
    void construct(const DERIVED &) const { }
    void construct(const Node &) const { }
 
+   // Can (but don't need to) override in DERIVED
+   static std::string namespaceName() { return ""; }
+
 public:
 
    #include "GNDStk/Component/src/query.hpp"

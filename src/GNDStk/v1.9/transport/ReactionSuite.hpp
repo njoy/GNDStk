@@ -34,8 +34,9 @@ class ReactionSuite : public Component<ReactionSuite> {
 
    friend class Component<ReactionSuite>;
 
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "ReactionSuite"; }
-   static auto GNDSField() { return "reactionSuite"; }
+   static auto GNDSName() { return "reactionSuite"; }
 
    static auto keys()
    {

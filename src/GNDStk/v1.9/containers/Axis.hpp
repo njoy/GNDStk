@@ -31,8 +31,9 @@ class Axis : public Component<Axis> {
 
    friend class Component<Axis>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Axis"; }
-   static auto GNDSField() { return "axis"; }
+   static auto GNDSName() { return "axis"; }
 
    static auto keys()
    {

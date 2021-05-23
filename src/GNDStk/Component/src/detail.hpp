@@ -120,6 +120,18 @@ inline std::string colorize(
 }
 
 
+// ------------------------
+// fullName
+// ------------------------
+
+inline std::string fullName(
+   const std::string &nsname,
+   const std::string &clname
+) {
+   return (nsname == "" ? "" : nsname + "::") + clname;
+}
+
+
 
 // -----------------------------------------------------------------------------
 // writeComponentPart

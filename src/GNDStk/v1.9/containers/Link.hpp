@@ -31,8 +31,9 @@ class Link : public Component<Link> {
 
    friend class Component<Link>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Link"; }
-   static auto GNDSField() { return "link"; }
+   static auto GNDSName() { return "link"; }
 
    static auto keys()
    {

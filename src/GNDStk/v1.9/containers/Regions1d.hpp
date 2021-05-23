@@ -35,8 +35,9 @@ class Regions1d : public Component<Regions1d> {
 
    friend class Component<Regions1d>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Regions1d"; }
-   static auto GNDSField() { return "regions1d"; }
+   static auto GNDSName() { return "regions1d"; }
 
    static auto keys()
    {

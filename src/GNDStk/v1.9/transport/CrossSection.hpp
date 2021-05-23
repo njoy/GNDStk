@@ -40,8 +40,9 @@ class CrossSection : public Component<CrossSection> {
 
    friend class Component<CrossSection>;
 
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "CrossSection"; }
-   static auto GNDSField() { return "crossSection"; }
+   static auto GNDSName() { return "crossSection"; }
 
    static auto keys()
    {
@@ -84,42 +85,42 @@ public:
 
    // choice(n)
    const auto &choice(const std::size_t n) const
-    { return detail::getter(choice(),n,"transport",className(),"choice"); }
+    { return detail::getter(choice(),n,namespaceName(),className(),"choice"); }
    auto &choice(const std::size_t n)
-    { return detail::getter(choice(),n,"transport",className(),"choice"); }
+    { return detail::getter(choice(),n,namespaceName(),className(),"choice"); }
 
    // choice(label)
    const auto &choice(const std::string &label) const
-    { return detail::getter(choice(),label,"transport",className(),"choice"); }
+    { return detail::getter(choice(),label,namespaceName(),className(),"choice"); }
    auto &choice(const std::string &label)
-    { return detail::getter(choice(),label,"transport",className(),"choice"); }
+    { return detail::getter(choice(),label,namespaceName(),className(),"choice"); }
 
    // optional XYs1d(n)
    auto XYs1d(const std::size_t n) const
    {
       return detail::getter<containers::XYs1d>
-         (choice(),n,"transport",className(),"XYs1d");
+         (choice(),n,namespaceName(),className(),"XYs1d");
    }
 
    // optional XYs1d(label)
    auto XYs1d(const std::string &label) const
    {
       return detail::getter<containers::XYs1d>
-         (choice(),label,"transport",className(),"XYs1d");
+         (choice(),label,namespaceName(),className(),"XYs1d");
    }
 
    // optional regions1d(n)
    auto regions1d(const std::size_t n) const
    {
       return detail::getter<containers::Regions1d>
-         (choice(),n,"transport",className(),"regions1d");
+         (choice(),n,namespaceName(),className(),"regions1d");
    }
 
    // optional regions1d(label)
    auto regions1d(const std::string &label) const
    {
       return detail::getter<containers::Regions1d>
-         (choice(),label,"transport",className(),"regions1d");
+         (choice(),label,namespaceName(),className(),"regions1d");
    }
 
    // ------------------------
@@ -136,7 +137,7 @@ public:
       const std::size_t n,
       const std::optional<containers::XYs1d> &obj
    ) {
-      detail::setter(choice(),n,obj,"transport",className(),"XYs1d");
+      detail::setter(choice(),n,obj,namespaceName(),className(),"XYs1d");
       return *this;
    }
 
@@ -145,7 +146,7 @@ public:
       const std::size_t n,
       const std::optional<containers::Regions1d> &obj
    ) {
-      detail::setter(choice(),n,obj,"transport",className(),"regions1d");
+      detail::setter(choice(),n,obj,namespaceName(),className(),"regions1d");
       return *this;
    }
 

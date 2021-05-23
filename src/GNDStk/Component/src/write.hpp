@@ -9,16 +9,17 @@ std::ostream &write(std::ostream &os, const int level = 0) const
       // Indent, write header, newline
       detail::indentString(
          os, level,
-         detail::colorize_component(DERIVED::className()) + " "
-          + detail::colorize_brace("{")
-          + (comments
-              ? " " +
-                detail::colorize_comment(
-                   std::string("// GNDS: ") + DERIVED::GNDSField()
-                )
-              : ""
-            )
-          + "\n"
+         detail::colorize_component(
+            detail::fullName(DERIVED::namespaceName(), DERIVED::className())
+         ) + " " +
+         detail::colorize_brace("{") +
+        (comments
+            ? " " +
+              detail::colorize_comment(
+                 std::string("// GNDS: ") + DERIVED::GNDSName()
+              )
+            : ""
+         ) + "\n"
       );
 
       if constexpr (
@@ -83,7 +84,11 @@ std::ostream &write(std::ostream &os, const int level = 0) const
           + (comments
               ? " " +
                 detail::colorize_comment(
-                   std::string("// ") + DERIVED::className()
+                   std::string("// ") +
+                   detail::fullName(
+                      DERIVED::namespaceName(),
+                      DERIVED::className()
+                   )
                 )
               : ""
             )

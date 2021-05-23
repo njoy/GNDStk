@@ -8,7 +8,7 @@ operator Node() const
 {
    try {
       // starter node
-      Node node(DERIVED::GNDSField());
+      Node node(DERIVED::GNDSName());
 
       if constexpr (
          std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value

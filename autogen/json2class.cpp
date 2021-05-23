@@ -163,9 +163,9 @@ std::string className(const nlohmann::json &value)
    return name;
 }
 
-// GNDSField
-// Gives return value for derived-class GNDSField() for Component<DERIVED>.
-std::string GNDSField(const nlohmann::json &value)
+// GNDSName
+// Gives return value for derived-class GNDSName() for Component<DERIVED>.
+std::string GNDSName(const nlohmann::json &value)
 {
    // as-is; appears in actual GNDS files like this
    assert(value.contains("name"));
@@ -698,7 +698,8 @@ void write_keys(
    std::ostream &os,
    const nlohmann::json &value,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren
+   const std::vector<infoChildren> &vecInfoChildren,
+   const std::string &nsname
 ) {
    // using VARIANT = ..., if necessary
    for (const auto &child : vecInfoChildren)
@@ -714,7 +715,7 @@ void write_keys(
 
    // names
    const std::string name = className(value);
-   const std::string gnds = GNDSField(value);
+   const std::string gnds = GNDSName(value);
 
    os << "\n";
    os << "   " << small << "\n";
@@ -723,8 +724,9 @@ void write_keys(
    os << "\n";
    os << "   friend class Component<" << name << ">;\n";
    os << "\n";
+   os << "   static auto namespaceName() { return \"" << nsname << "\"; }\n";
    os << "   static auto className() { return \"" << name << "\"; }\n";
-   os << "   static auto GNDSField() { return \"" << gnds << "\"; }\n\n";
+   os << "   static auto GNDSName() { return \"" << gnds << "\"; }\n\n";
 
    // keys begin
    os << "   static auto keys()\n";
@@ -774,7 +776,6 @@ void write_keys(
 
 void getter_param_1(
    std::ostream &os,
-   const std::string &nsname,
    const std::string &varName,
    const std::string &paramType, const std::string &paramName
 ) {
@@ -785,20 +786,19 @@ void getter_param_1(
    os << "   const auto &" << varName;
    os << "(const " << paramType << paramName << ") const\n";
    os << "    { return detail::getter(" << varName;
-   os << "()," << paramName << ",\"" << nsname << "\",className(),\"";
+   os << "()," << paramName << "," << "namespaceName()" << ",className(),\"";
    os << varName << "\"); }\n";
 
    // getter: non-const
    os << "   auto &" << varName;
    os << "(const " << paramType << paramName << ")\n";
    os << "    { return detail::getter(" << varName;
-   os << "()," << paramName << ",\"" << nsname << "\",className(),\"";
+   os << "()," << paramName << "," << "namespaceName()" << ",className(),\"";
    os << varName << "\"); }\n";
 }
 
 void getter_param_2(
    std::ostream &os,
-   const std::string &nsname,
    const std::string &varType, const std::string &varName,
    const std::string &paramType, const std::string &paramName
 ) {
@@ -807,8 +807,8 @@ void getter_param_2(
    os << "   auto " << varName << "(const " << paramType << paramName;
    os << ") const\n" << "   {\n";
    os << "      return detail::getter<" << varType << ">\n";
-   os << "         (choice()," << paramName << ",\"" << nsname;
-   os << "\",className(),\""; os << varName << "\");\n"; os << "   }\n";
+   os << "         (choice()," << paramName << "," << "namespaceName()";
+   os << ",className(),\""; os << varName << "\");\n"; os << "   }\n";
 }
 
 
@@ -819,8 +819,7 @@ void getter_param_2(
 void write_getters(
    std::ostream &os,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren,
-   const std::string &nsname
+   const std::vector<infoChildren> &vecInfoChildren
 ) {
    os << "\n   " << small;
    os << "\n   // getters";
@@ -872,8 +871,8 @@ void write_getters(
 
       // getters for [optional] vector: accept (const std::size_t n)
       if (c.isVector) {
-         getter_param_1(os, nsname, c.varName, "std::size_t ",  "n");
-         getter_param_1(os, nsname, c.varName, "std::string &", "label");
+         getter_param_1(os, c.varName, "std::size_t ",  "n");
+         getter_param_1(os, c.varName, "std::string &", "label");
       }
    }
 
@@ -882,15 +881,15 @@ void write_getters(
          continue;
 
       if (isVec) {
-         getter_param_2(os,nsname,c.varType,c.varName,"std::size_t ", "n");
-         getter_param_2(os,nsname,c.varType,c.varName,"std::string &","label");
+         getter_param_2(os, c.varType, c.varName, "std::size_t ",  "n");
+         getter_param_2(os, c.varType, c.varName, "std::string &", "label");
       } else {
          // choice is a variant
          os << "\n   // optional " << c.varName << "\n";
          os << "   auto " << c.varName << "() const\n";
          os << "   {\n";
          os << "      return detail::getter<" << c.varType << ">\n";
-         os << "         (choice(),\"" << nsname << "\",className(),\"";
+         os << "         (choice()," << "namespaceName()" << ",className(),\"";
          os << c.varName << "\");\n";
          os << "   }\n";
       }
@@ -906,8 +905,7 @@ void write_getters(
 void write_setters(
    std::ostream &os,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren,
-   const std::string &nsname
+   const std::vector<infoChildren> &vecInfoChildren
 ) {
    os << "\n   " << small;
    os << "\n   // setters";
@@ -986,8 +984,8 @@ void write_setters(
          os << "      const std::size_t n,\n";
          os << "      const std::optional<" << c.varType << "> &obj\n";
          os << "   ) {\n";
-         os << "      detail::setter(choice(),n,obj,\"" << nsname;
-         os << "\",className(),\"" << c.varName << "\");\n";
+         os << "      detail::setter(choice(),n,obj," << "namespaceName()";
+         os << ",className(),\"" << c.varName << "\");\n";
          os << "      return *this;\n";
          os << "   }\n";
       } else {
@@ -1409,7 +1407,8 @@ void make_class(
 
    // output: names, keys
    // As needed by the Component base
-   write_keys(oss, keyvalue.value(), vecInfoMetadata, vecInfoChildren);
+   write_keys(
+      oss, keyvalue.value(), vecInfoMetadata, vecInfoChildren, file_namespace);
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;
@@ -1438,8 +1437,8 @@ void make_class(
 
    // output: getters, setters
    if (vecInfoMetadata.size() || vecInfoChildren.size()) {
-      write_getters(oss, vecInfoMetadata, vecInfoChildren, file_namespace);
-      write_setters(oss, vecInfoMetadata, vecInfoChildren, file_namespace);
+      write_getters(oss, vecInfoMetadata, vecInfoChildren);
+      write_setters(oss, vecInfoMetadata, vecInfoChildren);
    }
 
    // output: constructors

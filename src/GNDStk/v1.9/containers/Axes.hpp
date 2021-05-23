@@ -35,8 +35,9 @@ class Axes : public Component<Axes> {
 
    friend class Component<Axes>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Axes"; }
-   static auto GNDSField() { return "axes"; }
+   static auto GNDSName() { return "axes"; }
 
    static auto keys()
    {
@@ -94,15 +95,15 @@ public:
 
    // axis(n)
    const auto &axis(const std::size_t n) const
-    { return detail::getter(axis(),n,"containers",className(),"axis"); }
+    { return detail::getter(axis(),n,namespaceName(),className(),"axis"); }
    auto &axis(const std::size_t n)
-    { return detail::getter(axis(),n,"containers",className(),"axis"); }
+    { return detail::getter(axis(),n,namespaceName(),className(),"axis"); }
 
    // axis(label)
    const auto &axis(const std::string &label) const
-    { return detail::getter(axis(),label,"containers",className(),"axis"); }
+    { return detail::getter(axis(),label,namespaceName(),className(),"axis"); }
    auto &axis(const std::string &label)
-    { return detail::getter(axis(),label,"containers",className(),"axis"); }
+    { return detail::getter(axis(),label,namespaceName(),className(),"axis"); }
 
    // grid
    const auto &grid() const
@@ -112,15 +113,15 @@ public:
 
    // grid(n)
    const auto &grid(const std::size_t n) const
-    { return detail::getter(grid(),n,"containers",className(),"grid"); }
+    { return detail::getter(grid(),n,namespaceName(),className(),"grid"); }
    auto &grid(const std::size_t n)
-    { return detail::getter(grid(),n,"containers",className(),"grid"); }
+    { return detail::getter(grid(),n,namespaceName(),className(),"grid"); }
 
    // grid(label)
    const auto &grid(const std::string &label) const
-    { return detail::getter(grid(),label,"containers",className(),"grid"); }
+    { return detail::getter(grid(),label,namespaceName(),className(),"grid"); }
    auto &grid(const std::string &label)
-    { return detail::getter(grid(),label,"containers",className(),"grid"); }
+    { return detail::getter(grid(),label,namespaceName(),className(),"grid"); }
 
    // ------------------------
    // setters

@@ -40,8 +40,9 @@ class Grid : public Component<Grid> {
 
    friend class Component<Grid>;
 
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Grid"; }
-   static auto GNDSField() { return "grid"; }
+   static auto GNDSName() { return "grid"; }
 
    static auto keys()
    {
@@ -135,14 +136,14 @@ public:
    auto link() const
    {
       return detail::getter<containers::Link>
-         (choice(),"containers",className(),"link");
+         (choice(),namespaceName(),className(),"link");
    }
 
    // optional values
    auto values() const
    {
       return detail::getter<containers::Values>
-         (choice(),"containers",className(),"values");
+         (choice(),namespaceName(),className(),"values");
    }
 
    // ------------------------

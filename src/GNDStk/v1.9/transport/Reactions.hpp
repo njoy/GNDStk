@@ -34,8 +34,9 @@ class Reactions : public Component<Reactions> {
 
    friend class Component<Reactions>;
 
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "Reactions"; }
-   static auto GNDSField() { return "reactions"; }
+   static auto GNDSName() { return "reactions"; }
 
    static auto keys()
    {
@@ -78,15 +79,15 @@ public:
 
    // reaction(n)
    const auto &reaction(const std::size_t n) const
-    { return detail::getter(reaction(),n,"transport",className(),"reaction"); }
+    { return detail::getter(reaction(),n,namespaceName(),className(),"reaction"); }
    auto &reaction(const std::size_t n)
-    { return detail::getter(reaction(),n,"transport",className(),"reaction"); }
+    { return detail::getter(reaction(),n,namespaceName(),className(),"reaction"); }
 
    // reaction(label)
    const auto &reaction(const std::string &label) const
-    { return detail::getter(reaction(),label,"transport",className(),"reaction"); }
+    { return detail::getter(reaction(),label,namespaceName(),className(),"reaction"); }
    auto &reaction(const std::string &label)
-    { return detail::getter(reaction(),label,"transport",className(),"reaction"); }
+    { return detail::getter(reaction(),label,namespaceName(),className(),"reaction"); }
 
    // ------------------------
    // setters
