@@ -66,6 +66,8 @@ class Grid : public Component<Grid> {
 
 public:
 
+   using Base = Component<Grid>;
+
    // ------------------------
    // relevant defaults
    // FYI for users
@@ -135,15 +137,13 @@ public:
    // optional link
    auto link() const
    {
-      return detail::getter<containers::Link>
-         (choice(),namespaceName(),className(),"link");
+      return getter<containers::Link>(choice(),"link");
    }
 
    // optional values
    auto values() const
    {
-      return detail::getter<containers::Values>
-         (choice(),namespaceName(),className(),"values");
+      return getter<containers::Values>(choice(),"values");
    }
 
    // ------------------------

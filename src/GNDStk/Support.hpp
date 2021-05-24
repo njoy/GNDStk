@@ -1,6 +1,4 @@
 
-#include "GNDStk/Support/src/detail.hpp"
-
 // -----------------------------------------------------------------------------
 // Miscellaneous support constructs for our various version-specific GNDS
 // Standard Interfaces. These could perhaps have gone into utility.hpp

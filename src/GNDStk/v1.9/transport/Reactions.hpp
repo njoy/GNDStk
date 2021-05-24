@@ -49,6 +49,8 @@ class Reactions : public Component<Reactions> {
 
 public:
 
+   using Base = Component<Reactions>;
+
    // ------------------------
    // relevant defaults
    // FYI for users
@@ -79,15 +81,15 @@ public:
 
    // reaction(n)
    const auto &reaction(const std::size_t n) const
-    { return detail::getter(reaction(),n,namespaceName(),className(),"reaction"); }
+    { return getter(reaction(),n,"reaction"); }
    auto &reaction(const std::size_t n)
-    { return detail::getter(reaction(),n,namespaceName(),className(),"reaction"); }
+    { return getter(reaction(),n,"reaction"); }
 
    // reaction(label)
    const auto &reaction(const std::string &label) const
-    { return detail::getter(reaction(),label,namespaceName(),className(),"reaction"); }
+    { return getter(reaction(),label,"reaction"); }
    auto &reaction(const std::string &label)
-    { return detail::getter(reaction(),label,namespaceName(),className(),"reaction"); }
+    { return getter(reaction(),label,"reaction"); }
 
    // ------------------------
    // setters

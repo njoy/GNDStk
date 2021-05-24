@@ -23,13 +23,13 @@ using namespace njoy::GNDStk::core;
 
 namespace containers {
 
-class Values : public Component<Values> {
+class Values : public Component<Values,true> {
 
    // ------------------------
    // for Component
    // ------------------------
 
-   friend class Component<Values>;
+   friend class Component<Values,true>;
 
    static auto namespaceName() { return "containers"; }
    static auto className() { return "Values"; }
@@ -49,6 +49,8 @@ class Values : public Component<Values> {
    }
 
 public:
+
+   using Base = Component<Values,true>;
 
    // ------------------------
    // relevant defaults

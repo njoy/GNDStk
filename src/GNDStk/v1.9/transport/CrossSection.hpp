@@ -55,6 +55,8 @@ class CrossSection : public Component<CrossSection> {
 
 public:
 
+   using Base = Component<CrossSection>;
+
    // ------------------------
    // relevant defaults
    // FYI for users
@@ -85,42 +87,38 @@ public:
 
    // choice(n)
    const auto &choice(const std::size_t n) const
-    { return detail::getter(choice(),n,namespaceName(),className(),"choice"); }
+    { return getter(choice(),n,"choice"); }
    auto &choice(const std::size_t n)
-    { return detail::getter(choice(),n,namespaceName(),className(),"choice"); }
+    { return getter(choice(),n,"choice"); }
 
    // choice(label)
    const auto &choice(const std::string &label) const
-    { return detail::getter(choice(),label,namespaceName(),className(),"choice"); }
+    { return getter(choice(),label,"choice"); }
    auto &choice(const std::string &label)
-    { return detail::getter(choice(),label,namespaceName(),className(),"choice"); }
+    { return getter(choice(),label,"choice"); }
 
    // optional XYs1d(n)
    auto XYs1d(const std::size_t n) const
    {
-      return detail::getter<containers::XYs1d>
-         (choice(),n,namespaceName(),className(),"XYs1d");
+      return getter<containers::XYs1d>(choice(),n,"XYs1d");
    }
 
    // optional XYs1d(label)
    auto XYs1d(const std::string &label) const
    {
-      return detail::getter<containers::XYs1d>
-         (choice(),label,namespaceName(),className(),"XYs1d");
+      return getter<containers::XYs1d>(choice(),label,"XYs1d");
    }
 
    // optional regions1d(n)
    auto regions1d(const std::size_t n) const
    {
-      return detail::getter<containers::Regions1d>
-         (choice(),n,namespaceName(),className(),"regions1d");
+      return getter<containers::Regions1d>(choice(),n,"regions1d");
    }
 
    // optional regions1d(label)
    auto regions1d(const std::string &label) const
    {
-      return detail::getter<containers::Regions1d>
-         (choice(),label,namespaceName(),className(),"regions1d");
+      return getter<containers::Regions1d>(choice(),label,"regions1d");
    }
 
    // ------------------------

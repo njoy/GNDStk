@@ -57,6 +57,8 @@ class Regions1d : public Component<Regions1d> {
 
 public:
 
+   using Base = Component<Regions1d>;
+
    // ------------------------
    // relevant defaults
    // FYI for users

@@ -61,6 +61,8 @@ class XYs1d : public Component<XYs1d> {
 
 public:
 
+   using Base = Component<XYs1d>;
+
    // ------------------------
    // relevant defaults
    // FYI for users

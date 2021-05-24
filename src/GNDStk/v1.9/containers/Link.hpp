@@ -46,6 +46,8 @@ class Link : public Component<Link> {
 
 public:
 
+   using Base = Component<Link>;
+
    // ------------------------
    // relevant defaults
    // FYI for users

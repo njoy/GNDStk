@@ -62,6 +62,8 @@ class ReactionSuite : public Component<ReactionSuite> {
 
 public:
 
+   using Base = Component<ReactionSuite>;
+
    // ------------------------
    // relevant defaults
    // FYI for users

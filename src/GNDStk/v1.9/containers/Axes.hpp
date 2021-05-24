@@ -55,6 +55,8 @@ class Axes : public Component<Axes> {
 
 public:
 
+   using Base = Component<Axes>;
+
    // ------------------------
    // relevant defaults
    // FYI for users
@@ -95,15 +97,15 @@ public:
 
    // axis(n)
    const auto &axis(const std::size_t n) const
-    { return detail::getter(axis(),n,namespaceName(),className(),"axis"); }
+    { return getter(axis(),n,"axis"); }
    auto &axis(const std::size_t n)
-    { return detail::getter(axis(),n,namespaceName(),className(),"axis"); }
+    { return getter(axis(),n,"axis"); }
 
    // axis(label)
    const auto &axis(const std::string &label) const
-    { return detail::getter(axis(),label,namespaceName(),className(),"axis"); }
+    { return getter(axis(),label,"axis"); }
    auto &axis(const std::string &label)
-    { return detail::getter(axis(),label,namespaceName(),className(),"axis"); }
+    { return getter(axis(),label,"axis"); }
 
    // grid
    const auto &grid() const
@@ -113,15 +115,15 @@ public:
 
    // grid(n)
    const auto &grid(const std::size_t n) const
-    { return detail::getter(grid(),n,namespaceName(),className(),"grid"); }
+    { return getter(grid(),n,"grid"); }
    auto &grid(const std::size_t n)
-    { return detail::getter(grid(),n,namespaceName(),className(),"grid"); }
+    { return getter(grid(),n,"grid"); }
 
    // grid(label)
    const auto &grid(const std::string &label) const
-    { return detail::getter(grid(),label,namespaceName(),className(),"grid"); }
+    { return getter(grid(),label,"grid"); }
    auto &grid(const std::string &label)
-    { return detail::getter(grid(),label,namespaceName(),className(),"grid"); }
+    { return getter(grid(),label,"grid"); }
 
    // ------------------------
    // setters

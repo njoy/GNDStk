@@ -50,6 +50,8 @@ class Axis : public Component<Axis> {
 
 public:
 
+   using Base = Component<Axis>;
+
    // ------------------------
    // relevant defaults
    // FYI for users

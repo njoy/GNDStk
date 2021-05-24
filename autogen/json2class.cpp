@@ -244,8 +244,10 @@ void printDepVec(
 // -----------------------------------------------------------------------------
 
 // check_class
-void check_class(const std::string &key, const nlohmann::json &value)
-{
+void check_class(
+   const std::string &key, const nlohmann::json &value,
+   bool &hasBodyText
+) {
    if (debugging)
       std::cout << "Key: " << key << std::endl;
 
@@ -254,6 +256,8 @@ void check_class(const std::string &key, const nlohmann::json &value)
    assert(value.contains("childNodes"));
    assert(value.contains("description"));
    assert(value.contains("bodyText"));
+
+   hasBodyText = !value["bodyText"].is_null();
 }
 
 // check_metadata
@@ -343,7 +347,8 @@ void write_file_suffix(std::ostream &os)
 
 void write_class_prefix(
    std::ostream &os,
-   const std::string &file_namespace, const std::string &clname
+   const std::string &file_namespace, const std::string &clname,
+   const bool hasBodyText
 ) {
    // comment introducing class
    os << "\n\n\n"
@@ -355,7 +360,8 @@ void write_class_prefix(
 
    // namespace + class begin
    os << "namespace " << file_namespace << " {\n\n"
-      << "class " << clname << " : public Component<" << clname << "> {\n";
+      << "class " << clname << " : public Component<"
+      << clname << (hasBodyText ? ",true" : "" /* default false */) << "> {\n";
 }
 
 void write_class_suffix(
@@ -699,7 +705,8 @@ void write_keys(
    const nlohmann::json &value,
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren,
-   const std::string &nsname
+   const std::string &nsname,
+   const bool hasBodyText
 ) {
    // using VARIANT = ..., if necessary
    for (const auto &child : vecInfoChildren)
@@ -722,8 +729,8 @@ void write_keys(
    os << "   // for Component\n";
    os << "   " << small << "\n";
    os << "\n";
-   os << "   friend class Component<" << name << ">;\n";
-   os << "\n";
+   os << "   friend class Component<" << name << (hasBodyText ? ",true" : "");
+   os << ">;\n\n";
    os << "   static auto namespaceName() { return \"" << nsname << "\"; }\n";
    os << "   static auto className() { return \"" << name << "\"; }\n";
    os << "   static auto GNDSName() { return \"" << gnds << "\"; }\n\n";
@@ -785,16 +792,14 @@ void getter_param_1(
    // getter: const
    os << "   const auto &" << varName;
    os << "(const " << paramType << paramName << ") const\n";
-   os << "    { return detail::getter(" << varName;
-   os << "()," << paramName << "," << "namespaceName()" << ",className(),\"";
-   os << varName << "\"); }\n";
+   os << "    { return getter(" << varName;
+   os << "()," << paramName << "," << "\"" << varName << "\"); }\n";
 
    // getter: non-const
    os << "   auto &" << varName;
    os << "(const " << paramType << paramName << ")\n";
-   os << "    { return detail::getter(" << varName;
-   os << "()," << paramName << "," << "namespaceName()" << ",className(),\"";
-   os << varName << "\"); }\n";
+   os << "    { return getter(" << varName;
+   os << "()," << paramName << "," << "\"" << varName << "\"); }\n";
 }
 
 void getter_param_2(
@@ -806,9 +811,9 @@ void getter_param_2(
    os << "\n   // optional " << varName << "(" << paramName << ")\n";
    os << "   auto " << varName << "(const " << paramType << paramName;
    os << ") const\n" << "   {\n";
-   os << "      return detail::getter<" << varType << ">\n";
-   os << "         (choice()," << paramName << "," << "namespaceName()";
-   os << ",className(),\""; os << varName << "\");\n"; os << "   }\n";
+   os << "      return getter<" << varType << ">";
+   os << "(choice()," << paramName << ",\"" << varName << "\");\n";
+   os << "   }\n";
 }
 
 
@@ -888,9 +893,8 @@ void write_getters(
          os << "\n   // optional " << c.varName << "\n";
          os << "   auto " << c.varName << "() const\n";
          os << "   {\n";
-         os << "      return detail::getter<" << c.varType << ">\n";
-         os << "         (choice()," << "namespaceName()" << ",className(),\"";
-         os << c.varName << "\");\n";
+         os << "      return getter<" << c.varType << ">";
+         os << "(choice()," << "\"" << c.varName << "\");\n";
          os << "   }\n";
       }
    }
@@ -1349,6 +1353,8 @@ std::map<
    >
 > class2info;
 
+
+
 // make_class
 template<class JSON>
 void make_class(
@@ -1370,7 +1376,8 @@ void make_class(
    const std::string clname = className(keyvalue.value());
    if (debugging)
       std::cout << "Class: " << clname << std::endl;
-   check_class(keyvalue.key(), keyvalue.value());
+   bool hasBodyText = false;
+   check_class(keyvalue.key(), keyvalue.value(), hasBodyText);
 
    // re: ordering
    // Save current namespace-qualified class name; we'll then add dependencies
@@ -1380,7 +1387,7 @@ void make_class(
 
    // output: class begin
    std::ostringstream oss;
-   write_class_prefix(oss, file_namespace, clname);
+   write_class_prefix(oss, file_namespace, clname, hasBodyText);
    const auto attrs = value["attributes"]; check_metadata(attrs);
    const auto elems = value["childNodes"]; check_children(elems);
 
@@ -1408,7 +1415,13 @@ void make_class(
    // output: names, keys
    // As needed by the Component base
    write_keys(
-      oss, keyvalue.value(), vecInfoMetadata, vecInfoChildren, file_namespace);
+      oss, keyvalue.value(), vecInfoMetadata, vecInfoChildren,
+      file_namespace, hasBodyText
+   );
+
+   // output: base
+   oss << "\n   using Base = Component<"
+       << clname << (hasBodyText ? ",true" : "") << ">;\n";
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;

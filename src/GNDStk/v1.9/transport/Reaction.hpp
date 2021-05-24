@@ -56,6 +56,8 @@ class Reaction : public Component<Reaction> {
 
 public:
 
+   using Base = Component<Reaction>;
+
    // ------------------------
    // relevant defaults
    // FYI for users
