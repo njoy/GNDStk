@@ -56,6 +56,7 @@ class CrossSection : public Component<CrossSection> {
 public:
 
    using Base = Component<CrossSection>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -155,6 +156,7 @@ public:
    // default
    CrossSection() :
       Component{
+         Body{},
          content.choice
       }
    {
@@ -164,6 +166,7 @@ public:
    // copy
    CrossSection(const CrossSection &other) :
       Component{
+         other,
          content.choice
       },
       content{other.content}
@@ -174,6 +177,7 @@ public:
    // move
    CrossSection(CrossSection &&other) :
       Component{
+         other,
          content.choice
       },
       content{std::move(other.content)}
@@ -184,10 +188,11 @@ public:
    // from node
    CrossSection(const Node &node) :
       Component{
+         Body{},
          content.choice
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -196,6 +201,7 @@ public:
       const std::vector<VARIANT> &choice
    ) :
       Component{
+         Body{},
          content.choice
       },
       content{

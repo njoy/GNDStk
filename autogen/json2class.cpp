@@ -1011,19 +1011,19 @@ void write_setters(
 void write_component_base(
    std::ostream &os,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren
+   const std::vector<infoChildren> &vecInfoChildren,
+   const bool have_other
 ) {
-   os << "      Component{";
+   os << "      Component{\n";
+   have_other
+      ? os << "         other"
+      : os << "         Body{}";
 
-   // metadata
-   std::size_t count = 0;
-   for (const auto &m : vecInfoMetadata)
-      os << (count++ ? ",\n" : "\n") << "         content." + m.varName;
-
-   // children
-   for (const auto &c : vecInfoChildren)
+   for (const auto &m : vecInfoMetadata) // metadata
+      os << ",\n         content." + m.varName;
+   for (const auto &c : vecInfoChildren) // children
    if (!c.isChoice)
-      os << (count++ ? ",\n" : "\n") << "         content." + c.varName;
+      os << ",\n         content." + c.varName;
 
    os << "\n      }";
 }
@@ -1036,7 +1036,7 @@ void write_ctor_body(
 ) {
    os << "   {\n";
    if (query)
-      os << "      query(node);\n";
+      os << "      fromNode(node);\n";
    os << "      construct(" << param << ");\n";
    os << "   }\n";
 }
@@ -1060,7 +1060,7 @@ void write_class_ctor(
    // signature, and base constructor call
    os << "   // default\n";
    os << "   " << clname << "() :\n";
-   write_component_base(os, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
 
    // body
    os << "\n";
@@ -1074,7 +1074,7 @@ void write_class_ctor(
    // signature, and base constructor call
    os << "   // copy\n";
    os << "   " << clname << "(const " << clname << " &other) :\n";
-   write_component_base(os, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren, true);
 
    // copy fields
    os << ",\n      content{other.content}";
@@ -1091,7 +1091,7 @@ void write_class_ctor(
    // signature, and base constructor call
    os << "   // move\n";
    os << "   " << clname << "(" << clname << " &&other) :\n";
-   write_component_base(os, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren, true);
 
    // copy fields
    os << ",\n      content{std::move(other.content)}";
@@ -1108,7 +1108,7 @@ void write_class_ctor(
    // signature, and base constructor call
    os << "   // from node\n";
    os << "   " << clname << "(const Node &node) :\n";
-   write_component_base(os, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
 
    // body
    os << "\n";
@@ -1138,7 +1138,7 @@ void write_class_ctor(
       os << (count++ ? ",\n" : "\n")
          << "      const " << c.fullVarType << " &" << c.varName;
    os << "\n   ) :\n";
-   write_component_base(os, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
 
    // initialize fields
    os << ",\n";
@@ -1180,7 +1180,7 @@ void write_class_ctor(
       os << (count++ ? ",\n" : "\n") << "      const "
          << c.fullVarType << " &" << c.varName;
    os << "\n   ) :\n";
-   write_component_base(os, vecInfoMetadata, vecInfoChildren);
+   write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
 
    // initialize fields
    os << ",\n";
@@ -1421,7 +1421,9 @@ void make_class(
 
    // output: base
    oss << "\n   using Base = Component<"
-       << clname << (hasBodyText ? ",true" : "") << ">;\n";
+       << clname << (hasBodyText ? ",true" : "") << ">;";
+   oss << "\n   using Body = BodyText<"
+       <<           (hasBodyText ?  "true" : "false") << ">;\n";
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;

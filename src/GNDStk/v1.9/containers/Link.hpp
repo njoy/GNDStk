@@ -47,6 +47,7 @@ class Link : public Component<Link> {
 public:
 
    using Base = Component<Link>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -92,6 +93,7 @@ public:
    // default
    Link() :
       Component{
+         Body{},
          content.href
       }
    {
@@ -101,6 +103,7 @@ public:
    // copy
    Link(const Link &other) :
       Component{
+         other,
          content.href
       },
       content{other.content}
@@ -111,6 +114,7 @@ public:
    // move
    Link(Link &&other) :
       Component{
+         other,
          content.href
       },
       content{std::move(other.content)}
@@ -121,10 +125,11 @@ public:
    // from node
    Link(const Node &node) :
       Component{
+         Body{},
          content.href
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -133,6 +138,7 @@ public:
       const std::optional<bodyText> &href
    ) :
       Component{
+         Body{},
          content.href
       },
       content{

@@ -57,6 +57,7 @@ class Reaction : public Component<Reaction> {
 public:
 
    using Base = Component<Reaction>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -137,6 +138,7 @@ public:
    // default
    Reaction() :
       Component{
+         Body{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -149,6 +151,7 @@ public:
    // copy
    Reaction(const Reaction &other) :
       Component{
+         other,
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -162,6 +165,7 @@ public:
    // move
    Reaction(Reaction &&other) :
       Component{
+         other,
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -175,13 +179,14 @@ public:
    // from node
    Reaction(const Node &node) :
       Component{
+         Body{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
          content.crossSection
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -193,6 +198,7 @@ public:
       const transport::CrossSection &crossSection
    ) :
       Component{
+         Body{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,

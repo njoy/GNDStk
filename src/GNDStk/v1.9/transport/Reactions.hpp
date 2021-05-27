@@ -50,6 +50,7 @@ class Reactions : public Component<Reactions> {
 public:
 
    using Base = Component<Reactions>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -107,6 +108,7 @@ public:
    // default
    Reactions() :
       Component{
+         Body{},
          content.reaction
       }
    {
@@ -116,6 +118,7 @@ public:
    // copy
    Reactions(const Reactions &other) :
       Component{
+         other,
          content.reaction
       },
       content{other.content}
@@ -126,6 +129,7 @@ public:
    // move
    Reactions(Reactions &&other) :
       Component{
+         other,
          content.reaction
       },
       content{std::move(other.content)}
@@ -136,10 +140,11 @@ public:
    // from node
    Reactions(const Node &node) :
       Component{
+         Body{},
          content.reaction
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -148,6 +153,7 @@ public:
       const std::vector<transport::Reaction> &reaction
    ) :
       Component{
+         Body{},
          content.reaction
       },
       content{

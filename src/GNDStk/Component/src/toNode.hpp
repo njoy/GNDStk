@@ -10,6 +10,7 @@ operator Node() const
       // starter node
       Node node(DERIVED::GNDSName());
 
+      // fields
       if constexpr (
          std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
       ) {
@@ -41,6 +42,10 @@ operator Node() const
          );
       }
 
+      // fixme Handle this...
+      // body text, if any
+
+      // done
       return node;
 
    } catch (...) {

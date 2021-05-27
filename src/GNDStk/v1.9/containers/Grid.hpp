@@ -67,6 +67,7 @@ class Grid : public Component<Grid> {
 public:
 
    using Base = Component<Grid>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -192,6 +193,7 @@ public:
    // default
    Grid() :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,
@@ -206,6 +208,7 @@ public:
    // copy
    Grid(const Grid &other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -221,6 +224,7 @@ public:
    // move
    Grid(Grid &&other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -236,6 +240,7 @@ public:
    // from node
    Grid(const Node &node) :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,
@@ -244,7 +249,7 @@ public:
          content.choice
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -258,6 +263,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,
@@ -287,6 +293,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,

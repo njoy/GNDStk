@@ -63,6 +63,7 @@ class ReactionSuite : public Component<ReactionSuite> {
 public:
 
    using Base = Component<ReactionSuite>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -176,6 +177,7 @@ public:
    // default
    ReactionSuite() :
       Component{
+         Body{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -191,6 +193,7 @@ public:
    // copy
    ReactionSuite(const ReactionSuite &other) :
       Component{
+         other,
          content.evaluation,
          content.format,
          content.interaction,
@@ -207,6 +210,7 @@ public:
    // move
    ReactionSuite(ReactionSuite &&other) :
       Component{
+         other,
          content.evaluation,
          content.format,
          content.interaction,
@@ -223,6 +227,7 @@ public:
    // from node
    ReactionSuite(const Node &node) :
       Component{
+         Body{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -232,7 +237,7 @@ public:
          content.reactions
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -247,6 +252,7 @@ public:
       const std::optional<transport::Reactions> &reactions
    ) :
       Component{
+         Body{},
          content.evaluation,
          content.format,
          content.interaction,

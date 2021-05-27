@@ -51,6 +51,7 @@ class Values : public Component<Values,true> {
 public:
 
    using Base = Component<Values,true>;
+   using Body = BodyText<true>;
 
    // ------------------------
    // relevant defaults
@@ -124,6 +125,7 @@ public:
    // default
    Values() :
       Component{
+         Body{},
          content.length,
          content.start,
          content.valueType
@@ -135,6 +137,7 @@ public:
    // copy
    Values(const Values &other) :
       Component{
+         other,
          content.length,
          content.start,
          content.valueType
@@ -147,6 +150,7 @@ public:
    // move
    Values(Values &&other) :
       Component{
+         other,
          content.length,
          content.start,
          content.valueType
@@ -159,12 +163,13 @@ public:
    // from node
    Values(const Node &node) :
       Component{
+         Body{},
          content.length,
          content.start,
          content.valueType
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -175,6 +180,7 @@ public:
       const Defaulted<UTF8Text> &valueType
    ) :
       Component{
+         Body{},
          content.length,
          content.start,
          content.valueType
@@ -195,6 +201,7 @@ public:
       const UTF8Text &valueType
    ) :
       Component{
+         Body{},
          content.length,
          content.start,
          content.valueType

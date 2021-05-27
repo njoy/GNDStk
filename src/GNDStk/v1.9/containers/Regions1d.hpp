@@ -58,6 +58,7 @@ class Regions1d : public Component<Regions1d> {
 public:
 
    using Base = Component<Regions1d>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -138,6 +139,7 @@ public:
    // default
    Regions1d() :
       Component{
+         Body{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -150,6 +152,7 @@ public:
    // copy
    Regions1d(const Regions1d &other) :
       Component{
+         other,
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -163,6 +166,7 @@ public:
    // move
    Regions1d(Regions1d &&other) :
       Component{
+         other,
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -176,13 +180,14 @@ public:
    // from node
    Regions1d(const Node &node) :
       Component{
+         Body{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
          content.axes
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -194,6 +199,7 @@ public:
       const std::optional<containers::Axes> &axes
    ) :
       Component{
+         Body{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,

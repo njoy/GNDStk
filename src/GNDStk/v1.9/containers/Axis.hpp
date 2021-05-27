@@ -51,6 +51,7 @@ class Axis : public Component<Axis> {
 public:
 
    using Base = Component<Axis>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -118,6 +119,7 @@ public:
    // default
    Axis() :
       Component{
+         Body{},
          content.index,
          content.label,
          content.unit
@@ -129,6 +131,7 @@ public:
    // copy
    Axis(const Axis &other) :
       Component{
+         other,
          content.index,
          content.label,
          content.unit
@@ -141,6 +144,7 @@ public:
    // move
    Axis(Axis &&other) :
       Component{
+         other,
          content.index,
          content.label,
          content.unit
@@ -153,12 +157,13 @@ public:
    // from node
    Axis(const Node &node) :
       Component{
+         Body{},
          content.index,
          content.label,
          content.unit
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -169,6 +174,7 @@ public:
       const std::optional<XMLName> &unit
    ) :
       Component{
+         Body{},
          content.index,
          content.label,
          content.unit

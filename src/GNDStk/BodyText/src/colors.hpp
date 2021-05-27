@@ -6,13 +6,13 @@ namespace colors {
 // -----------------------------------------------------------------------------
 
 // Specific colors:
-//    njoy::GNDStk::colors::plain::*
-//    njoy::GNDStk::colors::vivid::*
+//    colors::plain::*
+//    colors::vivid::*
 // Reset/clear:
-//    njoy::GNDStk::colors::reset
+//    colors::reset
 // Note that all of these are ANSI color escape sequences. They'll work on many
-// terminals, perhaps most, but it isn't guaranteed. GNDStk::color is false by
-// default, so they aren't used unless someone changes that.
+// terminals, perhaps most, but working isn't guaranteed. GNDStk::color is false
+// by default, so colors aren't used at all unless someone sets it to true.
 
 namespace plain {
 
@@ -57,7 +57,7 @@ inline const std::string reset = "\033[0m";
 // -----------------------------------------------------------------------------
 
 // Use:
-//    njoy::GNDStk::colors::part
+//    colors::part
 // Where part is a particular portion of the relevant printed output.
 // Available parts appear below. "" means no special color treatment,
 // so that users get whatever text color their terminal already uses.
@@ -71,8 +71,8 @@ inline std::string component = plain::magenta;
 inline std::string brace     = plain::magenta;
 
 // Vector labels + begin/end square brackets
-inline std::string vector    = plain::yellow;
-inline std::string bracket   = plain::yellow;
+inline std::string vector  = plain::yellow;
+inline std::string bracket = plain::yellow;
 
 // If optional/defaulted, label (but not curly braces or square brackets,
 // where applicable) are modified to these. Both are blue-ish, reflecting
@@ -80,7 +80,10 @@ inline std::string bracket   = plain::yellow;
 inline std::string optional  = plain::cyan;
 inline std::string defaulted = plain::blue;
 
-// Comment color, as you probably guessed
+// Values in nodes with "body text"
+inline std::string value = plain::white;
+
+// Comments
 inline std::string comment = plain::red;
 
 } // namespace colors

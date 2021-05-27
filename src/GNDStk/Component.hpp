@@ -1,12 +1,6 @@
 
-template<class DERIVED, bool bodyText = false>
+template<class DERIVED, bool hasBodyText = false>
 class Component;
-
-// for printing
-inline bool comments = true;
-
-// for printing
-#include "GNDStk/Component/src/colors.hpp"
 
 // general helper constructs
 #include "GNDStk/Component/src/detail.hpp"
@@ -17,8 +11,8 @@ inline bool comments = true;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool bodyText>
-class Component : public detail::BodyText<bodyText> {
+template<class DERIVED, bool hasBodyText>
+class Component : public BodyText<hasBodyText> {
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -31,9 +25,17 @@ class Component : public detail::BodyText<bodyText> {
    Component(const Component &) = delete;
    Component(Component &&) = delete;
 
-   // Do-nothing copy and move assignments have the right behavior, however.
-   Component &operator=(const Component &) { return *this; }
-   Component &operator=(Component &&) { return *this; }
+   // Copy and move *assignments* have the right behavior, however.
+   Component &operator=(const Component &other)
+   {
+      BodyText<hasBodyText>::operator=(other);
+      return *this;
+   }
+   Component &operator=(Component &&other)
+   {
+      BodyText<hasBodyText>::operator=(std::move(other));
+      return *this;
+   }
 
    // Constructor; intentionally *private*
    #include "GNDStk/Component/src/ctor.hpp"
@@ -45,7 +47,7 @@ class Component : public detail::BodyText<bodyText> {
    void construct(const DERIVED &) const { }
    void construct(const Node &) const { }
 
-   // Can (but don't need to) override in DERIVED
+   // You can (but don't need to) override in DERIVED
    static std::string namespaceName() { return ""; }
 
    // Intermediaries between derived-class getters/setters and getter/setter
@@ -54,7 +56,7 @@ class Component : public detail::BodyText<bodyText> {
 
 public:
 
-   #include "GNDStk/Component/src/query.hpp"
+   #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/toNode.hpp"
    #include "GNDStk/Component/src/write.hpp"
 
@@ -79,10 +81,10 @@ public:
 // operator<<
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool bodyText>
+template<class DERIVED, bool hasBodyText>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,bodyText> &obj
+   const Component<DERIVED,hasBodyText> &obj
 ) {
    return obj.write(os);
 }

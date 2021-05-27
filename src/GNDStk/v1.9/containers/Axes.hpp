@@ -56,6 +56,7 @@ class Axes : public Component<Axes> {
 public:
 
    using Base = Component<Axes>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -149,6 +150,7 @@ public:
    // default
    Axes() :
       Component{
+         Body{},
          content.href,
          content.axis,
          content.grid
@@ -160,6 +162,7 @@ public:
    // copy
    Axes(const Axes &other) :
       Component{
+         other,
          content.href,
          content.axis,
          content.grid
@@ -172,6 +175,7 @@ public:
    // move
    Axes(Axes &&other) :
       Component{
+         other,
          content.href,
          content.axis,
          content.grid
@@ -184,12 +188,13 @@ public:
    // from node
    Axes(const Node &node) :
       Component{
+         Body{},
          content.href,
          content.axis,
          content.grid
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -200,6 +205,7 @@ public:
       const std::optional<std::vector<containers::Grid>> &grid
    ) :
       Component{
+         Body{},
          content.href,
          content.axis,
          content.grid

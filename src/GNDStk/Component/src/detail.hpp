@@ -89,17 +89,6 @@ std::string getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
 
 
 // ------------------------
-// indentString
-// ------------------------
-
-inline void indentString(
-   std::ostream &os, const int level, const std::string &str = ""
-) {
-   os << std::string(njoy::GNDStk::indent * level,' ') << str;
-}
-
-
-// ------------------------
 // colorize
 // ------------------------
 
@@ -132,6 +121,56 @@ inline std::string fullName(
 }
 
 
+// ------------------------
+// indentString
+// ------------------------
+
+inline void indentString(
+   std::ostream &os, const int level, const std::string &str = ""
+) {
+   os << std::string(GNDStk::indent * level,' ') << str;
+}
+
+
+// ------------------------
+// hasWriteOneArg
+// hasWriteTwoArg
+// ------------------------
+
+// These are adapted from an answer here:
+// https://stackoverflow.com/questions/87372
+
+template<class T>
+class hasWriteOneArg
+{
+   template<
+      class U,
+      std::ostream &(U::*)(std::ostream &) const
+   > struct SFINAE {};
+
+   template<class U> static char test(SFINAE<U, &U::write> *);
+   template<class U> static long test(...);
+
+public:
+   static const bool has = sizeof(test<T>(0)) == sizeof(char);
+};
+
+template<class T>
+class hasWriteTwoArg
+{
+   template<
+      class U,
+      std::ostream &(U::*)(std::ostream &, const int) const
+   > struct SFINAE {};
+
+   template<class U> static char test(SFINAE<U, &U::write> *);
+   template<class U> static long test(...);
+
+public:
+   static const bool has = sizeof(test<T>(0)) == sizeof(char);
+};
+
+
 
 // -----------------------------------------------------------------------------
 // writeComponentPart
@@ -140,10 +179,48 @@ inline std::string fullName(
 // Cases:
 //    std::string
 //    T
-//    std::vector<T>
 //    std::optional<T>
 //    Defaulted<T>
 //    std::variant<Ts...>
+//    std::vector<T>
+
+bool writeComponentPart(
+   std::ostream &os, const int level, const std::string &str,
+   const std::string &label, const std::size_t maxlen,
+   const std::string &color = ""
+);
+
+template<class T>
+bool writeComponentPart(
+   std::ostream &os, const int level, const T &value,
+   const std::string &label, const std::size_t maxlen,
+   const std::string &color = ""
+);
+
+template<class T>
+bool writeComponentPart(
+   std::ostream &os, const int level, const std::optional<T> &opt,
+   const std::string &label, const std::size_t maxlen
+);
+
+template<class T>
+bool writeComponentPart(
+   std::ostream &os, const int level, const Defaulted<T> &def,
+   const std::string &label, const std::size_t maxlen
+);
+
+template<class... Ts>
+bool writeComponentPart(
+   std::ostream &os, const int level, const std::variant<Ts...> &var,
+   const std::string &label, const std::size_t maxlen
+);
+
+template<class T>
+bool writeComponentPart(
+   std::ostream &os, const int level, const std::vector<T> &vec,
+   const std::string &label, const std::size_t maxlen,
+   const std::string &color = ""
+);
 
 
 // ------------------------
@@ -154,7 +231,7 @@ inline std::string fullName(
 inline bool writeComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
-   const std::string &color = ""
+   const std::string &color
 ) {
    indentString(os,level);
    if (label != "") {
@@ -187,7 +264,7 @@ template<class T>
 bool writeComponentPart(
    std::ostream &os, const int level, const T &value,
    const std::string &label, const std::size_t maxlen,
-   const std::string &color = ""
+   const std::string &color
 ) {
    if constexpr (
       std::is_base_of<Component<T,false>,T>::value ||
@@ -201,46 +278,6 @@ bool writeComponentPart(
       oss << value;
       writeComponentPart(os, level, oss.str(), label, maxlen, color);
    }
-   return true;
-}
-
-
-// ------------------------
-// for vector
-// ------------------------
-
-// label [
-//    element
-//    element
-//    ...
-// ]
-template<class T>
-bool writeComponentPart(
-   std::ostream &os, const int level, const std::vector<T> &vec,
-   const std::string &label, const std::size_t maxlen,
-   const std::string &color = ""
-) {
-   (void)maxlen; // doesn't use; formats with [...]
-
-   indentString(
-      os, level,
-      colorize(
-         label,
-         color != "" ? color : colors::vector
-      )
-      + " " + colorize_bracket("[") + "\n"
-   );
-
-   for (auto &value : vec) {
-      writeComponentPart(os, level+1, value, "", 0);
-      os << '\n'; // between elements
-   }
-
-   indentString(
-      os, level,
-      colorize_bracket("]")
-   );
-
    return true;
 }
 
@@ -314,6 +351,46 @@ bool writeComponentPart(
 }
 
 
+// ------------------------
+// for vector
+// ------------------------
+
+// label [
+//    element
+//    element
+//    ...
+// ]
+template<class T>
+bool writeComponentPart(
+   std::ostream &os, const int level, const std::vector<T> &vec,
+   const std::string &label, const std::size_t maxlen,
+   const std::string &color
+) {
+   (void)maxlen; // doesn't use; formats with [...]
+
+   indentString(
+      os, level,
+      colorize(
+         label,
+         color != "" ? color : colors::vector
+      )
+      + " " + colorize_bracket("[") + "\n"
+   );
+
+   for (auto &value : vec) {
+      writeComponentPart(os, level+1, value, "", 0);
+      os << '\n'; // between elements
+   }
+
+   indentString(
+      os, level,
+      colorize_bracket("]")
+   );
+
+   return true;
+}
+
+
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -322,28 +399,6 @@ bool writeComponentPart(
 // Intended for use in our auto-generated Standard Interface classes.
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-
-// Helper
-template<class T>
-void check_index(const std::vector<T> &vec, const std::size_t n)
-{
-   const std::size_t size = vec.size();
-   if (!(n < size)) {
-      if (size > 0)
-         log::error(
-           "Index ({}) is out of range [0..{}] (the vector size is {})",
-            n, size-1, size
-         );
-      else
-         log::error(
-           "Index ({}) is out of range; in fact the vector is empty",
-            n
-         );
-      throw std::exception{};
-   }
-}
-
-
 
 // -----------------------------------------------------------------------------
 // getter(vector,n,...)
@@ -677,23 +732,5 @@ void setter(
       throw;
    }
 }
-
-
-
-// -----------------------------------------------------------------------------
-// BodyText
-// -----------------------------------------------------------------------------
-
-// default
-template<bool bodyText>
-class BodyText {
-};
-
-// for bodyText == true
-template<>
-class BodyText<true> {
-public:
-   // fixme Something fabulous and exciting here
-}; // class BodyText
 
 } // namespace detail

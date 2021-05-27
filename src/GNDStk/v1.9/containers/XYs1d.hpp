@@ -62,6 +62,7 @@ class XYs1d : public Component<XYs1d> {
 public:
 
    using Base = Component<XYs1d>;
+   using Body = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -167,6 +168,7 @@ public:
    // default
    XYs1d() :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,
@@ -181,6 +183,7 @@ public:
    // copy
    XYs1d(const XYs1d &other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -196,6 +199,7 @@ public:
    // move
    XYs1d(XYs1d &&other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -211,6 +215,7 @@ public:
    // from node
    XYs1d(const Node &node) :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,
@@ -219,7 +224,7 @@ public:
          content.values
       }
    {
-      query(node);
+      fromNode(node);
       construct(node);
    }
 
@@ -233,6 +238,7 @@ public:
       const containers::Values &values
    ) :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,
@@ -262,6 +268,7 @@ public:
       const containers::Values &values
    ) :
       Component{
+         Body{},
          content.index,
          content.interpolation,
          content.label,

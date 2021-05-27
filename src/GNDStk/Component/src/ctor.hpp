@@ -8,7 +8,8 @@ friend DERIVED;
 
 // ctor: fields
 template<class... ARGS>
-Component(ARGS &...args)
+Component(const BodyText<hasBodyText> &other, ARGS &...args) :
+   BodyText<hasBodyText>(other)
 {
    // static_assert needs string literal
    #define pairing_error \
@@ -23,11 +24,13 @@ Component(ARGS &...args)
    // The parameters that are sent to this constructor must EXACTLY reflect
    // what we'd get from a DERIVED::keys() multi-query.
    if constexpr (std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value) {
+      // keys are "empty" (std::tuple<>); that's OK, as long as ARGS are too
       static_assert(
          std::is_same<std::tuple<ARGS ...>, std::tuple<>>::value,
          pairing_error
       );
    } else {
+      // keys are *not* empty, so...
       // The following is the *type* that a multi-query with DERIVED::keys()
       // will produce, except without cvrefs.
       using multi_t =
