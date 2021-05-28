@@ -55,8 +55,8 @@ class Axes : public Component<Axes> {
 
 public:
 
-   using Base = Component<Axes>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Axes>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -150,7 +150,7 @@ public:
    // default
    Axes() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.href,
          content.axis,
          content.grid
@@ -188,7 +188,7 @@ public:
    // from node
    Axes(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.href,
          content.axis,
          content.grid
@@ -205,7 +205,7 @@ public:
       const std::optional<std::vector<containers::Grid>> &grid
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.href,
          content.axis,
          content.grid

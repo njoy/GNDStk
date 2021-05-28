@@ -57,8 +57,8 @@ class Regions1d : public Component<Regions1d> {
 
 public:
 
-   using Base = Component<Regions1d>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Regions1d>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -139,7 +139,7 @@ public:
    // default
    Regions1d() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -180,7 +180,7 @@ public:
    // from node
    Regions1d(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -199,7 +199,7 @@ public:
       const std::optional<containers::Axes> &axes
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,

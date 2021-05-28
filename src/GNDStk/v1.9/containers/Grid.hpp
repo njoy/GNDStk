@@ -66,8 +66,8 @@ class Grid : public Component<Grid> {
 
 public:
 
-   using Base = Component<Grid>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Grid>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -193,7 +193,7 @@ public:
    // default
    Grid() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -240,7 +240,7 @@ public:
    // from node
    Grid(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -263,7 +263,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -293,7 +293,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,

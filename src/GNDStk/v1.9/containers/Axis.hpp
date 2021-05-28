@@ -50,8 +50,8 @@ class Axis : public Component<Axis> {
 
 public:
 
-   using Base = Component<Axis>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Axis>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -119,7 +119,7 @@ public:
    // default
    Axis() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.label,
          content.unit
@@ -157,7 +157,7 @@ public:
    // from node
    Axis(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.label,
          content.unit
@@ -174,7 +174,7 @@ public:
       const std::optional<XMLName> &unit
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.label,
          content.unit

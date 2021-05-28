@@ -1017,7 +1017,7 @@ void write_component_base(
    os << "      Component{\n";
    have_other
       ? os << "         other"
-      : os << "         Body{}";
+      : os << "         BaseBodyText{}";
 
    for (const auto &m : vecInfoMetadata) // metadata
       os << ",\n         content." + m.varName;
@@ -1420,9 +1420,9 @@ void make_class(
    );
 
    // output: base
-   oss << "\n   using Base = Component<"
+   oss << "\n   using BaseComponent = Component<"
        << clname << (hasBodyText ? ",true" : "") << ">;";
-   oss << "\n   using Body = BodyText<"
+   oss << "\n   using BaseBodyText = BodyText<"
        <<           (hasBodyText ?  "true" : "false") << ">;\n";
 
    // output: defaults (applicable only to metadata)

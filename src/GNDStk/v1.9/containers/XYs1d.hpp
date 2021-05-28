@@ -61,8 +61,8 @@ class XYs1d : public Component<XYs1d> {
 
 public:
 
-   using Base = Component<XYs1d>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<XYs1d>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -168,7 +168,7 @@ public:
    // default
    XYs1d() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -215,7 +215,7 @@ public:
    // from node
    XYs1d(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -238,7 +238,7 @@ public:
       const containers::Values &values
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -268,7 +268,7 @@ public:
       const containers::Values &values
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,

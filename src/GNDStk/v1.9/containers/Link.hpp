@@ -46,8 +46,8 @@ class Link : public Component<Link> {
 
 public:
 
-   using Base = Component<Link>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Link>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -93,7 +93,7 @@ public:
    // default
    Link() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.href
       }
    {
@@ -125,7 +125,7 @@ public:
    // from node
    Link(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.href
       }
    {
@@ -138,7 +138,7 @@ public:
       const std::optional<bodyText> &href
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.href
       },
       content{

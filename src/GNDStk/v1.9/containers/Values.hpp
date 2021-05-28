@@ -50,8 +50,8 @@ class Values : public Component<Values,true> {
 
 public:
 
-   using Base = Component<Values,true>;
-   using Body = BodyText<true>;
+   using BaseComponent = Component<Values,true>;
+   using BaseBodyText = BodyText<true>;
 
    // ------------------------
    // relevant defaults
@@ -125,7 +125,7 @@ public:
    // default
    Values() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.length,
          content.start,
          content.valueType
@@ -163,7 +163,7 @@ public:
    // from node
    Values(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.length,
          content.start,
          content.valueType
@@ -180,7 +180,7 @@ public:
       const Defaulted<UTF8Text> &valueType
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.length,
          content.start,
          content.valueType
@@ -201,7 +201,7 @@ public:
       const UTF8Text &valueType
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.length,
          content.start,
          content.valueType

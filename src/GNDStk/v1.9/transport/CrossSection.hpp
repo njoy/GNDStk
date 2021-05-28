@@ -55,8 +55,8 @@ class CrossSection : public Component<CrossSection> {
 
 public:
 
-   using Base = Component<CrossSection>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<CrossSection>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -156,7 +156,7 @@ public:
    // default
    CrossSection() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.choice
       }
    {
@@ -188,7 +188,7 @@ public:
    // from node
    CrossSection(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.choice
       }
    {
@@ -201,7 +201,7 @@ public:
       const std::vector<VARIANT> &choice
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.choice
       },
       content{

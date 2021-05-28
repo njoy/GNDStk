@@ -49,8 +49,8 @@ class Reactions : public Component<Reactions> {
 
 public:
 
-   using Base = Component<Reactions>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Reactions>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -108,7 +108,7 @@ public:
    // default
    Reactions() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.reaction
       }
    {
@@ -140,7 +140,7 @@ public:
    // from node
    Reactions(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.reaction
       }
    {
@@ -153,7 +153,7 @@ public:
       const std::vector<transport::Reaction> &reaction
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.reaction
       },
       content{

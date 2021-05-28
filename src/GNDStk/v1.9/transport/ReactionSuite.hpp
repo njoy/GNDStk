@@ -62,8 +62,8 @@ class ReactionSuite : public Component<ReactionSuite> {
 
 public:
 
-   using Base = Component<ReactionSuite>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<ReactionSuite>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -177,7 +177,7 @@ public:
    // default
    ReactionSuite() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -227,7 +227,7 @@ public:
    // from node
    ReactionSuite(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -252,7 +252,7 @@ public:
       const std::optional<transport::Reactions> &reactions
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.evaluation,
          content.format,
          content.interaction,

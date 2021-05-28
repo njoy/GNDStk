@@ -56,8 +56,8 @@ class Reaction : public Component<Reaction> {
 
 public:
 
-   using Base = Component<Reaction>;
-   using Body = BodyText<false>;
+   using BaseComponent = Component<Reaction>;
+   using BaseBodyText = BodyText<false>;
 
    // ------------------------
    // relevant defaults
@@ -138,7 +138,7 @@ public:
    // default
    Reaction() :
       Component{
-         Body{},
+         BaseBodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -179,7 +179,7 @@ public:
    // from node
    Reaction(const Node &node) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -198,7 +198,7 @@ public:
       const transport::CrossSection &crossSection
    ) :
       Component{
-         Body{},
+         BaseBodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
