@@ -73,6 +73,21 @@ public:
       // Etc.
    }
 
+   // Component << std::string
+   // Meaning: read the string's content (currently XML or JSON) into an object
+   // of the Component's DERIVED class. Uses the Node << std::string capability.
+   void operator<<(const std::string &str)
+   {
+      try {
+         Node node;
+         node << str;
+         static_cast<DERIVED &>(*this) = DERIVED(node);
+      } catch (...) {
+         log::function(std::string(DERIVED::className()) + " << string");
+         throw;
+      }
+   }
+
 }; // class Component
 
 
@@ -86,26 +101,4 @@ std::ostream &operator<<(
    const Component<DERIVED,hasBodyText> &obj
 ) {
    return obj.write(os);
-}
-
-
-// -----------------------------------------------------------------------------
-// Component << std::string
-// Meaning: read the string's content (currently XML or JSON) into an object
-// of the Component's DERIVED class. Uses the Node << std::string capability.
-// -----------------------------------------------------------------------------
-
-template<class DERIVED, bool hasBodyText>
-void operator<<(
-   Component<DERIVED,hasBodyText> &obj,
-   const std::string &str
-) {
-   try {
-      Node node;
-      node << str;
-      static_cast<DERIVED &>(obj) = DERIVED(node);
-   } catch (...) {
-      log::function(std::string(DERIVED::className()) + " << string");
-      throw;
-   }
 }

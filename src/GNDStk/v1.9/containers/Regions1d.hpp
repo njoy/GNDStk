@@ -116,7 +116,7 @@ public:
 
    // ------------------------
    // Setters
-   // non-const only
+   // non-const
    // ------------------------
 
    // label
@@ -149,6 +149,7 @@ public:
          content.axes
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -163,6 +164,7 @@ public:
       },
       content{other.content}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -177,6 +179,7 @@ public:
       },
       content{std::move(other.content)}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -191,6 +194,7 @@ public:
       }
    {
       fromNode(node);
+      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -215,6 +219,7 @@ public:
          axes
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 

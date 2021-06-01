@@ -24,7 +24,6 @@ using namespace njoy::GNDStk::core;
 namespace containers {
 
 class Values : public Component<Values,true> {
-public:
 
    // ------------------------
    // For Component
@@ -50,6 +49,8 @@ public:
             / Meta<>("valueType")
       ;
    }
+
+public:
 
    // Base classes
    using BaseComponent = Component<Values,true>;
@@ -101,7 +102,7 @@ public:
 
    // ------------------------
    // Setters
-   // non-const only
+   // non-const
    // ------------------------
 
    // length
@@ -133,7 +134,7 @@ public:
          content.valueType
       }
    {
-      this->length(content.length).start(content.start).valueType(content.valueType);
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -147,6 +148,7 @@ public:
       },
       content{other.content}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -160,6 +162,7 @@ public:
       },
       content{std::move(other.content)}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -173,7 +176,7 @@ public:
       }
    {
       fromNode(node);
-      this->length(content.length).start(content.start).valueType(content.valueType);
+      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -195,7 +198,8 @@ public:
          valueType
       }
    {
-      this->length(content.length).start(content.start).valueType(content.valueType);
+      BaseBodyText::length(length).start(start).valueType(valueType);
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -221,7 +225,8 @@ public:
             : Defaulted<UTF8Text>{"Float64",valueType}
       }
    {
-      this->length(content.length).start(content.start).valueType(content.valueType);
+      BaseBodyText::length(length).start(start).valueType(valueType);
+      bodyTextUpdate(content);
       construct();
    }
 

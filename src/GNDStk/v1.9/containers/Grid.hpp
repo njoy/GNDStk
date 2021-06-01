@@ -152,7 +152,7 @@ public:
 
    // ------------------------
    // Setters
-   // non-const only
+   // non-const
    // ------------------------
 
    // index
@@ -205,6 +205,7 @@ public:
          content.choice
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -221,6 +222,7 @@ public:
       },
       content{other.content}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -237,6 +239,7 @@ public:
       },
       content{std::move(other.content)}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -253,6 +256,7 @@ public:
       }
    {
       fromNode(node);
+      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -283,6 +287,7 @@ public:
          choice
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -315,6 +320,7 @@ public:
          choice
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 

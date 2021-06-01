@@ -115,7 +115,7 @@ public:
 
    // ------------------------
    // Setters
-   // non-const only
+   // non-const
    // ------------------------
 
    // ENDF_MT
@@ -148,6 +148,7 @@ public:
          content.crossSection
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -162,6 +163,7 @@ public:
       },
       content{other.content}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -176,6 +178,7 @@ public:
       },
       content{std::move(other.content)}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -190,6 +193,7 @@ public:
       }
    {
       fromNode(node);
+      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -214,6 +218,7 @@ public:
          crossSection
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 

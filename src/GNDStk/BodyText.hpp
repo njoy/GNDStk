@@ -20,6 +20,9 @@ inline bool comments = true;
 template<bool hasBodyText>
 class BodyText {
 public:
+   template<class CONTENT>
+   void bodyTextUpdate(const CONTENT &) { }
+
    void fromNode(const Node &) { }
    void toNode(Node &) const { }
    std::ostream &write(std::ostream &os, const int) const { return os; }
@@ -454,6 +457,21 @@ public:
       );
 
       return os << std::endl;
+   }
+
+   // ------------------------
+   // bodyTextUpdate
+   // ------------------------
+
+   template<class CONTENT>
+   void bodyTextUpdate(const CONTENT &content)
+   {
+      if constexpr (detail::has_length<CONTENT>::value)
+         this->length(content.length);
+      if constexpr (detail::has_start<CONTENT>::value)
+         this->start(content.start);
+      if constexpr (detail::has_valueType<CONTENT>::value)
+         this->valueType(content.valueType);
    }
 
 }; // class BodyText

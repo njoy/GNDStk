@@ -142,7 +142,7 @@ public:
 
    // ------------------------
    // Setters
-   // non-const only
+   // non-const
    // ------------------------
 
    // evaluation
@@ -190,6 +190,7 @@ public:
          content.reactions
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -207,6 +208,7 @@ public:
       },
       content{other.content}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -224,6 +226,7 @@ public:
       },
       content{std::move(other.content)}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -241,6 +244,7 @@ public:
       }
    {
       fromNode(node);
+      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -274,6 +278,7 @@ public:
          reactions
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 

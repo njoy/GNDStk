@@ -1058,6 +1058,7 @@ void write_ctor_body(
       os << "      fromNode(node);\n";
    if (call != "")
       os << "      " << call;
+   os << "      bodyTextUpdate(content);\n";
    os << "      construct(" << param << ");\n";
    os << "   }\n";
 }

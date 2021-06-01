@@ -82,7 +82,7 @@ public:
 
    // ------------------------
    // Setters
-   // non-const only
+   // non-const
    // ------------------------
 
    // href
@@ -100,6 +100,7 @@ public:
          content.href
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -111,6 +112,7 @@ public:
       },
       content{other.content}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -122,6 +124,7 @@ public:
       },
       content{std::move(other.content)}
    {
+      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -133,6 +136,7 @@ public:
       }
    {
       fromNode(node);
+      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -148,6 +152,7 @@ public:
          href
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
