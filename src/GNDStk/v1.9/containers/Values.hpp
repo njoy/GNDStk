@@ -198,7 +198,6 @@ public:
          valueType
       }
    {
-      BaseBodyText::length(length).start(start).valueType(valueType);
       bodyTextUpdate(content);
       construct();
    }
@@ -225,7 +224,6 @@ public:
             : Defaulted<UTF8Text>{"Float64",valueType}
       }
    {
-      BaseBodyText::length(length).start(start).valueType(valueType);
       bodyTextUpdate(content);
       construct();
    }

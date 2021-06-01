@@ -1050,14 +1050,11 @@ void write_component_base(
 void write_ctor_body(
    std::ostream &os,
    const std::string &param,
-   const bool query = false,
-   const std::string &call = ""
+   const bool query = false
 ) {
    os << "   {\n";
    if (query)
       os << "      fromNode(node);\n";
-   if (call != "")
-      os << "      " << call;
    os << "      bodyTextUpdate(content);\n";
    os << "      construct(" << param << ");\n";
    os << "   }\n";
@@ -1070,37 +1067,10 @@ void write_class_ctor(
    std::ostream &os,
    const std::string &clname,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren,
-   const bool hasBodyText
+   const std::vector<infoChildren> &vecInfoChildren
 ) {
    std::size_t count;
    os << "\n";
-
-   // ------------------------
-   // Re: possible BodyText
-   // base class content
-   // ------------------------
-
-   std::string call;
-   if (hasBodyText) {
-      bool length = false, start = false, valueType = false;
-      for (const auto &m : vecInfoMetadata) {
-         if (m.varName == "length") length = true;
-         if (m.varName == "start") start = true;
-         if (m.varName == "valueType") valueType = true;
-      }
-      if (length || start || valueType) {
-         call = "BaseBodyText::";
-         if (length)
-            call += "length(length)";
-         if (start)
-            call += std::string(length ? "." : "") + "start(start)";
-         if (valueType)
-            call += std::string(length || start ? "." : "") +
-               "valueType(valueType)";
-         call += ";\n";
-      }
-   }
 
    // ------------------------
    // ctor: default
@@ -1201,7 +1171,7 @@ void write_class_ctor(
    os << "\n      }\n";
 
    // body
-   write_ctor_body(os,"",false,call);
+   write_ctor_body(os,"",false);
 
    // ------------------------
    // ctor: fields but without
@@ -1251,7 +1221,7 @@ void write_class_ctor(
    os << "\n      }\n";
 
    // body
-   write_ctor_body(os,"",false,call);
+   write_ctor_body(os,"",false);
 }
 
 
@@ -1511,7 +1481,7 @@ void make_class(
        << "\n   // Construction"
        << "\n   " << small
        << "\n";
-   write_class_ctor(oss, clname, vecInfoMetadata, vecInfoChildren, hasBodyText);
+   write_class_ctor(oss, clname, vecInfoMetadata, vecInfoChildren);
 
    // output: class end
    write_class_suffix(oss, file_namespace, clname);
