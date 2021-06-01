@@ -30,15 +30,17 @@ namespace containers {
 class Regions1d : public Component<Regions1d> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Regions1d>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
    static auto className() { return "Regions1d"; }
    static auto GNDSName() { return "regions1d"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -57,11 +59,12 @@ class Regions1d : public Component<Regions1d> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<Regions1d>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -69,7 +72,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -83,7 +86,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -112,7 +115,7 @@ public:
     { return content.axes; }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -133,7 +136,7 @@ public:
     { content.axes = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -216,7 +219,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -226,7 +229,7 @@ public:
    Regions1d &operator=(Regions1d &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Regions1d/src/custom.hpp"

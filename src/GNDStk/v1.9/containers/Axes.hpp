@@ -30,15 +30,17 @@ namespace containers {
 class Axes : public Component<Axes> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Axes>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
    static auto className() { return "Axes"; }
    static auto GNDSName() { return "axes"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -55,11 +57,12 @@ class Axes : public Component<Axes> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<Axes>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -67,7 +70,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -80,7 +83,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -127,7 +130,7 @@ public:
     { return getter(grid(),label,"grid"); }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -144,7 +147,7 @@ public:
     { content.grid = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -220,7 +223,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -230,7 +233,7 @@ public:
    Axes &operator=(Axes &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Axes/src/custom.hpp"

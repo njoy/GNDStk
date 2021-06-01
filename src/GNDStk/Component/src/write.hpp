@@ -3,7 +3,7 @@
 // Component::write()
 // -----------------------------------------------------------------------------
 
-std::ostream &write(std::ostream &os, const int level = 0) const
+std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
 {
    try {
       // Indent, write header, newline

@@ -29,15 +29,17 @@ namespace transport {
 class Reactions : public Component<Reactions> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Reactions>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }
    static auto className() { return "Reactions"; }
    static auto GNDSName() { return "reactions"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -49,11 +51,12 @@ class Reactions : public Component<Reactions> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<Reactions>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -61,7 +64,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -70,7 +73,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -93,7 +96,7 @@ public:
     { return getter(reaction(),label,"reaction"); }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -102,7 +105,7 @@ public:
     { content.reaction = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -164,7 +167,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -174,7 +177,7 @@ public:
    Reactions &operator=(Reactions &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/transport/Reactions/src/custom.hpp"

@@ -35,15 +35,17 @@ class CrossSection : public Component<CrossSection> {
    >;
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<CrossSection>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }
    static auto className() { return "CrossSection"; }
    static auto GNDSName() { return "crossSection"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -55,11 +57,12 @@ class CrossSection : public Component<CrossSection> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<CrossSection>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -67,7 +70,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -76,7 +79,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -123,7 +126,7 @@ public:
    }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -150,7 +153,7 @@ public:
    }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -212,7 +215,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -222,7 +225,7 @@ public:
    CrossSection &operator=(CrossSection &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/transport/CrossSection/src/custom.hpp"

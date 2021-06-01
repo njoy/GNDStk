@@ -42,8 +42,8 @@ operator Node() const
          );
       }
 
-      // fixme Handle this...
-      // body text, if any
+      // body text, a.k.a. XML "pcdata" (plain character data), if any
+      this->BodyText<hasBodyText>::toNode(node);
 
       // done
       return node;

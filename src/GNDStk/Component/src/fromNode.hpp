@@ -58,7 +58,7 @@ void fromNode(const Node &node)
             tup
          );
 
-         // retrieve any body text, a.k.a. XML "pcdata" (plain character data)
+         // body text, a.k.a. XML "pcdata" (plain character data), if any
          this->BodyText<hasBodyText>::fromNode(node);
       }
    } catch (...) {

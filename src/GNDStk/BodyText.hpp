@@ -20,7 +20,8 @@ inline bool comments = true;
 template<bool hasBodyText>
 class BodyText {
 public:
-   void fromNode(const Node &) const { }
+   void fromNode(const Node &) { }
+   void toNode(Node &) const { }
    std::ostream &write(std::ostream &os, const int) const { return os; }
 };
 
@@ -40,7 +41,7 @@ template<>
 class BodyText<true> {
 
    // ------------------------
-   // general member data
+   // General member data
    // ------------------------
 
    // raw string, directly from the "plain character data" in the GNDS file
@@ -72,6 +73,7 @@ class BodyText<true> {
       std::vector<long double>
    > variant;
 
+
    // ------------------------
    // Optional values that
    // affect interpretation
@@ -80,27 +82,27 @@ class BodyText<true> {
 
    // Quoted from the official JSON files for GNDS:
    //
-   // valueType
-   //    Specifies the type of data in the body (e.g., Integer32, Float64).
-   //    Only one type of data can be stored in each instance of a values node.
-   //
-   // start
-   //    default: 0
-   //    For start = N, the first N values are zero and are not stored.
-   //
    // length
    //    The total number of data values including leading and trailing zero
    //    values that are not stored. This attribute should only be used when
    //    the sum of start and the number of listed values do not add to the
    //    total number of data values. This should only happen when there are
    //    trailing zeros not listed in the Body text.
+   //
+   // start
+   //    default: 0
+   //    For start = N, the first N values are zero and are not stored.
+   //
+   // valueType
+   //    Specifies the type of data in the body (e.g., Integer32, Float64).
+   //    Only one type of data can be stored in each instance of a values node.
 
    // These are placed in a struct, so our setters can use the names
    struct {
       // these might or might not have been in a node with body text...
-      std::string valueType = "";
-      std::size_t start = 0;
       std::size_t length = 0;
+      std::size_t start = 0;
+      std::string valueType = "";
       // flag, to help get<std::vector<T>>() work smoothly
       mutable bool hasZeros = false; // <== fixme May or may not want setter
    } vars;
@@ -112,17 +114,37 @@ class BodyText<true> {
 public:
 
    // ------------------------
-   // Change valueType,
-   // start, or length
+   // Change length, start,
+   // or valueType
    // ------------------------
 
    // Discussion. Remember, the context here is that some class derives from
    // Component, which further derives from this class - BodyText. We're here,
    // in BodyText<true>, if the derived class has "body text". Such a derived
-   // class might have valueType, start, and length (possibly as std::optional
+   // class might have length, start, and valueType (possibly as std::optional
    // or GNDStk::Defaulted), but we won't *require* it to have any of those.
    // For whichever ones the derived class has, we suggest writing setters
    // that also call these, below, so that we can handle them correctly here.
+
+   // length
+   auto &length(const std::optional<std::size_t> &opt)
+   {
+      if (opt.has_value() && opt.value() != vars.length) {
+         vars.length = opt.value();
+         changed = true;
+      }
+      return *this;
+   }
+
+   // start
+   auto &start(const std::optional<std::size_t> &opt)
+   {
+      if (opt.has_value() && opt.value() != vars.start) {
+         vars.start = opt.value();
+         changed = true;
+      }
+      return *this;
+   }
 
    // valueType
    auto &valueType(const std::optional<std::string> &opt)
@@ -135,40 +157,6 @@ public:
       return *this;
    }
 
-   // start
-   auto &start(const std::optional<std::size_t> &opt)
-   {
-      if (opt.has_value() && opt.value() != vars.start) {
-         vars.start = opt.value();
-         changed = true;
-         std::cout << "value changed" << std::endl;
-      }
-      return *this;
-   }
-
-   // length
-   auto &length(const std::optional<std::size_t> &opt)
-   {
-      if (opt.has_value() && opt.value() != vars.length) {
-         vars.length = opt.value();
-         changed = true;
-         std::cout << "length changed" << std::endl;
-      }
-      return *this;
-   }
-
-   // the above three together
-   // Defaults are so that (not given) ==> (no effect)
-   auto &set(
-      const std::optional<std::string> &optv = std::nullopt,
-      const std::optional<std::size_t> &opts = std::nullopt,
-      const std::optional<std::size_t> &optl = std::nullopt
-   ) {
-      valueType(optv);
-      start(opts);
-      length(optl);
-      return *this;
-   }
 
    // ------------------------
    // Simple member functions
@@ -187,21 +175,21 @@ public:
    // size()
    // Actual current size of the active vector alternative in the variant.
    // Depending on what actions someone has performed on the current object,
-   // size() might or might not reflect the values of start and/or length,
+   // size() might or might not reflect the values of length and/or start,
    // or even reflect the current contents of the raw string.
    std::size_t size() const
    {
       return std::visit([](auto &&alt) { return alt.size(); }, variant);
    }
 
+
    // ------------------------
    // get<std::vector<T>>()
-   // get<T>(n)
    // ------------------------
 
    // Make a vector in the variant contain data from the raw string, and also
-   // INCLUDE any leading and/or trailing 0s (or ""s) as determined by start
-   // and length. Briefly: create [0 0 ... 0 values_from_raw_string 0 0 ... 0].
+   // INCLUDE any leading and/or trailing 0s (or ""s) as determined by length
+   // and start. Briefly: create [0 0 ... 0 values_from_raw_string 0 0 ... 0].
 
    // get<std::vector<T>>(), remaking the variant if necessary
    // Important: gets an entire vector!
@@ -226,7 +214,6 @@ public:
       }
 
       // remake...
-      std::cout << "remaking vector..." << std::endl;
 
       // initialize
       VECTOR &to = std::get<VECTOR>(variant = VECTOR{});
@@ -264,6 +251,11 @@ public:
       return to;
    }
 
+
+   // ------------------------
+   // get<T>(n)
+   // ------------------------
+
    // The following can actually trigger a complete remake of the vector if
    // it isn't already vector<T> for the given type T. This is intentional,
    // in order to provide maximum flexibility. However, be aware of it, for
@@ -271,7 +263,6 @@ public:
    // recommend sticking with one underlying type. Say, calling the above as
    // get<std::vector<double>>(), or one of the following with get<double>(n).
 
-   // get<T>(n), const
    template<class T>
    typename std::enable_if<
       detail::is_oneof<std::vector<T>,decltype(variant)>::value,
@@ -286,8 +277,10 @@ public:
       }
    }
 
+
    // ------------------------
    // get()
+   // Considers valueType
    // ------------------------
 
    const auto &get(const bool wantZeros = true) const
@@ -305,16 +298,17 @@ public:
       return variant;
    }
 
+
    // ------------------------
    // fromNode
    // ------------------------
 
    void fromNode(const Node &node)
    {
-      // optional data type and start/length
-      valueType(node(std::optional<std::string>{""} / Meta<>{"valueType"}));
-      start    (node(std::optional<std::size_t>{0 } / Meta<>{"start"    }));
+      // length, start, and optional data type
       length   (node(std::optional<std::size_t>{0 } / Meta<>{"length"   }));
+      start    (node(std::optional<std::size_t>{0 } / Meta<>{"start"    }));
+      valueType(node(std::optional<std::string>{""} / Meta<>{"valueType"}));
 
       // body text
       bool found = false;
@@ -324,7 +318,7 @@ public:
       if (!found) {
          rawstring = "";
          // Warning: so, why are we in BodyText<true> if there's no body text?
-         // Of course, it's possible that start or length is nonzero, so that
+         // Of course, it's possible that length or start is nonzero, so that
          // the values are all *supposed* to be "" or 0. :-/
          log::warning(
             "Component marked as having \"body text\", a.k.a. XML \"pcdata\" "
@@ -336,8 +330,50 @@ public:
       get();
    }
 
+
    // ------------------------
-   // getters
+   // toNode
+   // ------------------------
+
+   void toNode(Node &node) const
+   {
+      // In the given node, get or make a "pcdata" child
+      bool found;
+      Node *nptr = &node.one("pcdata",found);
+      if (found) {
+         log::warning(
+           "Child node of name \"pcdata\" already exists in node \"{}\".\n"
+           "We'll replace any text content, but it's unexpected "
+           "that a \"pcdata\"\n"
+           "child already exists in this context.",
+            node.name
+         );
+         log::member("BodyText::toNode(Node)");
+      } else
+         nptr = &node.add("pcdata"); // creates a "pcdata" child
+
+      // In the "pcdata" child, get or make a "text" metadatum
+      std::string *sptr = &nptr->meta("text",found);
+      if (found) {
+         log::warning(
+           "Metadatum of name \"text\" already exists in node \"pcdata\".\n"
+           "We'll replace its content, but it's unexpected "
+           "that a \"text\"\n"
+           "metadatum already exists in this context.",
+            node.name
+         );
+         log::member("BodyText::toNode(Node)");
+      } else
+         sptr = &nptr->add("text","").second; // creates a "text" metadatum
+
+      // Finally, put our raw data string into the metadatum's value
+      // fixme Consider doing some formatting, like write() does
+      *sptr = rawstring;
+   }
+
+
+   // ------------------------
+   // Miscellaneous getters
    // ------------------------
 
    // get the raw string
@@ -345,10 +381,33 @@ public:
    const std::string &string() const { return rawstring; }
 
    // vectors
-   // fixme Write shorthand access to get<various Ts>
+   // Shorthand access to get<various vector<T> cases>
+   #define GNDSTK_MAKE_GETTER(name,type) \
+      const auto &name(const bool wantZeros = true) const \
+      { \
+         return get<std::vector<type>>(wantZeros); \
+      }
+
+   GNDSTK_MAKE_GETTER(strings,     std::string);
+   GNDSTK_MAKE_GETTER(schars,      signed char);
+   GNDSTK_MAKE_GETTER(shorts,      short);
+   GNDSTK_MAKE_GETTER(ints,        int);
+   GNDSTK_MAKE_GETTER(longs,       long);
+   GNDSTK_MAKE_GETTER(longlongs,   long long);
+   GNDSTK_MAKE_GETTER(uchars,      unsigned char);
+   GNDSTK_MAKE_GETTER(ushorts,     unsigned short);
+   GNDSTK_MAKE_GETTER(uint,        unsigned int);
+   GNDSTK_MAKE_GETTER(ulongs,      unsigned long);
+   GNDSTK_MAKE_GETTER(ulonglongs,  unsigned long long);
+   GNDSTK_MAKE_GETTER(floats,      float);
+   GNDSTK_MAKE_GETTER(doubles,     double);
+   GNDSTK_MAKE_GETTER(longdoubles, long double);
+
+   #undef GNDSTK_MAKE_GETTER
+
 
    // ------------------------
-   // setters
+   // Setters
    // ------------------------
 
    // set the raw string
@@ -359,11 +418,8 @@ public:
       return rawstring = str;
    }
 
-   // vectors
-   // fixme Write shorthand access to get<various Ts>
-
    // ------------------------
-   // write
+   // write()
    // ------------------------
 
    std::ostream &write(std::ostream &os, const int level) const

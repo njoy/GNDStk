@@ -29,15 +29,17 @@ namespace transport {
 class ReactionSuite : public Component<ReactionSuite> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<ReactionSuite>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }
    static auto className() { return "ReactionSuite"; }
    static auto GNDSName() { return "reactionSuite"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -62,11 +64,12 @@ class ReactionSuite : public Component<ReactionSuite> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<ReactionSuite>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -74,7 +77,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -91,7 +94,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -138,7 +141,7 @@ public:
     { return content.reactions; }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -171,7 +174,7 @@ public:
     { content.reactions = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -275,7 +278,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -285,7 +288,7 @@ public:
    ReactionSuite &operator=(ReactionSuite &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/transport/ReactionSuite/src/custom.hpp"

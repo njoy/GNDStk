@@ -30,15 +30,17 @@ namespace containers {
 class XYs1d : public Component<XYs1d> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<XYs1d>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
    static auto className() { return "XYs1d"; }
    static auto GNDSName() { return "XYs1d"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -61,11 +63,12 @@ class XYs1d : public Component<XYs1d> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<XYs1d>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -74,7 +77,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -90,7 +93,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -131,7 +134,7 @@ public:
     { return content.values; }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -162,7 +165,7 @@ public:
     { content.values = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -291,7 +294,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -301,7 +304,7 @@ public:
    XYs1d &operator=(XYs1d &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/XYs1d/src/custom.hpp"

@@ -35,15 +35,17 @@ class Grid : public Component<Grid> {
    >;
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Grid>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
    static auto className() { return "Grid"; }
    static auto GNDSName() { return "grid"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -66,11 +68,12 @@ class Grid : public Component<Grid> {
 
 public:
 
+   // Base classes
    using BaseComponent = Component<Grid>;
    using BaseBodyText = BodyText<false>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -79,7 +82,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -95,7 +98,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -148,7 +151,7 @@ public:
    }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
@@ -187,7 +190,7 @@ public:
     { if (obj) choice(*obj); return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -316,7 +319,7 @@ public:
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -326,7 +329,7 @@ public:
    Grid &operator=(Grid &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Grid/src/custom.hpp"

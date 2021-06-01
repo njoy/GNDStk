@@ -24,17 +24,20 @@ using namespace njoy::GNDStk::core;
 namespace containers {
 
 class Values : public Component<Values,true> {
+public:
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Values,true>;
 
+   // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
    static auto className() { return "Values"; }
    static auto GNDSName() { return "values"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -48,13 +51,12 @@ class Values : public Component<Values,true> {
       ;
    }
 
-public:
-
+   // Base classes
    using BaseComponent = Component<Values,true>;
    using BaseBodyText = BodyText<true>;
 
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -64,7 +66,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -75,7 +77,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -98,28 +100,28 @@ public:
     { return content.valueType.value(); }
 
    // ------------------------
-   // setters
+   // Setters
    // non-const only
    // ------------------------
 
    // length
    auto &length(const std::optional<Integer32> &obj)
-    { content.length = obj; return *this; }
+    { BaseBodyText::length(content.length = obj); return *this; }
 
    // start
    auto &start(const Defaulted<Integer32> &obj)
-    { content.start = obj; return *this; }
+    { BaseBodyText::start(content.start = obj); return *this; }
    auto &start(const Integer32 &obj)
-    { content.start = obj; return *this; }
+    { BaseBodyText::start(content.start = obj); return *this; }
 
    // valueType
    auto &valueType(const Defaulted<UTF8Text> &obj)
-    { content.valueType = obj; return *this; }
+    { BaseBodyText::valueType(content.valueType = obj); return *this; }
    auto &valueType(const UTF8Text &obj)
-    { content.valueType = obj; return *this; }
+    { BaseBodyText::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
@@ -131,6 +133,7 @@ public:
          content.valueType
       }
    {
+      this->length(content.length).start(content.start).valueType(content.valueType);
       construct();
    }
 
@@ -170,6 +173,7 @@ public:
       }
    {
       fromNode(node);
+      this->length(content.length).start(content.start).valueType(content.valueType);
       construct(node);
    }
 
@@ -191,6 +195,7 @@ public:
          valueType
       }
    {
+      this->length(content.length).start(content.start).valueType(content.valueType);
       construct();
    }
 
@@ -216,11 +221,12 @@ public:
             : Defaulted<UTF8Text>{"Float64",valueType}
       }
    {
+      this->length(content.length).start(content.start).valueType(content.valueType);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -230,7 +236,7 @@ public:
    Values &operator=(Values &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Values/src/custom.hpp"
