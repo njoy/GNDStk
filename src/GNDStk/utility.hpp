@@ -7,6 +7,11 @@
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
 
+inline std::string indentTo(const int level)
+{
+   return std::string(GNDStk::indent*level,' ');
+}
+
 // parents
 // Should Node's debugging output print addresses and parent-node addresses?
 inline bool parents = false;

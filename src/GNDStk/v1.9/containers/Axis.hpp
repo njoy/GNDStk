@@ -26,14 +26,17 @@ namespace containers {
 class Axis : public Component<Axis> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Axis>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Axis"; }
-   static auto GNDSField() { return "axis"; }
+   static auto GNDSName() { return "axis"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -49,8 +52,12 @@ class Axis : public Component<Axis> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Axis>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -58,7 +65,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -69,7 +76,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -92,8 +99,8 @@ public:
     { return content.unit; }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // index
@@ -109,54 +116,62 @@ public:
     { content.unit = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Axis() :
       Component{
+         BaseBodyText{},
          content.index,
          content.label,
          content.unit
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Axis(const Axis &other) :
       Component{
+         other,
          content.index,
          content.label,
          content.unit
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Axis(Axis &&other) :
       Component{
+         other,
          content.index,
          content.label,
          content.unit
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Axis(const Node &node) :
       Component{
+         BaseBodyText{},
          content.index,
          content.label,
          content.unit
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -166,6 +181,7 @@ public:
       const std::optional<XMLName> &unit
    ) :
       Component{
+         BaseBodyText{},
          content.index,
          content.label,
          content.unit
@@ -176,11 +192,12 @@ public:
          unit
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -190,7 +207,7 @@ public:
    Axis &operator=(Axis &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Axis/src/custom.hpp"

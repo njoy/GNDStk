@@ -29,14 +29,17 @@ namespace transport {
 class Reaction : public Component<Reaction> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Reaction>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "Reaction"; }
-   static auto GNDSField() { return "reaction"; }
+   static auto GNDSName() { return "reaction"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -55,8 +58,12 @@ class Reaction : public Component<Reaction> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Reaction>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -64,7 +71,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -78,7 +85,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -107,8 +114,8 @@ public:
     { return content.crossSection; }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // ENDF_MT
@@ -128,24 +135,27 @@ public:
     { content.crossSection = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Reaction() :
       Component{
+         BaseBodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
          content.crossSection
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Reaction(const Reaction &other) :
       Component{
+         other,
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -153,12 +163,14 @@ public:
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Reaction(Reaction &&other) :
       Component{
+         other,
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -166,20 +178,23 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Reaction(const Node &node) :
       Component{
+         BaseBodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
          content.crossSection
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -190,6 +205,7 @@ public:
       const transport::CrossSection &crossSection
    ) :
       Component{
+         BaseBodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -202,11 +218,12 @@ public:
          crossSection
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -216,7 +233,7 @@ public:
    Reaction &operator=(Reaction &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/transport/Reaction/src/custom.hpp"

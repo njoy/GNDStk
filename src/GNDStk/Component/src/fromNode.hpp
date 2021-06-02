@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Component::query()
+// Component::fromNode()
 // -----------------------------------------------------------------------------
 
 // Retrieve a Node's data, and, via the links, get it into the fields in the
@@ -17,17 +17,17 @@
 // new(), below, but to no real effect: the result would be replaced, anyway,
 // when the derived class' own members are initialized in its constructor.
 
-void query(const Node &node) const
+void fromNode(const Node &node)
 {
    // does the node have the name we expect?
-   if (node.name != DERIVED::GNDSField()) {
+   if (node.name != DERIVED::GNDSName()) {
       log::error(
-        "Name \"{}\" in Node sent to Component::query() is not the "
+        "Name \"{}\" in Node sent to Component::fromNode() is not the "
         "expected GNDS name \"{}\"",
          node.name,
-         DERIVED::GNDSField()
+         DERIVED::GNDSName()
       );
-      log::member("Component.query(Node(\"{}\"))", node.name);
+      log::member("Component.fromNode(Node(\"{}\"))", node.name);
       throw std::exception{};
    }
 
@@ -57,9 +57,12 @@ void query(const Node &node) const
             },
             tup
          );
+
+         // body text, a.k.a. XML "pcdata" (plain character data), if any
+         this->BodyText<hasBodyText>::fromNode(node);
       }
    } catch (...) {
-      log::member("Component.query(Node(\"{}\"))", node.name);
+      log::member("Component.fromNode(Node(\"{}\"))", node.name);
       throw;
    }
 }

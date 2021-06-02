@@ -29,14 +29,17 @@ namespace transport {
 class Reactions : public Component<Reactions> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Reactions>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "Reactions"; }
-   static auto GNDSField() { return "reactions"; }
+   static auto GNDSName() { return "reactions"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -48,8 +51,12 @@ class Reactions : public Component<Reactions> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Reactions>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -57,7 +64,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -66,7 +73,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -78,13 +85,19 @@ public:
 
    // reaction(n)
    const auto &reaction(const std::size_t n) const
-    { return detail::getter(reaction(),n,"transport",className(),"reaction"); }
+    { return getter(reaction(),n,"reaction"); }
    auto &reaction(const std::size_t n)
-    { return detail::getter(reaction(),n,"transport",className(),"reaction"); }
+    { return getter(reaction(),n,"reaction"); }
+
+   // reaction(label)
+   const auto &reaction(const std::string &label) const
+    { return getter(reaction(),label,"reaction"); }
+   auto &reaction(const std::string &label)
+    { return getter(reaction(),label,"reaction"); }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // reaction
@@ -92,46 +105,54 @@ public:
     { content.reaction = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Reactions() :
       Component{
+         BaseBodyText{},
          content.reaction
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Reactions(const Reactions &other) :
       Component{
+         other,
          content.reaction
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Reactions(Reactions &&other) :
       Component{
+         other,
          content.reaction
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Reactions(const Node &node) :
       Component{
+         BaseBodyText{},
          content.reaction
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -139,17 +160,19 @@ public:
       const std::vector<transport::Reaction> &reaction
    ) :
       Component{
+         BaseBodyText{},
          content.reaction
       },
       content{
          reaction
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -159,7 +182,7 @@ public:
    Reactions &operator=(Reactions &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/transport/Reactions/src/custom.hpp"

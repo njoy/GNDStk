@@ -30,14 +30,17 @@ namespace containers {
 class Axes : public Component<Axes> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Axes>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Axes"; }
-   static auto GNDSField() { return "axes"; }
+   static auto GNDSName() { return "axes"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -54,8 +57,12 @@ class Axes : public Component<Axes> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Axes>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -63,7 +70,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -76,7 +83,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -94,9 +101,15 @@ public:
 
    // axis(n)
    const auto &axis(const std::size_t n) const
-    { return detail::getter(axis(),n,"containers",className(),"axis"); }
+    { return getter(axis(),n,"axis"); }
    auto &axis(const std::size_t n)
-    { return detail::getter(axis(),n,"containers",className(),"axis"); }
+    { return getter(axis(),n,"axis"); }
+
+   // axis(label)
+   const auto &axis(const std::string &label) const
+    { return getter(axis(),label,"axis"); }
+   auto &axis(const std::string &label)
+    { return getter(axis(),label,"axis"); }
 
    // grid
    const auto &grid() const
@@ -106,13 +119,19 @@ public:
 
    // grid(n)
    const auto &grid(const std::size_t n) const
-    { return detail::getter(grid(),n,"containers",className(),"grid"); }
+    { return getter(grid(),n,"grid"); }
    auto &grid(const std::size_t n)
-    { return detail::getter(grid(),n,"containers",className(),"grid"); }
+    { return getter(grid(),n,"grid"); }
+
+   // grid(label)
+   const auto &grid(const std::string &label) const
+    { return getter(grid(),label,"grid"); }
+   auto &grid(const std::string &label)
+    { return getter(grid(),label,"grid"); }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // href
@@ -128,54 +147,62 @@ public:
     { content.grid = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Axes() :
       Component{
+         BaseBodyText{},
          content.href,
          content.axis,
          content.grid
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Axes(const Axes &other) :
       Component{
+         other,
          content.href,
          content.axis,
          content.grid
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Axes(Axes &&other) :
       Component{
+         other,
          content.href,
          content.axis,
          content.grid
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Axes(const Node &node) :
       Component{
+         BaseBodyText{},
          content.href,
          content.axis,
          content.grid
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -185,6 +212,7 @@ public:
       const std::optional<std::vector<containers::Grid>> &grid
    ) :
       Component{
+         BaseBodyText{},
          content.href,
          content.axis,
          content.grid
@@ -195,11 +223,12 @@ public:
          grid
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -209,7 +238,7 @@ public:
    Axes &operator=(Axes &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Axes/src/custom.hpp"

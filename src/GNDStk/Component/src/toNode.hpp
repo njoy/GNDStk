@@ -8,8 +8,9 @@ operator Node() const
 {
    try {
       // starter node
-      Node node(DERIVED::GNDSField());
+      Node node(DERIVED::GNDSName());
 
+      // fields
       if constexpr (
          std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
       ) {
@@ -41,6 +42,10 @@ operator Node() const
          );
       }
 
+      // body text, a.k.a. XML "pcdata" (plain character data), if any
+      this->BodyText<hasBodyText>::toNode(node);
+
+      // done
       return node;
 
    } catch (...) {

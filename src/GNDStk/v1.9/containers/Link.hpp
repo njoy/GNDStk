@@ -26,14 +26,17 @@ namespace containers {
 class Link : public Component<Link> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Link>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Link"; }
-   static auto GNDSField() { return "link"; }
+   static auto GNDSName() { return "link"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -45,8 +48,12 @@ class Link : public Component<Link> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Link>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -54,7 +61,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -63,7 +70,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -74,8 +81,8 @@ public:
     { return content.href; }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // href
@@ -83,46 +90,54 @@ public:
     { content.href = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Link() :
       Component{
+         BaseBodyText{},
          content.href
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Link(const Link &other) :
       Component{
+         other,
          content.href
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Link(Link &&other) :
       Component{
+         other,
          content.href
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Link(const Node &node) :
       Component{
+         BaseBodyText{},
          content.href
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -130,17 +145,19 @@ public:
       const std::optional<bodyText> &href
    ) :
       Component{
+         BaseBodyText{},
          content.href
       },
       content{
          href
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -150,7 +167,7 @@ public:
    Link &operator=(Link &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Link/src/custom.hpp"

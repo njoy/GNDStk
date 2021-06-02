@@ -30,14 +30,17 @@ namespace containers {
 class Regions1d : public Component<Regions1d> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Regions1d>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Regions1d"; }
-   static auto GNDSField() { return "regions1d"; }
+   static auto GNDSName() { return "regions1d"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -56,8 +59,12 @@ class Regions1d : public Component<Regions1d> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Regions1d>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -65,7 +72,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -79,7 +86,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -108,8 +115,8 @@ public:
     { return content.axes; }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // label
@@ -129,24 +136,27 @@ public:
     { content.axes = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Regions1d() :
       Component{
+         BaseBodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
          content.axes
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Regions1d(const Regions1d &other) :
       Component{
+         other,
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -154,12 +164,14 @@ public:
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Regions1d(Regions1d &&other) :
       Component{
+         other,
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -167,20 +179,23 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Regions1d(const Node &node) :
       Component{
+         BaseBodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
          content.axes
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -191,6 +206,7 @@ public:
       const std::optional<containers::Axes> &axes
    ) :
       Component{
+         BaseBodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -203,11 +219,12 @@ public:
          axes
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -217,7 +234,7 @@ public:
    Regions1d &operator=(Regions1d &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Regions1d/src/custom.hpp"

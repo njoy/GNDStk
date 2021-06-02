@@ -30,14 +30,17 @@ namespace containers {
 class XYs1d : public Component<XYs1d> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<XYs1d>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "XYs1d"; }
-   static auto GNDSField() { return "XYs1d"; }
+   static auto GNDSName() { return "XYs1d"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -60,8 +63,12 @@ class XYs1d : public Component<XYs1d> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<XYs1d>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -70,7 +77,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -86,7 +93,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -127,8 +134,8 @@ public:
     { return content.values; }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // index
@@ -158,12 +165,13 @@ public:
     { content.values = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    XYs1d() :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -172,12 +180,14 @@ public:
          content.values
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    XYs1d(const XYs1d &other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -187,12 +197,14 @@ public:
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    XYs1d(XYs1d &&other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -202,12 +214,14 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    XYs1d(const Node &node) :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -216,8 +230,9 @@ public:
          content.values
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -230,6 +245,7 @@ public:
       const containers::Values &values
    ) :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -246,6 +262,7 @@ public:
          values
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -259,6 +276,7 @@ public:
       const containers::Values &values
    ) :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -277,11 +295,12 @@ public:
          values
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -291,7 +310,7 @@ public:
    XYs1d &operator=(XYs1d &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/XYs1d/src/custom.hpp"

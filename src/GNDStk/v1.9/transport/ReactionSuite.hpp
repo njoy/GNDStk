@@ -29,14 +29,17 @@ namespace transport {
 class ReactionSuite : public Component<ReactionSuite> {
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<ReactionSuite>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "transport"; }
    static auto className() { return "ReactionSuite"; }
-   static auto GNDSField() { return "reactionSuite"; }
+   static auto GNDSName() { return "reactionSuite"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -61,8 +64,12 @@ class ReactionSuite : public Component<ReactionSuite> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<ReactionSuite>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -70,7 +77,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -87,7 +94,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -134,8 +141,8 @@ public:
     { return content.reactions; }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // evaluation
@@ -167,12 +174,13 @@ public:
     { content.reactions = obj; return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    ReactionSuite() :
       Component{
+         BaseBodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -182,12 +190,14 @@ public:
          content.reactions
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    ReactionSuite(const ReactionSuite &other) :
       Component{
+         other,
          content.evaluation,
          content.format,
          content.interaction,
@@ -198,12 +208,14 @@ public:
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    ReactionSuite(ReactionSuite &&other) :
       Component{
+         other,
          content.evaluation,
          content.format,
          content.interaction,
@@ -214,12 +226,14 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    ReactionSuite(const Node &node) :
       Component{
+         BaseBodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -229,8 +243,9 @@ public:
          content.reactions
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -244,6 +259,7 @@ public:
       const std::optional<transport::Reactions> &reactions
    ) :
       Component{
+         BaseBodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -262,11 +278,12 @@ public:
          reactions
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -276,7 +293,7 @@ public:
    ReactionSuite &operator=(ReactionSuite &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/transport/ReactionSuite/src/custom.hpp"

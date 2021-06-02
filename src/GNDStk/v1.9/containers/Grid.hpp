@@ -35,14 +35,17 @@ class Grid : public Component<Grid> {
    >;
 
    // ------------------------
-   // for Component
+   // For Component
    // ------------------------
 
    friend class Component<Grid>;
 
+   // Current namespace, current class, and GNDS node name
+   static auto namespaceName() { return "containers"; }
    static auto className() { return "Grid"; }
-   static auto GNDSField() { return "grid"; }
+   static auto GNDSName() { return "grid"; }
 
+   // Core Interface construct to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -65,8 +68,12 @@ class Grid : public Component<Grid> {
 
 public:
 
+   // Base classes
+   using BaseComponent = Component<Grid>;
+   using BaseBodyText = BodyText<false>;
+
    // ------------------------
-   // relevant defaults
+   // Relevant defaults
    // FYI for users
    // ------------------------
 
@@ -75,7 +82,7 @@ public:
    } defaults;
 
    // ------------------------
-   // raw GNDS content
+   // Raw GNDS content
    // ------------------------
 
    struct {
@@ -91,7 +98,7 @@ public:
    } content;
 
    // ------------------------
-   // getters
+   // Getters
    // const and non-const
    // ------------------------
 
@@ -134,20 +141,18 @@ public:
    // optional link
    auto link() const
    {
-      return detail::getter<containers::Link>
-         (choice(),"containers",className(),"link");
+      return getter<containers::Link>(choice(),"link");
    }
 
    // optional values
    auto values() const
    {
-      return detail::getter<containers::Values>
-         (choice(),"containers",className(),"values");
+      return getter<containers::Values>(choice(),"values");
    }
 
    // ------------------------
-   // setters
-   // non-const only
+   // Setters
+   // non-const
    // ------------------------
 
    // index
@@ -185,12 +190,13 @@ public:
     { if (obj) choice(*obj); return *this; }
 
    // ------------------------
-   // construction
+   // Construction
    // ------------------------
 
    // default
    Grid() :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -199,12 +205,14 @@ public:
          content.choice
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // copy
    Grid(const Grid &other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -214,12 +222,14 @@ public:
       },
       content{other.content}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // move
    Grid(Grid &&other) :
       Component{
+         other,
          content.index,
          content.interpolation,
          content.label,
@@ -229,12 +239,14 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct();
+      bodyTextUpdate(content);
+      construct(other);
    }
 
    // from node
    Grid(const Node &node) :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -243,8 +255,9 @@ public:
          content.choice
       }
    {
-      query(node);
-      construct();
+      fromNode(node);
+      bodyTextUpdate(content);
+      construct(node);
    }
 
    // from fields
@@ -257,6 +270,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -273,6 +287,7 @@ public:
          choice
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
@@ -286,6 +301,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
+         BaseBodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -304,11 +320,12 @@ public:
          choice
       }
    {
+      bodyTextUpdate(content);
       construct();
    }
 
    // ------------------------
-   // assignment
+   // Assignment
    // ------------------------
 
    // copy
@@ -318,7 +335,7 @@ public:
    Grid &operator=(Grid &&) = default;
 
    // ------------------------
-   // custom functionality
+   // Custom functionality
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Grid/src/custom.hpp"

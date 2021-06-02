@@ -98,11 +98,12 @@ namespace GNDStk {
 namespace basic { using namespace common; }
 namespace misc  { using namespace common; }
 
-// Component base for Standard Interface data classes
-#include "GNDStk/Component.hpp"
-
-// Additional support constructs for Standard Interface classes
+// Miscellaneous support constructs for Standard Interface classes
 #include "GNDStk/Support.hpp"
+
+// Base classes for primary Standard Interface data classes
+#include "GNDStk/BodyText.hpp"
+#include "GNDStk/Component.hpp"
 
 
 // ------------------------

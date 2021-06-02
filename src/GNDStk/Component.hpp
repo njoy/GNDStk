@@ -1,12 +1,6 @@
 
-template<class DERIVED, bool bodyText = false>
+template<class DERIVED, bool hasBodyText = false>
 class Component;
-
-// for printing
-inline bool comments = true;
-
-// for printing
-#include "GNDStk/Component/src/colors.hpp"
 
 // general helper constructs
 #include "GNDStk/Component/src/detail.hpp"
@@ -17,8 +11,8 @@ inline bool comments = true;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool bodyText>
-class Component : public detail::BodyText<bodyText> {
+template<class DERIVED, bool hasBodyText>
+class Component : public BodyText<hasBodyText> {
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -31,23 +25,38 @@ class Component : public detail::BodyText<bodyText> {
    Component(const Component &) = delete;
    Component(Component &&) = delete;
 
-   // Do-nothing copy and move assignments have the right behavior, however.
-   Component &operator=(const Component &) { return *this; }
-   Component &operator=(Component &&) { return *this; }
+   // Copy and move *assignments* have the right behavior, however.
+   Component &operator=(const Component &other)
+   {
+      BodyText<hasBodyText>::operator=(other);
+      return *this;
+   }
+   Component &operator=(Component &&other)
+   {
+      BodyText<hasBodyText>::operator=(std::move(other));
+      return *this;
+   }
 
    // Constructor; intentionally *private*
    #include "GNDStk/Component/src/ctor.hpp"
 
    // construct()
-   // Hook by which a derived-class constructor, built by our auto-generation
-   // process from a JSON-format GNDS spec, can run arbitrary additional code.
-   void construct() const
-   {
-   }
+   // Hooks by which derived-class constructors, built by our auto-generation
+   // process from JSON-format GNDS specs, can run arbitrary additional code.
+   void construct() const { }
+   void construct(const DERIVED &) const { }
+   void construct(const Node &) const { }
+
+   // You can (but don't need to) override in DERIVED
+   static std::string namespaceName() { return ""; }
+
+   // Intermediaries between derived-class getters/setters and getter/setter
+   // functions in detail::. These shorten the code in the derived classes.
+   #include "GNDStk/Component/src/getter.hpp"
 
 public:
 
-   #include "GNDStk/Component/src/query.hpp"
+   #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/toNode.hpp"
    #include "GNDStk/Component/src/write.hpp"
 
@@ -64,18 +73,32 @@ public:
       // Etc.
    }
 
+   // Component << std::string
+   // Meaning: read the string's content (currently XML or JSON) into an object
+   // of the Component's DERIVED class. Uses the Node << std::string capability.
+   void operator<<(const std::string &str)
+   {
+      try {
+         Node node;
+         node << str;
+         static_cast<DERIVED &>(*this) = DERIVED(node);
+      } catch (...) {
+         log::function(std::string(DERIVED::className()) + " << string");
+         throw;
+      }
+   }
+
 }; // class Component
 
 
-
 // -----------------------------------------------------------------------------
-// operator<<
+// ostream << Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool bodyText>
+template<class DERIVED, bool hasBodyText>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,bodyText> &obj
+   const Component<DERIVED,hasBodyText> &obj
 ) {
    return obj.write(os);
 }

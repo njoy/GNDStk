@@ -3,22 +3,23 @@
 // Component::write()
 // -----------------------------------------------------------------------------
 
-std::ostream &write(std::ostream &os, const int level = 0) const
+std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
 {
    try {
       // Indent, write header, newline
       detail::indentString(
          os, level,
-         detail::colorize_component(DERIVED::className()) + " "
-          + detail::colorize_brace("{")
-          + (comments
-              ? " " +
-                detail::colorize_comment(
-                   std::string("// GNDS: ") + DERIVED::GNDSField()
-                )
-              : ""
-            )
-          + "\n"
+         detail::colorize_component(
+            detail::fullName(DERIVED::namespaceName(), DERIVED::className())
+         ) + " " +
+         detail::colorize_brace("{") +
+        (comments
+            ? " " +
+              detail::colorize_comment(
+                 std::string("// GNDS: ") + DERIVED::GNDSName()
+              )
+            : ""
+         ) + "\n"
       );
 
       if constexpr (
@@ -43,7 +44,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
          // particular Component<...> type will print with consistent spacing.
          // We prefer this behavior, and it's also slightly simpler to write.
          std::size_t maxlen = 0;
-         if (njoy::GNDStk::align)
+         if (GNDStk::align)
             std::apply(
                [&maxlen](const auto &... key) {
                   ((maxlen=std::max(maxlen,detail::getName(key).size())), ...);
@@ -67,7 +68,7 @@ std::ostream &write(std::ostream &os, const int level = 0) const
                         links[n++],
                         detail::getName(key),
                         maxlen
-                     ) && (os << '\n') // no "if" in fold expression :-/
+                     ) && (os << '\n') // no if()s in fold expressions :-/
                   ),
                   ...
                );
@@ -76,6 +77,32 @@ std::ostream &write(std::ostream &os, const int level = 0) const
          );
       }
 
+      // Derived class write()s, if any.
+      // Note that neither, either, or both can be provided.
+      // To be recognized here, signatures must be exactly what we expect.
+      if constexpr (detail::hasWriteOneArg<DERIVED>::has) {
+         // DERIVED::write() doesn't take an indentation level; we handle here
+         std::ostringstream tmp;
+         static_cast<const DERIVED *>(this)->write(tmp);
+         if (tmp.str().size() != 0)
+            os << indentTo(level+1);
+         for (char c : tmp.str())
+            os << c << (c == '\n' ? indentTo(level+1) : "");
+         if (tmp.str().size())
+            os << std::endl;
+      }
+      if constexpr (detail::hasWriteTwoArg<DERIVED>::has) {
+         // DERIVED::write() takes an indentation level
+         std::ostringstream tmp;
+         static_cast<const DERIVED *>(this)->write(tmp,level+1);
+         os << tmp.str();
+         if (tmp.str().size())
+            os << std::endl;
+      }
+
+      // BodyText, if any
+      this->BodyText<hasBodyText>::write(os,level+1);
+
       // Indent, write footer, NO newline
       detail::indentString(
          os, level,
@@ -83,7 +110,11 @@ std::ostream &write(std::ostream &os, const int level = 0) const
           + (comments
               ? " " +
                 detail::colorize_comment(
-                   std::string("// ") + DERIVED::className()
+                   std::string("// ") +
+                   detail::fullName(
+                      DERIVED::namespaceName(),
+                      DERIVED::className()
+                   )
                 )
               : ""
             )
