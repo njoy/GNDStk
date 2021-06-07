@@ -18,6 +18,8 @@ namespace containers {
 // XYs1d wrapper
 void wrapXYs1d(python::module &module)
 {
+   using namespace njoy::GNDStk;
+
    // type aliases
    using Component = njoy::GNDStk::v1_9::containers::XYs1d;
 

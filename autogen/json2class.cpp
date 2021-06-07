@@ -1600,6 +1600,8 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "// " << clname << " wrapper\n";
    cpp << "void wrap" << clname << "(python::module &module)\n";
    cpp << "{\n";
+   cpp << "   using namespace njoy::GNDStk;\n";
+   cpp << "\n";
    cpp << "   // type aliases\n";
    cpp << "   using Component = " << "njoy::GNDStk::" << VersionNamespace << "::" << nsname << "::" << clname << ";\n";
    cpp << "\n";
