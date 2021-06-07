@@ -34,3 +34,5 @@ add_subdirectory( src/GNDStk/enums/Interpolation/test )
 add_subdirectory( src/GNDStk/enums/StorageOrder/test )
 add_subdirectory( src/GNDStk/enums/units/Energy/test )
 add_subdirectory( src/GNDStk/enums/units/Length/test )
+
+add_subdirectory( src/GNDStk/v1.9/containers/Axis/test )
