@@ -27,7 +27,7 @@ void wrapValues(python::module &module)
    python::class_<Component> component(
       module,
       Component::className(),
-      Component::help()
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -41,22 +41,22 @@ void wrapValues(python::module &module)
          python::arg("length"),
          python::arg("start"),
          python::arg("valueType"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "length",
          &Component::length,
-         Component::help("length")
+         Component::help("length").c_str()
       )
       .def_property_readonly(
          "start",
          &Component::start,
-         Component::help("start")
+         Component::help("start").c_str()
       )
       .def_property_readonly(
          "valueType",
          &Component::valueType,
-         Component::help("valueType")
+         Component::help("valueType").c_str()
       )
    ;
 }

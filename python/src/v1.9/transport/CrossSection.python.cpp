@@ -27,7 +27,7 @@ void wrapCrossSection(python::module &module)
    python::class_<Component> component(
       module,
       Component::className(),
-      Component::help()
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -41,22 +41,22 @@ void wrapCrossSection(python::module &module)
          python::arg("XYs1d"),
          python::arg("regions1d"),
          python::arg("choice"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "XYs1d",
          &Component::XYs1d,
-         Component::help("XYs1d")
+         Component::help("XYs1d").c_str()
       )
       .def_property_readonly(
          "regions1d",
          &Component::regions1d,
-         Component::help("regions1d")
+         Component::help("regions1d").c_str()
       )
       .def_property_readonly(
          "choice",
          &Component::choice,
-         Component::help("choice")
+         Component::help("choice").c_str()
       )
    ;
 }

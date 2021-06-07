@@ -27,7 +27,7 @@ void wrapGrid(python::module &module)
    python::class_<Component> component(
       module,
       Component::className(),
-      Component::help()
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -51,47 +51,47 @@ void wrapGrid(python::module &module)
          python::arg("link"),
          python::arg("values"),
          python::arg("choice"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "index",
          &Component::index,
-         Component::help("index")
+         Component::help("index").c_str()
       )
       .def_property_readonly(
          "interpolation",
          &Component::interpolation,
-         Component::help("interpolation")
+         Component::help("interpolation").c_str()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::help("label")
+         Component::help("label").c_str()
       )
       .def_property_readonly(
          "style",
          &Component::style,
-         Component::help("style")
+         Component::help("style").c_str()
       )
       .def_property_readonly(
          "unit",
          &Component::unit,
-         Component::help("unit")
+         Component::help("unit").c_str()
       )
       .def_property_readonly(
          "link",
          &Component::link,
-         Component::help("link")
+         Component::help("link").c_str()
       )
       .def_property_readonly(
          "values",
          &Component::values,
-         Component::help("values")
+         Component::help("values").c_str()
       )
       .def_property_readonly(
          "choice",
          &Component::choice,
-         Component::help("choice")
+         Component::help("choice").c_str()
       )
    ;
 }

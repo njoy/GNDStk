@@ -27,7 +27,7 @@ void wrapReaction(python::module &module)
    python::class_<Component> component(
       module,
       Component::className(),
-      Component::help()
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -43,27 +43,27 @@ void wrapReaction(python::module &module)
          python::arg("fissionGenre"),
          python::arg("label"),
          python::arg("crossSection"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "ENDF_MT",
          &Component::ENDF_MT,
-         Component::help("ENDF_MT")
+         Component::help("ENDF_MT").c_str()
       )
       .def_property_readonly(
          "fissionGenre",
          &Component::fissionGenre,
-         Component::help("fissionGenre")
+         Component::help("fissionGenre").c_str()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::help("label")
+         Component::help("label").c_str()
       )
       .def_property_readonly(
          "crossSection",
          &Component::crossSection,
-         Component::help("crossSection")
+         Component::help("crossSection").c_str()
       )
    ;
 }

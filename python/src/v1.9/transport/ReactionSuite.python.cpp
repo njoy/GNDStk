@@ -27,7 +27,7 @@ void wrapReactionSuite(python::module &module)
    python::class_<Component> component(
       module,
       Component::className(),
-      Component::help()
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -49,42 +49,42 @@ void wrapReactionSuite(python::module &module)
          python::arg("projectileFrame"),
          python::arg("target"),
          python::arg("reactions"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "evaluation",
          &Component::evaluation,
-         Component::help("evaluation")
+         Component::help("evaluation").c_str()
       )
       .def_property_readonly(
          "format",
          &Component::format,
-         Component::help("format")
+         Component::help("format").c_str()
       )
       .def_property_readonly(
          "interaction",
          &Component::interaction,
-         Component::help("interaction")
+         Component::help("interaction").c_str()
       )
       .def_property_readonly(
          "projectile",
          &Component::projectile,
-         Component::help("projectile")
+         Component::help("projectile").c_str()
       )
       .def_property_readonly(
          "projectileFrame",
          &Component::projectileFrame,
-         Component::help("projectileFrame")
+         Component::help("projectileFrame").c_str()
       )
       .def_property_readonly(
          "target",
          &Component::target,
-         Component::help("target")
+         Component::help("target").c_str()
       )
       .def_property_readonly(
          "reactions",
          &Component::reactions,
-         Component::help("reactions")
+         Component::help("reactions").c_str()
       )
    ;
 }
