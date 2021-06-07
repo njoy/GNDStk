@@ -69,11 +69,11 @@ pybind11_add_module( GNDStk.python
     python/src/v1.9/GNDS.python.cpp
     )
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
-target_compile_options( pugixml-adapter PRIVATE "-fPIC" )
-target_compile_options( GNDStk.python PRIVATE "-fPIC" )
 target_compile_options( GNDStk.python PRIVATE "-fvisibility=hidden" )
 set_target_properties( GNDStk.python PROPERTIES OUTPUT_NAME GNDStk )
 set_target_properties( GNDStk.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
+set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties( GNDStk.python PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 #######################################################################
 # Top-level Only
