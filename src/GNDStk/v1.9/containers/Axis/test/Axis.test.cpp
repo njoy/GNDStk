@@ -151,5 +151,8 @@ void verifyChunk( const Axis& component ) {
 Node invalidName() {
 
   // wrong name for the node
-  return Node( "wrongName" );
+  Node chunk;
+  chunk << "<wrongName index=\"1\" label=\"energy_in\" unit=\"eV\"/>";
+
+  return chunk;
 }

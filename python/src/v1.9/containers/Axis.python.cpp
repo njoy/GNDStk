@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/containers/Axis.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -59,6 +60,9 @@ void wrapAxis(python::module &module)
          Component::help("unit").c_str()
       )
    ;
+
+   // add standard file definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace containers
