@@ -18,10 +18,8 @@ namespace containers {
 // Grid wrapper
 void wrapGrid(python::module &module)
 {
-   using namespace njoy::GNDStk;
-
    // type aliases
-   using Component = v1_9::containers::Grid;
+   using Component = njoy::GNDStk::v1_9::containers::Grid;
 
    // create the component
    python::class_<Component> component(

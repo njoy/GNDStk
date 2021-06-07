@@ -18,10 +18,8 @@ namespace transport {
 // Reaction wrapper
 void wrapReaction(python::module &module)
 {
-   using namespace njoy::GNDStk;
-
    // type aliases
-   using Component = v1_9::transport::Reaction;
+   using Component = njoy::GNDStk::v1_9::transport::Reaction;
 
    // create the component
    python::class_<Component> component(

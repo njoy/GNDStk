@@ -18,10 +18,8 @@ namespace containers {
 // Axis wrapper
 void wrapAxis(python::module &module)
 {
-   using namespace njoy::GNDStk;
-
    // type aliases
-   using Component = v1_9::containers::Axis;
+   using Component = njoy::GNDStk::v1_9::containers::Axis;
 
    // create the component
    python::class_<Component> component(

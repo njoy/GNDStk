@@ -18,10 +18,8 @@ namespace transport {
 // CrossSection wrapper
 void wrapCrossSection(python::module &module)
 {
-   using namespace njoy::GNDStk;
-
    // type aliases
-   using Component = v1_9::transport::CrossSection;
+   using Component = njoy::GNDStk::v1_9::transport::CrossSection;
 
    // create the component
    python::class_<Component> component(

@@ -18,10 +18,8 @@ namespace containers {
 // Regions1d wrapper
 void wrapRegions1d(python::module &module)
 {
-   using namespace njoy::GNDStk;
-
    // type aliases
-   using Component = v1_9::containers::Regions1d;
+   using Component = njoy::GNDStk::v1_9::containers::Regions1d;
 
    // create the component
    python::class_<Component> component(

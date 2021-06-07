@@ -18,10 +18,8 @@ namespace containers {
 // Values wrapper
 void wrapValues(python::module &module)
 {
-   using namespace njoy::GNDStk;
-
    // type aliases
-   using Component = v1_9::containers::Values;
+   using Component = njoy::GNDStk::v1_9::containers::Values;
 
    // create the component
    python::class_<Component> component(
