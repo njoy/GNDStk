@@ -26,7 +26,7 @@ void wrapLink(python::module &module)
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
+      "Link",
       Component::help().c_str()
    );
 

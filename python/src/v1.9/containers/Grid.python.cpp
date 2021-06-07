@@ -26,7 +26,7 @@ void wrapGrid(python::module &module)
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
+      "Grid",
       Component::help().c_str()
    );
 

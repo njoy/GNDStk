@@ -1608,7 +1608,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   // create the component\n";
    cpp << "   python::class_<Component> component(\n";
    cpp << "      module,\n";
-   cpp << "      Component::className(),\n";
+   cpp << "      \"" << clname << "\",\n";
    cpp << "      Component::help().c_str()\n";
    cpp << "   );\n";
    cpp << "\n";

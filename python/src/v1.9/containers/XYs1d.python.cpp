@@ -26,7 +26,7 @@ void wrapXYs1d(python::module &module)
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
+      "XYs1d",
       Component::help().c_str()
    );
 

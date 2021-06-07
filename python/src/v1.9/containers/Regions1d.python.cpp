@@ -26,7 +26,7 @@ void wrapRegions1d(python::module &module)
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
+      "Regions1d",
       Component::help().c_str()
    );
 

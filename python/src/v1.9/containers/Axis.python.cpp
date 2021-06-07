@@ -26,7 +26,7 @@ void wrapAxis(python::module &module)
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
+      "Axis",
       Component::help().c_str()
    );
 

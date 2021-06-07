@@ -26,7 +26,7 @@ void wrapReactionSuite(python::module &module)
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
+      "ReactionSuite",
       Component::help().c_str()
    );
 
