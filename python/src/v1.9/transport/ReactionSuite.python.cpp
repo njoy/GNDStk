@@ -44,7 +44,7 @@ void wrapReactionSuite(python::module &module)
          >(),
          python::arg("evaluation"),
          python::arg("format"),
-         python::arg("interaction"),
+         python::arg("interaction") = std::nullopt,
          python::arg("projectile"),
          python::arg("projectile_frame"),
          python::arg("target"),
