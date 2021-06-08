@@ -316,17 +316,20 @@ bool writeComponentPart(
    std::ostream &os, const int level, const Defaulted<T> &def,
    const std::string &label, const std::size_t maxlen
 ) {
-   if (def.has_value())
+   if (def.has_value()) {
       writeComponentPart(
          os, level, def.value(),
          label, maxlen, colors::defaulted
       );
-   else if (comments)
+   } else if (comments) {
+      std::ostringstream ostr;
+      ostr << def.get_default();
       writeComponentPart(
-         os, level, colorize_comment("// defaulted; is its default"),
+         os, level,
+         colorize_comment("// defaulted; is its default (" + ostr.str() + ")"),
          label, maxlen, colors::defaulted
       );
-   else
+   } else
       return false; // <== caller won't print newline
    return true;
 }

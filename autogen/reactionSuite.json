@@ -51,7 +51,7 @@
                 "description": [ "Defines the type of interaction for the reaction data contained within the reactionSuite. Options are `nuclear', `atomic' and `thermalNeutronScatteringLaw'. ",
                                  "For example, a photo-nuclear reactionSuite must have a value of `nuclear' while a photo-atomic reactionSuite must have a value of `atomic'." ],
                 "name": "interaction",
-                "required": true,
+                "required": false,
                 "type": "interaction"
             }
         },
