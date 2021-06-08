@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/containers/Regions1d.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -66,6 +67,9 @@ void wrapRegions1d(python::module &module)
          Component::help("axes").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace containers

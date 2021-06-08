@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/transport/ReactionSuite.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -87,6 +88,9 @@ void wrapReactionSuite(python::module &module)
          Component::help("reactions").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace transport

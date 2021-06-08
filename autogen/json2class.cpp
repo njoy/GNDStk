@@ -1650,6 +1650,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "// local includes\n";
    cpp << "#include \"GNDStk/" << Version << "/"
        << nsname << "/" << clname << ".hpp\"\n";
+   cpp << "#include \"definitions.hpp\"\n";
    cpp << "\n";
 
    cpp << "// namespace aliases\n";
@@ -1678,19 +1679,6 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   // wrap the component\n";
    cpp << "   component\n";
    cpp << "      .def(\n";
-
-   /*
-   std::map<
-      std::pair<
-         std::string,
-         std::string
-      >,
-      std::pair<
-         std::vector<infoMetadata>,
-         std::vector<infoChildren>
-      >
-   > class2info;
-   */
 
    const auto info = class2info.find(obj.name);
    assert(info != class2info.end());
@@ -1763,7 +1751,9 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    }
 
    // finish up
-   cpp << "   ;\n";
+   cpp << "   ;\n\n";
+   cpp << "   // add standard component definitions\n";
+   cpp << "   addStandardComponentDefinitions< Component >( component );\n";
    cpp << "}\n";
    cpp << "\n";
    cpp << "} // namespace " << nsname << "\n";

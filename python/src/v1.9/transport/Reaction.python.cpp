@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/transport/Reaction.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -66,6 +67,9 @@ void wrapReaction(python::module &module)
          Component::help("cross_section").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace transport

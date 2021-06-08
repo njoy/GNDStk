@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/transport/CrossSection.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -59,6 +60,9 @@ void wrapCrossSection(python::module &module)
          Component::help("choice").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace transport

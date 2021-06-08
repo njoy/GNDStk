@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/containers/Link.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -45,6 +46,9 @@ void wrapLink(python::module &module)
          Component::help("href").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace containers
