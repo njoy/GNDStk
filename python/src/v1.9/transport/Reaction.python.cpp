@@ -39,21 +39,21 @@ void wrapReaction(python::module &module)
             const XMLName &,
             const transport::CrossSection &
          >(),
-         python::arg("ENDF_MT"),
-         python::arg("fissionGenre"),
+         python::arg("endf_mt"),
+         python::arg("fission_genre"),
          python::arg("label"),
-         python::arg("crossSection"),
+         python::arg("cross_section"),
          Component::help("constructor").c_str()
       )
       .def_property_readonly(
-         "ENDF_MT",
+         "endf_mt",
          &Component::ENDF_MT,
-         Component::help("ENDF_MT").c_str()
+         Component::help("endf_mt").c_str()
       )
       .def_property_readonly(
-         "fissionGenre",
+         "fission_genre",
          &Component::fissionGenre,
-         Component::help("fissionGenre").c_str()
+         Component::help("fission_genre").c_str()
       )
       .def_property_readonly(
          "label",
@@ -61,9 +61,9 @@ void wrapReaction(python::module &module)
          Component::help("label").c_str()
       )
       .def_property_readonly(
-         "crossSection",
+         "cross_section",
          &Component::crossSection,
-         Component::help("crossSection").c_str()
+         Component::help("cross_section").c_str()
       )
    ;
 }

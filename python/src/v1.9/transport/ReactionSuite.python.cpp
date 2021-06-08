@@ -46,7 +46,7 @@ void wrapReactionSuite(python::module &module)
          python::arg("format"),
          python::arg("interaction"),
          python::arg("projectile"),
-         python::arg("projectileFrame"),
+         python::arg("projectile_frame"),
          python::arg("target"),
          python::arg("reactions"),
          Component::help("constructor").c_str()
@@ -72,9 +72,9 @@ void wrapReactionSuite(python::module &module)
          Component::help("projectile").c_str()
       )
       .def_property_readonly(
-         "projectileFrame",
+         "projectile_frame",
          &Component::projectileFrame,
-         Component::help("projectileFrame").c_str()
+         Component::help("projectile_frame").c_str()
       )
       .def_property_readonly(
          "target",

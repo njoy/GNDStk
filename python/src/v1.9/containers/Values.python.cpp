@@ -40,7 +40,7 @@ void wrapValues(python::module &module)
          >(),
          python::arg("length"),
          python::arg("start"),
-         python::arg("valueType"),
+         python::arg("value_type"),
          Component::help("constructor").c_str()
       )
       .def_property_readonly(
@@ -54,9 +54,9 @@ void wrapValues(python::module &module)
          Component::help("start").c_str()
       )
       .def_property_readonly(
-         "valueType",
+         "value_type",
          &Component::valueType,
-         Component::help("valueType").c_str()
+         Component::help("value_type").c_str()
       )
    ;
 }

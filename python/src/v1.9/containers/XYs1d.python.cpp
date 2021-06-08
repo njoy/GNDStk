@@ -44,7 +44,7 @@ void wrapXYs1d(python::module &module)
          python::arg("index"),
          python::arg("interpolation"),
          python::arg("label"),
-         python::arg("outerDomainValue"),
+         python::arg("outer_domain_value"),
          python::arg("axes"),
          python::arg("values"),
          Component::help("constructor").c_str()
@@ -65,9 +65,9 @@ void wrapXYs1d(python::module &module)
          Component::help("label").c_str()
       )
       .def_property_readonly(
-         "outerDomainValue",
+         "outer_domain_value",
          &Component::outerDomainValue,
-         Component::help("outerDomainValue").c_str()
+         Component::help("outer_domain_value").c_str()
       )
       .def_property_readonly(
          "axes",

@@ -38,15 +38,15 @@ void wrapCrossSection(python::module &module)
             const std::optional<containers::Regions1d> &,
             const std::vector<VARIANT> &
          >(),
-         python::arg("XYs1d"),
+         python::arg("xys1d"),
          python::arg("regions1d"),
          python::arg("choice"),
          Component::help("constructor").c_str()
       )
       .def_property_readonly(
-         "XYs1d",
+         "xys1d",
          &Component::XYs1d,
-         Component::help("XYs1d").c_str()
+         Component::help("xys1d").c_str()
       )
       .def_property_readonly(
          "regions1d",

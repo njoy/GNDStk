@@ -40,8 +40,8 @@ void wrapRegions1d(python::module &module)
             const std::optional<containers::Axes> &
          >(),
          python::arg("label"),
-         python::arg("outerDomainValue"),
-         python::arg("XYs1d"),
+         python::arg("outer_domain_value"),
+         python::arg("xys1d"),
          python::arg("axes"),
          Component::help("constructor").c_str()
       )
@@ -51,14 +51,14 @@ void wrapRegions1d(python::module &module)
          Component::help("label").c_str()
       )
       .def_property_readonly(
-         "outerDomainValue",
+         "outer_domain_value",
          &Component::outerDomainValue,
-         Component::help("outerDomainValue").c_str()
+         Component::help("outer_domain_value").c_str()
       )
       .def_property_readonly(
-         "XYs1d",
+         "xys1d",
          &Component::XYs1d,
-         Component::help("XYs1d").c_str()
+         Component::help("xys1d").c_str()
       )
       .def_property_readonly(
          "axes",

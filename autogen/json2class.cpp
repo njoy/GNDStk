@@ -1569,6 +1569,21 @@ void file_python_namespace(
 // file_python_class
 // -----------------------------------------------------------------------------
 
+std::string toPythonName( const std::string& name ) {
+
+  std::string python;
+  python += std::tolower( name[0] );
+  for ( auto iter = name.begin() + 1; iter != name.end(); ++iter ) {
+
+    if ( std::isupper( *iter ) && std::islower( *( iter - 1 ) ) ) {
+
+      python += '_';
+    }
+    python += std::tolower( *iter );
+  }
+  return python;
+}
+
 void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
 {
    std::ofstream cpp(filePythonCPP,std::ofstream::app);
@@ -1651,9 +1666,9 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
 
    // python::arg...
    for (auto &m : minfo)
-      cpp << "         python::arg(\"" << m.varName << "\"),\n";
+      cpp << "         python::arg(\"" << toPythonName( m.varName ) << "\"),\n";
    for (auto &c : cinfo)
-      cpp << "         python::arg(\"" << c.varName << "\"),\n";
+      cpp << "         python::arg(\"" << toPythonName( c.varName ) << "\"),\n";
 
    cpp << "         Component::help(\"constructor\").c_str()\n";
    cpp << "      )\n";
@@ -1661,18 +1676,20 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    // .def_property_readonly...
    for (auto &m : minfo) {
       const auto name = m.varName;
+      const auto pythonname = toPythonName( m.varName );
       cpp << "      .def_property_readonly(\n";
-      cpp << "         \"" << name << "\",\n";
+      cpp << "         \"" << pythonname << "\",\n";
       cpp << "         &Component::" << name << ",\n";
-      cpp << "         Component::help(\"" << name << "\").c_str()\n";
+      cpp << "         Component::help(\"" << pythonname << "\").c_str()\n";
       cpp << "      )\n";
    }
    for (auto &c : cinfo) {
       const auto name = c.varName;
+      const auto pythonname = toPythonName( c.varName );
       cpp << "      .def_property_readonly(\n";
-      cpp << "         \"" << name << "\",\n";
+      cpp << "         \"" << pythonname << "\",\n";
       cpp << "         &Component::" << name << ",\n";
-      cpp << "         Component::help(\"" << name << "\").c_str()\n";
+      cpp << "         Component::help(\"" << pythonname << "\").c_str()\n";
       cpp << "      )\n";
    }
 
