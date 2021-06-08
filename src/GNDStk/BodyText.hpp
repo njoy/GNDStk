@@ -418,7 +418,9 @@ public:
    {
       clear();
       changed = true;
-      return rawstring = str;
+      rawstring = str;
+      get();
+      return rawstring;
    }
 
    // ------------------------
