@@ -46,21 +46,6 @@ SCENARIO( "Values" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "the data is given explicitly" ) {
-
-      unsigned int length = 4;
-      unsigned int start = 0;
-      std::string valueType = "Float64";
-      std::vector< double > values = { 2500., 8.9172, 2550., 8.9155 };
-
-      Values chunk( length, start, valueType, values );
-
-      THEN( "an Values can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-    } // WHEN
-
     WHEN( "the data is constructed from a node" ) {
 
       Node core = chunk();
