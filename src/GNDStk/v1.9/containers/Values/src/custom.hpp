@@ -75,6 +75,7 @@ public:
       out << values[i];
     }
     this->string( out.str() );
+    this->get(); // need to call get() to properly initialise the variant<vector>
 
     bodyTextUpdate(content);
     construct();
