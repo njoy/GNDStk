@@ -21,13 +21,13 @@ void wrapAxes(python::module &module)
    using namespace njoy::GNDStk;
 
    // type aliases
-   using Component = v1_9::containers::Axes;
+   using Component = njoy::GNDStk::v1_9::containers::Axes;
 
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
-      Component::help()
+      "Axes",
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -41,22 +41,22 @@ void wrapAxes(python::module &module)
          python::arg("href"),
          python::arg("axis"),
          python::arg("grid"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "href",
          &Component::href,
-         Component::help("href")
+         Component::help("href").c_str()
       )
       .def_property_readonly(
          "axis",
          &Component::axis,
-         Component::help("axis")
+         Component::help("axis").c_str()
       )
       .def_property_readonly(
          "grid",
          &Component::grid,
-         Component::help("grid")
+         Component::help("grid").c_str()
       )
    ;
 }

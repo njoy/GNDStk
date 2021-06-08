@@ -21,13 +21,13 @@ void wrapRegions1d(python::module &module)
    using namespace njoy::GNDStk;
 
    // type aliases
-   using Component = v1_9::containers::Regions1d;
+   using Component = njoy::GNDStk::v1_9::containers::Regions1d;
 
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
-      Component::help()
+      "Regions1d",
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -43,27 +43,27 @@ void wrapRegions1d(python::module &module)
          python::arg("outerDomainValue"),
          python::arg("XYs1d"),
          python::arg("axes"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::help("label")
+         Component::help("label").c_str()
       )
       .def_property_readonly(
          "outerDomainValue",
          &Component::outerDomainValue,
-         Component::help("outerDomainValue")
+         Component::help("outerDomainValue").c_str()
       )
       .def_property_readonly(
          "XYs1d",
          &Component::XYs1d,
-         Component::help("XYs1d")
+         Component::help("XYs1d").c_str()
       )
       .def_property_readonly(
          "axes",
          &Component::axes,
-         Component::help("axes")
+         Component::help("axes").c_str()
       )
    ;
 }

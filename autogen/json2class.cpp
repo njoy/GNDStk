@@ -1603,13 +1603,13 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   using namespace njoy::GNDStk;\n";
    cpp << "\n";
    cpp << "   // type aliases\n";
-   cpp << "   using Component = " << VersionNamespace << "::" << nsname << "::" << clname << ";\n";
+   cpp << "   using Component = " << "njoy::GNDStk::" << VersionNamespace << "::" << nsname << "::" << clname << ";\n";
    cpp << "\n";
    cpp << "   // create the component\n";
    cpp << "   python::class_<Component> component(\n";
    cpp << "      module,\n";
-   cpp << "      Component::className(),\n";
-   cpp << "      Component::help()\n";
+   cpp << "      \"" << clname << "\",\n";
+   cpp << "      Component::help().c_str()\n";
    cpp << "   );\n";
    cpp << "\n";
    cpp << "   // wrap the component\n";
@@ -1655,7 +1655,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    for (auto &c : cinfo)
       cpp << "         python::arg(\"" << c.varName << "\"),\n";
 
-   cpp << "         Component::help(\"constructor\")\n";
+   cpp << "         Component::help(\"constructor\").c_str()\n";
    cpp << "      )\n";
 
    // .def_property_readonly...
@@ -1664,7 +1664,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << name << "\",\n";
       cpp << "         &Component::" << name << ",\n";
-      cpp << "         Component::help(\"" << name << "\")\n";
+      cpp << "         Component::help(\"" << name << "\").c_str()\n";
       cpp << "      )\n";
    }
    for (auto &c : cinfo) {
@@ -1672,7 +1672,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << name << "\",\n";
       cpp << "         &Component::" << name << ",\n";
-      cpp << "         Component::help(\"" << name << "\")\n";
+      cpp << "         Component::help(\"" << name << "\").c_str()\n";
       cpp << "      )\n";
    }
 

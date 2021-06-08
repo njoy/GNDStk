@@ -21,13 +21,13 @@ void wrapXYs1d(python::module &module)
    using namespace njoy::GNDStk;
 
    // type aliases
-   using Component = v1_9::containers::XYs1d;
+   using Component = njoy::GNDStk::v1_9::containers::XYs1d;
 
    // create the component
    python::class_<Component> component(
       module,
-      Component::className(),
-      Component::help()
+      "XYs1d",
+      Component::help().c_str()
    );
 
    // wrap the component
@@ -47,37 +47,37 @@ void wrapXYs1d(python::module &module)
          python::arg("outerDomainValue"),
          python::arg("axes"),
          python::arg("values"),
-         Component::help("constructor")
+         Component::help("constructor").c_str()
       )
       .def_property_readonly(
          "index",
          &Component::index,
-         Component::help("index")
+         Component::help("index").c_str()
       )
       .def_property_readonly(
          "interpolation",
          &Component::interpolation,
-         Component::help("interpolation")
+         Component::help("interpolation").c_str()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::help("label")
+         Component::help("label").c_str()
       )
       .def_property_readonly(
          "outerDomainValue",
          &Component::outerDomainValue,
-         Component::help("outerDomainValue")
+         Component::help("outerDomainValue").c_str()
       )
       .def_property_readonly(
          "axes",
          &Component::axes,
-         Component::help("axes")
+         Component::help("axes").c_str()
       )
       .def_property_readonly(
          "values",
          &Component::values,
-         Component::help("values")
+         Component::help("values").c_str()
       )
    ;
 }
