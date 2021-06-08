@@ -48,7 +48,7 @@ class ReactionSuite : public Component<ReactionSuite> {
             / Meta<>("evaluation") |
          XMLName{}
             / Meta<>("format") |
-         enums::Interaction{}
+         std::optional<enums::Interaction>{}
             / Meta<>("interaction") |
          XMLName{}
             / Meta<>("projectile") |
@@ -84,7 +84,7 @@ public:
       // metadata
       XMLName evaluation;
       XMLName format;
-      enums::Interaction interaction;
+      std::optional<enums::Interaction> interaction;
       XMLName projectile;
       enums::Frame projectileFrame;
       XMLName target;
@@ -154,7 +154,7 @@ public:
     { content.format = obj; return *this; }
 
    // interaction
-   auto &interaction(const enums::Interaction &obj)
+   auto &interaction(const std::optional<enums::Interaction> &obj)
     { content.interaction = obj; return *this; }
 
    // projectile
@@ -252,7 +252,7 @@ public:
    explicit ReactionSuite(
       const XMLName &evaluation,
       const XMLName &format,
-      const enums::Interaction &interaction,
+      const std::optional<enums::Interaction> &interaction,
       const XMLName &projectile,
       const enums::Frame &projectileFrame,
       const XMLName &target,
