@@ -35,7 +35,7 @@ void wrapGrid(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const Defaulted<enums::Interpolation> &,
+            const enums::Interpolation &,
             const std::optional<XMLName> &,
             const std::optional<UTF8Text> &,
             const std::optional<XMLName> &,
@@ -44,7 +44,7 @@ void wrapGrid(python::module &module)
             const VARIANT &
          >(),
          python::arg("index"),
-         python::arg("interpolation"),
+         python::arg("interpolation") = enums::Interpolation::linlin,
          python::arg("label"),
          python::arg("style"),
          python::arg("unit"),

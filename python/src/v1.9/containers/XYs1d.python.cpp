@@ -35,14 +35,14 @@ void wrapXYs1d(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const Defaulted<enums::Interpolation> &,
+            const enums::Interpolation &,
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
             const containers::Values &
          >(),
          python::arg("index"),
-         python::arg("interpolation"),
+         python::arg("interpolation") = enums::Interpolation::linlin,
          python::arg("label"),
          python::arg("outer_domain_value"),
          python::arg("axes"),

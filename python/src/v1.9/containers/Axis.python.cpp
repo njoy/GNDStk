@@ -61,7 +61,7 @@ void wrapAxis(python::module &module)
       )
    ;
 
-   // add standard file definitions
+   // add standard component definitions
    addStandardComponentDefinitions< Component >( component );
 }
 

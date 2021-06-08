@@ -12,7 +12,8 @@ private:
                      "    value_type   the value type\n" },
     { "length", "The length of the values" },
     { "start", "The starting index of the values (default = 0)" },
-    { "value_type", "The value type (default = 'Float64')" }
+    { "value_type", "The value type (default = 'Float64')" },
+    { "doubles", "The underlying values" }
   };
 
   /**

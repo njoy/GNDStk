@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/containers/Values.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -35,12 +36,14 @@ void wrapValues(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const Defaulted<Integer32> &,
-            const Defaulted<UTF8Text> &
+            const Integer32 &,
+            const UTF8Text &,
+            const std::vector< double >&
          >(),
          python::arg("length"),
-         python::arg("start"),
-         python::arg("value_type"),
+         python::arg("start") = 0,
+         python::arg("value_type") = "Float64",
+         python::arg("values"),
          Component::help("constructor").c_str()
       )
       .def_property_readonly(
@@ -58,7 +61,15 @@ void wrapValues(python::module &module)
          &Component::valueType,
          Component::help("value_type").c_str()
       )
+      .def_property_readonly(
+         "doubles",
+         [] ( const Component& self ) { return self.doubles(); },
+         Component::help("doubles").c_str()
+      )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace containers
