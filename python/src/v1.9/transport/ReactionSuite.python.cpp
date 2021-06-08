@@ -48,7 +48,7 @@ void wrapReactionSuite(python::module &module)
          python::arg("projectile"),
          python::arg("projectile_frame"),
          python::arg("target"),
-         python::arg("reactions"),
+         python::arg("reactions") = std::nullopt,
          Component::help("constructor").c_str()
       )
       .def_property_readonly(

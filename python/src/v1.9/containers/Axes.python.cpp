@@ -38,9 +38,9 @@ void wrapAxes(python::module &module)
             const std::optional<std::vector<containers::Axis>> &,
             const std::optional<std::vector<containers::Grid>> &
          >(),
-         python::arg("href"),
-         python::arg("axis"),
-         python::arg("grid"),
+         python::arg("href") = std::nullopt,
+         python::arg("axis") = std::nullopt,
+         python::arg("grid") = std::nullopt,
          Component::help("constructor").c_str()
       )
       .def_property_readonly(

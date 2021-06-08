@@ -36,7 +36,7 @@ void wrapLink(python::module &module)
          python::init<
             const std::optional<bodyText> &
          >(),
-         python::arg("href"),
+         python::arg("href") = std::nullopt,
          Component::help("constructor").c_str()
       )
       .def_property_readonly(

@@ -43,13 +43,13 @@ void wrapGrid(python::module &module)
             const std::optional<containers::Values> &,
             const VARIANT &
          >(),
-         python::arg("index"),
+         python::arg("index") = std::nullopt,
          python::arg("interpolation") = enums::Interpolation::linlin,
-         python::arg("label"),
-         python::arg("style"),
-         python::arg("unit"),
-         python::arg("link"),
-         python::arg("values"),
+         python::arg("label") = std::nullopt,
+         python::arg("style") = std::nullopt,
+         python::arg("unit") = std::nullopt,
+         python::arg("link") = std::nullopt,
+         python::arg("values") = std::nullopt,
          python::arg("choice"),
          Component::help("constructor").c_str()
       )

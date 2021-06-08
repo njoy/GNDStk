@@ -40,7 +40,7 @@ void wrapReaction(python::module &module)
             const transport::CrossSection &
          >(),
          python::arg("endf_mt"),
-         python::arg("fission_genre"),
+         python::arg("fission_genre") = std::nullopt,
          python::arg("label"),
          python::arg("cross_section"),
          Component::help("constructor").c_str()

@@ -40,7 +40,7 @@ void wrapValues(python::module &module)
             const UTF8Text &,
             const std::vector< double >&
          >(),
-         python::arg("length"),
+         python::arg("length") = std::nullopt,
          python::arg("start") = 0,
          python::arg("value_type") = "Float64",
          python::arg("values"),

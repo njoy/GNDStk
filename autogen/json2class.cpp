@@ -1720,11 +1720,23 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
 
         cpp << " = " << m.theDefault;
      }
+     else {
+
+       if (m.isOptional) {
+
+          cpp << " = std::nullopt";
+       }
+     }
      cpp << ",\n";
    }
    for (auto &c : cinfo) {
 
-     cpp << "         python::arg(\"" << toPythonName( c.varName ) << "\"),\n";
+     cpp << "         python::arg(\"" << toPythonName( c.varName ) << "\")";
+     if (c.isOptional) {
+
+        cpp << " = std::nullopt";
+     }
+     cpp << ",\n";
    }
 
    cpp << "         Component::help(\"constructor\").c_str()\n";
