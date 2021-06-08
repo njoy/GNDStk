@@ -36,7 +36,7 @@ void wrapReactionSuite(python::module &module)
          python::init<
             const XMLName &,
             const XMLName &,
-            const enums::Interaction &,
+            const std::optional<enums::Interaction> &,
             const XMLName &,
             const enums::Frame &,
             const XMLName &,
