@@ -1,6 +1,6 @@
 private:
 
-  static inline std::map< std::string, std::string > documentation = {
+  static inline helpMap help = {
 
     { "", "A GNDS 1.9 basic container component: an axis with an index, label and\n"
           "optional unit\n\n"
@@ -16,21 +16,3 @@ private:
     { "label", "The label of the axis component" },
     { "unit", "The unit of the axis component" }
   };
-
-public:
-
-/**
- *  Customise the python binding help documentation
- */
-static std::string help( const std::string& type = "" )
-{
-
-  try {
-
-    return documentation.at( type );
-  }
-  catch ( ... ) {
-
-    return "No help information available";
-  }
-}

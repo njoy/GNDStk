@@ -54,6 +54,7 @@ public:
    // Base classes
    using BaseComponent = Component<Reactions>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

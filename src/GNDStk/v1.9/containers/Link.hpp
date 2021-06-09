@@ -51,6 +51,7 @@ public:
    // Base classes
    using BaseComponent = Component<Link>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

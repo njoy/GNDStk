@@ -1478,7 +1478,8 @@ void make_class(
    oss << "\n   using BaseComponent = Component<"
        << clname << (hasBodyText ? ",true" : "") << ">;";
    oss << "\n   using BaseBodyText = BodyText<"
-       <<           (hasBodyText ?  "true" : "false") << ">;\n";
+       <<           (hasBodyText ?  "true" : "false") << ">;";
+   oss << "\n   using BaseComponent::construct;\n";
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;
@@ -1662,7 +1663,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   python::class_<Component> component(\n";
    cpp << "      module,\n";
    cpp << "      \"" << clname << "\",\n";
-   cpp << "      Component::help().c_str()\n";
+   cpp << "      Component::documentation().c_str()\n";
    cpp << "   );\n";
    cpp << "\n";
    cpp << "   // wrap the component\n";
@@ -1739,7 +1740,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    if (hasBodyText) {
       cpp << "         python::arg(\"values\"),\n";
    }
-   cpp << "         Component::help(\"constructor\").c_str()\n";
+   cpp << "         Component::documentation(\"constructor\").c_str()\n";
    cpp << "      )\n";
 
    // .def_property_readonly...
@@ -1748,7 +1749,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
       cpp << "         &Component::" << m.varName << ",\n";
-      cpp << "         Component::help(\"" << pythonname << "\").c_str()\n";
+      cpp << "         Component::documentation(\"" << pythonname << "\").c_str()\n";
       cpp << "      )\n";
    }
    for (auto &c : cinfo) {
@@ -1756,7 +1757,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
       cpp << "         &Component::" << c.varName << ",\n";
-      cpp << "         Component::help(\"" << pythonname << "\").c_str()\n";
+      cpp << "         Component::documentation(\"" << pythonname << "\").c_str()\n";
       cpp << "      )\n";
    }
 
@@ -1765,7 +1766,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "         \"" << bodyName << "\",\n";
       cpp << "         [] (const Component &self) "
           << "{ return self." << bodyName << "(); },\n";
-      cpp << "         Component::help(\"" << bodyName << "\").c_str()\n";
+      cpp << "         Component::documentation(\"" << bodyName << "\").c_str()\n";
       cpp << "      )\n";
    }
 

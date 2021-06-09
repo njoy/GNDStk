@@ -28,7 +28,7 @@ void wrapXYs1d(python::module &module)
    python::class_<Component> component(
       module,
       "XYs1d",
-      Component::help().c_str()
+      Component::documentation().c_str()
    );
 
    // wrap the component
@@ -48,37 +48,37 @@ void wrapXYs1d(python::module &module)
          python::arg("outer_domain_value") = std::nullopt,
          python::arg("axes") = std::nullopt,
          python::arg("values"),
-         Component::help("constructor").c_str()
+         Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
          "index",
          &Component::index,
-         Component::help("index").c_str()
+         Component::documentation("index").c_str()
       )
       .def_property_readonly(
          "interpolation",
          &Component::interpolation,
-         Component::help("interpolation").c_str()
+         Component::documentation("interpolation").c_str()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::help("label").c_str()
+         Component::documentation("label").c_str()
       )
       .def_property_readonly(
          "outer_domain_value",
          &Component::outerDomainValue,
-         Component::help("outer_domain_value").c_str()
+         Component::documentation("outer_domain_value").c_str()
       )
       .def_property_readonly(
          "axes",
          &Component::axes,
-         Component::help("axes").c_str()
+         Component::documentation("axes").c_str()
       )
       .def_property_readonly(
          "values",
          &Component::values,
-         Component::help("values").c_str()
+         Component::documentation("values").c_str()
       )
    ;
 

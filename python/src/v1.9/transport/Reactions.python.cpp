@@ -28,7 +28,7 @@ void wrapReactions(python::module &module)
    python::class_<Component> component(
       module,
       "Reactions",
-      Component::help().c_str()
+      Component::documentation().c_str()
    );
 
    // wrap the component
@@ -38,12 +38,12 @@ void wrapReactions(python::module &module)
             const std::vector<transport::Reaction> &
          >(),
          python::arg("reaction"),
-         Component::help("constructor").c_str()
+         Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
          "reaction",
          &Component::reaction,
-         Component::help("reaction").c_str()
+         Component::documentation("reaction").c_str()
       )
    ;
 

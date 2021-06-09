@@ -55,6 +55,7 @@ public:
    // Base classes
    using BaseComponent = Component<Axis>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

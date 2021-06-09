@@ -1,6 +1,6 @@
 private:
 
-  static inline std::map< std::string, std::string > documentation = {
+  static inline helpMap help = {
 
     { "", "A GNDS basic component: a list of values\n\n"
           "This component is used in the nodes like XYs1D or the grid node." },
@@ -34,22 +34,6 @@ private:
       log::info( "number values: {}", this->size() );
       throw std::exception();
     }
-  }
-
-  /**
-   *  Custom construct function
-   */
-  void construct( const Values& ) {
-
-    this->construct();
-  }
-
-  /**
-   *  Custom construct function
-   */
-  void construct( const Node& ) {
-
-    this->construct();
   }
 
 public:
@@ -87,19 +71,3 @@ public:
           const Integer32& start = 0,
           const UTF8Text& valueType = "Float64" ) :
     Values( values.size() + start, start, valueType, values ) {}
-
-  /**
-   *  Customise the python binding help documentation
-   */
-  static std::string help( const std::string& type = "" )
-  {
-
-    try {
-
-      return documentation.at( type );
-    }
-    catch ( ... ) {
-
-      return "No help information available";
-    }
-  }

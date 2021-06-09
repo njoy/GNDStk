@@ -62,6 +62,7 @@ public:
    // Base classes
    using BaseComponent = Component<Regions1d>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults
