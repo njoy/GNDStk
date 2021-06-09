@@ -1551,6 +1551,7 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
    // The following is informational only. It tries to tell us when we have
    // an intermediary node that only contains some number of one other type
    // of node. (And no metadata.) Example: <reactions> only has <reaction>.
+
    if (firsttime) { // <== because read() is called twice :-)
       for (const auto &item : jdoc.items()) {
          const std::string parent = item.key();
@@ -1572,6 +1573,9 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
                (parent == "axes" && child == "axis")
             ) {
                std::cout << "<" << parent << "> only contains <"
+                         << child << ">" << std::endl;
+            } else {
+               std::cout << "Possible case: <" << parent << "> vs <"
                          << child << ">" << std::endl;
             }
          }
