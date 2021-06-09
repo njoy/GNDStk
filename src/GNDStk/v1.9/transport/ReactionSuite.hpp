@@ -67,6 +67,7 @@ public:
    // Base classes
    using BaseComponent = Component<ReactionSuite>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

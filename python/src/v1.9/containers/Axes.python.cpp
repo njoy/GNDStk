@@ -28,7 +28,7 @@ void wrapAxes(python::module &module)
    python::class_<Component> component(
       module,
       "Axes",
-      Component::help().c_str()
+      Component::documentation().c_str()
    );
 
    // wrap the component
@@ -42,22 +42,22 @@ void wrapAxes(python::module &module)
          python::arg("href") = std::nullopt,
          python::arg("axis") = std::nullopt,
          python::arg("grid") = std::nullopt,
-         Component::help("constructor").c_str()
+         Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
          "href",
          &Component::href,
-         Component::help("href").c_str()
+         Component::documentation("href").c_str()
       )
       .def_property_readonly(
          "axis",
          &Component::axis,
-         Component::help("axis").c_str()
+         Component::documentation("axis").c_str()
       )
       .def_property_readonly(
          "grid",
          &Component::grid,
-         Component::help("grid").c_str()
+         Component::documentation("grid").c_str()
       )
    ;
 

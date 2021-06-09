@@ -55,6 +55,7 @@ public:
    // Base classes
    using BaseComponent = Component<Values,true>;
    using BaseBodyText = BodyText<true>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

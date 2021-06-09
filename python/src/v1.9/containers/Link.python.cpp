@@ -28,22 +28,22 @@ void wrapLink(python::module &module)
    python::class_<Component> component(
       module,
       "Link",
-      Component::help().c_str()
+      Component::documentation().c_str()
    );
 
    // wrap the component
    component
       .def(
          python::init<
-            const std::optional<bodyText> &
+            const std::optional<UTF8Text> &
          >(),
          python::arg("href") = std::nullopt,
-         Component::help("constructor").c_str()
+         Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
          "href",
          &Component::href,
-         Component::help("href").c_str()
+         Component::documentation("href").c_str()
       )
    ;
 

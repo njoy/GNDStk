@@ -71,6 +71,7 @@ public:
    // Base classes
    using BaseComponent = Component<Grid>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

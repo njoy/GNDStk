@@ -60,6 +60,7 @@ public:
    // Base classes
    using BaseComponent = Component<CrossSection>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

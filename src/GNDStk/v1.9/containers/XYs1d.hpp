@@ -66,6 +66,7 @@ public:
    // Base classes
    using BaseComponent = Component<XYs1d>;
    using BaseBodyText = BodyText<false>;
+   using BaseComponent::construct;
 
    // ------------------------
    // Relevant defaults

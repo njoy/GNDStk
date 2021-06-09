@@ -28,7 +28,7 @@ void wrapValues(python::module &module)
    python::class_<Component> component(
       module,
       "Values",
-      Component::help().c_str()
+      Component::documentation().c_str()
    );
 
    // wrap the component
@@ -38,33 +38,33 @@ void wrapValues(python::module &module)
             const std::optional<Integer32> &,
             const Integer32 &,
             const UTF8Text &,
-            const std::vector< double >&
+            const std::vector<Float64> &
          >(),
          python::arg("length") = std::nullopt,
          python::arg("start") = 0,
          python::arg("value_type") = "Float64",
          python::arg("values"),
-         Component::help("constructor").c_str()
+         Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
          "length",
          &Component::length,
-         Component::help("length").c_str()
+         Component::documentation("length").c_str()
       )
       .def_property_readonly(
          "start",
          &Component::start,
-         Component::help("start").c_str()
+         Component::documentation("start").c_str()
       )
       .def_property_readonly(
          "value_type",
          &Component::valueType,
-         Component::help("value_type").c_str()
+         Component::documentation("value_type").c_str()
       )
       .def_property_readonly(
          "doubles",
-         [] ( const Component& self ) { return self.doubles(); },
-         Component::help("doubles").c_str()
+         [] (const Component &self) { return self.doubles(); },
+         Component::documentation("doubles").c_str()
       )
    ;
 

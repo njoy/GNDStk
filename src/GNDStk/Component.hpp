@@ -5,6 +5,10 @@ class Component;
 // general helper constructs
 #include "GNDStk/Component/src/detail.hpp"
 
+// Map from some term/subject to its documentation,
+// for use by classes that derive from Component
+using helpMap = std::map<std::string,std::string>;
+
 
 
 // -----------------------------------------------------------------------------
@@ -43,9 +47,17 @@ class Component : public BodyText<hasBodyText> {
    // construct()
    // Hooks by which derived-class constructors, built by our auto-generation
    // process from JSON-format GNDS specs, can run arbitrary additional code.
-   void construct() const { }
-   void construct(const DERIVED &) const { }
-   void construct(const Node &) const { }
+   void construct()
+   {
+   }
+   void construct(const DERIVED &)
+   {
+      static_cast<DERIVED &>(*this).construct();
+   }
+   void construct(const Node &)
+   {
+      static_cast<DERIVED &>(*this).construct();
+   }
 
    // You can (but don't need to) override in DERIVED
    static std::string namespaceName() { return ""; }
@@ -54,23 +66,24 @@ class Component : public BodyText<hasBodyText> {
    // functions in detail::. These shorten the code in the derived classes.
    #include "GNDStk/Component/src/getter.hpp"
 
+   // Fallback for documentation() if DERIVED doesn't have help
+   static inline helpMap help;
+
 public:
 
    #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/toNode.hpp"
    #include "GNDStk/Component/src/write.hpp"
 
-   // help
-   // Override this function in a derived class in order to provide help,
-   // e.g. for Python bindings, regarding a given subject.
-   static std::string help(const std::string &/*subject*/ = "")
+   // documentation
+   static std::string documentation(const std::string &subject = "")
    {
-      return "No description available";
-      // Suggestion:
-      //    If subject == "", return help for the class
-      //    If subject == "constructor", return help for the constructor
-      //    If subject == "foo", return help for the "foo" parameter
-      // Etc.
+      try {
+         return DERIVED::help.at(subject);
+      }
+      catch ( ... ) {
+         return "No help information is available";
+      }
    }
 
    // Component << std::string
