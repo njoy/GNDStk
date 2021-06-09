@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/containers/Axes.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -38,9 +39,9 @@ void wrapAxes(python::module &module)
             const std::optional<std::vector<containers::Axis>> &,
             const std::optional<std::vector<containers::Grid>> &
          >(),
-         python::arg("href"),
-         python::arg("axis"),
-         python::arg("grid"),
+         python::arg("href") = std::nullopt,
+         python::arg("axis") = std::nullopt,
+         python::arg("grid") = std::nullopt,
          Component::help("constructor").c_str()
       )
       .def_property_readonly(
@@ -59,6 +60,9 @@ void wrapAxes(python::module &module)
          Component::help("grid").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace containers

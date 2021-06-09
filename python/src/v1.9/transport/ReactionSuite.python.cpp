@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/transport/ReactionSuite.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -44,11 +45,11 @@ void wrapReactionSuite(python::module &module)
          >(),
          python::arg("evaluation"),
          python::arg("format"),
-         python::arg("interaction"),
+         python::arg("interaction") = std::nullopt,
          python::arg("projectile"),
-         python::arg("projectileFrame"),
+         python::arg("projectile_frame"),
          python::arg("target"),
-         python::arg("reactions"),
+         python::arg("reactions") = std::nullopt,
          Component::help("constructor").c_str()
       )
       .def_property_readonly(
@@ -72,9 +73,9 @@ void wrapReactionSuite(python::module &module)
          Component::help("projectile").c_str()
       )
       .def_property_readonly(
-         "projectileFrame",
+         "projectile_frame",
          &Component::projectileFrame,
-         Component::help("projectileFrame").c_str()
+         Component::help("projectile_frame").c_str()
       )
       .def_property_readonly(
          "target",
@@ -87,6 +88,9 @@ void wrapReactionSuite(python::module &module)
          Component::help("reactions").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace transport

@@ -11,6 +11,14 @@ namespace python = pybind11;
 namespace core {
 
   void wrapNode( python::module& );
+
+  void wrapInterpolation( python::module& );
+}
+
+// v1.9 interface declarations
+namespace v1_9 {
+
+  void wrapGNDS( python::module& );
 }
 
 /**
@@ -28,6 +36,12 @@ PYBIND11_MODULE( GNDStk, module ) {
     "core - GNDS core interface components"
   );
 
-  // wrap core components
+  // wrap core components (in the core module)
   core::wrapNode( submodule );
+
+  // enumerations (in the GNDStk module)
+  core::wrapInterpolation( module );
+
+  // v1.9 components (in the v1_9 module, created in this function)
+  v1_9::wrapGNDS( module );
 }

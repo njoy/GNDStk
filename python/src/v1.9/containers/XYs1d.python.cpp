@@ -8,6 +8,7 @@
 
 // local includes
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
+#include "definitions.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -35,17 +36,17 @@ void wrapXYs1d(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const Defaulted<enums::Interpolation> &,
+            const enums::Interpolation &,
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
             const containers::Values &
          >(),
-         python::arg("index"),
-         python::arg("interpolation"),
-         python::arg("label"),
-         python::arg("outerDomainValue"),
-         python::arg("axes"),
+         python::arg("index") = std::nullopt,
+         python::arg("interpolation") = enums::Interpolation::linlin,
+         python::arg("label") = std::nullopt,
+         python::arg("outer_domain_value") = std::nullopt,
+         python::arg("axes") = std::nullopt,
          python::arg("values"),
          Component::help("constructor").c_str()
       )
@@ -65,9 +66,9 @@ void wrapXYs1d(python::module &module)
          Component::help("label").c_str()
       )
       .def_property_readonly(
-         "outerDomainValue",
+         "outer_domain_value",
          &Component::outerDomainValue,
-         Component::help("outerDomainValue").c_str()
+         Component::help("outer_domain_value").c_str()
       )
       .def_property_readonly(
          "axes",
@@ -80,6 +81,9 @@ void wrapXYs1d(python::module &module)
          Component::help("values").c_str()
       )
    ;
+
+   // add standard component definitions
+   addStandardComponentDefinitions< Component >( component );
 }
 
 } // namespace containers
