@@ -17,7 +17,6 @@ using Float64 = double;
 // but consider perhaps having specialty types instead
 using UTF8Text = std::string;
 using XMLName  = std::string;
-using bodyText = std::string;
 
 
 

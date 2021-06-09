@@ -11,7 +11,7 @@
                 "description": "The URL or xpath-like string pointing to the referred-to element",
                 "name": "href",
                 "required": false,
-                "type": "bodyText"
+                "type": "UTF8Text"
             }
         },
         "bodyText": null,

@@ -41,7 +41,7 @@ class Link : public Component<Link> {
    {
       return
          // metadata
-         std::optional<bodyText>{}
+         std::optional<UTF8Text>{}
             / Meta<>("href")
       ;
    }
@@ -66,7 +66,7 @@ public:
 
    struct {
       // metadata
-      std::optional<bodyText> href;
+      std::optional<UTF8Text> href;
    } content;
 
    // ------------------------
@@ -86,7 +86,7 @@ public:
    // ------------------------
 
    // href
-   auto &href(const std::optional<bodyText> &obj)
+   auto &href(const std::optional<UTF8Text> &obj)
     { content.href = obj; return *this; }
 
    // ------------------------
@@ -142,7 +142,7 @@ public:
 
    // from fields
    explicit Link(
-      const std::optional<bodyText> &href
+      const std::optional<UTF8Text> &href
    ) :
       Component{
          BaseBodyText{},

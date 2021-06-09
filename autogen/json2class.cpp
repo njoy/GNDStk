@@ -123,9 +123,8 @@ const std::map<std::string,std::string> mapMetaDefault {
 std::string replace(std::string str, const char from, const char to)
 {
    for (auto i = str.size(); i--; ) {
-
-     if (str[i] == from)
-        str[i] = to;
+      if (str[i] == from)
+         str[i] = to;
    }
    return str;
 }
@@ -133,8 +132,7 @@ std::string replace(std::string str, const char from, const char to)
 std::string uppercase(std::string str)
 {
    for (auto i = str.size(); i--; ) {
-
-     str[i] = toupper(str[i]);
+      str[i] = toupper(str[i]);
    }
    return str;
 }
@@ -217,8 +215,7 @@ void insertNDep(
       const auto ndep = *iter;
       sourceVec.erase(iter);
       for (const auto &name : ndep.dependencies) {
-
-        insertNDep(name, sourceVec, targetVec);
+         insertNDep(name, sourceVec, targetVec);
       }
       targetVec.push_back(ndep);
    }
@@ -238,8 +235,7 @@ void printDepVec(
       if (ndep.dependencies.size() > 0)
          std::cout << ":";
       for (const auto &dep : ndep.dependencies) {
-
-        std::cout << " " << dep.first << "::" << dep.second;
+         std::cout << " " << dep.first << "::" << dep.second;
       }
       std::cout << std::endl;
    }
@@ -617,9 +613,8 @@ void compute_children(
             // current one, or we consider this situation to be ambiguous
             for (auto it = class2nspace.equal_range(varType).first;
                  it != class2nspace.equal_range(varType).second; ++it) {
-
-              if (it->second == file_namespace) // current namespace...
-                ns = file_namespace; // ...is presumed; good news
+               if (it->second == file_namespace) // current namespace...
+                  ns = file_namespace; // ...is presumed; good news
             }
 
             if (ns == "") { // none of the >= 2 are in current namespace :-(
@@ -627,8 +622,7 @@ void compute_children(
                int count = 0;
                for (auto it = class2nspace.equal_range(varType).first;
                     it != class2nspace.equal_range(varType).second; ++it) {
-
-                 warn << (count++ ? ", " : "") << it->second;
+                  warn << (count++ ? ", " : "") << it->second;
                }
                log::warning(
                   "{}::{} has child of ambiguous type {}.\n"
@@ -686,24 +680,23 @@ void compute_children(
    }
 
    for (const auto &c : vecInfoChildren) {
+      if (c.isChoice) {
+         vecInfoChildren.push_back(infoChildren{});
 
-     if (c.isChoice) {
-        vecInfoChildren.push_back(infoChildren{});
-
-        vecInfoChildren.back().varName     = "choice";
-        vecInfoChildren.back().varType     = "VARIANT";
-        vecInfoChildren.back().fullVarType = c.isVector
-           ? "std::vector<VARIANT>"
-           : "VARIANT";
-        vecInfoChildren.back().halfVarType = "VARIANT";
-        vecInfoChildren.back().isOptional  = false;
-        vecInfoChildren.back().isVector    = c.isVector;
-        vecInfoChildren.back().isChoice    = false; // for choice itself
-        vecInfoChildren.back().varNameSeq  = names;
-        ossc << "      " << vecInfoChildren.back().fullVarType << " "
-             << vecInfoChildren.back().varName << ";\n";
-        break;
-     }
+         vecInfoChildren.back().varName     = "choice";
+         vecInfoChildren.back().varType     = "VARIANT";
+         vecInfoChildren.back().fullVarType = c.isVector
+            ? "std::vector<VARIANT>"
+            : "VARIANT";
+         vecInfoChildren.back().halfVarType = "VARIANT";
+         vecInfoChildren.back().isOptional  = false;
+         vecInfoChildren.back().isVector    = c.isVector;
+         vecInfoChildren.back().isChoice    = false; // for choice itself
+         vecInfoChildren.back().varNameSeq  = names;
+         ossc << "      " << vecInfoChildren.back().fullVarType << " "
+              << vecInfoChildren.back().varName << ";\n";
+         break;
+      }
    }
 } // compute_children
 
@@ -724,16 +717,16 @@ void write_keys(
 ) {
    // using VARIANT = ..., if necessary
    for (const auto &child : vecInfoChildren) {
-
-     if (child.isChoice) {
-        os << "\n   using VARIANT = std::variant<";
-        std::size_t count = 0;
-        for (const auto &c : vecInfoChildren)
-           if (c.isChoice)
-              os << (count++ ? "," : "") << "\n      " << c.varType;
-        os << "\n   >;\n";
-        break;
-     }
+      if (child.isChoice) {
+         os << "\n   using VARIANT = std::variant<";
+         std::size_t count = 0;
+         for (const auto &c : vecInfoChildren) {
+            if (c.isChoice)
+               os << (count++ ? "," : "") << "\n      " << c.varType;
+         }
+         os << "\n   >;\n";
+         break;
+      }
    }
 
    // names
@@ -766,10 +759,9 @@ void write_keys(
       // metadata
       std::size_t count = 0;
       for (const auto &m : vecInfoMetadata) {
-
-        os << (count++ ? " |\n" : "\n         // metadata\n")
-           << "         " << m.fullVarType << "{" << m.theDefault << "}\n"
-           << "            / Meta<>(\""  << m.varName << "\")";
+         os << (count++ ? " |\n" : "\n         // metadata\n")
+            << "         " << m.fullVarType << "{" << m.theDefault << "}\n"
+            << "            / Meta<>(\""  << m.varName << "\")";
       }
 
       // children
@@ -777,12 +769,11 @@ void write_keys(
          os << " |";
       count = 0;
       for (const auto &c : vecInfoChildren) {
-
-        if (!c.isChoice)
-           os << (count++ ? " |\n" : "\n         // children\n")
-              << "         " << c.halfVarType << "{}\n" // w/o any std::vector<>
-              << "            / " << (c.isVector ? "++" : "--") << "Child<>(\""
-              << (c.varNameSeq == "" ? c.varName : c.varNameSeq) << "\")";
+         if (!c.isChoice)
+            os << (count++ ? " |\n" : "\n         // children\n")
+               << "         " << c.halfVarType << "{}\n" // w/o any std::vector<>
+               << "            / " << (c.isVector ? "++" : "--") << "Child<>(\""
+               << (c.varNameSeq == "" ? c.varName : c.varNameSeq) << "\")";
       }
       os << "\n      ;\n";
    }
@@ -1058,11 +1049,9 @@ void write_component_base(
       : os << "         BaseBodyText{}";
 
    for (const auto &m : vecInfoMetadata) { // metadata
-
       os << ",\n         content." + m.varName;
    }
    for (const auto &c : vecInfoChildren) { // children
-
      if (!c.isChoice)
         os << ",\n         content." + c.varName;
    }
@@ -1174,15 +1163,13 @@ void write_class_ctor(
    count = 0;
    os << "   explicit " << clname << "(";
    for (const auto &m : vecInfoMetadata) {
-
-     os << (count++ ? ",\n" : "\n")
-        << "      const " << m.fullVarType << " &" << m.varName;
+      os << (count++ ? ",\n" : "\n")
+         << "      const " << m.fullVarType << " &" << m.varName;
    }
    for (const auto &c : vecInfoChildren) {
-
-     if (!c.isChoice)
-        os << (count++ ? ",\n" : "\n")
-           << "      const " << c.fullVarType << " &" << c.varName;
+      if (!c.isChoice)
+         os << (count++ ? ",\n" : "\n")
+            << "      const " << c.fullVarType << " &" << c.varName;
    }
    os << "\n   ) :\n";
    write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
@@ -1192,13 +1179,11 @@ void write_class_ctor(
    os << "      content{";
    count = 0;
    for (const auto &m : vecInfoMetadata) {
-
-     os << (count++ ? ",\n" : "\n") << "         " << m.varName;
+      os << (count++ ? ",\n" : "\n") << "         " << m.varName;
    }
    for (const auto &c : vecInfoChildren) {
-
-     if (!c.isChoice)
-        os << (count++ ? ",\n" : "\n") << "         " << c.varName;
+      if (!c.isChoice)
+         os << (count++ ? ",\n" : "\n") << "         " << c.varName;
    }
    os << "\n      }\n";
 
@@ -1213,9 +1198,8 @@ void write_class_ctor(
 
    bool def = false; // are there any Defaulted<>s?
    for (const auto &m : vecInfoMetadata) {
-
-     if (m.isDefaulted)
-        def = true;
+      if (m.isDefaulted)
+         def = true;
    }
    // infoChildren doesn't have isDefaulted, so isn't a factor here
    if (!def)
@@ -1226,15 +1210,13 @@ void write_class_ctor(
    count = 0;
    os << "   explicit " << clname << "(";
    for (const auto &m : vecInfoMetadata) {
-
-     os << (count++ ? ",\n" : "\n") << "      const "
-        << (m.isDefaulted ? m.varType : m.fullVarType) << " &" << m.varName;
+      os << (count++ ? ",\n" : "\n") << "      const "
+         << (m.isDefaulted ? m.varType : m.fullVarType) << " &" << m.varName;
    }
    for (const auto &c : vecInfoChildren) {
-
-     if (!c.isChoice)
-        os << (count++ ? ",\n" : "\n") << "      const "
-           << c.fullVarType << " &" << c.varName;
+      if (!c.isChoice)
+         os << (count++ ? ",\n" : "\n") << "      const "
+            << c.fullVarType << " &" << c.varName;
    }
    os << "\n   ) :\n";
    write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
@@ -1244,21 +1226,19 @@ void write_class_ctor(
    os << "      content{";
    count = 0;
    for (const auto &m : vecInfoMetadata) {
-
-     if (m.isDefaulted)
-        os << (count++ ? ",\n" : "\n") << "         " << m.varName
-           << " == " << m.theDefault << "\n"
-           << "            ? " << m.fullVarType
-           << "{" << m.theDefault << "}\n"
-           << "            : " << m.fullVarType
-           << "{" << m.theDefault << "," << m.varName << "}";
-     else
-        os << (count++ ? ",\n" : "\n") << "         " << m.varName;
+      if (m.isDefaulted)
+         os << (count++ ? ",\n" : "\n") << "         " << m.varName
+            << " == " << m.theDefault << "\n"
+            << "            ? " << m.fullVarType
+            << "{" << m.theDefault << "}\n"
+            << "            : " << m.fullVarType
+            << "{" << m.theDefault << "," << m.varName << "}";
+      else
+         os << (count++ ? ",\n" : "\n") << "         " << m.varName;
    }
    for (const auto &c : vecInfoChildren) {
-
-     if (!c.isChoice)
-        os << (count++ ? ",\n" : "\n") << "         " << c.varName;
+      if (!c.isChoice)
+         os << (count++ ? ",\n" : "\n") << "         " << c.varName;
    }
    os << "\n      }\n";
 
@@ -1295,7 +1275,6 @@ std::map<std::string,NSFile> namespace2file;
 
 // namespace,class names to file names (GNDStk HPP and Python CPP for the class)
 std::map<std::pair<std::string,std::string>,CLFile> class2files;
-
 
 // make_forward
 void make_forward(
@@ -1414,6 +1393,14 @@ std::map<
    >
 > class2info;
 
+// Keep track of whether or not the class has BodyText
+std::map<
+   std::pair<
+      std::string, // namespace::
+      std::string  // class
+   >,
+   bool // has BodyText?
+> class2bodytext;
 
 
 // make_class
@@ -1472,6 +1459,12 @@ void make_class(
          std::make_pair(vecInfoMetadata,vecInfoChildren)
       )
    );
+   class2bodytext.insert(
+      std::make_pair(
+         std::make_pair(file_namespace,clname),
+         hasBodyText
+      )
+   );
 
    // output: names, keys
    // As needed by the Component base
@@ -1495,11 +1488,10 @@ void make_class(
    oss << "\n";
    oss << "\n   static const struct {\n";
    for (auto &m : vecInfoMetadata) {
-
-     if (m.isDefaulted) {
-        oss << "      const " << m.varType << " " << m.varName;
-        oss << "{" << m.theDefault << "};\n";
-     }
+      if (m.isDefaulted) {
+         oss << "      const " << m.varType << " " << m.varName;
+         oss << "{" << m.theDefault << "};\n";
+      }
    }
    oss << "   } defaults;\n";
 
@@ -1583,9 +1575,8 @@ void file_python_namespace(
    cpp << "// " << nsname << " declarations\n";
    cpp << "namespace " << nsname << " {\n";
    for (auto &cl : sortedClassDependencies) {
-
-     if (cl.name.first == nsname)
-        cpp << "   void wrap" << cl.name.second << "(python::module &);\n";
+      if (cl.name.first == nsname)
+         cpp << "   void wrap" << cl.name.second << "(python::module &);\n";
    }
    cpp << "} // namespace " << nsname << "\n";
    cpp << "\n";
@@ -1601,10 +1592,9 @@ void file_python_namespace(
 
    cpp << "\n   // wrap " << nsname << " components\n";
    for (auto &cl : sortedClassDependencies) {
-
-     if (cl.name.first == nsname)
-        cpp << "   " << nsname << "::wrap" << cl.name.second
-            << "(submodule);\n";
+      if (cl.name.first == nsname)
+         cpp << "   " << nsname << "::wrap" << cl.name.second
+             << "(submodule);\n";
    }
    cpp << "};\n";
 
@@ -1617,19 +1607,18 @@ void file_python_namespace(
 // file_python_class
 // -----------------------------------------------------------------------------
 
-std::string toPythonName( const std::string& name ) {
-
-  std::string python;
-  python += std::tolower( name[0] );
-  for ( auto iter = name.begin() + 1; iter != name.end(); ++iter ) {
-
-    if ( std::isupper( *iter ) && std::islower( *( iter - 1 ) ) ) {
-
-      python += '_';
-    }
-    python += std::tolower( *iter );
-  }
-  return python;
+std::string toPythonName(const std::string &name)
+{
+   assert(name != "");
+   std::string python;
+   python += std::tolower(name[0]);
+   for ( auto iter = name.begin() + 1; iter != name.end(); ++iter ) {
+      if ( std::isupper(*iter) && std::islower(*(iter-1))) {
+         python += '_';
+      }
+      python += std::tolower(*iter);
+   }
+   return python;
 }
 
 void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
@@ -1684,69 +1673,99 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    assert(info != class2info.end());
    const auto &minfo = info->second.first;  // vector<infoMetadata>
    const auto &cinfo = info->second.second; // vector<infoChildren>
-   const auto total = minfo.size() + cinfo.size();
+
+   // compute some things with respect to "body text"
+   const auto body = class2bodytext.find(obj.name);
+   assert(body != class2bodytext.end());
+   const bool hasBodyText = body->second; // this class has it?
+
+   std::string bodyType = "unknownType";
+   std::string bodyName = "unknownName";
+   if (hasBodyText) {
+      for (auto &m : minfo) {
+         if (m.varName == "valueType") {
+            if (m.theDefault == "\"Integer32\"") {
+               bodyType = "Integer32";
+               bodyName = "ints";
+            }
+            if (m.theDefault == "\"Float64\"") {
+               bodyType = "Float64";
+               bodyName = "doubles";
+            }
+            if (m.theDefault == "\"UTF8Text\"") {
+               bodyType = "UTF8Text";
+               bodyName = "strings";
+            }
+         }
+      }
+   }
+
    std::size_t count;
 
    // python::init<...>
-   cpp << "         python::init<\n";
+   cpp << "         python::init<";
    count = 0;
    for (auto &m : minfo) {
-      cpp << "            const " << (m.isDefaulted ? m.varType : m.fullVarType);
-      cpp << (++count < total ? " &,\n" : " &\n");
+      cpp << (count++ ? "," : "") << "\n            "
+          << "const " << (m.isDefaulted ? m.varType : m.fullVarType) << " &";
    }
    for (auto &c : cinfo) {
-      cpp << "            const " << c.fullVarType;
-      cpp << (++count < total ? " &,\n" : " &\n");
+      cpp << (count++ ? "," : "") << "\n            "
+          << "const " << c.fullVarType << " &";
    }
-   cpp << "         >(),\n";
+   if (hasBodyText) {
+      cpp << (count++ ? "," : "") << "\n            ";
+      cpp << "const std::vector<" << bodyType << "> &";
+   }
+   cpp << "\n         >(),\n";
 
    // python::arg...
    for (auto &m : minfo) {
-
-     cpp << "         python::arg(\"" << toPythonName( m.varName ) << "\")";
-     if (m.isDefaulted) {
-
-        cpp << " = " << m.theDefault;
-     }
-     else {
-
-       if (m.isOptional) {
-
-          cpp << " = std::nullopt";
-       }
-     }
-     cpp << ",\n";
+      cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
+      if (m.isDefaulted) {
+         cpp << " = " << m.theDefault;
+      } else if (m.isOptional) {
+         cpp << " = std::nullopt";
+      }
+      cpp << ",\n";
    }
    for (auto &c : cinfo) {
-
-     cpp << "         python::arg(\"" << toPythonName( c.varName ) << "\")";
-     if (c.isOptional) {
-
-        cpp << " = std::nullopt";
-     }
-     cpp << ",\n";
+      cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+      if (c.isOptional) {
+         cpp << " = std::nullopt";
+      }
+      cpp << ",\n";
    }
-
+   if (hasBodyText) {
+      cpp << "         python::arg(\"values\"),\n";
+   }
    cpp << "         Component::help(\"constructor\").c_str()\n";
    cpp << "      )\n";
 
    // .def_property_readonly...
    for (auto &m : minfo) {
-      const auto name = m.varName;
-      const auto pythonname = toPythonName( m.varName );
+      const auto pythonname = toPythonName(m.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         &Component::" << name << ",\n";
+      cpp << "         &Component::" << m.varName << ",\n";
       cpp << "         Component::help(\"" << pythonname << "\").c_str()\n";
       cpp << "      )\n";
    }
    for (auto &c : cinfo) {
-      const auto name = c.varName;
-      const auto pythonname = toPythonName( c.varName );
+      const auto pythonname = toPythonName(c.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         &Component::" << name << ",\n";
+      cpp << "         &Component::" << c.varName << ",\n";
       cpp << "         Component::help(\"" << pythonname << "\").c_str()\n";
+      cpp << "      )\n";
+   }
+
+   if (hasBodyText) {
+      cpp << "      .def_property_readonly(\n";
+      cpp << "         \"" << bodyName << "\",\n";
+      cpp << "         [] (const Component &self) "
+          << "{ return self." << bodyName << "(); },\n";
+      cpp << "         Component::help(\"" << bodyName << "\").c_str()\n";
       cpp << "      )\n";
    }
 
@@ -1792,8 +1811,7 @@ int main()
       ofs << "\n";
       const std::string nsname = jdoc["__namespace__"];
       for (const auto &item : jdoc.items()) {
-
-        make_forward(ofs, nsname, item.key(), item.value(), class2nspace);
+         make_forward(ofs, nsname, item.key(), item.value(), class2nspace);
       }
    }
    std::ofstream ver(HPPforVersion, std::ofstream::app);
@@ -1803,8 +1821,7 @@ int main()
    // FYI
    if (debugging)
       for (const auto &val : class2nspace) {
-
-        std::cout << val.first << ": " << val.second << std::endl;
+         std::cout << val.first << ": " << val.second << std::endl;
       }
 
    // Print classes into temporary strings, because they have to be reordered
@@ -1814,8 +1831,7 @@ int main()
       read(file,jdoc);
       const std::string file_namespace = jdoc["__namespace__"];
       for (const auto &keyvalue : jdoc.items()) {
-
-        make_class(keyvalue, file_namespace, class2nspace);
+         make_class(keyvalue, file_namespace, class2nspace);
       }
    }
 
@@ -1880,9 +1896,8 @@ int main()
          if (obj.dependencies.size() > 0) {
             hpp << "// " << Version << " dependencies\n";
             for (const auto &dep : obj.dependencies) {
-
-              hpp << "#include \"GNDStk/" << Version << "/"
-                  << dep.first << "/" << dep.second << ".hpp\"\n";
+               hpp << "#include \"GNDStk/" << Version << "/"
+                   << dep.first << "/" << dep.second << ".hpp\"\n";
             }
             hpp << "\n";
          }

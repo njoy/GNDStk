@@ -38,7 +38,7 @@ void wrapValues(python::module &module)
             const std::optional<Integer32> &,
             const Integer32 &,
             const UTF8Text &,
-            const std::vector< double >&
+            const std::vector<Float64> &
          >(),
          python::arg("length") = std::nullopt,
          python::arg("start") = 0,
@@ -63,7 +63,7 @@ void wrapValues(python::module &module)
       )
       .def_property_readonly(
          "doubles",
-         [] ( const Component& self ) { return self.doubles(); },
+         [] (const Component &self) { return self.doubles(); },
          Component::help("doubles").c_str()
       )
    ;

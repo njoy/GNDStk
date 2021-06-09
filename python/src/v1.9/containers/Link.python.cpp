@@ -35,7 +35,7 @@ void wrapLink(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<bodyText> &
+            const std::optional<UTF8Text> &
          >(),
          python::arg("href") = std::nullopt,
          Component::help("constructor").c_str()
