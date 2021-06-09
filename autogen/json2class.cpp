@@ -259,9 +259,8 @@ void check_class(
    assert(value.contains("attributes"));
    assert(value.contains("childNodes"));
    assert(value.contains("description"));
-   assert(value.contains("bodyText"));
 
-   hasBodyText = !value["bodyText"].is_null();
+   hasBodyText = value.contains("bodyText") && !value["bodyText"].is_null();
 }
 
 // check_metadata
@@ -1539,7 +1538,7 @@ void make_class(
 // read JSON file
 // -----------------------------------------------------------------------------
 
-void read(const std::string &file, nlohmann::json &jdoc)
+void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
 {
    std::cout << "File: \"" << file << '"' << std::endl;
    std::ifstream ifs(file);
@@ -1548,6 +1547,36 @@ void read(const std::string &file, nlohmann::json &jdoc)
       throw std::exception{};
    }
    ifs >> jdoc;
+
+   // The following is informational only. It tries to tell us when we have
+   // an intermediary node that only contains some number of one other type
+   // of node. (And no metadata.) Example: <reactions> only has <reaction>.
+   if (firsttime) { // <== because read() is called twice :-)
+      for (const auto &item : jdoc.items()) {
+         const std::string parent = item.key();
+         if (parent == "__namespace__")
+            continue;
+
+         const nlohmann::json value = item.value();
+         if (value["__class__"] != "nodes.Node")
+            continue;
+
+         const auto attrs = value["attributes"];
+         const auto elems = value["childNodes"];
+
+         if (attrs.size() == 0 && elems.size() == 1) {
+            const std::string child = elems.items().begin().key();
+            if (
+               parent == child + "s" ||
+               // turns out not to be relevant (axes can have grid too)...
+               (parent == "axes" && child == "axis")
+            ) {
+               std::cout << "<" << parent << "> only contains <"
+                         << child << ">" << std::endl;
+            }
+         }
+      }
+   }
 }
 
 
@@ -1808,7 +1837,7 @@ int main()
    nlohmann::json jdoc;
    std::cout << "Preprocessing..." << std::endl;
    for (auto &file : files) {
-      read(file,jdoc);
+      read(file,jdoc,true);
       ofs << "\n";
       const std::string nsname = jdoc["__namespace__"];
       for (const auto &item : jdoc.items()) {
@@ -1829,7 +1858,7 @@ int main()
    // later (per dependencies) for final output
    std::cout << "\nBuilding classes..." << std::endl;
    for (auto &file : files) {
-      read(file,jdoc);
+      read(file,jdoc,false);
       const std::string file_namespace = jdoc["__namespace__"];
       for (const auto &keyvalue : jdoc.items()) {
          make_class(keyvalue, file_namespace, class2nspace);
