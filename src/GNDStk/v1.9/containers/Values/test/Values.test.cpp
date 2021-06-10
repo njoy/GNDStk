@@ -90,7 +90,6 @@ SCENARIO( "Values" ) {
         CHECK( out.str() == string );
       } // THEN
     } // WHEN
-
   } // GIVEN
 
   GIVEN( "a valid component instance" ) {
