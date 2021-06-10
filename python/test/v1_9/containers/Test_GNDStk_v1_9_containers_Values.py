@@ -9,8 +9,8 @@ from GNDStk.v1_9.containers import Values
 class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk = ( '<values>2500 8.9172 2550 8.9155</values>' )
-    wrong = ( '<wrongName>2500 8.9172 2550 8.9155</wrongName>' )
+    chunk = ( '<values length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</values>\n' )
+    wrong = ( '<wrongName length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</wrongName>\n' )
 
     def test_component( self ) :
 
@@ -29,6 +29,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
             self.assertAlmostEqual( 8.9155, chunk.doubles[3] )
 
             # verify string
+            self.assertEqual( self.chunk, chunk.to_xml_string() )
 
         # the data is given explicitly (fully specified)
         chunk = Values( length = 4, start = 0, value_type = "Float64",

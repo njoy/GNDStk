@@ -50,6 +50,25 @@ void addStandardComponentDefinitions( PythonClass& component ) {
     "component\n\n"
     "Arguments:\n"
     "    string    the string representing the component"
+  )
+  .def(
+
+    "to_xml_string",
+    [] ( const Component& self ) -> std::string {
+
+      using namespace njoy::GNDStk::core;
+
+      Node data( self );
+      XML xml( data );
+
+      std::ostringstream out;
+      xml.doc.first_child().print( out, "  " );
+
+      return out.str();
+    },
+    "Write the component to an XML formatted string\n\n"
+    "Arguments:\n"
+    "    self    the component"
   );
 }
 
