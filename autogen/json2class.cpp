@@ -1319,8 +1319,10 @@ void make_forward(
    const std::string custom = src + "/custom.hpp";
    if (!std::ifstream(custom)) {
       std::cout << "   No file " << custom << std::endl;
-      std::cout << "   ...So, creating a blank one" << std::endl;
-      std::ofstream(custom,std::ofstream::app);
+      std::cout << "   ...So, creating a basic one" << std::endl;
+      std::ofstream hpp(custom,std::ofstream::app);
+      hpp << "private:\n\n";
+      hpp << "  static inline helpMap help = {};\n";
    }
 
    const std::string clhpp   = nsdir   + "/" + clname + ".hpp";
