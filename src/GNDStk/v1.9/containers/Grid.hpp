@@ -145,13 +145,13 @@ public:
    // optional link
    auto link() const
    {
-      return getter<containers::Link>(choice(),"link");
+      return getter<containers::Link>(choice(), "link");
    }
 
    // optional values
    auto values() const
    {
-      return getter<containers::Values>(choice(),"values");
+      return getter<containers::Values>(choice(), "values");
    }
 
    // ------------------------

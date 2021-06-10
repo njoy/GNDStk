@@ -805,13 +805,13 @@ void getter_param_1(
    os << "   const auto &" << varName;
    os << "(const " << paramType << paramName << ") const\n";
    os << "    { return getter(" << varName;
-   os << "()," << paramName << "," << "\"" << varName << "\"); }\n";
+   os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
 
    // getter: non-const
    os << "   auto &" << varName;
    os << "(const " << paramType << paramName << ")\n";
    os << "    { return getter(" << varName;
-   os << "()," << paramName << "," << "\"" << varName << "\"); }\n";
+   os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
 }
 
 void getter_param_2(
@@ -824,7 +824,7 @@ void getter_param_2(
    os << "   auto " << varName << "(const " << paramType << paramName;
    os << ") const\n" << "   {\n";
    os << "      return getter<" << varType << ">";
-   os << "(choice()," << paramName << ",\"" << varName << "\");\n";
+   os << "(choice(), " << paramName << ", \"" << varName << "\");\n";
    os << "   }\n";
 }
 
@@ -886,9 +886,9 @@ void write_getters(
       os << "    { return content." << c.varName;
       os << "; }\n";
 
-      // getters for [optional] vector: accept (const std::size_t n)
+      // getters for [optional] vector: accept (const std::size_t index)
       if (c.isVector) {
-         getter_param_1(os, c.varName, "std::size_t ",  "n");
+         getter_param_1(os, c.varName, "std::size_t ",  "index");
          getter_param_1(os, c.varName, "std::string &", "label");
       }
    }
@@ -898,7 +898,7 @@ void write_getters(
          continue;
 
       if (isVec) {
-         getter_param_2(os, c.varType, c.varName, "std::size_t ",  "n");
+         getter_param_2(os, c.varType, c.varName, "std::size_t ",  "index");
          getter_param_2(os, c.varType, c.varName, "std::string &", "label");
       } else {
          // choice is a variant
@@ -906,7 +906,7 @@ void write_getters(
          os << "   auto " << c.varName << "() const\n";
          os << "   {\n";
          os << "      return getter<" << c.varType << ">";
-         os << "(choice()," << "\"" << c.varName << "\");\n";
+         os << "(choice(), " << "\"" << c.varName << "\");\n";
          os << "   }\n";
       }
    }
@@ -1014,11 +1014,11 @@ void write_setters(
       if (isVec) {
          // choice is a vector<variant>
          os << "   auto &" << c.varName << "(\n";
-         os << "      const std::size_t n,\n";
+         os << "      const std::size_t index,\n";
          os << "      const std::optional<" << c.varType << "> &obj\n";
          os << "   ) {\n";
-         os << "      detail::setter(choice(),n,obj," << "namespaceName()";
-         os << ",className(),\"" << c.varName << "\");\n";
+         os << "      setter(choice(), index, obj, ";
+         os << "\"" << c.varName << "\");\n";
          os << "      return *this;\n";
          os << "   }\n";
       } else {
