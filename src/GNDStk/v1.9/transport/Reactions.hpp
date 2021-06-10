@@ -51,13 +51,16 @@ class Reactions : public Component<Reactions> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Reactions>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults
+   // Relevant defaults;
    // FYI for users
    // ------------------------
 
@@ -84,21 +87,22 @@ public:
    auto &reaction()
     { return content.reaction; }
 
-   // reaction(n)
-   const auto &reaction(const std::size_t n) const
-    { return getter(reaction(),n,"reaction"); }
-   auto &reaction(const std::size_t n)
-    { return getter(reaction(),n,"reaction"); }
+   // reaction(index)
+   const auto &reaction(const std::size_t index) const
+    { return getter(reaction(), index, "reaction"); }
+   auto &reaction(const std::size_t index)
+    { return getter(reaction(), index, "reaction"); }
 
    // reaction(label)
    const auto &reaction(const std::string &label) const
-    { return getter(reaction(),label,"reaction"); }
+    { return getter(reaction(), label, "reaction"); }
    auto &reaction(const std::string &label)
-    { return getter(reaction(),label,"reaction"); }
+    { return getter(reaction(), label, "reaction"); }
 
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
    // reaction

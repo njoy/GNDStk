@@ -927,6 +927,7 @@ void write_setters(
    os << "\n   " << small;
    os << "\n   // Setters";
    os << "\n   // non-const";
+   os << "\n   // All return *this";
    os << "\n   " << small << "\n";
 
    // Reminder:
@@ -1473,7 +1474,10 @@ void make_class(
    );
 
    // output: base
-   oss << "\n   // Base classes";
+   oss << "\n   " << small;
+   oss << "\n   // Re: base classes";
+   oss << "\n   " << small << "\n";
+
    oss << "\n   using BaseComponent = Component<"
        << clname << (hasBodyText ? ",true" : "") << ">;";
    oss << "\n   using BaseBodyText = BodyText<"
@@ -1482,7 +1486,7 @@ void make_class(
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;
-   oss << "\n   // Relevant defaults";
+   oss << "\n   // Relevant defaults;";
    oss << "\n   // FYI for users";
    oss << "\n   " << small;
    oss << "\n";
@@ -1548,6 +1552,11 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
    }
    ifs >> jdoc;
 
+   (void)firsttime; // so no "unused" warning
+#if 0
+   // #if-0'd out for now, but we probably want to keep this around,
+   // as something we can run for future GNDS versions....
+
    // The following is informational only. It tries to tell us when we have
    // an intermediary node that only contains some number of one other type
    // of node. (And no metadata.) Example: <reactions> only has <reaction>.
@@ -1581,6 +1590,8 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
          }
       }
    }
+#endif
+
 }
 
 

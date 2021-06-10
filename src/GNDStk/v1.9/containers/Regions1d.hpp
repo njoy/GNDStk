@@ -59,13 +59,16 @@ class Regions1d : public Component<Regions1d> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Regions1d>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults
+   // Relevant defaults;
    // FYI for users
    // ------------------------
 
@@ -118,6 +121,7 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
    // label

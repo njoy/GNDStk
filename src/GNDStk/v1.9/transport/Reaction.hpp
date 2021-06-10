@@ -58,13 +58,16 @@ class Reaction : public Component<Reaction> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Reaction>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults
+   // Relevant defaults;
    // FYI for users
    // ------------------------
 
@@ -117,6 +120,7 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
    // ENDF_MT

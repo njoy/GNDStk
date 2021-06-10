@@ -52,13 +52,16 @@ class Values : public Component<Values,true> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Values,true>;
    using BaseBodyText = BodyText<true>;
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults
+   // Relevant defaults;
    // FYI for users
    // ------------------------
 
@@ -104,6 +107,7 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
    // length

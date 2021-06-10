@@ -57,13 +57,16 @@ class Axes : public Component<Axes> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Axes>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults
+   // Relevant defaults;
    // FYI for users
    // ------------------------
 
@@ -100,17 +103,17 @@ public:
    auto &axis()
     { return content.axis; }
 
-   // axis(n)
-   const auto &axis(const std::size_t n) const
-    { return getter(axis(),n,"axis"); }
-   auto &axis(const std::size_t n)
-    { return getter(axis(),n,"axis"); }
+   // axis(index)
+   const auto &axis(const std::size_t index) const
+    { return getter(axis(), index, "axis"); }
+   auto &axis(const std::size_t index)
+    { return getter(axis(), index, "axis"); }
 
    // axis(label)
    const auto &axis(const std::string &label) const
-    { return getter(axis(),label,"axis"); }
+    { return getter(axis(), label, "axis"); }
    auto &axis(const std::string &label)
-    { return getter(axis(),label,"axis"); }
+    { return getter(axis(), label, "axis"); }
 
    // grid
    const auto &grid() const
@@ -118,21 +121,22 @@ public:
    auto &grid()
     { return content.grid; }
 
-   // grid(n)
-   const auto &grid(const std::size_t n) const
-    { return getter(grid(),n,"grid"); }
-   auto &grid(const std::size_t n)
-    { return getter(grid(),n,"grid"); }
+   // grid(index)
+   const auto &grid(const std::size_t index) const
+    { return getter(grid(), index, "grid"); }
+   auto &grid(const std::size_t index)
+    { return getter(grid(), index, "grid"); }
 
    // grid(label)
    const auto &grid(const std::string &label) const
-    { return getter(grid(),label,"grid"); }
+    { return getter(grid(), label, "grid"); }
    auto &grid(const std::string &label)
-    { return getter(grid(),label,"grid"); }
+    { return getter(grid(), label, "grid"); }
 
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
    // href

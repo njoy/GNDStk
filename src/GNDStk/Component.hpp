@@ -65,6 +65,7 @@ class Component : public BodyText<hasBodyText> {
    // Intermediaries between derived-class getters/setters and getter/setter
    // functions in detail::. These shorten the code in the derived classes.
    #include "GNDStk/Component/src/getter.hpp"
+   #include "GNDStk/Component/src/setter.hpp"
 
    // Fallback for documentation() if DERIVED doesn't have help
    static inline helpMap help;

@@ -57,13 +57,16 @@ class CrossSection : public Component<CrossSection> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<CrossSection>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults
+   // Relevant defaults;
    // FYI for users
    // ------------------------
 
@@ -90,45 +93,46 @@ public:
    auto &choice()
     { return content.choice; }
 
-   // choice(n)
-   const auto &choice(const std::size_t n) const
-    { return getter(choice(),n,"choice"); }
-   auto &choice(const std::size_t n)
-    { return getter(choice(),n,"choice"); }
+   // choice(index)
+   const auto &choice(const std::size_t index) const
+    { return getter(choice(), index, "choice"); }
+   auto &choice(const std::size_t index)
+    { return getter(choice(), index, "choice"); }
 
    // choice(label)
    const auto &choice(const std::string &label) const
-    { return getter(choice(),label,"choice"); }
+    { return getter(choice(), label, "choice"); }
    auto &choice(const std::string &label)
-    { return getter(choice(),label,"choice"); }
+    { return getter(choice(), label, "choice"); }
 
-   // optional XYs1d(n)
-   auto XYs1d(const std::size_t n) const
+   // optional XYs1d(index)
+   auto XYs1d(const std::size_t index) const
    {
-      return getter<containers::XYs1d>(choice(),n,"XYs1d");
+      return getter<containers::XYs1d>(choice(), index, "XYs1d");
    }
 
    // optional XYs1d(label)
    auto XYs1d(const std::string &label) const
    {
-      return getter<containers::XYs1d>(choice(),label,"XYs1d");
+      return getter<containers::XYs1d>(choice(), label, "XYs1d");
    }
 
-   // optional regions1d(n)
-   auto regions1d(const std::size_t n) const
+   // optional regions1d(index)
+   auto regions1d(const std::size_t index) const
    {
-      return getter<containers::Regions1d>(choice(),n,"regions1d");
+      return getter<containers::Regions1d>(choice(), index, "regions1d");
    }
 
    // optional regions1d(label)
    auto regions1d(const std::string &label) const
    {
-      return getter<containers::Regions1d>(choice(),label,"regions1d");
+      return getter<containers::Regions1d>(choice(), label, "regions1d");
    }
 
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
    // choice
@@ -137,19 +141,19 @@ public:
 
    // XYs1d
    auto &XYs1d(
-      const std::size_t n,
+      const std::size_t index,
       const std::optional<containers::XYs1d> &obj
    ) {
-      detail::setter(choice(),n,obj,namespaceName(),className(),"XYs1d");
+      setter(choice(), index, obj, "XYs1d");
       return *this;
    }
 
    // regions1d
    auto &regions1d(
-      const std::size_t n,
+      const std::size_t index,
       const std::optional<containers::Regions1d> &obj
    ) {
-      detail::setter(choice(),n,obj,namespaceName(),className(),"regions1d");
+      setter(choice(), index, obj, "regions1d");
       return *this;
    }
 
