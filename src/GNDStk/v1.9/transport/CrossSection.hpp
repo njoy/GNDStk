@@ -140,12 +140,20 @@ public:
     { choice() = obj; return *this; }
 
    // choice(index,value)
-   auto &choice(const std::size_t index, const VARIANT &obj)
-    { choice(index) = obj; return *this; }
+   auto &choice(
+      const std::size_t index,
+      const VARIANT &obj
+   ) {
+      choice(index) = obj; return *this;
+   }
 
    // choice(label,value)
-   auto &choice(const std::string &label, const VARIANT &obj)
-    { choice(label) = obj; return *this; }
+   auto &choice(
+      const std::string &label,
+      const VARIANT &obj
+   ) {
+      choice(label) = obj; return *this;
+   }
 
    // XYs1d(index,value)
    auto &XYs1d(
