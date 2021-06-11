@@ -403,6 +403,10 @@ bool writeComponentPart(
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// SFINAE helpers
+// ------------------------
+
 // has_index
 template<class T, class = int>
 struct has_index : std::false_type { };
@@ -701,7 +705,7 @@ T &getter(
 // ------------------------
 
 template<class T, class... Ts>
-const std::optional<T> getter(
+const T *getter(
    const std::variant<Ts...> &var,
    const std::string &nsname,
    const std::string &clname,
@@ -709,8 +713,8 @@ const std::optional<T> getter(
 ) {
    try {
       return std::holds_alternative<T>(var)
-         ? std::optional<T>(std::get<T>(var))
-         : std::optional<T>();
+         ? &std::get<T>(var)
+         : nullptr;
    } catch (...) {
       // context
       log::member(
@@ -720,12 +724,13 @@ const std::optional<T> getter(
    }
 }
 
+
 // ------------------------
 // vector<variant>,index,...
 // ------------------------
 
 template<class T, class... Ts>
-const std::optional<T> getter(
+const T *getter(
    const std::vector<std::variant<Ts...>> &vec,
    const std::size_t index,
    const std::string &nsname,
@@ -747,12 +752,13 @@ const std::optional<T> getter(
    }
 }
 
+
 // ------------------------
 // vector<variant>,label,...
 // ------------------------
 
 template<class T, class... Ts>
-const std::optional<T> getter(
+const T *getter(
    const std::vector<std::variant<Ts...>> &vec,
    const std::string &label,
    const std::string &nsname,
@@ -769,36 +775,6 @@ const std::optional<T> getter(
       log::member(
         "getter {}::{}.{}(\"{}\") on vector<variant>",
          nsname, clname, field, label);
-      throw;
-   }
-}
-
-
-
-// -----------------------------------------------------------------------------
-// setter(vector<variant>,index,optional,...)
-// That is, setter(), not getter() as the earlier functions were.
-// Intended for use in our auto-generated Standard Interface classes.
-// -----------------------------------------------------------------------------
-
-template<class T, class... Ts>
-void setter(
-   std::vector<std::variant<Ts...>> &vec,
-   const std::size_t index,
-   const std::optional<T> &opt,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      check_index(vec,index);
-      if (opt)
-         vec[index] = *opt;
-   } catch (...) {
-      // context
-      log::member(
-        "setter {}::{}.{}({})",
-         nsname, clname, field, index);
       throw;
    }
 }
