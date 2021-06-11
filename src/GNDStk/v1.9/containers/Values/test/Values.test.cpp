@@ -36,7 +36,7 @@ SCENARIO( "Values" ) {
       THEN( "it can be written in XML" ) {
 
 //        std::ostringstream out;
-//        XML( Node( chunk ) ).doc.first_child().print( out, "  " );
+//        XML( Node( chunk ) ).write( out, false );
 //
 //        CHECK( out.str() == string );
       } // THEN
@@ -56,7 +56,7 @@ SCENARIO( "Values" ) {
       THEN( "it can be written in XML" ) {
 
 //        std::ostringstream out;
-//        XML( Node( chunk ) ).doc.first_child().print( out, "  " );
+//        XML( Node( chunk ) ).write( out, false );
 //
 //        CHECK( out.str() == string );
       } // THEN
@@ -76,7 +76,7 @@ SCENARIO( "Values" ) {
       THEN( "it can be written in XML" ) {
 
 //        std::ostringstream out;
-//        XML( Node( chunk ) ).doc.first_child().print( out, "  " );
+//        XML( Node( chunk ) ).write( out, false );
 //
 //        CHECK( out.str() == string );
       } // THEN
