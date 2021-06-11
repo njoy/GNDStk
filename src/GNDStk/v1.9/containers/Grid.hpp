@@ -142,17 +142,17 @@ public:
    auto &choice()
     { return content.choice; }
 
-   // optional link
+   // link
    auto link() const
-   {
-      return getter<containers::Link>(choice(), "link");
-   }
+    { return getter<containers::Link>(choice(), "link"); }
+   auto link()
+    { return getter<containers::Link>(choice(), "link"); }
 
-   // optional values
+   // values
    auto values() const
-   {
-      return getter<containers::Values>(choice(), "values");
-   }
+    { return getter<containers::Values>(choice(), "values"); }
+   auto values()
+    { return getter<containers::Values>(choice(), "values"); }
 
    // ------------------------
    // Setters
@@ -160,39 +160,39 @@ public:
    // All return *this
    // ------------------------
 
-   // index
+   // index(value)
    auto &index(const std::optional<Integer32> &obj)
-    { content.index = obj; return *this; }
+    { index() = obj; return *this; }
 
-   // interpolation
+   // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
     { content.interpolation = obj; return *this; }
 
-   // label
+   // label(value)
    auto &label(const std::optional<XMLName> &obj)
-    { content.label = obj; return *this; }
+    { label() = obj; return *this; }
 
-   // style
+   // style(value)
    auto &style(const std::optional<UTF8Text> &obj)
-    { content.style = obj; return *this; }
+    { style() = obj; return *this; }
 
-   // unit
+   // unit(value)
    auto &unit(const std::optional<XMLName> &obj)
-    { content.unit = obj; return *this; }
+    { unit() = obj; return *this; }
 
-   // choice
+   // choice(value)
    auto &choice(const VARIANT &obj)
-    { content.choice = obj; return *this; }
+    { choice() = obj; return *this; }
 
-   // link
+   // link(value)
    auto &link(const std::optional<containers::Link> &obj)
-    { if (obj) choice(*obj); return *this; }
+    { if (obj) choice(obj.value()); return *this; }
 
-   // values
+   // values(value)
    auto &values(const std::optional<containers::Values> &obj)
-    { if (obj) choice(*obj); return *this; }
+    { if (obj) choice(obj.value()); return *this; }
 
    // ------------------------
    // Construction

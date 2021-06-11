@@ -90,9 +90,9 @@ public:
    // All return *this
    // ------------------------
 
-   // href
+   // href(value)
    auto &href(const std::optional<UTF8Text> &obj)
-    { content.href = obj; return *this; }
+    { href() = obj; return *this; }
 
    // ------------------------
    // Construction

@@ -110,17 +110,17 @@ public:
    // All return *this
    // ------------------------
 
-   // length
+   // length(value)
    auto &length(const std::optional<Integer32> &obj)
-    { BaseBodyText::length(content.length = obj); return *this; }
+    { BaseBodyText::length(length() = obj); return *this; }
 
-   // start
+   // start(value)
    auto &start(const Defaulted<Integer32> &obj)
     { BaseBodyText::start(content.start = obj); return *this; }
    auto &start(const Integer32 &obj)
     { BaseBodyText::start(content.start = obj); return *this; }
 
-   // valueType
+   // valueType(value)
    auto &valueType(const Defaulted<UTF8Text> &obj)
     { BaseBodyText::valueType(content.valueType = obj); return *this; }
    auto &valueType(const UTF8Text &obj)

@@ -150,33 +150,33 @@ public:
    // All return *this
    // ------------------------
 
-   // evaluation
+   // evaluation(value)
    auto &evaluation(const XMLName &obj)
-    { content.evaluation = obj; return *this; }
+    { evaluation() = obj; return *this; }
 
-   // format
+   // format(value)
    auto &format(const XMLName &obj)
-    { content.format = obj; return *this; }
+    { format() = obj; return *this; }
 
-   // interaction
+   // interaction(value)
    auto &interaction(const std::optional<enums::Interaction> &obj)
-    { content.interaction = obj; return *this; }
+    { interaction() = obj; return *this; }
 
-   // projectile
+   // projectile(value)
    auto &projectile(const XMLName &obj)
-    { content.projectile = obj; return *this; }
+    { projectile() = obj; return *this; }
 
-   // projectileFrame
+   // projectileFrame(value)
    auto &projectileFrame(const enums::Frame &obj)
-    { content.projectileFrame = obj; return *this; }
+    { projectileFrame() = obj; return *this; }
 
-   // target
+   // target(value)
    auto &target(const XMLName &obj)
-    { content.target = obj; return *this; }
+    { target() = obj; return *this; }
 
-   // reactions
+   // reactions(value)
    auto &reactions(const std::optional<transport::Reactions> &obj)
-    { content.reactions = obj; return *this; }
+    { reactions() = obj; return *this; }
 
    // ------------------------
    // Construction

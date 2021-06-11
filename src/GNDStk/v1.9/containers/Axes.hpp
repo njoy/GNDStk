@@ -139,17 +139,49 @@ public:
    // All return *this
    // ------------------------
 
-   // href
+   // href(value)
    auto &href(const std::optional<UTF8Text> &obj)
-    { content.href = obj; return *this; }
+    { href() = obj; return *this; }
 
-   // axis
+   // axis(value)
    auto &axis(const std::optional<std::vector<containers::Axis>> &obj)
-    { content.axis = obj; return *this; }
+    { axis() = obj; return *this; }
 
-   // grid
+   // axis(index,value)
+   auto &axis(
+      const std::size_t index,
+      const containers::Axis &obj
+   ) {
+      axis(index) = obj; return *this;
+   }
+
+   // axis(label,value)
+   auto &axis(
+      const std::string &label,
+      const containers::Axis &obj
+   ) {
+      axis(label) = obj; return *this;
+   }
+
+   // grid(value)
    auto &grid(const std::optional<std::vector<containers::Grid>> &obj)
-    { content.grid = obj; return *this; }
+    { grid() = obj; return *this; }
+
+   // grid(index,value)
+   auto &grid(
+      const std::size_t index,
+      const containers::Grid &obj
+   ) {
+      grid(index) = obj; return *this;
+   }
+
+   // grid(label,value)
+   auto &grid(
+      const std::string &label,
+      const containers::Grid &obj
+   ) {
+      grid(label) = obj; return *this;
+   }
 
    // ------------------------
    // Construction

@@ -124,21 +124,21 @@ public:
    // All return *this
    // ------------------------
 
-   // label
+   // label(value)
    auto &label(const std::optional<XMLName> &obj)
-    { content.label = obj; return *this; }
+    { label() = obj; return *this; }
 
-   // outerDomainValue
+   // outerDomainValue(value)
    auto &outerDomainValue(const std::optional<Float64> &obj)
-    { content.outerDomainValue = obj; return *this; }
+    { outerDomainValue() = obj; return *this; }
 
-   // XYs1d
+   // XYs1d(value)
    auto &XYs1d(const containers::XYs1d &obj)
-    { content.XYs1d = obj; return *this; }
+    { XYs1d() = obj; return *this; }
 
-   // axes
+   // axes(value)
    auto &axes(const std::optional<containers::Axes> &obj)
-    { content.axes = obj; return *this; }
+    { axes() = obj; return *this; }
 
    // ------------------------
    // Construction

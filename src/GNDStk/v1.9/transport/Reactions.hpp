@@ -105,9 +105,25 @@ public:
    // All return *this
    // ------------------------
 
-   // reaction
+   // reaction(value)
    auto &reaction(const std::vector<transport::Reaction> &obj)
-    { content.reaction = obj; return *this; }
+    { reaction() = obj; return *this; }
+
+   // reaction(index,value)
+   auto &reaction(
+      const std::size_t index,
+      const transport::Reaction &obj
+   ) {
+      reaction(index) = obj; return *this;
+   }
+
+   // reaction(label,value)
+   auto &reaction(
+      const std::string &label,
+      const transport::Reaction &obj
+   ) {
+      reaction(label) = obj; return *this;
+   }
 
    // ------------------------
    // Construction

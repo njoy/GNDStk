@@ -105,29 +105,29 @@ public:
    auto &choice(const std::string &label)
     { return getter(choice(), label, "choice"); }
 
-   // optional XYs1d(index)
+   // XYs1d(index)
    auto XYs1d(const std::size_t index) const
-   {
-      return getter<containers::XYs1d>(choice(), index, "XYs1d");
-   }
+    { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
+   auto XYs1d(const std::size_t index)
+    { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
 
-   // optional XYs1d(label)
+   // XYs1d(label)
    auto XYs1d(const std::string &label) const
-   {
-      return getter<containers::XYs1d>(choice(), label, "XYs1d");
-   }
+    { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
+   auto XYs1d(const std::string &label)
+    { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
 
-   // optional regions1d(index)
+   // regions1d(index)
    auto regions1d(const std::size_t index) const
-   {
-      return getter<containers::Regions1d>(choice(), index, "regions1d");
-   }
+    { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
+   auto regions1d(const std::size_t index)
+    { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
 
-   // optional regions1d(label)
+   // regions1d(label)
    auto regions1d(const std::string &label) const
-   {
-      return getter<containers::Regions1d>(choice(), label, "regions1d");
-   }
+    { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
+   auto regions1d(const std::string &label)
+    { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
 
    // ------------------------
    // Setters
@@ -135,25 +135,51 @@ public:
    // All return *this
    // ------------------------
 
-   // choice
+   // choice(value)
    auto &choice(const std::vector<VARIANT> &obj)
-    { content.choice = obj; return *this; }
+    { choice() = obj; return *this; }
 
-   // XYs1d
+   // choice(index,value)
+   auto &choice(const std::size_t index, const VARIANT &obj)
+    { choice(index) = obj; return *this; }
+
+   // choice(label,value)
+   auto &choice(const std::string &label, const VARIANT &obj)
+    { choice(label) = obj; return *this; }
+
+   // XYs1d(index,value)
    auto &XYs1d(
       const std::size_t index,
       const std::optional<containers::XYs1d> &obj
    ) {
-      setter(choice(), index, obj, "XYs1d");
+      if (obj) choice(index,obj.value());
       return *this;
    }
 
-   // regions1d
+   // XYs1d(label,value)
+   auto &XYs1d(
+      const std::string &label,
+      const std::optional<containers::XYs1d> &obj
+   ) {
+      if (obj) choice(label,obj.value());
+      return *this;
+   }
+
+   // regions1d(index,value)
    auto &regions1d(
       const std::size_t index,
       const std::optional<containers::Regions1d> &obj
    ) {
-      setter(choice(), index, obj, "regions1d");
+      if (obj) choice(index,obj.value());
+      return *this;
+   }
+
+   // regions1d(label,value)
+   auto &regions1d(
+      const std::string &label,
+      const std::optional<containers::Regions1d> &obj
+   ) {
+      if (obj) choice(label,obj.value());
       return *this;
    }
 
