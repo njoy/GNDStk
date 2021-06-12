@@ -63,7 +63,10 @@ class XYs1d : public Component<XYs1d> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<XYs1d>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
@@ -137,33 +140,34 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
-   // index
+   // index(value)
    auto &index(const std::optional<Integer32> &obj)
-    { content.index = obj; return *this; }
+    { index() = obj; return *this; }
 
-   // interpolation
+   // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
     { content.interpolation = obj; return *this; }
 
-   // label
+   // label(value)
    auto &label(const std::optional<XMLName> &obj)
-    { content.label = obj; return *this; }
+    { label() = obj; return *this; }
 
-   // outerDomainValue
+   // outerDomainValue(value)
    auto &outerDomainValue(const std::optional<Float64> &obj)
-    { content.outerDomainValue = obj; return *this; }
+    { outerDomainValue() = obj; return *this; }
 
-   // axes
+   // axes(value)
    auto &axes(const std::optional<containers::Axes> &obj)
-    { content.axes = obj; return *this; }
+    { axes() = obj; return *this; }
 
-   // values
+   // values(value)
    auto &values(const containers::Values &obj)
-    { content.values = obj; return *this; }
+    { values() = obj; return *this; }
 
    // ------------------------
    // Construction

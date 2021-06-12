@@ -403,8 +403,26 @@ bool writeComponentPart(
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// SFINAE helpers
+// ------------------------
+
+// has_index
+template<class T, class = int>
+struct has_index : std::false_type { };
+template<class T>
+struct has_index<T,decltype((void)T::index,0)> : std::true_type { };
+
+// has_label
+template<class T, class = int>
+struct has_label : std::false_type { };
+template<class T>
+struct has_label<T,decltype((void)T::label,0)> : std::true_type { };
+
+
+
 // -----------------------------------------------------------------------------
-// getter(vector,n,...)
+// getter(vector,index,...)
 // Index into vector data member of class.
 // -----------------------------------------------------------------------------
 
@@ -412,20 +430,70 @@ bool writeComponentPart(
 template<class T>
 const T &getter(
    const std::vector<T> &vec,
-   const std::size_t n,
+   const std::size_t index,
    const std::string &nsname, // enclosing class' namespace
    const std::string &clname, // enclosing class
    const std::string &field   // enclosing class' field we're accessing
 ) {
+   static const std::string context = "getter {}::{}.{}({}) on vector";
+
    try {
-      check_index(vec,n);
-      return vec[n];
+      // fixme Make this more efficient, e.g. by assuming that the vector's
+      // elements are sorted by index, so that the wanted value is likely
+      // to be found at [index].
+
+      const T *selected = nullptr;
+
+      for (auto &v : vec) {
+         const T *ptr = nullptr;
+
+         if constexpr (isVariant<T>::value) {
+            // T == variant
+            std::visit(
+               [&v,&index,&ptr](auto &&alternative)
+               {
+                  if constexpr (has_index<decltype(alternative)>::value)
+                     if (alternative.index() == index)
+                        ptr = &v;
+               },
+               v
+            );
+         } else {
+            // T != variant
+            if constexpr (has_index<T>::value)
+               if (v.index() == index)
+                  ptr = &v;
+         }
+
+         if (!ptr)
+            continue;
+
+         if (selected) {
+            log::warning(
+              "Element with index {} was already found in the vector.\n"
+              "Keeping the first element that was found.",
+               index
+            );
+            log::member(context, nsname, clname, field, index);
+         } else
+            selected = ptr;
+      } // for
+
+      if (!selected) {
+         log::error(
+           "Element with index {} was not found in the vector" +
+            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+            index
+         );
+         throw std::exception{};
+      }
+
+      return *selected;
+
    } catch (...) {
       // context
       // Example: prints "getter containers::Axes.axis(100)"
-      log::member(
-        "getter {}::{}.{}({}) on vector",
-         nsname, clname, field, n);
+      log::member(context, nsname, clname, field, index);
       throw;
    }
 }
@@ -434,13 +502,13 @@ const T &getter(
 template<class T>
 T &getter(
    std::vector<T> &vec,
-   const std::size_t n,
+   const std::size_t index,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
 ) {
    return const_cast<T &>(
-      getter(std::as_const(vec), n, nsname, clname, field)
+      getter(std::as_const(vec), index, nsname, clname, field)
    );
 }
 
@@ -474,15 +542,17 @@ const T &getter(
             std::visit(
                [&v,&label,&ptr](auto &&alternative)
                {
-                  if (alternative.label() == label)
-                     ptr = &v;
+                  if constexpr (has_label<decltype(alternative)>::value)
+                     if (alternative.label() == label)
+                        ptr = &v;
                },
                v
             );
          } else {
             // T != variant
-            if (v.label() == label)
-               ptr = &v;
+            if constexpr (has_label<T>::value)
+               if (v.label() == label)
+                  ptr = &v;
          }
 
          if (!ptr)
@@ -490,7 +560,7 @@ const T &getter(
 
          if (selected) {
             log::warning(
-              "Element with label \"\" was already found in the vector."
+              "Element with label \"{}\" was already found in the vector.\n"
               "Keeping the first element that was found.",
                label
             );
@@ -501,7 +571,7 @@ const T &getter(
 
       if (!selected) {
          log::error(
-           "Element with label \"\" was not found in the vector" +
+           "Element with label \"{}\" was not found in the vector" +
             std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
             label
          );
@@ -509,6 +579,7 @@ const T &getter(
       }
 
       return *selected;
+
    } catch (...) {
       // context
       log::member(context, nsname, clname, field, label);
@@ -533,7 +604,7 @@ T &getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(optional<vector>,n,...)
+// getter(optional<vector>,index,...)
 // As earlier, but for optional<vector> data member.
 // -----------------------------------------------------------------------------
 
@@ -541,7 +612,7 @@ T &getter(
 template<class T>
 const T &getter(
    const std::optional<std::vector<T>> &opt,
-   const std::size_t n,
+   const std::size_t index,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
@@ -552,12 +623,12 @@ const T &getter(
          log::error("optional vector {} does not have a value", field);
          throw std::exception{};
       }
-      return getter((*opt), n, nsname, clname, field);
+      return getter((*opt), index, nsname, clname, field);
    } catch (...) {
       // context
       log::member(
         "getter {}::{}.{}({}) on optional<vector>",
-         nsname, clname, field, n);
+         nsname, clname, field, index);
       throw;
    }
 }
@@ -566,13 +637,13 @@ const T &getter(
 template<class T>
 T &getter(
    std::optional<std::vector<T>> &opt,
-   const std::size_t n,
+   const std::size_t index,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
 ) {
    return const_cast<T &>(
-      getter(std::as_const(opt), n, nsname, clname, field)
+      getter(std::as_const(opt), index, nsname, clname, field)
    );
 }
 
@@ -634,7 +705,7 @@ T &getter(
 // ------------------------
 
 template<class T, class... Ts>
-const std::optional<T> getter(
+const T *getter(
    const std::variant<Ts...> &var,
    const std::string &nsname,
    const std::string &clname,
@@ -642,8 +713,8 @@ const std::optional<T> getter(
 ) {
    try {
       return std::holds_alternative<T>(var)
-         ? std::optional<T>(std::get<T>(var))
-         : std::optional<T>();
+         ? &std::get<T>(var)
+         : nullptr;
    } catch (...) {
       // context
       log::member(
@@ -653,14 +724,15 @@ const std::optional<T> getter(
    }
 }
 
+
 // ------------------------
-// vector<variant>,n,...
+// vector<variant>,index,...
 // ------------------------
 
 template<class T, class... Ts>
-const std::optional<T> getter(
+const T *getter(
    const std::vector<std::variant<Ts...>> &vec,
-   const std::size_t n,
+   const std::size_t index,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
@@ -668,24 +740,25 @@ const std::optional<T> getter(
    try {
       return getter<T>(
          // no <T>, so it calls getter(generic vector); it isn't recursive...
-         getter(vec, n, nsname, clname, field), // <== returns scalar variant
+         getter(vec, index, nsname, clname, field), // <== returns scalar variant
          nsname, clname, field
       );
    } catch (...) {
       // context
       log::member(
         "getter {}::{}.{}({}) on vector<variant>",
-         nsname, clname, field, n);
+         nsname, clname, field, index);
       throw;
    }
 }
+
 
 // ------------------------
 // vector<variant>,label,...
 // ------------------------
 
 template<class T, class... Ts>
-const std::optional<T> getter(
+const T *getter(
    const std::vector<std::variant<Ts...>> &vec,
    const std::string &label,
    const std::string &nsname,
@@ -702,36 +775,6 @@ const std::optional<T> getter(
       log::member(
         "getter {}::{}.{}(\"{}\") on vector<variant>",
          nsname, clname, field, label);
-      throw;
-   }
-}
-
-
-
-// -----------------------------------------------------------------------------
-// setter(vector<variant>,n,optional,...)
-// That is, setter(), not getter() as the earlier functions were.
-// Intended for use in our auto-generated Standard Interface classes.
-// -----------------------------------------------------------------------------
-
-template<class T, class... Ts>
-void setter(
-   std::vector<std::variant<Ts...>> &vec,
-   const std::size_t n,
-   const std::optional<T> &opt,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      check_index(vec,n);
-      if (opt)
-         vec[n] = *opt;
-   } catch (...) {
-      // context
-      log::member(
-        "setter {}::{}.{}({})",
-         nsname, clname, field, n);
       throw;
    }
 }

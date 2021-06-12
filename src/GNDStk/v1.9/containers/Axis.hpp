@@ -52,7 +52,10 @@ class Axis : public Component<Axis> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Axis>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
@@ -102,19 +105,20 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
-   // index
+   // index(value)
    auto &index(const std::optional<Integer32> &obj)
-    { content.index = obj; return *this; }
+    { index() = obj; return *this; }
 
-   // label
+   // label(value)
    auto &label(const std::optional<XMLName> &obj)
-    { content.label = obj; return *this; }
+    { label() = obj; return *this; }
 
-   // unit
+   // unit(value)
    auto &unit(const std::optional<XMLName> &obj)
-    { content.unit = obj; return *this; }
+    { unit() = obj; return *this; }
 
    // ------------------------
    // Construction

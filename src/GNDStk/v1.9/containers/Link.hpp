@@ -48,7 +48,10 @@ class Link : public Component<Link> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Link>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
@@ -84,11 +87,12 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
-   // href
+   // href(value)
    auto &href(const std::optional<UTF8Text> &obj)
-    { content.href = obj; return *this; }
+    { href() = obj; return *this; }
 
    // ------------------------
    // Construction
