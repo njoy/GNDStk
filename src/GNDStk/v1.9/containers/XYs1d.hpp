@@ -72,7 +72,7 @@ public:
    using BaseComponent::construct;
 
    // ------------------------
-   // Relevant defaults;
+   // Relevant defaults
    // FYI for users
    // ------------------------
 

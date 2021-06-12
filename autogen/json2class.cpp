@@ -12,6 +12,9 @@ const auto small = "// " + std::string(24,'-');
 // re: extra chatter
 const bool debugging = false;
 
+// mention cases of nodes with no metadata and only one child node
+inline bool print_only_children = false;
+
 
 
 // -----------------------------------------------------------------------------
@@ -259,6 +262,7 @@ void check_class(
    assert(value.contains("attributes"));
    assert(value.contains("childNodes"));
    assert(value.contains("description"));
+   assert(value.contains("bodyText"));
 
    hasBodyText = value.contains("bodyText") && !value["bodyText"].is_null();
 }
@@ -1528,7 +1532,7 @@ void make_class(
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;
-   oss << "\n   // Relevant defaults;";
+   oss << "\n   // Relevant defaults";
    oss << "\n   // FYI for users";
    oss << "\n   " << small;
    oss << "\n";
@@ -1594,46 +1598,41 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
    }
    ifs >> jdoc;
 
-   (void)firsttime; // so no "unused" warning
-#if 0
-   // #if-0'd out for now, but we probably want to keep this around,
-   // as something we can run for future GNDS versions....
+   if (print_only_children) {
+      // The following is informational only. It tries to tell us when we have
+      // an intermediary node that only contains some number of one other type
+      // of node. (And no metadata.) Example: <reactions> only has <reaction>.
 
-   // The following is informational only. It tries to tell us when we have
-   // an intermediary node that only contains some number of one other type
-   // of node. (And no metadata.) Example: <reactions> only has <reaction>.
+      if (firsttime) { // <== because read() is called twice :-)
+         for (const auto &item : jdoc.items()) {
+            const std::string parent = item.key();
+            if (parent == "__namespace__")
+               continue;
 
-   if (firsttime) { // <== because read() is called twice :-)
-      for (const auto &item : jdoc.items()) {
-         const std::string parent = item.key();
-         if (parent == "__namespace__")
-            continue;
+            const nlohmann::json value = item.value();
+            if (value["__class__"] != "nodes.Node")
+               continue;
 
-         const nlohmann::json value = item.value();
-         if (value["__class__"] != "nodes.Node")
-            continue;
+            const auto attrs = value["attributes"];
+            const auto elems = value["childNodes"];
 
-         const auto attrs = value["attributes"];
-         const auto elems = value["childNodes"];
-
-         if (attrs.size() == 0 && elems.size() == 1) {
-            const std::string child = elems.items().begin().key();
-            if (
-               parent == child + "s" ||
-               // turns out not to be relevant (axes can have grid too)...
-               (parent == "axes" && child == "axis")
-            ) {
-               std::cout << "<" << parent << "> only contains <"
-                         << child << ">" << std::endl;
-            } else {
-               std::cout << "Possible case: <" << parent << "> vs <"
-                         << child << ">" << std::endl;
+            if (attrs.size() == 0 && elems.size() == 1) {
+               const std::string child = elems.items().begin().key();
+               if (
+                  parent == child + "s" ||
+                  // turns out not to be relevant (axes can have grid too)...
+                  (parent == "axes" && child == "axis")
+               ) {
+                  std::cout << "<" << parent << "> only contains <"
+                            << child << ">" << std::endl;
+               } else {
+                  std::cout << "Possible case: <" << parent << "> vs <"
+                            << child << ">" << std::endl;
+               }
             }
          }
       }
    }
-#endif
-
 }
 
 
