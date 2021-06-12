@@ -62,8 +62,8 @@ class Component : public BodyText<hasBodyText> {
    // You can (but don't need to) override in DERIVED
    static std::string namespaceName() { return ""; }
 
-   // Intermediaries between derived-class getters/setters and getter/setter
-   // functions in detail::. These shorten the code in the derived classes.
+   // Intermediaries between derived-class getters, and getter functions
+   // in detail::. These shorten the code in the derived classes.
    #include "GNDStk/Component/src/getter.hpp"
 
    // Fallback for documentation() if DERIVED doesn't have help

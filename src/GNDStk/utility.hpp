@@ -509,7 +509,7 @@ public:
 // to support consistency by allowing the .template form to be used as well.
 // This might prove to be useful if, for instance, someone embeds the call in
 // question into a single function template that invokes the long form, while
-// indending to support calls of either the full variant or any of its types.
+// intending to support calls of either the full variant or any of its types.
 template<class... Ts>
 class is_oneof<std::variant<Ts...>, std::variant<Ts...>> {
 public:

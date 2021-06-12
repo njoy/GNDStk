@@ -58,7 +58,10 @@ class Reaction : public Component<Reaction> {
 
 public:
 
-   // Base classes
+   // ------------------------
+   // Re: base classes
+   // ------------------------
+
    using BaseComponent = Component<Reaction>;
    using BaseBodyText = BodyText<false>;
    using BaseComponent::construct;
@@ -117,23 +120,24 @@ public:
    // ------------------------
    // Setters
    // non-const
+   // All return *this
    // ------------------------
 
-   // ENDF_MT
+   // ENDF_MT(value)
    auto &ENDF_MT(const Integer32 &obj)
-    { content.ENDF_MT = obj; return *this; }
+    { ENDF_MT() = obj; return *this; }
 
-   // fissionGenre
+   // fissionGenre(value)
    auto &fissionGenre(const std::optional<XMLName> &obj)
-    { content.fissionGenre = obj; return *this; }
+    { fissionGenre() = obj; return *this; }
 
-   // label
+   // label(value)
    auto &label(const XMLName &obj)
-    { content.label = obj; return *this; }
+    { label() = obj; return *this; }
 
-   // crossSection
+   // crossSection(value)
    auto &crossSection(const transport::CrossSection &obj)
-    { content.crossSection = obj; return *this; }
+    { crossSection() = obj; return *this; }
 
    // ------------------------
    // Construction

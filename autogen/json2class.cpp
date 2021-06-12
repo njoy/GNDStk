@@ -12,6 +12,9 @@ const auto small = "// " + std::string(24,'-');
 // re: extra chatter
 const bool debugging = false;
 
+// mention cases of nodes with no metadata and only one child node
+inline bool print_only_children = false;
+
 
 
 // -----------------------------------------------------------------------------
@@ -261,7 +264,7 @@ void check_class(
    assert(value.contains("description"));
    assert(value.contains("bodyText"));
 
-   hasBodyText = !value["bodyText"].is_null();
+   hasBodyText = value.contains("bodyText") && !value["bodyText"].is_null();
 }
 
 // check_metadata
@@ -806,13 +809,13 @@ void getter_param_1(
    os << "   const auto &" << varName;
    os << "(const " << paramType << paramName << ") const\n";
    os << "    { return getter(" << varName;
-   os << "()," << paramName << "," << "\"" << varName << "\"); }\n";
+   os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
 
    // getter: non-const
    os << "   auto &" << varName;
    os << "(const " << paramType << paramName << ")\n";
    os << "    { return getter(" << varName;
-   os << "()," << paramName << "," << "\"" << varName << "\"); }\n";
+   os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
 }
 
 void getter_param_2(
@@ -821,12 +824,15 @@ void getter_param_2(
    const std::string &paramType, const std::string &paramName
 ) {
    // choice is a vector<variant>
-   os << "\n   // optional " << varName << "(" << paramName << ")\n";
+   os << "\n   // " << varName << "(" << paramName << ")\n";
+   // const
    os << "   auto " << varName << "(const " << paramType << paramName;
-   os << ") const\n" << "   {\n";
-   os << "      return getter<" << varType << ">";
-   os << "(choice()," << paramName << ",\"" << varName << "\");\n";
-   os << "   }\n";
+   os << ") const\n" << "    { return getter<" << varType << ">";
+   os << "(choice(), " << paramName << ", \"" << varName << "\"); }\n";
+   // non-const
+   os << "   auto " << varName << "(const " << paramType << paramName;
+   os << ")\n" << "    { return getter<" << varType << ">";
+   os << "(choice(), " << paramName << ", \"" << varName << "\"); }\n";
 }
 
 
@@ -869,10 +875,10 @@ void write_getters(
    // children
    // ------------------------
 
-   bool isVec = false;
+   bool isVecChoice = false;
    for (const auto &c : vecInfoChildren) {
       if (c.isChoice) {
-         isVec = c.isVector; // <== all should be consistent in this regard
+         isVecChoice = c.isVector; // <== all should be consistent in this regard
          continue;
       }
 
@@ -887,9 +893,9 @@ void write_getters(
       os << "    { return content." << c.varName;
       os << "; }\n";
 
-      // getters for [optional] vector: accept (const std::size_t n)
+      // getters for [optional] vector: accept (const std::size_t index)
       if (c.isVector) {
-         getter_param_1(os, c.varName, "std::size_t ",  "n");
+         getter_param_1(os, c.varName, "std::size_t ",  "index");
          getter_param_1(os, c.varName, "std::string &", "label");
       }
    }
@@ -898,17 +904,20 @@ void write_getters(
       if (!c.isChoice)
          continue;
 
-      if (isVec) {
-         getter_param_2(os, c.varType, c.varName, "std::size_t ",  "n");
+      if (isVecChoice) {
+         getter_param_2(os, c.varType, c.varName, "std::size_t ",  "index");
          getter_param_2(os, c.varType, c.varName, "std::string &", "label");
       } else {
          // choice is a variant
-         os << "\n   // optional " << c.varName << "\n";
+         // const
+         os << "\n   // " << c.varName << "\n";
          os << "   auto " << c.varName << "() const\n";
-         os << "   {\n";
-         os << "      return getter<" << c.varType << ">";
-         os << "(choice()," << "\"" << c.varName << "\");\n";
-         os << "   }\n";
+         os << "    { return getter<" << c.varType << ">";
+         os << "(choice(), " << "\"" << c.varName << "\"); }\n";
+         // non-const
+         os << "   auto " << c.varName << "()\n";
+         os << "    { return getter<" << c.varType << ">";
+         os << "(choice(), " << "\"" << c.varName << "\"); }\n";
       }
    }
 }
@@ -928,6 +937,7 @@ void write_setters(
    os << "\n   " << small;
    os << "\n   // Setters";
    os << "\n   // non-const";
+   os << "\n   // All return *this";
    os << "\n   " << small << "\n";
 
    // Reminder:
@@ -940,7 +950,7 @@ void write_setters(
 
    for (const auto &m : vecInfoMetadata) {
       // comment
-      os << "\n   // " << m.varName << "\n";
+      os << "\n   // " << m.varName << "(value)\n";
 
       // special cases: we want to send length, start, and valueType
       // down to the BodyText base as well
@@ -954,11 +964,18 @@ void write_setters(
       {
          os << "   auto &" << m.varName;
          os << "(const " << m.fullVarType << " &obj)\n";
-         special
-            ? os << "    { BaseBodyText::" << m.varName << "(content."
-                 << m.varName << " = obj); return *this; }\n"
-            : os << "    { content." << m.varName
-                 << " = obj; return *this; }\n";
+         if (special && m.isDefaulted)
+            os << "    { BaseBodyText::" << m.varName << "(content."
+               << m.varName << " = obj); return *this; }\n";
+         if (special && !m.isDefaulted)
+            os << "    { BaseBodyText::" << m.varName << "("
+               << m.varName << "() = obj); return *this; }\n";
+         if (!special && m.isDefaulted)
+            os << "    { content." << m.varName
+               << " = obj; return *this; }\n";
+         if (!special && !m.isDefaulted)
+            os << "    { " << m.varName
+               << "() = obj; return *this; }\n";
       }
 
       // setter, for T, if type is optional<T>
@@ -980,21 +997,21 @@ void write_setters(
    // children
    // ------------------------
 
-   bool isVec = false;
+   bool isVecChoice = false;
    for (const auto &c : vecInfoChildren) {
       if (c.isChoice) {
-         isVec = c.isVector; // <== all should be consistent in this regard
+         isVecChoice = c.isVector; // <== all should be consistent in this regard
          continue;
       }
 
       // comment
-      os << "\n   // " << c.varName << "\n";
+      os << "\n   // " << c.varName << "(value)\n";
 
       // setter, for T as-is
       {
          os << "   auto &" << c.varName;
          os << "(const " << c.fullVarType << " &obj)\n";
-         os << "    { content." << c.varName << " = obj; return *this; }\n";
+         os << "    { " << c.varName << "() = obj; return *this; }\n";
       }
 
       // setter, for T, if type is optional<T>
@@ -1002,30 +1019,59 @@ void write_setters(
 
       // setter, for vector<T>, if type is optional<vector<T>>
       // equivalent to the above
+
+      // index and label cases
+      if (c.isVector) {
+         os << "\n";
+         os << "   // " << c.varName << "(index,value)\n";
+         os << "   auto &" << c.varName << "(\n";
+         os << "      const std::size_t index,\n";
+         os << "      const " << c.varType << " &obj\n";
+         os << "   ) {\n";
+         os << "      " << c.varName << "(index) = obj; return *this;\n";
+         os << "   }\n";
+         os << "\n";
+         os << "   // " << c.varName << "(label,value)\n";
+         os << "   auto &" << c.varName << "(\n";
+         os << "      const std::string &label,\n";
+         os << "      const " << c.varType << " &obj\n";
+         os << "   ) {\n";
+         os << "      " << c.varName << "(label) = obj; return *this;\n";
+         os << "   }\n";
+      }
    }
 
    for (const auto &c : vecInfoChildren) {
       if (!c.isChoice)
          continue;
-      os << "\n";
-      os << "   // " << c.varName << "\n";
 
-      // getters, using individual names
-      if (isVec) {
+      // setters, using individual names
+      if (isVecChoice) {
          // choice is a vector<variant>
+         // index
+         os << "\n   // " << c.varName << "(index,value)\n";
          os << "   auto &" << c.varName << "(\n";
-         os << "      const std::size_t n,\n";
+         os << "      const std::size_t index,\n";
          os << "      const std::optional<" << c.varType << "> &obj\n";
          os << "   ) {\n";
-         os << "      detail::setter(choice(),n,obj," << "namespaceName()";
-         os << ",className(),\"" << c.varName << "\");\n";
+         os << "      if (obj) choice(index,obj.value());\n";
+         os << "      return *this;\n";
+         os << "   }\n";
+         // label
+         os << "\n   // " << c.varName << "(label,value)\n";
+         os << "   auto &" << c.varName << "(\n";
+         os << "      const std::string &label,\n";
+         os << "      const std::optional<" << c.varType << "> &obj\n";
+         os << "   ) {\n";
+         os << "      if (obj) choice(label,obj.value());\n";
          os << "      return *this;\n";
          os << "   }\n";
       } else {
          // choice is a variant
+         os << "\n   // " << c.varName << "(value)\n";
          os << "   auto &" << c.varName << "(const std::optional<";
          os << c.varType << "> &obj)\n";
-         os << "    { if (obj) choice(*obj); return *this; }\n";
+         os << "    { if (obj) choice(obj.value()); return *this; }\n";
       }
    }
 }
@@ -1474,7 +1520,10 @@ void make_class(
    );
 
    // output: base
-   oss << "\n   // Base classes";
+   oss << "\n   " << small;
+   oss << "\n   // Re: base classes";
+   oss << "\n   " << small << "\n";
+
    oss << "\n   using BaseComponent = Component<"
        << clname << (hasBodyText ? ",true" : "") << ">;";
    oss << "\n   using BaseBodyText = BodyText<"
@@ -1539,7 +1588,7 @@ void make_class(
 // read JSON file
 // -----------------------------------------------------------------------------
 
-void read(const std::string &file, nlohmann::json &jdoc)
+void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
 {
    std::cout << "File: \"" << file << '"' << std::endl;
    std::ifstream ifs(file);
@@ -1548,6 +1597,42 @@ void read(const std::string &file, nlohmann::json &jdoc)
       throw std::exception{};
    }
    ifs >> jdoc;
+
+   if (print_only_children) {
+      // The following is informational only. It tries to tell us when we have
+      // an intermediary node that only contains some number of one other type
+      // of node. (And no metadata.) Example: <reactions> only has <reaction>.
+
+      if (firsttime) { // <== because read() is called twice :-)
+         for (const auto &item : jdoc.items()) {
+            const std::string parent = item.key();
+            if (parent == "__namespace__")
+               continue;
+
+            const nlohmann::json value = item.value();
+            if (value["__class__"] != "nodes.Node")
+               continue;
+
+            const auto attrs = value["attributes"];
+            const auto elems = value["childNodes"];
+
+            if (attrs.size() == 0 && elems.size() == 1) {
+               const std::string child = elems.items().begin().key();
+               if (
+                  parent == child + "s" ||
+                  // turns out not to be relevant (axes can have grid too)...
+                  (parent == "axes" && child == "axis")
+               ) {
+                  std::cout << "<" << parent << "> only contains <"
+                            << child << ">" << std::endl;
+               } else {
+                  std::cout << "Possible case: <" << parent << "> vs <"
+                            << child << ">" << std::endl;
+               }
+            }
+         }
+      }
+   }
 }
 
 
@@ -1808,7 +1893,7 @@ int main()
    nlohmann::json jdoc;
    std::cout << "Preprocessing..." << std::endl;
    for (auto &file : files) {
-      read(file,jdoc);
+      read(file,jdoc,true);
       ofs << "\n";
       const std::string nsname = jdoc["__namespace__"];
       for (const auto &item : jdoc.items()) {
@@ -1829,7 +1914,7 @@ int main()
    // later (per dependencies) for final output
    std::cout << "\nBuilding classes..." << std::endl;
    for (auto &file : files) {
-      read(file,jdoc);
+      read(file,jdoc,false);
       const std::string file_namespace = jdoc["__namespace__"];
       for (const auto &keyvalue : jdoc.items()) {
          make_class(keyvalue, file_namespace, class2nspace);
