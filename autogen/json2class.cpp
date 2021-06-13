@@ -94,6 +94,7 @@ const std::map<std::string,std::string> mapMetaDefault {
 
    // grid style
    { "none",       "enums::GridStyle::none" },
+   { "link",       "enums::GridStyle::link" },
    { "points",     "enums::GridStyle::points" },
    { "boundaries", "enums::GridStyle::boundaries" },
    { "parameters", "enums::GridStyle::parameters" },
