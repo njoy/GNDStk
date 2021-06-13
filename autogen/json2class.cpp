@@ -1828,11 +1828,13 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << ",\n";
    }
    for (auto &c : cinfo) {
-      cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
-      if (c.isOptional) {
-         cpp << " = std::nullopt";
+      if (!c.isChoice) {
+         cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+         if (c.isOptional) {
+            cpp << " = std::nullopt";
+         }
+         cpp << ",\n";
       }
-      cpp << ",\n";
    }
    if (hasBodyText) {
       cpp << "         python::arg(\"values\"),\n";

@@ -47,8 +47,6 @@ void wrapGrid(python::module &module)
          python::arg("label") = std::nullopt,
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,
-         python::arg("link") = std::nullopt,
-         python::arg("values") = std::nullopt,
          python::arg("choice"),
          Component::documentation("constructor").c_str()
       )
