@@ -1806,8 +1806,10 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
           << "const " << (m.isDefaulted ? m.varType : m.fullVarType) << " &";
    }
    for (auto &c : cinfo) {
-      cpp << (count++ ? "," : "") << "\n            "
-          << "const " << c.fullVarType << " &";
+      if (!c.isChoice) {
+         cpp << (count++ ? "," : "") << "\n            "
+             << "const " << c.fullVarType << " &";
+      }
    }
    if (hasBodyText) {
       cpp << (count++ ? "," : "") << "\n            ";

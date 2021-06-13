@@ -40,8 +40,6 @@ void wrapGrid(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
-            const std::optional<containers::Link> &,
-            const std::optional<containers::Values> &,
             const VARIANT &
          >(),
          python::arg("index") = std::nullopt,

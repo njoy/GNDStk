@@ -35,8 +35,6 @@ void wrapCrossSection(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<containers::XYs1d> &,
-            const std::optional<containers::Regions1d> &,
             const std::vector<VARIANT> &
          >(),
          python::arg("xys1d") = std::nullopt,
