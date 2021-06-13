@@ -76,7 +76,8 @@ const std::map<std::string,std::string> mapMetaType {
    { "frame",         "enums::Frame" },
    { "interaction",   "enums::Interaction" },
    { "interpolation", "enums::Interpolation" },
-   { "storageOrder",  "enums::StorageOrder" }
+   { "storageOrder",  "enums::StorageOrder" },
+   { "gridStyle",     "enums::GridStyle" }
 };
 
 // JSON attribute "default" to GNDStk default
@@ -90,6 +91,12 @@ const std::map<std::string,std::string> mapMetaDefault {
    // frame
    { "lab",          "enums::Frame::lab" },
    { "centerOfMass", "enums::Frame::centerOfMass" },
+
+   // grid style
+   { "none",       "enums::GridStyle::none" },
+   { "points",     "enums::GridStyle::points" },
+   { "boundaries", "enums::GridStyle::boundaries" },
+   { "parameters", "enums::GridStyle::parameters" },
 
    // interaction
    { "nuclear", "enums::Interaction::nuclear" },

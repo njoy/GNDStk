@@ -172,7 +172,7 @@
                 "default": null,
                 "description": "The URL or xpath-like string pointing to the referred-to element",
                 "name": "href",
-                "required": false,
+                "required": true,
                 "type": "bodyText"
             }
         },
@@ -592,7 +592,7 @@
                 ],
                 "name": "style",
                 "required": false,
-                "type": "UTF8Text"
+                "type": "gridStyle"
             },
             "unit": {
                 "__class__": "nodes.Attribute",
