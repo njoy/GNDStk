@@ -38,7 +38,7 @@ void wrapGrid(python::module &module)
             const std::optional<Integer32> &,
             const enums::Interpolation &,
             const std::optional<XMLName> &,
-            const std::optional<UTF8Text> &,
+            const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
             const std::optional<containers::Link> &,
             const std::optional<containers::Values> &,
