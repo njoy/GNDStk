@@ -1725,6 +1725,11 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    const std::string nsname = obj.name.first;
    const std::string clname = obj.name.second;
 
+   const auto info = class2info.find(obj.name);
+   assert(info != class2info.end());
+   const auto &minfo = info->second.first;  // vector<infoMetadata>
+   const auto &cinfo = info->second.second; // vector<infoChildren>
+
    cpp << "\n";
 
    cpp << "// system includes\n";
@@ -1753,6 +1758,24 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "\n";
    cpp << "   // type aliases\n";
    cpp << "   using Component = " << "njoy::GNDStk::" << VersionNamespace << "::" << nsname << "::" << clname << ";\n";
+
+   // using VARIANT = ..., if necessary
+   for ( const auto& child : cinfo ) {
+      if ( child.isChoice ) {
+         cpp << "   using VARIANT = std::variant<";
+         std::size_t count = 0;
+         for (const auto &c : cinfo) {
+            if ( c.isChoice ) {
+               cpp << ( count++ ? "," : "" ) << "\n";
+               cpp << "      njoy::GNDStk::" << VersionNamespace << "::" << c.varType;
+            }
+         }
+         cpp << "\n";
+         cpp << "   >;\n";
+         break;
+      }
+   }
+
    cpp << "\n";
    cpp << "   // create the component\n";
    cpp << "   python::class_<Component> component(\n";
@@ -1764,11 +1787,6 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   // wrap the component\n";
    cpp << "   component\n";
    cpp << "      .def(\n";
-
-   const auto info = class2info.find(obj.name);
-   assert(info != class2info.end());
-   const auto &minfo = info->second.first;  // vector<infoMetadata>
-   const auto &cinfo = info->second.second; // vector<infoChildren>
 
    // compute some things with respect to "body text"
    const auto body = class2bodytext.find(obj.name);

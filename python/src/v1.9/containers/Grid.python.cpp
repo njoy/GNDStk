@@ -23,6 +23,10 @@ void wrapGrid(python::module &module)
 
    // type aliases
    using Component = njoy::GNDStk::v1_9::containers::Grid;
+   using VARIANT = std::variant<
+      njoy::GNDStk::v1_9::containers::Link,
+      njoy::GNDStk::v1_9::containers::Values
+   >;
 
    // create the component
    python::class_<Component> component(

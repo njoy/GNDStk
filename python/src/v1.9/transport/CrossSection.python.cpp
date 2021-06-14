@@ -23,6 +23,10 @@ void wrapCrossSection(python::module &module)
 
    // type aliases
    using Component = njoy::GNDStk::v1_9::transport::CrossSection;
+   using VARIANT = std::variant<
+      njoy::GNDStk::v1_9::containers::XYs1d,
+      njoy::GNDStk::v1_9::containers::Regions1d
+   >;
 
    // create the component
    python::class_<Component> component(

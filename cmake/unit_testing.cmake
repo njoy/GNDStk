@@ -37,4 +37,5 @@ add_subdirectory( src/GNDStk/enums/units/Length/test )
 
 add_subdirectory( src/GNDStk/v1.9/containers/Values/test )
 add_subdirectory( src/GNDStk/v1.9/containers/Axis/test )
+add_subdirectory( src/GNDStk/v1.9/containers/Link/test )
 add_subdirectory( src/GNDStk/v1.9/containers/Grid/test )

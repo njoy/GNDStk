@@ -70,7 +70,7 @@ SCENARIO( "Grid" ) {
     } // WHEN
   } // GIVEN
 
-  GIVEN( "valid data for the component with a Values component" ) {
+  GIVEN( "valid data for the component with a Link component" ) {
 
     std::string string = chunkWithLink();
 
