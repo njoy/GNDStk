@@ -37,3 +37,10 @@ The following changes have been made:
 The following should be brought to the attention of EG-GNDS:
   - Proper description of the enumerated values for the grid style (the GNDS 1.9
     specs do not mention link while it is used in GNDS files)
+
+Some questions on the specs:
+  - Is the href attribute on axes ever used?
+
+Things that will need looking into, to be incorporated when reading a GNDS tree
+  - Precision when writing out the data
+  - Resolve href elements, maybe at demand of the user when reading the file
