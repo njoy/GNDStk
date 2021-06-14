@@ -109,14 +109,14 @@
                 "__class__": "nodes.ChildNode",
                 "description": "This node stores an \\element{index}, \\element{label} and \\element{unit} for an axis.",
                 "name": "axis",
-                "occurrence": "1+",
+                "occurrence": "choice+",
                 "required": false
             },
             "grid": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores a list of boundaries or points along this axis, e.g. to define group boundaries for grouped data.",
                 "name": "grid",
-                "occurrence": "1+",
+                "occurrence": "choice+",
                 "required": false
             }
         },

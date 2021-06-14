@@ -31,6 +31,8 @@ The following changes have been made:
   - The type of the 'style' attribute on a grid element is renamed to gridStyle since
     it is an enumerator
   - The 'href' attribute in the link element is required
+  - The 'occurrence' attribute of the axes element children (axis and grid) has been
+    set to choice+
 
 The following should be brought to the attention of EG-GNDS:
   - Proper description of the enumerated values for the grid style (the GNDS 1.9
