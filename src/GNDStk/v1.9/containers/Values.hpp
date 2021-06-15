@@ -139,7 +139,6 @@ public:
          content.valueType
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -153,7 +152,6 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -167,7 +165,6 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -180,8 +177,6 @@ public:
          content.valueType
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -203,7 +198,6 @@ public:
          valueType
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -229,7 +223,6 @@ public:
             : Defaulted<UTF8Text>{"Float64",valueType}
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 

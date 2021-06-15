@@ -140,7 +140,7 @@ inline void indentString(
 // These are adapted from an answer here:
 // https://stackoverflow.com/questions/87372
 
-template<class T>
+template<class DERIVED>
 class hasWriteOneArg
 {
    template<
@@ -152,10 +152,10 @@ class hasWriteOneArg
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<T>(0)) == sizeof(char);
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
-template<class T>
+template<class DERIVED>
 class hasWriteTwoArg
 {
    template<
@@ -167,7 +167,81 @@ class hasWriteTwoArg
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<T>(0)) == sizeof(char);
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+};
+
+
+// ------------------------
+// hasConstruct*
+// ------------------------
+
+// See:
+// https://stackoverflow.com/questions/87372
+
+// hasConstruct
+template<class DERIVED>
+class hasConstruct
+{
+   template<
+      class U,
+      void (U::*)()
+   > struct SFINAE {};
+
+   template<class U> static char test(SFINAE<U, &U::construct> *);
+   template<class U> static long test(...);
+
+public:
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+};
+
+// hasConstructDerived
+template<class DERIVED>
+class hasConstructDerived
+{
+   template<
+      class U,
+      void (U::*)(const DERIVED &)
+   > struct SFINAE {};
+
+   template<class U> static char test(SFINAE<U, &U::construct> *);
+   template<class U> static long test(...);
+
+public:
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+};
+
+// hasConstructNode
+template<class DERIVED>
+class hasConstructNode
+{
+   template<
+      class U,
+      void (U::*)(const Node &)
+   > struct SFINAE {};
+
+   template<class U> static char test(SFINAE<U, &U::construct> *);
+   template<class U> static long test(...);
+
+public:
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+};
+
+// hasConstructVector
+template<class DERIVED>
+class hasConstructVector
+{
+   template<
+      class U,
+      class T,
+      void (U::*)(const std::vector<T> &)
+   > struct SFINAE {};
+
+   template<class U, class T> static char test(SFINAE<U, T, &U::construct> *);
+   template<class U, class T> static long test(...);
+
+public:
+   template<class T>
+   static const bool has = sizeof(test<DERIVED,T>(0)) == sizeof(char);
 };
 
 

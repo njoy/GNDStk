@@ -21,8 +21,7 @@ template<bool hasBodyText>
 class BodyText {
 public:
    template<class CONTENT>
-   void bodyTextUpdate(const CONTENT &) { }
-
+   void sync(const CONTENT &) { }
    void fromNode(const Node &) { }
    void toNode(Node &) const { }
    std::ostream &write(std::ostream &os, const int) const { return os; }
@@ -35,7 +34,7 @@ public:
 // Designed to be flexible, smart, and safe. Does lots of checks, and can
 // essentially "remake" itself depending on what someone tries to extract.
 // For efficiency, an application might want to copy to a vector elsewhere.
-// Example: auto myvec = mybodytext.get<std::vector<double>>();
+// Example: auto myvec = mybodytext.get<std::vector<double>>().
 // -----------------------------------------------------------------------------
 
 // fixme The contents of this class should be split into several files
@@ -47,11 +46,11 @@ class BodyText<true> {
    // General member data
    // ------------------------
 
-   // raw string, directly from the "plain character data" in the GNDS file
+   // Raw string, directly from "plain character data" in a GNDS file
    std::string rawstring;
 
-   // vector of (several possibilities)
-   // This is mutable, so that we can reinterpret rawstring at will.
+   // vector of <several possibilities>
+   // Mutable, so that we can reinterpret rawstring at will
    mutable std::variant<
       // strings
       std::vector<std::string>,
@@ -80,7 +79,7 @@ class BodyText<true> {
    // ------------------------
    // Optional values that
    // affect interpretation
-   // of the raw body text
+   // of the raw string
    // ------------------------
 
    // Quoted from the official JSON files for GNDS:
@@ -90,7 +89,7 @@ class BodyText<true> {
    //    values that are not stored. This attribute should only be used when
    //    the sum of start and the number of listed values do not add to the
    //    total number of data values. This should only happen when there are
-   //    trailing zeros not listed in the Body text.
+   //    trailing zeros not listed in the body text.
    //
    // start
    //    default: 0
@@ -100,62 +99,64 @@ class BodyText<true> {
    //    Specifies the type of data in the body (e.g., Integer32, Float64).
    //    Only one type of data can be stored in each instance of a values node.
 
-   // These are placed in a struct, so our setters can use the names
+   // These are placed in a struct, so that our setters can use the names
    struct {
-      // these might or might not have been in a node with body text...
+      // Any of these might or might not have appeared in a particular node
+      // that had body text, but we handle them all here, and have defaults
       std::size_t length = 0;
       std::size_t start = 0;
       std::string valueType = "";
+
       // flag, to help get<std::vector<T>>() work smoothly
       mutable bool hasZeros = false; // <== fixme May or may not want setter
    } vars;
 
    // flag; a setter or other function may set this to true, in order
    // to indicate that the vector must be (re)made from the raw string
-   mutable bool changed = true;
+   mutable bool changedString = true;
 
-public:
 
    // ------------------------
    // Change length, start,
    // or valueType
    // ------------------------
 
+protected:
+
    // Discussion. Remember, the context here is that some class derives from
-   // Component, which further derives from this class - BodyText. We're here,
+   // Component, which further derives from BodyText (this class). We're here,
    // in BodyText<true>, if the derived class has "body text". Such a derived
    // class might have length, start, and valueType (possibly as std::optional
-   // or GNDStk::Defaulted), but we won't *require* it to have any of those.
+   // or GNDStk::Defaulted), but we won't *require* that it have any of those.
    // For whichever ones the derived class has, we suggest writing setters
    // that also call these, below, so that we can handle them correctly here.
 
    // length
-   auto &length(const std::optional<std::size_t> &opt)
+   BodyText &length(const std::optional<std::size_t> &opt)
    {
       if (opt.has_value() && opt.value() != vars.length) {
          vars.length = opt.value();
-         changed = true;
+         changedString = true;
       }
       return *this;
    }
 
    // start
-   auto &start(const std::optional<std::size_t> &opt)
+   BodyText &start(const std::optional<std::size_t> &opt)
    {
       if (opt.has_value() && opt.value() != vars.start) {
          vars.start = opt.value();
-         changed = true;
+         changedString = true;
       }
       return *this;
    }
 
    // valueType
-   auto &valueType(const std::optional<std::string> &opt)
+   BodyText &valueType(const std::optional<std::string> &opt)
    {
       if (opt.has_value() && opt.value() != vars.valueType) {
-         // different value
          vars.valueType = opt.value();
-         changed = true;
+         changedString = true;
       }
       return *this;
    }
@@ -165,21 +166,24 @@ public:
    // Simple member functions
    // ------------------------
 
+public:
+
    // clear()
-   // Clears whatever is the current variant alternative. (Doesn't *change*
-   // the alternative to any other one.)
-   void clear()
+   // Clears the active vector alternative in the variant.
+   // Doesn't *change* the alternative to any other one.
+   BodyText &clear()
    {
       std::visit([](auto &&alt) { return alt.clear(); }, variant);
       rawstring = "";
-      changed = true;
+      changedString = true;
+      return *this;
    }
 
    // size()
-   // Actual current size of the active vector alternative in the variant.
+   // Returns the size of the active vector alternative in the variant.
    // Depending on what actions someone has performed on the current object,
    // size() might or might not reflect the values of length and/or start,
-   // or even reflect the current contents of the raw string.
+   // or reflect the current contents of the raw string.
    std::size_t size() const
    {
       return std::visit([](auto &&alt) { return alt.size(); }, variant);
@@ -207,7 +211,7 @@ public:
       // vector already there?
       if (
          // nothing else (e.g. the raw data string) has changed?
-         !changed &&
+         !changedString &&
          // already have the (leading+trailing) or (reduced) case?
          vars.hasZeros == wantZeros &&
          // have the particular vector type we're wanting right now?
@@ -250,7 +254,7 @@ public:
          }
 
       vars.hasZeros = wantZeros;
-      changed = false; // just applied changes
+      changedString = false; // just applied changes
       return to;
    }
 
@@ -308,21 +312,22 @@ public:
 
    void fromNode(const Node &node)
    {
-      // length, start, and optional data type
-      length   (node(std::optional<std::size_t>{0 } / Meta<>{"length"   }));
-      start    (node(std::optional<std::size_t>{0 } / Meta<>{"start"    }));
-      valueType(node(std::optional<std::string>{""} / Meta<>{"valueType"}));
+      // length, start, and valueType might be present in the Node, but we won't
+      // fetch them here. Elsewhere, the current object (a BodyText) will have
+      // its length, start, and valueType synced with those in an object of a
+      // class derived from Component. (That object's content will have been
+      // pulled from the same Node.) Here, we just get the actual body text:
+      // plain character data in XML parlance.
 
-      // body text
       bool found = false;
       rawstring = node.pcdata(found);
-      changed = true;
 
       if (!found) {
          rawstring = "";
-         // Warning: so, why are we in BodyText<true> if there's no body text?
-         // Of course, it's possible that length or start is nonzero, so that
-         // the values are all *supposed* to be "" or 0. :-/
+         // Warning, re: why are we in BodyText<true> if there's no body text?
+         // Perhaps it's possible that length or start is nonzero, so that the
+         // values are all *supposed* to be "" or 0, but we don't know why such
+         // a Node would have been created in the first place. :-/
          log::warning(
             "Component marked as having \"body text\", a.k.a. XML \"pcdata\" "
             "(plain\ncharacter data), but none was found in the GNDS node."
@@ -330,7 +335,7 @@ public:
          log::member("BodyText::fromNode(Node, with name \"{}\")", node.name);
       }
 
-      get();
+      changedString = true;
    }
 
 
@@ -417,7 +422,7 @@ public:
    const std::string &string(const std::string &str)
    {
       clear();
-      changed = true;
+      changedString = true;
       return rawstring = str;
    }
 
@@ -427,7 +432,7 @@ public:
 
    std::ostream &write(std::ostream &os, const int level) const
    {
-      if (changed || (size() == 0 && rawstring != ""))
+      if (changedString || (size() == 0 && rawstring != ""))
          get();
 
       if (size() == 0)
@@ -460,11 +465,11 @@ public:
    }
 
    // ------------------------
-   // bodyTextUpdate
+   // sync
    // ------------------------
 
    template<class CONTENT>
-   void bodyTextUpdate(const CONTENT &content)
+   void sync(const CONTENT &content)
    {
       if constexpr (detail::has_length<CONTENT>::value)
          this->length(content.length);

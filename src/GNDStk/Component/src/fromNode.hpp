@@ -35,7 +35,7 @@ void fromNode(const Node &node)
       if constexpr (
          std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
       ) {
-         // consistency check
+         // consistency check; then nothing further to do
          assert(0 == links.size());
       } else {
          // retrieve the node's data by doing a multi-query

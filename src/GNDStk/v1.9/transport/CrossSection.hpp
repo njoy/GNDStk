@@ -202,7 +202,6 @@ public:
          content.choice
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -214,7 +213,6 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -226,7 +224,6 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -237,8 +234,6 @@ public:
          content.choice
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -254,7 +249,6 @@ public:
          choice
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 

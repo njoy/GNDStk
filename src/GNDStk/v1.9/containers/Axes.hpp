@@ -196,7 +196,6 @@ public:
          content.grid
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -210,7 +209,6 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -224,7 +222,6 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -237,8 +234,6 @@ public:
          content.grid
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -260,7 +255,6 @@ public:
          grid
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 

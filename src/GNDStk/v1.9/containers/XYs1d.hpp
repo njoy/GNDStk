@@ -185,7 +185,6 @@ public:
          content.values
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -202,7 +201,6 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -219,7 +217,6 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -235,8 +232,6 @@ public:
          content.values
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -267,7 +262,6 @@ public:
          values
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -300,7 +294,6 @@ public:
          values
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 

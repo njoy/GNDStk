@@ -44,20 +44,9 @@ class Component : public BodyText<hasBodyText> {
    // Constructor; intentionally *private*
    #include "GNDStk/Component/src/ctor.hpp"
 
-   // construct()
-   // Hooks by which derived-class constructors, built by our auto-generation
-   // process from JSON-format GNDS specs, can run arbitrary additional code.
-   void construct()
-   {
-   }
-   void construct(const DERIVED &)
-   {
-      static_cast<DERIVED &>(*this).construct();
-   }
-   void construct(const Node &)
-   {
-      static_cast<DERIVED &>(*this).construct();
-   }
+   // construct
+   // See comments in construct.hpp
+   #include "GNDStk/Component/src/construct.hpp"
 
    // You can (but don't need to) override in DERIVED
    static std::string namespaceName() { return ""; }

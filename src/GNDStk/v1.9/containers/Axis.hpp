@@ -133,7 +133,6 @@ public:
          content.unit
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -147,7 +146,6 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -161,7 +159,6 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -174,8 +171,6 @@ public:
          content.unit
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -197,7 +192,6 @@ public:
          unit
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 

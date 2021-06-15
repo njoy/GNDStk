@@ -1108,13 +1108,9 @@ void write_component_base(
 // helper
 void write_ctor_body(
    std::ostream &os,
-   const std::string &param,
-   const bool query = false
+   const std::string &param
 ) {
    os << "   {\n";
-   if (query)
-      os << "      fromNode(node);\n";
-   os << "      bodyTextUpdate(content);\n";
    os << "      construct(" << param << ");\n";
    os << "   }\n";
 }
@@ -1190,7 +1186,7 @@ void write_class_ctor(
 
    // body
    os << "\n";
-   write_ctor_body(os,"node",true);
+   write_ctor_body(os,"node");
 
    // ------------------------
    // ctor: fields
@@ -1234,7 +1230,7 @@ void write_class_ctor(
    os << "\n      }\n";
 
    // body
-   write_ctor_body(os,"",false);
+   write_ctor_body(os,"");
 
    // ------------------------
    // ctor: fields but without
@@ -1289,7 +1285,7 @@ void write_class_ctor(
    os << "\n      }\n";
 
    // body
-   write_ctor_body(os,"",false);
+   write_ctor_body(os,"");
 }
 
 

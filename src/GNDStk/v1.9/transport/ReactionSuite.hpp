@@ -195,7 +195,6 @@ public:
          content.reactions
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
@@ -213,7 +212,6 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -231,7 +229,6 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
       construct(other);
    }
 
@@ -248,8 +245,6 @@ public:
          content.reactions
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
       construct(node);
    }
 
@@ -283,7 +278,6 @@ public:
          reactions
       }
    {
-      bodyTextUpdate(content);
       construct();
    }
 
