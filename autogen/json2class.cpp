@@ -76,7 +76,8 @@ const std::map<std::string,std::string> mapMetaType {
    { "frame",         "enums::Frame" },
    { "interaction",   "enums::Interaction" },
    { "interpolation", "enums::Interpolation" },
-   { "storageOrder",  "enums::StorageOrder" }
+   { "storageOrder",  "enums::StorageOrder" },
+   { "gridStyle",     "enums::GridStyle" }
 };
 
 // JSON attribute "default" to GNDStk default
@@ -90,6 +91,13 @@ const std::map<std::string,std::string> mapMetaDefault {
    // frame
    { "lab",          "enums::Frame::lab" },
    { "centerOfMass", "enums::Frame::centerOfMass" },
+
+   // grid style
+   { "none",       "enums::GridStyle::none" },
+   { "link",       "enums::GridStyle::link" },
+   { "points",     "enums::GridStyle::points" },
+   { "boundaries", "enums::GridStyle::boundaries" },
+   { "parameters", "enums::GridStyle::parameters" },
 
    // interaction
    { "nuclear", "enums::Interaction::nuclear" },
@@ -1365,8 +1373,10 @@ void make_forward(
    const std::string custom = src + "/custom.hpp";
    if (!std::ifstream(custom)) {
       std::cout << "   No file " << custom << std::endl;
-      std::cout << "   ...So, creating a blank one" << std::endl;
-      std::ofstream(custom,std::ofstream::app);
+      std::cout << "   ...So, creating a basic one" << std::endl;
+      std::ofstream hpp(custom,std::ofstream::app);
+      hpp << "private:\n\n";
+      hpp << "  static inline helpMap help = {};\n";
    }
 
    const std::string clhpp   = nsdir   + "/" + clname + ".hpp";
@@ -1715,6 +1725,11 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    const std::string nsname = obj.name.first;
    const std::string clname = obj.name.second;
 
+   const auto info = class2info.find(obj.name);
+   assert(info != class2info.end());
+   const auto &minfo = info->second.first;  // vector<infoMetadata>
+   const auto &cinfo = info->second.second; // vector<infoChildren>
+
    cpp << "\n";
 
    cpp << "// system includes\n";
@@ -1743,6 +1758,24 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "\n";
    cpp << "   // type aliases\n";
    cpp << "   using Component = " << "njoy::GNDStk::" << VersionNamespace << "::" << nsname << "::" << clname << ";\n";
+
+   // using VARIANT = ..., if necessary
+   for ( const auto& child : cinfo ) {
+      if ( child.isChoice ) {
+         cpp << "   using VARIANT = std::variant<";
+         std::size_t count = 0;
+         for (const auto &c : cinfo) {
+            if ( c.isChoice ) {
+               cpp << ( count++ ? "," : "" ) << "\n";
+               cpp << "      njoy::GNDStk::" << VersionNamespace << "::" << c.varType;
+            }
+         }
+         cpp << "\n";
+         cpp << "   >;\n";
+         break;
+      }
+   }
+
    cpp << "\n";
    cpp << "   // create the component\n";
    cpp << "   python::class_<Component> component(\n";
@@ -1754,11 +1787,6 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   // wrap the component\n";
    cpp << "   component\n";
    cpp << "      .def(\n";
-
-   const auto info = class2info.find(obj.name);
-   assert(info != class2info.end());
-   const auto &minfo = info->second.first;  // vector<infoMetadata>
-   const auto &cinfo = info->second.second; // vector<infoChildren>
 
    // compute some things with respect to "body text"
    const auto body = class2bodytext.find(obj.name);
@@ -1796,8 +1824,10 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
           << "const " << (m.isDefaulted ? m.varType : m.fullVarType) << " &";
    }
    for (auto &c : cinfo) {
-      cpp << (count++ ? "," : "") << "\n            "
-          << "const " << c.fullVarType << " &";
+      if (!c.isChoice) {
+         cpp << (count++ ? "," : "") << "\n            "
+             << "const " << c.fullVarType << " &";
+      }
    }
    if (hasBodyText) {
       cpp << (count++ ? "," : "") << "\n            ";
@@ -1816,11 +1846,13 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << ",\n";
    }
    for (auto &c : cinfo) {
-      cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
-      if (c.isOptional) {
-         cpp << " = std::nullopt";
+      if (!c.isChoice) {
+         cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+         if (c.isOptional) {
+            cpp << " = std::nullopt";
+         }
+         cpp << ",\n";
       }
-      cpp << ",\n";
    }
    if (hasBodyText) {
       cpp << "         python::arg(\"values\"),\n";

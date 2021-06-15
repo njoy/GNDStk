@@ -23,6 +23,10 @@ void wrapGrid(python::module &module)
 
    // type aliases
    using Component = njoy::GNDStk::v1_9::containers::Grid;
+   using VARIANT = std::variant<
+      njoy::GNDStk::v1_9::containers::Link,
+      njoy::GNDStk::v1_9::containers::Values
+   >;
 
    // create the component
    python::class_<Component> component(
@@ -38,10 +42,8 @@ void wrapGrid(python::module &module)
             const std::optional<Integer32> &,
             const enums::Interpolation &,
             const std::optional<XMLName> &,
-            const std::optional<UTF8Text> &,
+            const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
-            const std::optional<containers::Link> &,
-            const std::optional<containers::Values> &,
             const VARIANT &
          >(),
          python::arg("index") = std::nullopt,
@@ -49,8 +51,6 @@ void wrapGrid(python::module &module)
          python::arg("label") = std::nullopt,
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,
-         python::arg("link") = std::nullopt,
-         python::arg("values") = std::nullopt,
          python::arg("choice"),
          Component::documentation("constructor").c_str()
       )

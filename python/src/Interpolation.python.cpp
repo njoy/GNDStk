@@ -36,4 +36,4 @@ void wrapInterpolation( python::module& module ) {
   .value( "chargedparticle", Component::chargedparticle );
 }
 
-} // namespace rmatrix
+} // namespace core
