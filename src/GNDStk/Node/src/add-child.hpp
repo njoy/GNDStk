@@ -282,3 +282,36 @@ void add(
       throw;
    }
 }
+
+
+
+// -----------------------------------------------------------------------------
+// Child<*> with Allow::many, and an optional container
+// -----------------------------------------------------------------------------
+
+// SFINAE as in (non-optional) container case
+template<
+   class TYPE, class CONVERTER, class FILTER,
+
+   template<class...> class CONTAINER = std::vector,
+   class T =
+      typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+   class... Args,
+   class = typename std::enable_if<
+      detail::isIterable<CONTAINER<T,Args...>>::value
+   >::type,
+
+   class = typename std::enable_if<
+      std::is_constructible<
+         typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+         typename detail::remove_opt_def<T>::type
+      >::value
+   >::type
+>
+void add(
+   const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   const std::optional<CONTAINER<T,Args...>> &opt
+) {
+   if (opt.has_value())
+      add(TYPE{}/kwd, opt.value());
+}

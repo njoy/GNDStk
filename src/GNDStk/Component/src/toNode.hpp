@@ -35,8 +35,10 @@ operator Node() const
               (node.add(
                   key,
                 *(typename detail::remove_cvref<decltype(Node{}(key))>::type *)
-                  links[n++]),
-               ...);
+                  links[n++]
+               ),
+               ...
+              );
             },
             tup
          );
