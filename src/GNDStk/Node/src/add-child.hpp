@@ -111,7 +111,15 @@ Node &add(
    try {
       Node &n = add();
       kwd.converter(TYPE(val),n);
-      n.name = kwd.name;
+
+      if constexpr (detail::isVariant<TYPE>::value) {
+         std::istringstream names(kwd.name);
+         for (std::size_t i = 0; i <= TYPE(val).index(); ++i)
+            names >> n.name;
+      } else {
+         n.name = kwd.name;
+      }
+
       return n;
    } catch (...) {
       log::member("Node.add(" + detail::keyname(kwd) + ",value)");
