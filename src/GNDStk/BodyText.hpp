@@ -22,8 +22,10 @@ class BodyText {
 public:
    template<class CONTENT>
    void sync(const CONTENT &) { }
+
    void fromNode(const Node &) { }
    void toNode(Node &) const { }
+
    std::ostream &write(std::ostream &os, const int) const { return os; }
 };
 
@@ -43,14 +45,14 @@ template<>
 class BodyText<true> {
 
    // ------------------------
-   // General member data
+   // Primary data
    // ------------------------
 
    // Raw string, directly from "plain character data" in a GNDS file
    std::string rawstring;
 
    // vector of <several possibilities>
-   // Mutable, so that we can reinterpret rawstring at will
+   // Mutable, so that we can reinterpret rawstring if necessary
    mutable std::variant<
       // strings
       std::vector<std::string>,
@@ -82,22 +84,24 @@ class BodyText<true> {
    // of the raw string
    // ------------------------
 
-   // Quoted from the official JSON files for GNDS:
-   //
-   // length
-   //    The total number of data values including leading and trailing zero
-   //    values that are not stored. This attribute should only be used when
-   //    the sum of start and the number of listed values do not add to the
-   //    total number of data values. This should only happen when there are
-   //    trailing zeros not listed in the body text.
-   //
-   // start
-   //    default: 0
-   //    For start = N, the first N values are zero and are not stored.
-   //
-   // valueType
-   //    Specifies the type of data in the body (e.g., Integer32, Float64).
-   //    Only one type of data can be stored in each instance of a values node.
+   /*
+   Quoted from the official JSON files describing GNDS:
+
+   length
+      The total number of data values including leading and trailing zero
+      values that are not stored. This attribute should only be used when
+      the sum of start and the number of listed values do not add to the
+      total number of data values. This should only happen when there are
+      trailing zeros not listed in the body text.
+
+   start
+      default: 0
+      For start = N, the first N values are zero and are not stored.
+
+   valueType
+      Specifies the type of data in the body (e.g., Integer32, Float64).
+      Only one type of data can be stored in each instance of a values node.
+   */
 
    // These are placed in a struct, so that our setters can use the names
    struct {
@@ -106,14 +110,29 @@ class BodyText<true> {
       std::size_t length = 0;
       std::size_t start = 0;
       std::string valueType = "";
-
-      // flag, to help get<std::vector<T>>() work smoothly
-      mutable bool hasZeros = false; // <== fixme May or may not want setter
    } vars;
 
-   // flag; a setter or other function may set this to true, in order
-   // to indicate that the vector must be (re)made from the raw string
-   mutable bool changedString = true;
+
+   // ------------------------
+   // Flags
+   // ------------------------
+
+public:
+
+   // A setter or something else may set the following to true, in order to
+   // indicate that a vector in the variant should be (re)made from the raw
+   // string upon the next attempt to access the vector or one of its elements.
+   // Initializes to true, because that's the correct value in the common case
+   // that we're initializing a BodyText from an existing Node - whose data
+   // string will go into our raw string, prompting a need to make the vector.
+   // Exercise due caution if you set this yourself.
+   mutable bool remake = true;
+
+   // The following indicates whether the process of converting a BodyText
+   // back into data, in a Node, should or should not trim 0s from the start
+   // and/or the end of the vector. See BodyText's toNode() function to see
+   // precisely how we handle this flag.
+   mutable bool trim = true;
 
 
    // ------------------------
@@ -123,20 +142,27 @@ class BodyText<true> {
 
 protected:
 
-   // Discussion. Remember, the context here is that some class derives from
-   // Component, which further derives from BodyText (this class). We're here,
-   // in BodyText<true>, if the derived class has "body text". Such a derived
-   // class might have length, start, and valueType (possibly as std::optional
-   // or GNDStk::Defaulted), but we won't *require* that it have any of those.
-   // For whichever ones the derived class has, we suggest writing setters
-   // that also call these, below, so that we can handle them correctly here.
+   // Discussion.
+   //
+   // Remember, the present context is that some class derives from Component,
+   // which further derives from BodyText<true> (this class). We're here if
+   // the derived class has "body text". Such a derived class might, or might
+   // not, have length, start, or valueType (possibly as std::optional or
+   // GNDStk::Defaulted), but we don't *require* that it have any of those.
+   // For whichever ones the derived class does have, we suggest that it also
+   // have setters that call these too. That way, we can handle them correctly
+   // here, and everthing is kept consistent,
+   //
+   // zzz Probably say something about these being unused (and setting them
+   // zzz doesn't matter) until, and unless, "remake" triggers a vector remake
+   // zzz working here
 
    // length
    BodyText &length(const std::optional<std::size_t> &opt)
    {
       if (opt.has_value() && opt.value() != vars.length) {
          vars.length = opt.value();
-         changedString = true;
+         remake = true;
       }
       return *this;
    }
@@ -146,7 +172,7 @@ protected:
    {
       if (opt.has_value() && opt.value() != vars.start) {
          vars.start = opt.value();
-         changedString = true;
+         remake = true;
       }
       return *this;
    }
@@ -156,7 +182,7 @@ protected:
    {
       if (opt.has_value() && opt.value() != vars.valueType) {
          vars.valueType = opt.value();
-         changedString = true;
+         remake = true;
       }
       return *this;
    }
@@ -175,7 +201,7 @@ public:
    {
       std::visit([](auto &&alt) { return alt.clear(); }, variant);
       rawstring = "";
-      changedString = true;
+      remake = true;
       return *this;
    }
 
@@ -211,9 +237,9 @@ public:
       // vector already there?
       if (
          // nothing else (e.g. the raw data string) has changed?
-         !changedString &&
+         !remake &&
          // already have the (leading+trailing) or (reduced) case?
-         vars.hasZeros == wantZeros &&
+         ///vars.hasZeros == wantZeros &&
          // have the particular vector type we're wanting right now?
          std::holds_alternative<VECTOR>(variant)
       ) {
@@ -253,8 +279,8 @@ public:
                to.push_back(T(0));
          }
 
-      vars.hasZeros = wantZeros;
-      changedString = false; // just applied changes
+      ///      vars.hasZeros = wantZeros;
+      remake = false; // just applied changes
       return to;
    }
 
@@ -335,7 +361,7 @@ public:
          log::member("BodyText::fromNode(Node, with name \"{}\")", node.name);
       }
 
-      changedString = true;
+      remake = true;
    }
 
 
@@ -422,7 +448,7 @@ public:
    const std::string &string(const std::string &str)
    {
       clear();
-      changedString = true;
+      remake = true;
       return rawstring = str;
    }
 
@@ -432,7 +458,7 @@ public:
 
    std::ostream &write(std::ostream &os, const int level) const
    {
-      if (changedString || (size() == 0 && rawstring != ""))
+      if (remake || (size() == 0 && rawstring != ""))
          get();
 
       if (size() == 0)
