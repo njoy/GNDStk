@@ -13,6 +13,9 @@ Node(Node &&other) :
    children(std::move(other.children))
    // but don't move the parentNode pointer!
 {
+   std::cout << "zzz here!!!" << std::endl;
+   assert(false);
+
    // The above move of the children vector *copies* (it doesn't move) the
    // elements themselves. Therefore, an update of this->children's parentNode
    // pointers is not needed here; it's handled in the copy constructor below.
@@ -25,6 +28,9 @@ Node(Node &&other) :
 // copy
 Node(const Node &other)
 {
+   ///std::cout << "zzz here 222!!!" << std::endl;
+   ///assert(false);
+
    // This assignment ends up updating this->children's parentNode pointers,
    // so there's no need to do it directly in this function.
    *this = other;

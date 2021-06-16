@@ -82,7 +82,11 @@ SCENARIO("Testing GNDStk Node constructors") {
    // move
    // ------------------------
    WHEN("A default Node is move constructed") {
-      Node n(Node{});
+      Node n(std::move(Node{}));
+      CHECK(n.empty());
+   }
+   WHEN("A Node with is move constructed") {
+      Node n(std::move(Node{}));
       CHECK(n.empty());
    }
 
