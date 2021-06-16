@@ -7,19 +7,9 @@
 Node() = default;
 
 // move
-Node(Node &&other) :
-   name(std::move(other.name)),
-   metadata(std::move(other.metadata)),
-   children(std::move(other.children))
-   // but don't move the parentNode pointer!
+Node(Node &&other)
 {
-   std::cout << "zzz here!!!" << std::endl;
-   assert(false);
-
-   // The above move of the children vector *copies* (it doesn't move) the
-   // elements themselves. Therefore, an update of this->children's parentNode
-   // pointers is not needed here; it's handled in the copy constructor below.
-
+   *this = std::move(other);
    // validate
    for (auto &c : children)
       assert(c->parentNode == this);
@@ -28,13 +18,7 @@ Node(Node &&other) :
 // copy
 Node(const Node &other)
 {
-   ///std::cout << "zzz here 222!!!" << std::endl;
-   ///assert(false);
-
-   // This assignment ends up updating this->children's parentNode pointers,
-   // so there's no need to do it directly in this function.
    *this = other;
-
    // validate
    for (auto &c : children)
       assert(c->parentNode == this);
