@@ -116,7 +116,7 @@ Node &add(
          std::istringstream names(kwd.name);
          for (std::size_t i = 0; i <= TYPE(val).index(); ++i)
             names >> n.name;
-         // todo Have a warning of error if we can't properly pull out
+         // todo Have a warning or error if we can't properly extract
          // the index()-th name. This might mean someone didn't formulate
          // the name properly when dealing with a variant.
       } else {

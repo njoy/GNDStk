@@ -195,7 +195,7 @@ public:
          content.reactions
       }
    {
-      construct();
+      Component::construct();
    }
 
    // copy
@@ -212,7 +212,7 @@ public:
       },
       content{other.content}
    {
-      construct(other);
+      Component::construct(other);
    }
 
    // move
@@ -229,7 +229,7 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct(other);
+      Component::construct(other);
    }
 
    // from node
@@ -245,7 +245,7 @@ public:
          content.reactions
       }
    {
-      construct(node);
+      Component::construct(node);
    }
 
    // from fields
@@ -278,7 +278,7 @@ public:
          reactions
       }
    {
-      construct();
+      Component::construct();
    }
 
    // ------------------------

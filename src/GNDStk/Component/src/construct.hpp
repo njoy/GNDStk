@@ -26,8 +26,23 @@
 // Note that all of the below can access member data in the derived class simply
 // by casting first: static_cast<DERIVED &>(*this). Arguments are received where
 // the derived-class constructor receives the argument, but the argument isn't
-// something that necessarily goes into the derived-class member data. A user's
-// custom construct() may wish to do something with the argument.
+// something that goes into the derived-class member data (or at least that the
+// auto-generation process knows does so; it's always possible that a user's
+// customization might do something additional in this regard). A user's custom
+// construct() may wish to do something with the argument, so we handle it here.
+//
+// Examples. The auto-generation code arranges for the following, with regard
+// to the constructors in a class derived from Component:
+//
+//    For the default constructor:
+//       Component::construct() is called.
+//
+//    For the copy and move constructors:
+//       Component::construct(other) is called, where other is the incoming
+//       object that's being copied or moved.
+//
+//    For the constructor from a Node:
+//       Component::construct(the Node) is called.
 
 
 // ------------------------

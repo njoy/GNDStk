@@ -154,7 +154,7 @@ public:
          content.axes
       }
    {
-      construct();
+      Component::construct();
    }
 
    // copy
@@ -168,7 +168,7 @@ public:
       },
       content{other.content}
    {
-      construct(other);
+      Component::construct(other);
    }
 
    // move
@@ -182,7 +182,7 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct(other);
+      Component::construct(other);
    }
 
    // from node
@@ -195,7 +195,7 @@ public:
          content.axes
       }
    {
-      construct(node);
+      Component::construct(node);
    }
 
    // from fields
@@ -219,7 +219,7 @@ public:
          axes
       }
    {
-      construct();
+      Component::construct();
    }
 
    // ------------------------

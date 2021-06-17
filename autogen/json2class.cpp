@@ -1111,7 +1111,7 @@ void write_ctor_body(
    const std::string &param
 ) {
    os << "   {\n";
-   os << "      construct(" << param << ");\n";
+   os << "      Component::construct(" << param << ");\n";
    os << "   }\n";
 }
 

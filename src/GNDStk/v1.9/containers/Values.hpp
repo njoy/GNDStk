@@ -139,7 +139,7 @@ public:
          content.valueType
       }
    {
-      construct();
+      Component::construct();
    }
 
    // copy
@@ -152,7 +152,7 @@ public:
       },
       content{other.content}
    {
-      construct(other);
+      Component::construct(other);
    }
 
    // move
@@ -165,7 +165,7 @@ public:
       },
       content{std::move(other.content)}
    {
-      construct(other);
+      Component::construct(other);
    }
 
    // from node
@@ -177,7 +177,7 @@ public:
          content.valueType
       }
    {
-      construct(node);
+      Component::construct(node);
    }
 
    // from fields
@@ -198,7 +198,7 @@ public:
          valueType
       }
    {
-      construct();
+      Component::construct();
    }
 
    // from fields, with T replacing Defaulted<T>
@@ -223,7 +223,7 @@ public:
             : Defaulted<UTF8Text>{"Float64",valueType}
       }
    {
-      construct();
+      Component::construct();
    }
 
    // ------------------------
