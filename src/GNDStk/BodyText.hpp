@@ -100,6 +100,6 @@ public:
 
    // Assignment
    // To vectors and to string; the latter == calling our raw string setter
-   #include "GNDStk/BodyText/src/assign.hpp"
+   /////   #include "GNDStk/BodyText/src/assign.hpp"
 
 }; // class BodyText
