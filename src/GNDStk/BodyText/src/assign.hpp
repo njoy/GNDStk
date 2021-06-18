@@ -5,7 +5,7 @@
 
    template<class VECTOR>
    typename std::enable_if<
-      detail::is_oneof<VECTOR,decltype(variant)>::value &&
+      detail::is_oneof<VECTOR,variant_t>::value &&
      !detail::isVariant<VECTOR>::value,
       BodyText<true> &
    >::type operator=(const VECTOR &vector)

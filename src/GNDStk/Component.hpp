@@ -2,7 +2,11 @@
 template<class DERIVED, bool hasBodyText = false>
 class Component;
 
-// general helper constructs
+// For printing.
+// Should Component's generic write() function print comments?
+inline bool comments = true;
+
+// General helper constructs
 #include "GNDStk/Component/src/detail.hpp"
 
 // Map from some term/subject to its documentation,

@@ -58,7 +58,7 @@ void construct()
    // If hasBodyText == true (else no-op), AND d.content has certain values -
    // in particular, any of length, start, or valueType - with which BodyText
    // should sync.
-   BodyText<hasBodyText>::sync(d.content);
+   BodyText<hasBodyText>::pullFromDerived(d.content);
 
    // Call derived class' construct() function if it has one.
    if constexpr (detail::hasConstruct<DERIVED>::has)
@@ -76,7 +76,7 @@ void construct(const DERIVED &other)
 {
    // As above
    DERIVED &d = static_cast<DERIVED &>(*this);
-   BodyText<hasBodyText>::sync(d.content);
+   BodyText<hasBodyText>::pullFromDerived(d.content);
 
    // Call derived class' construct(const DERIVED &) function if it has one,
    // else call its construct() function if it has one.
@@ -96,11 +96,13 @@ void construct(const DERIVED &other)
 // with the Node.
 void construct(const Node &node)
 {
-   // As above, but also pulling data from the Node into the derived object's
-   // content before syncing (if applicable) BodyText.
-   DERIVED &d = static_cast<DERIVED &>(*this);
+   // Pull data from the Node into the derived object's content before syncing,
+   // if applicable, BodyText.
    fromNode(node);
-   BodyText<hasBodyText>::sync(d.content);
+
+   // As above
+   DERIVED &d = static_cast<DERIVED &>(*this);
+   BodyText<hasBodyText>::pullFromDerived(d.content);
 
    // Call derived class' construct(const Node &) function if it has one,
    // else call its construct() function if it has one.
@@ -123,7 +125,7 @@ void construct(const std::vector<T> &values)
 {
    // As above
    DERIVED &d = static_cast<DERIVED &>(*this);
-   BodyText<hasBodyText>::sync(d.content);
+   BodyText<hasBodyText>::pullFromDerived(d.content);
 
    /// todo Do something with values
 
