@@ -36,30 +36,6 @@ namespace detail {
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// remove_cvref
-// remove_cvrefs
-// ------------------------
-
-// C++20 will have this
-template<class T>
-class remove_cvref {
-public:
-   using type = std::remove_cv_t<std::remove_reference_t<T>>;
-};
-
-// With -s, for tuple
-template<class T>
-class remove_cvrefs {
-};
-
-template<class... Ts>
-class remove_cvrefs<std::tuple<Ts...>> {
-public:
-   using type = std::tuple<typename remove_cvref<Ts>::type ...>;
-};
-
-
-// ------------------------
 // getName
 // ------------------------
 
