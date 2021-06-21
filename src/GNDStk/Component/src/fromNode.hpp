@@ -19,19 +19,17 @@
 
 void fromNode(const Node &node)
 {
-   // does the node have the name we expect?
-   if (node.name != DERIVED::GNDSName()) {
-      log::error(
-        "Name \"{}\" in Node sent to Component::fromNode() is not the "
-        "expected GNDS name \"{}\"",
-         node.name,
-         DERIVED::GNDSName()
-      );
-      log::member("Component.fromNode(Node(\"{}\"))", node.name);
-      throw std::exception{};
-   }
-
    try {
+      // does the node have the name we expect?
+      if (node.name != DERIVED::GNDSName()) {
+         log::error(
+           "Name \"{}\" in Node sent to Component::fromNode() is not the "
+           "expected GNDS name \"{}\"",
+            node.name, DERIVED::GNDSName()
+         );
+         throw std::exception{};
+      }
+
       if constexpr (
          std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
       ) {
@@ -57,10 +55,11 @@ void fromNode(const Node &node)
             },
             tup
          );
-
-         // body text, a.k.a. XML "pcdata" (plain character data), if any
-         this->BodyText<hasBodyText>::fromNode(node);
       }
+
+      // body text, a.k.a. XML "pcdata" (plain character data), if any
+      this->BodyText<hasBodyText>::fromNode(node);
+
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);
       throw;

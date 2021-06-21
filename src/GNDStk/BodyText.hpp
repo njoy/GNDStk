@@ -68,6 +68,9 @@ public:
    // Setters for length, start, and valueType:
    #include "GNDStk/BodyText/src/setters.hpp"
 
+   // Getters and setters for the raw string:
+   #include "GNDStk/BodyText/src/string.hpp"
+
    // Simple member functions
    // clear(), size(), and a getter and a setter for the raw string
    #include "GNDStk/BodyText/src/functions.hpp"
@@ -77,10 +80,11 @@ public:
 
    // Read/write data from/to a Node
    #include "GNDStk/BodyText/src/fromNode.hpp"
-   #include "GNDStk/BodyText/src/toNode.hpp"///
+   #include "GNDStk/BodyText/src/toNode.hpp"
 
    // Write to ostream
-   #include "GNDStk/BodyText/src/write.hpp"///
+   // Not to be confused with writing to a Node
+   #include "GNDStk/BodyText/src/write.hpp"
 
    // Get length, start, and valueType from derived-class content,
    // or possibly put them there (if we determined them from a vector)
@@ -88,6 +92,6 @@ public:
 
    // Assignment
    // From vectors or a string; the latter == calling our raw string setter
-   /////   #include "GNDStk/BodyText/src/assign.hpp"
+   #include "GNDStk/BodyText/src/assign.hpp"
 
 }; // class BodyText

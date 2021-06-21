@@ -7,10 +7,14 @@
 operator Node() const
 {
    try {
-      // starter node
+      // Starter node
       Node node(DERIVED::GNDSName());
 
-      // fields
+      // Data. This call might affect length, etc., and so is made prior to
+      // the writing of fields below.
+      this->BodyText<hasBodyText>::toNode(node);
+
+      // Fields
       if constexpr (
          std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
       ) {
@@ -44,10 +48,7 @@ operator Node() const
          );
       }
 
-      // body text, a.k.a. XML "pcdata" (plain character data), if any
-      this->BodyText<hasBodyText>::toNode(node);
-
-      // done
+      // Done
       return node;
 
    } catch (...) {

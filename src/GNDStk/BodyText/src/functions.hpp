@@ -11,7 +11,6 @@ BodyText &clear()
    return *this;
 }
 
-
 // size()
 // Returns the size of the active vector alternative in the variant.
 // Depending on what actions someone has performed on the current BodyText
@@ -20,26 +19,4 @@ BodyText &clear()
 std::size_t size() const
 {
    return std::visit([](auto &&alt) { return alt.size(); }, variant);
-}
-
-
-// Getter: string()
-// Not to be confused with strings() (plural), which returns vector<string>!
-// Returns const &; the raw string can be *changed* only through the setter.
-const std::string &string() const
-{
-   return rawstring;
-}
-
-
-// Setter: string(new string)
-// Still returns const &, so that a caller can't surreptitiously set the
-// raw string without calling this function and getting the clear() and
-// remake = true side effects.
-const std::string &string(const std::string &str)
-{
-   clear();
-   remake = true;
-   rawstring = str;
-   return rawstring;
 }

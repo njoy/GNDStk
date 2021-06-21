@@ -127,7 +127,8 @@ void construct(const std::vector<T> &values)
    DERIVED &d = static_cast<DERIVED &>(*this);
    BodyText<hasBodyText>::pullFromDerived(d.content);
 
-   /// todo Do something with values
+   // Values
+   BodyText<hasBodyText>::operator=(values);
 
    // Call derived class' construct(const vector<T> &) function if it has one,
    // else call its construct() function if it has one.
