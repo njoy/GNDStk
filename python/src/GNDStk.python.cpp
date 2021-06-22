@@ -12,6 +12,7 @@ namespace core {
 
   void wrapNode( python::module& );
 
+  void wrapGridStyle( python::module& );
   void wrapInterpolation( python::module& );
 }
 
@@ -40,6 +41,7 @@ PYBIND11_MODULE( GNDStk, module ) {
   core::wrapNode( submodule );
 
   // enumerations (in the GNDStk module)
+  core::wrapGridStyle( module );
   core::wrapInterpolation( module );
 
   // v1.9 components (in the v1_9 module, created in this function)

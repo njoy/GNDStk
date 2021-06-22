@@ -23,6 +23,10 @@ void wrapAxes(python::module &module)
 
    // type aliases
    using Component = njoy::GNDStk::v1_9::containers::Axes;
+   using VARIANT = std::variant<
+      njoy::GNDStk::v1_9::containers::Axis,
+      njoy::GNDStk::v1_9::containers::Grid
+   >;
 
    // create the component
    python::class_<Component> component(
@@ -36,12 +40,10 @@ void wrapAxes(python::module &module)
       .def(
          python::init<
             const std::optional<UTF8Text> &,
-            const std::optional<std::vector<containers::Axis>> &,
-            const std::optional<std::vector<containers::Grid>> &
+            const std::vector<VARIANT> &
          >(),
          python::arg("href") = std::nullopt,
-         python::arg("axis") = std::nullopt,
-         python::arg("grid") = std::nullopt,
+         python::arg("choice"),
          Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
@@ -58,6 +60,11 @@ void wrapAxes(python::module &module)
          "grid",
          &Component::grid,
          Component::documentation("grid").c_str()
+      )
+      .def_property_readonly(
+         "choice",
+         &Component::choice,
+         Component::documentation("choice").c_str()
       )
    ;
 

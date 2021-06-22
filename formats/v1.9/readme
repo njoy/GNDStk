@@ -24,4 +24,23 @@ We're putting these into version control in order to track our changes, which
 we hope will be relatively small. (Except for some prettyprinting we'll do,
 through an editor, as the first change.) Substantive changes are geared towards
 the goal of helping our automatic code-generation tool to work more smoothly.
-Note that summary_gpdc.json is being renamed to summary_containers.json.
+
+The following changes have been made:
+  - The 'gpdc' namespace is renamed to 'containers', as a result summary_gpdc.json
+    has been renamed to summary_containers.json.
+  - The type of the 'style' attribute on a grid element is renamed to gridStyle since
+    it is an enumerator
+  - The 'href' attribute in the link element is required
+  - The 'occurrence' attribute of the axes element children (axis and grid) has been
+    set to choice+
+
+The following should be brought to the attention of EG-GNDS:
+  - Proper description of the enumerated values for the grid style (the GNDS 1.9
+    specs do not mention link while it is used in GNDS files)
+
+Some questions on the specs:
+  - Is the href attribute on axes ever used?
+
+Things that will need looking into, to be incorporated when reading a GNDS tree
+  - Precision when writing out the data
+  - Resolve href elements, maybe at demand of the user when reading the file

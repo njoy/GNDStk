@@ -9,8 +9,8 @@ from GNDStk.v1_9.containers import Axis
 class Test_GNDStk_v1_9_containers_Axis( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk = ( '<axis index=\"1\" label=\"energy_in\" unit=\"eV\"/>' )
-    wrong = ( '<wrongName index=\"1\" label=\"energy_in\" unit=\"eV\"/>' )
+    chunk = ( '<axis index="1" label="energy_in" unit="eV" />\n' )
+    wrong = ( '<wrongName index="1" label="energy_in" unit="eV" />' )
 
     def test_component( self ) :
 
@@ -30,6 +30,7 @@ class Test_GNDStk_v1_9_containers_Axis( unittest.TestCase ) :
             self.assertEqual( 'eV', chunk.unit )
 
             # verify string
+            self.assertEqual( self.chunk, chunk.to_xml_string() )
 
         # the data is given explicitly
         chunk = Axis( index = 1, label = 'energy_in', unit = 'eV' )

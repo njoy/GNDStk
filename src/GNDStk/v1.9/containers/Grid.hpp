@@ -56,7 +56,7 @@ class Grid : public Component<Grid> {
             / Meta<>("interpolation") |
          std::optional<XMLName>{}
             / Meta<>("label") |
-         std::optional<UTF8Text>{}
+         std::optional<enums::GridStyle>{}
             / Meta<>("style") |
          std::optional<XMLName>{}
             / Meta<>("unit") |
@@ -88,7 +88,7 @@ public:
       std::optional<Integer32> index;
       Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
       std::optional<XMLName> label;
-      std::optional<UTF8Text> style;
+      std::optional<enums::GridStyle> style;
       std::optional<XMLName> unit;
 
       // children
@@ -169,7 +169,7 @@ public:
     { label() = obj; return *this; }
 
    // style(value)
-   auto &style(const std::optional<UTF8Text> &obj)
+   auto &style(const std::optional<enums::GridStyle> &obj)
     { style() = obj; return *this; }
 
    // unit(value)
@@ -259,7 +259,7 @@ public:
       const std::optional<Integer32> &index,
       const Defaulted<enums::Interpolation> &interpolation,
       const std::optional<XMLName> &label,
-      const std::optional<UTF8Text> &style,
+      const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
       const VARIANT &choice
    ) :
@@ -289,7 +289,7 @@ public:
       const std::optional<Integer32> &index,
       const enums::Interpolation &interpolation,
       const std::optional<XMLName> &label,
-      const std::optional<UTF8Text> &style,
+      const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
       const VARIANT &choice
    ) :
