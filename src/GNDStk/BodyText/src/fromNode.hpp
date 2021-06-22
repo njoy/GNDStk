@@ -1,13 +1,13 @@
 
 // -----------------------------------------------------------------------------
-// fromNode(Node)
+// BodyText::fromNode(Node)
 // -----------------------------------------------------------------------------
 
 void fromNode(const Node &node)
 {
    // length, start, and valueType might be present in the Node, but we won't
    // fetch any of them here. Elsewhere, the current BodyText object should have
-   // its length, start, and valueType synced with those respective values in
+   // its length, start, and valueType pulled from those respective values in
    // an object of a class derived from Component, which in turn derives from
    // BodyText. That object's content will have been pulled from the same Node.
    // Here, we just get the Node's values: "plain character data" in XML terms.
@@ -31,7 +31,8 @@ void fromNode(const Node &node)
       log::member("BodyText::fromNode(Node, with name \"{}\")", node.name);
    }
 
-   // We just set the raw string, so the following arranges for a vector in the
-   // variant to be remade from the raw string, if and when a caller needs it.
-   remake = true;
+   // We just set the raw string. The following reflects this, so that a vector
+   // in the variant will be rebuilt, from the raw string, if and when a caller
+   // needs it.
+   active = Active::string;
 }

@@ -39,7 +39,7 @@ class ReactionSuite : public Component<ReactionSuite> {
    static auto className() { return "ReactionSuite"; }
    static auto GNDSName() { return "reactionSuite"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -64,13 +64,7 @@ class ReactionSuite : public Component<ReactionSuite> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<ReactionSuite>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -185,7 +179,7 @@ public:
    // default
    ReactionSuite() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -195,7 +189,7 @@ public:
          content.reactions
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // copy
@@ -212,7 +206,7 @@ public:
       },
       content{other.content}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -229,13 +223,13 @@ public:
       },
       content{std::move(other.content)}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // from node
    ReactionSuite(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -245,7 +239,7 @@ public:
          content.reactions
       }
    {
-      Component::construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -259,7 +253,7 @@ public:
       const std::optional<transport::Reactions> &reactions
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -278,7 +272,7 @@ public:
          reactions
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // ------------------------

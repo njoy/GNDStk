@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 // length, start, valueType
 // We place these into a struct so that our setters (defined elsewhere)
-// can use the above names themselves.
+// can use those names themselves.
 // -----------------------------------------------------------------------------
 
 /*
@@ -25,10 +25,9 @@ Quoted [slightly edited] from the official JSON specification files for GNDS:
 
 In some places, e.g. the JSON-format GNDS spec files, these are listed in
 a different order: valueType, start, length. Ordering doesn't really matter.
-We'll just note, here, that throughout our code, we'll consistently use the
-length, start, valueType ordering, to be consistent with the (alphabetical)
-ordering that our GNDS Standard Interface code autogeneration tool produces.
-Being consistent, throughout our code, will, we hope, make it more clear.
+We'll just note, here, that throughout our code, we'll use the length, start,
+valueType ordering, to be consistent with the (alphabetical) ordering that
+our GNDS Standard Interface code autogeneration tool produces.
 */
 
 struct {

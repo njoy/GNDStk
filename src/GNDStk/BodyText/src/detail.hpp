@@ -85,12 +85,104 @@ inline void element2element(const FROM &from, TO &to)
 }
 
 // string ==> string
+// todo Some SFINAE above could allow us to remove this overload
 inline void element2element(const std::string &from, std::string &to)
 {
    // The call context is such than "from" and "to" should never actually
-   // be of the same type. This overload is needed only for disambiguation.
+   // be of the same type. This overload is needed only for disambiguation,
+   // as there's a std::visit in which it appears that it could be called
+   // (but the std::visit wouldn't have been reached in this case.)
    assert(false);
    to = from;
+}
+
+
+// -----------------------------------------------------------------------------
+// getBounds
+// -----------------------------------------------------------------------------
+
+// T
+template<class T>
+inline auto getBounds(const std::vector<T> &vec)
+{
+   std::pair<std::size_t,std::size_t> bnd(0,vec.size());
+   while (bnd.first < bnd.second && vec[bnd.first ] == T(0)) ++bnd.first;
+   while (bnd.first < bnd.second && vec[bnd.second] == T(0)) --bnd.second;
+   return bnd;
+}
+
+// string
+inline auto getBounds(const std::vector<std::string> &vec)
+{
+   std::pair<std::size_t,std::size_t> bnd(0,vec.size());
+   while (bnd.first < bnd.second && vec[bnd.first ] == "") ++bnd.first;
+   while (bnd.first < bnd.second && vec[bnd.second] == "") --bnd.second;
+   return bnd;
+}
+
+
+// -----------------------------------------------------------------------------
+// makeText
+// Helper for BodyText::toNode()
+// -----------------------------------------------------------------------------
+
+inline std::string *makeText(Node &node)
+{
+   // Recall that GNDStk's tree structure stores nodes with XML "plain
+   // character data" - what we're informally calling "values nodes" -
+   // in the following manner:
+   //    Parent
+   //       "pcdata" child
+   //          "text" metadatum
+   // This particular layout is translated from/to the actual form needed
+   // in XML, or in JSON, in GNDStk's respective I/O functionality. Here,
+   // therefore, we only create what GNDStk's tree structure needs.
+
+   // ------------------------
+   // pcdata
+   // ------------------------
+
+   // In the given node, get or make a "pcdata" child
+   bool found;
+   Node *pc = &node.one("pcdata",found);
+
+   if (found) {
+      // a pcdata child is already there :-/
+      log::warning(
+        "Child node \"pcdata\" already exists in node \"{}\".\n"
+        "We'll replace any text content, but it's unexpected "
+        "that a \"pcdata\"\n"
+        "child already exists in this context.",
+         node.name
+      );
+      log::member("BodyText::toNode(Node)");
+   } else {
+      // create a pcdata child
+      pc = &node.add("pcdata");
+   }
+
+   // ------------------------
+   // text
+   // ------------------------
+
+   // In the "pcdata" child, get or make a "text" metadatum
+   std::string *text = &pc->meta("text",found);
+   if (found) {
+      // a text metadatum is already there :-/
+      log::warning(
+        "Metadatum \"text\" already exists in node \"{}\"'s \"pcdata\" child.\n"
+        "We'll replace its value, but it's unexpected "
+        "that a \"text\"\n"
+        "metadatum already exists in this context.",
+         node.name
+      );
+      log::member("BodyText::toNode(Node)");
+   } else {
+      // create a text metadatum
+      text = &pc->add("text","").second;
+   }
+
+   return text;
 }
 
 } // namespace detail

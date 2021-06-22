@@ -40,7 +40,7 @@ class Regions1d : public Component<Regions1d> {
    static auto className() { return "Regions1d"; }
    static auto GNDSName() { return "regions1d"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -59,13 +59,7 @@ class Regions1d : public Component<Regions1d> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Regions1d>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -147,14 +141,14 @@ public:
    // default
    Regions1d() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
          content.axes
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // copy
@@ -168,7 +162,7 @@ public:
       },
       content{other.content}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -182,20 +176,20 @@ public:
       },
       content{std::move(other.content)}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // from node
    Regions1d(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
          content.axes
       }
    {
-      Component::construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -206,7 +200,7 @@ public:
       const std::optional<containers::Axes> &axes
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -219,7 +213,7 @@ public:
          axes
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // ------------------------

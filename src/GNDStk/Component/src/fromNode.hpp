@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Component::fromNode()
+// Component::fromNode(Node)
 // -----------------------------------------------------------------------------
 
 // Retrieve a Node's data, and, via the links, get it into the fields in the

@@ -749,7 +749,7 @@ void write_keys(
    os << "   static auto GNDSName() { return \"" << gnds << "\"; }\n\n";
 
    // keys begin
-   os << "   // Core Interface construct to extract metadata and child nodes\n";
+   os << "   // Core Interface object to extract metadata and child nodes\n";
    os << "   static auto keys()\n";
    os << "   {\n";
 
@@ -965,10 +965,10 @@ void write_setters(
          os << "   auto &" << m.varName;
          os << "(const " << m.fullVarType << " &obj)\n";
          if (special && m.isDefaulted)
-            os << "    { BaseBodyText::" << m.varName << "(content."
+            os << "    { BodyText::" << m.varName << "(content."
                << m.varName << " = obj); return *this; }\n";
          if (special && !m.isDefaulted)
-            os << "    { BaseBodyText::" << m.varName << "("
+            os << "    { BodyText::" << m.varName << "("
                << m.varName << "() = obj); return *this; }\n";
          if (!special && m.isDefaulted)
             os << "    { content." << m.varName
@@ -986,7 +986,7 @@ void write_setters(
          os << "   auto &" << m.varName;
          os << "(const " << m.varType << " &obj)\n";
          special
-            ? os << "    { BaseBodyText::" << m.varName << "(content."
+            ? os << "    { BodyText::" << m.varName << "(content."
                  << m.varName << " = obj); return *this; }\n"
             : os << "    { content." << m.varName
                  << " = obj; return *this; }\n";
@@ -1092,7 +1092,7 @@ void write_component_base(
    os << "      Component{\n";
    have_other
       ? os << "         other"
-      : os << "         BaseBodyText{}";
+      : os << "         BodyText{}";
 
    for (const auto &m : vecInfoMetadata) { // metadata
       os << ",\n         content." + m.varName;
@@ -1111,7 +1111,7 @@ void write_ctor_body(
    const std::string &param
 ) {
    os << "   {\n";
-   os << "      Component::construct(" << param << ");\n";
+   os << "      Component::finish(" << param << ");\n";
    os << "   }\n";
 }
 
@@ -1516,15 +1516,7 @@ void make_class(
    );
 
    // output: base
-   oss << "\n   " << small;
-   oss << "\n   // Re: base classes";
-   oss << "\n   " << small << "\n";
-
-   oss << "\n   using BaseComponent = Component<"
-       << clname << (hasBodyText ? ",true" : "") << ">;";
-   oss << "\n   using BaseBodyText = BodyText<"
-       <<           (hasBodyText ?  "true" : "false") << ">;";
-   oss << "\n   using BaseComponent::construct;\n";
+   oss << "\n   using Component::construct;\n";
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;

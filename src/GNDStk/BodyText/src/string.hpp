@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // string()
-// Not to be confused with strings() (plural), which returns vector<string>!
+// Not to be confused with strings() (plural), which returns vector<string>.
 // Returns const &; the raw string can be *changed* only through the setter.
 const std::string &string() const
 {
@@ -14,8 +14,8 @@ const std::string &string() const
 // string(new string)
 BodyText &string(const std::string &str)
 {
-   clear();
-   remake = true;
+   clear(); // <== the vector
+   active = Active::string;
    rawstring = str;
    return *this;
 }

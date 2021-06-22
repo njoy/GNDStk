@@ -40,7 +40,7 @@ class Axes : public Component<Axes> {
    static auto className() { return "Axes"; }
    static auto GNDSName() { return "axes"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -57,13 +57,7 @@ class Axes : public Component<Axes> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Axes>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -190,13 +184,13 @@ public:
    // default
    Axes() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.href,
          content.axis,
          content.grid
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // copy
@@ -209,7 +203,7 @@ public:
       },
       content{other.content}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -222,19 +216,19 @@ public:
       },
       content{std::move(other.content)}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // from node
    Axes(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.href,
          content.axis,
          content.grid
       }
    {
-      Component::construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -244,7 +238,7 @@ public:
       const std::optional<std::vector<containers::Grid>> &grid
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.href,
          content.axis,
          content.grid
@@ -255,7 +249,7 @@ public:
          grid
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // ------------------------

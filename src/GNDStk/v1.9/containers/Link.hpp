@@ -36,7 +36,7 @@ class Link : public Component<Link> {
    static auto className() { return "Link"; }
    static auto GNDSName() { return "link"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -48,13 +48,7 @@ class Link : public Component<Link> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Link>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -101,11 +95,11 @@ public:
    // default
    Link() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.href
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // copy
@@ -116,7 +110,7 @@ public:
       },
       content{other.content}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -127,17 +121,17 @@ public:
       },
       content{std::move(other.content)}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // from node
    Link(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.href
       }
    {
-      Component::construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -145,14 +139,14 @@ public:
       const std::optional<UTF8Text> &href
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.href
       },
       content{
          href
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // ------------------------

@@ -40,7 +40,7 @@ class XYs1d : public Component<XYs1d> {
    static auto className() { return "XYs1d"; }
    static auto GNDSName() { return "XYs1d"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -63,13 +63,7 @@ class XYs1d : public Component<XYs1d> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<XYs1d>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -176,7 +170,7 @@ public:
    // default
    XYs1d() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -185,7 +179,7 @@ public:
          content.values
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // copy
@@ -201,7 +195,7 @@ public:
       },
       content{other.content}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -217,13 +211,13 @@ public:
       },
       content{std::move(other.content)}
    {
-      Component::construct(other);
+      Component::finish(other);
    }
 
    // from node
    XYs1d(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -232,7 +226,7 @@ public:
          content.values
       }
    {
-      Component::construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -245,7 +239,7 @@ public:
       const containers::Values &values
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -262,7 +256,7 @@ public:
          values
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // from fields, with T replacing Defaulted<T>
@@ -275,7 +269,7 @@ public:
       const containers::Values &values
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -294,7 +288,7 @@ public:
          values
       }
    {
-      Component::construct();
+      Component::finish();
    }
 
    // ------------------------

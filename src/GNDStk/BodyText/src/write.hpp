@@ -7,27 +7,22 @@
 std::ostream &write(std::ostream &os, const int level) const
 {
    // ------------------------
-   // remake == true
+   // If string is active
    // ------------------------
 
-   if (remake) {
-      // This (remake == true) means we're primed to remake a vector from the
-      // raw string, if and when a caller get()s a vector or vector element.
-      // BUT: here, in write(), we will NOT trigger a vector remake! Instead,
-      // we consider the raw string to be "active" at this point (essentially,
-      // that's why remake == true), and we'll print it instead. Also, here,
-      // we ignore the columns (a.k.a. across) variable. In short, we write
-      // the raw string exactly as-is.
-      return os << rawstring << std::endl;
+   if (active == Active::string) {
+      // write string exactly as-is; don't use our column formatting
+      GNDStk::color && GNDStk::colors::value != ""
+         ? os << colors::value << rawstring << colors::reset
+         : os << rawstring;
+      return os << std::endl;
    }
 
    // ------------------------
-   // remake == false
+   // If vector is active
    // ------------------------
 
-   // Meaning: a vector in the variant, not the raw string, is "active" now
-
-   // If empty, don't even write the std::endl
+   // If empty, don't even write a std::endl
    if (size() == 0)
       return os;
 
@@ -39,6 +34,7 @@ std::ostream &write(std::ostream &os, const int level) const
       {
          std::size_t count = 0;
 
+         // use our column formatting
          for (auto &element : alt) {
             count == 0
                ? os << indent

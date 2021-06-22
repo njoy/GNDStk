@@ -1,6 +1,9 @@
 
 // -----------------------------------------------------------------------------
 // Variant type
+// todo: Possibly reduce to int, double, and string, if we're certain users
+// will never care about the others. On the other hand: most of the related
+// code, e.g. for visiting the variant, won't simplify by doing that.
 // -----------------------------------------------------------------------------
 
 using variant_t = std::variant<
@@ -9,7 +12,7 @@ using variant_t = std::variant<
 
    // integrals
    // Remember that signed char != char in C++
-   // As far as I know, we don't need to support plain chars
+   // As far as I know, we'll never care about supporting plain chars here
    std::vector<signed char>,
    std::vector<short>,
    std::vector<int>,
@@ -29,17 +32,41 @@ using variant_t = std::variant<
    std::vector<long double>
 >;
 
+// todo Should figure out the following automatically, from the above
+using variant_scalar_t = std::variant<
+   // strings
+   std::string,
+
+   // integrals
+   signed char,
+   short,
+   int,
+   long,
+   long long,
+
+   // unsigned integrals
+   unsigned char,
+   unsigned short,
+   unsigned int,
+   unsigned long,
+   unsigned long long,
+
+   // floating-points
+   float,
+   double,
+   long double
+>;
+
 
 // -----------------------------------------------------------------------------
 // Primary data regarding GNDS "body text"
 // -----------------------------------------------------------------------------
 
 // Raw string, directly from "plain character data" in a GNDS file.
-// Also, we'll allow a caller to set this directly with a setter.
+// We'll allow callers to set this directly by using a setter.
 std::string rawstring;
 
-// vector of <several possibilities>.
+// Vector of <several possibilities>.
 // Mutable, so that we can defer processing of the raw string into a vector
-// until a caller *asks* for the vector, and also so that we can reinterpret
-// data as being of a different type, if we really wish to do so.
+// until, and unless, a caller *asks* for the vector.
 mutable variant_t variant;

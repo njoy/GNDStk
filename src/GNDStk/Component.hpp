@@ -1,4 +1,5 @@
 
+// Forward declaration, needed by some things in detail.hpp
 template<class DERIVED, bool hasBodyText = false>
 class Component;
 
@@ -10,7 +11,8 @@ inline bool comments = true;
 #include "GNDStk/Component/src/detail.hpp"
 
 // Map from some term/subject to its documentation,
-// for use by classes that derive from Component
+// for use by classes that derive from Component,
+// and in particular for use in the Python bindings.
 using helpMap = std::map<std::string,std::string>;
 
 
@@ -48,9 +50,9 @@ class Component : public BodyText<hasBodyText> {
    // Constructor; intentionally *private*
    #include "GNDStk/Component/src/ctor.hpp"
 
-   // construct
-   // See comments in construct.hpp
-   #include "GNDStk/Component/src/construct.hpp"
+   // finish
+   // See comments in finish.hpp
+   #include "GNDStk/Component/src/finish.hpp"
 
    // You can (but don't need to) override in DERIVED
    static std::string namespaceName() { return ""; }
@@ -81,7 +83,7 @@ public:
 
    // Component << std::string
    // Meaning: read the string's content (currently XML or JSON) into an object
-   // of the Component's DERIVED class. Uses the Node << std::string capability.
+   // of the Component's DERIVED class. Uses Node's << std::string capability.
    void operator<<(const std::string &str)
    {
       try {

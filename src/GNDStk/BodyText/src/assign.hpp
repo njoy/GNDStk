@@ -60,6 +60,6 @@ typename std::enable_if<
       valueType("");
 
    variant = vec;
-   remake = false;
+   active = Active::vector;
    return *this;
 }
