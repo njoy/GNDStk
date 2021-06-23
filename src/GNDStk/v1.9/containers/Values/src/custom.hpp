@@ -31,7 +31,7 @@ private:
       log::error( "Inconsistent size for \"values\" array" );
       log::info( "start: {}", this->start() );
       log::info( "length: {}", this->length().value() );
-      log::info( "number values: {}", this->size() );
+      log::info( "number of values: {}", this->size() );
       throw std::exception();
     }
   }
@@ -43,7 +43,14 @@ public:
   Values( const std::optional< Integer32 >& length,
           const Integer32& start,
           const UTF8Text& valueType,
-          const std::vector< T >& values ) : Values() {
+          const std::vector< T >& values ) :
+      Component{
+         BodyText{},
+         content.length,
+         content.start,
+         content.valueType
+      }
+  {
 
     this->length( length );
     this->start( start );
@@ -61,8 +68,7 @@ public:
     this->string( out.str() );
     this->get(); // need to call get() to properly initialise the variant<vector>
 
-    bodyTextUpdate(content);
-    construct();
+    Component::finish(); // ensure that construct() gets called
   }
 
   template < typename T,

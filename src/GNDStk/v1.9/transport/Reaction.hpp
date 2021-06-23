@@ -39,7 +39,7 @@ class Reaction : public Component<Reaction> {
    static auto className() { return "Reaction"; }
    static auto GNDSName() { return "reaction"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -58,13 +58,7 @@ class Reaction : public Component<Reaction> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Reaction>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -146,15 +140,14 @@ public:
    // default
    Reaction() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
          content.crossSection
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // copy
@@ -168,8 +161,7 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -183,23 +175,20 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // from node
    Reaction(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
          content.crossSection
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
-      construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -210,7 +199,7 @@ public:
       const transport::CrossSection &crossSection
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -223,8 +212,7 @@ public:
          crossSection
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // ------------------------

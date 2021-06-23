@@ -36,30 +36,6 @@ namespace detail {
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// remove_cvref
-// remove_cvrefs
-// ------------------------
-
-// C++20 will have this
-template<class T>
-class remove_cvref {
-public:
-   using type = std::remove_cv_t<std::remove_reference_t<T>>;
-};
-
-// With -s, for tuple
-template<class T>
-class remove_cvrefs {
-};
-
-template<class... Ts>
-class remove_cvrefs<std::tuple<Ts...>> {
-public:
-   using type = std::tuple<typename remove_cvref<Ts>::type ...>;
-};
-
-
-// ------------------------
 // getName
 // ------------------------
 
@@ -140,7 +116,7 @@ inline void indentString(
 // These are adapted from an answer here:
 // https://stackoverflow.com/questions/87372
 
-template<class T>
+template<class DERIVED>
 class hasWriteOneArg
 {
    template<
@@ -152,10 +128,10 @@ class hasWriteOneArg
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<T>(0)) == sizeof(char);
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
-template<class T>
+template<class DERIVED>
 class hasWriteTwoArg
 {
    template<
@@ -167,7 +143,7 @@ class hasWriteTwoArg
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<T>(0)) == sizeof(char);
+   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
 

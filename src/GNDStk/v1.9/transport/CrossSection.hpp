@@ -45,7 +45,7 @@ class CrossSection : public Component<CrossSection> {
    static auto className() { return "CrossSection"; }
    static auto GNDSName() { return "crossSection"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -57,13 +57,7 @@ class CrossSection : public Component<CrossSection> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<CrossSection>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -198,12 +192,11 @@ public:
    // default
    CrossSection() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.choice
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // copy
@@ -214,8 +207,7 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -226,20 +218,17 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // from node
    CrossSection(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.choice
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
-      construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -247,15 +236,14 @@ public:
       const std::vector<VARIANT> &choice
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.choice
       },
       content{
          choice
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // ------------------------

@@ -39,7 +39,7 @@ class Reactions : public Component<Reactions> {
    static auto className() { return "Reactions"; }
    static auto GNDSName() { return "reactions"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -51,13 +51,7 @@ class Reactions : public Component<Reactions> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Reactions>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -132,12 +126,11 @@ public:
    // default
    Reactions() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.reaction
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // copy
@@ -148,8 +141,7 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -160,20 +152,17 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // from node
    Reactions(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.reaction
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
-      construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -181,15 +170,14 @@ public:
       const std::vector<transport::Reaction> &reaction
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.reaction
       },
       content{
          reaction
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // ------------------------

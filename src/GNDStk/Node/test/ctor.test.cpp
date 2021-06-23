@@ -73,6 +73,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // default
    // ------------------------
+
    WHEN("A Node is default constructed") {
       Node n;
       CHECK(n.empty());
@@ -81,14 +82,21 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // move
    // ------------------------
+
    WHEN("A default Node is move constructed") {
-      Node n(Node{});
+      Node n(std::move(Node{}));
       CHECK(n.empty());
+   }
+
+   WHEN("A Node with substantial content is move constructed") {
+      Node n(std::move(Node{} = Tree("n-008_O_016.xml").top()));
+      CHECK(n == Tree("n-008_O_016.xml").top());
    }
 
    // ------------------------
    // copy
    // ------------------------
+
    WHEN("A tree's top-level Node is copy constructed") {
       Tree t("n-008_O_016.xml");
       Node n(t.top());
@@ -100,6 +108,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // string (the Node's name)
    // ------------------------
+
    WHEN("A Node is constructed from just a name (no metadata/children)") {
       Node n("NodeName");
       CHECK(n.name == "NodeName");
@@ -111,6 +120,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // Child<*> (from which
    // we get the Node's name
    // ------------------------
+
    WHEN("A Node is constructed from a Child") {
       Node n(basic::child::reactionSuite);
       CHECK(n.name == "reactionSuite");
@@ -121,6 +131,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // Child<void>, Node
    // ------------------------
+
    GIVEN ("A Node with some metadata and children") {
       // to be used...
       Node nv("one");
@@ -163,6 +174,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
    // Child<TYPE>, TYPE
    // ------------------------
+
    GIVEN("Some Child<type> objects") {
       const Child<yyyymmdd,Allow::one> ymd("YearMonthDay",yyyymmdd{0,0,0});
       const Child<mmddyyyy,Allow::one> mdy("MonthDayYear",mmddyyyy{0,0,0});

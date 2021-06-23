@@ -18,6 +18,8 @@ public:
          std::is_convertible<FROM,TO>::value
       ) {
          to = TO(from);
+      } else if constexpr (isVariant<FROM>::value) {
+         std::visit([&to](auto &&alt) { convert_t{}(alt,to); }, from);
       } else {
          convert(from,to);
       }

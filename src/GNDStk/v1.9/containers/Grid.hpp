@@ -45,7 +45,7 @@ class Grid : public Component<Grid> {
    static auto className() { return "Grid"; }
    static auto GNDSName() { return "grid"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -68,13 +68,7 @@ class Grid : public Component<Grid> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Grid>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -201,7 +195,7 @@ public:
    // default
    Grid() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -210,8 +204,7 @@ public:
          content.choice
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // copy
@@ -227,8 +220,7 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -244,14 +236,13 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // from node
    Grid(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -260,9 +251,7 @@ public:
          content.choice
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
-      construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -275,7 +264,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -292,8 +281,7 @@ public:
          choice
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // from fields, with T replacing Defaulted<T>
@@ -306,7 +294,7 @@ public:
       const VARIANT &choice
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.interpolation,
          content.label,
@@ -325,8 +313,7 @@ public:
          choice
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // ------------------------

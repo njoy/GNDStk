@@ -36,7 +36,7 @@ class Axis : public Component<Axis> {
    static auto className() { return "Axis"; }
    static auto GNDSName() { return "axis"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -52,13 +52,7 @@ class Axis : public Component<Axis> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Axis>;
-   using BaseBodyText = BodyText<false>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -127,14 +121,13 @@ public:
    // default
    Axis() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.label,
          content.unit
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // copy
@@ -147,8 +140,7 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -161,22 +153,19 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // from node
    Axis(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.label,
          content.unit
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
-      construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -186,7 +175,7 @@ public:
       const std::optional<XMLName> &unit
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.index,
          content.label,
          content.unit
@@ -197,8 +186,7 @@ public:
          unit
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // ------------------------
