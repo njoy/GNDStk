@@ -40,10 +40,10 @@ SCENARIO( "XYs1d" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
 
@@ -60,10 +60,10 @@ SCENARIO( "XYs1d" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -132,10 +132,10 @@ std::string chunk() {
   return
 R"***(<XYs1d>
    <axes>
-      <axis index="1" label="energy_in" unit="eV"/>
-      <axis index="0" label="crossSection" unit="b"/>
+      <axis index="0" label="crossSection" unit="b" />
+      <axis index="1" label="energy_in" unit="eV" />
    </axes>
-   <values>1e-05 1. 2.53e-2 2. 2.5e+3 3.</values>
+   <values length="6" start="0" valueType="Float64">1e-05 1 0.0253 2 2500 3</values>
 </XYs1d>
 )***";
 }

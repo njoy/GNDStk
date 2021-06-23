@@ -40,10 +40,10 @@ SCENARIO( "Axes" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
 
@@ -60,10 +60,10 @@ SCENARIO( "Axes" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -131,8 +131,9 @@ std::string chunk() {
 
   return
 R"***(<axes>
-  <axis index="1" label="energy_in" unit="eV" />
-  <axis index="0" label="radius" unit="fm" /></axes>
+   <axis index="0" label="radius" unit="fm" />
+   <axis index="1" label="energy_in" unit="eV" />
+</axes>
 )***";
 }
 

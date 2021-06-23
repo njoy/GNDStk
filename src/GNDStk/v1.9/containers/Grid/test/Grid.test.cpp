@@ -42,10 +42,10 @@ SCENARIO( "Grid" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
 
@@ -62,10 +62,10 @@ SCENARIO( "Grid" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -93,10 +93,10 @@ SCENARIO( "Grid" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
 
@@ -113,10 +113,10 @@ SCENARIO( "Grid" ) {
 
       THEN( "it can be written in XML" ) {
 
-//        std::ostringstream out;
-//        XML( Node( chunk ) ).write( out, false );
-//
-//        CHECK( out.str() == string );
+        std::ostringstream out;
+        XML( Node( chunk ) ).write( out, false );
+
+        CHECK( out.str() == string );
       } // THEN
     } // WHEN
   } // GIVEN
@@ -183,8 +183,9 @@ SCENARIO( "Grid" ) {
 std::string chunk() {
 
   return
-R"***(<grid index="2" label="row_energy_bounds" unit="eV" style="boundaries">
-  <values>1e-05 2e+07</values></grid>
+R"***(<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">
+   <values length="2" start="0" valueType="Float64">1e-05 2e+07</values>
+</grid>
 )***";
 }
 
@@ -222,8 +223,9 @@ void verifyChunk( const Grid& component ) {
 std::string chunkWithLink() {
 
   return
-R"***(<grid index="1" label="column_energy_bounds" unit="eV" style="link">
-  <link href="../../grid[@index='2']/values"/></grid>
+R"***(<grid index="1" label="column_energy_bounds" style="link" unit="eV">
+   <link href="../../grid[@index='2']/values" />
+</grid>
 )***";
 }
 
