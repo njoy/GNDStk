@@ -69,6 +69,7 @@ pybind11_add_module( GNDStk.python
     python/src/v1.9/containers/Axis.python.cpp
     python/src/v1.9/containers/Values.python.cpp
     python/src/v1.9/containers/Link.python.cpp
+    python/src/v1.9/containers/Grid.python.cpp
     python/src/v1.9/transport.python.cpp
     python/src/v1.9/GNDS.python.cpp
     )

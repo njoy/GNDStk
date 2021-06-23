@@ -15,7 +15,7 @@ namespace containers {
    void wrapAxis(python::module &);
    void wrapLink(python::module &);
    void wrapValues(python::module &);
-   // void wrapGrid(python::module &);
+   void wrapGrid(python::module &);
    // void wrapAxes(python::module &);
    // void wrapXYs1d(python::module &);
    // void wrapRegions1d(python::module &);
@@ -34,7 +34,7 @@ void wrapContainers(python::module &module)
    containers::wrapAxis(submodule);
    containers::wrapLink(submodule);
    containers::wrapValues(submodule);
-   // containers::wrapGrid(submodule);
+   containers::wrapGrid(submodule);
    // containers::wrapAxes(submodule);
    // containers::wrapXYs1d(submodule);
    // containers::wrapRegions1d(submodule);

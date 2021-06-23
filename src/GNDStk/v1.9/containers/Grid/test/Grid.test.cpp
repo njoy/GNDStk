@@ -254,7 +254,8 @@ std::string invalidName() {
 
   // wrong name for the node
   return
-R"***(<wrongName index="2" label="row_energy_bounds" unit="eV" style="boundaries">
-  <values>1e-05 2e+07</values></wrongName>
+R"***(<wrongName index="1" label="column_energy_bounds" style="link" unit="eV">
+   <link href="../../grid[@index='2']/values" />
+</wrongName>
 )***";
 }
