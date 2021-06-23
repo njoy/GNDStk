@@ -56,10 +56,10 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
 
         print( '\n' )
 
-        # illegal SEND
+        # wrong name
         with self.assertRaises( Exception ) :
 
-            chunk = Section.from_string( self.wrong )
+            chunk = Values.from_string( self.wrong )
 
 if __name__ == '__main__' :
 
