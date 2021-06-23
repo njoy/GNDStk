@@ -51,10 +51,10 @@ class Test_GNDStk_v1_9_containers_Axis( unittest.TestCase ) :
 
         print( '\n' )
 
-        # illegal SEND
+        # wrong name
         with self.assertRaises( Exception ) :
 
-            chunk = Section.from_string( self.wrong )
+            chunk = Axis.from_string( self.wrong )
 
 if __name__ == '__main__' :
 
