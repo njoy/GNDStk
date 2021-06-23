@@ -111,7 +111,18 @@ Node &add(
    try {
       Node &n = add();
       kwd.converter(TYPE(val),n);
-      n.name = kwd.name;
+
+      if constexpr (detail::isVariant<TYPE>::value) {
+         std::istringstream names(kwd.name);
+         for (std::size_t i = 0; i <= TYPE(val).index(); ++i)
+            names >> n.name;
+         // todo Have a warning or error if we can't properly extract
+         // the index()-th name. This might mean someone didn't formulate
+         // the name properly when dealing with a variant.
+      } else {
+         n.name = kwd.name;
+      }
+
       return n;
    } catch (...) {
       log::member("Node.add(" + detail::keyname(kwd) + ",value)");
@@ -281,4 +292,37 @@ void add(
       log::member("Node.add(" + detail::keyname(kwd) + ",container)");
       throw;
    }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Child<*> with Allow::many, and an optional container
+// -----------------------------------------------------------------------------
+
+// SFINAE as in (non-optional) container case
+template<
+   class TYPE, class CONVERTER, class FILTER,
+
+   template<class...> class CONTAINER = std::vector,
+   class T =
+      typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+   class... Args,
+   class = typename std::enable_if<
+      detail::isIterable<CONTAINER<T,Args...>>::value
+   >::type,
+
+   class = typename std::enable_if<
+      std::is_constructible<
+         typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+         typename detail::remove_opt_def<T>::type
+      >::value
+   >::type
+>
+void add(
+   const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   const std::optional<CONTAINER<T,Args...>> &opt
+) {
+   if (opt.has_value())
+      add(TYPE{}/kwd, opt.value());
 }

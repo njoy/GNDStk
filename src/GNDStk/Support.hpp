@@ -9,7 +9,7 @@
 using Integer32  = int32_t;
 using UInteger32 = uint32_t;
 
-// C++ presently has no fixed-width floating point types;
+// C++ presently has no fixed-width floating-point types;
 // this should suffice
 using Float64 = double;
 

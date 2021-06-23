@@ -36,7 +36,7 @@ class Values : public Component<Values,true> {
    static auto className() { return "Values"; }
    static auto GNDSName() { return "values"; }
 
-   // Core Interface construct to extract metadata and child nodes
+   // Core Interface object to extract metadata and child nodes
    static auto keys()
    {
       return
@@ -52,13 +52,7 @@ class Values : public Component<Values,true> {
 
 public:
 
-   // ------------------------
-   // Re: base classes
-   // ------------------------
-
-   using BaseComponent = Component<Values,true>;
-   using BaseBodyText = BodyText<true>;
-   using BaseComponent::construct;
+   using Component::construct;
 
    // ------------------------
    // Relevant defaults
@@ -112,19 +106,19 @@ public:
 
    // length(value)
    auto &length(const std::optional<Integer32> &obj)
-    { BaseBodyText::length(length() = obj); return *this; }
+    { BodyText::length(length() = obj); return *this; }
 
    // start(value)
    auto &start(const Defaulted<Integer32> &obj)
-    { BaseBodyText::start(content.start = obj); return *this; }
+    { BodyText::start(content.start = obj); return *this; }
    auto &start(const Integer32 &obj)
-    { BaseBodyText::start(content.start = obj); return *this; }
+    { BodyText::start(content.start = obj); return *this; }
 
    // valueType(value)
    auto &valueType(const Defaulted<UTF8Text> &obj)
-    { BaseBodyText::valueType(content.valueType = obj); return *this; }
+    { BodyText::valueType(content.valueType = obj); return *this; }
    auto &valueType(const UTF8Text &obj)
-    { BaseBodyText::valueType(content.valueType = obj); return *this; }
+    { BodyText::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -133,14 +127,13 @@ public:
    // default
    Values() :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.length,
          content.start,
          content.valueType
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // copy
@@ -153,8 +146,7 @@ public:
       },
       content{other.content}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // move
@@ -167,22 +159,19 @@ public:
       },
       content{std::move(other.content)}
    {
-      bodyTextUpdate(content);
-      construct(other);
+      Component::finish(other);
    }
 
    // from node
    Values(const Node &node) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.length,
          content.start,
          content.valueType
       }
    {
-      fromNode(node);
-      bodyTextUpdate(content);
-      construct(node);
+      Component::finish(node);
    }
 
    // from fields
@@ -192,7 +181,7 @@ public:
       const Defaulted<UTF8Text> &valueType
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.length,
          content.start,
          content.valueType
@@ -203,8 +192,7 @@ public:
          valueType
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // from fields, with T replacing Defaulted<T>
@@ -214,7 +202,7 @@ public:
       const UTF8Text &valueType
    ) :
       Component{
-         BaseBodyText{},
+         BodyText{},
          content.length,
          content.start,
          content.valueType
@@ -229,8 +217,7 @@ public:
             : Defaulted<UTF8Text>{"Float64",valueType}
       }
    {
-      bodyTextUpdate(content);
-      construct();
+      Component::finish();
    }
 
    // ------------------------
