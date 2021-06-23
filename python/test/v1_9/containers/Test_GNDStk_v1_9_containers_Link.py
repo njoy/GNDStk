@@ -17,7 +17,7 @@ class Test_GNDStk_v1_9_containers_Link( unittest.TestCase ) :
         def verify_chunk( self, chunk ) :
 
             # verify content
-            self.assertTrue( '../../grid[@index=\'2\']/values' == chunk.href )
+            self.assertEqual( '../../grid[@index=\'2\']/values', chunk.href )
 
             # verify string
             self.assertEqual( self.chunk, chunk.to_xml_string() )
