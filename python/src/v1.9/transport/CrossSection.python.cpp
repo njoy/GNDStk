@@ -13,19 +13,20 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace v1_9 {
-namespace transport {
+namespace python_v1_9 {
+namespace python_transport {
 
 // CrossSection wrapper
 void wrapCrossSection(python::module &module)
 {
    using namespace njoy::GNDStk;
+   using namespace njoy::GNDStk::v1_9;
 
    // type aliases
-   using Component = njoy::GNDStk::v1_9::transport::CrossSection;
+   using Component = transport::CrossSection;
    using VARIANT = std::variant<
-      njoy::GNDStk::v1_9::containers::XYs1d,
-      njoy::GNDStk::v1_9::containers::Regions1d
+      containers::XYs1d,
+      containers::Regions1d
    >;
 
    // create the component
@@ -45,18 +46,8 @@ void wrapCrossSection(python::module &module)
          Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
-         "xys1d",
-         &Component::XYs1d,
-         Component::documentation("xys1d").c_str()
-      )
-      .def_property_readonly(
-         "regions1d",
-         &Component::regions1d,
-         Component::documentation("regions1d").c_str()
-      )
-      .def_property_readonly(
          "choice",
-         &Component::choice,
+         python::overload_cast<>(&Component::choice),
          Component::documentation("choice").c_str()
       )
    ;
@@ -65,5 +56,5 @@ void wrapCrossSection(python::module &module)
    addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace transport
-} // namespace v1_9
+} // namespace python_transport
+} // namespace python_v1_9

@@ -1654,15 +1654,15 @@ void file_python_namespace(
 
    const std::string underver = replace(Version,'.','_');
    cpp << "// " << Version << " interface\n";
-   cpp << "namespace " << underver << " {\n\n";
+   cpp << "namespace python_" << underver << " {\n\n";
 
    cpp << "// " << nsname << " declarations\n";
-   cpp << "namespace " << nsname << " {\n";
+   cpp << "namespace python_" << nsname << " {\n";
    for (auto &cl : sortedClassDependencies) {
       if (cl.name.first == nsname)
          cpp << "   void wrap" << cl.name.second << "(python::module &);\n";
    }
-   cpp << "} // namespace " << nsname << "\n";
+   cpp << "} // namespace python_" << nsname << "\n";
    cpp << "\n";
 
    cpp << "// " << nsname << " wrapper\n";
@@ -1671,18 +1671,18 @@ void file_python_namespace(
    cpp << "   // create the " << nsname << " submodule\n";
    cpp << "   python::module submodule = module.def_submodule(\n";
    cpp << "      \"" << nsname << "\",\n";
-   cpp << "      \"GNDS v1.9 " << nsname << "\"\n";
+   cpp << "      \"GNDS " << Version << " " << nsname << "\"\n";
    cpp << "   );\n";
 
    cpp << "\n   // wrap " << nsname << " components\n";
    for (auto &cl : sortedClassDependencies) {
       if (cl.name.first == nsname)
-         cpp << "   " << nsname << "::wrap" << cl.name.second
+         cpp << "   python_" << nsname << "::wrap" << cl.name.second
              << "(submodule);\n";
    }
    cpp << "};\n";
 
-   cpp << "\n} // namespace " << underver << "\n";
+   cpp << "\n} // namespace python_" << underver << "\n";
 }
 
 
@@ -1735,17 +1735,18 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "namespace python = pybind11;\n";
    cpp << "\n";
 
-   cpp << "namespace " << VersionNamespace << " {\n";
-   cpp << "namespace " << nsname << " {\n";
+   cpp << "namespace python_" << VersionNamespace << " {\n";
+   cpp << "namespace python_" << nsname << " {\n";
    cpp << "\n";
 
    cpp << "// " << clname << " wrapper\n";
    cpp << "void wrap" << clname << "(python::module &module)\n";
    cpp << "{\n";
    cpp << "   using namespace njoy::GNDStk;\n";
+   cpp << "   using namespace njoy::GNDStk::" << VersionNamespace << ";\n";
    cpp << "\n";
    cpp << "   // type aliases\n";
-   cpp << "   using Component = " << "njoy::GNDStk::" << VersionNamespace << "::" << nsname << "::" << clname << ";\n";
+   cpp << "   using Component = " << nsname << "::" << clname << ";\n";
 
    // using VARIANT = ..., if necessary
    for ( const auto& child : cinfo ) {
@@ -1755,7 +1756,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
          for (const auto &c : cinfo) {
             if ( c.isChoice ) {
                cpp << ( count++ ? "," : "" ) << "\n";
-               cpp << "      njoy::GNDStk::" << VersionNamespace << "::" << c.varType;
+               cpp << "      " << c.varType;
             }
          }
          cpp << "\n";
@@ -1858,12 +1859,14 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      )\n";
    }
    for (auto &c : cinfo) {
-      const auto pythonname = toPythonName(c.varName);
-      cpp << "      .def_property_readonly(\n";
-      cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         &Component::" << c.varName << ",\n";
-      cpp << "         Component::documentation(\"" << pythonname << "\").c_str()\n";
-      cpp << "      )\n";
+      if (!(c.isChoice && c.isVector)) {
+         const auto pythonname = toPythonName(c.varName);
+         cpp << "      .def_property_readonly(\n";
+         cpp << "         \"" << pythonname << "\",\n";
+         cpp << "         python::overload_cast<>(&Component::" << c.varName << "),\n";
+         cpp << "         Component::documentation(\"" << pythonname << "\").c_str()\n";
+         cpp << "      )\n";
+      }
    }
 
    if (hasBodyText) {
@@ -1881,8 +1884,8 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   addStandardComponentDefinitions< Component >( component );\n";
    cpp << "}\n";
    cpp << "\n";
-   cpp << "} // namespace " << nsname << "\n";
-   cpp << "} // namespace " << VersionNamespace << "\n";
+   cpp << "} // namespace python_" << nsname << "\n";
+   cpp << "} // namespace python_" << VersionNamespace << "\n";
 }
 
 

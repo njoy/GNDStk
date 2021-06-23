@@ -13,16 +13,17 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace v1_9 {
-namespace containers {
+namespace python_v1_9 {
+namespace python_containers {
 
 // XYs1d wrapper
 void wrapXYs1d(python::module &module)
 {
    using namespace njoy::GNDStk;
+   using namespace njoy::GNDStk::v1_9;
 
    // type aliases
-   using Component = njoy::GNDStk::v1_9::containers::XYs1d;
+   using Component = containers::XYs1d;
 
    // create the component
    python::class_<Component> component(
@@ -72,12 +73,12 @@ void wrapXYs1d(python::module &module)
       )
       .def_property_readonly(
          "axes",
-         &Component::axes,
+         python::overload_cast<>(&Component::axes),
          Component::documentation("axes").c_str()
       )
       .def_property_readonly(
          "values",
-         &Component::values,
+         python::overload_cast<>(&Component::values),
          Component::documentation("values").c_str()
       )
    ;
@@ -86,5 +87,5 @@ void wrapXYs1d(python::module &module)
    addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace containers
-} // namespace v1_9
+} // namespace python_containers
+} // namespace python_v1_9
