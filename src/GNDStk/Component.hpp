@@ -22,7 +22,9 @@ using helpMap = std::map<std::string,std::string>;
 // -----------------------------------------------------------------------------
 
 template<class DERIVED, bool hasBodyText>
-class Component : public BodyText<hasBodyText> {
+class Component : public BodyText<hasBodyText>
+{
+   using typename BodyText<hasBodyText>::variant_t;
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED

@@ -31,7 +31,7 @@ void fromNode(const Node &node)
       }
 
       if constexpr (
-         std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
+         std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>
       ) {
          // consistency check; then nothing further to do
          assert(0 == links.size());
@@ -49,7 +49,7 @@ void fromNode(const Node &node)
          std::apply(
             [this](const auto &... result) {
                std::size_t n = 0;
-              ((*(typename detail::remove_cvref<decltype(result)>::type *)
+              ((*(detail::remove_cvref_t<decltype(result)> *)
                   links[n++] = result),
                ...);
             },

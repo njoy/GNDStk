@@ -82,10 +82,12 @@ void construct(const Node &)
 
 // construct(vector)
 template<
-   class T,
-   class = typename std::enable_if<std::is_arithmetic<T>::value,T>::type
+   class VECTOR,
+   class = std::enable_if_t<
+      hasBodyText && detail::isAlternative<VECTOR,variant_t>
+   >
 >
-void construct(const std::vector<T> &)
+void construct(const VECTOR &)
 {
 }
 
@@ -156,10 +158,12 @@ void finish(const Node &node)
 
 // finish(vector)
 template<
-   class T,
-   class = typename std::enable_if<std::is_arithmetic<T>::value,T>::type
+   class VECTOR,
+   class = std::enable_if_t<
+      hasBodyText && detail::isAlternative<VECTOR,variant_t>
+   >
 >
-void finish(const std::vector<T> &values)
+void finish(const VECTOR &values)
 {
    // As in finish()
    DERIVED &derived = static_cast<DERIVED &>(*this);
@@ -169,8 +173,8 @@ void finish(const std::vector<T> &values)
    BodyText<hasBodyText>::operator=(values);
 
    // construct
-   void (Component::*stub)(const std::vector<T> &) = &Component::construct;
-   void (DERIVED::*custom)(const std::vector<T> &) = &DERIVED::construct;
+   void (Component::*stub)(const VECTOR &) = &Component::construct;
+   void (DERIVED::*custom)(const VECTOR &) = &DERIVED::construct;
    if (custom != stub)
       derived.construct(values);
    else

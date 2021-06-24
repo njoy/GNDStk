@@ -46,15 +46,15 @@ ending content, if the "trim" flag is set. See toNode() for more information.
 */
 
 template<class T>
-typename std::enable_if<
-   detail::is_oneof<std::vector<T>,variant_t>::value,
+std::enable_if_t<
+   detail::isAlternative<std::vector<T>,variant_t>,
    BodyText &
->::type operator=(const std::vector<T> &vec)
+> operator=(const std::vector<T> &vec)
 {
    // valueType: best guess
-   if (std::is_same<T,Integer32>::value)
+   if (std::is_same_v<T,Integer32>)
       valueType("Integer32");
-   else if (std::is_same<T,Float64>::value)
+   else if (std::is_same_v<T,Float64>)
       valueType("Float64");
    else
       valueType("");

@@ -127,7 +127,7 @@ inline Meta<
    const C &
 ) {
    static_assert(
-      !std::is_same<TYPE,void>::value, // ...require non-void!
+      !std::is_same_v<TYPE,void>, // ...require non-void!
       "Meta<void>/CONVERTER not allowed; the Meta type must be non-void"
    );
    return kwd; // placeholder; the static_assert will always fail

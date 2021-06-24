@@ -248,8 +248,10 @@ child(
 
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER, class FILTER>
-typename detail::oneof<TYPE,std::variant<Ts...>>::type
-child(
+std::enable_if_t<
+   detail::isAlternativeOrTheVariant<TYPE,std::variant<Ts...>>,
+   TYPE
+> child(
    const Child<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
@@ -513,8 +515,12 @@ template<
    template<class...> class CONTAINER = std::vector,
    class... Ts, class CONVERTER, class FILTER
 >
-CONTAINER<typename detail::oneof<TYPE,std::variant<Ts...>>::type>
-child(
+CONTAINER<
+   std::enable_if_t<
+      detail::isAlternativeOrTheVariant<TYPE,std::variant<Ts...>>,
+      TYPE
+   >
+> child(
    const Child<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {

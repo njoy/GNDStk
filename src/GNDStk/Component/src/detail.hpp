@@ -56,7 +56,7 @@ std::string getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
 // pair<Child,string/regex>
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
-   class = typename std::enable_if<IsStringOrRegex<T>::value>::type
+   class = std::enable_if_t<IsStringOrRegex<T>::value>
 >
 std::string getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
 {
@@ -243,8 +243,8 @@ bool writeComponentPart(
    const std::string &color
 ) {
    if constexpr (
-      std::is_base_of<Component<T,false>,T>::value ||
-      std::is_base_of<Component<T,true >,T>::value
+      std::is_base_of_v<Component<T,false>,T> ||
+      std::is_base_of_v<Component<T,true >,T>
    ) {
       value.write(os,level);
    } else {
@@ -383,22 +383,41 @@ bool writeComponentPart(
 // SFINAE helpers
 // ------------------------
 
+// These are adapted from an answer here:
+//    https://stackoverflow.com/questions/1005476
+// with additional handling with regard to cvref qualifiers. (Without that
+// handling, our use of these would actually fail.)
+
+
 // has_index
 template<class T, class = int>
 struct has_index : std::false_type { };
 template<class T>
-struct has_index<T,decltype((void)T::index,0)> : std::true_type { };
+struct has_index<T,decltype((void)T::content.index,0)> : std::true_type { };
+
+// hasIndex: deals with const/volatile/reference, and you don't need ::value
+template<class T>
+inline constexpr bool hasIndex = has_index<
+   detail::remove_cvref_t<T>
+>::value;
+
 
 // has_label
 template<class T, class = int>
 struct has_label : std::false_type { };
 template<class T>
-struct has_label<T,decltype((void)T::label,0)> : std::true_type { };
+struct has_label<T,decltype((void)T::content.label,0)> : std::true_type { };
+
+// As above
+template<class T>
+inline constexpr bool hasLabel = has_label<
+   detail::remove_cvref_t<T>
+>::value;
 
 
 
 // -----------------------------------------------------------------------------
-// getter(vector,index,...)
+// getter(vector, index, ...)
 // Index into vector data member of class.
 // -----------------------------------------------------------------------------
 
@@ -428,7 +447,7 @@ const T &getter(
             std::visit(
                [&v,&index,&ptr](auto &&alternative)
                {
-                  if constexpr (has_index<decltype(alternative)>::value)
+                  if constexpr (hasIndex<decltype(alternative)>)
                      if (alternative.index() == index)
                         ptr = &v;
                },
@@ -436,7 +455,7 @@ const T &getter(
             );
          } else {
             // T != variant
-            if constexpr (has_index<T>::value)
+            if constexpr (hasIndex<T>)
                if (v.index() == index)
                   ptr = &v;
          }
@@ -491,7 +510,7 @@ T &getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(vector,label,...)
+// getter(vector, label, ...)
 // Element of the vector that has .label() == label.
 // Assumes that the element type has a .label() getter.
 // -----------------------------------------------------------------------------
@@ -518,7 +537,7 @@ const T &getter(
             std::visit(
                [&v,&label,&ptr](auto &&alternative)
                {
-                  if constexpr (has_label<decltype(alternative)>::value)
+                  if constexpr (hasLabel<decltype(alternative)>)
                      if (alternative.label() == label)
                         ptr = &v;
                },
@@ -526,7 +545,7 @@ const T &getter(
             );
          } else {
             // T != variant
-            if constexpr (has_label<T>::value)
+            if constexpr (hasLabel<T>)
                if (v.label() == label)
                   ptr = &v;
          }
@@ -580,15 +599,21 @@ T &getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(optional<vector>,index,...)
+// getter(optional<vector>, index or label, ...)
 // As earlier, but for optional<vector> data member.
 // -----------------------------------------------------------------------------
 
 // const
-template<class T>
+template<
+   class T, class LOOKUP,
+   class = std::enable_if_t<
+      std::is_same_v<LOOKUP,std::size_t> ||
+      std::is_same_v<LOOKUP,std::string>
+   >
+>
 const T &getter(
    const std::optional<std::vector<T>> &opt,
-   const std::size_t index,
+   const LOOKUP &index_or_label,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
@@ -599,73 +624,35 @@ const T &getter(
          log::error("optional vector {} does not have a value", field);
          throw std::exception{};
       }
-      return getter((*opt), index, nsname, clname, field);
+      return getter((*opt), index_or_label, nsname, clname, field);
    } catch (...) {
       // context
       log::member(
-        "getter {}::{}.{}({}) on optional<vector>",
-         nsname, clname, field, index);
+         std::is_same_v<LOOKUP,std::size_t>
+            ? "getter {}::{}.{}({}) on optional<vector>"
+            : "getter {}::{}.{}(\"{}\") on optional<vector>",
+         nsname, clname, field, index_or_label);
       throw;
    }
 }
 
 // non-const
-template<class T>
+template<
+   class T, class LOOKUP,
+   class = std::enable_if_t<
+      std::is_same_v<LOOKUP,std::size_t> ||
+      std::is_same_v<LOOKUP,std::string>
+   >
+>
 T &getter(
    std::optional<std::vector<T>> &opt,
-   const std::size_t index,
+   const LOOKUP &index_or_label,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
 ) {
    return const_cast<T &>(
-      getter(std::as_const(opt), index, nsname, clname, field)
-   );
-}
-
-
-
-// -----------------------------------------------------------------------------
-// getter(optional<vector>,label,...)
-// As earlier, but for optional<vector> data member.
-// -----------------------------------------------------------------------------
-
-// const
-template<class T>
-const T &getter(
-   const std::optional<std::vector<T>> &opt,
-   const std::string &label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      // optional must have value
-      if (!opt.has_value()) {
-         log::error("optional vector {} does not have a value", field);
-         throw std::exception{};
-      }
-      return getter((*opt), label, nsname, clname, field);
-   } catch (...) {
-      // context
-      log::member(
-        "getter {}::{}.{}(\"{}\") on optional<vector>",
-         nsname, clname, field, label);
-      throw;
-   }
-}
-
-// non-const
-template<class T>
-T &getter(
-   std::optional<std::vector<T>> &opt,
-   const std::string &label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   return const_cast<T &>(
-      getter(std::as_const(opt), label, nsname, clname, field)
+      getter(std::as_const(opt), index_or_label, nsname, clname, field)
    );
 }
 
@@ -702,55 +689,42 @@ const T *getter(
 
 
 // ------------------------
-// vector<variant>,index,...
+// vector<variant>,
+// index or label,
+// ...
 // ------------------------
 
-template<class T, class... Ts>
+// The (size_t index) and (string label) cases were similar enough that
+// we were able to combine them into one function.
+
+template<
+   class T, class LOOKUP,
+   class = std::enable_if_t<
+      std::is_same_v<LOOKUP,std::size_t> ||
+      std::is_same_v<LOOKUP,std::string>
+   >,
+   class... Ts
+>
 const T *getter(
    const std::vector<std::variant<Ts...>> &vec,
-   const std::size_t index,
+   const LOOKUP &index_or_label,
    const std::string &nsname,
    const std::string &clname,
    const std::string &field
 ) {
    try {
       return getter<T>(
-         // no <T>, so it calls getter(generic vector); it isn't recursive...
-         getter(vec, index, nsname, clname, field), // <== returns scalar variant
+         // no <T>, so it calls getter(generic vector); it isn't recursive
+         getter(vec, index_or_label, nsname, clname, field), // scalar variant
          nsname, clname, field
       );
    } catch (...) {
       // context
       log::member(
-        "getter {}::{}.{}({}) on vector<variant>",
-         nsname, clname, field, index);
-      throw;
-   }
-}
-
-
-// ------------------------
-// vector<variant>,label,...
-// ------------------------
-
-template<class T, class... Ts>
-const T *getter(
-   const std::vector<std::variant<Ts...>> &vec,
-   const std::string &label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      return getter<T>(
-         getter(vec, label, nsname, clname, field),
-         nsname, clname, field
-      );
-   } catch (...) {
-      // context
-      log::member(
-        "getter {}::{}.{}(\"{}\") on vector<variant>",
-         nsname, clname, field, label);
+         std::is_same_v<LOOKUP,std::size_t>
+            ? "getter {}::{}.{}({}) on vector<variant>"
+            : "getter {}::{}.{}(\"{}\") on vector<variant>",
+         nsname, clname, field, index_or_label);
       throw;
    }
 }

@@ -19,7 +19,7 @@ class Map {};
  *  @return true/false
  */
 template < typename Enumeration,
-           typename = typename std::enable_if< std::is_enum< Enumeration >::value >::type >
+           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
 bool isSymbol( const std::string& symbol ) {
 
   return Map< Enumeration >::symbols.find( symbol )
@@ -34,7 +34,7 @@ bool isSymbol( const std::string& symbol ) {
  *  @return A string symbol representing the enumeration value
  */
 template < typename Enumeration,
-           typename = typename std::enable_if< std::is_enum< Enumeration >::value >::type >
+           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
 const std::string& toString( const Enumeration& value ) {
 
   auto found = Map< Enumeration >::values.find( value );
@@ -55,7 +55,7 @@ const std::string& toString( const Enumeration& value ) {
  *  @return An enumeration value derived from the string symbol
  */
 template < typename Enumeration,
-           typename = typename std::enable_if< std::is_enum< Enumeration >::value >::type >
+           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
 const Enumeration& fromString( const std::string& symbol ) {
 
   auto found = Map< Enumeration >::symbols.find( symbol );
@@ -78,7 +78,7 @@ const Enumeration& fromString( const std::string& symbol ) {
  *          enumeration value could be read)
  */
 template < typename Enumeration,
-           typename = typename std::enable_if< std::is_enum< Enumeration >::value >::type >
+           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
 std::istream &operator>>( std::istream& in, Enumeration& value ) {
 
   auto position = in.tellg();
@@ -114,7 +114,7 @@ std::istream &operator>>( std::istream& in, Enumeration& value ) {
  *  @return the output stream
  */
 template < typename Enumeration,
-           typename = typename std::enable_if< std::is_enum< Enumeration >::value >::type >
+           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
 std::ostream& operator<<( std::ostream& out, const Enumeration& value ) {
 
   return out << toString( value );

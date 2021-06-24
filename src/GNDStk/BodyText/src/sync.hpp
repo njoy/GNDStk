@@ -11,15 +11,15 @@ template<class CONTENT>
 void pullFromDerived(const CONTENT &content)
 {
    // length?
-   if constexpr (detail::has_length<CONTENT>::value)
+   if constexpr (detail::hasLength<CONTENT>)
       length(content.length);
 
    // start?
-   if constexpr (detail::has_start<CONTENT>::value)
+   if constexpr (detail::hasStart<CONTENT>)
       start(content.start);
 
    // valueType?
-   if constexpr (detail::has_valueType<CONTENT>::value)
+   if constexpr (detail::hasValueType<CONTENT>)
       valueType(content.valueType);
 }
 
@@ -33,14 +33,14 @@ template<class CONTENT>
 void pushToDerived(CONTENT &content) const
 {
    // length?
-   if constexpr (detail::has_length<CONTENT>::value)
+   if constexpr (detail::hasLength<CONTENT>)
       content.length = vars.length;
 
    // start?
-   if constexpr (detail::has_start<CONTENT>::value)
+   if constexpr (detail::hasStart<CONTENT>)
       content.start = vars.start;
 
    // valueType?
-   if constexpr (detail::has_valueType<CONTENT>::value)
+   if constexpr (detail::hasValueType<CONTENT>)
       content.valueType = vars.valueType;
 }

@@ -191,7 +191,7 @@ inline Child<
    const C &
 ) {
    static_assert(
-      !std::is_same<TYPE,void>::value,
+      !std::is_same_v<TYPE,void>,
       "Child<void>/CONVERTER not allowed; the Child must be non-void"
    );
    return kwd;

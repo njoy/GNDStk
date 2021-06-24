@@ -22,9 +22,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
          ) + "\n"
       );
 
-      if constexpr (
-         std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
-      ) {
+      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
          // Consistency check
          assert(0 == links.size());
       } else {
@@ -63,8 +61,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
                      detail::writeComponentPart(
                         os,
                         level+1,
-                      *(typename
-                        detail::remove_cvref<decltype(Node{}(key))>::type *)
+                      *(detail::remove_cvref_t<decltype(Node{}(key))> *)
                         links[n++],
                         detail::getName(key),
                         maxlen
