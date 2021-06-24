@@ -70,6 +70,13 @@ pybind11_add_module( GNDStk.python
     python/src/v1.9/containers/Values.python.cpp
     python/src/v1.9/containers/Link.python.cpp
     python/src/v1.9/containers/Grid.python.cpp
+    python/src/v1.9/containers/Axes.python.cpp
+    python/src/v1.9/containers/XYs1d.python.cpp
+    python/src/v1.9/containers/Regions1d.python.cpp
+    python/src/v1.9/transport/CrossSection.python.cpp
+    python/src/v1.9/transport/Reaction.python.cpp
+    python/src/v1.9/transport/Reactions.python.cpp
+    python/src/v1.9/transport/ReactionSuite.python.cpp
     python/src/v1.9/transport.python.cpp
     python/src/v1.9/GNDS.python.cpp
     )

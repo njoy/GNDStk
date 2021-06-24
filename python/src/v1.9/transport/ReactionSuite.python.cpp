@@ -13,16 +13,17 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace v1_9 {
-namespace transport {
+namespace python_v1_9 {
+namespace python_transport {
 
 // ReactionSuite wrapper
 void wrapReactionSuite(python::module &module)
 {
    using namespace njoy::GNDStk;
+   using namespace njoy::GNDStk::v1_9;
 
    // type aliases
-   using Component = njoy::GNDStk::v1_9::transport::ReactionSuite;
+   using Component = transport::ReactionSuite;
 
    // create the component
    python::class_<Component> component(
@@ -84,7 +85,7 @@ void wrapReactionSuite(python::module &module)
       )
       .def_property_readonly(
          "reactions",
-         &Component::reactions,
+         python::overload_cast<>(&Component::reactions),
          Component::documentation("reactions").c_str()
       )
    ;
@@ -93,5 +94,5 @@ void wrapReactionSuite(python::module &module)
    addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace transport
-} // namespace v1_9
+} // namespace python_transport
+} // namespace python_v1_9

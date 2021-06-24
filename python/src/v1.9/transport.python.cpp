@@ -8,15 +8,15 @@
 namespace python = pybind11;
 
 // v1.9 interface
-namespace v1_9 {
+namespace python_v1_9 {
 
 // transport declarations
-namespace transport {
-   // void wrapCrossSection(python::module &);
-   // void wrapReaction(python::module &);
-   // void wrapReactions(python::module &);
-   // void wrapReactionSuite(python::module &);
-} // namespace transport
+namespace python_transport {
+   void wrapCrossSection(python::module &);
+   void wrapReaction(python::module &);
+   void wrapReactions(python::module &);
+   void wrapReactionSuite(python::module &);
+} // namespace python_transport
 
 // transport wrapper
 void wrapTransport(python::module &module)
@@ -28,10 +28,10 @@ void wrapTransport(python::module &module)
    );
 
    // wrap transport components
-   // transport::wrapCrossSection(submodule);
-   // transport::wrapReaction(submodule);
-   // transport::wrapReactions(submodule);
-   // transport::wrapReactionSuite(submodule);
+   python_transport::wrapCrossSection(submodule);
+   python_transport::wrapReaction(submodule);
+   python_transport::wrapReactions(submodule);
+   python_transport::wrapReactionSuite(submodule);
 };
 
-} // namespace v1_9
+} // namespace python_v1_9
