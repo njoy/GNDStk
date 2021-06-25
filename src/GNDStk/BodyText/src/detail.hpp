@@ -125,8 +125,8 @@ template<class T>
 inline auto getBounds(const std::vector<T> &vec)
 {
    std::pair<std::size_t,std::size_t> bnd(0,vec.size());
-   while (bnd.first < bnd.second && vec[bnd.first ] == T(0)) ++bnd.first;
-   while (bnd.first < bnd.second && vec[bnd.second] == T(0)) --bnd.second;
+   while (bnd.first < bnd.second && vec[bnd.first   ] == T(0)) ++bnd.first;
+   while (bnd.first < bnd.second && vec[bnd.second-1] == T(0)) --bnd.second;
    return bnd;
 }
 
@@ -134,8 +134,8 @@ inline auto getBounds(const std::vector<T> &vec)
 inline auto getBounds(const std::vector<std::string> &vec)
 {
    std::pair<std::size_t,std::size_t> bnd(0,vec.size());
-   while (bnd.first < bnd.second && vec[bnd.first ] == "") ++bnd.first;
-   while (bnd.first < bnd.second && vec[bnd.second] == "") --bnd.second;
+   while (bnd.first < bnd.second && vec[bnd.first   ] == "") ++bnd.first;
+   while (bnd.first < bnd.second && vec[bnd.second-1] == "") --bnd.second;
    return bnd;
 }
 
