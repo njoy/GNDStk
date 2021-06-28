@@ -29,7 +29,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
             self.assertAlmostEqual( 8.9155, chunk.doubles[3] )
 
             # verify string
-            #self.assertEqual( self.chunk, chunk.to_xml_string() )
+            self.assertEqual( self.chunk, chunk.to_xml_string() )
 
         # the data is given explicitly (fully specified)
         chunk = Values( length = 4, start = 0, value_type = "Float64",
@@ -56,10 +56,10 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
 
         print( '\n' )
 
-        # illegal SEND
+        # wrong name
         with self.assertRaises( Exception ) :
 
-            chunk = Section.from_string( self.wrong )
+            chunk = Values.from_string( self.wrong )
 
 if __name__ == '__main__' :
 

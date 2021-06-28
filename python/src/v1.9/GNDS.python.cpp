@@ -8,13 +8,13 @@
 namespace python = pybind11;
 
 // v1.9 interface declarations
-namespace v1_9 {
+namespace python_v1_9 {
 
   void wrapContainers( python::module& );
   void wrapTransport( python::module& );
 }
 
-namespace v1_9 {
+namespace python_v1_9 {
 
   void wrapGNDS( python::module& module ) {
 
@@ -25,7 +25,7 @@ namespace v1_9 {
       "GNDS 1.9 standard components"
     );
 
-    v1_9::wrapContainers( submodule );
-    v1_9::wrapTransport( submodule );
+    python_v1_9::wrapContainers( submodule );
+    python_v1_9::wrapTransport( submodule );
   }
 } // v1_9 namespace

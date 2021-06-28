@@ -13,19 +13,20 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace v1_9 {
-namespace containers {
+namespace python_v1_9 {
+namespace python_containers {
 
 // Axes wrapper
 void wrapAxes(python::module &module)
 {
    using namespace njoy::GNDStk;
+   using namespace njoy::GNDStk::v1_9;
 
    // type aliases
-   using Component = njoy::GNDStk::v1_9::containers::Axes;
+   using Component = containers::Axes;
    using VARIANT = std::variant<
-      njoy::GNDStk::v1_9::containers::Axis,
-      njoy::GNDStk::v1_9::containers::Grid
+      containers::Axis,
+      containers::Grid
    >;
 
    // create the component
@@ -52,18 +53,8 @@ void wrapAxes(python::module &module)
          Component::documentation("href").c_str()
       )
       .def_property_readonly(
-         "axis",
-         &Component::axis,
-         Component::documentation("axis").c_str()
-      )
-      .def_property_readonly(
-         "grid",
-         &Component::grid,
-         Component::documentation("grid").c_str()
-      )
-      .def_property_readonly(
          "choice",
-         &Component::choice,
+         python::overload_cast<>(&Component::choice),
          Component::documentation("choice").c_str()
       )
    ;
@@ -72,5 +63,5 @@ void wrapAxes(python::module &module)
    addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace containers
-} // namespace v1_9
+} // namespace python_containers
+} // namespace python_v1_9

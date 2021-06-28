@@ -8,18 +8,18 @@
 namespace python = pybind11;
 
 // v1.9 interface
-namespace v1_9 {
+namespace python_v1_9 {
 
 // containers declarations
-namespace containers {
+namespace python_containers {
    void wrapAxis(python::module &);
-   // void wrapLink(python::module &);
+   void wrapLink(python::module &);
    void wrapValues(python::module &);
-   // void wrapGrid(python::module &);
-   // void wrapAxes(python::module &);
-   // void wrapXYs1d(python::module &);
-   // void wrapRegions1d(python::module &);
-} // namespace containers
+   void wrapGrid(python::module &);
+   void wrapAxes(python::module &);
+   void wrapXYs1d(python::module &);
+   void wrapRegions1d(python::module &);
+} // namespace python_containers
 
 // containers wrapper
 void wrapContainers(python::module &module)
@@ -31,13 +31,13 @@ void wrapContainers(python::module &module)
    );
 
    // wrap containers components
-   containers::wrapAxis(submodule);
-   // containers::wrapLink(submodule);
-   containers::wrapValues(submodule);
-   // containers::wrapGrid(submodule);
-   // containers::wrapAxes(submodule);
-   // containers::wrapXYs1d(submodule);
-   // containers::wrapRegions1d(submodule);
+   python_containers::wrapAxis(submodule);
+   python_containers::wrapLink(submodule);
+   python_containers::wrapValues(submodule);
+   python_containers::wrapGrid(submodule);
+   python_containers::wrapAxes(submodule);
+   python_containers::wrapXYs1d(submodule);
+   python_containers::wrapRegions1d(submodule);
 };
 
-} // namespace v1_9
+} // namespace python_v1_9
