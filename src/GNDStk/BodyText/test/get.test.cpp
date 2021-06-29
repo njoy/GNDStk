@@ -12,7 +12,7 @@ using namespace njoy::GNDStk::core;
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText::get() functions") {
+SCENARIO("BodyText get(), operator[]") {
    GIVEN("foo") {
       WHEN("bar") {
          THEN("baz") {

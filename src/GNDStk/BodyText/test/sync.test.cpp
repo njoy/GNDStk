@@ -12,7 +12,7 @@ using namespace njoy::GNDStk::core;
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText pull and push from derived-class functionality") {
+SCENARIO("BodyText pull/push from/to derived") {
    GIVEN("foo") {
       WHEN("bar") {
          THEN("baz") {

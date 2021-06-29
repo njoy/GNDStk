@@ -12,7 +12,7 @@ using namespace njoy::GNDStk::core;
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Component::fromNode() function") {
+SCENARIO("Component fromNode()") {
    GIVEN("foo") {
       WHEN("bar") {
          THEN("baz") {

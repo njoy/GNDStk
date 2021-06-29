@@ -12,7 +12,7 @@ using namespace njoy::GNDStk::core;
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Component::finish() functions") {
+SCENARIO("Component finish()") {
    GIVEN("foo") {
       WHEN("bar") {
          THEN("baz") {
