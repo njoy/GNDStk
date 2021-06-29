@@ -61,8 +61,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
                      detail::writeComponentPart(
                         os,
                         level+1,
-                      *(detail::remove_cvref_t<decltype(Node{}(key))> *)
-                        links[n++],
+                      *(std::decay_t<decltype(Node{}(key))> *)links[n++],
                         detail::getName(key),
                         maxlen
                      ) && (os << '\n') // no if()s in fold expressions :-/
@@ -80,7 +79,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
       if constexpr (detail::hasWriteOneArg<DERIVED>::has) {
          // DERIVED::write() doesn't take an indentation level; we handle here
          std::ostringstream tmp;
-         static_cast<const DERIVED *>(this)->write(tmp);
+         derived().write(tmp);
          if (tmp.str().size() != 0)
             os << indentTo(level+1);
          for (char c : tmp.str())
@@ -91,14 +90,14 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
       if constexpr (detail::hasWriteTwoArg<DERIVED>::has) {
          // DERIVED::write() takes an indentation level
          std::ostringstream tmp;
-         static_cast<const DERIVED *>(this)->write(tmp,level+1);
+         derived().write(tmp,level+1);
          os << tmp.str();
          if (tmp.str().size())
             os << std::endl;
       }
 
       // BodyText, if any
-      this->BodyText<hasBodyText>::write(os,level+1);
+      body::write(os,level+1);
 
       // Indent, write footer, NO newline
       detail::indentString(

@@ -385,9 +385,6 @@ bool writeComponentPart(
 
 // These are adapted from an answer here:
 //    https://stackoverflow.com/questions/1005476
-// with additional handling with regard to cvref qualifiers. (Without that
-// handling, our use of these would actually fail.)
-
 
 // has_index
 template<class T, class = int>
@@ -395,24 +392,17 @@ struct has_index : std::false_type { };
 template<class T>
 struct has_index<T,decltype((void)T::content.index,0)> : std::true_type { };
 
-// hasIndex: deals with const/volatile/reference, and you don't need ::value
-template<class T>
-inline constexpr bool hasIndex = has_index<
-   detail::remove_cvref_t<T>
->::value;
-
-
 // has_label
 template<class T, class = int>
 struct has_label : std::false_type { };
 template<class T>
 struct has_label<T,decltype((void)T::content.label,0)> : std::true_type { };
 
-// As above
+// These apply decay_t, and don't need ::value
 template<class T>
-inline constexpr bool hasLabel = has_label<
-   detail::remove_cvref_t<T>
->::value;
+inline constexpr bool hasIndex = has_index<std::decay_t<T>>::value;
+template<class T>
+inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
 
 
 

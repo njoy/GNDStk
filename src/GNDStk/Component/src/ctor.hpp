@@ -8,8 +8,7 @@ friend DERIVED;
 
 // ctor: fields
 template<class... ARGS>
-Component(const BodyText<hasBodyText> &other, ARGS &...args) :
-   BodyText<hasBodyText>(other)
+Component(const body &other, ARGS &...args) : body(other)
 {
    // static_assert needs string literal
    #define pairing_error \
@@ -32,11 +31,9 @@ Component(const BodyText<hasBodyText> &other, ARGS &...args) :
    } else {
       // keys are *not* empty, so...
       // The following is the *type* that a multi-query with DERIVED::keys()
-      // will produce, except without cvrefs.
+      // will produce.
       using multi_t =
-         detail::remove_cvrefs_t<
-            decltype(Node{}(toKeywordTup(DERIVED::keys())))
-         >;
+         detail::decays_t<decltype(Node{}(toKeywordTup(DERIVED::keys())))>;
       static_assert(
          std::is_same_v<std::tuple<ARGS ...>, multi_t>,
          pairing_error

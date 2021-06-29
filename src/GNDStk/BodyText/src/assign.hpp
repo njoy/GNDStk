@@ -28,16 +28,17 @@ the caller should send the full, complete vector of values that's appropriate
 for the GNDS Node whose data this BodyText object is intended to represent.
 
 Specifically: the vector should contain whatever leading and/or trailing 0s
-the full data vector is supposed to have. The "length" and "start" values are
-completely ignored by this function. They're neither used nor set. Future
+the full data vector is supposed to have. The length and start values are
+completely ignored by this function; they're neither used nor set. Future
 vector accesses though our various get() functions simply access the vector
 exactly as-is. Length and start won't come into play until - and unless - a
 caller either sets remake = true, or uses the string setter (or assignment
 to string) and subsequently triggers a remake of the vector. (Which would then
-be a newly-created vector, not the one being assigned from here.)
+be a newly-created vector, based on the value of the raw string - not the
+vector from which we're assigning here.)
 
-As for valueType, this function attempts to guess it from the vector's type,
-and sets it to "", the empty string, if we don't recognize the vector's type.
+As for valueType, this function attempts to guess it from the vector's element
+type, and sets it to "", the empty string, if we don't recognize that type.
 
 If a vector that's assigned from, here, is still in play when this BodyText's
 data are written to a Node (see the toNode() function), then toNode() will
@@ -47,14 +48,14 @@ ending content, if the "trim" flag is set. See toNode() for more information.
 
 template<class T>
 std::enable_if_t<
-   detail::isAlternative<std::vector<T>,variant_t>,
+   detail::isAlternative<std::vector<T>, VariantOfVectors>,
    BodyText &
 > operator=(const std::vector<T> &vec)
 {
    // valueType: best guess
-   if (std::is_same_v<T,Integer32>)
+   if constexpr (std::is_same_v<T,Integer32>)
       valueType("Integer32");
-   else if (std::is_same_v<T,Float64>)
+   else if constexpr (std::is_same_v<T,Float64>)
       valueType("Float64");
    else
       valueType("");

@@ -6,6 +6,11 @@
 
 std::ostream &write(std::ostream &os, const int level) const
 {
+   // If empty, don't even write a std::endl
+   if ((active == Active::string && rawstring == "") ||
+       (active == Active::vector && size() == 0))
+      return os;
+
    // ------------------------
    // If string is active
    // ------------------------
@@ -22,11 +27,7 @@ std::ostream &write(std::ostream &os, const int level) const
    // If vector is active
    // ------------------------
 
-   // If empty, don't even write a std::endl
-   if (size() == 0)
-      return os;
-
-   // Indentation (some number of spaces)
+   // Indentation (string, with some number of spaces)
    const auto indent = std::string(GNDStk::indent*level,' ');
 
    std::visit(
