@@ -6,6 +6,8 @@
 // code, e.g. for visiting the variant, won't simplify by doing that.
 // -----------------------------------------------------------------------------
 
+public:
+
 using variant_t = std::variant<
    // strings
    std::vector<std::string>,
@@ -61,6 +63,8 @@ using variant_scalar_t = std::variant<
 // -----------------------------------------------------------------------------
 // Primary data regarding GNDS "body text"
 // -----------------------------------------------------------------------------
+
+private:
 
 // Raw string, directly from "plain character data" in a GNDS file.
 // We'll allow callers to set this directly by using a setter.

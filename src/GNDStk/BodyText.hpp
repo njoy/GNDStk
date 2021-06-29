@@ -27,6 +27,8 @@ inline std::size_t &across = columns;
 template<bool hasBodyText>
 class BodyText {
 public:
+   using variant_t = std::variant<std::monostate>;
+
    void fromNode(const Node &) { }
 
    template<class CONTENT>

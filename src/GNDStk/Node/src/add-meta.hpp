@@ -33,7 +33,7 @@
 template<
    class T,
    class CONVERTER = typename detail::default_converter<T>::type,
-   class = typename std::enable_if<!detail::is_optional<T>::value>::type
+   class = std::enable_if_t<!detail::isOptional<T>>
 >
 metaPair &add(
    const std::string &key,
@@ -87,7 +87,7 @@ metaPair &add(
 template<
    class T = std::string,
    class CONVERTER = typename detail::default_converter<T>::type,
-   class = typename std::enable_if<!detail::is_optional<T>::value>::type
+   class = std::enable_if_t<!detail::isOptional<T>>
 >
 metaPair &add(
    const Meta<void> &kwd,
@@ -112,8 +112,8 @@ metaPair &add(
 template<
    class TYPE, class CONVERTER,
    class T = TYPE,
-   class = typename std::enable_if<!detail::is_optional<T>::value>::type,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<!detail::isOptional<T>>,
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 metaPair &add(
    const Meta<TYPE,CONVERTER> &kwd,
@@ -129,7 +129,7 @@ metaPair &add(
 template<
    class TYPE, class CONVERTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 metaPair &add(
    const Meta<TYPE,CONVERTER> &kwd,
@@ -149,7 +149,7 @@ metaPair &add(
 template<
    class TYPE, class CONVERTER,
    class T = TYPE,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 metaPair &add(
    const Meta<std::optional<TYPE>,CONVERTER> &kwd,
@@ -163,7 +163,7 @@ metaPair &add(
 template<
    class TYPE, class CONVERTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Meta<std::optional<TYPE>,CONVERTER> &kwd,
@@ -179,7 +179,7 @@ bool add(
 template<
    class TYPE, class CONVERTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Meta<std::optional<TYPE>,CONVERTER> &kwd,
@@ -201,7 +201,7 @@ bool add(
 template<
    class TYPE, class CONVERTER,
    class T = TYPE,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 metaPair &add(
    const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
@@ -215,7 +215,7 @@ metaPair &add(
 template<
    class TYPE, class CONVERTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
@@ -231,7 +231,7 @@ bool add(
 template<
    class TYPE, class CONVERTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Meta<Defaulted<TYPE>,CONVERTER> &kwd,

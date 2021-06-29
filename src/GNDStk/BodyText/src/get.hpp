@@ -102,11 +102,10 @@ for non-const *this (BodyText) objects.
 
 // const
 template<class VECTOR>
-typename std::enable_if<
-   detail::is_oneof<VECTOR,variant_t>::value &&
-  !detail::isVariant<VECTOR>::value, // else is_oneof<the variant> passes
+std::enable_if_t<
+   detail::isAlternative<VECTOR,variant_t>,
    const VECTOR &
->::type get(const bool print_type_change_note = true) const
+> get(const bool print_type_change_note = true) const
 {
    // Element type requested
    using T = typename VECTOR::value_type;
@@ -257,11 +256,10 @@ typename std::enable_if<
 
 // non-const
 template<class VECTOR>
-typename std::enable_if<
-   detail::is_oneof<VECTOR,variant_t>::value &&
-  !detail::isVariant<VECTOR>::value, // else is_oneof<the variant> passes
+std::enable_if_t<
+   detail::isAlternative<VECTOR,variant_t>,
    VECTOR &
->::type get(const bool print_type_change_note = true)
+> get(const bool print_type_change_note = true)
 {
    return const_cast<VECTOR &>(
       std::as_const(*this).template get<VECTOR>(print_type_change_note)
@@ -281,10 +279,10 @@ typename std::enable_if<
 
 // const
 template<class T>
-typename std::enable_if<
-   detail::is_oneof<std::vector<T>,variant_t>::value,
+std::enable_if_t<
+   detail::isAlternative<std::vector<T>,variant_t>,
    const T &
->::type get(const std::size_t n, const bool print_type_change_note = true) const
+> get(const std::size_t n, const bool print_type_change_note = true) const
 {
    try {
       return get<std::vector<T>>(print_type_change_note)[n];
@@ -296,10 +294,10 @@ typename std::enable_if<
 
 // non-const
 template<class T>
-typename std::enable_if<
-   detail::is_oneof<std::vector<T>,variant_t>::value,
+std::enable_if_t<
+   detail::isAlternative<std::vector<T>,variant_t>,
    T &
->::type get(const std::size_t n, const bool print_type_change_note = true)
+> get(const std::size_t n, const bool print_type_change_note = true)
 {
    return const_cast<T &>(
       std::as_const(*this).template get<T>(n,print_type_change_note)

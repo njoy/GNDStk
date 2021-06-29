@@ -37,13 +37,21 @@ void toNode(Node &node, CONTENT &content)
 
    // Data...
 
-   // Use string, if it's active
+   // ------------------------
+   // Use string,
+   // if it's active
+   // ------------------------
+
    if (active == Active::string) {
       *text = rawstring;
       return;
    }
 
-   // Use vector
+   // ------------------------
+   // Use vector,
+   // otherwise
+   // ------------------------
+
    const auto bounds = trim
     ? std::visit(
          [](auto &&vec) { return detail::getBounds(vec); },
