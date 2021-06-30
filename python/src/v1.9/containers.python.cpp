@@ -13,12 +13,12 @@ namespace v1_9 {
 // containers declarations
 namespace containers {
    void wrapAxis(python::module &);
-   // void wrapLink(python::module &);
+   void wrapLink(python::module &);
    void wrapValues(python::module &);
-   // void wrapGrid(python::module &);
-   // void wrapAxes(python::module &);
-   // void wrapXYs1d(python::module &);
-   // void wrapRegions1d(python::module &);
+   void wrapGrid(python::module &);
+   void wrapAxes(python::module &);
+   void wrapXYs1d(python::module &);
+   void wrapRegions1d(python::module &);
 } // namespace containers
 
 // containers wrapper
@@ -32,12 +32,12 @@ void wrapContainers(python::module &module)
 
    // wrap containers components
    containers::wrapAxis(submodule);
-   // containers::wrapLink(submodule);
+   containers::wrapLink(submodule);
    containers::wrapValues(submodule);
-   // containers::wrapGrid(submodule);
-   // containers::wrapAxes(submodule);
-   // containers::wrapXYs1d(submodule);
-   // containers::wrapRegions1d(submodule);
+   containers::wrapGrid(submodule);
+   containers::wrapAxes(submodule);
+   containers::wrapXYs1d(submodule);
+   containers::wrapRegions1d(submodule);
 };
 
 } // namespace v1_9

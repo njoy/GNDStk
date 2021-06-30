@@ -470,7 +470,8 @@ std::string to_string(const nlohmann::json &j)
 void compute_metadata(
    std::ostream &ossm, // in caller, this is a temporary ostringstream
    const nlohmann::json &attrs,
-   std::vector<infoMetadata> &vecInfoMetadata // output
+   std::vector<infoMetadata> &vecInfoMetadata, // output
+   const bool hasBodyText
 ) {
    // here, we're within the public struct for raw GNDS content
    ossm << "\n      // metadata\n";
@@ -525,7 +526,10 @@ void compute_metadata(
       const std::string varName = fieldName(field.value());
 
       // write
-      ossm << "      " << fullVarType << " " << varName;
+      hasBodyText &&
+         (varName == "length" || varName == "start" || varName == "valueType")
+       ? ossm << "      mutable " << fullVarType << " " << varName
+       : ossm << "      " << fullVarType << " " << varName;
       if (theDefault != "") ossm << "{" << theDefault << "}";
       ossm << ";\n";
 
@@ -1495,7 +1499,7 @@ void make_class(
    std::vector<infoMetadata> vecInfoMetadata;
    std::ostringstream ossm;
    if (attrs.size() != 0)
-      compute_metadata(ossm, attrs, vecInfoMetadata);
+      compute_metadata(ossm, attrs, vecInfoMetadata, hasBodyText);
 
    // children
    std::vector<infoChildren> vecInfoChildren;
