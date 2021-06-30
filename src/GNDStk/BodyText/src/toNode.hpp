@@ -6,27 +6,11 @@
 // into a piece of the Node that's made in Component's conversion-to-Node.
 // -----------------------------------------------------------------------------
 
-// const
-// Use the original raw string, even if it has been processed into a vector.
-// For an object that's regarded as being const, preserving the original form
-// makes sense. Any vector that was derived from the raw string wouldn't have
-// been changed, and represents only what was in the raw string. Had we wished
-// to modify the original data in any manner, we should have used non-const.
-template<class CONTENT>
-void toNode(std::string &text, const CONTENT &) const
-{
-   text = rawstring;
-}
-
-
-// non-const
-// Use the original raw string OR the vector, depending on which one is active.
+// Use the original raw string or the vector, depending on which one is active.
 // Also: length, start, and valueType might be computed - which means changing
-// them in the derived class too, in order to keep everything consistent. The
-// possible need to do this is why we split this function (which would normally
-// warrant only a const version) into const (above) and non-const (below).
+// them in the derived class too, in order to keep everything consistent.
 template<class CONTENT>
-void toNode(std::string &text, CONTENT &content)
+void toNode(std::string &text, CONTENT &content) const
 {
    // Use the raw string?
    if (active == Active::string) {
@@ -35,9 +19,25 @@ void toNode(std::string &text, CONTENT &content)
    }
 
    // Use the vector...
+   const bool isString =
+      std::holds_alternative<std::vector<std::string>>(variant);
+   if (isString && !trim &&
+       // only bother with the warning if trim would make a difference...
+       size() > 0 &&
+       (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
+   ) {
+      log::warning(
+         "BodyText.toNode() called with BodyText "
+         "trim flag == false, but active\n"
+         "data are in a vector<string>. Printing "
+         "leading/trailing empty strings\n"
+         "won't preserve them, so we'll treat as if trim == true."
+      );
+   }
 
    // Re: leading/trailing 0s
-   const auto bounds = trim
+   const auto bounds =
+      trim || isString
     ? std::visit([](auto &&vec) { return detail::getBounds(vec); }, variant)
     : std::pair<std::size_t,std::size_t>(0,size());
 

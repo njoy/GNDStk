@@ -52,6 +52,13 @@ std::enable_if_t<
    BodyText &
 > operator=(const std::vector<T> &vec)
 {
+   // set the raw string to "", because it's no longer considered meaningful
+   rawstring = "";
+
+   // length, start
+   length(vec.size());
+   start(0);
+
    // valueType: best guess
    if constexpr (std::is_same_v<T,Integer32>)
       valueType("Integer32");

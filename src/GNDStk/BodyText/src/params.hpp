@@ -29,7 +29,9 @@ valueType ordering, to be consistent with the (alphabetical) ordering that
 our GNDS Standard Interface code autogeneration tool produces.
 */
 
-struct {
+// toNode() works with a conceptually const object but may update these to be
+// consistent with vector data; so, mutable.
+mutable struct {
    // Any of these might or might not have appeared in a particular node that
    // had body text. For uniformity, we have them all here, and with defaults.
    std::size_t length = 0;

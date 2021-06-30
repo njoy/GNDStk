@@ -17,7 +17,7 @@ const std::string &string() const
 BodyText &string(const std::string &str)
 {
    clear(); // <== the vector, because it's no longer considered meaningful
-   active = Active::string;
    rawstring = str;
+   active = Active::string;
    return *this;
 }
