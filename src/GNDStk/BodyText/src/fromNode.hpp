@@ -26,7 +26,8 @@ void fromNode(const Node &node)
       // in the present context, to be something we should warn about.
       log::warning(
          "Component marked as having \"body text\", a.k.a. XML \"pcdata\" "
-         "(plain\ncharacter data), but none was found in the GNDS node."
+         "(plain\ncharacter data), "
+         "but no such content was found in the GNDS node."
       );
       log::member("BodyText::fromNode(Node, with name \"{}\")", node.name);
    }
