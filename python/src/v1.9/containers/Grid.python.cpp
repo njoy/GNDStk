@@ -13,19 +13,20 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace v1_9 {
-namespace containers {
+namespace python_v1_9 {
+namespace python_containers {
 
 // Grid wrapper
 void wrapGrid(python::module &module)
 {
    using namespace njoy::GNDStk;
+   using namespace njoy::GNDStk::v1_9;
 
    // type aliases
-   using Component = njoy::GNDStk::v1_9::containers::Grid;
+   using Component = containers::Grid;
    using VARIANT = std::variant<
-      njoy::GNDStk::v1_9::containers::Link,
-      njoy::GNDStk::v1_9::containers::Values
+      containers::Link,
+      containers::Values
    >;
 
    // create the component
@@ -81,17 +82,17 @@ void wrapGrid(python::module &module)
       )
       .def_property_readonly(
          "link",
-         &Component::link,
+         python::overload_cast<>(&Component::link),
          Component::documentation("link").c_str()
       )
       .def_property_readonly(
          "values",
-         &Component::values,
+         python::overload_cast<>(&Component::values),
          Component::documentation("values").c_str()
       )
       .def_property_readonly(
          "choice",
-         &Component::choice,
+         python::overload_cast<>(&Component::choice),
          Component::documentation("choice").c_str()
       )
    ;
@@ -100,5 +101,5 @@ void wrapGrid(python::module &module)
    addStandardComponentDefinitions< Component >( component );
 }
 
-} // namespace containers
-} // namespace v1_9
+} // namespace python_containers
+} // namespace python_v1_9

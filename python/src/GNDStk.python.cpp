@@ -17,7 +17,7 @@ namespace core {
 }
 
 // v1.9 interface declarations
-namespace v1_9 {
+namespace python_v1_9 {
 
   void wrapGNDS( python::module& );
 }
@@ -45,5 +45,5 @@ PYBIND11_MODULE( GNDStk, module ) {
   core::wrapInterpolation( module );
 
   // v1.9 components (in the v1_9 module, created in this function)
-  v1_9::wrapGNDS( module );
+  python_v1_9::wrapGNDS( module );
 }
