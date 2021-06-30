@@ -16,7 +16,8 @@ std::ostream &write(std::ostream &os, const int level) const
    // ------------------------
 
    if (active == Active::string) {
-      // write string exactly as-is; don't use our column formatting
+      // write string exactly as-is, without our column formatting
+      // or any indentation; but do print a newline
       GNDStk::color && GNDStk::colors::value != ""
          ? os << colors::value << rawstring << colors::reset
          : os << rawstring;
