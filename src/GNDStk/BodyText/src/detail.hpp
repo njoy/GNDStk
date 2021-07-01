@@ -21,8 +21,8 @@ struct decays<std::tuple<Ts...>> {
    using type = std::tuple<typename std::decay<Ts>::type ...>;
 };
 
-template<class... Ts>
-using decays_t = typename decays<Ts...>::type;
+template<class T>
+using decays_t = typename decays<T>::type;
 
 
 // -----------------------------------------------------------------------------
