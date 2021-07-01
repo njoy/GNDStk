@@ -18,9 +18,19 @@ Return reference to [const] variant of vector<T>s:
 
 Return variant of Ts:
    get(n) const
+   operator[](n) const
 
 A reference return isn't possible in the get(n) case, because there's
 no variant<scalars> to reference. So, it has a value return.
+
+We also provide type-specific getters with specific names:
+
+   const std::vector<T> &name() const
+   std::vector<T> &name()
+   const T &name(n) const
+   T &name(n)
+
+For example, name == doubles when T == double.
 */
 
 
@@ -98,7 +108,7 @@ template<class VECTOR>
 std::enable_if_t<
    detail::isAlternative<VECTOR,VariantOfVectors>,
    const VECTOR &
-> get(const bool print_type_change_note = true) const
+> get() const
 {
    // Element type requested
    using T = typename VECTOR::value_type;
@@ -214,13 +224,10 @@ std::enable_if_t<
    // some utility. (We're not sure yet.) So, we'll print an informational
    // note (not even a warning), then proceed.
 
-   if (print_type_change_note) {
-      log::info(
-         "Re-forming vector of one type into vector of another type;\n"
-         "was this intentional?"
-      );
-      log::member("BodyText::get<std::vector<T>>()");
-   }
+   log::info(
+      "Re-forming vector of one type into vector of another type;\n"
+      "was this intentional?");
+   log::member("BodyText::get<std::vector<T>>()");
 
    // Initialize a new vector that will soon replace the old one
    VECTOR newVector;
@@ -249,11 +256,9 @@ template<class VECTOR>
 std::enable_if_t<
    detail::isAlternative<VECTOR,VariantOfVectors>,
    VECTOR &
-> get(const bool print_type_change_note = true)
+> get()
 {
-   return const_cast<VECTOR &>(
-      std::as_const(*this).template get<VECTOR>(print_type_change_note)
-   );
+   return const_cast<VECTOR &>(std::as_const(*this).template get<VECTOR>());
 }
 
 
@@ -272,10 +277,10 @@ template<class T>
 std::enable_if_t<
    detail::isAlternative<std::vector<T>,VariantOfVectors>,
    const T &
-> get(const std::size_t n, const bool print_type_change_note = true) const
+> get(const std::size_t n) const
 {
    try {
-      return get<std::vector<T>>(print_type_change_note)[n];
+      return get<std::vector<T>>()[n];
    } catch (...) {
       log::member("BodyText::get<T>({})", n);
       throw;
@@ -287,10 +292,10 @@ template<class T>
 std::enable_if_t<
    detail::isAlternative<std::vector<T>,VariantOfVectors>,
    T &
-> get(const std::size_t n, const bool print_type_change_note = true)
+> get(const std::size_t n)
 {
    return const_cast<T &>(
-      std::as_const(*this).template get<T>(n,print_type_change_note)
+      std::as_const(*this).template get<T>(n)
    );
 }
 
@@ -301,14 +306,14 @@ std::enable_if_t<
 // -----------------------------------------------------------------------------
 
 // const
-const VariantOfVectors &get(const bool print_type_change_note = true) const
+const VariantOfVectors &get() const
 {
    if (vars.valueType == "Integer32")
-      get<std::vector<Integer32>>(print_type_change_note);
+      get<std::vector<Integer32>>();
    else if (vars.valueType == "Float64")
-      get<std::vector<Float64>>(print_type_change_note);
+      get<std::vector<Float64>>();
    else
-      get<std::vector<std::string>>(print_type_change_note);
+      get<std::vector<std::string>>();
 
    // We can't return the specific variant *alternative* that exists right
    // now, because that depended on valueType (run-time). So, we'll return
@@ -317,11 +322,9 @@ const VariantOfVectors &get(const bool print_type_change_note = true) const
 }
 
 // non-const
-VariantOfVectors &get(const bool print_type_change_note = true)
+VariantOfVectors &get()
 {
-   return const_cast<VariantOfVectors &>(
-      std::as_const(*this).get(print_type_change_note)
-   );
+   return const_cast<VariantOfVectors &>(std::as_const(*this).get());
 }
 
 
@@ -345,14 +348,14 @@ VariantOfScalars get(const std::size_t n) const
    }
 }
 
-// non-const
-// Not applicable, because the const version returns by value.
-
 // operator[]: useful alternative form
 VariantOfScalars operator[](const std::size_t n) const
 {
    return get(n);
 }
+
+// non-const get(n) and operator[]
+// Not applicable, because the const versions return by value.
 
 
 
@@ -362,21 +365,16 @@ VariantOfScalars operator[](const std::size_t n) const
 // These provide convenient, shorthand access to specific get<vector<T>s.
 // -----------------------------------------------------------------------------
 
+// Cases:
+// vector, const
+// vector, non-const
+// element, const
+// element, non-const
 #define GNDSTK_MAKE_GETTER(name,T) \
-   /* vector, const */ \
-   const std::vector<T> &name(const bool print_type_change_note = true) const \
-    { return get<std::vector<T>>(print_type_change_note); } \
-   /* vector, non-const */ \
-   std::vector<T> &name(const bool print_type_change_note = true) \
-    { return get<std::vector<T>>(print_type_change_note); } \
-   /* element, const */ \
-   const T &name \
-      (const std::size_t n, const bool print_type_change_note = true) const \
-    { return get<T>(n, print_type_change_note); } \
-   /* element, non-const */ \
-   T &name \
-      (const std::size_t n, const bool print_type_change_note = true) \
-    { return get<T>(n, print_type_change_note); }
+   const std::vector<T> &name() const { return get<std::vector<T>>(); } \
+         std::vector<T> &name()       { return get<std::vector<T>>(); } \
+   const T &name(const std::size_t n) const { return get<T>(n); } \
+         T &name(const std::size_t n)       { return get<T>(n); }
 
 GNDSTK_MAKE_GETTER(strings,     std::string);
 GNDSTK_MAKE_GETTER(chars,       char);
