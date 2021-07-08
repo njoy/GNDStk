@@ -21,9 +21,9 @@ template<class CONTENT>
 void pushToDerived(CONTENT &content) const
 {
    if constexpr (detail::hasLength<CONTENT>)
-      content.length = vars.length;
+      content.length = length();
    if constexpr (detail::hasStart<CONTENT>)
-      content.start = vars.start;
+      content.start = start();
    if constexpr (detail::hasValueType<CONTENT>)
-      content.valueType = vars.valueType;
+      content.valueType = valueType();
 }

@@ -81,23 +81,38 @@ void construct(const VECTOR &) { }
 // finish() functions
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // finish()
+// ------------------------
+
 void finish()
 {
    // If hasBodyText == true (else no-op), have Component's BodyText base
    // get length, start, and valueType, as available, from the derived class
-   body::pullFromDerived(derived().content);
+   if constexpr (hasBodyText)
+      body::pullFromDerived(derived().content);
+
+   // Based on the derived class' keys(), locate and sort derived-class fields
+   // that are vectors, with vector elements that have index and/or label.
+   sort();
 
    // construct
    derived().construct();
 }
 
 
+// ------------------------
 // finish(DERIVED)
+// ------------------------
+
 void finish(const DERIVED &other)
 {
    // length, start, valueType
-   body::pullFromDerived(derived().content);
+   if constexpr (hasBodyText)
+      body::pullFromDerived(derived().content);
+
+   // derived-class vector fields
+   sort();
 
    // construct
    void (Component::*stub)(const DERIVED &) = &Component::construct;
@@ -109,20 +124,26 @@ void finish(const DERIVED &other)
 }
 
 
+// ------------------------
 // finish(Node)
+// ------------------------
+
 void finish(const Node &node)
 {
    // Read fields from the Node into the derived object. This applies the keys()
-   // multi-query in the derived class, and also runs BodyText::fromNode(),
-   // which gets the Node's raw string of "body text" if the Node has body text.
+   // multi-query in the derived class, and also runs BodyText::fromNode() if
+   // the Node has body text, in order to get the Node's string of "body text".
    fromNode(node);
 
-   // length, start, valueType
-   body::pullFromDerived(derived().content);
-
-   // Make vector
-   if constexpr (hasBodyText)
+   if constexpr (hasBodyText)  {
+      // length, start, valueType
+      body::pullFromDerived(derived().content);
+      // make vector
       body::get();
+   }
+
+   // derived-class vector fields
+   sort();
 
    // construct
    void (Component::*stub)(const Node &) = &Component::construct;
@@ -134,11 +155,14 @@ void finish(const Node &node)
 }
 
 
+// ------------------------
 // finish(vector)
+// ------------------------
+
 template<
    class VECTOR,
    class = std::enable_if_t<
-      hasBodyText &&
+      hasBodyText && // and then "if constexpr (hasBodyText)" isn't needed below
       detail::isAlternative<VECTOR,VariantOfVectors>
    >
 >
@@ -147,8 +171,11 @@ void finish(const VECTOR &values)
    // length, start, valueType
    body::pullFromDerived(derived().content);
 
-   // Assign from the vector
+   // assign from the vector
    body::operator=(values);
+
+   // derived-class vector fields
+   sort();
 
    // construct
    void (Component::*stub)(const VECTOR &) = &Component::construct;

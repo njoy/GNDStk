@@ -27,10 +27,6 @@ class Component : public BodyText<hasBodyText>
    // For convenience
    using body = BodyText<hasBodyText>;
    using typename body::VariantOfVectors;
-   DERIVED &derived()
-      { return static_cast<DERIVED &>(*this); }
-   const DERIVED &derived() const
-      { return static_cast<const DERIVED &>(*this); }
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -62,9 +58,6 @@ class Component : public BodyText<hasBodyText>
    // See comments in finish.hpp
    #include "GNDStk/Component/src/finish.hpp"
 
-   // You can (but don't need to) override the following in DERIVED
-   static std::string namespaceName() { return ""; }
-
    // Intermediaries between derived-class getters, and getter functions
    // in detail::. These shorten the code in the derived classes.
    #include "GNDStk/Component/src/getter.hpp"
@@ -75,8 +68,19 @@ class Component : public BodyText<hasBodyText>
 public:
 
    #include "GNDStk/Component/src/fromNode.hpp"
+   #include "GNDStk/Component/src/sort.hpp"
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
    #include "GNDStk/Component/src/write.hpp"
+
+   // You can (but don't need to) override the following in DERIVED
+   static std::string namespaceName() { return ""; }
+
+   // derived
+   // Convenient access to the derived class
+   DERIVED &derived()
+      { return static_cast<DERIVED &>(*this); }
+   const DERIVED &derived() const
+      { return static_cast<const DERIVED &>(*this); }
 
    // documentation
    static std::string documentation(const std::string &subject = "")

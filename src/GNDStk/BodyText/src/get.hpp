@@ -132,16 +132,16 @@ std::enable_if_t<
       // empty string) is acceptable with any element type.
 
       bool consistent = true;
-      if (vars.valueType == "Integer32") {
+      if (valueType() == "Integer32") {
          if (!std::is_same_v<T,Integer32>)
             consistent = false;
-      } else if (vars.valueType == "Float64") {
+      } else if (valueType() == "Float64") {
          if (!std::is_same_v<T,Float64>)
             consistent = false;
-      } else if (vars.valueType != "") {
+      } else if (valueType() != "") {
          log::warning(
            "Unrecognized valueType == \"{}\"; ignoring",
-            vars.valueType
+            valueType()
          );
          log::member(context_rebuilding);
       }
@@ -150,7 +150,7 @@ std::enable_if_t<
          log::warning(
            "Element type T may be inconsistent with valueType == \"{}\";\n",
            "we'll create the requested std::vector<T> anyway",
-            vars.valueType
+            valueType()
          );
          log::member(context_rebuilding);
       }
@@ -163,7 +163,7 @@ std::enable_if_t<
       if constexpr (std::is_same_v<T,std::string>) zero = ""; else zero = T(0);
 
       // [*****----------]: leading 0s
-      for (std::size_t i = 0; i < vars.start; ++i)
+      for (std::size_t i = 0; i < start(); ++i)
          to.push_back(zero);
 
       // [-----*****-----]: values from the raw string
@@ -174,22 +174,22 @@ std::enable_if_t<
 
       // Print a warning if length appears to be impossible because we already
       // have more than that number of values. (But length == 0 is ignored.)
-      if (0 < vars.length && vars.length < to.size()) {
+      if (0 < length() && length() < to.size()) {
          log::warning(
            "The value of length == {} appears to be wrong, because we\n"
            "already have {} values from start == {}, plus {} values read\n"
            "from the raw string, for a total of {} values.",
-            vars.length,
-            vars.start,
-            vars.start,
-            to.size() - vars.start,
+            length(),
+            start(),
+            start(),
+            to.size() - start(),
             to.size()
          );
          log::member(context_rebuilding);
       }
 
       // [----------*****]: trailing 0s
-      for (std::size_t i = to.size(); i < vars.length; ++i)
+      for (std::size_t i = to.size(); i < length(); ++i)
          to.push_back(zero);
 
       active = Active::vector; // because we just remade the vector
@@ -308,9 +308,9 @@ std::enable_if_t<
 // const
 const VariantOfVectors &get() const
 {
-   if (vars.valueType == "Integer32")
+   if (valueType() == "Integer32")
       get<std::vector<Integer32>>();
-   else if (vars.valueType == "Float64")
+   else if (valueType() == "Float64")
       get<std::vector<Float64>>();
    else
       get<std::vector<std::string>>();

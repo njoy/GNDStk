@@ -2,12 +2,8 @@
 namespace detail {
 
 // -----------------------------------------------------------------------------
-// Functions: for coloring
+// colorize_*(text)
 // -----------------------------------------------------------------------------
-
-// Use:
-//    colorize_part(text)
-// where part is some portion of the printed output.
 
 #define gndstkPaste(one,two) one ## two
 #define gndstkColorFun(part) \
@@ -116,8 +112,9 @@ inline void indentString(
 // These are adapted from an answer here:
 // https://stackoverflow.com/questions/87372
 
+// class
 template<class DERIVED>
-class hasWriteOneArg
+class HasWriteOneArg
 {
    template<
       class U,
@@ -131,8 +128,13 @@ public:
    static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
+// variable - use this
 template<class DERIVED>
-class hasWriteTwoArg
+inline constexpr bool hasWriteOneArg = HasWriteOneArg<DERIVED>::has;
+
+// class
+template<class DERIVED>
+class HasWriteTwoArg
 {
    template<
       class U,
@@ -145,6 +147,10 @@ class hasWriteTwoArg
 public:
    static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
+
+// variable - use this
+template<class DERIVED>
+inline constexpr bool hasWriteTwoArg = HasWriteTwoArg<DERIVED>::has;
 
 
 
@@ -210,9 +216,11 @@ inline bool writeComponentPart(
    const std::string &color
 ) {
    indentString(os,level);
+
    if (label != "") {
       os << colorize(label,color);
-      if (maxlen != 0) os << std::string(maxlen-label.size(),' ');
+      if (maxlen != 0)
+         os << std::string(maxlen-label.size(),' ');
       os << " " << colorize_colon(":");
       // assuming the string to be printed isn't empty - which we don't really
       // anticipate would happen - then print a space after the ":" and before
@@ -220,6 +228,7 @@ inline bool writeComponentPart(
       if (str != "")
          os << ' ';
    }
+
    for (auto &ch : str) {
       os << ch;
       // indent after any internal newlines the string might happen to have;
@@ -227,6 +236,7 @@ inline bool writeComponentPart(
       if (ch == '\n')
          indentString(os,level);
    }
+
    return true;
 }
 
@@ -251,7 +261,7 @@ bool writeComponentPart(
       // The ostringstream intermediary allows us to properly indent
       // in the event that the printed value has internal newlines.
       std::ostringstream oss;
-      oss << value;
+      oss << value;///precision?
       writeComponentPart(os, level, oss.str(), label, maxlen, color);
    }
    return true;
@@ -389,18 +399,33 @@ bool writeComponentPart(
 // has_index
 template<class T, class = int>
 struct has_index : std::false_type { };
+
 template<class T>
 struct has_index<T,decltype((void)T::content.index,0)> : std::true_type { };
+
+template<class... Ts>
+struct has_index<std::variant<Ts...>> {
+   // does any alternative have index?
+   static constexpr bool value = (has_index<Ts>::value || ...);
+};
 
 // has_label
 template<class T, class = int>
 struct has_label : std::false_type { };
+
 template<class T>
 struct has_label<T,decltype((void)T::content.label,0)> : std::true_type { };
+
+template<class... Ts>
+struct has_label<std::variant<Ts...>> {
+   // does any alternative have label?
+   static constexpr bool value = (has_label<Ts>::value || ...);
+};
 
 // These apply decay_t, and don't need ::value
 template<class T>
 inline constexpr bool hasIndex = has_index<std::decay_t<T>>::value;
+
 template<class T>
 inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
 
@@ -423,7 +448,7 @@ const T &getter(
    static const std::string context = "getter {}::{}.{}({}) on vector";
 
    try {
-      // fixme Make this more efficient, e.g. by assuming that the vector's
+      // todo Make this more efficient, e.g. by assuming that the vector's
       // elements are sorted by index, so that the wanted value is likely
       // to be found at [index].
 
@@ -597,8 +622,8 @@ T &getter(
 template<
    class T, class LOOKUP,
    class = std::enable_if_t<
-      std::is_same_v<LOOKUP,std::size_t> ||
-      std::is_same_v<LOOKUP,std::string>
+      std::is_convertible_v<LOOKUP,std::size_t> ||
+      std::is_convertible_v<LOOKUP,std::string>
    >
 >
 const T &getter(
@@ -618,7 +643,7 @@ const T &getter(
    } catch (...) {
       // context
       log::member(
-         std::is_same_v<LOOKUP,std::size_t>
+         std::is_convertible_v<LOOKUP,std::size_t>
             ? "getter {}::{}.{}({}) on optional<vector>"
             : "getter {}::{}.{}(\"{}\") on optional<vector>",
          nsname, clname, field, index_or_label);
@@ -630,8 +655,8 @@ const T &getter(
 template<
    class T, class LOOKUP,
    class = std::enable_if_t<
-      std::is_same_v<LOOKUP,std::size_t> ||
-      std::is_same_v<LOOKUP,std::string>
+      std::is_convertible_v<LOOKUP,std::size_t> ||
+      std::is_convertible_v<LOOKUP,std::string>
    >
 >
 T &getter(
@@ -657,7 +682,11 @@ T &getter(
 // variant,...
 // ------------------------
 
-template<class T, class... Ts>
+template<
+   class T,
+   class... Ts,
+   class = std::enable_if_t<detail::isAlternative<T,std::variant<Ts...>>>
+>
 const T *getter(
    const std::variant<Ts...> &var,
    const std::string &nsname,
@@ -690,8 +719,8 @@ const T *getter(
 template<
    class T, class LOOKUP,
    class = std::enable_if_t<
-      std::is_same_v<LOOKUP,std::size_t> ||
-      std::is_same_v<LOOKUP,std::string>
+      std::is_convertible_v<LOOKUP,std::size_t> ||
+      std::is_convertible_v<LOOKUP,std::string>
    >,
    class... Ts
 >
@@ -711,12 +740,145 @@ const T *getter(
    } catch (...) {
       // context
       log::member(
-         std::is_same_v<LOOKUP,std::size_t>
+         std::is_convertible_v<LOOKUP,std::size_t>
             ? "getter {}::{}.{}({}) on vector<variant>"
             : "getter {}::{}.{}(\"{}\") on vector<variant>",
          nsname, clname, field, index_or_label);
       throw;
    }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// For sorting derived-class fields based on index and label, if and when one
+// or the other of those is determined to be present. That determination hinges
+// on both a compile-time check that the classes involved even *have* index or
+// label fields in their content struct, and if they do, if either of those is
+// possibly a std::optional that may or may not contain a value at the moment.
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// compareRegular
+// ------------------------
+
+// See compareVariant() below to understand
+// why we have A and B, not T for both
+template<class A, class B>
+bool compareRegular(const A &a, const B &b)
+{
+   // Intentional: some "if ((x = y))"s below; i.e. =, not ==
+
+   // index?
+   std::size_t aindex = 0;  bool ahasindex = false;
+   if constexpr (hasIndex<A>) {
+      if constexpr (isOptional<decltype(A{}.content.index)>) {
+         if ((ahasindex = a.content.index.has_value()))
+            aindex = a.content.index.value();
+      } else {
+         ahasindex = true;
+         aindex = a.content.index;
+      }
+   }
+
+   std::size_t bindex = 0;  bool bhasindex = false;
+   if constexpr (hasIndex<B>) {
+      if constexpr (isOptional<decltype(B{}.content.index)>) {
+         if ((bhasindex = b.content.index.has_value()))
+            bindex = b.content.index.value();
+      } else {
+         bhasindex = true;
+         bindex = b.content.index;
+      }
+   }
+
+   // label?
+   std::string alabel = "";  bool ahaslabel = false;
+   if constexpr (hasLabel<A>) {
+      if constexpr (isOptional<decltype(A{}.content.label)>) {
+         if ((ahaslabel = a.content.label.has_value()))
+            alabel = a.content.label.value();
+      } else {
+         ahaslabel = true;
+         alabel = a.content.label;
+      }
+   }
+
+   std::string blabel = "";  bool bhaslabel = false;
+   if constexpr (hasLabel<B>) {
+      if constexpr (isOptional<decltype(B{}.content.label)>) {
+         if ((bhaslabel = b.content.label.has_value()))
+            blabel = b.content.label.value();
+      } else {
+         bhaslabel = true;
+         blabel = b.content.label;
+      }
+   }
+
+   return
+      // index: primary
+      ahasindex && bhasindex ? aindex < bindex
+    : ahasindex ? true
+    : bhasindex ? false
+      // label: secondary
+    : ahaslabel && bhaslabel ? alabel < blabel
+    : ahaslabel ? true
+    : bhaslabel ? false
+      // equal
+    : false;
+}
+
+
+// ------------------------
+// compareVariant
+// ------------------------
+
+template<class... Ts>
+bool compareVariant(const std::variant<Ts...> &a, const std::variant<Ts...> &b)
+{
+   return std::visit(
+      [&b](const auto &aalt)
+      {
+         return std::visit(
+            [&aalt](const auto &balt)
+            {
+               // why compareRegular() needs A and B...
+               return compareRegular(aalt,balt);
+            },
+            b
+         );
+      },
+      a
+   );
+}
+
+
+// ------------------------
+// sort
+// ------------------------
+
+// T
+template<class T>
+void sort(T &)
+{
+   // nothing
+}
+
+// vector<T>
+template<class T>
+void sort(std::vector<T> &vec)
+{
+   if constexpr (hasIndex<T> || hasLabel<T>)
+      std::sort(vec.begin(), vec.end(), compareRegular<T,T>);
+}
+
+// vector<variant<Ts...>>
+template<class... Ts>
+void sort(std::vector<std::variant<Ts...>> &vec)
+{
+   using T = std::variant<Ts...>;
+   if constexpr (hasIndex<T> || hasLabel<T>)
+      std::sort(vec.begin(), vec.end(), compareVariant<Ts...>);
 }
 
 } // namespace detail

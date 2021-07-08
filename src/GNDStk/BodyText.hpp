@@ -28,9 +28,6 @@ template<bool hasBodyText>
 class BodyText {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
-   std::ostream &write(std::ostream &os, const int) const { return os; }
-   template<class CONTENT>
-   void pullFromDerived(const CONTENT &) { }
 };
 
 

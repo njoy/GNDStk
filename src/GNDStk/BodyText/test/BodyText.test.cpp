@@ -14,22 +14,22 @@ SCENARIO("Testing GNDStk BodyText") {
    // objects. Note that BodyText has only a default constructor.
 
    {
-      const BodyText<true> cbt;
-      CHECK(cbt.length   () == 0);
-      CHECK(cbt.size     () == 0);
-      CHECK(cbt.valueType() == "");
-      CHECK(cbt.string   () == "");
+      const BodyText<true> cbtextt;
+      CHECK(cbtextt.length   () == 0);
+      CHECK(cbtextt.size     () == 0);
+      CHECK(cbtextt.valueType() == "");
+      CHECK(cbtextt.string   () == "");
    } {
-      const BodyText<false> cbf;
+      const BodyText<false> cbtextf;
       // no data for <false>
    } {
-      BodyText<true> nbt;
-      CHECK(nbt.length   () == 0);
-      CHECK(nbt.size     () == 0);
-      CHECK(nbt.valueType() == "");
-      CHECK(nbt.string   () == "");
+      BodyText<true> nbtextt;
+      CHECK(nbtextt.length   () == 0);
+      CHECK(nbtextt.size     () == 0);
+      CHECK(nbtextt.valueType() == "");
+      CHECK(nbtextt.string   () == "");
    } {
-      BodyText<false> nbf;
+      BodyText<false> nbtextf;
       // no data for <false>
    }
 
@@ -37,7 +37,7 @@ SCENARIO("Testing GNDStk BodyText") {
    // BodyText.hpp file itself, so we'll test them here. size() actually
    // was used in various tests, and thus was indirectly tested elsewhere.
 
-   GIVEN("A BodyText object") {
+   GIVEN("A BodyText") {
       // clear
       WHEN("We test clear()") {
          BodyText<true> b;
