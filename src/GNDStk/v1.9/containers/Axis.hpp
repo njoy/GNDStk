@@ -29,7 +29,7 @@ class Axis : public Component<Axis> {
    // For Component
    // ------------------------
 
-   friend class Component<Axis>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }

@@ -33,7 +33,7 @@ class Regions1d : public Component<Regions1d> {
    // For Component
    // ------------------------
 
-   friend class Component<Regions1d>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }

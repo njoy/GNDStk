@@ -32,7 +32,7 @@ class Reactions : public Component<Reactions> {
    // For Component
    // ------------------------
 
-   friend class Component<Reactions>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }

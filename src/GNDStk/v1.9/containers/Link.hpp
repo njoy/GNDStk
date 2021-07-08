@@ -29,7 +29,7 @@ class Link : public Component<Link> {
    // For Component
    // ------------------------
 
-   friend class Component<Link>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
