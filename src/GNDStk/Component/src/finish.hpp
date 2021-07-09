@@ -68,12 +68,12 @@ void construct(const DERIVED &) { }
 void construct(const Node &) { }
 
 template<
-   class VECTOR,
+   class T,
    class = std::enable_if_t<
-      hasBodyText && detail::isAlternative<VECTOR,VariantOfVectors>
+      hasBodyText && detail::isAlternative<std::vector<T>,VariantOfVectors>
    >
 >
-void construct(const VECTOR &) { }
+void construct(const std::vector<T> &) { }
 
 
 
