@@ -79,9 +79,11 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
    GIVEN("Testing detail::hasLength,hasStart,hasValueType") {
       {
          struct {
-            int length;
-            const double start = 0;
-            const std::string &valueType = bar;
+            struct {
+               int length;
+               const double start = 0;
+               const std::string &valueType = bar;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == true));
          CHECK((detail::hasStart    <decltype(foo)> == true));
@@ -90,8 +92,10 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
-            const double start = 0;
-            const std::string &valueType = bar;
+            struct {
+               const double start = 0;
+               const std::string &valueType = bar;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == false));
          CHECK((detail::hasStart    <decltype(foo)> == true));
@@ -100,8 +104,10 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
-            int length;
-            const std::string &valueType = bar;
+            struct {
+               int length;
+               const std::string &valueType = bar;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == true));
          CHECK((detail::hasStart    <decltype(foo)> == false));
@@ -110,8 +116,10 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
-            int length;
-            const double start = 0;
+            struct {
+               int length;
+               const double start = 0;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == true));
          CHECK((detail::hasStart    <decltype(foo)> == true));
@@ -120,7 +128,9 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
-            int length;
+            struct {
+               int length;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == true));
          CHECK((detail::hasStart    <decltype(foo)> == false));
@@ -129,7 +139,9 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
-            const double start = 0;
+            struct {
+               const double start = 0;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == false));
          CHECK((detail::hasStart    <decltype(foo)> == true));
@@ -138,7 +150,9 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
-            const std::string &valueType = bar;
+            struct {
+               const std::string &valueType = bar;
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == false));
          CHECK((detail::hasStart    <decltype(foo)> == false));
@@ -147,6 +161,8 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       {
          struct {
+            struct {
+            } content;
          } foo;
          CHECK((detail::hasLength   <decltype(foo)> == false));
          CHECK((detail::hasStart    <decltype(foo)> == false));

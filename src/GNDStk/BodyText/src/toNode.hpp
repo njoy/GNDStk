@@ -9,8 +9,8 @@
 // Use the original raw string or the vector, depending on which one is active.
 // Also: length, start, and valueType might be computed - which means changing
 // them in the derived class too, in order to keep everything consistent.
-template<class CONTENT>
-void toNode(std::string &text, CONTENT &content) const
+template<class DERIVED>
+void toNode(std::string &text, DERIVED &derived) const
 {
    // Use the raw string?
    if (active == Active::string) {
@@ -48,7 +48,7 @@ void toNode(std::string &text, CONTENT &content) const
       std::holds_alternative<std::vector<Integer32>>(variant) ? "Integer32"
     : std::holds_alternative<std::vector<Float64  >>(variant) ? "Float64"
     : ""; // fallback
-   pushToDerived(content);
+   pushToDerived(derived);
 
    // Values
    std::ostringstream oss;

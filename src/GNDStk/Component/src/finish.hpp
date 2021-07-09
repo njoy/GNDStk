@@ -90,7 +90,7 @@ void finish()
    // If hasBodyText == true (else no-op), have Component's BodyText base
    // get length, start, and valueType, as available, from the derived class
    if constexpr (hasBodyText)
-      body::pullFromDerived(derived().content);
+      body::pullFromDerived(derived());
 
    // Based on the derived class' keys(), locate and sort derived-class fields
    // that are vectors, with vector elements that have index and/or label.
@@ -109,7 +109,7 @@ void finish(const DERIVED &other)
 {
    // length, start, valueType
    if constexpr (hasBodyText)
-      body::pullFromDerived(derived().content);
+      body::pullFromDerived(derived());
 
    // derived-class vector fields
    sort();
@@ -135,9 +135,9 @@ void finish(const Node &node)
    // the Node has body text, in order to get the Node's string of "body text".
    fromNode(node);
 
-   if constexpr (hasBodyText)  {
+   if constexpr (hasBodyText) {
       // length, start, valueType
-      body::pullFromDerived(derived().content);
+      body::pullFromDerived(derived());
       // make vector
       body::get();
    }
@@ -168,11 +168,12 @@ template<
 >
 void finish(const VECTOR &values)
 {
-   // length, start, valueType
-   body::pullFromDerived(derived().content);
-
    // assign from the vector
    body::operator=(values);
+
+   // length, start, valueType: push back up to derived,
+   // as they would have been computed above in operator=.
+   body::pushToDerived(derived());
 
    // derived-class vector fields
    sort();

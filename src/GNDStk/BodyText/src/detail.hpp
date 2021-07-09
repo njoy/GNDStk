@@ -25,8 +25,8 @@ template<class T>
 using decays_t = typename decays<T>::type;
 
 
+
 // -----------------------------------------------------------------------------
-// has*
 // SFINAE constructs for detecting whether or not a class has certain members.
 // Adapted from an answer here: https://stackoverflow.com/questions/1005476
 // -----------------------------------------------------------------------------
@@ -37,27 +37,66 @@ using decays_t = typename decays<T>::type;
 
 // has_length
 template<class T, class = int>
-struct has_length : std::false_type { };
+struct has_length
+   : std::false_type { };
+
 template<class T>
-struct has_length<T,decltype((void)T::length,0)> : std::true_type { };
+struct has_length<T,decltype((void)T::content.length,0)>
+   : std::true_type { };
 
 // has_start
 template<class T, class = int>
-struct has_start : std::false_type { };
+struct has_start
+   : std::false_type { };
+
 template<class T>
-struct has_start<T,decltype((void)T::start,0)> : std::true_type { };
+struct has_start<T,decltype((void)T::content.start,0)>
+   : std::true_type { };
 
 // has_valueType
 template<class T, class = int>
-struct has_valueType : std::false_type { };
+struct has_valueType
+   : std::false_type { };
+
 template<class T>
-struct has_valueType<T,decltype((void)T::valueType,0)> : std::true_type { };
+struct has_valueType<T,decltype((void)T::content.valueType,0)>
+   : std::true_type { };
+
+// has_index
+template<class T, class = int>
+struct has_index
+   : std::false_type { };
+
+template<class T>
+struct has_index<T,decltype((void)T::content.index,0)>
+   : std::true_type { };
+
+template<class... Ts>
+struct has_index<std::variant<Ts...>> {
+   // for variant: does any alternative have index?
+   static constexpr bool value = (has_index<Ts>::value || ...);
+};
+
+// has_label
+template<class T, class = int>
+struct has_label
+   : std::false_type { };
+
+template<class T>
+struct has_label<T,decltype((void)T::content.label,0)>
+   : std::true_type { };
+
+template<class... Ts>
+struct has_label<std::variant<Ts...>> {
+   // for variant: does any alternative have label?
+   static constexpr bool value = (has_label<Ts>::value || ...);
+};
+
 
 // ------------------------
-// Use these; they deal
-// with CV and reference
-// qualifiers, and don't
-// require ::value
+// Prefer these.
+// They apply std::decay,
+// and don't need ::value
 // ------------------------
 
 template<class T>
@@ -66,6 +105,11 @@ template<class T>
 inline constexpr bool hasStart     = has_start    <std::decay_t<T>>::value;
 template<class T>
 inline constexpr bool hasValueType = has_valueType<std::decay_t<T>>::value;
+template<class T>
+inline constexpr bool hasIndex     = has_index    <std::decay_t<T>>::value;
+template<class T>
+inline constexpr bool hasLabel     = has_label    <std::decay_t<T>>::value;
+
 
 
 // -----------------------------------------------------------------------------
@@ -100,6 +144,7 @@ void element2element(const FROM &from, TO &to)
 {
    to = TO(from);
 }
+
 
 
 // -----------------------------------------------------------------------------

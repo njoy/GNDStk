@@ -389,48 +389,6 @@ bool writeComponentPart(
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-// ------------------------
-// SFINAE helpers
-// ------------------------
-
-// These are adapted from an answer here:
-//    https://stackoverflow.com/questions/1005476
-
-// has_index
-template<class T, class = int>
-struct has_index : std::false_type { };
-
-template<class T>
-struct has_index<T,decltype((void)T::content.index,0)> : std::true_type { };
-
-template<class... Ts>
-struct has_index<std::variant<Ts...>> {
-   // does any alternative have index?
-   static constexpr bool value = (has_index<Ts>::value || ...);
-};
-
-// has_label
-template<class T, class = int>
-struct has_label : std::false_type { };
-
-template<class T>
-struct has_label<T,decltype((void)T::content.label,0)> : std::true_type { };
-
-template<class... Ts>
-struct has_label<std::variant<Ts...>> {
-   // does any alternative have label?
-   static constexpr bool value = (has_label<Ts>::value || ...);
-};
-
-// These apply decay_t, and don't need ::value
-template<class T>
-inline constexpr bool hasIndex = has_index<std::decay_t<T>>::value;
-
-template<class T>
-inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
-
-
-
 // -----------------------------------------------------------------------------
 // getter(vector, index, ...)
 // Index into vector data member of class.
@@ -879,6 +837,14 @@ void sort(std::vector<std::variant<Ts...>> &vec)
    using T = std::variant<Ts...>;
    if constexpr (hasIndex<T> || hasLabel<T>)
       std::sort(vec.begin(), vec.end(), compareVariant<Ts...>);
+}
+
+// optional<vector>
+template<class T>
+void sort(std::optional<std::vector<T>> &opt)
+{
+   if (opt.has_value())
+      sort(opt.value());
 }
 
 } // namespace detail
