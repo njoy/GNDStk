@@ -162,7 +162,7 @@ void finish(const Node &node)
 template<
    class VECTOR,
    class = std::enable_if_t<
-      hasBodyText && // and then "if constexpr (hasBodyText)" isn't needed below
+      hasBodyText && // and, "if constexpr (hasBodyText)" isn't needed below
       detail::isAlternative<VECTOR,VariantOfVectors>
    >
 >

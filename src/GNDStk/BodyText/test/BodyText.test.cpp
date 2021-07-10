@@ -13,24 +13,38 @@ SCENARIO("Testing GNDStk BodyText") {
    // Ensure that we can make const and non-const <true> and <false> BodyText
    // objects. Note that BodyText has only a default constructor.
 
-   {
+   GIVEN ("A const BodyText<true> cbtextt") {
       const BodyText<true> cbtextt;
-      CHECK(cbtextt.length   () == 0);
-      CHECK(cbtextt.size     () == 0);
-      CHECK(cbtextt.valueType() == "");
-      CHECK(cbtextt.string   () == "");
-   } {
+      THEN ("It constructed correctly, and its data are as expected") {
+         CHECK(cbtextt.length   () == 0);
+         CHECK(cbtextt.size     () == 0);
+         CHECK(cbtextt.valueType() == "");
+         CHECK(cbtextt.string   () == "");
+      }
+   }
+
+   GIVEN ("A const BodyText<false> cbtextf") {
       const BodyText<false> cbtextf;
-      // no data for <false>
-   } {
+      THEN ("It constructed correctly") {
+         // no data for <false>
+      }
+   }
+
+   GIVEN ("A non-const BodyText<true> nbtextt") {
       BodyText<true> nbtextt;
-      CHECK(nbtextt.length   () == 0);
-      CHECK(nbtextt.size     () == 0);
-      CHECK(nbtextt.valueType() == "");
-      CHECK(nbtextt.string   () == "");
-   } {
+      THEN ("It constructed correctly, and its data are as expected") {
+         CHECK(nbtextt.length   () == 0);
+         CHECK(nbtextt.size     () == 0);
+         CHECK(nbtextt.valueType() == "");
+         CHECK(nbtextt.string   () == "");
+      }
+   }
+
+   GIVEN ("A non-const BodyText<false> nbtextf") {
       BodyText<false> nbtextf;
-      // no data for <false>
+      THEN ("It constructed correctly") {
+         // no data for <false>
+      }
    }
 
    // clear() and size() are defined (at the time of this writing) in the
@@ -43,22 +57,28 @@ SCENARIO("Testing GNDStk BodyText") {
          BodyText<true> b;
 
          // try int
-         b = std::vector<int>{1,2,3,4,5};
-         CHECK(b.size() == 5);
-         b.clear();
-         CHECK(b.size() == 0);
+         THEN ("size() works correctly for vector<int>") {
+            b = std::vector<int>{1,2,3,4,5};
+            CHECK(b.size() == 5);
+            b.clear();
+            CHECK(b.size() == 0);
+         }
 
          // try double
-         b = std::vector<double>{1.1, 2.2, 3.3, 4.4, 5.5};
-         CHECK(b.size() == 5);
-         b.clear();
-         CHECK(b.size() == 0);
+         THEN ("size() works correctly for vector<double>") {
+            b = std::vector<double>{1.1, 2.2, 3.3, 4.4, 5.5};
+            CHECK(b.size() == 5);
+            b.clear();
+            CHECK(b.size() == 0);
+         }
 
          // try string
-         b = std::vector<std::string>{"one", "two", "three", "four", "five"};
-         CHECK(b.size() == 5);
-         b.clear();
-         CHECK(b.size() == 0);
+         THEN ("size() works correctly for vector<string>") {
+            b = std::vector<std::string>{"one","two","three","four","five"};
+            CHECK(b.size() == 5);
+            b.clear();
+            CHECK(b.size() == 0);
+         }
       }
 
       // size
@@ -66,28 +86,34 @@ SCENARIO("Testing GNDStk BodyText") {
          BodyText<true> b;
 
          // try int
-         b = std::vector<int>{1,2,3,4,5};
-         CHECK(b.size() == 5);
-         b = std::vector<int>{1};
-         CHECK(b.size() == 1);
-         b = std::vector<int>{};
-         CHECK(b.size() == 0);
+         THEN ("size() works correctly for vector<int>") {
+            b = std::vector<int>{1,2,3,4,5};
+            CHECK(b.size() == 5);
+            b = std::vector<int>{1};
+            CHECK(b.size() == 1);
+            b = std::vector<int>{};
+            CHECK(b.size() == 0);
+         }
 
          // try double
-         b = std::vector<double>{1.1, 2.2, 3.3, 4.4, 5.5};
-         CHECK(b.size() == 5);
-         b = std::vector<double>{1.1};
-         CHECK(b.size() == 1);
-         b = std::vector<double>{};
-         CHECK(b.size() == 0);
+         THEN ("size() works correctly for vector<double>") {
+            b = std::vector<double>{1.1, 2.2, 3.3, 4.4, 5.5};
+            CHECK(b.size() == 5);
+            b = std::vector<double>{1.1};
+            CHECK(b.size() == 1);
+            b = std::vector<double>{};
+            CHECK(b.size() == 0);
+         }
 
          // try string
-         b = std::vector<std::string>{"one", "two", "three", "four", "five"};
-         CHECK(b.size() == 5);
-         b = std::vector<std::string>{"one"};
-         CHECK(b.size() == 1);
-         b = std::vector<std::string>{};
-         CHECK(b.size() == 0);
+         THEN ("size() works correctly for vector<string>") {
+            b = std::vector<std::string>{"one","two","three","four","five"};
+            CHECK(b.size() == 5);
+            b = std::vector<std::string>{"one"};
+            CHECK(b.size() == 1);
+            b = std::vector<std::string>{};
+            CHECK(b.size() == 0);
+         }
       }
    }
 }
