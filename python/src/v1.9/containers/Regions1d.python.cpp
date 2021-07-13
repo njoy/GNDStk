@@ -38,7 +38,7 @@ void wrapRegions1d(python::module &module)
          python::init<
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
-            const containers::XYs1d &,
+            const std::vector<containers::XYs1d> &,
             const std::optional<containers::Axes> &
          >(),
          python::arg("label") = std::nullopt,

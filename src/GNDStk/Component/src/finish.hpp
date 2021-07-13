@@ -160,13 +160,13 @@ void finish(const Node &node)
 // ------------------------
 
 template<
-   class VECTOR,
+   class T,
    class = std::enable_if_t<
       hasBodyText && // and, "if constexpr (hasBodyText)" isn't needed below
-      detail::isAlternative<VECTOR,VariantOfVectors>
+      detail::isAlternative<std::vector<T>,VariantOfVectors>
    >
 >
-void finish(const VECTOR &values)
+void finish(const std::vector<T> &values)
 {
    // assign from the vector
    body::operator=(values);
@@ -179,8 +179,8 @@ void finish(const VECTOR &values)
    sort();
 
    // construct
-   void (Component::*stub)(const VECTOR &) = &Component::construct;
-   void (DERIVED::*custom)(const VECTOR &) = &DERIVED::construct;
+   void (Component::*stub)(const std::vector<T> &) = &Component::construct;
+   void (DERIVED::*custom)(const std::vector<T> &) = &DERIVED::construct;
    if (custom != stub)
       derived().construct(values);
    else
