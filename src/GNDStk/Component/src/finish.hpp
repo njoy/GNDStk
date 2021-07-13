@@ -67,13 +67,14 @@ void construct() { }
 void construct(const DERIVED &) { }
 void construct(const Node &) { }
 
+// The next one returns bool, but customizations in DERIVED should return void!
 template<
    class T,
    class = std::enable_if_t<
       hasBodyText && detail::isAlternative<std::vector<T>,VariantOfVectors>
    >
 >
-void construct(const std::vector<T> &) { }
+bool construct(const std::vector<T> &) { return true; }
 
 
 
@@ -179,9 +180,7 @@ void finish(const std::vector<T> &values)
    sort();
 
    // construct
-   void (Component::*stub)(const std::vector<T> &) = &Component::construct;
-   void (DERIVED::*custom)(const std::vector<T> &) = &DERIVED::construct;
-   if (custom != stub)
+   if constexpr (std::is_same_v<void,decltype(derived().construct(values))>)
       derived().construct(values);
    else
       derived().construct();
