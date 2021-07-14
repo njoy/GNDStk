@@ -50,11 +50,7 @@ struct Both {
 // and for use in the getter() tests
 // -----------------------------------------------------------------------------
 
-// Empty
-struct Empty {
-   struct {
-   } content;
-};
+#include "indexnlabel.hpp"
 
 // FooBar
 struct FooBar {
@@ -62,67 +58,6 @@ struct FooBar {
       int foo;
       double bar;
    } content;
-};
-
-// Index
-struct Index {
-   struct {
-      int index;
-   } content;
-   std::string value;
-
-   std::size_t index() const { return content.index; };
-
-   Index(
-      const int index = 0,
-      const std::string &value = ""
-   ) :
-      value(value)
-   {
-      content.index = index;
-   }
-};
-
-// Label
-struct Label {
-   struct {
-      std::string label;
-   } content;
-   std::string value;
-
-   std::string label() const { return content.label; };
-
-   Label(
-      const std::string &label = "",
-      const std::string &value = ""
-   ) :
-      value(value)
-   {
-      content.label = label;
-   }
-};
-
-// IndexLabel
-struct IndexLabel {
-   struct {
-      int index;
-      std::string label;
-   } content;
-   std::string value;
-
-   std::size_t index() const { return content.index; };
-   std::string label() const { return content.label; };
-
-   IndexLabel(
-      const int index = 0,
-      const std::string &label = "",
-      const std::string &value = ""
-   ) :
-      value(value)
-   {
-      content.index = index;
-      content.label = label;
-   }
 };
 
 
@@ -723,11 +658,11 @@ SCENARIO("Testing Component detail:: getter() functions") {
    GIVEN("A vector of objects that have both index and label") {
       // look for specific index
       THEN ("getter() based on index works properly") {
-         CHECK((detail::getter(vec,0,"name","class","field").value == "0a"));
-         CHECK((detail::getter(vec,1,"name","class","field").value == "1b"));
-         CHECK((detail::getter(vec,2,"name","class","field").value == "2c"));
-         CHECK((detail::getter(vec,3,"name","class","field").value == "3d"));
-         CHECK((detail::getter(vec,4,"name","class","field").value == "4e"));
+         CHECK((detail::getter(vec,0,"name","class","field").value() == "0a"));
+         CHECK((detail::getter(vec,1,"name","class","field").value() == "1b"));
+         CHECK((detail::getter(vec,2,"name","class","field").value() == "2c"));
+         CHECK((detail::getter(vec,3,"name","class","field").value() == "3d"));
+         CHECK((detail::getter(vec,4,"name","class","field").value() == "4e"));
          try {
             detail::getter(vec,100,"name","class","field");
             // the above should throw, so we shouldn't get here...
@@ -738,11 +673,11 @@ SCENARIO("Testing Component detail:: getter() functions") {
 
       // look for specific label
       THEN ("getter() based on label works properly") {
-         CHECK((detail::getter(vec,"a","name","class","field").value == "0a"));
-         CHECK((detail::getter(vec,"b","name","class","field").value == "1b"));
-         CHECK((detail::getter(vec,"c","name","class","field").value == "2c"));
-         CHECK((detail::getter(vec,"d","name","class","field").value == "3d"));
-         CHECK((detail::getter(vec,"e","name","class","field").value == "4e"));
+         CHECK((detail::getter(vec,"a","name","class","field").value() == "0a"));
+         CHECK((detail::getter(vec,"b","name","class","field").value() == "1b"));
+         CHECK((detail::getter(vec,"c","name","class","field").value() == "2c"));
+         CHECK((detail::getter(vec,"d","name","class","field").value() == "3d"));
+         CHECK((detail::getter(vec,"e","name","class","field").value() == "4e"));
          try {
             detail::getter(vec,"z","name","class","field");
             // the above should throw, so we shouldn't get here...
@@ -763,11 +698,11 @@ SCENARIO("Testing Component detail:: getter() functions") {
 
       // look for specific index
       THEN ("getter() based on index works properly") {
-         CHECK((detail::getter(opt,0UL,"name","class","field").value == "0a"));
-         CHECK((detail::getter(opt,1UL,"name","class","field").value == "1b"));
-         CHECK((detail::getter(opt,2UL,"name","class","field").value == "2c"));
-         CHECK((detail::getter(opt,3UL,"name","class","field").value == "3d"));
-         CHECK((detail::getter(opt,4UL,"name","class","field").value == "4e"));
+         CHECK((detail::getter(opt,0UL,"name","class","field").value() == "0a"));
+         CHECK((detail::getter(opt,1UL,"name","class","field").value() == "1b"));
+         CHECK((detail::getter(opt,2UL,"name","class","field").value() == "2c"));
+         CHECK((detail::getter(opt,3UL,"name","class","field").value() == "3d"));
+         CHECK((detail::getter(opt,4UL,"name","class","field").value() == "4e"));
          try {
             detail::getter(opt,100UL,"name","class","field");
             // the above should throw, so we shouldn't get here...
@@ -778,11 +713,11 @@ SCENARIO("Testing Component detail:: getter() functions") {
 
       // look for specific label
       THEN ("getter() based on label works properly") {
-         CHECK((detail::getter(opt,"a","name","class","field").value == "0a"));
-         CHECK((detail::getter(opt,"b","name","class","field").value == "1b"));
-         CHECK((detail::getter(opt,"c","name","class","field").value == "2c"));
-         CHECK((detail::getter(opt,"d","name","class","field").value == "3d"));
-         CHECK((detail::getter(opt,"e","name","class","field").value == "4e"));
+         CHECK((detail::getter(opt,"a","name","class","field").value() == "0a"));
+         CHECK((detail::getter(opt,"b","name","class","field").value() == "1b"));
+         CHECK((detail::getter(opt,"c","name","class","field").value() == "2c"));
+         CHECK((detail::getter(opt,"d","name","class","field").value() == "3d"));
+         CHECK((detail::getter(opt,"e","name","class","field").value() == "4e"));
          try {
             detail::getter(opt,"z","name","class","field");
             // the above should throw, so we shouldn't get here...
@@ -833,15 +768,15 @@ SCENARIO("Testing Component detail:: getter() functions") {
       // Note that these don't involve index or label fields
 
       var = Index(0,"zero");
-      CHECK((detail::getter<Index>(var,"name","class","field")->value ==
+      CHECK((detail::getter<Index>(var,"name","class","field")->value() ==
              "zero"));
 
       var = Label("hello","world");
-      CHECK((detail::getter<Label>(var,"name","class","field")->value ==
+      CHECK((detail::getter<Label>(var,"name","class","field")->value() ==
              "world"));
 
       var = IndexLabel(10,"ten","TEN");
-      CHECK((detail::getter<IndexLabel>(var,"name","class","field")->value ==
+      CHECK((detail::getter<IndexLabel>(var,"name","class","field")->value() ==
              "TEN"));
    } // GIVEN
 
@@ -866,16 +801,16 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }};
 
       CHECK((detail::getter<Index     >(vec,0,      "name","class","field")
-             ->value == "zero"));
+             ->value() == "zero"));
       CHECK((detail::getter<Label     >(vec,"hello","name","class","field")
-             ->value == "world"));
+             ->value() == "world"));
       CHECK((detail::getter<IndexLabel>(vec,10,     "name","class","field")
-             ->value == "TEN"));
+             ->value() == "TEN"));
       CHECK((detail::getter<IndexLabel>(vec,11,     "name","class","field")
-             ->value == "ELEVEN"));
+             ->value() == "ELEVEN"));
       CHECK((detail::getter<Label     >(vec,"2",    "name","class","field")
-             ->value == "two"));
+             ->value() == "two"));
       CHECK((detail::getter<Index     >(vec,1,      "name","class","field")
-             ->value == "one"));
+             ->value() == "one"));
    } // GIVEN
 }

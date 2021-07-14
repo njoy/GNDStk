@@ -34,7 +34,7 @@ SCENARIO("Component write()") {
 
 
 // -----------------------------------------------------------------------------
-// The following returns a fairly long string, but serves is a good test of
+// The following returns a fairly long string, but serves as a good test of
 // Component's write() function, because so many elements (vectors, variants,
 // std::optional objects, Defaulted objects, etc.) are involved.
 // -----------------------------------------------------------------------------
