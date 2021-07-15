@@ -4,6 +4,7 @@
 #include "prototype.hpp"
 
 using namespace njoy::GNDStk::core;
+using namespace GNDStk::proto;
 
 
 // -----------------------------------------------------------------------------
@@ -15,7 +16,7 @@ inline const std::string &CorrectWriteText();
 SCENARIO("Component write()") {
    GIVEN ("A GNDS tree") {
       const Tree t("n-001_H_002.xml");
-      const GNDStk::proto::ReactionSuite suite(t(child::reactionSuite));
+      const ReactionSuite suite(t(child::reactionSuite));
       WHEN ("We read its reactionSuite into a Component-derived class") {
          std::ostringstream oss;
 

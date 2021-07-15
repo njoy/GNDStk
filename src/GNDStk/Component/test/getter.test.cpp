@@ -70,8 +70,6 @@ public:
    // const
    void test_vector() const
    {
-      std::cout << "test_vector() const begin" << std::endl;
-
       // re: vecIndex
       CHECK( getter(vecIndex,1,"vecIndex").index() == 1 );
       CHECK( getter(vecIndex,1,"vecIndex").value() == "one" );
@@ -109,15 +107,11 @@ public:
       CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").index() == 7 );
       CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").label() == "seven" );
       CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").value() == "7 (seven)" );
-
-      std::cout << "test_vector() const end" << std::endl;
    }
 
    // non-const
    void test_vector()
    {
-      std::cout << "test_vector() begin" << std::endl;
-
       // ------------------------
       // re: vecIndex
       // ------------------------
@@ -183,8 +177,6 @@ public:
       CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").index() == 13);
       CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").label() == "thirteen" );
       CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").value() == "13 (thirteen)" );
-
-      std::cout << "test_vector() end" << std::endl;
    }
 
    // ------------------------
@@ -196,16 +188,13 @@ public:
    // const
    void test_variant() const
    {
-      std::cout << "test_variant() const begin" << std::endl;
       CHECK( *getter<int   >(varA,"varA") == 12 );
       CHECK( *getter<double>(varB,"varB") == 34.56 );
-      std::cout << "test_variant() const end" << std::endl;
    }
 
    // non-const
    void test_variant()
    {
-      std::cout << "test_variant() begin" << std::endl;
       CHECK( *getter<int   >(varA,"varA") == 12 );
       CHECK( *getter<double>(varB,"varB") == 34.56 );
 
@@ -214,7 +203,6 @@ public:
 
       CHECK( *getter<int   >(varA,"varA") == 314);
       CHECK( *getter<double>(varB,"varB") == 2.72);
-      std::cout << "test_variant() end" << std::endl;
    }
 
    // ------------------------
@@ -226,8 +214,6 @@ public:
    // const
    void test_vector_of_variant() const
    {
-      std::cout << "test_vector_of_variant() const begin" << std::endl;
-
       // Index
       CHECK( getter<Index>(vecVARIANT,8,"vecVARIANT")->index() == 8);
       CHECK( getter<Index>(vecVARIANT,8,"vecVARIANT")->value() == "eight");
@@ -245,15 +231,11 @@ public:
       CHECK( getter<IndexLabel>(vecVARIANT,"ten","vecVARIANT")->index() == 10);
       CHECK( getter<IndexLabel>(vecVARIANT,"ten","vecVARIANT")->label() == "ten");
       CHECK( getter<IndexLabel>(vecVARIANT,"ten","vecVARIANT")->value() == "10 (ten)");
-
-      std::cout << "test_vector_of_variant() const end" << std::endl;
    }
 
    // non-const
    void test_vector_of_variant()
    {
-      std::cout << "test_vector_of_variant() begin" << std::endl;
-
       // ------------------------
       // Index
       // ------------------------
@@ -321,8 +303,6 @@ public:
       CHECK( getter<IndexLabel>(vecVARIANT,"a thousand","vecVARIANT")->index() == 1000);
       CHECK( getter<IndexLabel>(vecVARIANT,"a thousand","vecVARIANT")->label() == "a thousand");
       CHECK( getter<IndexLabel>(vecVARIANT,"a thousand","vecVARIANT")->value() == "10*10*10");
-
-      std::cout << "test_vector_of_variant() end" << std::endl;
    }
 
 }; // class TestGetter

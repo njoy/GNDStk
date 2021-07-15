@@ -4,6 +4,7 @@
 #include "prototype.hpp"
 
 using namespace njoy::GNDStk::core;
+using namespace GNDStk::proto;
 
 
 // -----------------------------------------------------------------------------
@@ -77,14 +78,14 @@ SCENARIO("Component fromNode()") {
       WHEN ("A ReactionSuite object is constructed from a Node") {
          // Construct a ReactionSuite from a Node. That this
          // is done correctly is tested elsewhere.
-         const GNDStk::proto::ReactionSuite suite1(tree(child::reactionSuite));
+         const ReactionSuite suite1(tree(child::reactionSuite));
 
          THEN ("A ReactionSuite made with fromNode(the same Node) "
                "is the same"
          ) {
             // Default-construct a ReactionSuite, then use fromNode
             // to make it from a Node.
-            GNDStk::proto::ReactionSuite suite2;
+            ReactionSuite suite2;
             suite2.fromNode(tree(child::reactionSuite));
 
             // Print both ReactionSuite objects
@@ -105,15 +106,14 @@ SCENARIO("Component fromNode()") {
 
       WHEN ("A Reactions object is constructed from a Node") {
          // Construct from Node
-         const GNDStk::proto::Reactions
-            reacts1(tree(child::reactionSuite,child::reactions));
+         const Reactions reacts1(tree(child::reactionSuite,child::reactions));
 
          THEN ("A Reactions made with fromNode(the same Node) may (and in "
                "this case IS) different until we sort it, because fromNode() "
                "doesn't sort the Reaction sub-elements"
          ) {
             // Use fromNode()
-            GNDStk::proto::Reactions reacts2;
+            Reactions reacts2;
             reacts2.fromNode(tree(child::reactionSuite,child::reactions));
 
 
@@ -148,12 +148,12 @@ SCENARIO("Component fromNode()") {
          );
 
          // Construct from Node
-         const GNDStk::proto::Values values1(node);
+         const Values values1(node);
 
          THEN ("A Values made with fromNode(the same Node) may (and in "
                "this case IS) different until we process it"
          ) {
-            GNDStk::proto::Values values2;
+            Values values2;
             values2.fromNode(node);
 
             std::ostringstream oss1;
