@@ -8,6 +8,9 @@
 // core interface
 #include "GNDStk.hpp"
 
+// v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
+
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
@@ -42,11 +45,11 @@ class Axis : public Component<Axis> {
       return
          // metadata
          std::optional<Integer32>{}
-            / Meta<>("index") |
+            / key::meta::index |
          std::optional<XMLName>{}
-            / Meta<>("label") |
+            / key::meta::label |
          std::optional<XMLName>{}
-            / Meta<>("unit")
+            / key::meta::unit
       ;
    }
 

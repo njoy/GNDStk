@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reactions.hpp"
 
 namespace njoy {
@@ -45,20 +46,20 @@ class ReactionSuite : public Component<ReactionSuite> {
       return
          // metadata
          XMLName{}
-            / Meta<>("evaluation") |
+            / key::meta::evaluation |
          XMLName{}
-            / Meta<>("format") |
+            / key::meta::format |
          std::optional<enums::Interaction>{}
-            / Meta<>("interaction") |
+            / key::meta::interaction |
          XMLName{}
-            / Meta<>("projectile") |
+            / key::meta::projectile |
          enums::Frame{}
-            / Meta<>("projectileFrame") |
+            / key::meta::projectileFrame |
          XMLName{}
-            / Meta<>("target") |
+            / key::meta::target |
          // children
          std::optional<transport::Reactions>{}
-            / --Child<>("reactions")
+            / --key::child::reactions
       ;
    }
 

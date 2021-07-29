@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Link.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 
@@ -51,18 +52,18 @@ class Grid : public Component<Grid> {
       return
          // metadata
          std::optional<Integer32>{}
-            / Meta<>("index") |
+            / key::meta::index |
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            / Meta<>("interpolation") |
+            / key::meta::interpolation |
          std::optional<XMLName>{}
-            / Meta<>("label") |
+            / key::meta::label |
          std::optional<enums::GridStyle>{}
-            / Meta<>("style") |
+            / key::meta::style |
          std::optional<XMLName>{}
-            / Meta<>("unit") |
+            / key::meta::unit |
          // children
          VARIANT{}
-            / --Child<>("link values")
+            / --key::child::link_OR_values
       ;
    }
 

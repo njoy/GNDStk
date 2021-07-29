@@ -8,6 +8,9 @@
 // core interface
 #include "GNDStk.hpp"
 
+// v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
+
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
@@ -42,11 +45,11 @@ class Values : public Component<Values,true> {
       return
          // metadata
          std::optional<Integer32>{}
-            / Meta<>("length") |
+            / key::meta::length |
          Defaulted<Integer32>{0}
-            / Meta<>("start") |
+            / key::meta::start |
          Defaulted<UTF8Text>{"Float64"}
-            / Meta<>("valueType")
+            / key::meta::valueType
       ;
    }
 

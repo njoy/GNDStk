@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 
@@ -46,14 +47,14 @@ class Regions1d : public Component<Regions1d> {
       return
          // metadata
          std::optional<XMLName>{}
-            / Meta<>("label") |
+            / key::meta::label |
          std::optional<Float64>{}
-            / Meta<>("outerDomainValue") |
+            / key::meta::outerDomainValue |
          // children
          containers::XYs1d{}
-            / ++Child<>("XYs1d") |
+            / ++key::child::XYs1d |
          std::optional<containers::Axes>{}
-            / --Child<>("axes")
+            / --key::child::axes
       ;
    }
 

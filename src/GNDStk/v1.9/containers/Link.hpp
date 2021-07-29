@@ -8,6 +8,9 @@
 // core interface
 #include "GNDStk.hpp"
 
+// v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
+
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
@@ -42,7 +45,7 @@ class Link : public Component<Link> {
       return
          // metadata
          UTF8Text{}
-            / Meta<>("href")
+            / key::meta::href
       ;
    }
 

@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reaction.hpp"
 
 namespace njoy {
@@ -45,7 +46,7 @@ class Reactions : public Component<Reactions> {
       return
          // children
          transport::Reaction{}
-            / ++Child<>("reaction")
+            / ++key::child::reaction
       ;
    }
 

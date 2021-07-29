@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Regions1d.hpp"
 
@@ -51,7 +52,7 @@ class CrossSection : public Component<CrossSection> {
       return
          // children
          VARIANT{}
-            / ++Child<>("XYs1d regions1d")
+            / ++key::child::XYs1d_OR_regions1d
       ;
    }
 

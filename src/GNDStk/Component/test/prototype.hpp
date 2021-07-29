@@ -5,6 +5,99 @@ namespace proto {
 using namespace njoy::GNDStk::core;
 
 // -----------------------------------------------------------------------------
+// Sketch: prototype "ReactionSuite" hierarchy
+// -----------------------------------------------------------------------------
+
+/*
+------------------------
+Hierarchy
+------------------------
+
+   Values       Link         }
+     |  \        /           }
+     |   \      /            }
+     |  1 \ or / 1           }
+     |     \  /              }
+     |      \/               }
+     |     Grid     Axis     }
+     |      \        /       }
+     |       \      /        }
+   1 |      n \ or / n       }
+     |         \  /          }
+     |          \/           }
+     |         Axes          } containers::
+     |         / |           }
+     |       /   |           }
+     |  (1)/     |           }
+     |   /       |           }
+     | /         |           }
+   XYs1d         |(1)        }
+   \   \         |           }
+    \    \       |           }
+     \   n \     |           }
+      \      \   |           }
+       \       \ |           }
+        \    Regions1d       }
+         \        /
+          \      /
+         n \ or / n
+            \  /
+             \/
+        CrossSection         }
+             |               }
+             |               }
+             | 1             }
+             |               }
+             |               }
+        Reaction             }
+             |               }
+             |               }
+             | n             } transport::
+             |               }
+             |               }
+        Reactions            }
+             |               }
+             |               }
+             |(1)            }
+             |               }
+             |               }
+        ReactionSuite        }
+
+
+------------------------
+Meanings of 1, n, etc.
+------------------------
+
+Grid
+   "1 or 1": Contains Values OR Link
+
+Axes
+   "n or n": Contains vector[Grid OR Axis]
+
+XYs1d
+   "1":   Contains Values
+   "(1)": Optionally contains Axes
+
+Regions1d
+   "n":   Contains vector[XYs1d]
+   "(1)": Optionally contains Axes
+
+CrossSection
+   "n or n": Contains vector[XYs1d OR Regions1d]
+
+Reaction
+   "1": Contains CrossSection
+
+Reactions
+   "n": Contains vector[Reaction]
+
+ReactionSuite
+   "(1)": Optionally contains Reactions
+*/
+
+
+
+// -----------------------------------------------------------------------------
 // class Values
 // -----------------------------------------------------------------------------
 

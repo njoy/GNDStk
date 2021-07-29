@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axis.hpp"
 #include "GNDStk/v1.9/containers/Grid.hpp"
 
@@ -51,10 +52,10 @@ class Axes : public Component<Axes> {
       return
          // metadata
          std::optional<UTF8Text>{}
-            / Meta<>("href") |
+            / key::meta::href |
          // children
          VARIANT{}
-            / ++Child<>("axis grid")
+            / ++key::child::axis_OR_grid
       ;
    }
 

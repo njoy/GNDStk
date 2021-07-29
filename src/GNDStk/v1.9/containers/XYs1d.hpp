@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 
@@ -46,18 +47,18 @@ class XYs1d : public Component<XYs1d> {
       return
          // metadata
          std::optional<Integer32>{}
-            / Meta<>("index") |
+            / key::meta::index |
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            / Meta<>("interpolation") |
+            / key::meta::interpolation |
          std::optional<XMLName>{}
-            / Meta<>("label") |
+            / key::meta::label |
          std::optional<Float64>{}
-            / Meta<>("outerDomainValue") |
+            / key::meta::outerDomainValue |
          // children
          std::optional<containers::Axes>{}
-            / --Child<>("axes") |
+            / --key::child::axes |
          containers::Values{}
-            / --Child<>("values")
+            / --key::child::values
       ;
    }
 

@@ -9,6 +9,7 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/CrossSection.hpp"
 
 namespace njoy {
@@ -45,14 +46,14 @@ class Reaction : public Component<Reaction> {
       return
          // metadata
          Integer32{}
-            / Meta<>("ENDF_MT") |
+            / key::meta::ENDF_MT |
          std::optional<XMLName>{}
-            / Meta<>("fissionGenre") |
+            / key::meta::fissionGenre |
          XMLName{}
-            / Meta<>("label") |
+            / key::meta::label |
          // children
          transport::CrossSection{}
-            / --Child<>("crossSection")
+            / --key::child::crossSection
       ;
    }
 
