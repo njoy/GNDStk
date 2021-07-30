@@ -76,9 +76,9 @@ public:
    // ------------------------
 
    // href
-   const auto &href() const
+   const UTF8Text &href() const
     { return content.href; }
-   auto &href()
+   UTF8Text &href()
     { return content.href; }
 
    // ------------------------

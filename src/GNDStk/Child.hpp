@@ -84,9 +84,10 @@ public:
    // ------------------------
 
    // name
-   // name, converter
-   // name, converter, filter
-   // name, converter, filter, top
+   // name, type
+   // name, type, converter
+   // name, type, converter, filter
+   // name, type, converter, filter, top
    explicit Child(
       const std::string &n,
       const TYPE &t = TYPE{},

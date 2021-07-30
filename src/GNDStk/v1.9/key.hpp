@@ -47,15 +47,17 @@ inline const Meta<> valueType       ("valueType");
 
 namespace child {
 
-inline const Child<> axes              ("axes");
-inline const Child<> axis_OR_grid      ("axis grid");
-inline const Child<> crossSection      ("crossSection");
-inline const Child<> link_OR_values    ("link values");
-inline const Child<> reaction          ("reaction");
-inline const Child<> reactions         ("reactions");
-inline const Child<> values            ("values");
-inline const Child<> XYs1d             ("XYs1d");
-inline const Child<> XYs1d_OR_regions1d("XYs1d regions1d");
+inline const Child<> axes         ("axes");
+inline const Child<> axis         ("axis");
+inline const Child<> crossSection ("crossSection");
+inline const Child<> grid         ("grid");
+inline const Child<> link         ("link");
+inline const Child<> reaction     ("reaction");
+inline const Child<> reactions    ("reactions");
+inline const Child<> reactionSuite("reactionSuite");
+inline const Child<> regions1d    ("regions1d");
+inline const Child<> values       ("values");
+inline const Child<> XYs1d        ("XYs1d");
 
 }
 

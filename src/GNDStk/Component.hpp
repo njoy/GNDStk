@@ -1,12 +1,4 @@
 
-// Forward declaration, needed by some things in detail.hpp
-template<class DERIVED, bool hasBodyText = false>
-class Component;
-
-// For printing.
-// Should Component's generic write() function print comments?
-inline bool comments = true;
-
 // General helper constructs
 #include "GNDStk/Component/src/detail.hpp"
 

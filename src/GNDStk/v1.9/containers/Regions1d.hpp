@@ -90,39 +90,39 @@ public:
    // ------------------------
 
    // label
-   const auto &label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   auto &label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // outerDomainValue
-   const auto &outerDomainValue() const
+   const std::optional<Float64> &outerDomainValue() const
     { return content.outerDomainValue; }
-   auto &outerDomainValue()
+   std::optional<Float64> &outerDomainValue()
     { return content.outerDomainValue; }
 
    // XYs1d
-   const auto &XYs1d() const
+   const std::vector<containers::XYs1d> &XYs1d() const
     { return content.XYs1d; }
-   auto &XYs1d()
+   std::vector<containers::XYs1d> &XYs1d()
     { return content.XYs1d; }
 
    // XYs1d(index)
-   const auto &XYs1d(const std::size_t index) const
+   const containers::XYs1d &XYs1d(const std::size_t index) const
     { return getter(XYs1d(), index, "XYs1d"); }
-   auto &XYs1d(const std::size_t index)
+   containers::XYs1d &XYs1d(const std::size_t index)
     { return getter(XYs1d(), index, "XYs1d"); }
 
    // XYs1d(label)
-   const auto &XYs1d(const std::string &label) const
+   const containers::XYs1d &XYs1d(const std::string &label) const
     { return getter(XYs1d(), label, "XYs1d"); }
-   auto &XYs1d(const std::string &label)
+   containers::XYs1d &XYs1d(const std::string &label)
     { return getter(XYs1d(), label, "XYs1d"); }
 
    // axes
-   const auto &axes() const
+   const std::optional<containers::Axes> &axes() const
     { return content.axes; }
-   auto &axes()
+   std::optional<containers::Axes> &axes()
     { return content.axes; }
 
    // ------------------------

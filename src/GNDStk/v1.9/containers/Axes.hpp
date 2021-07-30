@@ -55,7 +55,7 @@ class Axes : public Component<Axes> {
             / key::meta::href |
          // children
          VARIANT{}
-            / ++key::child::axis_OR_grid
+            / ++(key::child::axis || key::child::grid)
       ;
    }
 
@@ -89,51 +89,51 @@ public:
    // ------------------------
 
    // href
-   const auto &href() const
+   const std::optional<UTF8Text> &href() const
     { return content.href; }
-   auto &href()
+   std::optional<UTF8Text> &href()
     { return content.href; }
 
    // choice
-   const auto &choice() const
+   const std::vector<VARIANT> &choice() const
     { return content.choice; }
-   auto &choice()
+   std::vector<VARIANT> &choice()
     { return content.choice; }
 
    // choice(index)
-   const auto &choice(const std::size_t index) const
+   const VARIANT &choice(const std::size_t index) const
     { return getter(choice(), index, "choice"); }
-   auto &choice(const std::size_t index)
+   VARIANT &choice(const std::size_t index)
     { return getter(choice(), index, "choice"); }
 
    // choice(label)
-   const auto &choice(const std::string &label) const
+   const VARIANT &choice(const std::string &label) const
     { return getter(choice(), label, "choice"); }
-   auto &choice(const std::string &label)
+   VARIANT &choice(const std::string &label)
     { return getter(choice(), label, "choice"); }
 
    // axis(index)
-   auto axis(const std::size_t index) const
+   const containers::Axis *axis(const std::size_t index) const
     { return getter<containers::Axis>(choice(), index, "axis"); }
-   auto axis(const std::size_t index)
+   containers::Axis *axis(const std::size_t index)
     { return getter<containers::Axis>(choice(), index, "axis"); }
 
    // axis(label)
-   auto axis(const std::string &label) const
+   const containers::Axis *axis(const std::string &label) const
     { return getter<containers::Axis>(choice(), label, "axis"); }
-   auto axis(const std::string &label)
+   containers::Axis *axis(const std::string &label)
     { return getter<containers::Axis>(choice(), label, "axis"); }
 
    // grid(index)
-   auto grid(const std::size_t index) const
+   const containers::Grid *grid(const std::size_t index) const
     { return getter<containers::Grid>(choice(), index, "grid"); }
-   auto grid(const std::size_t index)
+   containers::Grid *grid(const std::size_t index)
     { return getter<containers::Grid>(choice(), index, "grid"); }
 
    // grid(label)
-   auto grid(const std::string &label) const
+   const containers::Grid *grid(const std::string &label) const
     { return getter<containers::Grid>(choice(), label, "grid"); }
-   auto grid(const std::string &label)
+   containers::Grid *grid(const std::string &label)
     { return getter<containers::Grid>(choice(), label, "grid"); }
 
    // ------------------------

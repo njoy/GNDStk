@@ -495,7 +495,7 @@ class Grid : public Component<Grid> {
             / Meta<>("unit") |
          // children
          VARIANT{}
-            / --Child<>("link values")
+            / --(Child<>("link") || Child<>("values"))
       ;
    }
 
@@ -978,7 +978,7 @@ class Axes : public Component<Axes> {
             / Meta<>("href") |
          // children
          VARIANT{}
-            / ++Child<>("axis grid")
+            / ++(Child<>("axis") || Child<>("grid"))
       ;
    }
 
@@ -1752,7 +1752,7 @@ class CrossSection : public Component<CrossSection> {
       return
          // children
          VARIANT{}
-            / ++Child<>("XYs1d regions1d")
+            / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
    }
 

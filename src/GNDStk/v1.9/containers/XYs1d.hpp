@@ -97,39 +97,39 @@ public:
    // ------------------------
 
    // index
-   const auto &index() const
+   const std::optional<Integer32> &index() const
     { return content.index; }
-   auto &index()
+   std::optional<Integer32> &index()
     { return content.index; }
 
    // interpolation
-   const auto &interpolation() const
+   const enums::Interpolation interpolation() const
     { return content.interpolation.value(); }
-   auto &interpolation()
+   enums::Interpolation interpolation()
     { return content.interpolation.value(); }
 
    // label
-   const auto &label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   auto &label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // outerDomainValue
-   const auto &outerDomainValue() const
+   const std::optional<Float64> &outerDomainValue() const
     { return content.outerDomainValue; }
-   auto &outerDomainValue()
+   std::optional<Float64> &outerDomainValue()
     { return content.outerDomainValue; }
 
    // axes
-   const auto &axes() const
+   const std::optional<containers::Axes> &axes() const
     { return content.axes; }
-   auto &axes()
+   std::optional<containers::Axes> &axes()
     { return content.axes; }
 
    // values
-   const auto &values() const
+   const containers::Values &values() const
     { return content.values; }
-   auto &values()
+   containers::Values &values()
     { return content.values; }
 
    // ------------------------

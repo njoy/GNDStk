@@ -63,7 +63,7 @@ class Grid : public Component<Grid> {
             / key::meta::unit |
          // children
          VARIANT{}
-            / --key::child::link_OR_values
+            / --(key::child::link || key::child::values)
       ;
    }
 
@@ -102,51 +102,51 @@ public:
    // ------------------------
 
    // index
-   const auto &index() const
+   const std::optional<Integer32> &index() const
     { return content.index; }
-   auto &index()
+   std::optional<Integer32> &index()
     { return content.index; }
 
    // interpolation
-   const auto &interpolation() const
+   const enums::Interpolation interpolation() const
     { return content.interpolation.value(); }
-   auto &interpolation()
+   enums::Interpolation interpolation()
     { return content.interpolation.value(); }
 
    // label
-   const auto &label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   auto &label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // style
-   const auto &style() const
+   const std::optional<enums::GridStyle> &style() const
     { return content.style; }
-   auto &style()
+   std::optional<enums::GridStyle> &style()
     { return content.style; }
 
    // unit
-   const auto &unit() const
+   const std::optional<XMLName> &unit() const
     { return content.unit; }
-   auto &unit()
+   std::optional<XMLName> &unit()
     { return content.unit; }
 
    // choice
-   const auto &choice() const
+   const VARIANT &choice() const
     { return content.choice; }
-   auto &choice()
+   VARIANT &choice()
     { return content.choice; }
 
    // link
-   auto link() const
+   const containers::Link *link() const
     { return getter<containers::Link>(choice(), "link"); }
-   auto link()
+   containers::Link *link()
     { return getter<containers::Link>(choice(), "link"); }
 
    // values
-   auto values() const
+   const containers::Values *values() const
     { return getter<containers::Values>(choice(), "values"); }
-   auto values()
+   containers::Values *values()
     { return getter<containers::Values>(choice(), "values"); }
 
    // ------------------------

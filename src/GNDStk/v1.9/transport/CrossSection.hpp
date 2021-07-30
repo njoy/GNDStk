@@ -52,7 +52,7 @@ class CrossSection : public Component<CrossSection> {
       return
          // children
          VARIANT{}
-            / ++key::child::XYs1d_OR_regions1d
+            / ++(key::child::XYs1d || key::child::regions1d)
       ;
    }
 
@@ -83,45 +83,45 @@ public:
    // ------------------------
 
    // choice
-   const auto &choice() const
+   const std::vector<VARIANT> &choice() const
     { return content.choice; }
-   auto &choice()
+   std::vector<VARIANT> &choice()
     { return content.choice; }
 
    // choice(index)
-   const auto &choice(const std::size_t index) const
+   const VARIANT &choice(const std::size_t index) const
     { return getter(choice(), index, "choice"); }
-   auto &choice(const std::size_t index)
+   VARIANT &choice(const std::size_t index)
     { return getter(choice(), index, "choice"); }
 
    // choice(label)
-   const auto &choice(const std::string &label) const
+   const VARIANT &choice(const std::string &label) const
     { return getter(choice(), label, "choice"); }
-   auto &choice(const std::string &label)
+   VARIANT &choice(const std::string &label)
     { return getter(choice(), label, "choice"); }
 
    // XYs1d(index)
-   auto XYs1d(const std::size_t index) const
+   const containers::XYs1d *XYs1d(const std::size_t index) const
     { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
-   auto XYs1d(const std::size_t index)
+   containers::XYs1d *XYs1d(const std::size_t index)
     { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
 
    // XYs1d(label)
-   auto XYs1d(const std::string &label) const
+   const containers::XYs1d *XYs1d(const std::string &label) const
     { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
-   auto XYs1d(const std::string &label)
+   containers::XYs1d *XYs1d(const std::string &label)
     { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
 
    // regions1d(index)
-   auto regions1d(const std::size_t index) const
+   const containers::Regions1d *regions1d(const std::size_t index) const
     { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
-   auto regions1d(const std::size_t index)
+   containers::Regions1d *regions1d(const std::size_t index)
     { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
 
    // regions1d(label)
-   auto regions1d(const std::string &label) const
+   const containers::Regions1d *regions1d(const std::string &label) const
     { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
-   auto regions1d(const std::string &label)
+   containers::Regions1d *regions1d(const std::string &label)
     { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
 
    // ------------------------

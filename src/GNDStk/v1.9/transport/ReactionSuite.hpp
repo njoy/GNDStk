@@ -98,45 +98,45 @@ public:
    // ------------------------
 
    // evaluation
-   const auto &evaluation() const
+   const XMLName &evaluation() const
     { return content.evaluation; }
-   auto &evaluation()
+   XMLName &evaluation()
     { return content.evaluation; }
 
    // format
-   const auto &format() const
+   const XMLName &format() const
     { return content.format; }
-   auto &format()
+   XMLName &format()
     { return content.format; }
 
    // interaction
-   const auto &interaction() const
+   const std::optional<enums::Interaction> &interaction() const
     { return content.interaction; }
-   auto &interaction()
+   std::optional<enums::Interaction> &interaction()
     { return content.interaction; }
 
    // projectile
-   const auto &projectile() const
+   const XMLName &projectile() const
     { return content.projectile; }
-   auto &projectile()
+   XMLName &projectile()
     { return content.projectile; }
 
    // projectileFrame
-   const auto &projectileFrame() const
+   const enums::Frame &projectileFrame() const
     { return content.projectileFrame; }
-   auto &projectileFrame()
+   enums::Frame &projectileFrame()
     { return content.projectileFrame; }
 
    // target
-   const auto &target() const
+   const XMLName &target() const
     { return content.target; }
-   auto &target()
+   XMLName &target()
     { return content.target; }
 
    // reactions
-   const auto &reactions() const
+   const std::optional<transport::Reactions> &reactions() const
     { return content.reactions; }
-   auto &reactions()
+   std::optional<transport::Reactions> &reactions()
     { return content.reactions; }
 
    // ------------------------
