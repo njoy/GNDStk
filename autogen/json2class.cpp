@@ -447,7 +447,7 @@ public:
    bool        isOptional;
    bool        isVector;    // if also isChoice, then "choice+" was used
    bool        isChoice;    // is part of a set of choices
-   std::string varNameSeq;
+   std::vector<std::string> varNameSeq;
 };
 
 // to_string
@@ -564,7 +564,7 @@ void compute_children(
    // here, we're within the public struct for raw GNDS content
    ossc << "\n      // children\n";
 
-   std::string names;
+   std::vector<std::string> names;
    for (const auto &field : elems.items()) {
       // optional?
       const bool opt = !field.value()["required"];
@@ -670,7 +670,7 @@ void compute_children(
       // name
       const std::string varName = fieldName(field.value());
       if (choice)
-         names += (names == "" ? "" : " ") + varName;
+         names.push_back(varName);
 
       // write to struct {...} content
       if (!choice)
@@ -774,7 +774,7 @@ void write_keys(
       for (const auto &m : vecInfoMetadata) {
          os << (count++ ? " |\n" : "\n         // metadata\n")
             << "         " << m.fullVarType << "{" << m.theDefault << "}\n"
-            << "            / Meta<>(\""  << m.varName << "\")";
+            << "            / key::meta::" << m.varName;
       }
 
       // children
@@ -782,11 +782,20 @@ void write_keys(
          os << " |";
       count = 0;
       for (const auto &c : vecInfoChildren) {
-         if (!c.isChoice)
+         if (!c.isChoice) {
             os << (count++ ? " |\n" : "\n         // children\n")
-               << "         " << c.halfVarType << "{}\n" // w/o any std::vector<>
-               << "            / " << (c.isVector ? "++" : "--") << "Child<>(\""
-               << (c.varNameSeq == "" ? c.varName : c.varNameSeq) << "\")";
+               << "         " << c.halfVarType << "{}\n" // w/o any std::vector
+               << "            / " << (c.isVector ? "++" : "--");
+            if (c.varNameSeq.size() == 0) {
+               os << "key::child::"  << c.varName;
+            } else {
+               os << "(";
+               std::size_t n = 0;
+               for (const auto &varName : c.varNameSeq)
+                  os << (n++ ? " || " : "") << "key::child::"  << varName;
+               os << ")";
+            }
+         }
       }
       os << "\n      ;\n";
    }
@@ -809,20 +818,20 @@ void write_keys(
 
 void getter_param_1(
    std::ostream &os,
-   const std::string &varName,
+   const std::string &varType, const std::string &varName,
    const std::string &paramType, const std::string &paramName
 ) {
    // comment
    os << "\n   // " << varName << "(" << paramName << ")\n";
 
    // getter: const
-   os << "   const auto &" << varName;
+   os << "   const " << varType << " &" << varName;
    os << "(const " << paramType << paramName << ") const\n";
    os << "    { return getter(" << varName;
    os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
 
    // getter: non-const
-   os << "   auto &" << varName;
+   os << "   " << varType << " &" << varName;
    os << "(const " << paramType << paramName << ")\n";
    os << "    { return getter(" << varName;
    os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
@@ -836,11 +845,11 @@ void getter_param_2(
    // choice is a vector<variant>
    os << "\n   // " << varName << "(" << paramName << ")\n";
    // const
-   os << "   auto " << varName << "(const " << paramType << paramName;
+   os << "   const " << varType << " *" << varName << "(const " << paramType << paramName;
    os << ") const\n" << "    { return getter<" << varType << ">";
    os << "(choice(), " << paramName << ", \"" << varName << "\"); }\n";
    // non-const
-   os << "   auto " << varName << "(const " << paramType << paramName;
+   os << "   " << varType << " *" << varName << "(const " << paramType << paramName;
    os << ")\n" << "    { return getter<" << varType << ">";
    os << "(choice(), " << paramName << ", \"" << varName << "\"); }\n";
 }
@@ -869,13 +878,17 @@ void write_getters(
       os << "\n   // " << m.varName << "\n";
 
       // getter: const
-      os << "   const auto &" << m.varName << "() const\n";
+      os << "   const ";
+      os << (m.isDefaulted ? m.varType+" " : m.fullVarType+" &"); // because...
+      os << m.varName << "() const\n";
       os << "    { return content." << m.varName;
-      if (m.isDefaulted) os << ".value()";
+      if (m.isDefaulted) os << ".value()"; // ...we use value() w/Defaulted
       os << "; }\n";
 
       // getter: non-const
-      os << "   auto &" << m.varName << "()\n";
+      os << "   ";
+      os << (m.isDefaulted ? m.varType+" " : m.fullVarType+" &");
+      os << m.varName << "()\n";
       os << "    { return content." << m.varName;
       if (m.isDefaulted) os << ".value()";
       os << "; }\n";
@@ -895,18 +908,18 @@ void write_getters(
       // comment
       os << "\n   // " << c.varName << "\n";
       // getter: const
-      os << "   const auto &" << c.varName << "() const\n";
+      os << "   const " << c.fullVarType << " &" << c.varName << "() const\n";
       os << "    { return content." << c.varName;
       os << "; }\n";
       // getter: non-const
-      os << "   auto &" << c.varName << "()\n";
+      os << "   " << c.fullVarType << " &" << c.varName << "()\n";
       os << "    { return content." << c.varName;
       os << "; }\n";
 
-      // getters for [optional] vector: accept (const std::size_t index)
+      // getters for [optional] vector: accept index or label
       if (c.isVector) {
-         getter_param_1(os, c.varName, "std::size_t ",  "index");
-         getter_param_1(os, c.varName, "std::string &", "label");
+         getter_param_1(os, c.varType, c.varName, "std::size_t ",  "index");
+         getter_param_1(os, c.varType, c.varName, "std::string &", "label");
       }
    }
 
@@ -921,11 +934,11 @@ void write_getters(
          // choice is a variant
          // const
          os << "\n   // " << c.varName << "\n";
-         os << "   auto " << c.varName << "() const\n";
+         os << "   const " << c.varType << " *" << c.varName << "() const\n";
          os << "    { return getter<" << c.varType << ">";
          os << "(choice(), " << "\"" << c.varName << "\"); }\n";
          // non-const
-         os << "   auto " << c.varName << "()\n";
+         os << "   " << c.varType << " *" << c.varName << "()\n";
          os << "    { return getter<" << c.varType << ">";
          os << "(choice(), " << "\"" << c.varName << "\"); }\n";
       }
@@ -2004,14 +2017,15 @@ int main()
              << "// core interface\n"
              << "#include \"GNDStk.hpp\"\n"
              << "\n";
-         if (obj.dependencies.size() > 0) {
-            hpp << "// " << Version << " dependencies\n";
-            for (const auto &dep : obj.dependencies) {
-               hpp << "#include \"GNDStk/" << Version << "/"
-                   << dep.first << "/" << dep.second << ".hpp\"\n";
-            }
-            hpp << "\n";
+
+         hpp << "// " << Version << " dependencies\n";
+         hpp << "#include \"GNDStk/" << Version << "/key.hpp\"\n";
+         for (const auto &dep : obj.dependencies) {
+            hpp << "#include \"GNDStk/" << Version << "/"
+                << dep.first << "/" << dep.second << ".hpp\"\n";
          }
+         hpp << "\n";
+
          hpp << "namespace njoy {\n";
          hpp << "namespace GNDStk {\n";
          hpp << "namespace " << replace(Version,'.','_') << " {\n\n";
