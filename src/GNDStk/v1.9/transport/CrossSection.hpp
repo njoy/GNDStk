@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Regions1d.hpp"
 
@@ -83,45 +82,59 @@ public:
    // ------------------------
 
    // choice
-   const std::vector<VARIANT> &choice() const
+   const std::vector<VARIANT> &
+   choice() const
     { return content.choice; }
-   std::vector<VARIANT> &choice()
+   std::vector<VARIANT> &
+   choice()
     { return content.choice; }
 
    // choice(index)
-   const VARIANT &choice(const std::size_t index) const
+   const VARIANT &
+   choice(const std::size_t index) const
     { return getter(choice(), index, "choice"); }
-   VARIANT &choice(const std::size_t index)
+   VARIANT &
+   choice(const std::size_t index)
     { return getter(choice(), index, "choice"); }
 
    // choice(label)
-   const VARIANT &choice(const std::string &label) const
+   const VARIANT &
+   choice(const std::string &label) const
     { return getter(choice(), label, "choice"); }
-   VARIANT &choice(const std::string &label)
+   VARIANT &
+   choice(const std::string &label)
     { return getter(choice(), label, "choice"); }
 
    // XYs1d(index)
-   const containers::XYs1d *XYs1d(const std::size_t index) const
+   const containers::XYs1d *
+   XYs1d(const std::size_t index) const
     { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
-   containers::XYs1d *XYs1d(const std::size_t index)
+   containers::XYs1d *
+   XYs1d(const std::size_t index)
     { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
 
    // XYs1d(label)
-   const containers::XYs1d *XYs1d(const std::string &label) const
+   const containers::XYs1d *
+   XYs1d(const std::string &label) const
     { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
-   containers::XYs1d *XYs1d(const std::string &label)
+   containers::XYs1d *
+   XYs1d(const std::string &label)
     { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
 
    // regions1d(index)
-   const containers::Regions1d *regions1d(const std::size_t index) const
+   const containers::Regions1d *
+   regions1d(const std::size_t index) const
     { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
-   containers::Regions1d *regions1d(const std::size_t index)
+   containers::Regions1d *
+   regions1d(const std::size_t index)
     { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
 
    // regions1d(label)
-   const containers::Regions1d *regions1d(const std::string &label) const
+   const containers::Regions1d *
+   regions1d(const std::string &label) const
     { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
-   containers::Regions1d *regions1d(const std::string &label)
+   containers::Regions1d *
+   regions1d(const std::string &label)
     { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
 
    // ------------------------

@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axis.hpp"
 #include "GNDStk/v1.9/containers/Grid.hpp"
 
@@ -89,51 +88,67 @@ public:
    // ------------------------
 
    // href
-   const std::optional<UTF8Text> &href() const
+   const std::optional<UTF8Text> &
+   href() const
     { return content.href; }
-   std::optional<UTF8Text> &href()
+   std::optional<UTF8Text> &
+   href()
     { return content.href; }
 
    // choice
-   const std::vector<VARIANT> &choice() const
+   const std::vector<VARIANT> &
+   choice() const
     { return content.choice; }
-   std::vector<VARIANT> &choice()
+   std::vector<VARIANT> &
+   choice()
     { return content.choice; }
 
    // choice(index)
-   const VARIANT &choice(const std::size_t index) const
+   const VARIANT &
+   choice(const std::size_t index) const
     { return getter(choice(), index, "choice"); }
-   VARIANT &choice(const std::size_t index)
+   VARIANT &
+   choice(const std::size_t index)
     { return getter(choice(), index, "choice"); }
 
    // choice(label)
-   const VARIANT &choice(const std::string &label) const
+   const VARIANT &
+   choice(const std::string &label) const
     { return getter(choice(), label, "choice"); }
-   VARIANT &choice(const std::string &label)
+   VARIANT &
+   choice(const std::string &label)
     { return getter(choice(), label, "choice"); }
 
    // axis(index)
-   const containers::Axis *axis(const std::size_t index) const
+   const containers::Axis *
+   axis(const std::size_t index) const
     { return getter<containers::Axis>(choice(), index, "axis"); }
-   containers::Axis *axis(const std::size_t index)
+   containers::Axis *
+   axis(const std::size_t index)
     { return getter<containers::Axis>(choice(), index, "axis"); }
 
    // axis(label)
-   const containers::Axis *axis(const std::string &label) const
+   const containers::Axis *
+   axis(const std::string &label) const
     { return getter<containers::Axis>(choice(), label, "axis"); }
-   containers::Axis *axis(const std::string &label)
+   containers::Axis *
+   axis(const std::string &label)
     { return getter<containers::Axis>(choice(), label, "axis"); }
 
    // grid(index)
-   const containers::Grid *grid(const std::size_t index) const
+   const containers::Grid *
+   grid(const std::size_t index) const
     { return getter<containers::Grid>(choice(), index, "grid"); }
-   containers::Grid *grid(const std::size_t index)
+   containers::Grid *
+   grid(const std::size_t index)
     { return getter<containers::Grid>(choice(), index, "grid"); }
 
    // grid(label)
-   const containers::Grid *grid(const std::string &label) const
+   const containers::Grid *
+   grid(const std::string &label) const
     { return getter<containers::Grid>(choice(), label, "grid"); }
-   containers::Grid *grid(const std::string &label)
+   containers::Grid *
+   grid(const std::string &label)
     { return getter<containers::Grid>(choice(), label, "grid"); }
 
    // ------------------------

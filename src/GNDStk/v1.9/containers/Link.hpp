@@ -8,9 +8,6 @@
 // core interface
 #include "GNDStk.hpp"
 
-// v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
-
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
@@ -76,9 +73,11 @@ public:
    // ------------------------
 
    // href
-   const UTF8Text &href() const
+   const UTF8Text &
+   href() const
     { return content.href; }
-   UTF8Text &href()
+   UTF8Text &
+   href()
     { return content.href; }
 
    // ------------------------

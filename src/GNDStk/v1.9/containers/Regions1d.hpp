@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 
@@ -90,39 +89,51 @@ public:
    // ------------------------
 
    // label
-   const std::optional<XMLName> &label() const
+   const std::optional<XMLName> &
+   label() const
     { return content.label; }
-   std::optional<XMLName> &label()
+   std::optional<XMLName> &
+   label()
     { return content.label; }
 
    // outerDomainValue
-   const std::optional<Float64> &outerDomainValue() const
+   const std::optional<Float64> &
+   outerDomainValue() const
     { return content.outerDomainValue; }
-   std::optional<Float64> &outerDomainValue()
+   std::optional<Float64> &
+   outerDomainValue()
     { return content.outerDomainValue; }
 
    // XYs1d
-   const std::vector<containers::XYs1d> &XYs1d() const
+   const std::vector<containers::XYs1d> &
+   XYs1d() const
     { return content.XYs1d; }
-   std::vector<containers::XYs1d> &XYs1d()
+   std::vector<containers::XYs1d> &
+   XYs1d()
     { return content.XYs1d; }
 
    // XYs1d(index)
-   const containers::XYs1d &XYs1d(const std::size_t index) const
+   const containers::XYs1d &
+   XYs1d(const std::size_t index) const
     { return getter(XYs1d(), index, "XYs1d"); }
-   containers::XYs1d &XYs1d(const std::size_t index)
+   containers::XYs1d &
+   XYs1d(const std::size_t index)
     { return getter(XYs1d(), index, "XYs1d"); }
 
    // XYs1d(label)
-   const containers::XYs1d &XYs1d(const std::string &label) const
+   const containers::XYs1d &
+   XYs1d(const std::string &label) const
     { return getter(XYs1d(), label, "XYs1d"); }
-   containers::XYs1d &XYs1d(const std::string &label)
+   containers::XYs1d &
+   XYs1d(const std::string &label)
     { return getter(XYs1d(), label, "XYs1d"); }
 
    // axes
-   const std::optional<containers::Axes> &axes() const
+   const std::optional<containers::Axes> &
+   axes() const
     { return content.axes; }
-   std::optional<containers::Axes> &axes()
+   std::optional<containers::Axes> &
+   axes()
     { return content.axes; }
 
    // ------------------------

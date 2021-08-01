@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reactions.hpp"
 
 namespace njoy {
@@ -98,45 +97,59 @@ public:
    // ------------------------
 
    // evaluation
-   const XMLName &evaluation() const
+   const XMLName &
+   evaluation() const
     { return content.evaluation; }
-   XMLName &evaluation()
+   XMLName &
+   evaluation()
     { return content.evaluation; }
 
    // format
-   const XMLName &format() const
+   const XMLName &
+   format() const
     { return content.format; }
-   XMLName &format()
+   XMLName &
+   format()
     { return content.format; }
 
    // interaction
-   const std::optional<enums::Interaction> &interaction() const
+   const std::optional<enums::Interaction> &
+   interaction() const
     { return content.interaction; }
-   std::optional<enums::Interaction> &interaction()
+   std::optional<enums::Interaction> &
+   interaction()
     { return content.interaction; }
 
    // projectile
-   const XMLName &projectile() const
+   const XMLName &
+   projectile() const
     { return content.projectile; }
-   XMLName &projectile()
+   XMLName &
+   projectile()
     { return content.projectile; }
 
    // projectileFrame
-   const enums::Frame &projectileFrame() const
+   const enums::Frame &
+   projectileFrame() const
     { return content.projectileFrame; }
-   enums::Frame &projectileFrame()
+   enums::Frame &
+   projectileFrame()
     { return content.projectileFrame; }
 
    // target
-   const XMLName &target() const
+   const XMLName &
+   target() const
     { return content.target; }
-   XMLName &target()
+   XMLName &
+   target()
     { return content.target; }
 
    // reactions
-   const std::optional<transport::Reactions> &reactions() const
+   const std::optional<transport::Reactions> &
+   reactions() const
     { return content.reactions; }
-   std::optional<transport::Reactions> &reactions()
+   std::optional<transport::Reactions> &
+   reactions()
     { return content.reactions; }
 
    // ------------------------

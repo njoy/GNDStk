@@ -8,9 +8,6 @@
 // core interface
 #include "GNDStk.hpp"
 
-// v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
-
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
@@ -84,21 +81,27 @@ public:
    // ------------------------
 
    // length
-   const std::optional<Integer32> &length() const
+   const std::optional<Integer32> &
+   length() const
     { return content.length; }
-   std::optional<Integer32> &length()
+   std::optional<Integer32> &
+   length()
     { return content.length; }
 
    // start
-   const Integer32 start() const
+   const Integer32
+   start() const
     { return content.start.value(); }
-   Integer32 start()
+   Integer32
+   start()
     { return content.start.value(); }
 
    // valueType
-   const UTF8Text valueType() const
+   const UTF8Text
+   valueType() const
     { return content.valueType.value(); }
-   UTF8Text valueType()
+   UTF8Text
+   valueType()
     { return content.valueType.value(); }
 
    // ------------------------

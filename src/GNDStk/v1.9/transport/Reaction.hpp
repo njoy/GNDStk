@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/CrossSection.hpp"
 
 namespace njoy {
@@ -89,27 +88,35 @@ public:
    // ------------------------
 
    // ENDF_MT
-   const Integer32 &ENDF_MT() const
+   const Integer32 &
+   ENDF_MT() const
     { return content.ENDF_MT; }
-   Integer32 &ENDF_MT()
+   Integer32 &
+   ENDF_MT()
     { return content.ENDF_MT; }
 
    // fissionGenre
-   const std::optional<XMLName> &fissionGenre() const
+   const std::optional<XMLName> &
+   fissionGenre() const
     { return content.fissionGenre; }
-   std::optional<XMLName> &fissionGenre()
+   std::optional<XMLName> &
+   fissionGenre()
     { return content.fissionGenre; }
 
    // label
-   const XMLName &label() const
+   const XMLName &
+   label() const
     { return content.label; }
-   XMLName &label()
+   XMLName &
+   label()
     { return content.label; }
 
    // crossSection
-   const transport::CrossSection &crossSection() const
+   const transport::CrossSection &
+   crossSection() const
     { return content.crossSection; }
-   transport::CrossSection &crossSection()
+   transport::CrossSection &
+   crossSection()
     { return content.crossSection; }
 
    // ------------------------

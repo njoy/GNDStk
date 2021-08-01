@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reaction.hpp"
 
 namespace njoy {
@@ -77,21 +76,27 @@ public:
    // ------------------------
 
    // reaction
-   const std::vector<transport::Reaction> &reaction() const
+   const std::vector<transport::Reaction> &
+   reaction() const
     { return content.reaction; }
-   std::vector<transport::Reaction> &reaction()
+   std::vector<transport::Reaction> &
+   reaction()
     { return content.reaction; }
 
    // reaction(index)
-   const transport::Reaction &reaction(const std::size_t index) const
+   const transport::Reaction &
+   reaction(const std::size_t index) const
     { return getter(reaction(), index, "reaction"); }
-   transport::Reaction &reaction(const std::size_t index)
+   transport::Reaction &
+   reaction(const std::size_t index)
     { return getter(reaction(), index, "reaction"); }
 
    // reaction(label)
-   const transport::Reaction &reaction(const std::string &label) const
+   const transport::Reaction &
+   reaction(const std::string &label) const
     { return getter(reaction(), label, "reaction"); }
-   transport::Reaction &reaction(const std::string &label)
+   transport::Reaction &
+   reaction(const std::string &label)
     { return getter(reaction(), label, "reaction"); }
 
    // ------------------------

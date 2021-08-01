@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 
@@ -97,39 +96,51 @@ public:
    // ------------------------
 
    // index
-   const std::optional<Integer32> &index() const
+   const std::optional<Integer32> &
+   index() const
     { return content.index; }
-   std::optional<Integer32> &index()
+   std::optional<Integer32> &
+   index()
     { return content.index; }
 
    // interpolation
-   const enums::Interpolation interpolation() const
+   const enums::Interpolation
+   interpolation() const
     { return content.interpolation.value(); }
-   enums::Interpolation interpolation()
+   enums::Interpolation
+   interpolation()
     { return content.interpolation.value(); }
 
    // label
-   const std::optional<XMLName> &label() const
+   const std::optional<XMLName> &
+   label() const
     { return content.label; }
-   std::optional<XMLName> &label()
+   std::optional<XMLName> &
+   label()
     { return content.label; }
 
    // outerDomainValue
-   const std::optional<Float64> &outerDomainValue() const
+   const std::optional<Float64> &
+   outerDomainValue() const
     { return content.outerDomainValue; }
-   std::optional<Float64> &outerDomainValue()
+   std::optional<Float64> &
+   outerDomainValue()
     { return content.outerDomainValue; }
 
    // axes
-   const std::optional<containers::Axes> &axes() const
+   const std::optional<containers::Axes> &
+   axes() const
     { return content.axes; }
-   std::optional<containers::Axes> &axes()
+   std::optional<containers::Axes> &
+   axes()
     { return content.axes; }
 
    // values
-   const containers::Values &values() const
+   const containers::Values &
+   values() const
     { return content.values; }
-   containers::Values &values()
+   containers::Values &
+   values()
     { return content.values; }
 
    // ------------------------

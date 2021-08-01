@@ -9,7 +9,6 @@
 #include "GNDStk.hpp"
 
 // v1.9 dependencies
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Link.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 
@@ -102,51 +101,67 @@ public:
    // ------------------------
 
    // index
-   const std::optional<Integer32> &index() const
+   const std::optional<Integer32> &
+   index() const
     { return content.index; }
-   std::optional<Integer32> &index()
+   std::optional<Integer32> &
+   index()
     { return content.index; }
 
    // interpolation
-   const enums::Interpolation interpolation() const
+   const enums::Interpolation
+   interpolation() const
     { return content.interpolation.value(); }
-   enums::Interpolation interpolation()
+   enums::Interpolation
+   interpolation()
     { return content.interpolation.value(); }
 
    // label
-   const std::optional<XMLName> &label() const
+   const std::optional<XMLName> &
+   label() const
     { return content.label; }
-   std::optional<XMLName> &label()
+   std::optional<XMLName> &
+   label()
     { return content.label; }
 
    // style
-   const std::optional<enums::GridStyle> &style() const
+   const std::optional<enums::GridStyle> &
+   style() const
     { return content.style; }
-   std::optional<enums::GridStyle> &style()
+   std::optional<enums::GridStyle> &
+   style()
     { return content.style; }
 
    // unit
-   const std::optional<XMLName> &unit() const
+   const std::optional<XMLName> &
+   unit() const
     { return content.unit; }
-   std::optional<XMLName> &unit()
+   std::optional<XMLName> &
+   unit()
     { return content.unit; }
 
    // choice
-   const VARIANT &choice() const
+   const VARIANT &
+   choice() const
     { return content.choice; }
-   VARIANT &choice()
+   VARIANT &
+   choice()
     { return content.choice; }
 
    // link
-   const containers::Link *link() const
+   const containers::Link *
+   link() const
     { return getter<containers::Link>(choice(), "link"); }
-   containers::Link *link()
+   containers::Link *
+   link()
     { return getter<containers::Link>(choice(), "link"); }
 
    // values
-   const containers::Values *values() const
+   const containers::Values *
+   values() const
     { return getter<containers::Values>(choice(), "values"); }
-   containers::Values *values()
+   containers::Values *
+   values()
     { return getter<containers::Values>(choice(), "values"); }
 
    // ------------------------
