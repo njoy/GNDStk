@@ -33,7 +33,7 @@ class Regions1d : public Component<Regions1d> {
    // For Component
    // ------------------------
 
-   friend class Component<Regions1d>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
@@ -51,7 +51,7 @@ class Regions1d : public Component<Regions1d> {
             / Meta<>("outerDomainValue") |
          // children
          containers::XYs1d{}
-            / --Child<>("XYs1d") |
+            / ++Child<>("XYs1d") |
          std::optional<containers::Axes>{}
             / --Child<>("axes")
       ;
@@ -79,7 +79,7 @@ public:
       std::optional<Float64> outerDomainValue;
 
       // children
-      containers::XYs1d XYs1d;
+      std::vector<containers::XYs1d> XYs1d;
       std::optional<containers::Axes> axes;
    } content;
 
@@ -106,6 +106,18 @@ public:
    auto &XYs1d()
     { return content.XYs1d; }
 
+   // XYs1d(index)
+   const auto &XYs1d(const std::size_t index) const
+    { return getter(XYs1d(), index, "XYs1d"); }
+   auto &XYs1d(const std::size_t index)
+    { return getter(XYs1d(), index, "XYs1d"); }
+
+   // XYs1d(label)
+   const auto &XYs1d(const std::string &label) const
+    { return getter(XYs1d(), label, "XYs1d"); }
+   auto &XYs1d(const std::string &label)
+    { return getter(XYs1d(), label, "XYs1d"); }
+
    // axes
    const auto &axes() const
     { return content.axes; }
@@ -127,8 +139,24 @@ public:
     { outerDomainValue() = obj; return *this; }
 
    // XYs1d(value)
-   auto &XYs1d(const containers::XYs1d &obj)
+   auto &XYs1d(const std::vector<containers::XYs1d> &obj)
     { XYs1d() = obj; return *this; }
+
+   // XYs1d(index,value)
+   auto &XYs1d(
+      const std::size_t index,
+      const containers::XYs1d &obj
+   ) {
+      XYs1d(index) = obj; return *this;
+   }
+
+   // XYs1d(label,value)
+   auto &XYs1d(
+      const std::string &label,
+      const containers::XYs1d &obj
+   ) {
+      XYs1d(label) = obj; return *this;
+   }
 
    // axes(value)
    auto &axes(const std::optional<containers::Axes> &obj)
@@ -196,7 +224,7 @@ public:
    explicit Regions1d(
       const std::optional<XMLName> &label,
       const std::optional<Float64> &outerDomainValue,
-      const containers::XYs1d &XYs1d,
+      const std::vector<containers::XYs1d> &XYs1d,
       const std::optional<containers::Axes> &axes
    ) :
       Component{

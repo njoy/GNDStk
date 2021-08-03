@@ -17,16 +17,18 @@ SCENARIO("BodyText toNode()") {
             const BodyText<true> b;
 
             std::string text = "abc";
-            struct { } content;
-
+            struct {
+               struct {
+               } content;
+            } derived;
             // w/trim == true (shouldn't matter here; applies to vector)
             b.trim = true;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "");
 
             // w/trim == false (shouldn't matter here; applies to vector)
             b.trim = false;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "");
          }
       }
@@ -43,7 +45,10 @@ SCENARIO("BodyText toNode()") {
              .start(100).length(200).valueType("hello");
 
             std::string text = "abc";
-            struct { } content;
+            struct {
+               struct {
+               } content;
+            } derived;
 
             // Someone who sets the raw string directly (as opposed to using
             // a vector) is stating that they want *exactly* that raw string,
@@ -52,7 +57,7 @@ SCENARIO("BodyText toNode()") {
 
             // w/trim == true (shouldn't matter here; applies to vector)
             b.trim = true;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "0 12 34 56 0 0");
             CHECK(b.start() == 100);
             CHECK(b.length() == 200);
@@ -60,7 +65,7 @@ SCENARIO("BodyText toNode()") {
 
             // w/trim == false (shouldn't matter here; applies to vector)
             b.trim = false;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "0 12 34 56 0 0");
             CHECK(b.start() == 100);
             CHECK(b.length() == 200);
@@ -83,11 +88,14 @@ SCENARIO("BodyText toNode()") {
             b = std::vector<Integer32>{{0, 0, 12, 34, 56, 78, 0, 0, 0, 0, 0}};
 
             std::string text = "this should be replaced";
-            struct { } content;
+            struct {
+               struct {
+               } content;
+            } derived;
 
             // w/trim == true
             b.trim = true;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "12 34 56 78");
             CHECK(b.start() == 2);
             CHECK(b.length() == 11);
@@ -95,7 +103,7 @@ SCENARIO("BodyText toNode()") {
 
             // w/trim == false
             b.trim = false;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "0 0 12 34 56 78 0 0 0 0 0");
             CHECK(b.start() == 0);
             CHECK(b.length() == 11);
@@ -118,11 +126,14 @@ SCENARIO("BodyText toNode()") {
             b = std::vector<Float64>{{0, 0, 0, 1.234, 5.678, 0, 0 }};
 
             std::string text = "this should be replaced";
-            struct { } content;
+            struct {
+               struct {
+               } content;
+            } derived;
 
             // w/trim == true
             b.trim = true;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "1.234 5.678");
             CHECK(b.start() == 3);
             CHECK(b.length() == 7);
@@ -130,7 +141,7 @@ SCENARIO("BodyText toNode()") {
 
             // w/trim == false
             b.trim = false;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "0 0 0 1.234 5.678 0 0");
             CHECK(b.start() == 0);
             CHECK(b.length() == 7);
@@ -155,11 +166,14 @@ SCENARIO("BodyText toNode()") {
             b = std::vector<std::string>{{"","","","foo","bar","baz","",""}};
 
             std::string text = "this should be replaced";
-            struct { } content;
+            struct {
+               struct {
+               } content;
+            } derived;
 
             // w/trim == true
             b.trim = true;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "foo bar baz");
             CHECK(b.start() == 3);
             CHECK(b.length() == 8);
@@ -171,7 +185,7 @@ SCENARIO("BodyText toNode()") {
             // trailing *empty* strings, which, well, amount to leading and
             // trailing nothing.
             b.trim = false;
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "foo bar baz");
             CHECK(b.start() == 3);
             CHECK(b.length() == 8);
@@ -195,9 +209,12 @@ SCENARIO("BodyText toNode()") {
             b = std::vector<char>{{0,0,0,0,0,'a','b','c','d',0}};
 
             std::string text = "this should be replaced";
-            struct { } content;
+            struct {
+               struct {
+               } content;
+            } derived;
 
-            b.toNode(text,content);
+            b.toNode(text,derived);
             CHECK(text == "a b c d");
             CHECK(b.start() == 5);
             CHECK(b.length() == 10);
@@ -206,88 +223,125 @@ SCENARIO("BodyText toNode()") {
       }
    }
 
-   // Test various different configurations of "content" when calling toNode().
-   // Basically, these test whether toNode properly updates whichever of length,
-   // start, and valueType are in "content" (toNode()'s second argument).
+   // Test various configurations of content{} when calling toNode(). Basically,
+   // these test whether toNode properly updates whichever of length, start, and
+   // valueType are in .content of toNode()'s second argument.
    GIVEN("A BodyText, with vector<Integer32>") {
       WHEN("toNode() is called") {
 
          // none of length, start, valueType
          THEN("Push to content{} works") {
-            struct { int ignored = 12345; } content;
+            struct {
+               struct {
+                  int ignored = 12345;
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
+            b.toNode(text,derived);
             // toNode doesn't care about what's *not* length/start/valueType...
-            CHECK(content.ignored == 12345); // same as before toNode()
+            CHECK(derived.content.ignored == 12345); // same as before toNode()
          }
 
          // length only
          THEN("Push to content{length} works") {
-            struct { int length=0; } content;
+            struct {
+               struct {
+                  int length = 0;
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.length == 8);
+            b.toNode(text,derived);
+            CHECK(derived.content.length == 8);
          }
 
          // start only
          THEN("Push to content{start} works") {
-            struct { int start=0; } content;
+            struct {
+               struct {
+                  int start = 0;
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.start == 2);
+            b.toNode(text,derived);
+            CHECK(derived.content.start == 2);
          }
 
          // valueType only
          THEN("Push to content{valueType} works") {
-            struct { std::string valueType=""; } content;
+            struct {
+               struct {
+                  std::string valueType = "";
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.valueType == "Integer32");
+            b.toNode(text,derived);
+            CHECK(derived.content.valueType == "Integer32");
          }
 
          // all but length
          THEN("Push to content{start,valueType} works") {
-            struct { int start=0; std::string valueType=""; } content;
+            struct {
+               struct {
+                  int start = 0;
+                  std::string valueType = "";
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.start == 2);
-            CHECK(content.valueType == "Integer32");
+            b.toNode(text,derived);
+            CHECK(derived.content.start == 2);
+            CHECK(derived.content.valueType == "Integer32");
          }
 
          // all but start
          THEN("Push to content{length,valueType} works") {
-            struct { int length=0; std::string valueType=""; } content;
+            struct {
+               struct {
+                  int length = 0;
+                  std::string valueType = "";
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.length == 8);
-            CHECK(content.valueType == "Integer32");
+            b.toNode(text,derived);
+            CHECK(derived.content.length == 8);
+            CHECK(derived.content.valueType == "Integer32");
          }
 
          // all but valueType
          THEN("Push to content{length,start} works") {
-            struct { int length=0, start=0; } content;
+            struct {
+               struct {
+                  int length = 0;
+                  int start = 0;
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.length == 8);
-            CHECK(content.start == 2);
+            b.toNode(text,derived);
+            CHECK(derived.content.length == 8);
+            CHECK(derived.content.start == 2);
          }
 
          // all three
          THEN("Push to content{length,start,valueType} works") {
-            struct { int length=0, start=0; std::string valueType=""; } content;
+            struct {
+               struct {
+                  int length = 0;
+                  int start = 0;
+                  std::string valueType = "";
+               } content;
+            } derived;
             BodyText<true> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,content);
-            CHECK(content.length == 8);
-            CHECK(content.start == 2);
-            CHECK(content.valueType == "Integer32");
+            b.toNode(text,derived);
+            CHECK(derived.content.length == 8);
+            CHECK(derived.content.start == 2);
+            CHECK(derived.content.valueType == "Integer32");
          }
 
       }

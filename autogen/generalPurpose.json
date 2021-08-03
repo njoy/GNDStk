@@ -356,7 +356,7 @@
                 "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "XYs1d",
-                "occurrence": "1",
+                "occurrence": "1+",
                 "required": true
             }
         },

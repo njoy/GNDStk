@@ -28,9 +28,6 @@ template<bool hasBodyText>
 class BodyText {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
-   std::ostream &write(std::ostream &os, const int) const { return os; }
-   template<class CONTENT>
-   void pullFromDerived(const CONTENT &) { }
 };
 
 
@@ -64,12 +61,12 @@ private:
    // a vector until, and unless, a caller *asks* for the vector.
    mutable VariantOfVectors variant;
 
+public:
+
    // Parameters that affect interpretation of the raw string:
    //    struct vars { length, start, valueType }
    // Includes public getters and setters for those.
    #include "GNDStk/BodyText/src/params.hpp"
-
-public:
 
    // trim
    // Flag: should the conversion of BodyText data back into textual data, in

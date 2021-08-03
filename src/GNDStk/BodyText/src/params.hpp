@@ -29,6 +29,8 @@ valueType ordering, to be consistent with the (alphabetical) ordering that
 our GNDS Standard Interface code autogeneration tool produces.
 */
 
+private:
+
 // toNode() works with a conceptually const object but may update these to be
 // consistent with vector data; so, mutable.
 mutable struct {

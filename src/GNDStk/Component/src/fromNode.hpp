@@ -30,9 +30,7 @@ void fromNode(const Node &node)
          throw std::exception{};
       }
 
-      if constexpr (
-         std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>
-      ) {
+      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
          // consistency check; then nothing further to do
          assert(0 == links.size());
       } else {

@@ -38,7 +38,7 @@ class CrossSection : public Component<CrossSection> {
    // For Component
    // ------------------------
 
-   friend class Component<CrossSection>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }

@@ -727,8 +727,7 @@ void write_keys(
    const nlohmann::json &value,
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren,
-   const std::string &nsname,
-   const bool hasBodyText
+   const std::string &nsname
 ) {
    // using VARIANT = ..., if necessary
    for (const auto &child : vecInfoChildren) {
@@ -753,8 +752,7 @@ void write_keys(
    os << "   // For Component\n";
    os << "   " << small << "\n";
    os << "\n";
-   os << "   friend class Component<" << name << (hasBodyText ? ",true" : "");
-   os << ">;\n\n";
+   os << "   friend class Component;\n\n";
    os << "   // Current namespace, current class, and GNDS node name\n";
    os << "   static auto namespaceName() { return \"" << nsname << "\"; }\n";
    os << "   static auto className() { return \"" << name << "\"; }\n";
@@ -1526,7 +1524,7 @@ void make_class(
    // As needed by the Component base
    write_keys(
       oss, keyvalue.value(), vecInfoMetadata, vecInfoChildren,
-      file_namespace, hasBodyText
+      file_namespace
    );
 
    // output: base

@@ -29,7 +29,7 @@ class Values : public Component<Values,true> {
    // For Component
    // ------------------------
 
-   friend class Component<Values,true>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }

@@ -295,9 +295,8 @@ public:
 
 // for std::tuple
 template<class... Args>
-constexpr auto toKeywordTup(
-   const std::tuple<Args...> &tup
-) {
+constexpr auto toKeywordTup(const std::tuple<Args...> &tup)
+{
    return KeywordTup<Args...>(tup);
 }
 

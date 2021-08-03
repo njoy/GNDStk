@@ -76,7 +76,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
       // Derived class write()s, if any.
       // Note that neither, either, or both can be provided.
       // To be recognized here, signatures must be exactly what we expect.
-      if constexpr (detail::hasWriteOneArg<DERIVED>::has) {
+      if constexpr (detail::hasWriteOneArg<DERIVED>) {
          // DERIVED::write() doesn't take an indentation level; we handle here
          std::ostringstream tmp;
          derived().write(tmp);
@@ -87,7 +87,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
          if (tmp.str().size())
             os << std::endl;
       }
-      if constexpr (detail::hasWriteTwoArg<DERIVED>::has) {
+      if constexpr (detail::hasWriteTwoArg<DERIVED>) {
          // DERIVED::write() takes an indentation level
          std::ostringstream tmp;
          derived().write(tmp,level+1);
@@ -97,7 +97,8 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
       }
 
       // BodyText, if any
-      body::write(os,level+1);
+      if constexpr (hasBodyText)
+         body::write(os,level+1);
 
       // Indent, write footer, NO newline
       detail::indentString(
