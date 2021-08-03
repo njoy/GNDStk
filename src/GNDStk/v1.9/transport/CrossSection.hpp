@@ -51,7 +51,7 @@ class CrossSection : public Component<CrossSection> {
       return
          // children
          VARIANT{}
-            / ++(key::child::XYs1d || key::child::regions1d)
+            / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
    }
 

@@ -1,11 +1,11 @@
 {
-    "__namespace__":"tsl",
+    "namespace": "tsl",
     "thermalNeutronScatteringLaw1d": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this element.",
                 "name": "label",
@@ -13,7 +13,7 @@
                 "type": "XMLName"
             },
             "href": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The URL this element links to",
                 "name": "href",
@@ -21,7 +21,6 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": [
             "Used to link the reaction \\element{crossSection} to the corresponding thermal neutron scattering law entry ",
@@ -33,11 +32,11 @@
     },
 
     "thermalNeutronScatteringLaw": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this element.",
                 "name": "label",
@@ -45,7 +44,7 @@
                 "type": "XMLName"
             },
             "href": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The URL this element links to",
                 "name": "href",
@@ -53,7 +52,6 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": [
             "Used to link the outgoing neutron \\element{distribution} to the corresponding thermal neutron scattering law entry ",
@@ -65,11 +63,11 @@
     },
 
     "thermalNeutronScatteringLaw_coherentElastic": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this element.",
                 "name": "label",
@@ -77,7 +75,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
@@ -85,7 +83,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -93,17 +91,16 @@
                 "type": "frame"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "S_table": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Cumulative structure factor as a function of incident energy and temperature.",
                 "name": "S_table",
                 "occurrence": "choice",
                 "required": false
             },
             "BraggEdges": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Stores a list of Bragg edges along with energies and structure factors.",
                 "name": "BraggEdges",
                 "occurrence": "choice",
@@ -145,13 +142,12 @@
         "rootNode": false
     },
     "S_table": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "gridded2d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": [
                     "Cumulative structure factors, $$S(E,T) = \\sum\\limits_{i=1}^{E_i < E} s_i (T)$$",
                     "The cumulative structure factor uses histogram interpolation along energy, with steps at each Bragg edge."
@@ -168,13 +164,12 @@
     },
 
     "BraggEdges": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "BraggEdge": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "One Bragg edge's container.   See section \\ref{format:tsl:BraggEdge}.",
                 "name": "BraggEdge",
                 "occurrence": "1+",
@@ -187,11 +182,11 @@
         "rootNode": false
     },
     "BraggEdge": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -199,17 +194,16 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "BraggEnergy": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "An \\element{XYs1d} specifying the temperature dependence of the Bragg edge energy $E_j(T)$ in Eqs. (\\ref{eq:BraggEdge}) and (\\ref{eq:BraggEdgeMu}).",
                 "name": "BraggEnergy",
                 "occurrence": "1",
                 "required": true
             },
             "structureFactor": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "An \\element{XYs1d} specifying the structure factor for this Bragg edge, $s_j(T)$, for use in Eq. (\\ref{eq:BraggEdge}). ",
                 "name": "structureFactor",
                 "occurrence": "1",
@@ -226,13 +220,12 @@
         "rootNode": false
     },
     "BraggEnergy": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "XYs1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The temperature dependence of this Bragg edge's energy $E_j(T)$. ",
                 "name": "XYs1d",
                 "occurrence": "1",
@@ -245,13 +238,12 @@
         "rootNode": false
     },
     "structureFactor": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "XYs1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The structure factors for this Bragg edge, $s_j(T)=S(E_j,T)$.  ",
                 "name": "XYs1d",
                 "occurrence": "1",
@@ -265,11 +257,11 @@
     },
 
     "thermalNeutronScatteringLaw_incoherentElastic": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this element.",
                 "name": "label",
@@ -277,7 +269,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
@@ -285,7 +277,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -293,17 +285,16 @@
                 "type": "frame"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "boundAtomCrossSection": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The $\\sigma_{\\textrm{\\scriptsize bound},i}$ cross section for a single bound atom (of the principal scattering type).",
                 "name": "boundAtomCrossSection",
                 "occurrence": "1",
                 "required": true
             },
             "DebyeWallerIntegral": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The Debye-Waller integral, divided by the atomic mass.",
                 "name": "DebyeWallerIntegral",
                 "occurrence": "1",
@@ -345,13 +336,12 @@
         "rootNode": false
     },
     "DebyeWallerIntegral": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "XYs1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Data container storing the temperature dependence of the Debye-Waller integral. Axes have units of temperature (e.g. `K') and inverse energy (e.g. `1/eV').",
                 "name": "XYs1d",
                 "occurrence": "1",
@@ -365,11 +355,11 @@
     },
 
     "thermalNeutronScatteringLaw_incoherentInelastic": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this element.",
                 "name": "label",
@@ -377,7 +367,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
@@ -385,7 +375,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -393,7 +383,7 @@
                 "type": "frame"
             },
             "incoherentApproximation": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": true,
                 "description": "The incoherent approximation, where the ``distinct'' part of the scattering law is neglected (i.e., setting ${\\cal S}_{\\textrm{\\scriptsize dis},i}(\\alpha,\\beta,T) = 0$ and $\\sigma_{\\textrm{\\scriptsize inc},i}=0$).",
                 "name": "incoherentApproximation",
@@ -401,7 +391,7 @@
                 "type": "Boolean"
             },
             "primaryScatterer": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "the particle id of the primary scatterer.  This value must match the \\attr{pid} of one of the ",
@@ -413,10 +403,9 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "scatteringAtoms": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The container element for all thermal scattering law scatterers",
                 "name": "scatteringAtoms",
                 "occurrence": "1",
@@ -460,11 +449,11 @@
         "rootNode": false
     },
     "scatteringAtom": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "pid": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Particle id for this scatterer. Note that the pid will often be an element (i.e. 'Zr') rather than a nuclide.",
                 "name": "pid",
@@ -472,7 +461,7 @@
                 "type": "XMLName"
             },
             "primaryScatterer": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Denotes that the current scattering atom is the primary one.",
                 "name": "primaryScatterer",
@@ -480,7 +469,7 @@
                 "type": "Boolean"
             },
             "numberPerMolecule": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The number of this scattering atom per `molecule' of scatterers.",
                 "name": "numberPerMolecule",
@@ -488,17 +477,16 @@
                 "type": "Integer32"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "mass": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Mass of this scattering atom. Note that unlike ENDF-6, the mass is for a single atom (not multiplied by the number of atoms/molecule).",
                 "name": "mass",
                 "occurrence": "1",
                 "required": true
             },
             "e_critical": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": [
                     "Energy ($E/k_BT$) above which the static model of elastic scattering is adequate. ",
                     "(total scattering properties may be obtained from fast region elastic and summed ",
@@ -509,35 +497,35 @@
                 "required": false
             },
             "e_max": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The upper energy limit for which $S_{\\alpha, \\beta}$ may be used.",
                 "name": "e_max",
                 "occurrence": "1",
                 "required": true
             },
             "boundAtomCrossSection": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The bound atom cross section for the principal scatterer. ",
                 "name": "boundAtomCrossSection",
                 "occurrence": "1",
                 "required": true
             },
             "coherentAtomCrossSection": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The coherent cross section, $\\sigma_{\\textrm{\\scriptsize coh},i}$.    In the incoherent approximation, this cross section is equivalent to the bound cross section, so is redundant.",
                 "name": "coherentAtomCrossSection",
                 "occurrence": "1",
                 "required": false
             },
             "distinctScatteringKernel": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The distinct part of the scattering kernel, ${\\cal S}_{\\textrm{\\scriptsize dis},i}(\\alpha,\\beta,T)$",
                 "name": "distinctScatteringKernel",
                 "occurrence": "1",
                 "required": false
             },
             "selfScatteringKernel": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The self part of the scattering kernel, ${\\cal S}_{\\textrm{\\scriptsize self},i}(\\alpha,\\beta,T)$",
                 "name": "selfScatteringKernel",
                 "occurrence": "1",
@@ -566,13 +554,12 @@
         "rootNode": false
     },
     "scatteringAtoms": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "scatteringAtom": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": [
                     "Each scatterer has its own contribution to the total thermal scattering law cross section, so all the information needed ",
                     "to compute this contribution is contained in this child element."
@@ -588,11 +575,11 @@
         "rootNode": false
     },
     "e_critical": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Unit of energy.  ``eV'' is a good choice.",
                 "name": "unit",
@@ -600,7 +587,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Value of the energy.",
                 "name": "value",
@@ -608,7 +595,6 @@
                 "type": "Float64"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": "Energy above which the static model of elastic scattering is adequate.  Above this energy, total scattering properties may be obtained from MT=2 as givin in File 2 or 3 and File 4 of the appropriate materials.  This is equivalent to ENDF-6's \\texttt{B(2)} field.",
         "name": "e_critical",
@@ -616,11 +602,11 @@
         "rootNode": false
     },
     "e_max": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Unit of energy.  ``eV'' is a good choice.",
                 "name": "unit",
@@ -628,7 +614,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Value of the energy.",
                 "name": "value",
@@ -636,7 +622,6 @@
                 "type": "Float64"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": "The upper energy limit for which $S_{\\alpha, \\beta}$ may be used.  This is equivalent to ENDF-6's \\texttt{B(4)} field.",
         "name": "e_max",
@@ -644,11 +629,11 @@
         "rootNode": false
     },
     "boundAtomCrossSection": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Any valid unit of area is acceptable however ``b'' is most appropriate.",
                 "name": "unit",
@@ -656,7 +641,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Value of the cross section.",
                 "name": "value",
@@ -664,7 +649,6 @@
                 "type": "Float64"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": "The $\\sigma_{\\textrm{\\scriptsize bound},i}$ cross section.",
         "name": "boundAtomCrossSection",
@@ -672,11 +656,11 @@
         "rootNode": false
     },
     "coherentAtomCrossSection": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Unit of area, such as ``b''.",
                 "name": "unit",
@@ -684,7 +668,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Value of the cross section.",
                 "name": "value",
@@ -692,7 +676,6 @@
                 "type": "Float64"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": "The coherent cross section, $\\sigma_{\\textrm{\\scriptsize coh},i}$.  In the incoherent approximation, this cross section is equivalent to the bound cross section, so is redundant.",
         "name": "coherentAtomCrossSection",
@@ -700,11 +683,11 @@
         "rootNode": false
     },
     "selfScatteringKernel": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "symmetric": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Indicates whether the asymmetric version of the scattering kernel is used.  Equivalent to the ENDF-6 \\texttt{LASYM} flag.",
                 "name": "symmetric",
@@ -712,24 +695,23 @@
                 "type": "Boolean"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "gridded3d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The self part of the scattering kernel using a \\element{gridded3d} container with axes $\\alpha$, $\\beta$ and $T$",
                 "name": "gridded3d",
                 "occurrence": "choice",
                 "required": false
             },
             "selfScatteringKernelGaussianApproximation": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The self part of the scattering kernel using the Gaussian approximation.",
                 "name": "selfScatteringKernelGaussianApproximation",
                 "occurrence": "choice",
                 "required": false
             },
             "selfScatteringKernelSCTApproximation": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": [
                     "The self part of the scattering kernel using the short collision time approximation.  ",
                     "Note: this approximation is only meant to be used in the event that the user  ``falls off'' ",
@@ -764,13 +746,12 @@
         "rootNode": false
     },
     "distinctScatteringKernel": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "gridded3d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The distinct part of the scattering kernel using a \\element{gridded3d} container with axes $\\alpha$, $\\beta$ and $T$",
                 "name": "gridded3d",
                 "occurrence": "1",
@@ -784,13 +765,12 @@
     },
 
     "selfScatteringKernelGaussianApproximation": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "phononSpectrum": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The phonon spectrum $\\rho(\\omega)$.",
                 "name": "phononSpectrum",
                 "occurrence": "1",
@@ -822,13 +802,12 @@
         "rootNode": false
     },
     "phononSpectrum": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "XYs1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The actual interpolation table for the phonon spectrum $\\rho(\\omega)$ ",
                 "name": "XYs1d",
                 "occurrence": "1",
@@ -842,13 +821,12 @@
     },
 
     "selfScatteringKernelSCTApproximation": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "T_effective": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Effective temperature to use for this scattering atom in the short-collision-time approximation.",
                 "name": "T_effective",
                 "occurrence": "1",
@@ -874,13 +852,12 @@
         "rootNode": false
     },
     "T_effective": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "XYs1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Function giving the correspondence between actual and effective temperature. Both axes are in units of temperature, e.g. `K'.",
                 "name": "XYs1d",
                 "occurrence": "1",

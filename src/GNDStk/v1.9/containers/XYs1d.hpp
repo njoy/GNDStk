@@ -46,18 +46,18 @@ class XYs1d : public Component<XYs1d> {
       return
          // metadata
          std::optional<Integer32>{}
-            / key::meta::index |
+            / Meta<>("index") |
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            / key::meta::interpolation |
+            / Meta<>("interpolation") |
          std::optional<XMLName>{}
-            / key::meta::label |
+            / Meta<>("label") |
          std::optional<Float64>{}
-            / key::meta::outerDomainValue |
+            / Meta<>("outerDomainValue") |
          // children
          std::optional<containers::Axes>{}
-            / --key::child::axes |
+            / --Child<>("axes") |
          containers::Values{}
-            / --key::child::values
+            / --Child<>("values")
       ;
    }
 

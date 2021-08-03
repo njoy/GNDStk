@@ -42,11 +42,11 @@ class Axis : public Component<Axis> {
       return
          // metadata
          std::optional<Integer32>{}
-            / key::meta::index |
+            / Meta<>("index") |
          std::optional<XMLName>{}
-            / key::meta::label |
+            / Meta<>("label") |
          std::optional<XMLName>{}
-            / key::meta::unit
+            / Meta<>("unit")
       ;
    }
 

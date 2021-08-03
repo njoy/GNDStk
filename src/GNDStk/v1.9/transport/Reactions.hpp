@@ -45,7 +45,7 @@ class Reactions : public Component<Reactions> {
       return
          // children
          transport::Reaction{}
-            / ++key::child::reaction
+            / ++Child<>("reaction")
       ;
    }
 

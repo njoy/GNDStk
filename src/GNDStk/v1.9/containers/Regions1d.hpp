@@ -46,14 +46,14 @@ class Regions1d : public Component<Regions1d> {
       return
          // metadata
          std::optional<XMLName>{}
-            / key::meta::label |
+            / Meta<>("label") |
          std::optional<Float64>{}
-            / key::meta::outerDomainValue |
+            / Meta<>("outerDomainValue") |
          // children
          containers::XYs1d{}
-            / ++key::child::XYs1d |
+            / ++Child<>("XYs1d") |
          std::optional<containers::Axes>{}
-            / --key::child::axes
+            / --Child<>("axes")
       ;
    }
 

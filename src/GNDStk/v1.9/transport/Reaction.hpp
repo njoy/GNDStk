@@ -45,14 +45,14 @@ class Reaction : public Component<Reaction> {
       return
          // metadata
          Integer32{}
-            / key::meta::ENDF_MT |
+            / Meta<>("ENDF_MT") |
          std::optional<XMLName>{}
-            / key::meta::fissionGenre |
+            / Meta<>("fissionGenre") |
          XMLName{}
-            / key::meta::label |
+            / Meta<>("label") |
          // children
          transport::CrossSection{}
-            / --key::child::crossSection
+            / --Child<>("crossSection")
       ;
    }
 

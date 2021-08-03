@@ -51,10 +51,10 @@ class Axes : public Component<Axes> {
       return
          // metadata
          std::optional<UTF8Text>{}
-            / key::meta::href |
+            / Meta<>("href") |
          // children
          VARIANT{}
-            / ++(key::child::axis || key::child::grid)
+            / ++(Child<>("axis") || Child<>("grid"))
       ;
    }
 

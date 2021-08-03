@@ -42,7 +42,7 @@ class Link : public Component<Link> {
       return
          // metadata
          UTF8Text{}
-            / key::meta::href
+            / Meta<>("href")
       ;
    }
 

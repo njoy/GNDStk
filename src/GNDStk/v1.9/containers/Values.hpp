@@ -42,11 +42,11 @@ class Values : public Component<Values,true> {
       return
          // metadata
          std::optional<Integer32>{}
-            / key::meta::length |
+            / Meta<>("length") |
          Defaulted<Integer32>{0}
-            / key::meta::start |
+            / Meta<>("start") |
          Defaulted<UTF8Text>{"Float64"}
-            / key::meta::valueType
+            / Meta<>("valueType")
       ;
    }
 

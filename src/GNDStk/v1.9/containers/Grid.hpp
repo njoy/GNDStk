@@ -51,18 +51,18 @@ class Grid : public Component<Grid> {
       return
          // metadata
          std::optional<Integer32>{}
-            / key::meta::index |
+            / Meta<>("index") |
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            / key::meta::interpolation |
+            / Meta<>("interpolation") |
          std::optional<XMLName>{}
-            / key::meta::label |
+            / Meta<>("label") |
          std::optional<enums::GridStyle>{}
-            / key::meta::style |
+            / Meta<>("style") |
          std::optional<XMLName>{}
-            / key::meta::unit |
+            / Meta<>("unit") |
          // children
          VARIANT{}
-            / --(key::child::link || key::child::values)
+            / --(Child<>("link") || Child<>("values"))
       ;
    }
 

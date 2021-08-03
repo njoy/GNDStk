@@ -1,42 +1,41 @@
 {
-    "__namespace__":"common",
+    "namespace": "common",
     "Q": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {},
-        "bodyText": null,
-        "childUnique":"yesLabel",
+        "childUnique": "yesLabel",
         "childNodes": {
             "constant1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "constant1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "XYs1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "regions1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "polynomial1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "gridded1d": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Grouped Q-value, weighted by the cross-section and optionally by the flux. Appears in processed files only.",
                 "name": "gridded1d",
                 "occurrence": "choice+",
@@ -49,11 +48,11 @@
         "rootNode": false
     },
     "product": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Product label. Must be unique within the list of \\texttt{products}",
                 "name": "label",
@@ -61,7 +60,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Particle id, must correspond to the id of a particle in the particle database.",
                 "name": "pid",
@@ -69,24 +68,23 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "multiplicity": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Component containing the multiplicity of the product.",
                 "name": "multiplicity",
                 "occurrence": "1",
                 "required": true
             },
             "distribution": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Component containing the energy/angle distribution of the product.",
                 "name": "distribution",
                 "occurrence": "1",
                 "required": true
             },
             "outputChannel": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Used if the product breaks up into fragments (e.g., \\attrval{Be8 -> He4 + He4})",
                 "name": "outputChannel",
                 "occurrence": "1",
@@ -99,13 +97,12 @@
         "rootNode": false
     },
     "products": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "product": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "One or more \\element{product} child element.",
                 "name": "product",
                 "occurrence": "1+",
@@ -118,13 +115,12 @@
         "rootNode": false
     },
     "mass": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "double": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "double",
                 "occurrence": "1+",
@@ -137,13 +133,12 @@
         "rootNode": false
     },
     "energy": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "double": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "double",
                 "occurrence": "1+",
@@ -156,13 +151,12 @@
         "rootNode": false
     },
     "probability": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "double": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "double",
                 "occurrence": "1",
@@ -175,11 +169,11 @@
         "rootNode": false
     },
     "temperature": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": "physicalQuantityNode",
         "attributes": {
             "unit": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "unit",
@@ -187,7 +181,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "value",
@@ -195,7 +189,6 @@
                 "type": "Float64"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": null,
         "name": "temperature",
@@ -203,13 +196,12 @@
         "rootNode": false
     },
     "externalFiles": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "externalFile": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "A file",
                 "name": "externalFile",
                 "occurrence": "1+",
@@ -222,11 +214,11 @@
         "rootNode": false
     },
     "externalFile": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "unique string that can be used to identify this external file.",
                 "name": "label",
@@ -234,7 +226,7 @@
                 "type": "XMLName"
             },
             "path": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "relative path to the external file, using unix-style path separators to maintain compatability with existing xPath tools.",
                 "name": "path",
@@ -242,7 +234,6 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {},
         "description": "Stores a single external file, including a unique label and file path.",
         "name": "externalFile",

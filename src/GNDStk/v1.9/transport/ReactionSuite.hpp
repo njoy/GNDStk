@@ -45,20 +45,20 @@ class ReactionSuite : public Component<ReactionSuite> {
       return
          // metadata
          XMLName{}
-            / key::meta::evaluation |
+            / Meta<>("evaluation") |
          XMLName{}
-            / key::meta::format |
+            / Meta<>("format") |
          std::optional<enums::Interaction>{}
-            / key::meta::interaction |
+            / Meta<>("interaction") |
          XMLName{}
-            / key::meta::projectile |
+            / Meta<>("projectile") |
          enums::Frame{}
-            / key::meta::projectileFrame |
+            / Meta<>("projectileFrame") |
          XMLName{}
-            / key::meta::target |
+            / Meta<>("target") |
          // children
          std::optional<transport::Reactions>{}
-            / --key::child::reactions
+            / --Child<>("reactions")
       ;
    }
 
