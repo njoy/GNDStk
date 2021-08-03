@@ -29,7 +29,7 @@ namespace containers {
 
 class Grid : public Component<Grid> {
 
-   using VARIANT = std::variant<
+   using LINK_VALUES = std::variant<
       containers::Link,
       containers::Values
    >;
@@ -61,7 +61,7 @@ class Grid : public Component<Grid> {
          std::optional<XMLName>{}
             / Meta<>("unit") |
          // children
-         VARIANT{}
+         LINK_VALUES{}
             / --(Child<>("link") || Child<>("values"))
       ;
    }
@@ -92,7 +92,7 @@ public:
       std::optional<XMLName> unit;
 
       // children
-      VARIANT choice;
+      LINK_VALUES link_values;
    } content;
 
    // ------------------------
@@ -140,29 +140,29 @@ public:
    unit()
     { return content.unit; }
 
-   // choice
-   const VARIANT &
-   choice() const
-    { return content.choice; }
-   VARIANT &
-   choice()
-    { return content.choice; }
+   // link_values
+   const LINK_VALUES &
+   link_values() const
+    { return content.link_values; }
+   LINK_VALUES &
+   link_values()
+    { return content.link_values; }
 
    // link
    const containers::Link *
    link() const
-    { return getter<containers::Link>(choice(), "link"); }
+    { return getter<containers::Link>(link_values(), "link"); }
    containers::Link *
    link()
-    { return getter<containers::Link>(choice(), "link"); }
+    { return getter<containers::Link>(link_values(), "link"); }
 
    // values
    const containers::Values *
    values() const
-    { return getter<containers::Values>(choice(), "values"); }
+    { return getter<containers::Values>(link_values(), "values"); }
    containers::Values *
    values()
-    { return getter<containers::Values>(choice(), "values"); }
+    { return getter<containers::Values>(link_values(), "values"); }
 
    // ------------------------
    // Setters
@@ -192,17 +192,17 @@ public:
    auto &unit(const std::optional<XMLName> &obj)
     { unit() = obj; return *this; }
 
-   // choice(value)
-   auto &choice(const VARIANT &obj)
-    { choice() = obj; return *this; }
+   // link_values(value)
+   auto &link_values(const LINK_VALUES &obj)
+    { link_values() = obj; return *this; }
 
    // link(value)
    auto &link(const std::optional<containers::Link> &obj)
-    { if (obj) choice(obj.value()); return *this; }
+    { if (obj) link_values(obj.value()); return *this; }
 
    // values(value)
    auto &values(const std::optional<containers::Values> &obj)
-    { if (obj) choice(obj.value()); return *this; }
+    { if (obj) link_values(obj.value()); return *this; }
 
    // ------------------------
    // Construction
@@ -217,7 +217,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       }
    {
       Component::finish();
@@ -232,7 +232,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{other.content}
    {
@@ -248,7 +248,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{std::move(other.content)}
    {
@@ -264,7 +264,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       }
    {
       Component::finish(node);
@@ -277,7 +277,7 @@ public:
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
-      const VARIANT &choice
+      const LINK_VALUES &link_values
    ) :
       Component{
          BodyText{},
@@ -286,7 +286,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{
          index,
@@ -294,7 +294,7 @@ public:
          label,
          style,
          unit,
-         choice
+         link_values
       }
    {
       Component::finish();
@@ -307,7 +307,7 @@ public:
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
-      const VARIANT &choice
+      const LINK_VALUES &link_values
    ) :
       Component{
          BodyText{},
@@ -316,7 +316,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{
          index,
@@ -326,7 +326,7 @@ public:
          label,
          style,
          unit,
-         choice
+         link_values
       }
    {
       Component::finish();

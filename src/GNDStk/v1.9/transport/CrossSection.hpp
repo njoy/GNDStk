@@ -29,7 +29,7 @@ namespace transport {
 
 class CrossSection : public Component<CrossSection> {
 
-   using VARIANT = std::variant<
+   using XYS1D_REGIONS1D = std::variant<
       containers::XYs1d,
       containers::Regions1d
    >;
@@ -50,7 +50,7 @@ class CrossSection : public Component<CrossSection> {
    {
       return
          // children
-         VARIANT{}
+         XYS1D_REGIONS1D{}
             / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
    }
@@ -73,7 +73,7 @@ public:
 
    struct {
       // children
-      std::vector<VARIANT> choice;
+      std::vector<XYS1D_REGIONS1D> XYs1d_regions1d;
    } content;
 
    // ------------------------
@@ -81,61 +81,61 @@ public:
    // const and non-const
    // ------------------------
 
-   // choice
-   const std::vector<VARIANT> &
-   choice() const
-    { return content.choice; }
-   std::vector<VARIANT> &
-   choice()
-    { return content.choice; }
+   // XYs1d_regions1d
+   const std::vector<XYS1D_REGIONS1D> &
+   XYs1d_regions1d() const
+    { return content.XYs1d_regions1d; }
+   std::vector<XYS1D_REGIONS1D> &
+   XYs1d_regions1d()
+    { return content.XYs1d_regions1d; }
 
-   // choice(index)
-   const VARIANT &
-   choice(const std::size_t index) const
-    { return getter(choice(), index, "choice"); }
-   VARIANT &
-   choice(const std::size_t index)
-    { return getter(choice(), index, "choice"); }
+   // XYs1d_regions1d(index)
+   const XYS1D_REGIONS1D &
+   XYs1d_regions1d(const std::size_t index) const
+    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+   XYS1D_REGIONS1D &
+   XYs1d_regions1d(const std::size_t index)
+    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
-   // choice(label)
-   const VARIANT &
-   choice(const std::string &label) const
-    { return getter(choice(), label, "choice"); }
-   VARIANT &
-   choice(const std::string &label)
-    { return getter(choice(), label, "choice"); }
+   // XYs1d_regions1d(label)
+   const XYS1D_REGIONS1D &
+   XYs1d_regions1d(const std::string &label) const
+    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+   XYS1D_REGIONS1D &
+   XYs1d_regions1d(const std::string &label)
+    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
    const containers::XYs1d *
    XYs1d(const std::size_t index) const
-    { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
+    { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
    containers::XYs1d *
    XYs1d(const std::size_t index)
-    { return getter<containers::XYs1d>(choice(), index, "XYs1d"); }
+    { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
 
    // XYs1d(label)
    const containers::XYs1d *
    XYs1d(const std::string &label) const
-    { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
+    { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
    containers::XYs1d *
    XYs1d(const std::string &label)
-    { return getter<containers::XYs1d>(choice(), label, "XYs1d"); }
+    { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
 
    // regions1d(index)
    const containers::Regions1d *
    regions1d(const std::size_t index) const
-    { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
+    { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
    containers::Regions1d *
    regions1d(const std::size_t index)
-    { return getter<containers::Regions1d>(choice(), index, "regions1d"); }
+    { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
 
    // regions1d(label)
    const containers::Regions1d *
    regions1d(const std::string &label) const
-    { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
+    { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
    containers::Regions1d *
    regions1d(const std::string &label)
-    { return getter<containers::Regions1d>(choice(), label, "regions1d"); }
+    { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
 
    // ------------------------
    // Setters
@@ -143,24 +143,24 @@ public:
    // All return *this
    // ------------------------
 
-   // choice(value)
-   auto &choice(const std::vector<VARIANT> &obj)
-    { choice() = obj; return *this; }
+   // XYs1d_regions1d(value)
+   auto &XYs1d_regions1d(const std::vector<XYS1D_REGIONS1D> &obj)
+    { XYs1d_regions1d() = obj; return *this; }
 
-   // choice(index,value)
-   auto &choice(
+   // XYs1d_regions1d(index,value)
+   auto &XYs1d_regions1d(
       const std::size_t index,
-      const VARIANT &obj
+      const XYS1D_REGIONS1D &obj
    ) {
-      choice(index) = obj; return *this;
+      XYs1d_regions1d(index) = obj; return *this;
    }
 
-   // choice(label,value)
-   auto &choice(
+   // XYs1d_regions1d(label,value)
+   auto &XYs1d_regions1d(
       const std::string &label,
-      const VARIANT &obj
+      const XYS1D_REGIONS1D &obj
    ) {
-      choice(label) = obj; return *this;
+      XYs1d_regions1d(label) = obj; return *this;
    }
 
    // XYs1d(index,value)
@@ -168,7 +168,7 @@ public:
       const std::size_t index,
       const std::optional<containers::XYs1d> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) XYs1d_regions1d(index,obj.value());
       return *this;
    }
 
@@ -177,7 +177,7 @@ public:
       const std::string &label,
       const std::optional<containers::XYs1d> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) XYs1d_regions1d(label,obj.value());
       return *this;
    }
 
@@ -186,7 +186,7 @@ public:
       const std::size_t index,
       const std::optional<containers::Regions1d> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) XYs1d_regions1d(index,obj.value());
       return *this;
    }
 
@@ -195,7 +195,7 @@ public:
       const std::string &label,
       const std::optional<containers::Regions1d> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) XYs1d_regions1d(label,obj.value());
       return *this;
    }
 
@@ -207,7 +207,7 @@ public:
    CrossSection() :
       Component{
          BodyText{},
-         content.choice
+         content.XYs1d_regions1d
       }
    {
       Component::finish();
@@ -217,7 +217,7 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other,
-         content.choice
+         content.XYs1d_regions1d
       },
       content{other.content}
    {
@@ -228,7 +228,7 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other,
-         content.choice
+         content.XYs1d_regions1d
       },
       content{std::move(other.content)}
    {
@@ -239,7 +239,7 @@ public:
    CrossSection(const Node &node) :
       Component{
          BodyText{},
-         content.choice
+         content.XYs1d_regions1d
       }
    {
       Component::finish(node);
@@ -247,14 +247,14 @@ public:
 
    // from fields
    explicit CrossSection(
-      const std::vector<VARIANT> &choice
+      const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d
    ) :
       Component{
          BodyText{},
-         content.choice
+         content.XYs1d_regions1d
       },
       content{
-         choice
+         XYs1d_regions1d
       }
    {
       Component::finish();

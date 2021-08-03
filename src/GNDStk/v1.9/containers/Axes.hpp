@@ -29,7 +29,7 @@ namespace containers {
 
 class Axes : public Component<Axes> {
 
-   using VARIANT = std::variant<
+   using AXIS_GRID = std::variant<
       containers::Axis,
       containers::Grid
    >;
@@ -53,7 +53,7 @@ class Axes : public Component<Axes> {
          std::optional<UTF8Text>{}
             / Meta<>("href") |
          // children
-         VARIANT{}
+         AXIS_GRID{}
             / ++(Child<>("axis") || Child<>("grid"))
       ;
    }
@@ -79,7 +79,7 @@ public:
       std::optional<UTF8Text> href;
 
       // children
-      std::vector<VARIANT> choice;
+      std::vector<AXIS_GRID> axis_grid;
    } content;
 
    // ------------------------
@@ -95,61 +95,61 @@ public:
    href()
     { return content.href; }
 
-   // choice
-   const std::vector<VARIANT> &
-   choice() const
-    { return content.choice; }
-   std::vector<VARIANT> &
-   choice()
-    { return content.choice; }
+   // axis_grid
+   const std::vector<AXIS_GRID> &
+   axis_grid() const
+    { return content.axis_grid; }
+   std::vector<AXIS_GRID> &
+   axis_grid()
+    { return content.axis_grid; }
 
-   // choice(index)
-   const VARIANT &
-   choice(const std::size_t index) const
-    { return getter(choice(), index, "choice"); }
-   VARIANT &
-   choice(const std::size_t index)
-    { return getter(choice(), index, "choice"); }
+   // axis_grid(index)
+   const AXIS_GRID &
+   axis_grid(const std::size_t index) const
+    { return getter(axis_grid(), index, "axis_grid"); }
+   AXIS_GRID &
+   axis_grid(const std::size_t index)
+    { return getter(axis_grid(), index, "axis_grid"); }
 
-   // choice(label)
-   const VARIANT &
-   choice(const std::string &label) const
-    { return getter(choice(), label, "choice"); }
-   VARIANT &
-   choice(const std::string &label)
-    { return getter(choice(), label, "choice"); }
+   // axis_grid(label)
+   const AXIS_GRID &
+   axis_grid(const std::string &label) const
+    { return getter(axis_grid(), label, "axis_grid"); }
+   AXIS_GRID &
+   axis_grid(const std::string &label)
+    { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
    const containers::Axis *
    axis(const std::size_t index) const
-    { return getter<containers::Axis>(choice(), index, "axis"); }
+    { return getter<containers::Axis>(axis_grid(), index, "axis"); }
    containers::Axis *
    axis(const std::size_t index)
-    { return getter<containers::Axis>(choice(), index, "axis"); }
+    { return getter<containers::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
    const containers::Axis *
    axis(const std::string &label) const
-    { return getter<containers::Axis>(choice(), label, "axis"); }
+    { return getter<containers::Axis>(axis_grid(), label, "axis"); }
    containers::Axis *
    axis(const std::string &label)
-    { return getter<containers::Axis>(choice(), label, "axis"); }
+    { return getter<containers::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
    const containers::Grid *
    grid(const std::size_t index) const
-    { return getter<containers::Grid>(choice(), index, "grid"); }
+    { return getter<containers::Grid>(axis_grid(), index, "grid"); }
    containers::Grid *
    grid(const std::size_t index)
-    { return getter<containers::Grid>(choice(), index, "grid"); }
+    { return getter<containers::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
    const containers::Grid *
    grid(const std::string &label) const
-    { return getter<containers::Grid>(choice(), label, "grid"); }
+    { return getter<containers::Grid>(axis_grid(), label, "grid"); }
    containers::Grid *
    grid(const std::string &label)
-    { return getter<containers::Grid>(choice(), label, "grid"); }
+    { return getter<containers::Grid>(axis_grid(), label, "grid"); }
 
    // ------------------------
    // Setters
@@ -161,24 +161,24 @@ public:
    auto &href(const std::optional<UTF8Text> &obj)
     { href() = obj; return *this; }
 
-   // choice(value)
-   auto &choice(const std::vector<VARIANT> &obj)
-    { choice() = obj; return *this; }
+   // axis_grid(value)
+   auto &axis_grid(const std::vector<AXIS_GRID> &obj)
+    { axis_grid() = obj; return *this; }
 
-   // choice(index,value)
-   auto &choice(
+   // axis_grid(index,value)
+   auto &axis_grid(
       const std::size_t index,
-      const VARIANT &obj
+      const AXIS_GRID &obj
    ) {
-      choice(index) = obj; return *this;
+      axis_grid(index) = obj; return *this;
    }
 
-   // choice(label,value)
-   auto &choice(
+   // axis_grid(label,value)
+   auto &axis_grid(
       const std::string &label,
-      const VARIANT &obj
+      const AXIS_GRID &obj
    ) {
-      choice(label) = obj; return *this;
+      axis_grid(label) = obj; return *this;
    }
 
    // axis(index,value)
@@ -186,7 +186,7 @@ public:
       const std::size_t index,
       const std::optional<containers::Axis> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) axis_grid(index,obj.value());
       return *this;
    }
 
@@ -195,7 +195,7 @@ public:
       const std::string &label,
       const std::optional<containers::Axis> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) axis_grid(label,obj.value());
       return *this;
    }
 
@@ -204,7 +204,7 @@ public:
       const std::size_t index,
       const std::optional<containers::Grid> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) axis_grid(index,obj.value());
       return *this;
    }
 
@@ -213,7 +213,7 @@ public:
       const std::string &label,
       const std::optional<containers::Grid> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) axis_grid(label,obj.value());
       return *this;
    }
 
@@ -226,7 +226,7 @@ public:
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       }
    {
       Component::finish();
@@ -237,7 +237,7 @@ public:
       Component{
          other,
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{other.content}
    {
@@ -249,7 +249,7 @@ public:
       Component{
          other,
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{std::move(other.content)}
    {
@@ -261,7 +261,7 @@ public:
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       }
    {
       Component::finish(node);
@@ -270,16 +270,16 @@ public:
    // from fields
    explicit Axes(
       const std::optional<UTF8Text> &href,
-      const std::vector<VARIANT> &choice
+      const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{
          href,
-         choice
+         axis_grid
       }
    {
       Component::finish();

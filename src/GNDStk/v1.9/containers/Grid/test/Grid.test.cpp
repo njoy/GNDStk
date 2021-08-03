@@ -206,7 +206,7 @@ void verifyChunk( const Grid& component ) {
   CHECK( "eV" == component.unit() );
   CHECK( enums::GridStyle::boundaries == component.style() );
 
-  decltype(auto) values = std::get< Values >( component.choice() );
+  decltype(auto) values = std::get< Values >( component.link_values() );
   CHECK( 2 == values.length() );
   CHECK( 0 == values.start() );
   CHECK( "Float64" == values.valueType() );
@@ -246,7 +246,7 @@ void verifyChunkWithLink( const Grid& component ) {
   CHECK( "eV" == component.unit() );
   CHECK( enums::GridStyle::link == component.style() );
 
-  decltype(auto) link = std::get< Link >( component.choice() );
+  decltype(auto) link = std::get< Link >( component.link_values() );
   CHECK( "../../grid[@index='2']/values" == link.href() );
 }
 

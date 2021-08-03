@@ -462,7 +462,7 @@ public:
 
 class Grid : public Component<Grid> {
 
-   using VARIANT = std::variant<
+   using LINK_VALUES = std::variant<
       proto::Link,
       proto::Values
    >;
@@ -494,7 +494,7 @@ class Grid : public Component<Grid> {
          std::optional<XMLName>{}
             / Meta<>("unit") |
          // children
-         VARIANT{}
+         LINK_VALUES{}
             / --(Child<>("link") || Child<>("values"))
       ;
    }
@@ -525,7 +525,7 @@ public:
       std::optional<XMLName> unit;
 
       // children
-      VARIANT choice;
+      LINK_VALUES link_values;
    } content;
 
    // ------------------------
@@ -563,23 +563,23 @@ public:
    auto &unit()
     { return content.unit; }
 
-   // choice
-   const auto &choice() const
-    { return content.choice; }
-   auto &choice()
-    { return content.choice; }
+   // link_values
+   const auto &link_values() const
+    { return content.link_values; }
+   auto &link_values()
+    { return content.link_values; }
 
    // link
    auto link() const
-    { return getter<proto::Link>(choice(), "link"); }
+    { return getter<proto::Link>(link_values(), "link"); }
    auto link()
-    { return getter<proto::Link>(choice(), "link"); }
+    { return getter<proto::Link>(link_values(), "link"); }
 
    // values
    auto values() const
-    { return getter<proto::Values>(choice(), "values"); }
+    { return getter<proto::Values>(link_values(), "values"); }
    auto values()
-    { return getter<proto::Values>(choice(), "values"); }
+    { return getter<proto::Values>(link_values(), "values"); }
 
    // ------------------------
    // Setters
@@ -609,17 +609,17 @@ public:
    auto &unit(const std::optional<XMLName> &obj)
     { unit() = obj; return *this; }
 
-   // choice(value)
-   auto &choice(const VARIANT &obj)
-    { choice() = obj; return *this; }
+   // link_values(value)
+   auto &link_values(const LINK_VALUES &obj)
+    { link_values() = obj; return *this; }
 
    // link(value)
    auto &link(const std::optional<proto::Link> &obj)
-    { if (obj) choice(obj.value()); return *this; }
+    { if (obj) link_values(obj.value()); return *this; }
 
    // values(value)
    auto &values(const std::optional<proto::Values> &obj)
-    { if (obj) choice(obj.value()); return *this; }
+    { if (obj) link_values(obj.value()); return *this; }
 
    // ------------------------
    // Construction
@@ -634,7 +634,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       }
    {
       Component::finish();
@@ -649,7 +649,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{other.content}
    {
@@ -665,7 +665,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{std::move(other.content)}
    {
@@ -681,7 +681,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       }
    {
       Component::finish(node);
@@ -694,7 +694,7 @@ public:
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
-      const VARIANT &choice
+      const LINK_VALUES &link_values
    ) :
       Component{
          BodyText{},
@@ -703,7 +703,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{
          index,
@@ -711,7 +711,7 @@ public:
          label,
          style,
          unit,
-         choice
+         link_values
       }
    {
       Component::finish();
@@ -724,7 +724,7 @@ public:
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
-      const VARIANT &choice
+      const LINK_VALUES &link_values
    ) :
       Component{
          BodyText{},
@@ -733,7 +733,7 @@ public:
          content.label,
          content.style,
          content.unit,
-         content.choice
+         content.link_values
       },
       content{
          index,
@@ -743,7 +743,7 @@ public:
          label,
          style,
          unit,
-         choice
+         link_values
       }
    {
       Component::finish();
@@ -953,7 +953,7 @@ public:
 
 class Axes : public Component<Axes> {
 
-   using VARIANT = std::variant<
+   using AXIS_GRID = std::variant<
       proto::Axis,
       proto::Grid
    >;
@@ -977,7 +977,7 @@ class Axes : public Component<Axes> {
          std::optional<UTF8Text>{}
             / Meta<>("href") |
          // children
-         VARIANT{}
+         AXIS_GRID{}
             / ++(Child<>("axis") || Child<>("grid"))
       ;
    }
@@ -1003,7 +1003,7 @@ public:
       std::optional<UTF8Text> href;
 
       // children
-      std::vector<VARIANT> choice;
+      std::vector<AXIS_GRID> axis_grid;
    } content;
 
    // ------------------------
@@ -1017,47 +1017,47 @@ public:
    auto &href()
     { return content.href; }
 
-   // choice
-   const auto &choice() const
-    { return content.choice; }
-   auto &choice()
-    { return content.choice; }
+   // axis_grid
+   const auto &axis_grid() const
+    { return content.axis_grid; }
+   auto &axis_grid()
+    { return content.axis_grid; }
 
-   // choice(index)
-   const auto &choice(const std::size_t index) const
-    { return getter(choice(), index, "choice"); }
-   auto &choice(const std::size_t index)
-    { return getter(choice(), index, "choice"); }
+   // axis_grid(index)
+   const auto &axis_grid(const std::size_t index) const
+    { return getter(axis_grid(), index, "axis_grid"); }
+   auto &axis_grid(const std::size_t index)
+    { return getter(axis_grid(), index, "axis_grid"); }
 
-   // choice(label)
-   const auto &choice(const std::string &label) const
-    { return getter(choice(), label, "choice"); }
-   auto &choice(const std::string &label)
-    { return getter(choice(), label, "choice"); }
+   // axis_grid(label)
+   const auto &axis_grid(const std::string &label) const
+    { return getter(axis_grid(), label, "axis_grid"); }
+   auto &axis_grid(const std::string &label)
+    { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
    auto axis(const std::size_t index) const
-    { return getter<proto::Axis>(choice(), index, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), index, "axis"); }
    auto axis(const std::size_t index)
-    { return getter<proto::Axis>(choice(), index, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
    auto axis(const std::string &label) const
-    { return getter<proto::Axis>(choice(), label, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), label, "axis"); }
    auto axis(const std::string &label)
-    { return getter<proto::Axis>(choice(), label, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
    auto grid(const std::size_t index) const
-    { return getter<proto::Grid>(choice(), index, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), index, "grid"); }
    auto grid(const std::size_t index)
-    { return getter<proto::Grid>(choice(), index, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
    auto grid(const std::string &label) const
-    { return getter<proto::Grid>(choice(), label, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), label, "grid"); }
    auto grid(const std::string &label)
-    { return getter<proto::Grid>(choice(), label, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), label, "grid"); }
 
    // ------------------------
    // Setters
@@ -1069,24 +1069,24 @@ public:
    auto &href(const std::optional<UTF8Text> &obj)
     { href() = obj; return *this; }
 
-   // choice(value)
-   auto &choice(const std::vector<VARIANT> &obj)
-    { choice() = obj; return *this; }
+   // axis_grid(value)
+   auto &axis_grid(const std::vector<AXIS_GRID> &obj)
+    { axis_grid() = obj; return *this; }
 
-   // choice(index,value)
-   auto &choice(
+   // axis_grid(index,value)
+   auto &axis_grid(
       const std::size_t index,
-      const VARIANT &obj
+      const AXIS_GRID &obj
    ) {
-      choice(index) = obj; return *this;
+      axis_grid(index) = obj; return *this;
    }
 
-   // choice(label,value)
-   auto &choice(
+   // axis_grid(label,value)
+   auto &axis_grid(
       const std::string &label,
-      const VARIANT &obj
+      const AXIS_GRID &obj
    ) {
-      choice(label) = obj; return *this;
+      axis_grid(label) = obj; return *this;
    }
 
    // axis(index,value)
@@ -1094,7 +1094,7 @@ public:
       const std::size_t index,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) axis_grid(index,obj.value());
       return *this;
    }
 
@@ -1103,7 +1103,7 @@ public:
       const std::string &label,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) axis_grid(label,obj.value());
       return *this;
    }
 
@@ -1112,7 +1112,7 @@ public:
       const std::size_t index,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) axis_grid(index,obj.value());
       return *this;
    }
 
@@ -1121,7 +1121,7 @@ public:
       const std::string &label,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) axis_grid(label,obj.value());
       return *this;
    }
 
@@ -1134,7 +1134,7 @@ public:
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       }
    {
       Component::finish();
@@ -1145,7 +1145,7 @@ public:
       Component{
          other,
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{other.content}
    {
@@ -1157,7 +1157,7 @@ public:
       Component{
          other,
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{std::move(other.content)}
    {
@@ -1169,7 +1169,7 @@ public:
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       }
    {
       Component::finish(node);
@@ -1178,16 +1178,16 @@ public:
    // from fields
    explicit Axes(
       const std::optional<UTF8Text> &href,
-      const std::vector<VARIANT> &choice
+      const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{
          href,
-         choice
+         axis_grid
       }
    {
       Component::finish();
@@ -1730,7 +1730,7 @@ public:
 
 class CrossSection : public Component<CrossSection> {
 
-   using VARIANT = std::variant<
+   using XYS1D_REGIONS1D = std::variant<
       proto::XYs1d,
       proto::Regions1d
    >;
@@ -1751,7 +1751,7 @@ class CrossSection : public Component<CrossSection> {
    {
       return
          // children
-         VARIANT{}
+         XYS1D_REGIONS1D{}
             / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
    }
@@ -1774,7 +1774,7 @@ public:
 
    struct {
       // children
-      std::vector<VARIANT> choice;
+      std::vector<XYS1D_REGIONS1D> XYs1d_regions1d;
    } content;
 
    // ------------------------
@@ -1782,47 +1782,47 @@ public:
    // const and non-const
    // ------------------------
 
-   // choice
-   const auto &choice() const
-    { return content.choice; }
-   auto &choice()
-    { return content.choice; }
+   // XYs1d_regions1d
+   const auto &XYs1d_regions1d() const
+    { return content.XYs1d_regions1d; }
+   auto &XYs1d_regions1d()
+    { return content.XYs1d_regions1d; }
 
-   // choice(index)
-   const auto &choice(const std::size_t index) const
-    { return getter(choice(), index, "choice"); }
-   auto &choice(const std::size_t index)
-    { return getter(choice(), index, "choice"); }
+   // XYs1d_regions1d(index)
+   const auto &XYs1d_regions1d(const std::size_t index) const
+    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+   auto &XYs1d_regions1d(const std::size_t index)
+    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
-   // choice(label)
-   const auto &choice(const std::string &label) const
-    { return getter(choice(), label, "choice"); }
-   auto &choice(const std::string &label)
-    { return getter(choice(), label, "choice"); }
+   // XYs1d_regions1d(label)
+   const auto &XYs1d_regions1d(const std::string &label) const
+    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+   auto &XYs1d_regions1d(const std::string &label)
+    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
    auto XYs1d(const std::size_t index) const
-    { return getter<proto::XYs1d>(choice(), index, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
    auto XYs1d(const std::size_t index)
-    { return getter<proto::XYs1d>(choice(), index, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
 
    // XYs1d(label)
    auto XYs1d(const std::string &label) const
-    { return getter<proto::XYs1d>(choice(), label, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
    auto XYs1d(const std::string &label)
-    { return getter<proto::XYs1d>(choice(), label, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
 
    // regions1d(index)
    auto regions1d(const std::size_t index) const
-    { return getter<proto::Regions1d>(choice(), index, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
    auto regions1d(const std::size_t index)
-    { return getter<proto::Regions1d>(choice(), index, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
 
    // regions1d(label)
    auto regions1d(const std::string &label) const
-    { return getter<proto::Regions1d>(choice(), label, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
    auto regions1d(const std::string &label)
-    { return getter<proto::Regions1d>(choice(), label, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
 
    // ------------------------
    // Setters
@@ -1830,24 +1830,24 @@ public:
    // All return *this
    // ------------------------
 
-   // choice(value)
-   auto &choice(const std::vector<VARIANT> &obj)
-    { choice() = obj; return *this; }
+   // XYs1d_regions1d(value)
+   auto &XYs1d_regions1d(const std::vector<XYS1D_REGIONS1D> &obj)
+    { XYs1d_regions1d() = obj; return *this; }
 
-   // choice(index,value)
-   auto &choice(
+   // XYs1d_regions1d(index,value)
+   auto &XYs1d_regions1d(
       const std::size_t index,
-      const VARIANT &obj
+      const XYS1D_REGIONS1D &obj
    ) {
-      choice(index) = obj; return *this;
+      XYs1d_regions1d(index) = obj; return *this;
    }
 
-   // choice(label,value)
-   auto &choice(
+   // XYs1d_regions1d(label,value)
+   auto &XYs1d_regions1d(
       const std::string &label,
-      const VARIANT &obj
+      const XYS1D_REGIONS1D &obj
    ) {
-      choice(label) = obj; return *this;
+      XYs1d_regions1d(label) = obj; return *this;
    }
 
    // XYs1d(index,value)
@@ -1855,7 +1855,7 @@ public:
       const std::size_t index,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) XYs1d_regions1d(index,obj.value());
       return *this;
    }
 
@@ -1864,7 +1864,7 @@ public:
       const std::string &label,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) XYs1d_regions1d(label,obj.value());
       return *this;
    }
 
@@ -1873,7 +1873,7 @@ public:
       const std::size_t index,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) XYs1d_regions1d(index,obj.value());
       return *this;
    }
 
@@ -1882,7 +1882,7 @@ public:
       const std::string &label,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) XYs1d_regions1d(label,obj.value());
       return *this;
    }
 
@@ -1894,7 +1894,7 @@ public:
    CrossSection() :
       Component{
          BodyText{},
-         content.choice
+         content.XYs1d_regions1d
       }
    {
       Component::finish();
@@ -1904,7 +1904,7 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other,
-         content.choice
+         content.XYs1d_regions1d
       },
       content{other.content}
    {
@@ -1915,7 +1915,7 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other,
-         content.choice
+         content.XYs1d_regions1d
       },
       content{std::move(other.content)}
    {
@@ -1926,7 +1926,7 @@ public:
    CrossSection(const Node &node) :
       Component{
          BodyText{},
-         content.choice
+         content.XYs1d_regions1d
       }
    {
       Component::finish(node);
@@ -1934,14 +1934,14 @@ public:
 
    // from fields
    explicit CrossSection(
-      const std::vector<VARIANT> &choice
+      const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d
    ) :
       Component{
          BodyText{},
-         content.choice
+         content.XYs1d_regions1d
       },
       content{
-         choice
+         XYs1d_regions1d
       }
    {
       Component::finish();

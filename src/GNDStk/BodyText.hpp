@@ -59,8 +59,8 @@ public:
    #include "GNDStk/BodyText/src/params.hpp"
 
    // trim
-   // Flag: should the conversion of BodyText data back into textual data, in
-   // a Node, trim zeros from the start and end of the output?
+   // Flag: should the conversion of BodyText data back into textual data,
+   // in a Node, trim zeros from the start and end of the output?
    mutable bool trim = true;
 
    // Getters and setters for the raw string:
@@ -71,6 +71,7 @@ public:
    BodyText &clear()
    {
       std::visit([](auto &&alt) { alt.clear(); }, variant);
+      active = Active::vector;
       return *this;
    }
 
