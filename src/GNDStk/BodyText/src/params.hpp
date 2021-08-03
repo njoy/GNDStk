@@ -1,8 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // length, start, valueType
-// We place these into a struct so that our setters (defined elsewhere)
-// can use those names themselves.
+// We place these into a struct so our setters can use the names themselves.
 // -----------------------------------------------------------------------------
 
 /*
@@ -30,11 +29,68 @@ valueType ordering, to be consistent with the (alphabetical) ordering that
 our GNDS Standard Interface code autogeneration tool produces.
 */
 
-struct {
-   // Any of these might or might not have appeared in a particular node
-   // that had body text. For uniformity, however, we'll handle them all
-   // here, and have defaults.
+// toNode() works with a conceptually const object but may update these to be
+// consistent with vector data; so, mutable.
+mutable struct {
+   // Any of these might or might not have appeared in a particular node that
+   // had body text. For uniformity, we have them all here, and with defaults.
    std::size_t length = 0;
    std::size_t start = 0;
    std::string valueType = "";
 } vars;
+
+
+// -----------------------------------------------------------------------------
+// Getters
+// -----------------------------------------------------------------------------
+
+public:
+
+// length
+std::size_t length() const
+{
+   return vars.length;
+}
+
+// start
+std::size_t start() const
+{
+   return vars.start;
+}
+
+// valueType
+const std::string &valueType() const
+{
+   return vars.valueType;
+}
+
+
+// -----------------------------------------------------------------------------
+// Setters
+// Builder pattern for all: return *this.
+// Arguments of std::optional allow for more flexibility in derived classes.
+// -----------------------------------------------------------------------------
+
+// length
+BodyText &length(const std::optional<std::size_t> &opt)
+{
+   if (opt.has_value())
+      vars.length = opt.value();
+   return *this;
+}
+
+// start
+BodyText &start(const std::optional<std::size_t> &opt)
+{
+   if (opt.has_value())
+      vars.start = opt.value();
+   return *this;
+}
+
+// valueType
+BodyText &valueType(const std::optional<std::string> &opt)
+{
+   if (opt.has_value())
+      vars.valueType = opt.value();
+   return *this;
+}

@@ -25,6 +25,8 @@ add_subdirectory( src/GNDStk/keyword/test )
 add_subdirectory( src/GNDStk/Child/test )
 add_subdirectory( src/GNDStk/convert/test )
 add_subdirectory( src/GNDStk/utility/test )
+add_subdirectory( src/GNDStk/Component/test )
+add_subdirectory( src/GNDStk/BodyText/test )
 
 add_subdirectory( src/GNDStk/enums/Encoding/test )
 add_subdirectory( src/GNDStk/enums/Frame/test )

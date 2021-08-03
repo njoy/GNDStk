@@ -2,10 +2,10 @@
 // For printing.
 // When writing a Component with its generic write() function (or its stream
 // output, which uses write()), and the Component is based on a BodyText<true>,
-// values will be printed in GNDStk::columns columns. "columns" is aliased to
+// values will be printed with GNDStk::columns across. "columns" is aliased to
 // "across" for convenience, because, at the time of this writing, GNDStk has
 // a Meta<> object, named "columns", which would also be in scope if the core
-// namespace is used. So, a user might prefer to use "across".
+// namespace is used. So, a user might prefer to use the name "across".
 inline std::size_t columns = 4;
 inline std::size_t &across = columns;
 
@@ -20,29 +20,17 @@ inline std::size_t &across = columns;
 
 // -----------------------------------------------------------------------------
 // BodyText<false>
-// The <true> case is specialized and has the fun stuff. This one needs various
-// functions, to facilitate uniform treatment of BodyText, but they're stubs.
+// The <true> case is specialized and has the fun stuff. This one needs a few
+// stub functions just to facilitate uniform treatment of BodyText.
 // -----------------------------------------------------------------------------
 
 template<bool hasBodyText>
 class BodyText {
 public:
-   using variant_t = std::variant<std::monostate>;
-
-   void fromNode(const Node &) { }
-
-   template<class CONTENT>
-   void toNode(Node &, const CONTENT &) const { };
-   template<class CONTENT>
-   void toNode(Node &, CONTENT &) { };
-
+   using VariantOfVectors = std::variant<std::monostate>;
    std::ostream &write(std::ostream &os, const int) const { return os; }
-
    template<class CONTENT>
    void pullFromDerived(const CONTENT &) { }
-
-   template<class CONTENT>
-   void pushToDerived(CONTENT &) const { }
 };
 
 
@@ -57,43 +45,62 @@ public:
 
 template<>
 class BodyText<true> {
+public:
 
-   // Primary data:
-   // Raw string, and variant of vectors
-   #include "GNDStk/BodyText/src/data.hpp"
+   #include "GNDStk/BodyText/src/types.hpp"
+
+private:
+
+   // For internal use
+   enum class Active { string, vector };
+   mutable Active active = Active::string;
+
+   // Raw string, directly from "plain character data" in a GNDS file.
+   // We'll allow callers to set this by using a setter.
+   std::string rawstring;
+
+   // Vector of <several possibilities>.
+   // Mutable, so that we can defer processing of the raw string into
+   // a vector until, and unless, a caller *asks* for the vector.
+   mutable VariantOfVectors variant;
 
    // Parameters that affect interpretation of the raw string:
-   // vars { length, start, and valueType }
+   //    struct vars { length, start, valueType }
+   // Includes public getters and setters for those.
    #include "GNDStk/BodyText/src/params.hpp"
 
 public:
 
-   enum class Active {
-      string,
-      vector
-   };
-   mutable Active active = Active::string;
-
    // trim
-   // This indicates whether the process of converting a BodyText object back
-   // into data - in a Node - should, or should not, trim zeros from the start
-   // and/or the end of the vector.
+   // Flag: should the conversion of BodyText data back into textual data, in
+   // a Node, trim zeros from the start and end of the output?
    mutable bool trim = true;
-
-   // Getters and setters for length, start, and valueType:
-   #include "GNDStk/BodyText/src/setters.hpp"
 
    // Getters and setters for the raw string:
    #include "GNDStk/BodyText/src/string.hpp"
 
-   // Simple member functions:
-   // clear() and size()
-   #include "GNDStk/BodyText/src/functions.hpp"
+   // clear()
+   // Clears the active vector alternative in the variant.
+   BodyText &clear()
+   {
+      std::visit([](auto &&alt) { alt.clear(); }, variant);
+      return *this;
+   }
 
-   // Various get() functions, including type-specific ones (doubles() etc.)
+   // size()
+   // Returns the size of the active vector alternative in the variant.
+   // Depending on what actions someone has or hasn't performed on the current
+   // BodyText object, size() might or might not reflect the values of length
+   // and/or start, or reflect the current contents of the raw string.
+   std::size_t size() const
+   {
+      return std::visit([](auto &&alt) { return alt.size(); }, variant);
+   }
+
+   // Various vector get() functions, and the type-specific doubles() etc.
    #include "GNDStk/BodyText/src/get.hpp"
 
-   // Read/write data from/to a Node
+   // Read/write data, from/to a Node
    #include "GNDStk/BodyText/src/fromNode.hpp"
    #include "GNDStk/BodyText/src/toNode.hpp"
 
@@ -101,12 +108,11 @@ public:
    // Not to be confused with the process of writing data to a Node
    #include "GNDStk/BodyText/src/write.hpp"
 
-   // Get length, start, and valueType from derived-class content,
-   // or possibly put them there (if we determined them from a vector)
+   // Pull/push length/start/valueType from/to derived-class struct content
    #include "GNDStk/BodyText/src/sync.hpp"
 
    // Assignment
-   // From vector or string; the latter == calling our raw string setter
+   // From string or vector; the former == calling our raw string setter
    #include "GNDStk/BodyText/src/assign.hpp"
 
-}; // class BodyText
+}; // class BodyText<true>

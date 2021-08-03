@@ -70,9 +70,9 @@ public:
 
    struct {
       // metadata
-      std::optional<Integer32> length;
-      Defaulted<Integer32> start{0};
-      Defaulted<UTF8Text> valueType{"Float64"};
+      mutable std::optional<Integer32> length;
+      mutable Defaulted<Integer32> start{0};
+      mutable Defaulted<UTF8Text> valueType{"Float64"};
    } content;
 
    // ------------------------

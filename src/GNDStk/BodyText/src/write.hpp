@@ -6,12 +6,18 @@
 
 std::ostream &write(std::ostream &os, const int level) const
 {
+   // If empty, don't even write a std::endl
+   if ((active == Active::string && rawstring == "") ||
+       (active == Active::vector && size() == 0))
+      return os;
+
    // ------------------------
    // If string is active
    // ------------------------
 
    if (active == Active::string) {
-      // write string exactly as-is; don't use our column formatting
+      // write string exactly as-is, without our column formatting
+      // or any indentation; but do print a newline
       GNDStk::color && GNDStk::colors::value != ""
          ? os << colors::value << rawstring << colors::reset
          : os << rawstring;
@@ -22,11 +28,7 @@ std::ostream &write(std::ostream &os, const int level) const
    // If vector is active
    // ------------------------
 
-   // If empty, don't even write a std::endl
-   if (size() == 0)
-      return os;
-
-   // Indentation (some number of spaces)
+   // Indentation (string, with some number of spaces)
    const auto indent = std::string(GNDStk::indent*level,' ');
 
    std::visit(

@@ -12,7 +12,7 @@ namespace colors {
 //    colors::reset
 // Note that all of these are ANSI color escape sequences. They'll work on many
 // terminals, perhaps most, but working isn't guaranteed. GNDStk::color is false
-// by default, so colors aren't used at all unless someone sets it to true.
+// by default, so colors aren't actually used unless someone sets it to true.
 
 namespace plain {
 
@@ -23,8 +23,8 @@ inline const std::string
    blue    = "\033[34;1m",
    cyan    = "\033[36;1m",
    magenta = "\033[35;1m",
-   purple  = magenta, // Because we know people...
-   violet  = magenta, // will make this mistake
+   purple  = magenta,
+   violet  = magenta,
    yellow  = "\033[33;1m",
    white   = "\033[37;1m";
 

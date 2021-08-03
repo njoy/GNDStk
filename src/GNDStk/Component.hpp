@@ -24,7 +24,13 @@ using helpMap = std::map<std::string,std::string>;
 template<class DERIVED, bool hasBodyText>
 class Component : public BodyText<hasBodyText>
 {
-   using typename BodyText<hasBodyText>::variant_t;
+   // For convenience
+   using body = BodyText<hasBodyText>;
+   using typename body::VariantOfVectors;
+   DERIVED &derived()
+      { return static_cast<DERIVED &>(*this); }
+   const DERIVED &derived() const
+      { return static_cast<const DERIVED &>(*this); }
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -40,12 +46,12 @@ class Component : public BodyText<hasBodyText>
    // Copy and move *assignments* have the right behavior, however.
    Component &operator=(const Component &other)
    {
-      BodyText<hasBodyText>::operator=(other);
+      body::operator=(other);
       return *this;
    }
    Component &operator=(Component &&other)
    {
-      BodyText<hasBodyText>::operator=(std::move(other));
+      body::operator=(std::move(other));
       return *this;
    }
 
@@ -56,7 +62,7 @@ class Component : public BodyText<hasBodyText>
    // See comments in finish.hpp
    #include "GNDStk/Component/src/finish.hpp"
 
-   // You can (but don't need to) override in DERIVED
+   // You can (but don't need to) override the following in DERIVED
    static std::string namespaceName() { return ""; }
 
    // Intermediaries between derived-class getters, and getter functions
@@ -69,7 +75,7 @@ class Component : public BodyText<hasBodyText>
 public:
 
    #include "GNDStk/Component/src/fromNode.hpp"
-   #include "GNDStk/Component/src/toNode.hpp"
+   #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
    #include "GNDStk/Component/src/write.hpp"
 
    // documentation
@@ -91,7 +97,7 @@ public:
       try {
          Node node;
          node << str;
-         static_cast<DERIVED &>(*this) = DERIVED(node);
+         derived() = DERIVED(node);
       } catch (...) {
          log::function(std::string(DERIVED::className()) + " << string");
          throw;

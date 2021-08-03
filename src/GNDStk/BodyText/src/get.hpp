@@ -1,8 +1,4 @@
 
-// todo: Perhaps call these values(), not get(). On the other hand, we might
-// already be in a class object with a field called values. In that case, it
-// would probably sound better to say values.get(), not values.values().
-
 // -----------------------------------------------------------------------------
 // Cases
 // -----------------------------------------------------------------------------
@@ -22,8 +18,19 @@ Return reference to [const] variant of vector<T>s:
 
 Return variant of Ts:
    get(n) const
+   operator[](n) const
 
-A reference return isn't possible in the last case.
+A reference return isn't possible in the get(n) case, because there's
+no variant<scalars> to reference. So, it has a value return.
+
+We also provide type-specific getters with specific names:
+
+   const std::vector<T> &name() const
+   std::vector<T> &name()
+   const T &name(n) const
+   T &name(n)
+
+For example, name == doubles when T == double.
 */
 
 
@@ -33,23 +40,21 @@ A reference return isn't possible in the last case.
 // -----------------------------------------------------------------------------
 
 /*
-todo: Review this comment for correctness, as I've changed things here and
-there since I wrote it.
-
 ------------------------
 DESCRIPTION
 ------------------------
 
 If active == string:
 
-   Warn if T and valueType appear to conflict with one another.
+   Warn if T appears to conflict with valueType.
    Warn if length appears to be wrong.
 
    Make the vector<T> in the variant contain data from the raw string.
-   INCLUDE any leading/trailing zeros as determined by start/length.
+   INCLUDE any leading and trailing zeros, per start and length.
+   Note that length == 0 is interpreted as no particular length prescribed.
 
    Briefly: create vector<T> = [0 ... 0 values_from_raw_string 0 ... 0].
-   Note that for the T == string case, 0 really means "" (empty string).
+   For the T == string case, 0 really means "" (empty string).
 
 If active == vector:
 
@@ -59,53 +64,51 @@ If active == vector:
       *** this simple action will probably be the most common. ***
 
    Else:
-      Convert the current vector in the variant into a vector<T>.
+      Convert the variant's vector<non-T> into a vector<T>.
       Print a note to the effect that this might be unintentional.
-      The note can be switched off if the call *is* intentional.
+      The note can be suppressed if the call *is* intentional.
 
-Note that in the active == vector case, length, start, and valueType aren't
-considered to be relevant, and aren't used at all, in any capacity whatsoever.
-Basically, we're considering those values to be meaningful ONLY in relation
-to BodyText's raw string, so that we're not going to deal with them unless
-we're remaking the vector from the raw string.
+In the active == vector case, length, start, and valueType aren't considered
+to be relevant, and play no role. We consider those values to be meaningful
+ONLY in relation to BodyText's raw string, and we deal with them here only
+if and when we make the vector from the raw string.
 
-This way, callers can access, manipulate, and even completely change the
-vector's contents or its type - basically, can work completely with a vector,
+That way, callers can access, manipulate, and even completely change the
+vector's contents or its type - basically, can work in peace with a vector,
 as someone working with data would surely often want to do - without length,
 start, or valueType interfering with the process. Those values are considered
 to be relevant ONLY when we absolutely must deal with the raw string. This
 generally happens only during creation of the current object from a Node,
 or creation of a Node from the current object. (And if we create a Node from
-a vector in the current object, we'll figure those out for ourselves. See
-the toNode() function for more information about that.)
+a vector in the current object, then we'll compute length, etc. for ourselves.
+See the toNode() function for more information about that.)
 
-If you wish for length, start, and valueType to be used, do that as follows.
-Set the raw string to what you wish, using the string() setter. Set length,
-start, or valueType to what you wish, either before or after possibly setting
-the string. Finally, after doing all that, do a get<std::vector<T>>(). Then
-the vector in the variant will be remade, per the new string and/or the length
-etc. parameters, as described early in this descriptive comment above, if and
-when a get<vector<T>> function is next called.
+Therefore, if you want length, start, and valueType to be used, then proceed
+as follows. Set the raw string to what you wish, using the string() setter.
+Set length, start, or valueType as you wish, either before or after possibly
+setting the string. Finally, after doing all that, do a get<std::vector<T>>().
+Then the vector in the variant will be remade, per the new string and/or the
+length etc. parameters, as described earlier in this descriptive comment, if
+and when a get<vector<T>> function is next called.
 
 The return value of the const version is a const reference to a (possibly
-newly remade, possibly existing, or possibly newly converted-to) vector<T>
-in the variant. Note that because the variant was declared to be mutable,
-we were able to rebuild the vector, as already described. We'll still return
-a const reference, however, because the present object is conceptually const,
-and a caller shouldn't therefore be allowed to modify the vector outside of
-BodyText's machinery.
+newly converted-to from the raw string, possibly existing, or possibly remade)
+vector<T> in the variant. Note that because the variant was declared to be
+mutable, we were indeed able to rebuild the vector if doing so was necessary.
+But we'll still return a *const* reference in that case, because the present
+object is conceptually const, and a caller shouldn't therefore be allowed to
+modify the vector outside of BodyText's machinery.
 
-Note that we of course also have a non-const version of get<std::vector<T>>,
-for non-const *this (BodyText) objects.
+Of course we also have a non-const version, for a non-const *this.
 */
 
 
 // const
 template<class VECTOR>
 std::enable_if_t<
-   detail::isAlternative<VECTOR,variant_t>,
+   detail::isAlternative<VECTOR,VariantOfVectors>,
    const VECTOR &
-> get(const bool print_type_change_note = true) const
+> get() const
 {
    // Element type requested
    using T = typename VECTOR::value_type;
@@ -122,11 +125,11 @@ std::enable_if_t<
       // Completely rebuild the vector from the raw string, making use of
       // length, start, and valueType.
 
-      // For this get() function, the caller stipulates VECTOR - a particular
-      // vector type. We'll print a warning if VECTOR's element type appears
-      // to conflict with valueType, or if valueType isn't something we know
-      // what to do with. In any event, we'll return what the caller requested.
-      // Note that valueType = "" (the empty string) is acceptable with any T.
+      // For this get(), the caller has stipulated a particular vector type.
+      // We'll print a warning if that type appears to conflict with valueType,
+      // or if valueType isn't something we know what to do with. In any event,
+      // we'll return what the caller requested. Note that valueType = "" (the
+      // empty string) is acceptable with any element type.
 
       bool consistent = true;
       if (vars.valueType == "Integer32") {
@@ -157,10 +160,7 @@ std::enable_if_t<
       VECTOR &to = std::get<VECTOR>(variant); // std::get, not this get :-)
 
       T zero;
-      if constexpr (std::is_same_v<T,std::string>)
-         zero = "";
-      else
-         zero = T(0);
+      if constexpr (std::is_same_v<T,std::string>) zero = ""; else zero = T(0);
 
       // [*****----------]: leading 0s
       for (std::size_t i = 0; i < vars.start; ++i)
@@ -172,11 +172,11 @@ std::enable_if_t<
       while (iss >> element)
          to.push_back(element);
 
-      // Print a warning if "length" appears to be impossible because we
-      // already have more than "length" values. (But length=0 is ignored.)
+      // Print a warning if length appears to be impossible because we already
+      // have more than that number of values. (But length == 0 is ignored.)
       if (0 < vars.length && vars.length < to.size()) {
          log::warning(
-           "The given value length == {} appears to be wrong, because we\n"
+           "The value of length == {} appears to be wrong, because we\n"
            "already have {} values from start == {}, plus {} values read\n"
            "from the raw string, for a total of {} values.",
             vars.length,
@@ -206,13 +206,13 @@ std::enable_if_t<
       return std::get<VECTOR>(variant);
 
    // If we reach this point, it means two things. (1) We're NOT remaking
-   // a vector from the raw string (that case was handled first.) (2) The
-   // caller is asking for a vector of a different type than what we have
-   // currently in the variant.
+   // a vector from the raw string (that case was handled first). (2) The
+   // caller wants a vector of a different type than the type the variant
+   // currently holds (or we'd have returned immediately above).
    //
    // So, for example, perhaps the variant currently has a vector<double>,
    // and a call get<std::vector<int>>() was made, meaning that the caller
-   // is asking for a vector<int>.
+   // wants a vector<int>.
    //
    // BodyText is intended to store just one vector - one that represents
    // values in a GNDS node that has "body text." We don't, and shouldn't,
@@ -224,13 +224,10 @@ std::enable_if_t<
    // some utility. (We're not sure yet.) So, we'll print an informational
    // note (not even a warning), then proceed.
 
-   if (print_type_change_note) {
-      log::info(
-         "Re-forming vector of one type into vector of another type;\n"
-         "was this intentional?"
-      );
-      log::member("BodyText::get<std::vector<T>>()");
-   }
+   log::info(
+      "Re-forming vector of one type into vector of another type;\n"
+      "was this intentional?");
+   log::member("BodyText::get<std::vector<T>>()");
 
    // Initialize a new vector that will soon replace the old one
    VECTOR newVector;
@@ -257,13 +254,11 @@ std::enable_if_t<
 // non-const
 template<class VECTOR>
 std::enable_if_t<
-   detail::isAlternative<VECTOR,variant_t>,
+   detail::isAlternative<VECTOR,VariantOfVectors>,
    VECTOR &
-> get(const bool print_type_change_note = true)
+> get()
 {
-   return const_cast<VECTOR &>(
-      std::as_const(*this).template get<VECTOR>(print_type_change_note)
-   );
+   return const_cast<VECTOR &>(std::as_const(*this).template get<VECTOR>());
 }
 
 
@@ -280,12 +275,12 @@ std::enable_if_t<
 // const
 template<class T>
 std::enable_if_t<
-   detail::isAlternative<std::vector<T>,variant_t>,
+   detail::isAlternative<std::vector<T>,VariantOfVectors>,
    const T &
-> get(const std::size_t n, const bool print_type_change_note = true) const
+> get(const std::size_t n) const
 {
    try {
-      return get<std::vector<T>>(print_type_change_note)[n];
+      return get<std::vector<T>>()[n];
    } catch (...) {
       log::member("BodyText::get<T>({})", n);
       throw;
@@ -295,12 +290,12 @@ std::enable_if_t<
 // non-const
 template<class T>
 std::enable_if_t<
-   detail::isAlternative<std::vector<T>,variant_t>,
+   detail::isAlternative<std::vector<T>,VariantOfVectors>,
    T &
-> get(const std::size_t n, const bool print_type_change_note = true)
+> get(const std::size_t n)
 {
    return const_cast<T &>(
-      std::as_const(*this).template get<T>(n,print_type_change_note)
+      std::as_const(*this).template get<T>(n)
    );
 }
 
@@ -311,14 +306,14 @@ std::enable_if_t<
 // -----------------------------------------------------------------------------
 
 // const
-const variant_t &get(const bool print_type_change_note = true) const
+const VariantOfVectors &get() const
 {
    if (vars.valueType == "Integer32")
-      get<std::vector<Integer32>>(print_type_change_note);
+      get<std::vector<Integer32>>();
    else if (vars.valueType == "Float64")
-      get<std::vector<Float64>>(print_type_change_note);
+      get<std::vector<Float64>>();
    else
-      get<std::vector<std::string>>(print_type_change_note);
+      get<std::vector<std::string>>();
 
    // We can't return the specific variant *alternative* that exists right
    // now, because that depended on valueType (run-time). So, we'll return
@@ -327,47 +322,24 @@ const variant_t &get(const bool print_type_change_note = true) const
 }
 
 // non-const
-variant_t &get(const bool print_type_change_note = true)
+VariantOfVectors &get()
 {
-   return const_cast<variant_t &>(
-      std::as_const(*this).get(print_type_change_note)
-   );
+   return const_cast<VariantOfVectors &>(std::as_const(*this).get());
 }
-
-/*
-todo Be sure we really want the above, with valueType taken into account,
-rather than the variant always returned as-is regardless of valueType,
-as in the following...
-
-// const
-const variant_t &get() const
-{
-   return variant;
-}
-
-// non-const
-variant_t &get()
-{
-   return variant;
-}
-*/
 
 
 
 // -----------------------------------------------------------------------------
 // get(n)
-// todo Consider operator() or operator[] rather than get() here! Or maybe both.
-// For versions that require a template argument, however, call or bracket
-// operator would be awkward.
 // -----------------------------------------------------------------------------
 
 // const
-variant_scalar_t get(const std::size_t n) const
+VariantOfScalars get(const std::size_t n) const
 {
    try {
       get();
       return std::visit(
-         [n](auto &&alt) { return variant_scalar_t(alt[n]); },
+         [n](auto &&alt) { return VariantOfScalars(alt[n]); },
          variant
       );
    } catch (...) {
@@ -376,8 +348,14 @@ variant_scalar_t get(const std::size_t n) const
    }
 }
 
-// non-const
-// Not relevant, because the const version returns by value.
+// operator[]: useful alternative form
+VariantOfScalars operator[](const std::size_t n) const
+{
+   return get(n);
+}
+
+// non-const get(n) and operator[]
+// Not applicable, because the const versions return by value.
 
 
 
@@ -387,23 +365,19 @@ variant_scalar_t get(const std::size_t n) const
 // These provide convenient, shorthand access to specific get<vector<T>s.
 // -----------------------------------------------------------------------------
 
+// Cases:
+// vector, const
+// vector, non-const
+// element, const
+// element, non-const
 #define GNDSTK_MAKE_GETTER(name,T) \
-   /* vector, const */ \
-   const std::vector<T> &name(const bool print_type_change_note = true) const \
-    { return get<std::vector<T>>(print_type_change_note); } \
-   /* vector, non-const */ \
-   std::vector<T> &name(const bool print_type_change_note = true) \
-    { return get<std::vector<T>>(print_type_change_note); } \
-   /* element, const */ \
-   const T &name \
-      (const std::size_t n, const bool print_type_change_note = true) const \
-    { return get<T>(n, print_type_change_note); } \
-   /* element, non-const */ \
-   T &name \
-      (const std::size_t n, const bool print_type_change_note = true) \
-    { return get<T>(n, print_type_change_note); }
+   const std::vector<T> &name() const { return get<std::vector<T>>(); } \
+         std::vector<T> &name()       { return get<std::vector<T>>(); } \
+   const T &name(const std::size_t n) const { return get<T>(n); } \
+         T &name(const std::size_t n)       { return get<T>(n); }
 
 GNDSTK_MAKE_GETTER(strings,     std::string);
+GNDSTK_MAKE_GETTER(chars,       char);
 
 GNDSTK_MAKE_GETTER(schars,      signed char);
 GNDSTK_MAKE_GETTER(shorts,      short);

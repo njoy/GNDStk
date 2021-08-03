@@ -1,12 +1,17 @@
 
-// Starter node
+// 1. Initialize a Node, with the necessary name
 Node node(DERIVED::GNDSName());
 
-// DATA. This call might affect length, etc., so it's made prior to the
-// writing of fields.
-this->BodyText<hasBodyText>::toNode(node,derived.content);
+// 2. Body text, if applicable
+if constexpr (hasBodyText) {
+   // GNDStk uses a "text" metadatum of a "pcdata" child for this
+   std::string &text = node.add("pcdata").add("text","").second;
+   // Note: the following call might compute length, start, and valueType;
+   // so we need all of this before the upcoming writing of fields.
+   body::toNode(text,derived().content);
+}
 
-// FIELDS
+// 3. Write fields
 if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
    // consistency check
    assert(0 == links.size());
@@ -26,16 +31,10 @@ if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
    std::apply(
       [this,&node](const auto &... key) {
          std::size_t n = 0;
-        (node.add(
-            key,
-            *(detail::remove_cvref_t<decltype(Node{}(key))> *)links[n++]
-         ),
-         ...
-        );
+        (node.add(key,*(std::decay_t<decltype(Node{}(key))>*)links[n++]), ...);
       },
       tup
    );
 }
 
-// Done
 return node;
