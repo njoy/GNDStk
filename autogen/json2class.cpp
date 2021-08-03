@@ -163,35 +163,38 @@ std::string metaType(const nlohmann::json &value)
    return iter == mapMetaType.end() ? type : iter->second;
 }
 
+
+
+// -----------------------------------------------------------------------------
+// *Name functions
+// -----------------------------------------------------------------------------
+
 // className
 // Think "classType" to compare/contrast with metaType() above; equivalently,
 // gives return value for derived-class className() for Component<DERIVED>.
 // Not namespace qualified; namespace is added where, and if, it's needed.
-std::string className(const nlohmann::json &value)
+std::string className(const std::string &key, const nlohmann::json &value)
 {
    // capitalize, per our class naming convention
-   assert(value.contains("name"));
-   std::string name = value["name"];
+   std::string name = value.contains("name") ? std::string(value["name"]) : key;
    name[0] = toupper(name[0]);
    return name;
 }
 
 // GNDSName
 // Gives return value for derived-class GNDSName() for Component<DERIVED>.
-std::string GNDSName(const nlohmann::json &value)
+std::string GNDSName(const std::string &key, const nlohmann::json &value)
 {
    // as-is; appears in actual GNDS files like this
-   assert(value.contains("name"));
-   return value["name"];
+   return value.contains("name") ? std::string(value["name"]) : key;
 }
 
 // fieldName
 // Name for metadata or child-node field in the auto-generated class
-std::string fieldName(const nlohmann::json &value)
+std::string fieldName(const std::string &key, const nlohmann::json &value)
 {
    // as-is, except that we need to rename double :-/
-   assert(value.contains("name"));
-   const std::string name = value["name"];
+   std::string name = value.contains("name") ? std::string(value["name"]) : key;
    return name == "double" ? "Double" : name;
 }
 
@@ -266,12 +269,8 @@ void check_class(
    if (debugging)
       std::cout << "Key: " << key << std::endl;
 
-   assert(value.contains("name"));
    assert(value.contains("attributes"));
    assert(value.contains("childNodes"));
-   assert(value.contains("description"));
-   assert(value.contains("bodyText"));
-
    hasBodyText = value.contains("bodyText") && !value["bodyText"].is_null();
 }
 
@@ -281,9 +280,6 @@ void check_metadata(const nlohmann::json &attrs)
    for (const auto &field : attrs.items()) {
       if (debugging)
          std::cout << "   Metadatum: " << field.key() << std::endl;
-
-      assert(field.value().contains("default"));
-      assert(field.value().contains("name"));
       assert(field.value().contains("required"));
       assert(field.value().contains("type"));
    }
@@ -295,8 +291,6 @@ void check_children(const nlohmann::json &elems)
    for (const auto &field : elems.items()) {
       if (debugging)
          std::cout << "   Child Node: " << field.key() << std::endl;
-
-      assert(field.value().contains("name"));
       assert(field.value().contains("occurrence"));
       assert(field.value().contains("required"));
 
@@ -479,7 +473,8 @@ void compute_metadata(
    for (const auto &field : attrs.items()) {
       // the default
       std::string theDefault = "";
-      if (!field.value()["default"].is_null()) {
+      if (field.value().contains("default") &&
+          !field.value()["default"].is_null()) {
          theDefault = to_string(field.value()["default"]);
          const auto iter = mapMetaDefault.find(theDefault);
          if (iter != mapMetaDefault.end())
@@ -523,7 +518,7 @@ void compute_metadata(
          defSuffix + optSuffix;
 
       // name
-      const std::string varName = fieldName(field.value());
+      const std::string varName = fieldName(field.key(),field.value());
 
       // write
       hasBodyText &&
@@ -556,7 +551,7 @@ void compute_children(
    const nlohmann::json &elems,
    std::vector<infoChildren> &vecInfoChildren, // output
    // additional parameters, in comparison with compute_metadata() above
-   const std::string &file_namespace, // JSONs file's overall "__namespace__"
+   const std::string &file_namespace, // JSONs file's overall "namespace"
    const std::string &clname, // name of enclosing class; plain, no namespace::
    NameDeps &ndep,
    const std::multimap<std::string,std::string> &class2nspace
@@ -599,21 +594,15 @@ void compute_children(
          assert(opt);
 
       // type (and compute and prepend its namespace)
-      std::string ns, varType = className(field.value());
+      std::string ns, varType = className(field.key(),field.value());
       {
          // Determine what namespace varType belongs in. The scenario: we're
-         // inside of a file with "__namespace__" file_namespace, in a class
-         // with name clname, looking at a child node with name varType.
+         // inside of a file with "namespace" file_namespace, in a class with
+         // name clname, looking at a child node with name varType.
          const auto value = field.value();
-
-         // we'll recognize either of these, but disallow both together...
-         assert(!(value.contains("namespace") &&
-                  value.contains("__namespace__")));
 
          if (value.contains("namespace")) {
             ns = value["namespace"];
-         } else if (value.contains("__namespace__")) {
-            ns = value["__namespace__"];
          } else if (class2nspace.count(varType) == 0) {
             log::warning(
                "{}::{} has child of unknown class {}.",
@@ -668,7 +657,7 @@ void compute_children(
          optSuffix;
 
       // name
-      const std::string varName = fieldName(field.value());
+      const std::string varName = fieldName(field.key(),field.value());
       if (choice)
          names.push_back(varName);
 
@@ -679,8 +668,8 @@ void compute_children(
       // save as a dependency - if it's not its own dependency (in which case,
       // presumably, a pointer is involved, or we're out of luck in any event)
       if (varType != clname)
-         ndep.dependencies.
-            push_back(std::make_pair(ns,className(field.value())));
+         ndep.dependencies.push_back(
+            std::make_pair(ns,className(field.key(),field.value())));
 
       // vecInfoChildren
       vecInfoChildren.push_back(infoChildren{});
@@ -724,6 +713,7 @@ void compute_children(
 
 void write_keys(
    std::ostream &os,
+   const std::string &key,
    const nlohmann::json &value,
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren,
@@ -744,8 +734,8 @@ void write_keys(
    }
 
    // names
-   const std::string name = className(value);
-   const std::string gnds = GNDSName(value);
+   const std::string name = className(key,value);
+   const std::string gnds = GNDSName(key,value);
 
    os << "\n";
    os << "   " << small << "\n";
@@ -774,7 +764,7 @@ void write_keys(
       for (const auto &m : vecInfoMetadata) {
          os << (count++ ? " |\n" : "\n         // metadata\n")
             << "         " << m.fullVarType << "{" << m.theDefault << "}\n"
-            << "            / key::meta::" << m.varName;
+            << "            / Meta<>(\"" << m.varName << "\")";
       }
 
       // children
@@ -787,12 +777,12 @@ void write_keys(
                << "         " << c.halfVarType << "{}\n" // w/o any std::vector
                << "            / " << (c.isVector ? "++" : "--");
             if (c.varNameSeq.size() == 0) {
-               os << "key::child::"  << c.varName;
+               os << "Child<>(\"" << c.varName << "\")";
             } else {
                os << "(";
                std::size_t n = 0;
                for (const auto &varName : c.varNameSeq)
-                  os << (n++ ? " || " : "") << "key::child::"  << varName;
+                  os << (n++ ? " || " : "") << "Child<>(\"" << varName << "\")";
                os << ")";
             }
          }
@@ -825,13 +815,13 @@ void getter_param_1(
    os << "\n   // " << varName << "(" << paramName << ")\n";
 
    // getter: const
-   os << "   const " << varType << " &" << varName;
+   os << "   const " << varType << " &\n   " << varName;
    os << "(const " << paramType << paramName << ") const\n";
    os << "    { return getter(" << varName;
    os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
 
    // getter: non-const
-   os << "   " << varType << " &" << varName;
+   os << "   " << varType << " &\n   " << varName;
    os << "(const " << paramType << paramName << ")\n";
    os << "    { return getter(" << varName;
    os << "(), " << paramName << ", " << "\"" << varName << "\"); }\n";
@@ -844,12 +834,14 @@ void getter_param_2(
 ) {
    // choice is a vector<variant>
    os << "\n   // " << varName << "(" << paramName << ")\n";
+
    // const
-   os << "   const " << varType << " *" << varName << "(const " << paramType << paramName;
+   os << "   const " << varType << " *\n   " << varName << "(const " << paramType << paramName;
    os << ") const\n" << "    { return getter<" << varType << ">";
    os << "(choice(), " << paramName << ", \"" << varName << "\"); }\n";
+
    // non-const
-   os << "   " << varType << " *" << varName << "(const " << paramType << paramName;
+   os << "   " << varType << " *\n   " << varName << "(const " << paramType << paramName;
    os << ")\n" << "    { return getter<" << varType << ">";
    os << "(choice(), " << paramName << ", \"" << varName << "\"); }\n";
 }
@@ -879,16 +871,16 @@ void write_getters(
 
       // getter: const
       os << "   const ";
-      os << (m.isDefaulted ? m.varType+" " : m.fullVarType+" &"); // because...
-      os << m.varName << "() const\n";
+      os << (m.isDefaulted ? m.varType : m.fullVarType+" &"); // because...
+      os << "\n   " << m.varName << "() const\n";
       os << "    { return content." << m.varName;
       if (m.isDefaulted) os << ".value()"; // ...we use value() w/Defaulted
       os << "; }\n";
 
       // getter: non-const
       os << "   ";
-      os << (m.isDefaulted ? m.varType+" " : m.fullVarType+" &");
-      os << m.varName << "()\n";
+      os << (m.isDefaulted ? m.varType : m.fullVarType+" &");
+      os << "\n   " << m.varName << "()\n";
       os << "    { return content." << m.varName;
       if (m.isDefaulted) os << ".value()";
       os << "; }\n";
@@ -908,11 +900,11 @@ void write_getters(
       // comment
       os << "\n   // " << c.varName << "\n";
       // getter: const
-      os << "   const " << c.fullVarType << " &" << c.varName << "() const\n";
+      os << "   const " << c.fullVarType << " &\n   " << c.varName << "() const\n";
       os << "    { return content." << c.varName;
       os << "; }\n";
       // getter: non-const
-      os << "   " << c.fullVarType << " &" << c.varName << "()\n";
+      os << "   " << c.fullVarType << " &\n   " << c.varName << "()\n";
       os << "    { return content." << c.varName;
       os << "; }\n";
 
@@ -934,11 +926,11 @@ void write_getters(
          // choice is a variant
          // const
          os << "\n   // " << c.varName << "\n";
-         os << "   const " << c.varType << " *" << c.varName << "() const\n";
+         os << "   const " << c.varType << " *\n   " << c.varName << "() const\n";
          os << "    { return getter<" << c.varType << ">";
          os << "(choice(), " << "\"" << c.varName << "\"); }\n";
          // non-const
-         os << "   " << c.varType << " *" << c.varName << "()\n";
+         os << "   " << c.varType << " *\n   " << c.varName << "()\n";
          os << "    { return getter<" << c.varType << ">";
          os << "(choice(), " << "\"" << c.varName << "\"); }\n";
       }
@@ -1344,20 +1336,20 @@ std::map<std::pair<std::string,std::string>,CLFile> class2files;
 // make_forward
 void make_forward(
    std::ostream &os,
-   const std::string &file_namespace, // value of "__namespace__" in the file
+   const std::string &file_namespace, // value of "namespace" in the file
    const std::string &key, const nlohmann::json &value,
    std::multimap<std::string,std::string> &class2nspace
 ) {
    // not a class?
-   if (key == "__namespace__" || key == "Specifications")
+   if (key == "namespace" || key == "Specifications")
       return;
 
    // not a node class?
-   if (value["__class__"] != "nodes.Node")
+   if (value.contains("class") && value["class"] != "nodes.Node")
       return;
 
    // class name
-   const std::string clname = className(value);
+   const std::string clname = className(key,value);
 
    // forward declaration
    os << "namespace " << file_namespace << " { class " << clname << "; }\n";
@@ -1371,14 +1363,13 @@ void make_forward(
 
    const std::string
       nsdir   = GNDSDir + "/src/GNDStk/" + Version + "/" + file_namespace,
-      nsdirpy = GNDSDir + "/python/src/" + Version + "/" + file_namespace;
+      nsdirpy = GNDSDir + "/python/src/" + Version + "/" + file_namespace,
+      src     = nsdir + "/" + clname + "/src",
+      test    = nsdir + "/" + clname + "/test";
    system(("mkdir -p " + nsdir  ).c_str());
    system(("mkdir -p " + nsdirpy).c_str());
-
-   const std::string src  = nsdir + "/" + clname + "/src";
-   const std::string test = nsdir + "/" + clname + "/test";
-   system(("mkdir -p " + src ).c_str());
-   system(("mkdir -p " + test).c_str());
+   system(("mkdir -p " + src    ).c_str());
+   system(("mkdir -p " + test   ).c_str());
 
    // create custom.hpp, but ONLY if it's not already there
    const std::string custom = src + "/custom.hpp";
@@ -1479,16 +1470,16 @@ void make_class(
 ) {
    // not a class?
    const auto key = keyvalue.key();
-   if (key == "__namespace__" ||  key == "Specifications")
+   if (key == "namespace" || key == "Specifications")
       return;
 
    // not a node class?
    const auto value = keyvalue.value();
-   if (value["__class__"] != "nodes.Node")
+   if (value.contains("class") && value["class"] != "nodes.Node")
       return;
 
    // class name; and do some checks
-   const std::string clname = className(keyvalue.value());
+   const std::string clname = className(keyvalue.key(),keyvalue.value());
    if (debugging)
       std::cout << "Class: " << clname << std::endl;
    bool hasBodyText = false;
@@ -1536,7 +1527,7 @@ void make_class(
    // output: names, keys
    // As needed by the Component base
    write_keys(
-      oss, keyvalue.value(), vecInfoMetadata, vecInfoChildren,
+      oss, keyvalue.key(), keyvalue.value(), vecInfoMetadata, vecInfoChildren,
       file_namespace
    );
 
@@ -1619,11 +1610,11 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
       if (firsttime) { // <== because read() is called twice :-)
          for (const auto &item : jdoc.items()) {
             const std::string parent = item.key();
-            if (parent == "__namespace__")
+            if (parent == "namespace" || parent == "namespace")
                continue;
 
             const nlohmann::json value = item.value();
-            if (value["__class__"] != "nodes.Node")
+            if (value.contains("class") && value["class"] != "nodes.Node")
                continue;
 
             const auto attrs = value["attributes"];
@@ -1933,12 +1924,13 @@ int main()
    for (auto &file : files) {
       read(file,jdoc,true);
       ofs << "\n";
-      const std::string nsname = jdoc["__namespace__"];
+      const std::string nsname = jdoc["namespace"];
       for (const auto &item : jdoc.items()) {
          make_forward(ofs, nsname, item.key(), item.value(), class2nspace);
       }
    }
    std::ofstream ver(HPPforVersion, std::ofstream::app);
+   ver << "\n#include \"GNDStk/" << Version << "/key.hpp\"\n";
    ver << "\n#endif\n";
    ver.close();
 
@@ -1953,7 +1945,7 @@ int main()
    std::cout << "\nBuilding classes..." << std::endl;
    for (auto &file : files) {
       read(file,jdoc,false);
-      const std::string file_namespace = jdoc["__namespace__"];
+      const std::string file_namespace = jdoc["namespace"];
       for (const auto &keyvalue : jdoc.items()) {
          make_class(keyvalue, file_namespace, class2nspace);
       }
@@ -2018,13 +2010,14 @@ int main()
              << "#include \"GNDStk.hpp\"\n"
              << "\n";
 
-         hpp << "// " << Version << " dependencies\n";
-         hpp << "#include \"GNDStk/" << Version << "/key.hpp\"\n";
-         for (const auto &dep : obj.dependencies) {
-            hpp << "#include \"GNDStk/" << Version << "/"
-                << dep.first << "/" << dep.second << ".hpp\"\n";
+         if (obj.dependencies.size() > 0) {
+            hpp << "// " << Version << " dependencies\n";
+            for (const auto &dep : obj.dependencies) {
+               hpp << "#include \"GNDStk/" << Version << "/"
+                   << dep.first << "/" << dep.second << ".hpp\"\n";
+            }
+            hpp << "\n";
          }
-         hpp << "\n";
 
          hpp << "namespace njoy {\n";
          hpp << "namespace GNDStk {\n";
