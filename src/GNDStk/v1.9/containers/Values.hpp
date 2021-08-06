@@ -89,7 +89,7 @@ public:
     { return content.length; }
 
    // start
-   const Integer32
+   Integer32
    start() const
     { return content.start.value(); }
    Integer32

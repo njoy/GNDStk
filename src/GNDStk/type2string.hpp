@@ -13,7 +13,6 @@ key/value pair.
 */
 
 
-
 // -----------------------------------------------------------------------------
 // convert(T,ostream)
 // Default: use operator<<
@@ -23,7 +22,13 @@ key/value pair.
 template<class T>
 inline void convert(const T &value, std::ostream &os)
 {
-   os << value;
+   if constexpr (std::is_floating_point_v<T>) {
+      os << detail::Precision<
+               detail::PrecisionContext::metadata,T
+            >{}.write(value);
+   } else {
+      os << value;
+   }
 }
 
 // some sequence containers
@@ -36,7 +41,7 @@ inline void convert(const T &value, std::ostream &os)
       std::size_t n = 0; \
       for (const T &v : value) \
          if (!(os << (n++ ? " " : "") && (convert(v,os),os))) \
-            break; /* stream appears to be broken anyway */ \
+            break; /* might as well, because the stream is broken */ \
    }
 
    GNDSTK_CONVERT(deque)
@@ -44,7 +49,6 @@ inline void convert(const T &value, std::ostream &os)
    GNDSTK_CONVERT(vector)
 
 #undef GNDSTK_CONVERT
-
 
 
 // -----------------------------------------------------------------------------
@@ -67,7 +71,6 @@ inline void convert(const T &value, std::string &str)
    }
 }
 
-
 // char *
 // Faster than we'd get by going through the generic T version. Note that we
 // normally wouldn't write a "char *" case, as char * would normally convert
@@ -78,8 +81,7 @@ inline void convert(const char *const value, std::string &str)
 }
 
 // convert(const std::string &, std::string &)
-// Already defined, for "convert(string,type)"
-
+// Already defined elsewhere, in the form of convert(string,T) for T == string
 
 // bool
 inline void convert(const bool &value, std::string &str)
@@ -87,9 +89,8 @@ inline void convert(const bool &value, std::string &str)
    str = value ? "true" : "false";
 }
 
-
 // miscellaneous
-// T-to-string specializations that may be faster than our default
+// Integral T-to-string specializations that may be faster than our default
 #define GNDSTK_CONVERT(TYPE) \
    inline void convert(const TYPE &value, std::string &str) \
    { \
@@ -103,12 +104,5 @@ inline void convert(const bool &value, std::string &str)
    GNDSTK_CONVERT(unsigned)
    GNDSTK_CONVERT(unsigned long)
    GNDSTK_CONVERT(unsigned long long)
-
-   // These write extra trailing 0s, e.g. 12.340000 instead of 12.34.
-   // See https://en.cppreference.com/w/cpp/string/basic_string/to_string
-   // So, we won't use them, and will let our default handle floating types.
-   // GNDSTK_CONVERT(float)
-   // GNDSTK_CONVERT(double)
-   // GNDSTK_CONVERT(long double)
 
 #undef GNDSTK_CONVERT

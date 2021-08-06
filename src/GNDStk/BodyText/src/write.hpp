@@ -6,7 +6,7 @@
 
 std::ostream &write(std::ostream &os, const int level) const
 {
-   // If empty, don't even write a std::endl
+   // If empty, don't even write a newline
    if ((active == Active::string && rawstring == "") ||
        (active == Active::vector && size() == 0))
       return os;
@@ -16,8 +16,8 @@ std::ostream &write(std::ostream &os, const int level) const
    // ------------------------
 
    if (active == Active::string) {
-      // write string exactly as-is, without our column formatting
-      // or any indentation; but do print a newline
+      // write the string exactly as-is, without our column formatting
+      // or any indentation; then also write a newline
       GNDStk::color && GNDStk::colors::value != ""
          ? os << colors::value << rawstring << colors::reset
          : os << rawstring;
@@ -35,6 +35,7 @@ std::ostream &write(std::ostream &os, const int level) const
       [&os,&indent](auto &&alt)
       {
          std::size_t count = 0;
+         using T = std::decay_t<decltype(alt[0])>;
 
          // use our column formatting
          for (auto &element : alt) {
@@ -44,9 +45,17 @@ std::ostream &write(std::ostream &os, const int level) const
                ? os << ' '
                : os << '\n' << indent;
 
-            GNDStk::color && GNDStk::colors::value != ""
-               ? os << colors::value << element << colors::reset
-               : os << element;
+            if (GNDStk::color && GNDStk::colors::value != "")
+               os << colors::value;
+
+            if constexpr (std::is_floating_point_v<T>)
+               os << detail::Precision<detail::PrecisionContext::data,T>{}.
+                     write(element);
+            else
+               os << element;
+
+            if (GNDStk::color && GNDStk::colors::value != "")
+               os << colors::reset;
 
             count++;
          };

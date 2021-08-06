@@ -1366,10 +1366,10 @@ void make_forward(
       nsdirpy = GNDSDir + "/python/src/" + Version + "/" + file_namespace,
       src     = nsdir + "/" + clname + "/src",
       test    = nsdir + "/" + clname + "/test";
-   system(("mkdir -p " + nsdir  ).c_str());
-   system(("mkdir -p " + nsdirpy).c_str());
-   system(("mkdir -p " + src    ).c_str());
-   system(("mkdir -p " + test   ).c_str());
+   system(("mkdir -p " + nsdir  ).data());
+   system(("mkdir -p " + nsdirpy).data());
+   system(("mkdir -p " + src    ).data());
+   system(("mkdir -p " + test   ).data());
 
    // create custom.hpp, but ONLY if it's not already there
    const std::string custom = src + "/custom.hpp";
@@ -1776,7 +1776,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "   python::class_<Component> component(\n";
    cpp << "      module,\n";
    cpp << "      \"" << clname << "\",\n";
-   cpp << "      Component::documentation().c_str()\n";
+   cpp << "      Component::documentation().data()\n";
    cpp << "   );\n";
    cpp << "\n";
    cpp << "   // wrap the component\n";
@@ -1852,7 +1852,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    if (hasBodyText) {
       cpp << "         python::arg(\"values\"),\n";
    }
-   cpp << "         Component::documentation(\"constructor\").c_str()\n";
+   cpp << "         Component::documentation(\"constructor\").data()\n";
    cpp << "      )\n";
 
    // .def_property_readonly...
@@ -1861,7 +1861,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
       cpp << "         &Component::" << m.varName << ",\n";
-      cpp << "         Component::documentation(\"" << pythonname << "\").c_str()\n";
+      cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
       cpp << "      )\n";
    }
    for (auto &c : cinfo) {
@@ -1870,7 +1870,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
          cpp << "      .def_property_readonly(\n";
          cpp << "         \"" << pythonname << "\",\n";
          cpp << "         python::overload_cast<>(&Component::" << c.varName << "),\n";
-         cpp << "         Component::documentation(\"" << pythonname << "\").c_str()\n";
+         cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
          cpp << "      )\n";
       }
    }
@@ -1880,7 +1880,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "         \"" << bodyName << "\",\n";
       cpp << "         [] (const Component &self) "
           << "{ return self." << bodyName << "(); },\n";
-      cpp << "         Component::documentation(\"" << bodyName << "\").c_str()\n";
+      cpp << "         Component::documentation(\"" << bodyName << "\").data()\n";
       cpp << "      )\n";
    }
 

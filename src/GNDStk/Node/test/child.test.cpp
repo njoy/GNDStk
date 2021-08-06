@@ -197,7 +197,7 @@ SCENARIO("Testing GNDStk Node child()") {
             basic::child::documentation,
             misc::child::cdata
          );
-         CHECK(0 == strncmp(descr.c_str(), "\n  8-O - 16 LANL", 16));
+         CHECK(0 == strncmp(descr.data(), "\n  8-O - 16 LANL", 16));
       }
    }
 
@@ -220,7 +220,7 @@ SCENARIO("Testing GNDStk Node child()") {
    // Child objects was the default of "no filter".) These aren't really
    // the same tests any longer, but we're leaving them in for good measure.
    auto twon = [](const Node &n)
-      { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
+      { return 0 == strncmp(n(label).data(), "2n + ", 5); };
 
    // case: <void,one>
    GIVEN("Testing Node.child(Child<void,one>[+filter][,found])") {

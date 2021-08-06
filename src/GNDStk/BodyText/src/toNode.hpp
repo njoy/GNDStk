@@ -3,7 +3,8 @@
 // BodyText::toNode
 // This is called by Component's conversion-to-Node (not toNode()) function.
 // It's "toNode()" here, not a conversion, because we're simply writing data
-// into a piece of the Node that's made in Component's conversion-to-Node.
+// into a piece of the Node that's made in Component's conversion-to-Node;
+// we're not doing the conversion-to-Node itself here.
 // -----------------------------------------------------------------------------
 
 // Use the original raw string or the vector, depending on which one is active.
@@ -19,9 +20,9 @@ void toNode(std::string &text, DERIVED &derived) const
    }
 
    // Use the vector...
-   const bool isString =
+   const bool isStringVector =
       std::holds_alternative<std::vector<std::string>>(variant);
-   if (isString && !trim &&
+   if (isStringVector && !trim &&
        // only bother with the warning if trim would make a difference...
        size() > 0 &&
        (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
@@ -37,7 +38,7 @@ void toNode(std::string &text, DERIVED &derived) const
 
    // Re: leading/trailing 0s
    const auto bounds =
-      trim || isString
+      trim || isStringVector
     ? std::visit([](auto &&vec) { return detail::getBounds(vec); }, variant)
     : std::pair<std::size_t,std::size_t>(0,size());
 
@@ -55,9 +56,19 @@ void toNode(std::string &text, DERIVED &derived) const
    std::visit(
       [bounds,&oss](auto &&vec)
       {
+         using T = std::decay_t<decltype(vec[0])>;
          std::size_t count = 0;
-         for (auto i = bounds.first; i < bounds.second; ++i)
-            oss << (count++ ? " " : "") << vec[i];
+
+         for (auto i = bounds.first; i < bounds.second; ++i) {
+            oss << (count++ ? " " : "");
+            if constexpr (std::is_floating_point_v<T>) {
+               using detail::Precision;
+               using detail::PrecisionContext;
+               oss << Precision<PrecisionContext::data,T>{}.write(vec[i]);
+            } else {
+               oss << vec[i];
+            }
+         }
       },
       variant
    );

@@ -233,7 +233,7 @@ inline void info(const std::string &str, Args &&...args)
 {
    if (GNDStk::info) {
       const std::string msg = detail::diagnostic("info",str);
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -243,7 +243,7 @@ inline void warning(const std::string &str, Args &&...args)
 {
    if (GNDStk::warning) {
       const std::string msg = detail::diagnostic("warning",str);
-      Log::warning(msg.c_str(), std::forward<Args>(args)...);
+      Log::warning(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -252,7 +252,7 @@ template<class... Args>
 inline void error(const std::string &str, Args &&...args)
 {
    const std::string msg = detail::diagnostic("error",str);
-   Log::error(msg.c_str(), std::forward<Args>(args)...);
+   Log::error(msg.data(), std::forward<Args>(args)...);
 }
 
 // debug
@@ -261,7 +261,7 @@ inline void debug(const std::string &str, Args &&...args)
 {
    if (GNDStk::debug) {
       const std::string msg = detail::diagnostic("debug",str);
-      Log::debug(msg.c_str(), std::forward<Args>(args)...);
+      Log::debug(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -278,7 +278,7 @@ inline void function(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "function " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -289,7 +289,7 @@ inline void member(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "member function " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -300,7 +300,7 @@ inline void ctor(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "constructor " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -311,7 +311,7 @@ inline void assign(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "assignment " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 

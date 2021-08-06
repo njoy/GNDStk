@@ -116,26 +116,32 @@ inline constexpr bool hasLabel     = has_label    <std::decay_t<T>>::value;
 // element2element
 // -----------------------------------------------------------------------------
 
-// We don't use to_string() below, so that we can eventually deal with
-// precision; to_string() might be insufficient for our needs in that respect.
-// todo: see if GNDStk's convert() functions are appropriate for doing all
-// possible cases here, or could be extended to be.
+// todo: Determine if GNDStk's convert() functions can handle all possible
+// cases here, or could be extended to be.
 
 // arithmetic ==> string
-template<class FROM, class=std::enable_if_t<!std::is_same_v<FROM,std::string>>>
-void element2element(const FROM &from, std::string &to)
+template<class T, class = std::enable_if_t<!std::is_same_v<T,std::string>>>
+void element2element(const T &value, std::string &str)
 {
-   std::ostringstream oss;
-   oss << from; // <== precision would be relevant here
-   to = oss.str();
+   if constexpr (std::is_floating_point_v<T>) {
+      str = Precision<PrecisionContext::data,T>{}.write(value);
+   } else {
+      std::ostringstream oss;
+      oss << value;
+      str = oss.str();
+   }
 }
 
 // string ==> arithmetic
-template<class TO, class=std::enable_if_t<!std::is_same_v<TO,std::string>>>
-void element2element(const std::string &from, TO &to)
+template<class T, class = std::enable_if_t<!std::is_same_v<T,std::string>>>
+void element2element(const std::string &str, T &value)
 {
-   std::istringstream iss(from);
-   iss >> to;
+   if constexpr (std::is_floating_point_v<T>) {
+      value = Precision<PrecisionContext::data,T>{}.read(str);
+   } else {
+      std::istringstream iss(str);
+      iss >> value;
+   }
 }
 
 // arithmetic ==> arithmetic

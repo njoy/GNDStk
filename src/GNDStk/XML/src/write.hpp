@@ -30,7 +30,7 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
       // save
       doc.save(
          os,
-         std::string(indent,' ').c_str(),
+         std::string(indent,' ').data(),
          decl
           ? pugi::format_default
           : pugi::format_default | pugi::format_no_declaration
