@@ -133,12 +133,12 @@ class Precision {
          decltype(std::to_chars(
             (char*)0, (char*)0, T{})),
          std::to_chars_result
-      >>,
+      >>/*,
       class = std::enable_if_t<std::is_same_v<
          decltype(std::to_chars(
             (char*)0, (char*)0, T{}, std::chars_format::fixed)),
          std::to_chars_result
-      >>
+         >>*/
    >
    bool write(const T &value, std::string &str, int)
    {
