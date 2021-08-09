@@ -9,15 +9,15 @@ namespace detail {
 enum class PrecisionContext {
    metadata, // for GNDStk metadata values
    data,     // for "body text", a.k.a. XML "plain character data"
-   general   // one-stop shop to set the formatting for both of the above
+   general   // for both of the above together
 };
 
 // PrecisionType
 enum class PrecisionType {
-   // use formatting available through C++ output stream manipulators...
-   none,
-
-   // use std::to_chars()...
+   // use formatting that's available through C++ input and output streams
+   stream,
+   // use GNDStk's ability to use to_chars()/from_chars() if SFINAE detects
+   // that they're available in std:: with the C++ distro that's being used
    fixed,
    scientific,
    shortest
@@ -26,8 +26,8 @@ enum class PrecisionType {
 
 
 // -----------------------------------------------------------------------------
-// Classes for GNDStk's own floating-point manipulators
-// These align with our three custom PrecisionType values
+// Classes behind GNDStk's own floating-point manipulators
+// These match with our three custom PrecisionType values
 // -----------------------------------------------------------------------------
 
 class Fixed { };
@@ -41,7 +41,9 @@ class Shortest { };
 // -----------------------------------------------------------------------------
 
 /*
+------------------------
 DISCUSSION
+------------------------
 
 The goal that underlies the current code is as follows. Somewhere, we have
 a floating-point number (a float, a double, or a long double), and we wish
@@ -65,8 +67,9 @@ I/O manipulators. For example, oss << std::setprecision(10) << thenumber,
 where oss is the std::ostringstream.
 
 GNDStk provides that methodology. To do so, objects of the below Precision
-class contain a std::ostringstream, oss, the properties of which can be set
-in the usual way (call << on the Precision object; it passes them on to oss.)
+class contain a std::ostringstream, the properties of which can be set in
+the usual way: by calling << on the Precision object, which will pass on
+its arguments to the std::ostringstream.
 
 However, for the fun and profit of our users, we wish to provide something
 extra. Sufficiently recent C++-17 enabled compilers provide the to_chars()
@@ -76,7 +79,7 @@ such representation. The round-trip guarantee essentially means that if we
 start with, say, a double-precision number (at the time of this writing,
 probably 64 bits in memory), use to_chars() to make a string, and then read
 the string with from_chars(), then we're guaranteed to recover exactly the
-same 64 bits in memory; that is, precisely the same double we began with.
+same 64 bits in memory - that is, precisely the same double we began with.
 Along with the "shortest representation" requirement, we can write shortest-
 possible decimal representations, with *no* loss of information.
 
@@ -87,87 +90,163 @@ computing platforms, or floating-point sizes are used for to_chars() versus
 from_chars(). Under those circumstances, no algorithm in the universe could
 make the guarantee.
 
-todo Write more details, and provide some examples. Discuss how *input* is
-involved, and the relationship between input and output that someone should
-understand when using this system.
+The above discussion speaks in term of output: operator<<, std::ostringstream,
+etc. Note that our Precision class, below, handles *input* just as fully.
 */
 
 
 
 // -----------------------------------------------------------------------------
 // Precision<CONTEXT,REAL>
-// In the given context: the given floating-point type
+// Set properties for: in the given context, the given floating-point type.
 // -----------------------------------------------------------------------------
 
 template<PrecisionContext CONTEXT, class REAL>
 class Precision {
 
-   // The purpose of the following std::ostringstream is to "store" I/O
-   // properties that someone might set by using manipulators. Those properties
-   // might be used by write(), depending on the "otype" flag below.
+   // The following hold properties that can be set by using operator<< and
+   // operator>>. The properties might or might not be used when writing or
+   // reading floating-point numbers, depending on the *type flags below.
    static std::ostringstream oss;
-
-   // Similar, but for input
    static std::istringstream iss;
 
-   // The value of the following determines whether oss (above) will be used
-   // by write() to create a string, or whether write() will use to_chars().
+   // The value of the following determines whether the above *stringstreams
+   // will be used when writing or reading floating-point numbers, or whether
+   // to_chars() and from_chars() will be used instead.
    static PrecisionType otype;
-
-   // for input
    static PrecisionType itype;
 
-public:
+   // ------------------------
+   // Helpers for write()
+   // ------------------------
 
-   // todo Needs comment
-   bool tie = false;
+   // The first takes a final int parameter, and has SFINAE to ensure that
+   // the necessary to_chars() functions are available. The second takes a
+   // final double parameter, and has no SFINAE. A call to this helper sends
+   // 0 as a final parameter. So, int is preferred but the SFINAE must pass.
+   // If it doesn't, 0 converts to double and the second version is called.
+   // Thus the final parameter helps with overloading; its value isn't used.
 
-   // write
-   std::string write(const REAL &value)
+   template<
+      class T,
+      class = std::enable_if_t<std::is_same_v<
+         decltype(std::to_chars(
+            (char*)0, (char*)0, T{})),
+         std::to_chars_result
+      >>,
+      class = std::enable_if_t<std::is_same_v<
+         decltype(std::to_chars(
+            (char*)0, (char*)0, T{}, std::chars_format::fixed)),
+         std::to_chars_result
+      >>
+   >
+   bool write(const T &value, std::string &str, int)
    {
-      if (otype == PrecisionType::none) {
-         oss.str("");
-         oss.clear();
-         oss << value; // uses properties in oss
-         return oss.str();
-      }
-
-      // todo: Perhaps use a REAL-dependent sufficient size, not just 100 :-/
+      // todo: Use a T-dependent sufficient size
       std::string chars(100,'\0');
 
+      // todo: check to_chars' return value
       if (otype == PrecisionType::fixed)
-         std::to_chars(chars.data(), chars.data()+chars.size(), value,
+         std::to_chars(chars.data(), chars.data() + chars.size(), value,
                        std::chars_format::fixed);
       else if (otype == PrecisionType::scientific)
-         std::to_chars(chars.data(), chars.data()+chars.size(), value,
+         std::to_chars(chars.data(), chars.data() + chars.size(), value,
                        std::chars_format::scientific);
       else
-         std::to_chars(chars.data(), chars.data()+chars.size(), value);
+         std::to_chars(chars.data(), chars.data() + chars.size(), value);
 
-      return chars.data(); // ensure output std::string stops at \0
+      str = chars.data(); // ensure output std::string stops at \0
+      return true;
    }
 
-   // read
-   REAL read(const std::string &str)
+   template<class T>
+   bool write(const T &, std::string &, double)
    {
-      REAL value;
+      // tell the caller that floating-point to_chars() isn't available
+      return false;
+   }
 
-      if (itype == PrecisionType::none) {
-         iss.str(str);
-         iss.clear();
-         iss >> value; // uses properties in iss
-         return value;
-      }
+   // ------------------------
+   // Helpers for read()
+   // ------------------------
 
-      // Provide a clean slate for from_chars(), which skips white space but
-      // doesn't like '+'. So, we'll skip the white space, and then any '+'.
+   // We use a trailing return type so that we can write value, not T{}, in the
+   // SFINAE test call. Using T{}, as we did in write(), but here for the (NON-
+   // const &) from_chars() parameter, would in normal circumstances be a C++
+   // error (rvalue passed to non-const lvalue reference). Here, the attempt to
+   // do so would make the SFINAE fail always, defeating its purpose.
+
+   template<class T>
+   auto read(const std::string &str, T &value, int) ->
+      std::enable_if_t<
+         std::is_same_v<
+            decltype(std::from_chars((char*)0, (char*)0, value)),
+            std::from_chars_result
+         >,
+         bool
+      >
+   {
+      // Provide a clean slate for from_chars(), which skips white space
+      // but doesn't like '+'. So we'll skip the white space, AND any '+'.
       const char *first = str.data();
       while (isspace(*first))
          first++;
       if (*first == '+')
          first++;
 
-      std::from_chars(first, str.data()+str.size(), value);
+      std::from_chars(first, str.data() + str.size(), value);
+      return true;
+   }
+
+   template<class T>
+   bool read(const std::string &, T &, double)
+   {
+      // tell the caller that floating-point from_chars() isn't available
+      return false;
+   }
+
+public:
+
+   // ------------------------
+   // write
+   // ------------------------
+
+   std::string write(const REAL &value)
+   {
+      if (otype != PrecisionType::stream) {
+         // Use std::to_chars() for REAL, if it exists;
+         // else fall through and use the ostringstream
+         std::string str;
+         if (write(value,str,0))
+            return str;
+      }
+
+      // Use the ostringstream
+      oss.str("");
+      oss.clear();
+      oss << value;
+      return oss.str();
+   }
+
+   // ------------------------
+   // read
+   // ------------------------
+
+   REAL read(const std::string &str)
+   {
+      REAL value = REAL(0);
+
+      if (itype != PrecisionType::stream) {
+         // Use std::from_chars() for REAL, if it exists;
+         // else fall through and use the istringstream
+         if (read(str,value,0))
+            return value;
+      }
+
+      // Use the istringstream
+      iss.str(str);
+      iss.clear();
+      iss >> value;
       return value;
    }
 
@@ -188,7 +267,7 @@ public:
    template<class MANIP>
    Precision &operator<<(const MANIP &manip)
    {
-      otype = PrecisionType::none;
+      otype = PrecisionType::stream;
       oss << manip;
       return *this;
    }
@@ -197,62 +276,83 @@ public:
    template<class MANIP>
    Precision &operator>>(const MANIP &manip)
    {
-      itype = PrecisionType::none;
+      itype = PrecisionType::stream;
       iss >> manip;
       return *this;
    }
 
    // ------------------------
    // For special GNDStk
-   // manipulators
+   // manipulators...
    // ------------------------
 
+   // When you use the below specializations of operator<< and operator>>, i.e.
+   // the ones for GNDStk's special PrecisionType options, this bool (which is
+   // public, so that you can set it) says whether using a special manipulator
+   // for input should automatically use it for output; and vice versa. Our
+   // special manipulators cause std::to_chars() and std::from_chars() to be
+   // used, if they're available. std::to_chars() and std::from_chars() are
+   // designed to be ideal when uses with each other (although they don't need
+   // to be used together); so, it makes sense that we'd want to "tie" their
+   // use together, at least by default.
+   bool tie = true;
+
+   // ------------------------
    // operator<<
-   // According to the given GNDStk manipulator, arranges for write()
-   // to use GNDStk's formatting capabilities.
+   // ------------------------
+
    Precision &operator<<(const Fixed &)
    {
       otype = PrecisionType::fixed;
-      if (tie) itype = PrecisionType::fixed;
+      if (tie) itype = otype;
       return *this;
    }
 
    Precision &operator<<(const Scientific &)
    {
       otype = PrecisionType::scientific;
-      if (tie) itype = PrecisionType::fixed;
+      if (tie) itype = otype;
       return *this;
    }
 
    Precision &operator<<(const Shortest &)
    {
       otype = PrecisionType::shortest;
-      if (tie) itype = PrecisionType::fixed;
+      if (tie) itype = otype;
       return *this;
    }
 
+   // ------------------------
    // operator>>
+   // ------------------------
+
    Precision &operator>>(const Fixed &)
    {
       itype = PrecisionType::fixed;
-      if (tie) otype = PrecisionType::fixed;
+      if (tie) otype = itype;
       return *this;
    }
 
    Precision &operator>>(const Scientific &)
    {
       itype = PrecisionType::scientific;
-      if (tie) otype = PrecisionType::fixed;
+      if (tie) otype = itype;
       return *this;
    }
 
    Precision &operator>>(const Shortest &)
    {
       itype = PrecisionType::shortest;
-      if (tie) otype = PrecisionType::fixed;
+      if (tie) otype = itype;
       return *this;
    }
 };
+
+
+
+// -----------------------------------------------------------------------------
+// static initialization
+// -----------------------------------------------------------------------------
 
 template<PrecisionContext CONTEXT, class REAL>
 std::ostringstream Precision<CONTEXT,REAL>::oss;
@@ -260,17 +360,25 @@ std::ostringstream Precision<CONTEXT,REAL>::oss;
 template<PrecisionContext CONTEXT, class REAL>
 std::istringstream Precision<CONTEXT,REAL>::iss;
 
-template<PrecisionContext CONTEXT, class REAL>
-PrecisionType Precision<CONTEXT,REAL>::otype = PrecisionType::shortest;
+// The following two initializations arrange for GNDStk to use standard stream
+// capabilities when it writes and reads floating-point numbers. We don't
+// default to GNDStk's special std::to_chars()- and std::from_chars()-based
+// capabilities because, even though a case could be made for preferring them,
+// std::to_chars() and std::from_chars() aren't widely supported at the time
+// of this writing, and require late-model compilers that not all users might
+// have. So, you must *ask* for GNDStk's special capabilities if you want them.
 
 template<PrecisionContext CONTEXT, class REAL>
-PrecisionType Precision<CONTEXT,REAL>::itype = PrecisionType::shortest;
+PrecisionType Precision<CONTEXT,REAL>::otype = PrecisionType::stream;
+
+template<PrecisionContext CONTEXT, class REAL>
+PrecisionType Precision<CONTEXT,REAL>::itype = PrecisionType::stream;
 
 
 
 // -----------------------------------------------------------------------------
 // Precision<CONTEXT,void>
-// In the given context: float, double, and long double
+// Set properties for: in the given context, float, double, and long double.
 // -----------------------------------------------------------------------------
 
 template<PrecisionContext CONTEXT>
@@ -301,7 +409,7 @@ public:
 
 // -----------------------------------------------------------------------------
 // Precision<general,REAL>
-// In metadata and data: the given floating-point type
+// Set properties for: in metadata and data, the given floating-point type.
 // -----------------------------------------------------------------------------
 
 template<class REAL>
@@ -330,8 +438,8 @@ public:
 
 // -----------------------------------------------------------------------------
 // Precision<general,void>
-// In metadata and data: float, double, and long double
-// And, this disambiguates Precision's partial specializations
+// Set properties for: in metadata and data, float, double, and long double.
+// Note that this disambiguates Precision's partial specializations.
 // -----------------------------------------------------------------------------
 
 template<>
