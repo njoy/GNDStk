@@ -25,7 +25,7 @@ class TestGetter : public Component<TestGetter>
       return std::tuple<>{};
    }
 
-   using VARIANT = std::variant<
+   using INDEX_LABEL_INDEXLABEL = std::variant<
       Index,
       Label,
       IndexLabel
@@ -50,7 +50,7 @@ public:
    std::variant<int,double> varA, varB;
 
    // a vector of variants
-   std::vector<VARIANT> vecVARIANT;
+   std::vector<INDEX_LABEL_INDEXLABEL> vecVariant;
 
    // ------------------------
    // constructor: default
@@ -215,22 +215,22 @@ public:
    void test_vector_of_variant() const
    {
       // Index
-      CHECK( getter<Index>(vecVARIANT,8,"vecVARIANT")->index() == 8);
-      CHECK( getter<Index>(vecVARIANT,8,"vecVARIANT")->value() == "eight");
+      CHECK( getter<Index>(vecVariant,8,"vecVariant")->index() == 8);
+      CHECK( getter<Index>(vecVariant,8,"vecVariant")->value() == "eight");
 
       // Label
-      CHECK( getter<Label>(vecVARIANT,"foo","vecVARIANT")->label() == "foo");
-      CHECK( getter<Label>(vecVARIANT,"foo","vecVARIANT")->value() == "bar");
+      CHECK( getter<Label>(vecVariant,"foo","vecVariant")->label() == "foo");
+      CHECK( getter<Label>(vecVariant,"foo","vecVariant")->value() == "bar");
 
       // IndexLabel, lookup by index
-      CHECK( getter<IndexLabel>(vecVARIANT,10,"vecVARIANT")->index() == 10);
-      CHECK( getter<IndexLabel>(vecVARIANT,10,"vecVARIANT")->label() == "ten");
-      CHECK( getter<IndexLabel>(vecVARIANT,10,"vecVARIANT")->value() == "10 (ten)");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->index() == 10);
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->label() == "ten");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->value() == "10 (ten)");
 
       // IndexLabel, lookup by label
-      CHECK( getter<IndexLabel>(vecVARIANT,"ten","vecVARIANT")->index() == 10);
-      CHECK( getter<IndexLabel>(vecVARIANT,"ten","vecVARIANT")->label() == "ten");
-      CHECK( getter<IndexLabel>(vecVARIANT,"ten","vecVARIANT")->value() == "10 (ten)");
+      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->index() == 10);
+      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->label() == "ten");
+      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->value() == "10 (ten)");
    }
 
    // non-const
@@ -241,68 +241,68 @@ public:
       // ------------------------
 
       // verify an existing value
-      CHECK( getter<Index>(vecVARIANT,8,"vecVARIANT")->index() == 8);
-      CHECK( getter<Index>(vecVARIANT,8,"vecVARIANT")->value() == "eight");
+      CHECK( getter<Index>(vecVariant,8,"vecVariant")->index() == 8);
+      CHECK( getter<Index>(vecVariant,8,"vecVariant")->value() == "eight");
 
       // change
-      *getter<Index>(vecVARIANT,8,"vecVARIANT") =
+      *getter<Index>(vecVariant,8,"vecVariant") =
          Index{ 80, "eighty"  };
 
       // verify the new value
-      CHECK( getter<Index>(vecVARIANT,80,"vecVARIANT")->index() == 80);
-      CHECK( getter<Index>(vecVARIANT,80,"vecVARIANT")->value() == "eighty");
+      CHECK( getter<Index>(vecVariant,80,"vecVariant")->index() == 80);
+      CHECK( getter<Index>(vecVariant,80,"vecVariant")->value() == "eighty");
 
       // ------------------------
       // Label
       // ------------------------
 
       // verify an existing value
-      CHECK( getter<Label>(vecVARIANT,"foo","vecVARIANT")->label() == "foo");
-      CHECK( getter<Label>(vecVARIANT,"foo","vecVARIANT")->value() == "bar");
+      CHECK( getter<Label>(vecVariant,"foo","vecVariant")->label() == "foo");
+      CHECK( getter<Label>(vecVariant,"foo","vecVariant")->value() == "bar");
 
       // change
-      *getter<Label>(vecVARIANT,"foo","vecVARIANT") =
+      *getter<Label>(vecVariant,"foo","vecVariant") =
          Label{ "Foo", "Bar"  };
 
       // verify the new value
-      CHECK( getter<Label>(vecVARIANT,"Foo","vecVARIANT")->label() == "Foo");
-      CHECK( getter<Label>(vecVARIANT,"Foo","vecVARIANT")->value() == "Bar");
+      CHECK( getter<Label>(vecVariant,"Foo","vecVariant")->label() == "Foo");
+      CHECK( getter<Label>(vecVariant,"Foo","vecVariant")->value() == "Bar");
 
       // ------------------------
       // IndexLabel, lookup by index
       // ------------------------
 
       // verify an existing value
-      CHECK( getter<IndexLabel>(vecVARIANT,10,"vecVARIANT")->index() == 10);
-      CHECK( getter<IndexLabel>(vecVARIANT,10,"vecVARIANT")->label() == "ten");
-      CHECK( getter<IndexLabel>(vecVARIANT,10,"vecVARIANT")->value() == "10 (ten)");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->index() == 10);
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->label() == "ten");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->value() == "10 (ten)");
 
       // change
-      *getter<IndexLabel>(vecVARIANT,10,"vecVARIANT") =
+      *getter<IndexLabel>(vecVariant,10,"vecVariant") =
          IndexLabel{ 100, "a hundred",  "10*10" };
 
       // verify the new value
-      CHECK( getter<IndexLabel>(vecVARIANT,100,"vecVARIANT")->index() == 100);
-      CHECK( getter<IndexLabel>(vecVARIANT,100,"vecVARIANT")->label() == "a hundred");
-      CHECK( getter<IndexLabel>(vecVARIANT,100,"vecVARIANT")->value() == "10*10");
+      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->index() == 100);
+      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->label() == "a hundred");
+      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->value() == "10*10");
 
       // ------------------------
       // IndexLabel, lookup by label
       // ------------------------
 
       // verify an existing value
-      CHECK( getter<IndexLabel>(vecVARIANT,"twelve","vecVARIANT")->index() == 12);
-      CHECK( getter<IndexLabel>(vecVARIANT,"twelve","vecVARIANT")->label() == "twelve");
-      CHECK( getter<IndexLabel>(vecVARIANT,"twelve","vecVARIANT")->value() == "12 (twelve)");
+      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->index() == 12);
+      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->label() == "twelve");
+      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->value() == "12 (twelve)");
 
       // change
-      *getter<IndexLabel>(vecVARIANT,"twelve","vecVARIANT") =
+      *getter<IndexLabel>(vecVariant,"twelve","vecVariant") =
          IndexLabel{ 1000, "a thousand",  "10*10*10" };
 
       // verify the new value
-      CHECK( getter<IndexLabel>(vecVARIANT,"a thousand","vecVARIANT")->index() == 1000);
-      CHECK( getter<IndexLabel>(vecVARIANT,"a thousand","vecVARIANT")->label() == "a thousand");
-      CHECK( getter<IndexLabel>(vecVARIANT,"a thousand","vecVARIANT")->value() == "10*10*10");
+      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->index() == 1000);
+      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->label() == "a thousand");
+      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->value() == "10*10*10");
    }
 
 }; // class TestGetter
@@ -342,10 +342,10 @@ SCENARIO("Component getter()") {
       t.varB = 34.56;
 
       // vector<variant>
-      t.vecVARIANT.push_back( Index{ 8, "eight"  } );
-      t.vecVARIANT.push_back( Label{ "foo", "bar"  } );
-      t.vecVARIANT.push_back( IndexLabel{ 10, "ten",  "10 (ten)" } );
-      t.vecVARIANT.push_back( IndexLabel{ 12, "twelve",  "12 (twelve)" } );
+      t.vecVariant.push_back( Index{ 8, "eight" } );
+      t.vecVariant.push_back( Label{ "foo", "bar" } );
+      t.vecVariant.push_back( IndexLabel{ 10, "ten",  "10 (ten)" } );
+      t.vecVariant.push_back( IndexLabel{ 12, "twelve",  "12 (twelve)" } );
 
       // ------------------------
       // Run various tests

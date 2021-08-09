@@ -192,7 +192,7 @@ std::enable_if_t<
       for (std::size_t i = to.size(); i < length(); ++i)
          to.push_back(zero);
 
-      active = Active::vector; // because we just remade the vector
+      active = Active::vector; // was string; now is vector
       return to;
    } // if (active == Active::string)
 

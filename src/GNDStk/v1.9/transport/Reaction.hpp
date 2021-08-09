@@ -88,27 +88,35 @@ public:
    // ------------------------
 
    // ENDF_MT
-   const auto &ENDF_MT() const
+   const Integer32 &
+   ENDF_MT() const
     { return content.ENDF_MT; }
-   auto &ENDF_MT()
+   Integer32 &
+   ENDF_MT()
     { return content.ENDF_MT; }
 
    // fissionGenre
-   const auto &fissionGenre() const
+   const std::optional<XMLName> &
+   fissionGenre() const
     { return content.fissionGenre; }
-   auto &fissionGenre()
+   std::optional<XMLName> &
+   fissionGenre()
     { return content.fissionGenre; }
 
    // label
-   const auto &label() const
+   const XMLName &
+   label() const
     { return content.label; }
-   auto &label()
+   XMLName &
+   label()
     { return content.label; }
 
    // crossSection
-   const auto &crossSection() const
+   const transport::CrossSection &
+   crossSection() const
     { return content.crossSection; }
-   auto &crossSection()
+   transport::CrossSection &
+   crossSection()
     { return content.crossSection; }
 
    // ------------------------

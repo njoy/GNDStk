@@ -166,6 +166,29 @@ inline std::string diagnostic(
 
 
 // -----------------------------------------------------------------------------
+// Miscellaneous output/printing related flags
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// re: Component class
+// ------------------------
+
+// Should Component's generic write() function print comments?
+inline bool comments = true;
+
+// For printing.
+// When writing a Component with its generic write() function (or its stream
+// output, which uses write()), and the Component is based on a BodyText<true>,
+// values will be printed with GNDStk::columns across. "columns" is aliased to
+// "across" for convenience, because, at the time of this writing, GNDStk has
+// a Meta<> object, named "columns", which would also be in scope if the core
+// namespace is used. So, a user might prefer to use the name "across".
+inline std::size_t columns = 4;
+inline std::size_t &across = columns;
+
+
+
+// -----------------------------------------------------------------------------
 // Flags for fine-tuning diagnostic output
 // -----------------------------------------------------------------------------
 

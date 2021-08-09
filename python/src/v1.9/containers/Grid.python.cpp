@@ -24,7 +24,7 @@ void wrapGrid(python::module &module)
 
    // type aliases
    using Component = containers::Grid;
-   using VARIANT = std::variant<
+   using LINK_VALUES = std::variant<
       containers::Link,
       containers::Values
    >;
@@ -45,14 +45,14 @@ void wrapGrid(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
-            const VARIANT &
+            const LINK_VALUES &
          >(),
          python::arg("index") = std::nullopt,
          python::arg("interpolation") = enums::Interpolation::linlin,
          python::arg("label") = std::nullopt,
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,
-         python::arg("choice"),
+         python::arg("link_values"),
          Component::documentation("constructor").c_str()
       )
       .def_property_readonly(
@@ -91,9 +91,9 @@ void wrapGrid(python::module &module)
          Component::documentation("values").c_str()
       )
       .def_property_readonly(
-         "choice",
-         python::overload_cast<>(&Component::choice),
-         Component::documentation("choice").c_str()
+         "link_values",
+         python::overload_cast<>(&Component::link_values),
+         Component::documentation("link_values").c_str()
       )
    ;
 

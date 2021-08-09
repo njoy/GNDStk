@@ -150,7 +150,7 @@ void verifyChunk( const XYs1d& component ) {
   CHECK( enums::Interpolation::linlin == component.interpolation() );
 
   // axes data
-  decltype(auto) axis0 = std::get< Axis >( component.axes().value().choice()[0] );
+  decltype(auto) axis0 = std::get< Axis >( component.axes().value().axis_grid()[0] );
 
   CHECK( std::nullopt != axis0.index() );
   CHECK( std::nullopt != axis0.label() );
@@ -160,7 +160,7 @@ void verifyChunk( const XYs1d& component ) {
   CHECK( "crossSection" == axis0.label().value() );
   CHECK( "b" == axis0.unit().value() );
 
-  decltype(auto) axis1 = std::get< Axis >( component.axes().value().choice()[1] );
+  decltype(auto) axis1 = std::get< Axis >( component.axes().value().axis_grid()[1] );
 
   CHECK( std::nullopt != axis1.index() );
   CHECK( std::nullopt != axis1.label() );

@@ -284,3 +284,53 @@ inline auto operator+(
       kwd.top()
    );
 }
+
+
+
+// -----------------------------------------------------------------------------
+// Child || Child
+// Create a Child that represents one or the other of two children
+// -----------------------------------------------------------------------------
+
+// <void> || <void>
+// Return type is Child<void,...>
+template<
+   Allow ALLOW, class CONVERTER, class FILTER
+>
+inline auto operator||(
+   const Child<void,ALLOW,CONVERTER,FILTER> &a,
+   const Child<void,ALLOW,CONVERTER,FILTER> &b
+) {
+   return Child<void,ALLOW,CONVERTER,FILTER>(
+      // both names, space-separated; this gets special treatment elsewhere
+      a.name + " " + b.name,
+      // need a filter; use the first Child's
+      a.filter,
+      // if either is top-level enabled
+      a.top() || b.top()
+   );
+}
+
+// <non-void> || <non-void>
+// Return type is Child<variant,...>
+template<
+   class ATYPE, class BTYPE,
+   Allow ALLOW, class CONVERTER, class FILTER,
+   class = std::enable_if_t<
+      !detail::isVoid<ATYPE>::value &&
+      !detail::isVoid<BTYPE>::value
+   >
+>
+inline auto operator||(
+   const Child<ATYPE,ALLOW,CONVERTER,FILTER> &a,
+   const Child<BTYPE,ALLOW,CONVERTER,FILTER> &b
+) {
+   return Child<std::variant<ATYPE,BTYPE>,ALLOW,CONVERTER,FILTER>(
+      // both names, space-separated; this gets special treatment elsewhere
+      a.name + " " + b.name,
+      // need an object, converter, and filter; use the first Child's
+      a.object, a.converter, a.filter,
+      // if either is top-level enabled
+      a.top() || b.top()
+   );
+}

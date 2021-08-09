@@ -81,21 +81,27 @@ public:
    // ------------------------
 
    // length
-   const auto &length() const
+   const std::optional<Integer32> &
+   length() const
     { return content.length; }
-   auto &length()
+   std::optional<Integer32> &
+   length()
     { return content.length; }
 
    // start
-   const auto &start() const
+   const Integer32
+   start() const
     { return content.start.value(); }
-   auto &start()
+   Integer32
+   start()
     { return content.start.value(); }
 
    // valueType
-   const auto &valueType() const
+   const UTF8Text
+   valueType() const
     { return content.valueType.value(); }
-   auto &valueType()
+   UTF8Text
+   valueType()
     { return content.valueType.value(); }
 
    // ------------------------

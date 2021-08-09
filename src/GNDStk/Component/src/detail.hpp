@@ -1,4 +1,9 @@
 
+// Forward declaration, needed by some things later
+template<class DERIVED, bool hasBodyText = false>
+class Component;
+
+
 namespace detail {
 
 // -----------------------------------------------------------------------------

@@ -1,13 +1,12 @@
 {
-    "__namespace__":"fpy",
+    "namespace": "fpy",
     "productYields": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "productYield": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "One `style' of product yield data.",
                 "name": "productYield",
                 "occurrence": "1+",
@@ -20,11 +19,11 @@
         "rootNode": false
     },
     "productYield": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "Denotes the \\attr{style} of the evaluated data.",
                 "name": "label",
@@ -32,17 +31,16 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "nuclides": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "List of nuclide id's.  For spontaneous yields, all \\element{elapsedTimes} use the same list of nuclides.",
                 "name": "nuclides",
                 "occurrence": "1",
                 "required": false
             },
             "elapsedTimes": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Container to hold lists of \\element{elapsedTime} elements.",
                 "name": "elapsedTimes",
                 "occurrence": "1",
@@ -55,11 +53,11 @@
         "rootNode": false
     },
     "nuclides": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "xPath link to another \\element{nuclides} node, indicating to use the same list of nuclides.",
                 "name": "href",
@@ -80,13 +78,12 @@
         "rootNode": false
     },
     "elapsedTimes": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "elapsedTime": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The collection of yield data corresponding to one time point.",
                 "name": "elapsedTime",
                 "occurrence": "1+",
@@ -99,11 +96,11 @@
         "rootNode": false
     },
     "elapsedTime": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "This labels what the time element corresponds to, namely \\attrval{initial} (e.g. independent) or \\attrval{unspecified} (e.g. cumulative)",
                 "name": "label",
@@ -111,25 +108,24 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childUnique": "yesLabel",
         "childNodes": {
             "time": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Time corresponding to yields in question. ",
                 "name": "time",
                 "occurrence": "1",
                 "required": true
             },
             "yields": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "For spontaneous fission, this collects the yields.",
                 "name": "yields",
                 "occurrence": "choice",
                 "required": false
             },
             "incidentEnergies": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "For induced fission, this collects the data for each of the projectile's incident energies.  Contains the list of \\element{incidentEnergy} elements.",
                 "name": "incidentEnergies",
                 "occurrence": "choice",
@@ -147,21 +143,20 @@
         "rootNode": false
     },
     "time": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childUnique": "yesLabelOmitted",
         "childNodes": {
             "double": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "double",
                 "occurrence": "choice",
                 "required": false
             },
             "string": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": null,
                 "name": "string",
                 "occurrence": "choice",
@@ -179,27 +174,26 @@
         "rootNode": false
     },
     "yields": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "nuclides": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "List of nuclide id's or href pointing to another \\element{nuclides} node.",
                 "name": "nuclides",
                 "occurrence": "1",
                 "required": true
             },
             "values": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The actual values, in the order given by the corresponding \\element{nuclides} element.",
                 "name": "values",
                 "occurrence": "1",
                 "required": true
             },
             "uncertainty": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Uncertainty/covariance on the actual values, in the order given by the corresponding \\element{nuclides} element.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -212,13 +206,12 @@
         "rootNode": false
     },
     "incidentEnergies": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "incidentEnergy": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Yield data from one incident energy.",
                 "name": "incidentEnergy",
                 "occurrence": "1+",
@@ -231,11 +224,11 @@
         "rootNode": false
     },
     "incidentEnergy": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "__class__": "nodes.Attribute",
+                "class": "nodes.Attribute",
                 "default": null,
                 "description": "The index of this element.",
                 "name": "label",
@@ -243,17 +236,16 @@
                 "type": "XMLName"
             }
         },
-        "bodyText": null,
         "childNodes": {
             "energy": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The projectile's incident energy.",
                 "name": "energy",
                 "occurrence": "1",
                 "required": true
             },
             "yields": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "Nuclides, yields and uncertainties for this elapsed time / incident energy.",
                 "name": "yields",
                 "occurrence": "1",
@@ -266,13 +258,12 @@
         "rootNode": false
     },
     "energy": {
-        "__class__": "nodes.Node",
+        "class": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
-        "bodyText": null,
         "childNodes": {
             "double": {
-                "__class__": "nodes.ChildNode",
+                "class": "nodes.ChildNode",
                 "description": "The actual energy.",
                 "name": "double",
                 "occurrence": "1",

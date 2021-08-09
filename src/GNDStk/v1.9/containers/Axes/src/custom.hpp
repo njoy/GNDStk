@@ -9,5 +9,5 @@ public:
    */
   decltype(auto) size() const {
 
-    return this->choice().size();
+    return this->axis_grid().size();
   }

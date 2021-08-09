@@ -94,11 +94,4 @@ struct IndexLabel {
 // -----------------------------------------------------------------------------
 
 SCENARIO("Component sort()") {
-   GIVEN("foo") {
-      WHEN("bar") {
-         THEN("baz") {
-            CHECK(true);
-         } // THEN
-      } // WHEN
-   } // GIVEN
 } // SCENARIO

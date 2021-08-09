@@ -41,7 +41,7 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
             self.assertEqual( "eV",  chunk.unit )
             self.assertEqual( GridStyle.boundaries,  chunk.style )
 
-            values =  chunk.choice
+            values =  chunk.link_values
             self.assertEqual( 2, values.length )
             self.assertEqual( 0, values.start )
             self.assertEqual( "Float64", values.value_type )
@@ -61,7 +61,7 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
         chunk = Grid( index = 2, label = "row_energy_bounds",
                       unit = "eV", style = GridStyle.boundaries,
                       interpolation = Interpolation.linlin,
-                      choice = Values( 2, 0, "Float64", [ 1e-5, 2e7 ] ) )
+                      link_values = Values( 2, 0, "Float64", [ 1e-5, 2e7 ] ) )
 
         verify_chunk( self, chunk )
 

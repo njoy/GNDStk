@@ -1,17 +1,7 @@
 
-// For printing.
-// When writing a Component with its generic write() function (or its stream
-// output, which uses write()), and the Component is based on a BodyText<true>,
-// values will be printed with GNDStk::columns across. "columns" is aliased to
-// "across" for convenience, because, at the time of this writing, GNDStk has
-// a Meta<> object, named "columns", which would also be in scope if the core
-// namespace is used. So, a user might prefer to use the name "across".
-inline std::size_t columns = 4;
-inline std::size_t &across = columns;
-
 // Printing-related colors.
-// Eventually, this probably belongs in a more context-agnostic location such
-// as GNDStk's utility.hpp file or something like it.
+// todo Eventually, this probably belongs in a more context-agnostic
+// location, such as GNDStk's utility.hpp file or something like it.
 #include "GNDStk/BodyText/src/colors.hpp"
 
 // Miscellaneous helper constructs.
@@ -69,8 +59,8 @@ public:
    #include "GNDStk/BodyText/src/params.hpp"
 
    // trim
-   // Flag: should the conversion of BodyText data back into textual data, in
-   // a Node, trim zeros from the start and end of the output?
+   // Flag: should the conversion of BodyText data back into textual data,
+   // in a Node, trim zeros from the start and end of the output?
    mutable bool trim = true;
 
    // Getters and setters for the raw string:
@@ -81,6 +71,7 @@ public:
    BodyText &clear()
    {
       std::visit([](auto &&alt) { alt.clear(); }, variant);
+      active = Active::vector;
       return *this;
    }
 

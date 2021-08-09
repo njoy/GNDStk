@@ -79,21 +79,27 @@ public:
    // ------------------------
 
    // index
-   const auto &index() const
+   const std::optional<Integer32> &
+   index() const
     { return content.index; }
-   auto &index()
+   std::optional<Integer32> &
+   index()
     { return content.index; }
 
    // label
-   const auto &label() const
+   const std::optional<XMLName> &
+   label() const
     { return content.label; }
-   auto &label()
+   std::optional<XMLName> &
+   label()
     { return content.label; }
 
    // unit
-   const auto &unit() const
+   const std::optional<XMLName> &
+   unit() const
     { return content.unit; }
-   auto &unit()
+   std::optional<XMLName> &
+   unit()
     { return content.unit; }
 
    // ------------------------
