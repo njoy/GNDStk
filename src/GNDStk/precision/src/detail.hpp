@@ -127,18 +127,27 @@ class Precision {
    // If it doesn't, 0 converts to double and the second version is called.
    // Thus the final parameter helps with overloading; its value isn't used.
 
+#ifdef GNDSTK_PRECISION
+   // OK, apparently it may be impossible to make the SFINAE work as intended
+   // in the event that the std::chars_format enum class doesn't even exist,
+   // so that the token [chars_format] (which is used in both the SFINAE and
+   // in the function body itself) doesn't even make sense to the compiler.
+   // Perhaps we can find a way around this. For now, given that we don't want
+   // to_chars() and from_chars() to be GNDStk's default at this time, we'll
+   // use an #ifdef to remove this code altogether unless someone wants it.
+
    template<
       class T,
       class = std::enable_if_t<std::is_same_v<
          decltype(std::to_chars(
             (char*)0, (char*)0, T{})),
          std::to_chars_result
-      >>/*,
+      >>,
       class = std::enable_if_t<std::is_same_v<
          decltype(std::to_chars(
             (char*)0, (char*)0, T{}, std::chars_format::fixed)),
          std::to_chars_result
-         >>*/
+      >>
    >
    bool write(const T &value, std::string &str, int)
    {
@@ -158,6 +167,7 @@ class Precision {
       str = chars.data(); // ensure output std::string stops at \0
       return true;
    }
+#endif
 
    template<class T>
    bool write(const T &, std::string &, double)
