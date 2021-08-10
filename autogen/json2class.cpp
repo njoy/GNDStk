@@ -82,7 +82,13 @@ const std::map<std::string,std::string> mapMetaType {
 
 // JSON attribute "default" to GNDStk default
 const std::map<std::string,std::string> mapMetaDefault {
-   { "Float64",  "\"Float64\"" },
+   // These represent defaults for a string, and so they really should have
+   // been given internal quotes around them in the GNDS specs. We don't mean
+   // the JSON quotes - everything (like, for example, the integer default "0")
+   // has those. We mean that the JSON-quoted values should themselves be
+   // quoted strings in these cases, because they're defaults for strings...
+   { "Integer32", "\"Integer32\"" },
+   { "Float64",   "\"Float64\"" },
 
    // encoding
    { "ascii", "enums::Encoding::ascii" },
@@ -601,7 +607,9 @@ void compute_children(
          // name clname, looking at a child node with name varType.
          const auto value = field.value();
 
-         if (value.contains("namespace")) {
+         if (value.contains("__namespace__")) {
+            ns = value["__namespace__"];
+         } else if (value.contains("namespace")) {
             ns = value["namespace"];
          } else if (class2nspace.count(varType) == 0) {
             log::warning(
@@ -1341,11 +1349,12 @@ void make_forward(
    std::multimap<std::string,std::string> &class2nspace
 ) {
    // not a class?
-   if (key == "namespace" || key == "Specifications")
+   if (key == "__namespace__" || key == "namespace" || key == "Specifications")
       return;
 
    // not a node class?
-   if (value.contains("class") && value["class"] != "nodes.Node")
+   if ((value.contains("__class__") && value["__class__"] != "nodes.Node") ||
+       (value.contains(  "class"  ) && value[  "class"  ] != "nodes.Node"))
       return;
 
    // class name
@@ -1470,12 +1479,13 @@ void make_class(
 ) {
    // not a class?
    const auto key = keyvalue.key();
-   if (key == "namespace" || key == "Specifications")
+   if (key == "__namespace__" || key == "namespace" || key == "Specifications")
       return;
 
    // not a node class?
    const auto value = keyvalue.value();
-   if (value.contains("class") && value["class"] != "nodes.Node")
+   if ((value.contains("__class__") && value["__class__"] != "nodes.Node") ||
+       (value.contains(  "class"  ) && value[  "class"  ] != "nodes.Node"))
       return;
 
    // class name; and do some checks
@@ -1610,11 +1620,14 @@ void read(const std::string &file, nlohmann::json &jdoc, const bool firsttime)
       if (firsttime) { // <== because read() is called twice :-)
          for (const auto &item : jdoc.items()) {
             const std::string parent = item.key();
-            if (parent == "namespace" || parent == "namespace")
+            if (parent == "__namespace__" || parent == "namespace")
                continue;
 
             const nlohmann::json value = item.value();
-            if (value.contains("class") && value["class"] != "nodes.Node")
+            if ((value.contains("__class__") &&
+                 value["__class__"] != "nodes.Node") ||
+                (value.contains(  "class"  ) &&
+                 value[  "class"  ] != "nodes.Node"))
                continue;
 
             const auto attrs = value["attributes"];
@@ -1924,7 +1937,9 @@ int main()
    for (auto &file : files) {
       read(file,jdoc,true);
       ofs << "\n";
-      const std::string nsname = jdoc["namespace"];
+      const std::string nsname = jdoc.contains("__namespace__")
+         ? jdoc["__namespace__"]
+         : jdoc["namespace"];
       for (const auto &item : jdoc.items()) {
          make_forward(ofs, nsname, item.key(), item.value(), class2nspace);
       }
@@ -1945,7 +1960,9 @@ int main()
    std::cout << "\nBuilding classes..." << std::endl;
    for (auto &file : files) {
       read(file,jdoc,false);
-      const std::string file_namespace = jdoc["namespace"];
+      const std::string file_namespace = jdoc.contains("__namespace__")
+         ? jdoc["__namespace__"]
+         : jdoc["namespace"];
       for (const auto &keyvalue : jdoc.items()) {
          make_class(keyvalue, file_namespace, class2nspace);
       }

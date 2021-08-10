@@ -1,11 +1,11 @@
 {
-    "namespace": "processed",
+    "__namespace__": "processed",
     "multiGroup3d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -13,7 +13,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -23,7 +23,7 @@
         },
         "childNodes": {
             "gridded3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores the multi-group transfer array with the first axis being the projectile energy, the second axis being the outgoing particle's energy and the thirds axis the Legendre order.",
                 "name": "gridded3d",
                 "occurrence": "1",
@@ -36,12 +36,12 @@
         "rootNode": false
     },
     "LLNLAngularEnergyOfAngularEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle energy distribution $P(E'|E,\\mu)$ give the projectile energy and outgoing particle $\\mu$.",
                 "name": "XYs3d",
                 "occurrence": "1",
@@ -54,12 +54,12 @@
         "rootNode": false
     },
     "LLNLAngularOfAngularEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle $\\mu$ distribution $P(\\mu|E)$ give the projectile energy.",
                 "name": "XYs2d",
                 "occurrence": "1",
@@ -72,11 +72,11 @@
         "rootNode": false
     },
     "LLNLAngularEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -84,7 +84,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -94,14 +94,14 @@
         },
         "childNodes": {
             "LLNLAngularEnergyOfAngularEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle energy distribution $P(E'|E,\\mu)$ given the projectile energy and outgoing particle $\\mu$.",
                 "name": "LLNLAngularEnergyOfAngularEnergy",
                 "occurrence": "1",
                 "required": true
             },
             "LLNLAngularOfAngularEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle $\\mu$ distribution $P(\\mu|E)$ given the projectile energy.",
                 "name": "LLNLAngularOfAngularEnergy",
                 "occurrence": "1",
@@ -114,11 +114,11 @@
         "rootNode": false
     },
     "angularEnergyMC": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -126,7 +126,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame in which the product data are defined.",
                 "name": "productFrame",
@@ -136,14 +136,14 @@
         },
         "childNodes": {
             "angular": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle $\\mu$ distribution $P(\\mu|E)$ give the projectile energy using a \\element{XYs2d} or \\element{regions2d} is a list of \\element{xs\\_pdf\\_cdf1d} for its function1d's.",
                 "name": "angular",
                 "occurrence": "1",
                 "required": true
             },
             "angularEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "The outgoing particle energy distribution $P(E'|E,\\mu)$ give the projectile energy and outgoing particle $\\mu$ using a \\element{XYs3d}",
                     "or \\element{regions3d} with a list of \\element{XYs2d} for its function2d's. Each \\element{XYs2d} is a list \\element{xs\\_pdf\\_cdf1d} for its function1d's."
@@ -162,11 +162,11 @@
         "rootNode": false
     },
     "energyAngularMC": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -174,7 +174,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -184,14 +184,14 @@
         },
         "childNodes": {
             "energy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle $E'$ distribution $P(E'|E)$ give the projectile energy using a \\element{XYs2d} or \\element{regions2d} with a list of \\element{xs\\_pdf\\_cdf1d} for its function1d's.",
                 "name": "energy",
                 "occurrence": "1",
                 "required": true
             },
             "energyAngular": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "The outgoing particle $\\mu$ distribution $P(\\mu|E,E')$ give the projectile energy and outgoing particle $E'$ using a \\element{XYs3d}",
                     "or \\element{regions3d} with a list of \\element{XYs2d} for its function2d's. Each \\element{XYs2d} as a list \\element{xs\\_pdf\\_cdf1d} for its function1d's."
@@ -210,19 +210,19 @@
         "rootNode": false
     },
     "averageProductEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A function1d representing the lab-frame, average energy for an outgoing particle integrated over outgoing $\\mu$ and energy $E'$.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": true
             },
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "gridded1d",
                 "occurrence": "1",
@@ -235,19 +235,19 @@
         "rootNode": false
     },
     "averageProductMomentum": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "gridded1d",
                 "occurrence": "1",
@@ -260,19 +260,19 @@
         "rootNode": false
     },
     "availableMomentum": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "gridded1d",
                 "occurrence": "1",
@@ -285,19 +285,19 @@
         "rootNode": false
     },
     "availableEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "gridded1d",
                 "occurrence": "1",

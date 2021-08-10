@@ -1,11 +1,11 @@
 {
-    "namespace": "transport",
+    "__namespace__": "transport",
     "reactionSuite": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "evaluation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the evaluation, e.g. `ENDF-VIII.0'",
                 "name": "evaluation",
@@ -13,7 +13,7 @@
                 "type": "XMLName"
             },
             "format": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["GNDS format version, e.g. `2.1'.  ", "See Appendix \\ref{append:versioning} for an extended discussion of the GNDS version numbering."],
                 "name": "format",
@@ -21,7 +21,7 @@
                 "type": "XMLName"
             },
             "projectile": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Projectile particle id.",
                 "name": "projectile",
@@ -29,7 +29,7 @@
                 "type": "XMLName"
             },
             "projectileFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Options are `lab' or `centerOfMass'",
                 "name": "projectileFrame",
@@ -37,7 +37,7 @@
                 "type": "frame"
             },
             "target": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Target particle id.",
                 "name": "target",
@@ -45,7 +45,7 @@
                 "type": "XMLName"
             },
             "interaction": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "Defines the type of interaction for the reaction data contained within the reactionSuite. Options are `nuclear', `atomic' and `thermalNeutronScatteringLaw'. ",
                                  "For example, a photo-nuclear reactionSuite must have a value of `nuclear' while a photo-atomic reactionSuite must have a value of `atomic'." ],
@@ -56,77 +56,77 @@
         },
         "childNodes": {
             "externalFiles": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "stores a list of external files related to this \\element{reactionSuite}. Often used to link a \\element{reactionSuite} to one or more \\element{covarianceSuite} files.",
                 "name": "externalFiles",
                 "occurrence": "1",
                 "required": false
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation as described in document~\\cite{Documentation}.  This contains top-level documentation applying to the entire reactionSuite.",
                 "name": "documentation",
                 "occurrence": "1",
                 "required": true
             },
             "PoPs": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Particle database, as described in document~\\cite{PoPs}.  The database describes all particles involved in the reactionSuite, including projectile, target and reaction products.",
                 "name": "PoPs",
                 "occurrence": "1",
                 "required": true
             },
             "resonances": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes resonance parameters.",
                 "name": "resonances",
                 "occurrence": "1",
                 "required": false
             },
             "reactions": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of all reactions.",
                 "name": "reactions",
                 "occurrence": "1",
                 "required": false
             },
             "orphanProducts": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Collection of products not associated with a particlar reaction.  In legacy evaluations, this element is used to store gamma-rays that are observed in experiment but whose provenance is unknown.",
                 "name": "orphanProducts",
                 "occurrence": "1",
                 "required": false
             },
             "sums": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\elemlink{sums} node contains cross sections that are summations over two or more reaction cross sections, and also multiplicities that are summations over two or more reaction product multiplicities.",
                 "name": "sums",
                 "occurrence": "1",
                 "required": false
             },
             "fissionComponents": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of partial fission cross sections, often used to give first-chance, second-chance, etc. fission without supplying distributions for each chance. ",
                 "name": "fissionComponents",
                 "occurrence": "1",
                 "required": false
             },
             "productions": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of production reactions.",
                 "name": "productions",
                 "occurrence": "1",
                 "required": false
             },
             "incompleteReactions": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of reactions where only some data are available.  May be used to store very small cross sections (i.e. sub-actinide fission) or for sharing evaluations where some reactions are still not complete.",
                 "name": "incompleteReactions",
                 "occurrence": "1",
                 "required": false
             },
             "applicationData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of application-specific data.",
                 "name": "applicationData",
                 "occurrence": "1",
@@ -140,19 +140,19 @@
     },
 
     "interaction": {
-        "class": "nodes.EnumeratedTypeNode",
+        "__class__": "nodes.EnumeratedTypeNode",
         "description": "",
         "name": "interaction",
         "allowedValues":["nuclear", "atomic", "thermalNeutronScatteringLaw"]
     },
 
     "reactions": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "reaction": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A \\texttt{reaction}",
                 "name": "reaction",
                 "occurrence": "1+",
@@ -170,11 +170,11 @@
         "rootNode": false
     },
     "reaction": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "ENDF_MT": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["The ENDF MT number for this reaction. This attribute is currently required, ",
                                 "but should be considered deprecated. Future evaluations may include reactions ",
@@ -184,7 +184,7 @@
                 "type": "Integer32"
             },
             "fissionGenre": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Identifies the type of fission. Must be one of `total', `firstChance', `secondChance', etc.",
                 "name": "fissionGenre",
@@ -192,7 +192,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Arbitrary string identifier. It must be unique among all other \\element{reaction} elements.",
                 "name": "label",
@@ -202,21 +202,21 @@
         },
         "childNodes": {
             "doubleDifferentialCrossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Differential cross section $d\\sigma(E)/dE'd\\Omega$ or $d\\sigma(E)/d\\Omega$ if using two-body kinematics.",
                 "name": "doubleDifferentialCrossSection",
                 "occurrence": "1",
                 "required": false
             },
             "crossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "crossSection",
                 "occurrence": "1",
                 "required": true
             },
             "outputChannel": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes the secondary particle emissions from the reaction",
                 "name": "outputChannel",
                 "occurrence": "1",
@@ -229,19 +229,19 @@
         "rootNode": false
     },
     "sums": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "crossSections": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains one or more sums of partial cross sections.",
                 "name": "crossSections",
                 "occurrence": "1",
                 "required": true
             },
             "multiplicities": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Contains one or more sums of product multiplicites. Each sum should only include multiplicities for a single type of particle. Most often used for outgoing photons",
                     "and fission neutrons (e.g. to store `total nubar' as the sum of prompt + delayed nubar)."
@@ -257,11 +257,11 @@
         "rootNode": false
     },
     "outputChannel": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "genre": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "This can have a value of either \\element{twoBody} or \\element{NBody}",
                 "name": "genre",
@@ -269,7 +269,7 @@
                 "type": "XMLName"
             },
             "process": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "process",
@@ -279,21 +279,21 @@
         },
         "childNodes": {
             "Q": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $Q$-value of the reaction. Fission reactions have a different format than other reactions.",
                 "name": "Q",
                 "occurrence": "1",
                 "required": false
             },
             "products": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A list of secondary products from the reaction",
                 "name": "products",
                 "occurrence": "1",
                 "required": false
             },
             "fissionFragmentData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "For use in fission reactions only. Contains information about delayed neutrons, fission product yields and energy partition.",
                 "name": "fissionFragmentData",
                 "occurrence": "1",
@@ -307,12 +307,12 @@
         "rootNode": false
     },
     "crossSections": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "crossSectionSum": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\element{crossSectionSum} is similar to the \\element{crossSection}, but is a sum of the cross section for multiple partial reactions.",
                 "name": "crossSectionSum",
                 "occurrence": "1+",
@@ -325,69 +325,69 @@
         "rootNode": false
     },
     "crossSection": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique" : "yesLabel",
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "For pointwise data using a single interpolation everywhere.",
                 "name": "XYs1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Cross section stored in multiple regions, with different interpolations and/or discontinuities.",
                 "name": "regions1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "resonancesWithBackground": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Indicates that resonance parameters need to be reconstructed and added to the background to obtain the cross section.",
                 "name": "resonancesWithBackground",
                 "occurrence": "choice+",
                 "required": false
             },
             "CoulombPlusNuclearElastic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
                 "occurrence": "choice+",
                 "required": false
             },
             "thermalNeutronScatteringLaw1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This contains a reference to the double-differential thermal neutron scattering law cross section.",
                 "name": "thermalNeutronScatteringLaw1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "reference": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Link to another cross section form, e.g. in another reaction.",
                 "name": "reference",
                 "occurrence": "choice+",
                 "required": false
             },
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Grouped (and possibly flux-weighted) cross section. Appears in processed files only.",
                 "name": "gridded1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "Ys1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Y-values, used when a common grid is used for multiple reaction cross sections for more efficient Monte Carlo sampling. Appears in processed files only.",
                 "name": "Ys1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "URR_probabilityTables1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores cross section probability tables $P(\\sigma | E)$ to better capture the rapid cross section fluctuations possible in the unresolved resonance region. This element appears in processed files only.",
                 "name": "URR_probabilityTables1d",
                 "occurrence": "choice+",
@@ -400,11 +400,11 @@
         "rootNode": false
     },
     "resonancesWithBackground": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the \\element{styles} node associated with these data.",
                 "name": "label",
@@ -414,21 +414,21 @@
         },
         "childNodes": {
             "resonancesLink": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Link to the resonance parameters that have to be combined with the background.",
                 "name": "resonances",
                 "occurrence": "1",
                 "required": true
             },
             "background": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The background cross section to be applied.",
                 "name": "background",
                 "occurrence": "1",
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -443,11 +443,11 @@
         "rootNode": false
     },
     "resonancesLink": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Label for this link.",
                 "name": "label",
@@ -455,7 +455,7 @@
                 "type": "XMLName"
             },
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "xPath link to the \\element{resonances} section.",
                 "name": "href",
@@ -470,26 +470,26 @@
         "rootNode": false
     },
     "background": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "resolvedRegion": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The background cross section in the resolved resonance region.",
                 "name": "resolvedRegion",
                 "occurrence": "1",
                 "required": false
             },
             "unresolvedRegion": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The background cross section in the unresolved resonance region.",
                 "name": "unresolvedRegion",
                 "occurrence": "1",
                 "required": false
             },
             "fastRegion": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The cross section in the fast region beyond the resolved and unresolved resonance region.",
                 "name": "fastRegion",
                 "occurrence": "1",
@@ -504,13 +504,13 @@
         "rootNode": false
     },
     "resolvedRegion": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique" : "yes",
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The background cross section is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -518,7 +518,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The background cross section is an energy dependent function with ",
                                  "multiple interpolation ranges." ],
                 "name": "regions1d",
@@ -533,13 +533,13 @@
         "rootNode": false
     },
     "unresolvedRegion": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique" : "yes",
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The background cross section is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -547,7 +547,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The background cross section is an energy dependent function with ",
                                  "multiple interpolation ranges." ],
                 "name": "regions1d",
@@ -562,13 +562,13 @@
         "rootNode": false
     },
     "fastRegion": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique" : "yes",
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The cross section as an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -576,7 +576,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The cross section as an energy dependent function with ",
                                  "multiple interpolation ranges." ],
                 "name": "regions1d",
@@ -591,11 +591,11 @@
         "rootNode": false
     },
     "URR_probabilityTables1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the \\element{styles} node associated with these data.",
                 "name": "label",
@@ -605,14 +605,14 @@
         },
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability distribution stored as an \\element{XYs2d}.",
                 "name": "XYs2d",
                 "occurrence": "choice",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability distribution stored as a \\element{regions2d}.",
                 "name": "regions2d",
                 "occurrence": "choice",
@@ -631,11 +631,11 @@
         "rootNode": false
     },
     "crossSectionSum": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
             "ENDF_MT": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The corresponding ENDF MT number.",
                 "name": "ENDF_MT",
@@ -643,7 +643,7 @@
                 "type": "Integer32"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An arbitrary, but unique identifier for the summed cross section.",
                 "name": "label",
@@ -653,21 +653,21 @@
         },
         "childNodes": {
             "Q": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $Q$-value of the summed reaction.",
                 "name": "Q",
                 "occurrence": "1",
                 "required": true
             },
             "crossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The summed cross section values.",
                 "name": "crossSection",
                 "occurrence": "1",
                 "required": true
             },
             "summands": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A list of links to the partial cross sections that are the summands (hence the name of the element) of the summed reaction.",
                 "name": "summands",
                 "occurrence": "1",
@@ -680,69 +680,69 @@
         "rootNode": false
     },
     "doubleDifferentialCrossSection": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique": true,
         "childNodes": {
             "regions3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "For a differential cross section broken up into incident energy regions.  Regions may contain different interpolations, or different representations (i.e. a reference for one incident energy range followed by a CoulombPlusNuclearElastic in another energy range).  ",
                 "name": "regions3d",
                 "occurrence": "1",
                 "required": false
             },
             "XYs3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A pointwise table of $\\sigma(\\mu, E' | E)$ or $\\sigma(E', \\mu | E)$ values.",
                 "name": "XYs3d",
                 "occurrence": "1",
                 "required": false
             },
             "CoulombPlusNuclearElastic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
                 "occurrence": "1",
                 "required": false
             },
             "reference": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A link to resonance data, from which\n the differential cross section should be derived.",
                 "name": "reference",
                 "occurrence": "1",
                 "required": false
             },
             "coherentPhotonScattering": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the coherent photon scattering cross section or a reference to said container.",
                 "name": "coherentPhotonScattering",
                 "occurrence": "1",
                 "required": false
             },
             "incoherentPhotonScattering": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the incoherent photon scattering cross section or a reference to said container.",
                 "name": "incoherentPhotonScattering",
                 "occurrence": "1",
                 "required": false
             },
             "thermalNeutronScatteringLaw_coherentElastic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the coherent elastic double-differential cross section for thermal neutrons.",
                 "name": "thermalNeutronScatteringLaw_coherentElastic",
                 "occurrence": "1",
                 "required": false
             },
             "thermalNeutronScatteringLaw_incoherentElastic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the incoherent elastic double-differential cross section for thermal neutrons.",
                 "name": "thermalNeutronScatteringLaw_incoherentElastic",
                 "occurrence": "1",
                 "required": false
             },
             "thermalNeutronScatteringLaw_incoherentInelastic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the incoherent inelastic double-differential cross section for thermal neutrons.",
                 "name": "thermalNeutronScatteringLaw_incoherentInelastic",
                 "occurrence": "1",
@@ -760,7 +760,7 @@
         "rootNode": false
     },
     "coherentPhoton": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {},
@@ -770,7 +770,7 @@
         "rootNode": false
     },
     "incoherentPhoton": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {},
@@ -780,12 +780,12 @@
         "rootNode": false
     },
     "multiplicities": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "multiplicitySum": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Sums over the multiplicity of multiple products of the same type of particle.",
                 "name": "multiplicitySum",
                 "occurrence": "1+",
@@ -798,55 +798,55 @@
         "rootNode": false
     },
     "multiplicity": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique": "yesLabel",
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "constant1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "constant1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "branching1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Multiplicity is computed from decay branching ratios listed in the \\elemlink{PoPs} database.",
                 "name": "branching1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "reference": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "reference",
                 "occurrence": "choice+",
                 "required": false
             },
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Grouped multiplicy, weighted by the cross-section and optionally by the flux. Appears in processed files only.",
                 "name": "gridded1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "regions1d",
                 "occurrence": "choice+",
@@ -859,11 +859,11 @@
         "rootNode": false
     },
     "branching1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label for the multiplicity form.",
                 "name": "label",
@@ -880,12 +880,12 @@
     },
 
     "orphanProducts": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "orphanProduct": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A reaction container to group together groups of correlated `orphan' products.",
                 "name": "orphanProduct",
                 "occurrence": "1+",
@@ -908,11 +908,11 @@
         "rootNode": false
     },
     "orphanProduct": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "ENDF_MT": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["The ENDF MT number for this orphanProduct. This attribute is currently required, ",
                                 "but should be considered deprecated. Future evaluations may include reactions ",
@@ -922,7 +922,7 @@
                 "type": "Integer32"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Arbitrary string identifier. It must be unique among all other \\element{orphanProduct} elements.",
                 "name": "label",
@@ -932,7 +932,7 @@
         },
         "childNodes": {
             "crossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["Cross section for emission of this orphan product. The cross section is typically a reference",
                                 "to one of the summed cross sections defined in the \\element{sums} section of the \\element{reactionSuite}."],
                 "name": "crossSection",
@@ -940,7 +940,7 @@
                 "required": true
             },
             "outputChannel": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes the outgoing energy/angular distributions for this orphanProduct.",
                 "name": "outputChannel",
                 "occurrence": "1",
@@ -954,11 +954,11 @@
         "rootNode": false
     },
     "multiplicitySum": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
             "ENDF_MT": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The corresponding ENDF MT number.",
                 "name": "ENDF_MT",
@@ -966,7 +966,7 @@
                 "type": "Integer32"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An arbitrary, but unique identifier for the summed cross section.",
                 "name": "label",
@@ -976,14 +976,14 @@
         },
         "childNodes": {
             "multiplicity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The summed multiplicity",
                 "name": "multiplicity",
                 "occurrence": "1",
                 "required": true
             },
             "summands": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A list of links to the partial cross sections that are the summands (hence the name of the element) of the summed reaction.",
                 "name": "summands",
                 "occurrence": "1",
@@ -996,62 +996,62 @@
         "rootNode": false
     },
     "distribution": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique" : "yesLabel",
         "childNodes": {
             "angularTwoBody": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This format is used to describe the distribution in energy and angle of particles described by two-body kinematics.  Since the energy of a particle emitted with a particular scattering cosine $\\mu$ is determined by kinematics, it is only necessary to give $P(\\mu|E)$.",
                 "name": "angularTwoBody",
                 "occurrence": "choice+",
                 "required": false
             },
             "uncorrelated": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The outgoing energy and angular data are uncorrelated with respect to the projectile's energy and can thus be written as a product of the outgoing energy probability times the outgoing angular probability as $P(\\mu,E'|E) = P(E'|E) \\, P(\\mu|E)$.  Both $P(\\mu,E'|E)$ and $P(E'|E)$ must be normalised to 1.",
                 "name": "uncorrelated",
                 "occurrence": "choice+",
                 "required": false
             },
             "angularEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The distribution is a hierarchy in $E$, then $\\mu$ and finally $E',P$. That is, the data are given at a list of $E$ values. For each $E$, there is an associated $P(\\mu,E')$. Each $P(\\mu,E')$ is given as a list $\\mu$ values. For each $\\mu$, there is an associated $f(E')$. The $f(E')$ can be  an \\XYsOneD\\ or \\regionsOneD\\ functional data container.",
                 "name": "angularEnergy",
                 "occurrence": "choice+",
                 "required": false
             },
             "LLNLAngularEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The distribution is the product of $P(\\mu,E) \\times P(E' | E,\\mu)$. This is used in legacy (ENDL) evaluations at LLNL. It is similar to the \\element{angularEnergyMC} node and may be merged with that node in the future.",
                 "name": "angularEnergy",
                 "occurrence": "choice+",
                 "required": false
             },
             "energyAngular": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The distribution is stored as a hierarchy in $E$, then $E'$ and finally $\\mu,P$. That is, the data are given at a list of $E$ values. For each $E$, there is an associated $P(E',\\mu)$. Each $P(E',\\mu)$ is given as a list $E'$ values. For each $E'$, there is an associated $f(\\mu)$. The $f(\\mu)$ can be an \\XYsOneD, \\regionsOneD\\ or \\LegendreOneD\\ functional data container.",
                 "name": "energyAngular",
                 "occurrence": "choice+",
                 "required": false
             },
             "KalbachMann": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": " The distribution is defined using Kalbach-Mann systematics.",
                 "name": "KalbachMann",
                 "occurrence": "choice+",
                 "required": false
             },
             "reference": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains a link to another \\element{distribution} form.",
                 "name": "reference",
                 "occurrence": "choice+",
                 "required": false
             },
             "branching3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Indicates that the distribution can be computed from the decay information listed in the",
                     "\\element{PoPs} database. Currently only used for photon distributions from the decay",
@@ -1062,56 +1062,56 @@
                 "required": false
             },
             "CoulombPlusNuclearElastic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
                 "occurrence": "choice+",
                 "required": false
             },
             "thermalNeutronScatteringLaw": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This contains a reference to the double-differential thermal neutron scattering law cross section.",
                 "name": "thermalNeutronScatteringLaw",
                 "occurrence": "choice+",
                 "required": false
             },
             "coherentPhotonScattering": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes coherent photon scattering off of an atom.",
                 "name": "coherentPhotonScattering",
                 "occurrence": "choice+",
                 "required": false
             },
             "incoherentPhotonScattering": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes incoherent photon scattering off of an atom.",
                 "name": "incoherentPhotonScattering",
                 "occurrence": "choice+",
                 "required": false
             },
             "unspecified": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The distribution is not specified\\footnote{This often happens for reactions with a heavy product, often called the residual, where the evaluator does not give the heavy product's distribution information.  It also happens in legacy ENDF files where only the neutron and maybe the gamma distributions are given by the evaluator.}.",
                 "name": "unspecified",
                 "occurrence": "choice+",
                 "required": false
             },
             "multiGroup3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). This is a multi-group Legendre expanded representation with grouped integration over $E$ and $E'$. The representation is used by deterministic transport codes.",
                 "name": "multiGroup3d",
                 "occurrence": "choice+",
                 "required": false
             },
             "angularEnergyMC": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). The distribution is the product of $P(\\mu,E) \\times P(E' | E,\\mu)$. This representation is used by Monte Carlo transport codes.",
                 "name": "angularEnergyMC",
                 "occurrence": "choice+",
                 "required": false
             },
             "energyAngularMC": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). The distribution is the product of $P(E',E) \\times P(\\mu | E,E')$. This representation is used by Monte Carlo transport codes.",
                 "name": "energyAngularMC",
                 "occurrence": "choice+",
@@ -1124,11 +1124,11 @@
         "rootNode": false
     },
     "branching3d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1136,7 +1136,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1151,11 +1151,11 @@
         "rootNode": false
     },
     "multiGroup3d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1163,7 +1163,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1173,7 +1173,7 @@
         },
         "childNodes": {
             "gridded3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Transfer matrices for each Legendre order, stored in a 3-dimensional array with axes 1) incident energy group, 2) outgoing energy group and 3) Legendre order.",
                     "Depending on the associated data \\element{style}, the transfer matrices may include corrections for thermal upscattering."
@@ -1189,11 +1189,11 @@
         "rootNode": false
     },
     "NBodyPhaseSpace": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "numberOfProducts": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The number of products being treated by this distribution.",
                 "name": "numberOfProducts",
@@ -1203,7 +1203,7 @@
         },
         "childNodes": {
             "mass": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The total mass of the products being treated by this distribution.",
                 "name": "mass",
                 "occurrence": "1",
@@ -1216,26 +1216,26 @@
         "rootNode": false
     },
     "angular_uncorrelated": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(\\mu|E)$ given as a 2d interpolation table.",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "isotropic2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The angular distribution is isotropic so $P(\\mu|E)=1/2$.",
                 "name": "isotropic2d",
                 "occurrence": "1",
                 "required": false
             },
             "forward": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The angular distribution is pure forward-peaked so $P(\\mu|E)=\\delta(\\mu-1)$.",
                 "name": "forward",
                 "occurrence": "1",
@@ -1248,82 +1248,82 @@
         "rootNode": false
     },
     "energy_uncorrelated": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)$ given as a 2d interpolation table.",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)$ given in multiple regions.",
                 "name": "regions2d",
                 "occurrence": "1",
                 "required": false
             },
             "generalEvaporation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)$ stored as a general evapouration spectrum.",
                 "name": "generalEvaporation",
                 "occurrence": "1",
                 "required": false
             },
             "discreteGamma": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)=\\delta(E_\\gamma)$.",
                 "name": "discreteGamma",
                 "occurrence": "1",
                 "required": false
             },
             "primaryGamma": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Energy distribution for a `primary capture gamma'. Unlike discrete gammas, the primary gamma energy varies with incident energy E.",
                 "name": "primaryGamma",
                 "occurrence": "1",
                 "required": false
             },
             "NBodyPhaseSpace": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)$ represented using N-body phase space (must be in the centre of mass).",
                 "name": "NBodyPhaseSpace",
                 "occurrence": "1",
                 "required": false
             },
             "evaporation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)$ stored as an evapouration spectrum.",
                 "name": "evaporation",
                 "occurrence": "1",
                 "required": false
             },
             "weightedFunctionals": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(E'|E)$ stored as the weighted sum of 2 or more other energy spectra.",
                 "name": "weightedFunctionals",
                 "occurrence": "1",
                 "required": false
             },
             "simpleMaxwellianFission": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Maxwellian representation for $P(E'|E)$, primarily for fission neutrons.",
                 "name": "simpleMaxwellianFission",
                 "occurrence": "1",
                 "required": false
             },
             "Watt": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Watt spectrum representation for $P(E'|E)$, primarily for fission neutrons.",
                 "name": "Watt",
                 "occurrence": "1",
                 "required": false
             },
             "MadlandNix": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Madland-Nix parameterisation for $P(E'|E)$, primarily for fission neutrons.",
                 "name": "MadlandNix",
                 "occurrence": "1",
@@ -1337,11 +1337,11 @@
         "rootNode": false
     },
     "angularEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1349,7 +1349,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1359,7 +1359,7 @@
         },
         "childNodes": {
             "XYs3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Distribution given as $P(\\mu, E'|E)$ using a $\\mu$ major ordering.",
                 "name": "XYs3d",
                 "occurrence": "1",
@@ -1372,11 +1372,11 @@
         "rootNode": false
     },
     "energyAngular": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1384,7 +1384,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1394,7 +1394,7 @@
         },
         "childNodes": {
             "XYs3d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Distribution given as $P(E', \\mu|E)$ using a $E'$ major ordering.",
                 "name": "XYs3d",
                 "occurrence": "1",
@@ -1407,11 +1407,11 @@
         "rootNode": false
     },
     "angularTwoBody": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1419,7 +1419,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1429,28 +1429,28 @@
         },
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$P(\\mu|E)$ given as a 2d interpolation table.",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The angular distribution is composed of multiple regions contained within this container.",
                 "name": "regions2d",
                 "occurrence": "1",
                 "required": false
             },
             "isotropic2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The angular distribution is isotropic so $P(\\mu|E)=1/2$.",
                 "name": "isotropic2d",
                 "occurrence": "1",
                 "required": false
             },
             "recoil": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The particle in question is recoiling from the rest of the system and it's angular distribution can be determined by kinematics.",
                 "name": "recoil",
                 "occurrence": "1",
@@ -1476,11 +1476,11 @@
         "rootNode": false
     },
     "uncorrelated": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1488,7 +1488,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1498,14 +1498,14 @@
         },
         "childNodes": {
             "angular_uncorrelated": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Any valid $P(\\mu|E)$ as defined in Section~\\ref{format:transport:angular}.",
                 "name": "angular",
                 "occurrence": "1",
                 "required": true
             },
             "energy_uncorrelated": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Any valid $P(E'|E)$ as defined in Sections~\\ref{sec:edr}, \\ref{sec:edgbeem}, \\ref{sec:edfdg}, or \\ref{sec:edffn}.",
                 "name": "energy",
                 "occurrence": "1",
@@ -1518,11 +1518,11 @@
         "rootNode": false
     },
     "recoil": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A link to the other product's distribution representation in a two-body channel.",
                 "name": "href",
@@ -1537,11 +1537,11 @@
         "rootNode": false
     },
     "KalbachMann": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1549,7 +1549,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in. Must always be \\centerOfMass.",
                 "name": "productFrame",
@@ -1559,21 +1559,21 @@
         },
         "childNodes": {
             "f": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Kalbach-Mann $f$ parameter.",
                 "name": "f",
                 "occurrence": "1",
                 "required": true
             },
             "r": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Kalbach-Mann $r$ parameter.",
                 "name": "r",
                 "occurrence": "1",
                 "required": true
             },
             "a": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Kalbach-Mann $a$ parameter.",
                 "name": "a",
                 "occurrence": "1",
@@ -1586,26 +1586,26 @@
         "rootNode": false
     },
     "generalEvaporation": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "U": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The U value.",
                 "name": "U",
                 "occurrence": "1",
                 "required": false
             },
             "g": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Container that represents a valid $g(x)$ where $x = E' / \\theta(E)$",
                 "name": "g",
                 "occurrence": "1",
                 "required": false
             },
             "theta": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Data container that represents a valid $\\theta(E)$",
                 "name": "theta",
                 "occurrence": "1",
@@ -1624,12 +1624,12 @@
         "rootNode": false
     },
     "weightedFunctionals": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "weighted": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "The partial energy distributions $f_{k}(E\\rightarrow E')$ are represented by various analytical formulations.",
                     "Each formulation is also an energy distribution."
@@ -1659,19 +1659,19 @@
         "rootNode": false
     },
     "evaporation": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "U": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The U value.",
                 "name": "U",
                 "occurrence": "1",
                 "required": false
             },
             "theta": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Data container that represents a valid $\\theta(E)$",
                 "name": "theta",
                 "occurrence": "1",
@@ -1693,11 +1693,11 @@
         "rootNode": false
     },
     "unspecified": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "distributionNode",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the style in the <styles> element associated with these data.",
                 "name": "label",
@@ -1705,7 +1705,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -1720,11 +1720,11 @@
         "rootNode": false
     },
     "discreteGamma": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "domainMax",
@@ -1732,7 +1732,7 @@
                 "type": "Float64"
             },
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "domainMin",
@@ -1740,7 +1740,7 @@
                 "type": "Float64"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["$E_\\gamma$, the outgoing gammma energy (in eV)"],
                 "name": "value",
@@ -1750,7 +1750,7 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
@@ -1765,12 +1765,12 @@
         "rootNode": false
     },
     "photonEmissionProbabilities": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "shell": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "shell",
                 "occurrence": "1",
@@ -1783,11 +1783,11 @@
         "rootNode": false
     },
     "primaryGamma": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "domainMax",
@@ -1795,7 +1795,7 @@
                 "type": "Float64"
             },
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "domainMin",
@@ -1803,7 +1803,7 @@
                 "type": "Float64"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "$E^0_\\gamma$, the parameter needed to define the outgoing gammma energy as a function of the incident particle energy (in eV).",
@@ -1814,7 +1814,7 @@
                 "type": "Float64"
             },
             "finalState": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "The pid of the final state for this primary gamma ray transition.  ",
@@ -1827,7 +1827,7 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
@@ -1852,11 +1852,11 @@
         "rootNode": false
     },
     "production": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "ENDF_MT": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An integer MT number (e.g., `3' for the non-elastic cross section which may produce gamma products).",
                 "name": "ENDF_MT",
@@ -1864,7 +1864,7 @@
                 "type": "Integer32"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -1874,14 +1874,14 @@
         },
         "childNodes": {
             "crossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "crossSection",
                 "occurrence": "1",
                 "required": false
             },
             "outputChannel": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes the secondary particle emissions from the reaction",
                 "name": "outputChannel",
                 "occurrence": "1",
@@ -1903,12 +1903,12 @@
         "rootNode": false
     },
     "productions": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "production": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "production",
                 "occurrence": "1",
@@ -1925,12 +1925,12 @@
         "rootNode": false
     },
     "incompleteReactions": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "reaction": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "reaction",
                 "occurrence": "1",
@@ -1949,12 +1949,12 @@
         "rootNode": false
     },
     "summands": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "add": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "add",
                 "occurrence": "1+",
@@ -1967,11 +1967,11 @@
         "rootNode": false
     },
     "add": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "href",
@@ -1986,19 +1986,19 @@
         "rootNode": false
     },
     "f": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs2d",
                 "occurrence": "choice",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "regions2d",
                 "occurrence": "choice",
@@ -2011,19 +2011,19 @@
         "rootNode": false
     },
     "g": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $g(x)$ given as an interpolation table.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $g(x)$ given as a few interpolation tables.",
                 "name": "regions1d",
                 "occurrence": "1",
@@ -2036,19 +2036,19 @@
         "rootNode": false
     },
     "r": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs2d",
                 "occurrence": "choice",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "regions2d",
                 "occurrence": "choice",
@@ -2061,19 +2061,19 @@
         "rootNode": false
     },
     "a": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs2d",
                 "occurrence": "choice",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "regions2d",
                 "occurrence": "choice",
@@ -2086,19 +2086,19 @@
         "rootNode": false
     },
     "theta": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $\\theta(E)$ given as an interpolation table.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $\\theta(E)$ given as a few interpolation tables.",
                 "name": "regions1d",
                 "occurrence": "1",
@@ -2111,11 +2111,11 @@
         "rootNode": false
     },
     "U": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid energy unit for U",
                 "name": "unit",
@@ -2123,7 +2123,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The value of U given as a Float64",
                 "name": "value",
@@ -2138,7 +2138,7 @@
         "rootNode": false
     },
     "forward": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {},
@@ -2148,7 +2148,7 @@
         "rootNode": false
     },
     "isotropic2d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {},
@@ -2158,54 +2158,54 @@
         "rootNode": false
     },
     "weighted": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The weighting function $p_k(E)$ given as an XYs1d.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": true
             },
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The energy distribution $f_{k}(E\\rightarrow E')$ given as an \\element{XYs2d}.",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "evaporation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The energy distribution $f_{k}(E\\rightarrow E')$ given as an \\element{evaporation}.",
                 "name": "evaporation",
                 "occurrence": "1",
                 "required": false
             },
             "generalEvaporation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The energy distribution $f_{k}(E\\rightarrow E')$ given as an \\element{generalEvaporation}.",
                 "name": "generalEvaporation",
                 "occurrence": "1",
                 "required": false
             },
             "simpleMaxwellianFission": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Maxwellian representation for $P(E'|E)$, primarily for fission neutrons.",
                 "name": "simpleMaxwellianFission",
                 "occurrence": "1",
                 "required": false
             },
             "Watt": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Watt spectrum representation for $P(E'|E)$, primarily for fission neutrons.",
                 "name": "Watt",
                 "occurrence": "1",
                 "required": false
             },
             "MadlandNix": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Madland-Nix parameterisation for $P(E'|E)$, primarily for fission neutrons.",
                 "name": "MadlandNix",
                 "occurrence": "1",
@@ -2221,11 +2221,11 @@
         "rootNode": false
     },
     "reference": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "labelNode",
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Link (using xPath syntax) to another multiplicity in the file. Link may be absolute or relative.",
                 "name": "href",
@@ -2233,7 +2233,7 @@
                 "type": "bodyText"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",

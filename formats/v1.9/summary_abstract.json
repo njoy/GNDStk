@@ -1,11 +1,11 @@
 {
-    "namespace": "abstract",
+    "__namespace__": "abstract",
     "Specifications": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "abstract node's name",
         "attributes": {
             "attribute1": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Description of attribute.",
                 "name": "attribute1",
@@ -13,7 +13,7 @@
                 "type": "Integer32"
             },
             "attribute2": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "1.0",
                 "description": "Description of attribute.",
                 "name": "attribute2",
@@ -21,7 +21,7 @@
                 "type": "Float64"
             },
             "attribute3": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Description of attribute.",
                 "name": "attribute3",
@@ -32,28 +32,28 @@
         "bodyText": "Description of body text.",
         "childNodes": {
             "childNode1": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of node.",
                 "name": "childNode1",
                 "occurrence": "1+",
                 "required": true
             },
             "childNode2": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of node.",
                 "name": "childNode2",
                 "occurrence": "1",
                 "required": false
             },
             "childNode3": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of node.",
                 "name": "childNodeWithChoice1",
                 "occurrence": "choice",
                 "required": false
             },
             "childNode4": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of node.",
                 "name": "childNodeWithChoice2",
                 "occurrence": "choice",
@@ -70,11 +70,11 @@
         "rootNode": false
     },
     "labelNode": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The label is used to allow an xlink to uniquely address to the node (container).",
                 "name": "label",
@@ -93,11 +93,11 @@
         "rootNode": false
     },
     "functionalNode": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A label is required for a top-level functional node, but not for lower-dimensional functions appearing inside another functional node.",
                 "name": "label",
@@ -105,7 +105,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "For an $n$-dimensional function, this is its associated $x_{n+1}$ value. Required for all functional nodes that are nested inside higher-dimension functional nodes.",
                 "name": "outerDomainValue",
@@ -115,28 +115,28 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\elemlink{axes} node.",
                 "name": "axes",
                 "occurrence": "1",
                 "required": true
             },
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A list of numeric values. The meaning of the numbers depends on the type of function.",
                 "name": "values",
                 "occurrence": "choice",
                 "required": false
             },
             "functional": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A list of lower-dimensional functions contained inside this function.",
                 "name": "functional",
                 "occurrence": "choice2+",
                 "required": false
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\elemlink{uncertainty} node.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -149,10 +149,10 @@
         "rootNode": false
     },
     "textNode": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "attributes": {
             "encoding": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "ascii",
                 "description": "One of `ascii' or `utf8'. Defines the allowed character set for the body.",
                 "name": "encoding",
@@ -160,7 +160,7 @@
                 "type": "XMLName"
             },
             "markup": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "none",
                 "description": "One of `none', `xml', `xhtml', `latex', or other markups defined by a project.",
                 "name": "markup",
@@ -180,11 +180,11 @@
         "rootNode": false
     },
     "physicalQuantityNode": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The label is used to allow an xlink to uniquely address to the node (container).",
                 "name": "label",
@@ -192,7 +192,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "",
                 "description": "String name of the unit for this quantity. The unit can be omitted if the quantity is unitless.",
                 "name": "unit",
@@ -200,7 +200,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Determined by the sub-class. Value is usually a Float64, but may also be Integer32, Fraction32 or String.",
                 "name": "value",
@@ -210,14 +210,14 @@
         },
         "childNodes": {
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation specific to the physical quantity.",
                 "name": "documentation",
                 "occurrence": "1",
                 "required": false
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\elemlink{uncertainty} node.",
                 "name": "uncertainty",
                 "occurrence": "1",

@@ -1,11 +1,11 @@
 {
-    "namespace": "pops",
+    "__namespace__": "pops",
     "PoPs_database": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "name": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of the PoPs library, e.g. `ENDF-VIII'",
                 "name": "name",
@@ -13,7 +13,7 @@
                 "type": "XMLName"
             },
             "version": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["Library version / release number, e.g. `VIII.1' or `8.1\\_beta'"],
                 "name": "version",
@@ -21,7 +21,7 @@
                 "type": "XMLName"
             },
             "format": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "PoPs format version, e.g. `1.0.1'",
                 "name": "format",
@@ -31,56 +31,56 @@
         },
         "childNodes": {
             "styles": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines the styles of data appearing in the database. Only required in stand-alone databases.",
                 "name": "styles",
                 "occurrence": "1",
                 "required": false
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Top-level documentation applying to the entire PoPs database.",
                 "name": "documentation",
                 "occurrence": "1",
                 "required": false
             },
             "aliases": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines `alias particles' that point to other particles. Often used to identify metastable states, for example.",
                 "name": "aliases",
                 "occurrence": "1",
                 "required": false
             },
             "gaugeBosons": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains definitions for gauge bosons, notably the photon.",
                 "name": "gaugeBosons",
                 "occurrence": "1",
                 "required": false
             },
             "leptons": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains definitions for leptons, notably the electron and electron anti-neutrino",
                 "name": "leptons",
                 "occurrence": "1",
                 "required": false
             },
             "baryons": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains definitions of baryons such as the neutron and proton.",
                 "name": "baryons",
                 "occurrence": "1",
                 "required": false
             },
             "chemicalElements": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains definitions for chemical elements, which in turn contain a list of isomers, nuclides and nuclei",
                 "name": "chemicalElements",
                 "occurrence": "1",
                 "required": false
             },
             "unorthodoxes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains definitions for `unorthodox' particles, such as representative fission products.",
                 "name": "unorthodoxes",
                 "occurrence": "1",
@@ -98,19 +98,19 @@
     },
 
     "aliases": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "alias": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines an alias pointing to another particle in the database.",
                 "name": "alias",
                 "occurrence": "0+",
                 "required": false
             },
             "metaStable": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["Defines a metastable particle, with a particle id like `Al26\\_m1'."],
                 "name": "metaStable",
                 "occurrence": "0+",
@@ -129,11 +129,11 @@
         "rootNode": false
     },
     "alias": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "alias id. For example, alias `gamma' and/or `x-ray' may be used to refer to the photon.",
                 "name": "id",
@@ -141,7 +141,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Equal to the `id' of the nuclide this alias points to, for example `photon' for alias `gamma'.",
                 "name": "pid",
@@ -156,11 +156,11 @@
         "rootNode": false
     },
     "metaStable": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["Metastable id, e.g. `Am242\\_m1'."],
                 "name": "id",
@@ -168,7 +168,7 @@
                 "type": "XMLName"
             },
             "metaStableIndex": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Index for metastable states, equal to `1' for lowest-energy metastable, `2' for second metastable, etc.",
                 "name": "metaStableIndex",
@@ -176,7 +176,7 @@
                 "type": "Integer32"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["Equal to the `id' of the nuclide this metastable points to, for example `Am242\\_e2' for metastable `Am242\\_m1'."],
                 "name": "pid",
@@ -202,12 +202,12 @@
     },
 
     "gaugeBosons": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "gaugeBoson": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines one gauge boson particle.",
                 "name": "gaugeBoson",
                 "occurrence": "1+",
@@ -220,11 +220,11 @@
         "rootNode": false
     },
     "gaugeBoson": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Particle id, e.g. `photon' or `gluon'.",
                 "name": "id",
@@ -234,42 +234,42 @@
         },
         "childNodes": {
             "charge": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "charge",
                 "occurrence": "1",
                 "required": false
             },
             "halflife": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "halflife",
                 "occurrence": "1",
                 "required": false
             },
             "mass": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "mass",
                 "occurrence": "1",
                 "required": false
             },
             "spin": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "spin",
                 "occurrence": "1",
                 "required": false
             },
             "parity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "parity",
                 "occurrence": "1",
                 "required": false
             },
             "decayData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of nuclide decay.",
                 "name": "decayData",
                 "occurrence": "1",
@@ -283,12 +283,12 @@
     },
 
     "leptons": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "lepton": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines one lepton particle.",
                 "name": "lepton",
                 "occurrence": "1+",
@@ -301,11 +301,11 @@
         "rootNode": false
     },
     "lepton": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "generation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Lepton generation, i.e. `1' for the electron and `2' for muon.",
                 "name": "generation",
@@ -313,7 +313,7 @@
                 "type": "XMLName"
             },
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Particle id, e.g. `e-' for the electron.",
                 "name": "id",
@@ -323,42 +323,42 @@
         },
         "childNodes": {
             "charge": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "charge",
                 "occurrence": "1",
                 "required": false
             },
             "halflife": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "halflife",
                 "occurrence": "1",
                 "required": false
             },
             "mass": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "mass",
                 "occurrence": "1",
                 "required": false
             },
             "spin": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "spin",
                 "occurrence": "1",
                 "required": false
             },
             "parity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "parity",
                 "occurrence": "1",
                 "required": false
             },
             "decayData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of nuclide decay.",
                 "name": "decayData",
                 "occurrence": "1",
@@ -372,12 +372,12 @@
     },
 
     "baryons": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "baryon": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines a baryon (a composite particle made up of three quarks)",
                 "name": "baryon",
                 "occurrence": "1+",
@@ -390,11 +390,11 @@
         "rootNode": false
     },
     "baryon": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "",
                 "name": "id",
@@ -404,42 +404,42 @@
         },
         "childNodes": {
             "charge": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "charge",
                 "occurrence": "1",
                 "required": false
             },
             "halflife": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "halflife",
                 "occurrence": "1",
                 "required": false
             },
             "mass": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "mass",
                 "occurrence": "1",
                 "required": false
             },
             "spin": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "spin",
                 "occurrence": "1",
                 "required": false
             },
             "parity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "parity",
                 "occurrence": "1",
                 "required": false
             },
             "decayData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of nuclide decay.",
                 "name": "decayData",
                 "occurrence": "1",
@@ -453,12 +453,12 @@
     },
 
     "chemicalElements": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "chemicalElement": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines a chemical element (i.e. a group of particles with the same proton number Z).",
                 "name": "chemicalElement",
                 "occurrence": "1+",
@@ -471,11 +471,11 @@
         "rootNode": false
     },
     "chemicalElement": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "symbol": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Standard chemical symbol, e.g. `Au' or `C'",
                 "name": "symbol",
@@ -483,7 +483,7 @@
                 "type": "XMLName"
             },
             "Z": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Proton number `Z'",
                 "name": "Z",
@@ -491,7 +491,7 @@
                 "type": "Integer32"
             },
             "name": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Full name, e.g. `Gold' or `Carbon'",
                 "name": "name",
@@ -501,14 +501,14 @@
         },
         "childNodes": {
             "atomic": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Atomic properties of a chemical element (assumed to be independent of neutron number N).",
                 "name": "atomic",
                 "occurrence": "1",
                 "required": false
             },
             "isotopes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "isotopes",
                 "occurrence": "1",
@@ -527,12 +527,12 @@
     },
 
     "atomic": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "configurations": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "configurations",
                 "occurrence": "1",
@@ -545,12 +545,12 @@
         "rootNode": false
     },
     "configurations": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "configuration": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "configuration",
                 "occurrence": "1+",
@@ -563,11 +563,11 @@
         "rootNode": false
     },
     "configuration": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "subshell": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Electron subshell indicator, e.g. `1s1/2'.",
                 "name": "subshell",
@@ -575,7 +575,7 @@
                 "type": "attributeValue"
             },
             "electronNumber": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Number of electrons in the given subshell.",
                 "name": "electronNumber",
@@ -585,14 +585,14 @@
         },
         "childNodes": {
             "bindingEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Electron binding energy.",
                 "name": "bindingEnergy",
                 "occurrence": "1",
                 "required": true
             },
             "decayData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Decay properties for electron vacancies in this subshell (i.e. atomic relaxation).",
                 "name": "decayData",
                 "occurrence": "1",
@@ -605,12 +605,12 @@
         "rootNode": false
     },
     "bindingEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Binding energy. Recommended unit: `eV', `MeV', etc.",
                 "name": "double",
                 "occurrence": "1+",
@@ -624,12 +624,12 @@
     },
 
     "isotopes": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "isotope": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "isotope",
                 "occurrence": "1+",
@@ -642,11 +642,11 @@
         "rootNode": false
     },
     "isotope": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "A": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Nucleon number `A'",
                 "name": "A",
@@ -654,7 +654,7 @@
                 "type": "Integer32"
             },
             "symbol": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Chemical element symbol + nucleon number A, e.g. `Fe56'",
                 "name": "symbol",
@@ -664,7 +664,7 @@
         },
         "childNodes": {
             "nuclides": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "nuclides",
                 "occurrence": "1",
@@ -681,12 +681,12 @@
     },
 
     "nuclides": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "nuclide": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "nuclide",
                 "occurrence": "1+",
@@ -699,11 +699,11 @@
         "rootNode": false
     },
     "nuclide": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["Nuclide id, of the form `Th232' (ground state) or `Th232\\_e4' (4th excited state)"],
                 "name": "id",
@@ -713,49 +713,49 @@
         },
         "childNodes": {
             "charge": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "charge",
                 "occurrence": "1",
                 "required": false
             },
             "mass": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "mass",
                 "occurrence": "1",
                 "required": false
             },
             "spin": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "spin",
                 "occurrence": "1",
                 "required": false
             },
             "parity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "parity",
                 "occurrence": "1",
                 "required": false
             },
             "nucleus": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Particle corresponding to this nuclide with all electrons removed.",
                 "name": "nucleus",
                 "occurrence": "1",
                 "required": false
             },
             "decayData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of nuclide decay.",
                 "name": "decayData",
                 "occurrence": "1",
                 "required": false
             },
             "fissionFragmentData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of products, delayed neutrons, etc. produced by spontaneous fission.",
                 "name": "fissionFragmentData",
                 "occurrence": "1",
@@ -771,11 +771,11 @@
         "rootNode": false
     },
     "nucleus": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": ["nucleus id, of the form `th232' (ground state) or `th232\\_e4' (4th excited state)"],
                 "name": "id",
@@ -783,7 +783,7 @@
                 "type": "XMLName"
             },
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Excited state index. `0' = ground state, `1' = 1st excited, etc.",
                 "name": "index",
@@ -793,49 +793,49 @@
         },
         "childNodes": {
             "charge": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "charge",
                 "occurrence": "1",
                 "required": false
             },
             "energy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "energy",
                 "occurrence": "1",
                 "required": false
             },
             "halflife": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "halflife",
                 "occurrence": "1",
                 "required": false
             },
             "spin": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "spin",
                 "occurrence": "1",
                 "required": false
             },
             "parity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "parity",
                 "occurrence": "1",
                 "required": false
             },
             "decayData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of nucleus decay.",
                 "name": "decayData",
                 "occurrence": "1",
                 "required": false
             },
             "fissionFragmentData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Description of products, delayed neutrons, etc. produced by spontaneous fission.",
                 "name": "fissionFragmentData",
                 "occurrence": "1",
@@ -849,12 +849,12 @@
     },
 
     "unorthodoxes": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "nuclide": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "unorthodox",
                 "occurrence": "1+",
@@ -867,11 +867,11 @@
         "rootNode": false
     },
     "unorthodox": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "id": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unorthodox particle id.",
                 "name": "id",
@@ -881,14 +881,14 @@
         },
         "childNodes": {
             "charge": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "charge",
                 "occurrence": "1",
                 "required": false
             },
             "mass": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "mass",
                 "occurrence": "1",
@@ -906,12 +906,12 @@
     },
 
     "mass": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Particle mass. Recommended units are `amu' or `MeV/c/c'.",
                 "name": "double",
                 "occurrence": "1",
@@ -924,13 +924,13 @@
         "rootNode": false
     },
     "spin": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childUnique": "yesLabel",
         "childNodes": {
             "fraction": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Spin assignment. Recommended unit is `hbar'. Multiple `fraction' entries may be used to indicate uncertain spin assignments.",
                 "name": "fraction",
                 "occurrence": "1+",
@@ -943,13 +943,13 @@
         "rootNode": false
     },
     "parity": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childUnique": "yesLabel",
         "childNodes": {
             "integer": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Parity assignment (unitless). Multiple `integer' entries may be used to indicate uncertain parity assignment.",
                 "name": "integer",
                 "occurrence": "1+",
@@ -962,19 +962,19 @@
         "rootNode": false
     },
     "charge": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childNodes": {
             "integer": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Net charge. Recommended unit is the elementary charge `e'.",
                 "name": "integer",
                 "occurrence": "choice",
                 "required": false
             },
             "fraction": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Fractional net charge. Recommended unit is the elementary charge `e'.",
                 "name": "fraction",
                 "occurrence": "choice",
@@ -987,12 +987,12 @@
         "rootNode": false
     },
     "energy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Excitation energy. Recommended unit: `eV', `MeV', etc.",
                 "name": "double",
                 "occurrence": "1+",
@@ -1005,20 +1005,20 @@
         "rootNode": false
     },
     "halflife": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childUnique": "yesLabel",
         "childNodes": {
             "string": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Mainly used for stable particles, i.e. halflife = `stable'.",
                 "name": "string",
                 "occurrence": "choice",
                 "required": false
             },
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Numeric value of halflife. Recommended unit = `s'.",
                 "name": "double",
                 "occurrence": "choice",
@@ -1032,19 +1032,19 @@
     },
 
     "decayData": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "decayModes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of decay modes.",
                 "name": "decayModes",
                 "occurrence": "1",
                 "required": false
             },
             "averageEnergies": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of average energies for each type of emitted particle.",
                 "name": "averageEnergies",
                 "occurrence": "1",
@@ -1065,12 +1065,12 @@
     },
 
     "decayModes": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "decayMode": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "decayMode",
                 "occurrence": "1+",
@@ -1083,11 +1083,11 @@
         "rootNode": false
     },
     "decayMode": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label for this decay mode.",
                 "name": "label",
@@ -1095,7 +1095,7 @@
                 "type": "XMLName"
             },
             "mode": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Type of decay, e.g. `electroMagnetic', `beta+', etc.",
                 "name": "mode",
@@ -1105,42 +1105,42 @@
         },
         "childNodes": {
             "probability": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability that this decay mode occurs. Probability of all `decayMode' nodes should sum to 1.0.",
                 "name": "probability",
                 "occurrence": "1",
                 "required": true
             },
             "internalConversionCoefficients": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Proportional to the probability that the decay proceeds through internal conversion.",
                 "name": "internalConversionCoefficients",
                 "occurrence": "1",
                 "required": false
             },
             "photonEmissionProbabilities": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability that photons are emitted as part of the decay.",
                 "name": "photonEmissionProbabilities",
                 "occurrence": "1",
                 "required": false
             },
             "Q": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Decay Q-value.",
                 "name": "Q",
                 "occurrence": "1",
                 "required": false
             },
             "decayPath": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Lists specific decay products including excited states where possible.",
                 "name": "decayPath",
                 "occurrence": "1",
                 "required": false
             },
             "spectra": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains a list of outgoing energy spectra for various types of decay products.",
                 "name": "spectra",
                 "occurrence": "1",
@@ -1157,12 +1157,12 @@
     },
 
     "probability": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Numeric value of the probability (unitless). Should be in the range (0, 1]",
                 "name": "double",
                 "occurrence": "1+",
@@ -1176,12 +1176,12 @@
     },
 
     "internalConversionCoefficients": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "shell": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Internal conversion coefficient for a single electron shell.",
                 "name": "shell",
                 "occurrence": "1+",
@@ -1197,12 +1197,12 @@
         "rootNode": false
     },
     "photonEmissionProbabilities": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "shell": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Photon emission probabilities for internal conversion in specified electron shell.",
                 "name": "shell",
                 "occurrence": "1+",
@@ -1218,11 +1218,11 @@
         "rootNode": false
     },
     "shell": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Label of the shell, e.g. `1s1/2'.",
                 "name": "label",
@@ -1230,7 +1230,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Probability associated with this shell (e.g. internal conversion coefficient or pair-production coefficient).",
                 "name": "value",
@@ -1238,7 +1238,7 @@
                 "type": "Float64"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": " \\kern-1ex",
                 "description": "Internal conversion or pair production coefficient unit and is usually dimensionless.",
                 "name": "unit",
@@ -1257,12 +1257,12 @@
     },
 
     "Q": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Numeric value of the decay Q-value, recommended unit `eV' or `MeV'.",
                 "name": "double",
                 "occurrence": "1+",
@@ -1277,12 +1277,12 @@
     },
 
     "decayPath": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "decay": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "",
                 "name": "decay",
                 "occurrence": "1+",
@@ -1303,11 +1303,11 @@
         "rootNode": false
     },
     "decay": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Index, must be unique within the parent \\element{decayPath} node.",
                 "name": "index",
@@ -1315,7 +1315,7 @@
                 "type": "Integer32"
             },
             "type": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Type of decay, e.g. `electroMagnetic'.",
                 "name": "type",
@@ -1323,7 +1323,7 @@
                 "type": "XMLName"
             },
             "complete": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "false",
                 "description": "Whether the decay scheme is considered complete by the evaluator.",
                 "name": "complete",
@@ -1333,7 +1333,7 @@
         },
         "childNodes": {
             "products": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of decay products.",
                 "name": "products",
                 "occurrence": "1",
@@ -1346,12 +1346,12 @@
         "rootNode": false
     },
     "products": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "product": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Single decay product.",
                 "name": "product",
                 "occurrence": "1+",
@@ -1364,11 +1364,11 @@
         "rootNode": false
     },
     "product": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique decay product label.",
                 "name": "label",
@@ -1376,7 +1376,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Decay product particle id.",
                 "name": "pid",
@@ -1392,12 +1392,12 @@
     },
 
     "spectra": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "spectrum": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Spectrum for one type of outgoing particle.",
                 "name": "spectrum",
                 "occurrence": "1+",
@@ -1415,11 +1415,11 @@
         "rootNode": false
     },
     "spectrum": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label for this spectrum. Usually identical to the pid attribute value.",
                 "name": "label",
@@ -1427,7 +1427,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "id of the particle corresponding to this decay spectrum.",
                 "name": "pid",
@@ -1437,14 +1437,14 @@
         },
         "childNodes": {
             "continuum": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Spectrum for continuum emission of particles.",
                 "name": "continuum",
                 "occurrence": "1",
                 "required": false
             },
             "discrete": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of particles emitted with a specific `discrete' energy.",
                 "name": "discrete",
                 "occurrence": "1+",
@@ -1461,12 +1461,12 @@
         "rootNode": false
     },
     "continuum": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Continuum energy spectrum stored as a 1-dimensional function.",
                 "name": "XYs1d",
                 "occurrence": "1",
@@ -1483,11 +1483,11 @@
         "rootNode": false
     },
     "discrete": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "type": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Type of transition for beta and electron capture. For example, `allowed', `first-forbidden', etc.",
                 "name": "type",
@@ -1497,35 +1497,35 @@
         },
         "childNodes": {
             "discreteEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Emitted particle energy.",
                 "name": "discreteEnergy",
                 "occurrence": "1",
                 "required": true
             },
             "intensity": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Relative intensity of discrete radiation (usually normalised such that most intense branch = 1.0).",
                 "name": "intensity",
                 "occurrence": "1",
                 "required": true
             },
             "internalConversionCoefficients": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Proportional to the probability that the decay proceeds through internal conversion.",
                 "name": "internalConversionCoefficients",
                 "occurrence": "1",
                 "required": false
             },
             "internalPairFormationCoefficient": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Proportional to the probability that an electron/positron pair are formed as part of the decay.",
                 "name": "internalPairFormationCoefficient",
                 "occurrence": "1",
                 "required": false
             },
             "photonEmissionProbabilities": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability that photons are emitted as part of the decay.",
                 "name": "photonEmissionProbabilities",
                 "occurrence": "1",
@@ -1539,11 +1539,11 @@
     },
 
     "discreteEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "",
                 "name": "value",
@@ -1551,7 +1551,7 @@
                 "type": "Float64"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "",
                 "name": "unit",
@@ -1561,7 +1561,7 @@
         },
         "childNodes": {
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty on the intensity.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1574,11 +1574,11 @@
         "rootNode": false
     },
     "intensity": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "",
                 "name": "value",
@@ -1588,7 +1588,7 @@
         },
         "childNodes": {
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty on the intensity.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1601,11 +1601,11 @@
         "rootNode": false
     },
     "internalPairFormationCoefficient": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "",
                 "name": "value",
@@ -1613,7 +1613,7 @@
                 "type": "Float64"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": " \\kern-1ex",
                 "description": "Usually dimensionless",
                 "name": "unit",
@@ -1629,12 +1629,12 @@
     },
 
     "averageEnergies": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "averageEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Mean energy for one type of decay product.",
                 "name": "averageEnergy",
                 "occurrence": "1+",
@@ -1650,11 +1650,11 @@
         "rootNode": false
     },
     "averageEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Name of outgoing particle.",
                 "name": "label",
@@ -1662,7 +1662,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "value",
@@ -1670,7 +1670,7 @@
                 "type": "Float64"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Energy unit, e.g. `eV' or `MeV'.",
                 "name": "unit",
@@ -1680,7 +1680,7 @@
         },
         "childNodes": {
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1696,33 +1696,33 @@
         "rootNode": false
     },
     "uncertainty": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "standard": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a normally-distributed uncertainty.",
                 "name": "standard",
                 "occurrence": "1",
                 "required": false
             },
             "logNormal": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a log-normal-distributed uncertainty.",
                 "name": "logNormal",
                 "occurrence": "1",
                 "required": false
             },
             "confidenceIntervals": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
                 "name": "confidenceIntervals",
                 "occurrence": "1",
                 "required": false
             },
             "pdf": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a probability distribution as a 1-dimensional function.",
                 "name": "pdf",
                 "occurrence": "1",
@@ -1735,12 +1735,12 @@
         "rootNode": false
     },
     "standard": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores $\\sigma$ for the normal distribution.",
                 "name": "double",
                 "occurrence": "1",
@@ -1756,12 +1756,12 @@
         "rootNode": false
     },
     "logNormal": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores $\\sigma$ for the log-normal distribution.",
                 "name": "double",
                 "occurrence": "1",
@@ -1777,12 +1777,12 @@
         "rootNode": false
     },
     "confidenceIntervals": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "interval": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores one confidence interval.",
                 "name": "interval",
                 "occurrence": "1+",
@@ -1798,11 +1798,11 @@
         "rootNode": false
     },
     "interval": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "confidence": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
                 "name": "confidence",
@@ -1810,7 +1810,7 @@
                 "type": "Float64"
             },
             "lower": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
                 "name": "lower",
@@ -1818,7 +1818,7 @@
                 "type": "Float64"
             },
             "upper": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Value to add to the mean to obtain the upper limit for this interval.",
                 "name": "upper",
@@ -1833,19 +1833,19 @@
         "rootNode": false
     },
     "pdf": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability distribution stored as an XYs1d.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability distribution stored as a regions1d.",
                 "name": "regions1d",
                 "occurrence": "1",
