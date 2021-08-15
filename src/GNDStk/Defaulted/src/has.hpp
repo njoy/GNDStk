@@ -5,15 +5,16 @@
 
 // ------------------------
 // Has a hard value (not
-// just the default)?
+// just its default)?
 // ------------------------
 
 // has_value()
 //
-// Compare/contrast with std::optional's. Here, it means "has something other
-// than the default." (That "something" could, coincidentally, be the same
-// as the default. It's a matter of whether the internally stored std::optional
-// contains a value.)
+// Compare/contrast this member function with std::optional's member function
+// of the same name. Here, has_value() means "has something other than its
+// default." That "something" could, coincidentally, be a value that happens
+// to equal the default. The issue is whether or not the internally stored
+// std::optional contains a value.
 //
 // If you have code that involves has_value(), consider reversing it and using
 // is_default(), below, instead. While we've kept has_value() in order to be
