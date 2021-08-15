@@ -206,7 +206,7 @@ public:
    using last_t =
       // Sans std::decay, const &ness can break detail::IsSomething<> traits.
       // Note: sizeof...(Ks) >= 1 here, because we'll specialize the <> case
-      typename std::decay<decltype(std::get<sizeof...(Ks)-1>(tup))>::type;
+      std::decay_t<decltype(std::get<sizeof...(Ks)-1>(tup))>;
 
    // KeywordTup(KeywordTup, RHS)
    template<

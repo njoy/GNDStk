@@ -18,7 +18,7 @@ template<class T>
 struct decays { };
 template<class... Ts>
 struct decays<std::tuple<Ts...>> {
-   using type = std::tuple<typename std::decay<Ts>::type ...>;
+   using type = std::tuple<std::decay_t<Ts> ...>;
 };
 
 template<class T>

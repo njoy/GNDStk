@@ -351,7 +351,7 @@ class MetaRef {
    const Meta<TYPE,CONVERTER> kwd;
 
    // [const] std::string reference to the actual, in-Node metadatum value
-   typename std::conditional_t<
+   std::conditional_t<
       CONST,
       const std::string,
       std::string
@@ -365,7 +365,7 @@ public:
 
    MetaRef(
       const Meta<TYPE,CONVERTER> &kwd,
-      typename std::conditional_t<CONST, const NODE, NODE> &parent
+      std::conditional_t<CONST, const NODE, NODE> &parent
    ) :
       kwd(kwd), // original Meta
       metaValueRef(parent(-kwd)) // -kwd so Meta<void>; reference to raw
@@ -455,7 +455,7 @@ class ChildRef<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>
    const Child<TYPE,Allow::one,CONVERTER,FILTER> kwd;
 
    // [const] Node reference to the actual Node
-   typename std::conditional_t<
+   std::conditional_t<
       CONST,
       const NODE,
       NODE
@@ -469,7 +469,7 @@ public:
 
    ChildRef(
       const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
-      typename std::conditional_t<CONST, const NODE, NODE> &parent
+      std::conditional_t<CONST, const NODE, NODE> &parent
    ) :
       kwd(kwd), // original Child
       childNodeRef(parent(-kwd)) // -kwd so Child<void>; reference to raw
@@ -545,7 +545,7 @@ class ChildRef<NODE,CONST,TYPE,Allow::many,CONVERTER,FILTER>
 
    // vector of [const] Node pointers to the actual Nodes
    std::vector<
-      typename std::conditional_t<
+      std::conditional_t<
          CONST,
          const NODE,
          NODE
@@ -560,7 +560,7 @@ public:
 
    ChildRef(
       const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
-      typename std::conditional_t<CONST, const NODE, NODE> &parent
+      std::conditional_t<CONST, const NODE, NODE> &parent
    ) :
       kwd(kwd) // original Child
    {

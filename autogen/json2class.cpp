@@ -1,67 +1,65 @@
 
-// Code for auto-generating classes from JSON specs.
+// -----------------------------------------------------------------------------
+// Code for auto-generating classes from JSON specs
+// -----------------------------------------------------------------------------
 
 #include "GNDStk.hpp"
 using namespace njoy::GNDStk::core;
 #include <cstdlib>
 
-// re: comments
-const auto large = "// " + std::string(77,'-');
-const auto small = "// " + std::string(24,'-');
-
-// re: extra chatter
+// Extra chatter?
 const bool debugging = false;
 
-// mention cases of nodes with no metadata and only one child node
+// Report cases of nodes with no metadata and only one child node
 inline bool print_only_children = false;
 
+// These will be read from the .json file given as a command-line
+// argument to this tool
+std::string GNDSDir;
+std::string Version;
+std::vector<std::string> files;
+
 
 
 // -----------------------------------------------------------------------------
-// Base directory, GNDS version, and JSON files
+// Get information from the .json file given as the command-line argument
 // -----------------------------------------------------------------------------
 
-// Base directory (of the GNDStk repo); no / at end
-// const std::string GNDSDir = "testdir";
-const std::string GNDSDir = "GNDStk";
+bool command_line(const int argc, const char *const *const argv)
+{
+   if (argc != 2) {
+      std::cout << "Usage: " << argv[0] << " file.json" << std::endl;
+      return false;
+   }
 
-// GNDS Version
-const std::string Version = "v1.9";
+   const std::string file = argv[1];
+   std::ifstream ifs(file);
+   if (!ifs) {
+      log::error("Could not open \"{}\"", file);
+      return false;
+   }
 
-// ------------------------
-// Simple test JSON files
-// ------------------------
+   nlohmann::json jdoc;
+   ifs >> jdoc;
+   if (!(jdoc.contains("input") &&
+         jdoc.contains("files") &&
+         jdoc.contains("output") &&
+         jdoc.contains("version"))) {
+      log::error("Input json file needs \"input\", \"files\", "
+                 "\"output\", and \"version\" ");
+      return false;
+   }
 
-const std::vector<std::string> files = {
-   "generalPurpose.json",
-   "reactionSuite.json"
-};
+   const std::string input = jdoc["input"];
+   ::files = std::vector<std::string>(jdoc["files"]);
+   for (auto &file : files)
+      file = input + '/' + file;
+   ::GNDSDir = jdoc["output"];
+   ::Version = jdoc["version"];
 
-// ------------------------
-// Full JSON files
-// ------------------------
-
-/*
-const std::vector<std::string> files = {
-   "../formats/" + Version + "/summary_abstract.json",
-   "../formats/" + Version + "/summary_appData.json",
-   "../formats/" + Version + "/summary_atomic.json",
-// "../formats/" + Version + "/summary_basic.json",
-   "../formats/" + Version + "/summary_common.json",
-   "../formats/" + Version + "/summary_covariance.json",
-   "../formats/" + Version + "/summary_cpTransport.json",
-   "../formats/" + Version + "/summary_documentation.json",
-   "../formats/" + Version + "/summary_fissionTransport.json",
-   "../formats/" + Version + "/summary_fpy.json",
-   "../formats/" + Version + "/summary_containers.json",
-   "../formats/" + Version + "/summary_pops.json",
-   "../formats/" + Version + "/summary_processed.json",
-   "../formats/" + Version + "/summary_resonance.json",
-   "../formats/" + Version + "/summary_styles.json",
-   "../formats/" + Version + "/summary_transport.json",
-   "../formats/" + Version + "/summary_tsl.json"
-};
-*/
+   // done
+   return true;
+}
 
 
 
@@ -134,8 +132,12 @@ const std::map<std::string,std::string> mapMetaDefault {
 
 
 // -----------------------------------------------------------------------------
-// Miscellaneous functions
+// Miscellaneous
 // -----------------------------------------------------------------------------
+
+// comment markup
+const auto large = "// " + std::string(77,'-');
+const auto small = "// " + std::string(24,'-');
 
 std::string replace(std::string str, const char from, const char to)
 {
@@ -159,7 +161,6 @@ std::string capitalize(std::string str)
    return str.size() ? (str[0] = toupper(str[0]), str) : str;
 }
 
-// metaType
 std::string metaType(const nlohmann::json &value)
 {
    // value of JSON "type", with mapMetaType applied
@@ -1913,8 +1914,11 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
 // main
 // -----------------------------------------------------------------------------
 
-int main()
+int main(const int argc, const char *const *const argv)
 {
+   if (!command_line(argc,argv))
+      exit(EXIT_FAILURE);
+
    // For diagnostics
    color = true;
 

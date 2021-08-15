@@ -265,7 +265,7 @@ template<
    // re: the container
    template<class...> class CONTAINER = std::vector,
    class T = // <== Node for Child<void>; else TYPE
-      typename std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
+      std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
    class... Args,
    class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
@@ -273,7 +273,7 @@ template<
    // to Node if Child<void>, to TYPE if Child<TYPE>
    class = std::enable_if_t<
       std::is_constructible_v<
-         typename std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
+         std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
          // remove type, if inside optional<> or Defaulted<>
          typename detail::remove_opt_def<T>::type
       >
@@ -304,13 +304,13 @@ template<
 
    template<class...> class CONTAINER = std::vector,
    class T =
-      typename std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
+      std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
    class... Args,
    class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
    class = std::enable_if_t<
       std::is_constructible_v<
-         typename std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
+         std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
          typename detail::remove_opt_def<T>::type
       >
    >

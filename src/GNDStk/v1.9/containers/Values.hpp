@@ -89,18 +89,18 @@ public:
     { return content.length; }
 
    // start
-   Integer32
+   const Defaulted<Integer32> &
    start() const
     { return content.start.value(); }
-   Integer32
+   Defaulted<Integer32> &
    start()
     { return content.start.value(); }
 
    // valueType
-   const UTF8Text
+   const Defaulted<UTF8Text> &
    valueType() const
     { return content.valueType.value(); }
-   UTF8Text
+   Defaulted<UTF8Text> &
    valueType()
     { return content.valueType.value(); }
 
@@ -117,13 +117,13 @@ public:
    // start(value)
    auto &start(const Defaulted<Integer32> &obj)
     { BodyText::start(content.start = obj); return *this; }
-   auto &start(const Integer32 &obj)
+   auto &start(const std::optional<Integer32> &obj)
     { BodyText::start(content.start = obj); return *this; }
 
    // valueType(value)
    auto &valueType(const Defaulted<UTF8Text> &obj)
     { BodyText::valueType(content.valueType = obj); return *this; }
-   auto &valueType(const UTF8Text &obj)
+   auto &valueType(const std::optional<UTF8Text> &obj)
     { BodyText::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
@@ -181,10 +181,11 @@ public:
    }
 
    // from fields
+   // std::optional replaces Defaulted; this class knows the default(s)
    explicit Values(
       const std::optional<Integer32> &length,
-      const Defaulted<Integer32> &start,
-      const Defaulted<UTF8Text> &valueType
+      const std::optional<Integer32> &start,
+      const std::optional<UTF8Text> &valueType
    ) :
       Component{
          BodyText{},
@@ -194,13 +195,14 @@ public:
       },
       content{
          length,
-         start,
-         valueType
+         Defaulted<Integer32>(defaults.start,start),
+         Defaulted<UTF8Text>(defaults.valueType,valueType)
       }
    {
       Component::finish();
    }
 
+   /*
    // from fields, with T replacing Defaulted<T>
    explicit Values(
       const std::optional<Integer32> &length,
@@ -225,6 +227,7 @@ public:
    {
       Component::finish();
    }
+   */
 
    // ------------------------
    // Assignment

@@ -109,12 +109,12 @@ public:
     { return content.index; }
 
    // interpolation
-   enums::Interpolation
+   const Defaulted<enums::Interpolation> &
    interpolation() const
-    { return content.interpolation.value(); }
-   enums::Interpolation
+    { return content.interpolation; }
+   Defaulted<enums::Interpolation> &
    interpolation()
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
 
    // label
    const std::optional<XMLName> &
@@ -177,7 +177,7 @@ public:
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
-   auto &interpolation(const enums::Interpolation &obj)
+   auto &interpolation(const std::optional<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
 
    // label(value)
@@ -271,9 +271,10 @@ public:
    }
 
    // from fields
+   // std::optional replaces Defaulted; this class knows the default(s)
    explicit Grid(
       const std::optional<Integer32> &index,
-      const Defaulted<enums::Interpolation> &interpolation,
+      const std::optional<enums::Interpolation> &interpolation,
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
@@ -290,7 +291,7 @@ public:
       },
       content{
          index,
-         interpolation,
+         Defaulted<enums::Interpolation>(defaults::interpolation,interpolation),
          label,
          style,
          unit,
@@ -300,6 +301,7 @@ public:
       Component::finish();
    }
 
+   /*
    // from fields, with T replacing Defaulted<T>
    explicit Grid(
       const std::optional<Integer32> &index,
@@ -331,6 +333,7 @@ public:
    {
       Component::finish();
    }
+   */
 
    // ------------------------
    // Assignment
