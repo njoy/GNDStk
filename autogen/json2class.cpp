@@ -4,20 +4,21 @@
 // -----------------------------------------------------------------------------
 
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
 #include <cstdlib>
+using namespace njoy::GNDStk::core;
 
 // Extra chatter?
 const bool debugging = false;
 
 // Report cases of nodes with no metadata and only one child node
-inline bool print_only_children = false;
+const bool print_only_children = false;
 
 // These will be read from the .json file given as a command-line
 // argument to this tool
 std::string GNDSDir;
 std::string Version;
-std::vector<std::string> files;
+std::string HPPforVersion;
+std::vector<std::string> InputJSONFiles;
 
 
 
@@ -32,10 +33,9 @@ bool command_line(const int argc, const char *const *const argv)
       return false;
    }
 
-   const std::string file = argv[1];
-   std::ifstream ifs(file);
+   std::ifstream ifs(argv[1]);
    if (!ifs) {
-      log::error("Could not open \"{}\"", file);
+      log::error("Could not open \"{}\"", argv[1]);
       return false;
    }
 
@@ -51,13 +51,13 @@ bool command_line(const int argc, const char *const *const argv)
    }
 
    const std::string input = jdoc["input"];
-   ::files = std::vector<std::string>(jdoc["files"]);
-   for (auto &file : files)
+   ::InputJSONFiles = std::vector<std::string>(jdoc["files"]);
+   for (auto &file : InputJSONFiles)
       file = input + '/' + file;
    ::GNDSDir = jdoc["output"];
    ::Version = jdoc["version"];
+   ::HPPforVersion = ::GNDSDir + "/src/GNDStk/" + ::Version + ".hpp";
 
-   // done
    return true;
 }
 
@@ -1322,8 +1322,6 @@ void write_class_ctor(
 // The last thing is a bit hacky, but was convenient to do here.
 // -----------------------------------------------------------------------------
 
-const std::string HPPforVersion = GNDSDir + "/src/GNDStk/" + Version + ".hpp";
-
 // Helpers
 class NSFile { // "namespace-specific file"
 public:
@@ -1938,7 +1936,7 @@ int main(const int argc, const char *const *const argv)
    std::multimap<std::string,std::string> class2nspace;
    nlohmann::json jdoc;
    std::cout << "Preprocessing..." << std::endl;
-   for (auto &file : files) {
+   for (auto &file : InputJSONFiles) {
       read(file,jdoc,true);
       ofs << "\n";
       const std::string nsname = jdoc.contains("__namespace__")
@@ -1962,7 +1960,7 @@ int main(const int argc, const char *const *const argv)
    // Print classes into temporary strings, because they have to be reordered
    // later (per dependencies) for final output
    std::cout << "\nBuilding classes..." << std::endl;
-   for (auto &file : files) {
+   for (auto &file : InputJSONFiles) {
       read(file,jdoc,false);
       const std::string file_namespace = jdoc.contains("__namespace__")
          ? jdoc["__namespace__"]
