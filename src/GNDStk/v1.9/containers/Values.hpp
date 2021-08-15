@@ -59,9 +59,15 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
-      const Integer32 start{0};
-      const UTF8Text valueType{"Float64"};
+   static struct {
+      static Integer32 start()
+      {
+         return 0;
+      }
+      static UTF8Text valueType()
+      {
+         return "Float64";
+      }
    } defaults;
 
    // ------------------------
@@ -81,28 +87,22 @@ public:
    // ------------------------
 
    // length
-   const std::optional<Integer32> &
-   length() const
+   const std::optional<Integer32> &length() const
     { return content.length; }
-   std::optional<Integer32> &
-   length()
+   std::optional<Integer32> &length()
     { return content.length; }
 
    // start
-   const Defaulted<Integer32> &
-   start() const
-    { return content.start.value(); }
-   Defaulted<Integer32> &
-   start()
-    { return content.start.value(); }
+   const Defaulted<Integer32> &start() const
+    { return content.start; }
+   Defaulted<Integer32> &start()
+    { return content.start; }
 
    // valueType
-   const Defaulted<UTF8Text> &
-   valueType() const
-    { return content.valueType.value(); }
-   Defaulted<UTF8Text> &
-   valueType()
-    { return content.valueType.value(); }
+   const Defaulted<UTF8Text> &valueType() const
+    { return content.valueType; }
+   Defaulted<UTF8Text> &valueType()
+    { return content.valueType; }
 
    // ------------------------
    // Setters
@@ -111,19 +111,19 @@ public:
    // ------------------------
 
    // length(value)
-   auto &length(const std::optional<Integer32> &obj)
+   Values &length(const std::optional<Integer32> &obj)
     { BodyText::length(length() = obj); return *this; }
 
    // start(value)
-   auto &start(const Defaulted<Integer32> &obj)
+   Values &start(const Defaulted<Integer32> &obj)
     { BodyText::start(content.start = obj); return *this; }
-   auto &start(const std::optional<Integer32> &obj)
+   Values &start(const std::optional<Integer32> &obj)
     { BodyText::start(content.start = obj); return *this; }
 
    // valueType(value)
-   auto &valueType(const Defaulted<UTF8Text> &obj)
+   Values &valueType(const Defaulted<UTF8Text> &obj)
     { BodyText::valueType(content.valueType = obj); return *this; }
-   auto &valueType(const std::optional<UTF8Text> &obj)
+   Values &valueType(const std::optional<UTF8Text> &obj)
     { BodyText::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
@@ -195,39 +195,12 @@ public:
       },
       content{
          length,
-         Defaulted<Integer32>(defaults.start,start),
-         Defaulted<UTF8Text>(defaults.valueType,valueType)
+         Defaulted<Integer32>(defaults.start(),start),
+         Defaulted<UTF8Text>(defaults.valueType(),valueType)
       }
    {
       Component::finish();
    }
-
-   /*
-   // from fields, with T replacing Defaulted<T>
-   explicit Values(
-      const std::optional<Integer32> &length,
-      const Integer32 &start,
-      const UTF8Text &valueType
-   ) :
-      Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
-      },
-      content{
-         length,
-         start == 0
-            ? Defaulted<Integer32>{0}
-            : Defaulted<Integer32>{0,start},
-         valueType == "Float64"
-            ? Defaulted<UTF8Text>{"Float64"}
-            : Defaulted<UTF8Text>{"Float64",valueType}
-      }
-   {
-      Component::finish();
-   }
-   */
 
    // ------------------------
    // Assignment
@@ -248,7 +221,6 @@ public:
 }; // class Values
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

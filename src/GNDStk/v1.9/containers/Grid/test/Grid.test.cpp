@@ -183,7 +183,7 @@ SCENARIO( "Grid" ) {
 std::string chunk() {
 
   return
-R"***(<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">
+R"***(<grid index="2" interpolation="lin-lin" label="row_energy_bounds" style="boundaries" unit="eV">
    <values length="2" start="0" valueType="Float64">1e-05 2e+07</values>
 </grid>
 )***";
@@ -209,7 +209,7 @@ void verifyChunk( const Grid& component ) {
   decltype(auto) values = std::get< Values >( component.link_values() );
   CHECK( 2 == values.length() );
   CHECK( 0 == values.start() );
-  CHECK( "Float64" == values.valueType() );
+  CHECK( "Float64" == values.valueType().value() );
 
   CHECK( "1e-05 2e+07" == values.string() );
 
@@ -223,7 +223,7 @@ void verifyChunk( const Grid& component ) {
 std::string chunkWithLink() {
 
   return
-R"***(<grid index="1" label="column_energy_bounds" style="link" unit="eV">
+R"***(<grid index="1" interpolation="lin-lin" label="column_energy_bounds" style="link" unit="eV">
    <link href="../../grid[@index='2']/values" />
 </grid>
 )***";

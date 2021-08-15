@@ -130,7 +130,7 @@ SCENARIO( "XYs1d" ) {
 std::string chunk() {
 
   return
-R"***(<XYs1d>
+R"***(<XYs1d interpolation="lin-lin">
    <axes>
       <axis index="0" label="crossSection" unit="b" />
       <axis index="1" label="energy_in" unit="eV" />
@@ -173,7 +173,7 @@ void verifyChunk( const XYs1d& component ) {
   // values data
   CHECK( 6 == component.values().length() );
   CHECK( 0 == component.values().start() );
-  CHECK( "Float64" == component.values().valueType() );
+  CHECK( "Float64" == component.values().valueType().value() );
 
   CHECK( 6 == component.values().size() );
   CHECK( 6 == component.values().doubles().size() );

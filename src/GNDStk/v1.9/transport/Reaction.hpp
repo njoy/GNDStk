@@ -88,35 +88,27 @@ public:
    // ------------------------
 
    // ENDF_MT
-   const Integer32 &
-   ENDF_MT() const
+   const Integer32 &ENDF_MT() const
     { return content.ENDF_MT; }
-   Integer32 &
-   ENDF_MT()
+   Integer32 &ENDF_MT()
     { return content.ENDF_MT; }
 
    // fissionGenre
-   const std::optional<XMLName> &
-   fissionGenre() const
+   const std::optional<XMLName> &fissionGenre() const
     { return content.fissionGenre; }
-   std::optional<XMLName> &
-   fissionGenre()
+   std::optional<XMLName> &fissionGenre()
     { return content.fissionGenre; }
 
    // label
-   const XMLName &
-   label() const
+   const XMLName &label() const
     { return content.label; }
-   XMLName &
-   label()
+   XMLName &label()
     { return content.label; }
 
    // crossSection
-   const transport::CrossSection &
-   crossSection() const
+   const transport::CrossSection &crossSection() const
     { return content.crossSection; }
-   transport::CrossSection &
-   crossSection()
+   transport::CrossSection &crossSection()
     { return content.crossSection; }
 
    // ------------------------
@@ -126,19 +118,19 @@ public:
    // ------------------------
 
    // ENDF_MT(value)
-   auto &ENDF_MT(const Integer32 &obj)
+   Reaction &ENDF_MT(const Integer32 &obj)
     { ENDF_MT() = obj; return *this; }
 
    // fissionGenre(value)
-   auto &fissionGenre(const std::optional<XMLName> &obj)
+   Reaction &fissionGenre(const std::optional<XMLName> &obj)
     { fissionGenre() = obj; return *this; }
 
    // label(value)
-   auto &label(const XMLName &obj)
+   Reaction &label(const XMLName &obj)
     { label() = obj; return *this; }
 
    // crossSection(value)
-   auto &crossSection(const transport::CrossSection &obj)
+   Reaction &crossSection(const transport::CrossSection &obj)
     { crossSection() = obj; return *this; }
 
    // ------------------------
@@ -242,7 +234,6 @@ public:
 }; // class Reaction
 
 } // namespace transport
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

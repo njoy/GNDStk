@@ -89,51 +89,39 @@ public:
    // ------------------------
 
    // label
-   const std::optional<XMLName> &
-   label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   std::optional<XMLName> &
-   label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // outerDomainValue
-   const std::optional<Float64> &
-   outerDomainValue() const
+   const std::optional<Float64> &outerDomainValue() const
     { return content.outerDomainValue; }
-   std::optional<Float64> &
-   outerDomainValue()
+   std::optional<Float64> &outerDomainValue()
     { return content.outerDomainValue; }
 
    // XYs1d
-   const std::vector<containers::XYs1d> &
-   XYs1d() const
+   const std::vector<containers::XYs1d> &XYs1d() const
     { return content.XYs1d; }
-   std::vector<containers::XYs1d> &
-   XYs1d()
+   std::vector<containers::XYs1d> &XYs1d()
     { return content.XYs1d; }
 
    // XYs1d(index)
-   const containers::XYs1d &
-   XYs1d(const std::size_t index) const
+   const containers::XYs1d &XYs1d(const std::size_t index) const
     { return getter(XYs1d(), index, "XYs1d"); }
-   containers::XYs1d &
-   XYs1d(const std::size_t index)
+   containers::XYs1d &XYs1d(const std::size_t index)
     { return getter(XYs1d(), index, "XYs1d"); }
 
    // XYs1d(label)
-   const containers::XYs1d &
-   XYs1d(const std::string &label) const
+   const containers::XYs1d &XYs1d(const std::string &label) const
     { return getter(XYs1d(), label, "XYs1d"); }
-   containers::XYs1d &
-   XYs1d(const std::string &label)
+   containers::XYs1d &XYs1d(const std::string &label)
     { return getter(XYs1d(), label, "XYs1d"); }
 
    // axes
-   const std::optional<containers::Axes> &
-   axes() const
+   const std::optional<containers::Axes> &axes() const
     { return content.axes; }
-   std::optional<containers::Axes> &
-   axes()
+   std::optional<containers::Axes> &axes()
     { return content.axes; }
 
    // ------------------------
@@ -143,19 +131,19 @@ public:
    // ------------------------
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   Regions1d &label(const std::optional<XMLName> &obj)
     { label() = obj; return *this; }
 
    // outerDomainValue(value)
-   auto &outerDomainValue(const std::optional<Float64> &obj)
+   Regions1d &outerDomainValue(const std::optional<Float64> &obj)
     { outerDomainValue() = obj; return *this; }
 
    // XYs1d(value)
-   auto &XYs1d(const std::vector<containers::XYs1d> &obj)
+   Regions1d &XYs1d(const std::vector<containers::XYs1d> &obj)
     { XYs1d() = obj; return *this; }
 
    // XYs1d(index,value)
-   auto &XYs1d(
+   Regions1d &XYs1d(
       const std::size_t index,
       const containers::XYs1d &obj
    ) {
@@ -163,7 +151,7 @@ public:
    }
 
    // XYs1d(label,value)
-   auto &XYs1d(
+   Regions1d &XYs1d(
       const std::string &label,
       const containers::XYs1d &obj
    ) {
@@ -171,7 +159,7 @@ public:
    }
 
    // axes(value)
-   auto &axes(const std::optional<containers::Axes> &obj)
+   Regions1d &axes(const std::optional<containers::Axes> &obj)
     { axes() = obj; return *this; }
 
    // ------------------------
@@ -275,7 +263,6 @@ public:
 }; // class Regions1d
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

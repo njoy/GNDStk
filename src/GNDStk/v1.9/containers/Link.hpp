@@ -73,11 +73,9 @@ public:
    // ------------------------
 
    // href
-   const UTF8Text &
-   href() const
+   const UTF8Text &href() const
     { return content.href; }
-   UTF8Text &
-   href()
+   UTF8Text &href()
     { return content.href; }
 
    // ------------------------
@@ -87,7 +85,7 @@ public:
    // ------------------------
 
    // href(value)
-   auto &href(const UTF8Text &obj)
+   Link &href(const UTF8Text &obj)
     { href() = obj; return *this; }
 
    // ------------------------
@@ -170,7 +168,6 @@ public:
 }; // class Link
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy
