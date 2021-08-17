@@ -70,7 +70,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static struct {
+   static const struct {
       static enums::Interpolation interpolation()
       {
          return enums::Interpolation::linlin;

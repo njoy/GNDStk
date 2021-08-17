@@ -42,13 +42,13 @@ void wrapCrossSection(python::module &module)
          python::init<
             const std::vector<XYS1D_REGIONS1D> &
          >(),
-         python::arg("XYs1d_regions1d"),
+         python::arg("xys1d_regions1d"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
-         "XYs1d_regions1d",
+         "xys1d_regions1d",
          python::overload_cast<>(&Component::XYs1d_regions1d),
-         Component::documentation("XYs1d_regions1d").data()
+         Component::documentation("xys1d_regions1d").data()
       )
    ;
 

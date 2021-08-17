@@ -59,7 +59,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static struct {
+   static const struct {
       static Integer32 start()
       {
          return 0;

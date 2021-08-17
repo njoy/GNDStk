@@ -77,10 +77,12 @@
         "childNodes": {
             "XYs1d": {
                 "occurrence": "choice+",
+                "variant": "XYs1d_regions1d",
                 "required": false
             },
             "regions1d": {
                 "occurrence": "choice+",
+                "variant": "XYs1d_regions1d",
                 "required": false
             }
         },

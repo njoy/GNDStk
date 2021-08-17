@@ -55,10 +55,12 @@
         "childNodes": {
             "axis": {
                 "occurrence": "choice+",
+                "variant": "axis_grid",
                 "required": false
             },
             "grid": {
                 "occurrence": "choice+",
+                "variant": "axis_grid",
                 "required": false
             }
         },
@@ -111,10 +113,12 @@
         "childNodes": {
             "values": {
                 "occurrence": "choice",
+                "variant": "link_values",
                 "required": false
             },
             "link": {
                 "occurrence": "choice",
+                "variant": "link_values",
                 "required": false
             }
         },
