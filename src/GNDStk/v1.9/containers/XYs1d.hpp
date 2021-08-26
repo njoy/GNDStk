@@ -70,11 +70,8 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
-      static enums::Interpolation interpolation()
-      {
-         return enums::Interpolation::linlin;
-      }
+   static inline const struct Defaults {
+      static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
    // ------------------------
@@ -253,7 +250,7 @@ public:
       },
       content{
          index,
-         Defaulted<enums::Interpolation>(defaults.interpolation(),interpolation),
+         Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
          label,
          outerDomainValue,
          axes,

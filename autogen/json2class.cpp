@@ -1298,7 +1298,7 @@ void write_class_ctor(
       os << (count++ ? ",\n" : "\n") << "         ";
       m.isDefaulted
          ? os << "Defaulted<" << m.varType << ">(defaults."
-              << m.varName << "()," << m.varName << ")"
+              << m.varName << "," << m.varName << ")"
          : os << m.varName;
    }
    for (const auto &c : vecInfoChildren) {
@@ -1333,10 +1333,10 @@ public:
    std::string fileGNDStkHPP;
 };
 
-// namespace name to file name (Python CPP for the namespace)
+// namespace name to Python CPP file name for the namespace
 std::map<std::string,NSFile> namespace2file;
 
-// namespace,class names to file names (GNDStk HPP and Python CPP for the class)
+// namespace,class names to GNDStk HPP and Python CPP file names for the class
 std::map<std::pair<std::string,std::string>,CLFile> class2files;
 
 // make_forward
@@ -1437,8 +1437,15 @@ void make_forward(
 // For dependencies: (1) The dependencies themselves. (2) A map from class names
 // to their printed code. We compute these pairs first, so that we can print the
 // code for each class later - after a dependency-aware ordering is determined.
+
+// vector<{
+//    name = pair<nsname,clname>,
+//    dependencies = vector<pair<nsname,clname>>
+// }>
 std::vector<NameDeps> classDependencies;
 std::vector<NameDeps> sortedClassDependencies;
+
+// map<pair<nsname,clname>,string>
 std::map<std::pair<std::string,std::string>,std::string> classCodeMap;
 
 std::map<
@@ -1536,13 +1543,11 @@ void make_class(
    oss << "\n   // FYI for users";
    oss << "\n   " << small;
    oss << "\n";
-   oss << "\n   static const struct {\n";
+   oss << "\n   static inline const struct Defaults {\n";
    for (auto &m : vecInfoMetadata) {
       if (m.isDefaulted) {
-         oss << "      static " << m.varType << " " << m.varName << "()\n";
-         oss << "      {\n";
-         oss << "         return " << m.theDefault << ";\n";
-         oss << "      }\n";
+         oss << "      static inline const " << m.varType << " " << m.varName;
+         oss << " = " << m.theDefault << ";\n";
       }
    }
    oss << "   } defaults;\n";
@@ -1590,10 +1595,9 @@ void make_class(
 // read JSON file
 // -----------------------------------------------------------------------------
 
-void read(
-   const std::string &file, nlohmann::json &jdoc,
-   const bool firsttime = false
-) {
+nlohmann::json read(const std::string &file, const bool firsttime = false)
+{
+   nlohmann::json jdoc;
    std::cout << "File: \"" << file << '"' << std::endl;
    std::ifstream ifs(file);
    if (!ifs) {
@@ -1635,6 +1639,8 @@ void read(
          }
       }
    }
+
+   return jdoc;
 }
 
 
@@ -1924,61 +1930,52 @@ so that "meta::" and "child::" are needed only to disambiguate identical names.
 void file_key(const std::vector<std::string> &InputJSONFiles)
 {
    // ------------------------
-   // Gather information on
-   // metadata and children
+   // Gather information
    // ------------------------
 
-   using pair = std::pair<
-      std::string, // name of key
-      std::string  // name in GNDS
-   >;
+   // pair: key name, GNDS name
+   using pair = std::pair<std::string, std::string>;
 
-   // for metadata, collect into one place
+   // For metadata, collect into one place
    std::set<pair> metadata;
 
-   // for children, process on a per-file basis; *multi*map is
-   // in case the same namespace appears in more than one file
-   std::multimap<
-      std::string, // namespace
-      std::set<pair>
-   > children;
+   // For children, process on a per-file basis; *multi*map is
+   // in case the same namespace appears in more than one file.
+   // multimap: namespace name, set<pair>
+   std::multimap<std::string, std::set<pair>> children;
 
    for (const auto &file : InputJSONFiles) {
-      nlohmann::json jdoc;
-      read(file,jdoc);
+      const nlohmann::json jdoc = read(file);
       const std::string nsname = get_namespace(jdoc);
       auto it = children.insert(std::make_pair(nsname,std::set<pair>{}));
 
       for (const auto &node : jdoc.items()) {
-         // key, value
-         const std::string key = node.key();
-         const nlohmann::json value = node.value();
-         if (!is_node_class(key,value))
+         if (!is_node_class(node.key(), node.value()))
             continue;
 
          // nodes ==> children
-         const std::string nodeName = fieldName(key,value);
-         ///std::cout << "node name == " << nodeName << std::endl;
-         it->second.insert(std::make_pair(nodeName,GNDSName(key,value)));
+         it->second.insert(std::make_pair(
+            fieldName(node.key(), node.value()),
+            GNDSName (node.key(), node.value())
+         ));
 
          // attributes ==> metadata
-         const auto attrs = value["attributes"];
+         const auto attrs = node.value()["attributes"];
          for (const auto &attr : attrs.items()) {
-            const std::string key = attr.key();
-            const nlohmann::json value = attr.value();
-            const std::string attrName = fieldName(key,value);
-            ///std::cout << "   attr name: " << attrName << std::endl;
-            metadata.insert(std::make_pair(attrName,GNDSName(key,value)));
+            metadata.insert(std::make_pair(
+               fieldName(attr.key(), attr.value()),
+               GNDSName (attr.key(), attr.value())
+            ));
          }
       }
    }
 
    // ------------------------
    // comment, macro guard,
-   // main namespaces
+   // outer namespaces
    // ------------------------
 
-   const std::string file = GNDSDir + "/src/GNDStk/" + Version + "/key2.hpp";
+   const std::string file = GNDSDir + "/src/GNDStk/" + Version + "/key.hpp";
    std::ofstream ofs(file);
    write_file_autogen(ofs);
    ofs << "\n/*" << file_key_comment << "*/\n\n";
@@ -2087,10 +2084,9 @@ int main(const int argc, const char *const *const argv)
    // class2nspace: For each class: what namespaces does it appear in? The JSON
    // files *do* have same-named classes in different namespaces.
    std::multimap<std::string,std::string> class2nspace;
-   nlohmann::json jdoc;
    std::cout << "Preprocessing..." << std::endl;
    for (const auto &file : InputJSONFiles) {
-      read(file,jdoc,true);
+      const nlohmann::json jdoc = read(file,true);
       ofs << "\n";
       const std::string nsname = get_namespace(jdoc);
       for (const auto &item : jdoc.items()) {
@@ -2112,7 +2108,7 @@ int main(const int argc, const char *const *const argv)
    // later (per dependencies) for final output
    std::cout << "\nBuilding classes..." << std::endl;
    for (const auto &file : InputJSONFiles) {
-      read(file,jdoc);
+      const nlohmann::json jdoc = read(file);
       const std::string file_namespace = get_namespace(jdoc);
       for (const auto &keyvalue : jdoc.items()) {
          make_class(keyvalue, file_namespace, class2nspace);
@@ -2138,67 +2134,50 @@ int main(const int argc, const char *const *const argv)
    write_file_suffix(ofs);
 
    // Individual files
-   {
-      /*
-      sortedClassDependencies:
-      vector<{ name = pair<nsname,clname>,
-               dependencies = vector<pair<nsname,clname>>}>
+   for (auto &obj : sortedClassDependencies) {
+      // code
+      const auto code = classCodeMap.find(obj.name);
+      assert(code != classCodeMap.end());
 
-      classCodeMap:
-         map< pair<nsname,clname>, string>
+      // hpp and Python cpp files for the class
+      const auto file = class2files.find(obj.name);
+      assert(file != class2files.end());
+      const auto &filePythonCPP = file->second.filePythonCPP;
+      const auto &fileGNDStkHPP = file->second.fileGNDStkHPP;
 
-      class2files:
-         map< pair<nsname,clname>, {filePythonCPP,fileGNDStkHPP} >
+      // class-specific hpp file
+      std::ofstream hpp(fileGNDStkHPP,std::ofstream::app);
+      const std::string guard =
+         "NJOY_GNDSTK_" + uppercase(replace(Version,'.','_')) + "_" +
+         uppercase(obj.name.first) + "_" + uppercase(obj.name.second);
+      hpp << "\n#ifndef " << guard;
+      hpp << "\n#define " << guard << "\n";
+      hpp << "\n"
+          << "// core interface\n"
+          << "#include \"GNDStk.hpp\"\n"
+          << "\n";
 
-      namespace2file:
-         map<      nsname,         {filePythonCPP} >
-      */
-
-      for (auto &obj : sortedClassDependencies) {
-         // code
-         const auto code = classCodeMap.find(obj.name);
-         assert(code != classCodeMap.end());
-
-         // hpp and Python cpp files for the class
-         const auto file = class2files.find(obj.name);
-         assert(file != class2files.end());
-         const auto &filePythonCPP = file->second.filePythonCPP;
-         const auto &fileGNDStkHPP = file->second.fileGNDStkHPP;
-
-         // class-specific hpp file
-         std::ofstream hpp(fileGNDStkHPP,std::ofstream::app);
-         const std::string guard =
-            "NJOY_GNDSTK_" + uppercase(replace(Version,'.','_')) + "_" +
-            uppercase(obj.name.first) + "_" + uppercase(obj.name.second);
-         hpp << "\n#ifndef " << guard;
-         hpp << "\n#define " << guard << "\n";
-         hpp << "\n"
-             << "// core interface\n"
-             << "#include \"GNDStk.hpp\"\n"
-             << "\n";
-
-         if (obj.dependencies.size() > 0) {
-            hpp << "// " << Version << " dependencies\n";
-            for (const auto &dep : obj.dependencies) {
-               hpp << "#include \"GNDStk/" << Version << "/"
-                   << dep.first << "/" << dep.second << ".hpp\"\n";
-            }
-            hpp << "\n";
+      if (obj.dependencies.size() > 0) {
+         hpp << "// " << Version << " dependencies\n";
+         for (const auto &dep : obj.dependencies) {
+            hpp << "#include \"GNDStk/" << Version << "/"
+                << dep.first << "/" << dep.second << ".hpp\"\n";
          }
-
-         hpp << "namespace njoy {\n";
-         hpp << "namespace GNDStk {\n";
-         hpp << "namespace " << replace(Version,'.','_') << " {\n\n";
-         hpp << "using namespace njoy::GNDStk::core;\n";
-         hpp << code->second;
-         hpp << "} // namespace " << replace(Version,'.','_') << "\n";
-         hpp << "} // namespace GNDStk\n";
-         hpp << "} // namespace njoy\n\n";
-         hpp << "#endif" << std::endl;
-
-         // class-specific cpp file for python
-         file_python_class(obj,filePythonCPP);
+         hpp << "\n";
       }
+
+      hpp << "namespace njoy {\n";
+      hpp << "namespace GNDStk {\n";
+      hpp << "namespace " << replace(Version,'.','_') << " {\n\n";
+      hpp << "using namespace njoy::GNDStk::core;\n";
+      hpp << code->second;
+      hpp << "} // namespace " << replace(Version,'.','_') << "\n";
+      hpp << "} // namespace GNDStk\n";
+      hpp << "} // namespace njoy\n\n";
+      hpp << "#endif" << std::endl;
+
+      // class-specific cpp file for python
+      file_python_class(obj,filePythonCPP);
    }
 
    // Python: file for namespace

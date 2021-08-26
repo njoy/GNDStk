@@ -59,15 +59,9 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
-      static Integer32 start()
-      {
-         return 0;
-      }
-      static UTF8Text valueType()
-      {
-         return "Float64";
-      }
+   static inline const struct Defaults {
+      static inline const Integer32 start = 0;
+      static inline const UTF8Text valueType = "Float64";
    } defaults;
 
    // ------------------------
@@ -195,8 +189,8 @@ public:
       },
       content{
          length,
-         Defaulted<Integer32>(defaults.start(),start),
-         Defaulted<UTF8Text>(defaults.valueType(),valueType)
+         Defaulted<Integer32>(defaults.start,start),
+         Defaulted<UTF8Text>(defaults.valueType,valueType)
       }
    {
       Component::finish();
