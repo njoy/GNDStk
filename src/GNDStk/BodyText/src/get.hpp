@@ -4,33 +4,81 @@
 // -----------------------------------------------------------------------------
 
 /*
+------------------------
+When DATA == void
+------------------------
+
+Case 1
 Return reference to [const] vector<T>:
    get<std::vector<T>> const
    get<std::vector<T>>
+T must be such that vector<T> is in our variant.
 
+Case 2
 Return reference to [const] T:
    get<T>(n) const
    get<T>(n)
+T must be such that vector<T> is in our variant.
 
-Return reference to [const] variant of vector<T>s:
+Case 3
+Return reference to [const] variant<vector<>s>:
    get() const
    get()
+T must be such that vector<T> is in our variant.
 
-Return variant of Ts:
+Case 4
+Return (by value) a variant<scalars>:
    get(n) const
    operator[](n) const
+A reference return isn't possible with the above two, because there's
+no variant<scalars> to reference; it's computed on-the-fly. The value
+return means, further, that non-const version aren't necessary.
 
-A reference return isn't possible in the get(n) case, because there's
-no variant<scalars> to reference. So, it has a value return.
-
-We also provide type-specific getters with specific names:
-
+Case 5
+Type-specific getters with specific names:
    const std::vector<T> &name() const
    std::vector<T> &name()
    const T &name(n) const
    T &name(n)
-
 For example, name == doubles when T == double.
+
+------------------------
+When DATA != void
+------------------------
+
+Case 1
+Return reference to [const] vector<T>:
+   get<std::vector<T>> const
+   get<std::vector<T>>
+T must == DATA.
+
+Case 2
+Return reference to [const] T:
+   get<T>(n) const
+   get<T>(n)
+T must == DATA.
+
+Case 3
+Return reference to [const] vector<DATA>
+   get() const
+   get()
+
+Case 4
+Return reference to [const] DATA:
+   get(n) const
+   operator[](n) const
+   get(n)
+   operator[](n)
+
+Case 5
+Type-specific getters with a specific name:
+   const std::vector<DATA> &name() const
+   std::vector<DATA> &name()
+   const DATA &name(n) const
+   DATA &name(n)
+For example, name == doubles if DATA == double. Unlike in the DATA == void case,
+we won't have this set of functions for each of name == doubles, name == ints,
+name == strings, etc., but only for the name that's appropriate for type DATA.
 */
 
 
@@ -106,7 +154,10 @@ Of course we also have a non-const version, for a non-const *this.
 // const
 template<class VECTOR>
 std::enable_if_t<
-   detail::isAlternative<VECTOR,VariantOfVectors>,
+   ( detail::isVoid<DATA> &&
+     detail::isAlternative<VECTOR,VariantOfVectors>) ||
+   (!detail::isVoid<DATA> &&
+     std::is_same_v<VECTOR,std::vector<DATA>>),
    const VECTOR &
 > get() const
 {
@@ -156,33 +207,39 @@ std::enable_if_t<
       }
 
       // Initialize
-      variant = VECTOR{};
-      VECTOR &to = std::get<VECTOR>(variant); // std::get, not this get :-)
+      VECTOR *to;
+      if constexpr (detail::isVoid<DATA>) {
+         variant = VECTOR{};
+         to = &std::get<VECTOR>(variant); // std::get, not this get :-)
+      } else {
+         vector.clear();
+         to = &vector;
+      }
 
       T zero;
       if constexpr (std::is_same_v<T,std::string>) zero = ""; else zero = T(0);
 
       // [*****----------]: leading 0s
       for (std::size_t i = 0; i < start(); ++i)
-         to.push_back(zero);
+         to->push_back(zero);
 
       // [-----*****-----]: values from the raw string
       std::istringstream iss(rawstring);
       if constexpr (std::is_floating_point_v<T>) {
          std::string str;
          while (iss >> str)
-            to.push_back(
+            to->push_back(
                detail::Precision<detail::PrecisionContext::data,T>{}.read(str)
             );
       } else {
          T element;
          while (iss >> element)
-            to.push_back(element);
+            to->push_back(element);
       }
 
       // Print a warning if length appears to be impossible because we already
       // have more than that number of values. (But length == 0 is ignored.)
-      if (0 < length() && length() < to.size()) {
+      if (0 < length() && length() < to->size()) {
          log::warning(
            "The value of length == {} appears to be wrong, because we\n"
            "already have {} values from start == {}, plus {} values read\n"
@@ -190,18 +247,18 @@ std::enable_if_t<
             length(),
             start(),
             start(),
-            to.size() - start(),
-            to.size()
+            to->size() - start(),
+            to->size()
          );
          log::member(context_rebuilding);
       }
 
       // [----------*****]: trailing 0s
-      for (std::size_t i = to.size(); i < length(); ++i)
-         to.push_back(zero);
+      for (std::size_t i = to->size(); i < length(); ++i)
+         to->push_back(zero);
 
       active = Active::vector; // was string; now is vector
-      return to;
+      return *to;
    } // if (active == Active::string)
 
 
@@ -209,60 +266,71 @@ std::enable_if_t<
    // if active == vector
    // ------------------------
 
-   // Do we already have a vector of the requested type?
-   if (std::holds_alternative<VECTOR>(variant))
+   if constexpr (detail::isVoid<DATA>) {
+      // VARIANT CASE...
+      // Do we already have a vector of the requested type?
+      if (std::holds_alternative<VECTOR>(variant))
+         return std::get<VECTOR>(variant);
+
+      // If we reach this point, it means two things. (1) We're NOT remaking
+      // a vector from the raw string (that case was handled first). (2) The
+      // caller wants a vector of a different type than the type the variant
+      // currently holds (or we'd have returned immediately above).
+      //
+      // So, for example, perhaps the variant currently has a vector<double>,
+      // and a call get<std::vector<int>>() was made, meaning that the caller
+      // wants a vector<int>.
+      //
+      // BodyText is intended to store just one vector - one that represents
+      // values in a GNDS node that has "body text." We don't, and shouldn't,
+      // try to juggle multiple vectors of different types. Therefore, we'll
+      // attempt to convert the existing vector to one of the requested type,
+      // then place the new vector into the variant (replacing the old one.)
+      //
+      // This is arguably an odd situation, but one that might - might - have
+      // some utility. (We're not sure yet.) So, we'll print an informational
+      // note (not even a warning), then proceed.
+
+      log::info(
+         "Re-forming vector of one type into vector of another type;\n"
+         "was this intentional?");
+      log::member("BodyText::get<std::vector<T>>()");
+
+      // Initialize a new vector that will soon replace the old one
+      VECTOR newVector;
+      newVector.reserve(size());
+
+      // Convert elements from the old vector to the new vector
+      std::visit(
+         [&newVector](auto &&oldVector)
+         {
+            for (const auto &from : oldVector) {
+               newVector.push_back(T());
+               detail::element2element(from,newVector.back());
+            }
+         },
+         variant
+      );
+
+      // Replace the existing vector with the new vector
+      variant = newVector;
       return std::get<VECTOR>(variant);
 
-   // If we reach this point, it means two things. (1) We're NOT remaking
-   // a vector from the raw string (that case was handled first). (2) The
-   // caller wants a vector of a different type than the type the variant
-   // currently holds (or we'd have returned immediately above).
-   //
-   // So, for example, perhaps the variant currently has a vector<double>,
-   // and a call get<std::vector<int>>() was made, meaning that the caller
-   // wants a vector<int>.
-   //
-   // BodyText is intended to store just one vector - one that represents
-   // values in a GNDS node that has "body text." We don't, and shouldn't,
-   // try to juggle multiple vectors of different types. Therefore, we'll
-   // attempt to convert the existing vector to one of the requested type,
-   // then place the new vector into the variant (replacing the old one.)
-   //
-   // This is arguably an odd situation, but one that might - might - have
-   // some utility. (We're not sure yet.) So, we'll print an informational
-   // note (not even a warning), then proceed.
-
-   log::info(
-      "Re-forming vector of one type into vector of another type;\n"
-      "was this intentional?");
-   log::member("BodyText::get<std::vector<T>>()");
-
-   // Initialize a new vector that will soon replace the old one
-   VECTOR newVector;
-   newVector.reserve(size());
-
-   // Convert elements from the old vector to the new vector
-   std::visit(
-      [&newVector](auto &&oldVector)
-      {
-         for (const auto &from : oldVector) {
-            newVector.push_back(T());
-            detail::element2element(from,newVector.back());
-         }
-      },
-      variant
-   );
-
-   // Replace the existing vector with the new vector
-   variant = newVector;
-   return std::get<VECTOR>(variant);
+   } else {
+      // VECTOR CASE...
+      // The vector is (via SFINAE) already of the requested type
+      return vector;
+   }
 }
 
 
 // non-const
 template<class VECTOR>
 std::enable_if_t<
-   detail::isAlternative<VECTOR,VariantOfVectors>,
+   ( detail::isVoid<DATA> &&
+     detail::isAlternative<VECTOR,VariantOfVectors>) ||
+   (!detail::isVoid<DATA> &&
+     std::is_same_v<VECTOR,std::vector<DATA>>),
    VECTOR &
 > get()
 {
@@ -275,15 +343,27 @@ std::enable_if_t<
 // get<T>(n)
 // -----------------------------------------------------------------------------
 
+// For DATA == void (so that we have a variant<vector<>s>):
 // These trigger a complete rebuild of the vector, if it isn't already of type
 // vector<T> for the given T. This is intentional, in order to provide maximum
 // flexibility. However, be aware of it, for the sake of efficiency! In general,
 // when using a BodyText object, we recommend sticking with one underlying type.
 
+// For DATA != void (so that we have a vector):
+// T == DATA is required. (So that returning an element of the vector<DATA> will
+// return a reference to T.)
+
+// For both of the above cases:
+// If the string (not the variant or the vector) is active, then a rebuild from
+// the string is necessary, and will happen in the get<std::vector<T>>() call.
+
 // const
 template<class T>
 std::enable_if_t<
-   detail::isAlternative<std::vector<T>,VariantOfVectors>,
+   ( detail::isVoid<DATA> &&
+     detail::isAlternative<std::vector<T>,VariantOfVectors>) ||
+   (!detail::isVoid<DATA> &&
+     std::is_same_v<T,DATA>),
    const T &
 > get(const std::size_t n) const
 {
@@ -298,7 +378,10 @@ std::enable_if_t<
 // non-const
 template<class T>
 std::enable_if_t<
-   detail::isAlternative<std::vector<T>,VariantOfVectors>,
+   ( detail::isVoid<DATA> &&
+     detail::isAlternative<std::vector<T>,VariantOfVectors>) ||
+   (!detail::isVoid<DATA> &&
+     std::is_same_v<T,DATA>),
    T &
 > get(const std::size_t n)
 {
@@ -309,26 +392,37 @@ std::enable_if_t<
 
 // -----------------------------------------------------------------------------
 // get()
+// If DATA == void, returns a variant<vector<>s>.
+// If DATA != void, returns a vector<>.
 // -----------------------------------------------------------------------------
 
 // const
-const VariantOfVectors &get() const
+const
+std::conditional_t<detail::isVoid<DATA>, VariantOfVectors, std::vector<DATA>> &
+get() const
 {
-   if (valueType() == "Integer32")
-      get<std::vector<Integer32>>();
-   else if (valueType() == "Float64")
-      get<std::vector<Float64>>();
-   else
-      get<std::vector<std::string>>();
+   if constexpr (detail::isVoid<DATA>) {
+      if (valueType() == "Integer32")
+         get<std::vector<Integer32>>();
+      else if (valueType() == "Float64")
+         get<std::vector<Float64>>();
+      else
+         get<std::vector<std::string>>();
 
-   // We can't return the specific variant *alternative* that exists right
-   // now, because that depended on valueType (run-time). So, we'll return
-   // the whole variant, for whatever use that might have to a caller.
-   return variant;
+      // We can't return the specific variant *alternative* that exists right
+      // now, because that depended on valueType (run-time). So, we'll return
+      // the whole variant, for whatever use that might have to a caller.
+      return variant;
+   } else {
+      // Simpler, but we do still need a get (in case the *string* is active).
+      get<std::vector<DATA>>();
+      return vector;
+   }
 }
 
 // non-const
-VariantOfVectors &get()
+std::conditional_t<detail::isVoid<DATA>, VariantOfVectors, std::vector<DATA>> &
+get()
 {
    return const_cast<VariantOfVectors &>(std::as_const(*this).get());
 }
@@ -337,31 +431,87 @@ VariantOfVectors &get()
 
 // -----------------------------------------------------------------------------
 // get(n)
+//
+// If DATA == void, returns a variant<scalars> (by value, because the returned
+// object must be made on-the-fly from our variant<vector<>s>).
+//
+// If DATA != void, returns a scalar of type [const] DATA (by reference, because
+// it's available directly in our vector<DATA>).
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // const
-VariantOfScalars get(const std::size_t n) const
+// ------------------------
+
+// get(n)
+std::conditional_t<detail::isVoid<DATA>, VariantOfScalars, const data_t &>
+get(const std::size_t n) const
 {
    try {
       get();
-      return std::visit(
-         [n](auto &&alt) { return VariantOfScalars(alt[n]); },
-         variant
-      );
+      if constexpr (detail::isVoid<DATA>) {
+         return std::visit(
+            [n](auto &&alt) { return VariantOfScalars(alt[n]); },
+            variant
+         );
+      } else {
+         return vector[n];
+      }
    } catch (...) {
       log::member("BodyText::get({})", n);
       throw;
    }
 }
 
-// operator[]: useful alternative form
-VariantOfScalars operator[](const std::size_t n) const
+// operator[](n): useful alternative form
+std::conditional_t<detail::isVoid<DATA>, VariantOfScalars, const data_t &>
+operator[](const std::size_t n) const
 {
    return get(n);
 }
 
-// non-const get(n) and operator[]
-// Not applicable, because the const versions return by value.
+
+// ------------------------
+// non-const
+// ------------------------
+
+// If DATA == void:
+// Not needed, because the const versions return by value.
+//
+// If DATA != void:
+// Meaningful, because returns are by reference in this (DATA != void) case.
+// So, we'll enable non-const versions for this case only.
+
+// In case anyone wonders, D (not just DATA) is needed below because SFINAE
+// applies when template argument *deduction* is taking place. DATA is already
+// fixed, by context - we're in BodyText<true,DATA> - and thus it isn't being
+// deduced here. Templating these (otherwise non-template) functions with an
+// argument that defaults to DATA, then using that argument in the SFINAE, is
+// a simple trick that makes the SFINAE work as intended. As for VOID, it's
+// necessary in order for the following to be unambiguous with the template
+// versions of get(n) that are defined elsewhere in this file.
+
+// get(n)
+template<class VOID = void, class D = DATA>
+std::enable_if_t<std::is_same_v<VOID,void> && !detail::isVoid<D>, data_t &>
+get(const std::size_t n)
+{
+   try {
+      get();
+      return vector[n];
+   } catch (...) {
+      log::member("BodyText::get({})", n);
+      throw;
+   }
+}
+
+// operator[](n)
+template<class D = DATA>
+std::enable_if_t<!detail::isVoid<D>, data_t &>
+operator[](const std::size_t n)
+{
+   return get(n);
+}
 
 
 
@@ -376,11 +526,26 @@ VariantOfScalars operator[](const std::size_t n) const
 // vector, non-const
 // element, const
 // element, non-const
+
 #define GNDSTK_MAKE_GETTER(name,T) \
-   const std::vector<T> &name() const { return get<std::vector<T>>(); } \
-         std::vector<T> &name()       { return get<std::vector<T>>(); } \
-   const T &name(const std::size_t n) const { return get<T>(n); } \
-         T &name(const std::size_t n)       { return get<T>(n); }
+   \
+   template<class D = DATA> \
+   const \
+   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, std::vector<T>> \
+   &name() const { return get<std::vector<T>>(); } \
+   \
+   template<class D = DATA> \
+   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, std::vector<T>> \
+   &name()       { return get<std::vector<T>>(); } \
+   \
+   template<class D = DATA> \
+   const \
+   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, T> \
+   &name(const std::size_t n) const { return get<T>(n); } \
+   \
+   template<class D = DATA> \
+   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, T> \
+   &name(const std::size_t n)       { return get<T>(n); }
 
 GNDSTK_MAKE_GETTER(strings,     std::string);
 GNDSTK_MAKE_GETTER(chars,       char);
