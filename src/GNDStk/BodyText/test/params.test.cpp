@@ -9,12 +9,12 @@ using namespace njoy::GNDStk::core;
 // -----------------------------------------------------------------------------
 
 SCENARIO("BodyText length/start/valueType") {
-   GIVEN("A default-constructed BodyText<true> object") {
+   GIVEN("A default-constructed BodyText<true,void> object") {
 
       // Default values of parameters are as expected
       WHEN("We examine the default length, start, and valueType") {
          THEN("They are as expected") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             CHECK(b.length() == 0);
             CHECK(b.start() == 0);
             CHECK(b.valueType() == "");
@@ -24,17 +24,17 @@ SCENARIO("BodyText length/start/valueType") {
       // length setter/getter works
       WHEN("We set length, then get and verify") {
          THEN("It works for a plain value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(12);
             CHECK(b.length() == 12);
          }
          THEN("It works for optional-with-value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(std::optional<std::size_t>(34));
             CHECK(b.length() == 34);
          }
          THEN("It works for optional-without-value (remains unchanged)") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(56);
             b.length(std::optional<std::size_t>(std::nullopt));
             CHECK(b.length() == 56);
@@ -44,17 +44,17 @@ SCENARIO("BodyText length/start/valueType") {
       // start setter/getter works
       WHEN("We set start, then get and verify") {
          THEN("It works for a plain value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.start(11);
             CHECK(b.start() == 11);
          }
          THEN("It works for optional-with-value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.start(std::optional<std::size_t>(13));
             CHECK(b.start() == 13);
          }
          THEN("It works for optional-without-value (remains unchanged)") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.start(17);
             b.start(std::optional<std::size_t>(std::nullopt));
             CHECK(b.start() == 17);
@@ -64,17 +64,17 @@ SCENARIO("BodyText length/start/valueType") {
       // valueType setter/getter works
       WHEN("We set valueType, then get and verify") {
          THEN("It works for a plain value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.valueType("unknown");
             CHECK(b.valueType() == "unknown");
          }
          THEN("It works for optional-with-value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.valueType(std::optional<std::string>("Integer32"));
             CHECK(b.valueType() == "Integer32");
          }
          THEN("It works for optional-without-value (remains unchanged)") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.valueType("Float64");
             b.valueType(std::optional<std::string>(std::nullopt));
             CHECK(b.valueType() == "Float64");
@@ -84,7 +84,7 @@ SCENARIO("BodyText length/start/valueType") {
       // Combo of the above, using builder-pattern nature of the setters
       WHEN("We set length/start/valueType together, then get and verify") {
          THEN("It works for a plain value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(1)
              .start(2)
              .valueType("a");
@@ -93,7 +93,7 @@ SCENARIO("BodyText length/start/valueType") {
             CHECK(b.valueType() == "a");
          }
          THEN("It works for optional-with-value") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(std::optional<std::size_t>(3))
              .start(std::optional<std::size_t>(4))
              .valueType(std::optional<std::string>("b"));
@@ -102,7 +102,7 @@ SCENARIO("BodyText length/start/valueType") {
             CHECK(b.valueType() == "b");
          }
          THEN("It works for optional-without-value (remains unchanged)") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(100).start(200).valueType("c");
             b.length(std::optional<std::size_t>(std::nullopt))
              .start(std::optional<std::size_t>(std::nullopt))

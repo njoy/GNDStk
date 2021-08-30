@@ -182,7 +182,7 @@ inline Child<
 // Child<void,ALLOW,void,FILTER>/C
 template<class TYPE, Allow ALLOW, class FILTER, class C>
 inline Child<
-   typename detail::isVoid<TYPE>::type, // for SFINAE
+   typename detail::is_void<TYPE>::type, // for SFINAE
    ALLOW,
    void,
    FILTER
@@ -317,8 +317,8 @@ template<
    class ATYPE, class BTYPE,
    Allow ALLOW, class CONVERTER, class FILTER,
    class = std::enable_if_t<
-      !detail::isVoid<ATYPE>::value &&
-      !detail::isVoid<BTYPE>::value
+      !detail::isVoid<ATYPE> &&
+      !detail::isVoid<BTYPE>
    >
 >
 inline auto operator||(

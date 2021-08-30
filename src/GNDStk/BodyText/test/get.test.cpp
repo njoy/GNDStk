@@ -33,33 +33,33 @@ SCENARIO("BodyText get<vector>()") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string("");
          CHECK((b.get<ivec>() == ivec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK((b.get<ivec>() == ivec{{0,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK((b.get<ivec>() == ivec{{0,0,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK((b.get<ivec>() == ivec{{0,0,0,0,0,0}})); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("-12");
+      { BodyText<true,void> b; b.start(0).length(0).string("-12");
          CHECK((b.get<ivec>() == ivec(1,-12))); }
-      { BodyText<true> b; b.start(0).length(4).string("-12");
+      { BodyText<true,void> b; b.start(0).length(4).string("-12");
          CHECK((b.get<ivec>() == ivec{{-12,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("-12");
+      { BodyText<true,void> b; b.start(1).length(5).string("-12");
          CHECK((b.get<ivec>() == ivec{{0,-12,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("-12");
+      { BodyText<true,void> b; b.start(2).length(6).string("-12");
          CHECK((b.get<ivec>() == ivec{{0,0,-12,0,0,0}})); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(0).length(0).string("-12 34 -56");
          CHECK((b.get<ivec>() == ivec{{-12,34,-56}})); }
-      { BodyText<true> b; b.start(0).length(4).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(0).length(4).string("-12 34 -56");
          CHECK((b.get<ivec>() == ivec{{-12,34,-56,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(1).length(5).string("-12 34 -56");
          CHECK((b.get<ivec>() == ivec{{0,-12,34,-56,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(2).length(6).string("-12 34 -56");
          CHECK((b.get<ivec>() == ivec{{0,0,-12,34,-56,0}})); }
 
       // ------------------------
@@ -67,33 +67,33 @@ SCENARIO("BodyText get<vector>()") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string("");
          CHECK((b.get<fvec>() == fvec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK((b.get<fvec>() == fvec{{0,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK((b.get<fvec>() == fvec{{0,0,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK((b.get<fvec>() == fvec{{0,0,0,0,0,0}})); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2");
+      { BodyText<true,void> b; b.start(0).length(0).string("1.2");
          CHECK((b.get<fvec>() == fvec(1,1.2))); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2");
+      { BodyText<true,void> b; b.start(0).length(4).string("1.2");
          CHECK((b.get<fvec>() == fvec{{1.2,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2");
+      { BodyText<true,void> b; b.start(1).length(5).string("1.2");
          CHECK((b.get<fvec>() == fvec{{0,1.2,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2");
+      { BodyText<true,void> b; b.start(2).length(6).string("1.2");
          CHECK((b.get<fvec>() == fvec{{0,0,1.2,0,0,0}})); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(0).length(0).string("1.2 3.4 5.6");
          CHECK((b.get<fvec>() == fvec{{1.2,3.4,5.6}})); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(0).length(4).string("1.2 3.4 5.6");
          CHECK((b.get<fvec>() == fvec{{1.2,3.4,5.6,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(1).length(5).string("1.2 3.4 5.6");
          CHECK((b.get<fvec>() == fvec{{0,1.2,3.4,5.6,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK((b.get<fvec>() == fvec{{0,0,1.2,3.4,5.6,0}})); }
 
       // ------------------------
@@ -101,33 +101,33 @@ SCENARIO("BodyText get<vector>()") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string("");
          CHECK((b.get<svec>() == svec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK((b.get<svec>() == svec{{"","","",""}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK((b.get<svec>() == svec{{"","","","",""}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK((b.get<svec>() == svec{{"","","","","",""}})); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("ab");
+      { BodyText<true,void> b; b.start(0).length(0).string("ab");
          CHECK((b.get<svec>() == svec(1,"ab"))); }
-      { BodyText<true> b; b.start(0).length(4).string("ab");
+      { BodyText<true,void> b; b.start(0).length(4).string("ab");
          CHECK((b.get<svec>() == svec{{"ab","","",""}})); }
-      { BodyText<true> b; b.start(1).length(5).string("ab");
+      { BodyText<true,void> b; b.start(1).length(5).string("ab");
          CHECK((b.get<svec>() == svec{{"","ab","","",""}})); }
-      { BodyText<true> b; b.start(2).length(6).string("ab");
+      { BodyText<true,void> b; b.start(2).length(6).string("ab");
          CHECK((b.get<svec>() == svec{{"","","ab","","",""}})); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("ab cd ef");
+      { BodyText<true,void> b; b.start(0).length(0).string("ab cd ef");
          CHECK((b.get<svec>() == svec{{"ab","cd","ef"}})); }
-      { BodyText<true> b; b.start(0).length(4).string("ab cd ef");
+      { BodyText<true,void> b; b.start(0).length(4).string("ab cd ef");
          CHECK((b.get<svec>() == svec{{"ab","cd","ef",""}})); }
-      { BodyText<true> b; b.start(1).length(5).string("ab cd ef");
+      { BodyText<true,void> b; b.start(1).length(5).string("ab cd ef");
          CHECK((b.get<svec>() == svec{{"","ab","cd","ef",""}})); }
-      { BodyText<true> b; b.start(2).length(6).string("ab cd ef");
+      { BodyText<true,void> b; b.start(2).length(6).string("ab cd ef");
          CHECK((b.get<svec>() == svec{{"","","ab","cd","ef",""}})); }
 
       // ------------------------
@@ -135,33 +135,33 @@ SCENARIO("BodyText get<vector>()") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string("");
          CHECK((b.get<uvec>() == uvec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK((b.get<uvec>() == uvec{{0,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK((b.get<uvec>() == uvec{{0,0,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK((b.get<uvec>() == uvec{{0,0,0,0,0,0}})); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("12");
+      { BodyText<true,void> b; b.start(0).length(0).string("12");
          CHECK((b.get<uvec>() == uvec(1,12))); }
-      { BodyText<true> b; b.start(0).length(4).string("12");
+      { BodyText<true,void> b; b.start(0).length(4).string("12");
          CHECK((b.get<uvec>() == uvec{{12,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("12");
+      { BodyText<true,void> b; b.start(1).length(5).string("12");
          CHECK((b.get<uvec>() == uvec{{0,12,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("12");
+      { BodyText<true,void> b; b.start(2).length(6).string("12");
          CHECK((b.get<uvec>() == uvec{{0,0,12,0,0,0}})); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("12 34 56");
+      { BodyText<true,void> b; b.start(0).length(0).string("12 34 56");
          CHECK((b.get<uvec>() == uvec{{12,34,56}})); }
-      { BodyText<true> b; b.start(0).length(4).string("12 34 56");
+      { BodyText<true,void> b; b.start(0).length(4).string("12 34 56");
          CHECK((b.get<uvec>() == uvec{{12,34,56,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("12 34 56");
+      { BodyText<true,void> b; b.start(1).length(5).string("12 34 56");
          CHECK((b.get<uvec>() == uvec{{0,12,34,56,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("12 34 56");
+      { BodyText<true,void> b; b.start(2).length(6).string("12 34 56");
          CHECK((b.get<uvec>() == uvec{{0,0,12,34,56,0}})); }
 
    } // GIVEN
@@ -187,32 +187,32 @@ SCENARIO("BodyText get<T>(n)") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string(""); /* no elements */ }
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK(b.get<Integer32>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK(b.get<Integer32>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK(b.get<Integer32>(3) == 0); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("-12");
+      { BodyText<true,void> b; b.start(0).length(0).string("-12");
          CHECK(b.get<Integer32>(0) == -12); }
-      { BodyText<true> b; b.start(0).length(4).string("-12");
+      { BodyText<true,void> b; b.start(0).length(4).string("-12");
          CHECK(b.get<Integer32>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("-12");
+      { BodyText<true,void> b; b.start(1).length(5).string("-12");
          CHECK(b.get<Integer32>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("-12");
+      { BodyText<true,void> b; b.start(2).length(6).string("-12");
          CHECK(b.get<Integer32>(3) == 0); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(0).length(0).string("-12 34 -56");
          CHECK(b.get<Integer32>(0) == -12); }
-      { BodyText<true> b; b.start(0).length(4).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(0).length(4).string("-12 34 -56");
          CHECK(b.get<Integer32>(1) == 34); }
-      { BodyText<true> b; b.start(1).length(5).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(1).length(5).string("-12 34 -56");
          CHECK(b.get<Integer32>(2) == 34); }
-      { BodyText<true> b; b.start(2).length(6).string("-12 34 -56");
+      { BodyText<true,void> b; b.start(2).length(6).string("-12 34 -56");
          CHECK(b.get<Integer32>(3) == 34); }
 
       // ------------------------
@@ -220,32 +220,32 @@ SCENARIO("BodyText get<T>(n)") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string(""); /* no elements */ }
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK(b.get<Float64>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK(b.get<Float64>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK(b.get<Float64>(3) == 0); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2");
+      { BodyText<true,void> b; b.start(0).length(0).string("1.2");
          CHECK(b.get<Float64>(0) == 1.2); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2");
+      { BodyText<true,void> b; b.start(0).length(4).string("1.2");
          CHECK(b.get<Float64>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2");
+      { BodyText<true,void> b; b.start(1).length(5).string("1.2");
          CHECK(b.get<Float64>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2");
+      { BodyText<true,void> b; b.start(2).length(6).string("1.2");
          CHECK(b.get<Float64>(3) == 0); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(0).length(0).string("1.2 3.4 5.6");
          CHECK(b.get<Float64>(0) == 1.2); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(0).length(4).string("1.2 3.4 5.6");
          CHECK(b.get<Float64>(1) == 3.4); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(1).length(5).string("1.2 3.4 5.6");
          CHECK(b.get<Float64>(2) == 3.4); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2 3.4 5.6");
+      { BodyText<true,void> b; b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK(b.get<Float64>(3) == 3.4); }
 
       // ------------------------
@@ -253,32 +253,32 @@ SCENARIO("BodyText get<T>(n)") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string(""); /* no elements */ }
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK(b.get<std::string>(1) == ""); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK(b.get<std::string>(2) == ""); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK(b.get<std::string>(3) == ""); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("ab");
+      { BodyText<true,void> b; b.start(0).length(0).string("ab");
          CHECK(b.get<std::string>(0) == "ab"); }
-      { BodyText<true> b; b.start(0).length(4).string("ab");
+      { BodyText<true,void> b; b.start(0).length(4).string("ab");
          CHECK(b.get<std::string>(1) == ""); }
-      { BodyText<true> b; b.start(1).length(5).string("ab");
+      { BodyText<true,void> b; b.start(1).length(5).string("ab");
          CHECK(b.get<std::string>(2) == ""); }
-      { BodyText<true> b; b.start(2).length(6).string("ab");
+      { BodyText<true,void> b; b.start(2).length(6).string("ab");
          CHECK(b.get<std::string>(3) == ""); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("ab cd ef");
+      { BodyText<true,void> b; b.start(0).length(0).string("ab cd ef");
          CHECK(b.get<std::string>(0) == "ab"); }
-      { BodyText<true> b; b.start(0).length(4).string("ab cd ef");
+      { BodyText<true,void> b; b.start(0).length(4).string("ab cd ef");
          CHECK(b.get<std::string>(1) == "cd"); }
-      { BodyText<true> b; b.start(1).length(5).string("ab cd ef");
+      { BodyText<true,void> b; b.start(1).length(5).string("ab cd ef");
          CHECK(b.get<std::string>(2) == "cd"); }
-      { BodyText<true> b; b.start(2).length(6).string("ab cd ef");
+      { BodyText<true,void> b; b.start(2).length(6).string("ab cd ef");
          CHECK(b.get<std::string>(3) == "cd"); }
 
       // ------------------------
@@ -286,32 +286,32 @@ SCENARIO("BodyText get<T>(n)") {
       // ------------------------
 
       // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
+      { BodyText<true,void> b; b.start(0).length(0).string(""); /* no elements */ }
+      { BodyText<true,void> b; b.start(0).length(4).string("");
          CHECK(b.get<unsigned>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("");
+      { BodyText<true,void> b; b.start(1).length(5).string("");
          CHECK(b.get<unsigned>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("");
+      { BodyText<true,void> b; b.start(2).length(6).string("");
          CHECK(b.get<unsigned>(3) == 0); }
 
       // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("12");
+      { BodyText<true,void> b; b.start(0).length(0).string("12");
          CHECK(b.get<unsigned>(0) == 12); }
-      { BodyText<true> b; b.start(0).length(4).string("12");
+      { BodyText<true,void> b; b.start(0).length(4).string("12");
          CHECK(b.get<unsigned>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("12");
+      { BodyText<true,void> b; b.start(1).length(5).string("12");
          CHECK(b.get<unsigned>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("12");
+      { BodyText<true,void> b; b.start(2).length(6).string("12");
          CHECK(b.get<unsigned>(3) == 0); }
 
       // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("12 34 56");
+      { BodyText<true,void> b; b.start(0).length(0).string("12 34 56");
          CHECK(b.get<unsigned>(0) == 12); }
-      { BodyText<true> b; b.start(0).length(4).string("12 34 56");
+      { BodyText<true,void> b; b.start(0).length(4).string("12 34 56");
          CHECK(b.get<unsigned>(1) == 34); }
-      { BodyText<true> b; b.start(1).length(5).string("12 34 56");
+      { BodyText<true,void> b; b.start(1).length(5).string("12 34 56");
          CHECK(b.get<unsigned>(2) == 34); }
-      { BodyText<true> b; b.start(2).length(6).string("12 34 56");
+      { BodyText<true,void> b; b.start(2).length(6).string("12 34 56");
          CHECK(b.get<unsigned>(3) == 34); }
 
    } // GIVEN
@@ -332,7 +332,7 @@ SCENARIO("BodyText get()") {
       using fvec = std::vector<Float64>;
       using svec = std::vector<std::string>;
 
-      BodyText<true> b;
+      BodyText<true,void> b;
 
       b.start(2).length(6).string("-12 34 -56");
       b.valueType("Integer32");
@@ -369,7 +369,7 @@ SCENARIO("BodyText get(n)") {
 
    GIVEN("A BodyText object") {
 
-      BodyText<true> b;
+      BodyText<true,void> b;
 
       // ------------------------
       // get(n) form
@@ -477,7 +477,7 @@ SCENARIO("BodyText type-specific get functions: doubles() etc.") {
 
    GIVEN("A BodyText object") {
 
-      BodyText<true> b;
+      BodyText<true,void> b;
 
       // ------------------------
       // get(n) form

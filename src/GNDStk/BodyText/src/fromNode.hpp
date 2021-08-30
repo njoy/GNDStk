@@ -18,12 +18,12 @@ void fromNode(const Node &node)
    if (!found) {
       rawstring = "";
 
-      // Warning, re: why are we in BodyText<true> if there's no body text?
+      // Warning, re: why are we in BodyText<true,...> if there's no body text?
       // Perhaps it's possible that the Node has a non-default length and/or
       // start, so that the values are all supposed to be...zero. Until and
       // unless we discover otherwise, however, we doubt that that would be
       // the case, and will consider a Node's lack of plain character data,
-      // in the present context, to be something we should warn about.
+      // in the present context, to be something that merits a warning.
       log::warning(
          "Component marked as having \"body text\", a.k.a. XML \"pcdata\" "
          "(plain\ncharacter data), "
@@ -32,8 +32,8 @@ void fromNode(const Node &node)
       log::member("BodyText::fromNode(Node, with name \"{}\")", node.name);
    }
 
-   // We just set the raw string. The following reflects this, so that a vector
-   // in the variant will be rebuilt, from the raw string, if and when a caller
-   // asks for it.
+   // Above, we set the raw string. The following reflects this, so that the
+   // vector, or a vector in the variant, will be rebuilt from the raw string
+   // if and when a caller asks for it.
    active = Active::string;
 }

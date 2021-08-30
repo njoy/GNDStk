@@ -9,12 +9,12 @@
 
 
 // -----------------------------------------------------------------------------
-// BodyText<false>
-// The <true> case is specialized and has the fun stuff. This one needs a few
-// stub functions just to facilitate uniform treatment of BodyText.
+// BodyText<false,DATA>
+// The <true,DATA> case is specialized and has the fun stuff. This one needs
+// just the "using," in order to facilitate uniform treatment of BodyText.
 // -----------------------------------------------------------------------------
 
-template<bool hasBodyText>
+template<bool hasBodyText, class DATA>
 class BodyText {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
@@ -22,16 +22,19 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// BodyText<true>
-// Designed to be flexible, smart, and safe. Does lots of checks, and can
-// essentially re-form itself depending on what someone tries to extract.
-// For efficiency, an application might want to copy to a vector elsewhere,
-// for example with auto myvec = mybodytext.get<std::vector<double>>() to
-// do work on (or with) the vector there before copying it back.
+// BodyText<true,DATA>
+//
+// Designed to be flexible, smart, and safe. Does lots of checks, and, for the
+// DATA == void case, can essentially re-form itself depending on what type of
+// data someone tries to extract.
+//
+// For efficiency in the DATA == void case, an application might want to copy
+// to its own vector (e.g. auto myvec = mybodytext.get<std::vector<double>>())
+// in order to do work on (or with) the vector there, before copying it back.
 // -----------------------------------------------------------------------------
 
-template<>
-class BodyText<true> {
+template<class DATA>
+class BodyText<true,DATA> {
 public:
 
    #include "GNDStk/BodyText/src/types.hpp"
@@ -49,13 +52,23 @@ private:
    // Vector of <several possibilities>.
    // Mutable, so that we can defer processing of the raw string into
    // a vector until, and unless, a caller *asks* for the vector.
+   // This will be used if, and only if, DATA == void.
    mutable VariantOfVectors variant;
+
+   // Vector of <DATA>
+   // This will be used if, and only if, DATA != void.
+   // data_t is used in a few places where, without it, we'd create compilation
+   // errors by using "void" in invalid ways. The "int" below is arbitrary -
+   // essentially a placeholder; the following is only used when !isVoid<DATA>.
+   using data_t = std::conditional_t<detail::isVoid<DATA>,int,DATA>;
+   mutable std::vector<data_t> vector;
 
 public:
 
    // Parameters that affect interpretation of the raw string:
    //    struct vars { length, start, valueType }
    // Includes public getters and setters for those.
+   // We won't use valueType if DATA != void.
    #include "GNDStk/BodyText/src/params.hpp"
 
    // trim
@@ -67,22 +80,29 @@ public:
    #include "GNDStk/BodyText/src/string.hpp"
 
    // clear()
-   // Clears the active vector alternative in the variant.
+   // Clears the vector, or the active vector alternative in the variant.
    BodyText &clear()
    {
-      std::visit([](auto &&alt) { alt.clear(); }, variant);
+      if constexpr (detail::isVoid<DATA>)
+         std::visit([](auto &&alt) { alt.clear(); }, variant);
+      else
+         vector.clear();
+
       active = Active::vector;
       return *this;
    }
 
    // size()
-   // Returns the size of the active vector alternative in the variant.
-   // Depending on what actions someone has or hasn't performed on the current
-   // BodyText object, size() might or might not reflect the values of length
-   // and/or start, or reflect the current contents of the raw string.
+   // Returns the size of the vector, or of the active vector alternative in
+   // the variant. Depending on what someone may or may not have done with the
+   // current BodyText object, size() might or might not reflect the values of
+   // length and/or start, or reflect the current contents of the raw string.
    std::size_t size() const
    {
-      return std::visit([](auto &&alt) { return alt.size(); }, variant);
+      if constexpr (detail::isVoid<DATA>)
+         return std::visit([](auto &&alt) { return alt.size(); }, variant);
+      else
+         return vector.size();
    }
 
    // Various vector get() functions, and the type-specific doubles() etc.
@@ -103,4 +123,4 @@ public:
    // From string or vector; the former == calling our raw string setter
    #include "GNDStk/BodyText/src/assign.hpp"
 
-}; // class BodyText<true>
+}; // class BodyText<true,DATA>

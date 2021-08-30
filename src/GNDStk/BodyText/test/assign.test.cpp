@@ -9,12 +9,12 @@ using namespace njoy::GNDStk::core;
 // -----------------------------------------------------------------------------
 
 SCENARIO("BodyText assignment operators") {
-   GIVEN("A default-constructed BodyText<true> object") {
+   GIVEN("A default-constructed BodyText<true,void> object") {
 
       // Default value of raw string is as expected
       WHEN("We examine the raw string") {
          THEN("It is as expected") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             CHECK(b.string() == "");
          }
       }
@@ -22,7 +22,7 @@ SCENARIO("BodyText assignment operators") {
       // Assignment from string works
       WHEN("We assign from a string") {
          THEN("The raw string has the correct value, and vector size() == 0") {
-            BodyText<true> b;
+            BodyText<true,void> b;
 
             // to ensure it clears the vector below...
             b = std::vector<int>(10);
@@ -39,7 +39,7 @@ SCENARIO("BodyText assignment operators") {
       // Assignment from vector works
       WHEN("We assign from a vector") {
          THEN("The variant has the correct value, and raw string == \"\"") {
-            BodyText<true> b;
+            BodyText<true,void> b;
 
             // to ensure it clears the raw string etc. below...
             b = "foo bar";
@@ -69,7 +69,7 @@ SCENARIO("BodyText assignment operators") {
       // Assign from vector<Integer32>; should set valueType
       WHEN("We assign from a vector<Integer32>") {
          THEN("valueType is set correctly") {
-            BodyText<true> b;
+            BodyText<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -82,7 +82,7 @@ SCENARIO("BodyText assignment operators") {
       // Assign from vector<Float64>; should set valueType
       WHEN("We assign from a vector<Float64>") {
          THEN("valueType is set correctly") {
-            BodyText<true> b;
+            BodyText<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -95,7 +95,7 @@ SCENARIO("BodyText assignment operators") {
       // For now, non-{Integer32,Float64} sets valueType == ""
       WHEN("We assign from a vector<non-{Integer32,Float64}>") {
          THEN("valueType is set correctly") {
-            BodyText<true> b;
+            BodyText<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");

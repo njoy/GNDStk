@@ -13,14 +13,14 @@ SCENARIO("BodyText data types") {
 
       WHEN ("Via BodyText, we make variants of vectors and of scalars") {
          // vector type
-         using vv = BodyText<true>::VariantOfVectors;
+         using vv = BodyText<true,void>::VariantOfVectors;
          THEN ("The variant-of-vector size should be correct") {
             CHECK(std::variant_size_v<vv> == 15);
          }
          vv vectors;
 
          // scalar type
-         using vs = BodyText<true>::VariantOfScalars;
+         using vs = BodyText<true,void>::VariantOfScalars;
          THEN ("The variant-of-scalar size should be correct") {
             CHECK(std::variant_size_v<vv> == 15);
          }

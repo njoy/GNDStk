@@ -13,7 +13,7 @@ SCENARIO("BodyText write(), when the raw string is active") {
    GIVEN("A BodyText with an empty raw string") {
       WHEN("BodyText.write() is called") {
          THEN("Nothing is printed") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b = std::vector<char>{{'a','b','c'}};
             b.string(""); // should make string (not vector) active
             std::ostringstream oss;
@@ -30,7 +30,7 @@ SCENARIO("BodyText write(), when the raw string is active") {
    GIVEN("A BodyText with a non-empty raw string") {
       WHEN("BodyText.write() is called") {
          THEN("The raw string and a newline are printed") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b = std::vector<char>{{'a','b','c'}};
             b.string("foo bar"); // should make string (not vector) active
 
@@ -57,7 +57,7 @@ SCENARIO("BodyText write(), when a vector is active") {
    GIVEN("A BodyText with an empty vector") {
       WHEN("BodyText.write() is called") {
          THEN("Nothing is printed") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.string("should be ignored"); // because vector is forthcoming...
             b = std::vector<int>{};
             std::ostringstream oss;
@@ -75,7 +75,7 @@ SCENARIO("BodyText write(), when a vector is active") {
 
       WHEN("BodyText.write() is called") {
          THEN("The vector and a newline are printed") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.string("should be ignored"); // because vector is forthcoming...
             b = std::vector<int>{{2,3,5,7,11,13,17,19,21,23}};
             std::ostringstream oss;

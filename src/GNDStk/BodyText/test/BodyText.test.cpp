@@ -13,8 +13,8 @@ SCENARIO("Testing GNDStk BodyText") {
    // Ensure that we can make const and non-const <true> and <false> BodyText
    // objects. Note that BodyText has only a default constructor.
 
-   GIVEN ("A const BodyText<true> cbtextt") {
-      const BodyText<true> cbtextt;
+   GIVEN ("A const BodyText<true,void> cbtextt") {
+      const BodyText<true,void> cbtextt;
       THEN ("It constructed correctly, and its data are as expected") {
          CHECK(cbtextt.length   () == 0);
          CHECK(cbtextt.size     () == 0);
@@ -23,15 +23,15 @@ SCENARIO("Testing GNDStk BodyText") {
       }
    }
 
-   GIVEN ("A const BodyText<false> cbtextf") {
-      const BodyText<false> cbtextf;
+   GIVEN ("A const BodyText<false,void> cbtextf") {
+      const BodyText<false,void> cbtextf;
       THEN ("It constructed correctly") {
          // no data for <false>
       }
    }
 
-   GIVEN ("A non-const BodyText<true> nbtextt") {
-      BodyText<true> nbtextt;
+   GIVEN ("A non-const BodyText<true,void> nbtextt") {
+      BodyText<true,void> nbtextt;
       THEN ("It constructed correctly, and its data are as expected") {
          CHECK(nbtextt.length   () == 0);
          CHECK(nbtextt.size     () == 0);
@@ -40,8 +40,8 @@ SCENARIO("Testing GNDStk BodyText") {
       }
    }
 
-   GIVEN ("A non-const BodyText<false> nbtextf") {
-      BodyText<false> nbtextf;
+   GIVEN ("A non-const BodyText<false,void> nbtextf") {
+      BodyText<false,void> nbtextf;
       THEN ("It constructed correctly") {
          // no data for <false>
       }
@@ -54,7 +54,7 @@ SCENARIO("Testing GNDStk BodyText") {
    GIVEN("A BodyText") {
       // clear
       WHEN("We test clear()") {
-         BodyText<true> b;
+         BodyText<true,void> b;
 
          // try int
          THEN ("size() works correctly for vector<int>") {
@@ -83,7 +83,7 @@ SCENARIO("Testing GNDStk BodyText") {
 
       // size
       WHEN("We test size()") {
-         BodyText<true> b;
+         BodyText<true,void> b;
 
          // try int
          THEN ("size() works correctly for vector<int>") {

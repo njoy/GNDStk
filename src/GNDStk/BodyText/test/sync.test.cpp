@@ -19,7 +19,7 @@ SCENARIO("BodyText pull from content") {
                struct {
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(100).start(200).valueType("300");
             b.pullFromDerived(derived); // should do nothing here
             CHECK(b.length() == 100);
@@ -34,7 +34,7 @@ SCENARIO("BodyText pull from content") {
                   int length = 10;
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(11).start(12).valueType("13");
             b.pullFromDerived(derived);
             CHECK(b.length() == 10);
@@ -49,7 +49,7 @@ SCENARIO("BodyText pull from content") {
                   int start = 14;
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(15).start(16).valueType("17");
             b.pullFromDerived(derived);
             CHECK(b.length() == 15);
@@ -64,7 +64,7 @@ SCENARIO("BodyText pull from content") {
                   std::string valueType = "18";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(19).start(20).valueType("21");
             b.pullFromDerived(derived);
             CHECK(b.length() == 19);
@@ -80,7 +80,7 @@ SCENARIO("BodyText pull from content") {
                   std::string valueType = "23";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(24).start(25).valueType("26");
             b.pullFromDerived(derived);
             CHECK(b.length() == 24);
@@ -96,7 +96,7 @@ SCENARIO("BodyText pull from content") {
                   std::string valueType = "28";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(29).start(30).valueType("31");
             b.pullFromDerived(derived);
             CHECK(b.length() == 27);
@@ -112,7 +112,7 @@ SCENARIO("BodyText pull from content") {
                   int start  = 33;
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(34).start(35).valueType("36");
             b.pullFromDerived(derived);
             CHECK(b.length() == 32);
@@ -129,7 +129,7 @@ SCENARIO("BodyText pull from content") {
                   std::string valueType = "39";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(40).start(41).valueType("42");
             b.pullFromDerived(derived);
             CHECK(b.length() == 37);
@@ -158,7 +158,7 @@ SCENARIO("BodyText push to content") {
                   int ignored = 123456; // not length, start, or valueType
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(0).start(0).valueType("0");
             b.pushToDerived(derived); // should do nothing here
             CHECK(derived.content.ignored == 123456);
@@ -171,7 +171,7 @@ SCENARIO("BodyText push to content") {
                   int length = 10;
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(11).start(12).valueType("13");
             b.pushToDerived(derived);
             CHECK(derived.content.length == 11);
@@ -184,7 +184,7 @@ SCENARIO("BodyText push to content") {
                   int start = 14;
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(15).start(16).valueType("17");
             b.pushToDerived(derived);
             CHECK(derived.content.start == 16);
@@ -197,7 +197,7 @@ SCENARIO("BodyText push to content") {
                   std::string valueType = "18";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(19).start(20).valueType("21");
             b.pushToDerived(derived);
             CHECK(derived.content.valueType == "21");
@@ -211,7 +211,7 @@ SCENARIO("BodyText push to content") {
                   std::string valueType = "23";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(24).start(25).valueType("26");
             b.pushToDerived(derived);
             CHECK(derived.content.start == 25);
@@ -226,7 +226,7 @@ SCENARIO("BodyText push to content") {
                   std::string valueType = "28";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(29).start(30).valueType("31");
             b.pushToDerived(derived);
             CHECK(derived.content.length == 29);
@@ -241,7 +241,7 @@ SCENARIO("BodyText push to content") {
                   int start  = 33;
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(34).start(35).valueType("36");
             b.pushToDerived(derived);
             CHECK(derived.content.length == 34);
@@ -257,7 +257,7 @@ SCENARIO("BodyText push to content") {
                   std::string valueType = "39";
                } content;
             } derived;
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.length(40).start(41).valueType("42");
             b.pushToDerived(derived);
             CHECK(derived.content.length == 40);

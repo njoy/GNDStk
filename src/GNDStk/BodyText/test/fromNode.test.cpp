@@ -13,7 +13,7 @@ SCENARIO("BodyText fromNode()") {
    GIVEN("A Node with no \"body text\"") {
       WHEN("BodyText.fromNode(the node) is called") {
          THEN("The BodyText's raw string is \"\", as expected") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.string("This string should be replaced");
             CHECK(b.string() != "");
 
@@ -29,7 +29,7 @@ SCENARIO("BodyText fromNode()") {
    GIVEN("A Node with some \"body text\"") {
       WHEN("BodyText.fromNode(the node) is called") {
          THEN("The BodyText's raw string equals the text from the Node") {
-            BodyText<true> b;
+            BodyText<true,void> b;
             b.string("This string should be replaced");
             CHECK(b.string() != "");
 
