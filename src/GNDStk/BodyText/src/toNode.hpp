@@ -26,18 +26,25 @@ void toNode(std::string &text, DERIVED &derived) const
       (!detail::isVoid<DATA> &&
         std::is_same_v<std::string,DATA>);
 
-   if (isStringVector && !trim &&
-       // only bother with the warning if trim would make a difference...
-       size() > 0 &&
-       (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
+   if constexpr (
+        detail::isVoid<DATA> ||
+      (!detail::isVoid<DATA> && std::is_same_v<std::string,DATA>)
    ) {
-      log::warning(
-         "BodyText.toNode() called with BodyText "
-         "trim flag == false, but active\n"
-         "data are in a vector<string>. Printing "
-         "leading/trailing empty strings\n"
-         "won't preserve them, so we'll treat as if trim == true."
-      );
+      // the runtime-if's get<std::string>() calls below won't
+      // necessarily make sense without the above if-constexpr
+      if (isStringVector && !trim &&
+          // only bother with the warning if trim would make a difference...
+          size() > 0 &&
+          (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
+      ) {
+         log::warning(
+            "BodyText.toNode() called with BodyText "
+            "trim flag == false, but active\n"
+            "data are in a vector<string>. Printing "
+            "leading/trailing empty strings\n"
+            "won't preserve them, so we'll treat as if trim == true."
+         );
+      }
    }
 
    // Re: leading/trailing 0s
