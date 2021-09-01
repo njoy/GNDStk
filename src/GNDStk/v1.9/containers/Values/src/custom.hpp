@@ -40,7 +40,7 @@ public:
 
   template < typename T,
              typename = std::enable_if_t<
-                detail::isAlternative< std::vector<T>, VariantOfVectors > > >
+                detail::isAlternative< T, VariantOfScalars > > >
   Values( const std::optional< Integer32 >& length,
           const Integer32& start,
           const UTF8Text& valueType,
@@ -74,7 +74,7 @@ public:
 
   template < typename T,
              typename = std::enable_if_t<
-                detail::isAlternative< std::vector<T>, VariantOfVectors > > >
+                detail::isAlternative< T, VariantOfScalars > > >
   Values( const std::vector< T >& values,
           const Integer32& start = 0,
           const UTF8Text& valueType = "Float64" ) :

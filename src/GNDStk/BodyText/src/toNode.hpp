@@ -21,16 +21,14 @@ void toNode(std::string &text, DERIVED &derived) const
 
    // Use the vector...
    const bool isStringVector =
-      ( detail::isVoid<DATA> &&
-        std::holds_alternative<std::vector<std::string>>(variant)) ||
-      (!detail::isVoid<DATA> &&
-        std::is_same_v<std::string,DATA>);
+      ( runtime && std::holds_alternative<std::vector<std::string>>(variant)) ||
+      (!runtime && std::is_same_v<std::string,DATA>);
 
    if constexpr (
-        detail::isVoid<DATA> ||
-      (!detail::isVoid<DATA> && std::is_same_v<std::string,DATA>)
+        runtime ||
+      (!runtime && std::is_same_v<std::string,DATA>)
    ) {
-      // the runtime-if's get<std::string>() calls below won't
+      // the run-time if's get<std::string>() calls below won't
       // necessarily make sense without the above if-constexpr
       if (isStringVector && !trim &&
           // only bother with the warning if trim would make a difference...
@@ -50,7 +48,7 @@ void toNode(std::string &text, DERIVED &derived) const
    // Re: leading/trailing 0s
    const auto bounds =
       trim || isStringVector
-    ? detail::isVoid<DATA>
+    ? runtime
     ? std::visit([](auto &&vec) { return detail::getBounds(vec); }, variant)
     : detail::getBounds(vector)
     : std::make_pair(size_t(0),size());
@@ -58,7 +56,7 @@ void toNode(std::string &text, DERIVED &derived) const
    // Compute length, start, and valueType
    vars.length = size(); // independent of trim
    vars.start  = bounds.first; // dependent on trim, per the bounds computation
-   if constexpr (detail::isVoid<DATA>) {
+   if constexpr (runtime) {
       vars.valueType =
          std::holds_alternative<std::vector<Integer32>>(variant) ? "Integer32"
        : std::holds_alternative<std::vector<Float64  >>(variant) ? "Float64"
@@ -92,7 +90,7 @@ void toNode(std::string &text, DERIVED &derived) const
          }
       };
 
-   if constexpr (detail::isVoid<DATA>)
+   if constexpr (runtime)
       std::visit(toNodeLambda,variant);
    else
       toNodeLambda(vector);

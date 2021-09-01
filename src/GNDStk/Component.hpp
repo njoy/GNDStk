@@ -19,6 +19,7 @@ class Component : public BodyText<hasBodyText,DATA>
    // For convenience
    using body = BodyText<hasBodyText,DATA>;
    using typename body::VariantOfVectors;
+   using typename body::VariantOfScalars;
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED

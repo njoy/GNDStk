@@ -47,13 +47,8 @@ ending content, if the "trim" flag is set. See toNode() for more information.
 */
 
 template<class T>
-std::enable_if_t<
-   ( detail::isVoid<DATA> &&
-     detail::isAlternative<std::vector<T>, VariantOfVectors>) ||
-   (!detail::isVoid<DATA> &&
-     std::is_same_v<T,DATA>),
-   BodyText &
-> operator=(const std::vector<T> &vec)
+std::enable_if_t<supported<T>, BodyText &>
+operator=(const std::vector<T> &vec)
 {
    // set the raw string to "", because it's no longer considered meaningful
    rawstring = "";
@@ -71,7 +66,7 @@ std::enable_if_t<
       valueType("");
 
    // assign vector
-   if constexpr (detail::isVoid<DATA>)
+   if constexpr (runtime)
       variant = vec;
    else
       vector = vec;

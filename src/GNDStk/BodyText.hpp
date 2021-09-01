@@ -11,13 +11,14 @@
 // -----------------------------------------------------------------------------
 // BodyText<false,DATA>
 // The <true,DATA> case is specialized and has the fun stuff. This one needs
-// just the "using," in order to facilitate uniform treatment of BodyText.
+// just a bit of content, in order to facilitate uniform treatment of BodyText.
 // -----------------------------------------------------------------------------
 
 template<bool hasBodyText, class DATA>
 class BodyText {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
+   using VariantOfScalars = std::variant<std::monostate>;
 };
 
 
@@ -45,6 +46,17 @@ private:
    enum class Active { string, vector };
    mutable Active active = Active::string;
 
+   // For convenience in various SFINAE and if-constexpr constructs
+   static inline constexpr bool runtime = detail::isVoid<DATA>;
+   template<class T>
+   struct is_supported {
+      static inline constexpr bool value =
+         ( runtime && detail::isAlternative<T,VariantOfScalars>) ||
+         (!runtime && std::is_same_v<T,DATA>);
+   };
+   template<class T>
+   static inline constexpr bool supported = is_supported<T>::value;
+
    // Raw string, directly from "plain character data" in a GNDS file.
    // We'll allow callers to set this by using a setter.
    std::string rawstring;
@@ -59,8 +71,8 @@ private:
    // This will be used if, and only if, DATA != void.
    // data_t is used in a few places where, without it, we'd create compilation
    // errors by using "void" in invalid ways. The "int" below is arbitrary -
-   // essentially a placeholder; the following is only used when !isVoid<DATA>.
-   using data_t = std::conditional_t<detail::isVoid<DATA>,int,DATA>;
+   // essentially a placeholder; the following is only used when !runtime.
+   using data_t = std::conditional_t<runtime,int,DATA>;
    mutable std::vector<data_t> vector;
 
 public:
@@ -83,7 +95,7 @@ public:
    // Clears the vector, or the active vector alternative in the variant.
    BodyText &clear()
    {
-      if constexpr (detail::isVoid<DATA>)
+      if constexpr (runtime)
          std::visit([](auto &&alt) { alt.clear(); }, variant);
       else
          vector.clear();
@@ -99,7 +111,7 @@ public:
    // length and/or start, or reflect the current contents of the raw string.
    std::size_t size() const
    {
-      if constexpr (detail::isVoid<DATA>)
+      if constexpr (runtime)
          return std::visit([](auto &&alt) { return alt.size(); }, variant);
       else
          return vector.size();

@@ -153,10 +153,8 @@ Of course we also have a non-const version, for a non-const *this.
 // const
 template<class VECTOR>
 std::enable_if_t<
-   ( detail::isVoid<DATA> &&
-     detail::isAlternative<VECTOR,VariantOfVectors>) ||
-   (!detail::isVoid<DATA> &&
-     std::is_same_v<VECTOR,std::vector<DATA>>),
+   ( runtime && detail::isAlternative<VECTOR,VariantOfVectors>) ||
+   (!runtime && std::is_same_v<VECTOR,std::vector<DATA>>),
    const VECTOR &
 > get() const
 {
@@ -207,7 +205,7 @@ std::enable_if_t<
 
       // Initialize
       VECTOR *to;
-      if constexpr (detail::isVoid<DATA>) {
+      if constexpr (runtime) {
          variant = VECTOR{};
          to = &std::get<VECTOR>(variant); // std::get, not this get :-)
       } else {
@@ -265,7 +263,7 @@ std::enable_if_t<
    // if active == vector
    // ------------------------
 
-   if constexpr (detail::isVoid<DATA>) {
+   if constexpr (runtime) {
       // VARIANT CASE...
       // Do we already have a vector of the requested type?
       if (std::holds_alternative<VECTOR>(variant))
@@ -326,10 +324,8 @@ std::enable_if_t<
 // non-const
 template<class VECTOR>
 std::enable_if_t<
-   ( detail::isVoid<DATA> &&
-     detail::isAlternative<VECTOR,VariantOfVectors>) ||
-   (!detail::isVoid<DATA> &&
-     std::is_same_v<VECTOR,std::vector<DATA>>),
+   ( runtime && detail::isAlternative<VECTOR,VariantOfVectors>) ||
+   (!runtime && std::is_same_v<VECTOR,std::vector<DATA>>),
    VECTOR &
 > get()
 {
@@ -358,13 +354,8 @@ std::enable_if_t<
 
 // const
 template<class T>
-std::enable_if_t<
-   ( detail::isVoid<DATA> &&
-     detail::isAlternative<std::vector<T>,VariantOfVectors>) ||
-   (!detail::isVoid<DATA> &&
-     std::is_same_v<T,DATA>),
-   const T &
-> get(const std::size_t n) const
+std::enable_if_t<supported<T>, const T &>
+get(const std::size_t n) const
 {
    try {
       return get<std::vector<T>>()[n];
@@ -376,13 +367,8 @@ std::enable_if_t<
 
 // non-const
 template<class T>
-std::enable_if_t<
-   ( detail::isVoid<DATA> &&
-     detail::isAlternative<std::vector<T>,VariantOfVectors>) ||
-   (!detail::isVoid<DATA> &&
-     std::is_same_v<T,DATA>),
-   T &
-> get(const std::size_t n)
+std::enable_if_t<supported<T>, T &>
+get(const std::size_t n)
 {
    return const_cast<T &>(std::as_const(*this).template get<T>(n));
 }
@@ -396,11 +382,13 @@ std::enable_if_t<
 // -----------------------------------------------------------------------------
 
 // const
-const
-std::conditional_t<detail::isVoid<DATA>, VariantOfVectors, std::vector<DATA>> &
-get() const
+std::conditional_t<
+   runtime,
+   const VariantOfVectors &,
+   const std::vector<DATA> &
+> get() const
 {
-   if constexpr (detail::isVoid<DATA>) {
+   if constexpr (runtime) {
       if (valueType() == "Integer32")
          get<std::vector<Integer32>>();
       else if (valueType() == "Float64")
@@ -420,15 +408,18 @@ get() const
 }
 
 // non-const
-std::conditional_t<detail::isVoid<DATA>, VariantOfVectors, std::vector<DATA>> &
-get()
+std::conditional_t<
+   runtime,
+   VariantOfVectors &,
+   std::vector<DATA> &
+> get()
 {
    return const_cast<
       std::conditional_t<
-         detail::isVoid<DATA>,
-         VariantOfVectors,
-         std::vector<DATA>
-      > &
+         runtime,
+         VariantOfVectors &,
+         std::vector<DATA> &
+      >
    >(std::as_const(*this).get());
 }
 
@@ -449,12 +440,15 @@ get()
 // ------------------------
 
 // get(n)
-std::conditional_t<detail::isVoid<DATA>, VariantOfScalars, const data_t &>
-get(const std::size_t n) const
+std::conditional_t<
+   runtime,
+   VariantOfScalars,
+   const data_t &
+> get(const std::size_t n) const
 {
    try {
       get();
-      if constexpr (detail::isVoid<DATA>) {
+      if constexpr (runtime) {
          return std::visit(
             [n](auto &&alt) { return VariantOfScalars(alt[n]); },
             variant
@@ -469,8 +463,11 @@ get(const std::size_t n) const
 }
 
 // operator[](n): useful alternative form
-std::conditional_t<detail::isVoid<DATA>, VariantOfScalars, const data_t &>
-operator[](const std::size_t n) const
+std::conditional_t<
+   runtime,
+   VariantOfScalars,
+   const data_t &
+> operator[](const std::size_t n) const
 {
    return get(n);
 }

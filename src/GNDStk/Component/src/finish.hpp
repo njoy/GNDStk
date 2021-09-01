@@ -76,13 +76,9 @@ void construct(const Node &) { }
 template<
    class T,
    class = std::enable_if_t<
-      hasBodyText &&
-      (
-         ( detail::isVoid<DATA> &&
-           detail::isAlternative<std::vector<T>,VariantOfVectors>) ||
-         (!detail::isVoid<DATA> &&
-           std::is_same_v<T,DATA>)
-      )
+      hasBodyText && (
+      ( detail::isVoid<DATA> && detail::isAlternative<T,VariantOfScalars>) ||
+      (!detail::isVoid<DATA> && std::is_same_v<T,DATA>))
    >
 >
 bool construct(const std::vector<T> &) { return true; }
@@ -171,16 +167,18 @@ void finish(const Node &node)
 // finish(vector)
 // ------------------------
 
+/*
+template<
+   class T,
+   class = std::enable_if_t<hasBodyText && body::template supported<T>>
+>
+*/
 template<
    class T,
    class = std::enable_if_t<
-      hasBodyText && // so, "if constexpr (hasBodyText)" isn't needed below
-      (
-         ( detail::isVoid<DATA> &&
-           detail::isAlternative<std::vector<T>,VariantOfVectors>) ||
-         (!detail::isVoid<DATA> &&
-           std::is_same_v<T,DATA>)
-      )
+      hasBodyText && (
+      ( detail::isVoid<DATA> && detail::isAlternative<T,VariantOfScalars>) ||
+      (!detail::isVoid<DATA> && std::is_same_v<T,DATA>))
    >
 >
 void finish(const std::vector<T> &values)

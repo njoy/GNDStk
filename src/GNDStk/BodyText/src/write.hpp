@@ -61,7 +61,7 @@ std::ostream &write(std::ostream &os, const int level) const
          };
       };
 
-   if constexpr (detail::isVoid<DATA>)
+   if constexpr (runtime)
       std::visit(writeLambda,variant);
    else
       writeLambda(vector);
