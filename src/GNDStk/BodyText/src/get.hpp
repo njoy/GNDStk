@@ -24,7 +24,6 @@ Case 3
 Return reference to [const] variant<vector<>s>:
    get() const
    get()
-T must be such that vector<T> is in our variant.
 
 Case 4
 Return (by value) a variant<scalars>:
@@ -84,7 +83,7 @@ name == strings, etc., but only for the name that's appropriate for type DATA.
 
 
 // -----------------------------------------------------------------------------
-// get<std::vector<T>>()
+// 1. get<std::vector<T>>()
 // -----------------------------------------------------------------------------
 
 /*
@@ -340,7 +339,7 @@ std::enable_if_t<
 
 
 // -----------------------------------------------------------------------------
-// get<T>(n)
+// 2. get<T>(n)
 // -----------------------------------------------------------------------------
 
 // For DATA == void (so that we have a variant<vector<>s>):
@@ -391,7 +390,7 @@ std::enable_if_t<
 
 
 // -----------------------------------------------------------------------------
-// get()
+// 3. get()
 // If DATA == void, returns a variant<vector<>s>.
 // If DATA != void, returns a vector<>.
 // -----------------------------------------------------------------------------
@@ -424,13 +423,19 @@ get() const
 std::conditional_t<detail::isVoid<DATA>, VariantOfVectors, std::vector<DATA>> &
 get()
 {
-   return const_cast<VariantOfVectors &>(std::as_const(*this).get());
+   return const_cast<
+      std::conditional_t<
+         detail::isVoid<DATA>,
+         VariantOfVectors,
+         std::vector<DATA>
+      > &
+   >(std::as_const(*this).get());
 }
 
 
 
 // -----------------------------------------------------------------------------
-// get(n)
+// 4. get(n)
 //
 // If DATA == void, returns a variant<scalars> (by value, because the returned
 // object must be made on-the-fly from our variant<vector<>s>).
@@ -516,7 +521,7 @@ operator[](const std::size_t n)
 
 
 // -----------------------------------------------------------------------------
-// Type-specific "get()" functions.
+// 5. Type-specific "get()" functions.
 // Function names reflect the types: strings(), ints(), doubles(), etc.
 // These provide convenient, shorthand access to specific get<vector<T>s.
 // -----------------------------------------------------------------------------
@@ -527,25 +532,31 @@ operator[](const std::size_t n)
 // element, const
 // element, non-const
 
-#define GNDSTK_MAKE_GETTER(name,T) \
+#define GNDSTK_MAKE_GETTER(name,TYPE) \
    \
    template<class D = DATA> \
-   const \
-   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, std::vector<T>> \
-   &name() const { return get<std::vector<T>>(); } \
+   std::enable_if_t< \
+      detail::isVoid<D> || \
+      std::is_same_v<TYPE,D>, const std::vector<TYPE> & \
+   > name() const { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATA> \
-   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, std::vector<T>> \
-   &name()       { return get<std::vector<T>>(); } \
+   std::enable_if_t< \
+      detail::isVoid<D> || \
+      std::is_same_v<TYPE,D>,       std::vector<TYPE> & \
+   > name()       { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATA> \
-   const \
-   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, T> \
-   &name(const std::size_t n) const { return get<T>(n); } \
+   std::enable_if_t< \
+      detail::isVoid<D> || \
+      std::is_same_v<TYPE,D>, const TYPE & \
+   > name(const std::size_t n) const { return get<TYPE>(n); } \
    \
    template<class D = DATA> \
-   std::enable_if_t<detail::isVoid<D> || std::is_same_v<T,D>, T> \
-   &name(const std::size_t n)       { return get<T>(n); }
+   std::enable_if_t< \
+      detail::isVoid<D> || \
+      std::is_same_v<TYPE,D>,       TYPE & \
+   > name(const std::size_t n)       { return get<TYPE>(n); }
 
 GNDSTK_MAKE_GETTER(strings,     std::string);
 GNDSTK_MAKE_GETTER(chars,       char);
