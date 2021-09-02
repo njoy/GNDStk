@@ -351,39 +351,8 @@ void write_file_autogen(std::ostream &os)
    os << "\n// DO NOT MODIFY!\n";
 }
 
-void write_file_prefix(std::ostream &os)
-{
-   // GNDStk
-   os << "\n";
-   os << "#include \"GNDStk.hpp\"\n";
-   os << "using namespace njoy::GNDStk::core;\n";
-   os << "\n";
-
-   // namespace begin
-   os << "namespace " + replace(Version,'.','_') + " {\n\n\n";
-}
-
-void write_file_suffix(std::ostream &os)
-{
-   // namespace end
-   os << "\n";
-   os << "} // namespace " + replace(Version,'.','_');
-   os << "\n";
-
-   // main
-   os << "\n\n\n";
-   os << large << "\n";
-   os << "// main\n";
-   os << large << "\n";
-   os << "\n";
-   os << "int main()\n";
-   os << "{\n";
-   os << "}\n";
-}
-
-
 // ------------------------
-// re: class
+// re: classes
 // ------------------------
 
 void write_class_prefix(
@@ -1350,7 +1319,6 @@ std::map<std::pair<std::string,std::string>,CLFile> class2files;
 
 // make_forward
 void make_forward(
-   std::ostream &os,
    const std::string &file_namespace, // value of "namespace" in the file
    const std::string &key, const nlohmann::json &value,
    std::multimap<std::string,std::string> &class2nspace
@@ -1360,9 +1328,6 @@ void make_forward(
 
    // class name
    const std::string clname = className(key,value);
-
-   // forward declaration
-   os << "namespace " << file_namespace << " { class " << clname << "; }\n";
 
    // for later use: map class to namespace(s) in which it's found
    class2nspace.insert(std::make_pair(clname,file_namespace));
@@ -2101,14 +2066,6 @@ int main(const int argc, const char *const *const argv)
    // For diagnostics
    color = true;
 
-   // Output file begin
-   std::ofstream ofs("out.cc");
-   write_file_autogen(ofs);
-   write_file_prefix(ofs);
-   ofs << "\n" << large << "\n";
-   ofs << "// Forward declarations";
-   ofs << "\n" << large << "\n";
-
    // Scan files to make forward declarations, because some classes forward-
    // reference others. And, it's also convenient to have a list of all classes
    // at the beginning of the file. Also, compute class/namespace associations.
@@ -2118,10 +2075,9 @@ int main(const int argc, const char *const *const argv)
    std::cout << "Preprocessing..." << std::endl;
    for (const auto &file : InputJSONFiles) {
       const nlohmann::json jdoc = read(file,true);
-      ofs << "\n";
       const std::string nsname = get_namespace(jdoc);
       for (const auto &item : jdoc.items()) {
-         make_forward(ofs, nsname, item.key(), item.value(), class2nspace);
+         make_forward(nsname, item.key(), item.value(), class2nspace);
       }
    }
    std::ofstream ver(HPPforVersion, std::ofstream::app);
@@ -2158,11 +2114,7 @@ int main(const int argc, const char *const *const argv)
    for (auto &obj : sortedClassDependencies) {
       const auto code = classCodeMap.find(obj.name);
       assert(code != classCodeMap.end());
-      ofs << code->second;
    }
-
-   // Output file end
-   write_file_suffix(ofs);
 
    // Individual files
    for (auto &obj : sortedClassDependencies) {
