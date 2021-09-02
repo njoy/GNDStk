@@ -1777,15 +1777,15 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    std::string bodyName = "unknownName";
    if (hasBodyTextOrData) {
       if (dataType != "") {
-         if (dataType == "\"Integer32\"") {
+         if (dataType == "Integer32") {
             bodyType = "Integer32";
             bodyName = "ints";
          }
-         if (dataType == "\"Float64\"") {
+         if (dataType == "Float64") {
             bodyType = "Float64";
             bodyName = "doubles";
          }
-         if (dataType == "\"UTF8Text\"") {
+         if (dataType == "UTF8Text") {
             bodyType = "UTF8Text";
             bodyName = "strings";
          }
