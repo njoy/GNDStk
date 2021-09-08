@@ -81,9 +81,10 @@ void toNode(std::string &text, DERIVED &derived) const
          for (auto i = bounds.first; i < bounds.second; ++i) {
             oss << (count++ ? " " : "");
             if constexpr (std::is_floating_point_v<T>) {
-               using detail::Precision;
-               using detail::PrecisionContext;
-               oss << Precision<PrecisionContext::data,T>{}.write(vec[i]);
+               oss << detail::Precision<
+                         detail::PrecisionContext::data,
+                         T
+                      >{}.write(vec[i]);
             } else {
                oss << vec[i];
             }

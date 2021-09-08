@@ -49,8 +49,10 @@ std::ostream &write(std::ostream &os, const int level) const
                os << colors::value;
 
             if constexpr (std::is_floating_point_v<T>)
-               os << detail::Precision<detail::PrecisionContext::data,T>{}.
-                     write(element);
+               os << detail::Precision<
+                        detail::PrecisionContext::data,
+                        T
+                     >{}.write(element);
             else
                os << element;
 

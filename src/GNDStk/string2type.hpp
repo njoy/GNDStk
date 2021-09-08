@@ -59,7 +59,7 @@ inline void convert(std::istream &is, T &value)
 template<class X, class Y>
 inline void convert(std::istream &is, std::pair<X,Y> &p)
 {
-   // let's allow:
+   // we allow:
    //    x y
    // or:
    //    x,y
@@ -78,9 +78,9 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
       std::container<T,Alloc> &value \
    ) { \
       value.clear(); \
-      T v; \
-      while ((convert(is,v),is)) { \
-         value.push_back(v); \
+      T val; \
+      while ((convert(is,val),is)) { \
+         value.push_back(val); \
          /* The following of course means that any ',' after the container */ \
          /* elements will be eaten, but we don't believe this will create  */ \
          /* problems, given this function's usage. In fact the container's */ \
@@ -152,7 +152,6 @@ inline void convert(const std::string &str, bool &value)
    GNDSTK_CONVERT(stoi,   int)
    GNDSTK_CONVERT(stol,   long)
    GNDSTK_CONVERT(stoll,  long long)
-
    GNDSTK_CONVERT(stoul,  unsigned) // apparently there's no std::stou()
    GNDSTK_CONVERT(stoul,  unsigned long)
    GNDSTK_CONVERT(stoull, unsigned long long)
