@@ -14,7 +14,7 @@ template<class DERIVED>
 void toNode(std::string &text, DERIVED &derived) const
 {
    // Use the raw string?
-   if (active == Active::string) {
+   if (active() == Active::string) {
       text = rawstring;
       return;
    }

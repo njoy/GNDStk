@@ -53,6 +53,7 @@ class Values : public Component<Values,true> {
 public:
 
    using Component::construct;
+   using BodyText::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -194,6 +195,19 @@ public:
       }
    {
       Component::finish();
+   }
+
+   // from vector
+   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   Values(const std::vector<T> &vector) :
+      Component{
+         BodyText{},
+         content.length,
+         content.start,
+         content.valueType
+      }
+   {
+      Component::finish(vector);
    }
 
    // ------------------------

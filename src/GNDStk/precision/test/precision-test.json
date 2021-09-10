@@ -1,0 +1,9 @@
+{
+    "inputJSON": ".",
+    "files": [
+        "precision-test-classes.json"
+    ],
+
+    "outputBase": ".",
+    "version": "v1.9"
+}

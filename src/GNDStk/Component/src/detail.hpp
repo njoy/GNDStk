@@ -207,7 +207,6 @@ bool writeComponentPart(
 // for string
 // ------------------------
 
-// label : value
 inline bool writeComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
@@ -257,7 +256,6 @@ public:
    static constexpr bool value = type::value;
 };
 
-// label : value
 template<class T>
 bool writeComponentPart(
    std::ostream &os, const int level, const T &value,
@@ -272,8 +270,10 @@ bool writeComponentPart(
       if constexpr (std::is_floating_point_v<T>) {
          writeComponentPart(
             os, level,
-            detail::Precision<detail::PrecisionContext::metadata,T>{}.
-               write(value),
+            detail::Precision<
+               detail::PrecisionContext::metadata,
+               T
+            >{}.write(value),
             label, maxlen, color
          );
       } else {

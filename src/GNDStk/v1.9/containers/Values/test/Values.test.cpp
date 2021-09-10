@@ -155,7 +155,15 @@ void verifyChunk( const Values& component ) {
   CHECK( 0 == component.start() );
   CHECK( "Float64" == component.valueType().value() );
 
-  CHECK( "2500 8.9172 2550 8.9155" == component.string() );
+  if (component.active() == Values::Active::string) {
+     CHECK( "2500 8.9172 2550 8.9155" == component.string() );
+  } else {
+     CHECK( component.size() == 4 );
+     CHECK( component.get<double>(0) == 2500 );
+     CHECK( component.get<double>(1) == 8.9172 );
+     CHECK( component.get<double>(2) == 2550 );
+     CHECK( component.get<double>(3) == 8.9155 );
+  }
 
   CHECK( 4 == component.size() );
   CHECK( 4 == component.doubles().size() );

@@ -1163,7 +1163,8 @@ void write_class_ctor(
    std::ostream &os,
    const std::string &clname,
    const std::vector<infoMetadata> &vecInfoMetadata,
-   const std::vector<infoChildren> &vecInfoChildren
+   const std::vector<infoChildren> &vecInfoChildren,
+   const bool hasBodyText, const bool hasData
 ) {
    std::size_t count;
    os << "\n";
@@ -1287,6 +1288,24 @@ void write_class_ctor(
 
    // body
    write_ctor_body(os,"");
+
+   // ------------------------
+   // ctor: vector
+   // ------------------------
+
+   if (hasBodyText || hasData) {
+      // signature, and base constructor call
+      os << "\n";
+      os << "   // from vector\n";
+      os << "   template<class T, class = "
+         << "std::enable_if_t<body::template supported<T>>>\n";
+      os << "   " << clname << "(const std::vector<T> &vector) :\n";
+      write_component_base(os, vecInfoMetadata, vecInfoChildren, false);
+
+      // body
+      os << "\n";
+      write_ctor_body(os,"vector");
+   }
 }
 
 
@@ -1515,6 +1534,8 @@ void make_class(
 
    // output: base
    oss << "\n   using Component::construct;\n";
+   if (hasBodyText || hasData)
+      oss << "   using BodyText::operator=;\n";
 
    // output: defaults (applicable only to metadata)
    oss << "\n   " << small;
@@ -1554,7 +1575,10 @@ void make_class(
        << "\n   // Construction"
        << "\n   " << small
        << "\n";
-   write_class_ctor(oss, clname, vecInfoMetadata, vecInfoChildren);
+   write_class_ctor(
+      oss, clname, vecInfoMetadata, vecInfoChildren,
+      hasBodyText, hasData
+   );
 
    // output: class end
    write_class_suffix(oss, file_namespace, clname);

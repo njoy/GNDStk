@@ -1,0 +1,175 @@
+{
+    "namespace": "precision",
+
+    "floats": {
+        "attributes": {
+            "valueType": {
+                "type": "std::string",
+                "default": "",
+                "required": false
+            },
+            "start": {
+                "type": "int",
+                "default": "0",
+                "required": false
+            },
+            "length": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "data": "float",
+        "childNodes": {}
+    },
+
+    "doubles": {
+        "attributes": {
+            "valueType": {
+                "type": "std::string",
+                "default": "",
+                "required": false
+            },
+            "start": {
+                "type": "int",
+                "default": "0",
+                "required": false
+            },
+            "length": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "data": "double",
+        "childNodes": {}
+    },
+
+    "quads": {
+        "attributes": {
+            "valueType": {
+                "type": "std::string",
+                "default": "",
+                "required": false
+            },
+            "start": {
+                "type": "int",
+                "default": "0",
+                "required": false
+            },
+            "length": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "data": "long double",
+        "childNodes": {}
+    },
+
+    "varfloats": {
+        "attributes": {
+            "valueType": {
+                "type": "std::string",
+                "default": "",
+                "required": false
+            },
+            "start": {
+                "type": "int",
+                "default": "0",
+                "required": false
+            },
+            "length": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "bodyText": "foo",
+        "childNodes": {}
+    },
+
+    "vardoubles": {
+        "attributes": {
+            "valueType": {
+                "type": "std::string",
+                "default": "",
+                "required": false
+            },
+            "start": {
+                "type": "int",
+                "default": "0",
+                "required": false
+            },
+            "length": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "bodyText": "foo",
+        "childNodes": {}
+    },
+
+    "varquads": {
+        "attributes": {
+            "valueType": {
+                "type": "std::string",
+                "default": "",
+                "required": false
+            },
+            "start": {
+                "type": "int",
+                "default": "0",
+                "required": false
+            },
+            "length": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "bodyText": "foo",
+        "childNodes": {}
+    },
+
+    "numbers": {
+        "attributes": {
+            "afloat": {
+                "type": "float",
+                "default": "3.141592653589793238462643383279502884197169399375",
+                "required": false
+            },
+            "adouble": {
+                "type": "double",
+                "default": "2.718281828459045235360287471352662497757247093700",
+                "required": false
+            },
+            "aquad": {
+                "type": "long double",
+                "default": "1.414213562373095048801688724209698078569671875377",
+                "required": false
+            }
+        },
+        "childNodes": {
+            "floats": {
+                "occurrence": "1",
+                "required": false
+            },
+            "doubles": {
+                "occurrence": "1",
+                "required": false
+            },
+            "quads": {
+                "occurrence": "1",
+                "required": false
+            },
+            "varfloats": {
+                "occurrence": "1",
+                "required": false
+            },
+            "vardoubles": {
+                "occurrence": "1",
+                "required": false
+            },
+            "varquads": {
+                "occurrence": "1",
+                "required": false
+            }
+        }
+    }
+}

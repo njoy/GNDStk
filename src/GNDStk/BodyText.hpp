@@ -19,6 +19,9 @@ class BodyText {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
    using VariantOfScalars = std::variant<std::monostate>;
+   static inline constexpr bool runtime = false;
+   template<class T>
+   static inline constexpr bool supported = false;
 };
 
 
@@ -40,22 +43,26 @@ public:
 
    #include "GNDStk/BodyText/src/types.hpp"
 
-private:
-
-   // For internal use
-   enum class Active { string, vector };
-   mutable Active active = Active::string;
-
    // For convenience in various SFINAE and if-constexpr constructs
    static inline constexpr bool runtime = detail::isVoid<DATA>;
    template<class T>
    struct is_supported {
       static inline constexpr bool value =
          ( runtime && detail::isAlternative<T,VariantOfScalars>) ||
-         (!runtime && std::is_same_v<T,DATA>);
+         (!runtime && (
+            std::is_constructible_v<DATA,T> ||
+            std::is_convertible_v<T,DATA>
+         ));
    };
    template<class T>
    static inline constexpr bool supported = is_supported<T>::value;
+
+   enum class Active { string, vector };
+
+private:
+
+   // For internal use
+   mutable Active act = Active::string;
 
    // Raw string, directly from "plain character data" in a GNDS file.
    // We'll allow callers to set this by using a setter.
@@ -91,6 +98,9 @@ public:
    // Getters and setters for the raw string:
    #include "GNDStk/BodyText/src/string.hpp"
 
+   // active()
+   Active active() const { return act; }
+
    // clear()
    // Clears the vector, or the active vector alternative in the variant.
    BodyText &clear()
@@ -100,7 +110,7 @@ public:
       else
          vector.clear();
 
-      active = Active::vector;
+      act = Active::vector;
       return *this;
    }
 

@@ -71,11 +71,3 @@ public:
 
     Component::finish(); // ensure that construct() gets called
   }
-
-  template < typename T,
-             typename = std::enable_if_t<
-                detail::isAlternative< T, VariantOfScalars > > >
-  Values( const std::vector< T >& values,
-          const Integer32& start = 0,
-          const UTF8Text& valueType = "Float64" ) :
-    Values( values.size() + start, start, valueType, values ) {}
