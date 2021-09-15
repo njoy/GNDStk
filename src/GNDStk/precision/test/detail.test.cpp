@@ -8,7 +8,7 @@ using namespace njoy::GNDStk::core;
 template<detail::PrecisionContext CONTEXT, class REAL>
 void reset(detail::Precision<CONTEXT,REAL> &p)
 {
-   p << std::defaultfloat << std::right << std::setw(0);
+   p << std::defaultfloat << std::right << std::setw(0) << std::setprecision(6);
 }
 
 // SCENARIO

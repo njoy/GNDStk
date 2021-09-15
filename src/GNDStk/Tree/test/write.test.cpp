@@ -224,12 +224,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // FileType::text
       WHEN("We write() the empty tree using FileType::text") {
          // write()
-         THEN ("We get an empty string (case: FileType::text)") {
+         THEN("We get an empty string (case: FileType::text)") {
             std::ostringstream oss;
             tree.write(oss, FileType::text);
             CHECK(oss.str() == string_empty_tree);
          }
-         THEN ("We get an empty string (case: \"tree\")") {
+         THEN("We get an empty string (case: \"tree\")") {
             std::ostringstream oss;
             tree.write(oss, "text");
             CHECK(oss.str() == string_empty_tree);
@@ -238,17 +238,17 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       WHEN("We write() the empty tree using FileType::null") {
          // write(), using FileType::null (which defaults to tree)
-         THEN ("We get an empty string (case: FileType::null)") {
+         THEN("We get an empty string (case: FileType::null)") {
             std::ostringstream oss;
             tree.write(oss, FileType::null);
             CHECK(oss.str() == string_empty_tree);
          }
-         THEN ("We get an empty string (case: \"null\")") {
+         THEN("We get an empty string (case: \"null\")") {
             std::ostringstream oss;
             tree.write(oss, "null");
             CHECK(oss.str() == string_empty_tree);
          }
-         THEN ("We get an empty string (case: \"\")") {
+         THEN("We get an empty string (case: \"\")") {
             std::ostringstream oss;
             tree.write(oss, "");
             CHECK(oss.str() == string_empty_tree);
@@ -257,7 +257,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       WHEN("We stream-output the empty tree") {
          // <<
-         THEN ("We get an empty string") {
+         THEN("We get an empty string") {
             std::ostringstream oss;
             oss << tree;
             CHECK(oss.str() == string_empty_tree);
@@ -266,12 +266,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       // FileType::xml
       WHEN("We write() the empty tree using FileType::xml") {
-         THEN ("We get XML boilerplate only (case: FileType::xml)") {
+         THEN("We get XML boilerplate only (case: FileType::xml)") {
             std::ostringstream oss;
             tree.write(oss, FileType::xml);
             CHECK(oss.str() == string_empty_xml);
          }
-         THEN ("We get XML boilerplate only (case: \"xml\"))") {
+         THEN("We get XML boilerplate only (case: \"xml\"))") {
             std::ostringstream oss;
             tree.write(oss, "xml");
             CHECK(oss.str() == string_empty_xml);
@@ -280,12 +280,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       // FileType::json
       WHEN("We write() the empty tree using FileType::json") {
-         THEN ("We get JSON \"(null)\" only (case: FileType::json)") {
+         THEN("We get JSON \"(null)\" only (case: FileType::json)") {
             std::ostringstream oss;
             tree.write(oss, FileType::json);
             CHECK(oss.str() == string_empty_json);
          }
-         THEN ("We get JSON \"(null)\" only (case: \"json\")") {
+         THEN("We get JSON \"(null)\" only (case: \"json\")") {
             std::ostringstream oss;
             tree.write(oss, "json");
             CHECK(oss.str() == string_empty_json);
@@ -305,17 +305,17 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // FileType::text
       WHEN("We write() the tree using FileType::text") {
          // write()
-         THEN ("We get the correct tree-format content") {
+         THEN("We get the correct tree-format content") {
             std::ostringstream oss;
             tree.write(oss);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: FileType::text)") {
+         THEN("We get the correct tree-format content (case: FileType::text)") {
             std::ostringstream oss;
             tree.write(oss, FileType::text);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: \"tree\")") {
+         THEN("We get the correct tree-format content (case: \"tree\")") {
             std::ostringstream oss;
             tree.write(oss, "text");
             CHECK(oss.str() == string_real_tree);
@@ -324,22 +324,22 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       WHEN("We write() the tree using FileType::null") {
          // write(), using FileType::null (which defaults to tree)
-         THEN ("We get the correct tree-format content") {
+         THEN("We get the correct tree-format content") {
             std::ostringstream oss;
             tree.write(oss);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: FileType::null)") {
+         THEN("We get the correct tree-format content (case: FileType::null)") {
             std::ostringstream oss;
             tree.write(oss, FileType::null);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: \"null\")") {
+         THEN("We get the correct tree-format content (case: \"null\")") {
             std::ostringstream oss;
             tree.write(oss, "null");
             CHECK(oss.str() == string_real_tree);
          }
-         THEN ("We get the correct tree-format content (case: \"\")") {
+         THEN("We get the correct tree-format content (case: \"\")") {
             std::ostringstream oss;
             tree.write(oss, "");
             CHECK(oss.str() == string_real_tree);
@@ -349,7 +349,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We stream-output the tree") {
          // <<
          std::ostringstream oss;
-         THEN ("We get the correct tree-format content") {
+         THEN("We get the correct tree-format content") {
             oss << tree;
             CHECK(oss.str() == string_real_tree);
          }
@@ -357,12 +357,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       // FileType::xml
       WHEN("We write() the tree using FileType::xml") {
-         THEN ("We get the correct XML content (case: FileType::xml)") {
+         THEN("We get the correct XML content (case: FileType::xml)") {
             std::ostringstream oss;
             tree.write(oss, FileType::xml);
             CHECK(oss.str() == string_real_xml);
          }
-         THEN ("We get the correct XML content (case: \"xml\")") {
+         THEN("We get the correct XML content (case: \"xml\")") {
             std::ostringstream oss;
             tree.write(oss, "xml");
             CHECK(oss.str() == string_real_xml);
@@ -371,12 +371,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
 
       // FileType::json
       WHEN("We write() the tree using FileType::json") {
-         THEN ("We get the correct JSON content (case: FileType::json)") {
+         THEN("We get the correct JSON content (case: FileType::json)") {
             std::ostringstream oss;
             tree.write(oss, FileType::json);
             CHECK(oss.str() == string_real_json);
          }
-         THEN ("We get the correct JSON content (case: \"json\")") {
+         THEN("We get the correct JSON content (case: \"json\")") {
             std::ostringstream oss;
             tree.write(oss, "json");
             CHECK(oss.str() == string_real_json);

@@ -31,7 +31,7 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
 
       // Double parenthesis are needed for the CHECK macro,
       // because of the commas...
-      THEN ("detail::scalarize() works correctly") {
+      THEN("detail::scalarize() works correctly") {
          CHECK((
             std::is_same_v<
                decltype(detail::scalarize(vc{})),
@@ -79,7 +79,7 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
    // ------------------------
 
    GIVEN("Testing detail::hasLength, hasStart, and hasValueType") {
-      WHEN ("A struct's content has length, start, and valueType") {
+      WHEN("A struct's content has length, start, and valueType") {
          struct {
             struct {
                int length;
@@ -87,100 +87,100 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
                const std::string &valueType = bar;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
             CHECK((detail::hasStart    <decltype(foo)> == true));
             CHECK((detail::hasValueType<decltype(foo)> == true));
          }
       }
 
-      WHEN ("A struct's content has start and valueType") {
+      WHEN("A struct's content has start and valueType") {
          struct {
             struct {
                const double start = 0;
                const std::string &valueType = bar;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));
             CHECK((detail::hasStart    <decltype(foo)> == true));
             CHECK((detail::hasValueType<decltype(foo)> == true));
          }
       }
 
-      WHEN ("A struct's content has length and valueType") {
+      WHEN("A struct's content has length and valueType") {
          struct {
             struct {
                int length;
                const std::string &valueType = bar;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
             CHECK((detail::hasStart    <decltype(foo)> == false));
             CHECK((detail::hasValueType<decltype(foo)> == true));
          }
       }
 
-      WHEN ("A struct's content has length and start") {
+      WHEN("A struct's content has length and start") {
          struct {
             struct {
                int length;
                const double start = 0;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
             CHECK((detail::hasStart    <decltype(foo)> == true));
             CHECK((detail::hasValueType<decltype(foo)> == false));
          }
       }
 
-      WHEN ("A struct's content has length") {
+      WHEN("A struct's content has length") {
          struct {
             struct {
                int length;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
             CHECK((detail::hasStart    <decltype(foo)> == false));
             CHECK((detail::hasValueType<decltype(foo)> == false));
          }
       }
 
-      WHEN ("A struct's content has start") {
+      WHEN("A struct's content has start") {
          struct {
             struct {
                const double start = 0;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));
             CHECK((detail::hasStart    <decltype(foo)> == true));
             CHECK((detail::hasValueType<decltype(foo)> == false));
          }
       }
 
-      WHEN ("A struct's content has valueType") {
+      WHEN("A struct's content has valueType") {
          struct {
             struct {
                const std::string &valueType = bar;
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));
             CHECK((detail::hasStart    <decltype(foo)> == false));
             CHECK((detail::hasValueType<decltype(foo)> == true));
          }
       }
 
-      WHEN ("A struct's content has none of length, start, or valueType") {
+      WHEN("A struct's content has none of length, start, or valueType") {
          struct {
             struct {
             } content;
          } foo;
-         THEN ("Our SFINAE helpers detect this") {
+         THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));
             CHECK((detail::hasStart    <decltype(foo)> == false));
             CHECK((detail::hasValueType<decltype(foo)> == false));
@@ -248,51 +248,51 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
       // Various vector<int>s
       // ------------------------
 
-      WHEN ("We try vector<int>s of varying sizes") {
+      WHEN("We try vector<int>s of varying sizes") {
 
-         THEN ("Bounds are correct when size == 0") {
+         THEN("Bounds are correct when size == 0") {
             std::vector<int> v = {};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 0);
          }
 
-         THEN ("Bounds are correct when size == 1, with a 0") {
+         THEN("Bounds are correct when size == 1, with a 0") {
             std::vector<int> v = {0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 1);
             CHECK(bounds.second == 1);
          }
 
-         THEN ("Bounds are correct when size == 2, all 0") {
+         THEN("Bounds are correct when size == 2, all 0") {
             std::vector<int> v = {0, 0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 2);
             CHECK(bounds.second == 2);
          }
 
-         THEN ("Bounds are correct when size == 3, all non-0") {
+         THEN("Bounds are correct when size == 3, all non-0") {
             std::vector<int> v = {2, 3, 5};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 3);
          }
 
-         THEN ("Bounds are correct when there are trailing 0s") {
+         THEN("Bounds are correct when there are trailing 0s") {
             std::vector<int> v = {2, 3, 5, 0, 0, 0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 3);
          }
 
-         THEN ("Bounds are correct when there are leading 0s") {
+         THEN("Bounds are correct when there are leading 0s") {
             std::vector<int> v = {0, 0, 2, 3, 5};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 2);
             CHECK(bounds.second == 5);
          }
 
-         THEN ("Bounds are correct when there are leading and trailing 0s") {
+         THEN("Bounds are correct when there are leading and trailing 0s") {
             std::vector<int> v = {0, 0, 2, 3, 5, 0, 0, 0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 2);
@@ -306,51 +306,51 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
       // Various vector<double>s
       // ------------------------
 
-      WHEN ("We try vector<double>s of varying sizes") {
+      WHEN("We try vector<double>s of varying sizes") {
 
-         THEN ("Bounds are correct when size == 0") {
+         THEN("Bounds are correct when size == 0") {
             std::vector<double> v = {};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 0);
          }
 
-         THEN ("Bounds are correct when size == 1, with a 0") {
+         THEN("Bounds are correct when size == 1, with a 0") {
             std::vector<double> v = {0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 1);
             CHECK(bounds.second == 1);
          }
 
-         THEN ("Bounds are correct when size == 3, all 0") {
+         THEN("Bounds are correct when size == 3, all 0") {
             std::vector<double> v = {0, 0, 0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 3);
             CHECK(bounds.second == 3);
          }
 
-         THEN ("Bounds are correct when size == 3, all non-0") {
+         THEN("Bounds are correct when size == 3, all non-0") {
             std::vector<double> v = {1.2, 3.4, 5.6};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 3);
          }
 
-         THEN ("Bounds are correct when there are trailing 0s") {
+         THEN("Bounds are correct when there are trailing 0s") {
             std::vector<double> v = {1.2, 3.4, 5.6, 0, 0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 3);
          }
 
-         THEN ("Bounds are correct when there are leading 0s") {
+         THEN("Bounds are correct when there are leading 0s") {
             std::vector<double> v = {0, 0, 0, 1.2, 3.4, 5.6};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 3);
             CHECK(bounds.second == 6);
          }
 
-         THEN ("Bounds are correct when there are leading and trailing 0s") {
+         THEN("Bounds are correct when there are leading and trailing 0s") {
             std::vector<double> v = {0, 0, 0, 1.2, 3.4, 5.6, 0, 0};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 3);
@@ -364,51 +364,51 @@ SCENARIO("Testing various BodyText-related detail:: constructs") {
       // Various vector<string>s
       // ------------------------
 
-      WHEN ("We try vector<string>s of varying sizes") {
+      WHEN("We try vector<string>s of varying sizes") {
 
-         THEN ("Bounds are correct when size == \"\"") {
+         THEN("Bounds are correct when size == \"\"") {
             std::vector<std::string> v = {};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 0);
          }
 
-         THEN ("Bounds are correct when size == 1, with a \"\"") {
+         THEN("Bounds are correct when size == 1, with a \"\"") {
             std::vector<std::string> v = {""};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 1);
             CHECK(bounds.second == 1);
          }
 
-         THEN ("Bounds are correct when size == 2, all \"\"") {
+         THEN("Bounds are correct when size == 2, all \"\"") {
             std::vector<std::string> v = {"", ""};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 2);
             CHECK(bounds.second == 2);
          }
 
-         THEN ("Bounds are correct when size == 2, all non-\"\"") {
+         THEN("Bounds are correct when size == 2, all non-\"\"") {
             std::vector<std::string> v = {"abc", "def"};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 2);
          }
 
-         THEN ("Bounds are correct when there are trailing \"\"s") {
+         THEN("Bounds are correct when there are trailing \"\"s") {
             std::vector<std::string> v = {"abc", "def", "", "", ""};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);
             CHECK(bounds.second == 2);
          }
 
-         THEN ("Bounds are correct when there are leading \"\"s") {
+         THEN("Bounds are correct when there are leading \"\"s") {
             std::vector<std::string> v = {"", "", "abc", "def"};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 2);
             CHECK(bounds.second == 4);
          }
 
-         THEN ("Bounds are correct when there are leading and trailing \"\"s") {
+         THEN("Bounds are correct when there are leading and trailing \"\"s") {
             std::vector<std::string> v = {"", "", "abc", "def", "", "", ""};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 2);

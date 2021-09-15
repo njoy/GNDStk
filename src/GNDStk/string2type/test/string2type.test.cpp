@@ -131,63 +131,63 @@ SCENARIO("Testing GNDStk convert(istream/string,type)") {
    }
 
    WHEN("We call convert(string,T) for some integral and floating-point Ts") {
-      THEN ("It works correctly for int") {
+      THEN("It works correctly for int") {
          const std::string str("-123");
          int val;
          convert(str,val);
          CHECK(val == -123);
       }
 
-      THEN ("It works correctly for long") {
+      THEN("It works correctly for long") {
          const std::string str("-123");
          long val;
          convert(str,val);
          CHECK(val == -123);
       }
 
-      THEN ("It works correctly for long long") {
+      THEN("It works correctly for long long") {
          const std::string str("-123");
          long long val;
          convert(str,val);
          CHECK(val == -123);
       }
 
-      THEN ("It works correctly for unsigned") {
+      THEN("It works correctly for unsigned") {
          const std::string str("456");
          unsigned val;
          convert(str,val);
          CHECK(val == 456);
       }
 
-      THEN ("It works correctly for unsigned long") {
+      THEN("It works correctly for unsigned long") {
          const std::string str("456");
          unsigned long val;
          convert(str,val);
          CHECK(val == 456);
       }
 
-      THEN ("It works correctly for unsigned long long") {
+      THEN("It works correctly for unsigned long long") {
          const std::string str("456");
          unsigned long long val;
          convert(str,val);
          CHECK(val == 456);
       }
 
-      THEN ("It works correctly for float") {
+      THEN("It works correctly for float") {
          const std::string str("7.89");
          float val;
          convert(str,val);
          CHECK(val == 7.89f);
       }
 
-      THEN ("It works correctly for double") {
+      THEN("It works correctly for double") {
          const std::string str("7.89");
          double val;
          convert(str,val);
          CHECK(val == 7.89);
       }
 
-      THEN ("It works correctly for long double") {
+      THEN("It works correctly for long double") {
          const std::string str("7.89");
          long double val;
          convert(str,val);

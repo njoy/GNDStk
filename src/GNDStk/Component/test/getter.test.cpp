@@ -315,7 +315,7 @@ public:
 
 SCENARIO("Component getter()") {
 
-   GIVEN ("A class with some vector, variant, and vector<variant> members") {
+   GIVEN("A class with some vector, variant, and vector<variant> members") {
 
       TestGetter t;
       const auto &c = t;
@@ -351,29 +351,29 @@ SCENARIO("Component getter()") {
       // Run various tests
       // ------------------------
 
-      WHEN ("We test Component::getter() for vector") {
-         THEN ("It works on a const object") {
+      WHEN("We test Component::getter() for vector") {
+         THEN("It works on a const object") {
             c.test_vector();
          }
-         THEN ("It works on a non-const object") {
+         THEN("It works on a non-const object") {
             t.test_vector();
          }
       } // WHEN
 
-      WHEN ("We test Component::getter() for variant") {
-         THEN ("It works on a const object") {
+      WHEN("We test Component::getter() for variant") {
+         THEN("It works on a const object") {
             c.test_variant();
          }
-         THEN ("It works on a non-const object") {
+         THEN("It works on a non-const object") {
             t.test_variant();
          }
       } // WHEN
 
-      WHEN ("We test Component::getter() for vector<variant>") {
-         THEN ("It works on a const object") {
+      WHEN("We test Component::getter() for vector<variant>") {
+         THEN("It works on a const object") {
             c.test_vector_of_variant();
          }
-         THEN ("It works on a non-const object") {
+         THEN("It works on a non-const object") {
             t.test_vector_of_variant();
          }
       } // WHEN

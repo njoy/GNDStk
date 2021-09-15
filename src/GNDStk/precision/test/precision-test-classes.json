@@ -64,7 +64,7 @@
         "childNodes": {}
     },
 
-    "varfloats": {
+    "areals": {
         "attributes": {
             "valueType": {
                 "type": "std::string",
@@ -85,28 +85,7 @@
         "childNodes": {}
     },
 
-    "vardoubles": {
-        "attributes": {
-            "valueType": {
-                "type": "std::string",
-                "default": "",
-                "required": false
-            },
-            "start": {
-                "type": "int",
-                "default": "0",
-                "required": false
-            },
-            "length": {
-                "type": "int",
-                "required": false
-            }
-        },
-        "bodyText": "foo",
-        "childNodes": {}
-    },
-
-    "varquads": {
+    "breals": {
         "attributes": {
             "valueType": {
                 "type": "std::string",
@@ -129,19 +108,34 @@
 
     "numbers": {
         "attributes": {
-            "afloat": {
-                "type": "float",
-                "default": "3.141592653589793238462643383279502884197169399375",
-                "required": false
-            },
             "adouble": {
                 "type": "double",
-                "default": "2.718281828459045235360287471352662497757247093700",
+                "default": "1.414213562373095048801688724209698078569671875377",
+                "required": false
+            },
+            "afloat": {
+                "type": "float",
+                "default": "1.732050807568877293527446341505872366942805253810",
                 "required": false
             },
             "aquad": {
                 "type": "long double",
-                "default": "1.414213562373095048801688724209698078569671875377",
+                "default": "2.236067977499789696409173668731276235440618359612",
+                "required": false
+            },
+            "bdouble": {
+                "type": "double",
+                "default": "2.449489742783178098197284074705891391965947480657",
+                "required": false
+            },
+            "bfloat": {
+                "type": "float",
+                "default": "2.645751311064590590501615753639260425710259183082",
+                "required": false
+            },
+            "bquad": {
+                "type": "long double",
+                "default": "2.828427124746190097603377448419396157139343750754",
                 "required": false
             }
         },
@@ -158,15 +152,11 @@
                 "occurrence": "1",
                 "required": false
             },
-            "varfloats": {
+            "areals": {
                 "occurrence": "1",
                 "required": false
             },
-            "vardoubles": {
-                "occurrence": "1",
-                "required": false
-            },
-            "varquads": {
+            "breals": {
                 "occurrence": "1",
                 "required": false
             }
