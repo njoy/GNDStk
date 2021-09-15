@@ -141,7 +141,7 @@ SCENARIO("Precision code in the convert()s between stream and real, "
          CHECK(oss.str() == xml_gndstk_real);
       }
    }
-}
+} // SCENARIO
 
 
 
@@ -175,7 +175,7 @@ SCENARIO("Precision code in BodyText::get(), "
 
    WHEN("We rework a vector<string> into a vector<float>") {
       // Give it data, in the form of a vector<string>.
-      num.areals() = svec;
+      num.reals() = svec;
 
       THEN("We get the expected result") {
          // Rework the vector<string> into a vector<float>.
@@ -185,7 +185,7 @@ SCENARIO("Precision code in BodyText::get(), "
          // settings like what we might give to std::setprecision(). But we do
          // want to test that this particular read-from-string gets correct
          // floating-point numbers.
-         const precision::Areals &r = *num.areals();
+         const precision::Reals &r = *num.reals();
          r.get<std::vector<float>>();
          CHECK(Approx(r.get<float>(0)) == 1.414213562373095049);
          CHECK(Approx(r.get<float>(1)) == 2.718281828459045235);
@@ -198,9 +198,9 @@ SCENARIO("Precision code in BodyText::get(), "
    // ------------------------
 
    WHEN("We rework a vector<string> into a vector<double>") {
-      num.areals() = svec;
+      num.reals() = svec;
       THEN("We get the expected result") {
-         const precision::Areals &r = *num.areals();
+         const precision::Reals &r = *num.reals();
          r.get<std::vector<double>>();
          CHECK(Approx(r.get<double>(0)) == 1.414213562373095049);
          CHECK(Approx(r.get<double>(1)) == 2.718281828459045235);
@@ -213,9 +213,9 @@ SCENARIO("Precision code in BodyText::get(), "
    // ------------------------
 
    WHEN("We rework a vector<string> into a vector<long double>") {
-      num.areals() = svec;
+      num.reals() = svec;
       THEN("We get the expected result") {
-         const precision::Areals &r = *num.areals();
+         const precision::Reals &r = *num.reals();
          r.get<std::vector<long double>>();
          CHECK(Approx(r.get<quad>(0)) == 1.414213562373095049);
          CHECK(Approx(r.get<quad>(1)) == 2.718281828459045235);
@@ -234,32 +234,34 @@ SCENARIO("Precision code in BodyText::get(), "
          std::sqrt(double(5))
       }};
 
+      using precision::key::child::reals;
+
       THEN("data::floats precision has the intended effect") {
-         num.areals() = fvec;
+         num.reals() = fvec;
          data::floats << std::setprecision(4);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "1.414 1.732 2.236");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "1.414 1.732 2.236");
       }
 
       THEN("data::reals precision has the intended effect") {
-         num.areals() = fvec;
+         num.reals() = fvec;
          data::reals << std::setprecision(5);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "1.4142 1.7321 2.2361");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "1.4142 1.7321 2.2361");
       }
 
       THEN("GNDStk::floats precision has the intended effect") {
-         num.areals() = fvec;
+         num.reals() = fvec;
          njoy::GNDStk::floats << std::setprecision(6);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "1.41421 1.73205 2.23607");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "1.41421 1.73205 2.23607");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
-         num.areals() = fvec;
+         num.reals() = fvec;
          njoy::GNDStk::reals << std::setprecision(7);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "1.414214 1.732051 2.236068");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "1.414214 1.732051 2.236068");
       }
    } // WHEN
 
@@ -274,32 +276,34 @@ SCENARIO("Precision code in BodyText::get(), "
          std::sqrt(double(13))
       }};
 
+      using precision::key::child::reals;
+
       THEN("data::doubles precision has the intended effect") {
-         num.areals() = dvec;
+         num.reals() = dvec;
          data::doubles << std::setprecision(4);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "2.646 3.317 3.606");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "2.646 3.317 3.606");
       }
 
       THEN("data::reals precision has the intended effect") {
-         num.areals() = dvec;
+         num.reals() = dvec;
          data::reals << std::setprecision(5);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "2.6458 3.3166 3.6056");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "2.6458 3.3166 3.6056");
       }
 
       THEN("GNDStk::doubles precision has the intended effect") {
-         num.areals() = dvec;
+         num.reals() = dvec;
          njoy::GNDStk::doubles << std::setprecision(6);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "2.64575 3.31662 3.60555");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "2.64575 3.31662 3.60555");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
-         num.areals() = dvec;
+         num.reals() = dvec;
          njoy::GNDStk::reals << std::setprecision(7);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "2.645751 3.316625 3.605551");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "2.645751 3.316625 3.605551");
       }
    } // WHEN
 
@@ -314,35 +318,37 @@ SCENARIO("Precision code in BodyText::get(), "
          std::sqrt(quad(23))
       }};
 
+      using precision::key::child::reals;
+
       THEN("data::longdoubles precision has the intended effect") {
-         num.areals() = qvec;
+         num.reals() = qvec;
          data::longdoubles << std::setprecision(4);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "4.123 4.359 4.796");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "4.123 4.359 4.796");
       }
 
       THEN("data::reals precision has the intended effect") {
-         num.areals() = qvec;
+         num.reals() = qvec;
          data::reals << std::setprecision(5);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "4.1231 4.3589 4.7958");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "4.1231 4.3589 4.7958");
       }
 
       THEN("GNDStk::longdoubles precision has the intended effect") {
-         num.areals() = qvec;
+         num.reals() = qvec;
          njoy::GNDStk::longdoubles << std::setprecision(6);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "4.12311 4.3589 4.79583");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "4.12311 4.3589 4.79583");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
-         num.areals() = qvec;
+         num.reals() = qvec;
          njoy::GNDStk::reals << std::setprecision(7);
-         num.areals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(areals).pcdata() == "4.123106 4.358899 4.795832");
+         num.reals()->get<std::vector<std::string>>();
+         CHECK((Node(num))(reals).pcdata() == "4.123106 4.358899 4.795832");
       }
    } // WHEN
-}
+} // SCENARIO
 
 
 
@@ -361,7 +367,7 @@ SCENARIO("Precision code in BodyText::get(), "
       "2.71828182845904523536028747135266249775724709369995 "
       "3.14159265358979323846264338327950288419716939937510";
    using quad = long double;
-   precision::Areals r;
+   precision::Reals r;
 
    // ------------------------
    // raw string to floats
@@ -409,7 +415,7 @@ SCENARIO("Precision code in BodyText::get(), "
          CHECK(Approx(r.get<quad>(2)) == 3.141592653589793238);
       }
    }
-}
+} // SCENARIO
 
 
 
@@ -432,7 +438,7 @@ SCENARIO("Precision code in BodyText::toNode(), "
       "3.14159265358979323846264338327950288419716939937510"
    }};
 
-   precision::Areals r;
+   precision::Reals r;
 
    // ------------------------
    // floats
@@ -541,7 +547,7 @@ SCENARIO("Precision code in BodyText::toNode(), "
          CHECK((Node(r)).pcdata() == "4.123106 4.358899 4.795832");
       }
    } // WHEN
-}
+} // SCENARIO
 
 
 
@@ -561,11 +567,10 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : 2.44949
    bfloat  : 2.6458
    bquad   : 2.82842712
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    doubles : // optional; has no value
    floats  : // optional; has no value
    quads   : // optional; has no value
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -577,11 +582,10 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : 2.45
    bfloat  : 2.65
    bquad   : 2.83
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    doubles : // optional; has no value
    floats  : // optional; has no value
    quads   : // optional; has no value
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -593,11 +597,10 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : 2.4494897
    bfloat  : 2.64575
    bquad   : 2.828427125
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    doubles : // optional; has no value
    floats  : // optional; has no value
    quads   : // optional; has no value
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -609,11 +612,10 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : 2.449
    bfloat  : 2.646
    bquad   : 2.828
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    doubles : // optional; has no value
    floats  : // optional; has no value
    quads   : // optional; has no value
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -674,7 +676,7 @@ SCENARIO("Precision code in Component::write(), "
          CHECK(oss.str() == printed_gndstk_real);
       }
    }
-}
+} // SCENARIO
 
 
 
@@ -730,8 +732,6 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : // defaulted; is its default (2.449)
    bfloat  : // defaulted; is its default (2.646)
    bquad   : // defaulted; is its default (2.828)
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    precision::Doubles { // GNDS: doubles
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
@@ -753,6 +753,7 @@ R"***(precision::Numbers { // GNDS: numbers
       3.64784473 5.1340091 9.52229725 9.16195068
       6.35711728 7.17296929
    } // precision::Quads
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -764,8 +765,6 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : // defaulted; is its default (2.449)
    bfloat  : // defaulted; is its default (2.646)
    bquad   : // defaulted; is its default (2.828)
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    precision::Doubles { // GNDS: doubles
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
@@ -787,6 +786,7 @@ R"***(precision::Numbers { // GNDS: numbers
       3.65 5.13 9.52 9.16
       6.36 7.17
    } // precision::Quads
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -798,8 +798,6 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : // defaulted; is its default (2.4494897)
    bfloat  : // defaulted; is its default (2.64575)
    bquad   : // defaulted; is its default (2.828427125)
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    precision::Doubles { // GNDS: doubles
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
@@ -821,6 +819,7 @@ R"***(precision::Numbers { // GNDS: numbers
       3.647844728 5.134009102 9.522297252 9.16195068
       6.35711728 7.172969294
    } // precision::Quads
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
 
@@ -832,8 +831,6 @@ R"***(precision::Numbers { // GNDS: numbers
    bdouble : // defaulted; is its default (2.449)
    bfloat  : // defaulted; is its default (2.646)
    bquad   : // defaulted; is its default (2.828)
-   areals  : // optional; has no value
-   breals  : // optional; has no value
    precision::Doubles { // GNDS: doubles
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
@@ -855,8 +852,10 @@ R"***(precision::Numbers { // GNDS: numbers
       3.648 5.134 9.522 9.162
       6.357 7.173
    } // precision::Quads
+   reals   : // optional; has no value
 } // precision::Numbers
 )***";
+
 
 // ------------------------
 // SCENARIO
@@ -918,64 +917,4 @@ SCENARIO("Precision code in BodyText::write(), "
          CHECK(oss.str() == block_gndstk_real);
       }
    }
-}
-
-
-
-// -----------------------------------------------------------------------------
-// SCENARIO
-// -----------------------------------------------------------------------------
-
-SCENARIO("Testing some GNDStk convert() functionality") {
-
-   // todo These relate to some recently-added material,
-   // but really belong elsewhere.
-
-   // ------------------------
-   // string ==> pair
-   // ------------------------
-
-   WHEN("We call convert(stream,pair)") {
-      THEN("It works if the pair's values are comma-separated") {
-         const std::string str = "12,34";
-         std::istringstream iss(str);
-         std::pair<int,long> p;
-         njoy::GNDStk::convert(iss,p);
-         CHECK(p.first  == 12);
-         CHECK(p.second == 34);
-      }
-
-      THEN("It works if the pair's values are space-separated") {
-         const std::string str = "56 78";
-         std::istringstream iss(str);
-         std::pair<int,long> p;
-         njoy::GNDStk::convert(iss,p);
-         CHECK(p.first  == 56);
-         CHECK(p.second == 78);
-      }
-   }
-
-   // ------------------------
-   // pair ==> string
-   // ------------------------
-
-   WHEN("We call convert(pair,stream)") {
-      THEN("It works correctly when GNDStk::comma == false") {
-         njoy::GNDStk::comma = false; // we don't want a comma in the output...
-         const std::pair<int,long> p(12,34);
-         std::ostringstream oss;
-         njoy::GNDStk::convert(p,oss);
-         const std::string str = oss.str();
-         CHECK(str == "12 34"); // ...so, no comma
-      }
-
-      THEN("It works correctly when GNDStk::comma == true") {
-         njoy::GNDStk::comma = true; // we do want a comma in the output...
-         const std::pair<int,long> p(56,78);
-         std::ostringstream oss;
-         njoy::GNDStk::convert(p,oss);
-         const std::string str = oss.str();
-         CHECK(str == "56,78"); // ...so, there it is
-      }
-   }
-}
+} // SCENARIO

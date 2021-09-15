@@ -619,12 +619,12 @@ public:
 
 // -----------------------------------------------------------------------------
 // precision::
-// class Areals
+// class Reals
 // -----------------------------------------------------------------------------
 
 namespace precision {
 
-class Areals : public Component<Areals,true> {
+class Reals : public Component<Reals,true> {
 
    // ------------------------
    // For Component
@@ -634,8 +634,8 @@ class Areals : public Component<Areals,true> {
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "precision"; }
-   static auto className() { return "Areals"; }
-   static auto GNDSName() { return "areals"; }
+   static auto className() { return "Reals"; }
+   static auto GNDSName() { return "reals"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto keys()
@@ -706,17 +706,17 @@ public:
    // ------------------------
 
    // length(value)
-   Areals &length(const std::optional<int> &obj)
+   Reals &length(const std::optional<int> &obj)
     { BodyText::length(length() = obj); return *this; }
 
    // start(value)
-   Areals &start(const Defaulted<int> &obj)
+   Reals &start(const Defaulted<int> &obj)
     { BodyText::start(content.start = obj); return *this; }
-   Areals &start(const std::optional<int> &obj)
+   Reals &start(const std::optional<int> &obj)
     { BodyText::start(content.start = obj); return *this; }
 
    // valueType(value)
-   Areals &valueType(const std::optional<std::string> &obj)
+   Reals &valueType(const std::optional<std::string> &obj)
     { BodyText::valueType(valueType() = obj); return *this; }
 
    // ------------------------
@@ -724,7 +724,7 @@ public:
    // ------------------------
 
    // default
-   Areals() :
+   Reals() :
       Component{
          BodyText{},
          content.length,
@@ -736,7 +736,7 @@ public:
    }
 
    // copy
-   Areals(const Areals &other) :
+   Reals(const Reals &other) :
       Component{
          other,
          content.length,
@@ -749,7 +749,7 @@ public:
    }
 
    // move
-   Areals(Areals &&other) :
+   Reals(Reals &&other) :
       Component{
          other,
          content.length,
@@ -762,7 +762,7 @@ public:
    }
 
    // from node
-   Areals(const Node &node) :
+   Reals(const Node &node) :
       Component{
          BodyText{},
          content.length,
@@ -775,7 +775,7 @@ public:
 
    // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
-   explicit Areals(
+   explicit Reals(
       const std::optional<int> &length,
       const std::optional<int> &start,
       const std::optional<std::string> &valueType
@@ -797,7 +797,7 @@ public:
 
    // from vector
    template<class T, class = std::enable_if_t<body::template supported<T>>>
-   Areals(const std::vector<T> &vector) :
+   Reals(const std::vector<T> &vector) :
       Component{
          BodyText{},
          content.length,
@@ -813,217 +813,11 @@ public:
    // ------------------------
 
    // copy
-   Areals &operator=(const Areals &) = default;
+   Reals &operator=(const Reals &) = default;
 
    // move
-   Areals &operator=(Areals &&) = default;
-}; // class Areals
-
-} // namespace precision
-
-
-
-// -----------------------------------------------------------------------------
-// precision::
-// class Breals
-// -----------------------------------------------------------------------------
-
-namespace precision {
-
-class Breals : public Component<Breals,true> {
-
-   // ------------------------
-   // For Component
-   // ------------------------
-
-   friend class Component;
-
-   // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "precision"; }
-   static auto className() { return "Breals"; }
-   static auto GNDSName() { return "breals"; }
-
-   // Core Interface object to extract metadata and child nodes
-   static auto keys()
-   {
-      return
-         // metadata
-         std::optional<int>{}
-            / Meta<>("length") |
-         Defaulted<int>{0}
-            / Meta<>("start") |
-         std::optional<std::string>{}
-            / Meta<>("valueType")
-      ;
-   }
-
-public:
-
-   using Component::construct;
-   using BodyText::operator=;
-
-   // ------------------------
-   // Relevant defaults
-   // FYI for users
-   // ------------------------
-
-   static inline const struct Defaults {
-      static inline const int start = 0;
-   } defaults;
-
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      mutable std::optional<int> length;
-      mutable Defaulted<int> start{0};
-      mutable std::optional<std::string> valueType;
-   } content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // length
-   const std::optional<int> &length() const
-    { return content.length; }
-   std::optional<int> &length()
-    { return content.length; }
-
-   // start
-   const Defaulted<int> &start() const
-    { return content.start; }
-   Defaulted<int> &start()
-    { return content.start; }
-
-   // valueType
-   const std::optional<std::string> &valueType() const
-    { return content.valueType; }
-   std::optional<std::string> &valueType()
-    { return content.valueType; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // length(value)
-   Breals &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
-
-   // start(value)
-   Breals &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
-   Breals &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
-
-   // valueType(value)
-   Breals &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
-
-   // ------------------------
-   // Construction
-   // ------------------------
-
-   // default
-   Breals() :
-      Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
-      }
-   {
-      Component::finish();
-   }
-
-   // copy
-   Breals(const Breals &other) :
-      Component{
-         other,
-         content.length,
-         content.start,
-         content.valueType
-      },
-      content{other.content}
-   {
-      Component::finish(other);
-   }
-
-   // move
-   Breals(Breals &&other) :
-      Component{
-         other,
-         content.length,
-         content.start,
-         content.valueType
-      },
-      content{std::move(other.content)}
-   {
-      Component::finish(other);
-   }
-
-   // from node
-   Breals(const Node &node) :
-      Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
-      }
-   {
-      Component::finish(node);
-   }
-
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
-   explicit Breals(
-      const std::optional<int> &length,
-      const std::optional<int> &start,
-      const std::optional<std::string> &valueType
-   ) :
-      Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
-      },
-      content{
-         length,
-         Defaulted<int>(defaults.start,start),
-         valueType
-      }
-   {
-      Component::finish();
-   }
-
-   // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
-   Breals(const std::vector<T> &vector) :
-      Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
-      }
-   {
-      Component::finish(vector);
-   }
-
-   // ------------------------
-   // Assignment
-   // ------------------------
-
-   // copy
-   Breals &operator=(const Breals &) = default;
-
-   // move
-   Breals &operator=(Breals &&) = default;
-}; // class Breals
+   Reals &operator=(Reals &&) = default;
+}; // class Reals
 
 } // namespace precision
 
@@ -1067,16 +861,14 @@ class Numbers : public Component<Numbers> {
          Defaulted<long double>{2.828427124746190097603377448419396157139343750754}
             / Meta<>("bquad") |
          // children
-         std::optional<precision::Areals>{}
-            / --Child<>("areals") |
-         std::optional<precision::Breals>{}
-            / --Child<>("breals") |
          std::optional<precision::Doubles>{}
             / --Child<>("doubles") |
          std::optional<precision::Floats>{}
             / --Child<>("floats") |
          std::optional<precision::Quads>{}
-            / --Child<>("quads")
+            / --Child<>("quads") |
+         std::optional<precision::Reals>{}
+            / --Child<>("reals")
       ;
    }
 
@@ -1112,11 +904,10 @@ public:
       Defaulted<long double> bquad{2.828427124746190097603377448419396157139343750754};
 
       // children
-      std::optional<precision::Areals> areals;
-      std::optional<precision::Breals> breals;
       std::optional<precision::Doubles> doubles;
       std::optional<precision::Floats> floats;
       std::optional<precision::Quads> quads;
+      std::optional<precision::Reals> reals;
    } content;
 
    // ------------------------
@@ -1160,18 +951,6 @@ public:
    Defaulted<long double> &bquad()
     { return content.bquad; }
 
-   // areals
-   const std::optional<precision::Areals> &areals() const
-    { return content.areals; }
-   std::optional<precision::Areals> &areals()
-    { return content.areals; }
-
-   // breals
-   const std::optional<precision::Breals> &breals() const
-    { return content.breals; }
-   std::optional<precision::Breals> &breals()
-    { return content.breals; }
-
    // doubles
    const std::optional<precision::Doubles> &doubles() const
     { return content.doubles; }
@@ -1189,6 +968,12 @@ public:
     { return content.quads; }
    std::optional<precision::Quads> &quads()
     { return content.quads; }
+
+   // reals
+   const std::optional<precision::Reals> &reals() const
+    { return content.reals; }
+   std::optional<precision::Reals> &reals()
+    { return content.reals; }
 
    // ------------------------
    // Setters
@@ -1232,14 +1017,6 @@ public:
    Numbers &bquad(const std::optional<long double> &obj)
     { content.bquad = obj; return *this; }
 
-   // areals(value)
-   Numbers &areals(const std::optional<precision::Areals> &obj)
-    { areals() = obj; return *this; }
-
-   // breals(value)
-   Numbers &breals(const std::optional<precision::Breals> &obj)
-    { breals() = obj; return *this; }
-
    // doubles(value)
    Numbers &doubles(const std::optional<precision::Doubles> &obj)
     { doubles() = obj; return *this; }
@@ -1251,6 +1028,10 @@ public:
    // quads(value)
    Numbers &quads(const std::optional<precision::Quads> &obj)
     { quads() = obj; return *this; }
+
+   // reals(value)
+   Numbers &reals(const std::optional<precision::Reals> &obj)
+    { reals() = obj; return *this; }
 
    // ------------------------
    // Construction
@@ -1266,11 +1047,10 @@ public:
          content.bdouble,
          content.bfloat,
          content.bquad,
-         content.areals,
-         content.breals,
          content.doubles,
          content.floats,
-         content.quads
+         content.quads,
+         content.reals
       }
    {
       Component::finish();
@@ -1286,11 +1066,10 @@ public:
          content.bdouble,
          content.bfloat,
          content.bquad,
-         content.areals,
-         content.breals,
          content.doubles,
          content.floats,
-         content.quads
+         content.quads,
+         content.reals
       },
       content{other.content}
    {
@@ -1307,11 +1086,10 @@ public:
          content.bdouble,
          content.bfloat,
          content.bquad,
-         content.areals,
-         content.breals,
          content.doubles,
          content.floats,
-         content.quads
+         content.quads,
+         content.reals
       },
       content{std::move(other.content)}
    {
@@ -1328,11 +1106,10 @@ public:
          content.bdouble,
          content.bfloat,
          content.bquad,
-         content.areals,
-         content.breals,
          content.doubles,
          content.floats,
-         content.quads
+         content.quads,
+         content.reals
       }
    {
       Component::finish(node);
@@ -1347,11 +1124,10 @@ public:
       const std::optional<double> &bdouble,
       const std::optional<float> &bfloat,
       const std::optional<long double> &bquad,
-      const std::optional<precision::Areals> &areals,
-      const std::optional<precision::Breals> &breals,
       const std::optional<precision::Doubles> &doubles,
       const std::optional<precision::Floats> &floats,
-      const std::optional<precision::Quads> &quads
+      const std::optional<precision::Quads> &quads,
+      const std::optional<precision::Reals> &reals
    ) :
       Component{
          BodyText{},
@@ -1361,11 +1137,10 @@ public:
          content.bdouble,
          content.bfloat,
          content.bquad,
-         content.areals,
-         content.breals,
          content.doubles,
          content.floats,
-         content.quads
+         content.quads,
+         content.reals
       },
       content{
          Defaulted<double>(defaults.adouble,adouble),
@@ -1374,11 +1149,10 @@ public:
          Defaulted<double>(defaults.bdouble,bdouble),
          Defaulted<float>(defaults.bfloat,bfloat),
          Defaulted<long double>(defaults.bquad,bquad),
-         areals,
-         breals,
          doubles,
          floats,
-         quads
+         quads,
+         reals
       }
    {
       Component::finish();
@@ -1431,12 +1205,11 @@ namespace key {
 namespace child {
 
 inline const Child<>
-   areals("areals"),
-   breals("breals"),
    doubles("doubles"),
    floats("floats"),
    numbers("numbers"),
-   quads("quads");
+   quads("quads"),
+   reals("reals");
 
 } // namespace child
 using namespace child;

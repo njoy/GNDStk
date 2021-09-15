@@ -194,4 +194,36 @@ SCENARIO("Testing GNDStk convert(istream/string,type)") {
          CHECK(val == 7.89L);
       }
    } // WHEN
-}
+} // SCENARIO
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+SCENARIO("Testing some GNDStk::convert(istream,pair) functionality") {
+
+   // ------------------------
+   // string ==> pair
+   // ------------------------
+
+   WHEN("We call convert(istream,pair)") {
+      THEN("It works if the pair's values are comma-separated") {
+         const std::string str = "12,34";
+         std::istringstream iss(str);
+         std::pair<int,long> p;
+         njoy::GNDStk::convert(iss,p);
+         CHECK(p.first  == 12);
+         CHECK(p.second == 34);
+      }
+
+      THEN("It works if the pair's values are space-separated") {
+         const std::string str = "56 78";
+         std::istringstream iss(str);
+         std::pair<int,long> p;
+         njoy::GNDStk::convert(iss,p);
+         CHECK(p.first  == 56);
+         CHECK(p.second == 78);
+      }
+   }
+} // SCENARIO

@@ -198,4 +198,36 @@ SCENARIO("Testing GNDStk convert(type,ostream/string)") {
          CHECK(str == "7.89");
       }
    } // WHEN
-}
+} // SCENARIO
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+SCENARIO("Testing some GNDStk::convert(pair,ostream) functionality") {
+
+   // ------------------------
+   // pair ==> string
+   // ------------------------
+
+   WHEN("We call convert(pair,ostream)") {
+      THEN("It works correctly when GNDStk::comma == false") {
+         njoy::GNDStk::comma = false; // we don't want a comma in the output...
+         const std::pair<int,long> p(12,34);
+         std::ostringstream oss;
+         njoy::GNDStk::convert(p,oss);
+         const std::string str = oss.str();
+         CHECK(str == "12 34"); // ...so, no comma
+      }
+
+      THEN("It works correctly when GNDStk::comma == true") {
+         njoy::GNDStk::comma = true; // we do want a comma in the output...
+         const std::pair<int,long> p(56,78);
+         std::ostringstream oss;
+         njoy::GNDStk::convert(p,oss);
+         const std::string str = oss.str();
+         CHECK(str == "56,78"); // ...so, there it is
+      }
+   }
+} // SCENARIO

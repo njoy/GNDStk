@@ -64,28 +64,7 @@
         "childNodes": {}
     },
 
-    "areals": {
-        "attributes": {
-            "valueType": {
-                "type": "std::string",
-                "default": "",
-                "required": false
-            },
-            "start": {
-                "type": "int",
-                "default": "0",
-                "required": false
-            },
-            "length": {
-                "type": "int",
-                "required": false
-            }
-        },
-        "bodyText": "foo",
-        "childNodes": {}
-    },
-
-    "breals": {
+    "reals": {
         "attributes": {
             "valueType": {
                 "type": "std::string",
@@ -152,11 +131,7 @@
                 "occurrence": "1",
                 "required": false
             },
-            "areals": {
-                "occurrence": "1",
-                "required": false
-            },
-            "breals": {
+            "reals": {
                 "occurrence": "1",
                 "required": false
             }
