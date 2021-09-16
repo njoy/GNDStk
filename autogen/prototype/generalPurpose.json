@@ -8,8 +8,7 @@
                 "type": "UTF8Text"
             }
         },
-        "childNodes": {},
-        "required": false
+        "childNodes": {}
     },
 
     "XYs1d": {
@@ -41,8 +40,7 @@
                 "occurrence": "1",
                 "required": true
             }
-        },
-        "required": false
+        }
     },
 
     "axes": {
@@ -63,8 +61,7 @@
                 "variant": "axis_grid",
                 "required": false
             }
-        },
-        "required": false
+        }
     },
 
     "axis": {
@@ -82,8 +79,7 @@
                 "type": "XMLName"
             }
         },
-        "childNodes": {},
-        "required": false
+        "childNodes": {}
     },
 
     "grid": {
@@ -121,8 +117,7 @@
                 "variant": "link_values",
                 "required": false
             }
-        },
-        "required": false
+        }
     },
 
     "values": {
@@ -143,8 +138,7 @@
             }
         },
         "bodyText": "Contains a space-delimited ordered list of data for the parent node.",
-        "childNodes": {},
-        "required": false
+        "childNodes": {}
     },
 
     "regions1d": {
@@ -168,7 +162,6 @@
                 "required": true
             }
         },
-        "description": null,
-        "required": false
+        "description": null
     }
 }
