@@ -1,0 +1,26 @@
+{
+    "comment" : [
+        "JSONDir",
+        "   Directory where the listed .json input files are located",
+        "",
+        "GNDSDir",
+        "   Base GNDStk directory into which the autogenerator tool",
+        "   should place src/GNDStk/version.hpp and src/GNDStk/version/*",
+        "",
+        "TO AUTOGENERATE THE PROTOTYPE IN THE REAL GNDStk HIERARCHY",
+        "   Set GNDSDir to .. if you run json2class.exe from within",
+        "   GNDStk/autogen/, where GNDStk/ is the cloned repository",
+        "",
+        "Do NOT end the directories (JSONDir and GNDSDir) with a /"
+    ],
+
+    "JSONDir": "prototype",
+    "JSONFiles": [
+        "generalPurpose.json",
+        "reactionSuite.json"
+    ],
+
+    "GNDSDir": "..",
+    "Version": "v1.9",
+    "Changes": "changes.json"
+}
