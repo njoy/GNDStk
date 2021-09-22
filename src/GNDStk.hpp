@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <charconv>
 #include <chrono>
 #include <cmath>
 #include <cstdint>
@@ -54,6 +55,7 @@ namespace GNDStk {
 
 // basic
 #include "GNDStk/utility.hpp"
+#include "GNDStk/precision.hpp"
 #include "GNDStk/enums.hpp"
 
 // external-library wrappers

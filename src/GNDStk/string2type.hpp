@@ -35,7 +35,6 @@ convert(string,type) for some existing C++ container types.
 */
 
 
-
 // -----------------------------------------------------------------------------
 // convert(istream,T)
 // Default: use operator>>
@@ -45,7 +44,15 @@ convert(string,type) for some existing C++ container types.
 template<class T>
 inline void convert(std::istream &is, T &value)
 {
-   is >> value;
+   if constexpr (std::is_floating_point_v<T>) {
+      std::string str;
+      is >> str;
+      value = detail::Precision<
+         detail::PrecisionContext::metadata,T
+      >{}.read(str);
+   } else {
+      is >> value;
+   }
 }
 
 // pair
@@ -90,7 +97,6 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
 #undef GNDSTK_CONVERT
 
 
-
 // -----------------------------------------------------------------------------
 // convert(string,T)
 // Default: make an istringstream from the string, then use convert(istream,*)
@@ -110,13 +116,11 @@ inline void convert(const std::string &str, T &value)
    }
 }
 
-
 // string
 inline void convert(const std::string &str, std::string &value)
 {
    value = str;
 }
-
 
 // bool
 inline void convert(const std::string &str, bool &value)
@@ -137,7 +141,6 @@ inline void convert(const std::string &str, bool &value)
    }
 }
 
-
 // miscellaneous
 // string-to-T specializations that may be faster than our default
 #define GNDSTK_CONVERT(fun,TYPE) \
@@ -153,9 +156,5 @@ inline void convert(const std::string &str, bool &value)
    GNDSTK_CONVERT(stoul,  unsigned) // apparently there's no std::stou()
    GNDSTK_CONVERT(stoul,  unsigned long)
    GNDSTK_CONVERT(stoull, unsigned long long)
-
-   GNDSTK_CONVERT(stof,   float)
-   GNDSTK_CONVERT(stod,   double)
-   GNDSTK_CONVERT(stold,  long double)
 
 #undef GNDSTK_CONVERT

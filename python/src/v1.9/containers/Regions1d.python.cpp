@@ -29,7 +29,7 @@ void wrapRegions1d(python::module &module)
    python::class_<Component> component(
       module,
       "Regions1d",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -45,27 +45,27 @@ void wrapRegions1d(python::module &module)
          python::arg("outer_domain_value") = std::nullopt,
          python::arg("xys1d"),
          python::arg("axes") = std::nullopt,
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::documentation("label").c_str()
+         Component::documentation("label").data()
       )
       .def_property_readonly(
          "outer_domain_value",
          &Component::outerDomainValue,
-         Component::documentation("outer_domain_value").c_str()
+         Component::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
          "xys1d",
          python::overload_cast<>(&Component::XYs1d),
-         Component::documentation("xys1d").c_str()
+         Component::documentation("xys1d").data()
       )
       .def_property_readonly(
          "axes",
          python::overload_cast<>(&Component::axes),
-         Component::documentation("axes").c_str()
+         Component::documentation("axes").data()
       )
    ;
 

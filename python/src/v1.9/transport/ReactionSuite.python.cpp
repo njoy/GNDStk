@@ -29,7 +29,7 @@ void wrapReactionSuite(python::module &module)
    python::class_<Component> component(
       module,
       "ReactionSuite",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -51,42 +51,42 @@ void wrapReactionSuite(python::module &module)
          python::arg("projectile_frame"),
          python::arg("target"),
          python::arg("reactions") = std::nullopt,
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "evaluation",
          &Component::evaluation,
-         Component::documentation("evaluation").c_str()
+         Component::documentation("evaluation").data()
       )
       .def_property_readonly(
          "format",
          &Component::format,
-         Component::documentation("format").c_str()
+         Component::documentation("format").data()
       )
       .def_property_readonly(
          "interaction",
          &Component::interaction,
-         Component::documentation("interaction").c_str()
+         Component::documentation("interaction").data()
       )
       .def_property_readonly(
          "projectile",
          &Component::projectile,
-         Component::documentation("projectile").c_str()
+         Component::documentation("projectile").data()
       )
       .def_property_readonly(
          "projectile_frame",
          &Component::projectileFrame,
-         Component::documentation("projectile_frame").c_str()
+         Component::documentation("projectile_frame").data()
       )
       .def_property_readonly(
          "target",
          &Component::target,
-         Component::documentation("target").c_str()
+         Component::documentation("target").data()
       )
       .def_property_readonly(
          "reactions",
          python::overload_cast<>(&Component::reactions),
-         Component::documentation("reactions").c_str()
+         Component::documentation("reactions").data()
       )
    ;
 

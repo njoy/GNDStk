@@ -167,10 +167,18 @@ std::enable_if_t<
          to.push_back(zero);
 
       // [-----*****-----]: values from the raw string
-      T element;
       std::istringstream iss(rawstring);
-      while (iss >> element)
-         to.push_back(element);
+      if constexpr (std::is_floating_point_v<T>) {
+         std::string str;
+         while (iss >> str)
+            to.push_back(
+               detail::Precision<detail::PrecisionContext::data,T>{}.read(str)
+            );
+      } else {
+         T element;
+         while (iss >> element)
+            to.push_back(element);
+      }
 
       // Print a warning if length appears to be impossible because we already
       // have more than that number of values. (But length == 0 is ignored.)
@@ -294,9 +302,7 @@ std::enable_if_t<
    T &
 > get(const std::size_t n)
 {
-   return const_cast<T &>(
-      std::as_const(*this).template get<T>(n)
-   );
+   return const_cast<T &>(std::as_const(*this).template get<T>(n));
 }
 
 

@@ -33,7 +33,7 @@ void wrapAxes(python::module &module)
    python::class_<Component> component(
       module,
       "Axes",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -45,17 +45,17 @@ void wrapAxes(python::module &module)
          >(),
          python::arg("href") = std::nullopt,
          python::arg("axis_grid"),
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "href",
          &Component::href,
-         Component::documentation("href").c_str()
+         Component::documentation("href").data()
       )
       .def_property_readonly(
          "axis_grid",
          python::overload_cast<>(&Component::axis_grid),
-         Component::documentation("axis_grid").c_str()
+         Component::documentation("axis_grid").data()
       )
    ;
 

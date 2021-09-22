@@ -109,7 +109,7 @@ public:
     { return content.index; }
 
    // interpolation
-   const enums::Interpolation
+   enums::Interpolation
    interpolation() const
     { return content.interpolation.value(); }
    enums::Interpolation

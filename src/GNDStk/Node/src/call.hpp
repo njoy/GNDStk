@@ -118,7 +118,7 @@ decltype(auto) operator()(
       // C++ doesn't have stream output for regex, which one might think
       // would print the string from which the regex was created. In fact,
       // regex might not even use, or keep, its original string initializer;
-      // thus it doesn't have, say, .str() or .c_str(). All of this is why
+      // thus it doesn't have, say, .str() or .data(). All of this is why
       // the following diagnostic doesn't print label's (regex) value.
       log::member(
          "Node(" + detail::keyname(kwd) + ",label,...) with "

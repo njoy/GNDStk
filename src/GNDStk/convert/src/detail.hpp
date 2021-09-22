@@ -359,7 +359,7 @@ template<class NODE>
 bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 {
    if (!check_special(node,"cdata")) return false;
-   xnode.append_child(pugi::node_cdata).set_value(node.meta("text").c_str());
+   xnode.append_child(pugi::node_cdata).set_value(node.meta("text").data());
    return true;
 }
 
@@ -368,7 +368,7 @@ template<class NODE>
 bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 {
    if (!check_special(node,"pcdata")) return false;
-   xnode.append_child(pugi::node_pcdata).set_value(node.meta("text").c_str());
+   xnode.append_child(pugi::node_pcdata).set_value(node.meta("text").data());
    return true;
 }
 
@@ -377,7 +377,7 @@ template<class NODE>
 bool write_comment(const NODE &node, pugi::xml_node &xnode)
 {
    if (!check_special(node,"comment")) return false;
-   xnode.append_child(pugi::node_comment).set_value(node.meta("text").c_str());
+   xnode.append_child(pugi::node_comment).set_value(node.meta("text").data());
    return true;
 }
 
@@ -388,11 +388,11 @@ template<class NODE>
 bool node2xml(const NODE &node, pugi::xml_node &x)
 {
    // name
-   pugi::xml_node xnode = x.append_child(node.name.c_str());
+   pugi::xml_node xnode = x.append_child(node.name.data());
 
    // metadata
    for (auto &meta : node.metadata)
-      xnode.append_attribute(meta.first.c_str()) = meta.second.c_str();
+      xnode.append_attribute(meta.first.data()) = meta.second.data();
 
    // children
    for (auto &child : node.children) {

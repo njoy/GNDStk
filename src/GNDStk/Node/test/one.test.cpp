@@ -41,7 +41,7 @@ SCENARIO("Testing GNDStk Node one()") {
 
       // filter for nodes that have label="2n + *"
       auto twon = [](const Node &n)
-         { return 0 == strncmp(n(label).c_str(), "2n + ", 5); };
+         { return 0 == strncmp(n(label).data(), "2n + ", 5); };
 
       // case 1
       WHEN("We test node.one(key,filter) const")

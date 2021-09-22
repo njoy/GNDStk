@@ -79,7 +79,7 @@ inline bool convert(const Node &node, XML &x)
             } else
                xdecl = x.doc.append_child(pugi::node_declaration);
             for (auto &meta : c->metadata)
-               xdecl.append_attribute(meta.first.c_str()) = meta.second.c_str();
+               xdecl.append_attribute(meta.first.data()) = meta.second.data();
             found_decl = true;
          } else {
             // looks like a regular node

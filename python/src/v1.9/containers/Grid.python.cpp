@@ -33,7 +33,7 @@ void wrapGrid(python::module &module)
    python::class_<Component> component(
       module,
       "Grid",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -53,47 +53,47 @@ void wrapGrid(python::module &module)
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,
          python::arg("link_values"),
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
          &Component::index,
-         Component::documentation("index").c_str()
+         Component::documentation("index").data()
       )
       .def_property_readonly(
          "interpolation",
          &Component::interpolation,
-         Component::documentation("interpolation").c_str()
+         Component::documentation("interpolation").data()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::documentation("label").c_str()
+         Component::documentation("label").data()
       )
       .def_property_readonly(
          "style",
          &Component::style,
-         Component::documentation("style").c_str()
+         Component::documentation("style").data()
       )
       .def_property_readonly(
          "unit",
          &Component::unit,
-         Component::documentation("unit").c_str()
+         Component::documentation("unit").data()
       )
       .def_property_readonly(
          "link",
          python::overload_cast<>(&Component::link),
-         Component::documentation("link").c_str()
+         Component::documentation("link").data()
       )
       .def_property_readonly(
          "values",
          python::overload_cast<>(&Component::values),
-         Component::documentation("values").c_str()
+         Component::documentation("values").data()
       )
       .def_property_readonly(
          "link_values",
          python::overload_cast<>(&Component::link_values),
-         Component::documentation("link_values").c_str()
+         Component::documentation("link_values").data()
       )
    ;
 

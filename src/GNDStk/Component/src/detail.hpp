@@ -263,11 +263,20 @@ bool writeComponentPart(
    ) {
       value.write(os,level);
    } else {
-      // The ostringstream intermediary allows us to properly indent
-      // in the event that the printed value has internal newlines.
-      std::ostringstream oss;
-      oss << value;///precision?
-      writeComponentPart(os, level, oss.str(), label, maxlen, color);
+      if constexpr (std::is_floating_point_v<T>) {
+         writeComponentPart(
+            os, level,
+            detail::Precision<detail::PrecisionContext::metadata,T>{}.
+               write(value),
+            label, maxlen, color
+         );
+      } else {
+         // The ostringstream intermediary allows us to properly indent
+         // in the event that the printed value has internal newlines.
+         std::ostringstream oss;
+         oss << value;
+         writeComponentPart(os, level, oss.str(), label, maxlen, color);
+      }
    }
    return true;
 }

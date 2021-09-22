@@ -33,7 +33,7 @@ void wrapCrossSection(python::module &module)
    python::class_<Component> component(
       module,
       "CrossSection",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -43,12 +43,12 @@ void wrapCrossSection(python::module &module)
             const std::vector<XYS1D_REGIONS1D> &
          >(),
          python::arg("XYs1d_regions1d"),
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "XYs1d_regions1d",
          python::overload_cast<>(&Component::XYs1d_regions1d),
-         Component::documentation("XYs1d_regions1d").c_str()
+         Component::documentation("XYs1d_regions1d").data()
       )
    ;
 

@@ -26,6 +26,7 @@ SCENARIO("Component write()") {
 
          THEN ("Component's write() function gives the correct result") {
             // Component's operator<< calls its write(ostream,0)
+            njoy::GNDStk::reals << std::setprecision(8) << std::scientific;
             oss << suite << std::endl;
             CHECK(oss.str() == CorrectWriteText());
          }

@@ -38,7 +38,7 @@ SCENARIO("Testing GNDStk Node many()") {
 
          // filter that requires: Node has metadata label="n + *"
          auto nplus = [](const Node &n)
-            { return 0 == strncmp(n(label).c_str(), "n + ", 4); };
+            { return 0 == strncmp(n(label).data(), "n + ", 4); };
 
          // filter that requires: Node has metadata ENDF_MT="600"
          auto endf_mt_600 = [](const Node &n)
