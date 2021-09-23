@@ -1871,7 +1871,15 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       const auto pythonname = toPythonName(m.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         &Component::" << m.varName << ",\n";
+      if (m.isDefaulted) {
+
+         cpp << "         [] ( const Component& self ) { return self." 
+             << m.varName << "().value(); },\n";
+      }
+      else {
+
+         cpp << "         &Component::" << m.varName << ",\n";
+      }
       cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
       cpp << "      )\n";
    }
