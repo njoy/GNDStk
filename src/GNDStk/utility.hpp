@@ -178,11 +178,12 @@ inline bool comments = true;
 
 // For printing.
 // When writing a Component with its generic write() function (or its stream
-// output, which uses write()), and the Component is based on a BodyText<true>,
-// values will be printed with GNDStk::columns across. "columns" is aliased to
-// "across" for convenience, because, at the time of this writing, GNDStk has
-// a Meta<> object, named "columns", which would also be in scope if the core
-// namespace is used. So, a user might prefer to use the name "across".
+// output, which uses write()), AND the Component is based on a BodyText with
+// hasBodyText == true, values will be printed with GNDStk::columns across.
+// "columns" is aliased to "across" for convenience, because, at the time of
+// this writing, GNDStk has a Meta<> object, named "columns", which would also
+// be in scope if the core namespace is used. So, a user might prefer to use
+// the name "across".
 inline std::size_t columns = 4;
 inline std::size_t &across = columns;
 
@@ -561,24 +562,27 @@ inline constexpr bool isAlternativeOrTheVariant =
    is_alternativeOrTheVariant<T,VARIANT>::value;
 
 // ------------------------
-// isVoid
+// is_void
 // ------------------------
 
 // general
 template<class T>
-class isVoid {
+class is_void {
 public:
    static constexpr bool value = false;
 };
 
 // void
 template<>
-class isVoid<void> {
+class is_void<void> {
 public:
    static constexpr bool value = true;
    using type = void;
 };
 
+// isVoid
+template<class T>
+inline constexpr bool isVoid = is_void<T>::value;
 
 // ------------------------
 // isNotVoid

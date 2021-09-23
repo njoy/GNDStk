@@ -55,7 +55,7 @@ auto &getter(
 // These, in contrast to the getter()s above, don't involve a vector or an
 // optional vector, or an index or a label. We bother having these only because
 // of the (admittedly small, in this case) extra complexity of checking that
-// the variant holds the requested alternative, and of dealing with diagnostics
+// the variant holds the requested alternative, and of producing diagnostics
 // if it doesn't.
 // -----------------------------------------------------------------------------
 

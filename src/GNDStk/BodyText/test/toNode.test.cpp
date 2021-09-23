@@ -4,17 +4,23 @@
 
 using namespace njoy::GNDStk::core;
 
+
 // -----------------------------------------------------------------------------
-// Scenario
+// Helper
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText toNode()") {
-
+// Tests use either void for each template parameter, or Integer32, Float64,
+// std::string, and char, in that order. In the former case, we're testing
+// toNode() for the generic BodyText<...,void>. In the latter case, we're
+// testing toNode() for non-generic BodyText.
+template<class INTEGER, class FLOAT, class STRING, class CHAR>
+void scenario_toNode()
+{
    // Default-constructed BodyText
    GIVEN("A default-constructed BodyText") {
       WHEN("toNode() is called") {
          THEN("The computed text string is empty") {
-            const BodyText<true> b;
+            const BodyText<true,INTEGER> b;
 
             std::string text = "abc";
             struct {
@@ -40,7 +46,7 @@ SCENARIO("BodyText toNode()") {
          THEN("The computed text string is as expected, "
               "and the parameters remain as given"
          ) {
-            BodyText<true> b;
+            BodyText<true,INTEGER> b;
             b.string("0 12 34 56 0 0")
              .start(100).length(200).valueType("hello");
 
@@ -80,7 +86,7 @@ SCENARIO("BodyText toNode()") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true> b;
+            BodyText<true,INTEGER> b;
             // what's set here should be replaced upon assignment from vector
             b.string("a b c").start(10).length(20).valueType("foobar");
 
@@ -118,7 +124,7 @@ SCENARIO("BodyText toNode()") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true> b;
+            BodyText<true,FLOAT> b;
             // what's set here should be replaced upon assignment from vector
             b.string("d e f").start(100).length(200).valueType("foobar");
 
@@ -158,7 +164,7 @@ SCENARIO("BodyText toNode()") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true> b;
+            BodyText<true,STRING> b;
             // what's set here should be replaced upon assignment from vector
             b.string("d e f").start(100).length(200).valueType("foobar");
 
@@ -201,7 +207,7 @@ SCENARIO("BodyText toNode()") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true> b;
+            BodyText<true,CHAR> b;
             // what's set here should be replaced upon assignment from vector
             b.string("x y z").start(100).length(200).valueType("foobar");
 
@@ -236,7 +242,7 @@ SCENARIO("BodyText toNode()") {
                   int ignored = 12345;
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             // toNode doesn't care about what's *not* length/start/valueType...
@@ -250,7 +256,7 @@ SCENARIO("BodyText toNode()") {
                   int length = 0;
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -263,7 +269,7 @@ SCENARIO("BodyText toNode()") {
                   int start = 0;
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.start == 2);
@@ -276,7 +282,7 @@ SCENARIO("BodyText toNode()") {
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.valueType == "Integer32");
@@ -290,7 +296,7 @@ SCENARIO("BodyText toNode()") {
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.start == 2);
@@ -305,7 +311,7 @@ SCENARIO("BodyText toNode()") {
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -320,7 +326,7 @@ SCENARIO("BodyText toNode()") {
                   int start = 0;
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -336,15 +342,26 @@ SCENARIO("BodyText toNode()") {
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true> b; std::string text;
+            BodyText<true,INTEGER> b; std::string text;
             b = std::vector<Integer32>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
             CHECK(derived.content.start == 2);
             CHECK(derived.content.valueType == "Integer32");
          }
-
       }
    }
+}
 
-} // SCENARIO
+
+// -----------------------------------------------------------------------------
+// Scenario
+// -----------------------------------------------------------------------------
+
+SCENARIO("BodyText<DATA == void> toNode()") {
+   scenario_toNode<void,void,void,void>();
+}
+
+SCENARIO("BodyText<DATA != void> toNode()") {
+   scenario_toNode<Integer32,Float64,std::string,char>();
+}

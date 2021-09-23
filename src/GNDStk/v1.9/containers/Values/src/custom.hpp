@@ -38,7 +38,7 @@ public:
 
   template < typename T,
              typename = std::enable_if_t<
-                detail::isAlternative< std::vector<T>, VariantOfVectors > > >
+                detail::isAlternative< T, VariantOfScalars > > >
   Values( const std::optional< Integer32 >& length,
           const std::optional< Integer32 >& start,
           const std::optional< UTF8Text >& valueType,
@@ -61,6 +61,6 @@ public:
 
   template < typename T,
              typename = std::enable_if_t<
-                detail::isAlternative< std::vector<T>, VariantOfVectors > > >
+                detail::isAlternative< T, VariantOfScalars > > >
   Values( const std::vector< T >& values ) :
     Values( std::nullopt, std::nullopt, std::nullopt, values ) {}

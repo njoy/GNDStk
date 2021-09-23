@@ -2,14 +2,14 @@
 // -----------------------------------------------------------------------------
 // BodyText::toNode
 // This is called by Component's conversion-to-Node (not toNode()) function.
-// It's "toNode()" here, not a conversion, because we're simply writing data
-// into a piece of the Node that's made in Component's conversion-to-Node;
-// we're not doing the conversion-to-Node itself here.
+// It's "toNode()" here, not a conversion, because we're simply writing text
+// that Component's full conversion-to-Node will place into the Node itself.
 // -----------------------------------------------------------------------------
 
-// Use the original raw string or the vector, depending on which one is active.
-// Also: length, start, and valueType might be computed - which means changing
-// them in the derived class too, in order to keep everything consistent.
+// Use either (1) the original raw string, or (2) the variant of vectors or the
+// vector (depending on DATA ==/!= void), based on whether or not the string
+// is active. length, start, and valueType might be computed too, in which case
+// they're also changed in the derived class in order to keep things consistent.
 template<class DERIVED>
 void toNode(std::string &text, DERIVED &derived) const
 {
@@ -21,39 +21,58 @@ void toNode(std::string &text, DERIVED &derived) const
 
    // Use the vector...
    const bool isStringVector =
-      std::holds_alternative<std::vector<std::string>>(variant);
-   if (isStringVector && !trim &&
-       // only bother with the warning if trim would make a difference...
-       size() > 0 &&
-       (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
+      ( runtime && std::holds_alternative<std::vector<std::string>>(variant)) ||
+      (!runtime && std::is_same_v<std::string,DATA>);
+
+   if constexpr (
+        runtime ||
+      (!runtime && std::is_same_v<std::string,DATA>)
    ) {
-      log::warning(
-         "BodyText.toNode() called with BodyText "
-         "trim flag == false, but active\n"
-         "data are in a vector<string>. Printing "
-         "leading/trailing empty strings\n"
-         "won't preserve them, so we'll treat as if trim == true."
-      );
+      // the run-time if's get<std::string>() calls below won't
+      // necessarily make sense without the above if-constexpr
+      if (isStringVector && !trim &&
+          // only bother with the warning if trim would make a difference...
+          size() > 0 &&
+          (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
+      ) {
+         log::warning(
+            "BodyText.toNode() called with BodyText "
+            "trim flag == false, but active\n"
+            "data are in a vector<string>. Printing "
+            "leading/trailing empty strings\n"
+            "won't preserve them, so we'll treat as if trim == true."
+         );
+      }
    }
 
    // Re: leading/trailing 0s
    const auto bounds =
       trim || isStringVector
+    ? runtime
     ? std::visit([](auto &&vec) { return detail::getBounds(vec); }, variant)
-    : std::pair<std::size_t,std::size_t>(0,size());
+    : detail::getBounds(vector)
+    : std::make_pair(size_t(0),size());
 
    // Compute length, start, and valueType
    vars.length = size(); // independent of trim
    vars.start  = bounds.first; // dependent on trim, per the bounds computation
-   vars.valueType =
-      std::holds_alternative<std::vector<Integer32>>(variant) ? "Integer32"
-    : std::holds_alternative<std::vector<Float64  >>(variant) ? "Float64"
-    : ""; // fallback
+   if constexpr (runtime) {
+      vars.valueType =
+         std::holds_alternative<std::vector<Integer32>>(variant) ? "Integer32"
+       : std::holds_alternative<std::vector<Float64  >>(variant) ? "Float64"
+       : ""; // fallback
+   } else {
+      vars.valueType =
+         std::is_same_v<Integer32,DATA> ? "Integer32"
+       : std::is_same_v<Float64,  DATA> ? "Float64"
+       : ""; // fallback
+   }
    pushToDerived(derived);
 
    // Values
    std::ostringstream oss;
-   std::visit(
+
+   const auto toNodeLambda =
       [bounds,&oss](auto &&vec)
       {
          using T = std::decay_t<decltype(vec[0])>;
@@ -69,8 +88,12 @@ void toNode(std::string &text, DERIVED &derived) const
                oss << vec[i];
             }
          }
-      },
-      variant
-   );
+      };
+
+   if constexpr (runtime)
+      std::visit(toNodeLambda,variant);
+   else
+      toNodeLambda(vector);
+
    text = oss.str();
 }

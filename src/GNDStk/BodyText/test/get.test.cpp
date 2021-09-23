@@ -7,332 +7,350 @@ using namespace njoy::GNDStk::core;
 
 
 // -----------------------------------------------------------------------------
-// Scenario: get<vector>()
+// 1. Scenario: get<vector>()
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText get<vector>()") {
+// Helper
+template<class INTEGER, class FLOAT, class STRING, class UNSIGNED>
+void scenario_get_vector()
+{
+   // We'll deal with these vector types for the test. They should cover
+   // sufficient cases (Integer32, Float64, string, and none of the above)
+   // that we get good coverage, without this test being excessively long.
+   using ivec = std::vector<Integer32>;
+   using fvec = std::vector<Float64>;
+   using svec = std::vector<std::string>;
+   using uvec = std::vector<unsigned>;
 
+   // We'll leave valueType at its default of "", which is compatible with
+   // every possible get<T> type T. This simply means we won't get spammed
+   // with warnings about the asked-for T possibly being incompatible with
+   // valueType. Either way - with or without a "" for valueType - get<T>
+   // gives us back a vector<T>.
+
+   // ------------------------
+   // vector<Integer32>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,INTEGER> b; b.start(0).length(0).string("");
+      CHECK((b.template get<ivec>() == ivec{})); }
+   { BodyText<true,INTEGER> b; b.start(0).length(4).string("");
+      CHECK((b.template get<ivec>() == ivec{{0,0,0,0}})); }
+   { BodyText<true,INTEGER> b; b.start(1).length(5).string("");
+      CHECK((b.template get<ivec>() == ivec{{0,0,0,0,0}})); }
+   { BodyText<true,INTEGER> b; b.start(2).length(6).string("");
+      CHECK((b.template get<ivec>() == ivec{{0,0,0,0,0,0}})); }
+
+   // 1 element in string
+   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12");
+      CHECK((b.template get<ivec>() == ivec(1,-12))); }
+   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12");
+      CHECK((b.template get<ivec>() == ivec{{-12,0,0,0}})); }
+   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12");
+      CHECK((b.template get<ivec>() == ivec{{0,-12,0,0,0}})); }
+   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12");
+      CHECK((b.template get<ivec>() == ivec{{0,0,-12,0,0,0}})); }
+
+   // 3 elements in string
+   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
+      CHECK((b.template get<ivec>() == ivec{{-12,34,-56}})); }
+   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
+      CHECK((b.template get<ivec>() == ivec{{-12,34,-56,0}})); }
+   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
+      CHECK((b.template get<ivec>() == ivec{{0,-12,34,-56,0}})); }
+   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
+      CHECK((b.template get<ivec>() == ivec{{0,0,-12,34,-56,0}})); }
+
+   // ------------------------
+   // vector<Float64>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,FLOAT> b; b.start(0).length(0).string("");
+      CHECK((b.template get<fvec>() == fvec{})); }
+   { BodyText<true,FLOAT> b; b.start(0).length(4).string("");
+      CHECK((b.template get<fvec>() == fvec{{0,0,0,0}})); }
+   { BodyText<true,FLOAT> b; b.start(1).length(5).string("");
+      CHECK((b.template get<fvec>() == fvec{{0,0,0,0,0}})); }
+   { BodyText<true,FLOAT> b; b.start(2).length(6).string("");
+      CHECK((b.template get<fvec>() == fvec{{0,0,0,0,0,0}})); }
+
+   // 1 element in string
+   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2");
+      CHECK((b.template get<fvec>() == fvec(1,1.2))); }
+   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2");
+      CHECK((b.template get<fvec>() == fvec{{1.2,0,0,0}})); }
+   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2");
+      CHECK((b.template get<fvec>() == fvec{{0,1.2,0,0,0}})); }
+   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2");
+      CHECK((b.template get<fvec>() == fvec{{0,0,1.2,0,0,0}})); }
+
+   // 3 elements in string
+   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
+      CHECK((b.template get<fvec>() == fvec{{1.2,3.4,5.6}})); }
+   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
+      CHECK((b.template get<fvec>() == fvec{{1.2,3.4,5.6,0}})); }
+   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
+      CHECK((b.template get<fvec>() == fvec{{0,1.2,3.4,5.6,0}})); }
+   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
+      CHECK((b.template get<fvec>() == fvec{{0,0,1.2,3.4,5.6,0}})); }
+
+   // ------------------------
+   // vector<std::string>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,STRING> b; b.start(0).length(0).string("");
+      CHECK((b.template get<svec>() == svec{})); }
+   { BodyText<true,STRING> b; b.start(0).length(4).string("");
+      CHECK((b.template get<svec>() == svec{{"","","",""}})); }
+   { BodyText<true,STRING> b; b.start(1).length(5).string("");
+      CHECK((b.template get<svec>() == svec{{"","","","",""}})); }
+   { BodyText<true,STRING> b; b.start(2).length(6).string("");
+      CHECK((b.template get<svec>() == svec{{"","","","","",""}})); }
+
+   // 1 element in string
+   { BodyText<true,STRING> b; b.start(0).length(0).string("ab");
+      CHECK((b.template get<svec>() == svec(1,"ab"))); }
+   { BodyText<true,STRING> b; b.start(0).length(4).string("ab");
+      CHECK((b.template get<svec>() == svec{{"ab","","",""}})); }
+   { BodyText<true,STRING> b; b.start(1).length(5).string("ab");
+      CHECK((b.template get<svec>() == svec{{"","ab","","",""}})); }
+   { BodyText<true,STRING> b; b.start(2).length(6).string("ab");
+      CHECK((b.template get<svec>() == svec{{"","","ab","","",""}})); }
+
+   // 3 elements in string
+   { BodyText<true,STRING> b; b.start(0).length(0).string("ab cd ef");
+      CHECK((b.template get<svec>() == svec{{"ab","cd","ef"}})); }
+   { BodyText<true,STRING> b; b.start(0).length(4).string("ab cd ef");
+      CHECK((b.template get<svec>() == svec{{"ab","cd","ef",""}})); }
+   { BodyText<true,STRING> b; b.start(1).length(5).string("ab cd ef");
+      CHECK((b.template get<svec>() == svec{{"","ab","cd","ef",""}})); }
+   { BodyText<true,STRING> b; b.start(2).length(6).string("ab cd ef");
+      CHECK((b.template get<svec>() == svec{{"","","ab","cd","ef",""}})); }
+
+   // ------------------------
+   // vector<unsigned>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("");
+      CHECK((b.template get<uvec>() == uvec{})); }
+   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("");
+      CHECK((b.template get<uvec>() == uvec{{0,0,0,0}})); }
+   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("");
+      CHECK((b.template get<uvec>() == uvec{{0,0,0,0,0}})); }
+   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("");
+      CHECK((b.template get<uvec>() == uvec{{0,0,0,0,0,0}})); }
+
+   // 1 element in string
+   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12");
+      CHECK((b.template get<uvec>() == uvec(1,12))); }
+   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12");
+      CHECK((b.template get<uvec>() == uvec{{12,0,0,0}})); }
+   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12");
+      CHECK((b.template get<uvec>() == uvec{{0,12,0,0,0}})); }
+   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12");
+      CHECK((b.template get<uvec>() == uvec{{0,0,12,0,0,0}})); }
+
+   // 3 elements in string
+   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12 34 56");
+      CHECK((b.template get<uvec>() == uvec{{12,34,56}})); }
+   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12 34 56");
+      CHECK((b.template get<uvec>() == uvec{{12,34,56,0}})); }
+   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12 34 56");
+      CHECK((b.template get<uvec>() == uvec{{0,12,34,56,0}})); }
+   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12 34 56");
+      CHECK((b.template get<uvec>() == uvec{{0,0,12,34,56,0}})); }
+}
+
+// For BodyText<DATA == void>
+SCENARIO("BodyText<DATA == void> get<vector>()") {
+   GIVEN("A BodyText object") {
+      scenario_get_vector<void,void,void,void>();
+   }
+}
+
+// For BodyText<DATA != void>
+SCENARIO("BodyText<DATA != void> get<vector>()") {
+   GIVEN("A BodyText object") {
+      scenario_get_vector<Integer32,Float64,std::string,unsigned>();
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// 2. Scenario: get<T>(n)
+// -----------------------------------------------------------------------------
+
+// Helper
+template<class INTEGER, class FLOAT, class STRING, class UNSIGNED>
+void scenario_get_template_n()
+{
+   // ------------------------
+   // vector<Integer32>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,INTEGER> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BodyText<true,INTEGER> b; b.start(0).length(4).string("");
+      CHECK(b.template get<Integer32>(1) == 0); }
+   { BodyText<true,INTEGER> b; b.start(1).length(5).string("");
+      CHECK(b.template get<Integer32>(2) == 0); }
+   { BodyText<true,INTEGER> b; b.start(2).length(6).string("");
+      CHECK(b.template get<Integer32>(3) == 0); }
+
+   // 1 element in string
+   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12");
+      CHECK(b.template get<Integer32>(0) == -12); }
+   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12");
+      CHECK(b.template get<Integer32>(1) == 0); }
+   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12");
+      CHECK(b.template get<Integer32>(2) == 0); }
+   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12");
+      CHECK(b.template get<Integer32>(3) == 0); }
+
+   // 3 elements in string
+   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
+      CHECK(b.template get<Integer32>(0) == -12); }
+   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
+      CHECK(b.template get<Integer32>(1) == 34); }
+   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
+      CHECK(b.template get<Integer32>(2) == 34); }
+   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
+      CHECK(b.template get<Integer32>(3) == 34); }
+
+   // ------------------------
+   // vector<Float64>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,FLOAT> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BodyText<true,FLOAT> b; b.start(0).length(4).string("");
+      CHECK(b.template get<Float64>(1) == 0); }
+   { BodyText<true,FLOAT> b; b.start(1).length(5).string("");
+      CHECK(b.template get<Float64>(2) == 0); }
+   { BodyText<true,FLOAT> b; b.start(2).length(6).string("");
+      CHECK(b.template get<Float64>(3) == 0); }
+
+   // 1 element in string
+   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2");
+      CHECK(b.template get<Float64>(0) == 1.2); }
+   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2");
+      CHECK(b.template get<Float64>(1) == 0); }
+   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2");
+      CHECK(b.template get<Float64>(2) == 0); }
+   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2");
+      CHECK(b.template get<Float64>(3) == 0); }
+
+   // 3 elements in string
+   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
+      CHECK(b.template get<Float64>(0) == 1.2); }
+   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
+      CHECK(b.template get<Float64>(1) == 3.4); }
+   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
+      CHECK(b.template get<Float64>(2) == 3.4); }
+   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
+      CHECK(b.template get<Float64>(3) == 3.4); }
+
+   // ------------------------
+   // vector<std::string>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,STRING> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BodyText<true,STRING> b; b.start(0).length(4).string("");
+      CHECK(b.template get<std::string>(1) == ""); }
+   { BodyText<true,STRING> b; b.start(1).length(5).string("");
+      CHECK(b.template get<std::string>(2) == ""); }
+   { BodyText<true,STRING> b; b.start(2).length(6).string("");
+      CHECK(b.template get<std::string>(3) == ""); }
+
+   // 1 element in string
+   { BodyText<true,STRING> b; b.start(0).length(0).string("ab");
+      CHECK(b.template get<std::string>(0) == "ab"); }
+   { BodyText<true,STRING> b; b.start(0).length(4).string("ab");
+      CHECK(b.template get<std::string>(1) == ""); }
+   { BodyText<true,STRING> b; b.start(1).length(5).string("ab");
+      CHECK(b.template get<std::string>(2) == ""); }
+   { BodyText<true,STRING> b; b.start(2).length(6).string("ab");
+      CHECK(b.template get<std::string>(3) == ""); }
+
+   // 3 elements in string
+   { BodyText<true,STRING> b; b.start(0).length(0).string("ab cd ef");
+      CHECK(b.template get<std::string>(0) == "ab"); }
+   { BodyText<true,STRING> b; b.start(0).length(4).string("ab cd ef");
+      CHECK(b.template get<std::string>(1) == "cd"); }
+   { BodyText<true,STRING> b; b.start(1).length(5).string("ab cd ef");
+      CHECK(b.template get<std::string>(2) == "cd"); }
+   { BodyText<true,STRING> b; b.start(2).length(6).string("ab cd ef");
+      CHECK(b.template get<std::string>(3) == "cd"); }
+
+   // ------------------------
+   // vector<unsigned>
+   // ------------------------
+
+   // 0 elements in string
+   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("");
+      CHECK(b.template get<unsigned>(1) == 0); }
+   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("");
+      CHECK(b.template get<unsigned>(2) == 0); }
+   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("");
+      CHECK(b.template get<unsigned>(3) == 0); }
+
+   // 1 element in string
+   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12");
+      CHECK(b.template get<unsigned>(0) == 12); }
+   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12");
+      CHECK(b.template get<unsigned>(1) == 0); }
+   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12");
+      CHECK(b.template get<unsigned>(2) == 0); }
+   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12");
+      CHECK(b.template get<unsigned>(3) == 0); }
+
+   // 3 elements in string
+   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12 34 56");
+      CHECK(b.template get<unsigned>(0) == 12); }
+   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12 34 56");
+      CHECK(b.template get<unsigned>(1) == 34); }
+   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12 34 56");
+      CHECK(b.template get<unsigned>(2) == 34); }
+   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12 34 56");
+      CHECK(b.template get<unsigned>(3) == 34); }
+}
+
+// For BodyText<DATA == void>
+SCENARIO("BodyText<DATA == void> get<T>(n)") {
+   GIVEN("A BodyText object") {
+      scenario_get_template_n<void,void,void,void>();
+   }
+}
+
+// For BodyText<DATA != void>
+SCENARIO("BodyText<DATA != void> get<T>(n)") {
+   GIVEN("A BodyText object") {
+      scenario_get_template_n<Integer32,Float64,std::string,unsigned>();
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// 3. Scenario: get()
+// -----------------------------------------------------------------------------
+
+// For BodyText<DATA == void>
+SCENARIO("BodyText<DATA == void> get()") {
    GIVEN("A BodyText object") {
 
-      // We'll deal with these vector types for the test. They should cover
-      // sufficient cases (Integer32, Float64, string, and none of the above)
-      // that we get good coverage, without this test being excessively long.
       using ivec = std::vector<Integer32>;
       using fvec = std::vector<Float64>;
       using svec = std::vector<std::string>;
-      using uvec = std::vector<unsigned>;
 
-      // We'll leave valueType at its default of "", which is compatible with
-      // every possible get<T> type T. This simply means we won't get spammed
-      // with warnings about the asked-for T possibly being incompatible with
-      // valueType. Either way - with or without a "" for valueType - get<T>
-      // gives us back a vector<T>.
-
-      // ------------------------
-      // vector<Integer32>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
-         CHECK((b.get<ivec>() == ivec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK((b.get<ivec>() == ivec{{0,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK((b.get<ivec>() == ivec{{0,0,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK((b.get<ivec>() == ivec{{0,0,0,0,0,0}})); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("-12");
-         CHECK((b.get<ivec>() == ivec(1,-12))); }
-      { BodyText<true> b; b.start(0).length(4).string("-12");
-         CHECK((b.get<ivec>() == ivec{{-12,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("-12");
-         CHECK((b.get<ivec>() == ivec{{0,-12,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("-12");
-         CHECK((b.get<ivec>() == ivec{{0,0,-12,0,0,0}})); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("-12 34 -56");
-         CHECK((b.get<ivec>() == ivec{{-12,34,-56}})); }
-      { BodyText<true> b; b.start(0).length(4).string("-12 34 -56");
-         CHECK((b.get<ivec>() == ivec{{-12,34,-56,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("-12 34 -56");
-         CHECK((b.get<ivec>() == ivec{{0,-12,34,-56,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("-12 34 -56");
-         CHECK((b.get<ivec>() == ivec{{0,0,-12,34,-56,0}})); }
-
-      // ------------------------
-      // vector<Float64>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
-         CHECK((b.get<fvec>() == fvec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK((b.get<fvec>() == fvec{{0,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK((b.get<fvec>() == fvec{{0,0,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK((b.get<fvec>() == fvec{{0,0,0,0,0,0}})); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2");
-         CHECK((b.get<fvec>() == fvec(1,1.2))); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2");
-         CHECK((b.get<fvec>() == fvec{{1.2,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2");
-         CHECK((b.get<fvec>() == fvec{{0,1.2,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2");
-         CHECK((b.get<fvec>() == fvec{{0,0,1.2,0,0,0}})); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2 3.4 5.6");
-         CHECK((b.get<fvec>() == fvec{{1.2,3.4,5.6}})); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2 3.4 5.6");
-         CHECK((b.get<fvec>() == fvec{{1.2,3.4,5.6,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2 3.4 5.6");
-         CHECK((b.get<fvec>() == fvec{{0,1.2,3.4,5.6,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2 3.4 5.6");
-         CHECK((b.get<fvec>() == fvec{{0,0,1.2,3.4,5.6,0}})); }
-
-      // ------------------------
-      // vector<std::string>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
-         CHECK((b.get<svec>() == svec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK((b.get<svec>() == svec{{"","","",""}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK((b.get<svec>() == svec{{"","","","",""}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK((b.get<svec>() == svec{{"","","","","",""}})); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("ab");
-         CHECK((b.get<svec>() == svec(1,"ab"))); }
-      { BodyText<true> b; b.start(0).length(4).string("ab");
-         CHECK((b.get<svec>() == svec{{"ab","","",""}})); }
-      { BodyText<true> b; b.start(1).length(5).string("ab");
-         CHECK((b.get<svec>() == svec{{"","ab","","",""}})); }
-      { BodyText<true> b; b.start(2).length(6).string("ab");
-         CHECK((b.get<svec>() == svec{{"","","ab","","",""}})); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("ab cd ef");
-         CHECK((b.get<svec>() == svec{{"ab","cd","ef"}})); }
-      { BodyText<true> b; b.start(0).length(4).string("ab cd ef");
-         CHECK((b.get<svec>() == svec{{"ab","cd","ef",""}})); }
-      { BodyText<true> b; b.start(1).length(5).string("ab cd ef");
-         CHECK((b.get<svec>() == svec{{"","ab","cd","ef",""}})); }
-      { BodyText<true> b; b.start(2).length(6).string("ab cd ef");
-         CHECK((b.get<svec>() == svec{{"","","ab","cd","ef",""}})); }
-
-      // ------------------------
-      // vector<unsigned>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("");
-         CHECK((b.get<uvec>() == uvec{})); }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK((b.get<uvec>() == uvec{{0,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK((b.get<uvec>() == uvec{{0,0,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK((b.get<uvec>() == uvec{{0,0,0,0,0,0}})); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("12");
-         CHECK((b.get<uvec>() == uvec(1,12))); }
-      { BodyText<true> b; b.start(0).length(4).string("12");
-         CHECK((b.get<uvec>() == uvec{{12,0,0,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("12");
-         CHECK((b.get<uvec>() == uvec{{0,12,0,0,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("12");
-         CHECK((b.get<uvec>() == uvec{{0,0,12,0,0,0}})); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("12 34 56");
-         CHECK((b.get<uvec>() == uvec{{12,34,56}})); }
-      { BodyText<true> b; b.start(0).length(4).string("12 34 56");
-         CHECK((b.get<uvec>() == uvec{{12,34,56,0}})); }
-      { BodyText<true> b; b.start(1).length(5).string("12 34 56");
-         CHECK((b.get<uvec>() == uvec{{0,12,34,56,0}})); }
-      { BodyText<true> b; b.start(2).length(6).string("12 34 56");
-         CHECK((b.get<uvec>() == uvec{{0,0,12,34,56,0}})); }
-
-   } // GIVEN
-
-} // SCENARIO
-
-
-
-// -----------------------------------------------------------------------------
-// Scenario: get<T>(n)
-// -----------------------------------------------------------------------------
-
-SCENARIO("BodyText get<T>(n)") {
-
-   GIVEN("A BodyText object") {
-
-      using ivec = std::vector<Integer32>;
-      using fvec = std::vector<Float64>;
-      using svec = std::vector<std::string>;
-
-      // ------------------------
-      // vector<Integer32>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK(b.get<Integer32>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK(b.get<Integer32>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK(b.get<Integer32>(3) == 0); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("-12");
-         CHECK(b.get<Integer32>(0) == -12); }
-      { BodyText<true> b; b.start(0).length(4).string("-12");
-         CHECK(b.get<Integer32>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("-12");
-         CHECK(b.get<Integer32>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("-12");
-         CHECK(b.get<Integer32>(3) == 0); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("-12 34 -56");
-         CHECK(b.get<Integer32>(0) == -12); }
-      { BodyText<true> b; b.start(0).length(4).string("-12 34 -56");
-         CHECK(b.get<Integer32>(1) == 34); }
-      { BodyText<true> b; b.start(1).length(5).string("-12 34 -56");
-         CHECK(b.get<Integer32>(2) == 34); }
-      { BodyText<true> b; b.start(2).length(6).string("-12 34 -56");
-         CHECK(b.get<Integer32>(3) == 34); }
-
-      // ------------------------
-      // vector<Float64>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK(b.get<Float64>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK(b.get<Float64>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK(b.get<Float64>(3) == 0); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2");
-         CHECK(b.get<Float64>(0) == 1.2); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2");
-         CHECK(b.get<Float64>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2");
-         CHECK(b.get<Float64>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2");
-         CHECK(b.get<Float64>(3) == 0); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("1.2 3.4 5.6");
-         CHECK(b.get<Float64>(0) == 1.2); }
-      { BodyText<true> b; b.start(0).length(4).string("1.2 3.4 5.6");
-         CHECK(b.get<Float64>(1) == 3.4); }
-      { BodyText<true> b; b.start(1).length(5).string("1.2 3.4 5.6");
-         CHECK(b.get<Float64>(2) == 3.4); }
-      { BodyText<true> b; b.start(2).length(6).string("1.2 3.4 5.6");
-         CHECK(b.get<Float64>(3) == 3.4); }
-
-      // ------------------------
-      // vector<std::string>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK(b.get<std::string>(1) == ""); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK(b.get<std::string>(2) == ""); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK(b.get<std::string>(3) == ""); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("ab");
-         CHECK(b.get<std::string>(0) == "ab"); }
-      { BodyText<true> b; b.start(0).length(4).string("ab");
-         CHECK(b.get<std::string>(1) == ""); }
-      { BodyText<true> b; b.start(1).length(5).string("ab");
-         CHECK(b.get<std::string>(2) == ""); }
-      { BodyText<true> b; b.start(2).length(6).string("ab");
-         CHECK(b.get<std::string>(3) == ""); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("ab cd ef");
-         CHECK(b.get<std::string>(0) == "ab"); }
-      { BodyText<true> b; b.start(0).length(4).string("ab cd ef");
-         CHECK(b.get<std::string>(1) == "cd"); }
-      { BodyText<true> b; b.start(1).length(5).string("ab cd ef");
-         CHECK(b.get<std::string>(2) == "cd"); }
-      { BodyText<true> b; b.start(2).length(6).string("ab cd ef");
-         CHECK(b.get<std::string>(3) == "cd"); }
-
-      // ------------------------
-      // vector<unsigned>
-      // ------------------------
-
-      // 0 elements in string
-      { BodyText<true> b; b.start(0).length(0).string(""); /* no elements */ }
-      { BodyText<true> b; b.start(0).length(4).string("");
-         CHECK(b.get<unsigned>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("");
-         CHECK(b.get<unsigned>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("");
-         CHECK(b.get<unsigned>(3) == 0); }
-
-      // 1 element in string
-      { BodyText<true> b; b.start(0).length(0).string("12");
-         CHECK(b.get<unsigned>(0) == 12); }
-      { BodyText<true> b; b.start(0).length(4).string("12");
-         CHECK(b.get<unsigned>(1) == 0); }
-      { BodyText<true> b; b.start(1).length(5).string("12");
-         CHECK(b.get<unsigned>(2) == 0); }
-      { BodyText<true> b; b.start(2).length(6).string("12");
-         CHECK(b.get<unsigned>(3) == 0); }
-
-      // 3 elements in string
-      { BodyText<true> b; b.start(0).length(0).string("12 34 56");
-         CHECK(b.get<unsigned>(0) == 12); }
-      { BodyText<true> b; b.start(0).length(4).string("12 34 56");
-         CHECK(b.get<unsigned>(1) == 34); }
-      { BodyText<true> b; b.start(1).length(5).string("12 34 56");
-         CHECK(b.get<unsigned>(2) == 34); }
-      { BodyText<true> b; b.start(2).length(6).string("12 34 56");
-         CHECK(b.get<unsigned>(3) == 34); }
-
-   } // GIVEN
-
-} // SCENARIO
-
-
-
-// -----------------------------------------------------------------------------
-// Scenario: get()
-// -----------------------------------------------------------------------------
-
-SCENARIO("BodyText get()") {
-
-   GIVEN("A BodyText object") {
-
-      using ivec = std::vector<Integer32>;
-      using fvec = std::vector<Float64>;
-      using svec = std::vector<std::string>;
-
-      BodyText<true> b;
+      BodyText<true,void> b;
 
       b.start(2).length(6).string("-12 34 -56");
       b.valueType("Integer32");
@@ -356,20 +374,49 @@ SCENARIO("BodyText get()") {
       CHECK((std::get<svec>(b.get()) == svec{{"","","ab","cd","ef",""}}));
 
    } // GIVEN
+} // SCENARIO
 
+
+// For BodyText<DATA != void>
+SCENARIO("BodyText<DATA != void> get()") {
+   GIVEN("A BodyText object") {
+
+      using ivec = std::vector<Integer32>;
+      using fvec = std::vector<Float64>;
+      using svec = std::vector<std::string>;
+
+      {
+         BodyText<true,Integer32> b;
+         b.start(2).length(6).string("-12 34 -56");
+         CHECK((b.get() == ivec{{0,0,-12,34,-56,0}}));
+      }
+
+      {
+         BodyText<true,Float64> b;
+         b.start(2).length(6).string("1.2 3.4 5.6");
+         CHECK((b.get() == fvec{{0,0,1.2,3.4,5.6,0}}));
+      }
+
+      {
+         BodyText<true,std::string> b;
+         b.start(2).length(6).string("ab cd ef");
+         CHECK((b.get() == svec{{"","","ab","cd","ef",""}}));
+      }
+
+   } // GIVEN
 } // SCENARIO
 
 
 
 // -----------------------------------------------------------------------------
-// Scenario: get(n)
+// 4. Scenario: get(n)
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText get(n)") {
-
+// For BodyText<DATA == void>
+SCENARIO("BodyText<DATA == void> get(n)") {
    GIVEN("A BodyText object") {
 
-      BodyText<true> b;
+      BodyText<true,void> b;
 
       // ------------------------
       // get(n) form
@@ -464,82 +511,183 @@ SCENARIO("BodyText get(n)") {
       CHECK(( std::get<std::string>( b[5] ) == ""   ));
 
    } // GIVEN
-
 } // SCENARIO
 
 
-
-// -----------------------------------------------------------------------------
-// Scenario: doubles() etc.
-// -----------------------------------------------------------------------------
-
-SCENARIO("BodyText type-specific get functions: doubles() etc.") {
-
+// For BodyText<DATA != void>
+SCENARIO("BodyText<DATA != void> get(n)") {
    GIVEN("A BodyText object") {
-
-      BodyText<true> b;
 
       // ------------------------
       // get(n) form
       // ------------------------
 
-      b.start(2).length(6).string("-12 34 -56");
-      auto ints = b.ints();
-      CHECK((std::is_same_v<decltype(ints),
-             std::vector<int>>));
+      {
+         BodyText<true,Integer32> b;
+         b.start(2).length(6).string("-12 34 -56");
+         CHECK(( b.get(0) ==   0 ));
+         CHECK(( b.get(1) ==   0 ));
+         CHECK(( b.get(2) == -12 ));
+         CHECK(( b.get(3) ==  34 ));
+         CHECK(( b.get(4) == -56 ));
+         CHECK(( b.get(5) ==   0 ));
+      }
 
-      CHECK(ints[0] ==   0 );
-      CHECK(ints[1] ==   0 );
-      CHECK(ints[2] == -12 );
-      CHECK(ints[3] ==  34 );
-      CHECK(ints[4] == -56 );
-      CHECK(ints[5] ==   0 );
+      {
+         BodyText<true,Float64> b;
+         b.start(2).length(6).string("1.2 3.4 5.6");
+         CHECK(( b.get(0) == 0   ));
+         CHECK(( b.get(1) == 0   ));
+         CHECK(( b.get(2) == 1.2 ));
+         CHECK(( b.get(3) == 3.4 ));
+         CHECK(( b.get(4) == 5.6 ));
+         CHECK(( b.get(5) == 0   ));
+      }
 
-      CHECK(ints[0] == b.ints(0) );
-      CHECK(ints[1] == b.ints(1) );
-      CHECK(ints[2] == b.ints(2) );
-      CHECK(ints[3] == b.ints(3) );
-      CHECK(ints[4] == b.ints(4) );
-      CHECK(ints[5] == b.ints(5) );
+      {
+         BodyText<true,std::string> b;
+         b.start(2).length(8).string("ab cd ef 123 4.5");
+         CHECK(( b.get(0) == ""   ));
+         CHECK(( b.get(1) == ""   ));
+         CHECK(( b.get(2) == "ab" ));
+         CHECK(( b.get(3) == "cd" ));
+         CHECK(( b.get(4) == "ef" ));
+         CHECK(( b.get(5) == "123"));
+         CHECK(( b.get(6) == "4.5"));
+         CHECK(( b.get(7) == ""   ));
+      }
 
-      b.start(2).length(6).string("1.2 3.4 5.6");
-      const auto doubles = b.doubles();
-      CHECK((std::is_same_v<decltype(doubles),
-             const std::vector<double>>));
+      // ------------------------
+      // operator[] form
+      // ------------------------
 
-      CHECK(doubles[0] == 0   );
-      CHECK(doubles[1] == 0   );
-      CHECK(doubles[2] == 1.2 );
-      CHECK(doubles[3] == 3.4 );
-      CHECK(doubles[4] == 5.6 );
-      CHECK(doubles[5] == 0   );
+      {
+         BodyText<true,Integer32> b;
+         b.start(2).length(6).string("-12 34 -56");
+         CHECK(( b[0] ==   0 ));
+         CHECK(( b[1] ==   0 ));
+         CHECK(( b[2] == -12 ));
+         CHECK(( b[3] ==  34 ));
+         CHECK(( b[4] == -56 ));
+         CHECK(( b[5] ==   0 ));
+      }
 
-      CHECK(doubles[0] == b.doubles(0) );
-      CHECK(doubles[1] == b.doubles(1) );
-      CHECK(doubles[2] == b.doubles(2) );
-      CHECK(doubles[3] == b.doubles(3) );
-      CHECK(doubles[4] == b.doubles(4) );
-      CHECK(doubles[5] == b.doubles(5) );
+      {
+         BodyText<true,Float64> b;
+         b.start(2).length(6).string("1.2 3.4 5.6");
+         CHECK(( b[0] == 0   ));
+         CHECK(( b[1] == 0   ));
+         CHECK(( b[2] == 1.2 ));
+         CHECK(( b[3] == 3.4 ));
+         CHECK(( b[4] == 5.6 ));
+         CHECK(( b[5] == 0   ));
+      }
 
-      b.start(2).length(6).string("ab cd ef");
-      const auto &strings = b.strings();
-      CHECK((std::is_same_v<decltype(strings),
-             const std::vector<std::string> &>));
-
-      CHECK(strings[0] == ""   );
-      CHECK(strings[1] == ""   );
-      CHECK(strings[2] == "ab" );
-      CHECK(strings[3] == "cd" );
-      CHECK(strings[4] == "ef" );
-      CHECK(strings[5] == ""   );
-
-      CHECK(strings[0] == b.strings(0) );
-      CHECK(strings[1] == b.strings(1) );
-      CHECK(strings[2] == b.strings(2) );
-      CHECK(strings[3] == b.strings(3) );
-      CHECK(strings[4] == b.strings(4) );
-      CHECK(strings[5] == b.strings(5) );
+      {
+         BodyText<true,std::string> b;
+         b.start(2).length(6).string("ab cd ef");
+         CHECK(( b[0] == ""   ));
+         CHECK(( b[1] == ""   ));
+         CHECK(( b[2] == "ab" ));
+         CHECK(( b[3] == "cd" ));
+         CHECK(( b[4] == "ef" ));
+         CHECK(( b[5] == ""   ));
+      }
 
    } // GIVEN
-
 } // SCENARIO
+
+
+
+// -----------------------------------------------------------------------------
+// 5. Scenario: doubles() etc.
+// -----------------------------------------------------------------------------
+
+// Helper
+template<class INT, class DOUBLE, class STRING>
+void scenario_get_named()
+{
+   {
+      BodyText<true,INT> b;
+
+      b.start(2).length(6).string("-12 34 -56");
+      auto result = b.ints();
+      CHECK((std::is_same_v<decltype(result),
+             std::vector<int>>));
+
+      CHECK(result[0] ==   0 );
+      CHECK(result[1] ==   0 );
+      CHECK(result[2] == -12 );
+      CHECK(result[3] ==  34 );
+      CHECK(result[4] == -56 );
+      CHECK(result[5] ==   0 );
+
+      CHECK(result[0] == b.ints(0) );
+      CHECK(result[1] == b.ints(1) );
+      CHECK(result[2] == b.ints(2) );
+      CHECK(result[3] == b.ints(3) );
+      CHECK(result[4] == b.ints(4) );
+      CHECK(result[5] == b.ints(5) );
+   }
+
+   {
+      BodyText<true,DOUBLE> b;
+
+      b.start(2).length(6).string("1.2 3.4 5.6");
+      const BodyText<true,DOUBLE> &bconst = b; // ensure it works with const
+      const auto result = bconst.doubles();
+      CHECK((std::is_same_v<decltype(result),
+             const std::vector<double>>));
+
+      CHECK(result[0] == 0   );
+      CHECK(result[1] == 0   );
+      CHECK(result[2] == 1.2 );
+      CHECK(result[3] == 3.4 );
+      CHECK(result[4] == 5.6 );
+      CHECK(result[5] == 0   );
+
+      CHECK(result[0] == bconst.doubles(0) );
+      CHECK(result[1] == bconst.doubles(1) );
+      CHECK(result[2] == bconst.doubles(2) );
+      CHECK(result[3] == bconst.doubles(3) );
+      CHECK(result[4] == bconst.doubles(4) );
+      CHECK(result[5] == bconst.doubles(5) );
+   }
+
+   {
+      BodyText<true,STRING> b;
+
+      b.start(2).length(6).string("ab cd ef");
+      const auto &result = b.strings();
+      CHECK((std::is_same_v<decltype(result),
+             const std::vector<std::string> &>));
+
+      CHECK(result[0] == ""   );
+      CHECK(result[1] == ""   );
+      CHECK(result[2] == "ab" );
+      CHECK(result[3] == "cd" );
+      CHECK(result[4] == "ef" );
+      CHECK(result[5] == ""   );
+
+      CHECK(result[0] == b.strings(0) );
+      CHECK(result[1] == b.strings(1) );
+      CHECK(result[2] == b.strings(2) );
+      CHECK(result[3] == b.strings(3) );
+      CHECK(result[4] == b.strings(4) );
+      CHECK(result[5] == b.strings(5) );
+   }
+}
+
+// For BodyText<DATA == void>
+SCENARIO("BodyText<DATA == void> type-specific get functions: doubles() etc.") {
+   GIVEN("A BodyText object") {
+      scenario_get_named<void,void,void>();
+   }
+}
+
+// For BodyText<DATA != void>
+SCENARIO("BodyText<DATA != void> type-specific get functions: doubles() etc.") {
+   GIVEN("A BodyText object") {
+      scenario_get_named<int,double,std::string>();
+   }
+}

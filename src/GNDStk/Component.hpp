@@ -13,12 +13,13 @@ using helpMap = std::map<std::string,std::string>;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText>
-class Component : public BodyText<hasBodyText>
+template<class DERIVED, bool hasBodyText, class DATA>
+class Component : public BodyText<hasBodyText,DATA>
 {
    // For convenience
-   using body = BodyText<hasBodyText>;
+   using body = BodyText<hasBodyText,DATA>;
    using typename body::VariantOfVectors;
+   using typename body::VariantOfScalars;
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -107,10 +108,10 @@ public:
 // ostream << Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText>
+template<class DERIVED, bool hasBodyText, class DATA>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,hasBodyText> &obj
+   const Component<DERIVED,hasBodyText,DATA> &obj
 ) {
    return obj.write(os);
 }

@@ -1,5 +1,5 @@
 {
-    "input": "v1.9",
+    "inputJSON": "v1.9",
     "files": [
         "summary_abstract.json",
         "summary_appData.json",
@@ -19,6 +19,6 @@
         "summary_tsl.json"
     ],
 
-    "output": "v1.9",
+    "outputBase": "..",
     "version": "v1.9"
 }

@@ -27,7 +27,7 @@ template<
    class TYPE = void
 >
 static Meta<
-   typename detail::isVoid<TYPE>::type // ensure TYPE == void
+   typename detail::is_void<TYPE>::type // ensure TYPE == void
 > meta(
    const std::string &name
 ) {

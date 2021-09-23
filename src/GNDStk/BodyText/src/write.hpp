@@ -31,7 +31,7 @@ std::ostream &write(std::ostream &os, const int level) const
    // Indentation (string, with some number of spaces)
    const auto indent = std::string(GNDStk::indent*level,' ');
 
-   std::visit(
+   const auto writeLambda =
       [&os,&indent](auto &&alt)
       {
          std::size_t count = 0;
@@ -59,9 +59,12 @@ std::ostream &write(std::ostream &os, const int level) const
 
             count++;
          };
-      },
-      variant
-   );
+      };
+
+   if constexpr (runtime)
+      std::visit(writeLambda,variant);
+   else
+      writeLambda(vector);
 
    return os << std::endl;
 }
