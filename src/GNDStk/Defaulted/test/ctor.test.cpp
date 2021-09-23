@@ -18,7 +18,7 @@ SCENARIO("Testing Defaulted<T>'s constructors") {
    }
 
    // Defaulted(default, value)
-   WHEN("We construct a Defaulted(default value,value)") {
+   WHEN("We construct a Defaulted(default value, value)") {
       const Defaulted<int> d(123,456);
       THEN("Its value is the provided value, not the provided default") {
          CHECK(d == 456);
@@ -27,7 +27,7 @@ SCENARIO("Testing Defaulted<T>'s constructors") {
    }
 
    // Defaulted(default, optional)
-   WHEN("We construct a Defaulted(default value,optional)") {
+   WHEN("We construct a Defaulted(default value, optional)") {
       THEN("It works as expected when the optional "
            "is default constructed") {
          const Defaulted<int> d(123,std::optional<int>());
@@ -48,7 +48,7 @@ SCENARIO("Testing Defaulted<T>'s constructors") {
    }
 
    // Defaulted(default, nullopt)
-   WHEN("We construct a Defaulted(default value,nullopt)") {
+   WHEN("We construct a Defaulted(default value, nullopt)") {
       const Defaulted<int> d(123,std::nullopt);
       THEN("Its value is the provided default") {
          CHECK(d == 123);

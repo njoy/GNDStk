@@ -75,8 +75,8 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+   static inline const struct Defaults {
+      static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
    // ------------------------
@@ -101,67 +101,51 @@ public:
    // ------------------------
 
    // index
-   const std::optional<Integer32> &
-   index() const
+   const std::optional<Integer32> &index() const
     { return content.index; }
-   std::optional<Integer32> &
-   index()
+   std::optional<Integer32> &index()
     { return content.index; }
 
    // interpolation
-   enums::Interpolation
-   interpolation() const
-    { return content.interpolation.value(); }
-   enums::Interpolation
-   interpolation()
-    { return content.interpolation.value(); }
+   const Defaulted<enums::Interpolation> &interpolation() const
+    { return content.interpolation; }
+   Defaulted<enums::Interpolation> &interpolation()
+    { return content.interpolation; }
 
    // label
-   const std::optional<XMLName> &
-   label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   std::optional<XMLName> &
-   label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // style
-   const std::optional<enums::GridStyle> &
-   style() const
+   const std::optional<enums::GridStyle> &style() const
     { return content.style; }
-   std::optional<enums::GridStyle> &
-   style()
+   std::optional<enums::GridStyle> &style()
     { return content.style; }
 
    // unit
-   const std::optional<XMLName> &
-   unit() const
+   const std::optional<XMLName> &unit() const
     { return content.unit; }
-   std::optional<XMLName> &
-   unit()
+   std::optional<XMLName> &unit()
     { return content.unit; }
 
    // link_values
-   const LINK_VALUES &
-   link_values() const
+   const LINK_VALUES &link_values() const
     { return content.link_values; }
-   LINK_VALUES &
-   link_values()
+   LINK_VALUES &link_values()
     { return content.link_values; }
 
    // link
-   const containers::Link *
-   link() const
+   const containers::Link *link() const
     { return getter<containers::Link>(link_values(), "link"); }
-   containers::Link *
-   link()
+   containers::Link *link()
     { return getter<containers::Link>(link_values(), "link"); }
 
    // values
-   const containers::Values *
-   values() const
+   const containers::Values *values() const
     { return getter<containers::Values>(link_values(), "values"); }
-   containers::Values *
-   values()
+   containers::Values *values()
     { return getter<containers::Values>(link_values(), "values"); }
 
    // ------------------------
@@ -171,37 +155,37 @@ public:
    // ------------------------
 
    // index(value)
-   auto &index(const std::optional<Integer32> &obj)
+   Grid &index(const std::optional<Integer32> &obj)
     { index() = obj; return *this; }
 
    // interpolation(value)
-   auto &interpolation(const Defaulted<enums::Interpolation> &obj)
+   Grid &interpolation(const Defaulted<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
-   auto &interpolation(const enums::Interpolation &obj)
+   Grid &interpolation(const std::optional<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   Grid &label(const std::optional<XMLName> &obj)
     { label() = obj; return *this; }
 
    // style(value)
-   auto &style(const std::optional<enums::GridStyle> &obj)
+   Grid &style(const std::optional<enums::GridStyle> &obj)
     { style() = obj; return *this; }
 
    // unit(value)
-   auto &unit(const std::optional<XMLName> &obj)
+   Grid &unit(const std::optional<XMLName> &obj)
     { unit() = obj; return *this; }
 
    // link_values(value)
-   auto &link_values(const LINK_VALUES &obj)
+   Grid &link_values(const LINK_VALUES &obj)
     { link_values() = obj; return *this; }
 
    // link(value)
-   auto &link(const std::optional<containers::Link> &obj)
+   Grid &link(const std::optional<containers::Link> &obj)
     { if (obj) link_values(obj.value()); return *this; }
 
    // values(value)
-   auto &values(const std::optional<containers::Values> &obj)
+   Grid &values(const std::optional<containers::Values> &obj)
     { if (obj) link_values(obj.value()); return *this; }
 
    // ------------------------
@@ -271,9 +255,10 @@ public:
    }
 
    // from fields
+   // std::optional replaces Defaulted; this class knows the default(s)
    explicit Grid(
       const std::optional<Integer32> &index,
-      const Defaulted<enums::Interpolation> &interpolation,
+      const std::optional<enums::Interpolation> &interpolation,
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
@@ -290,39 +275,7 @@ public:
       },
       content{
          index,
-         interpolation,
-         label,
-         style,
-         unit,
-         link_values
-      }
-   {
-      Component::finish();
-   }
-
-   // from fields, with T replacing Defaulted<T>
-   explicit Grid(
-      const std::optional<Integer32> &index,
-      const enums::Interpolation &interpolation,
-      const std::optional<XMLName> &label,
-      const std::optional<enums::GridStyle> &style,
-      const std::optional<XMLName> &unit,
-      const LINK_VALUES &link_values
-   ) :
-      Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
-      },
-      content{
-         index,
-         interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+         Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
          label,
          style,
          unit,
@@ -351,7 +304,6 @@ public:
 }; // class Grid
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

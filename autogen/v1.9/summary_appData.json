@@ -1,12 +1,12 @@
 {
-    "namespace": "appData",
+    "__namespace__": "appData",
     "applicationData": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "institution": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "institution",
                 "occurrence": "1",
@@ -19,11 +19,11 @@
         "rootNode": false
     },
     "institution": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -33,7 +33,7 @@
         },
         "childNodes": {
             "ENDFconversionFlags": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "ENDFconversionFlags",
                 "occurrence": "1",
@@ -46,12 +46,12 @@
         "rootNode": false
     },
     "ENDFconversionFlags": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "conversion": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "conversion",
                 "occurrence": "1",
@@ -64,11 +64,11 @@
         "rootNode": false
     },
     "conversion": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "flags": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "flags",
@@ -76,7 +76,7 @@
                 "type": "XMLName"
             },
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "href",

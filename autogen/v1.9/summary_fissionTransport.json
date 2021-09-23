@@ -1,12 +1,12 @@
 {
-    "namespace": "fissionTransport",
+    "__namespace__": "fissionTransport",
     "fissionComponents": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "fissionComponent": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "fissionComponent",
                 "occurrence": "1+",
@@ -26,11 +26,11 @@
         "rootNode": false
     },
     "fissionComponent": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "ENDF_MT": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "integer MT number (e.g., `20' for 2$^{nd}$-chance fission).",
                 "name": "ENDF_MT",
@@ -38,7 +38,7 @@
                 "type": "Integer32"
             },
             "fissionGenre": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "fissionGenre",
@@ -46,7 +46,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -56,14 +56,14 @@
         },
         "childNodes": {
             "crossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "crossSection",
                 "occurrence": "1",
                 "required": false
             },
             "outputChannel": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Describes the secondary particle emissions from the reaction",
                 "name": "outputChannel",
                 "occurrence": "1",
@@ -83,11 +83,11 @@
         "rootNode": false
     },
     "fissionEnergyReleased": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -97,63 +97,63 @@
         },
         "childNodes": {
             "delayedBetaEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Total energy released by delayed $\\beta$'s.",
                 "name": "delayedBetaEnergy",
                 "occurrence": "1",
                 "required": false
             },
             "delayedGammaEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Total energy released by the emission of delayed $\\gamma$ rays.",
                 "name": "delayedGammaEnergy",
                 "occurrence": "1",
                 "required": false
             },
             "delayedNeutronKE": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Kinetic energy of the delayed fission neutrons.",
                 "name": "delayedNeutronKE",
                 "occurrence": "1",
                 "required": false
             },
             "neutrinoEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Energy carried away by neutrinos.",
                 "name": "neutrinoEnergy",
                 "occurrence": "1",
                 "required": false
             },
             "nonNeutrinoEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Total energy less the energy of the neutrinos {\\tt (ET - ENU)}",
                 "name": "nonNeutrinoEnergy",
                 "occurrence": "1",
                 "required": false
             },
             "promptGammaEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Total energy released by the emission of prompt $\\gamma$ rays.",
                 "name": "promptGammaEnergy",
                 "occurrence": "1",
                 "required": false
             },
             "promptNeutronKE": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Kinetic energy of the prompt fission neutrons.",
                 "name": "promptNeutronKE",
                 "occurrence": "1",
                 "required": false
             },
             "promptProductKE": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Kinetic energy of the fission products (following prompt neutron emission from the fission fragments).",
                 "name": "promptProductKE",
                 "occurrence": "1",
                 "required": false
             },
             "totalEnergy": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Sum of the partial energies. This sum is the total energy release\nper fission and by definition is the fission $Q$-value.",
                 "name": "totalEnergy",
                 "occurrence": "1",
@@ -166,12 +166,12 @@
         "rootNode": false
     },
     "delayedBetaEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -184,12 +184,12 @@
         "rootNode": false
     },
     "totalEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -202,12 +202,12 @@
         "rootNode": false
     },
     "delayedGammaEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -220,12 +220,12 @@
         "rootNode": false
     },
     "nonNeutrinoEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -238,19 +238,19 @@
         "rootNode": false
     },
     "promptGammaEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -263,12 +263,12 @@
         "rootNode": false
     },
     "neutrinoEnergy": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -281,19 +281,19 @@
         "rootNode": false
     },
     "promptProductKE": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -306,19 +306,19 @@
         "rootNode": false
     },
     "promptNeutronKE": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -331,19 +331,19 @@
         "rootNode": false
     },
     "delayedNeutronKE": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "polynomial1d",
                 "occurrence": "1",
@@ -356,26 +356,26 @@
         "rootNode": false
     },
     "Watt" : {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "U": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A constant introduced to define the proper upper limit for the final particle energy such that $0 \\leq E' \\leq (E - U)$., discussed in section \\ref{format:transport:U}",
                 "name": "U",
                 "occurrence": "1",
                 "required": true
             },
             "a": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains one \\XYsOneD\\ or \\regionsOneD\\ functional data container that represents a valid $a(E)$.",
                 "name": "a",
                 "occurrence": "1",
                 "required": true
             },
             "b": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains one \\XYsOneD\\ or \\regionsOneD\\ functional data container that represents a valid $b(E)$.",
                 "name": "b",
                 "occurrence": "1",
@@ -411,7 +411,7 @@
         "rootNode": false
     },
     "b": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {},
@@ -421,19 +421,19 @@
         "rootNode": false
     },
     "simpleMaxwellianFission": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "U": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A constant introduced to define the proper upper limit for the final particle energy such that $0 \\leq E' \\leq (E - U)$.",
                 "name": "U",
                 "occurrence": "1",
                 "required": false
             },
             "theta": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The effective emission temperature.",
                 "name": "theta",
                 "occurrence": "1",
@@ -459,26 +459,26 @@
         "rootNode": false
     },
     "MadlandNix": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "EFH": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $E_F(H)$ value.",
                 "name": "EFH",
                 "occurrence": "1",
                 "required": true
             },
             "EFL": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The $E_F(L)$ value.",
                 "name": "EFL",
                 "occurrence": "1",
                 "required": true
             },
             "T_M": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Temperature like parameter tabulated as a function of incident neutron energy, given as an \\element{XYs1d}.  The $y$-axis unit must be an energy unit.",
                 "name": "T_M",
                 "occurrence": "1",
@@ -520,12 +520,12 @@
         "rootNode": false
     },
     "T_M": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The table of \\attr{T{\\textunderscore}M} values vs. incident energy.",
                 "name": "XYs1d",
                 "occurrence": "1",
@@ -538,11 +538,11 @@
         "rootNode": false
     },
     "EFL": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An energy unit.",
                 "name": "unit",
@@ -550,7 +550,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The value of $E_F(L)$ itself.",
                 "name": "value",
@@ -565,11 +565,11 @@
         "rootNode": false
     },
     "EFH": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An energy unit.",
                 "name": "unit",
@@ -577,7 +577,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The value of $E_F(H)$ itself.",
                 "name": "value",

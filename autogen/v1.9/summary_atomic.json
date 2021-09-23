@@ -1,11 +1,11 @@
 {
-    "namespace": "atomic",
+    "__namespace__": "atomic",
     "coherentPhotonScattering": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "When \\element{coherentPhotonScattering} is used in place of an actual distribution ",
@@ -16,7 +16,7 @@
                 "type": "bodyText"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this cross section.",
                 "name": "label",
@@ -24,7 +24,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The particle identifier of the outgoing particle.",
                 "name": "pid",
@@ -32,7 +32,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -42,21 +42,21 @@
         },
         "childNodes": {
             "formFactor": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The form factor $F(x,Z)$.",
                 "name": "formFactor",
                 "occurrence": "1",
                 "required": false
             },
             "realAnomalousFactor": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$F'(E)$, the real part of the anomalous scattering factor.",
                 "name": "realAnomalousFactor",
                 "occurrence": "1",
                 "required": false
             },
             "imaginaryAnomalousFactor": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["$F''(E)$, the imaginary part of the anomalous scattering factor."],
                 "name": "imaginaryAnomalousFactor",
                 "occurrence": "1",
@@ -104,19 +104,19 @@
         "rootNode": false
     },
     "imaginaryAnomalousFactor": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["The imaginary part of the anomalous scattering factor given as an interpolation table of $F''$ vs. $E$"],
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The imaginary part of the  anomalous scattering factor given as several regions",
                 "name": "regions1d",
                 "occurrence": "1",
@@ -129,11 +129,11 @@
         "rootNode": false
     },
     "incoherentPhotonScattering": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "When \\element{incoherentPhotonScattering} is used in place of an actual distribution ",
@@ -144,7 +144,7 @@
                 "type": "bodyText"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this cross section.",
                 "name": "label",
@@ -152,7 +152,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The particle identifier of the outgoing particle.",
                 "name": "pid",
@@ -160,7 +160,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -170,7 +170,7 @@
         },
         "childNodes": {
             "scatteringFactor" : {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "$S(x,Z)$, the incoherent scattering function.",
                 "name": "scatteringFactor",
                 "occurrence": "1",
@@ -248,19 +248,19 @@
         "rootNode": false
     },
     "realAnomalousFactor": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["The real part of the anomalous scattering factor given as an interpolation table of $F''$ vs. $E$"],
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The real part of the  anomalous scattering factor given as several regions.",
                 "name": "regions1d",
                 "occurrence": "1",
@@ -273,19 +273,19 @@
         "rootNode": false
     },
     "scatteringFactor": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The incoherent scattering function given as a function of incident energy as an interpolation table.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The incoherent scattering function given as multiple regions.",
                 "name": "regions1d",
                 "occurrence": "1",
@@ -298,19 +298,19 @@
         "rootNode": false
     },
     "formFactor": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The form factor given as a function of incident energy as an interpolation table.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The form factor given as multiple regions.",
                 "name": "regions1d",
                 "occurrence": "1",

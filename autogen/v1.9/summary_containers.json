@@ -1,11 +1,11 @@
 {
-    "namespace": "containers",
+    "__namespace__": "containers",
     "double": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label",
                 "name": "label",
@@ -13,7 +13,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`' (no label)",
                 "description": "e.g. `kg' or `m'",
                 "name": "unit",
@@ -21,7 +21,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "numeric value",
                 "name": "value",
@@ -31,7 +31,7 @@
         },
         "childNodes": {
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores the uncertainty on the parent \\element{double}.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -44,11 +44,11 @@
         "rootNode": false
     },
     "integer": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`' (no label)",
                 "description": "Unique label",
                 "name": "label",
@@ -56,7 +56,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`' (i.e. unitless)",
                 "description": "e.g. `kg' or `m'",
                 "name": "unit",
@@ -64,7 +64,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "value",
@@ -85,11 +85,11 @@
         "rootNode": false
     },
     "fraction": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`' (no label)",
                 "description": "Unique label",
                 "name": "label",
@@ -97,7 +97,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`' (i.e. unitless)",
                 "description": "e.g. `J/s'",
                 "name": "unit",
@@ -105,7 +105,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "numeric value",
                 "name": "value",
@@ -125,11 +125,11 @@
         "rootNode": false
     },
     "string": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "physicalQuantity",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label",
                 "name": "label",
@@ -137,7 +137,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid unit",
                 "name": "unit",
@@ -145,7 +145,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "contains a string composed of printable ascii characters (e.g., `stable').",
                 "name": "value",
@@ -160,11 +160,11 @@
         "rootNode": false
     },
     "link": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The URL or xpath-like string pointing to the referred-to element",
                 "name": "href",
@@ -184,40 +184,40 @@
     },
 
     "uncertainty": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "standard": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a normally-distributed uncertainty.",
                 "name": "standard",
                 "occurrence": "1",
                 "required": false
             },
             "logNormal": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a log-normal-distributed uncertainty.",
                 "name": "logNormal",
                 "occurrence": "1",
                 "required": false
             },
             "confidenceIntervals": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
                 "name": "confidenceIntervals",
                 "occurrence": "1",
                 "required": false
             },
             "pdf": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a probability distribution as a 1-dimensional function.",
                 "name": "pdf",
                 "occurrence": "1",
                 "required": false
             },
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Store the uncertainty for a 1-dimensional function.",
                     "Uncertainties are assumed to be normally distributed. If uncertainties are correlated,",
@@ -228,7 +228,7 @@
                 "required": false
             },
             "polynomial1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Stores uncertainties for each coefficient in a polynomial expansion.",
                     "Uncertainties are assumed to be normally distributed. If coefficients are correlated,",
@@ -239,7 +239,7 @@
                 "required": false
             },
             "covariance": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Stores a covariance matrix (or a link to a covariance matrix),",
                     "usually for a 1-dimensional function."
@@ -249,7 +249,7 @@
                 "required": false
             },
             "listOfCovariances": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Stores a list of covariance matrices (or a list of links to covariance matrices).",
                     "This option is generally used for higher-dimensional functions. For example,",
@@ -269,12 +269,12 @@
         "rootNode": false
     },
     "listOfCovariances": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "covariance": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Covariance matrix (or link to a covariance matrix).",
                 "name": "covariance",
                 "occurrence": "1+",
@@ -294,11 +294,11 @@
         "rootNode": false
     },
     "covariance": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label for this covariance (required if it resides in a \\elemlink{listOfCovariances}).",
                 "name": "label",
@@ -306,7 +306,7 @@
                 "type": "XMLName"
             },
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The URL or xpath-like string pointing to the referred-to element. Often points to a covariance inside the \\elemlink{covarianceSuite}.",
                 "name": "href",
@@ -325,12 +325,12 @@
     },
 
     "standard": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores $\\sigma$ for the normal distribution.",
                 "name": "double",
                 "occurrence": "1",
@@ -346,12 +346,12 @@
         "rootNode": false
     },
     "logNormal": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "double": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores $\\sigma$ for the log-normal distribution.",
                 "name": "double",
                 "occurrence": "1",
@@ -367,12 +367,12 @@
         "rootNode": false
     },
     "confidenceIntervals": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "interval": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores one confidence interval.",
                 "name": "interval",
                 "occurrence": "1+",
@@ -388,11 +388,11 @@
         "rootNode": false
     },
     "interval": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "confidence": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
                 "name": "confidence",
@@ -400,7 +400,7 @@
                 "type": "Float64"
             },
             "lower": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
                 "name": "lower",
@@ -408,7 +408,7 @@
                 "type": "Float64"
             },
             "upper": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Value to add to the mean to obtain the upper limit for this interval.",
                 "name": "upper",
@@ -423,19 +423,19 @@
         "rootNode": false
     },
     "pdf": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability distribution stored as an \\element{XYs1d}.",
                 "name": "XYs1d",
                 "occurrence": "1",
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Probability distribution stored as a \\element{regions1d}.",
                 "name": "regions1d",
                 "occurrence": "1",
@@ -449,11 +449,11 @@
     },
 
     "axes": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A the URL, in xpath syntax, of another \\element{axes} element",
                 "name": "href",
@@ -463,14 +463,14 @@
         },
         "childNodes": {
             "axis": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This node stores an \\element{index}, \\element{label} and \\element{unit} for an axis.",
                 "name": "axis",
                 "occurrence": "choice+",
                 "required": false
             },
             "grid": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores a list of boundaries or points along this axis, e.g. to define group boundaries for grouped data.",
                 "name": "grid",
                 "occurrence": "choice+",
@@ -496,11 +496,11 @@
         "rootNode": false
     },
     "axis": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "An integer that indicates which independent/dependent axis this \\element{axis}  ",
@@ -511,7 +511,7 @@
                 "type": "Integer32"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique label",
                 "name": "label",
@@ -519,7 +519,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The unit for the axis.",
                 "name": "unit",
@@ -534,11 +534,11 @@
         "rootNode": false
     },
     "grid": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "An integer that indicates which independent/dependent axis this \\element{grid}  ",
@@ -549,7 +549,7 @@
                 "type": "Integer32"
             },
             "interpolation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "\\attr{lin-lin}",
                 "description": [
                     "Defines the interpolation to be used between consecutive domain points along this axis.  ",
@@ -561,7 +561,7 @@
                 "type": "interpolation"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique label",
                 "name": "label",
@@ -569,7 +569,7 @@
                 "type": "XMLName"
             },
             "style": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "A string denoting the type of grid associated with this axis.   Allowed values are `none', `points', ",
@@ -580,7 +580,7 @@
                 "type": "gridStyle"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The unit for the axis.",
                 "name": "unit",
@@ -591,14 +591,14 @@
         "childUnique" : "yes",
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of values defining the grid.",
                 "name": "values",
                 "occurrence": "choice",
                 "required": false
             },
             "link": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Link to a list of values defining the grid.",
                 "name": "link",
                 "occurrence": "choice",
@@ -618,11 +618,11 @@
         "rootNode": false
     },
     "values": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "valueType": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "Float64",
                 "description": [
                     "Specifies the type of data ",
@@ -634,7 +634,7 @@
                 "type": "UTF8Text"
             },
             "start": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "0",
                 "description": "For start=``N'', the first N values are zero and are not stored.",
                 "name": "start",
@@ -642,7 +642,7 @@
                 "type": "Integer32"
             },
             "length": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "The total number of data values including leading and trailing zero ",
@@ -674,11 +674,11 @@
         "rootNode": false
     },
     "array": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "label",
         "attributes": {
             "shape": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "a comma-separated list of integers representing the length of ",
@@ -689,7 +689,7 @@
                 "type": "IntegerTuple"
             },
             "compression": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`none'",
                 "description": [
                     "A flag indicating whether a sparse storage scheme is being used, ",
@@ -702,7 +702,7 @@
                 "type": "UTF8Text"
             },
             "symmetry": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`none'",
                 "description": [
                     "Allows for storing values in only ",
@@ -715,7 +715,7 @@
                 "type": "UTF8Text"
             },
             "permutation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "`none'",
                 "description": [
                     "If \\attrval{symmetry} is other then `none',  ",
@@ -727,7 +727,7 @@
                 "type": "UTF8Text"
             },
             "storageOrder": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "row-major",
                 "description": [
                     "Indicates whether the data are stored in row-major  ",
@@ -739,7 +739,7 @@
                 "type": "UTF8Text"
             },
             "offset": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "Required if this array is nested inside an \\attrval{embedded} array; not allowed otherwise; ",
@@ -753,7 +753,7 @@
         },
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Containers holding the array values. The number of \\element{values} nodes depends on the \\attr{compression}",
                     "attribute. For compression of `embedded', `none', or `flattened' the number of \\element{values}",
@@ -764,7 +764,7 @@
                 "required": false
             },
             "array": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "Containers holding sub-arrays embedded in a larger array. The number of \\element{array} nodes depends on the",
                     "\\attr{compression} attribute. For compression of `embedded', 0 or more are allowed. For compression of `none',",
@@ -814,11 +814,11 @@
         "rootNode": false
     },
     "table": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "columns": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The number of columns of the table.",
                 "name": "columns",
@@ -826,7 +826,7 @@
                 "type": "Integer32"
             },
             "rows": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The number of rows of the table.",
                 "name": "rows",
@@ -834,7 +834,7 @@
                 "type": "Integer32"
             },
             "storageOrder": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "row-major",
                 "description": "Allowed value is one of `row-major' and `column-major'",
                 "name": "storageOrder",
@@ -844,14 +844,14 @@
         },
         "childNodes": {
             "columnHeaders": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains a list of N `header' nodes where N is the number of columns.",
                 "name": "columnHeaders",
                 "occurrence": "1",
                 "required": true
             },
             "data": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The data for the table, consisting of M $\\times$ N cells.",
                 "name": "data",
                 "occurrence": "1",
@@ -864,12 +864,12 @@
         "rootNode": false
     },
     "columnHeaders": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "column": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Container which holds the name, units, etc. describing a column of data.",
                 "name": "column",
                 "occurrence": "1+",
@@ -882,11 +882,11 @@
         "rootNode": false
     },
     "column": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An integer value in the range 0 to (N-1) that represents the order of the column.",
                 "name": "index",
@@ -894,7 +894,7 @@
                 "type": "Integer32"
             },
             "name": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string representing the name of the column.",
                 "name": "name",
@@ -902,7 +902,7 @@
                 "type": "XMLName"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "",
                 "description": "The unit of the data in the column.",
                 "name": "unit",
@@ -910,7 +910,7 @@
                 "type": "XMLName"
             },
             "types": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Comma separated list of valid GNDS types denoting what types of elements are allowed in each cell in the column.",
                 "name": "types",
@@ -927,11 +927,11 @@
         "rootNode": false
     },
     "data": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "sep": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "whiteSpace",
                 "description": [
                     "Valid options are ``whiteSpace'', ``,'', ",
@@ -975,11 +975,11 @@
     },
 
     "XYs1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Integer index, used when the \\element{XYs1d} appears inside a \\element{regions1d}.",
                 "name": "index",
@@ -987,7 +987,7 @@
                 "type": "Integer32"
             },
             "interpolation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "lin-lin",
                 "description": "The rule for interpolating $y$ along the $x$ axis.",
                 "name": "interpolation",
@@ -995,7 +995,7 @@
                 "type": "interpolation"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label. When the \\element{XYs1d} appears as a form, the label indicates the associated style.",
                 "name": "label",
@@ -1003,7 +1003,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When an XYs1d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1013,21 +1013,21 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
             },
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the list of the $n$ pairs of $x_i, y_i$ as the list $x_0\\ y_0\\ x_1\\ y_1\\ ...\\ x_{n-1}\\ y_{n-1}$.",
                 "name": "values",
                 "occurrence": "1",
@@ -1044,11 +1044,11 @@
         "rootNode": false
     },
     "Ys1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "interpolation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "lin-lin",
                 "description": "The rule for interpolating $y$ rule along the $x$ axis.",
                 "name": "interpolation",
@@ -1056,7 +1056,7 @@
                 "type": "interpolation"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label. When the \\element{Ys1d} appears as a form, the label indicates the associated style.",
                 "name": "label",
@@ -1066,14 +1066,14 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
                 "name": "axes",
                 "occurrence": "1",
                 "required": true
             },
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the list of $y_i$ values.",
                 "name": "values",
                 "occurrence": "1",
@@ -1093,11 +1093,11 @@
         "rootNode": false
     },
     "Legendre": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label",
                 "name": "label",
@@ -1105,7 +1105,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When a Legendre series appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1113,7 +1113,7 @@
                 "type": "Float64"
             },
             "lowerIndex": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "0",
                 "description": [
                     "Used if the first \\attr{lowerIndex} coefficients are all zero. The upperIndex is equal to lowerIndex plus the number of coefficients ",
@@ -1124,7 +1124,7 @@
                 "type": "Integer32"
             },
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "-1",
                 "description": "$y(x_1)$ is only valid (i.e., defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
                 "name": "domainMin",
@@ -1132,7 +1132,7 @@
                 "type": "Float64"
             },
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "1",
                 "description": "See \\attr{domainMin}.",
                 "name": "domainMax",
@@ -1142,7 +1142,7 @@
         },
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "The specifications of the \\element{values} node are given in Section~\\ref{format:gpdc:values}.  ",
                     "The numeric values are the coefficients $C_i$ listed by consecutive order $i$ starting with \\attr{lowerIndex}."
@@ -1158,11 +1158,11 @@
         "rootNode": false
     },
     "polynomial1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label",
                 "name": "label",
@@ -1170,7 +1170,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When a polynomial1d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1178,7 +1178,7 @@
                 "type": "Float64"
             },
             "lowerIndex": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "0",
                 "description": [
                     "Used if the first \\attr{lowerIndex} coefficients are all zero. The upperIndex is equal to lowerIndex plus the number of coefficients ",
@@ -1189,7 +1189,7 @@
                 "type": "Integer32"
             },
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "$y(x_1)$ is only valid (i.e., defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
                 "name": "domainMin",
@@ -1197,7 +1197,7 @@
                 "type": "Float64"
             },
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "See \\attr{domainMin}.",
                 "name": "domainMax",
@@ -1207,21 +1207,21 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
                 "name": "axes",
                 "occurrence": "1",
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
             },
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "The specifications of the \\element{values} node are given in Section~\\ref{format:gpdc:values}.  ",
                     "The numeric values are the coefficients $C_i$ listed by consecutive order $i$ starting with lowerIndex."
@@ -1237,11 +1237,11 @@
         "rootNode": false
     },
     "constant1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The value of the data.",
                 "name": "value",
@@ -1249,7 +1249,7 @@
                 "type": "Float64"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Unique label",
                 "name": "label",
@@ -1257,7 +1257,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When a constant1d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1265,7 +1265,7 @@
                 "type": "Float64"
             },
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "$y(x_1)$ is only valid (i.e., defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
                 "name": "domainMin",
@@ -1273,7 +1273,7 @@
                 "type": "Float64"
             },
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "See \\attr{domainMin}.",
                 "name": "domainMax",
@@ -1283,7 +1283,7 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
                 "name": "axes",
                 "occurrence": "1",
@@ -1297,11 +1297,11 @@
     },
 
     "xs_pdf_cdf1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When the xs\\_pdf\\_cdf1d container appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1311,21 +1311,21 @@
         },
         "childNodes": {
             "xs": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Defines the common list of $x$ values for the pdf and cdf.",
                 "name": "xs",
                 "occurrence": "1",
                 "required": true
             },
             "pdf": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores the pdf evaluated at each corresponding $x$ value.",
                 "name": "pdf",
                 "occurrence": "1",
                 "required": true
             },
             "cdf": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Stores the cdf evaluated at each corresponding $x$ value.",
                 "name": "cdf",
                 "occurrence": "1",
@@ -1344,12 +1344,12 @@
         "rootNode": false
     },
     "xs_in_xs_pdf_cdf1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "values",
                 "occurrence": "1",
@@ -1362,12 +1362,12 @@
         "rootNode": false
     },
     "pdf_in_xs_pdf_cdf1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "values",
                 "occurrence": "1",
@@ -1380,12 +1380,12 @@
         "rootNode": false
     },
     "cdf_in_xs_pdf_cdf1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "values",
                 "occurrence": "1",
@@ -1399,11 +1399,11 @@
     },
 
     "XYs2d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Integer index, required when the \\element{XYs2d} appears inside a \\element{regions2d}.",
                 "name": "index",
@@ -1411,7 +1411,7 @@
                 "type": "Integer32"
             },
             "interpolation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "lin-lin",
                 "description": "The rule for interpolating $x_0$ along the $x_2$ axis.",
                 "name": "interpolation",
@@ -1419,7 +1419,7 @@
                 "type": "interpolation"
             },
             "interpolationQualifier": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The interpolation qualifier.",
                 "name": "interpolationQualifier",
@@ -1427,7 +1427,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When an XYs2d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1437,21 +1437,21 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
             },
             "function1ds": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the list of 1-dimensional functions $x_0(x_1)$ that represent $x_0(x_2, x_1)$ at various points along $x_2$.",
                 "name": "function1ds",
                 "occurrence": "1",
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this two-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1467,12 +1467,12 @@
     },
 
     "function1ds" : {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "functional": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Any valid 1-dimensional function that is consistent with the quantity being represented.",
                 "name": "functional",
                 "occurrence": "1+",
@@ -1486,11 +1486,11 @@
     },
 
     "XYs3d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "interpolation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "lin-lin",
                 "description": "The rule for interpolating $x_0$ along the $x_3$ axis.",
                 "name": "interpolation",
@@ -1498,7 +1498,7 @@
                 "type": "interpolation"
             },
             "interpolationQualifier": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The interpolation qualifier.",
                 "name": "interpolationQualifier",
@@ -1508,21 +1508,21 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
             },
             "function2ds": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the list of 2-dimensional functions that represent $x_0(x_3, x_2, x_1)$ at various points along $x_3$ as a $x_0(x_2, x_1)$ functions.",
                 "name": "function2ds",
                 "occurrence": "1",
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this three-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1538,12 +1538,12 @@
     },
 
     "function2ds" : {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "functional": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Any valid 2-dimensional function that is consistent with the quantity being represented.",
                 "name": "functional",
                 "occurrence": "1+",
@@ -1557,11 +1557,11 @@
     },
 
     "regions1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default":  null,
                 "description": "A unique label",
                 "name": "label",
@@ -1569,7 +1569,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When an \\element{regions1d} appears inside a higher-dimensional container, the \\attr{outerDomainValue} corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1579,14 +1579,14 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
             },
             "function1ds": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Contains the list of 1-dimensional functions that represent $x_0(x_1)$. The upper $x_1$ value for a function ",
                                  "in the list must be equal to the lower $x_1$ value for the next function in the list." ],
                 "name": "function1ds",
@@ -1594,7 +1594,7 @@
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1608,11 +1608,11 @@
     },
 
     "regions2d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default":  null,
                 "description": "A unique label",
                 "name": "label",
@@ -1620,7 +1620,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When a regions2d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1630,14 +1630,14 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
             },
             "function2ds": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Contains the list of 2-dimensional functions that represent $x_0(x_2, x_1)$. The upper $x_2$ value for a function ",
                                  "in the list must be equal to the lower $x_2$ value for the next function in the list." ],
                 "name": "function2ds",
@@ -1645,7 +1645,7 @@
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this two-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1659,11 +1659,11 @@
     },
 
     "regions3d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default":  null,
                 "description": "A unique label",
                 "name": "label",
@@ -1671,7 +1671,7 @@
                 "type": "XMLName"
             },
             "outerDomainValue": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "When a regions3d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
                 "name": "outerDomainValue",
@@ -1681,14 +1681,14 @@
         },
         "childNodes": {
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "axes",
                 "occurrence": "1",
                 "required": false
             },
             "function3ds": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Contains the list of 3-dimensional functions that represent $x_0(x_3, x_2, x_1)$. The upper $x_3$ value for a function ",
                                  "in the list must be equal to the lower $x_3$ value for the next function in the list." ],
                 "name": "function3ds",
@@ -1696,7 +1696,7 @@
                 "required": true
             },
             "uncertainty": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this three-dimensional function.",
                 "name": "uncertainty",
                 "occurrence": "1",
@@ -1710,12 +1710,12 @@
     },
 
     "function3ds" : {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "functional": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Any valid 3-dimensional function that is consistent with the quantity being represented.",
                 "name": "functional",
                 "occurrence": "1+",
@@ -1729,11 +1729,11 @@
     },
 
     "gridded1d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique identifier.",
                 "name": "label",
@@ -1743,14 +1743,14 @@
         },
         "childNodes": {
             "array": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\element{array} node representing the $x_0$ values.",
                 "name": "array",
                 "occurrence": "1",
                 "required": true
             },
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\element{axes} element containing the \\element{grid} elements.",
                 "name": "axes",
                 "occurrence": "1",
@@ -1763,11 +1763,11 @@
         "rootNode": false
     },
     "gridded2d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An unique identifier.",
                 "name": "label",
@@ -1777,14 +1777,14 @@
         },
         "childNodes": {
             "array": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\element{array} node representing the $x_0$ values.",
                 "name": "array",
                 "occurrence": "1",
                 "required": true
             },
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\element{axes} element containing the \\element{grid} elements.",
                 "name": "axes",
                 "occurrence": "1",
@@ -1797,11 +1797,11 @@
         "rootNode": false
     },
     "gridded3d": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "functional",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An unique identifier.",
                 "name": "label",
@@ -1811,14 +1811,14 @@
         },
         "childNodes": {
             "array": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\element{array} node representing the $x_0$ values.",
                 "name": "array",
                 "occurrence": "1",
                 "required": true
             },
             "axes": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "An \\element{axes} element containing the \\element{grid} elements.",
                 "name": "axes",
                 "occurrence": "1",

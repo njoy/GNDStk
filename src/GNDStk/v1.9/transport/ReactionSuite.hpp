@@ -71,7 +71,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -97,59 +97,45 @@ public:
    // ------------------------
 
    // evaluation
-   const XMLName &
-   evaluation() const
+   const XMLName &evaluation() const
     { return content.evaluation; }
-   XMLName &
-   evaluation()
+   XMLName &evaluation()
     { return content.evaluation; }
 
    // format
-   const XMLName &
-   format() const
+   const XMLName &format() const
     { return content.format; }
-   XMLName &
-   format()
+   XMLName &format()
     { return content.format; }
 
    // interaction
-   const std::optional<enums::Interaction> &
-   interaction() const
+   const std::optional<enums::Interaction> &interaction() const
     { return content.interaction; }
-   std::optional<enums::Interaction> &
-   interaction()
+   std::optional<enums::Interaction> &interaction()
     { return content.interaction; }
 
    // projectile
-   const XMLName &
-   projectile() const
+   const XMLName &projectile() const
     { return content.projectile; }
-   XMLName &
-   projectile()
+   XMLName &projectile()
     { return content.projectile; }
 
    // projectileFrame
-   const enums::Frame &
-   projectileFrame() const
+   const enums::Frame &projectileFrame() const
     { return content.projectileFrame; }
-   enums::Frame &
-   projectileFrame()
+   enums::Frame &projectileFrame()
     { return content.projectileFrame; }
 
    // target
-   const XMLName &
-   target() const
+   const XMLName &target() const
     { return content.target; }
-   XMLName &
-   target()
+   XMLName &target()
     { return content.target; }
 
    // reactions
-   const std::optional<transport::Reactions> &
-   reactions() const
+   const std::optional<transport::Reactions> &reactions() const
     { return content.reactions; }
-   std::optional<transport::Reactions> &
-   reactions()
+   std::optional<transport::Reactions> &reactions()
     { return content.reactions; }
 
    // ------------------------
@@ -159,31 +145,31 @@ public:
    // ------------------------
 
    // evaluation(value)
-   auto &evaluation(const XMLName &obj)
+   ReactionSuite &evaluation(const XMLName &obj)
     { evaluation() = obj; return *this; }
 
    // format(value)
-   auto &format(const XMLName &obj)
+   ReactionSuite &format(const XMLName &obj)
     { format() = obj; return *this; }
 
    // interaction(value)
-   auto &interaction(const std::optional<enums::Interaction> &obj)
+   ReactionSuite &interaction(const std::optional<enums::Interaction> &obj)
     { interaction() = obj; return *this; }
 
    // projectile(value)
-   auto &projectile(const XMLName &obj)
+   ReactionSuite &projectile(const XMLName &obj)
     { projectile() = obj; return *this; }
 
    // projectileFrame(value)
-   auto &projectileFrame(const enums::Frame &obj)
+   ReactionSuite &projectileFrame(const enums::Frame &obj)
     { projectileFrame() = obj; return *this; }
 
    // target(value)
-   auto &target(const XMLName &obj)
+   ReactionSuite &target(const XMLName &obj)
     { target() = obj; return *this; }
 
    // reactions(value)
-   auto &reactions(const std::optional<transport::Reactions> &obj)
+   ReactionSuite &reactions(const std::optional<transport::Reactions> &obj)
     { reactions() = obj; return *this; }
 
    // ------------------------
@@ -308,7 +294,6 @@ public:
 }; // class ReactionSuite
 
 } // namespace transport
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

@@ -64,7 +64,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -82,59 +82,45 @@ public:
    // ------------------------
 
    // XYs1d_regions1d
-   const std::vector<XYS1D_REGIONS1D> &
-   XYs1d_regions1d() const
+   const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d() const
     { return content.XYs1d_regions1d; }
-   std::vector<XYS1D_REGIONS1D> &
-   XYs1d_regions1d()
+   std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d()
     { return content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
-   const XYS1D_REGIONS1D &
-   XYs1d_regions1d(const std::size_t index) const
+   const XYS1D_REGIONS1D &XYs1d_regions1d(const std::size_t index) const
     { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-   XYS1D_REGIONS1D &
-   XYs1d_regions1d(const std::size_t index)
+   XYS1D_REGIONS1D &XYs1d_regions1d(const std::size_t index)
     { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
-   const XYS1D_REGIONS1D &
-   XYs1d_regions1d(const std::string &label) const
+   const XYS1D_REGIONS1D &XYs1d_regions1d(const std::string &label) const
     { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
-   XYS1D_REGIONS1D &
-   XYs1d_regions1d(const std::string &label)
+   XYS1D_REGIONS1D &XYs1d_regions1d(const std::string &label)
     { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
-   const containers::XYs1d *
-   XYs1d(const std::size_t index) const
+   const containers::XYs1d *XYs1d(const std::size_t index) const
     { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
-   containers::XYs1d *
-   XYs1d(const std::size_t index)
+   containers::XYs1d *XYs1d(const std::size_t index)
     { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
 
    // XYs1d(label)
-   const containers::XYs1d *
-   XYs1d(const std::string &label) const
+   const containers::XYs1d *XYs1d(const std::string &label) const
     { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
-   containers::XYs1d *
-   XYs1d(const std::string &label)
+   containers::XYs1d *XYs1d(const std::string &label)
     { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
 
    // regions1d(index)
-   const containers::Regions1d *
-   regions1d(const std::size_t index) const
+   const containers::Regions1d *regions1d(const std::size_t index) const
     { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
-   containers::Regions1d *
-   regions1d(const std::size_t index)
+   containers::Regions1d *regions1d(const std::size_t index)
     { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
 
    // regions1d(label)
-   const containers::Regions1d *
-   regions1d(const std::string &label) const
+   const containers::Regions1d *regions1d(const std::string &label) const
     { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
-   containers::Regions1d *
-   regions1d(const std::string &label)
+   containers::Regions1d *regions1d(const std::string &label)
     { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
 
    // ------------------------
@@ -144,11 +130,11 @@ public:
    // ------------------------
 
    // XYs1d_regions1d(value)
-   auto &XYs1d_regions1d(const std::vector<XYS1D_REGIONS1D> &obj)
+   CrossSection &XYs1d_regions1d(const std::vector<XYS1D_REGIONS1D> &obj)
     { XYs1d_regions1d() = obj; return *this; }
 
    // XYs1d_regions1d(index,value)
-   auto &XYs1d_regions1d(
+   CrossSection &XYs1d_regions1d(
       const std::size_t index,
       const XYS1D_REGIONS1D &obj
    ) {
@@ -156,7 +142,7 @@ public:
    }
 
    // XYs1d_regions1d(label,value)
-   auto &XYs1d_regions1d(
+   CrossSection &XYs1d_regions1d(
       const std::string &label,
       const XYS1D_REGIONS1D &obj
    ) {
@@ -164,7 +150,7 @@ public:
    }
 
    // XYs1d(index,value)
-   auto &XYs1d(
+   CrossSection &XYs1d(
       const std::size_t index,
       const std::optional<containers::XYs1d> &obj
    ) {
@@ -173,7 +159,7 @@ public:
    }
 
    // XYs1d(label,value)
-   auto &XYs1d(
+   CrossSection &XYs1d(
       const std::string &label,
       const std::optional<containers::XYs1d> &obj
    ) {
@@ -182,7 +168,7 @@ public:
    }
 
    // regions1d(index,value)
-   auto &regions1d(
+   CrossSection &regions1d(
       const std::size_t index,
       const std::optional<containers::Regions1d> &obj
    ) {
@@ -191,7 +177,7 @@ public:
    }
 
    // regions1d(label,value)
-   auto &regions1d(
+   CrossSection &regions1d(
       const std::string &label,
       const std::optional<containers::Regions1d> &obj
    ) {
@@ -279,7 +265,6 @@ public:
 }; // class CrossSection
 
 } // namespace transport
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

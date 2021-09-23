@@ -1,7 +1,7 @@
 {
-    "namespace": "cpTransport",
+    "__namespace__": "cpTransport",
     "RutherfordScattering": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {},
@@ -16,11 +16,11 @@
         "rootNode": false
     },
     "CoulombPlusNuclearElastic": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [
                     "When \\element{CoulombPlusNuclearElastic} is used in place of an actual distribution ",
@@ -31,7 +31,7 @@
                 "type": "XMLName"
             },
             "identicalParticles": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": false,
                 "description": [
                     "If both outgoing products are the same type of particle, for example ",
@@ -44,7 +44,7 @@
                 "type": "Boolean"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Style label for this cross section.",
                 "name": "label",
@@ -52,7 +52,7 @@
                 "type": "XMLName"
             },
             "pid": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The particle identifier of the outgoing particle.",
                 "name": "pid",
@@ -60,7 +60,7 @@
                 "type": "XMLName"
             },
             "productFrame": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
@@ -70,21 +70,21 @@
         },
         "childNodes": {
             "RutherfordScattering": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This differential cross section is given by the Rutherford scattering cross section.",
                 "name": "RutherfordScattering",
                 "occurrence": "1",
                 "required": false
             },
             "nuclearAmplitudeExpansion": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This differential cross section is given by the nuclear amplitude expansion.",
                 "name": "nuclearAmplitudeExpansion",
                 "occurrence": "1",
                 "required": false
             },
             "nuclearPlusInterference": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This differential cross section is given by the nuclear plus interference approach.",
                 "name": "nuclearPlusInterference",
                 "occurrence": "1",
@@ -100,11 +100,11 @@
         "rootNode": false
     },
     "nuclearPlusInterference": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "muCutoff": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Cosine of the cutoff angle. Above the cutoff angle, the distribution is assumed to be pure Coulomb scattering.",
                 "name": "muCutoff",
@@ -114,14 +114,14 @@
         },
         "childNodes": {
             "crossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The effective cross section $\\sigma_{NI}(E)$",
                 "name": "crossSection",
                 "occurrence": "1",
                 "required": true
             },
             "distribution": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The effective angular distribution $P_{NI}(\\mu, E)$.",
                 "name": "distribution",
                 "occurrence": "1",
@@ -159,26 +159,26 @@
         "rootNode": false
     },
     "nuclearAmplitudeExpansion": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "nuclearTerm": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $b_l(E)$ in the nuclear term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
                 "name": "nuclearTerm",
                 "occurrence": "1",
                 "required": true
             },
             "realInterferenceTerm": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $\\texttt{Re}(a_l(E))$ in the interference term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
                 "name": "realInterferenceTerm",
                 "occurrence": "1",
                 "required": true
             },
             "imaginaryInterferenceTerm": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $\\texttt{Im}(a_l(E))$ in the interference term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
                 "name": "imaginaryInterferenceTerm",
                 "occurrence": "1",
@@ -223,19 +223,19 @@
         "rootNode": false
     },
     "nuclearTerm": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $b_l(E)$ given as a Legendre moment expansion inside an \\element{XYs2d}",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $b_l(E)$ given as a Legendre moment expansion inside an \\element{regions2d}",
                 "name": "regions2d",
                 "occurrence": "1",
@@ -248,19 +248,19 @@
         "rootNode": false
     },
     "realInterferenceTerm": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $\\texttt{Re}(a_l(E))$ given as a Legendre moment expansion inside an \\element{XYs2d}",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $\\texttt{Re}(a_l(E))$ given as a Legendre moment expansion inside an \\element{regions2d}",
                 "name": "regions2d",
                 "occurrence": "1",
@@ -273,19 +273,19 @@
         "rootNode": false
     },
     "imaginaryInterferenceTerm": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $\\texttt{Im}(a_l(E))$ given as a Legendre moment expansion inside an \\element{XYs2d}",
                 "name": "XYs2d",
                 "occurrence": "1",
                 "required": false
             },
             "regions2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The coefficients $\\texttt{Im}(a_l(E))$ given as a Legendre moment expansion inside an \\element{regions2d}",
                 "name": "regions2d",
                 "occurrence": "1",

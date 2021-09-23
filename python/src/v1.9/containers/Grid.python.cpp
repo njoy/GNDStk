@@ -41,14 +41,14 @@ void wrapGrid(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const enums::Interpolation &,
+            const std::optional<enums::Interpolation> &,
             const std::optional<XMLName> &,
             const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
             const LINK_VALUES &
          >(),
          python::arg("index") = std::nullopt,
-         python::arg("interpolation") = enums::Interpolation::linlin,
+         python::arg("interpolation") = std::nullopt,
          python::arg("label") = std::nullopt,
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,
@@ -62,7 +62,7 @@ void wrapGrid(python::module &module)
       )
       .def_property_readonly(
          "interpolation",
-         &Component::interpolation,
+         [] ( const Component& self ) { return self.interpolation().value(); },
          Component::documentation("interpolation").data()
       )
       .def_property_readonly(

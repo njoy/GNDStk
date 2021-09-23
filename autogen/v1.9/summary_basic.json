@@ -1,7 +1,7 @@
 {
-    "namespace": "basic",
+    "__namespace__": "basic",
     "XMLName": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": [
             "XMLName represents the set and sequence of characters that are allowed for node and attribute ",
             "names. Some meta-languages and programming languages (e.g., C and Python) allow a name to start ",
@@ -15,7 +15,7 @@
     },
 
     "attributeValue": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": ["This represents the set and sequence of characters that are allowed for attribute values."],
         "name": "attributeValue",
         "allowedValueDescription": ["The allowed values for",
@@ -35,7 +35,7 @@
                                     "\\end{itemize}"]},
 
     "bodyText": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": [
             "In general, any UTF-8 character is allowed. However, the allowed characters ",
             "for a node's body can be limited by its parent node's specifications."],
@@ -43,13 +43,13 @@
         "allowedValueDescription": ["Any UTF-8 character is allowed."]},
 
     "UTF8Text": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": ["This is text composed of any sequence of UTF-8 characters."],
         "name": "UTF8Text",
         "allowedValueDescription": ["Any sequence of 0 or more UTF-8 characters."]},
 
     "printableText": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": ["This is text composed of only the printable ascii characters."],
         "name": "printableText",
         "allowedValueDescription": [
@@ -58,7 +58,7 @@
             "('\\textasciitilde' or decimal 126) inclusive."]},
 
     "quotedText": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents a UTF8Text string that is contained between two matching quote characters. The allowed quote characters are the ascii double quote character (i.e., \" or decimal 34) and the ascii single quote character (i.e., ' or decimal 39).",
         "name": "quotedText",
         "allowedValueDescription": ["A UTF8Text string contained between matching single or double quote characters. ",
@@ -78,7 +78,7 @@
                                     "\\noindent as leading and trailing spaces are part of the string."]},
 
     "tdText": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents a UTF8Text string that is contained between the XML start and end elements that define a standard html table cell (i.e., ``<td>'' and ``</td>'').",
         "name": "tdText",
         "allowedValueDescription": ["The XML element ``<td>'' and the UTF8Text string it contains.",
@@ -93,13 +93,13 @@
                                     "\\noindent as leading and trailing spaces are part of the string."]},
 
     "IntegerTuple": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This is text node composed of a comma-delimited list of integers. It is used to denote starting indices within an array. The integer type is Integer32.",
         "name": "IntegerTuple",
         "allowedValueDescription": "Any integer (0-9), the comma `,', and any printable whitespace character.\n\n    \\noindent For example, the array index [3][4][7] can be represented as the IntegerTuple `3, 4, 7'."},
 
     "Integer32": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": [
             "This represents the allowed set and sequence of characters, and values that are allowed for a ",
             "32-bit signed integer."],
@@ -118,7 +118,7 @@
         "C_equivalent": "int32$\\_$t"},
 
     "UInteger32": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents the allowed set and sequence of characters, and values that are allowed for a 32-bit unsigned integer.",
         "name": "UInteger32",
         "allowedValueDescription": ["Any integer in the range [ 0 to $2^{32}$ ).",
@@ -133,7 +133,7 @@
         "C_equivalent": "uint32$\\_$t"},
 
     "Float64": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents the allowed set and sequence of characters, and values for a 64-bit floating point number.",
         "name": "Float64",
         "allowedValueDescription": ["Any normalised or denormalised IEEE-754 binary64~\\cite{IEEEFloats}",
@@ -150,13 +150,13 @@
         "C_equivalent": "double"},
 
     "Fraction32": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents the allowed set and sequence of characters, and values that are allowed for a faction given as the ratio of two Integer32 values.",
         "name": "Fraction32",
         "allowedValueDescription": "All Fraction32 are represented as `i1 / i2' or `i3' where i1, i2 and i3 are Integer32s. Spaces are allowed around all Integer32 values. Example are `1/2', ` 1 / 2 ', `5 / 32 ' and `2'."},
 
     "Boolean": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents the allowed set and sequence of characters that represent the Boolean \\attrval{true} and \\attrval{false} values in general-purpose data containers.",
         "name": "Boolean",
         "allowedValueDescription": "The allowed strings are `true' and `false'. For a table cell, the allowed values are `\\texttt{<true/>}' and  `\\texttt{<false/>}'.",
@@ -164,49 +164,49 @@
         "C_equivalent": "bool"},
 
     "whiteSpace": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents the allowed set and sequence of characters for a white space.",
         "name": "whiteSpace",
         "allowedValueDescription": "Any of the characters shown in Table~\\ref{table:ValidWhiteSpaces}"},
 
     "Empty": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This is the token that states that the value of the cell in a table is empty.",
         "name": "Empty",
         "allowedValueDescription": "The ASCII string `\\texttt{<td/>}'."},
 
     "date": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "Most recent modification date. May appear on an evaluation or on some style of data within the evaluation.",
         "name": "date",
         "allowedValueDescription": "Recommended format is a numerical date of the form `YYYY-MM-DD', e.g. `2019-05-01'."},
 
     "parity": {
-        "class": "nodes.EnumeratedTypeNode",
+        "__class__": "nodes.EnumeratedTypeNode",
         "description": "Parity is a particle property related to the (anti)-symmetry of the wave function to reflection.",
         "name": "parity",
         "allowedValues":["+1", "-1"]},
 
     "frame": {
-        "class": "nodes.EnumeratedTypeNode",
+        "__class__": "nodes.EnumeratedTypeNode",
         "description": "Tells what reference frame a projectile, product, distribution or double-differential cross section is given in.",
         "name": "frame",
         "allowedValues":["lab", "centerOfMass"]},
 
     "interpolation": {
-        "class": "nodes.EnumeratedTypeNode",
+        "__class__": "nodes.EnumeratedTypeNode",
         "description": "Rule for interpolating between two points in a 1-dimensional function.",
         "name": "interpolation",
         "allowedValues":["flat", "charged-particle", "lin-lin", "lin-log", "log-lin", "log-log"]},
 
     "interpolationQualifier": {
-        "class": "nodes.EnumeratedTypeNode",
+        "__class__": "nodes.EnumeratedTypeNode",
         "description": "Rule for interpolating between two N-dimensional functions inside an (N+1)-dimensional function.",
         "name": "interpolationQualifier",
         "allowedValues":["direct", "unitBase", "correspondingEnergies", "correspondingPoints"]},
 
     "Float32": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "Floating point number that can be stored at reduced precision",
         "name": "Float32",
         "allowedValueDescription": "n/a",
@@ -214,7 +214,7 @@
         "implementationStatus": "Not implemented as of GNDS-1.9"},
 
     "Integer64": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "This represents the allowed set and sequence of characters, and values for a 64-bit signed integer.",
         "name": "Integer64",
         "allowedValueDescription": ["Any integer in the range [ $-2^{63}$ to $2^{63}$ ).  The minimum ",
@@ -231,7 +231,7 @@
         "implementationStatus": "Not implemented as of GNDS-1.9"},
 
     "Hexadecimal": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "Typical hexadecimal number",
         "name": "Hexadecimal",
         "allowedValueDescription": "n/a",
@@ -239,7 +239,7 @@
         "implementationStatus": "Not implemented as of GNDS-1.9"},
 
     "Octal": {
-        "class": "nodes.ElementaryTypeNode",
+        "__class__": "nodes.ElementaryTypeNode",
         "description": "Typical octal number",
         "name": "Octal",
         "allowedValueDescription": "n/a",

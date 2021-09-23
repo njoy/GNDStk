@@ -1,75 +1,75 @@
 {
-    "namespace": "styles",
+    "__namespace__": "styles",
     "styles": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "evaluated": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for original data entered by an evaluator.",
                 "name": "evaluated",
                 "occurrence": "1+",
                 "required": false
             },
             "crossSectionReconstructed": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for pointwise cross sections produced by reconstructing resonance parameters and combining results with background (if any).",
                 "name": "crossSectionReconstructed",
                 "occurrence": "1+",
                 "required": false
             },
             "angularDistributionReconstructed": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for angular distributions produced by reconstructing resonance parameters.",
                 "name": "angularDistributionReconstructed",
                 "occurrence": "1+",
                 "required": false
             },
             "heated": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for cross sections that have been Doppler broadened to account for thermal motion in the target.",
                 "name": "heated",
                 "occurrence": "1+",
                 "required": false
             },
             "averageProductData": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for average outgoing product energy and/or momentum data computed from the original (evaluated) distributions.",
                 "name": "averageProductData",
                 "occurrence": "1+",
                 "required": false
             },
             "MonteCarlo_cdf": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for data where cumulative probability densities (cdfs) have been pre-computed and stored alongside pdfs for faster Monte Carlo sampling.",
                 "name": "MonteCarlo_cdf",
                 "occurrence": "1+",
                 "required": false
             },
             "griddedCrossSection": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for data where all reaction cross sections are put on a union grid for more efficient Monte Carlo sampling.",
                 "name": "griddedCrossSection",
                 "occurrence": "1+",
                 "required": false
             },
             "URR_probabilityTables": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for data cross section probability tables were generated for the unresolved resonance region.",
                 "name": "URR_probabilityTables",
                 "occurrence": "1+",
                 "required": false
             },
             "heatedMultiGroup": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "This style specifies parameters used for generating multi-grouped data. Some of the parameters specified include the multi-group boundaries for each particle processed via the \\element{transportables} node, and the \\element{flux} weight and \\element{inverseSpeed} for the projectile.",
                 "name": "heatedMultiGroup",
                 "occurrence": "1+",
                 "required": false
             },
             "SnElasticUpScatter": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Style for data where a multi-group upscatter correction is applied to elastic scattering.",
                 "name": "SnElasticUpScatter",
                 "occurrence": "1+",
@@ -93,11 +93,11 @@
     },
 
     "evaluated": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were last released.",
                 "name": "date",
@@ -105,7 +105,7 @@
                 "type": "date"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -113,7 +113,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from. For example, multi-group data are often derived from a \\element{heated} style.",
                 "name": "derivedFrom",
@@ -121,7 +121,7 @@
                 "type": "XMLName"
             },
             "library": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The name of the library for this evaluation (e.g., ``ENDF/B'', ``JEFF'', ``JENDL'').",
                 "name": "library",
@@ -129,7 +129,7 @@
                 "type": "XMLName"
             },
             "version": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The version of this library's release (e.g., ``8.0'', ``3.3'').",
                 "name": "version",
@@ -139,21 +139,21 @@
         },
         "childNodes": {
             "projectileEnergyDomain": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Lower and upper limits of projectile incident energy included in the evaluation.",
                 "name": "projectileEnergyDomain",
                 "occurrence": "1",
                 "required": true
             },
             "temperature": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The temperature the data are evaluated at.",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": true
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -171,11 +171,11 @@
     },
 
     "projectileEnergyDomain": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "max": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The maximum projectile energy for the evaluation.",
                 "name": "max",
@@ -183,7 +183,7 @@
                 "type": "Float64"
             },
             "min": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The minimum projectile energy for the evaluation.",
                 "name": "min",
@@ -191,7 +191,7 @@
                 "type": "Float64"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The unit for the projectile energy minimum and maximum.",
                 "name": "unit",
@@ -209,11 +209,11 @@
         "rootNode": false
     },
     "temperature": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": "PhysicalQuantity",
         "attributes": {
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Floating-point value of the temperature.",
                 "name": "value",
@@ -221,7 +221,7 @@
                 "type": "Float64"
             },
             "unit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Temperature unit, e.g. `K' or `eV/k'.",
                 "name": "unit",
@@ -240,11 +240,11 @@
     },
 
     "crossSectionReconstructed": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string indicating the last time the data for this style were last updated.",
                 "name": "date",
@@ -252,7 +252,7 @@
                 "type": "date"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique string identifier for the style.",
                 "name": "label",
@@ -260,7 +260,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Contains the label of another style from which reconstructed cross sections were derived.  The derivedFrom style is usually `evaluated'.",
                 "name": "derivedFrom",
@@ -270,14 +270,14 @@
         },
         "childNodes": {
             "temperature": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The temperature the data are evalauted at.",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": false
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -291,11 +291,11 @@
     },
 
     "angularDistributionReconstructed": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string indicating the last time the data for this style were last updated.",
                 "name": "date",
@@ -303,7 +303,7 @@
                 "type": "date"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique string identifier for the style.",
                 "name": "label",
@@ -311,7 +311,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Contains the label of another style from which reconstructed angular distribution were derived.  The derivedFrom style is usually `evaluated'.",
                 "name": "derivedFrom",
@@ -321,14 +321,14 @@
         },
         "childNodes": {
             "temperature": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The temperature the data are evalauted at.",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": false
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -342,11 +342,11 @@
     },
 
     "CoulombPlusNuclearElasticMuCutoff": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -354,7 +354,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -362,7 +362,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -370,7 +370,7 @@
                 "type": "XMLName"
             },
             "muCutoff": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The upper limit of $\\mu$.",
                 "name": "muCutoff",
@@ -389,11 +389,11 @@
     },
 
     "heated": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -401,7 +401,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -409,7 +409,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -419,14 +419,14 @@
         },
         "childNodes": {
             "temperature": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The temperature the data for this style were heated to.",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": true
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -440,11 +440,11 @@
     },
 
     "averageProductData": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string indicating the last time the data for this style were last updated.",
                 "name": "date",
@@ -452,7 +452,7 @@
                 "type": "date"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique string identifier for the style.",
                 "name": "label",
@@ -460,7 +460,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Contains the label of another style from which reconstructed cross sections were derived.  The derivedFrom style is usually `evaluated'.",
                 "name": "derivedFrom",
@@ -470,14 +470,14 @@
         },
         "childNodes": {
             "temperature": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The temperature the data for this style were heated to.",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": true
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -491,11 +491,11 @@
     },
 
     "MonteCarlo_cdf": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -503,7 +503,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -511,7 +511,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -521,7 +521,7 @@
         },
         "childNodes": {
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -538,11 +538,11 @@
     },
 
     "griddedCrossSection": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -550,7 +550,7 @@
                 "type": "date"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -558,7 +558,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -568,14 +568,14 @@
         },
         "childNodes": {
             "grid": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The common energy grid as used in Monte Carlo transport. See section~\\ref{format:gpdc:grid}.",
                 "name": "grid",
                 "occurrence": "1",
                 "required":true
             },
             "documentation": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Documentation for the style.",
                 "name": "documentation",
                 "occurrence": "1",
@@ -589,11 +589,11 @@
     },
 
     "heatedMultiGroup": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -601,7 +601,7 @@
                 "type": "date"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -609,7 +609,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -619,21 +619,21 @@
         },
         "childNodes": {
             "transportables": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains a list of \\elemlink{transportable} nodes. Each \\element{transportable} specifies the multi-group boundaries for a specified particle. There can be at most one \\element{transportable} per particle id.",
                 "name": "transportables",
                 "occurrence": "1",
                 "required": true
             },
             "flux": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The flux used when multi-grouping.",
                 "name": "flux",
                 "occurrence": "1",
                 "required": true
             },
             "inverseSpeed": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The multi-group inverse speeds $v_g$ for group $g$. That is, $v_g = \\int_g dE \\, f(E) / v(E)$, where $E$ is the projectile's energy, $f(E)$ is a flux, $v(E)$ is the projectile's velocity and the integral is over group $g$.",
                 "name": "inverseSpeed",
                 "occurrence": "1",
@@ -651,12 +651,12 @@
     },
 
     "transportables": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "transportable": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Each \\elemlink{transportable} specifies multi-group parameters for each particle processed for multi-group transport.",
                 "name": "transportable",
                 "occurrence": "1+",
@@ -670,11 +670,11 @@
     },
 
     "transportable": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "conserve": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "number",
                 "description": "Defines the outgoing particle's energy weight used when calculating a product's transfer matrices. Allowed values are \\attrval{number} with a weight of 1 and \\attrval{energy} with a weight of the product's outgoing energy.",
                 "name": "conserve",
@@ -682,7 +682,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The transportable particle id.",
                 "name": "label",
@@ -692,7 +692,7 @@
         },
         "childNodes": {
             "multiGroup": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the multi-group boundaries for the specified particle.",
                 "name": "multiGroup",
                 "occurrence": "1",
@@ -706,11 +706,11 @@
     },
 
     "multiGroup": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An identifier for the multi-group boundaries.",
                 "name": "label",
@@ -720,7 +720,7 @@
         },
         "childNodes": {
             "grid": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The axes information for the multi-group boundaries. See Section~\\ref{format:gpdc:grid}. The grid values are the multi-group boundaries.",
                 "name": "grid",
                 "occurrence": "1",
@@ -734,11 +734,11 @@
     },
 
     "flux": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "An identifier string for the flux.",
                 "name": "label",
@@ -748,7 +748,7 @@
         },
         "childNodes": {
             "XYs2d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [
                     "The flux $f(E,\\mu)$.",
                     "The axes are incident particle energy, Legendre order and flux. See section~\\ref{format:gpdc:XYs2d}."
@@ -765,12 +765,12 @@
     },
 
     "inverseSpeed": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "gridded1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains the inverse speeds for each group (group boundaries are listed in the \\element{multiGroup} ancestor).",
                 "name": "gridded1d",
                 "occurrence": "1",
@@ -784,11 +784,11 @@
     },
 
     "SnElasticUpScatter": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -796,7 +796,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -804,7 +804,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -812,7 +812,7 @@
                 "type": "XMLName"
             },
             "upperCalculatedGroup": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Index of the highest-energy group (counting from 0) impacted by the upscatter correction.",
                 "name": "upperCalculatedGroup",
@@ -828,11 +828,11 @@
     },
 
     "URR_probabilityTables": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -840,7 +840,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -848,7 +848,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -864,11 +864,11 @@
     },
 
     "Bondarenko": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -876,7 +876,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -884,7 +884,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -894,7 +894,7 @@
         },
         "childNodes": {
             "sigmaZeros": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "Contains a list of `sigma-0' values at which Bondarko factors were computed.",
                 "name": "sigmaZeros",
                 "occurrence": "1",
@@ -907,12 +907,12 @@
         "rootNode": false
     },
     "sigmaZeros": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "values": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "List of sigma-zero values (stored as Float64).",
                 "name": "values",
                 "occurrence": "1",
@@ -926,11 +926,11 @@
     },
 
     "multiBand": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -938,7 +938,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -946,7 +946,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -954,7 +954,7 @@
                 "type": "XMLName"
             },
             "numberOfBands": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Integer for the number of bands per group.",
                 "name": "numberOfBands",
@@ -970,11 +970,11 @@
     },
 
     "equalProbableBins": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -982,7 +982,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -990,7 +990,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",
@@ -998,7 +998,7 @@
                 "type": "XMLName"
             },
             "numberOfBins": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Integer for the number of equal-probable bins.",
                 "name": "numberOfBins",
@@ -1014,11 +1014,11 @@
     },
 
     "realization": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "date": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A valid date string representing when the data for this style were processed.",
                 "name": "date",
@@ -1026,7 +1026,7 @@
                 "type": "XMLName"
             },
             "derivedFrom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The style that the data assoicated with this style were derived from.",
                 "name": "derivedFrom",
@@ -1034,7 +1034,7 @@
                 "type": "XMLName"
             },
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A string identifier for the style and all data assoicated with it. The identifier must be unique among all the styles.",
                 "name": "label",

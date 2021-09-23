@@ -42,9 +42,9 @@ SCENARIO("Testing Defaulted<T>'s value retrieval functions") {
    // Defaulted(default,value)
    // ------------------------
 
-   WHEN("We construct a Defaulted(default value,value)") {
+   WHEN("We construct a Defaulted(default value, value)") {
       const Defaulted<int> d(123,456);
-      const Defaulted<std::vector<double>> v({1.2,3.4 }, {5.6,7.8});
+      const Defaulted<std::vector<double>> v({1.2,3.4}, {5.6,7.8});
 
       // value()
       THEN("value() works as expected") {

@@ -67,7 +67,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -88,67 +88,51 @@ public:
    // ------------------------
 
    // href
-   const std::optional<UTF8Text> &
-   href() const
+   const std::optional<UTF8Text> &href() const
     { return content.href; }
-   std::optional<UTF8Text> &
-   href()
+   std::optional<UTF8Text> &href()
     { return content.href; }
 
    // axis_grid
-   const std::vector<AXIS_GRID> &
-   axis_grid() const
+   const std::vector<AXIS_GRID> &axis_grid() const
     { return content.axis_grid; }
-   std::vector<AXIS_GRID> &
-   axis_grid()
+   std::vector<AXIS_GRID> &axis_grid()
     { return content.axis_grid; }
 
    // axis_grid(index)
-   const AXIS_GRID &
-   axis_grid(const std::size_t index) const
+   const AXIS_GRID &axis_grid(const std::size_t index) const
     { return getter(axis_grid(), index, "axis_grid"); }
-   AXIS_GRID &
-   axis_grid(const std::size_t index)
+   AXIS_GRID &axis_grid(const std::size_t index)
     { return getter(axis_grid(), index, "axis_grid"); }
 
    // axis_grid(label)
-   const AXIS_GRID &
-   axis_grid(const std::string &label) const
+   const AXIS_GRID &axis_grid(const std::string &label) const
     { return getter(axis_grid(), label, "axis_grid"); }
-   AXIS_GRID &
-   axis_grid(const std::string &label)
+   AXIS_GRID &axis_grid(const std::string &label)
     { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
-   const containers::Axis *
-   axis(const std::size_t index) const
+   const containers::Axis *axis(const std::size_t index) const
     { return getter<containers::Axis>(axis_grid(), index, "axis"); }
-   containers::Axis *
-   axis(const std::size_t index)
+   containers::Axis *axis(const std::size_t index)
     { return getter<containers::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
-   const containers::Axis *
-   axis(const std::string &label) const
+   const containers::Axis *axis(const std::string &label) const
     { return getter<containers::Axis>(axis_grid(), label, "axis"); }
-   containers::Axis *
-   axis(const std::string &label)
+   containers::Axis *axis(const std::string &label)
     { return getter<containers::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
-   const containers::Grid *
-   grid(const std::size_t index) const
+   const containers::Grid *grid(const std::size_t index) const
     { return getter<containers::Grid>(axis_grid(), index, "grid"); }
-   containers::Grid *
-   grid(const std::size_t index)
+   containers::Grid *grid(const std::size_t index)
     { return getter<containers::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
-   const containers::Grid *
-   grid(const std::string &label) const
+   const containers::Grid *grid(const std::string &label) const
     { return getter<containers::Grid>(axis_grid(), label, "grid"); }
-   containers::Grid *
-   grid(const std::string &label)
+   containers::Grid *grid(const std::string &label)
     { return getter<containers::Grid>(axis_grid(), label, "grid"); }
 
    // ------------------------
@@ -158,15 +142,15 @@ public:
    // ------------------------
 
    // href(value)
-   auto &href(const std::optional<UTF8Text> &obj)
+   Axes &href(const std::optional<UTF8Text> &obj)
     { href() = obj; return *this; }
 
    // axis_grid(value)
-   auto &axis_grid(const std::vector<AXIS_GRID> &obj)
+   Axes &axis_grid(const std::vector<AXIS_GRID> &obj)
     { axis_grid() = obj; return *this; }
 
    // axis_grid(index,value)
-   auto &axis_grid(
+   Axes &axis_grid(
       const std::size_t index,
       const AXIS_GRID &obj
    ) {
@@ -174,7 +158,7 @@ public:
    }
 
    // axis_grid(label,value)
-   auto &axis_grid(
+   Axes &axis_grid(
       const std::string &label,
       const AXIS_GRID &obj
    ) {
@@ -182,7 +166,7 @@ public:
    }
 
    // axis(index,value)
-   auto &axis(
+   Axes &axis(
       const std::size_t index,
       const std::optional<containers::Axis> &obj
    ) {
@@ -191,7 +175,7 @@ public:
    }
 
    // axis(label,value)
-   auto &axis(
+   Axes &axis(
       const std::string &label,
       const std::optional<containers::Axis> &obj
    ) {
@@ -200,7 +184,7 @@ public:
    }
 
    // grid(index,value)
-   auto &grid(
+   Axes &grid(
       const std::size_t index,
       const std::optional<containers::Grid> &obj
    ) {
@@ -209,7 +193,7 @@ public:
    }
 
    // grid(label,value)
-   auto &grid(
+   Axes &grid(
       const std::string &label,
       const std::optional<containers::Grid> &obj
    ) {
@@ -304,7 +288,6 @@ public:
 }; // class Axes
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

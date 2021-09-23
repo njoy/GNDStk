@@ -1,11 +1,11 @@
 {
-    "namespace": "resonances",
+    "__namespace__": "resonances",
     "resonances": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "href": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "href",
@@ -15,21 +15,21 @@
         },
         "childNodes": {
             "scatteringRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The scattering radius to be used by default.",
                 "name": "scatteringRadius",
                 "occurrence": "1",
                 "required": true
             },
             "hardSphereRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The channel radius to be used for calculating the phase shift.",
                 "name": "hardSphereRadius",
                 "occurrence": "1",
                 "required": false
             },
             "resolved": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The resolved resonance parameters. The use of more than one ",
                                  "\\texttt{resolved} node is deprecated. It is allowed for ",
                                  "historic reasons but should not be used for new evaluations." ],
@@ -38,7 +38,7 @@
                 "required": false
             },
             "unresolved": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The unresolved resonance parameters.",
                 "name": "unresolved",
                 "occurrence": "0+",
@@ -53,20 +53,20 @@
         "rootNode": false
     },
     "scatteringRadius": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique": "yesLabelOmitted",
         "childNodes": {
             "constant1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The scattering radius is a constant value.",
                 "name": "constant1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The scattering radius is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -74,7 +74,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The scattering radius is an energy dependent function with ",
                                  "multiple interpolation range." ],
                 "name": "regions1d",
@@ -99,20 +99,20 @@
         "rootNode": false
     },
     "hardSphereRadius": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childUnique": "yesLabelOmitted",
         "childNodes": {
             "constant1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The channel radius is a constant value.",
                 "name": "constant1d",
                 "occurrence": "choice+",
                 "required": false
             },
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The channel radius is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -120,7 +120,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The channel radius is an energy dependent function with ",
                                  "multiple interpolation range." ],
                 "name": "regions1d",
@@ -145,12 +145,12 @@
         "rootNode": false
     },
     "resolved": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "childUnique" : "yesLabel",
         "attributes": {
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The lower energy limit of the resolved resonance range.",
                 "name": "domainMin",
@@ -158,7 +158,7 @@
                 "type": "Float64"
             },
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The upper energy limit of the resolved resonance range.",
                 "name": "domainMax",
@@ -166,7 +166,7 @@
                 "type": "Float64"
             },
             "domainUnit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The energy unit used for the lower and upper energy limits.",
                 "name": "domainUnit",
@@ -176,7 +176,7 @@
         },
         "childNodes": {
             "RMatrix": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["The resonance parameters are given using the R-matrix formalism.",
                                 "More than one is only allowed if they are different in the style label"],
                 "name": "RMatrix",
@@ -184,7 +184,7 @@
                 "required": false
             },
             "BreitWigner": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The resonance parameters are given using the deprecated ",
                                  "ENDF Breit-Wigner formalism.",
                                  "More than one is only allowed if they are different in the style label"],
@@ -193,7 +193,7 @@
                 "required": false
             },
             "energyIntervals": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Resonance parameters are broken up into several sections, with interference",
                                  "between sections ignored. This option is deprecated but appears in older evaluations."
                                ],
@@ -223,12 +223,12 @@
     },
 
     "energyIntervals": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "childUnique" : "yesLabel",
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Identifier label. Must be unique within the parent \\element{resolved} node.",
                 "name": "label",
@@ -238,7 +238,7 @@
         },
         "childNodes": {
             "energyInterval": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A single energy interval including domain limits and resonance parameterisation.",
                 "name": "energyInterval",
                 "occurrence": "2+",
@@ -256,11 +256,11 @@
         "rootNode": false
     },
     "energyInterval": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "index": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "Index of this \\element{energyInterval} within the parent \\element{energyIntervals}.",
                 "name": "index",
@@ -268,7 +268,7 @@
                 "type": "Integer32"
             },
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The lower energy limit of the resolved resonance range.",
                 "name": "domainMin",
@@ -276,7 +276,7 @@
                 "type": "Float64"
             },
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The upper energy limit of the resolved resonance range.",
                 "name": "domainMax",
@@ -284,7 +284,7 @@
                 "type": "Float64"
             },
             "domainUnit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The energy unit used for the lower and upper energy limits.",
                 "name": "domainUnit",
@@ -294,14 +294,14 @@
         },
         "childNodes": {
             "RMatrix": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The resonance parameters in this interval are given using the R-matrix formalism.",
                 "name": "RMatrix",
                 "occurrence": "choice",
                 "required": false
             },
             "BreitWigner": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The resonance parameters in this interval are given using the deprecated ",
                                  "ENDF Breit-Wigner formalism."],
                 "name": "BreitWigner",
@@ -316,11 +316,11 @@
     },
 
     "RMatrix": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -328,7 +328,7 @@
                 "type": "XMLName"
             },
             "approximation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The approximation to the R-matrix resonance formalism to be ",
                                  "used for the resonance reconstruction (one of ",
@@ -340,7 +340,7 @@
                 "type": "XMLName"
             },
             "boundaryCondition": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The boundary condition option to be used. All current evaluations",
                                  "use boundaryCondition=`S', but other options like `-L', `Brune' or",
@@ -350,7 +350,7 @@
                 "type": "XMLName"
             },
             "calculateChannelRadius": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "false",
                 "description": [ "An optional flag to indicate whether or not the channel ",
                                  "radius should be calculated for the calculation of the ",
@@ -360,7 +360,7 @@
                 "type": "Boolean"
             },
             "calculatePenetrability": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": true,
                 "description": [ "A flag to indicate whether or not the penetrability should be ",
                                  "calculated. If false, the penetrability is assumed to be 1." ],
@@ -369,7 +369,7 @@
                 "type": "Boolean"
             },
             "useForSelfShieldingOnly": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": false,
                 "description": [ "Flag indicating that resonance parameters are only meant for use in",
                                  "computing self-shielding, not for calculating the cross section." ],
@@ -378,7 +378,7 @@
                 "type": "Boolean"
             },
             "supportsAngularReconstruction": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "false",
                 "description": [ "A flag to indicate whether or not the resonance parameters ",
                                  "may be used to compute angular distributions for the reactions." ],
@@ -389,7 +389,7 @@
         },
         "childNodes": {
             "PoPs": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Particle database to be used for the resonance reconstruction. ",
                                  "This element only needs to be given if mass or spin values ",
                                  "different from the particle database used in the parent ",
@@ -400,14 +400,14 @@
                 "required": false
             },
             "resonanceReactions": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The reactions for which resonance parameters will be provided.",
                 "name": "resonanceReactions",
                 "occurrence": "1",
                 "required": true
             },
             "spinGroups": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The spin groups with resonance parameters.",
                 "name": "spinGroups",
                 "occurrence": "1",
@@ -441,12 +441,12 @@
         "rootNode": false
     },
     "resonanceReactions": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "resonanceReaction": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A single reaction for which resonances are specified.",
                 "name": "resonanceReaction",
                 "occurrence": "1+",
@@ -461,11 +461,11 @@
         "rootNode": false
     },
     "resonanceReaction": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -473,7 +473,7 @@
                 "type": "XMLName"
             },
             "ejectile": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "A string identifying the ejectile of the reaction (e.g. n). ",
                                  "This attribute is required because the sign on the channel spin ",
@@ -484,7 +484,7 @@
                 "type": "XMLName"
             },
             "eliminated": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": false,
                 "description": [ "A flag to indicate whether or not a reaction is eliminated. ",
                                  "This is used for the Reich-Moore approximation for the neutron ",
@@ -497,7 +497,7 @@
         },
         "childNodes": {
             "Q": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the Q value of the reaction given ",
                                  "in the \\texttt{reaction} node." ],
                 "name": "Q",
@@ -505,7 +505,7 @@
                 "required": false
             },
             "scatteringRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the scattering radius for this ",
                                  "reaction." ],
                 "name": "scatteringRadius",
@@ -513,7 +513,7 @@
                 "required": false
             },
             "hardSphereRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the channel radius used in the ",
                                  "calculation of the phase shift $\\phi$ for this reaction." ],
                 "name": "hardSphereRadius",
@@ -521,7 +521,7 @@
                 "required": false
             },
             "link": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A link to the corresponding \\texttt{reaction} node.",
                 "name": "link",
                 "occurrence": "1",
@@ -542,12 +542,12 @@
         "rootNode": false
     },
     "spinGroups": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "spinGroup": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The resolved resonance data for a given value of the total ",
                                  "angular momentum and associated parity $J^\\pi$ as well as ",
                                  "the contributing channels." ],
@@ -563,11 +563,11 @@
         "rootNode": false
     },
     "spinGroup": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A label string identifying the spin group.",
                 "name": "label",
@@ -575,7 +575,7 @@
                 "type": "XMLName"
             },
             "spin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The value of the total angular momentum $J$ for the spin ",
                                  "group in units of hbar, given as a fraction, e.g. \\texttt{0}, ",
@@ -585,7 +585,7 @@
                 "type": "Fraction32"
             },
             "parity": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The parity for the spin group, either \\texttt{1} or \\texttt{-1}.",
                 "name": "parity",
@@ -595,14 +595,14 @@
         },
         "childNodes": {
             "channels": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The channels that are available in this spin group.",
                 "name": "channels",
                 "occurrence": "1",
                 "required": true
             },
             "resonanceParameters": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The resonance parameter table for this spin group.",
                 "name": "resonanceParameters",
                 "occurrence": "1",
@@ -617,12 +617,12 @@
         "rootNode": false
     },
     "channels": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "channel": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "A node used to identify the channel and the resonance reaction ",
                                  "to which the channel contributes as well as the override values ",
                                  "to be used for channel related data." ],
@@ -643,11 +643,11 @@
         "rootNode": false
     },
     "channel": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "A unique string identifying the channel in the spin group.",
                 "name": "label",
@@ -655,7 +655,7 @@
                 "type": "XMLName"
             },
             "resonanceReaction": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The label of the resonance reaction (as defined in the ",
                                  "\\texttt{resonanceReaction} nodes) that the channel contributes to." ],
@@ -664,7 +664,7 @@
                 "type": "bodyText"
             },
             "L": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The value of the orbital momentum quantum number $\\ell$ in units of hbar.",
                 "name": "L",
@@ -672,7 +672,7 @@
                 "type": "Integer32"
             },
             "channelSpin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The value of the channel spin $s$ in units of hbar, given as a ",
                                  "fraction, e.g. \\texttt{0}, \\texttt{1/2}, ",
@@ -682,7 +682,7 @@
                 "type": "Fraction32"
             },
             "boundaryConditionOverride": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "Overrides the boundary condition listed in the RMatrix ancestor node." ],
                 "name": "boundaryConditionOverride",
@@ -690,7 +690,7 @@
                 "type": "Float64"
             },
             "columnIndex": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The index of the column of the table in the ",
                                  "\\texttt{resonanceParameters} that contains the resonance widths ",
@@ -702,7 +702,7 @@
         },
         "childNodes": {
             "scatteringRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the scattering radius for this ",
                                  "channel in the current spin group." ],
                 "name": "scatteringRadius",
@@ -710,7 +710,7 @@
                 "required": false
             },
             "hardSphereRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the channel radius used in the ",
                                  "calculation of the phase shift $\\phi$ for this channel ",
                                  "in the current spin group." ],
@@ -727,12 +727,12 @@
         "rootNode": false
     },
     "resonanceParameters": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "table": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "A table of resonance widths.",
                 "name": "table",
                 "occurrence": "1",
@@ -759,11 +759,11 @@
         "rootNode": false
     },
     "BreitWigner": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -771,7 +771,7 @@
                 "type": "XMLName"
             },
             "approximation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The approximation to the R-matrix resonance formalism to be ",
                                  "used for the resonance reconstruction (either ",
@@ -781,7 +781,7 @@
                 "type": "XMLName"
             },
             "calculateChannelRadius": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "false",
                 "description": [ "An optional flag to indicate whether or not the channel ",
                                  "radius should be calculated for the calculation of the ",
@@ -791,7 +791,7 @@
                 "type": "Boolean"
             },
             "useForSelfShieldingOnly": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "false",
                 "description": [ "An optional flag to indicate that resonance parameters are",
                                  "only intended for self-shielding, not for reconstructing a cross section." ],
@@ -802,7 +802,7 @@
         },
         "childNodes": {
             "PoPs": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Particle database to be used for the resonance reconstruction. ",
                                  "This element only needs to be given if mass or spin values ",
                                  "different from the particle database used in the parent ",
@@ -813,7 +813,7 @@
                 "required": false
             },
             "scatteringRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the scattering radius for the ",
                                  "resolved resonance region." ],
                 "name": "scatteringRadius",
@@ -821,7 +821,7 @@
                 "required": false
             },
             "hardSphereRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the channel radius used in the ",
                                  "calculation of the phase shift $\\phi$ for the resolved ",
                                  "resonance region." ],
@@ -830,7 +830,7 @@
                 "required": false
             },
             "resonanceParameters": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The resonance parameter table.",
                 "name": "resonanceParameters",
                 "occurrence": "1",
@@ -846,12 +846,12 @@
         "rootNode": false
     },
     "unresolved": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "childUnique" : "yesLabel",
         "attributes": {
             "domainMin": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The lower energy limit of the resolved resonance range.",
                 "name": "domainMin",
@@ -859,7 +859,7 @@
                 "type": "Float64"
             },
             "domainMax": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The upper energy limit of the resolved resonance range.",
                 "name": "domainMax",
@@ -867,7 +867,7 @@
                 "type": "Float64"
             },
             "domainUnit": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The energy unit used for the lower and upper energy limits.",
                 "name": "domainUnit",
@@ -877,7 +877,7 @@
         },
         "childNodes": {
             "tabulatedWidths": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": ["The unresolved resonance parameters.",
                                 " ",
                                 "Only one instance per evaluation label is allowed."],
@@ -895,11 +895,11 @@
         "rootNode": false
     },
     "tabulatedWidths": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -907,7 +907,7 @@
                 "type": "XMLName"
             },
             "approximation": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The approximation to the R-matrix resonance formalism ",
                                  "for resonance reconstruction (currently only ",
@@ -917,7 +917,7 @@
                 "type": "XMLName"
             },
             "useForSelfShieldingOnly": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": "false",
                 "description": [ "An optional flag to indicate whether or not the resonance ",
                                  "parameters are provided for self-shielding or scattering ",
@@ -929,7 +929,7 @@
         },
         "childNodes": {
             "PoPs": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "Particle database to be used for the resonance reconstruction. ",
                                  "This element only needs to be given if mass or spin values ",
                                  "different from the particle database used in the parent ",
@@ -940,7 +940,7 @@
                 "required": false
             },
             "scatteringRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the scattering radius for the ",
                                  "unresolved resonance region." ],
                 "name": "scatteringRadius",
@@ -948,7 +948,7 @@
                 "required": false
             },
             "hardSphereRadius": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "An optional override for the channel radius used in the ",
                                  "calculation of the phase shift $\\phi$ for the unresolved ",
                                  "resonance region." ],
@@ -957,14 +957,14 @@
                 "required": false
             },
             "resonanceReactions": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The reactions for which resonance parameters will be provided.",
                 "name": "resonanceReactions",
                 "occurrence": "1",
                 "required": true
             },
             "Ls": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average unresolved resonance parameters for all values ",
                                  "of the orbital angular momentum $\\ell$." ],
                 "name": "Ls",
@@ -980,12 +980,12 @@
         "rootNode": false
     },
     "Ls": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "L": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average unresolved resonance parameters for a given value ",
                                  "of the orbital angular momentum $\\ell$." ],
                 "name": "L",
@@ -1000,11 +1000,11 @@
         "rootNode": false
     },
     "L": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -1012,7 +1012,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The value of the orbital angular momentum $\\ell$ in units of hbar.",
                 "name": "value",
@@ -1022,7 +1022,7 @@
         },
         "childNodes": {
             "Js": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average unresolved resonance parameters for all values of the ",
                                  "total angular momentum $J$ allowed by the current orbital angular ",
                                  "momentum $\\ell$."] ,
@@ -1040,12 +1040,12 @@
         "rootNode": false
     },
     "Js": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "J": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average unresolved resonance parameters for a given value ",
                                  "of the total angular momentum $J$ allowed by the current orbital ",
                                  "angular momentum $\\ell$." ],
@@ -1062,11 +1062,11 @@
         "rootNode": false
     },
     "J": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "label": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": null,
                 "name": "label",
@@ -1074,7 +1074,7 @@
                 "type": "XMLName"
             },
             "value": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The value of the total angular momentum $J$ for the spin ",
                                  "group in units of hbar, given as a fraction, e.g. \\texttt{0}, ",
@@ -1086,7 +1086,7 @@
         },
         "childNodes": {
             "levelSpacing": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average level spacing for the current orbital angular ",
                                  "momentum $\\ell$ and the current total angular momentum $J$." ],
                 "name": "levelSpacing",
@@ -1094,7 +1094,7 @@
                 "required": true
             },
             "widths": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average resonance parameters for the current orbital angular ",
                                  "momentum $\\ell$ and the current total angular momentum $J$." ],
                 "name": "widths",
@@ -1110,19 +1110,19 @@
         "rootNode": false
     },
     "levelSpacing": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "constant1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The level spacing is a constant value.",
                 "name": "constant1d",
                 "occurrence": "1",
                 "required": false
             },
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The level spacing is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -1130,7 +1130,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The level spacing is an energy dependent function with ",
                                  "multiple interpolation range." ],
                 "name": "regions1d",
@@ -1146,12 +1146,12 @@
         "rootNode": false
     },
     "widths": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "childNodes": {
             "width": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The average resonance width for a given channel.",
                 "name": "width",
                 "occurrence": "1+",
@@ -1171,11 +1171,11 @@
         "rootNode": false
     },
     "width": {
-        "class": "nodes.Node",
+        "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {
             "resonanceReaction": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The label of the resonance reaction (as defined in the ",
                                  "\\texttt{resonanceReaction} nodes) that the channel contributes to." ],
@@ -1184,7 +1184,7 @@
                 "type": "bodyText"
             },
             "degreesOfFreedom": {
-                "class": "nodes.Attribute",
+                "__class__": "nodes.Attribute",
                 "default": null,
                 "description": [ "The number of degrees of freedom to be used to sample the ",
                                  "average width." ],
@@ -1195,14 +1195,14 @@
         },
         "childNodes": {
             "constant1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": "The average width is a constant value.",
                 "name": "constant1d",
                 "occurrence": "1",
                 "required": false
             },
             "XYs1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average width is an energy dependent function with ",
                                  "a single interpolation range." ],
                 "name": "XYs1d",
@@ -1210,7 +1210,7 @@
                 "required": false
             },
             "regions1d": {
-                "class": "nodes.ChildNode",
+                "__class__": "nodes.ChildNode",
                 "description": [ "The average width is an energy dependent function with ",
                                  "multiple interpolation range." ],
                 "name": "regions1d",
