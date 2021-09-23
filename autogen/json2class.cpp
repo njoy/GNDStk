@@ -1765,102 +1765,94 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "\n";
    cpp << "   // wrap the component\n";
    cpp << "   component\n";
-   cpp << "      .def(\n";
 
    // compute some things with respect to "body text"
    const auto body = class2bodytext.find(obj.name);
    assert(body != class2bodytext.end());
    const bool hasBodyTextOrData = body->second.first; // this class has it?
-   const std::string dataType = body->second.second;
 
-   std::string bodyType = "unknownType";
-   std::string bodyName = "unknownName";
+   std::vector< std::pair< std::string, std::string > > bodyTypeNames;
    if (hasBodyTextOrData) {
+
+      const std::string dataType = body->second.second;
+
+      // fixed data type
       if (dataType != "") {
          if (dataType == "Integer32") {
-            bodyType = "Integer32";
-            bodyName = "ints";
+            bodyTypeNames.emplace_back( "Integer32", "ints" );
          }
          if (dataType == "Float64") {
-            bodyType = "Float64";
-            bodyName = "doubles";
+            bodyTypeNames.emplace_back( "Float64", "doubles" );
          }
          if (dataType == "UTF8Text") {
-            bodyType = "UTF8Text";
-            bodyName = "strings";
-         }
-      } else {
-         for (auto &m : minfo) {
-            if (m.varName == "valueType") {
-               if (m.theDefault == "\"Integer32\"") {
-                  bodyType = "Integer32";
-                  bodyName = "ints";
-               }
-               if (m.theDefault == "\"Float64\"") {
-                  bodyType = "Float64";
-                  bodyName = "doubles";
-               }
-               if (m.theDefault == "\"UTF8Text\"") {
-                  bodyType = "UTF8Text";
-                  bodyName = "strings";
-               }
-            }
+            bodyTypeNames.emplace_back( "UTF8Text", "strings" );
          }
       }
-   }
-
-   std::size_t count;
-
-   // python::init<...>
-   cpp << "         python::init<";
-   count = 0;
-   for (auto &m : minfo) {
-      cpp << (count++ ? "," : "") << "\n            ";
-      if (m.isDefaulted) {
-
-        cpp << "const std::optional<" << m.varType << "> &";
-      }
+      // runtime data type
       else {
+         bodyTypeNames.emplace_back( "Integer32", "ints" );
+         bodyTypeNames.emplace_back( "Float64", "doubles" );
+         bodyTypeNames.emplace_back( "UTF8Text", "strings" );
+      }
+   }
 
-        cpp << "const " << m.fullVarType << " &";;
-      }
-   }
-   for (auto &c : cinfo) {
-      if (!c.isChoice) {
-         cpp << (count++ ? "," : "") << "\n            "
-             << "const " << c.fullVarType << " &";
-      }
-   }
-   if (hasBodyTextOrData) {
-      cpp << (count++ ? "," : "") << "\n            ";
-      cpp << "const std::vector<" << bodyType << "> &";
-   }
-   cpp << "\n         >(),\n";
+   // python::init<...> - at least one, more when bodyText is used
+   const unsigned int repeat = hasBodyTextOrData ? bodyTypeNames.size() : 1;
+   for ( unsigned int index = 0; index < repeat; ++index ) {
 
-   // python::arg...
-   for (auto &m : minfo) {
-      cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
-      if (m.isDefaulted) {
-         cpp << " = std::nullopt";
-      } else if (m.isOptional) {
-         cpp << " = std::nullopt";
+      std::size_t count;
+
+      cpp << "      .def(\n";
+      cpp << "         python::init<";
+      count = 0;
+      for (auto &m : minfo) {
+         cpp << (count++ ? "," : "") << "\n            ";
+         if (m.isDefaulted) {
+
+           cpp << "const std::optional<" << m.varType << "> &";
+         }
+         else {
+
+           cpp << "const " << m.fullVarType << " &";;
+         }
       }
-      cpp << ",\n";
-   }
-   for (auto &c : cinfo) {
-      if (!c.isChoice) {
-         cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
-         if (c.isOptional) {
+      for (auto &c : cinfo) {
+         if (!c.isChoice) {
+            cpp << (count++ ? "," : "") << "\n            "
+                << "const " << c.fullVarType << " &";
+         }
+      }
+      if (hasBodyTextOrData) {
+         cpp << (count++ ? "," : "") << "\n            ";
+         cpp << "const std::vector<" << bodyTypeNames[index].first << "> &";
+      }
+      cpp << "\n         >(),\n";
+
+      // python::arg...
+      for (auto &m : minfo) {
+         cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
+         if (m.isDefaulted) {
+            cpp << " = std::nullopt";
+         } else if (m.isOptional) {
             cpp << " = std::nullopt";
          }
          cpp << ",\n";
       }
+      for (auto &c : cinfo) {
+         if (!c.isChoice) {
+            cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+            if (c.isOptional) {
+               cpp << " = std::nullopt";
+            }
+            cpp << ",\n";
+         }
+      }
+      if (hasBodyTextOrData) {
+         cpp << "         python::arg(\"" << bodyTypeNames[index].second << "\"),\n";
+      }
+      cpp << "         Component::documentation(\"constructor\").data()\n";
+      cpp << "      )\n";
    }
-   if (hasBodyTextOrData) {
-      cpp << "         python::arg(\"values\"),\n";
-   }
-   cpp << "         Component::documentation(\"constructor\").data()\n";
-   cpp << "      )\n";
 
    // .def_property_readonly...
    for (auto &m : minfo) {
@@ -1869,7 +1861,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "         \"" << pythonname << "\",\n";
       if (m.isDefaulted) {
 
-         cpp << "         [] ( const Component& self ) { return self." 
+         cpp << "         [] ( const Component& self ) { return self."
              << m.varName << "().value(); },\n";
       }
       else {
@@ -1891,12 +1883,17 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    }
 
    if (hasBodyTextOrData) {
-      cpp << "      .def_property_readonly(\n";
-      cpp << "         \"" << bodyName << "\",\n";
-      cpp << "         [] (const Component &self) "
-          << "{ return self." << bodyName << "(); },\n";
-      cpp << "         Component::documentation(\"" << bodyName << "\").data()\n";
-      cpp << "      )\n";
+
+      for ( unsigned int index = 0; index < repeat; ++index ) {
+
+         cpp << "      .def_property_readonly(\n";
+         cpp << "         \"" << bodyTypeNames[index].second << "\",\n";
+         cpp << "         [] (const Component &self) "
+             << "{ return self." << bodyTypeNames[index].second << "(); },\n";
+         cpp << "         Component::documentation(\""
+             << bodyTypeNames[index].second << "\").data()\n";
+         cpp << "      )\n";
+      }
    }
 
    // finish up
