@@ -29,10 +29,9 @@ SCENARIO( "Grid" ) {
       std::string label = "row_energy_bounds";
       std::string unit = "eV";
       enums::GridStyle style = enums::GridStyle::boundaries;
-      enums::Interpolation interpolation = enums::Interpolation::linlin;
       std::vector< double > values = { 1e-5, 2e7 };
 
-      Grid chunk( index, interpolation, label, style, unit,
+      Grid chunk( index, std::nullopt, label, style, unit,
                   Values( 2, 0, "Float64", values ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
@@ -80,10 +79,9 @@ SCENARIO( "Grid" ) {
       std::string label = "column_energy_bounds";
       std::string unit = "eV";
       enums::GridStyle style = enums::GridStyle::link;
-      enums::Interpolation interpolation = enums::Interpolation::linlin;
       std::string href = "../../grid[@index='2']/values";
 
-      Grid chunk( index, interpolation, label, style, unit,
+      Grid chunk( index, std::nullopt, label, style, unit,
                   Link( href ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
@@ -183,7 +181,7 @@ SCENARIO( "Grid" ) {
 std::string chunk() {
 
   return
-R"***(<grid index="2" interpolation="lin-lin" label="row_energy_bounds" style="boundaries" unit="eV">
+R"***(<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">
    <values length="2" start="0" valueType="Float64">1e-05 2e+07</values>
 </grid>
 )***";
@@ -223,7 +221,7 @@ void verifyChunk( const Grid& component ) {
 std::string chunkWithLink() {
 
   return
-R"***(<grid index="1" interpolation="lin-lin" label="column_energy_bounds" style="link" unit="eV">
+R"***(<grid index="1" label="column_energy_bounds" style="link" unit="eV">
    <link href="../../grid[@index='2']/values" />
 </grid>
 )***";
