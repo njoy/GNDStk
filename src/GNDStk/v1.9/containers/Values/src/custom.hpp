@@ -21,18 +21,16 @@ private:
    */
   void construct() {
 
-    if ( this->length() == std::nullopt ) {
+    if ( this->length() != std::nullopt ) {
 
-      this->length( this->size() + this->start() );
-    }
+      if ( this->length() != this->size() + this->start() ) {
 
-    if ( this->length() != this->size() + this->start() ) {
-
-      log::error( "Inconsistent size for \"values\" array" );
-      log::info( "start: {}", this->start() );
-      log::info( "length: {}", this->length().value() );
-      log::info( "number of values: {}", this->size() );
-      throw std::exception();
+        log::error( "Inconsistent size for \"values\" array" );
+        log::info( "start: {}", this->start() );
+        log::info( "length: {}", this->length().value() );
+        log::info( "number of values: {}", this->size() );
+        throw std::exception();
+      }
     }
   }
 
@@ -53,21 +51,7 @@ public:
       }
   {
 
-    this->length( length );
-    this->start( start );
-    this->valueType( valueType );
-
-    std::ostringstream out;
-    for ( unsigned int i = 0; i < values.size(); ++i ) {
-
-      if ( i != 0 ) {
-
-        out << ' ';
-      }
-      out << values[i];
-    }
-    this->string( out.str() );
-    this->get(); // need to call get() to properly initialise the variant<vector>
+    this->get< std::vector< T > >() = values;
 
     Component::finish(); // ensure that construct() gets called
   }
@@ -75,7 +59,5 @@ public:
   template < typename T,
              typename = std::enable_if_t<
                 detail::isAlternative< std::vector<T>, VariantOfVectors > > >
-  Values( const std::vector< T >& values,
-          const Integer32& start = 0,
-          const UTF8Text& valueType = "Float64" ) :
-    Values( values.size() + start, start, valueType, values ) {}
+  Values( const std::vector< T >& values ) :
+    Values( std::nullopt, std::nullopt, std::nullopt, values ) {}
