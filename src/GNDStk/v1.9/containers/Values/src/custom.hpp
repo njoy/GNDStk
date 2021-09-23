@@ -51,6 +51,9 @@ public:
       }
   {
 
+    if ( length ) this->length( length );
+    if ( start ) this->start( start );
+    if ( valueType ) this->valueType( valueType );
     this->get< std::vector< T > >() = values;
 
     Component::finish(); // ensure that construct() gets called

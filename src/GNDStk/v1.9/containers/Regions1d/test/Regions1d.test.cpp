@@ -34,12 +34,10 @@ SCENARIO( "Regions1d" ) {
 
               XYs1d( 0, std::nullopt, std::nullopt, std::nullopt,
                      std::nullopt,
-                     Values( std::nullopt, std::nullopt, std::nullopt,
-                             std::vector< double >{ 0.0253, 4.34057, 30000, 1.62386 } ) ),
+                     Values( std::vector< double >{ 0.0253, 4.34057, 30000, 1.62386 } ) ),
               XYs1d( 1, std::nullopt, std::nullopt, std::nullopt,
                      std::nullopt,
-                     Values( std::nullopt, std::nullopt, std::nullopt,
-                             std::vector< double >{ 30000, 1.65691, 2e+7, 2.35696 } ) )
+                     Values( std::vector< double >{ 30000, 1.65691, 2e+7, 2.35696 } ) )
           },                                           // vector of 1D functions
           Axes( std::nullopt,
                 std::vector< std::variant< Axis, Grid > >{
@@ -146,10 +144,10 @@ std::string chunk() {
   return
 R"***(<regions1d>
    <XYs1d index="0">
-      <values length="4" start="0" valueType="Float64">0.0253 4.34057 30000 1.62386</values>
+      <values>0.0253 4.34057 30000 1.62386</values>
    </XYs1d>
    <XYs1d index="1">
-      <values length="4" start="0" valueType="Float64">30000 1.65691 2e+07 2.35696</values>
+      <values>30000 1.65691 2e+07 2.35696</values>
    </XYs1d>
    <axes>
       <axis index="0" label="crossSection" unit="b" />
@@ -193,7 +191,7 @@ void verifyChunk( const Regions1d& component ) {
   CHECK( std::nullopt == xys1d0.outerDomainValue() );
   CHECK( std::nullopt == xys1d0.axes() );
   CHECK( enums::Interpolation::linlin == xys1d0.interpolation() );
-  CHECK( 4 == xys1d0.values().length() );
+  CHECK( std::nullopt == xys1d0.values().length() );
   CHECK( 0 == xys1d0.values().start() );
   CHECK( "Float64" == xys1d0.values().valueType().value() );
   CHECK( 4 == xys1d0.values().size() );
@@ -209,7 +207,7 @@ void verifyChunk( const Regions1d& component ) {
   CHECK( std::nullopt == xys1d1.outerDomainValue() );
   CHECK( std::nullopt == xys1d1.axes() );
   CHECK( enums::Interpolation::linlin == xys1d1.interpolation() );
-  CHECK( 4 == xys1d1.values().length() );
+  CHECK( std::nullopt == xys1d1.values().length() );
   CHECK( 0 == xys1d1.values().start() );
   CHECK( "Float64" == xys1d1.values().valueType().value() );
   CHECK( 4 == xys1d1.values().size() );

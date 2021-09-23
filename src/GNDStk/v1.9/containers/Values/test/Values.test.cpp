@@ -42,26 +42,6 @@ SCENARIO( "Values" ) {
       } // THEN
     } // WHEN
 
-    WHEN( "custom constructor: only values are given" ) {
-
-      std::vector< double > values = { 2500., 8.9172, 2550., 8.9155 };
-
-      Values chunk( values );
-
-      THEN( "the component can be constructed and members can be tested" ) {
-
-        verifyChunk( chunk );
-      } // THEN
-
-      THEN( "it can be written in XML" ) {
-
-        std::ostringstream out;
-        XML( Node( chunk ) ).write( out, false );
-
-        CHECK( out.str() == string );
-      } // THEN
-    } // WHEN
-
     WHEN( "the data is constructed from a node" ) {
 
       Node node;
@@ -154,8 +134,6 @@ void verifyChunk( const Values& component ) {
   CHECK( 4 == component.length() );
   CHECK( 0 == component.start() );
   CHECK( "Float64" == component.valueType().value() );
-
-  CHECK( "2500 8.9172 2550 8.9155" == component.string() );
 
   CHECK( 4 == component.size() );
   CHECK( 4 == component.doubles().size() );
