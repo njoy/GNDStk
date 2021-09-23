@@ -60,11 +60,13 @@ void toNode(std::string &text, DERIVED &derived) const
       vars.valueType =
          std::holds_alternative<std::vector<Integer32>>(variant) ? "Integer32"
        : std::holds_alternative<std::vector<Float64  >>(variant) ? "Float64"
+       : std::holds_alternative<std::vector<UTF8Text >>(variant) ? "UTF8Text"
        : ""; // fallback
    } else {
       vars.valueType =
          std::is_same_v<Integer32,DATA> ? "Integer32"
        : std::is_same_v<Float64,  DATA> ? "Float64"
+       : std::is_same_v<UTF8Text, DATA> ? "UTF8Text"
        : ""; // fallback
    }
    pushToDerived(derived);

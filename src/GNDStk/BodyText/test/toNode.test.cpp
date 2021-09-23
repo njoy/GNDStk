@@ -183,7 +183,7 @@ void scenario_toNode()
             CHECK(text == "foo bar baz");
             CHECK(b.start() == 3);
             CHECK(b.length() == 8);
-            CHECK(b.valueType() == "");
+            CHECK(b.valueType() == "UTF8Text");
 
             // w/trim == false
             // toNode() should treat this (the std::string) case as if trim
@@ -195,7 +195,7 @@ void scenario_toNode()
             CHECK(text == "foo bar baz");
             CHECK(b.start() == 3);
             CHECK(b.length() == 8);
-            CHECK(b.valueType() == "");
+            CHECK(b.valueType() == "UTF8Text");
          }
       }
    }
