@@ -12,7 +12,7 @@ void node2Node(const NODE &, NODE &);
 
 
 // -----------------------------------------------------------------------------
-// is_optional
+// isOptional
 // -----------------------------------------------------------------------------
 
 // default
@@ -28,6 +28,9 @@ class is_optional<std::optional<T>> {
 public:
    static constexpr bool value = true;
 };
+
+template<class T>
+inline constexpr bool isOptional = is_optional<T>::value;
 
 
 
@@ -348,11 +351,11 @@ class MetaRef {
    const Meta<TYPE,CONVERTER> kwd;
 
    // [const] std::string reference to the actual, in-Node metadatum value
-   typename std::conditional<
+   std::conditional_t<
       CONST,
       const std::string,
       std::string
-   >::type &metaValueRef;
+   > &metaValueRef;
 
 public:
 
@@ -362,7 +365,7 @@ public:
 
    MetaRef(
       const Meta<TYPE,CONVERTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &parent
+      std::conditional_t<CONST, const NODE, NODE> &parent
    ) :
       kwd(kwd), // original Meta
       metaValueRef(parent(-kwd)) // -kwd so Meta<void>; reference to raw
@@ -375,10 +378,10 @@ public:
 
    // = TYPE
    template<bool CONSTANT = CONST>
-   typename std::enable_if<
+   std::enable_if_t<
      !CONSTANT,
       MetaRef
-   >::type &operator=(const TYPE &obj)
+   > &operator=(const TYPE &obj)
    {
       kwd.converter(obj,metaValueRef="");
       return *this;
@@ -387,10 +390,10 @@ public:
    // = std::string
    // if std::string != TYPE
    template<bool CONSTANT = CONST, class T = TYPE>
-   typename std::enable_if<
-     !CONSTANT && !std::is_same<T,std::string>::value,
+   std::enable_if_t<
+     !CONSTANT && !std::is_same_v<T,std::string>,
       MetaRef
-   >::type &operator=(const std::string &s)
+   > &operator=(const std::string &s)
    {
       metaValueRef = s;
       return *this;
@@ -411,10 +414,10 @@ public:
    // to std::string
    // if std::string != TYPE
    template<class T = TYPE>
-   operator typename std::enable_if<
-     !std::is_same<T,std::string>::value,
+   operator std::enable_if_t<
+     !std::is_same_v<T,std::string>,
       std::string
-   >::type() const
+   >() const
    {
       return metaValueRef;
    }
@@ -452,11 +455,11 @@ class ChildRef<NODE,CONST,TYPE,Allow::one,CONVERTER,FILTER>
    const Child<TYPE,Allow::one,CONVERTER,FILTER> kwd;
 
    // [const] Node reference to the actual Node
-   typename std::conditional<
+   std::conditional_t<
       CONST,
       const NODE,
       NODE
-   >::type &childNodeRef;
+   > &childNodeRef;
 
 public:
 
@@ -466,7 +469,7 @@ public:
 
    ChildRef(
       const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &parent
+      std::conditional_t<CONST, const NODE, NODE> &parent
    ) :
       kwd(kwd), // original Child
       childNodeRef(parent(-kwd)) // -kwd so Child<void>; reference to raw
@@ -479,10 +482,10 @@ public:
 
    // = TYPE
    template<bool CONSTANT = CONST>
-   typename std::enable_if<
+   std::enable_if_t<
      !CONSTANT,
       ChildRef
-   >::type &operator=(const TYPE &obj)
+   > &operator=(const TYPE &obj)
    {
       kwd.converter(obj,childNodeRef.clear());
       return *this;
@@ -491,10 +494,10 @@ public:
    // = NODE (as in ChildRef's template argument called NODE)
    // if NODE != TYPE
    template<bool CONSTANT = CONST, class T = TYPE>
-   typename std::enable_if<
-     !CONSTANT && !std::is_same<T,NODE>::value,
+   std::enable_if_t<
+     !CONSTANT && !std::is_same_v<T,NODE>,
       ChildRef
-   >::type &operator=(const NODE &n)
+   > &operator=(const NODE &n)
    {
       childNodeRef = n;
       return *this;
@@ -515,10 +518,10 @@ public:
    // to NODE() (as in ChildRef's template argument called NODE)
    // if NODE != TYPE
    template<class T = TYPE>
-   operator typename std::enable_if<
-     !std::is_same<T,NODE>::value,
+   operator std::enable_if_t<
+     !std::is_same_v<T,NODE>,
       NODE
-   >::type() const
+   >() const
    {
       return childNodeRef;
    }
@@ -542,11 +545,11 @@ class ChildRef<NODE,CONST,TYPE,Allow::many,CONVERTER,FILTER>
 
    // vector of [const] Node pointers to the actual Nodes
    std::vector<
-      typename std::conditional<
+      std::conditional_t<
          CONST,
          const NODE,
          NODE
-      >::type *
+      > *
    > childNodePtr;
 
 public:
@@ -557,7 +560,7 @@ public:
 
    ChildRef(
       const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
-      typename std::conditional<CONST, const NODE, NODE>::type &parent
+      std::conditional_t<CONST, const NODE, NODE> &parent
    ) :
       kwd(kwd) // original Child
    {
@@ -591,7 +594,7 @@ public:
    // operator[]
    decltype(auto) operator[](const std::size_t n) const
    {
-      if constexpr (std::is_same<TYPE,void>::value) {
+      if constexpr (std::is_same_v<TYPE,void>) {
          // For TYPE == void
          // Returns: [const] NODE &
          return *childNodePtr[n];
@@ -650,10 +653,10 @@ public:
    // to vector<TYPE>
    template<class T = TYPE>
    operator std::vector<
-      typename std::enable_if<
-        !std::is_same<T,void>::value,
+      std::enable_if_t<
+        !std::is_same_v<T,void>,
          TYPE
-      >::type
+      >
    >() const
    {
       std::vector<TYPE> vec;
@@ -669,10 +672,10 @@ public:
    // to vector<NODE>
    template<class T = TYPE>
    operator std::vector<
-      typename std::enable_if<
-        !std::is_same<T,NODE>::value, // <== includes TYPE == void
+      std::enable_if_t<
+        !std::is_same_v<T,NODE>, // <== includes TYPE == void
          NODE
-      >::type
+      >
    >() const
    {
       std::vector<NODE> vec;

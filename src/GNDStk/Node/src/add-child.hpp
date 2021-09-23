@@ -40,8 +40,8 @@ Node &add(const std::string &name = "")
 // 1-argument: plain
 template<
    class T,
-   class = typename std::enable_if<std::is_constructible<Node,T>::value>::type,
-   class = typename std::enable_if<!detail::is_optional<T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<Node,T>>,
+   class = std::enable_if_t<!detail::isOptional<T>>
 >
 Node &add(
    const T &val // <== via SFINAE, T != optional
@@ -55,7 +55,7 @@ Node &add(
 // 1-argument: Defaulted
 template<
    class T,
-   class = typename std::enable_if<std::is_constructible<Node,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<Node,T>>
 >
 Node &add(const Defaulted<T> &def)
 {
@@ -77,8 +77,8 @@ Node &add(const Defaulted<T> &def)
 // Child<void>, Defaulted
 template<
    class T = Node, Allow ALLOW, class FILTER,
-   class = typename std::enable_if<std::is_constructible<Node,T>::value>::type,
-   class = typename std::enable_if<!detail::is_optional<T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<Node,T>>,
+   class = std::enable_if_t<!detail::isOptional<T>>
 >
 Node &add(
    const Child<void,ALLOW,void,FILTER> &kwd,
@@ -101,8 +101,8 @@ Node &add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T = TYPE,
-   class = typename std::enable_if<!detail::is_optional<T>::value>::type,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<!detail::isOptional<T>>,
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 Node &add(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -137,7 +137,7 @@ Node &add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 Node &add(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -157,7 +157,7 @@ Node &add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T = TYPE,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 Node &add(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
@@ -171,7 +171,7 @@ Node &add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
@@ -185,7 +185,7 @@ bool add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
@@ -205,7 +205,7 @@ bool add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T = TYPE,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 Node &add(
    const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
@@ -219,7 +219,7 @@ Node &add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
@@ -233,7 +233,7 @@ bool add(
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
    class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 bool add(
    const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
@@ -265,21 +265,19 @@ template<
    // re: the container
    template<class...> class CONTAINER = std::vector,
    class T = // <== Node for Child<void>; else TYPE
-      typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+      std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
    class... Args,
-   class = typename std::enable_if<
-      detail::isIterable<CONTAINER<T,Args...>>::value
-   >::type,
+   class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
    // re: constructible-to that an underlying add() will require:
    // to Node if Child<void>, to TYPE if Child<TYPE>
-   class = typename std::enable_if<
-      std::is_constructible<
-         typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+   class = std::enable_if_t<
+      std::is_constructible_v<
+         std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
          // remove type, if inside optional<> or Defaulted<>
          typename detail::remove_opt_def<T>::type
-      >::value
-   >::type
+      >
+   >
 >
 void add(
    const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
@@ -306,18 +304,16 @@ template<
 
    template<class...> class CONTAINER = std::vector,
    class T =
-      typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+      std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
    class... Args,
-   class = typename std::enable_if<
-      detail::isIterable<CONTAINER<T,Args...>>::value
-   >::type,
+   class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
-   class = typename std::enable_if<
-      std::is_constructible<
-         typename std::conditional<detail::isVoid<TYPE>::value,Node,TYPE>::type,
+   class = std::enable_if_t<
+      std::is_constructible_v<
+         std::conditional_t<detail::isVoid<TYPE>::value,Node,TYPE>,
          typename detail::remove_opt_def<T>::type
-      >::value
-   >::type
+      >
+   >
 >
 void add(
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,

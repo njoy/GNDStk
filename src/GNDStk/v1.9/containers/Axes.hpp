@@ -29,7 +29,7 @@ namespace containers {
 
 class Axes : public Component<Axes> {
 
-   using VARIANT = std::variant<
+   using AXIS_GRID = std::variant<
       containers::Axis,
       containers::Grid
    >;
@@ -38,7 +38,7 @@ class Axes : public Component<Axes> {
    // For Component
    // ------------------------
 
-   friend class Component<Axes>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
@@ -53,8 +53,8 @@ class Axes : public Component<Axes> {
          std::optional<UTF8Text>{}
             / Meta<>("href") |
          // children
-         VARIANT{}
-            / ++Child<>("axis grid")
+         AXIS_GRID{}
+            / ++(Child<>("axis") || Child<>("grid"))
       ;
    }
 
@@ -67,7 +67,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -79,7 +79,7 @@ public:
       std::optional<UTF8Text> href;
 
       // children
-      std::vector<VARIANT> choice;
+      std::vector<AXIS_GRID> axis_grid;
    } content;
 
    // ------------------------
@@ -88,52 +88,52 @@ public:
    // ------------------------
 
    // href
-   const auto &href() const
+   const std::optional<UTF8Text> &href() const
     { return content.href; }
-   auto &href()
+   std::optional<UTF8Text> &href()
     { return content.href; }
 
-   // choice
-   const auto &choice() const
-    { return content.choice; }
-   auto &choice()
-    { return content.choice; }
+   // axis_grid
+   const std::vector<AXIS_GRID> &axis_grid() const
+    { return content.axis_grid; }
+   std::vector<AXIS_GRID> &axis_grid()
+    { return content.axis_grid; }
 
-   // choice(index)
-   const auto &choice(const std::size_t index) const
-    { return getter(choice(), index, "choice"); }
-   auto &choice(const std::size_t index)
-    { return getter(choice(), index, "choice"); }
+   // axis_grid(index)
+   const AXIS_GRID &axis_grid(const std::size_t index) const
+    { return getter(axis_grid(), index, "axis_grid"); }
+   AXIS_GRID &axis_grid(const std::size_t index)
+    { return getter(axis_grid(), index, "axis_grid"); }
 
-   // choice(label)
-   const auto &choice(const std::string &label) const
-    { return getter(choice(), label, "choice"); }
-   auto &choice(const std::string &label)
-    { return getter(choice(), label, "choice"); }
+   // axis_grid(label)
+   const AXIS_GRID &axis_grid(const std::string &label) const
+    { return getter(axis_grid(), label, "axis_grid"); }
+   AXIS_GRID &axis_grid(const std::string &label)
+    { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
-   auto axis(const std::size_t index) const
-    { return getter<containers::Axis>(choice(), index, "axis"); }
-   auto axis(const std::size_t index)
-    { return getter<containers::Axis>(choice(), index, "axis"); }
+   const containers::Axis *axis(const std::size_t index) const
+    { return getter<containers::Axis>(axis_grid(), index, "axis"); }
+   containers::Axis *axis(const std::size_t index)
+    { return getter<containers::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
-   auto axis(const std::string &label) const
-    { return getter<containers::Axis>(choice(), label, "axis"); }
-   auto axis(const std::string &label)
-    { return getter<containers::Axis>(choice(), label, "axis"); }
+   const containers::Axis *axis(const std::string &label) const
+    { return getter<containers::Axis>(axis_grid(), label, "axis"); }
+   containers::Axis *axis(const std::string &label)
+    { return getter<containers::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
-   auto grid(const std::size_t index) const
-    { return getter<containers::Grid>(choice(), index, "grid"); }
-   auto grid(const std::size_t index)
-    { return getter<containers::Grid>(choice(), index, "grid"); }
+   const containers::Grid *grid(const std::size_t index) const
+    { return getter<containers::Grid>(axis_grid(), index, "grid"); }
+   containers::Grid *grid(const std::size_t index)
+    { return getter<containers::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
-   auto grid(const std::string &label) const
-    { return getter<containers::Grid>(choice(), label, "grid"); }
-   auto grid(const std::string &label)
-    { return getter<containers::Grid>(choice(), label, "grid"); }
+   const containers::Grid *grid(const std::string &label) const
+    { return getter<containers::Grid>(axis_grid(), label, "grid"); }
+   containers::Grid *grid(const std::string &label)
+    { return getter<containers::Grid>(axis_grid(), label, "grid"); }
 
    // ------------------------
    // Setters
@@ -142,62 +142,62 @@ public:
    // ------------------------
 
    // href(value)
-   auto &href(const std::optional<UTF8Text> &obj)
+   Axes &href(const std::optional<UTF8Text> &obj)
     { href() = obj; return *this; }
 
-   // choice(value)
-   auto &choice(const std::vector<VARIANT> &obj)
-    { choice() = obj; return *this; }
+   // axis_grid(value)
+   Axes &axis_grid(const std::vector<AXIS_GRID> &obj)
+    { axis_grid() = obj; return *this; }
 
-   // choice(index,value)
-   auto &choice(
+   // axis_grid(index,value)
+   Axes &axis_grid(
       const std::size_t index,
-      const VARIANT &obj
+      const AXIS_GRID &obj
    ) {
-      choice(index) = obj; return *this;
+      axis_grid(index) = obj; return *this;
    }
 
-   // choice(label,value)
-   auto &choice(
+   // axis_grid(label,value)
+   Axes &axis_grid(
       const std::string &label,
-      const VARIANT &obj
+      const AXIS_GRID &obj
    ) {
-      choice(label) = obj; return *this;
+      axis_grid(label) = obj; return *this;
    }
 
    // axis(index,value)
-   auto &axis(
+   Axes &axis(
       const std::size_t index,
       const std::optional<containers::Axis> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) axis_grid(index,obj.value());
       return *this;
    }
 
    // axis(label,value)
-   auto &axis(
+   Axes &axis(
       const std::string &label,
       const std::optional<containers::Axis> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) axis_grid(label,obj.value());
       return *this;
    }
 
    // grid(index,value)
-   auto &grid(
+   Axes &grid(
       const std::size_t index,
       const std::optional<containers::Grid> &obj
    ) {
-      if (obj) choice(index,obj.value());
+      if (obj) axis_grid(index,obj.value());
       return *this;
    }
 
    // grid(label,value)
-   auto &grid(
+   Axes &grid(
       const std::string &label,
       const std::optional<containers::Grid> &obj
    ) {
-      if (obj) choice(label,obj.value());
+      if (obj) axis_grid(label,obj.value());
       return *this;
    }
 
@@ -210,7 +210,7 @@ public:
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       }
    {
       Component::finish();
@@ -221,7 +221,7 @@ public:
       Component{
          other,
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{other.content}
    {
@@ -233,7 +233,7 @@ public:
       Component{
          other,
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{std::move(other.content)}
    {
@@ -245,7 +245,7 @@ public:
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       }
    {
       Component::finish(node);
@@ -254,16 +254,16 @@ public:
    // from fields
    explicit Axes(
       const std::optional<UTF8Text> &href,
-      const std::vector<VARIANT> &choice
+      const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
          BodyText{},
          content.href,
-         content.choice
+         content.axis_grid
       },
       content{
          href,
-         choice
+         axis_grid
       }
    {
       Component::finish();
@@ -288,7 +288,6 @@ public:
 }; // class Axes
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

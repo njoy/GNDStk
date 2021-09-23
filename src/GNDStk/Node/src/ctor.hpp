@@ -90,7 +90,7 @@ Node(
 // object to a Node, using the Child's converter.
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
-   class = typename std::enable_if<std::is_constructible<TYPE,T>::value>::type
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
 >
 Node(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,

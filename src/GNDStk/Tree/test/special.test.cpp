@@ -17,7 +17,7 @@ SCENARIO("Testing comment() and comments() in GNDStk Tree") {
       --spinGroup,
       --resonanceParameters,
       --table,
-      --data
+      --child::data
    );
    const Node &c = n;
 

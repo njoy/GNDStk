@@ -29,10 +29,9 @@ SCENARIO( "Grid" ) {
       std::string label = "row_energy_bounds";
       std::string unit = "eV";
       enums::GridStyle style = enums::GridStyle::boundaries;
-      enums::Interpolation interpolation = enums::Interpolation::linlin;
       std::vector< double > values = { 1e-5, 2e7 };
 
-      Grid chunk( index, interpolation, label, style, unit,
+      Grid chunk( index, std::nullopt, label, style, unit,
                   Values( 2, 0, "Float64", values ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
@@ -80,10 +79,9 @@ SCENARIO( "Grid" ) {
       std::string label = "column_energy_bounds";
       std::string unit = "eV";
       enums::GridStyle style = enums::GridStyle::link;
-      enums::Interpolation interpolation = enums::Interpolation::linlin;
       std::string href = "../../grid[@index='2']/values";
 
-      Grid chunk( index, interpolation, label, style, unit,
+      Grid chunk( index, std::nullopt, label, style, unit,
                   Link( href ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
@@ -206,10 +204,10 @@ void verifyChunk( const Grid& component ) {
   CHECK( "eV" == component.unit() );
   CHECK( enums::GridStyle::boundaries == component.style() );
 
-  decltype(auto) values = std::get< Values >( component.choice() );
+  decltype(auto) values = std::get< Values >( component.link_values() );
   CHECK( 2 == values.length() );
   CHECK( 0 == values.start() );
-  CHECK( "Float64" == values.valueType() );
+  CHECK( "Float64" == values.valueType().value() );
 
   CHECK( "1e-05 2e+07" == values.string() );
 
@@ -246,7 +244,7 @@ void verifyChunkWithLink( const Grid& component ) {
   CHECK( "eV" == component.unit() );
   CHECK( enums::GridStyle::link == component.style() );
 
-  decltype(auto) link = std::get< Link >( component.choice() );
+  decltype(auto) link = std::get< Link >( component.link_values() );
   CHECK( "../../grid[@index='2']/values" == link.href() );
 }
 

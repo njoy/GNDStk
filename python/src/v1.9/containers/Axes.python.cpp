@@ -24,7 +24,7 @@ void wrapAxes(python::module &module)
 
    // type aliases
    using Component = containers::Axes;
-   using VARIANT = std::variant<
+   using AXIS_GRID = std::variant<
       containers::Axis,
       containers::Grid
    >;
@@ -33,7 +33,7 @@ void wrapAxes(python::module &module)
    python::class_<Component> component(
       module,
       "Axes",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -41,21 +41,21 @@ void wrapAxes(python::module &module)
       .def(
          python::init<
             const std::optional<UTF8Text> &,
-            const std::vector<VARIANT> &
+            const std::vector<AXIS_GRID> &
          >(),
          python::arg("href") = std::nullopt,
-         python::arg("choice"),
-         Component::documentation("constructor").c_str()
+         python::arg("axis_grid"),
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "href",
          &Component::href,
-         Component::documentation("href").c_str()
+         Component::documentation("href").data()
       )
       .def_property_readonly(
-         "choice",
-         python::overload_cast<>(&Component::choice),
-         Component::documentation("choice").c_str()
+         "axis_grid",
+         python::overload_cast<>(&Component::axis_grid),
+         Component::documentation("axis_grid").data()
       )
    ;
 

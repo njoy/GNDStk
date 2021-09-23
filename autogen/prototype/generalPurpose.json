@@ -1,0 +1,174 @@
+{
+    "namespace": "containers",
+
+    "link": {
+        "attributes": {
+            "href": {
+                "required": true,
+                "type": "UTF8Text"
+            }
+        },
+        "childNodes": {},
+        "required": false
+    },
+
+    "XYs1d": {
+        "attributes": {
+            "index": {
+                "required": false,
+                "type": "Integer32"
+            },
+            "interpolation": {
+                "default": "lin-lin",
+                "required": false,
+                "type": "interpolation"
+            },
+            "label": {
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "childNodes": {
+            "axes": {
+                "occurrence": "1",
+                "required": false
+            },
+            "values": {
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "required": false
+    },
+
+    "axes": {
+        "attributes": {
+            "href": {
+                "required": false,
+                "type": "UTF8Text"
+            }
+        },
+        "childNodes": {
+            "axis": {
+                "occurrence": "choice+",
+                "variant": "axis_grid",
+                "required": false
+            },
+            "grid": {
+                "occurrence": "choice+",
+                "variant": "axis_grid",
+                "required": false
+            }
+        },
+        "required": false
+    },
+
+    "axis": {
+        "attributes": {
+            "index": {
+                "required": false,
+                "type": "Integer32"
+            },
+            "label": {
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "childNodes": {},
+        "required": false
+    },
+
+    "grid": {
+        "attributes": {
+            "index": {
+                "required": false,
+                "type": "Integer32"
+            },
+            "interpolation": {
+                "default": "\\attr{lin-lin}",
+                "required": false,
+                "type": "interpolation"
+            },
+            "label": {
+                "required": false,
+                "type": "XMLName"
+            },
+            "style": {
+                "required": false,
+                "type": "gridStyle"
+            },
+            "unit": {
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "childNodes": {
+            "values": {
+                "occurrence": "choice",
+                "variant": "link_values",
+                "required": false
+            },
+            "link": {
+                "occurrence": "choice",
+                "variant": "link_values",
+                "required": false
+            }
+        },
+        "required": false
+    },
+
+    "values": {
+        "attributes": {
+            "valueType": {
+                "default": "Float64",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "start": {
+                "default": "0",
+                "required": false,
+                "type": "Integer32"
+            },
+            "length": {
+                "required": false,
+                "type": "Integer32"
+            }
+        },
+        "bodyText": "Contains a space-delimited ordered list of data for the parent node.",
+        "childNodes": {},
+        "required": false
+    },
+
+    "regions1d": {
+        "attributes": {
+            "label": {
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "childNodes": {
+            "axes": {
+                "occurrence": "1",
+                "required": false
+            },
+            "XYs1d": {
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": null,
+        "required": false
+    }
+}

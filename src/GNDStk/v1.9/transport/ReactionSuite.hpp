@@ -32,7 +32,7 @@ class ReactionSuite : public Component<ReactionSuite> {
    // For Component
    // ------------------------
 
-   friend class Component<ReactionSuite>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }
@@ -71,7 +71,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -97,45 +97,45 @@ public:
    // ------------------------
 
    // evaluation
-   const auto &evaluation() const
+   const XMLName &evaluation() const
     { return content.evaluation; }
-   auto &evaluation()
+   XMLName &evaluation()
     { return content.evaluation; }
 
    // format
-   const auto &format() const
+   const XMLName &format() const
     { return content.format; }
-   auto &format()
+   XMLName &format()
     { return content.format; }
 
    // interaction
-   const auto &interaction() const
+   const std::optional<enums::Interaction> &interaction() const
     { return content.interaction; }
-   auto &interaction()
+   std::optional<enums::Interaction> &interaction()
     { return content.interaction; }
 
    // projectile
-   const auto &projectile() const
+   const XMLName &projectile() const
     { return content.projectile; }
-   auto &projectile()
+   XMLName &projectile()
     { return content.projectile; }
 
    // projectileFrame
-   const auto &projectileFrame() const
+   const enums::Frame &projectileFrame() const
     { return content.projectileFrame; }
-   auto &projectileFrame()
+   enums::Frame &projectileFrame()
     { return content.projectileFrame; }
 
    // target
-   const auto &target() const
+   const XMLName &target() const
     { return content.target; }
-   auto &target()
+   XMLName &target()
     { return content.target; }
 
    // reactions
-   const auto &reactions() const
+   const std::optional<transport::Reactions> &reactions() const
     { return content.reactions; }
-   auto &reactions()
+   std::optional<transport::Reactions> &reactions()
     { return content.reactions; }
 
    // ------------------------
@@ -145,31 +145,31 @@ public:
    // ------------------------
 
    // evaluation(value)
-   auto &evaluation(const XMLName &obj)
+   ReactionSuite &evaluation(const XMLName &obj)
     { evaluation() = obj; return *this; }
 
    // format(value)
-   auto &format(const XMLName &obj)
+   ReactionSuite &format(const XMLName &obj)
     { format() = obj; return *this; }
 
    // interaction(value)
-   auto &interaction(const std::optional<enums::Interaction> &obj)
+   ReactionSuite &interaction(const std::optional<enums::Interaction> &obj)
     { interaction() = obj; return *this; }
 
    // projectile(value)
-   auto &projectile(const XMLName &obj)
+   ReactionSuite &projectile(const XMLName &obj)
     { projectile() = obj; return *this; }
 
    // projectileFrame(value)
-   auto &projectileFrame(const enums::Frame &obj)
+   ReactionSuite &projectileFrame(const enums::Frame &obj)
     { projectileFrame() = obj; return *this; }
 
    // target(value)
-   auto &target(const XMLName &obj)
+   ReactionSuite &target(const XMLName &obj)
     { target() = obj; return *this; }
 
    // reactions(value)
-   auto &reactions(const std::optional<transport::Reactions> &obj)
+   ReactionSuite &reactions(const std::optional<transport::Reactions> &obj)
     { reactions() = obj; return *this; }
 
    // ------------------------
@@ -294,7 +294,6 @@ public:
 }; // class ReactionSuite
 
 } // namespace transport
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

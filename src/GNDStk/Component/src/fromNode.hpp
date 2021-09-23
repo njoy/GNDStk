@@ -30,9 +30,7 @@ void fromNode(const Node &node)
          throw std::exception{};
       }
 
-      if constexpr (
-         std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
-      ) {
+      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
          // consistency check; then nothing further to do
          assert(0 == links.size());
       } else {
@@ -49,16 +47,15 @@ void fromNode(const Node &node)
          std::apply(
             [this](const auto &... result) {
                std::size_t n = 0;
-              ((*(typename detail::remove_cvref<decltype(result)>::type *)
-                  links[n++] = result),
-               ...);
+               ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
             },
             tup
          );
       }
 
       // body text, a.k.a. XML "pcdata" (plain character data), if any
-      this->BodyText<hasBodyText>::fromNode(node);
+      if constexpr (hasBodyText)
+         body::fromNode(node);
 
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);

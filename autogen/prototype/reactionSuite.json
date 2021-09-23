@@ -1,0 +1,91 @@
+{
+    "namespace": "transport",
+
+    "reactionSuite": {
+        "attributes": {
+            "evaluation": {
+                "required": true,
+                "type": "XMLName"
+            },
+            "format": {
+                "required": true,
+                "type": "XMLName"
+            },
+            "projectile": {
+                "required": true,
+                "type": "XMLName"
+            },
+            "projectileFrame": {
+                "required": true,
+                "type": "frame"
+            },
+            "target": {
+                "required": true,
+                "type": "XMLName"
+            },
+            "interaction": {
+                "required": false,
+                "type": "interaction"
+            }
+        },
+        "childNodes": {
+            "reactions": {
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "required": false
+    },
+
+    "reactions": {
+        "attributes": {},
+        "childNodes": {
+            "reaction": {
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "required": false
+    },
+
+    "reaction": {
+        "attributes": {
+            "ENDF_MT": {
+                "required": true,
+                "type": "Integer32"
+            },
+            "fissionGenre": {
+                "required": false,
+                "type": "XMLName"
+            },
+            "label": {
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "childNodes": {
+            "crossSection": {
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "required": false
+    },
+
+    "crossSection": {
+        "attributes": {},
+        "childNodes": {
+            "XYs1d": {
+                "occurrence": "choice+",
+                "variant": "XYs1d_regions1d",
+                "required": false
+            },
+            "regions1d": {
+                "occurrence": "choice+",
+                "variant": "XYs1d_regions1d",
+                "required": false
+            }
+        },
+        "required": false
+    }
+}

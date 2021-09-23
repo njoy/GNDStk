@@ -15,21 +15,20 @@ SCENARIO("Testing GNDStk Node many()") {
       // chemicalElements / chemicalElement
       WHEN("We extract all <chemicalElement> nodes within <chemicalElements>") {
          const auto &CEs = tree(reactionSuite,PoPs,chemicalElements);
-         {
+
+         THEN("We find eight of them (case: has_many() withOUT \"found\")") {
             // without "found"
             CHECK(CEs.has_many("chemicalElement"));
             auto ce = CEs.many("chemicalElement");
-            THEN("We find eight of them") {
-               CHECK(ce.size() == 8);
-            }
-         } {
+            CHECK(ce.size() == 8);
+         }
+
+         THEN("We find eight of them (case: has_many() with \"found\")") {
             // with "found"
             bool found = false;
             auto ce = CEs.many("chemicalElement",found);
-            THEN("We find eight of them") {
-               CHECK(found);
-               CHECK(ce.size() == 8);
-            }
+            CHECK(found);
+            CHECK(ce.size() == 8);
          }
       }
 
@@ -39,7 +38,7 @@ SCENARIO("Testing GNDStk Node many()") {
 
          // filter that requires: Node has metadata label="n + *"
          auto nplus = [](const Node &n)
-            { return 0 == strncmp(n(label).c_str(), "n + ", 4); };
+            { return 0 == strncmp(n(label).data(), "n + ", 4); };
 
          // filter that requires: Node has metadata ENDF_MT="600"
          auto endf_mt_600 = [](const Node &n)

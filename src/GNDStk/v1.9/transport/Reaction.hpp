@@ -32,7 +32,7 @@ class Reaction : public Component<Reaction> {
    // For Component
    // ------------------------
 
-   friend class Component<Reaction>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }
@@ -65,7 +65,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -88,27 +88,27 @@ public:
    // ------------------------
 
    // ENDF_MT
-   const auto &ENDF_MT() const
+   const Integer32 &ENDF_MT() const
     { return content.ENDF_MT; }
-   auto &ENDF_MT()
+   Integer32 &ENDF_MT()
     { return content.ENDF_MT; }
 
    // fissionGenre
-   const auto &fissionGenre() const
+   const std::optional<XMLName> &fissionGenre() const
     { return content.fissionGenre; }
-   auto &fissionGenre()
+   std::optional<XMLName> &fissionGenre()
     { return content.fissionGenre; }
 
    // label
-   const auto &label() const
+   const XMLName &label() const
     { return content.label; }
-   auto &label()
+   XMLName &label()
     { return content.label; }
 
    // crossSection
-   const auto &crossSection() const
+   const transport::CrossSection &crossSection() const
     { return content.crossSection; }
-   auto &crossSection()
+   transport::CrossSection &crossSection()
     { return content.crossSection; }
 
    // ------------------------
@@ -118,19 +118,19 @@ public:
    // ------------------------
 
    // ENDF_MT(value)
-   auto &ENDF_MT(const Integer32 &obj)
+   Reaction &ENDF_MT(const Integer32 &obj)
     { ENDF_MT() = obj; return *this; }
 
    // fissionGenre(value)
-   auto &fissionGenre(const std::optional<XMLName> &obj)
+   Reaction &fissionGenre(const std::optional<XMLName> &obj)
     { fissionGenre() = obj; return *this; }
 
    // label(value)
-   auto &label(const XMLName &obj)
+   Reaction &label(const XMLName &obj)
     { label() = obj; return *this; }
 
    // crossSection(value)
-   auto &crossSection(const transport::CrossSection &obj)
+   Reaction &crossSection(const transport::CrossSection &obj)
     { crossSection() = obj; return *this; }
 
    // ------------------------
@@ -234,7 +234,6 @@ public:
 }; // class Reaction
 
 } // namespace transport
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

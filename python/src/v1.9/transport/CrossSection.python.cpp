@@ -24,7 +24,7 @@ void wrapCrossSection(python::module &module)
 
    // type aliases
    using Component = transport::CrossSection;
-   using VARIANT = std::variant<
+   using XYS1D_REGIONS1D = std::variant<
       containers::XYs1d,
       containers::Regions1d
    >;
@@ -33,22 +33,22 @@ void wrapCrossSection(python::module &module)
    python::class_<Component> component(
       module,
       "CrossSection",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
    component
       .def(
          python::init<
-            const std::vector<VARIANT> &
+            const std::vector<XYS1D_REGIONS1D> &
          >(),
-         python::arg("choice"),
-         Component::documentation("constructor").c_str()
+         python::arg("xys1d_regions1d"),
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
-         "choice",
-         python::overload_cast<>(&Component::choice),
-         Component::documentation("choice").c_str()
+         "xys1d_regions1d",
+         python::overload_cast<>(&Component::XYs1d_regions1d),
+         Component::documentation("xys1d_regions1d").data()
       )
    ;
 

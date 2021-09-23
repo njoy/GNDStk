@@ -14,8 +14,8 @@ public:
    void operator()(const FROM &from, TO &to) const
    {
       if constexpr (
-         std::is_constructible<TO,FROM>::value ||
-         std::is_convertible<FROM,TO>::value
+         std::is_constructible_v<TO,FROM> ||
+         std::is_convertible_v<FROM,TO>
       ) {
          to = TO(from);
       } else if constexpr (isVariant<FROM>::value) {

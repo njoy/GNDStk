@@ -29,7 +29,7 @@ class Axis : public Component<Axis> {
    // For Component
    // ------------------------
 
-   friend class Component<Axis>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
@@ -59,7 +59,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -79,21 +79,21 @@ public:
    // ------------------------
 
    // index
-   const auto &index() const
+   const std::optional<Integer32> &index() const
     { return content.index; }
-   auto &index()
+   std::optional<Integer32> &index()
     { return content.index; }
 
    // label
-   const auto &label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   auto &label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // unit
-   const auto &unit() const
+   const std::optional<XMLName> &unit() const
     { return content.unit; }
-   auto &unit()
+   std::optional<XMLName> &unit()
     { return content.unit; }
 
    // ------------------------
@@ -103,15 +103,15 @@ public:
    // ------------------------
 
    // index(value)
-   auto &index(const std::optional<Integer32> &obj)
+   Axis &index(const std::optional<Integer32> &obj)
     { index() = obj; return *this; }
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   Axis &label(const std::optional<XMLName> &obj)
     { label() = obj; return *this; }
 
    // unit(value)
-   auto &unit(const std::optional<XMLName> &obj)
+   Axis &unit(const std::optional<XMLName> &obj)
     { unit() = obj; return *this; }
 
    // ------------------------
@@ -208,7 +208,6 @@ public:
 }; // class Axis
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

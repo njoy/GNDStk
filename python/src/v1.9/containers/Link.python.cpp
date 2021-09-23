@@ -29,7 +29,7 @@ void wrapLink(python::module &module)
    python::class_<Component> component(
       module,
       "Link",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -39,12 +39,12 @@ void wrapLink(python::module &module)
             const UTF8Text &
          >(),
          python::arg("href"),
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "href",
          &Component::href,
-         Component::documentation("href").c_str()
+         Component::documentation("href").data()
       )
    ;
 

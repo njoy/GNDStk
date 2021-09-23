@@ -8,8 +8,7 @@ friend DERIVED;
 
 // ctor: fields
 template<class... ARGS>
-Component(const BodyText<hasBodyText> &other, ARGS &...args) :
-   BodyText<hasBodyText>(other)
+Component(const body &other, ARGS &...args) : body(other)
 {
    // static_assert needs string literal
    #define pairing_error \
@@ -23,22 +22,20 @@ Component(const BodyText<hasBodyText> &other, ARGS &...args) :
 
    // The parameters that are sent to this constructor must EXACTLY reflect
    // what we'd get from a DERIVED::keys() multi-query.
-   if constexpr (std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value) {
+   if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
       // keys are "empty" (std::tuple<>); that's OK, as long as ARGS are too
       static_assert(
-         std::is_same<std::tuple<ARGS ...>, std::tuple<>>::value,
+         std::is_same_v<std::tuple<ARGS ...>, std::tuple<>>,
          pairing_error
       );
    } else {
       // keys are *not* empty, so...
       // The following is the *type* that a multi-query with DERIVED::keys()
-      // will produce, except without cvrefs.
+      // will produce.
       using multi_t =
-         typename detail::remove_cvrefs<
-            decltype(Node{}(toKeywordTup(DERIVED::keys())))
-         >::type;
+         detail::decays_t<decltype(Node{}(toKeywordTup(DERIVED::keys())))>;
       static_assert(
-         std::is_same<std::tuple<ARGS ...>, multi_t>::value,
+         std::is_same_v<std::tuple<ARGS ...>, multi_t>,
          pairing_error
       );
       // Create links

@@ -74,10 +74,12 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
       // ------------------------
 
       WHEN("Testing cdata()") {
-         {
+         THEN ("It works correctly on a non-const Node") {
             Node &n = t(reactionSuite,documentations,documentation);
             CHECK(n.cdata() == thedocs);
-         } {
+         }
+
+         THEN ("It works correctly on a const Node") {
             const Node &n = c(reactionSuite,documentations,documentation);
             CHECK(n.cdata() == thedocs);
          }

@@ -22,14 +22,6 @@ Defaulted &operator=(const std::optional<T> &opt)
    return *this;
 }
 
-// = nullopt
-Defaulted &operator=(const std::nullopt_t nullopt)
-{
-   this->opt = nullopt;
-   return *this;
-}
-
-
 // ------------------------
 // Assignment:
 // the usual suspects
@@ -42,9 +34,7 @@ Defaulted &operator=(Defaulted &&other) = default;
 // template "copy"
 template<
    class U = T,
-   class = typename std::enable_if<
-      std::is_constructible<T,U>::value
-   >::type
+   class = std::enable_if_t<std::is_constructible_v<T,U>>
 >
 Defaulted &operator=(const Defaulted<U> &other)
 {

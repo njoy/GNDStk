@@ -29,7 +29,7 @@ void wrapAxis(python::module &module)
    python::class_<Component> component(
       module,
       "Axis",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -43,22 +43,22 @@ void wrapAxis(python::module &module)
          python::arg("index") = std::nullopt,
          python::arg("label") = std::nullopt,
          python::arg("unit") = std::nullopt,
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
          &Component::index,
-         Component::documentation("index").c_str()
+         Component::documentation("index").data()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::documentation("label").c_str()
+         Component::documentation("label").data()
       )
       .def_property_readonly(
          "unit",
          &Component::unit,
-         Component::documentation("unit").c_str()
+         Component::documentation("unit").data()
       )
    ;
 

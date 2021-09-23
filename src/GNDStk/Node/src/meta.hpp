@@ -161,8 +161,10 @@ meta(
 
 // With caller-specified type
 template<class TYPE, class... Ts, class CONVERTER>
-typename detail::oneof<TYPE,std::variant<Ts...>>::type
-meta(
+std::enable_if_t<
+   detail::isAlternativeOrTheVariant<TYPE,std::variant<Ts...>>,
+   TYPE
+> meta(
    const Meta<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {

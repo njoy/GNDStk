@@ -32,7 +32,7 @@ class Reactions : public Component<Reactions> {
    // For Component
    // ------------------------
 
-   friend class Component<Reactions>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "transport"; }
@@ -58,7 +58,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -76,21 +76,21 @@ public:
    // ------------------------
 
    // reaction
-   const auto &reaction() const
+   const std::vector<transport::Reaction> &reaction() const
     { return content.reaction; }
-   auto &reaction()
+   std::vector<transport::Reaction> &reaction()
     { return content.reaction; }
 
    // reaction(index)
-   const auto &reaction(const std::size_t index) const
+   const transport::Reaction &reaction(const std::size_t index) const
     { return getter(reaction(), index, "reaction"); }
-   auto &reaction(const std::size_t index)
+   transport::Reaction &reaction(const std::size_t index)
     { return getter(reaction(), index, "reaction"); }
 
    // reaction(label)
-   const auto &reaction(const std::string &label) const
+   const transport::Reaction &reaction(const std::string &label) const
     { return getter(reaction(), label, "reaction"); }
-   auto &reaction(const std::string &label)
+   transport::Reaction &reaction(const std::string &label)
     { return getter(reaction(), label, "reaction"); }
 
    // ------------------------
@@ -100,11 +100,11 @@ public:
    // ------------------------
 
    // reaction(value)
-   auto &reaction(const std::vector<transport::Reaction> &obj)
+   Reactions &reaction(const std::vector<transport::Reaction> &obj)
     { reaction() = obj; return *this; }
 
    // reaction(index,value)
-   auto &reaction(
+   Reactions &reaction(
       const std::size_t index,
       const transport::Reaction &obj
    ) {
@@ -112,7 +112,7 @@ public:
    }
 
    // reaction(label,value)
-   auto &reaction(
+   Reactions &reaction(
       const std::string &label,
       const transport::Reaction &obj
    ) {
@@ -199,7 +199,6 @@ public:
 }; // class Reactions
 
 } // namespace transport
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

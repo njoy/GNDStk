@@ -1,12 +1,4 @@
 
-// Forward declaration, needed by some things in detail.hpp
-template<class DERIVED, bool hasBodyText = false>
-class Component;
-
-// For printing.
-// Should Component's generic write() function print comments?
-inline bool comments = true;
-
 // General helper constructs
 #include "GNDStk/Component/src/detail.hpp"
 
@@ -22,7 +14,11 @@ using helpMap = std::map<std::string,std::string>;
 // -----------------------------------------------------------------------------
 
 template<class DERIVED, bool hasBodyText>
-class Component : public BodyText<hasBodyText> {
+class Component : public BodyText<hasBodyText>
+{
+   // For convenience
+   using body = BodyText<hasBodyText>;
+   using typename body::VariantOfVectors;
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -38,12 +34,12 @@ class Component : public BodyText<hasBodyText> {
    // Copy and move *assignments* have the right behavior, however.
    Component &operator=(const Component &other)
    {
-      BodyText<hasBodyText>::operator=(other);
+      body::operator=(other);
       return *this;
    }
    Component &operator=(Component &&other)
    {
-      BodyText<hasBodyText>::operator=(std::move(other));
+      body::operator=(std::move(other));
       return *this;
    }
 
@@ -53,9 +49,6 @@ class Component : public BodyText<hasBodyText> {
    // finish
    // See comments in finish.hpp
    #include "GNDStk/Component/src/finish.hpp"
-
-   // You can (but don't need to) override in DERIVED
-   static std::string namespaceName() { return ""; }
 
    // Intermediaries between derived-class getters, and getter functions
    // in detail::. These shorten the code in the derived classes.
@@ -67,8 +60,19 @@ class Component : public BodyText<hasBodyText> {
 public:
 
    #include "GNDStk/Component/src/fromNode.hpp"
-   #include "GNDStk/Component/src/toNode.hpp"
+   #include "GNDStk/Component/src/sort.hpp"
+   #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
    #include "GNDStk/Component/src/write.hpp"
+
+   // You can (but don't need to) override the following in DERIVED
+   static std::string namespaceName() { return ""; }
+
+   // derived
+   // Convenient access to the derived class
+   DERIVED &derived()
+      { return static_cast<DERIVED &>(*this); }
+   const DERIVED &derived() const
+      { return static_cast<const DERIVED &>(*this); }
 
    // documentation
    static std::string documentation(const std::string &subject = "")
@@ -89,7 +93,7 @@ public:
       try {
          Node node;
          node << str;
-         static_cast<DERIVED &>(*this) = DERIVED(node);
+         derived() = DERIVED(node);
       } catch (...) {
          log::function(std::string(DERIVED::className()) + " << string");
          throw;

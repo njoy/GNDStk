@@ -39,10 +39,11 @@ private:
 public:
 
   template < typename T,
-             typename = typename std::enable_if< std::is_arithmetic< T >::value, T >::type >
+             typename = std::enable_if_t<
+                detail::isAlternative< std::vector<T>, VariantOfVectors > > >
   Values( const std::optional< Integer32 >& length,
-          const Integer32& start,
-          const UTF8Text& valueType,
+          const std::optional< Integer32 >& start,
+          const std::optional< UTF8Text >& valueType,
           const std::vector< T >& values ) :
       Component{
          BodyText{},
@@ -72,7 +73,8 @@ public:
   }
 
   template < typename T,
-             typename = typename std::enable_if< std::is_arithmetic< T >::value, T >::type >
+             typename = std::enable_if_t<
+                detail::isAlternative< std::vector<T>, VariantOfVectors > > >
   Values( const std::vector< T >& values,
           const Integer32& start = 0,
           const UTF8Text& valueType = "Float64" ) :

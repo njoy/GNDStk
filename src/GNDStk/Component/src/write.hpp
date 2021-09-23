@@ -22,9 +22,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
          ) + "\n"
       );
 
-      if constexpr (
-         std::is_same<decltype(DERIVED::keys()),std::tuple<>>::value
-      ) {
+      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
          // Consistency check
          assert(0 == links.size());
       } else {
@@ -63,9 +61,7 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
                      detail::writeComponentPart(
                         os,
                         level+1,
-                      *(typename
-                        detail::remove_cvref<decltype(Node{}(key))>::type *)
-                        links[n++],
+                      *(std::decay_t<decltype(Node{}(key))> *)links[n++],
                         detail::getName(key),
                         maxlen
                      ) && (os << '\n') // no if()s in fold expressions :-/
@@ -80,10 +76,10 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
       // Derived class write()s, if any.
       // Note that neither, either, or both can be provided.
       // To be recognized here, signatures must be exactly what we expect.
-      if constexpr (detail::hasWriteOneArg<DERIVED>::has) {
+      if constexpr (detail::hasWriteOneArg<DERIVED>) {
          // DERIVED::write() doesn't take an indentation level; we handle here
          std::ostringstream tmp;
-         static_cast<const DERIVED *>(this)->write(tmp);
+         derived().write(tmp);
          if (tmp.str().size() != 0)
             os << indentTo(level+1);
          for (char c : tmp.str())
@@ -91,17 +87,18 @@ std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
          if (tmp.str().size())
             os << std::endl;
       }
-      if constexpr (detail::hasWriteTwoArg<DERIVED>::has) {
+      if constexpr (detail::hasWriteTwoArg<DERIVED>) {
          // DERIVED::write() takes an indentation level
          std::ostringstream tmp;
-         static_cast<const DERIVED *>(this)->write(tmp,level+1);
+         derived().write(tmp,level+1);
          os << tmp.str();
          if (tmp.str().size())
             os << std::endl;
       }
 
       // BodyText, if any
-      this->BodyText<hasBodyText>::write(os,level+1);
+      if constexpr (hasBodyText)
+         body::write(os,level+1);
 
       // Indent, write footer, NO newline
       detail::indentString(

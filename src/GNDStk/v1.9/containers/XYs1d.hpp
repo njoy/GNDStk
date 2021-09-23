@@ -33,7 +33,7 @@ class XYs1d : public Component<XYs1d> {
    // For Component
    // ------------------------
 
-   friend class Component<XYs1d>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
@@ -70,8 +70,8 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+   static inline const struct Defaults {
+      static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
    // ------------------------
@@ -96,39 +96,39 @@ public:
    // ------------------------
 
    // index
-   const auto &index() const
+   const std::optional<Integer32> &index() const
     { return content.index; }
-   auto &index()
+   std::optional<Integer32> &index()
     { return content.index; }
 
    // interpolation
-   const auto &interpolation() const
-    { return content.interpolation.value(); }
-   auto &interpolation()
-    { return content.interpolation.value(); }
+   const Defaulted<enums::Interpolation> &interpolation() const
+    { return content.interpolation; }
+   Defaulted<enums::Interpolation> &interpolation()
+    { return content.interpolation; }
 
    // label
-   const auto &label() const
+   const std::optional<XMLName> &label() const
     { return content.label; }
-   auto &label()
+   std::optional<XMLName> &label()
     { return content.label; }
 
    // outerDomainValue
-   const auto &outerDomainValue() const
+   const std::optional<Float64> &outerDomainValue() const
     { return content.outerDomainValue; }
-   auto &outerDomainValue()
+   std::optional<Float64> &outerDomainValue()
     { return content.outerDomainValue; }
 
    // axes
-   const auto &axes() const
+   const std::optional<containers::Axes> &axes() const
     { return content.axes; }
-   auto &axes()
+   std::optional<containers::Axes> &axes()
     { return content.axes; }
 
    // values
-   const auto &values() const
+   const containers::Values &values() const
     { return content.values; }
-   auto &values()
+   containers::Values &values()
     { return content.values; }
 
    // ------------------------
@@ -138,29 +138,29 @@ public:
    // ------------------------
 
    // index(value)
-   auto &index(const std::optional<Integer32> &obj)
+   XYs1d &index(const std::optional<Integer32> &obj)
     { index() = obj; return *this; }
 
    // interpolation(value)
-   auto &interpolation(const Defaulted<enums::Interpolation> &obj)
+   XYs1d &interpolation(const Defaulted<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
-   auto &interpolation(const enums::Interpolation &obj)
+   XYs1d &interpolation(const std::optional<enums::Interpolation> &obj)
     { content.interpolation = obj; return *this; }
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   XYs1d &label(const std::optional<XMLName> &obj)
     { label() = obj; return *this; }
 
    // outerDomainValue(value)
-   auto &outerDomainValue(const std::optional<Float64> &obj)
+   XYs1d &outerDomainValue(const std::optional<Float64> &obj)
     { outerDomainValue() = obj; return *this; }
 
    // axes(value)
-   auto &axes(const std::optional<containers::Axes> &obj)
+   XYs1d &axes(const std::optional<containers::Axes> &obj)
     { axes() = obj; return *this; }
 
    // values(value)
-   auto &values(const containers::Values &obj)
+   XYs1d &values(const containers::Values &obj)
     { values() = obj; return *this; }
 
    // ------------------------
@@ -230,9 +230,10 @@ public:
    }
 
    // from fields
+   // std::optional replaces Defaulted; this class knows the default(s)
    explicit XYs1d(
       const std::optional<Integer32> &index,
-      const Defaulted<enums::Interpolation> &interpolation,
+      const std::optional<enums::Interpolation> &interpolation,
       const std::optional<XMLName> &label,
       const std::optional<Float64> &outerDomainValue,
       const std::optional<containers::Axes> &axes,
@@ -249,39 +250,7 @@ public:
       },
       content{
          index,
-         interpolation,
-         label,
-         outerDomainValue,
-         axes,
-         values
-      }
-   {
-      Component::finish();
-   }
-
-   // from fields, with T replacing Defaulted<T>
-   explicit XYs1d(
-      const std::optional<Integer32> &index,
-      const enums::Interpolation &interpolation,
-      const std::optional<XMLName> &label,
-      const std::optional<Float64> &outerDomainValue,
-      const std::optional<containers::Axes> &axes,
-      const containers::Values &values
-   ) :
-      Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
-      },
-      content{
-         index,
-         interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+         Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
          label,
          outerDomainValue,
          axes,
@@ -310,7 +279,6 @@ public:
 }; // class XYs1d
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

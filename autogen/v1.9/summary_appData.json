@@ -1,0 +1,93 @@
+{
+    "__namespace__": "appData",
+    "applicationData": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {
+            "institution": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "institution",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "applicationData",
+        "required": false,
+        "rootNode": false
+    },
+    "institution": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "childNodes": {
+            "ENDFconversionFlags": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "ENDFconversionFlags",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "institution",
+        "required": false,
+        "rootNode": false
+    },
+    "ENDFconversionFlags": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {
+            "conversion": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "conversion",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": null,
+        "name": "ENDFconversionFlags",
+        "required": false,
+        "rootNode": false
+    },
+    "conversion": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "flags": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "flags",
+                "required": false,
+                "type": "XMLName"
+            },
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "href",
+                "required": false,
+                "type": "bodyText"
+            }
+        },
+        "childNodes": {},
+        "description": null,
+        "name": "conversion",
+        "required": false,
+        "rootNode": false
+    }
+}

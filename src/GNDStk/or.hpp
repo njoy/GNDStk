@@ -162,7 +162,7 @@ constexpr auto tupleAllButLastHelper(
 
 template<
    class... Args,
-   class = typename std::enable_if<0 < sizeof...(Args)>::type
+   class = std::enable_if_t<(0 < sizeof...(Args))>
 >
 constexpr auto tupleAllButLast(const std::tuple<Args...> &tup)
 {
@@ -182,7 +182,7 @@ constexpr auto tupleAllButLast(const std::tuple<Args...> &tup)
 
 template<
    class... Args, class RHS,
-   class = typename std::enable_if<0 < sizeof...(Args)>::type
+   class = std::enable_if_t<(0 < sizeof...(Args))>
 >
 constexpr auto tupleReplaceLast(const std::tuple<Args...> &tup, const RHS &rhs)
 {
@@ -206,23 +206,23 @@ public:
    using last_t =
       // Sans std::decay, const &ness can break detail::IsSomething<> traits.
       // Note: sizeof...(Ks) >= 1 here, because we'll specialize the <> case
-      typename std::decay<decltype(std::get<sizeof...(Ks)-1>(tup))>::type;
+      std::decay_t<decltype(std::get<sizeof...(Ks)-1>(tup))>;
 
    // KeywordTup(KeywordTup, RHS)
    template<
       class... LHS, class RHS,
       // ensure Ks... == LHS... RHS
-      class = typename std::enable_if<
-         std::is_same<
+      class = std::enable_if_t<
+         std::is_same_v<
             std::tuple<Ks...>,
             std::tuple<LHS...,RHS>
-         >::value
-      >::type,
+         >
+      >,
       // ensure RHS \in {Meta, Child, pair<Child,string|regex>, string, regex}
-      class = typename std::enable_if<
-          detail::IsMetaOrChild<RHS>::value
-       || detail::IsPairChildStringOrRegex<RHS>::value
-      >::type
+      class = std::enable_if_t<
+          detail::IsMetaOrChild<RHS>::value ||
+          detail::IsPairChildStringOrRegex<RHS>::value
+      >
    >
    KeywordTup(const KeywordTup<LHS...> &lhs, const RHS &rhs) :
       tup(std::tuple_cat(lhs.tup, std::tuple<RHS>(rhs)))
@@ -295,9 +295,8 @@ public:
 
 // for std::tuple
 template<class... Args>
-constexpr auto toKeywordTup(
-   const std::tuple<Args...> &tup
-) {
+constexpr auto toKeywordTup(const std::tuple<Args...> &tup)
+{
    return KeywordTup<Args...>(tup);
 }
 
@@ -312,10 +311,10 @@ constexpr auto toKeywordTup(const KeywordTup<Args...> &kwds)
 // Returns a 1-element KeywordTup made from the object
 template<
    class T,
-   class = typename std::enable_if<
-       detail::IsMetaOrChild<T>::value
-    || detail::IsPairChildStringOrRegex<T>::value
-   >::type
+   class = std::enable_if_t<
+       detail::IsMetaOrChild<T>::value ||
+       detail::IsPairChildStringOrRegex<T>::value
+   >
 >
 constexpr auto toKeywordTup(const T &obj)
 {
@@ -369,8 +368,8 @@ Below, KeywordTup<...> doesn't include <>; at least one element must exist.
 // ==> KeywordTup<Meta/Child, Meta/Child>
 template<
    class LHS, class RHS,
-   class = typename std::enable_if<detail::IsMetaOrChild<LHS>::value>::type,
-   class = typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
+   class = std::enable_if_t<detail::IsMetaOrChild<LHS>::value>,
+   class = std::enable_if_t<detail::IsMetaOrChild<RHS>::value>
 >
 auto operator|(
    const LHS &lhs, // via SFINAE: Meta or Child
@@ -408,7 +407,7 @@ auto operator|(
 // ==> KeywordTup<..., Meta/Child>
 template<
    class... LHS, class RHS,
-   class = typename std::enable_if<detail::IsMetaOrChild<RHS>::value>::type
+   class = std::enable_if_t<detail::IsMetaOrChild<RHS>::value>
 >
 auto operator|(
    const KeywordTup<LHS...> &lhs,
@@ -423,9 +422,9 @@ auto operator|(
 // ==> KeywordTup<..., pair<Child,string/regex>>
 template<
    class... LHS, class RHS,
-   class = typename std::enable_if<
+   class = std::enable_if_t<
       detail::IsChild<typename KeywordTup<LHS...>::last_t>::value
-   >::type,
+   >,
    class StringOrRegex = typename detail::IsStringOrRegex<RHS>::type
 >
 auto operator|(

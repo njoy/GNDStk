@@ -166,6 +166,29 @@ inline std::string diagnostic(
 
 
 // -----------------------------------------------------------------------------
+// Miscellaneous output/printing related flags
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// re: Component class
+// ------------------------
+
+// Should Component's generic write() function print comments?
+inline bool comments = true;
+
+// For printing.
+// When writing a Component with its generic write() function (or its stream
+// output, which uses write()), and the Component is based on a BodyText<true>,
+// values will be printed with GNDStk::columns across. "columns" is aliased to
+// "across" for convenience, because, at the time of this writing, GNDStk has
+// a Meta<> object, named "columns", which would also be in scope if the core
+// namespace is used. So, a user might prefer to use the name "across".
+inline std::size_t columns = 4;
+inline std::size_t &across = columns;
+
+
+
+// -----------------------------------------------------------------------------
 // Flags for fine-tuning diagnostic output
 // -----------------------------------------------------------------------------
 
@@ -210,7 +233,7 @@ inline void info(const std::string &str, Args &&...args)
 {
    if (GNDStk::info) {
       const std::string msg = detail::diagnostic("info",str);
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -220,7 +243,7 @@ inline void warning(const std::string &str, Args &&...args)
 {
    if (GNDStk::warning) {
       const std::string msg = detail::diagnostic("warning",str);
-      Log::warning(msg.c_str(), std::forward<Args>(args)...);
+      Log::warning(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -229,7 +252,7 @@ template<class... Args>
 inline void error(const std::string &str, Args &&...args)
 {
    const std::string msg = detail::diagnostic("error",str);
-   Log::error(msg.c_str(), std::forward<Args>(args)...);
+   Log::error(msg.data(), std::forward<Args>(args)...);
 }
 
 // debug
@@ -238,7 +261,7 @@ inline void debug(const std::string &str, Args &&...args)
 {
    if (GNDStk::debug) {
       const std::string msg = detail::diagnostic("debug",str);
-      Log::debug(msg.c_str(), std::forward<Args>(args)...);
+      Log::debug(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -255,7 +278,7 @@ inline void function(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "function " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -266,7 +289,7 @@ inline void member(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "member function " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -277,7 +300,7 @@ inline void ctor(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "constructor " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -288,7 +311,7 @@ inline void assign(const std::string &str, Args &&...args)
    if (GNDStk::context) {
       const std::string msg =
          detail::diagnostic("info", "assignment " + str, "Context");
-      Log::info(msg.c_str(), std::forward<Args>(args)...);
+      Log::info(msg.data(), std::forward<Args>(args)...);
    }
 }
 
@@ -480,60 +503,62 @@ public:
    static constexpr bool value = true;
 };
 
-
 // ------------------------
-// is_oneof
+// isAlternative
 // ------------------------
 
-// Is T either variant<Ts...> itself,
-// or one of the Ts...?
+// Is T one of the alternatives in variant<Ts...>?
 
-// neither
-template<class T, class VAR>
-class is_oneof {
+// no (general case)
+template<class T, class VARIANT>
+class is_alternative {
 public:
    static constexpr bool value = false;
 };
 
-// T is variant<Ts...> itself
-// Consider the functionality (currently Node::meta() and Node::child()) that
-// use is_oneof. (Or, rather, use its sidekick oneof, defined soon.) Invoked
-// with a particular type from the variant, a call - say, to meta() - might
-// look like n.template meta<type>(M), where n is a Node, and M is a Meta
-// with the variant type. In contrast, one could merely write n.meta(M) for
-// the full variant, i.e. with no specific member type stipulated. By making
-// the is_oneof SFINAE work for the full variant as well, however, not just
-// for each of its constituent types, we allow the n.template meta<type>(M)
-// form also to work for the full variant type. While the short (and no doubt
-// preferred) form would be available even without the following, we choose
-// to support consistency by allowing the .template form to be used as well.
-// This might prove to be useful if, for instance, someone embeds the call in
-// question into a single function template that invokes the long form, while
-// intending to support calls of either the full variant or any of its types.
-template<class... Ts>
-class is_oneof<std::variant<Ts...>, std::variant<Ts...>> {
-public:
-   static constexpr bool value = true;
-};
-
-// T is one of the Ts in variant<Ts...>
+// yes
 template<class T, class... Ts>
-class is_oneof<T, std::variant<Ts...>> {
+class is_alternative<T,std::variant<Ts...>> {
 public:
    static constexpr bool value = (std::is_same_v<T,Ts> || ...);
 };
 
+template<class T, class VARIANT>
+inline constexpr bool isAlternative =
+   is_alternative<T,VARIANT>::value;
 
 // ------------------------
-// oneof
+// isAlternativeOrTheVariant
 // ------------------------
 
-template<class T, class VAR>
-class oneof {
+// Is T one of the alternatives in variant<Ts...>, OR is T == variant<Ts...>
+// itself? (Not any variant, but precisely that one.)
+//
+// Consider the functionality (Node::meta() and Node::child(), at the time of
+// this writing) that use this. Invoked with a particular type from the variant,
+// a call - say, to meta() - might look like node.template meta<type>(M), where
+// M is a Meta<> object with the variant type. In contrast, one could merely
+// write node.meta(M) for the full variant, i.e. with no specific alternative
+// type stipulated. By making this SFINAE work for the full variant, not just
+// for each of its constituent types (as with isAlternative), we allow the
+// node.template meta<type>(M) form also to work for the full variant. While
+// the short (and no doubt preferred) form would be available even without the
+// following, we choose to support consistency by allowing the .template form
+// to be used too. This might prove to be useful if, for instance, a user embeds
+// the call in question into a single function template that invokes the long
+// form, while intending to support calls of either the full variant or any of
+// its types.
+
+template<class T, class VARIANT>
+class is_alternativeOrTheVariant {
 public:
-   using type = typename std::enable_if<is_oneof<T,VAR>::value,T>::type;
+   static constexpr bool value =
+      isAlternative<T,VARIANT> || std::is_same_v<T,VARIANT>;
 };
 
+template<class T, class VARIANT>
+inline constexpr bool isAlternativeOrTheVariant =
+   is_alternativeOrTheVariant<T,VARIANT>::value;
 
 // ------------------------
 // isVoid

@@ -29,7 +29,7 @@ class Link : public Component<Link> {
    // For Component
    // ------------------------
 
-   friend class Component<Link>;
+   friend class Component;
 
    // Current namespace, current class, and GNDS node name
    static auto namespaceName() { return "containers"; }
@@ -55,7 +55,7 @@ public:
    // FYI for users
    // ------------------------
 
-   static const struct {
+   static inline const struct Defaults {
    } defaults;
 
    // ------------------------
@@ -73,9 +73,9 @@ public:
    // ------------------------
 
    // href
-   const auto &href() const
+   const UTF8Text &href() const
     { return content.href; }
-   auto &href()
+   UTF8Text &href()
     { return content.href; }
 
    // ------------------------
@@ -85,7 +85,7 @@ public:
    // ------------------------
 
    // href(value)
-   auto &href(const UTF8Text &obj)
+   Link &href(const UTF8Text &obj)
     { href() = obj; return *this; }
 
    // ------------------------
@@ -168,7 +168,6 @@ public:
 }; // class Link
 
 } // namespace containers
-
 } // namespace v1_9
 } // namespace GNDStk
 } // namespace njoy

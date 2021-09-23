@@ -24,7 +24,7 @@ void wrapGrid(python::module &module)
 
    // type aliases
    using Component = containers::Grid;
-   using VARIANT = std::variant<
+   using LINK_VALUES = std::variant<
       containers::Link,
       containers::Values
    >;
@@ -33,7 +33,7 @@ void wrapGrid(python::module &module)
    python::class_<Component> component(
       module,
       "Grid",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -41,59 +41,59 @@ void wrapGrid(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const enums::Interpolation &,
+            const std::optional<enums::Interpolation> &,
             const std::optional<XMLName> &,
             const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
-            const VARIANT &
+            const LINK_VALUES &
          >(),
          python::arg("index") = std::nullopt,
-         python::arg("interpolation") = enums::Interpolation::linlin,
+         python::arg("interpolation") = std::nullopt,
          python::arg("label") = std::nullopt,
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,
-         python::arg("choice"),
-         Component::documentation("constructor").c_str()
+         python::arg("link_values"),
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
          &Component::index,
-         Component::documentation("index").c_str()
+         Component::documentation("index").data()
       )
       .def_property_readonly(
          "interpolation",
-         &Component::interpolation,
-         Component::documentation("interpolation").c_str()
+         [] ( const Component& self ) { return self.interpolation().value(); },
+         Component::documentation("interpolation").data()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::documentation("label").c_str()
+         Component::documentation("label").data()
       )
       .def_property_readonly(
          "style",
          &Component::style,
-         Component::documentation("style").c_str()
+         Component::documentation("style").data()
       )
       .def_property_readonly(
          "unit",
          &Component::unit,
-         Component::documentation("unit").c_str()
+         Component::documentation("unit").data()
       )
       .def_property_readonly(
          "link",
          python::overload_cast<>(&Component::link),
-         Component::documentation("link").c_str()
+         Component::documentation("link").data()
       )
       .def_property_readonly(
          "values",
          python::overload_cast<>(&Component::values),
-         Component::documentation("values").c_str()
+         Component::documentation("values").data()
       )
       .def_property_readonly(
-         "choice",
-         python::overload_cast<>(&Component::choice),
-         Component::documentation("choice").c_str()
+         "link_values",
+         python::overload_cast<>(&Component::link_values),
+         Component::documentation("link_values").data()
       )
    ;
 

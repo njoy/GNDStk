@@ -29,7 +29,7 @@ void wrapReaction(python::module &module)
    python::class_<Component> component(
       module,
       "Reaction",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -45,27 +45,27 @@ void wrapReaction(python::module &module)
          python::arg("fission_genre") = std::nullopt,
          python::arg("label"),
          python::arg("cross_section"),
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "endf_mt",
          &Component::ENDF_MT,
-         Component::documentation("endf_mt").c_str()
+         Component::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "fission_genre",
          &Component::fissionGenre,
-         Component::documentation("fission_genre").c_str()
+         Component::documentation("fission_genre").data()
       )
       .def_property_readonly(
          "label",
          &Component::label,
-         Component::documentation("label").c_str()
+         Component::documentation("label").data()
       )
       .def_property_readonly(
          "cross_section",
          python::overload_cast<>(&Component::crossSection),
-         Component::documentation("cross_section").c_str()
+         Component::documentation("cross_section").data()
       )
    ;
 

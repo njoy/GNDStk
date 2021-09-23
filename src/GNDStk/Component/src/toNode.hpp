@@ -24,7 +24,6 @@
 operator Node() const
 {
    try {
-      const DERIVED &derived = static_cast<const DERIVED &>(*this);
       #include "GNDStk/Component/src/toNodeBody.hpp"
    } catch (...) {
       log::member("Component.operator Node() const");
@@ -36,7 +35,6 @@ operator Node() const
 operator Node()
 {
    try {
-      DERIVED &derived = static_cast<DERIVED &>(*this);
       #include "GNDStk/Component/src/toNodeBody.hpp"
    } catch (...) {
       log::member("Component.operator Node()");

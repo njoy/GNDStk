@@ -119,67 +119,83 @@ SCENARIO("Testing GNDStk convert(type,ostream/string)") {
    }
 
    WHEN("We call convert(T,string) for bool T") {
-      THEN("It produces \"true\" or \"false\", per GNDS specs") {
-         {
-            const bool t = true;
-            std::string tstr;
-            convert(t,tstr);
-            CHECK(tstr == "true");
-         } {
-            const bool f = false;
-            std::string fstr;
-            convert(f,fstr);
-            CHECK(fstr == "false");
-         }
+      THEN("It produces \"true\" for bool true, per GNDS specs") {
+         const bool t = true;
+         std::string tstr;
+         convert(t,tstr);
+         CHECK(tstr == "true");
+      }
+
+      THEN("It produces \"false\" for bool false, per GNDS specs") {
+         const bool f = false;
+         std::string fstr;
+         convert(f,fstr);
+         CHECK(fstr == "false");
       }
    }
 
    WHEN("We call convert(string,T) for some integral and floating-point Ts") {
-      {
+      THEN ("It works correctly for int") {
          const int val = -123;
          std::string str;
          convert(val,str);
          CHECK(str == "-123");
-      } {
+      }
+
+      THEN ("It works correctly for long") {
          const long val = -123;
          std::string str;
          convert(val,str);
          CHECK(str == "-123");
-      } {
+      }
+
+      THEN ("It works correctly for long long") {
          const long long val = -123;
          std::string str;
          convert(val,str);
          CHECK(str == "-123");
-      } {
+      }
+
+      THEN ("It works correctly for unsigned") {
          const unsigned val = 456;
          std::string str;
          convert(val,str);
          CHECK(str == "456");
-      } {
+      }
+
+      THEN ("It works correctly for unsigned long") {
          const unsigned long val = 456;
          std::string str;
          convert(val,str);
          CHECK(str == "456");
-      } {
+      }
+
+      THEN ("It works correctly for unsigned long long") {
          const unsigned long long val = 456;
          std::string str;
          convert(val,str);
          CHECK(str == "456");
-      } {
+      }
+
+      THEN ("It works correctly for float") {
          const float val = 7.89f;
          std::string str;
          convert(val,str);
          CHECK(str == "7.89");
-      } {
+      }
+
+      THEN ("It works correctly for double") {
          const double val = 7.89;
          std::string str;
          convert(val,str);
          CHECK(str == "7.89");
-      } {
+      }
+
+      THEN ("It works correctly for long double") {
          const long double val = 7.89L;
          std::string str;
          convert(val,str);
          CHECK(str == "7.89");
       }
-   }
+   } // WHEN
 }

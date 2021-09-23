@@ -29,7 +29,7 @@ void wrapValues(python::module &module)
    python::class_<Component> component(
       module,
       "Values",
-      Component::documentation().c_str()
+      Component::documentation().data()
    );
 
    // wrap the component
@@ -37,35 +37,35 @@ void wrapValues(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const Integer32 &,
-            const UTF8Text &,
+            const std::optional<Integer32> &,
+            const std::optional<UTF8Text> &,
             const std::vector<Float64> &
          >(),
          python::arg("length") = std::nullopt,
-         python::arg("start") = 0,
-         python::arg("value_type") = "Float64",
+         python::arg("start") = std::nullopt,
+         python::arg("value_type") = std::nullopt,
          python::arg("values"),
-         Component::documentation("constructor").c_str()
+         Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "length",
          &Component::length,
-         Component::documentation("length").c_str()
+         Component::documentation("length").data()
       )
       .def_property_readonly(
          "start",
-         &Component::start,
-         Component::documentation("start").c_str()
+         [] ( const Component& self ) { return self.start().value(); },
+         Component::documentation("start").data()
       )
       .def_property_readonly(
          "value_type",
-         &Component::valueType,
-         Component::documentation("value_type").c_str()
+         [] ( const Component& self ) { return self.valueType().value(); },
+         Component::documentation("value_type").data()
       )
       .def_property_readonly(
          "doubles",
          [] (const Component &self) { return self.doubles(); },
-         Component::documentation("doubles").c_str()
+         Component::documentation("doubles").data()
       )
    ;
 

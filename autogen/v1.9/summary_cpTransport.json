@@ -1,0 +1,300 @@
+{
+    "__namespace__": "cpTransport",
+    "RutherfordScattering": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {},
+        "description": [
+            "Although strictly speaking the Rutherford scattering cross section is the Coulomb scattering cross section ",
+            "for two non-identical charged particles (see equation (\\ref{eq:6.7})), we also use this markup to ",
+            "describe the case of identical charged particle Coulomb scattering (see equation (\\ref{eq:6.8})). ",
+            "In either case, the Coulomb scattering cross section is analytic."
+        ],
+        "name": "RutherfordScattering",
+        "required": false,
+        "rootNode": false
+    },
+    "CoulombPlusNuclearElastic": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "When \\element{CoulombPlusNuclearElastic} is used in place of an actual distribution ",
+                    "this link is used to refer back to the parameterisation that defines the distribution."
+                ],
+                "name": "href",
+                "required": false,
+                "type": "XMLName"
+            },
+            "identicalParticles": {
+                "__class__": "nodes.Attribute",
+                "default": false,
+                "description": [
+                    "If both outgoing products are the same type of particle, for example ",
+                    "in the reaction `\\texttt{p + p -> p + p}'. If true, the angular dependence is ",
+                    "symmetric and only applies to $0 \\le \\mu \\le \\mu_{cutoff}$.",
+                    "Otherwise, the angular dependence is not symmetric and applies $-1 \\le \\mu \\le \\mu_{cutoff}$."
+                ],
+                "name": "identicalParticles",
+                "required": false,
+                "type": "Boolean"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Style label for this cross section.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            },
+            "pid": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The particle identifier of the outgoing particle.",
+                "name": "pid",
+                "required": true,
+                "type": "XMLName"
+            },
+            "productFrame": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The frame that the product data are defined in.",
+                "name": "productFrame",
+                "required": true,
+                "type": "frame"
+            }
+        },
+        "childNodes": {
+            "RutherfordScattering": {
+                "__class__": "nodes.ChildNode",
+                "description": "This differential cross section is given by the Rutherford scattering cross section.",
+                "name": "RutherfordScattering",
+                "occurrence": "1",
+                "required": false
+            },
+            "nuclearAmplitudeExpansion": {
+                "__class__": "nodes.ChildNode",
+                "description": "This differential cross section is given by the nuclear amplitude expansion.",
+                "name": "nuclearAmplitudeExpansion",
+                "occurrence": "1",
+                "required": false
+            },
+            "nuclearPlusInterference": {
+                "__class__": "nodes.ChildNode",
+                "description": "This differential cross section is given by the nuclear plus interference approach.",
+                "name": "nuclearPlusInterference",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "This is either a container holding the differential charged particle scattering cross section or a reference to said container. ",
+            "It may appear inside a \\texttt{doubleDifferentialCrossSection}, \\texttt{crossSection} or \\texttt{distribution} node."
+        ],
+        "name": "CoulombPlusNuclearElastic",
+        "required": false,
+        "rootNode": false
+    },
+    "nuclearPlusInterference": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "muCutoff": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Cosine of the cutoff angle. Above the cutoff angle, the distribution is assumed to be pure Coulomb scattering.",
+                "name": "muCutoff",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "childNodes": {
+            "crossSection": {
+                "__class__": "nodes.ChildNode",
+                "description": "The effective cross section $\\sigma_{NI}(E)$",
+                "name": "crossSection",
+                "occurrence": "1",
+                "required": true
+            },
+            "distribution": {
+                "__class__": "nodes.ChildNode",
+                "description": "The effective angular distribution $P_{NI}(\\mu, E)$.",
+                "name": "distribution",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "It is possible to represent experimental data using the ``nuclear ",
+            "plus interference'' cross section and angular distribution in the CM ",
+            "system defined by:",
+            "\\begin{equation}",
+            "    \\sigma _{NI} (E) = \\int\\limits_{\\mu_{\\min } }^{\\mu_{\\max } } {\\left[ \\rule{0ex}{2ex} {\\sigma _e (\\mu ,E) - \\sigma _c (\\mu ,E)}",
+            "    \\right],d\\mu } \\label{eq:6.17}",
+            "\\end{equation}",
+            "and",
+            "\\begin{equation}",
+            "    P_{NI} (\\mu ,E) = \\left\\{",
+            "    \\begin{array}{ll}",
+            "        \\displaystyle\\frac{{\\sigma _e (\\mu ,E) - \\sigma _c (\\mu ,E)}}{{\\sigma _{NI} (E)}}",
+            "        & \\mu _{\\min }  \\le \\mu  \\le \\mu _{\\max } \\\\",
+            "        0 & \\mbox{otherwise}",
+            "    \\end{array}",
+            "    \\right.",
+            "    \\label{eq:6.18}",
+            "\\end{equation}",
+            "where $\\mu_{min}=-1$ for different particles and 0 for ",
+            "identical particles.  The maximum cosine should be as close to 1.0 as ",
+            "possible, especially at high energies where Coulomb scattering is less ",
+            "important.  The Coulomb cross section ",
+            "$\\sigma_{c}(\\mu ,E)$ is to be computed using equations~(\\ref{eq:6.7}) ",
+            "or (\\ref{eq:6.8}) for different or identical particles, respectively."
+        ],
+        "name": "nuclearPlusInterference",
+        "required": false,
+        "rootNode": false
+    },
+    "nuclearAmplitudeExpansion": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {
+            "nuclearTerm": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $b_l(E)$ in the nuclear term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
+                "name": "nuclearTerm",
+                "occurrence": "1",
+                "required": true
+            },
+            "realInterferenceTerm": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $\\texttt{Re}(a_l(E))$ in the interference term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
+                "name": "realInterferenceTerm",
+                "occurrence": "1",
+                "required": true
+            },
+            "imaginaryInterferenceTerm": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $\\texttt{Im}(a_l(E))$ in the interference term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
+                "name": "imaginaryInterferenceTerm",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "The net elastic scattering cross section for distinguishable particles may be written as:",
+            "\n",
+            "\\begin{eqnarray}",
+            "\\sigma_{ed} (\\mu ,E) = \\sigma_{cd} (\\mu ,E) &-& \\frac{2\\eta}{1-\\mu}",
+            "{\\mathop{\\rm Re}\\nolimits} \\left\\{ {\\exp \\left( {i\\eta \\ln",
+            "\\frac{{1 - \\mu }}{2}} \\right)\\sum\\limits_{l = 0}^{\\rm NL} {\\frac{{2l +",
+            "1}}{2}a_l (E)P_l (\\mu )} } \\right\\} \\nonumber \\\\",
+            "&+& \\sum_{l=0}^{2\\rm NL} {\\frac{{2l + 1}}{2}b_l (E)P_l (\\mu )} \\label{eq:6.11}",
+            "\\end{eqnarray}",
+            "\n",
+            "\\noindent and the cross section for identical particles is:",
+            "\n",
+            "\\begin{eqnarray}",
+            "\\sigma _{ei} (\\mu ,E) &=& \\sigma _{ci} (\\mu ,E) \\nonumber \\\\",
+            "&-& \\frac{{2\\eta }}{{1 - \\mu ^2 }} \\; {\\mathop{\\rm Re}\\nolimits} \\left\\{",
+            "{\\sum_{l=0}^{\\rm NL} {\\left[ \\begin{array}{r}",
+            "(1 + \\mu )\\exp \\left( {i\\eta \\ln \\frac{{1 - \\mu }}{2}} \\right) \\\\",
+            "+ ( - 1)^l (1 - \\mu )\\exp \\left( {i\\eta \\ln \\frac{{1 + \\mu }}{2}}",
+            "\\right) \\\\",
+            "\\end{array} \\right]\\frac{{2l + 1}}{2}a_l (E)P_l (\\mu )} } \\right\\} \\nonumber \\\\",
+            "&+& \\sum\\limits_{l=0}^{\\rm NL} {\\frac{{4l + 1}}{2} \\; b_l (E)P_{2l} (\\mu )}  \\label{eq:6.12}",
+            "\\end{eqnarray}",
+            "\\noindent where the $a_{l}$ are complex coefficients for expanding the trace of ",
+            "the nuclear scattering amplitude matrix and the $b_{l}$ are real ",
+            "\n",
+            "coefficients for expanding the nuclear scattering cross section.  The ",
+            "value of NL represents the highest partial wave contributing to nuclear ",
+            "scattering.  Note that  $\\sigma_{ei}(-\\mu ,E) = \\sigma_{ei}(\\mu ,E)$. ",
+            "\n",
+            "The three terms in Equations (\\ref{eq:6.11}) and (\\ref{eq:6.12}) are ",
+            "Coulomb, interference, and nuclear scattering, respectively."
+        ],
+        "name": "nuclearAmplitudeExpansion",
+        "required": false,
+        "rootNode": false
+    },
+    "nuclearTerm": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {
+            "XYs2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $b_l(E)$ given as a Legendre moment expansion inside an \\element{XYs2d}",
+                "name": "XYs2d",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $b_l(E)$ given as a Legendre moment expansion inside an \\element{regions2d}",
+                "name": "regions2d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "The coefficients $b_l(E)$ in the nuclear term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
+        "name": "nuclearTerm",
+        "required": false,
+        "rootNode": false
+    },
+    "realInterferenceTerm": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {
+            "XYs2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $\\texttt{Re}(a_l(E))$ given as a Legendre moment expansion inside an \\element{XYs2d}",
+                "name": "XYs2d",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $\\texttt{Re}(a_l(E))$ given as a Legendre moment expansion inside an \\element{regions2d}",
+                "name": "regions2d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "The coefficients $\\texttt{Re}(a_l(E))$ in the interference term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
+        "name": "realInterferenceTerm",
+        "required": false,
+        "rootNode": false
+    },
+    "imaginaryInterferenceTerm": {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "childNodes": {
+            "XYs2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $\\texttt{Im}(a_l(E))$ given as a Legendre moment expansion inside an \\element{XYs2d}",
+                "name": "XYs2d",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "The coefficients $\\texttt{Im}(a_l(E))$ given as a Legendre moment expansion inside an \\element{regions2d}",
+                "name": "regions2d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "The coefficients $\\texttt{Im}(a_l(E)$) in the interference term of equations (\\ref{eq:6.11}) or (\\ref{eq:6.12})",
+        "name": "imaginaryInterferenceTerm",
+        "required": false,
+        "rootNode": false
+    }
+}

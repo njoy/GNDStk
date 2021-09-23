@@ -4,9 +4,9 @@
 // -----------------------------------------------------------------------------
 
 // reset()
-// Compare/contrast with std::optional's. Here, it means "reset to default."
-// We prefer the name clear(), but have this in order to make Defaulted be
-// more consistent with std::optional.
+// Compare/contrast with std::optional's reset(). Here, reset() means "reset
+// to default." We prefer the name clear(), but provide this name in order to
+// make the Defaulted class be more consistent with std::optional.
 void reset()
 {
    opt.reset();
