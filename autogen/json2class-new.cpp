@@ -2064,6 +2064,10 @@ void filePythonClass(
       cpp << (count++ ? "," : "") << "\n            "
           << "const " << c.varTypeFull << " &";
    }
+   for (auto &v : per.variants) {
+      cpp << (count++ ? "," : "") << "\n            "
+          << "const " << v.varTypeFull << " &";
+   }
    if (per.hasData) {
       cpp << (count++ ? "," : "") << "\n            ";
       cpp << "const std::vector<" << bodyType << "> &";
@@ -2086,6 +2090,10 @@ void filePythonClass(
          cpp << " = std::nullopt";
       cpp << ",\n";
    }
+   for (auto &v : per.variants) {
+      cpp << "         python::arg(\"" << toPythonName(v.varName) << "\")";
+      cpp << ",\n";
+   }
    if (per.hasData)
       cpp << "         python::arg(\"values\"),\n";
    cpp << "         Component::documentation(\"constructor\").data()\n";
@@ -2097,15 +2105,40 @@ void filePythonClass(
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
       cpp << "         &Component::" << m.varName << ",\n";
-      cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
+      cpp << "         Component::documentation(\""
+          << pythonname << "\").data()\n";
       cpp << "      )\n";
    }
    for (auto &c : per.children) {
       const auto pythonname = toPythonName(c.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         python::overload_cast<>(&Component::" << c.varName << "),\n";
-      cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
+      cpp << "         python::overload_cast<>(&Component::"
+          << c.varName << "),\n";
+      cpp << "         Component::documentation(\""
+          << pythonname << "\").data()\n";
+      cpp << "      )\n";
+   }
+   for (auto &v : per.variants) {
+      if (!v.isVector) {
+         for (auto &c : v.children) {
+            const auto pythonname = toPythonName(c.varName);
+            cpp << "      .def_property_readonly(\n";
+            cpp << "         \"" << pythonname << "\",\n";
+            cpp << "         python::overload_cast<>(&Component::"
+                << c.varName << "),\n";
+            cpp << "         Component::documentation(\""
+                << pythonname << "\").data()\n";
+            cpp << "      )\n";
+         }
+      }
+      const auto pythonname = toPythonName(v.varName);
+      cpp << "      .def_property_readonly(\n";
+      cpp << "         \"" << pythonname << "\",\n";
+      cpp << "         python::overload_cast<>(&Component::"
+          << v.varName << "),\n";
+      cpp << "         Component::documentation(\""
+          << pythonname << "\").data()\n";
       cpp << "      )\n";
    }
 
@@ -2114,7 +2147,8 @@ void filePythonClass(
       cpp << "         \"" << bodyName << "\",\n";
       cpp << "         [] (const Component &self) "
           << "{ return self." << bodyName << "(); },\n";
-      cpp << "         Component::documentation(\"" << bodyName << "\").data()\n";
+      cpp << "         Component::documentation(\""
+          << bodyName << "\").data()\n";
       cpp << "      )\n";
    }
 
