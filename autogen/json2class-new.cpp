@@ -1,30 +1,43 @@
 
-WORK IN PROGRESS!!
-INCOMPLETE!!
-
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // Tool for autogenerating GNDStk classes from JSON specs
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
 
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
 #include "cstring"
+using namespace njoy::GNDStk::core;
 
 // Print extra chatter?
-// We'd prefer the name "debug", but that would conflict with GNDStk::debug.
 const bool debugging = true;
 
-// Report instances of nodes with (1) no metadata and (2) only one child node?
-// For example, <reactions> in GNDS v1.9 has no metadata, and only <reaction>
-// as a child node. A case could be made that a well-designed spec shouldn't
-// have such intermediaries. So, this flag allows us to find and report them.
+// Report cases of nodes that have no metadata, and zero or one child node(s).
+// Where these exist, a simplification of your schema is worth considering.
 const bool singletons = true;
 
-// Comment-related markup.
+// Comment-related markup
 const auto large = "// " + std::string(77,'-');
 const auto small = "// " + std::string(24,'-');
+
+// Replace character
+std::string replace(std::string str, const char from, const char to)
+{
+   for (std::size_t i = str.size(); i--; )
+      if (str[i] == from)
+         str[i] = to;
+   return str;
+}
+
+std::string toPythonName(const std::string &name)
+{
+   std::string python;
+   python += std::tolower(name[0]);
+   for (auto it = name.begin()+1; it != name.end(); ++it) {
+      if (std::isupper(*it) && std::islower(*(it-1)))
+         python += '_';
+      python += std::tolower(*it);
+   }
+   return python;
+}
 
 
 
@@ -34,12 +47,11 @@ const auto small = "// " + std::string(24,'-');
 // -----------------------------------------------------------------------------
 
 // Namespace and class
-class NamespaceAndClass {
-public:
+struct NamespaceAndClass {
    std::string nsname; // name of a namespace
    std::string clname; // name of a class in the namespace
 
-   NamespaceAndClass(const std::string &ns="", const std::string &cl="") :
+   NamespaceAndClass(const std::string &ns = "", const std::string &cl = "") :
       nsname(ns),
       clname(cl)
    { }
@@ -50,13 +62,20 @@ public:
          nsname == other.nsname &&
          clname == other.clname;
    }
+
+   bool operator<(const NamespaceAndClass &other) const
+   {
+      return
+         nsname < other.nsname ? true
+       : other.nsname < nsname ? false
+       : clname < other.clname;
+   }
 };
 
 // Class2Dependencies
 // For a {namespace,class}, its {namespace,class} dependencies
-class Class2Dependencies {
-public:
-   NamespaceAndClass object;
+struct Class2Dependencies {
+   NamespaceAndClass object;///not a good name
    std::vector<NamespaceAndClass> dependencies;
 };
 
@@ -68,8 +87,7 @@ public:
 // -----------------------------------------------------------------------------
 
 // InfoMetadata
-class InfoMetadata {
-public:
+struct InfoMetadata {
    // A .json spec can make a metadatum be:
    //    - a std::optional, or
    //    - a GNDStk::defaulted
@@ -87,8 +105,7 @@ public:
 };
 
 // InfoChildren
-class InfoChildren {
-public:
+struct InfoChildren {
    // A .json spec can make a child node be:
    //    - a std::optional, and/or
    //    - a std::vector
@@ -104,16 +121,14 @@ public:
 };
 
 // InfoChoiceChild
-class InfoChoiceChild {
-public:
+struct InfoChoiceChild {
    std::string varName;
    std::string varType;
    bool        isVector;
 };
 
 // InfoVariants
-class InfoVariants {
-public:
+struct InfoVariants {
    std::string varName;
    std::string varType;     // underlying type
    std::string varTypeFull; // with any optional<> or vector<>
@@ -122,34 +137,33 @@ public:
    std::vector<InfoChoiceChild> children;
 };
 
-// InfoData
-class InfoData {
-public:
-   bool has;
-   std::string type;
+// PerNamespace
+struct PerNamespace {
+   // File name for...
+   std::string filePythonCPP; // .cpp code for this namespace's Python interface
 };
 
 // PerClass
-class PerClass {
-public:
+struct PerClass {
+   // File names for...
+   std::string filePythonCPP; // .cpp code for this class' Python interface
+   std::string fileGNDStkHPP; // .hpp code for GNDStk
+
    // Actual printed code for the class. We build this up and then print
    // it later, after having determined a dependency-aware class ordering.
    std::string code;
-   /// in old code: classCodeMap
 
    // Information about the contents of the class...
-
    // ...its metadata
    // ...its standard children
    // ...its "choice" children
    std::vector<InfoMetadata> metadata;
    std::vector<InfoChildren> children;
    std::vector<InfoVariants> variants;
-   /// in old code: class2info
 
-   // ...its data/"body text", if applicable
-   InfoData data;
-   /// in old code: class2bodytext
+   // Data node?
+   bool hasData;
+   std::string dataType;
 };
 
 
@@ -159,14 +173,15 @@ public:
 // as well as various processed information
 // -----------------------------------------------------------------------------
 
-class Info {
-public:
-
+struct Info {
    // From the .json file on the command line
    std::string JSONDir;
    std::vector<std::string> JSONFiles;
    std::string GNDSDir;
    std::string Version;
+
+   // Same as Version except with '_' in place of '.'
+   std::string VersionUnderscore;
 
    // Directory-prefixed name of the .hpp file for this GNDS version
    std::string VersionHPP;
@@ -180,7 +195,8 @@ public:
    std::map<std::string,std::string> mapMetaType;
    std::map<std::string,std::string> mapMetaDefault;
 
-   /// should be computed early with file pre-scan, then used later
+   // For each class (node) in the input JSON specifications, the namespace(s)
+   // in which it appears.
    std::multimap<std::string,std::string> class2nspace;
 
    // Class dependencies: as originally determined, and after being sorted
@@ -195,10 +211,12 @@ public:
    std::vector<Class2Dependencies> ClassDependenciesRaw;
    std::vector<Class2Dependencies> ClassDependenciesSorted;
 
-   // Map from {namespace::class} to information about the class
-   std::map<NamespaceAndClass,PerClass> class2data;
+   // Map from namespace to information about the namespace
+   std::map<std::string,PerNamespace> namespace2data;
 
-}; // class Info
+   // Map from namespace::class to information about the class
+   std::map<NamespaceAndClass,PerClass> class2data;
+};
 
 
 
@@ -206,7 +224,7 @@ public:
 // Functions
 // -----------------------------------------------------------------------------
 
-// Is this a class that's meaningful to autogenerate?
+// isClass: is this a class that's meaningful to autogenerate?
 bool isClass(const std::string &key, const nlohmann::json &value)
 {
    // not a class?
@@ -221,12 +239,7 @@ bool isClass(const std::string &key, const nlohmann::json &value)
    return true;
 }
 
-
-
-// -----------------------------------------------------------------------------
 // Read JSON file
-// -----------------------------------------------------------------------------
-
 nlohmann::json readJSON(const std::string &file, const bool print = false)
 {
    // Depending on call context, we might want to print the file name
@@ -327,18 +340,12 @@ void printSingletons(const std::string &file)
       const auto metadata = getMetadataJSON<true>(rhs);
       const auto children = getChildrenJSON<true>(rhs);
 
-      if (metadata.size() == 0 && children.size() == 0) {
+      if (metadata.size() == 0 && children.size() == 0)
          log::info("Class \"{}\" has no metadata and no children", parent);
-         continue;
-      }
-
-      if (metadata.size() == 0 && children.size() == 1) {
+      if (metadata.size() == 0 && children.size() == 1)
          log::info("Class \"{}\" has no metadata and just one child", parent);
-         continue;
-      }
    }
 }
-
 
 
 
@@ -356,7 +363,7 @@ bool isComment(const std::string &key)
 // changesFile
 // ------------------------
 
-bool changesFile(const std::string &jfile, Info &info)
+void changesFile(const std::string &jfile, Info &info)
 {
    const nlohmann::json jchanges = readJSON(jfile);
    using pair = std::pair<std::string,std::string>;
@@ -396,8 +403,6 @@ bool changesFile(const std::string &jfile, Info &info)
          std::cout << "metadata default: "
                    << pair.first << " ==> " << pair.second << std::endl;
    }
-
-   return true;
 }
 
 // ------------------------
@@ -433,11 +438,12 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
       return false;
    }
 
-   // Extract information from the command-line .json
+   // Extract information from the command line .json
    info.JSONDir   = jmain[input];
    info.JSONFiles = std::vector<std::string>(jmain[files]);
    info.GNDSDir   = jmain[output];
    info.Version   = jmain[version];
+   info.VersionUnderscore = replace(info.Version, '.', '_');
 
    // Prepend the JSON file names with their directory
    for (std::string &file : info.JSONFiles)
@@ -452,7 +458,7 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
 
    // Changes?
    if (jmain.contains(changes))
-      return changesFile(jmain[changes],info);
+      changesFile(jmain[changes],info);
    return true;
 }
 
@@ -462,12 +468,11 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
 // Functions: miscellaneous
 // -----------------------------------------------------------------------------
 
-// Replace character
-std::string replace(std::string str, const char from, const char to)
+// Capitalize the first letter, leaving others as-is
+std::string capital(std::string str)
 {
-   for (std::size_t i = str.size(); i--; )
-      if (str[i] == from)
-         str[i] = to;
+   if (str.size() > 0)
+      str[0] = toupper(str[0]);
    return str;
 }
 
@@ -476,14 +481,6 @@ std::string allcaps(std::string str)
 {
    for (std::size_t i = str.size(); i--; )
       str[i] = toupper(str[i]);
-   return str;
-}
-
-// Capitalize the first letter, leaving others as-is
-std::string capitalize(std::string str)
-{
-   if (str.size() > 0)
-      str[0] = toupper(str[0]);
    return str;
 }
 
@@ -557,7 +554,7 @@ std::string className(
    const Info &info
 ) {
    // Like fieldName, but capitalized (per our class naming convention).
-   return capitalize(fieldName(key,value,info));
+   return capital(fieldName(key,value,info));
 }
 
 
@@ -673,30 +670,28 @@ void writeAutogenerated(std::ostream &os)
 // Class prefix
 void writeClassPrefix(
    std::ostream &os,
-   const std::string &nsname, const std::string &clname,
-   const bool hasData, const std::string &dataType
+   const NamespaceAndClass &nandc, const PerClass &per
 ) {
    // comment introducing class
    os << "\n\n\n"
       << large << "\n"
-      << "// " << nsname << "::\n"
-      << "// class " << clname << "\n"
+      << "// " << nandc.nsname << "::\n"
+      << "// class " << nandc.clname << "\n"
       << large << "\n";
 
    // namespace+class begin
    os << "\n"
-      << "namespace " << nsname << " {\n"
+      << "namespace " << nandc.nsname << " {\n"
       << "\n"
-      << "class " << clname << " : public Component<" << clname
-      << (hasData ? (",true" + (dataType == "" ? "" : "," + dataType)) : "")
+      << "class " << nandc.clname << " : public Component<" << nandc.clname
+      << (per.hasData ? (",true" + (per.dataType == "" ? "" : "," + per.dataType)) : "")
       << "> {\n";
 }
 
 // Class suffix
 void writeClassSuffix(
    std::ostream &os,
-   const std::string &nsname, const std::string &clname,
-   const Info &info
+   const NamespaceAndClass &nandc, const Info &info
 ) {
    // assignment
    os << "\n"
@@ -705,10 +700,10 @@ void writeClassSuffix(
       << "   " << small << "\n"
       << "\n"
       << "   // copy" << "\n"
-      << "   " << clname << " &operator=(const " << clname << " &) = default;\n"
+      << "   " << nandc.clname << " &operator=(const " << nandc.clname << " &) = default;\n"
       << "\n"
       << "   // move" << "\n"
-      << "   " << clname << " &operator=(" << clname << " &&) = default;\n";
+      << "   " << nandc.clname << " &operator=(" << nandc.clname << " &&) = default;\n";
 
    // customization #include
    os << "\n"
@@ -717,13 +712,13 @@ void writeClassSuffix(
       << "   " << small << "\n"
       << "\n"
       << "   #include \"GNDStk/" << info.Version << "/"
-      << nsname << "/" << clname << "/src/custom.hpp\"\n";
+      << nandc.nsname << "/" << nandc.clname << "/src/custom.hpp\"\n";
 
    // class+namespace end
    os << "\n"
-      << "}; // class " << clname << "\n"
+      << "}; // class " << nandc.clname << "\n"
       << "\n"
-      << "} // namespace " << nsname << "\n";
+      << "} // namespace " << nandc.nsname << "\n";
 }
 
 
@@ -734,8 +729,7 @@ void writeClassSuffix(
 
 // writeCtorComponentCall
 void writeCtorComponentCall(
-   std::ostream &os, const bool hasOther,
-   const PerClass &info
+   std::ostream &os, const PerClass &info, const bool hasOther
 ) {
    os << "      Component{\n"
       << "         "
@@ -745,16 +739,15 @@ void writeCtorComponentCall(
       os << ",\n         content." + m.varName;
    for (const auto &c : info.children) // children
       os << ",\n         content." + c.varName;
-   for (const auto &v : info.variants) // variant children
+   for (const auto &v : info.variants) // variants
       os << ",\n         content." + v.varName;
 
    os << "\n      }";
 }
 
 // writeCtorBody
-void writeCtorBody(
-   std::ostream &os, const std::string &argName
-) {
+void writeCtorBody(std::ostream &os, const std::string &argName)
+{
    os << "   {\n";
    os << "      Component::finish(" << argName << ");\n";
    os << "   }\n";
@@ -763,7 +756,7 @@ void writeCtorBody(
 
 
 // -----------------------------------------------------------------------------
-// writeGetters
+// Helper functions
 // -----------------------------------------------------------------------------
 
 // Helper: getter1Param
@@ -793,23 +786,23 @@ void getter2Param(
    std::ostream &os,
    const std::string &varType, const std::string &varName,
    const std::string &argType, const std::string &argName,
-   const std::string &choiceName
+   const std::string &variantName
 ) {
-   // choice is a vector<variant>
+   // comment
    os << "\n   // " << varName << "(" << argName << ")\n";
 
    // const
    os << "   const " << varType << " *" << varName << "(const "
       << argType << argName
       << ") const\n" << "    { return getter<" << varType << ">"
-      << "(" << choiceName << "(), " << argName
+      << "(" << variantName << "(), " << argName
       << ", \"" << varName << "\"); }\n";
 
    // non-const
    os << "   " << varType << " *" << varName << "(const "
       << argType << argName
       << ")\n" << "    { return getter<" << varType << ">"
-      << "(" << choiceName << "(), " << argName
+      << "(" << variantName << "(), " << argName
       << ", \"" << varName << "\"); }\n";
 }
 
@@ -820,54 +813,52 @@ void getter2Param(
 // -----------------------------------------------------------------------------
 
 void getClassMetadata(
-   const nlohmann::json &meta,
-   const Info &info,
-   PerClass &per
+   const nlohmann::json &meta, const Info &info, PerClass &per
 ) {
    for (const auto &field : meta.items()) {
       const auto &metaKey = field.key();
       const auto &metaRHS = field.value();
 
       // Name
-      InfoMetadata infom;
-      infom.varName = fieldName(metaKey,metaRHS,info);
+      InfoMetadata m;
+      m.varName = fieldName(metaKey,metaRHS,info);
 
       // Has default?
-      infom.theDefault = "";
+      m.theDefault = "";
       if (metaRHS.contains("default") && !metaRHS["default"].is_null()) {
-         infom.theDefault = toString(metaRHS["default"]);
-         const auto it = info.mapMetaDefault.find(infom.theDefault);
+         m.theDefault = toString(metaRHS["default"]);
+         const auto it = info.mapMetaDefault.find(m.theDefault);
          if (it != info.mapMetaDefault.end())
-            infom.theDefault = it->second;
+            m.theDefault = it->second;
       };
-      if (infom.theDefault != "") {
+      if (m.theDefault != "") {
          if (debugging)
-            std::cout << "theDefault: \"" << infom.theDefault << "\"\n";
+            std::cout << "theDefault: \"" << m.theDefault << "\"\n";
          // If this metadatum has a default, then surely it isn't required...
          assert(!metaRHS["required"]);
       }
 
       // Optional? (not required, and has no default)
-      infom.isOptional = !metaRHS["required"] && infom.theDefault == "";
-      const std::string optPrefix = infom.isOptional ? "std::optional<" : "";
-      const std::string optSuffix = infom.isOptional ? ">" : "";
+      m.isOptional = !metaRHS["required"] && m.theDefault == "";
+      const std::string optPrefix = m.isOptional ? "std::optional<" : "";
+      const std::string optSuffix = m.isOptional ? ">" : "";
 
       // Defaulted? (not required, but does have a default)
-      infom.isDefaulted = !metaRHS["required"] && infom.theDefault != "";
-      const std::string defPrefix = infom.isDefaulted ? "Defaulted<" : "";
-      const std::string defSuffix = infom.isDefaulted ? ">" : "";
+      m.isDefaulted = !metaRHS["required"] && m.theDefault != "";
+      const std::string defPrefix = m.isDefaulted ? "Defaulted<" : "";
+      const std::string defSuffix = m.isDefaulted ? ">" : "";
 
       // Type
-      infom.varType = getMetaType(metaRHS,info);
+      m.varType = getMetaType(metaRHS,info);
 
       // Full type, including any optional or defaulted
-      infom.varTypeFull =
+      m.varTypeFull =
          optPrefix + defPrefix +
-         infom.varType +
+         m.varType +
          defSuffix + optSuffix;
 
       // Add to per.metadata
-      per.metadata.push_back(infom);
+      per.metadata.push_back(m);
    }
 } // getClassMetadata
 
@@ -939,11 +930,8 @@ std::string findNamespace(
 // -----------------------------------------------------------------------------
 
 void getClassChildren(
-   const nlohmann::json &elem,
-   const Info &info,
-   PerClass &per,
-   const NamespaceAndClass &nandc,
-   Class2Dependencies &dep
+   const nlohmann::json &elem, const Info &info, PerClass &per,
+   const NamespaceAndClass &nandc, Class2Dependencies &dep
 ) {
    for (const auto &field : elem.items()) {
       const auto &elemKey = field.key();
@@ -955,54 +943,54 @@ void getClassChildren(
          continue;
 
       // Name
-      InfoChildren infoc;
-      infoc.varName = fieldName(elemKey,elemRHS,info);
+      InfoChildren c;
+      c.varName = fieldName(elemKey,elemRHS,info);
 
       // Optional?
-      infoc.isOptional = !elemRHS["required"];
-      const std::string optPrefix = infoc.isOptional ? "std::optional<" : "";
-      const std::string optSuffix = infoc.isOptional ? ">" : "";
+      c.isOptional = !elemRHS["required"];
+      const std::string optPrefix = c.isOptional ? "std::optional<" : "";
+      const std::string optSuffix = c.isOptional ? ">" : "";
 
       // Vector?
-      infoc.isVector = occ == "0+" || occ == "1+" || occ == "2+";
-      const std::string vecPrefix = infoc.isVector ? "std::vector<" : "";
-      const std::string vecSuffix = infoc.isVector ? ">" : "";
+      c.isVector = occ == "0+" || occ == "1+" || occ == "2+";
+      const std::string vecPrefix = c.isVector ? "std::vector<" : "";
+      const std::string vecSuffix = c.isVector ? ">" : "";
 
       // Type, including namespace
-      infoc.varType = className(elemKey,elemRHS,info);
-      const std::string ns = findNamespace(elemRHS,info,nandc,infoc.varType);
-      infoc.varType = ns + "::" + infoc.varType;
+      c.varType = className(elemKey,elemRHS,info);
+      const std::string ns = findNamespace(elemRHS,info,nandc,c.varType);
+      c.varType = ns + "::" + c.varType;
 
       // Full type, including any optional or vector
       // If both, use optional<vector>; the reverse makes less sense
-      infoc.varTypeFull =
+      c.varTypeFull =
          optPrefix + vecPrefix +
-         infoc.varType +
+         c.varType +
          vecSuffix + optSuffix;
 
       // Partial type, not including any vector. This is used in the context
       // of this child node's entry in the multi-query key, where vector will
       // be implicit if it's a "many" (not a "one") child.
-      infoc.varTypeHalf =
+      c.varTypeHalf =
          optPrefix +
-         infoc.varType +
+         c.varType +
          optSuffix;
 
       // Save as a dependency - if it's not its own dependency (in which case,
       // presumably, a pointer is involved, or we're out of luck in any event)
-      if (infoc.varType != nandc.clname)///just one of these has namespace?????
+      if (c.varType != nandc.clname)///just one of these has namespace?????
          dep.dependencies.push_back(
             NamespaceAndClass(ns,className(elemKey,elemRHS,info)));
 
       // Add to per.children
-      per.children.push_back(infoc);
+      per.children.push_back(c);
    }
 } // getClassChildren
 
 
 
 // -----------------------------------------------------------------------------
-// getClassChoice
+// getClassVariants
 // -----------------------------------------------------------------------------
 
 // We want to fill in per.variants, which is a vector<InfoVariants> that has
@@ -1018,12 +1006,9 @@ void getClassChildren(
 // for one choice-between-things (just X,Y; or just A,B,C) in a given, but
 // we believe our extension will prove to be useful.
 
-void getClassChoices(
-   const nlohmann::json &elem,
-   const Info &info,
-   PerClass &per,
-   const NamespaceAndClass &nandc,
-   Class2Dependencies &dep
+void getClassVariants(
+   const nlohmann::json &elem, const Info &info, PerClass &per,
+   const NamespaceAndClass &nandc, Class2Dependencies &dep
 ) {
    std::map<std::string,InfoVariants> map;
 
@@ -1038,10 +1023,10 @@ void getClassChoices(
          continue;
 
       // Variant name
-      const std::string variant = elemRHS.contains("variant")
+      const std::string variantName = elemRHS.contains("variant")
          ? elemRHS["variant"]
          : ""; // to be determined
-      map.insert(std::make_pair(variant,InfoVariants{}));
+      map.insert(std::make_pair(variantName,InfoVariants{}));
    }
 
    // Pass 2
@@ -1061,56 +1046,54 @@ void getClassChoices(
       assert(it != map.end()); // should be there from the earlier loop
 
       // For the individual child that's part of a choice...
-      InfoChoiceChild child;
+      InfoChoiceChild c;
       // ...its name
-      child.varName = fieldName(elemKey,elemRHS,info);
+      c.varName = fieldName(elemKey,elemRHS,info);
       // ...its type, including namespace
-      child.varType = className(elemKey,elemRHS,info);
-      const std::string ns = findNamespace(elemRHS,info,nandc,child.varType);
-      child.varType = ns + "::" + child.varType;
+      c.varType = className(elemKey,elemRHS,info);
+      const std::string ns = findNamespace(elemRHS,info,nandc,c.varType);
+      c.varType = ns + "::" + c.varType;
       // ...its vector-ness
-      child.isVector = occ == "choice+" || occ == "choice2+";
+      c.isVector = occ == "choice+" || occ == "choice2+";
 
       // The GNDS JSON specs appear to all have "required":false for individual
       // choices in a set of choices, so that the concept of "the entire choice
-      // can be required or optional" doesn't currently exist. We could relax
-      // this, but for now, we'll just ensure that it's followed.
+      // can be required or optional" doesn't currently exist. We could support
+      // it, but for now, we'll just ensure that "required":false is followed.
       assert(!elemRHS["required"]);
 
-      InfoVariants &infov = it->second;
-      infov.isVector = child.isVector;
-      infov.children.push_back(child);
+      InfoVariants &v = it->second;
+      v.isVector = c.isVector;
+      v.children.push_back(c);
 
       // save as a dependency
-      if (child.varType != nandc.clname)///just one of these has namespace?????
+      if (c.varType != nandc.clname)///just one of these has namespace?????
          dep.dependencies.push_back(
             NamespaceAndClass(ns,className(elemKey,elemRHS,info)));
    }
 
    // Pass 3
    for (auto &pair : map) {
-      InfoVariants &choice = pair.second;
-      assert(choice.children.size() > 0);
+      InfoVariants &v = pair.second;
+      assert(v.children.size() > 0);
 
-      const std::string vecPrefix = choice.isVector ? "std::vector<" : "";
-      const std::string vecSuffix = choice.isVector ? ">" : "";
+      const std::string vecPrefix = v.isVector ? "std::vector<" : "";
+      const std::string vecSuffix = v.isVector ? ">" : "";
 
-      choice.varName = pair.first;
+      v.varName = pair.first;
+      v.varType = allcaps(pair.first); /// consider _t
 
-      for (const auto &child : choice.children) {
-         assert(child.isVector == choice.isVector);
-         choice.varType += (choice.varType == "" ? "std::variant<" : ",");
-         choice.varType +=  child.varType;
+      for (const auto &c : v.children) {
+         assert(c.isVector == v.isVector);
          if (pair.first == "")
-            choice.varName += (choice.varName == "" ? "_" : "") + child.varName;
+            v.varName += (v.varName == "" ? "_" : "") + c.varName;
       }
-      choice.varType += ">";
-      choice.varTypeHalf = choice.varType;
-      choice.varTypeFull = vecPrefix + choice.varType + vecSuffix;
+      v.varTypeHalf = v.varType;
+      v.varTypeFull = vecPrefix + v.varType + vecSuffix;
 
-      per.variants.push_back(choice);
+      per.variants.push_back(v);
    }
-} // getClassChoice
+} // getClassVariants
 
 
 
@@ -1119,13 +1102,13 @@ void getClassChoices(
 // -----------------------------------------------------------------------------
 
 // writeClassMetadata
-void writeClassMetadata(std::ostream &os, PerClass &per)
+void writeClassMetadata(std::ostream &os, const PerClass &per)
 {
    if (per.metadata.size())
       os << "      // metadata\n";
 
    for (const auto &m : per.metadata) {
-      per.data.has && (
+      per.hasData && (
          m.varName == "length" ||
          m.varName == "start"  ||
          m.varName == "valueType")
@@ -1139,120 +1122,555 @@ void writeClassMetadata(std::ostream &os, PerClass &per)
 }
 
 // writeClassChildren
-void writeClassChildren(std::ostream &os, PerClass &per)
+void writeClassChildren(std::ostream &os, const PerClass &per)
 {
-   if (per.children.size())
+   if (per.children.size() || per.variants.size()) {
+      if (per.metadata.size())
+         os << "\n";
       os << "      // children\n";
-
-   for (const auto &c : per.children) {
-      os << "      " << c.varTypeFull << " " << c.varName;
-      os << ";\n";
    }
+
+   for (const auto &c : per.children)
+      os << "      " << c.varTypeFull << " " << c.varName << ";\n";
 }
 
-// writeClassChoices
-void writeClassChoices(std::ostream &os, PerClass &per)
+// writeClassVariants
+void writeClassVariants(std::ostream &os, const PerClass &per)
 {
-   for (const auto &v : per.variants) {
-      os << "      " << v.varTypeFull << " " << v.varName;
-      os << ";\n";
-   }
+   for (const auto &v : per.variants)
+      os << "      " << v.varTypeFull << " " << v.varName << ";\n";
 }
 
 
 
 // -----------------------------------------------------------------------------
-// getClass
+// writeForComponent
 // -----------------------------------------------------------------------------
 
-template<class JSON>
-void getClass(
-   const JSON &keyvalue,
-   const std::string &nsname, // in this file
-   Info &info
+void writeForComponent(
+   std::ostream &os,
+   const std::string &classKey, const nlohmann::json &classRHS,
+   const PerClass &per, const std::string &nsname, const Info &info
 ) {
-   const auto classKey = keyvalue.key();
-   const auto classRHS = keyvalue.value();
-   if (!isClass(classKey,classRHS))
-      return;
+   os << "\n";
 
-   // class name
-   const std::string clname = className(classKey,classRHS,info);
-   if (debugging)
-      std::cout << "Class: " << clname << std::endl;
+   // using [name for variant] = ...
+   for (const auto &v : per.variants) {
+      os << "   using " << v.varType << " = std::variant<\n";
+      int total = v.children.size();
+      int count = 0;
+      for (const auto &c : v.children)
+         os << "      " << c.varType << (++count == total ? "" : ",") << "\n";
+      os << "   >;\n";
+   }
 
-   const NamespaceAndClass nandc(nsname,clname);
-   PerClass per;
-   per.data.has  = false;
-   per.data.type = "";
-   validateClass(classRHS, per.data.has, per.data.type);
+   // names
+   ///These are the only things that need classKey, classRHS, and info. Perhaps
+   ///there's a better way - say, with name and gnds stored in the perclass??
+   const std::string name = className(classKey,classRHS,info);
+   const std::string gnds = GNDSName(classKey,classRHS);
 
-   // For this class, we'll collect dependencies as this function proceeds
-   Class2Dependencies dep;
-   dep.object = nandc;
+   os << "\n";
+   os << "   " << small << "\n";
+   os << "   // For Component\n";
+   os << "   " << small << "\n";
+   os << "\n";
+   os << "   friend class Component;\n";
+   os << "\n";
+   os << "   // Current namespace, current class, and GNDS node name\n";
+   os << "   static auto namespaceName() { return \"" << nsname << "\"; }\n";
+   os << "   static auto className() { return \"" << name << "\"; }\n";
+   os << "   static auto GNDSName() { return \"" << gnds << "\"; }\n";
+   os << "\n";
 
-   // output: class begin /// as elsewhere, consider moving write
-   std::ostringstream oss;
-   writeClassPrefix(oss, nsname, clname, per.data.has, per.data.type);
+   // keys() begin
+   os << "   // Core Interface object to extract metadata and child nodes\n";
+   os << "   static auto keys()\n";
+   os << "   {\n";
 
-   /// possibly split out into next two blocks...
-   const nlohmann::json attrs = getMetadataJSON<true>(classRHS);
-   validateMetadata(attrs);
-   const nlohmann::json elems = getChildrenJSON<true>(classRHS);
-   validateChildren(elems);
+   // keys() contents
+   auto total = per.metadata.size() + per.children.size() + per.variants.size();
+   if (total == 0) {
+      os << "      return std::tuple<>{};\n";
+   } else {
+      os << "      return\n";
+      std::size_t count = 0;
 
-   /*
-   qqq working here
-   PerClass:
-      ( ) std::string code;
-      (x) std::vector<InfoMetadata> metadata;
-      (x) std::vector<InfoChildren> children;
-      (x) std::vector<InfoVariants> variants;
-      (x) InfoData data;
-   */
+      // metadata
+      if (per.metadata.size())
+         os << "         // metadata\n";
+      for (const auto &m : per.metadata) {
+         os << "         " << m.varTypeFull << "{" << m.theDefault << "}\n";
+         os << "            / ";
+         os << "Meta<>(\"" << m.varName << "\")";
+         os << (++count < total ? " |\n" : "\n");
+      }
+
+      // children - regular
+      if (per.children.size() || per.variants.size())
+         os << "         // children\n";
+      for (const auto &c : per.children) {
+         os << "         " << c.varTypeHalf << "{}\n"; // w/o any std::vector
+         os << "            / " << (c.isVector ? "++" : "--");
+         os << "Child<>(\"" << c.varName << "\")";
+         os << (++count < total ? " |\n" : "\n");
+      }
+
+      // children - variant
+      for (const auto &v : per.variants) {
+         os << "         " << v.varTypeHalf << "{}\n"; // w/o any std::vector
+         os << "            / " << (v.isVector ? "++" : "--");
+         os << "(";
+         std::size_t n = 0;
+         for (const auto &c : v.children)
+            os << (n++ ? " || " : "") << "Child<>(\"" << c.varName << "\")";
+         os << ")";
+         os << (++count < total ? " |\n" : "\n");
+      }
+
+      os << "      ;\n";
+   }
+
+   // keys() end
+   os << "   }\n";
+   os << "\n";
+   os << "public:\n";
+} // writeForComponent
+
+
+
+// -----------------------------------------------------------------------------
+// writeGetters
+// -----------------------------------------------------------------------------
+
+void writeGetters(std::ostream &os, const PerClass &per)
+{
+   os << "\n   " << small;
+   os << "\n   // Getters";
+   os << "\n   // const and non-const";
+   os << "\n   " << small << "\n";
 
    // metadata
+   for (const auto &m : per.metadata) {
+      // comment
+      os << "\n   // " << m.varName << "\n";
+
+      // getter: const
+      os << "   const ";
+      os << m.varTypeFull << " &" << m.varName << "() const\n";
+      os << "    { return content." << m.varName << "; }\n";
+
+      // getter: non-const
+      os << "   ";
+      os << m.varTypeFull << " &" << m.varName << "()\n";
+      os << "    { return content." << m.varName << "; }\n";
+   }
+
+   // children
+   for (const auto &c : per.children) {
+      // comment
+      os << "\n   // " << c.varName << "\n";
+
+      // getter: const
+      os << "   const ";
+      os << c.varTypeFull << " &" << c.varName << "() const\n";
+      os << "    { return content." << c.varName << "; }\n";
+
+      // getter: non-const
+      os << "   ";
+      os << c.varTypeFull << " &" << c.varName << "()\n";
+      os << "    { return content." << c.varName << "; }\n";
+
+      // with index or label
+      if (c.isVector) {
+         getter1Param(os, c.varType, c.varName, "std::size_t ",  "index");
+         getter1Param(os, c.varType, c.varName, "std::string &", "label");
+      }
+   }
+
+   // variants
+   for (const auto &v : per.variants) {
+      // comment
+      os << "\n   // " << v.varName << "\n";
+
+      // getter: const
+      os << "   const " << v.varTypeFull << " &" << v.varName << "() const\n";
+      os << "    { return content." << v.varName << "; }\n";
+
+      // getter: non-const
+      os << "   " << v.varTypeFull << " &" << v.varName << "()\n";
+      os << "    { return content." << v.varName << "; }\n";
+
+      // with index or label
+      if (v.isVector) {
+         getter1Param(os, v.varType, v.varName, "std::size_t ",  "index");
+         getter1Param(os, v.varType, v.varName, "std::string &", "label");
+      }
+
+      // alternatives
+      for (const auto &c : v.children) {
+         if (v.isVector) {
+            getter2Param(os, c.varType, c.varName,
+                         "std::size_t ",  "index", v.varName);
+            getter2Param(os, c.varType, c.varName,
+                         "std::string &", "label", v.varName);
+         } else {
+            // comment
+            os << "\n   // " << c.varName << "\n";
+
+            // getter: const
+            os << "   const " << c.varType << " *" << c.varName << "() const\n";
+            os << "    { return getter<" << c.varType << ">";
+            os << "(" << v.varName << "(), " << "\"" << c.varName << "\"); }\n";
+
+            // getter: non-const
+            os << "   " << c.varType << " *" << c.varName << "()\n";
+            os << "    { return getter<" << c.varType << ">";
+            os << "(" << v.varName << "(), " << "\"" << c.varName << "\"); }\n";
+         }
+      }
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// writeSetterChild
+// -----------------------------------------------------------------------------
+
+template<class INFO>
+void writeSetterChild(
+   std::ostream &os,
+   const INFO &c, // InfoChildren or InfoVariants
+   const std::string &clname
+) {
+   // setter, for T as-is
+   os << "\n   // " << c.varName << "(value)\n";
+   os << "   " << clname << " &" << c.varName;
+   os << "(const " << c.varTypeFull << " &obj)\n";
+   os << "    { " << c.varName << "() = obj; return *this; }\n";
+
+   // setter, for T, if type is optional<T>
+   // shouldn't need; T will convert to optional<T>
+
+   // setter, for vector<T>, if type is optional<vector<T>>
+   // equivalent to the above
+
+   // index and label cases
+   if (c.isVector) {
+      os << "\n";
+      os << "   // " << c.varName << "(index,value)\n";
+      os << "   " << clname << " &" << c.varName << "(\n";
+      os << "      const std::size_t index,\n";
+      os << "      const " << c.varType << " &obj\n";
+      os << "   ) {\n";
+      os << "      " << c.varName << "(index) = obj; return *this;\n";
+      os << "   }\n";
+      os << "\n";
+      os << "   // " << c.varName << "(label,value)\n";
+      os << "   " << clname << " &" << c.varName << "(\n";
+      os << "      const std::string &label,\n";
+      os << "      const " << c.varType << " &obj\n";
+      os << "   ) {\n";
+      os << "      " << c.varName << "(label) = obj; return *this;\n";
+      os << "   }\n";
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// writeSetters
+// -----------------------------------------------------------------------------
+
+void writeSetters(
+   std::ostream &os, const PerClass &per,
+   const bool hasData, const std::string &clname
+) {
+   os << "\n   " << small;
+   os << "\n   // Setters";
+   os << "\n   // non-const";
+   os << "\n   // All return *this";
+   os << "\n   " << small << "\n";
+
+   // Reminder:
+   //    metadata can have: optional, defaulted (but not vector)
+   //    children can have: optional, vector (but not defaulted)
+
+   // metadata
+   for (const auto &m : per.metadata) {
+      // comment
+      os << "\n   // " << m.varName << "(value)\n";
+
+      // special cases: we want to send length, start, and valueType
+      // to the BodyText base as well
+      const bool special = hasData && (
+         m.varName == "length" ||
+         m.varName == "start" ||
+         m.varName == "valueType"
+      );
+
+      // setter, for T as-is
+      {
+         os << "   " << clname << " &" << m.varName;
+         os << "(const " << m.varTypeFull << " &obj)\n";
+         if (special && m.isDefaulted)
+            os << "    { BodyText::" << m.varName << "(content."
+               << m.varName << " = obj); return *this; }\n";
+         if (special && !m.isDefaulted)
+            os << "    { BodyText::" << m.varName << "("
+               << m.varName << "() = obj); return *this; }\n";
+         if (!special && m.isDefaulted)
+            os << "    { content." << m.varName
+               << " = obj; return *this; }\n";
+         if (!special && !m.isDefaulted)
+            os << "    { " << m.varName
+               << "() = obj; return *this; }\n";
+      }
+
+      // setter, for T, if type is optional<T>
+      // shouldn't need; T will convert to optional<T>
+
+      // setter, for T, if type is Defaulted<T>
+      if (m.isDefaulted) {
+         os << "   " << clname << " &" << m.varName;
+         os << "(const std::optional<" << m.varType << "> &obj)\n";
+         special
+            ? os << "    { BodyText::" << m.varName << "(content."
+                 << m.varName << " = obj); return *this; }\n"
+            : os << "    { content." << m.varName
+                 << " = obj; return *this; }\n";
+      }
+   }
+
+   // children
+   for (const auto &c : per.children)
+      writeSetterChild(os,c,clname);
+
+   // variants
+   for (const auto &v : per.variants) {
+      writeSetterChild(os,v,clname);
+
+      // setters, using individual names
+      if (v.isVector) {
+         // choice is a vector<variant>
+         for (const auto &c : v.children) {
+            // index
+            os << "\n   // " << c.varName << "(index,value)\n";
+            os << "   " << clname << " &" << c.varName << "(\n";
+            os << "      const std::size_t index,\n";
+            os << "      const std::optional<" << c.varType << "> &obj\n";
+            os << "   ) {\n";
+            os << "      if (obj) " << v.varName << "(index,obj.value());\n";
+            os << "      return *this;\n";
+            os << "   }\n";
+            // label
+            os << "\n   // " << c.varName << "(label,value)\n";
+            os << "   " << clname << " &" << c.varName << "(\n";
+            os << "      const std::string &label,\n";
+            os << "      const std::optional<" << c.varType << "> &obj\n";
+            os << "   ) {\n";
+            os << "      if (obj) " << v.varName << "(label,obj.value());\n";
+            os << "      return *this;\n";
+            os << "   }\n";
+         }
+      } else {
+         // choice is a variant
+         for (const auto &c : v.children) {
+            os << "\n   // " << c.varName << "(value)\n";
+            os << "   " << clname << " &" << c.varName << "(const std::optional<";
+            os << c.varType << "> &obj)\n";
+            os << "    { if (obj) " << v.varName;
+            os << "(obj.value()); return *this; }\n";
+         }
+      }
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// writeClassCtor
+// -----------------------------------------------------------------------------
+
+void writeClassCtor(
+   std::ostream &os, const std::string &clname,
+   const PerClass &per, const bool hasData
+) {
+   os << "\n";
+
+   // ------------------------
+   // ctor: default
+   // ------------------------
+
+   // signature, and base constructor call
+   os << "   // default\n";
+   os << "   " << clname << "() :\n";
+   writeCtorComponentCall(os,per,false);
+
+   // body
+   os << "\n";
+   writeCtorBody(os,"");
+   os << "\n";
+
+   // ------------------------
+   // ctor: copy
+   // ------------------------
+
+   // signature, and base constructor call
+   os << "   // copy\n";
+   os << "   " << clname << "(const " << clname << " &other) :\n";
+   writeCtorComponentCall(os,per,true);
+
+   // copy fields
+   os << ",\n      content{other.content}";
+
+   // body
+   os << "\n";
+   writeCtorBody(os,"other");
+   os << "\n";
+
+   // ------------------------
+   // ctor: move
+   // ------------------------
+
+   // signature, and base constructor call
+   os << "   // move\n";
+   os << "   " << clname << "(" << clname << " &&other) :\n";
+   writeCtorComponentCall(os, per, true);
+
+   // copy fields
+   os << ",\n      content{std::move(other.content)}";
+
+   // body
+   os << "\n";
+   writeCtorBody(os,"other");
+   os << "\n";
+
+   // ------------------------
+   // ctor: node
+   // ------------------------
+
+   // signature, and base constructor call
+   os << "   // from node\n";
+   os << "   " << clname << "(const Node &node) :\n";
+   writeCtorComponentCall(os, per, false);
+
+   // body
+   os << "\n";
+   writeCtorBody(os,"node");
+
+   // ------------------------
+   // ctor: fields
+   // ------------------------
+
+   if (per.metadata.size() + per.children.size() + per.variants.size() == 0)
+      return;
+
+   os << "\n   // from fields\n";
+   for (const auto &m : per.metadata) {
+      if (m.isDefaulted) {
+         os << "   // std::optional replaces Defaulted; ";
+         os << "this class knows the default(s)\n";
+         break;
+      }
+   }
+
+   // signature, and base constructor call
+   // Note: we don't really need "explicit" unless this constructor can be
+   // called with one argument. We'll always write it, however, in case
+   // someone modifies the auto-generated constructor (say, giving its
+   // arguments defaults) in such a way that is *can* be called with one
+   // argument. (But we'd rather nobody modify the auto-generated classes.)
+   std::size_t count;
+   count = 0;
+   os << "   explicit " << clname << "(";
+   for (const auto &m : per.metadata) {
+      os << (count++ ? ",\n" : "\n") << "      const ";
+      m.isDefaulted
+         ? os << "std::optional<" << m.varType << ">"
+         : os << m.varTypeFull;
+      os << " &" << m.varName;
+   }
+   for (const auto &c : per.children) {
+      os << (count++ ? ",\n" : "\n")
+         << "      const " << c.varTypeFull << " &" << c.varName;
+   }
+   for (const auto &v : per.variants) {
+      os << (count++ ? ",\n" : "\n")
+         << "      const " << v.varTypeFull << " &" << v.varName;
+   }
+
+   os << "\n   ) :\n";
+   writeCtorComponentCall(os, per, false);
+
+   // initialize fields
+   os << ",\n";
+   os << "      content{";
+   count = 0;
+   for (const auto &m : per.metadata) {
+      os << (count++ ? ",\n" : "\n") << "         ";
+      m.isDefaulted
+         ? os << "Defaulted<" << m.varType << ">(defaults."
+              << m.varName << "," << m.varName << ")"
+         : os << m.varName;
+   }
+   for (const auto &c : per.children)
+      os << (count++ ? ",\n" : "\n") << "         " << c.varName;
+   for (const auto &v : per.variants)
+      os << (count++ ? ",\n" : "\n") << "         " << v.varName;
+   os << "\n      }\n";
+
+   // body
+   writeCtorBody(os,"");
+
+   // ------------------------
+   // ctor: vector
+   // ------------------------
+
+   if (hasData) {
+      // signature, and base constructor call
+      os << "\n";
+      os << "   // from vector\n";
+      os << "   template<class T, class = "
+         << "std::enable_if_t<body::template supported<T>>>\n";
+      os << "   " << clname << "(const std::vector<T> &vector) :\n";
+      writeCtorComponentCall(os, per, false);
+
+      // body
+      os << "\n";
+      writeCtorBody(os,"vector");
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// writeClass
+// -----------------------------------------------------------------------------
+
+void writeClass(
+   std::ostringstream &oss,
+   const std::string &classKey, const nlohmann::json &classRHS,
+   const PerClass &per, const NamespaceAndClass &nandc, const Info &info
+) {
+   // write
    std::ostringstream ossm;
-   getClassMetadata(attrs, info, per);
-   writeClassMetadata(ossm, per);
-
-   // children - regular
    std::ostringstream ossc;
-   getClassChildren(elems, info, per, nandc, dep);
-   writeClassChildren(ossc, per);
-
-   // children - choice
    std::ostringstream ossv;
-   getClassChoices(elems, info, per, nandc, dep);
-   writeClassChoices(ossv, per);
+   writeClassMetadata(ossm, per);
+   writeClassChildren(ossc, per);
+   writeClassVariants(ossv, per);
 
-   // zzz working here
+   // output: class begin
+   writeClassPrefix(oss, nandc, per);
 
-#if 0
-   // for later use
-   class2info.insert(
-      std::make_pair(
-         std::make_pair(nsname,clname),
-         std::make_pair(per.metadata,per.children)
-      )
-   );
-   class2bodytext.insert(
-      std::make_pair(
-         std::make_pair(nsname,clname),
-         std::make_pair(per.data.has, per.data.type)
-      )
-   );
-
-   // output: names, keys
    // As needed by the Component base
-   write_keys(
-      oss, classKey, classRHS, per.metadata, per.children,
-      nsname
-   );
+   writeForComponent(oss, classKey, classRHS, per, nandc.nsname, info);
 
    // output: base
    oss << "\n   using Component::construct;\n";
-   if (per.data.has)
+   if (per.hasData)
       oss << "   using BodyText::operator=;\n";
 
    // output: defaults (applicable only to metadata)
@@ -1275,48 +1693,646 @@ void getClass(
    oss << "\n   // Raw GNDS content";
    oss << "\n   " << small;
    oss << "\n";
-   oss << "\n   struct {";
+   oss << "\n   struct {\n";
    oss << ossm.str();
    oss << ossc.str();
-   if (ossm.str() == "" && ossc.str() == "") oss << "\n";
+   oss << ossv.str();
    oss << "   } content;\n";
 
    // output: getters, setters
-   if (per.metadata.size() || per.children.size()) {
-      writeGetters(oss, per.metadata, per.children);
-      writeSetters(oss, per.metadata, per.children,
-                   hasBodyText, per.data.has, clname);
+   if (per.metadata.size() || per.children.size() || per.variants.size()) {
+      writeGetters(oss, per);
+      writeSetters(oss, per, per.hasData, nandc.clname);
    }
 
    // output: constructors
-   oss << "\n   " << small
-       << "\n   // Construction"
-       << "\n   " << small
-       << "\n";
-   writeClassCtor(
-      oss, clname, per.metadata, per.children,
-      hasBodyText, per.data.has
-   );
+   oss << "\n";
+   oss << "   " << small << "\n";
+   oss << "   // Construction\n";
+   oss << "   " << small << "\n";
+
+   writeClassCtor(oss, nandc.clname, per, per.hasData);
 
    // output: class end
-   writeClassSuffix(oss, nsname, clname);
+   writeClassSuffix(oss, nandc, info);
+}
 
-   // save what we've written to oss
+
+
+// -----------------------------------------------------------------------------
+// getClass
+// -----------------------------------------------------------------------------
+
+void getClass(
+   const std::string &classKey, const nlohmann::json &classRHS,
+   const std::string &nsname, Info &info
+) {
+   if (!isClass(classKey,classRHS))
+      return;
+
+   // class name
+   const std::string clname = className(classKey,classRHS,info);
    if (debugging)
+      std::cout << "Class: " << clname << std::endl;
+
+   // find in class map
+   const NamespaceAndClass nandc(nsname,clname);
+   const auto it = info.class2data.find(nandc);
+   assert(it != info.class2data.end());
+   PerClass &per = it->second;
+
+   ///Behavior here is more than validate; also compare with metadata/children
+   // validate below; this material needs to be reworked/clarified
+   per.hasData  = false;
+   per.dataType = "";
+   validateClass(classRHS, per.hasData, per.dataType);
+
+   // Collect dependencies, for the present class, as this function proceeds
+   Class2Dependencies dep;
+   dep.object = nandc;
+
+   // metadata
+   const nlohmann::json attrs = getMetadataJSON<true>(classRHS);
+   validateMetadata(attrs);
+   getClassMetadata(attrs, info, per);
+
+   // children - regular
+   const nlohmann::json elems = getChildrenJSON<true>(classRHS);
+   validateChildren(elems);
+   getClassChildren(elems, info, per, nandc, dep);
+
+   // children - variant
+   getClassVariants(elems, info, per, nandc, dep);
+
+   if (debugging) {
       std::cout
          << "dep.name == "
-         << dep.name.first  << "::" << dep.name.second << std::endl;
-   const bool inserted =
-      classCodeMap.insert(std::make_pair(dep.name,oss.str())).second;
-   assert(inserted);
-#endif
+         <<  dep.object.nsname << "::" << dep.object.clname << std::endl;
+   }
 
-
+   // Compute per.code
+   std::ostringstream oss;
+   writeClass(oss,classKey,classRHS,per,nandc,info);
+   per.code = oss.str();
 
    info.ClassDependenciesRaw.push_back(dep);
-   info.class2data.insert(std::make_pair(nandc,per));
-
 } // getClass
+
+
+
+// -----------------------------------------------------------------------------
+// preprocessClass
+// -----------------------------------------------------------------------------
+
+void preprocessClass(
+   const std::string &nsname,
+   const std::string &classKey, const nlohmann::json &classRHS,
+   Info &info
+) {
+   // Ensure that this JSON entry represents a class - as opposed
+   // to being, say, "namespace" or some other non-class entry.
+   if (!isClass(classKey,classRHS))
+      return;
+
+   // Get the class name, then link this class with the current namespace.
+   // This information is used, later, for various purposes.
+   const std::string clname = className(classKey,classRHS,info);
+   info.class2nspace.insert(std::make_pair(clname,nsname));
+
+   // ------------------------
+   // Create directories and
+   // custom files as needed
+   // ------------------------
+
+   // Given the base GNDS directory and the GNDS version, as obtained earlier
+   // from the JSON input file to this tool, compute relevant directory names.
+   const std::string
+      // For the present namespace: C++ and Python directories. The present
+      // namespace probably contains multiple classes, so its directories
+      // may have been created already, but that's fine.
+      nsdir   = info.GNDSDir + "/src/GNDStk/" + info.Version + "/" + nsname,
+      nsdirpy = info.GNDSDir + "/python/src/" + info.Version + "/" + nsname,
+      // For the present class: C++ source and test directories.
+      clsrc   = nsdir + "/" + clname + "/src",
+      cltest  = nsdir + "/" + clname + "/test";
+
+   // Create the above directories, if (and only if) they don't already exist.
+   system(("mkdir -p " + nsdir  ).data());
+   system(("mkdir -p " + nsdirpy).data());
+   system(("mkdir -p " + clsrc  ).data());
+   system(("mkdir -p " + cltest ).data());
+
+   // To allow for customization of the present class in the present namespace,
+   // create a custom.hpp file in the C++ source directory for the class. But
+   // do so only if the customization file isn't already there, or else we might
+   // be trashing someone's customization!
+   const std::string custom = clsrc + "/custom.hpp";
+   if (!std::ifstream(custom)) {
+      std::cout << "No customization file " << custom << std::endl;
+      std::cout << "...So, creating a basic one" << std::endl;
+      std::ofstream ofs(custom);
+      ofs << "\n";
+      ofs << "private:\n";
+      ofs << "\n";
+      ofs << "   static inline helpMap help = {};\n";
+   }
+
+   // ------------------------
+   // Create file-name maps
+   // ------------------------
+
+   // For this namespace:
+   //    The .cpp file for Python
+   auto ns = info.namespace2data.insert(
+      std::make_pair(nsname, PerNamespace{}));
+   ns.first->second.filePythonCPP = nsdirpy + ".python.cpp";
+
+   // For this namespace::class:
+   //    The .cpp file for Python
+   //    The .hpp file for GNDStk
+   auto cl = info.class2data.insert(
+      std::make_pair(NamespaceAndClass{nsname,clname}, PerClass{}));
+   assert(cl.second); // should have been inserted - not there already
+   cl.first->second.filePythonCPP = nsdirpy + "/" + clname + ".python.cpp";
+   cl.first->second.fileGNDStkHPP = nsdir   + "/" + clname + ".hpp";
+}
+
+
+
+// -----------------------------------------------------------------------------
+// preprocess
+// -----------------------------------------------------------------------------
+
+void preprocess(Info &info)
+{
+   std::cout << "Preprocessing JSON files..." << std::endl;
+
+   // For each JSON spec
+   for (const std::string &file : info.JSONFiles) {
+      const nlohmann::json jmain = readJSON(file,true);
+      const std::string nsname = getNamespace(jmain);
+      // For each entry (typically a class) in the JSON spec
+      for (const auto &cl : jmain.items())
+         preprocessClass(nsname, cl.key(), cl.value(), info);
+   }
+
+   // Create an overarching
+   // file for this version
+   std::ofstream ofs(info.VersionHPP);
+   writeAutogenerated(ofs);
+   ofs << "\n#ifndef NJOY_GNDSTK_" << allcaps(info.VersionUnderscore);
+   ofs << "\n#define NJOY_GNDSTK_" << allcaps(info.VersionUnderscore) << "\n";
+
+   std::string nsname_last = "";
+   for (auto &c : info.class2data) {
+      const std::string nsname = c.first.nsname;
+      const std::string clname = c.first.clname;
+      if (nsname != nsname_last)
+         ofs << "\n";
+      nsname_last = nsname;
+      ofs << "#include \"GNDStk/" << info.Version << "/";
+      ofs << nsname << "/" << clname << ".hpp\"\n";
+   }
+
+   ofs << "\n#include \"GNDStk/" << info.Version << "/key.hpp\"\n";
+   ofs << "\n#endif\n";
+
+   // Debugging information
+   if (debugging) {
+      std::cout << "For each class, namespace(s) it appears in:" << std::endl;
+      for (const auto &it : info.class2nspace)
+         std::cout << "   " << it.first << ": " << it.second << std::endl;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// filePythonNamespace
+// -----------------------------------------------------------------------------
+
+void filePythonNamespace(
+   const std::string &nsname,
+   const PerNamespace &per,
+   const Info &info
+) {
+   std::ofstream cpp(per.filePythonCPP);
+   writeAutogenerated(cpp);
+
+   cpp << "\n";
+   cpp << "#include <pybind11/pybind11.h>\n";
+   cpp << "#include <pybind11/stl.h>\n";
+   cpp << "\n";
+   cpp << "namespace python = pybind11;\n";
+   cpp << "\n";
+
+   cpp << "// " << info.Version << " interface\n";
+   cpp << "namespace python_" << info.VersionUnderscore << " {\n\n";
+
+   cpp << "// " << nsname << " declarations\n";
+   cpp << "namespace python_" << nsname << " {\n";
+   for (auto &cl : info.ClassDependenciesSorted)
+      if (cl.object.nsname == nsname)
+         cpp << "   void wrap" << cl.object.clname << "(python::module &);\n";
+   cpp << "} // namespace python_" << nsname << "\n";
+   cpp << "\n";
+
+   cpp << "// " << nsname << " wrapper\n";
+   cpp << "void wrap" << capital(nsname) << "(python::module &module)\n";
+   cpp << "{\n";
+   cpp << "   // create the " << nsname << " submodule\n";
+   cpp << "   python::module submodule = module.def_submodule(\n";
+   cpp << "      \"" << nsname << "\",\n";
+   cpp << "      \"GNDS " << info.Version << " " << nsname << "\"\n";
+   cpp << "   );\n";
+
+   cpp << "\n   // wrap " << nsname << " components\n";
+   for (auto &cl : info.ClassDependenciesSorted)
+      if (cl.object.nsname == nsname)
+         cpp << "   python_" << nsname << "::wrap" << cl.object.clname
+             << "(submodule);\n";
+   cpp << "};\n";
+   cpp << "\n} // namespace python_" << info.VersionUnderscore << "\n";
+}
+
+
+
+// -----------------------------------------------------------------------------
+// filePythonClass
+// -----------------------------------------------------------------------------
+
+void filePythonClass(
+   const NamespaceAndClass &nandc,
+   const PerClass &per,
+   const Info &info
+) {
+   const std::string &nsname = nandc.nsname;
+   const std::string &clname = nandc.clname;
+
+   std::ofstream cpp(per.filePythonCPP);
+   writeAutogenerated(cpp);
+
+   cpp << "\n";
+
+   cpp << "// system includes\n";
+   cpp << "#include <pybind11/pybind11.h>\n";
+   cpp << "#include <pybind11/stl.h>\n";
+   cpp << "\n";
+
+   cpp << "// local includes\n";
+   cpp << "#include \"GNDStk/" << info.Version << "/"
+       << nsname << "/" << clname << ".hpp\"\n";
+   cpp << "#include \"definitions.hpp\"\n";
+   cpp << "\n";
+
+   cpp << "// namespace aliases\n";
+   cpp << "namespace python = pybind11;\n";
+   cpp << "\n";
+
+   cpp << "namespace python_" << info.VersionUnderscore << " {\n";
+   cpp << "namespace python_" << nsname << " {\n";
+   cpp << "\n";
+
+   cpp << "// " << clname << " wrapper\n";
+   cpp << "void wrap" << clname << "(python::module &module)\n";
+   cpp << "{\n";
+   cpp << "   using namespace njoy::GNDStk;\n";
+   cpp << "   using namespace njoy::GNDStk::" << info.VersionUnderscore << ";\n";
+   cpp << "\n";
+   cpp << "   // type aliases\n";
+   cpp << "   using Component = " << nsname << "::" << clname << ";\n";
+
+   // using [variant name] = std::variant..., if necessary
+   for (const auto &v : per.variants) {
+      cpp << "   using " << v.varType << " = std::variant<\n";
+      int total = v.children.size();
+      int count = 0;
+      for (const auto &c : v.children)
+         cpp << "      " << c.varType << (++count == total ? "" : ",") << "\n";
+      cpp << "   >;\n";
+   }
+
+   cpp << "\n";
+   cpp << "   // create the component\n";
+   cpp << "   python::class_<Component> component(\n";
+   cpp << "      module,\n";
+   cpp << "      \"" << clname << "\",\n";
+   cpp << "      Component::documentation().data()\n";
+   cpp << "   );\n";
+   cpp << "\n";
+   cpp << "   // wrap the component\n";
+   cpp << "   component\n";
+   cpp << "      .def(\n";
+
+   // compute some things with respect to "body text"
+   std::string bodyType = "unknownType";
+   std::string bodyName = "unknownName";
+   if (per.dataType == "Integer32") {
+      bodyType = "Integer32";
+      bodyName = "ints";
+   } else if (per.dataType == "Float64") {
+      bodyType = "Float64";
+      bodyName = "doubles";
+   } else if (per.dataType == "UTF8Text") {
+      bodyType = "UTF8Text";
+      bodyName = "strings";
+   } else {
+      for (auto &m : per.metadata) {
+         if (m.varName == "valueType") {
+            if (m.theDefault == "\"Integer32\"") {
+               bodyType = "Integer32";
+               bodyName = "ints";
+            } else if (m.theDefault == "\"Float64\"") {
+               bodyType = "Float64";
+               bodyName = "doubles";
+            } else if (m.theDefault == "\"UTF8Text\"") {
+               bodyType = "UTF8Text";
+               bodyName = "strings";
+            }
+         }
+      }
+   }
+
+   // python::init<...>
+   cpp << "         python::init<";
+   int count = 0;
+   for (auto &m : per.metadata) {
+      cpp << (count++ ? "," : "") << "\n            "
+          << "const " << (m.isDefaulted ? m.varType : m.varTypeFull) << " &";
+   }
+   for (auto &c : per.children) {
+      cpp << (count++ ? "," : "") << "\n            "
+          << "const " << c.varTypeFull << " &";
+   }
+   if (per.hasData) {
+      cpp << (count++ ? "," : "") << "\n            ";
+      cpp << "const std::vector<" << bodyType << "> &";
+   }
+   cpp << "\n         >(),\n";
+
+   // python::arg...
+   for (auto &m : per.metadata) {
+      cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
+      if (m.isDefaulted) {
+         cpp << " = " << m.theDefault;
+      } else if (m.isOptional) {
+         cpp << " = std::nullopt";
+      }
+      cpp << ",\n";
+   }
+   for (auto &c : per.children) {
+      cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+      if (c.isOptional)
+         cpp << " = std::nullopt";
+      cpp << ",\n";
+   }
+   if (per.hasData)
+      cpp << "         python::arg(\"values\"),\n";
+   cpp << "         Component::documentation(\"constructor\").data()\n";
+   cpp << "      )\n";
+
+   // .def_property_readonly...
+   for (auto &m : per.metadata) {
+      const auto pythonname = toPythonName(m.varName);
+      cpp << "      .def_property_readonly(\n";
+      cpp << "         \"" << pythonname << "\",\n";
+      cpp << "         &Component::" << m.varName << ",\n";
+      cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
+      cpp << "      )\n";
+   }
+   for (auto &c : per.children) {
+      const auto pythonname = toPythonName(c.varName);
+      cpp << "      .def_property_readonly(\n";
+      cpp << "         \"" << pythonname << "\",\n";
+      cpp << "         python::overload_cast<>(&Component::" << c.varName << "),\n";
+      cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
+      cpp << "      )\n";
+   }
+
+   if (per.hasData) {
+      cpp << "      .def_property_readonly(\n";
+      cpp << "         \"" << bodyName << "\",\n";
+      cpp << "         [] (const Component &self) "
+          << "{ return self." << bodyName << "(); },\n";
+      cpp << "         Component::documentation(\"" << bodyName << "\").data()\n";
+      cpp << "      )\n";
+   }
+
+   // finish up
+   cpp << "   ;\n\n";
+   cpp << "   // add standard component definitions\n";
+   cpp << "   addStandardComponentDefinitions< Component >( component );\n";
+   cpp << "}\n";
+   cpp << "\n";
+   cpp << "} // namespace python_" << nsname << "\n";
+   cpp << "} // namespace python_" << info.VersionUnderscore << "\n";
+}
+
+
+
+// -----------------------------------------------------------------------------
+// fileGNDStkClass
+// -----------------------------------------------------------------------------
+
+void fileGNDStkClass(
+   const std::string &nsname,
+   const std::string &clname,
+   const PerClass &per,
+   const Info &info,
+   const Class2Dependencies &c2d
+) {
+   // class-specific hpp file
+   std::ofstream hpp(per.fileGNDStkHPP);
+   writeAutogenerated(hpp);
+   const std::string guard =
+     "NJOY_GNDSTK_" + allcaps(info.VersionUnderscore) + "_" +
+      allcaps(nsname) + "_" + allcaps(clname);
+
+   hpp << "\n";
+   hpp << "#ifndef " << guard << "\n";
+   hpp << "#define " << guard << "\n";
+   hpp << "\n";
+   hpp << "// core interface\n";
+   hpp << "#include \"GNDStk.hpp\"\n";
+   hpp << "\n";
+
+   if (c2d.dependencies.size() > 0) {
+      hpp << "// " << info.Version << " dependencies\n";
+      for (const auto &dep : c2d.dependencies) {
+         hpp << "#include \"GNDStk/" << info.Version << "/"
+             << dep.nsname << "/" << dep.clname << ".hpp\"\n";
+      }
+      hpp << "\n";
+   }
+
+   hpp << "namespace njoy {\n";
+   hpp << "namespace GNDStk {\n";
+   hpp << "namespace " << info.VersionUnderscore << " {\n";
+   hpp << "\n";
+   hpp << "using namespace njoy::GNDStk::core;\n";
+   hpp << per.code;
+   hpp << "} // namespace " << info.VersionUnderscore << "\n";
+   hpp << "} // namespace GNDStk\n";
+   hpp << "} // namespace njoy\n\n";
+   hpp << "#endif\n";
+}
+
+
+
+// -----------------------------------------------------------------------------
+// fileKey
+// -----------------------------------------------------------------------------
+
+const std::string file_key_comment =
+R"***(
+This file contains Meta and Child objects for metadata and child nodes in the
+current GNDS version. These may prove to be useful if you wish to use the Core
+Interface in conjunction with the autogenerated classes for this GNDS version.
+
+Within the outer njoy::GNDStk::version namespace below, the remaining namespace
+arrangement was chosen to make the use of these objects smooth and logical.
+
+Meta and Child objects are collectively called "keys." Meta keys are placed
+into key::meta. Child keys correspond to autogenerated classes, each of which
+is already in some namespace; we thus use theNamespace::key::child::. That way,
+an autogenerated class [ns::Foo] has [ns::key::foo] as its Child object, and
+a "using namespace ns" allows the class and the Child object to be [Foo] and
+[key::foo], respectively. (If we reordered ns:: and key::, that wouldn't work.)
+
+Within key::, we use meta:: and child:: around Meta and Child objects, just in
+case there exist any identical GNDS metadata names and child-node names. (That
+can, in fact, happen). The "using namespace meta" and "using namespace child"
+directives then make the Meta<> and Child<> objects appear directly in key::,
+so that "meta::" and "child::" are needed only to disambiguate identical names.
+)***";
+
+void fileKey(const Info &info)
+{
+   // ------------------------
+   // Gather information
+   // ------------------------
+
+   // pair: key name, GNDS name
+   using pair = std::pair<std::string, std::string>;
+
+   // For metadata, collect into one place
+   std::set<pair> metadata;
+
+   // For children, process on a per-file basis; *multi*map is
+   // in case the same namespace appears in more than one file.
+   // multimap: namespace name, set<pair>
+   std::multimap<std::string, std::set<pair>> children;
+
+   for (const auto &file : info.JSONFiles) {
+      const nlohmann::json jmain = readJSON(file);
+      const std::string nsname = getNamespace(jmain);
+      auto it = children.insert(std::make_pair(nsname,std::set<pair>{}));
+
+      for (const auto &node : jmain.items()) {
+         if (!isClass(node.key(), node.value()))
+            continue;
+
+         // nodes ==> children
+         it->second.insert(std::make_pair(
+            fieldName(node.key(), node.value(), info),
+            GNDSName (node.key(), node.value())
+         ));
+
+         // attributes ==> metadata
+         const auto attrs = getMetadataJSON<true>(node.value());
+         for (const auto &attr : attrs.items())
+            metadata.insert(std::make_pair(
+               fieldName(attr.key(), attr.value(), info),
+               GNDSName (attr.key(), attr.value())
+            ));
+      }
+   }
+
+   // ------------------------
+   // comment, macro guard,
+   // outer namespaces
+   // ------------------------
+
+   const std::string file = info.GNDSDir + "/src/GNDStk/" + info.Version + "/key.hpp";
+   std::ofstream ofs(file);
+   writeAutogenerated(ofs);
+   ofs << "\n/*" << file_key_comment << "*/\n\n";
+
+   const std::string ver = info.VersionUnderscore;
+   const std::string Ver = allcaps(ver);
+
+   ofs << "#ifndef NJOY_GNDSTK_" << Ver << "_KEY\n";
+   ofs << "#define NJOY_GNDSTK_" << Ver << "_KEY\n\n";
+   ofs << "namespace njoy {\n";
+   ofs << "namespace GNDStk {\n";
+   ofs << "namespace " << ver << " {\n\n";
+
+   // ------------------------
+   // Meta<> objects
+   // ------------------------
+
+   ofs << "\n" << large << "\n";
+   ofs << "// key::meta::";
+   ofs << "\n" << large << "\n\n";
+   ofs << "namespace key {\n";
+   ofs << "namespace meta {\n\n";
+
+   if (metadata.size() > 0) {
+      ofs << "inline const Meta<>";
+      int count = 0;
+      for (const auto &meta : metadata) {
+         ofs << (count++ ? "," : "") << "\n   "
+             << meta.first << "(\"" << meta.second << "\")";
+      }
+      ofs << ";\n\n";
+   }
+
+   ofs << "} // namespace meta\n";
+   ofs << "using namespace meta;\n";
+   ofs << "} // namespace key\n";
+
+   // ------------------------
+   // Child<> objects
+   // ------------------------
+
+   for (const auto &nspace : children) {
+      ofs << "\n";
+      ofs << "\n" << large << "\n";
+      ofs << "// " << nspace.first << "::key::child::";
+      ofs << "\n" << large << "\n\n";
+      ofs << "namespace " << nspace.first << " {\n";
+      ofs << "namespace key {\n";
+      ofs << "namespace child {\n\n";
+
+      const auto &set = nspace.second;
+      if (set.size() > 0) {
+         ofs << "inline const Child<>";
+         int count = 0;
+         for (const auto &child : set) {
+            ofs << (count++ ? "," : "") << "\n   "
+                << child.first << "(\"" << child.second << "\")";
+         }
+         ofs << ";\n\n";
+      }
+
+      ofs << "} // namespace child\n";
+      ofs << "using namespace child;\n";
+      ofs << "} // namespace key\n";
+      ofs << "} // namespace " << nspace.first << "\n";
+   }
+
+   // ------------------------
+   // finish
+   // ------------------------
+
+   ofs << "\n";
+   ofs << "\n" << large;
+   ofs << "\n" << large << "\n\n";
+   ofs << "} // namespace " << ver << "\n";
+   ofs << "} // namespace GNDStk\n";
+   ofs << "} // namespace njoy\n\n";
+   ofs << "#endif\n";
+} // fileKey
 
 
 
@@ -1329,11 +2345,105 @@ int main(const int argc, const char *const *const argv)
    // For GNDStk's diagnostics
    color = true;
 
-   ///zzz write a better comment...
-   // Gather information
+   // ------------------------
+   // Basic information
+   // ------------------------
+
+   // Gather information from the JSON file given on the command line. This
+   // consists of getting relevant directories, a GNDS version number, a list
+   // of JSON files in which class specifications are given, and, optionally,
+   // reading a "Changes" file that provides some search/replace information.
    Info info;
    if (!commandLine(argc, argv, info))
       exit(EXIT_FAILURE);
 
-   ///zzz then new material goes here...
+   // ------------------------
+   // Preprocess
+   // ------------------------
+
+   // The following reads through the JSON spec files - these were determined
+   // in the above step - and collects preliminary information that is used,
+   // later, when the spec files are processed in more detail. (The detailed
+   // processing requires knowledge obtained from the preliminary processing,
+   // which is why those things are done separately.) Preliminary processing
+   // includes creating a class-to-namespace map, making directories in which
+   // output files will be placed, creating class-specific customization files
+   // when appropriate, and creating maps from namespace to namespace-specific
+   // information, and from namespace::class to class-specific information.
+   // Relevant file names are computed as part of the "information" for the
+   // maps just mentioned; other parts of the information are computer later,
+   // during detailed processing. Finally, the below call writes the entire
+   // GNDS "version" file, e.g. a file called v2.0.cpp if the GNDS version
+   // is 2.0, because it has enough information that's it's able to do this.
+   preprocess(info);
+
+   if (debugging) {
+      for (auto &n : info.namespace2data) {
+         std::cout
+            << "Namespace Python .cpp: [" << n.second.filePythonCPP << "]\n";
+      }
+      for (auto &c : info.class2data) {
+         std::cout
+            << "Class Python .cpp: [" << c.second.filePythonCPP << "]\n"
+            << "Class GNDStk .hpp: [" << c.second.fileGNDStkHPP << "]\n";
+      }
+   }
+
+   // ------------------------
+   // Process classes
+   // ------------------------
+
+   // Print class code into temporary strings. These are printed to the class-
+   // specific files later, after class dependencies (which must appear above
+   // the class code in its file) are computed.
+   std::cout << "\nBuilding classes..." << std::endl;
+
+   for (const std::string &file : info.JSONFiles) {
+      const nlohmann::json jmain = readJSON(file,true);
+      const std::string nsname = getNamespace(jmain);
+      // For each entry (typically a class) in the JSON spec
+      for (const auto &cl : jmain.items())
+         getClass(cl.key(), cl.value(), nsname, info);
+   }
+
+   // ------------------------
+   // Re: class ordering
+   // ------------------------
+
+   // Compute an ordering that respects dependencies
+   while (info.ClassDependenciesRaw.size() > 0)
+      insertDependency(
+         info.ClassDependenciesRaw.begin()->object,
+         info.ClassDependenciesRaw,
+         info.ClassDependenciesSorted);
+
+   // Print dependencies
+   printDependencies("Class dependencies", info.ClassDependenciesSorted);
+
+   // ------------------------
+   // Files
+   // ------------------------
+
+   // GNDStk: cpp file for namespace::class
+   for (const auto &obj : info.ClassDependenciesSorted) {
+      auto find = info.class2data.find(obj.object);
+      assert(find != info.class2data.end());
+      fileGNDStkClass(
+         find->first.nsname,
+         find->first.clname,
+         find->second,
+         info, obj
+      );
+   }
+
+   // Python: cpp file for namespace
+   for (auto &obj : info.namespace2data)
+      filePythonNamespace(obj.first, obj.second, info);
+
+   // Python: cpp file for namespace::class
+   for (auto &obj : info.class2data)
+      filePythonClass(obj.first, obj.second, info);
+
+   // GNDStk: cpp file for Meta and Child keys
+   fileKey(info);
 }
