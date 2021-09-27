@@ -120,8 +120,8 @@ struct InfoChildren {
    bool        isVector;
 };
 
-// InfoChoiceChild
-struct InfoChoiceChild {
+// InfoVariantsChildren
+struct InfoVariantsChildren {
    std::string varName;
    std::string varType;
    bool        isVector;
@@ -134,7 +134,7 @@ struct InfoVariants {
    std::string varTypeFull; // with any optional<> or vector<>
    std::string varTypeHalf; // withOUT any vector<>
    bool        isVector;
-   std::vector<InfoChoiceChild> children;
+   std::vector<InfoVariantsChildren> children;
 };
 
 // PerNamespace
@@ -1046,7 +1046,7 @@ void getClassVariants(
       assert(it != map.end()); // should be there from the earlier loop
 
       // For the individual child that's part of a choice...
-      InfoChoiceChild c;
+      InfoVariantsChildren c;
       // ...its name
       c.varName = fieldName(elemKey,elemRHS,info);
       // ...its type, including namespace
@@ -1206,7 +1206,7 @@ void writeForComponent(
          os << (++count < total ? " |\n" : "\n");
       }
 
-      // children - regular
+      // children
       if (per.children.size() || per.variants.size())
          os << "         // children\n";
       for (const auto &c : per.children) {
@@ -1216,7 +1216,7 @@ void writeForComponent(
          os << (++count < total ? " |\n" : "\n");
       }
 
-      // children - variant
+      // variants
       for (const auto &v : per.variants) {
          os << "         " << v.varTypeHalf << "{}\n"; // w/o any std::vector
          os << "            / " << (v.isVector ? "++" : "--");
@@ -1756,12 +1756,12 @@ void getClass(
    validateMetadata(attrs);
    getClassMetadata(attrs, info, per);
 
-   // children - regular
+   // children
    const nlohmann::json elems = getChildrenJSON<true>(classRHS);
    validateChildren(elems);
    getClassChildren(elems, info, per, nandc, dep);
 
-   // children - variant
+   // variants
    getClassVariants(elems, info, per, nandc, dep);
 
    if (debugging) {
@@ -2466,8 +2466,7 @@ int main(const int argc, const char *const *const argv)
          find->first.nsname,
          find->first.clname,
          find->second,
-         info, obj
-      );
+         info, obj);
    }
 
    // Python: cpp file for namespace
