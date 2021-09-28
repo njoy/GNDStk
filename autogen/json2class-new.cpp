@@ -2057,8 +2057,10 @@ void filePythonClass(
    cpp << "         python::init<";
    int count = 0;
    for (auto &m : per.metadata) {
-      cpp << (count++ ? "," : "") << "\n            "
-          << "const " << (m.isDefaulted ? m.varType : m.varTypeFull) << " &";
+      cpp << (count++ ? "," : "") << "\n            ";
+      m.isDefaulted
+       ? cpp << "const std::optional<" << m.varType << "> &"
+       : cpp << "const " << m.varTypeFull << " &";
    }
    for (auto &c : per.children) {
       cpp << (count++ ? "," : "") << "\n            "
@@ -2104,7 +2106,10 @@ void filePythonClass(
       const auto pythonname = toPythonName(m.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         &Component::" << m.varName << ",\n";
+      m.isDefaulted
+       ? cpp << "         [](const Component &self) { return self."
+             << m.varName << "().value(); },\n"
+       : cpp << "         &Component::" << m.varName << ",\n";
       cpp << "         Component::documentation(\""
           << pythonname << "\").data()\n";
       cpp << "      )\n";

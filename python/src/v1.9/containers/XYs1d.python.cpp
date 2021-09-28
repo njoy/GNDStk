@@ -37,7 +37,7 @@ void wrapXYs1d(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const enums::Interpolation &,
+            const std::optional<enums::Interpolation> &,
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
@@ -58,7 +58,7 @@ void wrapXYs1d(python::module &module)
       )
       .def_property_readonly(
          "interpolation",
-         &Component::interpolation,
+         [](const Component &self) { return self.interpolation().value(); },
          Component::documentation("interpolation").data()
       )
       .def_property_readonly(
