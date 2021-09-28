@@ -37,11 +37,6 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
 
         verify_chunk( self, chunk )
 
-        # the data is given explicitly (only values)
-        chunk = Values( values = [ 2500., 8.9172, 2550., 8.9155 ] )
-
-        verify_chunk( self, chunk )
-
         # the data is read from a string
         chunk = Values.from_string( self.chunk )
 

@@ -42,8 +42,8 @@ void wrapValues(python::module &module)
             const std::vector<Float64> &
          >(),
          python::arg("length") = std::nullopt,
-         python::arg("start") = 0,
-         python::arg("value_type") = "Float64",
+         python::arg("start") = std::nullopt,
+         python::arg("value_type") = std::nullopt,
          python::arg("values"),
          Component::documentation("constructor").data()
       )

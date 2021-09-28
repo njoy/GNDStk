@@ -48,7 +48,7 @@ void wrapGrid(python::module &module)
             const LINK_VALUES &
          >(),
          python::arg("index") = std::nullopt,
-         python::arg("interpolation") = enums::Interpolation::linlin,
+         python::arg("interpolation") = std::nullopt,
          python::arg("label") = std::nullopt,
          python::arg("style") = std::nullopt,
          python::arg("unit") = std::nullopt,

@@ -44,7 +44,7 @@ void wrapXYs1d(python::module &module)
             const containers::Values &
          >(),
          python::arg("index") = std::nullopt,
-         python::arg("interpolation") = enums::Interpolation::linlin,
+         python::arg("interpolation") = std::nullopt,
          python::arg("label") = std::nullopt,
          python::arg("outer_domain_value") = std::nullopt,
          python::arg("axes") = std::nullopt,
