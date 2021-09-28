@@ -2079,11 +2079,8 @@ void filePythonClass(
    // python::arg...
    for (auto &m : per.metadata) {
       cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
-      if (m.isDefaulted) {
-         cpp << " = " << m.theDefault;
-      } else if (m.isOptional) {
+      if (m.isOptional || m.isDefaulted)
          cpp << " = std::nullopt";
-      }
       cpp << ",\n";
    }
    for (auto &c : per.children) {
