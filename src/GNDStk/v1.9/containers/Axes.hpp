@@ -77,8 +77,7 @@ public:
    struct {
       // metadata
       std::optional<UTF8Text> href;
-
-      // children
+      // children - variant
       std::vector<AXIS_GRID> axis_grid;
    } content;
 

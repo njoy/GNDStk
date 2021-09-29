@@ -85,7 +85,6 @@ public:
       Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
       std::optional<XMLName> label;
       std::optional<Float64> outerDomainValue;
-
       // children
       std::optional<containers::Axes> axes;
       containers::Values values;

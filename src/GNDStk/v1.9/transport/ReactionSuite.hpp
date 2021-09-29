@@ -87,7 +87,6 @@ public:
       XMLName projectile;
       enums::Frame projectileFrame;
       XMLName target;
-
       // children
       std::optional<transport::Reactions> reactions;
    } content;

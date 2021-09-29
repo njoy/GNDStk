@@ -90,8 +90,7 @@ public:
       std::optional<XMLName> label;
       std::optional<enums::GridStyle> style;
       std::optional<XMLName> unit;
-
-      // children
+      // children - variant
       LINK_VALUES link_values;
    } content;
 

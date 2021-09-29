@@ -78,7 +78,6 @@ public:
       // metadata
       std::optional<XMLName> label;
       std::optional<Float64> outerDomainValue;
-
       // children
       std::vector<containers::XYs1d> XYs1d;
       std::optional<containers::Axes> axes;

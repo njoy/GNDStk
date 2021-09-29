@@ -72,7 +72,7 @@ public:
    // ------------------------
 
    struct {
-      // children
+      // children - variant
       std::vector<XYS1D_REGIONS1D> XYs1d_regions1d;
    } content;
 

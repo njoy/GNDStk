@@ -78,7 +78,6 @@ public:
       Integer32 ENDF_MT;
       std::optional<XMLName> fissionGenre;
       XMLName label;
-
       // children
       transport::CrossSection crossSection;
    } content;
