@@ -225,7 +225,7 @@ bool isClass(const std::string &key, const nlohmann::json &value)
 }
 
 // Read JSON file
-nlohmann::json readJSON(const std::string &file, const bool print = false)
+nlohmann::json readJSONFile(const std::string &file, const bool print = false)
 {
    // Depending on call context, we might want to print the file name
    if (print)
@@ -310,7 +310,7 @@ void getDataJSON(const nlohmann::json &j, bool &hasData, std::string &dataType)
 
 void printSingletons(const std::string &file)
 {
-   const nlohmann::json &jfile = readJSON(file,true);
+   const nlohmann::json &jfile = readJSONFile(file,true);
 
    for (const auto &item : jfile.items()) {
       const std::string parent = item.key();
@@ -343,7 +343,7 @@ bool isComment(const std::string &key)
 // changesFile
 void changesFile(const std::string &jfile, Info &info)
 {
-   const nlohmann::json jchanges = readJSON(jfile);
+   const nlohmann::json jchanges = readJSONFile(jfile);
    using pair = std::pair<std::string,std::string>;
 
    // Changes to name?
@@ -385,7 +385,7 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
    }
 
    // Input file
-   const nlohmann::json jmain = readJSON(argv[1]);
+   const nlohmann::json jmain = readJSONFile(argv[1]);
 
    // Validate content
    if (!(jmain.contains(input) && jmain.contains(output) &&
@@ -653,8 +653,8 @@ void writeClassSuffix(
 // Functions: writeCtor*
 // -----------------------------------------------------------------------------
 
-// writeCtorComponentCall
-void writeCtorComponentCall(
+// writeClassCtorComponent
+void writeClassCtorComponent(
    std::ostream &os, const PerClass &info, const bool hasOther
 ) {
    os << "      Component{\n"
@@ -670,8 +670,8 @@ void writeCtorComponentCall(
    os << "\n      }";
 }
 
-// writeCtorBody
-void writeCtorBody(std::ostream &os, const std::string &argName)
+// writeClassCtorBody
+void writeClassCtorBody(std::ostream &os, const std::string &argName)
 {
    os << "   {\n";
    os << "      Component::finish(" << argName << ");\n";
@@ -684,8 +684,8 @@ void writeCtorBody(std::ostream &os, const std::string &argName)
 // Helper functions
 // -----------------------------------------------------------------------------
 
-// Helper: getter1Param
-void getter1Param(
+// Helper: writeClassGetterOneParam
+void writeClassGetterOneParam(
    std::ostream &os,
    const std::string &varType, const std::string &varName,
    const std::string &argType, const std::string &argName
@@ -706,8 +706,8 @@ void getter1Param(
       << "(), " << argName << ", " << "\"" << varName << "\"); }\n";
 }
 
-// Helper: getter2Param
-void getter2Param(
+// Helper: writeClassGetterTwoParam
+void writeClassGetterTwoParam(
    std::ostream &os,
    const std::string &varType, const std::string &varName,
    const std::string &argType, const std::string &argName,
@@ -1062,10 +1062,10 @@ void writeClassVariants(std::ostream &os, const PerClass &per)
 
 
 // -----------------------------------------------------------------------------
-// writeForComponent
+// writeClassForComponent
 // -----------------------------------------------------------------------------
 
-void writeForComponent(
+void writeClassForComponent(
    std::ostream &os,
    const std::string &classKey, const nlohmann::json &classRHS,
    const PerClass &per, const std::string &nsname, const Info &info
@@ -1152,15 +1152,15 @@ void writeForComponent(
    os << "   }\n";
    os << "\n";
    os << "public:\n";
-} // writeForComponent
+} // writeClassForComponent
 
 
 
 // -----------------------------------------------------------------------------
-// writeGetters
+// writeClassGetter
 // -----------------------------------------------------------------------------
 
-void writeGetters(std::ostream &os, const PerClass &per)
+void writeClassGetter(std::ostream &os, const PerClass &per)
 {
    os << "\n   " << small;
    os << "\n   // Getters";
@@ -1196,8 +1196,8 @@ void writeGetters(std::ostream &os, const PerClass &per)
 
       // with index or label
       if (c.isVector) {
-         getter1Param(os, c.varType, c.varName, "std::size_t ",  "index");
-         getter1Param(os, c.varType, c.varName, "std::string &", "label");
+         writeClassGetterOneParam(os, c.varType, c.varName, "std::size_t ",  "index");
+         writeClassGetterOneParam(os, c.varType, c.varName, "std::string &", "label");
       }
    }
 
@@ -1216,16 +1216,16 @@ void writeGetters(std::ostream &os, const PerClass &per)
 
       // with index or label
       if (v.isVector) {
-         getter1Param(os, v.varType, v.varName, "std::size_t ",  "index");
-         getter1Param(os, v.varType, v.varName, "std::string &", "label");
+         writeClassGetterOneParam(os, v.varType, v.varName, "std::size_t ",  "index");
+         writeClassGetterOneParam(os, v.varType, v.varName, "std::string &", "label");
       }
 
       // alternatives
       for (const auto &c : v.children) {
          if (v.isVector) {
-            getter2Param(os, c.varType, c.varName,
+            writeClassGetterTwoParam(os, c.varType, c.varName,
                          "std::size_t ",  "index", v.varName);
-            getter2Param(os, c.varType, c.varName,
+            writeClassGetterTwoParam(os, c.varType, c.varName,
                          "std::string &", "label", v.varName);
          } else {
             // comment
@@ -1248,11 +1248,11 @@ void writeGetters(std::ostream &os, const PerClass &per)
 
 
 // -----------------------------------------------------------------------------
-// writeSetterChild
+// writeClassSetterChild
 // -----------------------------------------------------------------------------
 
 template<class INFO>
-void writeSetterChild(
+void writeClassSetterChild(
    std::ostream &os,
    const INFO &c, // InfoChildren or InfoVariants
    const std::string &clname
@@ -1288,10 +1288,10 @@ void writeSetterChild(
 
 
 // -----------------------------------------------------------------------------
-// writeSetters
+// writeClassSetter
 // -----------------------------------------------------------------------------
 
-void writeSetters(
+void writeClassSetter(
    std::ostream &os, const PerClass &per,
    const bool hasData, const std::string &clname
 ) {
@@ -1347,11 +1347,11 @@ void writeSetters(
 
    // children
    for (const auto &c : per.children)
-      writeSetterChild(os,c,clname);
+      writeClassSetterChild(os,c,clname);
 
    // variants
    for (const auto &v : per.variants) {
-      writeSetterChild(os,v,clname);
+      writeClassSetterChild(os,v,clname);
 
       // setters, using individual names
       if (v.isVector) {
@@ -1404,35 +1404,35 @@ void writeClassCtor(
    os << "\n";
    os << "   // default\n";
    os << "   " << clname << "() :\n";
-   writeCtorComponentCall(os,per,false);
+   writeClassCtorComponent(os,per,false);
    os << "\n";
-   writeCtorBody(os,"");
+   writeClassCtorBody(os,"");
 
    // ctor: copy
    os << "\n";
    os << "   // copy\n";
    os << "   " << clname << "(const " << clname << " &other) :\n";
-   writeCtorComponentCall(os,per,true);
+   writeClassCtorComponent(os,per,true);
    os << ",\n      content{other.content}";
    os << "\n";
-   writeCtorBody(os,"other");
+   writeClassCtorBody(os,"other");
 
    // ctor: move
    os << "\n";
    os << "   // move\n";
    os << "   " << clname << "(" << clname << " &&other) :\n";
-   writeCtorComponentCall(os, per, true);
+   writeClassCtorComponent(os, per, true);
    os << ",\n      content{std::move(other.content)}";
    os << "\n";
-   writeCtorBody(os,"other");
+   writeClassCtorBody(os,"other");
 
    // ctor: node
    os << "\n";
    os << "   // from node\n";
    os << "   " << clname << "(const Node &node) :\n";
-   writeCtorComponentCall(os, per, false);
+   writeClassCtorComponent(os, per, false);
    os << "\n";
-   writeCtorBody(os,"node");
+   writeClassCtorBody(os,"node");
 
    // ------------------------
    // ctor: fields
@@ -1474,7 +1474,7 @@ void writeClassCtor(
       }
 
       os << "\n   ) :\n";
-      writeCtorComponentCall(os, per, false);
+      writeClassCtorComponent(os, per, false);
 
       // initialize fields
       os << ",\n";
@@ -1494,7 +1494,7 @@ void writeClassCtor(
       os << "\n      }\n";
 
       // body
-      writeCtorBody(os,"");
+      writeClassCtorBody(os,"");
    }
 
    // ------------------------
@@ -1507,9 +1507,9 @@ void writeClassCtor(
       os << "   template<class T, class = "
          << "std::enable_if_t<body::template supported<T>>>\n";
       os << "   " << clname << "(const std::vector<T> &vector) :\n";
-      writeCtorComponentCall(os, per, false);
+      writeClassCtorComponent(os, per, false);
       os << "\n";
-      writeCtorBody(os,"vector");
+      writeClassCtorBody(os,"vector");
    }
 }
 
@@ -1528,7 +1528,7 @@ void writeClass(
    writeClassPrefix(oss, nandc, per);
 
    // As needed by the Component base
-   writeForComponent(oss, classKey, classRHS, per, nandc.nsname, info);
+   writeClassForComponent(oss, classKey, classRHS, per, nandc.nsname, info);
 
    // output: base
    oss << "\n   using Component::construct;\n";
@@ -1564,8 +1564,8 @@ void writeClass(
 
    // output: getters, setters
    if (per.metadata.size() || per.children.size() || per.variants.size()) {
-      writeGetters(oss, per);
-      writeSetters(oss, per, per.hasData, nandc.clname);
+      writeClassGetter(oss, per);
+      writeClassSetter(oss, per, per.hasData, nandc.clname);
    }
 
    // output: constructors
@@ -1611,22 +1611,17 @@ void getClass(
    Class2Dependencies dep;
    dep.object = nandc;
 
-   // metadata
+   /// comment here
    const nlohmann::json attrs = getMetadataJSON<true>(classRHS);
+   const nlohmann::json elems = getChildrenJSON<true>(classRHS);
    validateMetadata(attrs);
    getClassMetadata(attrs, info, per);
-
-   // children
-   const nlohmann::json elems = getChildrenJSON<true>(classRHS);
    validateChildren(elems);
    getClassChildren(elems, info, per, nandc, dep);
-
-   // variants
    getClassVariants(elems, info, per, nandc, dep);
 
    info.ClassDependenciesRaw.push_back(dep);
 
-zzz
    // compute per.code
    std::ostringstream oss;
    writeClass(oss,classKey,classRHS,per,nandc,info);
@@ -1722,9 +1717,8 @@ void preprocess(Info &info)
 {
    // For each JSON spec
    for (const std::string &file : info.JSONFiles) {
-      const nlohmann::json jmain = readJSON(file,true);
+      const nlohmann::json jmain = readJSONFile(file,true);
       const std::string nsname = getNamespace(jmain);
-      // For each entry (typically a class) in the JSON spec
       for (const auto &cl : jmain.items())
          preprocessClass(nsname, cl.key(), cl.value(), info);
    }
@@ -2050,7 +2044,7 @@ void fileGNDStkClass(
 
 
 // -----------------------------------------------------------------------------
-// fileKey
+// fileGNDStkKey
 // -----------------------------------------------------------------------------
 
 const std::string file_key_comment =
@@ -2076,7 +2070,7 @@ directives then make the Meta<> and Child<> objects appear directly in key::,
 so that "meta::" and "child::" are needed only to disambiguate identical names.
 )***";
 
-void fileKey(const Info &info)
+void fileGNDStkKey(const Info &info)
 {
    // ------------------------
    // Gather information
@@ -2094,7 +2088,7 @@ void fileKey(const Info &info)
    std::multimap<std::string, std::set<pair>> children;
 
    for (const auto &file : info.JSONFiles) {
-      const nlohmann::json jmain = readJSON(file);
+      const nlohmann::json jmain = readJSONFile(file);
       const std::string nsname = getNamespace(jmain);
       auto it = children.insert(std::make_pair(nsname,std::set<pair>{}));
 
@@ -2202,7 +2196,7 @@ void fileKey(const Info &info)
    ofs << "} // namespace GNDStk\n";
    ofs << "} // namespace njoy\n\n";
    ofs << "#endif\n";
-} // fileKey
+} // fileGNDStkKey
 
 
 
@@ -2239,7 +2233,7 @@ int main(const int argc, const char *const *const argv)
    // during detailed processing. Finally, the below call writes the entire
    // GNDS "version" file, e.g. a file called v2.0.cpp if the GNDS version
    // is 2.0, because it has enough information that it's able to do this.
-   std::cout << "\nProcessing specs into classes..." << std::endl;
+   std::cout << "\nProcessing specs..." << std::endl;
    preprocess(info);
 
    // PRINT CLASS CODE into temporary strings. These are printed to the class-
@@ -2247,9 +2241,8 @@ int main(const int argc, const char *const *const argv)
    // the class code in its file) are computed.
    std::cout << "\nBuilding classes..." << std::endl;
    for (const std::string &file : info.JSONFiles) {
-      const nlohmann::json jmain = readJSON(file,true);
+      const nlohmann::json jmain = readJSONFile(file,true);
       const std::string nsname = getNamespace(jmain);
-      // For each entry (typically a class) in the JSON spec
       for (const auto &cl : jmain.items())
          getClass(cl.key(), cl.value(), nsname, info);
    }
@@ -2281,6 +2274,6 @@ int main(const int argc, const char *const *const argv)
       filePythonClass(obj.first.nsname, obj.first.clname, obj.second, info);
 
    // GNDStk: cpp file for Meta and Child keys
-   fileKey(info);
+   fileGNDStkKey(info);
    std::cout << std::endl;
 }
