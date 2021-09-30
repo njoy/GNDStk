@@ -29,7 +29,7 @@ namespace transport {
 
 class CrossSection : public Component<CrossSection> {
 
-   using XYS1D_REGIONS1D = std::variant<
+   using XYs1d_regions1d_t = std::variant<
       containers::XYs1d,
       containers::Regions1d
    >;
@@ -50,7 +50,7 @@ class CrossSection : public Component<CrossSection> {
    {
       return
          // children
-         XYS1D_REGIONS1D{}
+         XYs1d_regions1d_t{}
             / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
    }
@@ -73,7 +73,7 @@ public:
 
    struct {
       // children - variant
-      std::vector<XYS1D_REGIONS1D> XYs1d_regions1d;
+      std::vector<XYs1d_regions1d_t> XYs1d_regions1d;
    } content;
 
    // ------------------------
@@ -82,21 +82,21 @@ public:
    // ------------------------
 
    // XYs1d_regions1d
-   const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d() const
+   const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d() const
     { return content.XYs1d_regions1d; }
-   std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d()
+   std::vector<XYs1d_regions1d_t> &XYs1d_regions1d()
     { return content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
-   const XYS1D_REGIONS1D &XYs1d_regions1d(const std::size_t index) const
+   const XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t index) const
     { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-   XYS1D_REGIONS1D &XYs1d_regions1d(const std::size_t index)
+   XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t index)
     { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
-   const XYS1D_REGIONS1D &XYs1d_regions1d(const std::string &label) const
+   const XYs1d_regions1d_t &XYs1d_regions1d(const std::string &label) const
     { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
-   XYS1D_REGIONS1D &XYs1d_regions1d(const std::string &label)
+   XYs1d_regions1d_t &XYs1d_regions1d(const std::string &label)
     { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
@@ -130,13 +130,13 @@ public:
    // ------------------------
 
    // XYs1d_regions1d(value)
-   CrossSection &XYs1d_regions1d(const std::vector<XYS1D_REGIONS1D> &obj)
+   CrossSection &XYs1d_regions1d(const std::vector<XYs1d_regions1d_t> &obj)
     { XYs1d_regions1d() = obj; return *this; }
 
    // XYs1d_regions1d(index,value)
    CrossSection &XYs1d_regions1d(
       const std::size_t index,
-      const XYS1D_REGIONS1D &obj
+      const XYs1d_regions1d_t &obj
    ) {
       XYs1d_regions1d(index) = obj; return *this;
    }
@@ -144,7 +144,7 @@ public:
    // XYs1d_regions1d(label,value)
    CrossSection &XYs1d_regions1d(
       const std::string &label,
-      const XYS1D_REGIONS1D &obj
+      const XYs1d_regions1d_t &obj
    ) {
       XYs1d_regions1d(label) = obj; return *this;
    }
@@ -233,7 +233,7 @@ public:
 
    // from fields
    explicit CrossSection(
-      const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d
+      const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d
    ) :
       Component{
          BodyText{},

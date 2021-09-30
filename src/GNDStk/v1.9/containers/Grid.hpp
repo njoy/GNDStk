@@ -29,7 +29,7 @@ namespace containers {
 
 class Grid : public Component<Grid> {
 
-   using LINK_VALUES = std::variant<
+   using link_values_t = std::variant<
       containers::Link,
       containers::Values
    >;
@@ -61,7 +61,7 @@ class Grid : public Component<Grid> {
          std::optional<XMLName>{}
             / Meta<>("unit") |
          // children
-         LINK_VALUES{}
+         link_values_t{}
             / --(Child<>("link") || Child<>("values"))
       ;
    }
@@ -91,7 +91,7 @@ public:
       std::optional<enums::GridStyle> style;
       std::optional<XMLName> unit;
       // children - variant
-      LINK_VALUES link_values;
+      link_values_t link_values;
    } content;
 
    // ------------------------
@@ -130,9 +130,9 @@ public:
     { return content.unit; }
 
    // link_values
-   const LINK_VALUES &link_values() const
+   const link_values_t &link_values() const
     { return content.link_values; }
-   LINK_VALUES &link_values()
+   link_values_t &link_values()
     { return content.link_values; }
 
    // link
@@ -176,7 +176,7 @@ public:
     { unit() = obj; return *this; }
 
    // link_values(value)
-   Grid &link_values(const LINK_VALUES &obj)
+   Grid &link_values(const link_values_t &obj)
     { link_values() = obj; return *this; }
 
    // link(value)
@@ -261,7 +261,7 @@ public:
       const std::optional<XMLName> &label,
       const std::optional<enums::GridStyle> &style,
       const std::optional<XMLName> &unit,
-      const LINK_VALUES &link_values
+      const link_values_t &link_values
    ) :
       Component{
          BodyText{},

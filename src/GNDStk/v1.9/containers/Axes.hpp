@@ -29,7 +29,7 @@ namespace containers {
 
 class Axes : public Component<Axes> {
 
-   using AXIS_GRID = std::variant<
+   using axis_grid_t = std::variant<
       containers::Axis,
       containers::Grid
    >;
@@ -53,7 +53,7 @@ class Axes : public Component<Axes> {
          std::optional<UTF8Text>{}
             / Meta<>("href") |
          // children
-         AXIS_GRID{}
+         axis_grid_t{}
             / ++(Child<>("axis") || Child<>("grid"))
       ;
    }
@@ -78,7 +78,7 @@ public:
       // metadata
       std::optional<UTF8Text> href;
       // children - variant
-      std::vector<AXIS_GRID> axis_grid;
+      std::vector<axis_grid_t> axis_grid;
    } content;
 
    // ------------------------
@@ -93,21 +93,21 @@ public:
     { return content.href; }
 
    // axis_grid
-   const std::vector<AXIS_GRID> &axis_grid() const
+   const std::vector<axis_grid_t> &axis_grid() const
     { return content.axis_grid; }
-   std::vector<AXIS_GRID> &axis_grid()
+   std::vector<axis_grid_t> &axis_grid()
     { return content.axis_grid; }
 
    // axis_grid(index)
-   const AXIS_GRID &axis_grid(const std::size_t index) const
+   const axis_grid_t &axis_grid(const std::size_t index) const
     { return getter(axis_grid(), index, "axis_grid"); }
-   AXIS_GRID &axis_grid(const std::size_t index)
+   axis_grid_t &axis_grid(const std::size_t index)
     { return getter(axis_grid(), index, "axis_grid"); }
 
    // axis_grid(label)
-   const AXIS_GRID &axis_grid(const std::string &label) const
+   const axis_grid_t &axis_grid(const std::string &label) const
     { return getter(axis_grid(), label, "axis_grid"); }
-   AXIS_GRID &axis_grid(const std::string &label)
+   axis_grid_t &axis_grid(const std::string &label)
     { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
@@ -145,13 +145,13 @@ public:
     { href() = obj; return *this; }
 
    // axis_grid(value)
-   Axes &axis_grid(const std::vector<AXIS_GRID> &obj)
+   Axes &axis_grid(const std::vector<axis_grid_t> &obj)
     { axis_grid() = obj; return *this; }
 
    // axis_grid(index,value)
    Axes &axis_grid(
       const std::size_t index,
-      const AXIS_GRID &obj
+      const axis_grid_t &obj
    ) {
       axis_grid(index) = obj; return *this;
    }
@@ -159,7 +159,7 @@ public:
    // axis_grid(label,value)
    Axes &axis_grid(
       const std::string &label,
-      const AXIS_GRID &obj
+      const axis_grid_t &obj
    ) {
       axis_grid(label) = obj; return *this;
    }
@@ -253,7 +253,7 @@ public:
    // from fields
    explicit Axes(
       const std::optional<UTF8Text> &href,
-      const std::vector<AXIS_GRID> &axis_grid
+      const std::vector<axis_grid_t> &axis_grid
    ) :
       Component{
          BodyText{},

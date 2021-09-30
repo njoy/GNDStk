@@ -24,7 +24,7 @@ void wrapGrid(python::module &module)
 
    // type aliases
    using Component = containers::Grid;
-   using LINK_VALUES = std::variant<
+   using link_values_t = std::variant<
       containers::Link,
       containers::Values
    >;
@@ -45,7 +45,7 @@ void wrapGrid(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<enums::GridStyle> &,
             const std::optional<XMLName> &,
-            const LINK_VALUES &
+            const link_values_t &
          >(),
          python::arg("index") = std::nullopt,
          python::arg("interpolation") = std::nullopt,

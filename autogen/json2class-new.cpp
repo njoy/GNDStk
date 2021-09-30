@@ -24,7 +24,7 @@ std::string replace(std::string str, const char from, const char to)
    return str;
 }
 
-std::string toPythonName(const std::string &name)
+std::string namePython(const std::string &name)
 {
    std::string python;
    python += std::tolower(name[0]);
@@ -34,6 +34,14 @@ std::string toPythonName(const std::string &name)
       python += std::tolower(*it);
    }
    return python;
+}
+
+void action(const std::string &label)
+{
+   std::cout
+      << "\n"
+      << colors::plain::blue << label << "..."
+      << colors::reset << std::endl;
 }
 
 
@@ -48,15 +56,12 @@ struct NamespaceAndClass {
    std::string clname; // name of a class in the namespace
 
    NamespaceAndClass(const std::string &ns = "", const std::string &cl = "") :
-      nsname(ns),
-      clname(cl)
+      nsname(ns), clname(cl)
    { }
 
    bool operator==(const NamespaceAndClass &other) const
    {
-      return
-         nsname == other.nsname &&
-         clname == other.clname;
+      return nsname == other.nsname && clname == other.clname;
    }
 
    bool operator<(const NamespaceAndClass &other) const
@@ -71,7 +76,7 @@ struct NamespaceAndClass {
 // Class2Dependencies
 // For a {namespace,class}, its {namespace,class} dependencies
 struct Class2Dependencies {
-   NamespaceAndClass object;///not a good name
+   NamespaceAndClass theClass;
    std::vector<NamespaceAndClass> dependencies;
 };
 
@@ -165,7 +170,7 @@ struct Info {
    std::string GNDSDir;
    std::string Version;
 
-   // Same as Version except with '_' in place of '.'
+   // Version, but with '_' in place of '.'
    std::string VersionUnderscore;
 
    // Directory-prefixed name of the .hpp file for this GNDS version
@@ -184,15 +189,11 @@ struct Info {
    // in which it appears.
    std::multimap<std::string,std::string> class2nspace;
 
-   // Class dependencies: as originally determined, and after being sorted
-   // by our topological sort.
-   // These objects look like this:
-   //    vector<{
-   //       object = {nsname,clname},
-   //       dependencies = vector<{nsname,clname}>
-   //    }>
-   // where each element in the vector is a namespace::class along with
-   // the namespace::classes on which it depends.
+   // Class dependencies: as originally determined, and after being sorted.
+   // Elements of these vectors contain:
+   //    theClass = {nsname,clname}
+   //    dependencies = vector<{nsname,clname}>
+   // These are (1) the class in question, and (2) its dependencies.
    std::vector<Class2Dependencies> ClassDependenciesRaw;
    std::vector<Class2Dependencies> ClassDependenciesSorted;
 
@@ -227,9 +228,16 @@ bool isClass(const std::string &key, const nlohmann::json &value)
 // Read JSON file
 nlohmann::json readJSONFile(const std::string &file, const bool print = false)
 {
+   static const std::string underlineON  = "\033[4m";
+   static const std::string underlineOFF = "\033[24m";
+
    // Depending on call context, we might want to print the file name
-   if (print)
-      std::cout << "File: \"" << file << '"' << std::endl;
+   if (print) {
+      std::cout << "   ";
+      std::cout << underlineON << "File:" << underlineOFF << " ";
+      std::cout << '"' << colors::vivid::green << file << colors::reset << '"';
+      std::cout << std::endl;
+   }
 
    std::ifstream ifs(file);
    if (!ifs) {
@@ -259,7 +267,7 @@ auto getMetadataJSON(const nlohmann::json &j)
    const bool attr = j.contains(attrstr);
 
    if constexpr (required) {
-      assert(meta != attr); // not both, but one
+      assert(meta != attr); // exactly one
       return meta ? j[metastr] : j[attrstr];
    } else {
       assert(!(meta && attr)); // not both
@@ -279,27 +287,13 @@ auto getChildrenJSON(const nlohmann::json &j)
    const bool node = j.contains(nodestr);
 
    if constexpr (required) {
-      assert(chld != node); // not both, but one
+      assert(chld != node); // exactly one
       return chld ? j[chldstr] : j[nodestr];
    } else {
       assert(!(chld && node)); // not both
       return std::optional<nlohmann::json>(
          chld ? j[chldstr] : node ? j[nodestr] : nlohmann::json{});
    }
-}
-
-// getDataJSON
-void getDataJSON(const nlohmann::json &j, bool &hasData, std::string &dataType)
-{
-   static const std::string datastr = "data";
-   static const std::string bodystr = "bodyText";
-
-   const bool data = j.contains(datastr) && !j[datastr].is_null();
-   const bool body = j.contains(bodystr) && !j[bodystr].is_null();
-
-   assert(!(data && body)); // not both
-   hasData  = data || body;
-   dataType = data ? j[datastr] : "";
 }
 
 
@@ -340,8 +334,8 @@ bool isComment(const std::string &key)
    return strncmp(key.data(), "//", 2) == 0;
 }
 
-// changesFile
-void changesFile(const std::string &jfile, Info &info)
+// readChangesFile
+void readChangesFile(const std::string &jfile, Info &info)
 {
    const nlohmann::json jchanges = readJSONFile(jfile);
    using pair = std::pair<std::string,std::string>;
@@ -369,7 +363,7 @@ void changesFile(const std::string &jfile, Info &info)
 }
 
 // commandLine
-bool commandLine(const int argc, const char *const *const argv, Info &info)
+void commandLine(const int argc, const char *const *const argv, Info &info)
 {
    // Keys we'll look for
    static const std::string input   = "JSONDir";
@@ -381,7 +375,7 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
    // Usage
    if (argc != 2) {
       std::cout << "Usage: " << argv[0] << " file.json" << std::endl;
-      return false;
+      exit(EXIT_FAILURE);
    }
 
    // Input file
@@ -393,7 +387,7 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
    )) {
       log::error("The input json file needs {}, {}, {}, and {}",
                  input, files, output, version);
-      return false;
+      throw std::exception{};
    }
 
    // Extract information from the command line .json
@@ -412,15 +406,14 @@ bool commandLine(const int argc, const char *const *const argv, Info &info)
 
    // Report on "singletons"
    if (singletons) {
-      std::cout << "\nExamining specs..." << std::endl;
+      action("Finding possible simplifications");
       for (const std::string &file : info.JSONFiles)
          printSingletons(file);
    }
 
    // Changes?
    if (jmain.contains(changes))
-      changesFile(jmain[changes],info);
-   return true;
+      readChangesFile(jmain[changes],info);
 }
 
 
@@ -447,26 +440,26 @@ std::string allcaps(const std::string &str)
    return ret;
 }
 
-// A "type" key's value, with any info.mapMetaType entry applied
-std::string getMetaType(const nlohmann::json &j, const Info &info)
-{
-   const std::string type = j["type"];
-   const auto it = info.mapMetaType.find(type);
-   return it == info.mapMetaType.end() ? type : it->second;
-}
-
 // Get namespace
-std::string getNamespace(const nlohmann::json &j)
+std::string getFileNamespace(const nlohmann::json &j)
 {
    return j.contains("__namespace__")
       ? j["__namespace__"]
       : j[  "namespace"  ];
 }
 
-// toString
+// A "type" key's value, with any info.mapMetaType entry applied
+std::string getMetadatumType(const nlohmann::json &j, const Info &info)
+{
+   const std::string type = j["type"];
+   const auto it = info.mapMetaType.find(type);
+   return it == info.mapMetaType.end() ? type : it->second;
+}
+
+// stringify
 // See: https://github.com/nlohmann/json/issues/642
 /// remark about the purpose of this; also, is the -2 safe?
-std::string toString(const nlohmann::json &j)
+std::string stringify(const nlohmann::json &j)
 {
    const auto tmp = j.dump();
    return j.type() == nlohmann::json::value_t::string
@@ -483,8 +476,8 @@ std::string toString(const nlohmann::json &j)
 // Name of a field (metadatum or child node) in an autogenerated class
 // -----------------------------------------------------------------------------
 
-// GNDSName
-std::string GNDSName(
+// nameGNDS
+std::string nameGNDS(
    const std::string &key, const nlohmann::json &value
 ) {
    // As-is, directly as stipulated in a key in the JSON spec, except
@@ -492,24 +485,24 @@ std::string GNDSName(
    return value.contains("name") ? std::string(value["name"]) : key;
 }
 
-// fieldName
-std::string fieldName(
+// nameField
+std::string nameField(
    const std::string &key, const nlohmann::json &value, const Info &info
 ) {
-   // Like GNDSName, except that we apply any name-modification map that
+   // Like nameGNDS, except that we apply any name-modification map that
    // may have been provided. That can fix, for example, the name "double",
    // which appears in GNDS v1.9 but is unsuitable for a name in C++.
-   const std::string name = GNDSName(key,value);
+   const std::string name = nameGNDS(key,value);
    const auto it = info.mapName.find(name);
    return it == info.mapName.end() ? name : it->second;
 }
 
-// className
-std::string className(
+// nameClass
+std::string nameClass(
    const std::string &key, const nlohmann::json &value, const Info &info
 ) {
-   // Like fieldName, but capitalized (per our class naming convention).
-   return capital(fieldName(key,value,info));
+   // Like nameField, but capitalized (per our class naming convention).
+   return capital(nameField(key,value,info));
 }
 
 
@@ -544,17 +537,10 @@ void validateChildren(const nlohmann::json &children)
    }
 }
 
-// validateClass
-void validateClass(const nlohmann::json &parent)
-{
-   getMetadataJSON<true>(parent);
-   getChildrenJSON<true>(parent);
-}
-
 
 
 // -----------------------------------------------------------------------------
-// For a topological sort: functions
+// For a topological sort
 // Adapted from: http://coliru.stacked-crooked.com/a/7c0bf8d3443b804d
 // -----------------------------------------------------------------------------
 
@@ -567,7 +553,7 @@ void insertDependency(
    const auto iter = std::find_if(
       vecSource.begin(),
       vecSource.end(),
-      [wanted](const Class2Dependencies &c2d) { return c2d.object == wanted; }
+      [wanted](const Class2Dependencies &c2d) { return c2d.theClass == wanted; }
    );
 
    if (iter != vecSource.end()) {
@@ -577,6 +563,16 @@ void insertDependency(
          insertDependency(dep, vecSource, vecTarget);
       vecTarget.push_back(c2d);
    }
+}
+
+// sortDependencies
+void sortDependencies(Info &info)
+{
+   while (info.ClassDependenciesRaw.size() > 0)
+      insertDependency(
+         info.ClassDependenciesRaw.begin()->theClass,
+         info.ClassDependenciesRaw,
+         info.ClassDependenciesSorted);
 }
 
 
@@ -746,12 +742,12 @@ void getClassMetadata(
 
       // Name
       InfoMetadata m;
-      m.varName = fieldName(metaKey,metaRHS,info);
+      m.varName = nameField(metaKey,metaRHS,info);
 
       // Has default?
       m.theDefault = "";
       if (metaRHS.contains("default") && !metaRHS["default"].is_null()) {
-         m.theDefault = toString(metaRHS["default"]);
+         m.theDefault = stringify(metaRHS["default"]);
          const auto it = info.mapMetaDefault.find(m.theDefault);
          if (it != info.mapMetaDefault.end())
             m.theDefault = it->second;
@@ -772,7 +768,7 @@ void getClassMetadata(
       const std::string defSuffix = m.isDefaulted ? ">" : "";
 
       // Type
-      m.varType = getMetaType(metaRHS,info);
+      m.varType = getMetadatumType(metaRHS,info);
 
       // Full type, including any optional or defaulted
       m.varTypeFull =
@@ -788,14 +784,14 @@ void getClassMetadata(
 
 
 // -----------------------------------------------------------------------------
-// findNamespace
+// getChildNamespace
 // -----------------------------------------------------------------------------
 
 // Determine to what namespace "child" belongs. Context: we're (1) in a JSON
 // spec with namespace parent.nsname, (2) in a parent node named parent.clname,
 // and (3) wish to determine the proper namespace for the parent's child node
 // named "child". childJSON is the JSON value for this child node.
-std::string findNamespace(
+std::string getChildNamespace(
    const nlohmann::json childJSON, const Info &info,
    const NamespaceAndClass &parent, const std::string &child
 ) {
@@ -844,7 +840,7 @@ std::string findNamespace(
    );
 
    return "ambiguousNamespace";
-} // findNamespace
+} // getChildNamespace
 
 
 
@@ -867,7 +863,7 @@ void getClassChildren(
 
       // Name
       InfoChildren c;
-      c.varName = fieldName(elemKey,elemRHS,info);
+      c.varName = nameField(elemKey,elemRHS,info);
 
       // Optional?
       c.isOptional = !elemRHS["required"];
@@ -880,8 +876,8 @@ void getClassChildren(
       const std::string vecSuffix = c.isVector ? ">" : "";
 
       // Type, including namespace
-      c.varType = className(elemKey,elemRHS,info);
-      const std::string ns = findNamespace(elemRHS,info,nandc,c.varType);
+      c.varType = nameClass(elemKey,elemRHS,info);
+      const std::string ns = getChildNamespace(elemRHS,info,nandc,c.varType);
       c.varType = ns + "::" + c.varType;
 
       // Full type, including any optional or vector
@@ -903,7 +899,7 @@ void getClassChildren(
       // presumably, a pointer is involved, or we're out of luck in any event)
       if (c.varType != nandc.clname)///just one of these has namespace?????
          dep.dependencies.push_back(
-            NamespaceAndClass(ns,className(elemKey,elemRHS,info)));
+            NamespaceAndClass(ns,nameClass(elemKey,elemRHS,info)));
 
       // Add to per.children
       per.children.push_back(c);
@@ -971,10 +967,10 @@ void getClassVariants(
       // For the individual child that's part of a choice...
       InfoVariantsChildren c;
       // ...its name
-      c.varName = fieldName(elemKey,elemRHS,info);
+      c.varName = nameField(elemKey,elemRHS,info);
       // ...its type, including namespace
-      c.varType = className(elemKey,elemRHS,info);
-      const std::string ns = findNamespace(elemRHS,info,nandc,c.varType);
+      c.varType = nameClass(elemKey,elemRHS,info);
+      const std::string ns = getChildNamespace(elemRHS,info,nandc,c.varType);
       c.varType = ns + "::" + c.varType;
       // ...its vector-ness
       c.isVector = occ == "choice+" || occ == "choice2+";
@@ -992,7 +988,7 @@ void getClassVariants(
       // save as a dependency
       if (c.varType != nandc.clname)///just one of these has namespace?????
          dep.dependencies.push_back(
-            NamespaceAndClass(ns,className(elemKey,elemRHS,info)));
+            NamespaceAndClass(ns,nameClass(elemKey,elemRHS,info)));
    }
 
    // Pass 3
@@ -1004,7 +1000,7 @@ void getClassVariants(
       const std::string vecSuffix = v.isVector ? ">" : "";
 
       v.varName = pair.first;
-      v.varType = allcaps(pair.first); /// consider _t
+      v.varType = pair.first + "_t";
 
       for (const auto &c : v.children) {
          assert(c.isVector == v.isVector);
@@ -1084,8 +1080,8 @@ void writeClassForComponent(
    // names
    ///These are the only things that need classKey, classRHS, and info. Perhaps
    ///there's a better way - say, with name and gnds stored in the perclass??
-   const std::string name = className(classKey,classRHS,info);
-   const std::string gnds = GNDSName(classKey,classRHS);
+   const std::string name = nameClass(classKey,classRHS,info);
+   const std::string gnds = nameGNDS(classKey,classRHS);
 
    os << "\n";
    os << "   " << small << "\n";
@@ -1519,11 +1515,12 @@ void writeClassCtor(
 // writeClass
 // -----------------------------------------------------------------------------
 
-void writeClass(
-   std::ostringstream &oss,
+std::string writeClass(
    const std::string &classKey, const nlohmann::json &classRHS,
    const PerClass &per, const NamespaceAndClass &nandc, const Info &info
 ) {
+   std::ostringstream oss;
+
    // output: class begin
    writeClassPrefix(oss, nandc, per);
 
@@ -1578,6 +1575,7 @@ void writeClass(
 
    // output: class end
    writeClassSuffix(oss, nandc, info);
+   return oss.str();
 }
 
 
@@ -1592,7 +1590,7 @@ void getClass(
 ) {
    if (!isClass(classKey,classRHS))
       return;
-   const std::string clname = className(classKey,classRHS,info);
+   const std::string clname = nameClass(classKey,classRHS,info);
 
    // find in class map
    const NamespaceAndClass nandc(nsname,clname);
@@ -1600,32 +1598,33 @@ void getClass(
    assert(it != info.class2data.end());
    PerClass &per = it->second;
 
-   ///Behavior here is more than validate; also compare with metadata/children
-   // validate below; this material needs to be reworked/clarified
-   per.hasData  = false;
-   per.dataType = "";
-   validateClass(classRHS);
-   getDataJSON(classRHS, per.hasData, per.dataType);
-
    // collect dependencies, for the present class, as this function proceeds
    Class2Dependencies dep;
-   dep.object = nandc;
+   dep.theClass = nandc;
 
-   /// comment here
+   // compute metadata/children info
    const nlohmann::json attrs = getMetadataJSON<true>(classRHS);
    const nlohmann::json elems = getChildrenJSON<true>(classRHS);
    validateMetadata(attrs);
-   getClassMetadata(attrs, info, per);
    validateChildren(elems);
+   getClassMetadata(attrs, info, per);
    getClassChildren(elems, info, per, nandc, dep);
    getClassVariants(elems, info, per, nandc, dep);
 
-   info.ClassDependenciesRaw.push_back(dep);
+   // compute data-node info
+   static const std::string datastr = "data";
+   static const std::string bodystr = "bodyText";
+   const bool data = classRHS.contains(datastr) && !classRHS[datastr].is_null();
+   const bool body = classRHS.contains(bodystr) && !classRHS[bodystr].is_null();
+   assert(!(data && body)); // not both
+   per.hasData  = data || body;
+   per.dataType = data ? classRHS[datastr] : "";
 
-   // compute per.code
-   std::ostringstream oss;
-   writeClass(oss,classKey,classRHS,per,nandc,info);
-   per.code = oss.str();
+   // compute per.code: printed C++ code for the class itself
+   per.code = writeClass(classKey, classRHS, per, nandc, info);
+
+   // save dependencies
+   info.ClassDependenciesRaw.push_back(dep);
 }
 
 
@@ -1646,7 +1645,7 @@ void preprocessClass(
 
    // Get the class name, then link this class with the current namespace.
    // This information is used, later, for various purposes.
-   const std::string clname = className(classKey,classRHS,info);
+   const std::string clname = nameClass(classKey,classRHS,info);
    info.class2nspace.insert(std::make_pair(clname,nsname));
 
    // ------------------------
@@ -1678,8 +1677,8 @@ void preprocessClass(
    // be trashing someone's customization!
    const std::string custom = clsrc + "/custom.hpp";
    if (!std::ifstream(custom)) {
-      std::cout << "No customization file " << custom << std::endl;
-      std::cout << "...so, creating a basic one" << std::endl;
+      std::cout << "   No customization file " << custom << "\n";
+      std::cout << "   ...so, creating a basic one" << std::endl;
       std::ofstream ofs(custom);
       ofs << "\n";
       ofs << "private:\n";
@@ -1693,8 +1692,7 @@ void preprocessClass(
 
    // For this namespace:
    //    The .cpp file for Python
-   auto ns = info.namespace2data.insert(
-      std::make_pair(nsname, PerNamespace{}));
+   auto ns = info.namespace2data.insert(std::make_pair(nsname, PerNamespace{}));
    ns.first->second.filePythonCPP = nsdirpy + ".python.cpp";
 
    // For this namespace::class:
@@ -1710,24 +1708,43 @@ void preprocessClass(
 
 
 // -----------------------------------------------------------------------------
-// preprocess
+// preprocessFiles
 // -----------------------------------------------------------------------------
 
-void preprocess(Info &info)
+// This reads the JSON spec files and collects preliminary information that's
+// used, later, when the spec files are processed in more detail. (Detailed
+// processing requires knowledge obtained from this preliminary pass, which is
+// why these things are done separately.) This preliminary processing includes
+// creating a class-to-namespace map; creating directories into which output
+// files will be placed; creating class-specific customization files when it's
+// appropriate to do so; and creating maps from namespace to namespace-specific
+// information, and from namespace::class to class-specific information. File
+// names are computed as part of the "information" for the maps just mentioned.
+void preprocessFiles(Info &info)
 {
-   // For each JSON spec
+   action("Processing specs");
    for (const std::string &file : info.JSONFiles) {
       const nlohmann::json jmain = readJSONFile(file,true);
-      const std::string nsname = getNamespace(jmain);
+      const std::string nsname = getFileNamespace(jmain);
       for (const auto &cl : jmain.items())
          preprocessClass(nsname, cl.key(), cl.value(), info);
    }
+}
 
+
+
+// -----------------------------------------------------------------------------
+// fileGNDStkVersion
+// -----------------------------------------------------------------------------
+
+void fileGNDStkVersion(const Info &info)
+{
    // Create an overarching file for this version
    std::ofstream ofs(info.VersionHPP);
    writeAutogenerated(ofs);
-   ofs << "\n#ifndef NJOY_GNDSTK_" << allcaps(info.VersionUnderscore);
-   ofs << "\n#define NJOY_GNDSTK_" << allcaps(info.VersionUnderscore) << "\n";
+   ofs << "\n";
+   ofs << "#ifndef NJOY_GNDSTK_" << allcaps(info.VersionUnderscore) << "\n";
+   ofs << "#define NJOY_GNDSTK_" << allcaps(info.VersionUnderscore) << "\n";
 
    std::string nsname_last = "";
    for (auto &c : info.class2data) {
@@ -1751,8 +1768,7 @@ void preprocess(Info &info)
 // -----------------------------------------------------------------------------
 
 void filePythonNamespace(
-   const std::string &nsname,
-   const PerNamespace &per, const Info &info
+   const std::string &nsname, const PerNamespace &per, const Info &info
 ) {
    std::ofstream cpp(per.filePythonCPP);
    writeAutogenerated(cpp);
@@ -1770,8 +1786,8 @@ void filePythonNamespace(
    cpp << "// " << nsname << " declarations\n";
    cpp << "namespace python_" << nsname << " {\n";
    for (auto &cl : info.ClassDependenciesSorted)
-      if (cl.object.nsname == nsname)
-         cpp << "   void wrap" << cl.object.clname << "(python::module &);\n";
+      if (cl.theClass.nsname == nsname)
+         cpp << "   void wrap" << cl.theClass.clname << "(python::module &);\n";
    cpp << "} // namespace python_" << nsname << "\n";
    cpp << "\n";
 
@@ -1786,8 +1802,8 @@ void filePythonNamespace(
 
    cpp << "\n   // wrap " << nsname << " components\n";
    for (auto &cl : info.ClassDependenciesSorted)
-      if (cl.object.nsname == nsname)
-         cpp << "   python_" << nsname << "::wrap" << cl.object.clname
+      if (cl.theClass.nsname == nsname)
+         cpp << "   python_" << nsname << "::wrap" << cl.theClass.clname
              << "(submodule);\n";
    cpp << "};\n";
    cpp << "\n} // namespace python_" << info.VersionUnderscore << "\n";
@@ -1800,9 +1816,10 @@ void filePythonNamespace(
 // -----------------------------------------------------------------------------
 
 void filePythonClass(
-   const std::string &nsname, const std::string &clname,
-   const PerClass &per, const Info &info
+   const NamespaceAndClass &nandc, const PerClass &per, const Info &info
 ) {
+   const std::string &nsname = nandc.nsname;
+   const std::string &clname = nandc.clname;
    std::ofstream cpp(per.filePythonCPP);
    writeAutogenerated(cpp);
 
@@ -1911,19 +1928,19 @@ void filePythonClass(
 
    // python::arg...
    for (auto &m : per.metadata) {
-      cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
+      cpp << "         python::arg(\"" << namePython(m.varName) << "\")";
       if (m.isOptional || m.isDefaulted)
          cpp << " = std::nullopt";
       cpp << ",\n";
    }
    for (auto &c : per.children) {
-      cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+      cpp << "         python::arg(\"" << namePython(c.varName) << "\")";
       if (c.isOptional)
          cpp << " = std::nullopt";
       cpp << ",\n";
    }
    for (auto &v : per.variants) {
-      cpp << "         python::arg(\"" << toPythonName(v.varName) << "\")";
+      cpp << "         python::arg(\"" << namePython(v.varName) << "\")";
       cpp << ",\n";
    }
    if (per.hasData)
@@ -1933,7 +1950,7 @@ void filePythonClass(
 
    // .def_property_readonly...
    for (auto &m : per.metadata) {
-      const auto pyname = toPythonName(m.varName);
+      const auto pyname = namePython(m.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pyname << "\",\n";
       m.isDefaulted
@@ -1944,7 +1961,7 @@ void filePythonClass(
       cpp << "      )\n";
    }
    for (auto &c : per.children) {
-      const auto pyname = toPythonName(c.varName);
+      const auto pyname = namePython(c.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pyname << "\",\n";
       cpp << "         python::overload_cast<>(&Component::"
@@ -1955,7 +1972,7 @@ void filePythonClass(
    for (auto &v : per.variants) {
       if (!v.isVector) {
          for (auto &c : v.children) {
-            const auto pyname = toPythonName(c.varName);
+            const auto pyname = namePython(c.varName);
             cpp << "      .def_property_readonly(\n";
             cpp << "         \"" << pyname << "\",\n";
             cpp << "         python::overload_cast<>(&Component::"
@@ -1965,7 +1982,7 @@ void filePythonClass(
             cpp << "      )\n";
          }
       }
-      const auto pyname = toPythonName(v.varName);
+      const auto pyname = namePython(v.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pyname << "\",\n";
       cpp << "         python::overload_cast<>(&Component::"
@@ -2089,7 +2106,7 @@ void fileGNDStkKey(const Info &info)
 
    for (const auto &file : info.JSONFiles) {
       const nlohmann::json jmain = readJSONFile(file);
-      const std::string nsname = getNamespace(jmain);
+      const std::string nsname = getFileNamespace(jmain);
       auto it = children.insert(std::make_pair(nsname,std::set<pair>{}));
 
       for (const auto &node : jmain.items()) {
@@ -2098,16 +2115,16 @@ void fileGNDStkKey(const Info &info)
 
          // nodes ==> children
          it->second.insert(std::make_pair(
-            fieldName(node.key(), node.value(), info),
-            GNDSName (node.key(), node.value())
+            nameField(node.key(), node.value(), info),
+            nameGNDS (node.key(), node.value())
          ));
 
          // attributes ==> metadata
          const auto attrs = getMetadataJSON<true>(node.value());
          for (const auto &attr : attrs.items())
             metadata.insert(std::make_pair(
-               fieldName(attr.key(), attr.value(), info),
-               GNDSName (attr.key(), attr.value())
+               nameField(attr.key(), attr.value(), info),
+               nameGNDS (attr.key(), attr.value())
             ));
       }
    }
@@ -2201,6 +2218,23 @@ void fileGNDStkKey(const Info &info)
 
 
 // -----------------------------------------------------------------------------
+// getFiles
+// -----------------------------------------------------------------------------
+
+void getFiles(Info &info)
+{
+   action("Creating classes");
+   for (const std::string &file : info.JSONFiles) {
+      const nlohmann::json jmain = readJSONFile(file,true);
+      const std::string nsname = getFileNamespace(jmain);
+      for (const auto &aClass : jmain.items())
+         getClass(aClass.key(), aClass.value(), nsname, info);
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
 // main
 // -----------------------------------------------------------------------------
 
@@ -2209,71 +2243,42 @@ int main(const int argc, const char *const *const argv)
    // For GNDStk's diagnostics
    color = true;
 
-   // BASIC INFORMATION
-   // Gather information from the JSON file given on the command line. This
-   // consists of getting relevant directories, a GNDS version number, a list
-   // of JSON files in which class specifications are given, and, optionally,
-   // reading a "Changes" file that provides some search/replace information.
+   // READ INFORMATION from the JSON file on the command line
    Info info;
-   if (!commandLine(argc, argv, info))
-      exit(EXIT_FAILURE);
+   commandLine(argc, argv, info);
 
-   // PREPROCESS
-   // The following reads through the JSON spec files - these were determined
-   // in the above step - and collects preliminary information that is used,
-   // later, when the spec files are processed in more detail. (The detailed
-   // processing requires knowledge obtained from the preliminary processing,
-   // which is why those things are done separately.) Preliminary processing
-   // includes creating a class-to-namespace map, making directories in which
-   // output files will be placed, creating class-specific customization files
-   // when appropriate, and creating maps from namespace to namespace-specific
-   // information, and from namespace::class to class-specific information.
-   // Relevant file names are computed as part of the "information" for the
-   // maps just mentioned; other parts of the information are computer later,
-   // during detailed processing. Finally, the below call writes the entire
-   // GNDS "version" file, e.g. a file called v2.0.cpp if the GNDS version
-   // is 2.0, because it has enough information that it's able to do this.
-   std::cout << "\nProcessing specs..." << std::endl;
-   preprocess(info);
+   // PREPROCESS, to get information needed upfront for detailed processing
+   preprocessFiles(info);
 
-   // PRINT CLASS CODE into temporary strings. These are printed to the class-
-   // specific files later, after class dependencies (which must appear above
-   // the class code in its file) are computed.
-   std::cout << "\nBuilding classes..." << std::endl;
-   for (const std::string &file : info.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file,true);
-      const std::string nsname = getNamespace(jmain);
-      for (const auto &cl : jmain.items())
-         getClass(cl.key(), cl.value(), nsname, info);
-   }
+   // PRINT CLASS CODE into temporary strings, which are written to the
+   // class-specific files later, after class dependencies are computed
+   getFiles(info);
 
    // COMPUTE AN ORDERING that respects dependencies
-   while (info.ClassDependenciesRaw.size() > 0)
-      insertDependency(
-         info.ClassDependenciesRaw.begin()->object,
-         info.ClassDependenciesRaw,
-         info.ClassDependenciesSorted);
+   sortDependencies(info);
 
-   // GNDStk: cpp file for namespace::class
+   // WRITE GNDStk hpp file for this GNDS version
+   fileGNDStkVersion(info);
+
+   // WRITE GNDStk hpp file for each namespace::class
    for (const auto &obj : info.ClassDependenciesSorted) {
-      auto find = info.class2data.find(obj.object);
+      auto find = info.class2data.find(obj.theClass);
       assert(find != info.class2data.end());
       fileGNDStkClass(
          find->first.nsname,
          find->first.clname,
-         find->second,
-         info, obj);
+         find->second, info, obj);
    }
 
-   // Python: cpp file for namespace
+   // WRITE GNDStk hpp file for Meta and Child keys
+   fileGNDStkKey(info);
+
+   // WRITE Python cpp file for each namespace
    for (auto &obj : info.namespace2data)
       filePythonNamespace(obj.first, obj.second, info);
 
-   // Python: cpp file for namespace::class
+   // WRITE Python cpp file for each namespace::class
    for (auto &obj : info.class2data)
-      filePythonClass(obj.first.nsname, obj.first.clname, obj.second, info);
-
-   // GNDStk: cpp file for Meta and Child keys
-   fileGNDStkKey(info);
+      filePythonClass(obj.first, obj.second, info);
    std::cout << std::endl;
 }

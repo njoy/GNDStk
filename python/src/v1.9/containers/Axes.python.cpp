@@ -24,7 +24,7 @@ void wrapAxes(python::module &module)
 
    // type aliases
    using Component = containers::Axes;
-   using AXIS_GRID = std::variant<
+   using axis_grid_t = std::variant<
       containers::Axis,
       containers::Grid
    >;
@@ -41,7 +41,7 @@ void wrapAxes(python::module &module)
       .def(
          python::init<
             const std::optional<UTF8Text> &,
-            const std::vector<AXIS_GRID> &
+            const std::vector<axis_grid_t> &
          >(),
          python::arg("href") = std::nullopt,
          python::arg("axis_grid"),
