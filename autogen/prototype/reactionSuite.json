@@ -2,7 +2,7 @@
     "namespace": "transport",
 
     "reactionSuite": {
-        "attributes": {
+        "metadata": {
             "evaluation": {
                 "required": true,
                 "type": "XMLName"
@@ -28,7 +28,7 @@
                 "type": "interaction"
             }
         },
-        "childNodes": {
+        "children": {
             "reactions": {
                 "occurrence": "1",
                 "required": false
@@ -37,8 +37,8 @@
     },
 
     "reactions": {
-        "attributes": {},
-        "childNodes": {
+        "metadata": {},
+        "children": {
             "reaction": {
                 "occurrence": "1+",
                 "required": true
@@ -47,7 +47,7 @@
     },
 
     "reaction": {
-        "attributes": {
+        "metadata": {
             "ENDF_MT": {
                 "required": true,
                 "type": "Integer32"
@@ -61,7 +61,7 @@
                 "type": "XMLName"
             }
         },
-        "childNodes": {
+        "children": {
             "crossSection": {
                 "occurrence": "1",
                 "required": true
@@ -70,8 +70,8 @@
     },
 
     "crossSection": {
-        "attributes": {},
-        "childNodes": {
+        "metadata": {},
+        "children": {
             "XYs1d": {
                 "occurrence": "choice+",
                 "variant": "XYs1d_regions1d",

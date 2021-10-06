@@ -2,17 +2,17 @@
     "namespace": "containers",
 
     "link": {
-        "attributes": {
+        "metadata": {
             "href": {
                 "required": true,
                 "type": "UTF8Text"
             }
         },
-        "childNodes": {}
+        "children": {}
     },
 
     "XYs1d": {
-        "attributes": {
+        "metadata": {
             "index": {
                 "required": false,
                 "type": "Integer32"
@@ -31,7 +31,7 @@
                 "type": "Float64"
             }
         },
-        "childNodes": {
+        "children": {
             "axes": {
                 "occurrence": "1",
                 "required": false
@@ -44,13 +44,13 @@
     },
 
     "axes": {
-        "attributes": {
+        "metadata": {
             "href": {
                 "required": false,
                 "type": "UTF8Text"
             }
         },
-        "childNodes": {
+        "children": {
             "axis": {
                 "occurrence": "choice+",
                 "variant": "axis_grid",
@@ -65,7 +65,7 @@
     },
 
     "axis": {
-        "attributes": {
+        "metadata": {
             "index": {
                 "required": false,
                 "type": "Integer32"
@@ -79,11 +79,11 @@
                 "type": "XMLName"
             }
         },
-        "childNodes": {}
+        "children": {}
     },
 
     "grid": {
-        "attributes": {
+        "metadata": {
             "index": {
                 "required": false,
                 "type": "Integer32"
@@ -106,7 +106,7 @@
                 "type": "XMLName"
             }
         },
-        "childNodes": {
+        "children": {
             "values": {
                 "occurrence": "choice",
                 "variant": "link_values",
@@ -121,7 +121,7 @@
     },
 
     "values": {
-        "attributes": {
+        "metadata": {
             "valueType": {
                 "default": "Float64",
                 "required": false,
@@ -138,11 +138,11 @@
             }
         },
         "bodyText": "Contains a space-delimited ordered list of data for the parent node.",
-        "childNodes": {}
+        "children": {}
     },
 
     "regions1d": {
-        "attributes": {
+        "metadata": {
             "label": {
                 "required": false,
                 "type": "XMLName"
@@ -152,7 +152,7 @@
                 "type": "Float64"
             }
         },
-        "childNodes": {
+        "children": {
             "axes": {
                 "occurrence": "1",
                 "required": false
