@@ -45,7 +45,7 @@ class CrossSection : public Component<CrossSection> {
    static auto className() { return "CrossSection"; }
    static auto GNDSName() { return "crossSection"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

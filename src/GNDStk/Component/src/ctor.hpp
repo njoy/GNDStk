@@ -23,7 +23,7 @@ Component(const body &other, ARGS &...args) : body(other)
    // The parameters that are sent to this constructor must EXACTLY reflect
    // what we'd get from a DERIVED::keys() multi-query.
    if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
-      // keys are "empty" (std::tuple<>); that's OK, as long as ARGS are too
+      // keys is "empty" (std::tuple<>); that's OK, as long as ARGS is too
       static_assert(
          std::is_same_v<std::tuple<ARGS ...>, std::tuple<>>,
          pairing_error

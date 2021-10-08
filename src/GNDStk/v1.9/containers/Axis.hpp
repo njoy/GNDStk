@@ -37,7 +37,7 @@ class Axis : public Component<Axis> {
    static auto className() { return "Axis"; }
    static auto GNDSName() { return "axis"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

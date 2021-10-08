@@ -37,7 +37,7 @@ class Link : public Component<Link> {
    static auto className() { return "Link"; }
    static auto GNDSName() { return "link"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

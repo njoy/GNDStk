@@ -45,7 +45,7 @@ class Grid : public Component<Grid> {
    static auto className() { return "Grid"; }
    static auto GNDSName() { return "grid"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

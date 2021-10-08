@@ -41,7 +41,7 @@ class Regions1d : public Component<Regions1d> {
    static auto className() { return "Regions1d"; }
    static auto GNDSName() { return "regions1d"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

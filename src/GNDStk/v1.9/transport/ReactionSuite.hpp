@@ -40,7 +40,7 @@ class ReactionSuite : public Component<ReactionSuite> {
    static auto className() { return "ReactionSuite"; }
    static auto GNDSName() { return "reactionSuite"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

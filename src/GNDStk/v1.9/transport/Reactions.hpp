@@ -40,7 +40,7 @@ class Reactions : public Component<Reactions> {
    static auto className() { return "Reactions"; }
    static auto GNDSName() { return "reactions"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return

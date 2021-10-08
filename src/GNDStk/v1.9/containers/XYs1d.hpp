@@ -41,7 +41,7 @@ class XYs1d : public Component<XYs1d> {
    static auto className() { return "XYs1d"; }
    static auto GNDSName() { return "XYs1d"; }
 
-   // Core Interface object to extract metadata and child nodes
+   // Core Interface multi-query to extract metadata and child nodes
    static auto keys()
    {
       return
