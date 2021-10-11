@@ -36,10 +36,10 @@ void wrapXYs1d(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<Integer32> &,
+            const std::optional<int> &,
             const std::optional<enums::Interpolation> &,
-            const std::optional<XMLName> &,
-            const std::optional<Float64> &,
+            const std::optional<std::string> &,
+            const std::optional<double> &,
             const std::optional<containers::Axes> &,
             const containers::Values &
          >(),

@@ -36,9 +36,9 @@ void wrapAxis(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<Integer32> &,
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &
+            const std::optional<int> &,
+            const std::optional<std::string> &,
+            const std::optional<std::string> &
          >(),
          python::arg("index") = std::nullopt,
          python::arg("label") = std::nullopt,

@@ -36,7 +36,7 @@ void wrapLink(python::module &module)
    component
       .def(
          python::init<
-            const UTF8Text &
+            const std::string &
          >(),
          python::arg("href"),
          Component::documentation("constructor").data()

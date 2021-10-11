@@ -42,11 +42,11 @@ class Axis : public Component<Axis> {
    {
       return
          // metadata
-         std::optional<Integer32>{}
+         std::optional<int>{}
             / Meta<>("index") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("label") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("unit")
       ;
    }
@@ -69,9 +69,9 @@ public:
 
    struct {
       // metadata
-      std::optional<Integer32> index;
-      std::optional<XMLName> label;
-      std::optional<XMLName> unit;
+      std::optional<int> index;
+      std::optional<std::string> label;
+      std::optional<std::string> unit;
    } content;
 
    // ------------------------
@@ -80,22 +80,22 @@ public:
    // ------------------------
 
    // index
-   const std::optional<Integer32> &index() const
-    { return content.index; }
-   std::optional<Integer32> &index()
-    { return content.index; }
+   const std::optional<int> &index() const
+      { return content.index; }
+   std::optional<int> &index()
+      { return content.index; }
 
    // label
-   const std::optional<XMLName> &label() const
-    { return content.label; }
-   std::optional<XMLName> &label()
-    { return content.label; }
+   const std::optional<std::string> &label() const
+      { return content.label; }
+   std::optional<std::string> &label()
+      { return content.label; }
 
    // unit
-   const std::optional<XMLName> &unit() const
-    { return content.unit; }
-   std::optional<XMLName> &unit()
-    { return content.unit; }
+   const std::optional<std::string> &unit() const
+      { return content.unit; }
+   std::optional<std::string> &unit()
+      { return content.unit; }
 
    // ------------------------
    // Setters
@@ -104,16 +104,16 @@ public:
    // ------------------------
 
    // index(value)
-   Axis &index(const std::optional<Integer32> &obj)
-    { index() = obj; return *this; }
+   Axis &index(const std::optional<int> &obj)
+      { index() = obj; return *this; }
 
    // label(value)
-   Axis &label(const std::optional<XMLName> &obj)
-    { label() = obj; return *this; }
+   Axis &label(const std::optional<std::string> &obj)
+      { label() = obj; return *this; }
 
    // unit(value)
-   Axis &unit(const std::optional<XMLName> &obj)
-    { unit() = obj; return *this; }
+   Axis &unit(const std::optional<std::string> &obj)
+      { unit() = obj; return *this; }
 
    // ------------------------
    // Construction
@@ -171,9 +171,9 @@ public:
 
    // from fields
    explicit Axis(
-      const std::optional<Integer32> &index,
-      const std::optional<XMLName> &label,
-      const std::optional<XMLName> &unit
+      const std::optional<int> &index,
+      const std::optional<std::string> &label,
+      const std::optional<std::string> &unit
    ) :
       Component{
          BodyText{},

@@ -42,7 +42,7 @@ class Link : public Component<Link> {
    {
       return
          // metadata
-         UTF8Text{}
+         std::string{}
             / Meta<>("href")
       ;
    }
@@ -65,7 +65,7 @@ public:
 
    struct {
       // metadata
-      UTF8Text href;
+      std::string href;
    } content;
 
    // ------------------------
@@ -74,10 +74,10 @@ public:
    // ------------------------
 
    // href
-   const UTF8Text &href() const
-    { return content.href; }
-   UTF8Text &href()
-    { return content.href; }
+   const std::string &href() const
+      { return content.href; }
+   std::string &href()
+      { return content.href; }
 
    // ------------------------
    // Setters
@@ -86,8 +86,8 @@ public:
    // ------------------------
 
    // href(value)
-   Link &href(const UTF8Text &obj)
-    { href() = obj; return *this; }
+   Link &href(const std::string &obj)
+      { href() = obj; return *this; }
 
    // ------------------------
    // Construction
@@ -137,7 +137,7 @@ public:
 
    // from fields
    explicit Link(
-      const UTF8Text &href
+      const std::string &href
    ) :
       Component{
          BodyText{},

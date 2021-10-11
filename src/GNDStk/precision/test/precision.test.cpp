@@ -229,9 +229,9 @@ SCENARIO("Precision code in BodyText::get(), "
 
    WHEN("We rework a vector<float> into a vector<string>") {
       const std::vector<float> fvec = {{
-         std::sqrt(double(2)),
-         std::sqrt(double(3)),
-         std::sqrt(double(5))
+         std::sqrt(float(2)),
+         std::sqrt(float(3)),
+         std::sqrt(float(5))
       }};
 
       using precision::key::child::reals;
@@ -381,7 +381,7 @@ SCENARIO("Precision code in BodyText::get(), "
          // This uses Precision<PrecisionContext::data,float>{}.read(string).
          // It's a read (to produce floats from string values), not a write,
          // so isn't interesting precision-wise, but it needs testing.
-         r.get<std::vector<float >>();
+         r.get<std::vector<float>>();
          CHECK(Approx(r.get<float>(0)) == 1.414213562373095049);
          CHECK(Approx(r.get<float>(1)) == 2.718281828459045235);
          CHECK(Approx(r.get<float>(2)) == 3.141592653589793238);
@@ -446,9 +446,9 @@ SCENARIO("Precision code in BodyText::toNode(), "
 
    WHEN("We print floats>") {
       const std::vector<float> fvec = {{
-         std::sqrt(double(2)),
-         std::sqrt(double(3)),
-         std::sqrt(double(5))
+         std::sqrt(float(2)),
+         std::sqrt(float(3)),
+         std::sqrt(float(5))
       }};
 
       THEN("data::floats precision has the intended effect") {

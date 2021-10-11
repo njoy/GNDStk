@@ -45,11 +45,11 @@ class Reaction : public Component<Reaction> {
    {
       return
          // metadata
-         Integer32{}
+         int{}
             / Meta<>("ENDF_MT") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("fissionGenre") |
-         XMLName{}
+         std::string{}
             / Meta<>("label") |
          // children
          transport::CrossSection{}
@@ -75,9 +75,9 @@ public:
 
    struct {
       // metadata
-      Integer32 ENDF_MT;
-      std::optional<XMLName> fissionGenre;
-      XMLName label;
+      int ENDF_MT;
+      std::optional<std::string> fissionGenre;
+      std::string label;
       // children
       transport::CrossSection crossSection;
    } content;
@@ -88,28 +88,28 @@ public:
    // ------------------------
 
    // ENDF_MT
-   const Integer32 &ENDF_MT() const
-    { return content.ENDF_MT; }
-   Integer32 &ENDF_MT()
-    { return content.ENDF_MT; }
+   const int &ENDF_MT() const
+      { return content.ENDF_MT; }
+   int &ENDF_MT()
+      { return content.ENDF_MT; }
 
    // fissionGenre
-   const std::optional<XMLName> &fissionGenre() const
-    { return content.fissionGenre; }
-   std::optional<XMLName> &fissionGenre()
-    { return content.fissionGenre; }
+   const std::optional<std::string> &fissionGenre() const
+      { return content.fissionGenre; }
+   std::optional<std::string> &fissionGenre()
+      { return content.fissionGenre; }
 
    // label
-   const XMLName &label() const
-    { return content.label; }
-   XMLName &label()
-    { return content.label; }
+   const std::string &label() const
+      { return content.label; }
+   std::string &label()
+      { return content.label; }
 
    // crossSection
    const transport::CrossSection &crossSection() const
-    { return content.crossSection; }
+      { return content.crossSection; }
    transport::CrossSection &crossSection()
-    { return content.crossSection; }
+      { return content.crossSection; }
 
    // ------------------------
    // Setters
@@ -118,20 +118,20 @@ public:
    // ------------------------
 
    // ENDF_MT(value)
-   Reaction &ENDF_MT(const Integer32 &obj)
-    { ENDF_MT() = obj; return *this; }
+   Reaction &ENDF_MT(const int &obj)
+      { ENDF_MT() = obj; return *this; }
 
    // fissionGenre(value)
-   Reaction &fissionGenre(const std::optional<XMLName> &obj)
-    { fissionGenre() = obj; return *this; }
+   Reaction &fissionGenre(const std::optional<std::string> &obj)
+      { fissionGenre() = obj; return *this; }
 
    // label(value)
-   Reaction &label(const XMLName &obj)
-    { label() = obj; return *this; }
+   Reaction &label(const std::string &obj)
+      { label() = obj; return *this; }
 
    // crossSection(value)
    Reaction &crossSection(const transport::CrossSection &obj)
-    { crossSection() = obj; return *this; }
+      { crossSection() = obj; return *this; }
 
    // ------------------------
    // Construction
@@ -193,9 +193,9 @@ public:
 
    // from fields
    explicit Reaction(
-      const Integer32 &ENDF_MT,
-      const std::optional<XMLName> &fissionGenre,
-      const XMLName &label,
+      const int &ENDF_MT,
+      const std::optional<std::string> &fissionGenre,
+      const std::string &label,
       const transport::CrossSection &crossSection
    ) :
       Component{

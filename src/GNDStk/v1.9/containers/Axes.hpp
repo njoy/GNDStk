@@ -50,7 +50,7 @@ class Axes : public Component<Axes> {
    {
       return
          // metadata
-         std::optional<UTF8Text>{}
+         std::optional<std::string>{}
             / Meta<>("href") |
          // children
          axis_grid_t{}
@@ -76,7 +76,7 @@ public:
 
    struct {
       // metadata
-      std::optional<UTF8Text> href;
+      std::optional<std::string> href;
       // children - variant
       std::vector<axis_grid_t> axis_grid;
    } content;
@@ -87,52 +87,52 @@ public:
    // ------------------------
 
    // href
-   const std::optional<UTF8Text> &href() const
-    { return content.href; }
-   std::optional<UTF8Text> &href()
-    { return content.href; }
+   const std::optional<std::string> &href() const
+      { return content.href; }
+   std::optional<std::string> &href()
+      { return content.href; }
 
    // axis_grid
    const std::vector<axis_grid_t> &axis_grid() const
-    { return content.axis_grid; }
+      { return content.axis_grid; }
    std::vector<axis_grid_t> &axis_grid()
-    { return content.axis_grid; }
+      { return content.axis_grid; }
 
    // axis_grid(index)
    const axis_grid_t &axis_grid(const std::size_t index) const
-    { return getter(axis_grid(), index, "axis_grid"); }
+      { return getter(axis_grid(), index, "axis_grid"); }
    axis_grid_t &axis_grid(const std::size_t index)
-    { return getter(axis_grid(), index, "axis_grid"); }
+      { return getter(axis_grid(), index, "axis_grid"); }
 
    // axis_grid(label)
    const axis_grid_t &axis_grid(const std::string &label) const
-    { return getter(axis_grid(), label, "axis_grid"); }
+      { return getter(axis_grid(), label, "axis_grid"); }
    axis_grid_t &axis_grid(const std::string &label)
-    { return getter(axis_grid(), label, "axis_grid"); }
+      { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
    const containers::Axis *axis(const std::size_t index) const
-    { return getter<containers::Axis>(axis_grid(), index, "axis"); }
+      { return getter<containers::Axis>(axis_grid(), index, "axis"); }
    containers::Axis *axis(const std::size_t index)
-    { return getter<containers::Axis>(axis_grid(), index, "axis"); }
+      { return getter<containers::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
    const containers::Axis *axis(const std::string &label) const
-    { return getter<containers::Axis>(axis_grid(), label, "axis"); }
+      { return getter<containers::Axis>(axis_grid(), label, "axis"); }
    containers::Axis *axis(const std::string &label)
-    { return getter<containers::Axis>(axis_grid(), label, "axis"); }
+      { return getter<containers::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
    const containers::Grid *grid(const std::size_t index) const
-    { return getter<containers::Grid>(axis_grid(), index, "grid"); }
+      { return getter<containers::Grid>(axis_grid(), index, "grid"); }
    containers::Grid *grid(const std::size_t index)
-    { return getter<containers::Grid>(axis_grid(), index, "grid"); }
+      { return getter<containers::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
    const containers::Grid *grid(const std::string &label) const
-    { return getter<containers::Grid>(axis_grid(), label, "grid"); }
+      { return getter<containers::Grid>(axis_grid(), label, "grid"); }
    containers::Grid *grid(const std::string &label)
-    { return getter<containers::Grid>(axis_grid(), label, "grid"); }
+      { return getter<containers::Grid>(axis_grid(), label, "grid"); }
 
    // ------------------------
    // Setters
@@ -141,12 +141,12 @@ public:
    // ------------------------
 
    // href(value)
-   Axes &href(const std::optional<UTF8Text> &obj)
-    { href() = obj; return *this; }
+   Axes &href(const std::optional<std::string> &obj)
+      { href() = obj; return *this; }
 
    // axis_grid(value)
    Axes &axis_grid(const std::vector<axis_grid_t> &obj)
-    { axis_grid() = obj; return *this; }
+      { axis_grid() = obj; return *this; }
 
    // axis_grid(index,value)
    Axes &axis_grid(
@@ -252,7 +252,7 @@ public:
 
    // from fields
    explicit Axes(
-      const std::optional<UTF8Text> &href,
+      const std::optional<std::string> &href,
       const std::vector<axis_grid_t> &axis_grid
    ) :
       Component{

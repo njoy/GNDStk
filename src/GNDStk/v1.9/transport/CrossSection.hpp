@@ -83,45 +83,45 @@ public:
 
    // XYs1d_regions1d
    const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d() const
-    { return content.XYs1d_regions1d; }
+      { return content.XYs1d_regions1d; }
    std::vector<XYs1d_regions1d_t> &XYs1d_regions1d()
-    { return content.XYs1d_regions1d; }
+      { return content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
    const XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t index) const
-    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+      { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
    XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t index)
-    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+      { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
    const XYs1d_regions1d_t &XYs1d_regions1d(const std::string &label) const
-    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+      { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
    XYs1d_regions1d_t &XYs1d_regions1d(const std::string &label)
-    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+      { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
    const containers::XYs1d *XYs1d(const std::size_t index) const
-    { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
+      { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
    containers::XYs1d *XYs1d(const std::size_t index)
-    { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
+      { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
 
    // XYs1d(label)
    const containers::XYs1d *XYs1d(const std::string &label) const
-    { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
+      { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
    containers::XYs1d *XYs1d(const std::string &label)
-    { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
+      { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
 
    // regions1d(index)
    const containers::Regions1d *regions1d(const std::size_t index) const
-    { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
+      { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
    containers::Regions1d *regions1d(const std::size_t index)
-    { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
+      { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
 
    // regions1d(label)
    const containers::Regions1d *regions1d(const std::string &label) const
-    { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+      { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
    containers::Regions1d *regions1d(const std::string &label)
-    { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+      { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
 
    // ------------------------
    // Setters
@@ -131,7 +131,7 @@ public:
 
    // XYs1d_regions1d(value)
    CrossSection &XYs1d_regions1d(const std::vector<XYs1d_regions1d_t> &obj)
-    { XYs1d_regions1d() = obj; return *this; }
+      { XYs1d_regions1d() = obj; return *this; }
 
    // XYs1d_regions1d(index,value)
    CrossSection &XYs1d_regions1d(

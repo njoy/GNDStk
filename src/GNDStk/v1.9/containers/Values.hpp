@@ -42,11 +42,11 @@ class Values : public Component<Values,true> {
    {
       return
          // metadata
-         std::optional<Integer32>{}
+         std::optional<int>{}
             / Meta<>("length") |
-         Defaulted<Integer32>{0}
+         Defaulted<int>{0}
             / Meta<>("start") |
-         Defaulted<UTF8Text>{"Float64"}
+         Defaulted<std::string>{"double"}
             / Meta<>("valueType")
       ;
    }
@@ -62,8 +62,8 @@ public:
    // ------------------------
 
    static inline const struct Defaults {
-      static inline const Integer32 start = 0;
-      static inline const UTF8Text valueType = "Float64";
+      static inline const int start = 0;
+      static inline const std::string valueType = "double";
    } defaults;
 
    // ------------------------
@@ -72,9 +72,9 @@ public:
 
    struct {
       // metadata
-      mutable std::optional<Integer32> length;
-      mutable Defaulted<Integer32> start{0};
-      mutable Defaulted<UTF8Text> valueType{"Float64"};
+      mutable std::optional<int> length;
+      mutable Defaulted<int> start{0};
+      mutable Defaulted<std::string> valueType{"double"};
    } content;
 
    // ------------------------
@@ -83,22 +83,22 @@ public:
    // ------------------------
 
    // length
-   const std::optional<Integer32> &length() const
-    { return content.length; }
-   std::optional<Integer32> &length()
-    { return content.length; }
+   const std::optional<int> &length() const
+      { return content.length; }
+   std::optional<int> &length()
+      { return content.length; }
 
    // start
-   const Defaulted<Integer32> &start() const
-    { return content.start; }
-   Defaulted<Integer32> &start()
-    { return content.start; }
+   const Defaulted<int> &start() const
+      { return content.start; }
+   Defaulted<int> &start()
+      { return content.start; }
 
    // valueType
-   const Defaulted<UTF8Text> &valueType() const
-    { return content.valueType; }
-   Defaulted<UTF8Text> &valueType()
-    { return content.valueType; }
+   const Defaulted<std::string> &valueType() const
+      { return content.valueType; }
+   Defaulted<std::string> &valueType()
+      { return content.valueType; }
 
    // ------------------------
    // Setters
@@ -107,20 +107,20 @@ public:
    // ------------------------
 
    // length(value)
-   Values &length(const std::optional<Integer32> &obj)
-    { BodyText::length(length() = obj); return *this; }
+   Values &length(const std::optional<int> &obj)
+      { BodyText::length(length() = obj); return *this; }
 
    // start(value)
-   Values &start(const Defaulted<Integer32> &obj)
-    { BodyText::start(content.start = obj); return *this; }
-   Values &start(const std::optional<Integer32> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+   Values &start(const Defaulted<int> &obj)
+      { BodyText::start(content.start = obj); return *this; }
+   Values &start(const std::optional<int> &obj)
+      { BodyText::start(content.start = obj); return *this; }
 
    // valueType(value)
-   Values &valueType(const Defaulted<UTF8Text> &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
-   Values &valueType(const std::optional<UTF8Text> &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+   Values &valueType(const Defaulted<std::string> &obj)
+      { BodyText::valueType(content.valueType = obj); return *this; }
+   Values &valueType(const std::optional<std::string> &obj)
+      { BodyText::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -179,9 +179,9 @@ public:
    // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Values(
-      const std::optional<Integer32> &length,
-      const std::optional<Integer32> &start,
-      const std::optional<UTF8Text> &valueType
+      const std::optional<int> &length,
+      const std::optional<int> &start,
+      const std::optional<std::string> &valueType
    ) :
       Component{
          BodyText{},
@@ -191,8 +191,8 @@ public:
       },
       content{
          length,
-         Defaulted<Integer32>(defaults.start,start),
-         Defaulted<UTF8Text>(defaults.valueType,valueType)
+         Defaulted<int>(defaults.start,start),
+         Defaulted<std::string>(defaults.valueType,valueType)
       }
    {
       Component::finish();

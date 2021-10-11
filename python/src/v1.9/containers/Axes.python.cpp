@@ -40,7 +40,7 @@ void wrapAxes(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<UTF8Text> &,
+            const std::optional<std::string> &,
             const std::vector<axis_grid_t> &
          >(),
          python::arg("href") = std::nullopt,

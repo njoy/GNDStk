@@ -36,12 +36,12 @@ void wrapReactionSuite(python::module &module)
    component
       .def(
          python::init<
-            const XMLName &,
-            const XMLName &,
+            const std::string &,
+            const std::string &,
             const std::optional<enums::Interaction> &,
-            const XMLName &,
+            const std::string &,
             const enums::Frame &,
-            const XMLName &,
+            const std::string &,
             const std::optional<transport::Reactions> &
          >(),
          python::arg("evaluation"),

@@ -40,11 +40,11 @@ void wrapGrid(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<Integer32> &,
+            const std::optional<int> &,
             const std::optional<enums::Interpolation> &,
-            const std::optional<XMLName> &,
+            const std::optional<std::string> &,
             const std::optional<enums::GridStyle> &,
-            const std::optional<XMLName> &,
+            const std::optional<std::string> &,
             const link_values_t &
          >(),
          python::arg("index") = std::nullopt,

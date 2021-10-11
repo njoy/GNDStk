@@ -5,7 +5,7 @@
         "metadata": {
             "href": {
                 "required": true,
-                "type": "UTF8Text"
+                "type": "string"
             }
         },
         "children": {}
@@ -15,7 +15,7 @@
         "metadata": {
             "index": {
                 "required": false,
-                "type": "Integer32"
+                "type": "int"
             },
             "interpolation": {
                 "default": "lin-lin",
@@ -24,11 +24,11 @@
             },
             "label": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             },
             "outerDomainValue": {
                 "required": false,
-                "type": "Float64"
+                "type": "double"
             }
         },
         "children": {
@@ -47,7 +47,7 @@
         "metadata": {
             "href": {
                 "required": false,
-                "type": "UTF8Text"
+                "type": "string"
             }
         },
         "children": {
@@ -68,15 +68,15 @@
         "metadata": {
             "index": {
                 "required": false,
-                "type": "Integer32"
+                "type": "int"
             },
             "label": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             },
             "unit": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             }
         },
         "children": {}
@@ -86,16 +86,16 @@
         "metadata": {
             "index": {
                 "required": false,
-                "type": "Integer32"
+                "type": "int"
             },
             "interpolation": {
-                "default": "\\attr{lin-lin}",
+                "default": "lin-lin",
                 "required": false,
                 "type": "interpolation"
             },
             "label": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             },
             "style": {
                 "required": false,
@@ -103,7 +103,7 @@
             },
             "unit": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             }
         },
         "children": {
@@ -123,21 +123,21 @@
     "values": {
         "metadata": {
             "valueType": {
-                "default": "Float64",
+                "default": "double",
                 "required": false,
-                "type": "UTF8Text"
+                "type": "string"
             },
             "start": {
                 "default": "0",
                 "required": false,
-                "type": "Integer32"
+                "type": "int"
             },
             "length": {
                 "required": false,
-                "type": "Integer32"
+                "type": "int"
             }
         },
-        "bodyText": "Contains a space-delimited ordered list of data for the parent node.",
+        "bodyText": "Contains a space-delimited block of data",
         "children": {}
     },
 
@@ -145,11 +145,11 @@
         "metadata": {
             "label": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             },
             "outerDomainValue": {
                 "required": false,
-                "type": "Float64"
+                "type": "double"
             }
         },
         "children": {

@@ -36,10 +36,10 @@ void wrapValues(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<Integer32> &,
-            const std::optional<Integer32> &,
-            const std::optional<UTF8Text> &,
-            const std::vector<Float64> &
+            const std::optional<int> &,
+            const std::optional<int> &,
+            const std::optional<std::string> &,
+            const std::vector<double> &
          >(),
          python::arg("length") = std::nullopt,
          python::arg("start") = std::nullopt,

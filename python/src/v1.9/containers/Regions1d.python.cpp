@@ -36,8 +36,8 @@ void wrapRegions1d(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<XMLName> &,
-            const std::optional<Float64> &,
+            const std::optional<std::string> &,
+            const std::optional<double> &,
             const std::vector<containers::XYs1d> &,
             const std::optional<containers::Axes> &
          >(),
