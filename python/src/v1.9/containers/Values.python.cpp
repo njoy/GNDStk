@@ -37,13 +37,13 @@ void wrapValues(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const Integer32 &,
-            const UTF8Text &,
+            const std::optional<Integer32> &,
+            const std::optional<UTF8Text> &,
             const std::vector<Float64> &
          >(),
          python::arg("length") = std::nullopt,
-         python::arg("start") = 0,
-         python::arg("value_type") = "Float64",
+         python::arg("start") = std::nullopt,
+         python::arg("value_type") = std::nullopt,
          python::arg("values"),
          Component::documentation("constructor").data()
       )
@@ -54,12 +54,12 @@ void wrapValues(python::module &module)
       )
       .def_property_readonly(
          "start",
-         &Component::start,
+         [] ( const Component& self ) { return self.start().value(); },
          Component::documentation("start").data()
       )
       .def_property_readonly(
          "value_type",
-         &Component::valueType,
+         [] ( const Component& self ) { return self.valueType().value(); },
          Component::documentation("value_type").data()
       )
       .def_property_readonly(

@@ -42,8 +42,8 @@ public:
              typename = std::enable_if_t<
                 detail::isAlternative< T, VariantOfScalars > > >
   Values( const std::optional< Integer32 >& length,
-          const Integer32& start,
-          const UTF8Text& valueType,
+          const std::optional< Integer32 >& start,
+          const std::optional< UTF8Text >& valueType,
           const std::vector< T >& values ) :
       Component{
          BodyText{},

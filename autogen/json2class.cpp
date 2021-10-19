@@ -1839,8 +1839,15 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    cpp << "         python::init<";
    count = 0;
    for (auto &m : minfo) {
-      cpp << (count++ ? "," : "") << "\n            "
-          << "const " << (m.isDefaulted ? m.varType : m.fullVarType) << " &";
+      cpp << (count++ ? "," : "") << "\n            ";
+      if (m.isDefaulted) {
+
+        cpp << "const std::optional<" << m.varType << "> &";
+      }
+      else {
+
+        cpp << "const " << m.fullVarType << " &";;
+      }
    }
    for (auto &c : cinfo) {
       if (!c.isChoice) {
@@ -1858,7 +1865,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    for (auto &m : minfo) {
       cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
       if (m.isDefaulted) {
-         cpp << " = " << m.theDefault;
+         cpp << " = std::nullopt";
       } else if (m.isOptional) {
          cpp << " = std::nullopt";
       }
@@ -1884,7 +1891,15 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       const auto pythonname = toPythonName(m.varName);
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << pythonname << "\",\n";
-      cpp << "         &Component::" << m.varName << ",\n";
+      if (m.isDefaulted) {
+
+         cpp << "         [] ( const Component& self ) { return self." 
+             << m.varName << "().value(); },\n";
+      }
+      else {
+
+         cpp << "         &Component::" << m.varName << ",\n";
+      }
       cpp << "         Component::documentation(\"" << pythonname << "\").data()\n";
       cpp << "      )\n";
    }
