@@ -117,7 +117,7 @@ inline constexpr bool hasLabel     = has_label    <std::decay_t<T>>::value;
 // -----------------------------------------------------------------------------
 
 // todo: Determine if GNDStk's convert() functions can handle all possible
-// cases here, or could be extended to be.
+// cases here, or could be extended to do so.
 
 // arithmetic ==> string
 template<class T, class = std::enable_if_t<!std::is_same_v<T,std::string>>>

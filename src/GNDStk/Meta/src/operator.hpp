@@ -121,7 +121,7 @@ inline Meta<
 // Meta<void>/C
 template<class TYPE, class C>
 inline Meta<
-   typename detail::isVoid<TYPE>::type // require void, but...
+   typename detail::is_void<TYPE>::type // require void, but...
 > operator/(
    const Meta<TYPE> &kwd,
    const C &

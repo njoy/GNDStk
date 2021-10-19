@@ -4,7 +4,7 @@ Node node(DERIVED::GNDSName());
 
 // 2. Body text, if applicable
 if constexpr (hasBodyText) {
-   // GNDStk uses a "text" metadatum of a "pcdata" child for this
+   // GNDStk uses a "text" metadatum of a "pcdata" child node for this
    std::string &text = node.add("pcdata").add("text","").second;
    // Note: the following call might compute length, start, and valueType;
    // so we need all of this before the upcoming writing of fields.

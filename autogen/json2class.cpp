@@ -41,22 +41,22 @@ bool command_line(const int argc, const char *const *const argv)
 
    nlohmann::json jdoc;
    ifs >> jdoc;
-   if (!(jdoc.contains("input") &&
+   if (!(jdoc.contains("inputJSON") &&
          jdoc.contains("files") &&
-         jdoc.contains("output") &&
+         jdoc.contains("outputBase") &&
          jdoc.contains("version"))) {
       log::error("Input json file needs \"input\", \"files\", "
                  "\"output\", and \"version\" ");
       return false;
    }
 
-   const std::string input = jdoc["input"];
-   ::InputJSONFiles = std::vector<std::string>(jdoc["files"]);
+   const std::string input = jdoc["inputJSON"];
+   InputJSONFiles = std::vector<std::string>(jdoc["files"]);
    for (auto &file : InputJSONFiles)
       file = input + '/' + file;
-   ::GNDSDir = jdoc["output"];
-   ::Version = jdoc["version"];
-   ::HPPforVersion = ::GNDSDir + "/src/GNDStk/" + ::Version + ".hpp";
+   GNDSDir = jdoc["outputBase"];
+   Version = jdoc["version"];
+   HPPforVersion = GNDSDir + "/src/GNDStk/" + Version + ".hpp";
 
    return true;
 }
@@ -292,7 +292,7 @@ void printDepVec(
 // check_class
 void check_class(
    const std::string &key, const nlohmann::json &value,
-   bool &hasBodyText
+   bool &hasBodyText, bool &hasData, std::string &dataType
 ) {
    if (debugging)
       std::cout << "Key: " << key << std::endl;
@@ -300,6 +300,10 @@ void check_class(
    assert(value.contains("attributes"));
    assert(value.contains("childNodes"));
    hasBodyText = value.contains("bodyText") && !value["bodyText"].is_null();
+   hasData     = value.contains("data"    ) && !value["data"    ].is_null();
+   assert(!(hasBodyText && hasData)); // shouldn't have both
+   if (hasData)
+      dataType = value["data"];
 }
 
 // check_metadata
@@ -347,45 +351,14 @@ void write_file_autogen(std::ostream &os)
    os << "\n// DO NOT MODIFY!\n";
 }
 
-void write_file_prefix(std::ostream &os)
-{
-   // GNDStk
-   os << "\n";
-   os << "#include \"GNDStk.hpp\"\n";
-   os << "using namespace njoy::GNDStk::core;\n";
-   os << "\n";
-
-   // namespace begin
-   os << "namespace " + replace(Version,'.','_') + " {\n\n\n";
-}
-
-void write_file_suffix(std::ostream &os)
-{
-   // namespace end
-   os << "\n";
-   os << "} // namespace " + replace(Version,'.','_');
-   os << "\n";
-
-   // main
-   os << "\n\n\n";
-   os << large << "\n";
-   os << "// main\n";
-   os << large << "\n";
-   os << "\n";
-   os << "int main()\n";
-   os << "{\n";
-   os << "}\n";
-}
-
-
 // ------------------------
-// re: class
+// re: classes
 // ------------------------
 
 void write_class_prefix(
    std::ostream &os,
    const std::string &file_namespace, const std::string &clname,
-   const bool hasBodyText
+   const bool hasBodyText, const bool hasData, const std::string &dataType
 ) {
    // comment introducing class
    os << "\n\n\n"
@@ -396,9 +369,14 @@ void write_class_prefix(
       << "\n";
 
    // namespace + class begin
-   os << "namespace " << file_namespace << " {\n\n"
-      << "class " << clname << " : public Component<"
-      << clname << (hasBodyText ? ",true" : "" /* default false */) << "> {\n";
+   os << "namespace " << file_namespace << " {\n\n";
+   os << "class " << clname << " : public Component<";
+   os << clname;
+   if (hasBodyText)
+      os << ",true";
+   else if (hasData)
+      os << ",true," << dataType;
+   os << "> {\n";
 }
 
 void write_class_suffix(
@@ -495,7 +473,7 @@ void compute_metadata(
    std::ostream &ossm, // in caller, this is a temporary ostringstream
    const nlohmann::json &attrs,
    std::vector<infoMetadata> &vecInfoMetadata, // output
-   const bool hasBodyText
+   const bool hasBodyText, const bool hasData
 ) {
    // here, we're within the public struct for raw GNDS content
    ossm << "\n      // metadata\n";
@@ -551,7 +529,7 @@ void compute_metadata(
       const std::string varName = fieldName(field.key(),field.value());
 
       // write
-      hasBodyText &&
+      (hasBodyText || hasData) &&
          (varName == "length" || varName == "start" || varName == "valueType")
        ? ossm << "      mutable " << fullVarType << " " << varName
        : ossm << "      " << fullVarType << " " << varName;
@@ -994,7 +972,7 @@ void write_setters(
    std::ostream &os,
    const std::vector<infoMetadata> &vecInfoMetadata,
    const std::vector<infoChildren> &vecInfoChildren,
-   const bool hasBodyText,
+   const bool hasBodyText, const bool hasData,
    const std::string &clname
 ) {
    os << "\n   " << small;
@@ -1017,7 +995,7 @@ void write_setters(
 
       // special cases: we want to send length, start, and valueType
       // down to the BodyText base as well
-      const bool special = hasBodyText && (
+      const bool special = (hasBodyText || hasData) && (
          m.varName == "length" ||
          m.varName == "start" ||
          m.varName == "valueType"
@@ -1341,7 +1319,6 @@ std::map<std::pair<std::string,std::string>,CLFile> class2files;
 
 // make_forward
 void make_forward(
-   std::ostream &os,
    const std::string &file_namespace, // value of "namespace" in the file
    const std::string &key, const nlohmann::json &value,
    std::multimap<std::string,std::string> &class2nspace
@@ -1351,9 +1328,6 @@ void make_forward(
 
    // class name
    const std::string clname = className(key,value);
-
-   // forward declaration
-   os << "namespace " << file_namespace << " { class " << clname << "; }\n";
 
    // for later use: map class to namespace(s) in which it's found
    class2nspace.insert(std::make_pair(clname,file_namespace));
@@ -1459,13 +1433,16 @@ std::map<
    >
 > class2info;
 
-// Keep track of whether or not the class has BodyText
+// Keep track of whether or not the class has BodyText or data
 std::map<
    std::pair<
       std::string, // namespace::
       std::string  // class
    >,
-   bool // has BodyText?
+   std::pair<
+      bool, // has BodyText or data?
+      std::string // data type, if data
+   >
 > class2bodytext;
 
 
@@ -1486,7 +1463,9 @@ void make_class(
    if (debugging)
       std::cout << "Class: " << clname << std::endl;
    bool hasBodyText = false;
-   check_class(keyvalue.key(), keyvalue.value(), hasBodyText);
+   bool hasData = false;
+   std::string dataType;
+   check_class(keyvalue.key(),keyvalue.value(),hasBodyText,hasData,dataType);
 
    // re: ordering
    // Save current namespace-qualified class name; we'll then add dependencies
@@ -1496,7 +1475,7 @@ void make_class(
 
    // output: class begin
    std::ostringstream oss;
-   write_class_prefix(oss, file_namespace, clname, hasBodyText);
+   write_class_prefix(oss,file_namespace,clname,hasBodyText,hasData,dataType);
    const auto attrs = value["attributes"]; check_metadata(attrs);
    const auto elems = value["childNodes"]; check_children(elems);
 
@@ -1504,7 +1483,7 @@ void make_class(
    std::vector<infoMetadata> vecInfoMetadata;
    std::ostringstream ossm;
    if (attrs.size() != 0)
-      compute_metadata(ossm, attrs, vecInfoMetadata, hasBodyText);
+      compute_metadata(ossm, attrs, vecInfoMetadata, hasBodyText, hasData);
 
    // children
    std::vector<infoChildren> vecInfoChildren;
@@ -1522,8 +1501,8 @@ void make_class(
    );
    class2bodytext.insert(
       std::make_pair(
-         std::make_pair(file_namespace,clname),
-         hasBodyText
+         std::make_pair(file_namespace, clname),
+         std::make_pair(hasBodyText || hasData, dataType)
       )
    );
 
@@ -1566,7 +1545,8 @@ void make_class(
    // output: getters, setters
    if (vecInfoMetadata.size() || vecInfoChildren.size()) {
       write_getters(oss, vecInfoMetadata, vecInfoChildren);
-      write_setters(oss, vecInfoMetadata, vecInfoChildren, hasBodyText, clname);
+      write_setters(oss, vecInfoMetadata, vecInfoChildren,
+                    hasBodyText, hasData, clname);
    }
 
    // output: constructors
@@ -1790,24 +1770,40 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
    // compute some things with respect to "body text"
    const auto body = class2bodytext.find(obj.name);
    assert(body != class2bodytext.end());
-   const bool hasBodyText = body->second; // this class has it?
+   const bool hasBodyTextOrData = body->second.first; // this class has it?
+   const std::string dataType = body->second.second;
 
    std::string bodyType = "unknownType";
    std::string bodyName = "unknownName";
-   if (hasBodyText) {
-      for (auto &m : minfo) {
-         if (m.varName == "valueType") {
-            if (m.theDefault == "\"Integer32\"") {
-               bodyType = "Integer32";
-               bodyName = "ints";
-            }
-            if (m.theDefault == "\"Float64\"") {
-               bodyType = "Float64";
-               bodyName = "doubles";
-            }
-            if (m.theDefault == "\"UTF8Text\"") {
-               bodyType = "UTF8Text";
-               bodyName = "strings";
+   if (hasBodyTextOrData) {
+      if (dataType != "") {
+         if (dataType == "Integer32") {
+            bodyType = "Integer32";
+            bodyName = "ints";
+         }
+         if (dataType == "Float64") {
+            bodyType = "Float64";
+            bodyName = "doubles";
+         }
+         if (dataType == "UTF8Text") {
+            bodyType = "UTF8Text";
+            bodyName = "strings";
+         }
+      } else {
+         for (auto &m : minfo) {
+            if (m.varName == "valueType") {
+               if (m.theDefault == "\"Integer32\"") {
+                  bodyType = "Integer32";
+                  bodyName = "ints";
+               }
+               if (m.theDefault == "\"Float64\"") {
+                  bodyType = "Float64";
+                  bodyName = "doubles";
+               }
+               if (m.theDefault == "\"UTF8Text\"") {
+                  bodyType = "UTF8Text";
+                  bodyName = "strings";
+               }
             }
          }
       }
@@ -1835,7 +1831,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
              << "const " << c.fullVarType << " &";
       }
    }
-   if (hasBodyText) {
+   if (hasBodyTextOrData) {
       cpp << (count++ ? "," : "") << "\n            ";
       cpp << "const std::vector<" << bodyType << "> &";
    }
@@ -1860,7 +1856,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
          cpp << ",\n";
       }
    }
-   if (hasBodyText) {
+   if (hasBodyTextOrData) {
       cpp << "         python::arg(\"values\"),\n";
    }
    cpp << "         Component::documentation(\"constructor\").data()\n";
@@ -1894,7 +1890,7 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       }
    }
 
-   if (hasBodyText) {
+   if (hasBodyTextOrData) {
       cpp << "      .def_property_readonly(\n";
       cpp << "         \"" << bodyName << "\",\n";
       cpp << "         [] (const Component &self) "
@@ -2085,14 +2081,6 @@ int main(const int argc, const char *const *const argv)
    // For diagnostics
    color = true;
 
-   // Output file begin
-   std::ofstream ofs("out.cc");
-   write_file_autogen(ofs);
-   write_file_prefix(ofs);
-   ofs << "\n" << large << "\n";
-   ofs << "// Forward declarations";
-   ofs << "\n" << large << "\n";
-
    // Scan files to make forward declarations, because some classes forward-
    // reference others. And, it's also convenient to have a list of all classes
    // at the beginning of the file. Also, compute class/namespace associations.
@@ -2102,10 +2090,9 @@ int main(const int argc, const char *const *const argv)
    std::cout << "Preprocessing..." << std::endl;
    for (const auto &file : InputJSONFiles) {
       const nlohmann::json jdoc = read(file,true);
-      ofs << "\n";
       const std::string nsname = get_namespace(jdoc);
       for (const auto &item : jdoc.items()) {
-         make_forward(ofs, nsname, item.key(), item.value(), class2nspace);
+         make_forward(nsname, item.key(), item.value(), class2nspace);
       }
    }
    std::ofstream ver(HPPforVersion, std::ofstream::app);
@@ -2142,11 +2129,7 @@ int main(const int argc, const char *const *const argv)
    for (auto &obj : sortedClassDependencies) {
       const auto code = classCodeMap.find(obj.name);
       assert(code != classCodeMap.end());
-      ofs << code->second;
    }
-
-   // Output file end
-   write_file_suffix(ofs);
 
    // Individual files
    for (auto &obj : sortedClassDependencies) {

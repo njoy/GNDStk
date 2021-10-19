@@ -1,6 +1,6 @@
 
 // Forward declaration, needed by some things later
-template<class DERIVED, bool hasBodyText = false>
+template<class DERIVED, bool hasBodyText = false, class DATA = void>
 class Component;
 
 
@@ -247,6 +247,25 @@ inline bool writeComponentPart(
 
 
 // ------------------------
+// helpers
+// ------------------------
+
+// Adapted from an answer here:
+// https://stackoverflow.com/questions/34672441
+
+// is_base_of_Component
+template<class T>
+class is_base_of_Component {
+   template<class A, bool B, class C>
+   static constexpr std::true_type test(Component<A,B,C> *);
+   static constexpr std::false_type test(...);
+   using type = decltype(test(std::declval<T *>()));
+public:
+   static constexpr bool value = type::value;
+};
+
+
+// ------------------------
 // for T
 // ------------------------
 
@@ -257,12 +276,11 @@ bool writeComponentPart(
    const std::string &label, const std::size_t maxlen,
    const std::string &color
 ) {
-   if constexpr (
-      std::is_base_of_v<Component<T,false>,T> ||
-      std::is_base_of_v<Component<T,true >,T>
-   ) {
+   if constexpr (is_base_of_Component<T>::value) {
+      // T is derived from Component, and thus inherits a write()
       value.write(os,level);
    } else {
+      // T is any old type, not derived from Component
       if constexpr (std::is_floating_point_v<T>) {
          writeComponentPart(
             os, level,

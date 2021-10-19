@@ -35,7 +35,7 @@ template<
    class FILTER = detail::noFilter
 >
 static Child<
-   typename detail::isVoid<TYPE>::type, // ensure TYPE == void
+   typename detail::is_void<TYPE>::type, // ensure TYPE == void
    ALLOW,
    void,
    FILTER
