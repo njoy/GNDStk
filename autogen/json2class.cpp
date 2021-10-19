@@ -237,16 +237,18 @@ std::string escape(const std::string &str)
 // for initialization, as with: m.type var{return value of this function}
 std::string initializer(const InfoMetadata &m)
 {
-   // Leave an empty (or all-whitespace) m.defaultValue as-is;
-   // this is the "no initializer" case
+   // Leave an empty or all-whitespace m.defaultValue as-is.
+   // This is the "no initializer" case.
    if (allws(m.defaultValue))
       return "";
 
-   // If of string type, add double quotes;
-   // we assume that the input does NOT have those already!
-   if (m.type == "std::string" ||
-       m.type == "UTF8Text" ||
-       m.type == "XMLName")
+   // If of string type, add double quotes.
+   // We assume that the input does NOT have the quotes already!
+   // Note: we may not need all of these, but the GNDS manual does describe
+   // several string-like types, so we might as well include them.
+   if (m.type == "XMLName" || m.type == "UTF8Text" ||
+       m.type == "printableText" || m.type == "quotedText" ||
+       m.type == "tdText" || m.type == "string" || m.type == "std::string")
       return '"' + escape(m.defaultValue) + '"';
 
    // Leave as-is;
@@ -2127,23 +2129,33 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    writer out(per.cppPython);
 
    static const std::map<std::string,std::pair<std::string,std::string>> map = {
+      // ----------------------   -----------            -----------------
       // In per.dataType or       The                    A name to use
       // in per.metadata's        appropriate            for the function
       // valueType defaultValue   C++ type               that returns them
+      // ----------------------   -----------            -----------------
 
-      // Described in the GNDS manual
+      // Described in the GNDS manual.
+      // I'm not sure which of the several types that map to std::string can,
+      // or would, appear in any GNDS specifications in such a way that we'd
+      // need it here, but listing all "string-like" types shouldn't hurt.
       { "Integer32"          , { "int"                , "ints"        } },
+      { "UInteger32"         , { "unsigned"           , "uints"       } },
       { "Float64"            , { "double"             , "doubles"     } },
       { "XMLName"            , { "std::string"        , "strings"     } },
       { "UTF8Text"           , { "std::string"        , "strings"     } },
+      { "printableText"      , { "std::string"        , "strings"     } },
+      { "quotedText"         , { "std::string"        , "strings"     } },
+      { "tdText"             , { "std::string"        , "strings"     } },
 
-      // Our versions of the above
+      // Our versions of the above.
       { "int"                , { "int"                , "ints"        } },
+      { "unsigned"           , { "unsigned"           , "uints"       } },
       { "double"             , { "double"             , "doubles"     } },
       { "string"             , { "std::string"        , "strings"     } },
       { "std::string"        , { "std::string"        , "strings"     } },
 
-      // Allow other sensible things
+      // Allow other sensible things.
       { "char"               , { "char"               , "chars"       } },
       { "signed char"        , { "signed char"        , "schars"      } },
       { "short"              , { "short"              , "shorts"      } },
@@ -2151,7 +2163,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       { "long long"          , { "long long"          , "longlongs"   } },
       { "unsigned char"      , { "unsigned char"      , "uchars"      } },
       { "unsigned short"     , { "unsigned short"     , "ushorts"     } },
-      { "unsigned int"       , { "unsigned int"       , "uints"       } },
+      { "unsigned int"       , { "unsigned"           , "uints"       } },
       { "unsigned long"      , { "unsigned long"      , "ulongs"      } },
       { "unsigned long long" , { "unsigned long long" , "ulonglongs"  } },
       { "float"              , { "float"              , "floats"      } },

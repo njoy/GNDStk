@@ -67,34 +67,34 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
          }
       }
 
-      // Assign from vector<Integer32>; should set valueType
-      WHEN("We assign from a vector<Integer32>") {
+      // Assign from vector<int>; should set valueType
+      WHEN("We assign from a vector<int>") {
          THEN("valueType is set correctly") {
             BodyText<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
 
-            b = std::vector<Integer32>{{10,20,30}};
+            b = std::vector<int>{{10,20,30}};
             CHECK(b.valueType() == "Integer32");
          }
       }
 
-      // Assign from vector<Float64>; should set valueType
-      WHEN("We assign from a vector<Float64>") {
+      // Assign from vector<double>; should set valueType
+      WHEN("We assign from a vector<double>") {
          THEN("valueType is set correctly") {
             BodyText<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
 
-            b = std::vector<Float64>{{1.23,4.56,7.89}};
+            b = std::vector<double>{{1.23,4.56,7.89}};
             CHECK(b.valueType() == "Float64");
          }
       }
 
-      // For now, non-{Integer32,Float64} sets valueType == ""
-      WHEN("We assign from a vector<non-{Integer32,Float64}>") {
+      // For now, non-{int,double} sets valueType == ""
+      WHEN("We assign from a vector<non-{int,double}>") {
          THEN("valueType is set correctly") {
             BodyText<true,void> b;
 
@@ -102,7 +102,7 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
             CHECK(b.valueType() == "unknown");
 
             b = std::vector<char>{'a','b','c'};
-            CHECK(b.valueType() == "");
+            CHECK(b.valueType() == "char");
          }
       }
 
@@ -172,34 +172,34 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
          }
       }
 
-      // Assign from vector<Integer32>; should set valueType
-      WHEN("We assign from a vector<Integer32>") {
+      // Assign from vector<int>; should set valueType
+      WHEN("We assign from a vector<int>") {
          THEN("valueType is set correctly") {
-            BodyText<true,Integer32> b;
+            BodyText<true,int> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
 
-            b = std::vector<Integer32>{{10,20,30}};
+            b = std::vector<int>{{10,20,30}};
             CHECK(b.valueType() == "Integer32");
          }
       }
 
-      // Assign from vector<Float64>; should set valueType
-      WHEN("We assign from a vector<Float64>") {
+      // Assign from vector<double>; should set valueType
+      WHEN("We assign from a vector<double>") {
          THEN("valueType is set correctly") {
-            BodyText<true,Float64> b;
+            BodyText<true,double> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
 
-            b = std::vector<Float64>{{1.23,4.56,7.89}};
+            b = std::vector<double>{{1.23,4.56,7.89}};
             CHECK(b.valueType() == "Float64");
          }
       }
 
-      // For now, non-{Integer32,Float64} sets valueType == ""
-      WHEN("We assign from a vector<non-{Integer32,Float64}>") {
+      // For now, non-{int,double} sets valueType == ""
+      WHEN("We assign from a vector<non-{int,double}>") {
          THEN("valueType is set correctly") {
             BodyText<true,char> b;
 
@@ -207,7 +207,7 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
             CHECK(b.valueType() == "unknown");
 
             b = std::vector<char>{'a','b','c'};
-            CHECK(b.valueType() == "");
+            CHECK(b.valueType() == "char");
          }
       }
 

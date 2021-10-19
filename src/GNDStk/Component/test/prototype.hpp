@@ -119,11 +119,11 @@ class Values : public Component<Values,true> {
    {
       return
          // metadata
-         std::optional<Integer32>{}
+         std::optional<int>{}
             / Meta<>("length") |
-         Defaulted<Integer32>{0}
+         Defaulted<int>{0}
             / Meta<>("start") |
-         Defaulted<UTF8Text>{"Float64"}
+         Defaulted<std::string>{"double"}
             / Meta<>("valueType")
       ;
    }
@@ -138,8 +138,8 @@ public:
    // ------------------------
 
    static const struct {
-      const Integer32 start{0};
-      const UTF8Text valueType{"Float64"};
+      const int start{0};
+      const std::string valueType{"double"};
    } defaults;
 
    // ------------------------
@@ -148,9 +148,9 @@ public:
 
    struct {
       // metadata
-      mutable std::optional<Integer32> length;
-      mutable Defaulted<Integer32> start{0};
-      mutable Defaulted<UTF8Text> valueType{"Float64"};
+      mutable std::optional<int> length;
+      mutable Defaulted<int> start{0};
+      mutable Defaulted<std::string> valueType{"double"};
    } content;
 
    // ------------------------
@@ -183,19 +183,19 @@ public:
    // ------------------------
 
    // length(value)
-   auto &length(const std::optional<Integer32> &obj)
+   auto &length(const std::optional<int> &obj)
     { BodyText::length(length() = obj); return *this; }
 
    // start(value)
-   auto &start(const Defaulted<Integer32> &obj)
+   auto &start(const Defaulted<int> &obj)
     { BodyText::start(content.start = obj); return *this; }
-   auto &start(const Integer32 &obj)
+   auto &start(const int &obj)
     { BodyText::start(content.start = obj); return *this; }
 
    // valueType(value)
-   auto &valueType(const Defaulted<UTF8Text> &obj)
+   auto &valueType(const Defaulted<std::string> &obj)
     { BodyText::valueType(content.valueType = obj); return *this; }
-   auto &valueType(const UTF8Text &obj)
+   auto &valueType(const std::string &obj)
     { BodyText::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
@@ -254,9 +254,9 @@ public:
 
    // from fields
    explicit Values(
-      const std::optional<Integer32> &length,
-      const Defaulted<Integer32> &start,
-      const Defaulted<UTF8Text> &valueType
+      const std::optional<int> &length,
+      const Defaulted<int> &start,
+      const Defaulted<std::string> &valueType
    ) :
       Component{
          BodyText{},
@@ -275,9 +275,9 @@ public:
 
    // from fields, with T replacing Defaulted<T>
    explicit Values(
-      const std::optional<Integer32> &length,
-      const Integer32 &start,
-      const UTF8Text &valueType
+      const std::optional<int> &length,
+      const int &start,
+      const std::string &valueType
    ) :
       Component{
          BodyText{},
@@ -288,11 +288,11 @@ public:
       content{
          length,
          start == 0
-            ? Defaulted<Integer32>{0}
-            : Defaulted<Integer32>{0,start},
-         valueType == "Float64"
-            ? Defaulted<UTF8Text>{"Float64"}
-            : Defaulted<UTF8Text>{"Float64",valueType}
+            ? Defaulted<int>{0}
+            : Defaulted<int>{0,start},
+         valueType == "double"
+            ? Defaulted<std::string>{"double"}
+            : Defaulted<std::string>{"double",valueType}
       }
    {
       Component::finish();
@@ -334,7 +334,7 @@ class Link : public Component<Link> {
    {
       return
          // metadata
-         UTF8Text{}
+         std::string{}
             / Meta<>("href")
       ;
    }
@@ -357,7 +357,7 @@ public:
 
    struct {
       // metadata
-      UTF8Text href;
+      std::string href;
    } content;
 
    // ------------------------
@@ -378,7 +378,7 @@ public:
    // ------------------------
 
    // href(value)
-   auto &href(const UTF8Text &obj)
+   auto &href(const std::string &obj)
     { href() = obj; return *this; }
 
    // ------------------------
@@ -429,7 +429,7 @@ public:
 
    // from fields
    explicit Link(
-      const UTF8Text &href
+      const std::string &href
    ) :
       Component{
          BodyText{},
@@ -483,15 +483,15 @@ class Grid : public Component<Grid> {
    {
       return
          // metadata
-         std::optional<Integer32>{}
+         std::optional<int>{}
             / Meta<>("index") |
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
             / Meta<>("interpolation") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("label") |
          std::optional<enums::GridStyle>{}
             / Meta<>("style") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("unit") |
          // children
          LINK_VALUES{}
@@ -518,11 +518,11 @@ public:
 
    struct {
       // metadata
-      std::optional<Integer32> index;
+      std::optional<int> index;
       Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
-      std::optional<XMLName> label;
+      std::optional<std::string> label;
       std::optional<enums::GridStyle> style;
-      std::optional<XMLName> unit;
+      std::optional<std::string> unit;
 
       // children
       LINK_VALUES link_values;
@@ -588,7 +588,7 @@ public:
    // ------------------------
 
    // index(value)
-   auto &index(const std::optional<Integer32> &obj)
+   auto &index(const std::optional<int> &obj)
     { index() = obj; return *this; }
 
    // interpolation(value)
@@ -598,7 +598,7 @@ public:
     { content.interpolation = obj; return *this; }
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   auto &label(const std::optional<std::string> &obj)
     { label() = obj; return *this; }
 
    // style(value)
@@ -606,7 +606,7 @@ public:
     { style() = obj; return *this; }
 
    // unit(value)
-   auto &unit(const std::optional<XMLName> &obj)
+   auto &unit(const std::optional<std::string> &obj)
     { unit() = obj; return *this; }
 
    // link_values(value)
@@ -689,11 +689,11 @@ public:
 
    // from fields
    explicit Grid(
-      const std::optional<Integer32> &index,
+      const std::optional<int> &index,
       const Defaulted<enums::Interpolation> &interpolation,
-      const std::optional<XMLName> &label,
+      const std::optional<std::string> &label,
       const std::optional<enums::GridStyle> &style,
-      const std::optional<XMLName> &unit,
+      const std::optional<std::string> &unit,
       const LINK_VALUES &link_values
    ) :
       Component{
@@ -719,11 +719,11 @@ public:
 
    // from fields, with T replacing Defaulted<T>
    explicit Grid(
-      const std::optional<Integer32> &index,
+      const std::optional<int> &index,
       const enums::Interpolation &interpolation,
-      const std::optional<XMLName> &label,
+      const std::optional<std::string> &label,
       const std::optional<enums::GridStyle> &style,
-      const std::optional<XMLName> &unit,
+      const std::optional<std::string> &unit,
       const LINK_VALUES &link_values
    ) :
       Component{
@@ -785,11 +785,11 @@ class Axis : public Component<Axis> {
    {
       return
          // metadata
-         std::optional<Integer32>{}
+         std::optional<int>{}
             / Meta<>("index") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("label") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("unit")
       ;
    }
@@ -812,9 +812,9 @@ public:
 
    struct {
       // metadata
-      std::optional<Integer32> index;
-      std::optional<XMLName> label;
-      std::optional<XMLName> unit;
+      std::optional<int> index;
+      std::optional<std::string> label;
+      std::optional<std::string> unit;
    } content;
 
    // ------------------------
@@ -847,15 +847,15 @@ public:
    // ------------------------
 
    // index(value)
-   auto &index(const std::optional<Integer32> &obj)
+   auto &index(const std::optional<int> &obj)
     { index() = obj; return *this; }
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   auto &label(const std::optional<std::string> &obj)
     { label() = obj; return *this; }
 
    // unit(value)
-   auto &unit(const std::optional<XMLName> &obj)
+   auto &unit(const std::optional<std::string> &obj)
     { unit() = obj; return *this; }
 
    // ------------------------
@@ -914,9 +914,9 @@ public:
 
    // from fields
    explicit Axis(
-      const std::optional<Integer32> &index,
-      const std::optional<XMLName> &label,
-      const std::optional<XMLName> &unit
+      const std::optional<int> &index,
+      const std::optional<std::string> &label,
+      const std::optional<std::string> &unit
    ) :
       Component{
          BodyText{},
@@ -974,7 +974,7 @@ class Axes : public Component<Axes> {
    {
       return
          // metadata
-         std::optional<UTF8Text>{}
+         std::optional<std::string>{}
             / Meta<>("href") |
          // children
          AXIS_GRID{}
@@ -1000,7 +1000,7 @@ public:
 
    struct {
       // metadata
-      std::optional<UTF8Text> href;
+      std::optional<std::string> href;
 
       // children
       std::vector<AXIS_GRID> axis_grid;
@@ -1066,7 +1066,7 @@ public:
    // ------------------------
 
    // href(value)
-   auto &href(const std::optional<UTF8Text> &obj)
+   auto &href(const std::optional<std::string> &obj)
     { href() = obj; return *this; }
 
    // axis_grid(value)
@@ -1177,7 +1177,7 @@ public:
 
    // from fields
    explicit Axes(
-      const std::optional<UTF8Text> &href,
+      const std::optional<std::string> &href,
       const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
@@ -1229,13 +1229,13 @@ class XYs1d : public Component<XYs1d> {
    {
       return
          // metadata
-         std::optional<Integer32>{}
+         std::optional<int>{}
             / Meta<>("index") |
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
             / Meta<>("interpolation") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("label") |
-         std::optional<Float64>{}
+         std::optional<double>{}
             / Meta<>("outerDomainValue") |
          // children
          std::optional<proto::Axes>{}
@@ -1264,10 +1264,10 @@ public:
 
    struct {
       // metadata
-      std::optional<Integer32> index;
+      std::optional<int> index;
       Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
-      std::optional<XMLName> label;
-      std::optional<Float64> outerDomainValue;
+      std::optional<std::string> label;
+      std::optional<double> outerDomainValue;
 
       // children
       std::optional<proto::Axes> axes;
@@ -1322,7 +1322,7 @@ public:
    // ------------------------
 
    // index(value)
-   auto &index(const std::optional<Integer32> &obj)
+   auto &index(const std::optional<int> &obj)
     { index() = obj; return *this; }
 
    // interpolation(value)
@@ -1332,11 +1332,11 @@ public:
     { content.interpolation = obj; return *this; }
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   auto &label(const std::optional<std::string> &obj)
     { label() = obj; return *this; }
 
    // outerDomainValue(value)
-   auto &outerDomainValue(const std::optional<Float64> &obj)
+   auto &outerDomainValue(const std::optional<double> &obj)
     { outerDomainValue() = obj; return *this; }
 
    // axes(value)
@@ -1415,10 +1415,10 @@ public:
 
    // from fields
    explicit XYs1d(
-      const std::optional<Integer32> &index,
+      const std::optional<int> &index,
       const Defaulted<enums::Interpolation> &interpolation,
-      const std::optional<XMLName> &label,
-      const std::optional<Float64> &outerDomainValue,
+      const std::optional<std::string> &label,
+      const std::optional<double> &outerDomainValue,
       const std::optional<proto::Axes> &axes,
       const proto::Values &values
    ) :
@@ -1445,10 +1445,10 @@ public:
 
    // from fields, with T replacing Defaulted<T>
    explicit XYs1d(
-      const std::optional<Integer32> &index,
+      const std::optional<int> &index,
       const enums::Interpolation &interpolation,
-      const std::optional<XMLName> &label,
-      const std::optional<Float64> &outerDomainValue,
+      const std::optional<std::string> &label,
+      const std::optional<double> &outerDomainValue,
       const std::optional<proto::Axes> &axes,
       const proto::Values &values
    ) :
@@ -1511,9 +1511,9 @@ class Regions1d : public Component<Regions1d> {
    {
       return
          // metadata
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("label") |
-         std::optional<Float64>{}
+         std::optional<double>{}
             / Meta<>("outerDomainValue") |
          // children
          proto::XYs1d{}
@@ -1541,8 +1541,8 @@ public:
 
    struct {
       // metadata
-      std::optional<XMLName> label;
-      std::optional<Float64> outerDomainValue;
+      std::optional<std::string> label;
+      std::optional<double> outerDomainValue;
 
       // children
       std::vector<proto::XYs1d> XYs1d;
@@ -1597,11 +1597,11 @@ public:
    // ------------------------
 
    // label(value)
-   auto &label(const std::optional<XMLName> &obj)
+   auto &label(const std::optional<std::string> &obj)
     { label() = obj; return *this; }
 
    // outerDomainValue(value)
-   auto &outerDomainValue(const std::optional<Float64> &obj)
+   auto &outerDomainValue(const std::optional<double> &obj)
     { outerDomainValue() = obj; return *this; }
 
    // XYs1d(value)
@@ -1688,8 +1688,8 @@ public:
 
    // from fields
    explicit Regions1d(
-      const std::optional<XMLName> &label,
-      const std::optional<Float64> &outerDomainValue,
+      const std::optional<std::string> &label,
+      const std::optional<double> &outerDomainValue,
       const std::vector<proto::XYs1d> &XYs1d,
       const std::optional<proto::Axes> &axes
    ) :
@@ -1983,11 +1983,11 @@ class Reaction : public Component<Reaction> {
    {
       return
          // metadata
-         Integer32{}
+         int{}
             / Meta<>("ENDF_MT") |
-         std::optional<XMLName>{}
+         std::optional<std::string>{}
             / Meta<>("fissionGenre") |
-         XMLName{}
+         std::string{}
             / Meta<>("label") |
          // children
          proto::CrossSection{}
@@ -2013,9 +2013,9 @@ public:
 
    struct {
       // metadata
-      Integer32 ENDF_MT;
-      std::optional<XMLName> fissionGenre;
-      XMLName label;
+      int ENDF_MT;
+      std::optional<std::string> fissionGenre;
+      std::string label;
 
       // children
       proto::CrossSection crossSection;
@@ -2057,15 +2057,15 @@ public:
    // ------------------------
 
    // ENDF_MT(value)
-   auto &ENDF_MT(const Integer32 &obj)
+   auto &ENDF_MT(const int &obj)
     { ENDF_MT() = obj; return *this; }
 
    // fissionGenre(value)
-   auto &fissionGenre(const std::optional<XMLName> &obj)
+   auto &fissionGenre(const std::optional<std::string> &obj)
     { fissionGenre() = obj; return *this; }
 
    // label(value)
-   auto &label(const XMLName &obj)
+   auto &label(const std::string &obj)
     { label() = obj; return *this; }
 
    // crossSection(value)
@@ -2132,9 +2132,9 @@ public:
 
    // from fields
    explicit Reaction(
-      const Integer32 &ENDF_MT,
-      const std::optional<XMLName> &fissionGenre,
-      const XMLName &label,
+      const int &ENDF_MT,
+      const std::optional<std::string> &fissionGenre,
+      const std::string &label,
       const proto::CrossSection &crossSection
    ) :
       Component{
@@ -2362,17 +2362,17 @@ class ReactionSuite : public Component<ReactionSuite> {
    {
       return
          // metadata
-         XMLName{}
+         std::string{}
             / Meta<>("evaluation") |
-         XMLName{}
+         std::string{}
             / Meta<>("format") |
          std::optional<enums::Interaction>{}
             / Meta<>("interaction") |
-         XMLName{}
+         std::string{}
             / Meta<>("projectile") |
          enums::Frame{}
             / Meta<>("projectileFrame") |
-         XMLName{}
+         std::string{}
             / Meta<>("target") |
          // children
          std::optional<proto::Reactions>{}
@@ -2398,12 +2398,12 @@ public:
 
    struct {
       // metadata
-      XMLName evaluation;
-      XMLName format;
+      std::string evaluation;
+      std::string format;
       std::optional<enums::Interaction> interaction;
-      XMLName projectile;
+      std::string projectile;
       enums::Frame projectileFrame;
-      XMLName target;
+      std::string target;
 
       // children
       std::optional<proto::Reactions> reactions;
@@ -2463,11 +2463,11 @@ public:
    // ------------------------
 
    // evaluation(value)
-   auto &evaluation(const XMLName &obj)
+   auto &evaluation(const std::string &obj)
     { evaluation() = obj; return *this; }
 
    // format(value)
-   auto &format(const XMLName &obj)
+   auto &format(const std::string &obj)
     { format() = obj; return *this; }
 
    // interaction(value)
@@ -2475,7 +2475,7 @@ public:
     { interaction() = obj; return *this; }
 
    // projectile(value)
-   auto &projectile(const XMLName &obj)
+   auto &projectile(const std::string &obj)
     { projectile() = obj; return *this; }
 
    // projectileFrame(value)
@@ -2483,7 +2483,7 @@ public:
     { projectileFrame() = obj; return *this; }
 
    // target(value)
-   auto &target(const XMLName &obj)
+   auto &target(const std::string &obj)
     { target() = obj; return *this; }
 
    // reactions(value)
@@ -2562,12 +2562,12 @@ public:
 
    // from fields
    explicit ReactionSuite(
-      const XMLName &evaluation,
-      const XMLName &format,
+      const std::string &evaluation,
+      const std::string &format,
       const std::optional<enums::Interaction> &interaction,
-      const XMLName &projectile,
+      const std::string &projectile,
       const enums::Frame &projectileFrame,
-      const XMLName &target,
+      const std::string &target,
       const std::optional<proto::Reactions> &reactions
    ) :
       Component{

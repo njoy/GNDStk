@@ -82,7 +82,7 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
               proto::Values { // GNDS: values
                 length    : // optional; has no value
                 start     : // defaulted; is its default (0)
-                valueType : // defaulted; is its default (Float64)
+                valueType : // defaulted; is its default (double)
                 3.33900000e+06 0.00000000e+00 3.40000000e+06 1.20000000e-03
                 3.50000000e+06 2.90000000e-03 3.75000000e+06 7.10318300e-03
                 4.00000000e+06 1.35000000e-02 4.25000000e+06 1.90312400e-02
@@ -169,7 +169,7 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
                   proto::Values { // GNDS: values
                     length    : // optional; has no value
                     start     : // defaulted; is its default (0)
-                    valueType : // defaulted; is its default (Float64)
+                    valueType : // defaulted; is its default (double)
                     1.00000000e-05 2.53000000e-02 1.00000000e-04 8.00000000e-03
                     2.53000000e-02 5.06000000e-04 1.00000000e+02 8.00000000e-06
                     1.00000000e+03 2.50000000e-06 2.00000000e+03 1.76000000e-06
@@ -186,7 +186,7 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
                   proto::Values { // GNDS: values
                     length    : // optional; has no value
                     start     : // defaulted; is its default (0)
-                    valueType : // defaulted; is its default (Float64)
+                    valueType : // defaulted; is its default (double)
                     1.00000000e+04 1.00000000e-06 2.00000000e+04 1.03000000e-06
                     3.00000000e+04 1.15000000e-06 4.00000000e+04 1.27000000e-06
                     5.00000000e+04 1.39000000e-06 6.00000000e+04 1.50000000e-06
@@ -309,7 +309,7 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
               proto::Values { // GNDS: values
                 length    : // optional; has no value
                 start     : // defaulted; is its default (0)
-                valueType : // defaulted; is its default (Float64)
+                valueType : // defaulted; is its default (double)
                 1.00000000e-05 3.39500000e+00 1.00000000e-04 3.39500000e+00
                 2.53000000e-02 3.39500400e+00 1.00000000e+02 3.39500200e+00
                 1.00000000e+03 3.39489800e+00 2.00000000e+03 3.39479800e+00
