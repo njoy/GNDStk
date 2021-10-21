@@ -36,11 +36,19 @@ void wrapValues(python::module &module)
    component
       .def(
          python::init<
-            const std::vector<Integer32> &
+            const std::optional<Integer32> &,
+            const std::optional<Integer32> &,
+            const std::optional<UTF8Text> &
          >(),
          python::arg("length") = std::nullopt,
          python::arg("start") = std::nullopt,
          python::arg("value_type") = std::nullopt,
+         Component::documentation("constructor").data()
+      )
+      .def(
+         python::init<
+            const std::vector<Integer32> &
+         >(),
          python::arg("ints"),
          Component::documentation("constructor").data()
       )
@@ -48,9 +56,6 @@ void wrapValues(python::module &module)
          python::init<
             const std::vector<Float64> &
          >(),
-         python::arg("length") = std::nullopt,
-         python::arg("start") = std::nullopt,
-         python::arg("value_type") = std::nullopt,
          python::arg("doubles"),
          Component::documentation("constructor").data()
       )
@@ -58,9 +63,6 @@ void wrapValues(python::module &module)
          python::init<
             const std::vector<UTF8Text> &
          >(),
-         python::arg("length") = std::nullopt,
-         python::arg("start") = std::nullopt,
-         python::arg("value_type") = std::nullopt,
          python::arg("strings"),
          Component::documentation("constructor").data()
       )

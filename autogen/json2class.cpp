@@ -1820,63 +1820,62 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       }
    }
 
-   // python::init<...> - at least one, more when bodyText is used
-   const unsigned int repeat = hasBodyTextOrData ? bodyTypeNames.size() : 1;
-   for ( unsigned int index = 0; index < repeat; ++index ) {
+   // python::init<...> - one for attributes and children
+   std::size_t count = 0;
+   cpp << "      .def(\n";
+   cpp << "         python::init<";
+   for (auto &m : minfo) {
+      cpp << (count++ ? "," : "") << "\n            ";
+      if (m.isDefaulted) {
 
-      std::size_t count;
-
-      cpp << "      .def(\n";
-      cpp << "         python::init<";
-      count = 0;
-      if (hasBodyTextOrData) {
-         cpp << (count++ ? "," : "") << "\n            ";
-         cpp << "const std::vector<" << bodyTypeNames[index].first << "> &";
+        cpp << "const std::optional<" << m.varType << "> &";
       }
       else {
 
-        for (auto &m : minfo) {
-           cpp << (count++ ? "," : "") << "\n            ";
-           if (m.isDefaulted) {
-
-             cpp << "const std::optional<" << m.varType << "> &";
-           }
-           else {
-
-             cpp << "const " << m.fullVarType << " &";;
-           }
-        }
-        for (auto &c : cinfo) {
-           if (!c.isChoice) {
-              cpp << (count++ ? "," : "") << "\n            "
-                  << "const " << c.fullVarType << " &";
-           }
-        }
+        cpp << "const " << m.fullVarType << " &";;
       }
-      cpp << "\n         >(),\n";
-
-      // python::arg...
-      for (auto &m : minfo) {
-         cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
-         if (m.isDefaulted) {
-            cpp << " = std::nullopt";
-         } else if (m.isOptional) {
+   }
+   for (auto &c : cinfo) {
+      if (!c.isChoice) {
+         cpp << (count++ ? "," : "") << "\n            "
+             << "const " << c.fullVarType << " &";
+      }
+   }
+   cpp << "\n         >(),\n";
+   // python::arg
+   for (auto &m : minfo) {
+      cpp << "         python::arg(\"" << toPythonName(m.varName) << "\")";
+      if (m.isDefaulted) {
+         cpp << " = std::nullopt";
+      } else if (m.isOptional) {
+         cpp << " = std::nullopt";
+      }
+      cpp << ",\n";
+   }
+   for (auto &c : cinfo) {
+      if (!c.isChoice) {
+         cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
+         if (c.isOptional) {
             cpp << " = std::nullopt";
          }
          cpp << ",\n";
       }
-      for (auto &c : cinfo) {
-         if (!c.isChoice) {
-            cpp << "         python::arg(\"" << toPythonName(c.varName) << "\")";
-            if (c.isOptional) {
-               cpp << " = std::nullopt";
-            }
-            cpp << ",\n";
-         }
-      }
-      if (hasBodyTextOrData) {
-         cpp << "         python::arg(\"" << bodyTypeNames[index].second << "\"),\n";
-      }
+   }
+   cpp << "         Component::documentation(\"constructor\").data()\n";
+   cpp << "      )\n";
+
+   // python::init<...> - one for each type of data if there is body text
+   const unsigned int repeat = hasBodyTextOrData ? bodyTypeNames.size() : 0;
+   for ( unsigned int index = 0; index < repeat; ++index ) {
+
+      count = 0;
+      cpp << "      .def(\n";
+      cpp << "         python::init<";
+      count = 0;
+      cpp << (count++ ? "," : "") << "\n            ";
+      cpp << "const std::vector<" << bodyTypeNames[index].first << "> &";
+      cpp << "\n         >(),\n";
+      cpp << "         python::arg(\"" << bodyTypeNames[index].second << "\"),\n";
       cpp << "         Component::documentation(\"constructor\").data()\n";
       cpp << "      )\n";
    }
