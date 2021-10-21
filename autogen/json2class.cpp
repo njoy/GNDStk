@@ -1829,26 +1829,29 @@ void file_python_class(const NameDeps &obj, const std::string &filePythonCPP)
       cpp << "      .def(\n";
       cpp << "         python::init<";
       count = 0;
-      for (auto &m : minfo) {
-         cpp << (count++ ? "," : "") << "\n            ";
-         if (m.isDefaulted) {
-
-           cpp << "const std::optional<" << m.varType << "> &";
-         }
-         else {
-
-           cpp << "const " << m.fullVarType << " &";;
-         }
-      }
-      for (auto &c : cinfo) {
-         if (!c.isChoice) {
-            cpp << (count++ ? "," : "") << "\n            "
-                << "const " << c.fullVarType << " &";
-         }
-      }
       if (hasBodyTextOrData) {
          cpp << (count++ ? "," : "") << "\n            ";
          cpp << "const std::vector<" << bodyTypeNames[index].first << "> &";
+      }
+      else {
+
+        for (auto &m : minfo) {
+           cpp << (count++ ? "," : "") << "\n            ";
+           if (m.isDefaulted) {
+
+             cpp << "const std::optional<" << m.varType << "> &";
+           }
+           else {
+
+             cpp << "const " << m.fullVarType << " &";;
+           }
+        }
+        for (auto &c : cinfo) {
+           if (!c.isChoice) {
+              cpp << (count++ ? "," : "") << "\n            "
+                  << "const " << c.fullVarType << " &";
+           }
+        }
       }
       cpp << "\n         >(),\n";
 
