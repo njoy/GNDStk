@@ -12,6 +12,9 @@ and converting them into a string that's destined for the value of a metadatum's
 key/value pair.
 */
 
+// User-settable flag
+inline bool comma = false;
+
 
 // -----------------------------------------------------------------------------
 // convert(T,ostream)
@@ -31,6 +34,14 @@ inline void convert(const T &value, std::ostream &os)
    }
 }
 
+// pair
+template<class X, class Y>
+inline void convert(const std::pair<X,Y> &p, std::ostream &os)
+{
+   if ((convert(p.first,os),os) && os << (GNDStk::comma ? ',' : ' '))
+      convert(p.second,os);
+}
+
 // some sequence containers
 #define GNDSTK_CONVERT(container) \
    template<class T, class Alloc> \
@@ -38,9 +49,10 @@ inline void convert(const T &value, std::ostream &os)
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
-      std::size_t n = 0; \
-      for (const T &v : value) \
-         if (!(os << (n++ ? " " : "") && (convert(v,os),os))) \
+      const std::string sep = GNDStk::comma ? "," : " "; \
+      std::size_t count = 0; \
+      for (const T &val : value) \
+         if (!(os << (count++ ? sep : "") && (convert(val,os),os))) \
             break; /* might as well, because the stream is broken */ \
    }
 
@@ -71,6 +83,9 @@ inline void convert(const T &value, std::string &str)
    }
 }
 
+// string
+// Already defined elsewhere, in the form of convert(string,T) for T == string
+
 // char *
 // Faster than we'd get by going through the generic T version. Note that we
 // normally wouldn't write a "char *" case, as char * would normally convert
@@ -79,9 +94,6 @@ inline void convert(const char *const value, std::string &str)
 {
    str = value;
 }
-
-// convert(const std::string &, std::string &)
-// Already defined elsewhere, in the form of convert(string,T) for T == string
 
 // bool
 inline void convert(const bool &value, std::string &str)
@@ -100,7 +112,6 @@ inline void convert(const bool &value, std::string &str)
    GNDSTK_CONVERT(int)
    GNDSTK_CONVERT(long)
    GNDSTK_CONVERT(long long)
-
    GNDSTK_CONVERT(unsigned)
    GNDSTK_CONVERT(unsigned long)
    GNDSTK_CONVERT(unsigned long long)

@@ -155,8 +155,6 @@ void verifyChunk( const Values& component ) {
   CHECK( 0 == component.start() );
   CHECK( "Float64" == component.valueType().value() );
 
-  CHECK( "2500 8.9172 2550 8.9155" == component.string() );
-
   CHECK( 4 == component.size() );
   CHECK( 4 == component.doubles().size() );
 

@@ -168,7 +168,6 @@ inline constexpr bool hasWriteTwoArg = HasWriteTwoArg<DERIVED>::has;
 //    T
 //    std::optional<T>
 //    Defaulted<T>
-//    std::variant<Ts...>
 //    std::vector<T>
 
 bool writeComponentPart(
@@ -196,12 +195,6 @@ bool writeComponentPart(
    const std::string &label, const std::size_t maxlen
 );
 
-template<class... Ts>
-bool writeComponentPart(
-   std::ostream &os, const int level, const std::variant<Ts...> &var,
-   const std::string &label, const std::size_t maxlen
-);
-
 template<class T>
 bool writeComponentPart(
    std::ostream &os, const int level, const std::vector<T> &vec,
@@ -214,7 +207,6 @@ bool writeComponentPart(
 // for string
 // ------------------------
 
-// label : value
 inline bool writeComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
@@ -247,13 +239,13 @@ inline bool writeComponentPart(
 
 
 // ------------------------
-// helpers
+// for T
 // ------------------------
 
+// helper
+// is_base_of_Component
 // Adapted from an answer here:
 // https://stackoverflow.com/questions/34672441
-
-// is_base_of_Component
 template<class T>
 class is_base_of_Component {
    template<class A, bool B, class C>
@@ -264,12 +256,6 @@ public:
    static constexpr bool value = type::value;
 };
 
-
-// ------------------------
-// for T
-// ------------------------
-
-// label : value
 template<class T>
 bool writeComponentPart(
    std::ostream &os, const int level, const T &value,
@@ -284,16 +270,18 @@ bool writeComponentPart(
       if constexpr (std::is_floating_point_v<T>) {
          writeComponentPart(
             os, level,
-            detail::Precision<detail::PrecisionContext::metadata,T>{}.
-               write(value),
+            detail::Precision<
+               detail::PrecisionContext::metadata,
+               T
+            >{}.write(value),
             label, maxlen, color
          );
       } else {
-         // The ostringstream intermediary allows us to properly indent
-         // in the event that the printed value has internal newlines.
-         std::ostringstream oss;
-         oss << value;
-         writeComponentPart(os, level, oss.str(), label, maxlen, color);
+         // The string intermediary allows us to indent properly
+         // if the printed value has internal newlines.
+         std::string str;
+         convert_t{}(value,str);
+         writeComponentPart(os, level, str, label, maxlen, color);
       }
    }
    return true;
@@ -340,35 +328,16 @@ bool writeComponentPart(
          label, maxlen, colors::defaulted
       );
    } else if (comments) {
-      std::ostringstream ostr;
-      ostr << def.get_default();
+      std::string str;
+      convert_t{}(def.get_default(),str);
       writeComponentPart(
          os, level,
-         colorize_comment("// defaulted; is its default (" + ostr.str() + ")"),
+         colorize_comment("// defaulted; is its default (" + str + ")"),
          label, maxlen, colors::defaulted
       );
    } else
       return false; // <== caller won't print newline
    return true;
-}
-
-
-// ------------------------
-// for variant
-// ------------------------
-
-template<class... Ts>
-bool writeComponentPart(
-   std::ostream &os, const int level, const std::variant<Ts...> &var,
-   const std::string &label, const std::size_t maxlen
-) {
-   return std::visit(
-      [&os,level,&label,maxlen](auto &&alternative)
-      {
-         return writeComponentPart(os, level, alternative, label, maxlen);
-      },
-      var
-   );
 }
 
 

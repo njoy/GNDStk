@@ -166,7 +166,7 @@ std::enable_if_t<
    // if active == string
    // ------------------------
 
-   if (active == Active::string) {
+   if (active() == Active::string) {
       static const std::string context_rebuilding =
          "BodyText::get<std::vector<T>>(), remade from raw string";
 
@@ -254,7 +254,7 @@ std::enable_if_t<
       for (std::size_t i = to->size(); i < length(); ++i)
          to->push_back(zero);
 
-      active = Active::vector; // was string; now is vector
+      act = Active::vector; // was string; now is vector
       return *to;
    } // if (active == Active::string)
 
@@ -345,8 +345,11 @@ std::enable_if_t<
 // when using a BodyText object, we recommend sticking with one underlying type.
 
 // For DATA != void (so that we have a vector):
-// T == DATA is required. (So that returning an element of the vector<DATA> will
-// return a reference to T.)
+// T == DATA is required, so that returning an element of the vector<DATA> will
+// return a reference to T. (A constructibility/convertibility requirement that
+// we have in other BodyText-related code thus needs to be more stringent here.
+// We can't just be able to make a T from a DATA. Those must in fact be the same
+// type, because we return a reference.)
 
 // For both of the above cases:
 // If the string (not the variant or the vector) is active, then a rebuild from
@@ -354,7 +357,10 @@ std::enable_if_t<
 
 // const
 template<class T>
-std::enable_if_t<supported<T>, const T &>
+std::enable_if_t<
+   supported<T> && (runtime || std::is_same_v<T,DATA>),
+   const T &
+>
 get(const std::size_t n) const
 {
    try {
@@ -367,7 +373,10 @@ get(const std::size_t n) const
 
 // non-const
 template<class T>
-std::enable_if_t<supported<T>, T &>
+std::enable_if_t<
+   supported<T> && (runtime || std::is_same_v<T,DATA>),
+   T &
+>
 get(const std::size_t n)
 {
    return const_cast<T &>(std::as_const(*this).template get<T>(n));

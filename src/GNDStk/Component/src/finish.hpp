@@ -73,14 +73,7 @@ void construct(const Node &) { }
 // return void. We use bool, here, for technical reasons, relating to the test
 // used in the template finish() function (as opposed to the non-template cases)
 // to determine whether or not someone has provided a custom construct().
-template<
-   class T,
-   class = std::enable_if_t<
-      hasBodyText && (
-      ( detail::isVoid<DATA> && detail::isAlternative<T,VariantOfScalars>) ||
-      (!detail::isVoid<DATA> && std::is_same_v<T,DATA>))
-   >
->
+template<class T, class = std::enable_if_t<body::template supported<T>>>
 bool construct(const std::vector<T> &) { return true; }
 
 
@@ -167,24 +160,11 @@ void finish(const Node &node)
 // finish(vector)
 // ------------------------
 
-/*
-template<
-   class T,
-   class = std::enable_if_t<hasBodyText && body::template supported<T>>
->
-*/
-template<
-   class T,
-   class = std::enable_if_t<
-      hasBodyText && (
-      ( detail::isVoid<DATA> && detail::isAlternative<T,VariantOfScalars>) ||
-      (!detail::isVoid<DATA> && std::is_same_v<T,DATA>))
-   >
->
-void finish(const std::vector<T> &values)
+template<class T, class = std::enable_if_t<body::template supported<T>>>
+void finish(const std::vector<T> &vector)
 {
    // assign from the vector
-   body::operator=(values);
+   body::operator=(vector);
 
    // length, start, valueType: push back up to derived,
    // as they would have been computed above in operator=.
@@ -194,8 +174,8 @@ void finish(const std::vector<T> &values)
    sort();
 
    // construct
-   if constexpr (std::is_same_v<void,decltype(derived().construct(values))>)
-      derived().construct(values);
+   if constexpr (std::is_same_v<void,decltype(derived().construct(vector))>)
+      derived().construct(vector);
    else
       derived().construct();
 }

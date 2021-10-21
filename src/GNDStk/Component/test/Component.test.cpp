@@ -116,7 +116,7 @@ SCENARIO("Testing GNDStk Component") {
 
    GIVEN("A Component") {
       // derived()
-      WHEN ("We test derived()") {
+      WHEN("We test derived()") {
          CHECK(&der1.derived() == &der1);
          CHECK(&der2.derived() == &der2);
          CHECK(&der3.derived() == &der3);
@@ -124,7 +124,7 @@ SCENARIO("Testing GNDStk Component") {
       }
 
       // documentation()
-      WHEN ("We test documentation()") {
+      WHEN("We test documentation()") {
          CHECK(der1.documentation("") == "class DerivedT");
          CHECK(der1.documentation("foo") == "Help for foo");
          CHECK(der1.documentation("bar") == "No help information is available");
@@ -141,7 +141,7 @@ SCENARIO("Testing GNDStk Component") {
       }
 
       // namespaceName()
-      WHEN ("We test namespaceName()") {
+      WHEN("We test namespaceName()") {
          // For these two we need the std::string() only because the functions
          // were written (above, in the class definitions) with an auto return
          // of a plain character string. Where Component needs namespaceName(),
@@ -159,7 +159,7 @@ SCENARIO("Testing GNDStk Component") {
       // Don't confuse the above two. Component << string reads from an XML
       // or JSON snippet into an object of the class that's derived from
       // Component. ostream << Component writes (to the ostream) the object.
-      WHEN ("We test (Component << string) and (ostream << Component)") {
+      WHEN("We test (Component << string) and (ostream << Component)") {
          DerivedData der;
          color = false; // avoid cluttering the checked output below
 
@@ -171,11 +171,11 @@ SCENARIO("Testing GNDStk Component") {
             ;
 
          // from XML
-         WHEN ("We read a Component-derived object << XML text") {
+         WHEN("We read a Component-derived object << XML text") {
             der << "<data foo=\"12\" bar=\"34.56\"></data>";
 
             // write & check
-            THEN ("The result is as expected") {
+            THEN("The result is as expected") {
                std::ostringstream oss;
                oss << der;
                CHECK(oss.str() == expected);
@@ -183,7 +183,7 @@ SCENARIO("Testing GNDStk Component") {
          }
 
          // from JSON
-         WHEN ("We read a Component-derived object << JSON text") {
+         WHEN("We read a Component-derived object << JSON text") {
             der <<
                "{"
                "   \"data\": {"
@@ -195,7 +195,7 @@ SCENARIO("Testing GNDStk Component") {
                "}";
 
             // write & check
-            THEN ("The result is as expected") {
+            THEN("The result is as expected") {
                std::ostringstream oss;
                oss << der;
                CHECK(oss.str() == expected);

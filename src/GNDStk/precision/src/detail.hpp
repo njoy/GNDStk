@@ -26,8 +26,8 @@ enum class PrecisionType {
 
 
 // -----------------------------------------------------------------------------
-// Classes behind GNDStk's own floating-point manipulators
-// These match with our three custom PrecisionType values
+// Classes behind GNDStk's own floating-point manipulators.
+// These match with our three custom PrecisionType values.
 // -----------------------------------------------------------------------------
 
 class Fixed { };
@@ -68,8 +68,10 @@ where oss is the std::ostringstream.
 
 GNDStk provides that methodology. To do so, objects of the below Precision
 class contain a std::ostringstream, the properties of which can be set in
-the usual way: by calling << on the Precision object, which will pass on
-its arguments to the std::ostringstream.
+the usual way: by calling << on the Precision object. Precision's operator<<
+will pass on its arguments to the std::ostringstream, where those arguments
+will be "stored," so to speak, for use whenever the std::ostringstream is
+used for the output of a floating-point number.
 
 However, for the fun and profit of our users, we wish to provide something
 extra. Sufficiently recent C++-17 enabled compilers provide the to_chars()
@@ -80,18 +82,16 @@ start with, say, a double-precision number (at the time of this writing,
 probably 64 bits in memory), use to_chars() to make a string, and then read
 the string with from_chars(), then we're guaranteed to recover exactly the
 same 64 bits in memory - that is, precisely the same double we began with.
-Along with the "shortest representation" requirement, we can write shortest-
-possible decimal representations, with *no* loss of information.
 
-Aside: the guarantee requires that from_chars(), not necessarily any string-
-to-floating-point process, be used on the string produced by to_chars().
-Also, obviously, such a requirement might be broken if different compilers,
-computing platforms, or floating-point sizes are used for to_chars() versus
-from_chars(). Under those circumstances, no algorithm in the universe could
-make the guarantee.
+Aside: the guarantee requires that from_chars(), not necessarily any old
+string-to-floating-point process, be used to read back a string that was
+produced by to_chars(). Also, obviously, such a guarantee simply cannot be
+honored if different compilers, computing platforms, or floating-point sizes
+are used for to_chars() versus from_chars(). Under those circumstances, no
+algorithm in the universe could make the guarantee.
 
-The above discussion speaks in term of output: operator<<, std::ostringstream,
-etc. Note that our Precision class, below, handles *input* just as fully.
+The above discussion speaks in terms of output: operator<<, std::ostringstream,
+etc. Our Precision class, below, handles *input* just as fully.
 */
 
 
@@ -186,6 +186,7 @@ class Precision {
    // error (rvalue passed to non-const lvalue reference). Here, the attempt to
    // do so would make the SFINAE fail always, defeating its purpose.
 
+#ifdef GNDSTK_PRECISION
    template<class T>
    auto read(const std::string &str, T &value, int) ->
       std::enable_if_t<
@@ -207,6 +208,7 @@ class Precision {
       std::from_chars(first, str.data() + str.size(), value);
       return true;
    }
+#endif
 
    template<class T>
    bool read(const std::string &, T &, double)

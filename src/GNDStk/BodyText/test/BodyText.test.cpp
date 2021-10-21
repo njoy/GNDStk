@@ -18,9 +18,9 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
    // Ensure that we can make const and non-const <true> and <false> BodyText
    // objects. Note that BodyText has only a default constructor.
 
-   GIVEN ("A const BodyText<true,void> cbtextt") {
+   GIVEN("A const BodyText<true,void> cbtextt") {
       const BodyText<true,void> cbtextt;
-      THEN ("It constructed correctly, and its data are as expected") {
+      THEN("It constructed correctly, and its data are as expected") {
          CHECK(cbtextt.length   () == 0);
          CHECK(cbtextt.size     () == 0);
          CHECK(cbtextt.valueType() == "");
@@ -28,16 +28,16 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
       }
    }
 
-   GIVEN ("A const BodyText<false,void> cbtextf") {
+   GIVEN("A const BodyText<false,void> cbtextf") {
       const BodyText<false,void> cbtextf;
-      THEN ("It constructed correctly") {
+      THEN("It constructed correctly") {
          // no data for <false>
       }
    }
 
-   GIVEN ("A non-const BodyText<true,void> nbtextt") {
+   GIVEN("A non-const BodyText<true,void> nbtextt") {
       BodyText<true,void> nbtextt;
-      THEN ("It constructed correctly, and its data are as expected") {
+      THEN("It constructed correctly, and its data are as expected") {
          CHECK(nbtextt.length   () == 0);
          CHECK(nbtextt.size     () == 0);
          CHECK(nbtextt.valueType() == "");
@@ -45,9 +45,9 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
       }
    }
 
-   GIVEN ("A non-const BodyText<false,void> nbtextf") {
+   GIVEN("A non-const BodyText<false,void> nbtextf") {
       BodyText<false,void> nbtextf;
-      THEN ("It constructed correctly") {
+      THEN("It constructed correctly") {
          // no data for <false>
       }
    }
@@ -62,7 +62,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
          BodyText<true,void> b;
 
          // try int
-         THEN ("size() works correctly for vector<int>") {
+         THEN("size() works correctly for vector<int>") {
             b = std::vector<int>{1,2,3,4,5};
             CHECK(b.size() == 5);
             b.clear();
@@ -70,7 +70,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
          }
 
          // try double
-         THEN ("size() works correctly for vector<double>") {
+         THEN("size() works correctly for vector<double>") {
             b = std::vector<double>{1.1, 2.2, 3.3, 4.4, 5.5};
             CHECK(b.size() == 5);
             b.clear();
@@ -78,7 +78,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
          }
 
          // try string
-         THEN ("size() works correctly for vector<string>") {
+         THEN("size() works correctly for vector<string>") {
             b = std::vector<std::string>{"one","two","three","four","five"};
             CHECK(b.size() == 5);
             b.clear();
@@ -91,7 +91,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
          BodyText<true,void> b;
 
          // try int
-         THEN ("size() works correctly for vector<int>") {
+         THEN("size() works correctly for vector<int>") {
             b = std::vector<int>{1,2,3,4,5};
             CHECK(b.size() == 5);
             b = std::vector<int>{1};
@@ -101,7 +101,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
          }
 
          // try double
-         THEN ("size() works correctly for vector<double>") {
+         THEN("size() works correctly for vector<double>") {
             b = std::vector<double>{1.1, 2.2, 3.3, 4.4, 5.5};
             CHECK(b.size() == 5);
             b = std::vector<double>{1.1};
@@ -111,7 +111,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
          }
 
          // try string
-         THEN ("size() works correctly for vector<string>") {
+         THEN("size() works correctly for vector<string>") {
             b = std::vector<std::string>{"one","two","three","four","five"};
             CHECK(b.size() == 5);
             b = std::vector<std::string>{"one"};
@@ -130,9 +130,9 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
 
 SCENARIO("Testing GNDStk BodyText with DATA != void") {
 
-   GIVEN ("A const BodyText<true,double> cbtextt") {
+   GIVEN("A const BodyText<true,double> cbtextt") {
       const BodyText<true,double> cbtextt;
-      THEN ("It constructed correctly, and its data are as expected") {
+      THEN("It constructed correctly, and its data are as expected") {
          CHECK(cbtextt.length   () == 0);
          CHECK(cbtextt.size     () == 0);
          CHECK(cbtextt.valueType() == "");
@@ -140,16 +140,16 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
       }
    }
 
-   GIVEN ("A const BodyText<false,double> cbtextf") {
+   GIVEN("A const BodyText<false,double> cbtextf") {
       const BodyText<false,double> cbtextf;
-      THEN ("It constructed correctly") {
+      THEN("It constructed correctly") {
          // no data for <false>
       }
    }
 
-   GIVEN ("A non-const BodyText<true,int> nbtextt") {
+   GIVEN("A non-const BodyText<true,int> nbtextt") {
       BodyText<true,int> nbtextt;
-      THEN ("It constructed correctly, and its data are as expected") {
+      THEN("It constructed correctly, and its data are as expected") {
          CHECK(nbtextt.length   () == 0);
          CHECK(nbtextt.size     () == 0);
          CHECK(nbtextt.valueType() == "");
@@ -157,9 +157,9 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
       }
    }
 
-   GIVEN ("A non-const BodyText<false,int> nbtextf") {
+   GIVEN("A non-const BodyText<false,int> nbtextf") {
       BodyText<false,int> nbtextf;
-      THEN ("It constructed correctly") {
+      THEN("It constructed correctly") {
          // no data for <false>
       }
    }
@@ -168,7 +168,7 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
       // clear
       WHEN("We test clear()") {
          BodyText<true,int> b;
-         THEN ("size() works correctly") {
+         THEN("size() works correctly") {
             b = std::vector<int>{1,2,3,4,5};
             CHECK(b.size() == 5);
             b.clear();
@@ -179,7 +179,7 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
       // size
       WHEN("We test size()") {
          BodyText<true,std::string> b;
-         THEN ("size() works correctly") {
+         THEN("size() works correctly") {
             b = std::vector<std::string>{"one","two","three","four","five"};
             CHECK(b.size() == 5);
             b = std::vector<std::string>{"one"};

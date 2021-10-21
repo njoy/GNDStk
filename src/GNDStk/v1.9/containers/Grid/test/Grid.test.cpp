@@ -209,8 +209,6 @@ void verifyChunk( const Grid& component ) {
   CHECK( 0 == values.start() );
   CHECK( "Float64" == values.valueType().value() );
 
-  CHECK( "1e-05 2e+07" == values.string() );
-
   CHECK( 2 == values.size() );
   CHECK( 2 == values.doubles().size() );
 

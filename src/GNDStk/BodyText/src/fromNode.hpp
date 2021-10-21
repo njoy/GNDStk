@@ -35,5 +35,5 @@ void fromNode(const Node &node)
    // Above, we set the raw string. The following reflects this, so that the
    // vector, or a vector in the variant, will be rebuilt from the raw string
    // if and when a caller asks for it.
-   active = Active::string;
+   act = Active::string;
 }

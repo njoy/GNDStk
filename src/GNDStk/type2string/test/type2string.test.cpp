@@ -135,67 +135,99 @@ SCENARIO("Testing GNDStk convert(type,ostream/string)") {
    }
 
    WHEN("We call convert(string,T) for some integral and floating-point Ts") {
-      THEN ("It works correctly for int") {
+      THEN("It works correctly for int") {
          const int val = -123;
          std::string str;
          convert(val,str);
          CHECK(str == "-123");
       }
 
-      THEN ("It works correctly for long") {
+      THEN("It works correctly for long") {
          const long val = -123;
          std::string str;
          convert(val,str);
          CHECK(str == "-123");
       }
 
-      THEN ("It works correctly for long long") {
+      THEN("It works correctly for long long") {
          const long long val = -123;
          std::string str;
          convert(val,str);
          CHECK(str == "-123");
       }
 
-      THEN ("It works correctly for unsigned") {
+      THEN("It works correctly for unsigned") {
          const unsigned val = 456;
          std::string str;
          convert(val,str);
          CHECK(str == "456");
       }
 
-      THEN ("It works correctly for unsigned long") {
+      THEN("It works correctly for unsigned long") {
          const unsigned long val = 456;
          std::string str;
          convert(val,str);
          CHECK(str == "456");
       }
 
-      THEN ("It works correctly for unsigned long long") {
+      THEN("It works correctly for unsigned long long") {
          const unsigned long long val = 456;
          std::string str;
          convert(val,str);
          CHECK(str == "456");
       }
 
-      THEN ("It works correctly for float") {
+      THEN("It works correctly for float") {
          const float val = 7.89f;
          std::string str;
          convert(val,str);
          CHECK(str == "7.89");
       }
 
-      THEN ("It works correctly for double") {
+      THEN("It works correctly for double") {
          const double val = 7.89;
          std::string str;
          convert(val,str);
          CHECK(str == "7.89");
       }
 
-      THEN ("It works correctly for long double") {
+      THEN("It works correctly for long double") {
          const long double val = 7.89L;
          std::string str;
          convert(val,str);
          CHECK(str == "7.89");
       }
    } // WHEN
-}
+} // SCENARIO
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+SCENARIO("Testing some GNDStk::convert(pair,ostream) functionality") {
+
+   // ------------------------
+   // pair ==> string
+   // ------------------------
+
+   WHEN("We call convert(pair,ostream)") {
+      THEN("It works correctly when GNDStk::comma == false") {
+         njoy::GNDStk::comma = false; // we don't want a comma in the output...
+         const std::pair<int,long> p(12,34);
+         std::ostringstream oss;
+         njoy::GNDStk::convert(p,oss);
+         const std::string str = oss.str();
+         CHECK(str == "12 34"); // ...so, no comma
+      }
+
+      THEN("It works correctly when GNDStk::comma == true") {
+         njoy::GNDStk::comma = true; // we do want a comma in the output...
+         const std::pair<int,long> p(56,78);
+         std::ostringstream oss;
+         njoy::GNDStk::convert(p,oss);
+         const std::string str = oss.str();
+         CHECK(str == "56,78"); // ...so, there it is
+      }
+   }
+} // SCENARIO

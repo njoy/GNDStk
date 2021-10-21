@@ -116,39 +116,38 @@ inline constexpr bool hasLabel     = has_label    <std::decay_t<T>>::value;
 // element2element
 // -----------------------------------------------------------------------------
 
-// todo: Determine if GNDStk's convert() functions can handle all possible
-// cases here, or could be extended to do so.
-
-// arithmetic ==> string
-template<class T, class = std::enable_if_t<!std::is_same_v<T,std::string>>>
-void element2element(const T &value, std::string &str)
-{
-   if constexpr (std::is_floating_point_v<T>) {
-      str = Precision<PrecisionContext::data,T>{}.write(value);
-   } else {
-      std::ostringstream oss;
-      oss << value;
-      str = oss.str();
-   }
-}
+// Remark: PrecisionContext::data, not PrecisionContext::metadata, is the right
+// precision context (in terms of our functionality for handling floating-point
+// precision) in the code for which element2element() is called. We could bypass
+// element2element() entirely, using convert_t{}(...) instead, except that then
+// PrecisionContext::metadata would ultimately get used for floating-point T.
+// So, below, we recognize floating-point T directly, and handle it correctly.
 
 // string ==> arithmetic
 template<class T, class = std::enable_if_t<!std::is_same_v<T,std::string>>>
 void element2element(const std::string &str, T &value)
 {
-   if constexpr (std::is_floating_point_v<T>) {
+   if constexpr (std::is_floating_point_v<T>)
       value = Precision<PrecisionContext::data,T>{}.read(str);
-   } else {
-      std::istringstream iss(str);
-      iss >> value;
-   }
+   else
+      convert_t{}(str,value);
 }
 
 // arithmetic ==> arithmetic
 template<class FROM, class TO>
 void element2element(const FROM &from, TO &to)
 {
-   to = TO(from);
+   convert_t{}(from,to);
+}
+
+// arithmetic ==> string
+template<class T, class = std::enable_if_t<!std::is_same_v<T,std::string>>>
+void element2element(const T &value, std::string &str)
+{
+   if constexpr (std::is_floating_point_v<T>)
+      str = Precision<PrecisionContext::data,T>{}.write(value);
+   else
+      convert_t{}(value,str);
 }
 
 

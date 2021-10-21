@@ -14,17 +14,17 @@ using namespace GNDStk::proto;
 inline const std::string &CorrectWriteText();
 
 SCENARIO("Component write()") {
-   GIVEN ("A GNDS tree") {
+   GIVEN("A GNDS tree") {
       const Tree t("n-001_H_002.xml");
       const ReactionSuite suite(t(child::reactionSuite));
-      WHEN ("We read its reactionSuite into a Component-derived class") {
+      WHEN("We read its reactionSuite into a Component-derived class") {
          std::ostringstream oss;
 
          // With luck, this will facilitate consistent printing of floating
          // point numbers across different platforms...
          oss << std::setprecision(8) << std::scientific;
 
-         THEN ("Component's write() function gives the correct result") {
+         THEN("Component's write() function gives the correct result") {
             // Component's operator<< calls its write(ostream,0)
             njoy::GNDStk::reals << std::setprecision(8) << std::scientific;
             oss << suite << std::endl;
