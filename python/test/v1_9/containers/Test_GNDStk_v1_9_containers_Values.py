@@ -9,9 +9,9 @@ from GNDStk.v1_9.containers import Values
 class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk_doubles = ( '<values>2500 8.9172 2550 8.9155</values>\n' )
-    chunk_ints = ( '<values valueType="Integer32">2500 9 2550 9</values>\n' )
-    chunk_strings = ( '<values valueType="UTF8Text">2500 8.9172 2550 8.9155</values>\n' )
+    chunk_doubles = ( '<values length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</values>\n' )
+    chunk_ints = ( '<values length="4" start="0" valueType="Integer32">2500 9 2550 9</values>\n' )
+    chunk_strings = ( '<values length="4" start="0" valueType="UTF8Text">2500 8.9172 2550 8.9155</values>\n' )
     wrong = ( '<wrongName length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</wrongName>\n' )
 
     def test_component( self ) :
@@ -19,7 +19,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
         def verify_chunk_doubles( self, chunk ) :
 
             # verify content
-            self.assertEqual( None, chunk.length )
+            self.assertEqual( 4, chunk.length )
             self.assertEqual( 0, chunk.start )
             self.assertEqual( "Float64", chunk.value_type )
 
@@ -36,7 +36,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
         def verify_chunk_ints( self, chunk ) :
 
             # verify content
-            self.assertEqual( None, chunk.length )
+            self.assertEqual( 4, chunk.length )
             self.assertEqual( 0, chunk.start )
             self.assertEqual( "Integer32", chunk.value_type )
 
@@ -53,7 +53,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
         def verify_chunk_strings( self, chunk ) :
 
             # verify content
-            self.assertEqual( None, chunk.length )
+            self.assertEqual( 4, chunk.length )
             self.assertEqual( 0, chunk.start )
             self.assertEqual( "UTF8Text", chunk.value_type )
 
@@ -83,7 +83,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
         verify_chunk_doubles( self, copy )
 
         # the data is given explicitly (ints)
-        chunk = Values( value_type = "Integer32", ints = [ 2500, 9, 2550, 9 ] )
+        chunk = Values( ints = [ 2500, 9, 2550, 9 ] )
 
         verify_chunk_ints( self, chunk )
 
@@ -98,7 +98,7 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
         verify_chunk_ints( self, copy )
 
         # the data is given explicitly (strings)
-        chunk = Values( value_type = "UTF8Text", strings = [ "2500", "8.9172", "2550", "8.9155" ] )
+        chunk = Values( strings = [ "2500", "8.9172", "2550", "8.9155" ] )
 
         verify_chunk_strings( self, chunk )
 

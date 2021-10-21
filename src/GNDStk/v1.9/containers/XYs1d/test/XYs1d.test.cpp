@@ -135,7 +135,7 @@ R"***(<XYs1d>
       <axis index="0" label="crossSection" unit="b" />
       <axis index="1" label="energy_in" unit="eV" />
    </axes>
-   <values>1e-05 1 0.0253 2 2500 3</values>
+   <values length="6" start="0" valueType="Float64">1e-05 1 0.0253 2 2500 3</values>
 </XYs1d>
 )***";
 }
@@ -171,7 +171,7 @@ void verifyChunk( const XYs1d& component ) {
   CHECK( "eV" == axis1.unit().value() );
 
   // values data
-  CHECK( std::nullopt == component.values().length() );
+  CHECK( 6 == component.values().length() );
   CHECK( 0 == component.values().start() );
   CHECK( "Float64" == component.values().valueType().value() );
 
@@ -195,7 +195,7 @@ R"***(<wrongName>
       <axis index="1" label="energy_in" unit="eV"/>
       <axis index="0" label="crossSection" unit="b"/>
    </axes>
-   <values>1e-05 1. 2.53e-2 2. 2.5e+3 3.</values>
+   <values length="6" start="0" valueType="Float64">1e-05 1. 2.53e-2 2. 2.5e+3 3.</values>
 </wrongName>
 )***";
 }

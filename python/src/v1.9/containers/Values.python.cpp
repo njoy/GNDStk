@@ -36,9 +36,6 @@ void wrapValues(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<Integer32> &,
-            const std::optional<Integer32> &,
-            const std::optional<UTF8Text> &,
             const std::vector<Integer32> &
          >(),
          python::arg("length") = std::nullopt,
@@ -49,9 +46,6 @@ void wrapValues(python::module &module)
       )
       .def(
          python::init<
-            const std::optional<Integer32> &,
-            const std::optional<Integer32> &,
-            const std::optional<UTF8Text> &,
             const std::vector<Float64> &
          >(),
          python::arg("length") = std::nullopt,
@@ -62,9 +56,6 @@ void wrapValues(python::module &module)
       )
       .def(
          python::init<
-            const std::optional<Integer32> &,
-            const std::optional<Integer32> &,
-            const std::optional<UTF8Text> &,
             const std::vector<UTF8Text> &
          >(),
          python::arg("length") = std::nullopt,

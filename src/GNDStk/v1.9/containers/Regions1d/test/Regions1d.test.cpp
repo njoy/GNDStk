@@ -144,10 +144,10 @@ std::string chunk() {
   return
 R"***(<regions1d>
    <XYs1d index="0">
-      <values>0.0253 4.34057 30000 1.62386</values>
+      <values length="4" start="0" valueType="Float64">0.0253 4.34057 30000 1.62386</values>
    </XYs1d>
    <XYs1d index="1">
-      <values>30000 1.65691 2e+07 2.35696</values>
+      <values length="4" start="0" valueType="Float64">30000 1.65691 2e+07 2.35696</values>
    </XYs1d>
    <axes>
       <axis index="0" label="crossSection" unit="b" />
@@ -191,7 +191,7 @@ void verifyChunk( const Regions1d& component ) {
   CHECK( std::nullopt == xys1d0.outerDomainValue() );
   CHECK( std::nullopt == xys1d0.axes() );
   CHECK( enums::Interpolation::linlin == xys1d0.interpolation() );
-  CHECK( std::nullopt == xys1d0.values().length() );
+  CHECK( 4 == xys1d0.values().length() );
   CHECK( 0 == xys1d0.values().start() );
   CHECK( "Float64" == xys1d0.values().valueType().value() );
   CHECK( 4 == xys1d0.values().size() );
@@ -207,7 +207,7 @@ void verifyChunk( const Regions1d& component ) {
   CHECK( std::nullopt == xys1d1.outerDomainValue() );
   CHECK( std::nullopt == xys1d1.axes() );
   CHECK( enums::Interpolation::linlin == xys1d1.interpolation() );
-  CHECK( std::nullopt == xys1d1.values().length() );
+  CHECK( 4 == xys1d1.values().length() );
   CHECK( 0 == xys1d1.values().start() );
   CHECK( "Float64" == xys1d1.values().valueType().value() );
   CHECK( 4 == xys1d1.values().size() );
@@ -224,10 +224,10 @@ std::string invalidName() {
   return
 R"***(<wrongName>
    <XYs1d index="0">
-      <values>0.0253 4.34057 30000 1.62386</values>
+      <values length="4" start="0" valueType="Float64">0.0253 4.34057 30000 1.62386</values>
    </XYs1d>
    <XYs1d index="1">
-      <values>30000 1.65691 2e+07 2.35696</values>
+      <values length="4" start="0" valueType="Float64">30000 1.65691 2e+07 2.35696</values>
    </XYs1d>
    <axes>
       <axis index="0" label="crossSection" unit="b" />
