@@ -70,9 +70,15 @@ operator=(const std::vector<T> &vec)
    // assign vector
    if constexpr (runtime)
       variant = vec;
-   else
+   else if constexpr (std::is_same_v<T,DATA>)
       vector = vec;
+   else {
+      vector.clear();
+      vector.reserve(vec.size());
+      for (const T &element : vec)
+         vector.push_back(DATA(element));
+   }
 
-   active = Active::vector;
+   act = Active::vector;
    return *this;
 }

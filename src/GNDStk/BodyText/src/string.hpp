@@ -20,6 +20,6 @@ BodyText &string(const std::string &str)
 {
    clear(); // <== the vector, because it's no longer considered meaningful
    rawstring = str;
-   active = Active::string;
+   act = Active::string;
    return *this;
 }

@@ -132,7 +132,7 @@ SCENARIO("Testing GNDStk Node constructors") {
    // Child<void>, Node
    // ------------------------
 
-   GIVEN ("A Node with some metadata and children") {
+   GIVEN("A Node with some metadata and children") {
       // to be used...
       Node nv("one");
       nv.add("key1","value1");

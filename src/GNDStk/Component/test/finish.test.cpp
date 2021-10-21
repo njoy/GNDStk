@@ -294,7 +294,7 @@ SCENARIO("Component finish()") {
          {{2,3,5,7,9,11,13,17}};
 
       // ctor: default
-      WHEN ("We call the default constructor") {
+      WHEN("We call the default constructor") {
          CHECK(test::construct1DerivedValue == false);
          test::DerivedValue d;
          // Ensure that finish() called the construct() in the derived class...
@@ -312,7 +312,7 @@ SCENARIO("Component finish()") {
       }
 
       // ctor: copy
-      WHEN ("We call the copy constructor") {
+      WHEN("We call the copy constructor") {
          CHECK(test::construct2DerivedValue == false);
          // Writing the following two lines in this manner appears to make
          // the copy constructor get called, as we want. I tried initializing
@@ -346,7 +346,7 @@ SCENARIO("Component finish()") {
       }
 
       // ctor: from node
-      WHEN ("We call the constructor from Node") {
+      WHEN("We call the constructor from Node") {
          const std::string valueString =
             "<value length=\"10\" start=\"2\" valueType=\"Float64\">"
             "1.2 3.4 5.6 7.8"
@@ -381,7 +381,7 @@ SCENARIO("Component finish()") {
       }
 
       // ctor: from vector
-      WHEN ("We call the constructor from vector") {
+      WHEN("We call the constructor from vector") {
          std::vector<double> vec = {{3.14159, 2.71828, 1.41421}};
          CHECK(test::construct4DerivedValue == false);
          test::DerivedValue d(vec);
@@ -420,7 +420,7 @@ SCENARIO("Component finish()") {
          {{"a","bc","d","efg","hi","jklm","no","p"}};
 
       // ctor: default
-      WHEN ("We call the default constructor") {
+      WHEN("We call the default constructor") {
          CHECK(test::construct1DerivedPlain == false);
          test::DerivedPlain d;
          CHECK(test::construct1DerivedPlain == true);
@@ -431,7 +431,7 @@ SCENARIO("Component finish()") {
       }
 
       // ctor: copy
-      WHEN ("We call the copy constructor") {
+      WHEN("We call the copy constructor") {
          CHECK(test::construct2DerivedPlain == false);
          // Comment as for the one regarding DerivedValue test
          test::DerivedPlain dfrom;
@@ -444,7 +444,7 @@ SCENARIO("Component finish()") {
       }
 
       // ctor: from node, case 1
-      WHEN ("We call the constructor from Node; with no <labels> entries") {
+      WHEN("We call the constructor from Node; with no <labels> entries") {
          const std::string valueString =
             "<plain foo=\"12\" bar=\"34.56\">"
             "</plain>";
@@ -458,7 +458,7 @@ SCENARIO("Component finish()") {
       }
 
       // ctor: from node, case 2
-      WHEN ("We call the constructor from Node; with some <labels> entries") {
+      WHEN("We call the constructor from Node; with some <labels> entries") {
          const std::string valueString =
             "<plain foo=\"12\" bar=\"34.56\">"
             "   <labels label=\"jkl\" />"

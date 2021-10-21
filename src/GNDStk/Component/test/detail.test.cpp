@@ -299,7 +299,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
    GIVEN("writeComponentPart() for T") {
 
       // For double
-      WHEN ("T is double") {
+      WHEN("T is double") {
          double value = 1.234;
 
          oss.str("");
@@ -325,7 +325,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
       // in fact falls into the latter category.) ...
 
       // For "Derived"
-      WHEN ("T is a class that derives from Component") {
+      WHEN("T is a class that derives from Component") {
          Derived value;
 
          // label and maxlen don't get used in this case.
@@ -356,7 +356,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
       }
 
       // For "NonDerived"
-      WHEN ("T is a class that does not derive from Component") {
+      WHEN("T is a class that does not derive from Component") {
          NonDerived value;
 
          oss.str("");
@@ -379,7 +379,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
 
    // For optional
    GIVEN("writeComponentPart() for optional") {
-      WHEN ("The optional has a value") {
+      WHEN("The optional has a value") {
          std::optional<double> opt = 1.234;
 
          oss.str("");
@@ -399,7 +399,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          CHECK(oss.str() == "    1.234");
       }
 
-      WHEN ("The optional does not have a value, and comments == false") {
+      WHEN("The optional does not have a value, and comments == false") {
          std::optional<double> opt;
          CHECK(opt.has_value() == false);
          comments = false;
@@ -421,7 +421,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          CHECK(oss.str() == "");
       }
 
-      WHEN ("The optional does not have a value, and comments == true") {
+      WHEN("The optional does not have a value, and comments == true") {
          std::optional<double> opt;
          CHECK(opt.has_value() == false);
          comments = true;
@@ -446,7 +446,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
 
    // For Defaulted
    GIVEN("writeComponentPart() for Defaulted") {
-      WHEN ("The Defaulted has an explicitly provided value") {
+      WHEN("The Defaulted has an explicitly provided value") {
          // For the following:
          //    5.6 is the default
          //    7.8 is an explicitly provided value
@@ -469,7 +469,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          CHECK(oss.str() == "    7.8");
       }
 
-      WHEN ("The Defaulted has its default, and comments == false") {
+      WHEN("The Defaulted has its default, and comments == false") {
          Defaulted<double> def(3.14);
          CHECK(def.has_value() == false);
          comments = false;
@@ -491,7 +491,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          CHECK(oss.str() == "");
       }
 
-      WHEN ("The Defaulted has its default, and comments == true") {
+      WHEN("The Defaulted has its default, and comments == true") {
          Defaulted<double> def(2.72);
          CHECK(def.has_value() == false);
          comments = true;
@@ -657,7 +657,7 @@ SCENARIO("Testing Component detail:: getter() functions") {
 
    GIVEN("A vector of objects that have both index and label") {
       // look for specific index
-      THEN ("getter() based on index works properly") {
+      THEN("getter() based on index works properly") {
          CHECK((detail::getter(vec,0,"name","class","field").value() == "0a"));
          CHECK((detail::getter(vec,1,"name","class","field").value() == "1b"));
          CHECK((detail::getter(vec,2,"name","class","field").value() == "2c"));
@@ -672,7 +672,7 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN ("getter() based on label works properly") {
+      THEN("getter() based on label works properly") {
          CHECK((detail::getter(vec,"a","name","class","field").value() == "0a"));
          CHECK((detail::getter(vec,"b","name","class","field").value() == "1b"));
          CHECK((detail::getter(vec,"c","name","class","field").value() == "2c"));
@@ -697,7 +697,7 @@ SCENARIO("Testing Component detail:: getter() functions") {
       std::optional<std::vector<IndexLabel>> opt = vec;
 
       // look for specific index
-      THEN ("getter() based on index works properly") {
+      THEN("getter() based on index works properly") {
          CHECK((detail::getter(opt,0UL,"name","class","field").value() == "0a"));
          CHECK((detail::getter(opt,1UL,"name","class","field").value() == "1b"));
          CHECK((detail::getter(opt,2UL,"name","class","field").value() == "2c"));
@@ -712,7 +712,7 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN ("getter() based on label works properly") {
+      THEN("getter() based on label works properly") {
          CHECK((detail::getter(opt,"a","name","class","field").value() == "0a"));
          CHECK((detail::getter(opt,"b","name","class","field").value() == "1b"));
          CHECK((detail::getter(opt,"c","name","class","field").value() == "2c"));
@@ -737,7 +737,7 @@ SCENARIO("Testing Component detail:: getter() functions") {
       std::optional<std::vector<IndexLabel>> opt;
 
       // look for specific index
-      THEN ("getter() based on index works properly") {
+      THEN("getter() based on index works properly") {
          try {
             detail::getter(opt,0,"name","class","field");
             // the above should throw, so we shouldn't get here...
@@ -747,7 +747,7 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN ("getter() based on label works properly") {
+      THEN("getter() based on label works properly") {
          try {
             detail::getter(opt,"a","name","class","field");
             // the above should throw, so we shouldn't get here...

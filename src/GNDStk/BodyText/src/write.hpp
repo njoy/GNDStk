@@ -7,15 +7,15 @@
 std::ostream &write(std::ostream &os, const int level) const
 {
    // If empty, don't even write a newline
-   if ((active == Active::string && rawstring == "") ||
-       (active == Active::vector && size() == 0))
+   if ((active() == Active::string && rawstring == "") ||
+       (active() == Active::vector && size() == 0))
       return os;
 
    // ------------------------
    // If string is active
    // ------------------------
 
-   if (active == Active::string) {
+   if (active() == Active::string) {
       // write the string exactly as-is, without our column formatting
       // or any indentation; then also write a newline
       GNDStk::color && GNDStk::colors::value != ""
@@ -49,8 +49,10 @@ std::ostream &write(std::ostream &os, const int level) const
                os << colors::value;
 
             if constexpr (std::is_floating_point_v<T>)
-               os << detail::Precision<detail::PrecisionContext::data,T>{}.
-                     write(element);
+               os << detail::Precision<
+                        detail::PrecisionContext::data,
+                        T
+                     >{}.write(element);
             else
                os << element;
 

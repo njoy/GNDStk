@@ -68,19 +68,19 @@ that used fromNode(), and ensures that the results are identical thereafter.
 // -----------------------------------------------------------------------------
 
 SCENARIO("Component fromNode()") {
-   GIVEN ("A GNDS tree") {
+   GIVEN("A GNDS tree") {
       const Tree tree("n-001_H_002.xml");
 
       // ------------------------
       // Test #1: ReactionSuite
       // ------------------------
 
-      WHEN ("A ReactionSuite object is constructed from a Node") {
+      WHEN("A ReactionSuite object is constructed from a Node") {
          // Construct a ReactionSuite from a Node. That this
          // is done correctly is tested elsewhere.
          const ReactionSuite suite1(tree(child::reactionSuite));
 
-         THEN ("A ReactionSuite made with fromNode(the same Node) "
+         THEN("A ReactionSuite made with fromNode(the same Node) "
                "is the same"
          ) {
             // Default-construct a ReactionSuite, then use fromNode
@@ -104,11 +104,11 @@ SCENARIO("Component fromNode()") {
       // Test #2: Reactions
       // ------------------------
 
-      WHEN ("A Reactions object is constructed from a Node") {
+      WHEN("A Reactions object is constructed from a Node") {
          // Construct from Node
          const Reactions reacts1(tree(child::reactionSuite,child::reactions));
 
-         THEN ("A Reactions made with fromNode(the same Node) may (and in "
+         THEN("A Reactions made with fromNode(the same Node) may (and in "
                "this case IS) different until we sort it, because fromNode() "
                "doesn't sort the Reaction sub-elements"
          ) {
@@ -137,7 +137,7 @@ SCENARIO("Component fromNode()") {
       // Test #3: Values
       // ------------------------
 
-      WHEN ("A Values object is constructed from a Node") {
+      WHEN("A Values object is constructed from a Node") {
          const Node node = tree(
             child::reactionSuite,
             child::reactions,
@@ -150,7 +150,7 @@ SCENARIO("Component fromNode()") {
          // Construct from Node
          const Values values1(node);
 
-         THEN ("A Values made with fromNode(the same Node) may (and in "
+         THEN("A Values made with fromNode(the same Node) may (and in "
                "this case IS) different until we process it"
          ) {
             Values values2;

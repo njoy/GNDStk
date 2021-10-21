@@ -19,7 +19,9 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#ifdef GNDSTK_PRECISION
 #include <charconv>
+#endif
 #include <chrono>
 #include <cmath>
 #include <cstdint>

@@ -14,12 +14,12 @@ using namespace GNDStk::proto;
 inline const std::string &InputXML();
 
 SCENARIO("Component conversion-to-Node") {
-   GIVEN ("A GNDS Node") {
+   GIVEN("A GNDS Node") {
       Node node;
       node << InputXML();
-      WHEN ("A ReactionSuite object is constructed from the Node") {
+      WHEN("A ReactionSuite object is constructed from the Node") {
          const ReactionSuite suite(node);
-         THEN ("Converting it back into a Node gives the expected result") {
+         THEN("Converting it back into a Node gives the expected result") {
             std::ostringstream oss;
             oss << XML(Node(suite));
             CHECK(oss.str() == InputXML());

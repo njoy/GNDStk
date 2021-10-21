@@ -51,16 +51,10 @@ public:
       }
   {
 
-    if ( length ) this->length( length );
-    if ( start ) this->start( start );
-    if ( valueType ) this->valueType( valueType );
-    this->get< std::vector< T > >() = values;
+    *this = values;
+    this->length( length );
+    this->start( start );
+    this->valueType( valueType );
 
     Component::finish(); // ensure that construct() gets called
   }
-
-  template < typename T,
-             typename = std::enable_if_t<
-                detail::isAlternative< T, VariantOfScalars > > >
-  Values( const std::vector< T >& values ) :
-    Values( std::nullopt, std::nullopt, std::nullopt, values ) {}
