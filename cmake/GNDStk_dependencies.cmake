@@ -34,12 +34,6 @@ FetchContent_Declare(json
     GIT_SHALLOW true
     )
 
-FetchContent_Declare(hdf5
-    GIT_REPOSITORY   https://github.com/BlueBrain/HighFive.git
-    GIT_TAG          origin/master
-    GIT_SHALLOW      TRUE
-    )
-
 FetchContent_GetProperties(json)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 if(NOT json_POPULATED)
@@ -47,12 +41,14 @@ if(NOT json_POPULATED)
   add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-FetchContent_GetProperties(hdf5)
-set(HDF5_BuildTests OFF CACHE INTERNAL "")
-if(NOT hdf5_POPULATED)
-  FetchContent_Populate(hdf5)
-  add_subdirectory(${hdf5_SOURCE_DIR} ${hdf5_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif()
+FetchContent_Declare(hdf5
+    GIT_REPOSITORY   https://github.com/BlueBrain/HighFive.git
+    GIT_TAG          origin/master
+    GIT_SHALLOW      TRUE
+    )
+set( HIGHFIVE_USE_BOOST OFF CACHE INTERNAL "" )
+set( HIGHFIVE_UNIT_TESTS OFF CACHE INTERNAL "" )
+set( HIGHFIVE_EXAMPLES OFF CACHE INTERNAL "" )
 
 FetchContent_Declare( pybind11
     GIT_REPOSITORY  https://github.com/pybind/pybind11
