@@ -8,6 +8,9 @@
 
 #include "pugixml.hpp"
 #include "nlohmann/json.hpp"
+#define HIGHFIVE_USE_BOOST OFF
+#include <highfive/H5File.hpp>
+#include <highfive/H5Easy.hpp>
 #include "Log.hpp"
 
 

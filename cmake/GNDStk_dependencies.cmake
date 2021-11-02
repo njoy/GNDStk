@@ -34,11 +34,24 @@ FetchContent_Declare(json
     GIT_SHALLOW true
     )
 
+FetchContent_Declare(hdf5
+    GIT_REPOSITORY   https://github.com/BlueBrain/HighFive.git
+    GIT_TAG          origin/master
+    GIT_SHALLOW      TRUE
+    )
+
 FetchContent_GetProperties(json)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 if(NOT json_POPULATED)
   FetchContent_Populate(json)
   add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+
+FetchContent_GetProperties(hdf5)
+set(HDF5_BuildTests OFF CACHE INTERNAL "")
+if(NOT hdf5_POPULATED)
+  FetchContent_Populate(hdf5)
+  add_subdirectory(${hdf5_SOURCE_DIR} ${hdf5_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
 FetchContent_Declare( pybind11
@@ -57,5 +70,6 @@ FetchContent_MakeAvailable(
     Log
     pugixml-adapter
     json
+    hdf5
     pybind11
     )
