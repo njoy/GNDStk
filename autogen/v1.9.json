@@ -1,16 +1,16 @@
 {
-    "inputJSON": "v1.9",
-    "files": [
+    "JSONDir": "v1.9",
+    "JSONFiles": [
         "summary_abstract.json",
         "summary_appData.json",
         "summary_atomic.json",
         "summary_common.json",
+        "summary_containers.json",
         "summary_covariance.json",
         "summary_cpTransport.json",
         "summary_documentation.json",
         "summary_fissionTransport.json",
         "summary_fpy.json",
-        "summary_containers.json",
         "summary_pops.json",
         "summary_processed.json",
         "summary_resonance.json",
@@ -19,6 +19,7 @@
         "summary_tsl.json"
     ],
 
-    "outputBase": "..",
-    "version": "v1.9"
+    "GNDSDir": "test",
+    "Version": "v1.9",
+    "Changes": "changes.json"
 }

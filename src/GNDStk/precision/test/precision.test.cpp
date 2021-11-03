@@ -381,7 +381,7 @@ SCENARIO("Precision code in BodyText::get(), "
          // This uses Precision<PrecisionContext::data,float>{}.read(string).
          // It's a read (to produce floats from string values), not a write,
          // so isn't interesting precision-wise, but it needs testing.
-         r.get<std::vector<float >>();
+         r.get<std::vector<float>>();
          CHECK(Approx(r.get<float>(0)) == 1.414213562373095049);
          CHECK(Approx(r.get<float>(1)) == 2.718281828459045235);
          CHECK(Approx(r.get<float>(2)) == 3.141592653589793238);

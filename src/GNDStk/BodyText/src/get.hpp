@@ -186,6 +186,9 @@ std::enable_if_t<
       } else if (valueType() == "Float64") {
          if (!std::is_same_v<T,Float64>)
             consistent = false;
+      } else if (valueType() == "UTF8Text") {
+         if (!std::is_same_v<T,UTF8Text>)
+            consistent = false;
       } else if (valueType() != "") {
          log::warning(
            "Unrecognized valueType == \"{}\"; ignoring",
@@ -575,7 +578,7 @@ GNDSTK_MAKE_GETTER(longlongs,   long long);
 
 GNDSTK_MAKE_GETTER(uchars,      unsigned char);
 GNDSTK_MAKE_GETTER(ushorts,     unsigned short);
-GNDSTK_MAKE_GETTER(uint,        unsigned int);
+GNDSTK_MAKE_GETTER(uints,       unsigned int);
 GNDSTK_MAKE_GETTER(ulongs,      unsigned long);
 GNDSTK_MAKE_GETTER(ulonglongs,  unsigned long long);
 

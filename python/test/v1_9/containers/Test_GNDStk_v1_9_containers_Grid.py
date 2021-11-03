@@ -60,7 +60,7 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
         # the data is given explicitly
         chunk = Grid( index = 2, label = "row_energy_bounds",
                       unit = "eV", style = GridStyle.boundaries,
-                      link_values = Values( 2, 0, "Float64", [ 1e-5, 2e7 ] ) )
+                      link_values = Values( [ 1e-5, 2e7 ] ) )
 
         verify_chunk( self, chunk )
 

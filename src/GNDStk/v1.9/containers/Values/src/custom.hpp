@@ -21,18 +21,16 @@ private:
    */
   void construct() {
 
-    if ( this->length() == std::nullopt ) {
+    if ( this->length() != std::nullopt ) {
 
-      this->length( this->size() + this->start() );
-    }
+      if ( this->length() != this->size() + this->start() ) {
 
-    if ( this->length() != this->size() + this->start() ) {
-
-      log::error( "Inconsistent size for \"values\" array" );
-      log::info( "start: {}", this->start() );
-      log::info( "length: {}", this->length().value() );
-      log::info( "number of values: {}", this->size() );
-      throw std::exception();
+        log::error( "Inconsistent size for \"values\" array" );
+        log::info( "start: {}", this->start() );
+        log::info( "length: {}", this->length().value() );
+        log::info( "number of values: {}", this->size() );
+        throw std::exception();
+      }
     }
   }
 

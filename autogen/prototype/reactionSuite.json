@@ -2,18 +2,18 @@
     "namespace": "transport",
 
     "reactionSuite": {
-        "attributes": {
+        "metadata": {
             "evaluation": {
                 "required": true,
-                "type": "XMLName"
+                "type": "string"
             },
             "format": {
                 "required": true,
-                "type": "XMLName"
+                "type": "string"
             },
             "projectile": {
                 "required": true,
-                "type": "XMLName"
+                "type": "string"
             },
             "projectileFrame": {
                 "required": true,
@@ -21,60 +21,57 @@
             },
             "target": {
                 "required": true,
-                "type": "XMLName"
+                "type": "string"
             },
             "interaction": {
                 "required": false,
                 "type": "interaction"
             }
         },
-        "childNodes": {
+        "children": {
             "reactions": {
                 "occurrence": "1",
                 "required": false
             }
-        },
-        "required": false
+        }
     },
 
     "reactions": {
-        "attributes": {},
-        "childNodes": {
+        "metadata": {},
+        "children": {
             "reaction": {
                 "occurrence": "1+",
                 "required": true
             }
-        },
-        "required": false
+        }
     },
 
     "reaction": {
-        "attributes": {
+        "metadata": {
             "ENDF_MT": {
                 "required": true,
-                "type": "Integer32"
+                "type": "int"
             },
             "fissionGenre": {
                 "required": false,
-                "type": "XMLName"
+                "type": "string"
             },
             "label": {
                 "required": true,
-                "type": "XMLName"
+                "type": "string"
             }
         },
-        "childNodes": {
+        "children": {
             "crossSection": {
                 "occurrence": "1",
                 "required": true
             }
-        },
-        "required": false
+        }
     },
 
     "crossSection": {
-        "attributes": {},
-        "childNodes": {
+        "metadata": {},
+        "children": {
             "XYs1d": {
                 "occurrence": "choice+",
                 "variant": "XYs1d_regions1d",
@@ -85,7 +82,6 @@
                 "variant": "XYs1d_regions1d",
                 "required": false
             }
-        },
-        "required": false
+        }
     }
 }

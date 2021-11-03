@@ -1,0 +1,65 @@
+{
+    "name": {
+        "// REMARK": [
+            "These give changes to apply to METADATUM or CHILD NODE names.",
+            "GNDS v1.9 does in fact have a child node named [double]. But",
+            "that name won't work in C++, so the following forces a change."
+        ],
+        "double": "Double"
+    },
+
+    "metadata": {
+        "type": {
+            "Boolean":       "bool",
+            "string":        "std::string",
+            "encoding":      "enums::Encoding",
+            "frame":         "enums::Frame",
+            "interaction":   "enums::Interaction",
+            "interpolation": "enums::Interpolation",
+            "storageOrder":  "enums::StorageOrder",
+            "gridStyle":     "enums::GridStyle"
+        },
+
+        "default": {
+            "// ENCODING": {},
+            "ascii": "enums::Encoding::ascii",
+            "utf8":  "enums::Encoding::utf8",
+
+            "// FRAME": {},
+            "lab":          "enums::Frame::lab",
+            "centerOfMass": "enums::Frame::centerOfMass",
+
+            "// GRID STYLE": {},
+            "none":       "enums::GridStyle::none",
+            "link":       "enums::GridStyle::link",
+            "points":     "enums::GridStyle::points",
+            "boundaries": "enums::GridStyle::boundaries",
+            "parameters": "enums::GridStyle::parameters",
+
+            "// INTERACTION": {},
+            "nuclear": "enums::Interaction::nuclear",
+            "atomic":  "enums::Interaction::atomic",
+            "thermalNeutronScatteringLaw":
+                "enums::Interaction::thermalNeutronScatteringLaw",
+
+            "// INTERPOLATION": {},
+            "flat":              "enums::Interpolation::flat",
+            "charged-particle":  "enums::Interpolation::chargedparticle",
+            "lin-lin":           "enums::Interpolation::linlin",
+            "lin-log":           "enums::Interpolation::linlog",
+            "log-lin":           "enums::Interpolation::loglin",
+            "log-log":           "enums::Interpolation::loglog",
+            "\\\\attr{lin-lin}": "enums::Interpolation::linlin",
+
+            "// STORAGE ORDER": {},
+            "row-major":    "enums::StorageOrder::rowMajor",
+            "column-major": "enums::StorageOrder::columnMajor",
+
+            "// MISCELLANEOUS CONTENT SEEN IN THE GNDS V1.9 SPEC": {},
+            "`' (i.e. unitless)": "",
+            " \\\\kern-1ex":      "",
+            "`' (no label)":      "",
+            "`none'":         "none"
+        }
+    }
+}
