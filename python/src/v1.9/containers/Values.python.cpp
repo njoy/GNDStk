@@ -47,21 +47,21 @@ void wrapValues(python::module &module)
       )
       .def(
          python::init<
-            const std::vector<Integer32> &
+            const std::vector<int> &
          >(),
          python::arg("ints"),
          Component::documentation("constructor").data()
       )
       .def(
          python::init<
-            const std::vector<Float64> &
+            const std::vector<double> &
          >(),
          python::arg("doubles"),
          Component::documentation("constructor").data()
       )
       .def(
          python::init<
-            const std::vector<UTF8Text> &
+            const std::vector<std::string> &
          >(),
          python::arg("strings"),
          Component::documentation("constructor").data()
