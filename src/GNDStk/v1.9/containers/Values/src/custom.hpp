@@ -21,18 +21,16 @@ private:
    */
   void construct() {
 
-    if ( this->length() == std::nullopt ) {
+    if ( this->length() != std::nullopt ) {
 
-      this->length( this->size() + this->start() );
-    }
+      if ( this->length() != this->size() + this->start() ) {
 
-    if ( this->length() != this->size() + this->start() ) {
-
-      log::error( "Inconsistent size for \"values\" array" );
-      log::info( "start: {}", this->start() );
-      log::info( "length: {}", this->length().value() );
-      log::info( "number of values: {}", this->size() );
-      throw std::exception();
+        log::error( "Inconsistent size for \"values\" array" );
+        log::info( "start: {}", this->start() );
+        log::info( "length: {}", this->length().value() );
+        log::info( "number of values: {}", this->size() );
+        throw std::exception();
+      }
     }
   }
 
@@ -53,21 +51,10 @@ public:
       }
   {
 
+    *this = values;
     this->length( length );
     this->start( start );
     this->valueType( valueType );
-
-    std::ostringstream out;
-    for ( unsigned int i = 0; i < values.size(); ++i ) {
-
-      if ( i != 0 ) {
-
-        out << ' ';
-      }
-      out << values[i];
-    }
-    this->string( out.str() );
-    this->get(); // need to call get() to properly initialise the variant<vector>
 
     Component::finish(); // ensure that construct() gets called
   }

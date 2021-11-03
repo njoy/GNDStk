@@ -229,9 +229,9 @@ SCENARIO("Precision code in BodyText::get(), "
 
    WHEN("We rework a vector<float> into a vector<string>") {
       const std::vector<float> fvec = {{
-         std::sqrt(float(2)),
-         std::sqrt(float(3)),
-         std::sqrt(float(5))
+         static_cast<float>(std::sqrt(double(2))),
+         static_cast<float>(std::sqrt(double(3))),
+         static_cast<float>(std::sqrt(double(5)))
       }};
 
       using precision::key::child::reals;
@@ -446,9 +446,9 @@ SCENARIO("Precision code in BodyText::toNode(), "
 
    WHEN("We print floats>") {
       const std::vector<float> fvec = {{
-         std::sqrt(float(2)),
-         std::sqrt(float(3)),
-         std::sqrt(float(5))
+         static_cast<float>(std::sqrt(double(2))),
+         static_cast<float>(std::sqrt(double(3))),
+         static_cast<float>(std::sqrt(double(5)))
       }};
 
       THEN("data::floats precision has the intended effect") {
