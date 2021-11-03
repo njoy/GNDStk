@@ -186,6 +186,9 @@ std::enable_if_t<
       } else if (valueType() == "Float64") {
          if (!std::is_same_v<T,Float64>)
             consistent = false;
+      } else if (valueType() == "UTF8Text") {
+         if (!std::is_same_v<T,UTF8Text>)
+            consistent = false;
       } else if (valueType() != "") {
          log::warning(
            "Unrecognized valueType == \"{}\"; ignoring",

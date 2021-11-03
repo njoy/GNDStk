@@ -31,8 +31,7 @@ SCENARIO( "Grid" ) {
       enums::GridStyle style = enums::GridStyle::boundaries;
       std::vector< double > values = { 1e-5, 2e7 };
 
-      Grid chunk( index, std::nullopt, label, style, unit,
-                  Values( 2, 0, "Float64", values ) );
+      Grid chunk( index, std::nullopt, label, style, unit, Values( values ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
 

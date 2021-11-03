@@ -62,6 +62,8 @@ operator=(const std::vector<T> &vec)
       valueType("Integer32");
    else if constexpr (std::is_same_v<T,Float64>)
       valueType("Float64");
+   else if constexpr (std::is_same_v<T,UTF8Text>)
+      valueType("UTF8Text");
    else
       valueType("");
 

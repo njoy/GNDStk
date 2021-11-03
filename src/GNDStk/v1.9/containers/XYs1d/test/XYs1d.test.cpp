@@ -195,7 +195,7 @@ R"***(<wrongName>
       <axis index="1" label="energy_in" unit="eV"/>
       <axis index="0" label="crossSection" unit="b"/>
    </axes>
-   <values>1e-05 1. 2.53e-2 2. 2.5e+3 3.</values>
+   <values length="6" start="0" valueType="Float64">1e-05 1. 2.53e-2 2. 2.5e+3 3.</values>
 </wrongName>
 )***";
 }
