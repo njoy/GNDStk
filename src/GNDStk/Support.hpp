@@ -1,22 +1,17 @@
 
+#include "GNDStk/Support/src/detail.hpp"
+
 // -----------------------------------------------------------------------------
 // Miscellaneous support constructs for our various version-specific GNDS
 // Standard Interfaces. These could perhaps have gone into utility.hpp
 // or elsewhere, but it seemed appropriate that they have their own place.
 // -----------------------------------------------------------------------------
 
-// Use fixed-width integral types to align with GNDS specs
-using Integer32  = int32_t;
-using UInteger32 = uint32_t;
-
-// C++ presently has no fixed-width floating-point types;
-// this should suffice
-using Float64 = double;
-
-// For now, these should suffice;
-// but consider perhaps having specialty types instead
-using UTF8Text = std::string;
-using XMLName  = std::string;
+using Integer32  = int;
+using UInteger32 = unsigned;
+using Float64    = double;
+using UTF8Text   = std::string;
+using XMLName    = std::string;
 
 
 
@@ -26,10 +21,10 @@ using XMLName  = std::string;
 
 class Fraction32 {
 public:
-   Integer32 num;
-   Integer32 den;
+   int num;
+   int den;
 
-   explicit Fraction32(const Integer32 n = 0, const Integer32 d = 1) :
+   explicit Fraction32(const int n = 0, const int d = 1) :
       num(n), den(d)
    {
       if (den == 0) {
@@ -43,15 +38,15 @@ public:
       // to 1/2, but that probably isn't important for these.
    }
 
-   Integer32 numerator  () const { return num; }
-   Integer32 denominator() const { return den; }
+   int numerator  () const { return num; }
+   int denominator() const { return den; }
 };
 
 // operator>>
 inline std::istream &operator>>(std::istream &is, Fraction32 &obj)
 {
    try {
-      Integer32 num, den;
+      int num, den;
       is >> num;
       if (is.get() == '/') {
          is >> den;
@@ -85,7 +80,7 @@ inline std::ostream &operator<<(std::ostream &os, const Fraction32 &obj)
 
 class IntegerTuple {
 public:
-   std::vector<Integer32> vec;
+   std::vector<int> vec;
 
    // ------------------------
    // constructors
@@ -99,30 +94,30 @@ public:
    IntegerTuple()
    { }
 
-   explicit IntegerTuple(const Integer32 i)
+   explicit IntegerTuple(const int i)
    {
       vec.push_back(i);
    }
 
-   IntegerTuple(const Integer32 i, const Integer32 j)
+   IntegerTuple(const int i, const int j)
    {
       vec.push_back(i);
       vec.push_back(j);
    }
 
-   IntegerTuple(const Integer32 i, const Integer32 j, const Integer32 k)
+   IntegerTuple(const int i, const int j, const int k)
    {
       vec.push_back(i);
       vec.push_back(j);
       vec.push_back(k);
    }
 
-   explicit IntegerTuple(const std::vector<Integer32> &vec) :
+   explicit IntegerTuple(const std::vector<int> &vec) :
       vec(vec)
    { }
 
    template<std::size_t N>
-   explicit IntegerTuple(const std::array<Integer32,N> &arr) :
+   explicit IntegerTuple(const std::array<int,N> &arr) :
       vec(arr.begin(), arr.end())
    { }
 
@@ -135,13 +130,13 @@ public:
 
    // operator[]
    // we'll use at(), under-the-hood, so that out-of-range ==> exception
-   const Integer32 &operator[](const std::size_t i) const
+   const int &operator[](const std::size_t i) const
       { return vec.at(i); }
-   Integer32 &operator[](const std::size_t i)
+   int &operator[](const std::size_t i)
       { return vec.at(i); }
 
    // push
-   Integer32 &push(const Integer32 n)
+   int &push(const int n)
    {
       vec.push_back(n);
       return vec.back();
@@ -160,7 +155,7 @@ inline std::istream &operator>>(std::istream &is, IntegerTuple &obj)
 {
    obj.clear();
    try {
-      Integer32 n;
+      int n;
       is >> n;
       obj.push(n);
 

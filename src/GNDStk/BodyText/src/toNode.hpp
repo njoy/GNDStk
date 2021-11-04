@@ -56,19 +56,10 @@ void toNode(std::string &text, DERIVED &derived) const
    // Compute length, start, and valueType
    vars.length = size(); // independent of trim
    vars.start  = bounds.first; // dependent on trim, per the bounds computation
-   if constexpr (runtime) {
-      vars.valueType =
-         std::holds_alternative<std::vector<Integer32>>(variant) ? "Integer32"
-       : std::holds_alternative<std::vector<Float64  >>(variant) ? "Float64"
-       : std::holds_alternative<std::vector<UTF8Text >>(variant) ? "UTF8Text"
-       : ""; // fallback
-   } else {
-      vars.valueType =
-         std::is_same_v<Integer32,DATA> ? "Integer32"
-       : std::is_same_v<Float64,  DATA> ? "Float64"
-       : std::is_same_v<UTF8Text, DATA> ? "UTF8Text"
-       : ""; // fallback
-   }
+   if constexpr (runtime)
+      vars.valueType = detail::visitMapTypeString(variant);
+   else
+      vars.valueType = detail::MapTypeString<DATA>::value[0];
    pushToDerived(derived);
 
    // Values

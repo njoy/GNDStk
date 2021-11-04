@@ -39,9 +39,9 @@ public:
   template < typename T,
              typename = std::enable_if_t<
                 detail::isAlternative< T, VariantOfScalars > > >
-  Values( const std::optional< Integer32 >& length,
-          const std::optional< Integer32 >& start,
-          const std::optional< UTF8Text >& valueType,
+  Values( const std::optional< int >& length,
+          const std::optional< int >& start,
+          const std::optional< std::string >& valueType,
           const std::vector< T >& values ) :
       Component{
          BodyText{},

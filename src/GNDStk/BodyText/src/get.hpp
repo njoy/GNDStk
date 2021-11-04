@@ -174,33 +174,13 @@ std::enable_if_t<
       // length, start, and valueType.
 
       // For this get(), the caller has stipulated a particular vector type.
-      // We'll print a warning if that type appears to conflict with valueType,
-      // or if valueType isn't something we know what to do with. In any event,
-      // we'll return what the caller requested. Note that valueType = "" (the
-      // empty string) is acceptable with any element type.
-
-      bool consistent = true;
-      if (valueType() == "Integer32") {
-         if (!std::is_same_v<T,Integer32>)
-            consistent = false;
-      } else if (valueType() == "Float64") {
-         if (!std::is_same_v<T,Float64>)
-            consistent = false;
-      } else if (valueType() == "UTF8Text") {
-         if (!std::is_same_v<T,UTF8Text>)
-            consistent = false;
-      } else if (valueType() != "") {
+      // We'll print a warning if that vector type appears to conflict with
+      // valueType. Regardless, we'll return what the caller requested. Note
+      // that valueType == "" is acceptable with any element type.
+      if (valueType() != "" && !detail::MapTypeString<T>::find(valueType())) {
          log::warning(
-           "Unrecognized valueType == \"{}\"; ignoring",
-            valueType()
-         );
-         log::member(context_rebuilding);
-      }
-
-      if (!consistent) {
-         log::warning(
-           "Element type T may be inconsistent with valueType == \"{}\";\n",
-           "we'll create the requested std::vector<T> anyway",
+           "Vector element type may be inconsistent with valueType \"{}\";\n"
+           "we'll create the requested std::vector<> anyway",
             valueType()
          );
          log::member(context_rebuilding);
@@ -401,16 +381,13 @@ std::conditional_t<
 > get() const
 {
    if constexpr (runtime) {
-      if (valueType() == "Integer32")
-         get<std::vector<Integer32>>();
-      else if (valueType() == "Float64")
-         get<std::vector<Float64>>();
-      else
-         get<std::vector<std::string>>();
-
-      // We can't return the specific variant *alternative* that exists right
-      // now, because that depended on valueType (run-time). So, we'll return
-      // the whole variant, for whatever use that might have to a caller.
+      detail::MapStringType(
+         valueType(),
+         [this](auto &&t) { get<std::vector<std::decay_t<decltype(t)>>>(); }
+      );
+      // We can't return the specific variant alternative that was just put
+      // in place; it depended on a run-time check. So, we return the whole
+      // variant, for whatever use that might have to a caller.
       return variant;
    } else {
       // Simpler, but we do still need a get (in case the *string* is active).
@@ -552,8 +529,8 @@ operator[](const std::size_t n)
    template<class D = DATA> \
    std::enable_if_t< \
       detail::isVoid<D> || \
-      std::is_same_v<TYPE,D>,       std::vector<TYPE> & \
-   > name()       { return get<std::vector<TYPE>>(); } \
+      std::is_same_v<TYPE,D>, std::vector<TYPE> & \
+   > name() { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATA> \
    std::enable_if_t< \
@@ -564,26 +541,23 @@ operator[](const std::size_t n)
    template<class D = DATA> \
    std::enable_if_t< \
       detail::isVoid<D> || \
-      std::is_same_v<TYPE,D>,       TYPE & \
-   > name(const std::size_t n)       { return get<TYPE>(n); }
+      std::is_same_v<TYPE,D>, TYPE & \
+   > name(const std::size_t n) { return get<TYPE>(n); }
 
-GNDSTK_MAKE_GETTER(strings,     std::string);
-GNDSTK_MAKE_GETTER(chars,       char);
-
-GNDSTK_MAKE_GETTER(schars,      signed char);
-GNDSTK_MAKE_GETTER(shorts,      short);
-GNDSTK_MAKE_GETTER(ints,        int);
-GNDSTK_MAKE_GETTER(longs,       long);
-GNDSTK_MAKE_GETTER(longlongs,   long long);
-
-GNDSTK_MAKE_GETTER(uchars,      unsigned char);
-GNDSTK_MAKE_GETTER(ushorts,     unsigned short);
-GNDSTK_MAKE_GETTER(uints,       unsigned int);
-GNDSTK_MAKE_GETTER(ulongs,      unsigned long);
-GNDSTK_MAKE_GETTER(ulonglongs,  unsigned long long);
-
-GNDSTK_MAKE_GETTER(floats,      float);
-GNDSTK_MAKE_GETTER(doubles,     double);
-GNDSTK_MAKE_GETTER(longdoubles, long double);
+GNDSTK_MAKE_GETTER(strings,     std::string)
+GNDSTK_MAKE_GETTER(chars,       char)
+GNDSTK_MAKE_GETTER(schars,      signed char)
+GNDSTK_MAKE_GETTER(shorts,      short)
+GNDSTK_MAKE_GETTER(ints,        int)
+GNDSTK_MAKE_GETTER(longs,       long)
+GNDSTK_MAKE_GETTER(longlongs,   long long)
+GNDSTK_MAKE_GETTER(uchars,      unsigned char)
+GNDSTK_MAKE_GETTER(ushorts,     unsigned short)
+GNDSTK_MAKE_GETTER(uints,       unsigned int)
+GNDSTK_MAKE_GETTER(ulongs,      unsigned long)
+GNDSTK_MAKE_GETTER(ulonglongs,  unsigned long long)
+GNDSTK_MAKE_GETTER(floats,      float)
+GNDSTK_MAKE_GETTER(doubles,     double)
+GNDSTK_MAKE_GETTER(longdoubles, long double)
 
 #undef GNDSTK_MAKE_GETTER

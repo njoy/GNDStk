@@ -53,19 +53,10 @@ operator=(const std::vector<T> &vec)
    // set the raw string to "", because it's no longer considered meaningful
    rawstring = "";
 
-   // length, start
+   // length, start, valueType
    length(vec.size());
    start(0);
-
-   // valueType: best guess
-   if constexpr (std::is_same_v<T,Integer32>)
-      valueType("Integer32");
-   else if constexpr (std::is_same_v<T,Float64>)
-      valueType("Float64");
-   else if constexpr (std::is_same_v<T,UTF8Text>)
-      valueType("UTF8Text");
-   else
-      valueType("");
+   valueType(detail::MapTypeString<T>::value[0]);
 
    // assign vector
    if constexpr (runtime)

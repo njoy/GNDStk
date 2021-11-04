@@ -19,7 +19,7 @@ Quoted [slightly edited] from the official JSON specification files for GNDS:
       For start = N, the first N values are zero and are not stored.
 
    valueType
-      Specifies the type of data in the body (e.g., Integer32, Float64).
+      Specifies the type of data in the body (e.g., "Integer32", "Float64").
       Only one type of data can be stored in each instance of a values node.
 
 In some places, e.g. the JSON-format GNDS spec files, these are listed in

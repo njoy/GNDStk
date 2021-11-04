@@ -15,10 +15,10 @@ template<class INTEGER, class FLOAT, class STRING, class UNSIGNED>
 void scenario_get_vector()
 {
    // We'll deal with these vector types for the test. They should cover
-   // sufficient cases (Integer32, Float64, string, and none of the above)
+   // sufficient cases (int, double, string, and none of the above)
    // that we get good coverage, without this test being excessively long.
-   using ivec = std::vector<Integer32>;
-   using fvec = std::vector<Float64>;
+   using ivec = std::vector<int>;
+   using fvec = std::vector<double>;
    using svec = std::vector<std::string>;
    using uvec = std::vector<unsigned>;
 
@@ -29,7 +29,7 @@ void scenario_get_vector()
    // gives us back a vector<T>.
 
    // ------------------------
-   // vector<Integer32>
+   // vector<int>
    // ------------------------
 
    // 0 elements in string
@@ -63,7 +63,7 @@ void scenario_get_vector()
       CHECK((b.template get<ivec>() == ivec{{0,0,-12,34,-56,0}})); }
 
    // ------------------------
-   // vector<Float64>
+   // vector<double>
    // ------------------------
 
    // 0 elements in string
@@ -175,7 +175,7 @@ SCENARIO("BodyText<DATA == void> get<vector>()") {
 // For BodyText<DATA != void>
 SCENARIO("BodyText<DATA != void> get<vector>()") {
    GIVEN("A BodyText object") {
-      scenario_get_vector<Integer32,Float64,std::string,unsigned>();
+      scenario_get_vector<int,double,std::string,unsigned>();
    }
 }
 
@@ -190,70 +190,70 @@ template<class INTEGER, class FLOAT, class STRING, class UNSIGNED>
 void scenario_get_template_n()
 {
    // ------------------------
-   // vector<Integer32>
+   // vector<int>
    // ------------------------
 
    // 0 elements in string
    { BodyText<true,INTEGER> b; b.start(0).length(0).string(""); /* no elements */ }
    { BodyText<true,INTEGER> b; b.start(0).length(4).string("");
-      CHECK(b.template get<Integer32>(1) == 0); }
+      CHECK(b.template get<int>(1) == 0); }
    { BodyText<true,INTEGER> b; b.start(1).length(5).string("");
-      CHECK(b.template get<Integer32>(2) == 0); }
+      CHECK(b.template get<int>(2) == 0); }
    { BodyText<true,INTEGER> b; b.start(2).length(6).string("");
-      CHECK(b.template get<Integer32>(3) == 0); }
+      CHECK(b.template get<int>(3) == 0); }
 
    // 1 element in string
    { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12");
-      CHECK(b.template get<Integer32>(0) == -12); }
+      CHECK(b.template get<int>(0) == -12); }
    { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12");
-      CHECK(b.template get<Integer32>(1) == 0); }
+      CHECK(b.template get<int>(1) == 0); }
    { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12");
-      CHECK(b.template get<Integer32>(2) == 0); }
+      CHECK(b.template get<int>(2) == 0); }
    { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12");
-      CHECK(b.template get<Integer32>(3) == 0); }
+      CHECK(b.template get<int>(3) == 0); }
 
    // 3 elements in string
    { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
-      CHECK(b.template get<Integer32>(0) == -12); }
+      CHECK(b.template get<int>(0) == -12); }
    { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
-      CHECK(b.template get<Integer32>(1) == 34); }
+      CHECK(b.template get<int>(1) == 34); }
    { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
-      CHECK(b.template get<Integer32>(2) == 34); }
+      CHECK(b.template get<int>(2) == 34); }
    { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
-      CHECK(b.template get<Integer32>(3) == 34); }
+      CHECK(b.template get<int>(3) == 34); }
 
    // ------------------------
-   // vector<Float64>
+   // vector<double>
    // ------------------------
 
    // 0 elements in string
    { BodyText<true,FLOAT> b; b.start(0).length(0).string(""); /* no elements */ }
    { BodyText<true,FLOAT> b; b.start(0).length(4).string("");
-      CHECK(b.template get<Float64>(1) == 0); }
+      CHECK(b.template get<double>(1) == 0); }
    { BodyText<true,FLOAT> b; b.start(1).length(5).string("");
-      CHECK(b.template get<Float64>(2) == 0); }
+      CHECK(b.template get<double>(2) == 0); }
    { BodyText<true,FLOAT> b; b.start(2).length(6).string("");
-      CHECK(b.template get<Float64>(3) == 0); }
+      CHECK(b.template get<double>(3) == 0); }
 
    // 1 element in string
    { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2");
-      CHECK(b.template get<Float64>(0) == 1.2); }
+      CHECK(b.template get<double>(0) == 1.2); }
    { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2");
-      CHECK(b.template get<Float64>(1) == 0); }
+      CHECK(b.template get<double>(1) == 0); }
    { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2");
-      CHECK(b.template get<Float64>(2) == 0); }
+      CHECK(b.template get<double>(2) == 0); }
    { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2");
-      CHECK(b.template get<Float64>(3) == 0); }
+      CHECK(b.template get<double>(3) == 0); }
 
    // 3 elements in string
    { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
-      CHECK(b.template get<Float64>(0) == 1.2); }
+      CHECK(b.template get<double>(0) == 1.2); }
    { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
-      CHECK(b.template get<Float64>(1) == 3.4); }
+      CHECK(b.template get<double>(1) == 3.4); }
    { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
-      CHECK(b.template get<Float64>(2) == 3.4); }
+      CHECK(b.template get<double>(2) == 3.4); }
    { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
-      CHECK(b.template get<Float64>(3) == 3.4); }
+      CHECK(b.template get<double>(3) == 3.4); }
 
    // ------------------------
    // vector<std::string>
@@ -332,7 +332,7 @@ SCENARIO("BodyText<DATA == void> get<T>(n)") {
 // For BodyText<DATA != void>
 SCENARIO("BodyText<DATA != void> get<T>(n)") {
    GIVEN("A BodyText object") {
-      scenario_get_template_n<Integer32,Float64,std::string,unsigned>();
+      scenario_get_template_n<int,double,std::string,unsigned>();
    }
 }
 
@@ -346,8 +346,8 @@ SCENARIO("BodyText<DATA != void> get<T>(n)") {
 SCENARIO("BodyText<DATA == void> get()") {
    GIVEN("A BodyText object") {
 
-      using ivec = std::vector<Integer32>;
-      using fvec = std::vector<Float64>;
+      using ivec = std::vector<int>;
+      using fvec = std::vector<double>;
       using svec = std::vector<std::string>;
 
       BodyText<true,void> b;
@@ -381,18 +381,18 @@ SCENARIO("BodyText<DATA == void> get()") {
 SCENARIO("BodyText<DATA != void> get()") {
    GIVEN("A BodyText object") {
 
-      using ivec = std::vector<Integer32>;
-      using fvec = std::vector<Float64>;
+      using ivec = std::vector<int>;
+      using fvec = std::vector<double>;
       using svec = std::vector<std::string>;
 
       {
-         BodyText<true,Integer32> b;
+         BodyText<true,int> b;
          b.start(2).length(6).string("-12 34 -56");
          CHECK((b.get() == ivec{{0,0,-12,34,-56,0}}));
       }
 
       {
-         BodyText<true,Float64> b;
+         BodyText<true,double> b;
          b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK((b.get() == fvec{{0,0,1.2,3.4,5.6,0}}));
       }
@@ -424,15 +424,15 @@ SCENARIO("BodyText<DATA == void> get(n)") {
 
       b.start(2).length(6).string("-12 34 -56");
       b.valueType("Integer32");
-      CHECK(( std::holds_alternative<Integer32>(b.get(0))));
-      CHECK((!std::holds_alternative<Float64>(b.get(0))));
+      CHECK(( std::holds_alternative<int>(b.get(0))));
+      CHECK((!std::holds_alternative<double>(b.get(0))));
       CHECK((!std::holds_alternative<std::string>(b.get(0))));
-      CHECK(( std::get<Integer32>( b.get(0) ) ==   0 ));
-      CHECK(( std::get<Integer32>( b.get(1) ) ==   0 ));
-      CHECK(( std::get<Integer32>( b.get(2) ) == -12 ));
-      CHECK(( std::get<Integer32>( b.get(3) ) ==  34 ));
-      CHECK(( std::get<Integer32>( b.get(4) ) == -56 ));
-      CHECK(( std::get<Integer32>( b.get(5) ) ==   0 ));
+      CHECK(( std::get<int>( b.get(0) ) ==   0 ));
+      CHECK(( std::get<int>( b.get(1) ) ==   0 ));
+      CHECK(( std::get<int>( b.get(2) ) == -12 ));
+      CHECK(( std::get<int>( b.get(3) ) ==  34 ));
+      CHECK(( std::get<int>( b.get(4) ) == -56 ));
+      CHECK(( std::get<int>( b.get(5) ) ==   0 ));
       // test type changes (inefficient, but they work)...
       CHECK(b.get<long>(2) == -12);
       CHECK(b.get<double>(3) == double(34));
@@ -440,15 +440,15 @@ SCENARIO("BodyText<DATA == void> get(n)") {
 
       b.start(2).length(6).string("1.2 3.4 5.6");
       b.valueType("Float64");
-      CHECK((!std::holds_alternative<Integer32>(b.get(0))));
-      CHECK(( std::holds_alternative<Float64>(b.get(0))));
+      CHECK((!std::holds_alternative<int>(b.get(0))));
+      CHECK(( std::holds_alternative<double>(b.get(0))));
       CHECK((!std::holds_alternative<std::string>(b.get(0))));
-      CHECK(( std::get<Float64>( b.get(0) ) == 0   ));
-      CHECK(( std::get<Float64>( b.get(1) ) == 0   ));
-      CHECK(( std::get<Float64>( b.get(2) ) == 1.2 ));
-      CHECK(( std::get<Float64>( b.get(3) ) == 3.4 ));
-      CHECK(( std::get<Float64>( b.get(4) ) == 5.6 ));
-      CHECK(( std::get<Float64>( b.get(5) ) == 0   ));
+      CHECK(( std::get<double>( b.get(0) ) == 0   ));
+      CHECK(( std::get<double>( b.get(1) ) == 0   ));
+      CHECK(( std::get<double>( b.get(2) ) == 1.2 ));
+      CHECK(( std::get<double>( b.get(3) ) == 3.4 ));
+      CHECK(( std::get<double>( b.get(4) ) == 5.6 ));
+      CHECK(( std::get<double>( b.get(5) ) == 0   ));
       // test type changes...
       CHECK(b.get<long>(2) == 1); // truncated from 1.2
       // having converted to vector<long>, the .#s aren't there any longer...
@@ -458,8 +458,8 @@ SCENARIO("BodyText<DATA == void> get(n)") {
 
       b.start(2).length(8).string("ab cd ef 123 4.5");
       b.valueType("");
-      CHECK((!std::holds_alternative<Integer32>(b.get(0))));
-      CHECK((!std::holds_alternative<Float64>(b.get(0))));
+      CHECK((!std::holds_alternative<int>(b.get(0))));
+      CHECK((!std::holds_alternative<double>(b.get(0))));
       CHECK(( std::holds_alternative<std::string>(b.get(0))));
       CHECK(( std::get<std::string>( b.get(0) ) == ""   ));
       CHECK(( std::get<std::string>( b.get(1) ) == ""   ));
@@ -476,32 +476,32 @@ SCENARIO("BodyText<DATA == void> get(n)") {
 
       b.start(2).length(6).string("-12 34 -56");
       b.valueType("Integer32");
-      CHECK(( std::holds_alternative<Integer32>(b[0])));
-      CHECK((!std::holds_alternative<Float64>(b[0])));
+      CHECK(( std::holds_alternative<int>(b[0])));
+      CHECK((!std::holds_alternative<double>(b[0])));
       CHECK((!std::holds_alternative<std::string>(b[0])));
-      CHECK(( std::get<Integer32>( b[0] ) ==   0 ));
-      CHECK(( std::get<Integer32>( b[1] ) ==   0 ));
-      CHECK(( std::get<Integer32>( b[2] ) == -12 ));
-      CHECK(( std::get<Integer32>( b[3] ) ==  34 ));
-      CHECK(( std::get<Integer32>( b[4] ) == -56 ));
-      CHECK(( std::get<Integer32>( b[5] ) ==   0 ));
+      CHECK(( std::get<int>( b[0] ) ==   0 ));
+      CHECK(( std::get<int>( b[1] ) ==   0 ));
+      CHECK(( std::get<int>( b[2] ) == -12 ));
+      CHECK(( std::get<int>( b[3] ) ==  34 ));
+      CHECK(( std::get<int>( b[4] ) == -56 ));
+      CHECK(( std::get<int>( b[5] ) ==   0 ));
 
       b.start(2).length(6).string("1.2 3.4 5.6");
       b.valueType("Float64");
-      CHECK((!std::holds_alternative<Integer32>(b[0])));
-      CHECK(( std::holds_alternative<Float64>(b[0])));
+      CHECK((!std::holds_alternative<int>(b[0])));
+      CHECK(( std::holds_alternative<double>(b[0])));
       CHECK((!std::holds_alternative<std::string>(b[0])));
-      CHECK(( std::get<Float64>( b[0] ) == 0   ));
-      CHECK(( std::get<Float64>( b[1] ) == 0   ));
-      CHECK(( std::get<Float64>( b[2] ) == 1.2 ));
-      CHECK(( std::get<Float64>( b[3] ) == 3.4 ));
-      CHECK(( std::get<Float64>( b[4] ) == 5.6 ));
-      CHECK(( std::get<Float64>( b[5] ) == 0   ));
+      CHECK(( std::get<double>( b[0] ) == 0   ));
+      CHECK(( std::get<double>( b[1] ) == 0   ));
+      CHECK(( std::get<double>( b[2] ) == 1.2 ));
+      CHECK(( std::get<double>( b[3] ) == 3.4 ));
+      CHECK(( std::get<double>( b[4] ) == 5.6 ));
+      CHECK(( std::get<double>( b[5] ) == 0   ));
 
       b.start(2).length(6).string("ab cd ef");
       b.valueType("");
-      CHECK((!std::holds_alternative<Integer32>(b[0])));
-      CHECK((!std::holds_alternative<Float64>(b[0])));
+      CHECK((!std::holds_alternative<int>(b[0])));
+      CHECK((!std::holds_alternative<double>(b[0])));
       CHECK(( std::holds_alternative<std::string>(b[0])));
       CHECK(( std::get<std::string>( b[0] ) == ""   ));
       CHECK(( std::get<std::string>( b[1] ) == ""   ));
@@ -523,7 +523,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       // ------------------------
 
       {
-         BodyText<true,Integer32> b;
+         BodyText<true,int> b;
          b.start(2).length(6).string("-12 34 -56");
          CHECK(( b.get(0) ==   0 ));
          CHECK(( b.get(1) ==   0 ));
@@ -534,7 +534,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       }
 
       {
-         BodyText<true,Float64> b;
+         BodyText<true,double> b;
          b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK(( b.get(0) == 0   ));
          CHECK(( b.get(1) == 0   ));
@@ -562,7 +562,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       // ------------------------
 
       {
-         BodyText<true,Integer32> b;
+         BodyText<true,int> b;
          b.start(2).length(6).string("-12 34 -56");
          CHECK(( b[0] ==   0 ));
          CHECK(( b[1] ==   0 ));
@@ -573,7 +573,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       }
 
       {
-         BodyText<true,Float64> b;
+         BodyText<true,double> b;
          b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK(( b[0] == 0   ));
          CHECK(( b[1] == 0   ));
