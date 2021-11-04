@@ -1,0 +1,118 @@
+{
+    "__namespace__":"fissionFragmentData",
+    "fissionFragmentData":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "delayedNeutrons": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of delayed neutrons. Each has an associated decay rate, multiplicity and energy distribution.",
+                "name": "delayedNeutrons",
+                "occurrence": "1",
+                "required": false
+            },
+            "fissionEnergyReleased": {
+                "__class__": "nodes.ChildNode",
+                "description": "Describes how energy released during fission is partitioned between various products.",
+                "name": "fissionEnergyReleased",
+                "occurrence": "1",
+                "required": false
+            },
+            "productYields": {
+                "__class__": "nodes.ChildNode",
+                "description": "Container to hold lists of \\element{productYield}, including evaluated or processed yields.",
+                "name": "productYields",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": [
+            "Nuclear fission generally produces some prompt neutrons and gammas and occasionally light ions,",
+            "plus two large fission fragments. These fragments may then decay and emit additional radiation",
+            "including delayed neutrons / gammas, betas, etc. The fissionFragmentData section describes the",
+            "heavy (A > 4) fragments and their subsequent decay.",
+            "When used for particle-induced fission, this node appears inside the \\element{outputChannel}",
+            "node of a fission reaction. When used for spontaneous fission, this node appears in the",
+            "\\element{nuclide} node inside the \\element{PoPs} database."
+        ],
+        "name": "fissionFragmentData",
+        "required": true,
+        "rootNode": false
+    },
+
+    "delayedNeutrons":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "delayedNeutron": {
+                "__class__": "nodes.ChildNode",
+                "description": "Information about neutrons emitted at the specified `decay rate' after fission.",
+                "name": "delayedNeutron",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Stores a list of delayed neutrons, each with an associated decay rate, multiplicity and energy distribution.",
+        "name": "delayedNeutrons",
+        "required": false,
+        "rootNode": false
+    },
+    "delayedNeutron":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label for this delayed neutron group.",
+                "name": "label",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "rate": {
+                "__class__": "nodes.ChildNode",
+                "description": "Decay rate (in decays/second or equivalent) for this delayed neutron group.",
+                "name": "rate",
+                "occurrence": "1",
+                "required": true
+            },
+            "product": {
+                "__class__": "nodes.ChildNode",
+                "description": "Product describing this delayed neutron. Includes average multiplicity and distribution info.",
+                "name": "product",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Stores a delayed neutron product, representing an average multiplicity and distribution for neutrons emitted with the specified decay rate.",
+        "name": "delayedNeutron",
+        "required": false,
+        "rootNode": false
+    },
+    "rate":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines the decay rate. Recommended units are `1/s' or equivalent.",
+                "name": "double",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Defines the decay rate for the parent \\element{delayedNeutron}.",
+        "name": "rate",
+        "required": false,
+        "rootNode": false
+    }
+}
