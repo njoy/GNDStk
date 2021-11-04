@@ -2,13 +2,14 @@
 #include "GNDStk/enums/enumeration.hpp"
 
 #include "GNDStk/enums/Parity.hpp"
+#include "GNDStk/enums/Frame.hpp"
+#include "GNDStk/enums/Interpolation.hpp"
+#include "GNDStk/enums/InterpolationQualifier.hpp"
 
 // general
 #include "GNDStk/enums/Encoding.hpp"
-#include "GNDStk/enums/Frame.hpp"
 #include "GNDStk/enums/GridStyle.hpp"
 #include "GNDStk/enums/Interaction.hpp"
-#include "GNDStk/enums/Interpolation.hpp"
 #include "GNDStk/enums/StorageOrder.hpp"
 
 // units-specific

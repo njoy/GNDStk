@@ -110,7 +110,8 @@ SCENARIO( "Interpolation" ) {
 
     WHEN( "isInterpolation is used" ) {
 
-      THEN( "registered interpolation values return true, unregistered interpolation values return false" ) {
+      THEN( "registered interpolation values return true, "
+            "unregistered interpolation values return false" ) {
 
         CHECK( true == enums::isInterpolation( "flat" ) );
         CHECK( true == enums::isInterpolation( "lin-lin" ) );

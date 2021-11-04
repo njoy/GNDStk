@@ -79,7 +79,8 @@ SCENARIO( "Frame" ) {
 
     WHEN( "isFrame is used" ) {
 
-      THEN( "registered frame values return true, unregistered frame values return false" ) {
+      THEN( "registered frame values return true, "
+            "unregistered frame values return false" ) {
 
         CHECK( true == enums::isFrame( "lab" ) );
         CHECK( true == enums::isFrame( "centerOfMass" ) );

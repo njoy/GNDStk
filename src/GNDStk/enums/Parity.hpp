@@ -5,7 +5,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class for particle parity
+   *  @brief Enumeration class for particle parity values
    */
   enum class Parity {
 

@@ -79,7 +79,8 @@ SCENARIO( "Parity" ) {
 
     WHEN( "isParity is used" ) {
 
-      THEN( "registered frame values return true, unregistered frame values return false" ) {
+      THEN( "registered parity values return true, "
+            "unregistered parity values return false" ) {
 
         CHECK( true == enums::isParity( "-1" ) );
         CHECK( true == enums::isParity( "+1" ) );
