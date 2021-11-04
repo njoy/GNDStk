@@ -5,6 +5,7 @@
 #include "GNDStk/enums/Frame.hpp"
 #include "GNDStk/enums/Interpolation.hpp"
 #include "GNDStk/enums/InterpolationQualifier.hpp"
+#include "GNDStk/enums/HashAlgorithm.hpp"
 
 // general
 #include "GNDStk/enums/Encoding.hpp"
