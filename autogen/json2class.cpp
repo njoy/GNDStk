@@ -2171,24 +2171,21 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       { "quad"               , { "long double"        , "quads"       } }
    };
 
-   std::string dataType = "unknownType";
-   std::string dataName = "data";
+   std::vector< std::pair< std::string, std::string > > dataTypesNames;
    if (per.isData) {
       // try to find per.dataType in the map
       auto it = map.find(per.dataType);
-      if (it == map.end()) {
-         // look in metadata for valueType; if found,
-         // try to find its default value in the map
-         for (auto &m : per.metadata) {
-            if (m.name == "valueType") {
-               it = map.find(m.defaultValue);
-               break;
-            }
-         }
-      }
       if (it != map.end()) {
-         dataType = it->second.first;
-         dataName = it->second.second;
+         // this is a node with a fixed data type
+         dataTypesNames.emplace_back( it->second.first, it->second.second );
+      }
+      else {
+         // this is a node with a runtime data type: select types to expose
+         std::array< std::string, 3 > types = { "int", "double", "string" };
+         for ( const auto& type : types ) {
+            it = map.find( type );
+            dataTypesNames.emplace_back( it->second.first, it->second.second );
+         }
       }
    }
 
@@ -2239,11 +2236,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out();
    out(1,"// wrap the component");
    out(1,"component");
-   out(2,".def(");
 
-   // python::init<...>
+   // python::init<...> for attributes and children
+   out(2,".def(");
    out(3,"python::init<");
-   int count = 0, total = per.nfields() + per.isData;
+   int count = 0, total = per.nfields();
    for (auto &m : per.metadata)
       out(4,"const @ &@",
           m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
@@ -2252,11 +2249,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(4,"const @ &@", c.typeFull, ++count < total ? "," : "");
    for (auto &v : per.variants)
       out(4,"const @ &@", v.typeFull, ++count < total ? "," : "");
-   if (per.isData)
-      out(4,"const std::vector<@> &", dataType);
    out(3,">(),");
-
-   // python::arg...
    for (auto &m : per.metadata)
       out(3,"python::arg(\"@\")@,",
           namePython(m.name),
@@ -2266,10 +2259,19 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
           c.isOptional ? " = std::nullopt" : "");
    for (auto &v : per.variants)
       out(3,"python::arg(\"@\"),", namePython(v.name));
-   if (per.isData)
-      out(3,"python::arg(\"values\"),");
    out(3,"Component::documentation(\"constructor\").data()");
    out(2,")");
+
+   // python::init<...> for each data type and name pair
+   for ( const auto& dataTypeName : dataTypesNames ) {
+      out(2,".def(");
+      out(3,"python::init<");
+      out(4,"const std::vector<@> &", dataTypeName.first);
+      out(3,">(),");
+      out(3,"python::arg(\"@\"),", dataTypeName.second);
+      out(3,"Component::documentation(\"constructor\").data()");
+      out(2,")");
+   }
 
    // .def_property_readonly...
    for (auto &m : per.metadata) {
@@ -2312,11 +2314,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(2,")");
    }
 
-   if (per.isData) {
+   for ( const auto& dataTypeName : dataTypesNames ) {
       out(2,".def_property_readonly(");
-      out(3,"\"@\",", dataName);
-      out(3,"[] (const Component &self) { return self.@(); },", dataName);
-      out(3,"Component::documentation(\"@\").data()", dataName);
+      out(3,"\"@\",", dataTypeName.second);
+      out(3,"[] (const Component &self) { return self.@(); },", dataTypeName.second);
+      out(3,"Component::documentation(\"@\").data()", dataTypeName.second);
       out(2,")");
    }
 
