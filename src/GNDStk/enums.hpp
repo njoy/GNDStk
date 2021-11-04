@@ -1,6 +1,8 @@
 
 #include "GNDStk/enums/enumeration.hpp"
 
+#include "GNDStk/enums/Parity.hpp"
+
 // general
 #include "GNDStk/enums/Encoding.hpp"
 #include "GNDStk/enums/Frame.hpp"

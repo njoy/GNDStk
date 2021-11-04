@@ -29,6 +29,8 @@ add_subdirectory( src/GNDStk/Component/test )
 add_subdirectory( src/GNDStk/BodyText/test )
 add_subdirectory( src/GNDStk/precision/test )
 
+add_subdirectory( src/GNDStk/enums/Parity/test )
+
 add_subdirectory( src/GNDStk/enums/Encoding/test )
 add_subdirectory( src/GNDStk/enums/Frame/test )
 add_subdirectory( src/GNDStk/enums/GridStyle/test )
