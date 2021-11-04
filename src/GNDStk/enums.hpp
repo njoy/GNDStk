@@ -1,6 +1,7 @@
 
 #include "GNDStk/enums/enumeration.hpp"
 
+#include "GNDStk/enums/DateType.hpp"
 #include "GNDStk/enums/Parity.hpp"
 #include "GNDStk/enums/Frame.hpp"
 #include "GNDStk/enums/Interpolation.hpp"
