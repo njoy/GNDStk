@@ -14,6 +14,7 @@ namespace core {
 
   void wrapGridStyle( python::module& );
   void wrapInterpolation( python::module& );
+  void wrapBoundaryCondition( python::module& );
 }
 
 // v1.9 interface declarations
@@ -43,6 +44,7 @@ PYBIND11_MODULE( GNDStk, module ) {
   // enumerations (in the GNDStk module)
   core::wrapGridStyle( module );
   core::wrapInterpolation( module );
+  core::wrapBoundaryCondition( module );
 
   // v1.9 components (in the v1_9 module, created in this function)
   python_v1_9::wrapGNDS( module );

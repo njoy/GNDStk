@@ -12,10 +12,10 @@
 #include "GNDStk/enums/DecayType.hpp"
 #include "GNDStk/enums/GridStyle.hpp"
 #include "GNDStk/enums/BoundaryCondition.hpp"
+#include "GNDStk/enums/Interaction.hpp"
 
 // general
 #include "GNDStk/enums/Encoding.hpp"
-#include "GNDStk/enums/Interaction.hpp"
 #include "GNDStk/enums/StorageOrder.hpp"
 
 // units-specific

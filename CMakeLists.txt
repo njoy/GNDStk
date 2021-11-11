@@ -65,6 +65,7 @@ pybind11_add_module( GNDStk.python
     python/src/core/Node.python.cpp
     python/src/Interpolation.python.cpp
     python/src/GridStyle.python.cpp
+    python/src/BoundaryCondition.python.cpp
     python/src/v1.9/containers.python.cpp
     python/src/v1.9/containers/Axis.python.cpp
     python/src/v1.9/containers/Values.python.cpp
