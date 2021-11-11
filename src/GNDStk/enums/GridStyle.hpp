@@ -7,13 +7,10 @@ namespace enums {
   /**
    *  @class
    *  @brief Enumeration class giving acceptable grid style values
-   *
-   *  See GNDS v1.9 specifications section 5.1.3
    */
   enum class GridStyle {
 
     none,
-    link,
     points,
     boundaries,
     parameters
@@ -42,7 +39,6 @@ namespace enums {
                                   const std::string > values{
 
       { GNDStk::enums::GridStyle::none,       "none" },
-      { GNDStk::enums::GridStyle::link,       "link" },
       { GNDStk::enums::GridStyle::points,     "points" },
       { GNDStk::enums::GridStyle::boundaries, "boundaries" },
       { GNDStk::enums::GridStyle::parameters, "parameters" }
@@ -52,7 +48,6 @@ namespace enums {
                                   GNDStk::enums::GridStyle > symbols{
 
       { "none",  GNDStk::enums::GridStyle::none },
-      { "link",  GNDStk::enums::GridStyle::link },
       { "points", GNDStk::enums::GridStyle::points },
       { "boundaries", GNDStk::enums::GridStyle::boundaries },
       { "parameters", GNDStk::enums::GridStyle::parameters }

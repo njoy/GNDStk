@@ -10,10 +10,10 @@
 #include "GNDStk/enums/InterpolationQualifier.hpp"
 #include "GNDStk/enums/HashAlgorithm.hpp"
 #include "GNDStk/enums/DecayType.hpp"
+#include "GNDStk/enums/GridStyle.hpp"
 
 // general
 #include "GNDStk/enums/Encoding.hpp"
-#include "GNDStk/enums/GridStyle.hpp"
 #include "GNDStk/enums/Interaction.hpp"
 #include "GNDStk/enums/StorageOrder.hpp"
 

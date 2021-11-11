@@ -18,7 +18,6 @@ SCENARIO( "GridStyle" ) {
       THEN( "no exception is thrown and the correct string is returned" ) {
 
         CHECK( "none" == enums::toString( GridStyle::none ) );
-        CHECK( "link" == enums::toString( GridStyle::link ) );
         CHECK( "points" == enums::toString( GridStyle::points ) );
         CHECK( "boundaries" == enums::toString( GridStyle::boundaries ) );
         CHECK( "parameters" == enums::toString( GridStyle::parameters ) );
@@ -30,7 +29,6 @@ SCENARIO( "GridStyle" ) {
       THEN( "no exception is thrown when the symbol is registered" ) {
 
         CHECK( GridStyle::none == enums::fromString< GridStyle >( "none" ) );
-        CHECK( GridStyle::link == enums::fromString< GridStyle >( "link" ) );
         CHECK( GridStyle::points == enums::fromString< GridStyle >( "points" ) );
         CHECK( GridStyle::boundaries == enums::fromString< GridStyle >( "boundaries" ) );
         CHECK( GridStyle::parameters == enums::fromString< GridStyle >( "parameters" ) );
@@ -47,11 +45,12 @@ SCENARIO( "GridStyle" ) {
       THEN( "no exception is thrown and the symbol is written to the stream" ) {
 
         std::ostringstream out;
-        out << GridStyle::none << ' ' << GridStyle::link << ' '
-            << GridStyle::points << ' ' << GridStyle::boundaries << ' '
+        out << GridStyle::none << ' '
+            << GridStyle::points << ' '
+            << GridStyle::boundaries << ' '
             << GridStyle::parameters;
 
-        CHECK( "none link points boundaries parameters" == out.str() );
+        CHECK( "none points boundaries parameters" == out.str() );
       } // THEN
     } // WHEN
 
@@ -60,15 +59,10 @@ SCENARIO( "GridStyle" ) {
       THEN( "the stream is not in fail() when the symbol is registered" ) {
 
         GridStyle value;
-        std::istringstream in( "none link points boundaries parameters" );
+        std::istringstream in( "none points boundaries parameters" );
 
         in >> value;
         CHECK( GridStyle::none == value );
-        CHECK( false == in.fail() );
-        CHECK( false == in.eof() );
-
-        in >> value;
-        CHECK( GridStyle::link == value );
         CHECK( false == in.fail() );
         CHECK( false == in.eof() );
 
@@ -105,7 +99,6 @@ SCENARIO( "GridStyle" ) {
       THEN( "registered units return true, unregistered units return false" ) {
 
         CHECK( true == enums::isGridStyle( "none" ) );
-        CHECK( true == enums::isGridStyle( "link" ) );
         CHECK( true == enums::isGridStyle( "points" ) );
         CHECK( true == enums::isGridStyle( "boundaries" ) );
         CHECK( true == enums::isGridStyle( "parameters" ) );
