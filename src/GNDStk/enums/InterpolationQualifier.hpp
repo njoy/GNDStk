@@ -16,7 +16,8 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid parity
+   *  @brief Return whether or not a string is a valid interpolation qualifier
+   *         value
    *
    *  @param[in] string    the string to be verified
    *

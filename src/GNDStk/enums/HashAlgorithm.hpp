@@ -14,7 +14,7 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid frame
+   *  @brief Return whether or not a string is a valid hash algorithm value
    *
    *  @param[in] string    the string to be verified
    *

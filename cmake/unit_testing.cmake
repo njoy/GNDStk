@@ -31,6 +31,7 @@ add_subdirectory( src/GNDStk/precision/test )
 
 add_subdirectory( src/GNDStk/enums/DateType/test )
 add_subdirectory( src/GNDStk/enums/ContributorType/test )
+add_subdirectory( src/GNDStk/enums/RelationType/test )
 add_subdirectory( src/GNDStk/enums/Parity/test )
 add_subdirectory( src/GNDStk/enums/Frame/test )
 add_subdirectory( src/GNDStk/enums/Interpolation/test )

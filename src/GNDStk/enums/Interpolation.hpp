@@ -19,7 +19,7 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid interpolation
+   *  @brief Return whether or not a string is a valid interpolation value
    *
    *  @param[in] string    the string to be verified
    *

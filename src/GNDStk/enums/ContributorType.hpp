@@ -5,7 +5,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class for interpolation qualifier values
+   *  @brief Enumeration class for contributor type values
    */
   enum class ContributorType {
 
@@ -33,7 +33,7 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid parity
+   *  @brief Return whether or not a string is a valid contributor type
    *
    *  @param[in] string    the string to be verified
    *
