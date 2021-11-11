@@ -37,6 +37,7 @@ add_subdirectory( src/GNDStk/enums/Frame/test )
 add_subdirectory( src/GNDStk/enums/Interpolation/test )
 add_subdirectory( src/GNDStk/enums/InterpolationQualifier/test )
 add_subdirectory( src/GNDStk/enums/HashAlgorithm/test )
+add_subdirectory( src/GNDStk/enums/DecayType/test )
 
 add_subdirectory( src/GNDStk/enums/Encoding/test )
 add_subdirectory( src/GNDStk/enums/GridStyle/test )
