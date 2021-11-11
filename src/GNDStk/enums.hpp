@@ -11,6 +11,7 @@
 #include "GNDStk/enums/HashAlgorithm.hpp"
 #include "GNDStk/enums/DecayType.hpp"
 #include "GNDStk/enums/GridStyle.hpp"
+#include "GNDStk/enums/BoundaryCondition.hpp"
 
 // general
 #include "GNDStk/enums/Encoding.hpp"
