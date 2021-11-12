@@ -18,7 +18,11 @@ namespace core {
   void wrapFrame( python::module& );
   void wrapGridStyle( python::module& );
   void wrapHashAlgorithm( python::module& );
+  void wrapInteraction( python::module& );
   void wrapInterpolation( python::module& );
+  void wrapInterpolationQualifier( python::module& );
+  void wrapParity( python::module& );
+  void wrapRelationType( python::module& );
   void wrapBoundaryCondition( python::module& );
 }
 
@@ -53,7 +57,11 @@ PYBIND11_MODULE( GNDStk, module ) {
   core::wrapFrame( module );
   core::wrapGridStyle( module );
   core::wrapHashAlgorithm( module );
+  core::wrapInteraction( module );
   core::wrapInterpolation( module );
+  core::wrapInterpolationQualifier( module );
+  core::wrapParity( module );
+  core::wrapRelationType( module );
   core::wrapBoundaryCondition( module );
 
   // v1.9 components (in the v1_9 module, created in this function)

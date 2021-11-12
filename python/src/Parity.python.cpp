@@ -10,10 +10,10 @@ namespace python = pybind11;
 
 namespace core {
 
-void wrapHashAlgorithm( python::module& module ) {
+void wrapParity( python::module& module ) {
 
   // type aliases
-  using Component = njoy::GNDStk::enums::HashAlgorithm;
+  using Component = njoy::GNDStk::enums::Parity;
 
   // wrap views created by this component
 
@@ -21,15 +21,15 @@ void wrapHashAlgorithm( python::module& module ) {
   python::enum_< Component > component(
 
     module,
-    "HashAlgorithm",
-    "Enumeration class giving acceptable hash algorithm values",
+    "Parity",
+    "Enumeration class giving acceptable parity values",
     python::arithmetic()
   );
 
   // wrap the component
   component
-  .value( "md5", Component::md5 )
-  .value( "sha1", Component::sha1 );
+  .value( "minus", Component::minus )
+  .value( "plus", Component::plus );
 }
 
 } // namespace core
