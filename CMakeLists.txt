@@ -63,8 +63,13 @@ pybind11_add_module( GNDStk.python
     EXCLUDE_FROM_ALL
     python/src/GNDStk.python.cpp
     python/src/core/Node.python.cpp
-    python/src/Interpolation.python.cpp
+    python/src/ContributorType.python.cpp
+    python/src/DateType.python.cpp
+    python/src/DecayType.python.cpp
+    python/src/Frame.python.cpp
     python/src/GridStyle.python.cpp
+    python/src/HashAlgorithm.python.cpp
+    python/src/Interpolation.python.cpp
     python/src/BoundaryCondition.python.cpp
     python/src/v1.9/containers.python.cpp
     python/src/v1.9/containers/Axis.python.cpp

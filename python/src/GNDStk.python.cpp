@@ -12,7 +12,12 @@ namespace core {
 
   void wrapNode( python::module& );
 
+  void wrapContributorType( python::module& );
+  void wrapDateType( python::module& );
+  void wrapDecayType( python::module& );
+  void wrapFrame( python::module& );
   void wrapGridStyle( python::module& );
+  void wrapHashAlgorithm( python::module& );
   void wrapInterpolation( python::module& );
   void wrapBoundaryCondition( python::module& );
 }
@@ -42,7 +47,12 @@ PYBIND11_MODULE( GNDStk, module ) {
   core::wrapNode( submodule );
 
   // enumerations (in the GNDStk module)
+  core::wrapContributorType( module );
+  core::wrapDateType( module );
+  core::wrapDecayType( module );
+  core::wrapFrame( module );
   core::wrapGridStyle( module );
+  core::wrapHashAlgorithm( module );
   core::wrapInterpolation( module );
   core::wrapBoundaryCondition( module );
 
