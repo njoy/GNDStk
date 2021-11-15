@@ -22,3 +22,19 @@ files :
   TopLevel/summary_resonance.json
   TopLevel/summary_transport.json
   TopLevel/summary_tsl.json
+
+autogenerator input files :
+  changes.json
+  gnds-2.0.json
+
+changes:
+  - renamed namespace: gpdc to containers
+  - removed all uncertainty nodes from gpdc and pops due to circular references
+  - set the domainMin and domainMax defaults to "1.0" and "-1.0" to not confuse the
+    autogenerator (parity enum values are "+1" and "-1")
+  - replaced the appearance of the "functional" abstract child node by the actual
+    child nodes that can appear using choice+ in the function1ds, function2ds
+    and function3ds node. regions1d, etc are excluded since regions1d has a
+    functions1d node containing regions1d too. This is a major restriction but it
+    is required to get it working.
+  - removed the MC related nodes for pdf/cdf, etc.

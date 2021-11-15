@@ -89,6 +89,39 @@ pybind11_add_module( GNDStk.python
     python/src/v1.9/transport/ReactionSuite.python.cpp
     python/src/v1.9/transport.python.cpp
     python/src/v1.9/GNDS.python.cpp
+
+    python/src/v2.0/GNDS.python.cpp
+    python/src/v2.0/containers.python.cpp
+    python/src/v2.0/containers/Array.python.cpp
+    python/src/v2.0/containers/Axes.python.cpp
+    python/src/v2.0/containers/Axis.python.cpp
+    python/src/v2.0/containers/Column.python.cpp
+    python/src/v2.0/containers/ColumnHeaders.python.cpp
+    python/src/v2.0/containers/Constant1d.python.cpp
+    python/src/v2.0/containers/Data.python.cpp
+    python/src/v2.0/containers/Double.python.cpp
+    python/src/v2.0/containers/Fraction.python.cpp
+    python/src/v2.0/containers/Function1ds.python.cpp
+    python/src/v2.0/containers/Function2ds.python.cpp
+    python/src/v2.0/containers/Function3ds.python.cpp
+    python/src/v2.0/containers/Grid.python.cpp
+    python/src/v2.0/containers/Gridded1d.python.cpp
+    python/src/v2.0/containers/Gridded2d.python.cpp
+    python/src/v2.0/containers/Gridded3d.python.cpp
+    python/src/v2.0/containers/Integer.python.cpp
+    python/src/v2.0/containers/Legendre.python.cpp
+    python/src/v2.0/containers/Link.python.cpp
+    python/src/v2.0/containers/Polynomial1d.python.cpp
+    python/src/v2.0/containers/Regions1d.python.cpp
+    python/src/v2.0/containers/Regions2d.python.cpp
+    python/src/v2.0/containers/Regions3d.python.cpp
+    python/src/v2.0/containers/String.python.cpp
+    python/src/v2.0/containers/Table.python.cpp
+    python/src/v2.0/containers/Values.python.cpp
+    python/src/v2.0/containers/XYs1d.python.cpp
+    python/src/v2.0/containers/XYs2d.python.cpp
+    python/src/v2.0/containers/XYs3d.python.cpp
+    python/src/v2.0/containers/Ys1d.python.cpp
     )
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
 target_compile_options( GNDStk.python PRIVATE "-fvisibility=hidden" )

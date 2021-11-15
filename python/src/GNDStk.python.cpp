@@ -32,6 +32,12 @@ namespace python_v1_9 {
   void wrapGNDS( python::module& );
 }
 
+// v2.0 interface declarations
+namespace python_v2_0 {
+
+  void wrapGNDS( python::module& );
+}
+
 /**
  *  @brief GNDStk python bindings
  *
@@ -66,4 +72,7 @@ PYBIND11_MODULE( GNDStk, module ) {
 
   // v1.9 components (in the v1_9 module, created in this function)
   python_v1_9::wrapGNDS( module );
+
+  // v2.0 components (in the v2_0 module, created in this function)
+  python_v2_0::wrapGNDS( module );
 }
