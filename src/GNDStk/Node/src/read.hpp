@@ -6,7 +6,7 @@
 // Cases:
 //
 // 1. read(istream,   FileType)
-// 2. read(file name, FileType) calls 1 after making istream from file name
+// 2. read(file name, FileType) calls 1 after making istream from file
 // 3. read(istream,   string  ) calls 1 after making FileType from string
 // 4. read(file name, string  ) calls 2 after making FileType from string
 //
@@ -157,8 +157,9 @@ std::istream &read(
          if (!convert(JSON(is), *this, decl))
             throw std::exception{};
       } else if (format == FileType::hdf5) {
-         log::error("Node.read() for HDF5 is not implemented yet");
-         throw std::exception{};
+         // assume HDF5; so, create Node by converting from a temporary HDF5...
+         if (!convert(HDF5(is), *this, decl))
+            throw std::exception{};
       } else {
          // The earlier logic is such that this shouldn't happen; consider
          // removing at some point

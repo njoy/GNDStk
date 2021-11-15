@@ -172,7 +172,7 @@ inline std::istream &operator>>(std::istream &is, Node &node)
 
 // Node << std::string
 // Note that this is an INPUT operator to Node!
-// Treating the std::string as a "file" with XML, JSON, etc. content, read it
+// Treating the std::string as a "file" with XML, JSON, or HDF5 content, read it
 // into the Node. We return void, not the Node, so users don't incorrectly think
 // that the <<s can be stacked together in the way they can with stream output.
 // We're reading into ONE Node, so stacking the <<s doesn't really make sense.

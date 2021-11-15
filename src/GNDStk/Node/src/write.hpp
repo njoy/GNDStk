@@ -12,7 +12,7 @@
 //
 // General cases:
 // 1. write(ostream,   FileType)
-// 2. write(file name, FileType) calls 1 after making ostream from file name
+// 2. write(file name, FileType) calls 1 after making ostream from file
 // 3. write(ostream,   string  ) calls 1 after making FileType from string
 // 4. write(file name, string  ) calls 2 after making FileType from string
 
@@ -136,8 +136,7 @@ std::ostream &write(
          JSON(*this).write(os,decl);
       } else if (format == FileType::hdf5) {
          // write via a temporary hdf5 object...
-         log::error("Node.write() for HDF5 is not implemented yet");
-         throw std::exception{};
+         HDF5(*this).write(os,decl);
       } else {
          // null or text: use our plain text format
          return write(os,0);

@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// XML Constructors
+// HDF5 Constructors
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -8,21 +8,27 @@
 // ------------------------
 
 // default
-XML() = default;
+HDF5() { }
 
 // move
-XML(XML &&) = default;
+HDF5(HDF5 &&other) :
+   file(std::move(other.file)),
+   filename(std::move(other.filename)),
+   temporary(std::move(other.temporary))
+{
+   other.file = nullptr;
+   other.filename = "";
+   other.temporary = false;
+}
 
 // copy
-// Note: pugi::xml_document's copy constructor is inaccessible; otherwise we'd
-// use it here, as we do in JSON's copy constructor, instead of using convert().
-XML(const XML &other)
+HDF5(const HDF5 &other)
 {
    try {
       if (!convert(other,*this))
          throw std::exception{};
    } catch (...) {
-      log::ctor("XML(XML)");
+      log::ctor("HDF5(HDF5)");
       throw;
    }
 }
@@ -32,50 +38,50 @@ XML(const XML &other)
 // From other classes
 // ------------------------
 
+// From XML
+explicit HDF5(const XML &x)
+{
+   try {
+      if (!convert(x,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("HDF5(XML)");
+      throw;
+   }
+}
+
 // From JSON
-explicit XML(const JSON &j)
+explicit HDF5(const JSON &j)
 {
    try {
       if (!convert(j,*this))
          throw std::exception{};
    } catch (...) {
-      log::ctor("XML(JSON)");
-      throw;
-   }
-}
-
-// From HDF5
-explicit XML(const HDF5 &h)
-{
-   try {
-      if (!convert(h,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("XML(HDF5)");
+      log::ctor("HDF5(JSON)");
       throw;
    }
 }
 
 // From Node
-explicit XML(const Node &n)
+explicit HDF5(const Node &n)
 {
    try {
       if (!convert(n,*this))
          throw std::exception{};
    } catch (...) {
-      log::ctor("XML(Node)");
+      log::ctor("HDF5(Node)");
       throw;
    }
 }
 
 // From Tree
-explicit XML(const Tree &t)
+explicit HDF5(const Tree &t)
 {
    try {
       if (!convert(t,*this))
          throw std::exception{};
    } catch (...) {
-      log::ctor("XML(Tree)");
+      log::ctor("HDF5(Tree)");
       throw;
    }
 }
@@ -86,25 +92,25 @@ explicit XML(const Tree &t)
 // ------------------------
 
 // From file
-explicit XML(const std::string &filename)
+explicit HDF5(const std::string &filename)
 {
    try {
       if (!read(filename))
          throw std::exception{};
    } catch (...) {
-      log::ctor("XML(\"{}\")", filename);
+      log::ctor("HDF5(\"{}\")", filename);
       throw;
    }
 }
 
 // From istream
-explicit XML(std::istream &is)
+explicit HDF5(std::istream &is)
 {
    try {
       if (!read(is))
          throw std::exception{};
    } catch (...) {
-      log::ctor("XML(istream)");
+      log::ctor("HDF5(istream)");
       throw;
    }
 }

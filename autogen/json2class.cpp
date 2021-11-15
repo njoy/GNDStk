@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 #include "GNDStk.hpp"
-#include "cstring"
+#include <cstring>
 using namespace njoy::GNDStk::core;
 
 // Report cases of nodes that have no metadata, and zero or one child node(s).
@@ -478,6 +478,11 @@ void getClassMetadata(
       };
       if (m.defaultValue != "") {
          // If it has a default, then presumably it isn't required...
+         // fixme Should print a real, useful error message here. The mistake
+         // in question is something a user could easily make!! Look at other
+         // assert()s in this file as well; assert should be more for internal
+         // sanity checks than for diagnostic messages, as they aren't very
+         // helpful to typical users.
          assert(!metaRHS["required"]);
       }
 

@@ -50,8 +50,8 @@ public:
 
    // We pull out top() first, rather than deferring immediately to Node's
    // operator==, because Tree can contain a "declaration node" that might
-   // indicate properties such as whether the data came from an XML file or
-   // a JSON file. Those properties can be put to good use for other things,
+   // indicate properties such as whether the data came from an XML, JSON,
+   // or HDF5 file. Those properties can be put to good use for other things,
    // but won't play a role in a Tree comparison.
 
    // operator==

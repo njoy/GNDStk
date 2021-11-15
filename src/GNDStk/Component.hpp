@@ -87,8 +87,9 @@ public:
    }
 
    // Component << std::string
-   // Meaning: read the string's content (currently XML or JSON) into an object
-   // of the Component's DERIVED class. Uses Node's << std::string capability.
+   // Meaning: read the string's content (currently XML, JSON, or HDF5) into
+   // an object of the Component's DERIVED class. Uses Node's << std::string
+   // capability, which does most of the work.
    void operator<<(const std::string &str)
    {
       try {

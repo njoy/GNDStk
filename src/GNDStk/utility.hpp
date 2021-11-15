@@ -323,44 +323,54 @@ inline void assign(const std::string &str, Args &&...args)
 // -----------------------------------------------------------------------------
 // Forward declarations: some classes; convert
 // We're not fans of having lots of forward declarations, but these are here
-// because (1) the relevant classes (Tree, XML, JSON) use these functions in,
-// e.g., their constructors, which are defined in-class; and (2) the convert()
+// because (1) relevant classes (Tree, XML, JSON, HDF5) use these functions in,
+// e.g., their constructors, which are defined in-class; and (2) our convert()
 // functions in turn work with the classes and thus need the class definitions
 // to be available. The alternative would be to mostly define the classes, but
 // only declare their constructors; then define the convert()s; then finally
 // define the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
-// Node
+// Node, Tree
 class Node;
-
-// Tree
 class Tree;
 
-// XML, JSON
+// XML, JSON, HDF5
 class XML;
 class JSON;
+class HDF5;
 
-// Node to {XML,JSON}
-bool convert(const Node &, XML  &x);
-bool convert(const Node &, JSON &j);
+// Node to {XML,JSON,HDF5}
+bool convert(const Node &, XML  &);
+bool convert(const Node &, JSON &);
+bool convert(const Node &, HDF5 &);
 
-// Tree to {Tree,XML,JSON}
+// Tree to {Tree,XML,JSON,HDF5}
 bool convert(const Tree &, Tree &);
 bool convert(const Tree &, XML  &);
 bool convert(const Tree &, JSON &);
+bool convert(const Tree &, HDF5 &);
 
-// XML to {Node,Tree,XML,JSON}
+// XML to {Node,Tree,XML,JSON,HDF5}
 bool convert(const XML  &, Node &, const bool);
 bool convert(const XML  &, Tree &);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
+bool convert(const XML  &, HDF5 &);
 
-// JSON to {Node,Tree,XML,JSON}
+// JSON to {Node,Tree,XML,JSON,HDF5}
 bool convert(const JSON &, Node &, const bool);
 bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
+bool convert(const JSON &, HDF5 &);
+
+// HDF5 to {Node,Tree,XML,JSON,HDF5}
+bool convert(const HDF5 &, Node &, const bool);
+bool convert(const HDF5 &, Tree &);
+bool convert(const HDF5 &, XML  &);
+bool convert(const HDF5 &, JSON &);
+bool convert(const HDF5 &, HDF5 &);
 
 
 

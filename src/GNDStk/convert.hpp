@@ -5,3 +5,4 @@
 #include "GNDStk/convert/src/tree.hpp"
 #include "GNDStk/convert/src/XML.hpp"
 #include "GNDStk/convert/src/JSON.hpp"
+#include "GNDStk/convert/src/HDF5.hpp"
