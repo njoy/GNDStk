@@ -38,13 +38,32 @@ void wrapValues(python::module &module)
          python::init<
             const std::optional<int> &,
             const std::optional<int> &,
-            const std::optional<std::string> &,
-            const std::vector<double> &
+            const std::optional<std::string> &
          >(),
          python::arg("length") = std::nullopt,
          python::arg("start") = std::nullopt,
          python::arg("value_type") = std::nullopt,
-         python::arg("values"),
+         Component::documentation("constructor").data()
+      )
+      .def(
+         python::init<
+            const std::vector<int> &
+         >(),
+         python::arg("ints"),
+         Component::documentation("constructor").data()
+      )
+      .def(
+         python::init<
+            const std::vector<double> &
+         >(),
+         python::arg("doubles"),
+         Component::documentation("constructor").data()
+      )
+      .def(
+         python::init<
+            const std::vector<std::string> &
+         >(),
+         python::arg("strings"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -63,9 +82,19 @@ void wrapValues(python::module &module)
          Component::documentation("value_type").data()
       )
       .def_property_readonly(
+         "ints",
+         [] (const Component &self) { return self.ints(); },
+         Component::documentation("ints").data()
+      )
+      .def_property_readonly(
          "doubles",
          [] (const Component &self) { return self.doubles(); },
          Component::documentation("doubles").data()
+      )
+      .def_property_readonly(
+         "strings",
+         [] (const Component &self) { return self.strings(); },
+         Component::documentation("strings").data()
       )
    ;
 

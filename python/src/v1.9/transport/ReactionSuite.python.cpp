@@ -88,6 +88,23 @@ void wrapReactionSuite(python::module &module)
          python::overload_cast<>(&Component::reactions),
          Component::documentation("reactions").data()
       )
+      .def_static(
+
+        "from_file",
+        [] ( const std::string& filename ) -> Component {
+
+          using namespace njoy::GNDStk::core;
+          Tree tree( filename );
+
+          return Component( tree( child::reactionSuite ) );
+        },
+        python::arg( "filename" ),
+        "Read a reaction suite from an XML or json file\n\n"
+        "An exception is raised if something goes wrong while reading the\n"
+        "component\n\n"
+        "Arguments:\n"
+        "    filename    the name of the file"
+      )
    ;
 
    // add standard component definitions
