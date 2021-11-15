@@ -29,6 +29,7 @@ void wrapGridStyle( python::module& module ) {
   // wrap the component
   component
   .value( "none", Component::none )
+  .value( "link", Component::link )
   .value( "points", Component::points )
   .value( "boundaries", Component::boundaries )
   .value( "parameters", Component::parameters );
