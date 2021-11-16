@@ -48,8 +48,8 @@ namespace enums {
     static inline const std::map< const std::string,
                                   GNDStk::enums::GridStyle > symbols{
 
-      { "none",  GNDStk::enums::GridStyle::none },
-      { "link",  GNDStk::enums::GridStyle::link },
+      { "none", GNDStk::enums::GridStyle::none },
+      { "link", GNDStk::enums::GridStyle::link },
       { "points", GNDStk::enums::GridStyle::points },
       { "boundaries", GNDStk::enums::GridStyle::boundaries },
       { "parameters", GNDStk::enums::GridStyle::parameters }
