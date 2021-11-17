@@ -60,12 +60,13 @@ class Component : public BodyText<hasBodyText,DATA>
 
 public:
 
+   #include "GNDStk/Component/src/read.hpp"
+   #include "GNDStk/Component/src/write.hpp"
    #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/sort.hpp"
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
-   #include "GNDStk/Component/src/write.hpp"
 
-   // You can (but don't need to) override the following in DERIVED
+   // You can (but need not) override the following in DERIVED
    static std::string namespaceName() { return ""; }
 
    // derived
@@ -86,10 +87,10 @@ public:
       }
    }
 
-   // Component << std::string
+   // Component << string
    // Meaning: read the string's content (currently XML, JSON, or HDF5) into
-   // an object of the Component's DERIVED class. Uses Node's << std::string
-   // capability, which does most of the work.
+   // an object of the Component's DERIVED class. Uses Node's << string, which
+   // does most of the work.
    void operator<<(const std::string &str)
    {
       try {
@@ -114,5 +115,5 @@ std::ostream &operator<<(
    std::ostream &os,
    const Component<DERIVED,hasBodyText,DATA> &obj
 ) {
-   return obj.write(os);
+   return obj.write(os,0);
 }

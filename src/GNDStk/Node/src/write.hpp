@@ -19,9 +19,12 @@
 
 
 // -----------------------------------------------------------------------------
+// Helper
 // write(ostream, int level)
 // For FileType::text
 // -----------------------------------------------------------------------------
+
+private:
 
 std::ostream &write(std::ostream &os, const int level) const
 {
@@ -66,9 +69,18 @@ std::ostream &write(std::ostream &os, const int level) const
 
 
 // -----------------------------------------------------------------------------
+// Helper
 // write(file name, int level)
 // For FileType::text
 // -----------------------------------------------------------------------------
+
+private:
+
+// fixme I noticed that this write() variant isn't used (other write() functions
+// with filename go through ostream first, and call the earlier write() helper
+// with const int level). Decide if there's any reason to keep it. If we do keep
+// it, then it needs to be exercised in the test suite, which it isn't now.
+#if 0
 
 bool write(const std::string &filename, const int level) const
 {
@@ -90,11 +102,15 @@ bool write(const std::string &filename, const int level) const
    return true;
 }
 
+#endif
+
 
 
 // -----------------------------------------------------------------------------
 // 1. write(ostream, FileType)
 // -----------------------------------------------------------------------------
+
+public:
 
 std::ostream &write(
    std::ostream &os = std::cout,
@@ -160,6 +176,8 @@ std::ostream &write(
 // -----------------------------------------------------------------------------
 // 2. write(file name, FileType)
 // -----------------------------------------------------------------------------
+
+public:
 
 bool write(
    const std::string &filename,
@@ -235,6 +253,8 @@ bool write(
 // 3. write(ostream, string)
 // -----------------------------------------------------------------------------
 
+public:
+
 std::ostream &write(
    std::ostream &os,
    const std::string &format,
@@ -267,6 +287,8 @@ std::ostream &write(
 // -----------------------------------------------------------------------------
 // 4. write(file name, string)
 // -----------------------------------------------------------------------------
+
+public:
 
 bool write(
    const std::string &filename,

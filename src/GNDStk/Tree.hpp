@@ -81,7 +81,7 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// I/O
+// Stream I/O
 // -----------------------------------------------------------------------------
 
 // operator>>
@@ -91,20 +91,6 @@ inline std::istream &operator>>(std::istream &is, Tree &tree)
       return tree.read(is);
    } catch (...) {
       log::function("istream >> Tree");
-      throw;
-   }
-}
-
-// Tree << std::string
-// Note that this is an INPUT operator to Tree!
-// Other comments as for Node << std::string
-inline void operator<<(Tree &tree, const std::string &str)
-{
-   try {
-      std::istringstream iss(str);
-      iss >> tree;
-   } catch (...) {
-      log::function("Tree << string");
       throw;
    }
 }
@@ -119,3 +105,27 @@ inline std::ostream &operator<<(std::ostream &os, const Tree &tree)
       throw;
    }
 }
+
+
+// -----------------------------------------------------------------------------
+// I/O with respect to a string
+// As for Node.
+// -----------------------------------------------------------------------------
+
+// fixme Not currently tested
+// Tree << string
+// Note that this is an INPUT operator to Tree!
+// Other comments as for Node << string
+inline void operator<<(Tree &tree, const std::string &str)
+{
+   try {
+      std::istringstream iss(str);
+      tree.read(iss);
+   } catch (...) {
+      log::function("Tree << string");
+      throw;
+   }
+}
+
+// string >> Tree
+// fixme Write and test this

@@ -62,7 +62,7 @@ struct InfoMetadata {
    //    - a GNDStk::defaulted
    // but (in contrast with child nodes) can't make it be a vector of metadata.
    // An individual metadatum may be a vector in its own right, as in an XML
-   // construct such as <element meta="1,2,3,4"> (so that meta is a vector of
+   // construct such as <element meta="1 2 3 4"> (so that meta is a vector of
    // integers). We mean here that there isn't a vector of such [meta] entries,
    // and shouldn't be (XML wouldn't allow it).
    std::string name;
@@ -160,6 +160,7 @@ struct InfoSpecs {
    std::string JSONDir;
    std::vector<std::string> JSONFiles;
    std::string GNDSDir;
+   std::string ProjectDir;
    std::string Version;
 
    // Version, but with '_' in place of '.'
@@ -206,9 +207,7 @@ struct InfoSpecs {
 // Print text describing an action the code is about to take
 void action(const std::string &str)
 {
-   std::cout
-      << "\n"
-      << colors::plain::blue << str << "..." << colors::reset << std::endl;
+   std::cout << colors::plain::blue << str << colors::reset << std::endl;
 }
 
 // Is the string all whitespace?
@@ -858,7 +857,8 @@ void writeClassPrefix(writer &out, const PerClass &per)
 void writeClassForComponent(writer &out, const PerClass &per)
 {
    // using [name for variant] = ...
-   out();
+   if (per.variants.size())
+      out();
    for (const auto &v : per.variants) {
       out(1,"using @ = std::variant<", v.type);
       int count = 0, total = v.children.size();
@@ -931,7 +931,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
 
 // Class suffix
 void writeClassSuffix(
-   writer &out, const PerClass &per, const std::string &version
+   writer &out, const PerClass &per, const InfoSpecs &specs
 ) {
    // assignment
    out();
@@ -951,8 +951,13 @@ void writeClassSuffix(
    out(1,"// Custom functionality");
    out(1,smallComment);
    out();
-   out(1,"#include \"GNDStk/@/@/@/src/custom.hpp\"",
-       version, per.nsname, per.clname);
+   if (specs.ProjectDir == "") {
+      out(1,"#include \"GNDStk/@/@/@/src/custom.hpp\"",
+          specs.Version, per.nsname, per.clname);
+   } else {
+      out(1,"#include \"@/@/@/@/src/custom.hpp\"",
+          specs.ProjectDir, specs.Version, per.nsname, per.clname);
+   }
 
    // class+namespace end
    out();
@@ -960,7 +965,6 @@ void writeClassSuffix(
    out();
    out("} // namespace @", per.nsname);
 } // writeClassSuffix
-
 
 
 
@@ -1378,10 +1382,10 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    writer out(false);
 
    // output: class begin
-   writeClassPrefix(out,per);
+   writeClassPrefix(out, per);
 
    // output: for the Component base
-   writeClassForComponent(out,per);
+   writeClassForComponent(out, per);
 
    // output: using directives
    out();
@@ -1428,7 +1432,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    writeClassCtors(out, per);
 
    // output: class end
-   writeClassSuffix(out, per, specs.Version);
+   writeClassSuffix(out, per, specs);
 
    // done
    per.code = out.str();
@@ -1574,6 +1578,7 @@ void commandLine(
    static const std::string input   = "JSONDir";
    static const std::string files   = "JSONFiles";
    static const std::string output  = "GNDSDir";
+   static const std::string project = "ProjectDir"; // optional
    static const std::string version = "Version";
    static const std::string changes = "Changes";
 
@@ -1598,6 +1603,8 @@ void commandLine(
    specs.JSONDir   = jmain[input];
    specs.JSONFiles = std::vector<std::string>(jmain[files]);
    specs.GNDSDir   = jmain[output];
+   if (jmain.contains(project))
+      specs.ProjectDir = jmain[project];
    specs.Version   = jmain[version];
    specs.VersionUnderscore = replace(specs.Version, '.', '_');
 
@@ -1606,14 +1613,22 @@ void commandLine(
       file = specs.JSONDir + '/' + file;
 
    // File names
-   specs.hppVersion = specs.GNDSDir + "/src/GNDStk/" + specs.Version + ".hpp";
-   specs.hppKey = specs.GNDSDir + "/src/GNDStk/" + specs.Version + "/key.hpp";
+   if (specs.ProjectDir == "") {
+      specs.hppVersion = specs.GNDSDir + "/src/GNDStk/";
+      specs.hppKey     = specs.GNDSDir + "/src/GNDStk/";
+   } else {
+      specs.hppVersion = specs.ProjectDir + "/src/" + specs.ProjectDir + "/";
+      specs.hppKey     = specs.ProjectDir + "/src/" + specs.ProjectDir + "/";
+   }
+   specs.hppVersion += specs.Version + ".hpp";
+   specs.hppKey     += specs.Version + "/key.hpp";
 
    // Report on "singletons"
    if (singletons) {
-      action("Finding possible simplifications");
+      action("\nFinding possible simplifications...");
       for (const std::string &file : specs.JSONFiles)
          printSingletons(file);
+      action("Done looking for simplifications.");
    }
 
    // Changes?
@@ -1648,15 +1663,22 @@ void preprocessClass(
 
    // Given the base GNDS directory and the GNDS version, as obtained earlier
    // from the JSON input file to this tool, compute relevant directory names.
-   const std::string
-      // For the present namespace: C++ and Python directories. The present
-      // namespace probably contains multiple classes, so its directories
-      // may have been created already, but that's fine.
-      nsdir   = specs.GNDSDir + "/src/GNDStk/" + specs.Version + "/" + nsname,
-      nsdirpy = specs.GNDSDir + "/python/src/" + specs.Version + "/" + nsname,
-      // For the present class: C++ source and test directories.
-      clsrc   = nsdir + "/" + clname + "/src",
-      cltest  = nsdir + "/" + clname + "/test";
+   std::string nsdir, nsdirpy;
+   // For the present namespace: C++ and Python directories. The present
+   // namespace probably contains multiple classes, so its directories
+   // may have been created already, but that's fine.
+   if (specs.ProjectDir == "") {
+      nsdir   = specs.GNDSDir + "/src/GNDStk";
+      nsdirpy = specs.GNDSDir + "/python/src";
+   } else {
+      nsdir   = specs.ProjectDir + "/src/" + specs.ProjectDir;
+      nsdirpy = specs.ProjectDir + "/python/src";
+   }
+   nsdir   += "/" + specs.Version + "/" + nsname;
+   nsdirpy += "/" + specs.Version + "/" + nsname;
+   // For the present class: C++ source and test directories.
+   const std::string clsrc  = nsdir + "/" + clname + "/src";
+   const std::string cltest = nsdir + "/" + clname + "/test";
 
    // Create the above directories, if (and only if) they don't already exist.
    system(("mkdir -p " + nsdir  ).data());
@@ -1713,7 +1735,7 @@ void preprocessClass(
 // names are computed as part of the "information" for the maps just mentioned.
 void preprocessFiles(InfoSpecs &specs)
 {
-   action("Preprocessing input files");
+   action("\nPreprocessing input files...");
    // files
    for (const std::string &file : specs.JSONFiles) {
       const nlohmann::json jmain = readJSONFile(file,true);
@@ -1722,6 +1744,7 @@ void preprocessFiles(InfoSpecs &specs)
       for (const auto &cl : jmain.items())
          preprocessClass(specs, nsname, cl);
    }
+   action("Done preprocessing.");
 } // preprocessFiles
 
 
@@ -1812,7 +1835,7 @@ void getClass(
 // getFiles
 void getFiles(InfoSpecs &specs)
 {
-   action("Creating classes");
+   action("\nCreating classes...");
    // files
    for (const std::string &file : specs.JSONFiles) {
       const nlohmann::json jmain = readJSONFile(file,true);
@@ -1821,6 +1844,7 @@ void getFiles(InfoSpecs &specs)
       for (const auto &cl : jmain.items())
          getClass(specs, nsname, cl);
    }
+   action("Done creating classes.");
 } // getFiles
 
 
@@ -1872,8 +1896,15 @@ void fileGNDStkVersion(const InfoSpecs &specs)
    // Create an overarching file for this version
    writer out(specs.hppVersion);
    out();
-   out("#ifndef NJOY_GNDSTK_@", allcaps(specs.VersionUnderscore));
-   out("#define NJOY_GNDSTK_@", allcaps(specs.VersionUnderscore));
+   if (specs.ProjectDir == "") {
+      out("#ifndef NJOY_GNDSTK_@", allcaps(specs.VersionUnderscore));
+      out("#define NJOY_GNDSTK_@", allcaps(specs.VersionUnderscore));
+   } else {
+      out("#ifndef GUARD_@_@",
+          allcaps(specs.ProjectDir), allcaps(specs.VersionUnderscore));
+      out("#define GUARD_@_@",
+          allcaps(specs.ProjectDir), allcaps(specs.VersionUnderscore));
+   }
 
    std::string nsname_last = "";
    for (auto &c : specs.class2data) {
@@ -1882,41 +1913,25 @@ void fileGNDStkVersion(const InfoSpecs &specs)
       if (nsname != nsname_last)
          out();
       nsname_last = nsname;
-      out("#include \"GNDStk/@/@/@.hpp\"", specs.Version, nsname, clname);
+      if (specs.ProjectDir == "")
+         out("#include \"GNDStk/@/@/@.hpp\"",
+             specs.Version, nsname, clname);
+      else
+         out("#include \"@/@/@/@.hpp\"",
+             specs.ProjectDir, specs.Version, nsname, clname);
    }
 
    out();
-   out("#include \"GNDStk/@/key.hpp\"", specs.Version);
+   if (specs.ProjectDir == "")
+      out("#include \"GNDStk/@/key.hpp\"", specs.Version);
+   else
+      out("#include \"@/@/key.hpp\"", specs.ProjectDir, specs.Version);
    out();
    out("#endif");
 } // fileGNDStkVersion
 
 
-// fixme Reconsider the arrangement described here...
 // fileGNDStkKey
-const std::string file_key_comment =
-R"***(
-This file contains Meta and Child objects for metadata and child nodes in the
-current GNDS version. These may prove to be useful if you wish to use the Core
-Interface in conjunction with the autogenerated classes for this GNDS version.
-
-Within the outer njoy::GNDStk::version namespace below, the remaining namespace
-arrangement was chosen to make the use of these objects smooth and logical.
-
-Meta and Child objects are collectively called "keys." Meta keys are placed
-into key::meta. Child keys correspond to autogenerated classes, each of which
-is already in some namespace; we thus use theNamespace::key::child::. That way,
-an autogenerated class [ns::Foo] has [ns::key::foo] as its Child object, and
-a "using namespace ns" allows the class and the Child object to be [Foo] and
-[key::foo], respectively. (If we reordered ns:: and key::, that wouldn't work.)
-
-Within key::, we use meta:: and child:: around Meta and Child objects, just in
-case there exist any identical GNDS metadata names and child-node names. (That
-can, in fact, happen). The "using namespace meta" and "using namespace child"
-directives then make the Meta<> and Child<> objects appear directly in key::,
-so that "meta::" and "child::" are needed only to disambiguate identical names.
-)***";
-
 void fileGNDStkKey(const InfoSpecs &specs)
 {
    // ------------------------
@@ -1963,16 +1978,25 @@ void fileGNDStkKey(const InfoSpecs &specs)
 
    writer out(specs.hppKey);
    out();
-   out("/*",false);
-   out(file_key_comment,false);
-   out("*/");
+   if (specs.ProjectDir == "") {
+      out("#ifndef NJOY_GNDSTK_@_KEY", allcaps(specs.VersionUnderscore));
+      out("#define NJOY_GNDSTK_@_KEY", allcaps(specs.VersionUnderscore));
+   } else {
+      out("#ifndef GUARD_@_@_KEY",
+          allcaps(specs.ProjectDir), allcaps(specs.VersionUnderscore));
+      out("#define GUARD_@_@_KEY",
+          allcaps(specs.ProjectDir), allcaps(specs.VersionUnderscore));
+   }
    out();
-   out("#ifndef NJOY_GNDSTK_@_KEY", allcaps(specs.VersionUnderscore));
-   out("#define NJOY_GNDSTK_@_KEY", allcaps(specs.VersionUnderscore));
-   out();
-   out("namespace njoy {");
-   out("namespace GNDStk {");
+   if (specs.ProjectDir == "") {
+      out("namespace njoy {");
+      out("namespace GNDStk {");
+   } else {
+      out("namespace @ {", specs.ProjectDir);
+   }
    out("namespace @ {", specs.VersionUnderscore);
+   out();
+   out("using namespace njoy::GNDStk::core;");
 
    // ------------------------
    // Meta<> objects
@@ -2037,8 +2061,12 @@ void fileGNDStkKey(const InfoSpecs &specs)
    out(largeComment);
    out();
    out("} // namespace @", specs.VersionUnderscore);
-   out("} // namespace GNDStk");
-   out("} // namespace njoy");
+   if (specs.ProjectDir == "") {
+      out("} // namespace GNDStk");
+      out("} // namespace njoy");
+   } else {
+      out("} // namespace @", specs.ProjectDir);
+   }
    out();
    out("#endif");
 } // fileGNDStkKey
@@ -2050,35 +2078,56 @@ void fileGNDStkClass(
 ) {
    // class-specific hpp file
    writer out(per.hppGNDStk);
-   const std::string guard =
-     "NJOY_GNDSTK_" + allcaps(specs.VersionUnderscore) + "_" +
-      allcaps(per.nsname) + "_" + allcaps(per.clname);
+   std::string guard;
+   if (specs.ProjectDir == "") {
+      guard = "NJOY_GNDSTK_" +
+         allcaps(specs.VersionUnderscore) + "_" +
+         allcaps(per.nsname) + "_" + allcaps(per.clname);
+   } else {
+      guard = "GUARD_" + allcaps(specs.ProjectDir) + "_" +
+         allcaps(specs.VersionUnderscore) + "_" +
+         allcaps(per.nsname) + "_" + allcaps(per.clname);
+   }
 
    out();
    out("#ifndef @", guard);
    out("#define @", guard);
    out();
-   out("// core interface");
+   out("// GNDStk Core Interface");
    out("#include \"GNDStk.hpp\"");
 
    if (c2d.dependencies.size() > 0) {
       out();
-      out("// @ dependencies", specs.Version);
-      for (const auto &dep : c2d.dependencies)
-         out("#include \"GNDStk/@/@/@.hpp\"",
-             specs.Version, dep.nsname, dep.clname);
+      out("// Dependencies");
+      if (specs.ProjectDir == "") {
+         for (const auto &dep : c2d.dependencies)
+            out("#include \"GNDStk/@/@/@.hpp\"",
+                specs.Version, dep.nsname, dep.clname);
+      } else {
+         for (const auto &dep : c2d.dependencies)
+            out("#include \"@/@/@/@.hpp\"",
+                specs.ProjectDir, specs.Version, dep.nsname, dep.clname);
+      }
    }
 
    out();
-   out("namespace njoy {");
-   out("namespace GNDStk {");
+   if (specs.ProjectDir == "") {
+      out("namespace njoy {");
+      out("namespace GNDStk {");
+   } else {
+      out("namespace @ {", specs.ProjectDir);
+   }
    out("namespace @ {", specs.VersionUnderscore);
    out();
    out("using namespace njoy::GNDStk::core;");
    out(per.code,false);
    out("} // namespace @", specs.VersionUnderscore);
-   out("} // namespace GNDStk");
-   out("} // namespace njoy");
+   if (specs.ProjectDir == "") {
+      out("} // namespace GNDStk");
+      out("} // namespace njoy");
+   } else {
+      out("} // namespace @", specs.ProjectDir);
+   }
    out();
    out("#endif");
 } // fileGNDStkClass
@@ -2112,7 +2161,10 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out(1,"// create the @ submodule", per.nsname);
    out(1,"python::module submodule = module.def_submodule(");
    out(2,"\"@\",", per.nsname);
-   out(2,"\"GNDS @ @\"", specs.Version, per.nsname);
+   if (specs.ProjectDir == "")
+      out(2,"\"GNDS @ @\"", specs.Version, per.nsname);
+   else
+      out(2,"\"@ @ @\"", specs.ProjectDir, specs.Version, per.nsname);
    out(1,");");
 
    out();
@@ -2201,7 +2253,12 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
    out();
    out("// local includes");
-   out("#include \"GNDStk/@/@/@.hpp\"", specs.Version, nsname, clname);
+   if (specs.ProjectDir == "")
+      out("#include \"GNDStk/@/@/@.hpp\"",
+          specs.Version, nsname, clname);
+   else
+      out("#include \"@/@/@/@.hpp\"",
+          specs.ProjectDir, specs.Version, nsname, clname);
    out("#include \"definitions.hpp\"");
 
    out();
@@ -2216,8 +2273,13 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out("// @ wrapper", clname);
    out("void wrap@(python::module &module)", clname);
    out("{");
-   out(1,"using namespace njoy::GNDStk;");
-   out(1,"using namespace njoy::GNDStk::@;", specs.VersionUnderscore);
+   if (specs.ProjectDir == "") {
+      out(1,"using namespace njoy::GNDStk;");
+      out(1,"using namespace njoy::GNDStk::@;", specs.VersionUnderscore);
+   } else {
+      out(1,"using namespace @;", specs.ProjectDir);
+      out(1,"using namespace @::@;", specs.ProjectDir, specs.VersionUnderscore);
+   }
    out();
    out(1,"// type aliases");
    out(1,"using Component = @::@;", nsname, clname);
