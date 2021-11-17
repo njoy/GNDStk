@@ -44,7 +44,7 @@ class Double : public Component<Double> {
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
-         Defaulted<XMLName>{"`' (no label)"}
+         std::optional<XMLName>{}
             / Meta<>("unit") |
          Float64{}
             / Meta<>("value")
@@ -61,7 +61,6 @@ public:
    // ------------------------
 
    static inline const struct Defaults {
-      static inline const XMLName unit = "`' (no label)";
    } defaults;
 
    // ------------------------
@@ -71,7 +70,7 @@ public:
    struct {
       // metadata
       std::optional<XMLName> label;
-      Defaulted<XMLName> unit{"`' (no label)"};
+      std::optional<XMLName> unit;
       Float64 value;
    } content;
 
@@ -87,9 +86,9 @@ public:
       { return content.label; }
 
    // unit
-   const Defaulted<XMLName> &unit() const
+   const std::optional<XMLName> &unit() const
       { return content.unit; }
-   Defaulted<XMLName> &unit()
+   std::optional<XMLName> &unit()
       { return content.unit; }
 
    // value
@@ -109,10 +108,8 @@ public:
       { label() = obj; return *this; }
 
    // unit(value)
-   Double &unit(const Defaulted<XMLName> &obj)
-      { content.unit = obj; return *this; }
    Double &unit(const std::optional<XMLName> &obj)
-      { content.unit = obj; return *this; }
+      { unit() = obj; return *this; }
 
    // value(value)
    Double &value(const Float64 &obj)
@@ -173,7 +170,6 @@ public:
    }
 
    // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
    explicit Double(
       const std::optional<XMLName> &label,
       const std::optional<XMLName> &unit,
@@ -187,7 +183,7 @@ public:
       },
       content{
          label,
-         Defaulted<XMLName>(defaults.unit,unit),
+         unit,
          value
       }
    {

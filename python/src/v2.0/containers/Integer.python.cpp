@@ -47,12 +47,12 @@ void wrapInteger(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label().value(); },
+         &Component::label,
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit().value(); },
+         &Component::unit,
          Component::documentation("unit").data()
       )
       .def_property_readonly(

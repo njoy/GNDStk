@@ -14,7 +14,7 @@
             },
             "unit": {
                 "__class__": "nodes.Attribute",
-                "default": "`' (no label)",
+                "default": null,
                 "description": "e.g. `kg' or `m'",
                 "name": "unit",
                 "required": false,
@@ -42,7 +42,7 @@
         "attributes": {
             "label": {
                 "__class__": "nodes.Attribute",
-                "default": "`' (no label)",
+                "default": null,
                 "description": "Unique label",
                 "name": "label",
                 "required": false,
@@ -50,7 +50,7 @@
             },
             "unit": {
                 "__class__": "nodes.Attribute",
-                "default": "`' (i.e. unitless)",
+                "default": null,
                 "description": "e.g. `kg' or `m'",
                 "name": "unit",
                 "required": false,
@@ -84,7 +84,7 @@
         "attributes": {
             "label": {
                 "__class__": "nodes.Attribute",
-                "default": "`' (no label)",
+                "default": null,
                 "description": "Unique label",
                 "name": "label",
                 "required": false,
@@ -92,7 +92,7 @@
             },
             "unit": {
                 "__class__": "nodes.Attribute",
-                "default": "`' (i.e. unitless)",
+                "default": null,
                 "description": "e.g. `J/s'",
                 "name": "unit",
                 "required": false,

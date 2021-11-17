@@ -95,27 +95,6 @@
             "occurrence": "1",
             "required": false
           },
-          "title": {
-                "__class__": "nodes.ChildNode",
-                "description": "The title of the evaluation",
-                "name": "title",
-                "occurrence": "1",
-                "required": true
-            },
-          "abstract": {
-                "__class__": "nodes.ChildNode",
-                "description": "An abstract summarizing the evaluation",
-                "name": "abstract",
-                "occurrence": "1",
-                "required": false
-            },
-          "body": {
-                "__class__": "nodes.ChildNode",
-                "description": "The main body of text describing the evaluation.  For translated ENDF-6 data, the entire MF1/MT451 text goes here.",
-                "name": "body",
-                "occurrence": "1",
-                "required": true
-            },
           "computerCodes": {
                 "__class__": "nodes.ChildNode",
                 "description": "The list of programs used to perform this evaluation",
@@ -134,13 +113,6 @@
                 "__class__": "nodes.ChildNode",
                 "description": "The list of references used in the evaluation documentation",
                 "name": "bibliography",
-                "occurrence": "1",
-                "required": false
-            },
-          "endfCompatible": {
-                "__class__": "nodes.ChildNode",
-                "description": "Documentation restricted to plain ascii with 66 characters per line, for backwards compatibility with ENDF-6.",
-                "name": "endfCompatible",
                 "occurrence": "1",
                 "required": false
             }
@@ -202,13 +174,6 @@
                 "__class__": "nodes.ChildNode",
                 "description": "Institutional affilation(s) of the author",
                 "name": "affiliations",
-                "occurrence": "1",
-                "required": false
-            },
-            "note": {
-                "__class__": "nodes.ChildNode",
-                "description": "Any special note pertaining to the author",
-                "name": "note",
                 "occurrence": "1",
                 "required": false
             }
@@ -280,13 +245,6 @@
                 "name": "affiliations",
                 "occurrence": "1",
                 "required": false
-            },
-            "note": {
-                "__class__": "nodes.ChildNode",
-                "description": "Any special note pertaining to the contributor",
-                "name": "note",
-                "occurrence": "1",
-                "required": false
             }
         },
         "description": null,
@@ -302,7 +260,7 @@
             "affiliation": {
                 "__class__": "nodes.ChildNode",
                 "description": "Each affiliation is described in an \\element{affiliation} element.",
-                "name": "affilation",
+                "name": "affiliation",
                 "occurrence": "1+",
                 "required": true
             }
@@ -422,36 +380,6 @@
         "name": "date",
         "rootNode": false
     },
-    "title": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": "Use this markup to provide the title of the evaluation/document.",
-        "name": "title",
-        "rootNode": false
-    },
-    "abstract": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": "If needed, use this markup to provide a short summary of the documentation.",
-        "name": "abstract",
-        "rootNode": false
-    },
-    "body": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": "Use this markup for the main text of the documentation.  An ENDF-6's entire MF1/MT451 file is equivalent to this element.",
-        "name": "body",
-        "rootNode": false
-    },
     "copyright": {
         "__class__": "nodes.Node",
         "abstractNode": "text",
@@ -469,23 +397,6 @@
         "childNodes": {},
         "description": "The \\element{copyright} element provides a way for evaluators to add or link to a copyright statement for the (partial) evaluation.",
         "name": "copyright",
-        "rootNode": false
-    },
-    "version": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": [
-            "Used to state the version of a document or code using whatever markup is appropriate.",
-            "Usually versions are simple numbers (e.g. subversion revision numbers),",
-            "but they can be much more complex (MacOS Sierra for instance).  Given this, we use a",
-            "\\element{text} low level container to store the version information itself.",
-            "When used at the \\element{documentation} level, it refers to the version of the evaluation",
-            "and is thus equivalent to ENDF-6's NMOD flag."
-        ],
-        "name": "version",
         "rootNode": false
     },
     "acknowledgements": {
@@ -675,30 +586,12 @@
         },
         "bodyText": null,
         "childNodes": {
-            "executionArguments": {
-                "__class__": "nodes.ChildNode",
-                "description": [
-                    "The command line arguments used when invoking this code."
-                ],
-                "name": "executionArguments",
-                "occurrence": "1",
-                "required": false
-            },
             "codeRepo": {
                 "__class__": "nodes.ChildNode",
                 "description": [
                     "Information for accessing the source code repository for this program."
                 ],
                 "name": "codeRepo",
-                "occurrence": "1",
-                "required": false
-            },
-            "note": {
-                "__class__": "nodes.ChildNode",
-                "description": [
-                    "Any note describing extra information needed to run the code in the manner needed to reproduce the evaluation."
-                ],
-                "name": "note",
                 "occurrence": "1",
                 "required": false
             },
@@ -833,16 +726,6 @@
         "name": "outputDeck",
         "rootNode": false
     },
-    "executionArguments": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": "Use this markup to list any special command line specifics used to invoke this code.",
-        "name": "executionArguments",
-        "rootNode": false
-    },
     "experimentalDataSets": {
         "__class__": "nodes.Node",
         "abstractNode": null,
@@ -907,35 +790,11 @@
                 ],
                 "name": "retrievalDate",
                 "required": true,
-                "type": "date"
+                "type": "XMLName"
             }
         },
         "bodyText": null,
-        "childNodes": {
-            "covarianceScript": {
-                "__class__": "nodes.ChildNode",
-                "description": "The script describing the generation of covariance data..",
-                "name": "covarianceScript",
-                "occurrence": "1",
-                "required": false
-            },
-            "correctionScript": {
-                "__class__": "nodes.ChildNode",
-                "description": "The script describing any modifications to the data.",
-                "name": "correctionScript",
-                "occurrence": "1",
-                "required": false
-            },
-            "note": {
-                "__class__": "nodes.ChildNode",
-                "description": [
-                    "A note describing extra information needed to reproduce the evaluation."
-                ],
-                "name": "note",
-                "occurrence": "1",
-                "required": false
-            }
-        },
+        "childNodes": {},
         "description": [
             "Contains a reference to a specific EXFOR subentry (specified with the \\attr{SUBENT} attribute) and details of the retrieval and any corrections, rescalings, etc.",
             "This markup does not contain the full EXFOR entry or subentry -- these are already stored in the master EXFOR database at the IAEA.  This markup provides a scheme to reference the datasets only.",
@@ -945,42 +804,6 @@
             "the evaluator should consider documenting it in the main \\element{body} element."
         ],
         "name": "exforDataSet",
-        "rootNode": false
-    },
-    "covarianceScript": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": [
-            "V. Zerkin's EXFOR retrieval web application \\cite{exforApp} provides a mechanism for computing covariance matrices based off the statistical and systematic errors presented in an EXFOR entry.",
-            "This markup provides the means to place this script directly in the documentation for future reference and for reconstructing the covariance used at a later date."
-        ],
-        "name": "covarianceScript",
-        "rootNode": false
-    },
-    "correctionScript": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": [
-            "V. Zerkin's EXFOR retrieval web application \\cite{exforApp} provides a mechanism for rudimentary data correction of an EXFOR entry.",
-            "This markup provides the means to place this script directly in the documentation for future reference and for reconstructing the covariance used at a later date."
-        ],
-        "name": "correctionScript",
-        "rootNode": false
-    },
-    "note": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": "Extra note that the authors may want to include.",
-        "name": "note",
         "rootNode": false
     },
     "bibliography": {
@@ -1027,22 +850,6 @@
             "The \\attr{label} attribute provides the landing point for hyperreferences to a \\element{bibitem} and must be unique."
         ],
         "name": "bibitem",
-        "rootNode": false
-    },
-    "endfCompatible": {
-        "__class__": "nodes.Node",
-        "abstractNode": "text",
-        "attributes": {},
-        "bodyText": null,
-        "childNodes": {},
-        "description": [
-            "Documentation in ENDF-6 is stored in MF1 MT451. This section contains free-form text which cannot be",
-            "broken up into the various sections supported by the \\element{documentation} node without manual intervention.",
-            "The \\element{endfCompatible} node is provided to support backwards compatibility and translating back to ENDF-6.",
-            "This node is expected to eventually be deprecated, but in the meantime evaluators should consider providing a short",
-            "summary of the documentation in ENDF-6 compatible form."
-        ],
-        "name": "endfCompatible",
         "rootNode": false
     }
 }

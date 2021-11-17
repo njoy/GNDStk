@@ -33,6 +33,7 @@ namespace python_containers {
    void wrapYs1d(python::module &);
    void wrapXYs3d(python::module &);
    void wrapGridded3d(python::module &);
+   void wrapString(python::module &);
    void wrapColumn(python::module &);
    void wrapColumnHeaders(python::module &);
    void wrapData(python::module &);
@@ -40,7 +41,6 @@ namespace python_containers {
    void wrapFunction3ds(python::module &);
    void wrapInteger(python::module &);
    void wrapRegions3d(python::module &);
-   void wrapString(python::module &);
    void wrapTable(python::module &);
 } // namespace python_containers
 
@@ -75,6 +75,7 @@ void wrapContainers(python::module &module)
    python_containers::wrapYs1d(submodule);
    python_containers::wrapXYs3d(submodule);
    python_containers::wrapGridded3d(submodule);
+   python_containers::wrapString(submodule);
    python_containers::wrapColumn(submodule);
    python_containers::wrapColumnHeaders(submodule);
    python_containers::wrapData(submodule);
@@ -82,7 +83,6 @@ void wrapContainers(python::module &module)
    python_containers::wrapFunction3ds(submodule);
    python_containers::wrapInteger(submodule);
    python_containers::wrapRegions3d(submodule);
-   python_containers::wrapString(submodule);
    python_containers::wrapTable(submodule);
 };
 

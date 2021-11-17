@@ -197,13 +197,6 @@
                 "name": "values",
                 "occurrence": "1",
                 "required": true
-            },
-            "uncertainty": {
-                "__class__": "nodes.ChildNode",
-                "description": "Uncertainty/covariance on the actual values, in the order given by the corresponding \\element{nuclides} element.",
-                "name": "uncertainty",
-                "occurrence": "1",
-                "required": false
             }
         },
         "description": "Container for the nuclides and corresponding yield values. This node appears inside either a \\element{elapsedTime} node (spontaneous fission) or \\element{incidentEnergy} node (induced fission).",

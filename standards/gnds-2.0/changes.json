@@ -14,6 +14,9 @@
 
       "// json spec corrections" : "",
       "bodyText" : "std::string",
+      "attributeValue": "std::string",
+      "date": "std::string",
+      "Boolean": "bool",
 
       "// enumerator types" : "",
       "dateType" : "enums::DateType",

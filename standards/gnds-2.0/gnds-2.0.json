@@ -10,6 +10,7 @@
     "summary_cpTransport.json",
     "summary_documentation.json",
     "summary_fissionTransport.json",
+    "summary_fissionFragmentData.json",
     "summary_fpy.json",
     "summary_pops.json",
     "summary_processed.json",

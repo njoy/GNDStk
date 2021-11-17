@@ -29,7 +29,9 @@ autogenerator input files :
 
 changes:
   - renamed namespace: gpdc to containers
-  - removed all uncertainty nodes from gpdc and pops due to circular references
+  - defaults specified as "`' (i.e. unitless)" or "`' (no label)" were set to
+    null since there is no default.
+  - removed all uncertainty nodes from gpdc, pops and fpy due to circular references
   - set the domainMin and domainMax defaults to "1.0" and "-1.0" to not confuse the
     autogenerator (parity enum values are "+1" and "-1")
   - replaced the appearance of the "functional" abstract child node by the actual
@@ -38,3 +40,7 @@ changes:
     functions1d node containing regions1d too. This is a major restriction but it
     is required to get it working.
   - removed the MC related nodes for pdf/cdf, etc.
+  - removed the abstract, title, body, note, executionArguments, endfCompatible,
+    correctionScript, covarianceScript, version nodes from the documentation
+  - corrected typo in documentation: "affilation"
+  - changed type date in exforDataSet to string type

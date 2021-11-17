@@ -42,9 +42,9 @@ class Integer : public Component<Integer> {
    {
       return
          // metadata
-         Defaulted<XMLName>{"`' (no label)"}
+         std::optional<XMLName>{}
             / Meta<>("label") |
-         Defaulted<XMLName>{"`' (i.e. unitless)"}
+         std::optional<XMLName>{}
             / Meta<>("unit") |
          Integer32{}
             / Meta<>("value")
@@ -61,8 +61,6 @@ public:
    // ------------------------
 
    static inline const struct Defaults {
-      static inline const XMLName label = "`' (no label)";
-      static inline const XMLName unit = "`' (i.e. unitless)";
    } defaults;
 
    // ------------------------
@@ -71,8 +69,8 @@ public:
 
    struct {
       // metadata
-      Defaulted<XMLName> label{"`' (no label)"};
-      Defaulted<XMLName> unit{"`' (i.e. unitless)"};
+      std::optional<XMLName> label;
+      std::optional<XMLName> unit;
       Integer32 value;
    } content;
 
@@ -82,15 +80,15 @@ public:
    // ------------------------
 
    // label
-   const Defaulted<XMLName> &label() const
+   const std::optional<XMLName> &label() const
       { return content.label; }
-   Defaulted<XMLName> &label()
+   std::optional<XMLName> &label()
       { return content.label; }
 
    // unit
-   const Defaulted<XMLName> &unit() const
+   const std::optional<XMLName> &unit() const
       { return content.unit; }
-   Defaulted<XMLName> &unit()
+   std::optional<XMLName> &unit()
       { return content.unit; }
 
    // value
@@ -106,16 +104,12 @@ public:
    // ------------------------
 
    // label(value)
-   Integer &label(const Defaulted<XMLName> &obj)
-      { content.label = obj; return *this; }
    Integer &label(const std::optional<XMLName> &obj)
-      { content.label = obj; return *this; }
+      { label() = obj; return *this; }
 
    // unit(value)
-   Integer &unit(const Defaulted<XMLName> &obj)
-      { content.unit = obj; return *this; }
    Integer &unit(const std::optional<XMLName> &obj)
-      { content.unit = obj; return *this; }
+      { unit() = obj; return *this; }
 
    // value(value)
    Integer &value(const Integer32 &obj)
@@ -176,7 +170,6 @@ public:
    }
 
    // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
    explicit Integer(
       const std::optional<XMLName> &label,
       const std::optional<XMLName> &unit,
@@ -189,8 +182,8 @@ public:
          content.value
       },
       content{
-         Defaulted<XMLName>(defaults.label,label),
-         Defaulted<XMLName>(defaults.unit,unit),
+         label,
+         unit,
          value
       }
    {
