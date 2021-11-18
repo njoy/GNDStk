@@ -303,6 +303,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
             if (!detail::hdf5attr2node(group.getAttribute(attrName), *declnode))
                return false;
 
+may need unconditional false last argument here...
       // visit the rest of the "/" group
       if (!detail::hdf52node(group, "/", decl ? node.add() : node, decl))
          return false;
