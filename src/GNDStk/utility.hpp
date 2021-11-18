@@ -352,21 +352,21 @@ bool convert(const Tree &, JSON &);
 bool convert(const Tree &, HDF5 &);
 
 // XML to {Node,Tree,XML,JSON,HDF5}
-bool convert(const XML  &, Node &, const bool);
+bool convert(const XML  &, Node &, const bool = false);
 bool convert(const XML  &, Tree &);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
 bool convert(const XML  &, HDF5 &);
 
 // JSON to {Node,Tree,XML,JSON,HDF5}
-bool convert(const JSON &, Node &, const bool);
+bool convert(const JSON &, Node &, const bool = false);
 bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
 bool convert(const JSON &, HDF5 &);
 
 // HDF5 to {Node,Tree,XML,JSON,HDF5}
-bool convert(const HDF5 &, Node &, const bool);
+bool convert(const HDF5 &, Node &, const bool = false);
 bool convert(const HDF5 &, Tree &);
 bool convert(const HDF5 &, XML  &);
 bool convert(const HDF5 &, JSON &);

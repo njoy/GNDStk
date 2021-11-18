@@ -1,10 +1,11 @@
 
+needs work...
+
 // -----------------------------------------------------------------------------
 // convert(*,Tree)
 // That is, convert to Tree objects
-//
 // Also:
-// convert(*,Node) for * = XML/JSON
+// convert(*,Node) for * = XML/JSON/HDF5
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -50,7 +51,7 @@ inline bool convert(const XML &x, Node &node, const bool decl)
    // clear the receiving object
    node.clear();
 
-   // optionally, give it a boilerplate declaration node
+   // optionally, make a boilerplate declaration node
    if (decl)
       node.add("xml"); // <== indicates that we built the object from an XML
 
@@ -166,7 +167,7 @@ inline bool convert(const JSON &j, Node &node, const bool decl)
    // clear the receiving object
    node.clear();
 
-   // optionally, give it a boilerplate declaration node
+   // optionally, make a boilerplate declaration node
    if (decl)
       node.add("json"); // <== indicates that we built the object from a JSON
 
@@ -180,9 +181,8 @@ inline bool convert(const JSON &j, Node &node, const bool decl)
       // validate
       // ------------------------
 
-      const std::size_t size = j.doc.size();
-
       // possibly redundant with the earlier empty() test, but harmless
+      const std::size_t size = j.doc.size();
       if (size == 0)
          return true;
 
@@ -197,16 +197,16 @@ inline bool convert(const JSON &j, Node &node, const bool decl)
       // convert the nodes
       // ------------------------
 
-      const std::string name = j.doc.begin().key();
-
       // See comment above check_top() call in convert(XML,Node) above.
       // JSON documents don't have "declaration nodes," as XML documents
       // do, but here we interpret the bool decl parameter as essentially
       // indicating whether we're reading a Node (decl == false) or full
       // Tree (decl == true); and, the latter case suggests we're at the
       // top level, and should thus validate it as a top-level GNDS node.
-      if (decl)
+      if (decl) {
+         const std::string name = j.doc.begin().key();
          detail::check_top(name, "JSON", "convert(JSON,Node)");
+      }
 
       // visit the node, and its children recursively
       if (!detail::json2node(j.doc.begin(), decl ? node.add() : node))
@@ -229,6 +229,119 @@ inline bool convert(const JSON &j, Tree &tree)
       return convert(j, *(Node*)&tree, true);
    } catch (...) {
       log::function("convert(JSON,Tree)");
+      throw;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// HDF5 ==> Node
+// HDF5 ==> Tree
+// -----------------------------------------------------------------------------
+
+/*
+Remark
+
+HighFive::File, and by extension GNDStk::HDF5 (our simple wrapper around
+HighFive::File, to assist in providing uniform behavior between XML, JSON,
+and HDF5), refers to an entire HDF file. Unlike XML and JSON, it apparently
+can't refer to just part of such a file, i.e. part of an HDF5 hierarchy. The
+upshot: convert(HDF5,Tree) may be far more meaningful than convert(HDF5,Node),
+as the former (Tree) is for a full GNDS hierarchy, the latter for possibly
+a partial hierarchy. I'll leave the Node case, though. It will have slightly
+different behavior than the Tree case does, due to the decl flag; and also,
+the Tree version will call the Node version to do most of the work. We might
+consider, at some point, having something like convert(HighFive::Group,Node),
+i.e. with a HighFive::Group rather than a HighFive::File, but such a thing
+might or might not prove to be useful. A HighFive::Group would end up coming
+from a HighFive::File, rather than being on its own like a "snippet" of XML
+or JSON could be. We'll see how things hash out.
+*/
+
+// HDF5 ==> Node
+inline bool convert(const HDF5 &h, Node &node, const bool decl)
+{
+   // ------------------------
+   // bookkeeping
+   // ------------------------
+
+   // clear the receiving object
+   node.clear();
+
+   // optionally, make a boilerplate declaration node
+   Node *declnode = nullptr;
+   if (decl) {
+      // indicates that we built the object from an HDF5...
+      declnode = &node.add("hdf5");
+   }
+
+   // empty hdf5 document?
+   if (h.empty())
+      return true;
+
+   try {
+      // for brevity
+      const HighFive::File &file = *h.file;
+
+      // size == 0: not empty in the earlier (h.file == nullptr) sense,
+      // but, here, meaning that there's nothing in the HDF document
+      const std::size_t size = file.getNumberObjects();
+      if (size == 0)
+         return true;
+
+      // ------------------------
+      // convert the nodes
+      // ------------------------
+
+      const HighFive::Group &group = file.getGroup("/");
+
+      // if decl, then put any top-level attributes into the "hdf5"
+      // child node that would have been created above
+      if (decl)
+         for (auto &attrName : group.listAttributeNames())
+            if (!detail::hdf5attr2node(group.getAttribute(attrName), *declnode))
+               return false;
+
+may need unconditional "top"=true last argument here...
+or something like that
+      // visit the rest of the "/" group
+      if (!detail::hdf52node(group, "/", decl ? node.add() : node, decl))
+         return false;
+
+#if 0
+      // zzz see what can slip into the detail function...
+      // visit the remaining objects, and their sub-groups recursively
+      for (const std::string &name : names) {
+         const HighFive::ObjectType type = file.getObjectType(name);
+         if (type == HighFive::ObjectType::Group) {
+            detail::check_top(name, "HDF5", "convert(HDF5,Node)");
+            const HighFive::Group &g = file.getGroup(name);
+            if (!detail::hdf52node(g, name, decl ? node.add() : node))
+               return false;
+         } else if (type != HighFive::ObjectType::Attribute) {
+            assert(false); /// want group or attribute at top level
+         }
+      }
+#endif
+
+   } catch (...) {
+      log::function("convert(HDF5,Node)");
+      throw;
+   }
+
+   // done
+   return true;
+}
+
+
+// HDF5 ==> Tree
+inline bool convert(const HDF5 &h, Tree &tree)
+{
+   try {
+      return convert(h, *(Node*)&tree, true);
+   } catch (...) {
+      log::function("convert(HDF5,Tree)");
       throw;
    }
 }

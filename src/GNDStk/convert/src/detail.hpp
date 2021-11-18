@@ -1,11 +1,12 @@
 
+needs work...
+
 namespace detail {
 
 // -----------------------------------------------------------------------------
-// Helpers for convert(*,JSON)
+// node2json
 // -----------------------------------------------------------------------------
 
-// node2json
 template<class NODE>
 bool node2json(
    const NODE &node, nlohmann::json &j,
@@ -19,8 +20,7 @@ bool node2json(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // This also triggers node creation, in the event that the node exists but
-   // is null (so that nothing is entered later), e.g. in XML's <something/>.
+   // Create new json in j
    auto &json = j[nameSuffixed];
 
    // ------------------------
@@ -66,7 +66,7 @@ bool node2json(
 
 
 // -----------------------------------------------------------------------------
-// Helpers for convert(*,tree)
+// xml2node
 // -----------------------------------------------------------------------------
 
 /*
@@ -90,22 +90,26 @@ namespace pugi
 }
 */
 
-// internal_error_xml2node
-inline bool internal_error_xml2node(const std::string &str)
+
+// Helper: error_xml2node
+inline void error_xml2node(const std::string &str)
 {
    log::error(
       "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
-      "type pugi::{} found, but not handled, as sub-element",
-      str
+      "type pugi::{} found, but not handled, as sub-element", str
    );
    throw std::exception{};
-   return false; // in case we allow exceptions to be turned off
 }
 
+
+// xml2node
 // pugi::xml_node ==> Node
 template<class NODE>
 bool xml2node(const pugi::xml_node &xnode, NODE &node)
 {
+   static const std::string context =
+      "detail::xml2node(pugi::xml_node, Node)";
+
    // check destination node
    if (!node.empty()) {
       log::error(
@@ -132,17 +136,17 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
 
       // I don't think that the following should ever appear in this context
       if (xsub.type() == pugi::node_document)
-         return internal_error_xml2node("node_document");
+         error_xml2node("node_document");
       if (xsub.type() == pugi::node_declaration)
-         return internal_error_xml2node("node_declaration");
+         error_xml2node("node_declaration");
 
       // For now I won't handle these; let's ensure that we don't see them
       if (xsub.type() == pugi::node_null)
-         return internal_error_xml2node("node_null");
+         error_xml2node("node_null");
       if (xsub.type() == pugi::node_pi)
-         return internal_error_xml2node("node_pi");
+         error_xml2node("node_pi");
       if (xsub.type() == pugi::node_doctype)
-         return internal_error_xml2node("node_doctype");
+         error_xml2node("node_doctype");
 
       // ------------------------
       // element (typical case)
@@ -153,7 +157,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
             if (!xml2node(xsub,node.add()))
                return false;
          } catch (...) {
-            // recursive; no point printing error context, so just throw
+            log::function(context);
             throw;
          }
          continue;
@@ -207,6 +211,10 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
 
 
 
+// -----------------------------------------------------------------------------
+// json2node
+// -----------------------------------------------------------------------------
+
 // nlohmann::json::const_iterator ==> Node
 // Why the iterator rather than the json object? I found that there were some
 // seemingly funny semantics in the json library. As we can see below, we have
@@ -217,33 +225,38 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
 // iterator form rather than the range-based-for form. Perhaps there's a way
 // to reformulate all this in a shorter way, but this is what we have for now.
 
-// Helper
-inline bool internal_error_json2node(const std::string &str)
+
+// Helper: error_json2node
+inline void error_json2node(const std::string &str)
 {
    log::error(
       "Internal error in detail::json2node(nlohmann::json,Node):\n"
-      "message is \"{}\"; please let us know about this",
-      str
+      "message is \"{}\"; please let us know about this", str
    );
    throw std::exception{};
-   return false; // in case we allow exceptions turned off
 }
 
 
+// json2node
 template<class NODE>
 bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 {
+   static const std::string context =
+      "detail::json2node(nlohmann::json::const_iterator, Node)";
+
    // the node sent here should be fresh, ready to receive entries...
    if (!node.empty())
-      return internal_error_json2node("!node.empty()");
+      error_json2node("!node.empty()");
 
-   // non-object cases were handled before a caller calls this function...
+   // non-object cases should have been handled
+   // before any caller calls this function...
    if (!iter->is_object())
-      return internal_error_json2node("!iter->is_object()");
+      error_json2node("!iter->is_object()");
 
-   // any "attributes" key should have been handled in the caller...
+   // any "attributes" key (a specially-named "child node" that we use in JSON
+   // in order to identify attributes) should have been handled in the caller...
    if (iter.key() == "attributes")
-      return internal_error_json2node("iter.key() == \"attributes\"");
+      error_json2node("iter.key() == \"attributes\"");
 
    // key,value ==> node name, json value to bring in
    node.name = iter.key();
@@ -268,7 +281,7 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
             if (!json2node(elem,node.add()))
                return false;
          } catch (...) {
-            // recursive; no point printing error context; just throw
+            log::function(context);
             throw;
          }
       } else if (elem->is_null()) {
@@ -277,7 +290,7 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
          node.add().name = elem.key();
       } else {
          // no other cases are handled right now
-         return internal_error_json2node("unhandled JSON value type");
+         error_json2node("unhandled JSON value type");
       }
    }
 
@@ -287,9 +300,292 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 
 
 
+// -----------------------------------------------------------------------------
+// node2hdf5
+// -----------------------------------------------------------------------------
+
+// Here, OBJECT is either HighFive::File or HighFive::Group
+template<class NODE, class OBJECT>
+bool node2hdf5(
+   const NODE &node, OBJECT &h,
+   const std::string &suffix = ""
+) {
+   // As for JSON; see the comment in node2json()
+   const std::string nameOriginal = node.name;
+   const std::string nameSuffixed = node.name + suffix;
+
+   // Create new group in h
+   HighFive::Group group = h.createGroup(nameSuffixed);
+
+   // ------------------------
+   // metadata ==> group
+   // ------------------------
+
+   if (suffix != "")
+      group.createAttribute(std::string("nodeName"), nameOriginal);
+
+   for (auto &meta : node.metadata)
+      group.createAttribute(meta.first, meta.second);
+
+   /*
+zzz
+we should see what this actually produces
+but we should actually have it be more intelligent than the JSON code
+understand block data
+understand cdata/pcdata/comment/text system in Node/Tree
+   */
+
+   // ------------------------
+   // children ==> group
+   // ------------------------
+
+   // Logic as for JSON; see the comment in node2json()
+   std::map<std::string,std::size_t> childNames;
+   for (auto &c : node.children) {
+      auto iter = childNames.find(c->name);
+      if (iter == childNames.end())
+         childNames.insert({c->name,0}); // once (so far)
+      else
+         iter->second = 1; // more than once
+   }
+
+   // Now revisit and process the child nodes
+   for (auto &c : node.children) {
+      const std::size_t counter = childNames.find(c->name)->second++;
+      if (!node2hdf5(*c, group, counter ? std::to_string(counter-1) : ""))
+         return false;
+   }
+
+   // Done
+   return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// hdf5attr2node
+// -----------------------------------------------------------------------------
+
+inline bool hdf5attr2node(
+   const HighFive::Attribute &attr,
+   Node &node
+) {
+   (void)attr;
+   (void)node;
+
+   // print
+   const auto print = [](auto &value) { std::cout << value << std::endl; };
+
+   const HighFive::DataType attrType = attr.getDataType();
+
+   if (attrType == HighFive::AtomicType<char              >{})
+      print("   ==> char              ");
+   if (attrType == HighFive::AtomicType<signed char       >{})
+      print("   ==> signed char       ");
+   if (attrType == HighFive::AtomicType<unsigned char     >{})
+      print("   ==> unsigned char     ");
+   if (attrType == HighFive::AtomicType<short             >{})
+      print("   ==> short             ");
+   if (attrType == HighFive::AtomicType<unsigned short    >{})
+      print("   ==> unsigned short    ");
+   if (attrType == HighFive::AtomicType<int               >{})
+      print("   ==> int               ");
+   if (attrType == HighFive::AtomicType<unsigned          >{})
+      print("   ==> unsigned          ");
+   if (attrType == HighFive::AtomicType<long              >{})
+      print("   ==> long              ");
+   if (attrType == HighFive::AtomicType<unsigned long     >{})
+      print("   ==> unsigned long     ");
+   if (attrType == HighFive::AtomicType<long long         >{})
+      print("   ==> long long         ");
+   if (attrType == HighFive::AtomicType<unsigned long long>{})
+      print("   ==> unsigned long long");
+   if (attrType == HighFive::AtomicType<float             >{})
+      print("   ==> float             ");
+   if (attrType == HighFive::AtomicType<double            >{})
+      print("   ==> double            ");
+   if (attrType == HighFive::AtomicType<std::string       >{})
+      print("   ==> std::string       ");
+   if (attrType == HighFive::AtomicType<bool              >{})
+      print("   ==> bool              ");
+
+   // zzz write this;
+
+   return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// hdf52node
+// -----------------------------------------------------------------------------
+
+// Helper: error_hdf52node
+inline void error_hdf52node(const std::string &str)
+{
+   log::error(
+      "Internal error in detail::hdf52node(HighFive::Object,Node):\n"
+      "message is \"{}\"; please let us know about this", str
+   );
+   throw std::exception{};
+}
+
+
+// hdf52node
+template<class NODE>
+bool hdf52node(
+   const HighFive::Group &group,
+   const std::string &groupName,
+   NODE &node,
+   const bool decl = false
+) {
+   static const std::string context =
+      "detail::hdf52node(HighFive::Group, std::string, Node)";
+
+   if (!decl) {
+      // the node sent here should be fresh, ready to receive entries...
+      if (!node.empty())
+         error_hdf52node("!node.empty()");
+
+      // group name ==> node name
+      node.name = groupName;
+
+      // get metadata from HDF5 attributes
+      for (auto &attrName : group.listAttributeNames())
+         hdf5attr2node(group.getAttribute(attrName), node);
+   }
+
+   // ------------------------
+   // get children from
+   // HDF5 sub-groups
+   // ------------------------
+
+   /// bool saw_dataset
+   /*
+   In XML:
+      <foo>
+         <energy>1.2 3.4 5.6</energy>
+         <velocity>7.8 9.0</velocity>
+      </foo>
+
+   In Tree/Node:
+      foo
+         energy
+            pcdata
+               text="1.2 3.4 5.6"
+         velocity
+            pcdata
+               text="7.8 9.0"
+
+   In HDF5: // zzz Meaning, we should set it up this way!
+      group "foo"
+         dataset "energy"
+            can have attributes!!
+            <the data>
+         dataset "velocity"
+            can have attributes!!
+            <the data>
+
+   The above way seems like a good (more importantly, apparently viable) manner
+   in which to handle XML "pcdata" (plain character data).
+
+   What about XML "cdata" - which we get from those XML "<![CDATA[...]]>" nodes?
+   It doesn't seem like those should be considered "data sets." (Unlike Pcdata
+   nodes, which, at least in GNDS, are clearly data sets.)
+
+   For XML CDATA, it would seem reasonable to have essentially the same handling
+   we have for Node itself, or for JSON.
+
+   Let's consider some XML:
+
+      <documentation name="endfDoc"><![CDATA[
+         one two three four
+      ]]></documentation>
+
+   Independent of what we do in Node/Tree, and in JSON, let's think about what
+   makes sense in HDF5...
+
+      group "documentation"
+         attribute "name"
+         group "cdata"
+            attribute "text"
+
+   OK, well, that's basically what we do for JSON, except that we don't need
+   that obnoxious JSON "attributes" middleman.
+   */
+
+   for (auto &elemName : group.listObjectNames()) {
+      switch (group.getObjectType(elemName)) {
+
+         // File
+         case HighFive::ObjectType::File :
+            error_hdf52node("ObjectType \"File\" not expected here");
+            break;
+
+         // Group
+         case HighFive::ObjectType::Group :
+            try {
+               if (!hdf52node(group.getGroup(elemName), elemName, node.add()))
+                  return false;
+            } catch (...) {
+               log::function(context);
+               throw;
+            }
+            break;
+
+         // UserDataType
+         case HighFive::ObjectType::UserDataType :
+            error_hdf52node("unhandled ObjectType \"UserDataType\"");
+            break;
+
+         // DataSpace (not to be confused with Dataset)
+         case HighFive::ObjectType::DataSpace :
+            error_hdf52node("ObjectType \"DataSpace\" not expected here");
+            break;
+
+         // Dataset
+         case HighFive::ObjectType::Dataset :
+            std::cout << "Must handle HighFive Dataset!" <<  std::endl;
+            // zzz Must handle! And, remember, Datasets can have attributes.
+            break;
+
+         // Attribute
+         case HighFive::ObjectType::Attribute :
+            // Re: the error message...
+            // Wait, why wouldn't an attribute show up here? :-) Apparently,
+            // group.listObjectNames() (used in the for-loop we're in right
+            // now) doesn't include attribute names! Which is why we had the
+            // earlier for-loop (the one that used group.listAttributeNames())
+            // in order to handle attributes.
+            error_hdf52node("ObjectType \"Attribute\" not expected here");
+            break;
+
+         // Other
+         case HighFive::ObjectType::Other :
+            error_hdf52node("unhandled ObjectType \"Other\"");
+            break;
+
+         // default
+         default:
+            error_hdf52node("unhandled ObjectType");
+            break;
+
+      } // switch
+   } // for
+
+   // done
+   return true;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// node2node
+// -----------------------------------------------------------------------------
+
 // Node ==> Node
 template<class NODE>
-inline void node2Node(const NODE &from, NODE &to)
+void node2node(const NODE &from, NODE &to)
 {
    // clear
    to.clear();
@@ -303,16 +599,16 @@ inline void node2Node(const NODE &from, NODE &to)
 
    // children
    for (auto &c : from.children)
-      node2Node(*c, to.add());
+      node2node(*c, to.add());
 }
 
 
 
 // -----------------------------------------------------------------------------
-// Helpers for convert(*,XML)
+// node2xml
 // -----------------------------------------------------------------------------
 
-// check_special
+// Helper: check_special
 template<class NODE>
 bool check_special(const NODE &node, const std::string &label)
 {
@@ -352,9 +648,7 @@ bool check_special(const NODE &node, const std::string &label)
    return true;
 }
 
-
-
-// write_cdata
+// Helper: write_cdata
 template<class NODE>
 bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 {
@@ -363,7 +657,7 @@ bool write_cdata(const NODE &node, pugi::xml_node &xnode)
    return true;
 }
 
-// write_pcdata
+// Helper: write_pcdata
 template<class NODE>
 bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 {
@@ -372,7 +666,7 @@ bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
    return true;
 }
 
-// write_comment
+// Helper: write_comment
 template<class NODE>
 bool write_comment(const NODE &node, pugi::xml_node &xnode)
 {
@@ -382,11 +676,13 @@ bool write_comment(const NODE &node, pugi::xml_node &xnode)
 }
 
 
-
 // node2xml
 template<class NODE>
 bool node2xml(const NODE &node, pugi::xml_node &x)
 {
+   static const std::string context =
+      "detail::node2xml(Node, pugi::xml_node)";
+
    // name
    pugi::xml_node xnode = x.append_child(node.name.data());
 
@@ -409,7 +705,7 @@ bool node2xml(const NODE &node, pugi::xml_node &x)
          if (!node2xml(*child,xnode))
             return false;
       } catch (...) {
-         // recursive; no point in printing error context; just throw
+         log::function(context);
          throw;
       }
    }
