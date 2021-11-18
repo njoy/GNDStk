@@ -1,4 +1,6 @@
 
+needs work...
+
 // -----------------------------------------------------------------------------
 // HDF5.read()
 // -----------------------------------------------------------------------------
@@ -34,6 +36,8 @@ with debugging and testing, and gives users a more-uniform interface.
 // read(istream)
 // -----------------------------------------------------------------------------
 
+/// zzz integrate these fixmes into regular remarks
+
 // fixme
 // We may want to detect whether or not the istream is in std::ios::binary
 // mode. If it isn't, then copying it absolutely correctly, to a temporary
@@ -62,6 +66,12 @@ std::istream &read(std::istream &is)
    static char buffer[L_tmpnam];
    filename = tmpnam(buffer);
    // fixme Possibly check if tmpnam() is screwy and the file actually exists?
+
+   /*
+zzz
+Have HDF5::createTemporary()
+Should probably make it append .h5
+   */
 
    try {
       // Open temporary file. This *should* work, but we check anyway.
@@ -142,9 +152,8 @@ bool read(const std::string name)
          log::error("file = HighFive::File(filename, ReadOnly)\n"
                     "threw an exception");
       }
-   } else {
+   } else
       log::error("Could not open file \"{}\" for input", filename);
-   }
 
    if (!ret)
       log::member("HDF5.read(\"{}\")", filename);
