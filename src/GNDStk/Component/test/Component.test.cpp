@@ -164,7 +164,7 @@ SCENARIO("Testing GNDStk Component") {
          color = false; // avoid cluttering the checked output below
 
          const std::string expected =
-            "DerivedData { // GNDS: data\n"
+            "DerivedData {\n"
             "   foo : 12\n"
             "   bar : 34.56\n"
             "} // DerivedData"

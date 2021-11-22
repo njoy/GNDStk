@@ -1107,24 +1107,31 @@ void writeClassSetterChild(
    out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.typeFull);
    out(2,"{ @() = obj; return *this; }", child.name);
 
-   const auto indlab =
-      [&out,&parent,&child](const auto &T, const auto &par)
-      {
-         // T par: index or label parameter
-         out();
-         out(1,"// @(@,value)", child.name, par);
-         out(1,"@ &@(", parent.clname, child.name);
-         out(2,"const @@,", T, par);
-         out(2,"const @ &obj", child.type);
-         out(1,") {");
-         out(2,"@(@) = obj; return *this;", child.name, par);
-         out(1,"}");
-      };
-
-   // with index or label
+   // if vector or optional<vector>
    if (child.isVector) {
+      const auto indlab =
+         [&out,&parent,&child](const auto &T, const auto &par)
+         {
+            // T par: index or label parameter
+            out();
+            out(1,"// @(@,value)", child.name, par);
+            out(1,"@ &@(", parent.clname, child.name);
+            out(2,"const @@,", T, par);
+            out(2,"const @ &obj", child.type);
+            out(1,") {");
+            out(2,"@(@) = obj; return *this;", child.name, par);
+            out(1,"}");
+         };
+
+      // with index or label
       indlab("std::size_t ",  "index");
       indlab("std::string &", "label");
+
+      // push vector element
+      out();
+      out(1,"// @(value) for vector push_back", child.name);
+      out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.type);
+      out(2,"{ setter(@(), obj); return *this; }", child.name);
    }
 } // writeClassSetterChild
 
@@ -1264,48 +1271,17 @@ void writeClassCtorBody(writer &out, const std::string &argName)
 // writeClassCtors
 void writeClassCtors(writer &out, const PerClass &per)
 {
-   // ctor: default
-   out();
-   out(1,"// default");
-   out(1,"@() :", per.clname);
-   writeClassCtorComponent(out, per, false);
-   out();
-   writeClassCtorBody(out, "");
-
-   // ctor: copy
-   out();
-   out(1,"// copy");
-   out(1,"@(const @ &other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   out(",");
-   out(2,"content{other.content}");
-   writeClassCtorBody(out, "other");
-
-   // ctor: move
-   out();
-   out(1,"// move");
-   out(1,"@(@ &&other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   out(",");
-   out(2,"content{std::move(other.content)}");
-   writeClassCtorBody(out, "other");
-
-   // ctor: node
-   out();
-   out(1,"// from node");
-   out(1,"@(const Node &node) :", per.clname);
-   writeClassCtorComponent(out, per, false);
-   out();
-   writeClassCtorBody(out, "node");
-
    // ------------------------
-   // ctor: fields
+   // ctor: default,
+   // and from fields
    // ------------------------
 
    const auto total = per.nfields();
    if (total != 0) {
       out();
-      out(1,"// from fields");
+      out(1,"// default, and from fields");
+
+      // informational message, if applicable
       for (const auto &m : per.metadata)
          if (m.isDefaulted) {
             out(1,"// std::optional replaces Defaulted; "
@@ -1314,21 +1290,25 @@ void writeClassCtors(writer &out, const PerClass &per)
          }
 
       // signature, and base constructor call
-      // Note: we don't need "explicit" unless this constructor can be called
-      // with one argument. We'll always write it, however, in case someone
-      // modifies the auto-generated constructor (say, giving its arguments
-      // defaults) in such a way that is *can* be called with one argument.
-      // But we'd rather nobody modify the auto-generated classes.
       int count = 0;
       out(1,"explicit @(", per.clname);
-      for (const auto &m : per.metadata)
-         out(2,"const @ &@@",
+
+      for (const auto &m : per.metadata) {
+         out(2,"const @ &@ =",
              m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
-             m.name, ++count < total ? "," : "");
-      for (const auto &c : per.children)
-         out(2,"const @ &@@", c.typeFull, c.name, ++count < total ? "," : "");
-      for (const auto &v : per.variants)
-         out(2,"const @ &@@", v.typeFull, v.name, ++count < total ? "," : "");
+             m.name /*, ++count < total ? "," : ""*/ );
+         out(3,"@{}@", m.typeFull, ++count < total ? "," : "");
+      }
+      for (const auto &c : per.children) {
+         out(2,"const @ &@ =", c.typeFull,
+             c.name /*, ++count < total ? "," : ""*/ );
+         out(3,"@{}@", c.typeFull, ++count < total ? "," : "");
+      }
+      for (const auto &v : per.variants) {
+         out(2,"const @ &@ =", v.typeFull,
+             v.name /*, ++count < total ? "," : ""*/ );
+         out(3,"@{}@", v.typeFull, ++count < total ? "," : "");
+      }
 
       out(1,") :");
       writeClassCtorComponent(out, per, false);
@@ -1352,6 +1332,41 @@ void writeClassCtors(writer &out, const PerClass &per)
       // body
       writeClassCtorBody(out, "");
    }
+
+   // ------------------------
+   // ctor: copy
+   // ------------------------
+
+   out();
+   out(1,"// copy");
+   out(1,"@(const @ &other) :", per.clname, per.clname);
+   writeClassCtorComponent(out, per, true);
+   out(",");
+   out(2,"content{other.content}");
+   writeClassCtorBody(out, "other");
+
+   // ------------------------
+   // ctor: move
+   // ------------------------
+
+   out();
+   out(1,"// move");
+   out(1,"@(@ &&other) :", per.clname, per.clname);
+   writeClassCtorComponent(out, per, true);
+   out(",");
+   out(2,"content{std::move(other.content)}");
+   writeClassCtorBody(out, "other");
+
+   // ------------------------
+   // ctor: node
+   // ------------------------
+
+   out();
+   out(1,"// from node");
+   out(1,"@(const Node &node) :", per.clname);
+   writeClassCtorComponent(out, per, false);
+   out();
+   writeClassCtorBody(out, "node");
 
    // ------------------------
    // ctor: vector
@@ -1427,7 +1442,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    // output: constructors
    out();
    out(1,smallComment);
-   out(1,"// Construction");
+   out(1,"// Constructors");
    out(1,smallComment);
    writeClassCtors(out, per);
 
