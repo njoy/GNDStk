@@ -263,6 +263,9 @@ bool writeComponentPart(
    const std::string &color
 ) {
    if constexpr (is_base_of_Component<T>::value) {
+      // Suppress "unused parameter" warnings
+      (void)value; (void)maxlen;
+      (void)label; (void)color;
       // T is derived from Component, and thus inherits a write()
       value.write(os,level);
    } else {
