@@ -1616,7 +1616,8 @@ void commandLine(
 
    // Extract information from the command line .json
    specs.JSONDir   = jmain[input];
-   specs.JSONFiles = std::vector<std::string>(jmain[files]);
+   for (const auto &str : jmain[files])
+      specs.JSONFiles.push_back(str);
    specs.GNDSDir   = jmain[output];
    if (jmain.contains(project))
       specs.ProjectDir = jmain[project];
