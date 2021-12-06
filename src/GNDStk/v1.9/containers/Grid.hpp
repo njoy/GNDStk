@@ -231,7 +231,7 @@ public:
    // copy
    Grid(const Grid &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.index,
          content.interpolation,
          content.label,
@@ -247,7 +247,7 @@ public:
    // move
    Grid(Grid &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.index,
          content.interpolation,
          content.label,

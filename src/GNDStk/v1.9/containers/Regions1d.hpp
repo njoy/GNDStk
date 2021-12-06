@@ -200,7 +200,7 @@ public:
    // copy
    Regions1d(const Regions1d &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -214,7 +214,7 @@ public:
    // move
    Regions1d(Regions1d &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.label,
          content.outerDomainValue,
          content.XYs1d,

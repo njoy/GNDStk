@@ -231,7 +231,7 @@ public:
    // copy
    Axes(const Axes &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.href,
          content.axis_grid
       },
@@ -243,7 +243,7 @@ public:
    // move
    Axes(Axes &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.href,
          content.axis_grid
       },

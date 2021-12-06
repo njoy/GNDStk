@@ -146,7 +146,7 @@ public:
    // copy
    Reactions(const Reactions &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.reaction
       },
       content{other.content}
@@ -157,7 +157,7 @@ public:
    // move
    Reactions(Reactions &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.reaction
       },
       content{std::move(other.content)}

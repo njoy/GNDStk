@@ -167,7 +167,7 @@ public:
    // copy
    Reaction(const Reaction &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -181,7 +181,7 @@ public:
    // move
    Reaction(Reaction &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.ENDF_MT,
          content.fissionGenre,
          content.label,

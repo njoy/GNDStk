@@ -153,7 +153,7 @@ public:
    // copy
    Values(const Values &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.length,
          content.start,
          content.valueType
@@ -166,7 +166,7 @@ public:
    // move
    Values(Values &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.length,
          content.start,
          content.valueType

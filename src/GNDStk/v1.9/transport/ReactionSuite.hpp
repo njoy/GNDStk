@@ -218,7 +218,7 @@ public:
    // copy
    ReactionSuite(const ReactionSuite &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.evaluation,
          content.format,
          content.interaction,
@@ -235,7 +235,7 @@ public:
    // move
    ReactionSuite(ReactionSuite &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.evaluation,
          content.format,
          content.interaction,

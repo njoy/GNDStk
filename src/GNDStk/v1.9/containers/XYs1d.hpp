@@ -206,7 +206,7 @@ public:
    // copy
    XYs1d(const XYs1d &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.index,
          content.interpolation,
          content.label,
@@ -222,7 +222,7 @@ public:
    // move
    XYs1d(XYs1d &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.index,
          content.interpolation,
          content.label,

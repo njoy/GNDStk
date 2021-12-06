@@ -212,7 +212,7 @@ public:
    // copy
    CrossSection(const CrossSection &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.XYs1d_regions1d
       },
       content{other.content}
@@ -223,7 +223,7 @@ public:
    // move
    CrossSection(CrossSection &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.XYs1d_regions1d
       },
       content{std::move(other.content)}

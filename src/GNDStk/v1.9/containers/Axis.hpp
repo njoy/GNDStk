@@ -145,7 +145,7 @@ public:
    // copy
    Axis(const Axis &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.index,
          content.label,
          content.unit
@@ -158,7 +158,7 @@ public:
    // move
    Axis(Axis &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.index,
          content.label,
          content.unit

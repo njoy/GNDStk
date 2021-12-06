@@ -111,7 +111,7 @@ public:
    // copy
    Link(const Link &other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.href
       },
       content{other.content}
@@ -122,7 +122,7 @@ public:
    // move
    Link(Link &&other) :
       Component{
-         other,
+         other.baseBodyText(),
          content.href
       },
       content{std::move(other.content)}
