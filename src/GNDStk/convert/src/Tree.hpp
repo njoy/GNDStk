@@ -243,7 +243,7 @@ Remark
 
 HighFive::File, and by extension GNDStk::HDF5 (our simple wrapper around
 HighFive::File, to assist in providing uniform behavior between XML, JSON,
-and HDF5), refers to an entire HDF file. Unlike XML and JSON, it apparently
+and HDF5), refers to an entire HDF5 file. Unlike XML and JSON, it apparently
 can't refer to just part of such a file, i.e. part of an HDF5 hierarchy. The
 upshot: convert(HDF5,Tree) may be far more meaningful than convert(HDF5,Node),
 as the former (Tree) is for a full GNDS hierarchy, the latter for possibly
@@ -283,7 +283,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
       const HighFive::File &file = *h.file;
 
       // size == 0: not empty in the earlier (h.file == nullptr) sense,
-      // but, here, meaning that there's nothing in the HDF document
+      // but, here, meaning that there's nothing in the HDF5 document
       const std::size_t size = file.getNumberObjects();
       if (size == 0)
          return true;

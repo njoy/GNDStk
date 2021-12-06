@@ -383,7 +383,11 @@ std::conditional_t<
    if constexpr (runtime) {
       detail::MapStringType(
          valueType(),
-         [this](auto &&t) { get<std::vector<std::decay_t<decltype(t)>>>(); }
+         [this](auto &&t)
+         {
+            // clang seems to need this-> explicitly to *not* emit a warning
+            this->get<std::vector<std::decay_t<decltype(t)>>>();
+         }
       );
       // We can't return the specific variant alternative that was just put
       // in place; it depended on a run-time check. So, we return the whole

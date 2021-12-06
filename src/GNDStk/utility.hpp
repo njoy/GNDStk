@@ -434,9 +434,7 @@ inline bool endsin_json(const std::string &str)
 inline bool endsin_hdf5(const std::string &str)
 {
    return
-        endsin(str,".hdf" )
-     || endsin(str,".HDF" )
-     || endsin(str,".h5"  )
+        endsin(str,".h5"  )
      || endsin(str,".H5"  )
      || endsin(str,".hdf5")
      || endsin(str,".HDF5")
@@ -484,8 +482,7 @@ inline bool eq_json(const std::string &str)
 inline bool eq_hdf5(const std::string &str)
 {
    return
-        nocasecmp(str,"hdf" )
-     || nocasecmp(str,"h5"  )
+        nocasecmp(str,"h5"  )
      || nocasecmp(str,"hdf5")
      || nocasecmp(str,"he5" );
 }

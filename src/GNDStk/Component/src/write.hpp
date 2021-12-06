@@ -28,7 +28,7 @@ std::ostream &write(std::ostream &os, const int level) const
          "\n"
       );
 
-      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
+      if constexpr (!hasFields) {
          // Consistency check
          assert(0 == links.size());
       } else {

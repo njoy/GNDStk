@@ -23,7 +23,7 @@ inline bool convert(const Node &node, HDF5 &h)
       // Open temporary file. This *should* work, but we check anyway.
       std::ofstream ofs(h.filename, std::ios::binary);
       if (!ofs) {
-         log::error("Unable to open temporary file \"{}\"", h.filename);
+         log::error("Could not open temporary file \"{}\"", h.filename);
          throw std::exception{};
       }
       ofs.close();
@@ -186,7 +186,7 @@ inline bool convert(const HDF5 &from, HDF5 &to)
       if (!from.empty()) {
          std::ifstream ifs(from.filename, std::ios::binary);
          if (!ifs) {
-            log::error("Unable to open file \"{}\"", from.filename);
+            log::error("Could not open file \"{}\"", from.filename);
             throw std::exception{};
          }
          if (!to.read(ifs))

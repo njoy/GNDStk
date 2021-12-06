@@ -20,6 +20,8 @@ class Component : public BodyText<hasBodyText,DATA>
    using body = BodyText<hasBodyText,DATA>;
    using typename body::VariantOfVectors;
    using typename body::VariantOfScalars;
+   static inline constexpr bool hasFields =
+      !std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>;
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -70,6 +72,11 @@ public:
    // You can (but need not) override the following in DERIVED
    static std::string namespaceName() { return ""; }
 
+   // base
+   // Convenient access to the BodyText base class
+   body &baseBodyText() { return *this; }
+   const body &baseBodyText() const { return *this; }
+
    // derived
    // Convenient access to the derived class
    DERIVED &derived()
@@ -82,8 +89,7 @@ public:
    {
       try {
          return DERIVED::help.at(subject);
-      }
-      catch ( ... ) {
+      } catch ( ... ) {
          return "No help information is available";
       }
    }

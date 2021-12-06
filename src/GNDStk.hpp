@@ -99,7 +99,7 @@ namespace GNDStk {
 #include "GNDStk/node2type.hpp"
 #include "GNDStk/type2node.hpp"
 
-// XML/JSON/HDF5/Tree conversions
+// Tree/XML/JSON/HDF5 conversions
 #include "GNDStk/convert.hpp"
 
 // fixme See above fixme

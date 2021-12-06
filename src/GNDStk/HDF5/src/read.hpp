@@ -75,7 +75,7 @@ Should probably make it append .h5
       // Open temporary file. This *should* work, but we check anyway.
       std::ofstream ofs(filename, std::ios::binary);
       if (!ofs) {
-         log::error("Unable to open temporary file \"{}\"", filename);
+         log::error("Could not open temporary file \"{}\"", filename);
          throw std::exception{};
       }
 

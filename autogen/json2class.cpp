@@ -1231,10 +1231,10 @@ void writeClassSetters(writer &out, const PerClass &per)
 
 // writeClassCtorComponent
 void writeClassCtorComponent(
-   writer &out, const PerClass &per, const bool hasOther
+   writer &out, const PerClass &per, const bool copyOrMove
 ) {
    out(2,"Component{");
-   out(3, hasOther ? "other" : "BodyText{}", false);
+   out(3, copyOrMove ? "other.baseBodyText()" : "BodyText{}", false);
 
    for (const auto &m : per.metadata) { // metadata
       out(",");
@@ -1272,8 +1272,14 @@ void writeClassCtors(writer &out, const PerClass &per)
    // ------------------------
 
    const auto total = per.nfields();
-   if (total != 0) {
+   out();
+
+   if (total == 0) {
+      out(1,"// default");
+      out(1,"@() :", per.clname);
+      writeClassCtorComponent(out, per, false);
       out();
+   } else {
       out(1,"// default, and from fields");
 
       // informational message, if applicable
@@ -1321,10 +1327,10 @@ void writeClassCtors(writer &out, const PerClass &per)
       for (const auto &v : per.variants)
          out(3,"@@", v.name, ++count < total ? "," : "");
       out(2,"}");
-
-      // body
-      writeClassCtorBody(out, "");
    }
+
+   // body
+   writeClassCtorBody(out, "");
 
    // ------------------------
    // ctor: copy
@@ -1567,9 +1573,11 @@ void printSingletons(const std::string &file)
 
       const auto metadata = getMetadataJSON<true>(rhs);
       const auto children = getChildrenJSON<true>(rhs);
+      const bool data = rhs.contains("data") && !rhs["data"].is_null();
+      const bool body = rhs.contains("bodyText") && !rhs["bodyText"].is_null();
 
-      if (metadata.size() == 0 && children.size() == 0)
-         log::info("Class \"{}\" has no metadata and no children", parent);
+      if (metadata.size() == 0 && children.size() == 0 && !data && !body)
+         log::info("Class \"{}\" has no metadata, children, or data", parent);
       if (metadata.size() == 0 && children.size() == 1)
          log::info("Class \"{}\" has no metadata and just one child", parent);
    }
@@ -1821,7 +1829,15 @@ void getClass(
    const bool body = classRHS.contains(bodystr) && !classRHS[bodystr].is_null();
    assert(!(data && body)); // not both
    per.isData = data || body;
-   per.dataType = data ? classRHS[datastr] : "";
+   if (data) {
+      // A type change, as with metadata, could be wanted in this context as
+      // well. Perhaps the name "mapMetaType" (and the location and name for
+      // it in the changes.json file) should be modified to reflect this
+      const std::string type = classRHS[datastr];
+      const auto it = specs.mapMetaType.find(type);
+      per.dataType = it == specs.mapMetaType.end() ? type : it->second;
+   } else
+      per.dataType = "";
 
    // per.code will contain printed C++ code for the class itself
    writeClass(per,specs);

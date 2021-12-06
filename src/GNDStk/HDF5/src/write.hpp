@@ -27,7 +27,7 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
 
          std::ifstream ifs(tempname, std::ios::binary);
          if (!ifs) {
-            log::error("Unable to open temporary file \"{}\"", tempname);
+            log::error("Could not open temporary file \"{}\"", tempname);
             throw std::exception{};
          }
          while (ifs.get(ch) && os)
@@ -35,13 +35,13 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
 
          ifs.close(); // prior to remove...
          if (remove(tempname) != 0) {
-            log::error("Unable to remove temporary file \"{}\"", tempname);
+            log::error("Could not remove temporary file \"{}\"", tempname);
             throw std::exception{};
          }
       } else {
          std::ifstream ifs(filename, std::ios::binary);
          if (!ifs) {
-            log::error("Unable to open file \"{}\"", filename);
+            log::error("Could not open file \"{}\"", filename);
             throw std::exception{};
          }
          while (ifs.get(ch) && os)

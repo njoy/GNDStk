@@ -721,9 +721,9 @@ inline void warning_io_data(
 // error_format_read
 inline const std::string error_format_read =
    "FileType::text not allowed in Node.read(). "
-   "Our \"text\" file format is intended"
-   "mainly for debug writing, not for reading. "
-   "Consider xml, json, or hdf5"
+   "Our \"text\" file format is intended "
+   "for debug writing, not for reading. "
+   "Consider FileType:: xml, json, or hdf5"
 ;
 
 

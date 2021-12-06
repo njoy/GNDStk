@@ -3,7 +3,6 @@
 template<class DERIVED, bool hasBodyText = false, class DATA = void>
 class Component;
 
-
 namespace detail {
 
 // -----------------------------------------------------------------------------

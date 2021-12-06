@@ -9,7 +9,7 @@ public:
 
    // data
    HighFive::File *file = nullptr;
-   std::string filename = "";///perhaps can use file->getName()
+   std::string filename = "";
    mutable bool temporary = false;
 
 private:
@@ -22,8 +22,8 @@ private:
             return; // apparently removed already, so no need to remove
          ifs.close(); // prior to remove
          if (remove(filename.c_str()) != 0) {
-            log::error(
-               "Unable to remove temporary file \"{}\"", filename);
+            log::warning(
+               "Could not remove temporary file \"{}\"", filename);
             log::member(
                "HDF5::removeTemporary(), with filename \"{}\"", filename);
          }
@@ -35,7 +35,8 @@ public:
    // clear
    HDF5 &clear()
    {
-      delete file; file = nullptr;
+      delete file;
+      file = nullptr;
       removeTemporary();
       filename = "";
       temporary = false;
