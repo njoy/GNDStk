@@ -9,7 +9,7 @@
 
 std::ostream &write(std::ostream &os, const bool decl = true) const
 {
-   (void)decl; // unused, for now (some changes may be forthcoming)
+   (void)decl; // unused, at least for now
 
    // call nlohmann::json's write capability
    try {

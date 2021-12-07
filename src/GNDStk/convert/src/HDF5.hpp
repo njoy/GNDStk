@@ -14,26 +14,20 @@ inline bool convert(const Node &node, HDF5 &h)
    h.clear();
 
    // for the HDF5
-   static char buffer[L_tmpnam];
-   h.filename = tmpnam(buffer);
+   h.filename = h.temporaryName();
 
    static const std::string context = "convert(Node,HDF5)";
    try {
 
-      // Open temporary file. This *should* work, but we check anyway.
+      // Open temporary HDF5 file. This *should* work, but we check anyway.
       std::ofstream ofs(h.filename, std::ios::binary);
       if (!ofs) {
-         log::error("Could not open temporary file \"{}\"", h.filename);
+         log::error("Could not open temporary HDF5 file \"{}\"", h.filename);
          throw std::exception{};
       }
       ofs.close();
 
-      h.file = new HighFive::File(
-         h.filename,
-         HighFive::File::ReadWrite |
-         HighFive::File::Create |
-         HighFive::File::Truncate
-      );
+      h.file = new HighFive::File(h.filename, HDF5::modeWrite);
       h.temporary = true;
 
       // Probably a regular Node
