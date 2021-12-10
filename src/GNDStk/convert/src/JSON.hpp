@@ -16,7 +16,7 @@ inline bool convert(const Node &node, JSON &j)
    static const std::string context = "convert(Node,JSON)";
    try {
 
-      // Probably a regular Node
+      // Probably a regular Node...
       if (node.name != "")
          return detail::node2json(node,j.doc);
 

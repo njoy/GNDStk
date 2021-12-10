@@ -136,7 +136,7 @@ inline std::string diagnostic(
       { "info",    "\033[36;21m" }, // cyan
       { "warning", "\033[33;1m"  }, // yellow
       { "error",   "\033[31;21m" }, // red
-      { "debug",   "\033[37;21m" }  // white
+      { "debug",   "\033[37;1m"  }  // white
    };
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off

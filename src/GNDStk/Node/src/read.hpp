@@ -162,10 +162,10 @@ std::istream &read(
             throw std::exception{};
       } else {
          // The earlier logic is such that this shouldn't happen; consider
-         // removing at some point
+         // removing it at some point
          log::error(
-            "Internal error: unrecognized file format. "
-            "Please report this to us");
+            "Internal error: unrecognized file format.\n"
+            "Please report this to us.");
          throw std::exception{};
       }
    } catch (...) {

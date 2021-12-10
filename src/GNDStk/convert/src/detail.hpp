@@ -88,17 +88,16 @@ namespace pugi
 }
 */
 
-
 // Helper: error_xml2node
-inline void error_xml2node(const std::string &str)
+inline void error_xml2node(const std::string &type)
 {
    log::error(
-      "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
-      "type pugi::{} found, but not handled, as sub-element", str
+     "Internal error in xml2node(pugi::xml_node, Node):\n"
+     "Type pugi::{} found, but not handled, as sub-element.",
+      type
    );
    throw std::exception{};
 }
-
 
 // xml2node
 // pugi::xml_node ==> Node
@@ -106,16 +105,15 @@ template<class NODE>
 bool xml2node(const pugi::xml_node &xnode, NODE &node)
 {
    static const std::string context =
-      "detail::xml2node(pugi::xml_node, Node)";
+      "xml2node(pugi::xml_node, Node)";
 
    // check destination node
    if (!node.empty()) {
       log::error(
-         "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
-         "destination Node is supposed to arrive here empty, but didn't"
+         "Internal error in xml2node(pugi::xml_node, Node):\n"
+         "Destination Node is supposed to arrive here empty, but didn't."
       );
       throw std::exception{};
-      return false;
    }
 
    // name
@@ -196,11 +194,10 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // ------------------------
 
       log::error(
-         "Internal error in detail::xml2node(pugi::xml_node,Node):\n"
-         "we've encountered a pugi:: node type that we don't know about"
+         "Internal error in xml2node(pugi::xml_node, Node):\n"
+         "Encountered a pugi:: node type that we don't know about."
       );
       throw std::exception{};
-      return false;
    }
 
    // done
@@ -223,24 +220,23 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
 // iterator form rather than the range-based-for form. Perhaps there's a way
 // to reformulate all this in a shorter way, but this is what we have for now.
 
-
 // Helper: error_json2node
-inline void error_json2node(const std::string &str)
+inline void error_json2node(const std::string &message)
 {
    log::error(
-      "Internal error in detail::json2node(nlohmann::json,Node):\n"
-      "message is \"{}\"; please let us know about this", str
+     "Internal error in json2node(nlohmann::json, Node):\n"
+     "Message: \"{}\".",
+      message
    );
    throw std::exception{};
 }
-
 
 // json2node
 template<class NODE>
 bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 {
    static const std::string context =
-      "detail::json2node(nlohmann::json::const_iterator, Node)";
+      "json2node(nlohmann::json::const_iterator, Node)";
 
    // the node sent here should be fresh, ready to receive entries...
    if (!node.empty())
@@ -304,11 +300,9 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 
 // Here, OBJECT is either HighFive::File or HighFive::Group
 template<class NODE, class OBJECT>
-bool node2hdf5(
-   const NODE &node, OBJECT &h,
-   const std::string &suffix = ""
-) {
-   // As for JSON; see the comment in node2json()
+bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
+{
+   // As with JSON; see the comment in node2json()
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
@@ -316,28 +310,30 @@ bool node2hdf5(
    HighFive::Group group = h.createGroup(nameSuffixed);
 
    // ------------------------
-   // metadata ==> group
+   // metadata ==> file/group
    // ------------------------
 
+   // nodeName if appropriate (as with JSON, allows recovery of original name)
    if (suffix != "")
       group.createAttribute(std::string("nodeName"), nameOriginal);
 
+   // existing attributes
    for (auto &meta : node.metadata)
       group.createAttribute(meta.first, meta.second);
 
-   /*
-zzz
-we should see what this actually produces
-but we should actually have it be more intelligent than the JSON code
-understand block data
-understand cdata/pcdata/comment/text system in Node/Tree
-   */
+   // todo
+   // Right now, we're doing a straight translation of our internal Node
+   // structure's string-based storage scheme, where everything (including
+   // in particular the text from XML CDATA and PCDATA nodes) is stored
+   // internally as std::strings. Of course, for HDF5 we'll actually want
+   // to recognize those constructs and write HDF5 DataSets instead! For
+   // now, we'll just get *something* working.
 
    // ------------------------
-   // children ==> group
+   // children ==> file/group
    // ------------------------
 
-   // Logic as for JSON; see the comment in node2json()
+   // Logic as with JSON; see the comment in node2json()
    std::map<std::string,std::size_t> childNames;
    for (auto &c : node.children) {
       auto iter = childNames.find(c->name);
@@ -362,54 +358,146 @@ understand cdata/pcdata/comment/text system in Node/Tree
 
 // -----------------------------------------------------------------------------
 // hdf5attr2node
+// For HighFive::Attribute
 // -----------------------------------------------------------------------------
 
-inline bool hdf5attr2node(
-   const HighFive::Attribute &attr,
-   Node &node
+// Helper: attrTYPE2node
+template<class T, class NODE>
+bool attrTYPE2node(const HighFive::Attribute &attr, NODE &node)
+{
+   if (attr.getDataType() == HighFive::AtomicType<T>{}) {
+      const std::string attrName = attr.getName();
+      const std::size_t attrSize = attr.getSpace().getElementCount();
+
+      // Scalar case. Includes bool.
+      if (attrSize == 1) {
+         T scalar;
+         attr.read(scalar);
+         node.add(attrName,scalar);
+         return true;
+      }
+
+      // Vector case. EXcludes bool, as HighFive (perhaps HDF5 in general?)
+      // doesn't appear to support it in this case. Indeed, the body of the
+      // if-constexpr doesn't *compile* with bool. (Hence our if-constexpr.)
+      if constexpr (!std::is_same_v<T,bool>) {
+         std::vector<T> vector;
+         vector.reserve(attrSize);
+         attr.read(vector);
+         node.add(attrName,vector);
+         return true;
+      }
+   }
+
+   return false;
+}
+
+// hdf5attr2node
+template<class NODE>
+bool hdf5attr2node(const HighFive::Attribute &attr, NODE &node)
+{
+   // HighFive's documentation leaves much to be desired. I used what I found
+   // in HighFive/include/highfive/bits/H5DataType_misc.hpp to get an idea of
+   // what attribute *types* are allowed. That file also had some handling of
+   // C-style fixed-length strings, as with char[length], and std::complex as
+   // well. It didn't have long double, which I'd have liked, but that's fine.
+   // I won't bother with fixed-length strings or with std::complex right now,
+   // but will support the rest.
+   if (attrTYPE2node<char              >(attr,node)) return true;
+   if (attrTYPE2node<signed char       >(attr,node)) return true;
+   if (attrTYPE2node<unsigned char     >(attr,node)) return true;
+   if (attrTYPE2node<short             >(attr,node)) return true;
+   if (attrTYPE2node<unsigned short    >(attr,node)) return true;
+   if (attrTYPE2node<int               >(attr,node)) return true;
+   if (attrTYPE2node<unsigned          >(attr,node)) return true;
+   if (attrTYPE2node<long              >(attr,node)) return true;
+   if (attrTYPE2node<unsigned long     >(attr,node)) return true;
+   if (attrTYPE2node<long long         >(attr,node)) return true;
+   if (attrTYPE2node<unsigned long long>(attr,node)) return true;
+   if (attrTYPE2node<float             >(attr,node)) return true;
+   if (attrTYPE2node<double            >(attr,node)) return true;
+   if (attrTYPE2node<bool              >(attr,node)) return true;
+   if (attrTYPE2node<std::string       >(attr,node)) return true;
+
+   log::error(
+     "HDF5 Attribute \"{}\"'s DataType \"{}\" is not handled at this time.",
+      attr.getName(), attr.getDataType().string());
+   log::function("hdf5attr2node(HighFive::Attribute, Node)");
+
+   return false;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// hdf5data2node
+// For HighFive::DataSet
+// -----------------------------------------------------------------------------
+
+// Helper: dataTYPE2node
+template<class T, class NODE>
+bool dataTYPE2node(const HighFive::DataSet &data, NODE &node)
+{
+   if (data.getDataType() == HighFive::AtomicType<T>{}) {
+      // Comments as in the similar helper function attrTYPE2node()...
+      const std::size_t dataSize = data.getElementCount();
+
+      if (dataSize == 1) {
+         T scalar;
+         data.read(scalar);
+         node.add("pcdata").add("text",scalar);
+         return true;
+      }
+
+      if constexpr (!std::is_same_v<T,bool>) {
+         std::vector<T> vector;
+         vector.reserve(dataSize);
+         data.read(vector);
+         node.add("pcdata").add("text",vector);
+         return true;
+      }
+   }
+
+   return false;
+}
+
+// hdf5data2node
+template<class NODE>
+bool hdf5data2node(
+   const HighFive::DataSet &data, const std::string &dataName,
+   NODE &node
 ) {
-   (void)attr;
-   (void)node;
+   // node name
+   node.name = dataName;
 
-   // print
-   const auto print = [](auto &value) { std::cout << value << std::endl; };
+   // the data set's attributes
+   for (auto &attrName : data.listAttributeNames())
+      if (!hdf5attr2node(data.getAttribute(attrName), node))
+         return false;
 
-   const HighFive::DataType attrType = attr.getDataType();
+   // the data set's data
+   if (dataTYPE2node<char              >(data,node)) return true;
+   if (dataTYPE2node<signed char       >(data,node)) return true;
+   if (dataTYPE2node<unsigned char     >(data,node)) return true;
+   if (dataTYPE2node<short             >(data,node)) return true;
+   if (dataTYPE2node<unsigned short    >(data,node)) return true;
+   if (dataTYPE2node<int               >(data,node)) return true;
+   if (dataTYPE2node<unsigned          >(data,node)) return true;
+   if (dataTYPE2node<long              >(data,node)) return true;
+   if (dataTYPE2node<unsigned long     >(data,node)) return true;
+   if (dataTYPE2node<long long         >(data,node)) return true;
+   if (dataTYPE2node<unsigned long long>(data,node)) return true;
+   if (dataTYPE2node<float             >(data,node)) return true;
+   if (dataTYPE2node<double            >(data,node)) return true;
+   if (dataTYPE2node<bool              >(data,node)) return true;
+   if (dataTYPE2node<std::string       >(data,node)) return true;
 
-   if (attrType == HighFive::AtomicType<char              >{})
-      print("   ==> char              ");
-   if (attrType == HighFive::AtomicType<signed char       >{})
-      print("   ==> signed char       ");
-   if (attrType == HighFive::AtomicType<unsigned char     >{})
-      print("   ==> unsigned char     ");
-   if (attrType == HighFive::AtomicType<short             >{})
-      print("   ==> short             ");
-   if (attrType == HighFive::AtomicType<unsigned short    >{})
-      print("   ==> unsigned short    ");
-   if (attrType == HighFive::AtomicType<int               >{})
-      print("   ==> int               ");
-   if (attrType == HighFive::AtomicType<unsigned          >{})
-      print("   ==> unsigned          ");
-   if (attrType == HighFive::AtomicType<long              >{})
-      print("   ==> long              ");
-   if (attrType == HighFive::AtomicType<unsigned long     >{})
-      print("   ==> unsigned long     ");
-   if (attrType == HighFive::AtomicType<long long         >{})
-      print("   ==> long long         ");
-   if (attrType == HighFive::AtomicType<unsigned long long>{})
-      print("   ==> unsigned long long");
-   if (attrType == HighFive::AtomicType<float             >{})
-      print("   ==> float             ");
-   if (attrType == HighFive::AtomicType<double            >{})
-      print("   ==> double            ");
-   if (attrType == HighFive::AtomicType<std::string       >{})
-      print("   ==> std::string       ");
-   if (attrType == HighFive::AtomicType<bool              >{})
-      print("   ==> bool              ");
+   log::error(
+     "HDF5 DataSet \"{}\"'s DataType \"{}\" is not handled at this time.",
+      dataName, data.getDataType().string());
+   log::function("hdf5data2node(HighFive::DataSet, dataName, Node)");
 
-   // zzz write this;
-
-   return true;
+   return false;
 }
 
 
@@ -419,108 +507,65 @@ inline bool hdf5attr2node(
 // -----------------------------------------------------------------------------
 
 // Helper: error_hdf52node
-inline void error_hdf52node(const std::string &str)
+inline void error_hdf52node(const std::string &message)
 {
    log::error(
-      "Internal error in detail::hdf52node(HighFive::Object,Node):\n"
-      "message is \"{}\"; please let us know about this", str
+     "Internal error in hdf52node(HighFive::Group, std::string, Node):\n"
+     "Message: \"{}\".",
+      message
    );
    throw std::exception{};
 }
 
-
 // hdf52node
 template<class NODE>
 bool hdf52node(
-   const HighFive::Group &group,
-   const std::string &groupName,
-   NODE &node,
-   const bool decl = false
+   const HighFive::Group &group, const std::string &groupName,
+   NODE &node, const bool requireEmpty = true
 ) {
    static const std::string context =
-      "detail::hdf52node(HighFive::Group, std::string, Node)";
+      "hdf52node(HighFive::Group, std::string, Node)";
 
-   if (!decl) {
-      // the node sent here should be fresh, ready to receive entries...
-      if (!node.empty())
-         error_hdf52node("!node.empty()");
+   // The node sent here should be fresh, ready to receive entries
+   if (requireEmpty && !node.empty())
+      error_hdf52node("!node.empty()");
 
-      // group name ==> node name
+   // ------------------------
+   // HDF5 group name
+   // ==> node name
+   // ------------------------
+
+   // if "/" then we're at the top-level node, which we call "" internally
+   if (groupName != "/")
       node.name = groupName;
 
-      // get metadata from HDF5 attributes
+   // ------------------------
+   // HDF5 attributes
+   // ==> metadata
+   // ------------------------
+
+   // if "/" then attributes were handled, in a special way, by the caller
+   if (groupName != "/")
       for (auto &attrName : group.listAttributeNames())
-         hdf5attr2node(group.getAttribute(attrName), node);
-   }
+         if (!hdf5attr2node(group.getAttribute(attrName), node))
+            return false;
 
    // ------------------------
-   // get children from
    // HDF5 sub-groups
+   // ==> children
    // ------------------------
-
-   /// bool saw_dataset
-   /*
-   In XML:
-      <foo>
-         <energy>1.2 3.4 5.6</energy>
-         <velocity>7.8 9.0</velocity>
-      </foo>
-
-   In Tree/Node:
-      foo
-         energy
-            pcdata
-               text="1.2 3.4 5.6"
-         velocity
-            pcdata
-               text="7.8 9.0"
-
-   In HDF5: // zzz Meaning, we should set it up this way!
-      group "foo"
-         dataset "energy"
-            can have attributes!!
-            <the data>
-         dataset "velocity"
-            can have attributes!!
-            <the data>
-
-   The above way seems like a good (more importantly, apparently viable) manner
-   in which to handle XML "pcdata" (plain character data).
-
-   What about XML "cdata" - which we get from those XML "<![CDATA[...]]>" nodes?
-   It doesn't seem like those should be considered "data sets." (Unlike Pcdata
-   nodes, which, at least in GNDS, are clearly data sets.)
-
-   For XML CDATA, it would seem reasonable to have essentially the same handling
-   we have for Node itself, or for JSON.
-
-   Let's consider some XML:
-
-      <documentation name="endfDoc"><![CDATA[
-         one two three four
-      ]]></documentation>
-
-   Independent of what we do in Node/Tree, and in JSON, let's think about what
-   makes sense in HDF5...
-
-      group "documentation"
-         attribute "name"
-         group "cdata"
-            attribute "text"
-
-   OK, well, that's basically what we do for JSON, except that we don't need
-   that obnoxious JSON "attributes" middleman.
-   */
 
    for (auto &elemName : group.listObjectNames()) {
       switch (group.getObjectType(elemName)) {
 
          // File
+         // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::File :
             error_hdf52node("ObjectType \"File\" not expected here");
             break;
 
          // Group
+         // ACTION: call the present function recursively
          case HighFive::ObjectType::Group :
             try {
                if (!hdf52node(group.getGroup(elemName), elemName, node.add()))
@@ -532,40 +577,54 @@ bool hdf52node(
             break;
 
          // UserDataType
+         // NOT HANDLED; perhaps we could provide something in the future
          case HighFive::ObjectType::UserDataType :
-            error_hdf52node("unhandled ObjectType \"UserDataType\"");
+            error_hdf52node("ObjectType \"UserDataType\" not handled");
             break;
 
          // DataSpace (not to be confused with Dataset)
+         // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::DataSpace :
             error_hdf52node("ObjectType \"DataSpace\" not expected here");
             break;
 
          // Dataset
+         // ACTION: handle the DataSet's data
          case HighFive::ObjectType::Dataset :
-            std::cout << "Must handle HighFive Dataset!" <<  std::endl;
-            // zzz Must handle! And, remember, Datasets can have attributes.
+            try {
+               if (!hdf5data2node(
+                  group.getDataSet(elemName),
+                  elemName,
+                  node.add()
+               ))
+                  return false;
+            } catch (...) {
+               log::function(context);
+               throw;
+            }
             break;
 
          // Attribute
+         // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::Attribute :
-            // Re: the error message...
-            // Wait, why wouldn't an attribute show up here? :-) Apparently,
             // group.listObjectNames() (used in the for-loop we're in right
-            // now) doesn't include attribute names! Which is why we had the
-            // earlier for-loop (the one that used group.listAttributeNames())
-            // in order to handle attributes.
+            // now) apparently doesn't include attribute names - which is fine,
+            // because we already handled attributes earlier. So, here, we just
+            // produce an error if ObjectType::Attribute inexplicably made an
+            // appearance here, where we don't expect it.
             error_hdf52node("ObjectType \"Attribute\" not expected here");
             break;
 
          // Other
+         // NOT HANDLED; we're not sure when this would arise
          case HighFive::ObjectType::Other :
-            error_hdf52node("unhandled ObjectType \"Other\"");
+            error_hdf52node("ObjectType \"Other\" not handled");
             break;
 
          // default
+         // NOT HANDLED; presumably our switch has covered all bases already
          default:
-            error_hdf52node("unhandled ObjectType");
+            error_hdf52node("ObjectType [unknown] not handled");
             break;
 
       } // switch
@@ -612,35 +671,32 @@ bool check_special(const NODE &node, const std::string &label)
 {
    if (node.children.size() != 0) {
       log::error(
-         "Internal error in detail::node2xml(Node,pugi::xml_node):\n"
-         "ill-formed <" + label + "> node; "
-         "should have 0 children, but has {}",
+        "Internal error in node2xml(Node, pugi::xml_node):\n"
+        "Ill-formed <" + label + "> node; "
+        "should have 0 children, but has {}.",
          node.children.size()
       );
       throw std::exception{};
-      return false;
    }
 
    if (node.metadata.size() != 1) {
       log::error(
-         "Internal error in detail::node2xml(Node,pugi::xml_node):\n"
-         "ill-formed <" + label + "> node; "
-         "should have 1 metadatum, but has {}",
+        "Internal error in node2xml(Node, pugi::xml_node):\n"
+        "Ill-formed <" + label + "> node; "
+        "should have 1 metadatum, but has {}.",
          node.metadata.size()
       );
       throw std::exception{};
-      return false;
    }
 
    if (node.metadata.begin()->first != "text") {
       log::error(
-         "Internal error in detail::node2xml(Node,pugi::xml_node):\n"
-         "ill-formed <" + label + "> node; "
-         "should have metadatum key \"text\", but has key \"{}\"",
+        "Internal error in node2xml(Node, pugi::xml_node):\n"
+        "Ill-formed <" + label + "> node; "
+        "should have metadatum key \"text\", but has key \"{}\".",
          node.metadata.begin()->first
       );
       throw std::exception{};
-      return false;
    }
 
    return true;
@@ -679,7 +735,7 @@ template<class NODE>
 bool node2xml(const NODE &node, pugi::xml_node &x)
 {
    static const std::string context =
-      "detail::node2xml(Node, pugi::xml_node)";
+      "node2xml(Node, pugi::xml_node)";
 
    // name
    pugi::xml_node xnode = x.append_child(node.name.data());
@@ -727,7 +783,7 @@ inline void check_top(
       std::string message =
          "Name \"{}\" in {} object's top-level node is not recognized\n"
          "in our list of allowable names for top-level GNDS nodes:\n";
-      for (const std::string &n : detail::AllowedTop)
+      for (const std::string &n : AllowedTop)
          message += "   \"" + n + "\"\n";
       message += "Creating node \"{}\" anyway...";
       log::warning(message, name, classname, name);

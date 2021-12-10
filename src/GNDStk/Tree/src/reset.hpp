@@ -62,11 +62,10 @@ Tree &reset(
          add("hdf5");
       } else {
          log::error(
-            "Internal error in Tree.reset(" + detail::keyname(kwd)
-          + ",format,...):\n"
-            "Unrecognized file format; apparently, we missed something. "
-            "Please report this to us"
-         );
+            "Internal error in Tree.reset(" + detail::keyname(kwd) +
+            ", format, ...):\n"
+            "Unrecognized file format; apparently, we missed something.\n"
+            "Please report this to us.");
          throw std::exception{};
       }
 

@@ -30,9 +30,9 @@ inline bool convert(const Node &node, HDF5 &h)
       h.file = new HighFive::File(h.filename, HDF5::modeWrite);
       h.temporary = true;
 
-      // Probably a regular Node
+      // Probably a regular Node...
       if (node.name != "") {
-         bool ret = detail::node2hdf5(node,*h.file);
+         const bool ret = detail::node2hdf5(node,*h.file);
          h.file->flush();
          return ret;
       }
@@ -67,14 +67,6 @@ inline bool convert(const Node &node, HDF5 &h)
             found_decl = true;
          } else {
             // looks like a regular node
-            /**/
-            /// We really need to relax this business about requiring that there
-            /// be only ONE top-level node. The XML format allows only one
-            /// document node (and GNDS, probably because of XML, has just one),
-            /// but JSON and HDF5 allow more (or less!) than one. And we're
-            /// going to be writing the NDI3 format with this code; it shouldn't
-            /// have this limitation.
-            /**/
             if (found_top) {
                // already seen
                log::warning(
