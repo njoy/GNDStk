@@ -178,8 +178,8 @@ inline bool comments = true;
 
 // For printing.
 // When writing a Component with its generic write() function (or its stream
-// output, which uses write()), AND the Component is based on a BodyText with
-// hasBodyText == true, values will be printed with GNDStk::columns across.
+// output, which uses write()), AND the Component is based on a BlockData with
+// hasBlockData == true, values will be printed with GNDStk::columns across.
 // "columns" is aliased to "across" for convenience, because, at the time of
 // this writing, GNDStk has a Meta<> object, named "columns", which would also
 // be in scope if the core namespace is used. So, a user might prefer to use

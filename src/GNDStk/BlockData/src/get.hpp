@@ -107,7 +107,7 @@ If active == vector:
 
    If the variant already contains a vector<T>:
       Return it; we're done.
-      *** Under the correct and normal use of BodyText, ***
+      *** Under the correct and normal use of BlockData, ***
       *** this simple action will probably be the most common. ***
 
    Else:
@@ -117,7 +117,7 @@ If active == vector:
 
 In the active == vector case, length, start, and valueType aren't considered
 to be relevant, and play no role. We consider those values to be meaningful
-ONLY in relation to BodyText's raw string, and we deal with them here only
+ONLY in relation to BlockData's raw string, and we deal with them here only
 if and when we make the vector from the raw string.
 
 That way, callers can access, manipulate, and even completely change the
@@ -144,7 +144,7 @@ vector<T> in the variant. Note that because the variant was declared to be
 mutable, we were indeed able to rebuild the vector if doing so was necessary.
 But we'll still return a *const* reference in that case, because the present
 object is conceptually const, and a caller shouldn't therefore be allowed to
-modify the vector outside of BodyText's machinery.
+modify the vector outside of BlockData's machinery.
 
 Of course we also have a non-const version, for a non-const *this.
 */
@@ -168,7 +168,7 @@ std::enable_if_t<
 
    if (active() == Active::string) {
       static const std::string context_rebuilding =
-         "BodyText::get<std::vector<T>>(), remade from raw string";
+         "BlockData::get<std::vector<T>>(), remade from raw string";
 
       // Completely rebuild the vector from the raw string, making use of
       // length, start, and valueType.
@@ -261,7 +261,7 @@ std::enable_if_t<
       // and a call get<std::vector<int>>() was made, meaning that the caller
       // wants a vector<int>.
       //
-      // BodyText is intended to store just one vector - one that represents
+      // BlockData is intended to store just one vector - one that represents
       // values in a GNDS node that has "body text." We don't, and shouldn't,
       // try to juggle multiple vectors of different types. Therefore, we'll
       // attempt to convert the existing vector to one of the requested type,
@@ -274,7 +274,7 @@ std::enable_if_t<
       log::info(
          "Re-forming vector of one type into vector of another type;\n"
          "was this intentional?");
-      log::member("BodyText::get<std::vector<T>>()");
+      log::member("BlockData::get<std::vector<T>>()");
 
       // Initialize a new vector that will soon replace the old one
       VECTOR newVector;
@@ -325,12 +325,12 @@ std::enable_if_t<
 // These trigger a complete rebuild of the vector, if it isn't already of type
 // vector<T> for the given T. This is intentional, in order to provide maximum
 // flexibility. However, be aware of it, for the sake of efficiency! In general,
-// when using a BodyText object, we recommend sticking with one underlying type.
+// when using a BlockData object, we recommend sticking with one underlying type.
 
 // For DATA != void (so that we have a vector):
 // T == DATA is required, so that returning an element of the vector<DATA> will
 // return a reference to T. (A constructibility/convertibility requirement that
-// we have in other BodyText-related code thus needs to be more stringent here.
+// we have in other BlockData-related code thus needs to be more stringent here.
 // We can't just be able to make a T from a DATA. Those must in fact be the same
 // type, because we return a reference.)
 
@@ -349,7 +349,7 @@ get(const std::size_t n) const
    try {
       return get<std::vector<T>>()[n];
    } catch (...) {
-      log::member("BodyText::get<T>({})", n);
+      log::member("BlockData::get<T>({})", n);
       throw;
    }
 }
@@ -450,7 +450,7 @@ std::conditional_t<
          return vector[n];
       }
    } catch (...) {
-      log::member("BodyText::get({})", n);
+      log::member("BlockData::get({})", n);
       throw;
    }
 }
@@ -479,7 +479,7 @@ std::conditional_t<
 
 // In case anyone wonders, D (not just DATA) is needed below because SFINAE
 // applies when template argument *deduction* is taking place. DATA is already
-// fixed, by context - we're in BodyText<true,DATA> - and thus it isn't being
+// fixed, by context - we're in BlockData<true,DATA> - and thus it isn't being
 // deduced here. Templating these (otherwise non-template) functions with an
 // argument that defaults to DATA, then using that argument in the SFINAE, is
 // a simple trick that makes the SFINAE work as intended. As for VOID, it's
@@ -495,7 +495,7 @@ get(const std::size_t n)
       get();
       return vector[n];
    } catch (...) {
-      log::member("BodyText::get({})", n);
+      log::member("BlockData::get({})", n);
       throw;
    }
 }

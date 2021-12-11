@@ -183,7 +183,7 @@ public:
          containers::Values{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -206,7 +206,7 @@ public:
    // copy
    XYs1d(const XYs1d &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.index,
          content.interpolation,
          content.label,
@@ -222,7 +222,7 @@ public:
    // move
    XYs1d(XYs1d &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.index,
          content.interpolation,
          content.label,
@@ -238,7 +238,7 @@ public:
    // from node
    XYs1d(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,

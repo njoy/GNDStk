@@ -181,7 +181,7 @@ public:
          std::optional<containers::Axes>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -200,7 +200,7 @@ public:
    // copy
    Regions1d(const Regions1d &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -214,7 +214,7 @@ public:
    // move
    Regions1d(Regions1d &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -228,7 +228,7 @@ public:
    // from node
    Regions1d(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,

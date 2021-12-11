@@ -53,7 +53,7 @@ class Values : public Component<Values,true> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -107,19 +107,19 @@ public:
 
    // length(value)
    Values &length(const std::optional<int> &obj)
-      { BodyText::length(length() = obj); return *this; }
+      { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Values &start(const Defaulted<int> &obj)
-      { BodyText::start(content.start = obj); return *this; }
+      { BlockData::start(content.start = obj); return *this; }
    Values &start(const std::optional<int> &obj)
-      { BodyText::start(content.start = obj); return *this; }
+      { BlockData::start(content.start = obj); return *this; }
 
    // valueType(value)
    Values &valueType(const Defaulted<std::string> &obj)
-      { BodyText::valueType(content.valueType = obj); return *this; }
+      { BlockData::valueType(content.valueType = obj); return *this; }
    Values &valueType(const std::optional<std::string> &obj)
-      { BodyText::valueType(content.valueType = obj); return *this; }
+      { BlockData::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
    // Constructors
@@ -136,7 +136,7 @@ public:
          std::optional<std::string>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -153,7 +153,7 @@ public:
    // copy
    Values(const Values &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.length,
          content.start,
          content.valueType
@@ -166,7 +166,7 @@ public:
    // move
    Values(Values &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.length,
          content.start,
          content.valueType
@@ -179,7 +179,7 @@ public:
    // from node
    Values(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -192,7 +192,7 @@ public:
    template<class T, class = std::enable_if_t<body::template supported<T>>>
    Values(const std::vector<T> &vector) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType

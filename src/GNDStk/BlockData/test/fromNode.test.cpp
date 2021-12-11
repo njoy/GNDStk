@@ -9,12 +9,12 @@ using namespace njoy::GNDStk::core;
 // Scenario for DATA == void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText<DATA == void> fromNode()") {
+SCENARIO("BlockData<DATA == void> fromNode()") {
 
    GIVEN("A Node with no \"body text\"") {
-      WHEN("BodyText.fromNode(the node) is called") {
-         THEN("The BodyText's raw string is \"\", as expected") {
-            BodyText<true,void> b;
+      WHEN("BlockData.fromNode(the node) is called") {
+         THEN("The BlockData's raw string is \"\", as expected") {
+            BlockData<true,void> b;
             b.string("This string should be replaced");
             CHECK(b.string() != "");
 
@@ -27,9 +27,9 @@ SCENARIO("BodyText<DATA == void> fromNode()") {
    }
 
    GIVEN("A Node with some \"body text\"") {
-      WHEN("BodyText.fromNode(the node) is called") {
-         THEN("The BodyText's raw string equals the text from the Node") {
-            BodyText<true,void> b;
+      WHEN("BlockData.fromNode(the node) is called") {
+         THEN("The BlockData's raw string equals the text from the Node") {
+            BlockData<true,void> b;
             b.string("This string should be replaced");
             CHECK(b.string() != "");
 
@@ -64,12 +64,12 @@ SCENARIO("BodyText<DATA == void> fromNode()") {
 // Scenario for DATA != void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText<DATA != void> fromNode()") {
+SCENARIO("BlockData<DATA != void> fromNode()") {
 
    GIVEN("A Node with no \"body text\"") {
-      WHEN("BodyText.fromNode(the node) is called") {
-         THEN("The BodyText's raw string is \"\", as expected") {
-            BodyText<true,int> b;
+      WHEN("BlockData.fromNode(the node) is called") {
+         THEN("The BlockData's raw string is \"\", as expected") {
+            BlockData<true,int> b;
             b.string("This string should be replaced");
             CHECK(b.string() != "");
 
@@ -82,9 +82,9 @@ SCENARIO("BodyText<DATA != void> fromNode()") {
    }
 
    GIVEN("A Node with some \"body text\"") {
-      WHEN("BodyText.fromNode(the node) is called") {
-         THEN("The BodyText's raw string equals the text from the Node") {
-            BodyText<true,double> b;
+      WHEN("BlockData.fromNode(the node) is called") {
+         THEN("The BlockData's raw string equals the text from the Node") {
+            BlockData<true,double> b;
             b.string("This string should be replaced");
             CHECK(b.string() != "");
 

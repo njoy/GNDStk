@@ -54,7 +54,7 @@ void fromNode(const Node &node)
       }
 
       // body text, a.k.a. XML "pcdata" (plain character data), if any
-      if constexpr (hasBodyText)
+      if constexpr (hasBlockData)
          body::fromNode(node);
 
    } catch (...) {

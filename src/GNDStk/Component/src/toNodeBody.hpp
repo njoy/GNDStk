@@ -3,7 +3,7 @@
 Node node(DERIVED::GNDSName());
 
 // 2. Body text, if applicable
-if constexpr (hasBodyText) {
+if constexpr (hasBlockData) {
    // GNDStk uses a "text" metadatum of a "pcdata" child node for this
    std::string &text = node.add("pcdata").add("text","").second;
    // Note: the following call might compute length, start, and valueType;

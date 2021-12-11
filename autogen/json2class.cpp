@@ -1151,7 +1151,7 @@ void writeClassSetters(writer &out, const PerClass &per)
       out(1,"// @(value)", m.name);
 
       // special cases: we want to send length, start, and valueType
-      // to the BodyText base as well
+      // to the BlockData base as well
       const bool special =
          per.isData &&
         (m.name == "length" || m.name == "start" || m.name == "valueType");
@@ -1160,10 +1160,10 @@ void writeClassSetters(writer &out, const PerClass &per)
       // note that if type is optional<T>, a T can still be sent
       out(1,"@ &@(const @ &obj)", per.clname, m.name, m.typeFull);
       if (special && m.isDefaulted)
-         out(2,"{ BodyText::@(content.@ = obj); return *this; }",
+         out(2,"{ BlockData::@(content.@ = obj); return *this; }",
              m.name, m.name);
       if (special && !m.isDefaulted)
-         out(2,"{ BodyText::@(@() = obj); return *this; }",
+         out(2,"{ BlockData::@(@() = obj); return *this; }",
              m.name, m.name);
       if (!special && m.isDefaulted)
          out(2,"{ content.@ = obj; return *this; }",
@@ -1176,7 +1176,7 @@ void writeClassSetters(writer &out, const PerClass &per)
       if (m.isDefaulted) {
          out(1,"@ &@(const std::optional<@> &obj)", per.clname, m.name, m.type);
          special
-            ? out(2,"{ BodyText::@(content.@ = obj); return *this; }",
+            ? out(2,"{ BlockData::@(content.@ = obj); return *this; }",
                   m.name, m.name)
             : out(2,"{ content.@ = obj; return *this; }", m.name);
       }
@@ -1234,7 +1234,7 @@ void writeClassCtorComponent(
    writer &out, const PerClass &per, const bool copyOrMove
 ) {
    out(2,"Component{");
-   out(3, copyOrMove ? "other.baseBodyText()" : "BodyText{}", false);
+   out(3, copyOrMove ? "other.baseBlockData()" : "BlockData{}", false);
 
    for (const auto &m : per.metadata) { // metadata
       out(",");
@@ -1405,7 +1405,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    out();
    out(1,"using Component::construct;");
    if (per.isData)
-      out(1,"using BodyText::operator=;");
+      out(1,"using BlockData::operator=;");
 
    // output: defaults (applicable only to metadata)
    out();

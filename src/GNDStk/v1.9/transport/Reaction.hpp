@@ -148,7 +148,7 @@ public:
          transport::CrossSection{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -167,7 +167,7 @@ public:
    // copy
    Reaction(const Reaction &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -181,7 +181,7 @@ public:
    // move
    Reaction(Reaction &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -195,7 +195,7 @@ public:
    // from node
    Reaction(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,

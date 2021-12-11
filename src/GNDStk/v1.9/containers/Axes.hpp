@@ -216,7 +216,7 @@ public:
          std::vector<axis_grid_t>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href,
          content.axis_grid
       },
@@ -231,7 +231,7 @@ public:
    // copy
    Axes(const Axes &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.href,
          content.axis_grid
       },
@@ -243,7 +243,7 @@ public:
    // move
    Axes(Axes &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.href,
          content.axis_grid
       },
@@ -255,7 +255,7 @@ public:
    // from node
    Axes(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href,
          content.axis_grid
       }

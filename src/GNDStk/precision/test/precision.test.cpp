@@ -149,7 +149,7 @@ SCENARIO("Precision code in the convert()s between stream and real, "
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Precision code in BodyText::get(), "
+SCENARIO("Precision code in BlockData::get(), "
          "for reworking a data vector to have a different data type")
 {
    // Context/action:
@@ -356,7 +356,7 @@ SCENARIO("Precision code in BodyText::get(), "
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Precision code in BodyText::get(), "
+SCENARIO("Precision code in BlockData::get(), "
          "for converting from a raw string to a vector of data")
 {
    // Context/action:
@@ -423,7 +423,7 @@ SCENARIO("Precision code in BodyText::get(), "
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Precision code in BodyText::toNode(), "
+SCENARIO("Precision code in BlockData::toNode(), "
          "for writing... <name>VALUES THAT ARE TO GO HERE</name>")
 {
    // Context/action:
@@ -861,7 +861,7 @@ R"***(precision::Numbers {
 // SCENARIO
 // ------------------------
 
-SCENARIO("Precision code in BodyText::write(), "
+SCENARIO("Precision code in BlockData::write(), "
          "for writing data blocks with Component::write()'s prettyprinter")
 {
    // Context/action:

@@ -102,8 +102,8 @@ std::ostream &write(std::ostream &os, const int level) const
             os << std::endl;
       }
 
-      // BodyText, if any
-      if constexpr (hasBodyText)
+      // BlockData, if any
+      if constexpr (hasBlockData)
          body::write(os,level+1);
 
       // Indent, write footer, NO newline

@@ -208,7 +208,7 @@ public:
          link_values_t{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -231,7 +231,7 @@ public:
    // copy
    Grid(const Grid &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.index,
          content.interpolation,
          content.label,
@@ -247,7 +247,7 @@ public:
    // move
    Grid(Grid &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.index,
          content.interpolation,
          content.label,
@@ -263,7 +263,7 @@ public:
    // from node
    Grid(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,

@@ -8,19 +8,19 @@ using namespace njoy::GNDStk::core;
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText data types") {
+SCENARIO("BlockData data types") {
    GIVEN("std::vector<T> for certain specific Ts") {
 
-      WHEN("Via BodyText, we make variants of vectors and of scalars") {
+      WHEN("Via BlockData, we make variants of vectors and of scalars") {
          // vector type
-         using vv = BodyText<true,void>::VariantOfVectors;
+         using vv = BlockData<true,void>::VariantOfVectors;
          THEN("The variant-of-vector size should be correct") {
             CHECK(std::variant_size_v<vv> == 15);
          }
          vv vectors;
 
          // scalar type
-         using vs = BodyText<true,void>::VariantOfScalars;
+         using vs = BlockData<true,void>::VariantOfScalars;
          THEN("The variant-of-scalar size should be correct") {
             CHECK(std::variant_size_v<vv> == 15);
          }

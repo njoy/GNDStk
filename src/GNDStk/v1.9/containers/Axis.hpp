@@ -128,7 +128,7 @@ public:
          std::optional<std::string>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.label,
          content.unit
@@ -145,7 +145,7 @@ public:
    // copy
    Axis(const Axis &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.index,
          content.label,
          content.unit
@@ -158,7 +158,7 @@ public:
    // move
    Axis(Axis &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.index,
          content.label,
          content.unit
@@ -171,7 +171,7 @@ public:
    // from node
    Axis(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.label,
          content.unit

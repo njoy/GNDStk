@@ -87,7 +87,7 @@ public:
    int foo = 56;
    double bar = 7.8;
 
-   Derived() : Component(BodyText{},foo,bar) { }
+   Derived() : Component(BlockData{},foo,bar) { }
 };
 
 

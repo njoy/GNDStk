@@ -13,10 +13,10 @@ using namespace njoy::GNDStk::core;
 template<class DATA>
 void scenario_write_string_active()
 {
-   GIVEN("A BodyText with an empty raw string") {
-      WHEN("BodyText.write() is called") {
+   GIVEN("A BlockData with an empty raw string") {
+      WHEN("BlockData.write() is called") {
          THEN("Nothing is printed") {
-            BodyText<true,DATA> b;
+            BlockData<true,DATA> b;
             b = std::vector<char>{{'a','b','c'}};
             b.string(""); // should make string (not vector) active
             std::ostringstream oss;
@@ -30,10 +30,10 @@ void scenario_write_string_active()
       }
    }
 
-   GIVEN("A BodyText with a non-empty raw string") {
-      WHEN("BodyText.write() is called") {
+   GIVEN("A BlockData with a non-empty raw string") {
+      WHEN("BlockData.write() is called") {
          THEN("The raw string and a newline are printed") {
-            BodyText<true,DATA> b;
+            BlockData<true,DATA> b;
             b = std::vector<char>{{'a','b','c'}};
             b.string("foo bar"); // should make string (not vector) active
 
@@ -51,12 +51,12 @@ void scenario_write_string_active()
 }
 
 // For DATA == void
-SCENARIO("BodyText<DATA == void> write(), when the raw string is active") {
+SCENARIO("BlockData<DATA == void> write(), when the raw string is active") {
    scenario_write_string_active<void>();
 }
 
 // For DATA != void
-SCENARIO("BodyText<DATA != void> write(), when the raw string is active") {
+SCENARIO("BlockData<DATA != void> write(), when the raw string is active") {
    scenario_write_string_active<char>();
 }
 
@@ -69,10 +69,10 @@ SCENARIO("BodyText<DATA != void> write(), when the raw string is active") {
 template<class DATA>
 void scenario_write_vector_active()
 {
-   GIVEN("A BodyText with an empty vector") {
-      WHEN("BodyText.write() is called") {
+   GIVEN("A BlockData with an empty vector") {
+      WHEN("BlockData.write() is called") {
          THEN("Nothing is printed") {
-            BodyText<true,int> b;
+            BlockData<true,int> b;
             b.string("should be ignored"); // because vector is forthcoming...
             b = std::vector<int>{};
             std::ostringstream oss;
@@ -86,10 +86,10 @@ void scenario_write_vector_active()
       }
    }
 
-   GIVEN("A BodyText with a non-empty vector") {
-      WHEN("BodyText.write() is called") {
+   GIVEN("A BlockData with a non-empty vector") {
+      WHEN("BlockData.write() is called") {
          THEN("The vector and a newline are printed") {
-            BodyText<true,int> b;
+            BlockData<true,int> b;
             b.string("should be ignored"); // because vector is forthcoming...
             b = std::vector<int>{{2,3,5,7,11,13,17,19,21,23}};
             std::ostringstream oss;
@@ -216,11 +216,11 @@ void scenario_write_vector_active()
 }
 
 // For DATA == void
-SCENARIO("BodyText<DATA == void> write(), when a vector is active") {
+SCENARIO("BlockData<DATA == void> write(), when a vector is active") {
    scenario_write_vector_active<void>();
 }
 
 // For DATA != void
-SCENARIO("BodyText<DATA != void> write(), when a vector is active") {
+SCENARIO("BlockData<DATA != void> write(), when a vector is active") {
    scenario_write_vector_active<int>();
 }

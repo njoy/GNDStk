@@ -199,7 +199,7 @@ public:
          std::vector<XYs1d_regions1d_t>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.XYs1d_regions1d
       },
       content{
@@ -212,7 +212,7 @@ public:
    // copy
    CrossSection(const CrossSection &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.XYs1d_regions1d
       },
       content{other.content}
@@ -223,7 +223,7 @@ public:
    // move
    CrossSection(CrossSection &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.XYs1d_regions1d
       },
       content{std::move(other.content)}
@@ -234,7 +234,7 @@ public:
    // from node
    CrossSection(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.XYs1d_regions1d
       }
    {

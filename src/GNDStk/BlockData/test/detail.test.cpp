@@ -9,7 +9,7 @@ inline std::string bar = "bar";
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing various BodyText-related detail:: constructs") {
+SCENARIO("Testing various BlockData-related detail:: constructs") {
 
    // ------------------------
    // scalarize

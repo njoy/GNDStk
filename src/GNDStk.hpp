@@ -110,7 +110,7 @@ namespace misc  { using namespace common; }
 #include "GNDStk/Support.hpp"
 
 // Base classes for primary Standard Interface data classes
-#include "GNDStk/BodyText.hpp"
+#include "GNDStk/BlockData.hpp"
 #include "GNDStk/Component.hpp"
 
 

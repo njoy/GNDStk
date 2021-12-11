@@ -2,20 +2,20 @@
 // Printing-related colors.
 // todo Eventually, this probably belongs in a more context-agnostic
 // location, such as GNDStk's utility.hpp file or something like it.
-#include "GNDStk/BodyText/src/colors.hpp"
+#include "GNDStk/BlockData/src/colors.hpp"
 
 // Miscellaneous helper constructs.
-#include "GNDStk/BodyText/src/detail.hpp"
+#include "GNDStk/BlockData/src/detail.hpp"
 
 
 // -----------------------------------------------------------------------------
-// BodyText<false,DATA>
+// BlockData<false,DATA>
 // The <true,DATA> case is specialized and has the fun stuff. This one needs
-// just a bit of content, in order to facilitate uniform treatment of BodyText.
+// just a bit of content, in order to facilitate uniform treatment of BlockData.
 // -----------------------------------------------------------------------------
 
-template<bool hasBodyText, class DATA>
-class BodyText {
+template<bool hasBlockData, class DATA>
+class BlockData {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
    using VariantOfScalars = std::variant<std::monostate>;
@@ -26,22 +26,22 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// BodyText<true,DATA>
+// BlockData<true,DATA>
 //
 // Designed to be flexible, smart, and safe. Does lots of checks, and, for the
 // DATA == void case, can essentially re-form itself depending on what type of
 // data someone tries to extract.
 //
 // For efficiency in the DATA == void case, an application might want to copy
-// to its own vector (e.g. auto myvec = mybodytext.get<std::vector<double>>())
+// to its own vector (e.g. auto myvec = myblockdata.get<std::vector<double>>())
 // in order to do work on (or with) the vector there, before copying it back.
 // -----------------------------------------------------------------------------
 
 template<class DATA>
-class BodyText<true,DATA> {
+class BlockData<true,DATA> {
 public:
 
-   #include "GNDStk/BodyText/src/types.hpp"
+   #include "GNDStk/BlockData/src/types.hpp"
 
    // For convenience in various SFINAE and if-constexpr constructs
    static inline constexpr bool runtime = detail::isVoid<DATA>;
@@ -88,22 +88,22 @@ public:
    //    struct vars { length, start, valueType }
    // Includes public getters and setters for those.
    // We won't use valueType if DATA != void.
-   #include "GNDStk/BodyText/src/params.hpp"
+   #include "GNDStk/BlockData/src/params.hpp"
 
    // trim
-   // Flag: should the conversion of BodyText data back into textual data,
+   // Flag: should the conversion of BlockData data back into textual data,
    // in a Node, trim zeros from the start and end of the output?
    mutable bool trim = true;
 
    // Getters and setters for the raw string:
-   #include "GNDStk/BodyText/src/string.hpp"
+   #include "GNDStk/BlockData/src/string.hpp"
 
    // active()
    Active active() const { return act; }
 
    // clear()
    // Clears the vector, or the active vector alternative in the variant.
-   BodyText &clear()
+   BlockData &clear()
    {
       if constexpr (runtime)
          std::visit([](auto &&alt) { alt.clear(); }, variant);
@@ -117,7 +117,7 @@ public:
    // size()
    // Returns the size of the vector, or of the active vector alternative in
    // the variant. Depending on what someone may or may not have done with the
-   // current BodyText object, size() might or might not reflect the values of
+   // current BlockData object, size() might or might not reflect the values of
    // length and/or start, or reflect the current contents of the raw string.
    std::size_t size() const
    {
@@ -128,21 +128,21 @@ public:
    }
 
    // Various vector get() functions, and the type-specific doubles() etc.
-   #include "GNDStk/BodyText/src/get.hpp"
+   #include "GNDStk/BlockData/src/get.hpp"
 
    // Read/write data, from/to a Node
-   #include "GNDStk/BodyText/src/fromNode.hpp"
-   #include "GNDStk/BodyText/src/toNode.hpp"
+   #include "GNDStk/BlockData/src/fromNode.hpp"
+   #include "GNDStk/BlockData/src/toNode.hpp"
 
    // Write to ostream
    // Not to be confused with the process of writing data to a Node
-   #include "GNDStk/BodyText/src/write.hpp"
+   #include "GNDStk/BlockData/src/write.hpp"
 
    // Pull/push length/start/valueType from/to derived-class struct content
-   #include "GNDStk/BodyText/src/sync.hpp"
+   #include "GNDStk/BlockData/src/sync.hpp"
 
    // Assignment
    // From string or vector; the former == calling our raw string setter
-   #include "GNDStk/BodyText/src/assign.hpp"
+   #include "GNDStk/BlockData/src/assign.hpp"
 
-}; // class BodyText<true,DATA>
+}; // class BlockData<true,DATA>

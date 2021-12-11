@@ -133,7 +133,7 @@ public:
          std::vector<transport::Reaction>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.reaction
       },
       content{
@@ -146,7 +146,7 @@ public:
    // copy
    Reactions(const Reactions &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.reaction
       },
       content{other.content}
@@ -157,7 +157,7 @@ public:
    // move
    Reactions(Reactions &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.reaction
       },
       content{std::move(other.content)}
@@ -168,7 +168,7 @@ public:
    // from node
    Reactions(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.reaction
       }
    {

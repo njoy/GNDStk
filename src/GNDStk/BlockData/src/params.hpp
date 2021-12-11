@@ -74,7 +74,7 @@ const std::string &valueType() const
 // -----------------------------------------------------------------------------
 
 // length
-BodyText &length(const std::optional<std::size_t> &opt)
+BlockData &length(const std::optional<std::size_t> &opt)
 {
    if (opt.has_value())
       vars.length = opt.value();
@@ -82,7 +82,7 @@ BodyText &length(const std::optional<std::size_t> &opt)
 }
 
 // start
-BodyText &start(const std::optional<std::size_t> &opt)
+BlockData &start(const std::optional<std::size_t> &opt)
 {
    if (opt.has_value())
       vars.start = opt.value();
@@ -90,7 +90,7 @@ BodyText &start(const std::optional<std::size_t> &opt)
 }
 
 // valueType
-BodyText &valueType(const std::optional<std::string> &opt)
+BlockData &valueType(const std::optional<std::string> &opt)
 {
    if (opt.has_value())
       vars.valueType = opt.value();

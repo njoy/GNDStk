@@ -193,7 +193,7 @@ public:
          std::optional<transport::Reactions>{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -218,7 +218,7 @@ public:
    // copy
    ReactionSuite(const ReactionSuite &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.evaluation,
          content.format,
          content.interaction,
@@ -235,7 +235,7 @@ public:
    // move
    ReactionSuite(ReactionSuite &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.evaluation,
          content.format,
          content.interaction,
@@ -252,7 +252,7 @@ public:
    // from node
    ReactionSuite(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.evaluation,
          content.format,
          content.interaction,

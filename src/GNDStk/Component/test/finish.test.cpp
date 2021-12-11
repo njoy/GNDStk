@@ -106,7 +106,7 @@ public:
    // ctor: default
    DerivedValue() :
       Component(
-         BodyText{},
+         BlockData{},
          content.length, content.start, content.valueType, content.indices
       )
    {
@@ -129,7 +129,7 @@ public:
    // ctor: node
    DerivedValue(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length, content.start, content.valueType, content.indices
       }
    {
@@ -140,7 +140,7 @@ public:
    // ctor: vector
    DerivedValue(const std::vector<double> &vec) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length, content.start, content.valueType, content.indices
       }
    {
@@ -243,7 +243,7 @@ public:
    // ctor: default
    DerivedPlain() :
       Component(
-         BodyText{},
+         BlockData{},
          content.foo, content.bar, content.labels
       )
    {
@@ -266,7 +266,7 @@ public:
    // ctor: node
    DerivedPlain(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.foo, content.bar, content.labels
       }
    {
@@ -300,7 +300,7 @@ SCENARIO("Component finish()") {
          // Ensure that finish() called the construct() in the derived class...
          CHECK(test::construct1DerivedValue == true);
 
-         // Ensure that finish() did a BodyText::pullFromDerived()
+         // Ensure that finish() did a BlockData::pullFromDerived()
          CHECK(d.length() == 11);
          CHECK(d.start() == 3);
          CHECK(d.valueType() == "foobar");
@@ -357,7 +357,7 @@ SCENARIO("Component finish()") {
          test::DerivedValue d(node);
          CHECK(test::construct3DerivedValue == true);
 
-         // Here, the following values in the underlying BodyText should
+         // Here, the following values in the underlying BlockData should
          // reflect those that were brought in through the above string.
          CHECK(d.length() == 10);
          CHECK(d.start() == 2);
@@ -388,7 +388,7 @@ SCENARIO("Component finish()") {
          CHECK(test::construct4DerivedValue == true);
 
          // Here, the finish(vector) function was called, which in turn called
-         // BodyText's operator=(vector), which sets the following according
+         // BlockData's operator=(vector), which sets the following according
          // to what's actually in the vector
          CHECK(d.length() == 3);
          CHECK(d.start() == 0); // <== always the case in this context
@@ -400,7 +400,7 @@ SCENARIO("Component finish()") {
          CHECK(Approx(d.get<double>(1)) == 2.71828);
          CHECK(Approx(d.get<double>(2)) == 1.41421);
 
-         // And, BodyText's operator=(vector) as mentioned above should also
+         // And, BlockData's operator=(vector) as mentioned above should also
          // have changed the corresponding values back up in the derived class
          CHECK(d.content.length == 3);
          CHECK(d.content.start == 0);

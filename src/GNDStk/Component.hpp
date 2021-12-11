@@ -13,11 +13,11 @@ using helpMap = std::map<std::string,std::string>;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText, class DATA>
-class Component : public BodyText<hasBodyText,DATA>
+template<class DERIVED, bool hasBlockData, class DATA>
+class Component : public BlockData<hasBlockData,DATA>
 {
    // For convenience
-   using body = BodyText<hasBodyText,DATA>;
+   using body = BlockData<hasBlockData,DATA>;
    using typename body::VariantOfVectors;
    using typename body::VariantOfScalars;
    static inline constexpr bool hasFields =
@@ -73,9 +73,9 @@ public:
    static std::string namespaceName() { return ""; }
 
    // base
-   // Convenient access to the BodyText base class
-   body &baseBodyText() { return *this; }
-   const body &baseBodyText() const { return *this; }
+   // Convenient access to the BlockData base class
+   body &baseBlockData() { return *this; }
+   const body &baseBlockData() const { return *this; }
 
    // derived
    // Convenient access to the derived class
@@ -117,10 +117,10 @@ public:
 // ostream << Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText, class DATA>
+template<class DERIVED, bool hasBlockData, class DATA>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,hasBodyText,DATA> &obj
+   const Component<DERIVED,hasBlockData,DATA> &obj
 ) {
    return obj.write(os,0);
 }

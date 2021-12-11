@@ -98,7 +98,7 @@ public:
          std::string{}
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href
       },
       content{
@@ -111,7 +111,7 @@ public:
    // copy
    Link(const Link &other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.href
       },
       content{other.content}
@@ -122,7 +122,7 @@ public:
    // move
    Link(Link &&other) :
       Component{
-         other.baseBodyText(),
+         other.baseBlockData(),
          content.href
       },
       content{std::move(other.content)}
@@ -133,7 +133,7 @@ public:
    // from node
    Link(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href
       }
    {
