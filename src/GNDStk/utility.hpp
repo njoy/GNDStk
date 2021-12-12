@@ -16,11 +16,6 @@ inline std::string indentTo(const int level)
 // Should Node's debugging output print addresses and parent-node addresses?
 inline bool parents = false;
 
-// top
-// When reading, check whether the document node is in our list of allowable
-// GNDS top-level nodes
-inline bool top = false;
-
 // file type / format
 enum class FileType {
    // default, automagick, etc.
@@ -64,12 +59,6 @@ inline std::set<std::string> AllowedDecl = {
    "xml",
    "json",
    "hdf5",
-};
-
-// allowable top-level GNDS nodes
-inline std::set<std::string> AllowedTop = {
-   // added as they're identified
-   // in our Child class
 };
 
 // noFilter

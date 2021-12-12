@@ -32,16 +32,6 @@ Tree &reset(
    // Begin a new tree
    clear();
 
-   // Warn if the given Child doesn't look valid for a top-level GNDS node
-   if (!kwd.top()) {
-      log::warning(
-         "Tree.reset(" + detail::keyname(kwd) + ") called, "
-         "but the Node as given by the\n"
-         "Child object is not encoded as being suitable for a top-level\n"
-         "GNDS node (bool Child.top() is false)"
-      );
-   }
-
    try {
       // Declaration node: "xml", etc.
       // This can specify an eventual intended file format

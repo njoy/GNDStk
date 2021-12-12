@@ -115,13 +115,6 @@ inline bool convert(const XML &x, Node &node, const bool decl)
                   node.one("xml").add(xattr.name(), xattr.value());
          } else {
             // Document node
-            // We'll assume that a check for this being a valid top-level
-            // GNDS node aligns with whether or not we're interested in any
-            // declaration node that might exist, as both of those concerns
-            // are associated with being at the top level of a GNDS tree
-            if (decl)
-               detail::check_top(name, "XML", "convert(XML,Node)");
-
             // Visit the node, and its children recursively
             if (!detail::xml2node(xnode, decl ? node.add() : node))
                return false;
@@ -194,17 +187,6 @@ inline bool convert(const JSON &j, Node &node, const bool decl)
       // ------------------------
       // convert the nodes
       // ------------------------
-
-      // See comment above check_top() call in convert(XML,Node) above.
-      // JSON documents don't have "declaration nodes," as XML documents
-      // do, but here we interpret the bool decl parameter as essentially
-      // indicating whether we're reading a Node (decl == false) or full
-      // Tree (decl == true); and, the latter case suggests we're at the
-      // top level, and should thus validate it as a top-level GNDS node.
-      if (decl) {
-         const std::string name = j.doc.begin().key();
-         detail::check_top(name, "JSON", "convert(JSON,Node)");
-      }
 
       // visit the node, and its children recursively
       if (!detail::json2node(j.doc.begin(), decl ? node.add() : node))

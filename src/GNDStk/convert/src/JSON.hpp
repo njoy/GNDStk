@@ -85,8 +85,6 @@ inline bool convert(const Node &node, JSON &j)
 inline bool convert(const Tree &tree, JSON &j)
 {
    try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
       return convert(*(const Node *)&tree, j);
    } catch (...) {
       log::function("convert(Tree,JSON)");

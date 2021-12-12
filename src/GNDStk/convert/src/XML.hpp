@@ -117,8 +117,6 @@ inline bool convert(const Node &node, XML &x)
 inline bool convert(const Tree &tree, XML &x)
 {
    try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,XML)");
       return convert(*(const Node *)&tree, x);
    } catch (...) {
       log::function("convert(Tree,XML)");

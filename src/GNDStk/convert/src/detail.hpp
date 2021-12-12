@@ -768,27 +768,4 @@ bool node2xml(const NODE &node, pugi::xml_node &x)
    return true;
 }
 
-
-
-// -----------------------------------------------------------------------------
-// check_top
-// -----------------------------------------------------------------------------
-
-inline void check_top(
-   const std::string &name,
-   const std::string &classname,
-   const std::string &context
-) {
-   if (GNDStk::top && AllowedTop.find(name) == AllowedTop.end()) {
-      std::string message =
-         "Name \"{}\" in {} object's top-level node is not recognized\n"
-         "in our list of allowable names for top-level GNDS nodes:\n";
-      for (const std::string &n : AllowedTop)
-         message += "   \"" + n + "\"\n";
-      message += "Creating node \"{}\" anyway...";
-      log::warning(message, name, classname, name);
-      log::function(context);
-   }
-}
-
 } // namespace detail

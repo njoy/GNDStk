@@ -103,8 +103,6 @@ inline bool convert(const Node &node, HDF5 &h)
 inline bool convert(const Tree &tree, HDF5 &h)
 {
    try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,HDF5)");
       return convert(*(const Node *)&tree, h);
    } catch (...) {
       log::function("convert(Tree,HDF5)");
