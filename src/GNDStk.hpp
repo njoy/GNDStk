@@ -75,7 +75,6 @@ namespace GNDStk {
 #include "GNDStk/convert_t.hpp"
 #include "GNDStk/Meta.hpp"
 #include "GNDStk/Child.hpp"
-#include "GNDStk/keyword.hpp"
 #include "GNDStk/or.hpp"
 
 // optional, with default

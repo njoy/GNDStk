@@ -35,7 +35,7 @@ ALLOW
       tree(...,axes,axis)
 
    gives back a container of axis objects, not a single axis object, because
-   our Child axis keyword has ALLOW == Allow::any. Note that axes, not to be
+   our Child axis object has ALLOW == Allow::any. Note that axes, not to be
    confused with axis, has ALLOW == Allow::one because it's expected just once.
 
 CONVERTER
