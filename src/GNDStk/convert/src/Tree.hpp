@@ -256,9 +256,9 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
    if (h.empty())
       return true;
 
-   // not empty in the earlier (h.file == nullptr) sense,
+   // not empty in the earlier (h.filePtr == nullptr) sense,
    // but with no real content in the HDF5 document?
-   const HighFive::Group &group = h.file->getGroup("/");
+   const HighFive::Group &group = h.filePtr->getGroup("/");
    if (group.getNumberAttributes() == 0 && group.getNumberObjects() == 0)
       return true;
 

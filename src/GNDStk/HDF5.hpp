@@ -8,9 +8,9 @@ class HDF5 {
 public:
 
    // data
-   HighFive::File *file = nullptr;
+   int fileDesc = 0;
+   HighFive::File *filePtr = nullptr;
    std::string filename = "";
-   mutable bool temporary = false;
 
    // file modes
    static inline const auto modeRead =
@@ -21,70 +21,74 @@ public:
       HighFive::File::Truncate;
 
    // temporaryName()
-   static std::string temporaryName()
+   static std::string temporaryName(int &desc)
    {
-      // Generate a file name that's supposed to be suitable for safely creating
-      // a temporary file. L_tmpnam and tmpnam() are from <cstdio>. In case
-      // anyone wonders, we don't need a +1 in the [L_tmpnam]. :-)
-      static char buffer[L_tmpnam];
+      static const int maxTry = 10;
+      int count = 0;
+
+      desc = 0;
+      std::string name;
 
       while (true) {
-         const std::string name = std::string(tmpnam(buffer)) + ".h5";
-         std::ifstream ifs(name, std::ios::binary);
-         if (!ifs) // <== as should be the case
-            return name;
+         name = "GNDStk-tmp-XXXXXX.h5";
+         if ((desc = mkstemps(name.data(),3)) > 0)
+            break;
 
-         // Well that's weird; the tmpnam()-generated file name (admittedly,
-         // with our added ".h5") refers to a file that already exists. :-/
-         log::info("Generated temporary HDF5 file name \"{}\" "
-                   "is already in use.\n"
-                   "That's harmless, but it really shouldn't happen.\n"
-                   "Generating another name....", name);
+         log::warning(
+           "Creation of temporary file with mkstemps() failed.\n"
+           "Message: \"{}\"",
+            strerror(errno)
+         );
+
+         if (++count == maxTry) {
+            log::error(
+              "Maximum number {} of temporary file "
+              "creation failures reached; bailing out",
+               maxTry
+            );
+            throw std::exception{};
+         }
       }
+
+      /*
+      auto ret = unlink(name.data());
+      std::cout << "unlink   == " <<        ret         << std::endl;///
+      std::cout << "fileDesc == " <<        desc        << std::endl;///
+      std::cout << "fileName == " << '"' << name << '"' << std::endl;///
+      */
+
+      return name;
    }
-
-private:
-
-   void removeTemporary() const
-   {
-      if (temporary && filename != "") {
-         std::ifstream ifs(filename);
-         if (!ifs)
-            return; // removed already, or was not there (e.g. creation error)
-
-         ifs.close(); // prior to removal...
-         if (remove(filename.data()) == 0)
-            return; // remove() succeeded
-
-         log::warning("Could not remove temporary HDF5 file \"{}\"", filename);
-         log::member("HDF5::removeTemporary(), with filename \"{}\"", filename);
-      }
-   }
-
-public:
 
    // clear
    HDF5 &clear()
    {
-      delete file;
-      file = nullptr;
-      removeTemporary();
+      if (fileDesc > 0 && filePtr)
+         filePtr->flush();
+      delete filePtr;
+      filePtr = nullptr;
+
+      if (fileDesc > 0)
+         close(fileDesc);
+      fileDesc = 0;
+
+      if (filename != "")
+         unlink(filename.data());
       filename = "";
-      temporary = false;
+
       return *this;
    }
 
    // empty
    bool empty() const
    {
-      return file == nullptr;
+      return filePtr == nullptr;
    }
 
    // destructor
   ~HDF5()
    {
-      delete file;
-      removeTemporary();
+      clear();
    }
 
    // constructors, assignment

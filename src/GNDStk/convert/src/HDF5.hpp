@@ -14,26 +14,16 @@ inline bool convert(const Node &node, HDF5 &h)
    h.clear();
 
    // for the HDF5
-   h.filename = h.temporaryName();
+   h.filename = h.temporaryName(h.fileDesc);
 
    static const std::string context = "convert(Node,HDF5)";
    try {
-
-      // Open temporary HDF5 file. This *should* work, but we check anyway.
-      std::ofstream ofs(h.filename, std::ios::binary);
-      if (!ofs) {
-         log::error("Could not open temporary HDF5 file \"{}\"", h.filename);
-         throw std::exception{};
-      }
-      ofs.close();
-
-      h.file = new HighFive::File(h.filename, HDF5::modeWrite);
-      h.temporary = true;
+      h.filePtr = new HighFive::File(h.filename, HDF5::modeWrite);
 
       // Probably a regular Node...
       if (node.name != "") {
-         const bool ret = detail::node2hdf5(node,*h.file);
-         h.file->flush();
+         const bool ret = detail::node2hdf5(node,*h.filePtr);
+         h.filePtr->flush();
          return ret;
       }
 
@@ -78,9 +68,10 @@ inline bool convert(const Node &node, HDF5 &h)
                );
                log::function(context);
             }
-            if (!detail::node2hdf5(*c,*h.file))
+            const bool ret = detail::node2hdf5(*c,*h.filePtr);
+            h.filePtr->flush();
+            if (!ret)
                return false;
-            h.file->flush();
             found_top = true;
          } // else
       } // for
@@ -159,23 +150,26 @@ inline bool convert(const JSON &j, HDF5 &h)
 
 inline bool convert(const HDF5 &from, HDF5 &to)
 {
+   // self?
    if (&to == &from)
       return true;
 
    // clear
    to.clear();
 
+   // empty?
+   if (from.empty())
+      return true;
+
    // convert
    try {
-      if (!from.empty()) {
-         std::ifstream ifs(from.filename, std::ios::binary);
-         if (!ifs) {
-            log::error("Could not open file \"{}\"", from.filename);
-            throw std::exception{};
-         }
-         if (!to.read(ifs))
-            throw std::exception{};
+      std::ifstream ifs(from.filename, std::ios::binary);
+      if (!ifs) {
+         log::error("Could not open file \"{}\"", from.filename);
+         throw std::exception{};
       }
+      if (!to.read(ifs))
+         throw std::exception{};
    } catch (...) {
       log::function("convert(HDF5,HDF5)");
       throw;
