@@ -8,9 +8,9 @@ class HDF5 {
 public:
 
    // data
-   int fileDesc = 0;
    HighFive::File *filePtr = nullptr;
    std::string filename = "";
+   int fileDesc = 0;
 
    // file modes
    static inline const auto modeRead =
@@ -26,13 +26,10 @@ public:
       static const int maxTry = 10;
       int count = 0;
 
-      desc = 0;
-      std::string name;
-
       while (true) {
-         name = "GNDStk-tmp-XXXXXX.h5";
+         std::string name = "GNDStk-tmp-XXXXXX.h5";
          if ((desc = mkstemps(name.data(),3)) > 0)
-            break;
+            return name;
 
          log::warning(
            "Creation of temporary file with mkstemps() failed.\n"
@@ -49,32 +46,24 @@ public:
             throw std::exception{};
          }
       }
-
-      /*
-      auto ret = unlink(name.data());
-      std::cout << "unlink   == " <<        ret         << std::endl;///
-      std::cout << "fileDesc == " <<        desc        << std::endl;///
-      std::cout << "fileName == " << '"' << name << '"' << std::endl;///
-      */
-
-      return name;
    }
 
    // clear
    HDF5 &clear()
    {
-      if (fileDesc > 0 && filePtr)
+      if (filePtr)
          filePtr->flush();
+
+      if (fileDesc > 0) {
+         close(fileDesc);
+         if (filename != "") // should be, if (fileDesc > 0)
+            unlink(filename.data());
+      }
+
+      fileDesc = 0;
+      filename = "";
       delete filePtr;
       filePtr = nullptr;
-
-      if (fileDesc > 0)
-         close(fileDesc);
-      fileDesc = 0;
-
-      if (filename != "")
-         unlink(filename.data());
-      filename = "";
 
       return *this;
    }

@@ -115,7 +115,12 @@ public:
 std::ostream &write(
    std::ostream &os = std::cout,
    const FileType format = FileType::null,
-   const bool decl = false
+   const bool decl = false,
+   // If circumstances are such that we end up writing an HDF5, the following
+   // may be != "" if the ostream is from an ofstream. In that case, the HDF5
+   // writer can produce output directly into the intended file, bypassing the
+   // need to create a temporary file and transfer its contents to the ostream.
+   const std::string &filename = ""
 ) const {
 
    // Discussion.
@@ -152,7 +157,12 @@ std::ostream &write(
          JSON(*this).write(os,decl);
       } else if (format == FileType::hdf5) {
          // write via a temporary hdf5 object...
-         HDF5(*this).write(os,decl);
+         if (filename == "")
+            HDF5(*this).write(os,decl);
+         else {
+            HDF5 tmp;
+            convert(*this,tmp,filename);
+         }
       } else {
          // null or text: use our plain text format
          return write(os,0);
@@ -238,7 +248,7 @@ bool write(
       }
 
       // Call write(ostream) to do the remaining work.
-      if (!write(ofs, format, decl))
+      if (!write(ofs, format, decl, filename))
          throw std::exception{};
       return bool(ofs);
    } catch (...) {

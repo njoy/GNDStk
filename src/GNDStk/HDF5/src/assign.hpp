@@ -8,13 +8,13 @@ HDF5 &operator=(HDF5 &&other)
 {
    clear();
 
-   fileDesc = std::move(other.fileDesc);
    filePtr  = std::move(other.filePtr);
    filename = std::move(other.filename);
+   fileDesc = std::move(other.fileDesc);
 
-   other.fileDesc = 0;
    other.filePtr  = nullptr;
    other.filename = "";
+   other.fileDesc = 0;
 
    return *this;
 }

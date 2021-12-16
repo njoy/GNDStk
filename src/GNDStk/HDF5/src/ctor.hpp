@@ -12,13 +12,13 @@ HDF5() { }
 
 // move
 HDF5(HDF5 &&other) :
-   fileDesc(std::move(other.fileDesc)),
-   filePtr (std::move(other.filePtr)),
-   filename(std::move(other.filename))
+   filePtr (std::move(other.filePtr )),
+   filename(std::move(other.filename)),
+   fileDesc(std::move(other.fileDesc))
 {
-   other.fileDesc = 0;
    other.filePtr  = nullptr;
    other.filename = "";
+   other.fileDesc = 0;
 }
 
 // copy

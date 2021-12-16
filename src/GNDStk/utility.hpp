@@ -332,7 +332,7 @@ class HDF5;
 // Node to {XML,JSON,HDF5}
 bool convert(const Node &, XML  &);
 bool convert(const Node &, JSON &);
-bool convert(const Node &, HDF5 &);
+bool convert(const Node &, HDF5 &, const std::string & = "");
 
 // Tree to {Tree,XML,JSON,HDF5}
 bool convert(const Tree &, Tree &);

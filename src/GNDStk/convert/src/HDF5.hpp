@@ -8,15 +8,14 @@
 // Node ==> HDF5
 // -----------------------------------------------------------------------------
 
-inline bool convert(const Node &node, HDF5 &h)
+inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 {
-   // clear
-   h.clear();
-
-   // for the HDF5
-   h.filename = h.temporaryName(h.fileDesc);
-
    static const std::string context = "convert(Node,HDF5)";
+
+   // Prepare the HDF5
+   h.clear();
+   h.filename = name != "" ? name : h.temporaryName(h.fileDesc);
+
    try {
       h.filePtr = new HighFive::File(h.filename, HDF5::modeWrite);
 

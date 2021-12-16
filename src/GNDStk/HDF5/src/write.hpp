@@ -10,53 +10,52 @@
 std::ostream &write(std::ostream &os, const bool decl = true) const
 {
    static const std::string context = "HDF5.write(ostream)";
-
-   (void)decl; // unused, at least for now
-   char ch;
    os.clear();
+   (void)decl; // unused, at least for now
 
    try {
       if (empty()) {
          // This HDF5 object is empty. We'll place "stub" HDF5 output into
-         // a temporary file, then read the contents into the ostream. Using
-         // a temporary file is necessary here, as it is elsewhere, because
-         // HighFive deals directly with files, not with streams.
-         int tmpDesc;
-         const std::string tmpName = temporaryName(tmpDesc);
+         // a temporary file, then copy the file's contents to the ostream.
+         // A temporary is used here, as it is elsewhere in our HDF handling,
+         // because HighFive deals directly with files, not with streams.
+         int stubDesc;
+         const std::string stubName = temporaryName(stubDesc);
          { // scoped, so the HighFive::File is "closed" at the end
-            HighFive::File stub(tmpName.data(), modeWrite);
+            HighFive::File stub(stubName.data(), modeWrite);
             stub.flush(); // a file should be there now
          }
 
          // Open the temporary file
-         std::ifstream ifs(tmpName, std::ios::binary);
+         std::ifstream ifs(stubName, std::ios::binary);
          if (!ifs) {
             log::error("Could not open temporary file \"{}\" "
-                       "for writing to ostream", tmpName);
+                       "for writing to ostream", stubName);
             throw std::exception{};
          }
 
          // Transfer the temporary file's contents to the ostream
+         char ch;
          while (ifs.get(ch) && os)
             os.put(ch);
          const bool good = ifs.fail() && ifs.eof() && !ifs.bad() && os.good();
          ifs.close();
 
-         // Finally, close via tmpDesc. Combined with temporaryName()'s
-         // call to unlink(), this should trigger removal of the file.
-         close(tmpDesc);
+         // Cleanup
+         close(stubDesc);
+         unlink(stubName.data());
 
+         // Check status
          if (!good) {
             log::error(
               "Error writing temporary file \"{}\"'s contents to ostream",
-               tmpName);
+               stubName);
             throw std::exception{};
          }
 
       } else {
-         // This HDF5 object is not empty. Writing it to an ostream - this
-         // function's purpose - amounts to copying bytes *from* the file to
-         // which the HDF5 object refers, *to* the ostream.
+         // This HDF5 object is not empty. Writing it to an ostream amounts
+         // to copying bytes from *filePtr's file to the ostream.
          filePtr->flush();
 
          std::ifstream ifs(filename, std::ios::binary);
@@ -67,11 +66,13 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
          }
 
          // Transfer the file's contents to the ostream
+         char ch;
          while (ifs.get(ch) && os)
             os.put(ch);
          const bool good = ifs.fail() && ifs.eof() && !ifs.bad() && os.good();
          ifs.close();
 
+         // Check status
          if (!good) {
             log::error(
               "Error writing file \"{}\"'s contents to ostream",
