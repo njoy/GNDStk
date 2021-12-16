@@ -9,7 +9,7 @@ public:
 
    // data
    HighFive::File *filePtr = nullptr;
-   std::string filename = "";
+   std::string fileName = "";
    int fileDesc = 0;
 
    // file modes
@@ -56,12 +56,12 @@ public:
 
       if (fileDesc > 0) {
          close(fileDesc);
-         if (filename != "") // should be, if (fileDesc > 0)
-            unlink(filename.data());
+         if (fileName != "") // should be, if (fileDesc > 0)
+            unlink(fileName.data());
       }
 
       fileDesc = 0;
-      filename = "";
+      fileName = "";
       delete filePtr;
       filePtr = nullptr;
 

@@ -51,7 +51,7 @@ std::istream &read(std::istream &is)
    ofs.close();
    try {
       filePtr = new HighFive::File(name,modeRead);
-      filename = name;
+      fileName = name;
       fileDesc = desc;
       is.clear(std::ios_base::eofbit); // as expected
       return is;
@@ -84,7 +84,7 @@ bool read(const std::string name)
       ifs.close();
       try {
          filePtr = new HighFive::File(name,modeRead);
-         filename = name;
+         fileName = name;
          return true;
       } catch (...) {
          log::error("Call 'new HighFive::File(\"{}\",ReadOnly)' "
