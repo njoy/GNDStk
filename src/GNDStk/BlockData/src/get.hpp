@@ -5,7 +5,7 @@
 
 /*
 ------------------------
-When DATA == void
+When DATATYPE == void
 ------------------------
 
 Case 1
@@ -42,28 +42,28 @@ Type-specific getters with specific names:
 For example, name == doubles when T == double.
 
 ------------------------
-When DATA != void
+When DATATYPE != void
 ------------------------
 
 Case 1
 Return reference to [const] vector<T>:
    get<std::vector<T>> const
    get<std::vector<T>>
-T must == DATA.
+T must == DATATYPE.
 
 Case 2
 Return reference to [const] T:
    get<T>(n) const
    get<T>(n)
-T must == DATA.
+T must == DATATYPE.
 
 Case 3
-Return reference to [const] vector<DATA>
+Return reference to [const] vector<DATATYPE>
    get() const
    get()
 
 Case 4
-Return reference to [const] DATA:
+Return reference to [const] DATATYPE:
    get(n) const
    operator[](n) const
    get(n)
@@ -71,13 +71,14 @@ Return reference to [const] DATA:
 
 Case 5
 Type-specific getters with a specific name:
-   const std::vector<DATA> &name() const
-   std::vector<DATA> &name()
-   const DATA &name(n) const
-   DATA &name(n)
-For example, name == doubles if DATA == double. Unlike in the DATA == void case,
-we won't have this set of functions for each of name == doubles, name == ints,
-name == strings, etc., but only for the name that's appropriate for type DATA.
+   const std::vector<DATATYPE> &name() const
+   std::vector<DATATYPE> &name()
+   const DATATYPE &name(n) const
+   DATATYPE &name(n)
+For example, name == doubles if DATATYPE == double. Unlike in the DATATYPE ==
+void case, we won't have this set of functions for each of name == doubles,
+name == ints, name == strings, etc., but only for the name that's appropriate
+for type DATATYPE.
 */
 
 
@@ -154,7 +155,7 @@ Of course we also have a non-const version, for a non-const *this.
 template<class VECTOR>
 std::enable_if_t<
    ( runtime && detail::isAlternative<VECTOR,VariantOfVectors>) ||
-   (!runtime && std::is_same_v<VECTOR,std::vector<DATA>>),
+   (!runtime && std::is_same_v<VECTOR,std::vector<DATATYPE>>),
    const VECTOR &
 > get() const
 {
@@ -262,7 +263,7 @@ std::enable_if_t<
       // wants a vector<int>.
       //
       // BlockData is intended to store just one vector - one that represents
-      // values in a GNDS node that has "body text." We don't, and shouldn't,
+      // values in a GNDS node that has block data. We don't, and shouldn't,
       // try to juggle multiple vectors of different types. Therefore, we'll
       // attempt to convert the existing vector to one of the requested type,
       // then place the new vector into the variant (replacing the old one.)
@@ -308,7 +309,7 @@ std::enable_if_t<
 template<class VECTOR>
 std::enable_if_t<
    ( runtime && detail::isAlternative<VECTOR,VariantOfVectors>) ||
-   (!runtime && std::is_same_v<VECTOR,std::vector<DATA>>),
+   (!runtime && std::is_same_v<VECTOR,std::vector<DATATYPE>>),
    VECTOR &
 > get()
 {
@@ -321,18 +322,18 @@ std::enable_if_t<
 // 2. get<T>(n)
 // -----------------------------------------------------------------------------
 
-// For DATA == void (so that we have a variant<vector<>s>):
+// For DATATYPE == void (so that we have a variant<vector<>s>):
 // These trigger a complete rebuild of the vector, if it isn't already of type
 // vector<T> for the given T. This is intentional, in order to provide maximum
 // flexibility. However, be aware of it, for the sake of efficiency! In general,
 // when using a BlockData object, we recommend sticking with one underlying type.
 
-// For DATA != void (so that we have a vector):
-// T == DATA is required, so that returning an element of the vector<DATA> will
-// return a reference to T. (A constructibility/convertibility requirement that
-// we have in other BlockData-related code thus needs to be more stringent here.
-// We can't just be able to make a T from a DATA. Those must in fact be the same
-// type, because we return a reference.)
+// For DATATYPE != void (so that we have a vector):
+// T == DATATYPE is required, so that returning an element of the
+// vector<DATATYPE> will return a reference to T. (A constructibility/
+// convertibility requirement that we have in other BlockData-related code thus
+// needs to be more stringent here. We can't just be able to make a T from a
+// DATATYPE. They must in fact be the same type, because we return a reference.)
 
 // For both of the above cases:
 // If the string (not the variant or the vector) is active, then a rebuild from
@@ -341,7 +342,7 @@ std::enable_if_t<
 // const
 template<class T>
 std::enable_if_t<
-   supported<T> && (runtime || std::is_same_v<T,DATA>),
+   supported<T> && (runtime || std::is_same_v<T,DATATYPE>),
    const T &
 >
 get(const std::size_t n) const
@@ -357,7 +358,7 @@ get(const std::size_t n) const
 // non-const
 template<class T>
 std::enable_if_t<
-   supported<T> && (runtime || std::is_same_v<T,DATA>),
+   supported<T> && (runtime || std::is_same_v<T,DATATYPE>),
    T &
 >
 get(const std::size_t n)
@@ -369,15 +370,15 @@ get(const std::size_t n)
 
 // -----------------------------------------------------------------------------
 // 3. get()
-// If DATA == void, returns a variant<vector<>s>.
-// If DATA != void, returns a vector<>.
+// If DATATYPE == void, returns a variant<vector<>s>.
+// If DATATYPE != void, returns a vector<>.
 // -----------------------------------------------------------------------------
 
 // const
 std::conditional_t<
    runtime,
    const VariantOfVectors &,
-   const std::vector<DATA> &
+   const std::vector<DATATYPE> &
 > get() const
 {
    if constexpr (runtime) {
@@ -395,7 +396,7 @@ std::conditional_t<
       return variant;
    } else {
       // Simpler, but we do still need a get (in case the *string* is active).
-      get<std::vector<DATA>>();
+      get<std::vector<DATATYPE>>();
       return vector;
    }
 }
@@ -404,14 +405,14 @@ std::conditional_t<
 std::conditional_t<
    runtime,
    VariantOfVectors &,
-   std::vector<DATA> &
+   std::vector<DATATYPE> &
 > get()
 {
    return const_cast<
       std::conditional_t<
          runtime,
          VariantOfVectors &,
-         std::vector<DATA> &
+         std::vector<DATATYPE> &
       >
    >(std::as_const(*this).get());
 }
@@ -421,11 +422,11 @@ std::conditional_t<
 // -----------------------------------------------------------------------------
 // 4. get(n)
 //
-// If DATA == void, returns a variant<scalars> (by value, because the returned
-// object must be made on-the-fly from our variant<vector<>s>).
+// If DATATYPE == void, returns a variant<scalars> (by value, because the
+// returned object must be made on-the-fly from our variant<vector<>s>).
 //
-// If DATA != void, returns a scalar of type [const] DATA (by reference, because
-// it's available directly in our vector<DATA>).
+// If DATATYPE != void, returns a scalar of type [const] DATATYPE (by reference,
+// because it's available directly in our vector<DATATYPE>).
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -470,24 +471,24 @@ std::conditional_t<
 // non-const
 // ------------------------
 
-// If DATA == void:
+// If DATATYPE == void:
 // Not needed, because the const versions return by value.
 //
-// If DATA != void:
-// Meaningful, because returns are by reference in this (DATA != void) case.
+// If DATATYPE != void:
+// Meaningful, because returns are by reference in this (DATATYPE != void) case.
 // So, we'll enable non-const versions for this case only.
 
-// In case anyone wonders, D (not just DATA) is needed below because SFINAE
-// applies when template argument *deduction* is taking place. DATA is already
-// fixed, by context - we're in BlockData<true,DATA> - and thus it isn't being
-// deduced here. Templating these (otherwise non-template) functions with an
-// argument that defaults to DATA, then using that argument in the SFINAE, is
-// a simple trick that makes the SFINAE work as intended. As for VOID, it's
-// necessary in order for the following to be unambiguous with the template
-// versions of get(n) that are defined elsewhere in this file.
+// In case anyone wonders, D (not just DATATYPE) is needed below because SFINAE
+// applies when template argument *deduction* is taking place. DATATYPE is
+// already fixed, by context - we're in BlockData<true,DATATYPE> - and thus it
+// isn't being deduced here. Templating these (otherwise non-template) functions
+// with an argument that defaults to DATATYPE, then using that argument in the
+// SFINAE, is a simple trick that makes the SFINAE work as intended. As for
+// VOID, it's necessary in order for the following to be unambiguous with the
+// template versions of get(n) that are defined elsewhere in this file.
 
 // get(n)
-template<class VOID = void, class D = DATA>
+template<class VOID = void, class D = DATATYPE>
 std::enable_if_t<std::is_same_v<VOID,void> && !detail::isVoid<D>, data_t &>
 get(const std::size_t n)
 {
@@ -501,7 +502,7 @@ get(const std::size_t n)
 }
 
 // operator[](n)
-template<class D = DATA>
+template<class D = DATATYPE>
 std::enable_if_t<!detail::isVoid<D>, data_t &>
 operator[](const std::size_t n)
 {
@@ -524,25 +525,25 @@ operator[](const std::size_t n)
 
 #define GNDSTK_MAKE_GETTER(name,TYPE) \
    \
-   template<class D = DATA> \
+   template<class D = DATATYPE> \
    std::enable_if_t< \
       detail::isVoid<D> || \
       std::is_same_v<TYPE,D>, const std::vector<TYPE> & \
    > name() const { return get<std::vector<TYPE>>(); } \
    \
-   template<class D = DATA> \
+   template<class D = DATATYPE> \
    std::enable_if_t< \
       detail::isVoid<D> || \
       std::is_same_v<TYPE,D>, std::vector<TYPE> & \
    > name() { return get<std::vector<TYPE>>(); } \
    \
-   template<class D = DATA> \
+   template<class D = DATATYPE> \
    std::enable_if_t< \
       detail::isVoid<D> || \
       std::is_same_v<TYPE,D>, const TYPE & \
    > name(const std::size_t n) const { return get<TYPE>(n); } \
    \
-   template<class D = DATA> \
+   template<class D = DATATYPE> \
    std::enable_if_t< \
       detail::isVoid<D> || \
       std::is_same_v<TYPE,D>, TYPE & \

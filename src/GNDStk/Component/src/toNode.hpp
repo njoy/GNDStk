@@ -10,7 +10,7 @@
 // called from within these, splits const and non-const cases, and that needs
 // to be preserved here. So, then, why does BlockData::toNode() have a non-const
 // version? The issue is that in the non-const case, BlockData::toNode() may
-// need to deal with a vector (not just an original "body text" string as may
+// need to deal with a vector (not just an original block data string as may
 // have been read into a const BlockData). And, dealing with a vector means
 // computing a proper length, start, and valueType while doing toNode() - and
 // pushing those up to the class derived from Component, as it's from that
@@ -24,7 +24,7 @@
 operator Node() const
 {
    try {
-      #include "GNDStk/Component/src/toNodeBody.hpp"
+      #include "GNDStk/Component/src/toNodeData.hpp"
    } catch (...) {
       log::member("Component.operator Node() const");
       throw;
@@ -35,7 +35,7 @@ operator Node() const
 operator Node()
 {
    try {
-      #include "GNDStk/Component/src/toNodeBody.hpp"
+      #include "GNDStk/Component/src/toNodeData.hpp"
    } catch (...) {
       log::member("Component.operator Node()");
       throw;

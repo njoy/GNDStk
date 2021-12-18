@@ -104,7 +104,7 @@ std::ostream &write(std::ostream &os, const int level) const
 
       // BlockData, if any
       if constexpr (hasBlockData)
-         body::write(os,level+1);
+         BLOCKDATA::write(os,level+1);
 
       // Indent, write footer, NO newline
       detail::indentString(

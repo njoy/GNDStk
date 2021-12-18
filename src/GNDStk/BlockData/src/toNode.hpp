@@ -7,7 +7,7 @@
 // -----------------------------------------------------------------------------
 
 // Use either (1) the original raw string, or (2) the variant of vectors or the
-// vector (depending on DATA ==/!= void), based on whether or not the string
+// vector (depending on DATATYPE ==/!= void), based on whether or not the string
 // is active. length, start, and valueType might be computed too, in which case
 // they're also changed in the derived class in order to keep things consistent.
 template<class DERIVED>
@@ -22,11 +22,11 @@ void toNode(std::string &text, DERIVED &derived) const
    // Use the vector...
    const bool isStringVector =
       ( runtime && std::holds_alternative<std::vector<std::string>>(variant)) ||
-      (!runtime && std::is_same_v<std::string,DATA>);
+      (!runtime && std::is_same_v<std::string,DATATYPE>);
 
    if constexpr (
         runtime ||
-      (!runtime && std::is_same_v<std::string,DATA>)
+      (!runtime && std::is_same_v<std::string,DATATYPE>)
    ) {
       // the run-time if's get<std::string>() calls below won't
       // necessarily make sense without the above if-constexpr
@@ -59,7 +59,7 @@ void toNode(std::string &text, DERIVED &derived) const
    if constexpr (runtime)
       vars.valueType = detail::visitMapTypeString(variant);
    else
-      vars.valueType = detail::MapTypeString<DATA>::value[0];
+      vars.valueType = detail::MapTypeString<DATATYPE>::value[0];
    pushToDerived(derived);
 
    // Values

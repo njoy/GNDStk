@@ -8,7 +8,7 @@ using namespace njoy::GNDStk::core;
 
 // -----------------------------------------------------------------------------
 // DerivedValue
-// Has body text
+// Has block data
 // -----------------------------------------------------------------------------
 
 namespace test {
@@ -64,7 +64,8 @@ public:
    // one of the tests involves checking these
    struct {
       // Initialize these to specific values, so that we can ensure that
-      // Component's finish() functions properly call body::pullFromDerived()
+      // Component's finish() functions properly call
+      // BLOCKDATA::pullFromDerived()
       int length = 11;
       int start = 3;
       std::string valueType = "foobar";
@@ -155,7 +156,7 @@ public:
 
 // -----------------------------------------------------------------------------
 // DerivedPlain
-// Does not have body text
+// Does not have block data
 // -----------------------------------------------------------------------------
 
 namespace test {
@@ -289,7 +290,7 @@ public:
 
 SCENARIO("Component finish()") {
 
-   GIVEN("A component-derived class that has body text") {
+   GIVEN("A component-derived class that has block data") {
       const std::vector<test::IndexStruct> sorted =
          {{2,3,5,7,9,11,13,17}};
 
@@ -375,7 +376,7 @@ SCENARIO("Component finish()") {
          CHECK(d.get<double>(8) == 0);
          CHECK(d.get<double>(9) == 0);
 
-         // The node from which we read had body text, not child nodes,
+         // The node from which we read had block data, not child nodes,
          // and thus would give us nothing for (std::optional) indices...
          CHECK(d.content.indices.has_value() == false);
       }
@@ -415,7 +416,7 @@ SCENARIO("Component finish()") {
    } // GIVEN
 
 
-   GIVEN("A component-derived class that does not have body text") {
+   GIVEN("A component-derived class that does not have block data") {
       const std::vector<test::LabelStruct> sorted =
          {{"a","bc","d","efg","hi","jklm","no","p"}};
 

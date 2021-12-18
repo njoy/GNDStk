@@ -189,7 +189,7 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Values(const std::vector<T> &vector) :
       Component{
          BlockData{},

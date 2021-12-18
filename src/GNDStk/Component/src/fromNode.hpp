@@ -53,9 +53,9 @@ void fromNode(const Node &node)
          );
       }
 
-      // body text, a.k.a. XML "pcdata" (plain character data), if any
+      // block data, a.k.a. XML "pcdata" (plain character data), if any
       if constexpr (hasBlockData)
-         body::fromNode(node);
+         BLOCKDATA::fromNode(node);
 
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);

@@ -6,12 +6,12 @@ using namespace njoy::GNDStk::core;
 
 
 // -----------------------------------------------------------------------------
-// Scenario for DATA == void
+// Scenario for DATATYPE == void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BlockData<DATA == void> fromNode()") {
+SCENARIO("BlockData<DATATYPE == void> fromNode()") {
 
-   GIVEN("A Node with no \"body text\"") {
+   GIVEN("A Node with no \"block data\"") {
       WHEN("BlockData.fromNode(the node) is called") {
          THEN("The BlockData's raw string is \"\", as expected") {
             BlockData<true,void> b;
@@ -26,7 +26,7 @@ SCENARIO("BlockData<DATA == void> fromNode()") {
       }
    }
 
-   GIVEN("A Node with some \"body text\"") {
+   GIVEN("A Node with some \"block data\"") {
       WHEN("BlockData.fromNode(the node) is called") {
          THEN("The BlockData's raw string equals the text from the Node") {
             BlockData<true,void> b;
@@ -61,12 +61,12 @@ SCENARIO("BlockData<DATA == void> fromNode()") {
 
 
 // -----------------------------------------------------------------------------
-// Scenario for DATA != void
+// Scenario for DATATYPE != void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BlockData<DATA != void> fromNode()") {
+SCENARIO("BlockData<DATATYPE != void> fromNode()") {
 
-   GIVEN("A Node with no \"body text\"") {
+   GIVEN("A Node with no \"block data\"") {
       WHEN("BlockData.fromNode(the node) is called") {
          THEN("The BlockData's raw string is \"\", as expected") {
             BlockData<true,int> b;
@@ -81,7 +81,7 @@ SCENARIO("BlockData<DATA != void> fromNode()") {
       }
    }
 
-   GIVEN("A Node with some \"body text\"") {
+   GIVEN("A Node with some \"block data\"") {
       WHEN("BlockData.fromNode(the node) is called") {
          THEN("The BlockData's raw string equals the text from the Node") {
             BlockData<true,double> b;

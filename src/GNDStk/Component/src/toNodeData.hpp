@@ -2,13 +2,13 @@
 // 1. Initialize a Node, with the necessary name
 Node node(DERIVED::GNDSName());
 
-// 2. Body text, if applicable
+// 2. Block data, if applicable
 if constexpr (hasBlockData) {
    // GNDStk uses a "text" metadatum of a "pcdata" child node for this
    std::string &text = node.add("pcdata").add("text","").second;
    // Note: the following call might compute length, start, and valueType;
    // so we need all of this before the upcoming writing of fields.
-   body::toNode(text,derived().content);
+   BLOCKDATA::toNode(text,derived().content);
 }
 
 // 3. Write fields

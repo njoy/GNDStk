@@ -80,7 +80,7 @@ inline std::string bracket = plain::yellow;
 inline std::string optional  = plain::cyan;
 inline std::string defaulted = plain::blue;
 
-// Values in nodes with "body text"
+// Values in nodes with block data
 inline std::string value = plain::white;
 
 // Comments

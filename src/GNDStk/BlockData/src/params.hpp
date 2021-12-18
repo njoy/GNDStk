@@ -12,7 +12,7 @@ Quoted [slightly edited] from the official JSON specification files for GNDS:
       values that are not stored. This attribute should only be used when
       the sum of start and the number of listed values do not add to the
       total number of data values. This should only happen when there are
-      trailing zeros not listed in the body text.
+      trailing zeros not listed in the block data.
 
    start
       Default: 0
@@ -35,7 +35,7 @@ private:
 // consistent with vector data; so, mutable.
 mutable struct {
    // Any of these might or might not have appeared in a particular node that
-   // had body text. For uniformity, we have them all here, and with defaults.
+   // had block data. For uniformity, we have them all here, and with defaults.
    std::size_t length = 0;
    std::size_t start = 0;
    std::string valueType = "";

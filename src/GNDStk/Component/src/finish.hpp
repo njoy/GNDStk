@@ -48,11 +48,11 @@ Specifically, the constructors in the auto-generated classes call:
    Constructor from a Node:
       Component::finish(the Node)
 
-   Constructors involving a vector<T> of "body text" data:
+   Constructors involving a vector<T> of block data:
       Component::finish(the vector)
 
 Note: In the last case, we're speaking of a vector<T> that's specifically for
-body text, not a vector<T> that might be there for a different reason.
+block data, not a vector<T> that might be there for a different reason.
 */
 
 
@@ -73,7 +73,7 @@ void construct(const Node &) { }
 // return void. We use bool, here, for technical reasons, relating to the test
 // used in the template finish() function (as opposed to the non-template cases)
 // to determine whether or not someone has provided a custom construct().
-template<class T, class = std::enable_if_t<body::template supported<T>>>
+template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
 bool construct(const std::vector<T> &) { return true; }
 
 
@@ -91,7 +91,7 @@ void finish()
    // If hasBlockData == true (else no-op), have Component's BlockData base
    // get length, start, and valueType, as available, from the derived class
    if constexpr (hasBlockData)
-      body::pullFromDerived(derived());
+      BLOCKDATA::pullFromDerived(derived());
 
    // Based on the derived class' keys(), locate and sort derived-class fields
    // that are vectors, with vector elements that have index and/or label.
@@ -110,7 +110,7 @@ void finish(const DERIVED &other)
 {
    // length, start, valueType
    if constexpr (hasBlockData)
-      body::pullFromDerived(derived());
+      BLOCKDATA::pullFromDerived(derived());
 
    // derived-class vector fields
    sort();
@@ -133,14 +133,14 @@ void finish(const Node &node)
 {
    // Read fields from the Node into the derived object. This applies the keys()
    // multi-query in the derived class, and also runs BlockData::fromNode() if
-   // the Node has body text, in order to get the Node's string of "body text".
+   // the Node has block data, in order to get the Node's string of block data.
    fromNode(node);
 
    if constexpr (hasBlockData) {
       // length, start, valueType
-      body::pullFromDerived(derived());
+      BLOCKDATA::pullFromDerived(derived());
       // make vector
-      body::get();
+      BLOCKDATA::get();
    }
 
    // derived-class vector fields
@@ -160,15 +160,15 @@ void finish(const Node &node)
 // finish(vector)
 // ------------------------
 
-template<class T, class = std::enable_if_t<body::template supported<T>>>
+template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
 void finish(const std::vector<T> &vector)
 {
    // assign from the vector
-   body::operator=(vector);
+   BLOCKDATA::operator=(vector);
 
    // length, start, valueType: push back up to derived,
    // as they would have been computed above in operator=.
-   body::pushToDerived(derived());
+   BLOCKDATA::pushToDerived(derived());
 
    // derived-class vector fields
    sort();

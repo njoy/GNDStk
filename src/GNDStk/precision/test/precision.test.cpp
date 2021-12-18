@@ -373,7 +373,7 @@ SCENARIO("Precision code in BlockData::get(), "
    // raw string to floats
    // ------------------------
 
-   WHEN("We convert a raw \"body text\" string to a vector<float>") {
+   WHEN("We convert a raw \"block data\" string to a vector<float>") {
       // Initialize the raw string
       r = string;
 
@@ -392,7 +392,7 @@ SCENARIO("Precision code in BlockData::get(), "
    // raw string to doubles
    // ------------------------
 
-   WHEN("We convert a raw \"body text\" string to a vector<double>") {
+   WHEN("We convert a raw \"block data\" string to a vector<double>") {
       r = string;
       THEN("We get the expected result") {
          r.get<std::vector<double>>();
@@ -406,7 +406,7 @@ SCENARIO("Precision code in BlockData::get(), "
    // raw string to long doubles
    // ------------------------
 
-   WHEN("We convert a raw \"body text\" string to a vector<long double>") {
+   WHEN("We convert a raw \"block data\" string to a vector<long double>") {
       r = string;
       THEN("We get the expected result") {
          r.get<std::vector<quad>>();

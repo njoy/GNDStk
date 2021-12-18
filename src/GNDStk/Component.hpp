@@ -13,13 +13,13 @@ using helpMap = std::map<std::string,std::string>;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBlockData, class DATA>
-class Component : public BlockData<hasBlockData,DATA>
+template<class DERIVED, bool hasBlockData, class DATATYPE>
+class Component : public BlockData<hasBlockData,DATATYPE>
 {
    // For convenience
-   using body = BlockData<hasBlockData,DATA>;
-   using typename body::VariantOfVectors;
-   using typename body::VariantOfScalars;
+   using BLOCKDATA = BlockData<hasBlockData,DATATYPE>;
+   using typename BLOCKDATA::VariantOfVectors;
+   using typename BLOCKDATA::VariantOfScalars;
    static inline constexpr bool hasFields =
       !std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>;
 
@@ -37,12 +37,12 @@ class Component : public BlockData<hasBlockData,DATA>
    // Copy and move *assignments* have the right behavior, however.
    Component &operator=(const Component &other)
    {
-      body::operator=(other);
+      BLOCKDATA::operator=(other);
       return *this;
    }
    Component &operator=(Component &&other)
    {
-      body::operator=(std::move(other));
+      BLOCKDATA::operator=(std::move(other));
       return *this;
    }
 
@@ -74,8 +74,8 @@ public:
 
    // base
    // Convenient access to the BlockData base class
-   body &baseBlockData() { return *this; }
-   const body &baseBlockData() const { return *this; }
+   BLOCKDATA &baseBlockData() { return *this; }
+   const BLOCKDATA &baseBlockData() const { return *this; }
 
    // derived
    // Convenient access to the derived class
@@ -117,10 +117,10 @@ public:
 // ostream << Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBlockData, class DATA>
+template<class DERIVED, bool hasBlockData, class DATATYPE>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,hasBlockData,DATA> &obj
+   const Component<DERIVED,hasBlockData,DATATYPE> &obj
 ) {
    return obj.write(os,0);
 }

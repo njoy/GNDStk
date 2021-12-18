@@ -165,15 +165,15 @@ void scenario_get_vector()
       CHECK((b.template get<uvec>() == uvec{{0,0,12,34,56,0}})); }
 }
 
-// For BlockData<DATA == void>
-SCENARIO("BlockData<DATA == void> get<vector>()") {
+// For BlockData<DATATYPE == void>
+SCENARIO("BlockData<DATATYPE == void> get<vector>()") {
    GIVEN("A BlockData object") {
       scenario_get_vector<void,void,void,void>();
    }
 }
 
-// For BlockData<DATA != void>
-SCENARIO("BlockData<DATA != void> get<vector>()") {
+// For BlockData<DATATYPE != void>
+SCENARIO("BlockData<DATATYPE != void> get<vector>()") {
    GIVEN("A BlockData object") {
       scenario_get_vector<int,double,std::string,unsigned>();
    }
@@ -322,15 +322,15 @@ void scenario_get_template_n()
       CHECK(b.template get<unsigned>(3) == 34); }
 }
 
-// For BlockData<DATA == void>
-SCENARIO("BlockData<DATA == void> get<T>(n)") {
+// For BlockData<DATATYPE == void>
+SCENARIO("BlockData<DATATYPE == void> get<T>(n)") {
    GIVEN("A BlockData object") {
       scenario_get_template_n<void,void,void,void>();
    }
 }
 
-// For BlockData<DATA != void>
-SCENARIO("BlockData<DATA != void> get<T>(n)") {
+// For BlockData<DATATYPE != void>
+SCENARIO("BlockData<DATATYPE != void> get<T>(n)") {
    GIVEN("A BlockData object") {
       scenario_get_template_n<int,double,std::string,unsigned>();
    }
@@ -342,8 +342,8 @@ SCENARIO("BlockData<DATA != void> get<T>(n)") {
 // 3. Scenario: get()
 // -----------------------------------------------------------------------------
 
-// For BlockData<DATA == void>
-SCENARIO("BlockData<DATA == void> get()") {
+// For BlockData<DATATYPE == void>
+SCENARIO("BlockData<DATATYPE == void> get()") {
    GIVEN("A BlockData object") {
 
       using ivec = std::vector<int>;
@@ -377,8 +377,8 @@ SCENARIO("BlockData<DATA == void> get()") {
 } // SCENARIO
 
 
-// For BlockData<DATA != void>
-SCENARIO("BlockData<DATA != void> get()") {
+// For BlockData<DATATYPE != void>
+SCENARIO("BlockData<DATATYPE != void> get()") {
    GIVEN("A BlockData object") {
 
       using ivec = std::vector<int>;
@@ -412,8 +412,8 @@ SCENARIO("BlockData<DATA != void> get()") {
 // 4. Scenario: get(n)
 // -----------------------------------------------------------------------------
 
-// For BlockData<DATA == void>
-SCENARIO("BlockData<DATA == void> get(n)") {
+// For BlockData<DATATYPE == void>
+SCENARIO("BlockData<DATATYPE == void> get(n)") {
    GIVEN("A BlockData object") {
 
       BlockData<true,void> b;
@@ -514,8 +514,8 @@ SCENARIO("BlockData<DATA == void> get(n)") {
 } // SCENARIO
 
 
-// For BlockData<DATA != void>
-SCENARIO("BlockData<DATA != void> get(n)") {
+// For BlockData<DATATYPE != void>
+SCENARIO("BlockData<DATATYPE != void> get(n)") {
    GIVEN("A BlockData object") {
 
       // ------------------------
@@ -678,15 +678,15 @@ void scenario_get_named()
    }
 }
 
-// For BlockData<DATA == void>
-SCENARIO("BlockData<DATA == void> type-specific get functions: doubles() etc.") {
+// For BlockData<DATATYPE == void>
+SCENARIO("BlockData<DATATYPE == void> type-specific get functions: doubles() etc.") {
    GIVEN("A BlockData object") {
       scenario_get_named<void,void,void>();
    }
 }
 
-// For BlockData<DATA != void>
-SCENARIO("BlockData<DATA != void> type-specific get functions: doubles() etc.") {
+// For BlockData<DATATYPE != void>
+SCENARIO("BlockData<DATATYPE != void> type-specific get functions: doubles() etc.") {
    GIVEN("A BlockData object") {
       scenario_get_named<int,double,std::string>();
    }

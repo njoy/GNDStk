@@ -8,7 +8,7 @@ friend DERIVED;
 
 // ctor: fields
 template<class... ARGS>
-Component(const body &other, ARGS &...args) : body(other)
+Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
 {
    // static_assert needs string literal
    #define pairing_error \

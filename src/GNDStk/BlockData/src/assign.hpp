@@ -61,13 +61,13 @@ operator=(const std::vector<T> &vec)
    // assign vector
    if constexpr (runtime)
       variant = vec;
-   else if constexpr (std::is_same_v<T,DATA>)
+   else if constexpr (std::is_same_v<T,DATATYPE>)
       vector = vec;
    else {
       vector.clear();
       vector.reserve(vec.size());
       for (const T &element : vec)
-         vector.push_back(DATA(element));
+         vector.push_back(DATATYPE(element));
    }
 
    act = Active::vector;

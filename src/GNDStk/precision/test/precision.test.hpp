@@ -178,7 +178,7 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Floats(const std::vector<T> &vector) :
       Component{
          BlockData{},
@@ -384,7 +384,7 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Doubles(const std::vector<T> &vector) :
       Component{
          BlockData{},
@@ -590,7 +590,7 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Quads(const std::vector<T> &vector) :
       Component{
          BlockData{},
@@ -796,7 +796,7 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Reals(const std::vector<T> &vector) :
       Component{
          BlockData{},

@@ -9,12 +9,12 @@
 
 
 // -----------------------------------------------------------------------------
-// BlockData<false,DATA>
-// The <true,DATA> case is specialized and has the fun stuff. This one needs
+// BlockData<false,DATATYPE>
+// The <true,DATATYPE> case is specialized and has the fun stuff. This one needs
 // just a bit of content, in order to facilitate uniform treatment of BlockData.
 // -----------------------------------------------------------------------------
 
-template<bool hasBlockData, class DATA>
+template<bool hasBlockData, class DATATYPE>
 class BlockData {
 public:
    using VariantOfVectors = std::variant<std::monostate>;
@@ -26,32 +26,32 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// BlockData<true,DATA>
+// BlockData<true,DATATYPE>
 //
 // Designed to be flexible, smart, and safe. Does lots of checks, and, for the
-// DATA == void case, can essentially re-form itself depending on what type of
-// data someone tries to extract.
+// DATATYPE == void case, can essentially re-form itself depending on what type
+// of data someone tries to extract.
 //
-// For efficiency in the DATA == void case, an application might want to copy
+// For efficiency in the DATATYPE == void case, an application may want to copy
 // to its own vector (e.g. auto myvec = myblockdata.get<std::vector<double>>())
 // in order to do work on (or with) the vector there, before copying it back.
 // -----------------------------------------------------------------------------
 
-template<class DATA>
-class BlockData<true,DATA> {
+template<class DATATYPE>
+class BlockData<true,DATATYPE> {
 public:
 
    #include "GNDStk/BlockData/src/types.hpp"
 
    // For convenience in various SFINAE and if-constexpr constructs
-   static inline constexpr bool runtime = detail::isVoid<DATA>;
+   static inline constexpr bool runtime = detail::isVoid<DATATYPE>;
    template<class T>
    struct is_supported {
       static inline constexpr bool value =
          ( runtime && detail::isAlternative<T,VariantOfScalars>) ||
          (!runtime && (
-            std::is_constructible_v<DATA,T> ||
-            std::is_convertible_v<T,DATA>
+            std::is_constructible_v<DATATYPE,T> ||
+            std::is_convertible_v<T,DATATYPE>
          ));
    };
    template<class T>
@@ -71,15 +71,15 @@ private:
    // Vector of <several possibilities>.
    // Mutable, so that we can defer processing of the raw string into
    // a vector until, and unless, a caller *asks* for the vector.
-   // This will be used if, and only if, DATA == void.
+   // This will be used if, and only if, DATATYPE == void.
    mutable VariantOfVectors variant;
 
-   // Vector of <DATA>
-   // This will be used if, and only if, DATA != void.
+   // Vector of <DATATYPE>
+   // This will be used if, and only if, DATATYPE != void.
    // data_t is used in a few places where, without it, we'd create compilation
    // errors by using "void" in invalid ways. The "int" below is arbitrary -
    // essentially a placeholder; the following is only used when !runtime.
-   using data_t = std::conditional_t<runtime,int,DATA>;
+   using data_t = std::conditional_t<runtime,int,DATATYPE>;
    mutable std::vector<data_t> vector;
 
 public:
@@ -87,7 +87,7 @@ public:
    // Parameters that affect interpretation of the raw string:
    //    struct vars { length, start, valueType }
    // Includes public getters and setters for those.
-   // We won't use valueType if DATA != void.
+   // We won't use valueType if DATATYPE != void.
    #include "GNDStk/BlockData/src/params.hpp"
 
    // trim
@@ -145,4 +145,4 @@ public:
    // From string or vector; the former == calling our raw string setter
    #include "GNDStk/BlockData/src/assign.hpp"
 
-}; // class BlockData<true,DATA>
+}; // class BlockData<true,DATATYPE>

@@ -1,6 +1,6 @@
 
 // Forward declaration, needed by some things later
-template<class DERIVED, bool hasBlockData = false, class DATA = void>
+template<class DERIVED, bool hasBlockData = false, class DATATYPE = void>
 class Component;
 
 namespace detail {

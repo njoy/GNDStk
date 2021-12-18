@@ -18,14 +18,14 @@ void fromNode(const Node &node)
    if (!found) {
       rawstring = "";
 
-      // Warning, re: why are we in BlockData<true,...> if there's no body text?
-      // Perhaps it's possible that the Node has a non-default length and/or
-      // start, so that the values are all supposed to be...zero. Until and
-      // unless we discover otherwise, however, we doubt that that would be
-      // the case, and will consider a Node's lack of plain character data,
-      // in the present context, to be something that merits a warning.
+      // Warning, re: why are we in BlockData<true,...> if there's no block
+      // data? Perhaps the Node has a non-default length and/or start, so that
+      // the values are all supposed to be...zero. Until and unless we discover
+      // otherwise, however, we doubt that that would be the case, and will
+      // consider a Node's lack of plain character data, in the present context,
+      // to be something that merits a warning.
       log::warning(
-         "Component marked as having \"body text\", a.k.a. XML \"pcdata\" "
+         "Component marked as having block data, a.k.a. XML \"pcdata\" "
          "(plain\ncharacter data), "
          "but no such content was found in the GNDS node."
       );

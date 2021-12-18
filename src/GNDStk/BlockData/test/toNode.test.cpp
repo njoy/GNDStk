@@ -358,10 +358,10 @@ void scenario_toNode()
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("BlockData<DATA == void> toNode()") {
+SCENARIO("BlockData<DATATYPE == void> toNode()") {
    scenario_toNode<void,void,void,void>();
 }
 
-SCENARIO("BlockData<DATA != void> toNode()") {
+SCENARIO("BlockData<DATATYPE != void> toNode()") {
    scenario_toNode<int,double,std::string,char>();
 }

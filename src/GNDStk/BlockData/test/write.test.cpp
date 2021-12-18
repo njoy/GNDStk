@@ -10,13 +10,13 @@ using namespace njoy::GNDStk::core;
 // -----------------------------------------------------------------------------
 
 // Helper
-template<class DATA>
+template<class DATATYPE>
 void scenario_write_string_active()
 {
    GIVEN("A BlockData with an empty raw string") {
       WHEN("BlockData.write() is called") {
          THEN("Nothing is printed") {
-            BlockData<true,DATA> b;
+            BlockData<true,DATATYPE> b;
             b = std::vector<char>{{'a','b','c'}};
             b.string(""); // should make string (not vector) active
             std::ostringstream oss;
@@ -33,7 +33,7 @@ void scenario_write_string_active()
    GIVEN("A BlockData with a non-empty raw string") {
       WHEN("BlockData.write() is called") {
          THEN("The raw string and a newline are printed") {
-            BlockData<true,DATA> b;
+            BlockData<true,DATATYPE> b;
             b = std::vector<char>{{'a','b','c'}};
             b.string("foo bar"); // should make string (not vector) active
 
@@ -50,13 +50,13 @@ void scenario_write_string_active()
    }
 }
 
-// For DATA == void
-SCENARIO("BlockData<DATA == void> write(), when the raw string is active") {
+// For DATATYPE == void
+SCENARIO("BlockData<DATATYPE == void> write(), when the raw string is active") {
    scenario_write_string_active<void>();
 }
 
-// For DATA != void
-SCENARIO("BlockData<DATA != void> write(), when the raw string is active") {
+// For DATATYPE != void
+SCENARIO("BlockData<DATATYPE != void> write(), when the raw string is active") {
    scenario_write_string_active<char>();
 }
 
@@ -66,7 +66,7 @@ SCENARIO("BlockData<DATA != void> write(), when the raw string is active") {
 // -----------------------------------------------------------------------------
 
 // Helper
-template<class DATA>
+template<class DATATYPE>
 void scenario_write_vector_active()
 {
    GIVEN("A BlockData with an empty vector") {
@@ -215,12 +215,12 @@ void scenario_write_vector_active()
    }
 }
 
-// For DATA == void
-SCENARIO("BlockData<DATA == void> write(), when a vector is active") {
+// For DATATYPE == void
+SCENARIO("BlockData<DATATYPE == void> write(), when a vector is active") {
    scenario_write_vector_active<void>();
 }
 
-// For DATA != void
-SCENARIO("BlockData<DATA != void> write(), when a vector is active") {
+// For DATATYPE != void
+SCENARIO("BlockData<DATATYPE != void> write(), when a vector is active") {
    scenario_write_vector_active<int>();
 }

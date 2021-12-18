@@ -1375,7 +1375,7 @@ void writeClassCtors(writer &out, const PerClass &per)
       out();
       out(1,"// from vector");
       out(1,"template<class T, class = "
-          "std::enable_if_t<body::template supported<T>>>");
+          "std::enable_if_t<BLOCKDATA::template supported<T>>>");
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
       out();

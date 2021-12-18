@@ -8,10 +8,10 @@ using namespace njoy::GNDStk::core;
 
 
 // -----------------------------------------------------------------------------
-// Scenario for DATA == void
+// Scenario for DATATYPE == void
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk BlockData with DATA == void") {
+SCENARIO("Testing GNDStk BlockData with DATATYPE == void") {
    // Most BlockData functionality is tested in the individual test files.
    // There are just a few things we'll do here.
 
@@ -125,10 +125,10 @@ SCENARIO("Testing GNDStk BlockData with DATA == void") {
 
 
 // -----------------------------------------------------------------------------
-// Scenario for DATA != void
+// Scenario for DATATYPE != void
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk BlockData with DATA != void") {
+SCENARIO("Testing GNDStk BlockData with DATATYPE != void") {
 
    GIVEN("A const BlockData<true,double> cbtextt") {
       const BlockData<true,double> cbtextt;

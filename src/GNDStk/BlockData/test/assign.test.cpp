@@ -6,10 +6,10 @@ using namespace njoy::GNDStk::core;
 
 
 // -----------------------------------------------------------------------------
-// Scenario for DATA == void
+// Scenario for DATATYPE == void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BlockData<DATA == void> assignment operators") {
+SCENARIO("BlockData<DATATYPE == void> assignment operators") {
    GIVEN("A default-constructed BlockData<true,void> object") {
 
       // Default value of raw string is as expected
@@ -111,10 +111,10 @@ SCENARIO("BlockData<DATA == void> assignment operators") {
 
 
 // -----------------------------------------------------------------------------
-// Scenario for DATA != void
+// Scenario for DATATYPE != void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BlockData<DATA != void> assignment operators") {
+SCENARIO("BlockData<DATATYPE != void> assignment operators") {
    GIVEN("A default-constructed BlockData<true,int> object") {
 
       // Default value of raw string is as expected
