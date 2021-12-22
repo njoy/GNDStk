@@ -6,12 +6,9 @@
 template<class T>
 void pullFromDerived(const T &obj)
 {
-   if constexpr (detail::hasLength<T>)
-      length(obj.content.length);
-   if constexpr (detail::hasStart<T>)
-      start(obj.content.start);
-   if constexpr (detail::hasValueType<T>)
-      valueType(obj.content.valueType);
+   if constexpr (detail::hasLength   <T>) length   (obj.length   ());
+   if constexpr (detail::hasStart    <T>) start    (obj.start    ());
+   if constexpr (detail::hasValueType<T>) valueType(obj.valueType());
 }
 
 // pushToDerived(derived)
@@ -19,10 +16,7 @@ void pullFromDerived(const T &obj)
 template<class T>
 void pushToDerived(T &obj) const
 {
-   if constexpr (detail::hasLength<T>)
-      obj.content.length = length();
-   if constexpr (detail::hasStart<T>)
-      obj.content.start = start();
-   if constexpr (detail::hasValueType<T>)
-      obj.content.valueType = valueType();
+   if constexpr (detail::hasLength   <T>) obj.length   () = length   ();
+   if constexpr (detail::hasStart    <T>) obj.start    () = start    ();
+   if constexpr (detail::hasValueType<T>) obj.valueType() = valueType();
 }

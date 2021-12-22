@@ -142,9 +142,9 @@ public:
 
    // interpolation(value)
    XYs1d &interpolation(const Defaulted<enums::Interpolation> &obj)
-      { content.interpolation = obj; return *this; }
+      { interpolation() = obj; return *this; }
    XYs1d &interpolation(const std::optional<enums::Interpolation> &obj)
-      { content.interpolation = obj; return *this; }
+      { interpolation() = obj; return *this; }
 
    // label(value)
    XYs1d &label(const std::optional<std::string> &obj)
@@ -184,12 +184,12 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{
          index,
@@ -207,12 +207,12 @@ public:
    XYs1d(const XYs1d &other) :
       Component{
          other.baseBlockData(),
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{other.content}
    {
@@ -223,12 +223,12 @@ public:
    XYs1d(XYs1d &&other) :
       Component{
          other.baseBlockData(),
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{std::move(other.content)}
    {
@@ -239,12 +239,12 @@ public:
    XYs1d(const Node &node) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish(node);

@@ -86,6 +86,10 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
                const double start = 0;
                const std::string &valueType = bar;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const double &start() const { return content.start; }
+            const std::string &valueType() const { return content.valueType; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
@@ -100,6 +104,8 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
                const double start = 0;
                const std::string &valueType = bar;
             } content;
+            const double &start() const { return content.start; }
+            const std::string &valueType() const { return content.valueType; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));
@@ -114,6 +120,9 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
                int length;
                const std::string &valueType = bar;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const std::string &valueType() const { return content.valueType; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
@@ -128,6 +137,9 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
                int length;
                const double start = 0;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const double &start() const { return content.start; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
@@ -141,6 +153,8 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
             struct {
                int length;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == true));
@@ -154,6 +168,7 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
             struct {
                const double start = 0;
             } content;
+            const double &start() const { return content.start; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));
@@ -167,6 +182,7 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
             struct {
                const std::string &valueType = bar;
             } content;
+            const std::string &valueType() const { return content.valueType; }
          } foo;
          THEN("Our SFINAE helpers detect this") {
             CHECK((detail::hasLength   <decltype(foo)> == false));

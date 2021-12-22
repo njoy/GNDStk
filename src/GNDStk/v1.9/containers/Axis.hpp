@@ -129,9 +129,9 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{
          index,
@@ -146,9 +146,9 @@ public:
    Axis(const Axis &other) :
       Component{
          other.baseBlockData(),
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{other.content}
    {
@@ -159,9 +159,9 @@ public:
    Axis(Axis &&other) :
       Component{
          other.baseBlockData(),
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{std::move(other.content)}
    {
@@ -172,9 +172,9 @@ public:
    Axis(const Node &node) :
       Component{
          BlockData{},
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish(node);

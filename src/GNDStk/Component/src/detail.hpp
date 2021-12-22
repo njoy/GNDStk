@@ -758,46 +758,46 @@ bool compareRegular(const A &a, const B &b)
    // index?
    std::size_t aindex = 0;  bool ahasindex = false;
    if constexpr (hasIndex<A>) {
-      if constexpr (isOptional<decltype(A{}.content.index)>) {
-         if ((ahasindex = a.content.index.has_value()))
-            aindex = a.content.index.value();
+      if constexpr (isOptional<decltype(A{}.index())>) {
+         if ((ahasindex = a.index().has_value()))
+            aindex = a.index().value();
       } else {
          ahasindex = true;
-         aindex = a.content.index;
+         aindex = a.index();
       }
    }
 
    std::size_t bindex = 0;  bool bhasindex = false;
    if constexpr (hasIndex<B>) {
-      if constexpr (isOptional<decltype(B{}.content.index)>) {
-         if ((bhasindex = b.content.index.has_value()))
-            bindex = b.content.index.value();
+      if constexpr (isOptional<decltype(B{}.index())>) {
+         if ((bhasindex = b.index().has_value()))
+            bindex = b.index().value();
       } else {
          bhasindex = true;
-         bindex = b.content.index;
+         bindex = b.index();
       }
    }
 
    // label?
    std::string alabel = "";  bool ahaslabel = false;
    if constexpr (hasLabel<A>) {
-      if constexpr (isOptional<decltype(A{}.content.label)>) {
-         if ((ahaslabel = a.content.label.has_value()))
-            alabel = a.content.label.value();
+      if constexpr (isOptional<decltype(A{}.label())>) {
+         if ((ahaslabel = a.label().has_value()))
+            alabel = a.label().value();
       } else {
          ahaslabel = true;
-         alabel = a.content.label;
+         alabel = a.label();
       }
    }
 
    std::string blabel = "";  bool bhaslabel = false;
    if constexpr (hasLabel<B>) {
-      if constexpr (isOptional<decltype(B{}.content.label)>) {
-         if ((bhaslabel = b.content.label.has_value()))
-            blabel = b.content.label.value();
+      if constexpr (isOptional<decltype(B{}.label())>) {
+         if ((bhaslabel = b.label().has_value()))
+            blabel = b.label().value();
       } else {
          bhaslabel = true;
-         blabel = b.content.label;
+         blabel = b.label();
       }
    }
 

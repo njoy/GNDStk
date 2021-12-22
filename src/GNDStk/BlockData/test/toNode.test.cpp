@@ -241,12 +241,14 @@ void scenario_toNode()
                struct {
                   int ignored = 12345;
                } content;
+               const int &ignored() const { return content.ignored; }
+               int &ignored() { return content.ignored; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             // toNode doesn't care about what's *not* length/start/valueType...
-            CHECK(derived.content.ignored == 12345); // same as before toNode()
+            CHECK(derived.ignored() == 12345); // same as before toNode()
          }
 
          // length only
@@ -255,11 +257,13 @@ void scenario_toNode()
                struct {
                   int length = 0;
                } content;
+               const int &length() const { return content.length; }
+               int &length() { return content.length; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.length == 8);
+            CHECK(derived.length() == 8);
          }
 
          // start only
@@ -268,11 +272,13 @@ void scenario_toNode()
                struct {
                   int start = 0;
                } content;
+               const int &start() const { return content.start; }
+               int &start() { return content.start; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.start == 2);
+            CHECK(derived.start() == 2);
          }
 
          // valueType only
@@ -281,11 +287,13 @@ void scenario_toNode()
                struct {
                   std::string valueType = "";
                } content;
+               const std::string &valueType() const { return content.valueType; }
+               std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.valueType == "Integer32");
+            CHECK(derived.valueType() == "Integer32");
          }
 
          // all but length
@@ -295,12 +303,16 @@ void scenario_toNode()
                   int start = 0;
                   std::string valueType = "";
                } content;
+               const int &start() const { return content.start; }
+               int &start() { return content.start; }
+               const std::string &valueType() const { return content.valueType; }
+               std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.start == 2);
-            CHECK(derived.content.valueType == "Integer32");
+            CHECK(derived.start() == 2);
+            CHECK(derived.valueType() == "Integer32");
          }
 
          // all but start
@@ -310,12 +322,16 @@ void scenario_toNode()
                   int length = 0;
                   std::string valueType = "";
                } content;
+               const int &length() const { return content.length; }
+               int &length() { return content.length; }
+               const std::string &valueType() const { return content.valueType; }
+               std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.length == 8);
-            CHECK(derived.content.valueType == "Integer32");
+            CHECK(derived.length() == 8);
+            CHECK(derived.valueType() == "Integer32");
          }
 
          // all but valueType
@@ -325,12 +341,16 @@ void scenario_toNode()
                   int length = 0;
                   int start = 0;
                } content;
+               const int &length() const { return content.length; }
+               int &length() { return content.length; }
+               const int &start() const { return content.start; }
+               int &start() { return content.start; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.length == 8);
-            CHECK(derived.content.start == 2);
+            CHECK(derived.length() == 8);
+            CHECK(derived.start() == 2);
          }
 
          // all three
@@ -341,13 +361,19 @@ void scenario_toNode()
                   int start = 0;
                   std::string valueType = "";
                } content;
+               const int &length() const { return content.length; }
+               int &length() { return content.length; }
+               const int &start() const { return content.start; }
+               int &start() { return content.start; }
+               const std::string &valueType() const { return content.valueType; }
+               std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
-            CHECK(derived.content.length == 8);
-            CHECK(derived.content.start == 2);
-            CHECK(derived.content.valueType == "Integer32");
+            CHECK(derived.length() == 8);
+            CHECK(derived.start() == 2);
+            CHECK(derived.valueType() == "Integer32");
          }
       }
    }

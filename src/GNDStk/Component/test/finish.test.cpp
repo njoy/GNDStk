@@ -18,13 +18,16 @@ struct IndexStruct {
    struct {
       std::size_t index;
    } content;
-   IndexStruct(const std::size_t i = 0) { content.index = i; }
+   const std::size_t &index() const { return content.index; }
+   std::size_t &index() { return content.index; }
+
+   IndexStruct(const std::size_t i = 0) { index() = i; }
    IndexStruct(const Node &) : IndexStruct(0) { }
 };
 
 inline bool operator==(const IndexStruct &one, const IndexStruct &two)
 {
-   return one.content.index == two.content.index;
+   return one.index() == two.index();
 }
 
 
@@ -76,6 +79,18 @@ public:
          {{3,2,17,7,5,9,13,11}};
    } content;
 
+   const int &length() const { return content.length; }
+   int &length() { return content.length; }
+
+   const int &start() const { return content.start; }
+   int &start() { return content.start; }
+
+   const std::string &valueType() const { return content.valueType; }
+   std::string &valueType() { return content.valueType; }
+
+   const std::optional<std::vector<IndexStruct>> &indices() const { return content.indices; }
+   std::optional<std::vector<IndexStruct>> &indices() { return content.indices; }
+
 private:
 
    // construct functions
@@ -108,7 +123,7 @@ public:
    DerivedValue() :
       Component(
          BlockData{},
-         content.length, content.start, content.valueType, content.indices
+         length(), start(), valueType(), indices()
       )
    {
       // finish()
@@ -119,7 +134,7 @@ public:
    DerivedValue(const DerivedValue &other) :
       Component{
          other,
-         content.length, content.start, content.valueType, content.indices
+         length(), start(), valueType(), indices()
       },
       content{other.content}
    {
@@ -131,7 +146,7 @@ public:
    DerivedValue(const Node &node) :
       Component{
          BlockData{},
-         content.length, content.start, content.valueType, content.indices
+         length(), start(), valueType(), indices()
       }
    {
       // finish(node)
@@ -142,7 +157,7 @@ public:
    DerivedValue(const std::vector<double> &vec) :
       Component{
          BlockData{},
-         content.length, content.start, content.valueType, content.indices
+         length(), start(), valueType(), indices()
       }
    {
       // finish(vector)
@@ -166,17 +181,20 @@ struct LabelStruct {
    struct {
       std::string label;
    } content;
+   const std::string &label() const { return content.label; }
+   std::string &label() { return content.label; }
+
    // apparently need a char* ctor for initializer-list initialization to work
-   LabelStruct(const char *const str = "") { content.label = str; }
+   LabelStruct(const char *const str = "") { label() = str; }
    LabelStruct(const Node &node)
    {
-      content.label = node(std::string{}/Meta<>("label"));
+      label() = node(std::string{}/Meta<>("label"));
    }
 };
 
 inline bool operator==(const LabelStruct &one, const LabelStruct &two)
 {
-   return one.content.label == two.content.label;
+   return one.label() == two.label();
 }
 
 
@@ -219,6 +237,15 @@ public:
          {{"bc","a","p","efg","d","hi","no","jklm"}};
    } content;
 
+   const int &foo() const { return content.foo; }
+   int &foo() { return content.foo; }
+
+   const double &bar() const { return content.bar; }
+   double &bar() { return content.bar; }
+
+   const std::optional<std::vector<LabelStruct>> &labels() const { return content.labels; }
+   std::optional<std::vector<LabelStruct>> &labels() { return content.labels; }
+
 private:
 
    // construct functions
@@ -245,7 +272,7 @@ public:
    DerivedPlain() :
       Component(
          BlockData{},
-         content.foo, content.bar, content.labels
+         foo(), bar(), labels()
       )
    {
       // finish()
@@ -256,7 +283,7 @@ public:
    DerivedPlain(const DerivedPlain &other) :
       Component{
          other,
-         content.foo, content.bar, content.labels
+         foo(), bar(), labels()
       },
       content{other.content}
    {
@@ -268,7 +295,7 @@ public:
    DerivedPlain(const Node &node) :
       Component{
          BlockData{},
-         content.foo, content.bar, content.labels
+         foo(), bar(), labels()
       }
    {
       // finish(node)
@@ -307,9 +334,9 @@ SCENARIO("Component finish()") {
          CHECK(d.valueType() == "foobar");
 
          // Ensure that finish() did a sort()
-         CHECK(d.content.indices.has_value() == true);
-         CHECK(d.content.indices->size() == 8);
-         CHECK(*d.content.indices == sorted);
+         CHECK(d.indices().has_value() == true);
+         CHECK(d.indices()->size() == 8);
+         CHECK(*d.indices() == sorted);
       }
 
       // ctor: copy
@@ -341,9 +368,9 @@ SCENARIO("Component finish()") {
          CHECK(d.valueType() == "foobar");
 
          // Ensure that finish() did a sort()
-         CHECK(d.content.indices.has_value() == true);
-         CHECK(d.content.indices->size() == 8);
-         CHECK(*d.content.indices == sorted);
+         CHECK(d.indices().has_value() == true);
+         CHECK(d.indices()->size() == 8);
+         CHECK(*d.indices() == sorted);
       }
 
       // ctor: from node
@@ -378,7 +405,7 @@ SCENARIO("Component finish()") {
 
          // The node from which we read had block data, not child nodes,
          // and thus would give us nothing for (std::optional) indices...
-         CHECK(d.content.indices.has_value() == false);
+         CHECK(d.indices().has_value() == false);
       }
 
       // ctor: from vector
@@ -403,14 +430,14 @@ SCENARIO("Component finish()") {
 
          // And, BlockData's operator=(vector) as mentioned above should also
          // have changed the corresponding values back up in the derived class
-         CHECK(d.content.length == 3);
-         CHECK(d.content.start == 0);
-         CHECK(d.content.valueType == "Float64");
+         CHECK(d.length() == 3);
+         CHECK(d.start() == 0);
+         CHECK(d.valueType() == "Float64");
 
          // Ensure that finish() did a sort()
-         CHECK(d.content.indices.has_value() == true);
-         CHECK(d.content.indices->size() == 8);
-         CHECK(*d.content.indices == sorted);
+         CHECK(d.indices().has_value() == true);
+         CHECK(d.indices()->size() == 8);
+         CHECK(*d.indices() == sorted);
       }
 
    } // GIVEN
@@ -426,9 +453,9 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d;
          CHECK(test::construct1DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == true);
-         CHECK(d.content.labels->size() == 8);
-         CHECK(*d.content.labels == sorted);
+         CHECK(d.labels().has_value() == true);
+         CHECK(d.labels()->size() == 8);
+         CHECK(*d.labels() == sorted);
       }
 
       // ctor: copy
@@ -439,9 +466,9 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d(dfrom);
          CHECK(test::construct2DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == true);
-         CHECK(d.content.labels->size() == 8);
-         CHECK(*d.content.labels == sorted);
+         CHECK(d.labels().has_value() == true);
+         CHECK(d.labels()->size() == 8);
+         CHECK(*d.labels() == sorted);
       }
 
       // ctor: from node, case 1
@@ -455,7 +482,7 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d(node);
          CHECK(test::construct3DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == false);
+         CHECK(d.labels().has_value() == false);
       }
 
       // ctor: from node, case 2
@@ -473,10 +500,10 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d(node);
          CHECK(test::construct3DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == true);
-         CHECK(d.content.labels->size() == 4);
+         CHECK(d.labels().has_value() == true);
+         CHECK(d.labels()->size() == 4);
          CHECK((
-           *d.content.labels ==
+            *d.labels() ==
             std::vector<test::LabelStruct>{{"abc","def","ghi","jkl"}}
          ));
       }

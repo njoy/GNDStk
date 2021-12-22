@@ -58,6 +58,11 @@ struct FooBar {
       int foo;
       double bar;
    } content;
+
+   const int &foo() const { return content.foo; }
+   int &foo() { return content.foo; }
+   const double &bar() const { return content.bar; }
+   double &bar() { return content.bar; }
 };
 
 

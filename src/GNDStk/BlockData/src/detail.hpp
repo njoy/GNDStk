@@ -32,66 +32,95 @@ using decays_t = typename decays<T>::type;
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// Helpers
+// has_length
 // ------------------------
 
-// has_length
 template<class T, class = int>
 struct has_length
    : std::false_type { };
 
 template<class T>
-struct has_length<T,decltype((void)T::content.length,0)>
+struct has_length<T,decltype((void)T{}.length(),0)>
    : std::true_type { };
 
+// ------------------------
 // has_start
+// ------------------------
+
 template<class T, class = int>
 struct has_start
    : std::false_type { };
 
 template<class T>
-struct has_start<T,decltype((void)T::content.start,0)>
+struct has_start<T,decltype((void)T{}.start(),0)>
    : std::true_type { };
 
+// ------------------------
 // has_valueType
+// ------------------------
+
 template<class T, class = int>
 struct has_valueType
    : std::false_type { };
 
 template<class T>
-struct has_valueType<T,decltype((void)T::content.valueType,0)>
+struct has_valueType<T,decltype((void)T{}.valueType(),0)>
    : std::true_type { };
 
+// ------------------------
 // has_index
+// ------------------------
+
 template<class T, class = int>
 struct has_index
    : std::false_type { };
 
 template<class T>
-struct has_index<T,decltype((void)T::content.index,0)>
+struct has_index<
+   T,
+   decltype(
+      (void)
+      // Just using T{}.index() on the next line, like we do with other has_*
+      // classes above, can lead to an ambiguity between this specialization
+      // and the std::variant specialization below, arising from the fact that
+      // std::variant has an index() function. Hence the std::conditional_t.
+      std::conditional_t<isVariant<T>::value,void,T>{}.index(),
+      0
+   )
+>
    : std::true_type { };
 
+// for variant
 template<class... Ts>
 struct has_index<std::variant<Ts...>> {
    // for variant: does any alternative have index?
    static constexpr bool value = (has_index<Ts>::value || ...);
 };
 
+// ------------------------
 // has_label
+// ------------------------
+
 template<class T, class = int>
 struct has_label
    : std::false_type { };
 
 template<class T>
-struct has_label<T,decltype((void)T::content.label,0)>
+struct has_label<
+   T,
+   // std::variant doesn't have a label(), like it has an index(), but we'll
+   // do the same thing here, for has_label, as we do above for has_index.
+   // It's harmless, and if std::variant is ever given a label() function...
+   decltype((void)std::conditional_t<isVariant<T>::value,void,T>{}.label(),0)
+>
    : std::true_type { };
 
+// for variant
 template<class... Ts>
 struct has_label<std::variant<Ts...>> {
    // for variant: does any alternative have label?
    static constexpr bool value = (has_label<Ts>::value || ...);
 };
-
 
 // ------------------------
 // Prefer these.

@@ -149,10 +149,10 @@ public:
    ) :
       Component{
          BlockData{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{
          ENDF_MT,
@@ -168,10 +168,10 @@ public:
    Reaction(const Reaction &other) :
       Component{
          other.baseBlockData(),
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{other.content}
    {
@@ -182,10 +182,10 @@ public:
    Reaction(Reaction &&other) :
       Component{
          other.baseBlockData(),
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{std::move(other.content)}
    {
@@ -196,10 +196,10 @@ public:
    Reaction(const Node &node) :
       Component{
          BlockData{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish(node);

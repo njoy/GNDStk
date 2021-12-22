@@ -45,9 +45,9 @@ public:
           const std::vector< T >& values ) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       }
   {
 

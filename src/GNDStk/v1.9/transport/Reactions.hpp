@@ -134,7 +134,7 @@ public:
    ) :
       Component{
          BlockData{},
-         content.reaction
+         this->reaction()
       },
       content{
          reaction
@@ -147,7 +147,7 @@ public:
    Reactions(const Reactions &other) :
       Component{
          other.baseBlockData(),
-         content.reaction
+         this->reaction()
       },
       content{other.content}
    {
@@ -158,7 +158,7 @@ public:
    Reactions(Reactions &&other) :
       Component{
          other.baseBlockData(),
-         content.reaction
+         this->reaction()
       },
       content{std::move(other.content)}
    {
@@ -169,7 +169,7 @@ public:
    Reactions(const Node &node) :
       Component{
          BlockData{},
-         content.reaction
+         this->reaction()
       }
    {
       Component::finish(node);

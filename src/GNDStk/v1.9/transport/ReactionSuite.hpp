@@ -194,13 +194,13 @@ public:
    ) :
       Component{
          BlockData{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{
          evaluation,
@@ -219,13 +219,13 @@ public:
    ReactionSuite(const ReactionSuite &other) :
       Component{
          other.baseBlockData(),
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{other.content}
    {
@@ -236,13 +236,13 @@ public:
    ReactionSuite(ReactionSuite &&other) :
       Component{
          other.baseBlockData(),
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{std::move(other.content)}
    {
@@ -253,13 +253,13 @@ public:
    ReactionSuite(const Node &node) :
       Component{
          BlockData{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish(node);

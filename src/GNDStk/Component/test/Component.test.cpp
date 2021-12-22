@@ -71,11 +71,16 @@ public:
       double bar;
    } content;
 
+   const int &foo() const { return content.foo; }
+   int &foo() { return content.foo; }
+   const double &bar() const { return content.bar; }
+   double &bar() { return content.bar; }
+
    DerivedData() :
       Component(
          BlockData{},
-         content.foo,
-         content.bar
+         foo(),
+         bar()
       )
    {
    }
@@ -83,8 +88,8 @@ public:
    DerivedData(const Node &node) :
       Component(
          BlockData{},
-         content.foo,
-         content.bar
+         foo(),
+         bar()
       )
    {
       Component::finish(node);

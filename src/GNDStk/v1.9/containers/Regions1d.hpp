@@ -182,10 +182,10 @@ public:
    ) :
       Component{
          BlockData{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{
          label,
@@ -201,10 +201,10 @@ public:
    Regions1d(const Regions1d &other) :
       Component{
          other.baseBlockData(),
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{other.content}
    {
@@ -215,10 +215,10 @@ public:
    Regions1d(Regions1d &&other) :
       Component{
          other.baseBlockData(),
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{std::move(other.content)}
    {
@@ -229,10 +229,10 @@ public:
    Regions1d(const Node &node) :
       Component{
          BlockData{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish(node);

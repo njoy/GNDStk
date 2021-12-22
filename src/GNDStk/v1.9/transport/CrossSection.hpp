@@ -200,7 +200,7 @@ public:
    ) :
       Component{
          BlockData{},
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{
          XYs1d_regions1d
@@ -213,7 +213,7 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other.baseBlockData(),
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{other.content}
    {
@@ -224,7 +224,7 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other.baseBlockData(),
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{std::move(other.content)}
    {
@@ -235,7 +235,7 @@ public:
    CrossSection(const Node &node) :
       Component{
          BlockData{},
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       }
    {
       Component::finish(node);

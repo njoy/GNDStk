@@ -166,15 +166,15 @@ public:
 
    // start
    const auto &start() const
-    { return content.start.value(); }
+    { return content.start; }
    auto &start()
-    { return content.start.value(); }
+    { return content.start; }
 
    // valueType
    const auto &valueType() const
-    { return content.valueType.value(); }
+    { return content.valueType; }
    auto &valueType()
-    { return content.valueType.value(); }
+    { return content.valueType; }
 
    // ------------------------
    // Setters
@@ -188,15 +188,15 @@ public:
 
    // start(value)
    auto &start(const Defaulted<int> &obj)
-    { BlockData::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    auto &start(const int &obj)
-    { BlockData::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    auto &valueType(const Defaulted<std::string> &obj)
-    { BlockData::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
    auto &valueType(const std::string &obj)
-    { BlockData::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -206,9 +206,9 @@ public:
    Values() :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -218,9 +218,9 @@ public:
    Values(const Values &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -231,9 +231,9 @@ public:
    Values(Values &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -244,9 +244,9 @@ public:
    Values(const Node &node) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -260,9 +260,9 @@ public:
    ) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -281,9 +281,9 @@ public:
    ) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -389,7 +389,7 @@ public:
    Link() :
       Component{
          BlockData{},
-         content.href
+         this->href()
       }
    {
       Component::finish();
@@ -399,7 +399,7 @@ public:
    Link(const Link &other) :
       Component{
          other,
-         content.href
+         this->href()
       },
       content{other.content}
    {
@@ -410,7 +410,7 @@ public:
    Link(Link &&other) :
       Component{
          other,
-         content.href
+         this->href()
       },
       content{std::move(other.content)}
    {
@@ -421,7 +421,7 @@ public:
    Link(const Node &node) :
       Component{
          BlockData{},
-         content.href
+         this->href()
       }
    {
       Component::finish(node);
@@ -433,7 +433,7 @@ public:
    ) :
       Component{
          BlockData{},
-         content.href
+         this->href()
       },
       content{
          href
@@ -541,9 +541,9 @@ public:
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
    auto &interpolation()
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
 
    // label
    const auto &label() const
@@ -593,9 +593,9 @@ public:
 
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
 
    // label(value)
    auto &label(const std::optional<std::string> &obj)
@@ -615,11 +615,11 @@ public:
 
    // link(value)
    auto &link(const std::optional<proto::Link> &obj)
-    { if (obj) link_values(obj.value()); return *this; }
+    { if (obj) link_values() = *obj; return *this; }
 
    // values(value)
    auto &values(const std::optional<proto::Values> &obj)
-    { if (obj) link_values(obj.value()); return *this; }
+    { if (obj) link_values() = *obj; return *this; }
 
    // ------------------------
    // Construction
@@ -629,12 +629,12 @@ public:
    Grid() :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish();
@@ -644,12 +644,12 @@ public:
    Grid(const Grid &other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{other.content}
    {
@@ -660,12 +660,12 @@ public:
    Grid(Grid &&other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{std::move(other.content)}
    {
@@ -676,12 +676,12 @@ public:
    Grid(const Node &node) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish(node);
@@ -698,12 +698,12 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{
          index,
@@ -728,12 +728,12 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{
          index,
@@ -866,9 +866,9 @@ public:
    Axis() :
       Component{
          BlockData{},
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish();
@@ -878,9 +878,9 @@ public:
    Axis(const Axis &other) :
       Component{
          other,
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{other.content}
    {
@@ -891,9 +891,9 @@ public:
    Axis(Axis &&other) :
       Component{
          other,
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{std::move(other.content)}
    {
@@ -904,9 +904,9 @@ public:
    Axis(const Node &node) :
       Component{
          BlockData{},
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish(node);
@@ -920,9 +920,9 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{
          index,
@@ -1094,7 +1094,7 @@ public:
       const std::size_t index,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(index,*obj);
       return *this;
    }
 
@@ -1103,7 +1103,7 @@ public:
       const std::string &label,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(label,*obj);
       return *this;
    }
 
@@ -1112,7 +1112,7 @@ public:
       const std::size_t index,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(index,*obj);
       return *this;
    }
 
@@ -1121,7 +1121,7 @@ public:
       const std::string &label,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(label,*obj);
       return *this;
    }
 
@@ -1133,8 +1133,8 @@ public:
    Axes() :
       Component{
          BlockData{},
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish();
@@ -1144,8 +1144,8 @@ public:
    Axes(const Axes &other) :
       Component{
          other,
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{other.content}
    {
@@ -1156,8 +1156,8 @@ public:
    Axes(Axes &&other) :
       Component{
          other,
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{std::move(other.content)}
    {
@@ -1168,8 +1168,8 @@ public:
    Axes(const Node &node) :
       Component{
          BlockData{},
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish(node);
@@ -1182,8 +1182,8 @@ public:
    ) :
       Component{
          BlockData{},
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{
          href,
@@ -1287,9 +1287,9 @@ public:
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
    auto &interpolation()
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
 
    // label
    const auto &label() const
@@ -1327,9 +1327,9 @@ public:
 
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
 
    // label(value)
    auto &label(const std::optional<std::string> &obj)
@@ -1355,12 +1355,12 @@ public:
    XYs1d() :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish();
@@ -1370,12 +1370,12 @@ public:
    XYs1d(const XYs1d &other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{other.content}
    {
@@ -1386,12 +1386,12 @@ public:
    XYs1d(XYs1d &&other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{std::move(other.content)}
    {
@@ -1402,12 +1402,12 @@ public:
    XYs1d(const Node &node) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish(node);
@@ -1424,12 +1424,12 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{
          index,
@@ -1454,12 +1454,12 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{
          index,
@@ -1636,10 +1636,10 @@ public:
    Regions1d() :
       Component{
          BlockData{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish();
@@ -1649,10 +1649,10 @@ public:
    Regions1d(const Regions1d &other) :
       Component{
          other,
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{other.content}
    {
@@ -1663,10 +1663,10 @@ public:
    Regions1d(Regions1d &&other) :
       Component{
          other,
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{std::move(other.content)}
    {
@@ -1677,10 +1677,10 @@ public:
    Regions1d(const Node &node) :
       Component{
          BlockData{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish(node);
@@ -1695,10 +1695,10 @@ public:
    ) :
       Component{
          BlockData{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{
          label,
@@ -1855,7 +1855,7 @@ public:
       const std::size_t index,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(index,*obj);
       return *this;
    }
 
@@ -1864,7 +1864,7 @@ public:
       const std::string &label,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(label,*obj);
       return *this;
    }
 
@@ -1873,7 +1873,7 @@ public:
       const std::size_t index,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(index,*obj);
       return *this;
    }
 
@@ -1882,7 +1882,7 @@ public:
       const std::string &label,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(label,*obj);
       return *this;
    }
 
@@ -1894,7 +1894,7 @@ public:
    CrossSection() :
       Component{
          BlockData{},
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       }
    {
       Component::finish();
@@ -1904,7 +1904,7 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other,
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{other.content}
    {
@@ -1915,7 +1915,7 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other,
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{std::move(other.content)}
    {
@@ -1926,7 +1926,7 @@ public:
    CrossSection(const Node &node) :
       Component{
          BlockData{},
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       }
    {
       Component::finish(node);
@@ -1938,7 +1938,7 @@ public:
    ) :
       Component{
          BlockData{},
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{
          XYs1d_regions1d
@@ -2080,10 +2080,10 @@ public:
    Reaction() :
       Component{
          BlockData{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish();
@@ -2093,10 +2093,10 @@ public:
    Reaction(const Reaction &other) :
       Component{
          other,
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{other.content}
    {
@@ -2107,10 +2107,10 @@ public:
    Reaction(Reaction &&other) :
       Component{
          other,
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{std::move(other.content)}
    {
@@ -2121,10 +2121,10 @@ public:
    Reaction(const Node &node) :
       Component{
          BlockData{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish(node);
@@ -2139,10 +2139,10 @@ public:
    ) :
       Component{
          BlockData{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{
          ENDF_MT,
@@ -2273,7 +2273,7 @@ public:
    Reactions() :
       Component{
          BlockData{},
-         content.reaction
+         this->reaction()
       }
    {
       Component::finish();
@@ -2283,7 +2283,7 @@ public:
    Reactions(const Reactions &other) :
       Component{
          other,
-         content.reaction
+         this->reaction()
       },
       content{other.content}
    {
@@ -2294,7 +2294,7 @@ public:
    Reactions(Reactions &&other) :
       Component{
          other,
-         content.reaction
+         this->reaction()
       },
       content{std::move(other.content)}
    {
@@ -2305,7 +2305,7 @@ public:
    Reactions(const Node &node) :
       Component{
          BlockData{},
-         content.reaction
+         this->reaction()
       }
    {
       Component::finish(node);
@@ -2317,7 +2317,7 @@ public:
    ) :
       Component{
          BlockData{},
-         content.reaction
+         this->reaction()
       },
       content{
          reaction
@@ -2498,13 +2498,13 @@ public:
    ReactionSuite() :
       Component{
          BlockData{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish();
@@ -2514,13 +2514,13 @@ public:
    ReactionSuite(const ReactionSuite &other) :
       Component{
          other,
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{other.content}
    {
@@ -2531,13 +2531,13 @@ public:
    ReactionSuite(ReactionSuite &&other) :
       Component{
          other,
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{std::move(other.content)}
    {
@@ -2548,13 +2548,13 @@ public:
    ReactionSuite(const Node &node) :
       Component{
          BlockData{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish(node);
@@ -2572,13 +2572,13 @@ public:
    ) :
       Component{
          BlockData{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{
          evaluation,

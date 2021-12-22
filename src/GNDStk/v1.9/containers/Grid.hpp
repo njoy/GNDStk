@@ -159,9 +159,9 @@ public:
 
    // interpolation(value)
    Grid &interpolation(const Defaulted<enums::Interpolation> &obj)
-      { content.interpolation = obj; return *this; }
+      { interpolation() = obj; return *this; }
    Grid &interpolation(const std::optional<enums::Interpolation> &obj)
-      { content.interpolation = obj; return *this; }
+      { interpolation() = obj; return *this; }
 
    // label(value)
    Grid &label(const std::optional<std::string> &obj)
@@ -209,12 +209,12 @@ public:
    ) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{
          index,
@@ -232,12 +232,12 @@ public:
    Grid(const Grid &other) :
       Component{
          other.baseBlockData(),
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{other.content}
    {
@@ -248,12 +248,12 @@ public:
    Grid(Grid &&other) :
       Component{
          other.baseBlockData(),
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{std::move(other.content)}
    {
@@ -264,12 +264,12 @@ public:
    Grid(const Node &node) :
       Component{
          BlockData{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish(node);

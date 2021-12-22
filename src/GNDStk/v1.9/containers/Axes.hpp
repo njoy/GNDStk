@@ -217,8 +217,8 @@ public:
    ) :
       Component{
          BlockData{},
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{
          href,
@@ -232,8 +232,8 @@ public:
    Axes(const Axes &other) :
       Component{
          other.baseBlockData(),
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{other.content}
    {
@@ -244,8 +244,8 @@ public:
    Axes(Axes &&other) :
       Component{
          other.baseBlockData(),
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{std::move(other.content)}
    {
@@ -256,8 +256,8 @@ public:
    Axes(const Node &node) :
       Component{
          BlockData{},
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish(node);

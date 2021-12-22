@@ -35,6 +35,8 @@ void scenario_pull()
             struct {
                int length = 10;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(11).start(12).valueType("13");
@@ -50,6 +52,8 @@ void scenario_pull()
             struct {
                int start = 14;
             } content;
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(15).start(16).valueType("17");
@@ -65,6 +69,8 @@ void scenario_pull()
             struct {
                std::string valueType = "18";
             } content;
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(19).start(20).valueType("21");
@@ -81,6 +87,10 @@ void scenario_pull()
                int start = 22;
                std::string valueType = "23";
             } content;
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(24).start(25).valueType("26");
@@ -97,6 +107,10 @@ void scenario_pull()
                int length = 27;
                std::string valueType = "28";
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(29).start(30).valueType("31");
@@ -113,6 +127,10 @@ void scenario_pull()
                int length = 32;
                int start  = 33;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(34).start(35).valueType("36");
@@ -130,6 +148,12 @@ void scenario_pull()
                int start  = 38;
                std::string valueType = "39";
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(40).start(41).valueType("42");
@@ -171,11 +195,13 @@ void scenario_push()
             struct {
                int ignored = 123456; // not length, start, or valueType
             } content;
+            const int &ignored() const { return content.ignored; }
+            int &ignored() { return content.ignored; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(0).start(0).valueType("0");
          b.pushToDerived(derived); // should do nothing here
-         CHECK(derived.content.ignored == 123456);
+         CHECK(derived.ignored() == 123456);
       }
 
       // length only
@@ -184,11 +210,13 @@ void scenario_push()
             struct {
                int length = 10;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(11).start(12).valueType("13");
          b.pushToDerived(derived);
-         CHECK(derived.content.length == 11);
+         CHECK(derived.length() == 11);
       }
 
       // start only
@@ -197,11 +225,13 @@ void scenario_push()
             struct {
                int start = 14;
             } content;
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(15).start(16).valueType("17");
          b.pushToDerived(derived);
-         CHECK(derived.content.start == 16);
+         CHECK(derived.start() == 16);
       }
 
       // valueType only
@@ -210,11 +240,13 @@ void scenario_push()
             struct {
                std::string valueType = "18";
             } content;
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(19).start(20).valueType("21");
          b.pushToDerived(derived);
-         CHECK(derived.content.valueType == "21");
+         CHECK(derived.valueType() == "21");
       }
 
       // all but length
@@ -224,12 +256,16 @@ void scenario_push()
                int start = 22;
                std::string valueType = "23";
             } content;
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(24).start(25).valueType("26");
          b.pushToDerived(derived);
-         CHECK(derived.content.start == 25);
-         CHECK(derived.content.valueType == "26");
+         CHECK(derived.start() == 25);
+         CHECK(derived.valueType() == "26");
       }
 
       // all but start
@@ -239,12 +275,16 @@ void scenario_push()
                int length = 27;
                std::string valueType = "28";
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(29).start(30).valueType("31");
          b.pushToDerived(derived);
-         CHECK(derived.content.length == 29);
-         CHECK(derived.content.valueType == "31");
+         CHECK(derived.length() == 29);
+         CHECK(derived.valueType() == "31");
       }
 
       // all but valueType
@@ -254,12 +294,16 @@ void scenario_push()
                int length = 32;
                int start  = 33;
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(34).start(35).valueType("36");
          b.pushToDerived(derived);
-         CHECK(derived.content.length == 34);
-         CHECK(derived.content.start  == 35);
+         CHECK(derived.length() == 34);
+         CHECK(derived.start()  == 35);
       }
 
       // all three
@@ -270,13 +314,19 @@ void scenario_push()
                int start  = 38;
                std::string valueType = "39";
             } content;
+            const int &length() const { return content.length; }
+            int &length() { return content.length; }
+            const int &start() const { return content.start; }
+            int &start() { return content.start; }
+            const std::string &valueType() const { return content.valueType; }
+            std::string &valueType() { return content.valueType; }
          } derived;
          BlockData<true,DATATYPE> b;
          b.length(40).start(41).valueType("42");
          b.pushToDerived(derived);
-         CHECK(derived.content.length == 40);
-         CHECK(derived.content.start  == 41);
-         CHECK(derived.content.valueType == "42");
+         CHECK(derived.length() == 40);
+         CHECK(derived.start()  == 41);
+         CHECK(derived.valueType() == "42");
       }
    }
 }

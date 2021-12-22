@@ -1159,26 +1159,17 @@ void writeClassSetters(writer &out, const PerClass &per)
       // setter
       // note that if type is optional<T>, a T can still be sent
       out(1,"@ &@(const @ &obj)", per.clname, m.name, m.typeFull);
-      if (special && m.isDefaulted)
-         out(2,"{ BlockData::@(content.@ = obj); return *this; }",
-             m.name, m.name);
-      if (special && !m.isDefaulted)
-         out(2,"{ BlockData::@(@() = obj); return *this; }",
-             m.name, m.name);
-      if (!special && m.isDefaulted)
-         out(2,"{ content.@ = obj; return *this; }",
-             m.name);
-      if (!special && !m.isDefaulted)
-         out(2,"{ @() = obj; return *this; }",
-             m.name);
+
+      special
+       ? out(2,"{ BlockData::@(@() = obj); return *this; }", m.name, m.name)
+       : out(2,"{ @() = obj; return *this; }", m.name);
 
       // setter, if type is Defaulted<T>
       if (m.isDefaulted) {
          out(1,"@ &@(const std::optional<@> &obj)", per.clname, m.name, m.type);
          special
-            ? out(2,"{ BlockData::@(content.@ = obj); return *this; }",
-                  m.name, m.name)
-            : out(2,"{ content.@ = obj; return *this; }", m.name);
+          ? out(2,"{ BlockData::@(@() = obj); return *this; }", m.name, m.name)
+          : out(2,"{ @() = obj; return *this; }", m.name);
       }
    }
 
@@ -1238,15 +1229,15 @@ void writeClassCtorComponent(
 
    for (const auto &m : per.metadata) { // metadata
       out(",");
-      out(3,"content.@", m.name, false);
+      out(3,"this->@()", m.name, false);
    }
    for (const auto &c : per.children) { // children
       out(",");
-      out(3,"content.@", c.name, false);
+      out(3,"this->@()", c.name, false);
    }
    for (const auto &v : per.variants) { // variants
       out(",");
-      out(3,"content.@", v.name, false);
+      out(3,"this->@()", v.name, false);
    }
 
    out();

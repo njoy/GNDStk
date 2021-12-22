@@ -99,7 +99,7 @@ public:
    ) :
       Component{
          BlockData{},
-         content.href
+         this->href()
       },
       content{
          href
@@ -112,7 +112,7 @@ public:
    Link(const Link &other) :
       Component{
          other.baseBlockData(),
-         content.href
+         this->href()
       },
       content{other.content}
    {
@@ -123,7 +123,7 @@ public:
    Link(Link &&other) :
       Component{
          other.baseBlockData(),
-         content.href
+         this->href()
       },
       content{std::move(other.content)}
    {
@@ -134,7 +134,7 @@ public:
    Link(const Node &node) :
       Component{
          BlockData{},
-         content.href
+         this->href()
       }
    {
       Component::finish(node);

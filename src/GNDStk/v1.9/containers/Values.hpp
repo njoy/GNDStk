@@ -111,15 +111,15 @@ public:
 
    // start(value)
    Values &start(const Defaulted<int> &obj)
-      { BlockData::start(content.start = obj); return *this; }
+      { BlockData::start(start() = obj); return *this; }
    Values &start(const std::optional<int> &obj)
-      { BlockData::start(content.start = obj); return *this; }
+      { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    Values &valueType(const Defaulted<std::string> &obj)
-      { BlockData::valueType(content.valueType = obj); return *this; }
+      { BlockData::valueType(valueType() = obj); return *this; }
    Values &valueType(const std::optional<std::string> &obj)
-      { BlockData::valueType(content.valueType = obj); return *this; }
+      { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Constructors
@@ -137,9 +137,9 @@ public:
    ) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -154,9 +154,9 @@ public:
    Values(const Values &other) :
       Component{
          other.baseBlockData(),
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -167,9 +167,9 @@ public:
    Values(Values &&other) :
       Component{
          other.baseBlockData(),
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -180,9 +180,9 @@ public:
    Values(const Node &node) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -193,9 +193,9 @@ public:
    Values(const std::vector<T> &vector) :
       Component{
          BlockData{},
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(vector);

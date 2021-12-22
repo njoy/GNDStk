@@ -58,13 +58,18 @@ class DerivedSomething : public Component<DerivedSomething>
       double bar;
    } content;
 
+   const int &foo() const { return content.foo; }
+   int &foo() { return content.foo; }
+   const double &bar() const { return content.bar; }
+   double &bar() { return content.bar; }
+
 public:
 
    DerivedSomething() :
       Component(
          BlockData{},
-         content.foo,
-         content.bar
+         foo(),
+         bar()
       )
    {
       Component::finish();

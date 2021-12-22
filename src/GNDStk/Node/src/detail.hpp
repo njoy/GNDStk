@@ -30,7 +30,7 @@ public:
 };
 
 template<class T>
-inline constexpr bool isOptional = is_optional<T>::value;
+inline constexpr bool isOptional = is_optional<std::decay_t<T>>::value;
 
 
 
