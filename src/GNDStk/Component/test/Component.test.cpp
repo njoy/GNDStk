@@ -192,7 +192,7 @@ SCENARIO("Testing GNDStk Component") {
             der <<
                "{"
                "   \"data\": {"
-               "      \"attributes\": {"
+               "      \"#attributes\": {"
                "         \"foo\": \"12\","
                "         \"bar\": \"34.56\""
                "      }"

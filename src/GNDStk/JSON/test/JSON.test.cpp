@@ -14,7 +14,7 @@ using namespace njoy::GNDStk;
 static const std::string string_real_json =
 R"***({
    "covarianceSuite": {
-      "attributes": {
+      "#attributes": {
          "evaluation": "ENDF/B-8.0",
          "format": "1.9",
          "projectile": "n",
@@ -22,7 +22,7 @@ R"***({
       },
       "externalFiles": {
          "externalFile": {
-            "attributes": {
+            "#attributes": {
                "label": "reactions",
                "path": "n-069_Tm_170.xml"
             }
@@ -30,30 +30,30 @@ R"***({
       },
       "parameterCovariances": {
          "parameterCovariance": {
-            "attributes": {
+            "#attributes": {
                "label": "resolved resonances"
             },
             "parameterCovarianceMatrix": {
+               "#attributes": {
+                  "label": "eval",
+                  "type": "absolute"
+               },
                "array": {
-                  "attributes": {
+                  "#attributes": {
                      "compression": "diagonal",
                      "shape": "78,78"
                   },
                   "values": {
-                     "pcdata": {
-                        "attributes": {
-                           "text": "0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012"
+                     "#pcdata": {
+                        "#attributes": {
+                           "#text": "0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012"
                         }
                      }
                   }
                },
-               "attributes": {
-                  "label": "eval",
-                  "type": "absolute"
-               },
                "parameters": {
                   "parameterLink": {
-                     "attributes": {
+                     "#attributes": {
                         "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']/resonanceParameters/table",
                         "label": "resonanceParameters",
                         "nParameters": "78"
@@ -62,7 +62,7 @@ R"***({
                }
             },
             "rowData": {
-               "attributes": {
+               "#attributes": {
                   "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']"
                }
             }
@@ -70,21 +70,21 @@ R"***({
       },
       "styles": {
          "evaluated": {
-            "attributes": {
+            "#attributes": {
                "date": "2011-10-01",
                "label": "eval",
                "library": "ENDF/B",
                "version": "8.0.1"
             },
             "projectileEnergyDomain": {
-               "attributes": {
+               "#attributes": {
                   "max": "30000000.0",
                   "min": "1e-05",
                   "unit": "eV"
                }
             },
             "temperature": {
-               "attributes": {
+               "#attributes": {
                   "unit": "K",
                   "value": "0.0"
                }
@@ -120,7 +120,7 @@ SCENARIO("Testing GNDStk JSON") {
       THEN("The Tree should have only an empty declaration node") {
          CHECK(t.children.size() == 1);
          CHECK(t.has_decl());
-         CHECK(t.decl().name == "json");
+         CHECK(t.decl().name == "#json");
          CHECK(t.decl().metadata.size() == 0);
          CHECK(t.decl().children.size() == 0);
       }

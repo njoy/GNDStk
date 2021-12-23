@@ -109,7 +109,7 @@ SCENARIO("Testing GNDStk Node add()") {
       auto numbers = Child<
          std::vector<double>,
          Allow::one
-      >("pcdata",std::vector<double>{})/detail::convert_pcdata_text_t{};
+      >("#pcdata",std::vector<double>{})/detail::convert_pcdata_text_t{};
 
       auto nrepeat = Child<void,Allow::many>("repeated node");
       Node node1; node1.name = "aa11";

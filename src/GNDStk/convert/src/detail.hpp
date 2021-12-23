@@ -26,10 +26,10 @@ bool node2json(
    // ------------------------
 
    if (suffix != "")
-      json["nodeName"] = nameOriginal;
+      json["#nodeName"] = nameOriginal;
 
    for (auto &meta : node.metadata)
-      json["attributes"][meta.first] = meta.second;
+      json["#attributes"][meta.first] = meta.second;
 
    // ------------------------
    // children ==> json
@@ -175,17 +175,17 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // the nlohmann JSON library reorders everything lexicographically.
 
       if (xsub.type() == pugi::node_cdata) {
-         node.add("cdata").add("text", xsub.value());
+         node.add("#cdata").add("#text", xsub.value());
          continue;
       }
 
       if (xsub.type() == pugi::node_pcdata) {
-         node.add("pcdata").add("text", xsub.value());
+         node.add("#pcdata").add("#text", xsub.value());
          continue;
       }
 
       if (xsub.type() == pugi::node_comment) {
-         node.add("comment").add("text", xsub.value());
+         node.add("#comment").add("#text", xsub.value());
          continue;
       }
 
@@ -247,10 +247,10 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
    if (!iter->is_object())
       error_json2node("!iter->is_object()");
 
-   // any "attributes" key (a specially-named "child node" that we use in JSON
+   // any "#attributes" key (a specially-named "child node" that we use in JSON
    // in order to identify attributes) should have been handled in the caller...
-   if (iter.key() == "attributes")
-      error_json2node("iter.key() == \"attributes\"");
+   if (iter.key() == "#attributes")
+      error_json2node("iter.key() == \"#attributes\"");
 
    // key,value ==> node name, json value to bring in
    node.name = iter.key();
@@ -258,11 +258,11 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
 
    // elements
    for (auto elem = json.begin();  elem != json.end();  ++elem) {
-      if (elem.key() == "nodeName") {
-         // nodeName? ...extract as current node's true name
+      if (elem.key() == "#nodeName") {
+         // #nodeName? ...extract as current node's true name
          node.name = elem->get<std::string>();
-      } else if (elem.key() == "attributes") {
-         // attributes? ...extract as current node's metadata
+      } else if (elem.key() == "#attributes") {
+         // #attributes? ...extract as current node's metadata
          const auto &jsub = elem.value();
          for (auto attr = jsub.begin();  attr != jsub.end();  ++attr)
             node.add(attr.key(), attr->get<std::string>());
@@ -313,9 +313,9 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    // metadata ==> file/group
    // ------------------------
 
-   // nodeName if appropriate (as with JSON, allows recovery of original name)
+   // #nodeName if appropriate (as with JSON, allows recovery of original name)
    if (suffix != "")
-      group.createAttribute(std::string("nodeName"), nameOriginal);
+      group.createAttribute(std::string("#nodeName"), nameOriginal);
 
    // existing attributes
    for (auto &meta : node.metadata)
@@ -445,7 +445,7 @@ bool dataTYPE2node(const HighFive::DataSet &data, NODE &node)
       if (dataSize == 1) {
          T scalar;
          data.read(scalar);
-         node.add("pcdata").add("text",scalar);
+         node.add("#pcdata").add("#text",scalar);
          return true;
       }
 
@@ -453,7 +453,7 @@ bool dataTYPE2node(const HighFive::DataSet &data, NODE &node)
          std::vector<T> vector;
          vector.reserve(dataSize);
          data.read(vector);
-         node.add("pcdata").add("text",vector);
+         node.add("#pcdata").add("#text",vector);
          return true;
       }
    }
@@ -689,11 +689,11 @@ bool check_special(const NODE &node, const std::string &label)
       throw std::exception{};
    }
 
-   if (node.metadata.begin()->first != "text") {
+   if (node.metadata.begin()->first != "#text") {
       log::error(
         "Internal error in node2xml(Node, pugi::xml_node):\n"
         "Ill-formed <" + label + "> node; "
-        "should have metadatum key \"text\", but has key \"{}\".",
+        "should have metadatum key \"#text\", but has key \"{}\".",
          node.metadata.begin()->first
       );
       throw std::exception{};
@@ -706,8 +706,8 @@ bool check_special(const NODE &node, const std::string &label)
 template<class NODE>
 bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,"cdata")) return false;
-   xnode.append_child(pugi::node_cdata).set_value(node.meta("text").data());
+   if (!check_special(node,"#cdata")) return false;
+   xnode.append_child(pugi::node_cdata).set_value(node.meta("#text").data());
    return true;
 }
 
@@ -715,8 +715,8 @@ bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 template<class NODE>
 bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,"pcdata")) return false;
-   xnode.append_child(pugi::node_pcdata).set_value(node.meta("text").data());
+   if (!check_special(node,"#pcdata")) return false;
+   xnode.append_child(pugi::node_pcdata).set_value(node.meta("#text").data());
    return true;
 }
 
@@ -724,8 +724,8 @@ bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 template<class NODE>
 bool write_comment(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,"comment")) return false;
-   xnode.append_child(pugi::node_comment).set_value(node.meta("text").data());
+   if (!check_special(node,"#comment")) return false;
+   xnode.append_child(pugi::node_comment).set_value(node.meta("#text").data());
    return true;
 }
 
@@ -748,11 +748,11 @@ bool node2xml(const NODE &node, pugi::xml_node &x)
    for (auto &child : node.children) {
       try {
          // special element
-         if (child->name == "cdata")
+         if (child->name == "#cdata")
             { if (write_cdata  (*child,xnode)) continue; else return false; }
-         if (child->name == "pcdata")
+         if (child->name == "#pcdata")
             { if (write_pcdata (*child,xnode)) continue; else return false; }
-         if (child->name == "comment")
+         if (child->name == "#comment")
             { if (write_comment(*child,xnode)) continue; else return false; }
 
          // typical element

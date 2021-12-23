@@ -4,8 +4,8 @@ Node node(DERIVED::GNDSName());
 
 // 2. Block data, if applicable
 if constexpr (hasBlockData) {
-   // GNDStk uses a "text" metadatum of a "pcdata" child node for this
-   std::string &text = node.add("pcdata").add("text","").second;
+   // GNDStk uses a "#text" metadatum of a "#pcdata" child node for this
+   std::string &text = node.add("#pcdata").add("#text","").second;
    // Note: the following call might compute length, start, and valueType;
    // so we need all of this before the upcoming writing of fields.
    BLOCKDATA::toNode(text,derived().content);

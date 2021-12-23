@@ -56,9 +56,9 @@ inline bool sent(const std::string &string)
 
 // allowable declaration nodes
 inline std::set<std::string> AllowedDecl = {
-   "xml",
-   "json",
-   "hdf5",
+   "#xml",
+   "#json",
+   "#hdf5",
 };
 
 // noFilter
