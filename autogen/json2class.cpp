@@ -1399,17 +1399,24 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
       out(1,"using BlockData::operator=;");
 
    // output: defaults (applicable only to metadata)
-   out();
-   out(1,smallComment);
-   out(1,"// Relevant defaults");
-   out(1,"// FYI for users");
-   out(1,smallComment);
-   out();
-   out(1,"static inline const struct Defaults {");
+   std::size_t ndefaults = 0;
    for (auto &m : per.metadata)
       if (m.isDefaulted)
-         out(2,"static inline const @ @ = @;", m.type, m.name, initializer(m));
-   out(1,"} defaults;");
+         ++ndefaults;
+   if (ndefaults > 0) {
+      out();
+      out(1,smallComment);
+      out(1,"// Relevant defaults");
+      out(1,"// FYI for users");
+      out(1,smallComment);
+      out();
+      out(1,"static inline const struct Defaults {");
+      for (auto &m : per.metadata)
+         if (m.isDefaulted)
+            out(2, "static inline const @ @ = @;",
+                m.type, m.name, initializer(m));
+      out(1,"} defaults;");
+   }
 
    // output: content (the metadata/children computed earlier)
    out();

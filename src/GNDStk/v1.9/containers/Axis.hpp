@@ -55,14 +55,6 @@ public:
    using Component::construct;
 
    // ------------------------
-   // Relevant defaults
-   // FYI for users
-   // ------------------------
-
-   static inline const struct Defaults {
-   } defaults;
-
-   // ------------------------
    // Raw GNDS content
    // ------------------------
 
