@@ -67,15 +67,11 @@ namespace GNDStk {
 #include "GNDStk/JSON.hpp"
 #include "GNDStk/HDF5.hpp"
 
-// string/Node to/from type
-#include "GNDStk/string2type.hpp"
-#include "GNDStk/type2string.hpp"
-
 // Meta, Child, and related
-#include "GNDStk/convert_t.hpp"
+#include "GNDStk/convertQuery.hpp"
 #include "GNDStk/Meta.hpp"
 #include "GNDStk/Child.hpp"
-#include "GNDStk/or.hpp"
+#include "GNDStk/MultiQuery.hpp"
 
 // optional, with default
 #include "GNDStk/Defaulted.hpp"
@@ -94,12 +90,8 @@ namespace GNDStk {
 // something that will affect users in any manner.
 #include "GNDStk/common.hpp"
 
-// Node to/from type
-#include "GNDStk/node2type.hpp"
-#include "GNDStk/type2node.hpp"
-
-// Tree/XML/JSON/HDF5 conversions
-#include "GNDStk/convert.hpp"
+// conversions between major classes: Tree, XML, JSON, HDF5
+#include "GNDStk/convertClass.hpp"
 
 // fixme See above fixme
 namespace basic { using namespace common; }

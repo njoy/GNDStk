@@ -1,7 +1,4 @@
 
-#define CATCH_CONFIG_MAIN
-
-
 // -----------------------------------------------------------------------------
 // convert(istream,pair<int,double>)
 // To override GNDStk's general one:

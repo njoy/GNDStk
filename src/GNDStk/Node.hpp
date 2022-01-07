@@ -207,3 +207,18 @@ inline void operator<<(Node &node, const std::string &str)
 
 // string >> Node
 // fixme Write and test this
+
+
+// -----------------------------------------------------------------------------
+// convert Node to Node
+// -----------------------------------------------------------------------------
+
+inline void convert(const Node &from, Node &to)
+{
+   try {
+      to = from;
+   } catch (...) {
+      log::function("convert(Node,Node)");
+      throw;
+   }
+}

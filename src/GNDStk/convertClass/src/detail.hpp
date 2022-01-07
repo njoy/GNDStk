@@ -637,31 +637,6 @@ bool hdf52node(
 
 
 // -----------------------------------------------------------------------------
-// node2node
-// -----------------------------------------------------------------------------
-
-// Node ==> Node
-template<class NODE>
-void node2node(const NODE &from, NODE &to)
-{
-   // clear
-   to.clear();
-
-   // name
-   to.name = from.name;
-
-   // metadata
-   for (auto &m : from.metadata)
-      to.add(m.first,m.second);
-
-   // children
-   for (auto &c : from.children)
-      node2node(*c, to.add());
-}
-
-
-
-// -----------------------------------------------------------------------------
 // node2xml
 // -----------------------------------------------------------------------------
 
