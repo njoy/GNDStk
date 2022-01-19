@@ -166,15 +166,15 @@ inline std::string diagnostic(
 inline bool comments = true;
 
 // For printing.
-// When writing a Component with its generic write() function (or its stream
-// output, which uses write()), AND the Component is based on a BlockData with
-// hasBlockData == true, values will be printed with GNDStk::columns across.
-// "columns" is aliased to "across" for convenience, because, at the time of
-// this writing, GNDStk has a Meta<> object, named "columns", which would also
-// be in scope if the core namespace is used. So, a user might prefer to use
-// the name "across".
+// When writing a Component with its generic write() function (or with its
+// stream output, which uses its generic write()), and if the Component is
+// based on a BlockData with hasBlockData == true, then data will be printed
+// using GNDStk::columns columns. If the data array's size is large, a user
+// may want to limit the total number of printed values. This can be done
+// with the truncate value. A value < 0 means unlimited; all other values,
+// including 0, mean print no more than that number of values.
 inline std::size_t columns = 4;
-inline std::size_t &across = columns;
+inline long truncate = -1;
 
 
 

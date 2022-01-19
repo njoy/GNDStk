@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // write
-// To an ostream (not to a Node; that a different thing)
+// To an ostream, generally as part of Component's prettyprinting.
 // -----------------------------------------------------------------------------
 
 std::ostream &write(std::ostream &os, const int level) const
@@ -11,17 +11,19 @@ std::ostream &write(std::ostream &os, const int level) const
        (active() == Active::vector && size() == 0))
       return os;
 
+   // Coloring?
+   const bool coloring = GNDStk::color && GNDStk::colors::value != "";
+
    // ------------------------
    // If string is active
    // ------------------------
 
    if (active() == Active::string) {
-      // write the string exactly as-is, without our column formatting
+      // Write the string exactly as-is, without our column formatting
       // or any indentation; then also write a newline
-      GNDStk::color && GNDStk::colors::value != ""
-         ? os << colors::value << rawstring << colors::reset
-         : os << rawstring;
-      return os << std::endl;
+      return coloring
+         ? os << colors::value << rawstring << colors::reset << std::endl
+         : os << rawstring << std::endl;
    }
 
    // ------------------------
@@ -29,38 +31,45 @@ std::ostream &write(std::ostream &os, const int level) const
    // ------------------------
 
    // Indentation (string, with some number of spaces)
-   const auto indent = std::string(GNDStk::indent*level,' ');
+   const std::string indent(GNDStk::indent*level,' ');
 
    const auto writeLambda =
-      [&os,&indent](auto &&alt)
+      [&os,&indent,coloring](auto &&alt)
       {
-         std::size_t count = 0;
          using T = std::decay_t<decltype(alt[0])>;
+         const std::size_t size = alt.size();
+         const std::size_t end = (GNDStk::truncate < 0)
+            ? size
+            : std::min(size,std::size_t(GNDStk::truncate));
 
-         // use our column formatting
-         for (auto &element : alt) {
-            count == 0
-               ? os << indent
-               : GNDStk::across == 0 || count % GNDStk::across != 0
-               ? os << ' '
-               : os << '\n' << indent;
+         // Print, using our column formatting
+         for (std::size_t i = 0; i < end; ++i) {
+            const T &element = alt[i];
 
-            if (GNDStk::color && GNDStk::colors::value != "")
-               os << colors::value;
+            // value's whitespace prefix
+            i == 0
+               ? os << indent // at the very beginning, or...
+               : GNDStk::columns == 0 || i % GNDStk::columns != 0
+               ? os << ' '    // still on the current line, or...
+               : os << '\n' << indent; // starting the next line
 
+            // value
+            using namespace detail;
+            if (coloring) os << colors::value;
             if constexpr (std::is_floating_point_v<T>)
-               os << detail::Precision<
-                        detail::PrecisionContext::data,
-                        T
-                     >{}.write(element);
+               os << Precision<PrecisionContext::data,T>{}.write(element);
             else
                os << element;
-
-            if (GNDStk::color && GNDStk::colors::value != "")
-               os << colors::reset;
-
-            count++;
+            if (coloring) os << colors::reset;
          };
+
+         // If applicable, print a message saying the data were truncated
+         if (end < size) {
+            if (end > 0)
+               os << '\n';
+            os << indent << detail::colorize_comment(
+               "// truncated; total #values == " + std::to_string(size));
+         }
       };
 
    if constexpr (runtime)

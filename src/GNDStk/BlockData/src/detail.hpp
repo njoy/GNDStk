@@ -196,4 +196,30 @@ auto getBounds(const std::vector<T> &vec)
    return bnd;
 }
 
+
+
+// -----------------------------------------------------------------------------
+// colorize_*(text)
+// -----------------------------------------------------------------------------
+
+#define gndstkPaste(one,two) one ## two
+#define gndstkColorFun(part) \
+   inline std::string gndstkPaste(colorize_,part)(const std::string &text) \
+   { \
+      return GNDStk::color && colors::part != "" \
+         ? colors::part + text + colors::reset \
+         : text; \
+   }
+
+   // colorize_label() etc.
+   gndstkColorFun(label)
+   gndstkColorFun(colon)
+   gndstkColorFun(component)
+   gndstkColorFun(brace)
+   gndstkColorFun(bracket)
+   gndstkColorFun(comment)
+
+#undef gndstkColorFun
+#undef gndstkPaste
+
 } // namespace detail
