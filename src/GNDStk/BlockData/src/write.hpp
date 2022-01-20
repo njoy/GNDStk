@@ -49,8 +49,9 @@ std::ostream &write(std::ostream &os, const int level) const
             // value's whitespace prefix
             i == 0
                ? os << indent // at the very beginning, or...
-               : GNDStk::columns == 0 || i % GNDStk::columns != 0
-               ? os << ' '    // still on the current line, or...
+               : GNDStk::columns <= 0 ||
+                 i % std::size_t(std::abs(GNDStk::columns)) != 0
+               ? os << ' ' // still on the current line, or...
                : os << '\n' << indent; // starting the next line
 
             // value

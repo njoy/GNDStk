@@ -509,7 +509,8 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+      const enums::Interpolation interpolation
+         { enums::Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -519,7 +520,8 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
+      Defaulted<enums::Interpolation> interpolation
+         { enums::Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<enums::GridStyle> style;
       std::optional<std::string> unit;
@@ -738,8 +740,10 @@ public:
       content{
          index,
          interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+            ? Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin }
+            : Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin,interpolation },
          label,
          style,
          unit,
@@ -1255,7 +1259,8 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+      const enums::Interpolation interpolation
+         { enums::Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -1265,7 +1270,8 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
+      Defaulted<enums::Interpolation> interpolation
+         { enums::Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<double> outerDomainValue;
 
@@ -1464,8 +1470,10 @@ public:
       content{
          index,
          interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+            ? Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin }
+            : Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin,interpolation },
          label,
          outerDomainValue,
          axes,

@@ -848,17 +848,23 @@ class Numbers : public Component<Numbers> {
    {
       return
          // metadata
-         Defaulted<double>{1.414213562373095048801688724209698078569671875377}
+         Defaulted<double>
+            {1.414213562373095048801688724209698078569671875377}
             / Meta<>("adouble") |
-         Defaulted<float>{1.732050807568877293527446341505872366942805253810}
+         Defaulted<float>
+            {1.732050807568877293527446341505872366942805253810}
             / Meta<>("afloat") |
-         Defaulted<long double>{2.236067977499789696409173668731276235440618359612}
+         Defaulted<long double>
+            {2.236067977499789696409173668731276235440618359612}
             / Meta<>("aquad") |
-         Defaulted<double>{2.449489742783178098197284074705891391965947480657}
+         Defaulted<double>
+            {2.449489742783178098197284074705891391965947480657}
             / Meta<>("bdouble") |
-         Defaulted<float>{2.645751311064590590501615753639260425710259183082}
+         Defaulted<float>
+            {2.645751311064590590501615753639260425710259183082}
             / Meta<>("bfloat") |
-         Defaulted<long double>{2.828427124746190097603377448419396157139343750754}
+         Defaulted<long double>
+            {2.828427124746190097603377448419396157139343750754}
             / Meta<>("bquad") |
          // children
          std::optional<precision::Doubles>{}
@@ -882,12 +888,18 @@ public:
    // ------------------------
 
    static inline const struct Defaults {
-      static inline const double adouble = 1.414213562373095048801688724209698078569671875377;
-      static inline const float afloat = 1.732050807568877293527446341505872366942805253810;
-      static inline const long double aquad = 2.236067977499789696409173668731276235440618359612;
-      static inline const double bdouble = 2.449489742783178098197284074705891391965947480657;
-      static inline const float bfloat = 2.645751311064590590501615753639260425710259183082;
-      static inline const long double bquad = 2.828427124746190097603377448419396157139343750754;
+      static inline const double adouble =
+         1.414213562373095048801688724209698078569671875377;
+      static inline const float afloat =
+         1.732050807568877293527446341505872366942805253810;
+      static inline const long double aquad =
+         2.236067977499789696409173668731276235440618359612;
+      static inline const double bdouble =
+         2.449489742783178098197284074705891391965947480657;
+      static inline const float bfloat =
+         2.645751311064590590501615753639260425710259183082;
+      static inline const long double bquad =
+         2.828427124746190097603377448419396157139343750754;
    } defaults;
 
    // ------------------------
@@ -896,12 +908,18 @@ public:
 
    struct {
       // metadata
-      Defaulted<double> adouble{1.414213562373095048801688724209698078569671875377};
-      Defaulted<float> afloat{1.732050807568877293527446341505872366942805253810};
-      Defaulted<long double> aquad{2.236067977499789696409173668731276235440618359612};
-      Defaulted<double> bdouble{2.449489742783178098197284074705891391965947480657};
-      Defaulted<float> bfloat{2.645751311064590590501615753639260425710259183082};
-      Defaulted<long double> bquad{2.828427124746190097603377448419396157139343750754};
+      Defaulted<double> adouble
+         { 1.414213562373095048801688724209698078569671875377 };
+      Defaulted<float> afloat
+         { 1.732050807568877293527446341505872366942805253810 };
+      Defaulted<long double> aquad
+         { 2.236067977499789696409173668731276235440618359612 };
+      Defaulted<double> bdouble
+         { 2.449489742783178098197284074705891391965947480657 };
+      Defaulted<float> bfloat
+         { 2.645751311064590590501615753639260425710259183082 };
+      Defaulted<long double> bquad
+         { 2.828427124746190097603377448419396157139343750754 };
 
       // children
       std::optional<precision::Doubles> doubles;

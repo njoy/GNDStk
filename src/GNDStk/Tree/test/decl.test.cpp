@@ -46,7 +46,8 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().children.size() == 0);
       }
 
-      WHEN("We call reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("We call reset(covarianceSuite, FileType::xml, "
+           "\"3.0\", \"UTF-9\")") {
          Tree t;
          t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          CHECK(t.decl().name == "#xml");

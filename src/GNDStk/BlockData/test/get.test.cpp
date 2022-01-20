@@ -194,7 +194,7 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BlockData<true,INTEGER> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string(""); }
    { BlockData<true,INTEGER> b; b.start(0).length(4).string("");
       CHECK(b.template get<int>(1) == 0); }
    { BlockData<true,INTEGER> b; b.start(1).length(5).string("");
@@ -227,7 +227,7 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BlockData<true,FLOAT> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string(""); }
    { BlockData<true,FLOAT> b; b.start(0).length(4).string("");
       CHECK(b.template get<double>(1) == 0); }
    { BlockData<true,FLOAT> b; b.start(1).length(5).string("");
@@ -260,7 +260,7 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BlockData<true,STRING> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,STRING> b; b.start(0).length(0).string(""); }
    { BlockData<true,STRING> b; b.start(0).length(4).string("");
       CHECK(b.template get<std::string>(1) == ""); }
    { BlockData<true,STRING> b; b.start(1).length(5).string("");
@@ -293,7 +293,7 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string(""); }
    { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("");
       CHECK(b.template get<unsigned>(1) == 0); }
    { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("");
@@ -679,14 +679,16 @@ void scenario_get_named()
 }
 
 // For BlockData<DATATYPE == void>
-SCENARIO("BlockData<DATATYPE == void> type-specific get functions: doubles() etc.") {
+SCENARIO("BlockData<DATATYPE == void> type-specific get functions: "
+         "doubles() etc.") {
    GIVEN("A BlockData object") {
       scenario_get_named<void,void,void>();
    }
 }
 
 // For BlockData<DATATYPE != void>
-SCENARIO("BlockData<DATATYPE != void> type-specific get functions: doubles() etc.") {
+SCENARIO("BlockData<DATATYPE != void> type-specific get functions: "
+         "doubles() etc.") {
    GIVEN("A BlockData object") {
       scenario_get_named<int,double,std::string>();
    }

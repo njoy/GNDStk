@@ -287,7 +287,8 @@ void scenario_toNode()
                struct {
                   std::string valueType = "";
                } content;
-               const std::string &valueType() const { return content.valueType; }
+               const std::string &valueType() const
+                  { return content.valueType; }
                std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
@@ -305,7 +306,8 @@ void scenario_toNode()
                } content;
                const int &start() const { return content.start; }
                int &start() { return content.start; }
-               const std::string &valueType() const { return content.valueType; }
+               const std::string &valueType() const
+                  { return content.valueType; }
                std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
@@ -324,7 +326,8 @@ void scenario_toNode()
                } content;
                const int &length() const { return content.length; }
                int &length() { return content.length; }
-               const std::string &valueType() const { return content.valueType; }
+               const std::string &valueType() const
+                  { return content.valueType; }
                std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;
@@ -365,7 +368,8 @@ void scenario_toNode()
                int &length() { return content.length; }
                const int &start() const { return content.start; }
                int &start() { return content.start; }
-               const std::string &valueType() const { return content.valueType; }
+               const std::string &valueType() const
+                  { return content.valueType; }
                std::string &valueType() { return content.valueType; }
             } derived;
             BlockData<true,INTEGER> b; std::string text;

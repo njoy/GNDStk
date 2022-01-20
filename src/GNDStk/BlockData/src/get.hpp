@@ -326,7 +326,8 @@ std::enable_if_t<
 // These trigger a complete rebuild of the vector, if it isn't already of type
 // vector<T> for the given T. This is intentional, in order to provide maximum
 // flexibility. However, be aware of it, for the sake of efficiency! In general,
-// when using a BlockData object, we recommend sticking with one underlying type.
+// when using a BlockData object, we recommend sticking with one underlying
+// type, not dynamically changing from one type to another.
 
 // For DATATYPE != void (so that we have a vector):
 // T == DATATYPE is required, so that returning an element of the
