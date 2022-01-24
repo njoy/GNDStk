@@ -1,8 +1,8 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 #include <cstring>
-
 using namespace njoy::GNDStk;
 
 

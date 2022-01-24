@@ -197,7 +197,7 @@ public:
 // one or both, construct a Child in some other way than by using this macro.
 
 #define GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
-   inline const Child<TYPE,Allow::ALLOW> name(#name)
+   inline const njoy::GNDStk::Child<TYPE,njoy::GNDStk::Allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.

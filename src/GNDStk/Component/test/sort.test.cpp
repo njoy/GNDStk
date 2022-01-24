@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 // In this file, we'll also test the detail:: functions on which Component's
 // sort() function is based. Those tests could have gone into detail.test.cpp,

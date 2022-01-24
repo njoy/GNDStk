@@ -3,6 +3,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 
 using namespace njoy::GNDStk;
 

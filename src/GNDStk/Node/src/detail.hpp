@@ -582,7 +582,7 @@ public:
    }
 
    // ------------------------
-   // misc. functions
+   // miscellaneous functions
    // ------------------------
 
    // size

@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 inline std::string bar = "bar";
 
 // -----------------------------------------------------------------------------

@@ -5,7 +5,7 @@
 
 #include "GNDStk.hpp"
 #include <cstring>
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 // Report cases of nodes that have no metadata, and zero or one child node(s).
 // Where these exist, a simplification of the spec may be worth considering.
@@ -1987,7 +1987,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
    out("namespace @ {", specs.Project);
    out("namespace @ {", specs.VersionUnderscore);
    out();
-   out("using namespace njoy::GNDStk::core;");
+   out("using namespace njoy::GNDStk;");
 
    // ------------------------
    // Meta<> objects
@@ -2093,7 +2093,7 @@ void fileGNDStkClass(
    out("namespace @ {", specs.Project);
    out("namespace @ {", specs.VersionUnderscore);
    out();
-   out("using namespace njoy::GNDStk::core;");
+   out("using namespace njoy::GNDStk;");
    out(per.code,false);
    out("} // namespace @", specs.VersionUnderscore);
    out("} // namespace @", specs.Project);

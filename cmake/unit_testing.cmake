@@ -10,7 +10,6 @@ enable_testing()
 # Unit testing directories
 #######################################################################
 
-add_subdirectory( src/GNDStk/test )
 add_subdirectory( src/GNDStk/Defaulted/test )
 add_subdirectory( src/GNDStk/Tree/test )
 add_subdirectory( src/GNDStk/type2string/test )

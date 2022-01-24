@@ -3,7 +3,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 #include "precision.test.hpp"
 
 // -----------------------------------------------------------------------------

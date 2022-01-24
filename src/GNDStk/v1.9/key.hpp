@@ -9,7 +9,7 @@ namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------

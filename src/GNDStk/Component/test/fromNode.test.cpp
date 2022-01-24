@@ -3,8 +3,11 @@
 #include "GNDStk.hpp"
 #include "prototype.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 using namespace GNDStk::proto;
+
+#include "GNDStk/test/keys.hpp"
+using namespace basic;
 
 
 // -----------------------------------------------------------------------------

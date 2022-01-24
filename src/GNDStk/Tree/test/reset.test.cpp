@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 
 SCENARIO("Testing GNDStk tree reset()") {
    using namespace njoy::GNDStk;

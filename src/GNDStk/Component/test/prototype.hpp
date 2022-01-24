@@ -2,7 +2,7 @@
 namespace GNDStk {
 namespace proto {
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 // -----------------------------------------------------------------------------
 // Sketch: prototype "ReactionSuite" hierarchy

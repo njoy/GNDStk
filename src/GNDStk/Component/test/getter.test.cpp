@@ -3,7 +3,7 @@
 #include "GNDStk.hpp"
 #include "indexnlabel.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
