@@ -20,21 +20,21 @@ void scenario_toNode()
    GIVEN("A default-constructed BlockData") {
       WHEN("toNode() is called") {
          THEN("The computed text string is empty") {
-            const BlockData<true,INTEGER> b;
-
             std::string text = "abc";
-            struct {
+            struct : public BlockData<true,INTEGER> {
                struct {
                } content;
             } derived;
+            BlockData<true,INTEGER> &b = derived;
+
             // w/trim == true (shouldn't matter here; applies to vector)
             b.trim = true;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "");
 
             // w/trim == false (shouldn't matter here; applies to vector)
             b.trim = false;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "");
          }
       }
@@ -46,15 +46,14 @@ void scenario_toNode()
          THEN("The computed text string is as expected, "
               "and the parameters remain as given"
          ) {
-            BlockData<true,INTEGER> b;
-            b.string("0 12 34 56 0 0")
-             .start(100).length(200).valueType("hello");
-
-            std::string text = "abc";
-            struct {
+            struct : public BlockData<true,INTEGER> {
                struct {
                } content;
             } derived;
+            BlockData<true,INTEGER> &b = derived;
+
+            b.string("0 12 34 56 0 0")
+             .start(100).length(200).valueType("hello");
 
             // Someone who sets the raw string directly (as opposed to using
             // a vector) is stating that they want *exactly* that raw string,
@@ -62,16 +61,18 @@ void scenario_toNode()
             // be relevant, use a vector.
 
             // w/trim == true (shouldn't matter here; applies to vector)
+            std::string text = "abc";
             b.trim = true;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "0 12 34 56 0 0");
             CHECK(b.start() == 100);
             CHECK(b.length() == 200);
             CHECK(b.valueType() == "hello");
 
             // w/trim == false (shouldn't matter here; applies to vector)
+            text = "abc";
             b.trim = false;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "0 12 34 56 0 0");
             CHECK(b.start() == 100);
             CHECK(b.length() == 200);
@@ -86,30 +87,31 @@ void scenario_toNode()
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BlockData<true,INTEGER> b;
+            struct : public BlockData<true,INTEGER> {
+               struct {
+               } content;
+            } derived;
+            BlockData<true,INTEGER> &b = derived;
+
             // what's set here should be replaced upon assignment from vector
             b.string("a b c").start(10).length(20).valueType("foobar");
 
             // assign from vector
             b = std::vector<int>{{0, 0, 12, 34, 56, 78, 0, 0, 0, 0, 0}};
 
-            std::string text = "this should be replaced";
-            struct {
-               struct {
-               } content;
-            } derived;
-
             // w/trim == true
+            std::string text = "this should be replaced";
             b.trim = true;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "12 34 56 78");
             CHECK(b.start() == 2);
             CHECK(b.length() == 11);
             CHECK(b.valueType() == "Integer32");
 
             // w/trim == false
+            text = "this should be replaced";
             b.trim = false;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "0 0 12 34 56 78 0 0 0 0 0");
             CHECK(b.start() == 0);
             CHECK(b.length() == 11);
@@ -124,30 +126,31 @@ void scenario_toNode()
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BlockData<true,FLOAT> b;
+            struct : public BlockData<true,FLOAT> {
+               struct {
+               } content;
+            } derived;
+            BlockData<true,FLOAT> &b = derived;
+
             // what's set here should be replaced upon assignment from vector
             b.string("d e f").start(100).length(200).valueType("foobar");
 
             // assign from vector
             b = std::vector<double>{{0, 0, 0, 1.234, 5.678, 0, 0 }};
 
-            std::string text = "this should be replaced";
-            struct {
-               struct {
-               } content;
-            } derived;
-
             // w/trim == true
+            std::string text = "this should be replaced";
             b.trim = true;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "1.234 5.678");
             CHECK(b.start() == 3);
             CHECK(b.length() == 7);
             CHECK(b.valueType() == "Float64");
 
             // w/trim == false
+            text = "this should be replaced";
             b.trim = false;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "0 0 0 1.234 5.678 0 0");
             CHECK(b.start() == 0);
             CHECK(b.length() == 7);
@@ -164,22 +167,22 @@ void scenario_toNode()
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BlockData<true,STRING> b;
+            struct : public BlockData<true,STRING> {
+               struct {
+               } content;
+            } derived;
+            BlockData<true,STRING> &b = derived;
+
             // what's set here should be replaced upon assignment from vector
             b.string("d e f").start(100).length(200).valueType("foobar");
 
             // assign from vector
             b = std::vector<std::string>{{"","","","foo","bar","baz","",""}};
 
-            std::string text = "this should be replaced";
-            struct {
-               struct {
-               } content;
-            } derived;
-
             // w/trim == true
+            std::string text = "this should be replaced";
             b.trim = true;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "foo bar baz");
             CHECK(b.start() == 3);
             CHECK(b.length() == 8);
@@ -190,8 +193,9 @@ void scenario_toNode()
             // were true. If it didn't, we'd end up with, well, leading and
             // trailing *empty* strings, which, well, amount to leading and
             // trailing nothing.
+            text = "this should be replaced";
             b.trim = false;
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "foo bar baz");
             CHECK(b.start() == 3);
             CHECK(b.length() == 8);
@@ -207,7 +211,12 @@ void scenario_toNode()
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BlockData<true,CHAR> b;
+            struct : public BlockData<true,CHAR> {
+               struct {
+               } content;
+            } derived;
+            BlockData<true,CHAR> &b = derived;
+
             // what's set here should be replaced upon assignment from vector
             b.string("x y z").start(100).length(200).valueType("foobar");
 
@@ -215,169 +224,11 @@ void scenario_toNode()
             b = std::vector<char>{{0,0,0,0,0,'a','b','c','d',0}};
 
             std::string text = "this should be replaced";
-            struct {
-               struct {
-               } content;
-            } derived;
-
-            b.toNode(text,derived);
+            b.toNode(text);
             CHECK(text == "a b c d");
             CHECK(b.start() == 5);
             CHECK(b.length() == 10);
             CHECK(b.valueType() == "char");
-         }
-      }
-   }
-
-   // Test various configurations of content{} when calling toNode(). Basically,
-   // these test whether toNode properly updates whichever of length, start, and
-   // valueType are in .content of toNode()'s second argument.
-   GIVEN("A BlockData, with vector<int>") {
-      WHEN("toNode() is called") {
-
-         // none of length, start, valueType
-         THEN("Push to content{} works") {
-            struct {
-               struct {
-                  int ignored = 12345;
-               } content;
-               const int &ignored() const { return content.ignored; }
-               int &ignored() { return content.ignored; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            // toNode doesn't care about what's *not* length/start/valueType...
-            CHECK(derived.ignored() == 12345); // same as before toNode()
-         }
-
-         // length only
-         THEN("Push to content{length} works") {
-            struct {
-               struct {
-                  int length = 0;
-               } content;
-               const int &length() const { return content.length; }
-               int &length() { return content.length; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.length() == 8);
-         }
-
-         // start only
-         THEN("Push to content{start} works") {
-            struct {
-               struct {
-                  int start = 0;
-               } content;
-               const int &start() const { return content.start; }
-               int &start() { return content.start; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.start() == 2);
-         }
-
-         // valueType only
-         THEN("Push to content{valueType} works") {
-            struct {
-               struct {
-                  std::string valueType = "";
-               } content;
-               const std::string &valueType() const
-                  { return content.valueType; }
-               std::string &valueType() { return content.valueType; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.valueType() == "Integer32");
-         }
-
-         // all but length
-         THEN("Push to content{start,valueType} works") {
-            struct {
-               struct {
-                  int start = 0;
-                  std::string valueType = "";
-               } content;
-               const int &start() const { return content.start; }
-               int &start() { return content.start; }
-               const std::string &valueType() const
-                  { return content.valueType; }
-               std::string &valueType() { return content.valueType; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.start() == 2);
-            CHECK(derived.valueType() == "Integer32");
-         }
-
-         // all but start
-         THEN("Push to content{length,valueType} works") {
-            struct {
-               struct {
-                  int length = 0;
-                  std::string valueType = "";
-               } content;
-               const int &length() const { return content.length; }
-               int &length() { return content.length; }
-               const std::string &valueType() const
-                  { return content.valueType; }
-               std::string &valueType() { return content.valueType; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.length() == 8);
-            CHECK(derived.valueType() == "Integer32");
-         }
-
-         // all but valueType
-         THEN("Push to content{length,start} works") {
-            struct {
-               struct {
-                  int length = 0;
-                  int start = 0;
-               } content;
-               const int &length() const { return content.length; }
-               int &length() { return content.length; }
-               const int &start() const { return content.start; }
-               int &start() { return content.start; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.length() == 8);
-            CHECK(derived.start() == 2);
-         }
-
-         // all three
-         THEN("Push to content{length,start,valueType} works") {
-            struct {
-               struct {
-                  int length = 0;
-                  int start = 0;
-                  std::string valueType = "";
-               } content;
-               const int &length() const { return content.length; }
-               int &length() { return content.length; }
-               const int &start() const { return content.start; }
-               int &start() { return content.start; }
-               const std::string &valueType() const
-                  { return content.valueType; }
-               std::string &valueType() { return content.valueType; }
-            } derived;
-            BlockData<true,INTEGER> b; std::string text;
-            b = std::vector<int>{{0,0,10,20,30,0,0,0}};
-            b.toNode(text,derived);
-            CHECK(derived.length() == 8);
-            CHECK(derived.start() == 2);
-            CHECK(derived.valueType() == "Integer32");
          }
       }
    }

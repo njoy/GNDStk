@@ -31,37 +31,39 @@ our GNDS Standard Interface code autogeneration tool produces.
 
 private:
 
-// toNode() works with a conceptually const object but may update these to be
+// toNode() works with a conceptually const object, but may update these to be
 // consistent with vector data; so, mutable.
-mutable struct {
+struct {
    // Any of these might or might not have appeared in a particular node that
    // had block data. For uniformity, we have them all here, and with defaults.
-   std::size_t length = 0;
-   std::size_t start = 0;
-   std::string valueType = "";
+   mutable std::size_t length = 0;
+   mutable std::size_t start = 0;
+   mutable std::string valueType = "";
 } vars;
 
 
 // -----------------------------------------------------------------------------
 // Getters
+// Note: we intentionally return by (non-const!) reference, because the values
+// in question are mutable.
 // -----------------------------------------------------------------------------
 
 public:
 
 // length
-std::size_t length() const
+std::size_t &length() const
 {
    return vars.length;
 }
 
 // start
-std::size_t start() const
+std::size_t &start() const
 {
    return vars.start;
 }
 
 // valueType
-const std::string &valueType() const
+std::string &valueType() const
 {
    return vars.valueType;
 }

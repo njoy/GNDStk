@@ -72,7 +72,6 @@ namespace GNDStk {
 #include "GNDStk/type2string.hpp"
 
 // Meta, Child, and related
-#include "GNDStk/convert_t.hpp"
 #include "GNDStk/Meta.hpp"
 #include "GNDStk/Child.hpp"
 #include "GNDStk/or.hpp"

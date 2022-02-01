@@ -6,12 +6,11 @@
 // that Component's full conversion-to-Node will place into the Node itself.
 // -----------------------------------------------------------------------------
 
-// Use either (1) the original raw string, or (2) the variant of vectors or the
-// vector (depending on DATATYPE ==/!= void), based on whether or not the string
-// is active. length, start, and valueType might be computed too, in which case
-// they're also changed in the derived class in order to keep things consistent.
-template<class DERIVED>
-void toNode(std::string &text, DERIVED &derived) const
+// Use either (1) the original raw string, or (2) either the variant of vectors
+// or the vector (depending on DATATYPE ==/!= void), based on whether or not the
+// raw string is active. If a vector (not the raw string) is active, then we'll
+// also compute length, start, and valueType.
+void toNode(std::string &text) const
 {
    // Use the raw string?
    if (active() == Active::string) {
@@ -60,7 +59,6 @@ void toNode(std::string &text, DERIVED &derived) const
       vars.valueType = detail::visitMapTypeString(variant);
    else
       vars.valueType = detail::MapTypeString<DATATYPE>::value[0];
-   pushToDerived(derived);
 
    // Values
    std::ostringstream oss;
