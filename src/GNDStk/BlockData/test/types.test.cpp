@@ -80,10 +80,10 @@ SCENARIO("BlockData data types") {
             CHECK(std::get<unsigned short>(scalars) == 200);
          }
 
-         THEN("Transforming to vector<unsigned int>, and access, work") {
-            vectors = std::vector<unsigned int>(10,300);
-            scalars = std::get<std::vector<unsigned int>>(vectors)[0];
-            CHECK(std::get<unsigned int>(scalars) == 300);
+         THEN("Transforming to vector<unsigned>, and access, work") {
+            vectors = std::vector<unsigned>(10,300);
+            scalars = std::get<std::vector<unsigned>>(vectors)[0];
+            CHECK(std::get<unsigned>(scalars) == 300);
          }
 
          THEN("Transforming to vector<unsigned long>, and access, work") {

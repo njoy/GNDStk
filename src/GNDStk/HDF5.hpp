@@ -1,4 +1,6 @@
 
+#include "GNDStk/HDF5/src/detail.hpp"
+
 // -----------------------------------------------------------------------------
 // HDF5
 // Wraps HighFive::File

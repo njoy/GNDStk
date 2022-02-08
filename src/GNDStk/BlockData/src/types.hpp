@@ -21,7 +21,7 @@ using VariantOfVectors = std::variant<
    // unsigned integrals
    std::vector<unsigned char>,
    std::vector<unsigned short>,
-   std::vector<unsigned int>,
+   std::vector<unsigned>,
    std::vector<unsigned long>,
    std::vector<unsigned long long>,
 

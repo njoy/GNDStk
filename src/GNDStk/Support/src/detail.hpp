@@ -56,7 +56,7 @@ makeMapTypeString(std::string,
    {"UTF8Text" COMMA "string" COMMA "std::string"});
 makeMapTypeString(int,
    {"Integer32" COMMA "int"});
-makeMapTypeString(unsigned int,
+makeMapTypeString(unsigned,
    {"UInteger32" COMMA "unsigned" COMMA "unsigned int"});
 makeMapTypeString(double,
    {"Float64" COMMA "double"});
@@ -103,7 +103,7 @@ void MapStringType(const std::string &str, const CALLBACK &call)
    makeMapStringType(long long)
    makeMapStringType(unsigned char)
    makeMapStringType(unsigned short)
-   makeMapStringType(unsigned int)
+   makeMapStringType(unsigned)
    makeMapStringType(unsigned long)
    makeMapStringType(unsigned long long)
    makeMapStringType(float)

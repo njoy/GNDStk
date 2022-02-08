@@ -1,5 +1,7 @@
 
-add_executable( GNDStk.HDF5.test HDF5.test.cpp )
+add_executable( GNDStk.HDF5.test
+                HDF5.test.cpp
+                detail.test.cpp )
 target_compile_options( GNDStk.HDF5.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
