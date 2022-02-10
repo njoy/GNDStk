@@ -1,10 +1,9 @@
 
 // -----------------------------------------------------------------------------
 // Component
-// conversion to Node
+// Conversion to Node.
 // -----------------------------------------------------------------------------
 
-// const
 operator Node() const
 {
    // Initialize a Node, with the necessary name
@@ -50,4 +49,18 @@ operator Node() const
    }
 
    return node;
+}
+
+
+// -----------------------------------------------------------------------------
+// Component
+// Conversion to Tree.
+// Like conversion to Node, but with a wrapper Node at the top.
+// -----------------------------------------------------------------------------
+
+operator Tree() const
+{
+   Tree tree;
+   tree.add(Node(*this));
+   return tree;
 }

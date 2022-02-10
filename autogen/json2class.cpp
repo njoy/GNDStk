@@ -1996,10 +1996,9 @@ void fileGNDStkKey(const InfoSpecs &specs)
    out();
    out();
    out(largeComment);
-   out("// key::meta::");
+   out("// meta::");
    out(largeComment);
    out();
-   out("namespace key {");
    out("namespace meta {");
 
    if (metadata.size() > 0) {
@@ -2010,8 +2009,6 @@ void fileGNDStkKey(const InfoSpecs &specs)
    }
 
    out("} // namespace meta");
-   out("using namespace meta;");
-   out("} // namespace key");
 
    // ------------------------
    // Child<> objects
@@ -2021,11 +2018,10 @@ void fileGNDStkKey(const InfoSpecs &specs)
       out();
       out();
       out(largeComment);
-      out("// @::key::child::", nspace.first);
+      out("// @::child::", nspace.first);
       out(largeComment);
       out();
       out("namespace @ {", nspace.first);
-      out("namespace key {");
       out("namespace child {");
 
       const auto &children = nspace.second;
@@ -2038,9 +2034,28 @@ void fileGNDStkKey(const InfoSpecs &specs)
 
       out("} // namespace child");
       out("using namespace child;");
-      out("} // namespace key");
       out("} // namespace @", nspace.first);
    }
+
+   // ------------------------
+   // Using directives
+   // ------------------------
+
+   out();
+   out();
+   out(largeComment);
+   out("// For convenience: using directives");
+   out(largeComment);
+   out();
+   out("namespace key {");
+   out(1,"using namespace meta;");
+   for (const auto &nspace : namespace2children)
+      out(1,"using namespace @::child;", nspace.first);
+   out("} // namespace key");
+   out();
+   out("using namespace key;");
+   for (const auto &nspace : namespace2children)
+      out("using namespace @;", nspace.first);
 
    // ------------------------
    // finish

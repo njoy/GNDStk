@@ -13,10 +13,9 @@ using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
-// key::meta::
+// meta::
 // -----------------------------------------------------------------------------
 
-namespace key {
 namespace meta {
 
 inline const Meta<> ENDF_MT("ENDF_MT");
@@ -39,16 +38,13 @@ inline const Meta<> unit("unit");
 inline const Meta<> valueType("valueType");
 
 } // namespace meta
-using namespace meta;
-} // namespace key
 
 
 // -----------------------------------------------------------------------------
-// containers::key::child::
+// containers::child::
 // -----------------------------------------------------------------------------
 
 namespace containers {
-namespace key {
 namespace child {
 
 inline const Child<> XYs1d("XYs1d");
@@ -61,16 +57,14 @@ inline const Child<> values("values");
 
 } // namespace child
 using namespace child;
-} // namespace key
 } // namespace containers
 
 
 // -----------------------------------------------------------------------------
-// transport::key::child::
+// transport::child::
 // -----------------------------------------------------------------------------
 
 namespace transport {
-namespace key {
 namespace child {
 
 inline const Child<> crossSection("crossSection");
@@ -80,8 +74,22 @@ inline const Child<> reactions("reactions");
 
 } // namespace child
 using namespace child;
-} // namespace key
 } // namespace transport
+
+
+// -----------------------------------------------------------------------------
+// For convenience: using directives
+// -----------------------------------------------------------------------------
+
+namespace key {
+   using namespace meta;
+   using namespace containers::child;
+   using namespace transport::child;
+} // namespace key
+
+using namespace key;
+using namespace containers;
+using namespace transport;
 
 
 // -----------------------------------------------------------------------------

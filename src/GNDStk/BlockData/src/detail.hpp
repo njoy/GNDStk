@@ -93,9 +93,9 @@ struct has_label<std::variant<Ts...>> {
 // ------------------------
 
 template<class T>
-inline constexpr bool hasIndex     = has_index    <std::decay_t<T>>::value;
+inline constexpr bool hasIndex = has_index<std::decay_t<T>>::value;
 template<class T>
-inline constexpr bool hasLabel     = has_label    <std::decay_t<T>>::value;
+inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
 
 
 
