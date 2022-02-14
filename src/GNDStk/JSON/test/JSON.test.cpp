@@ -34,10 +34,6 @@ R"***({
                "label": "resolved resonances"
             },
             "parameterCovarianceMatrix": {
-               "#attributes": {
-                  "label": "eval",
-                  "type": "absolute"
-               },
                "array": {
                   "#attributes": {
                      "compression": "diagonal",
@@ -50,6 +46,10 @@ R"***({
                         }
                      }
                   }
+               },
+               "#attributes": {
+                  "label": "eval",
+                  "type": "absolute"
                },
                "parameters": {
                   "parameterLink": {

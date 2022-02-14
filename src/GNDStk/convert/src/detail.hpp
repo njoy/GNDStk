@@ -7,7 +7,7 @@ namespace detail {
 
 template<class NODE>
 bool node2json(
-   const NODE &node, nlohmann::json &j,
+   const NODE &node, nlohmann::ordered_json &j,
    const std::string &suffix = ""
 ) {
    // Original node name, and suffixed name. The latter is for handling child
@@ -18,8 +18,8 @@ bool node2json(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // Create new json in j
-   auto &json = j[nameSuffixed];
+   // Create new ordered_json in j
+   nlohmann::ordered_json &json = j[nameSuffixed];
 
    // ------------------------
    // metadata ==> json
@@ -210,21 +210,22 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
 // json2node
 // -----------------------------------------------------------------------------
 
-// nlohmann::json::const_iterator ==> Node
-// Why the iterator rather than the json object? I found that there were some
-// seemingly funny semantics in the json library. As we can see below, we have
-// for example iter->is_object() (so, the -> operator, typical for iterators),
-// but also iter.value() (the . operator - on an iterator). Similarly, also
-// seen below, with the sub-elements. This is why we are, for now, writing
-// our for-loops, here as well as in the functions that call this, in the older
-// iterator form rather than the range-based-for form. Perhaps there's a way
-// to reformulate all this in a shorter way, but this is what we have for now.
+// nlohmann::ordered_json::const_iterator ==> Node
+// Why the iterator rather than the ordered_json object? I found that there
+// were some seemingly funny semantics in the nlohmann JSON library. As we
+// can see below, we have for example iter->is_object() (so, the -> operator,
+// typical for iterators), but also iter.value() (the . operator - on an
+// iterator). Similarly, also seen below, with the sub-elements. This is why
+// we are, for now, writing our for-loops, here as well as in the functions
+// that call this, in the older iterator form rather than the range-based-for
+// form. Perhaps there's a way to reformulate all this in a shorter way, but
+// this is what we have for now.
 
 // Helper: error_json2node
 inline void error_json2node(const std::string &message)
 {
    log::error(
-     "Internal error in json2node(nlohmann::json, Node):\n"
+     "Internal error in json2node(nlohmann::ordered_json, Node):\n"
      "Message: \"{}\".",
       message
    );
@@ -233,10 +234,10 @@ inline void error_json2node(const std::string &message)
 
 // json2node
 template<class NODE>
-bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
+bool json2node(const nlohmann::ordered_json::const_iterator &iter, NODE &node)
 {
    static const std::string context =
-      "json2node(nlohmann::json::const_iterator, Node)";
+      "json2node(nlohmann::ordered_json::const_iterator, Node)";
 
    // the node sent here should be fresh, ready to receive entries...
    if (!node.empty())
@@ -252,9 +253,9 @@ bool json2node(const nlohmann::json::const_iterator &iter, NODE &node)
    if (iter.key() == "#attributes")
       error_json2node("iter.key() == \"#attributes\"");
 
-   // key,value ==> node name, json value to bring in
+   // key,value ==> node name, JSON value to bring in
    node.name = iter.key();
-   const nlohmann::json &json = iter.value();
+   const nlohmann::ordered_json &json = iter.value();
 
    // elements
    for (auto elem = json.begin();  elem != json.end();  ++elem) {

@@ -30,7 +30,7 @@ FetchContent_Declare(pugixml-adapter
 
 FetchContent_Declare(json
     GIT_REPOSITORY   https://github.com/nlohmann/json.git
-    GIT_TAG          v3.7.3
+    GIT_TAG          origin/release/3.10.5
     GIT_SHALLOW      TRUE
     )
 

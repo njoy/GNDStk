@@ -6,6 +6,7 @@
 #include "GNDStk.hpp"
 #include <cstring>
 using namespace njoy::GNDStk;
+using orderedJSON = nlohmann::ordered_json;
 
 // Report cases of nodes that have no metadata, and zero or one child node(s).
 // Where these exist, a simplification of the spec may be worth considering.
@@ -20,9 +21,7 @@ const bool singletons = true;
 // KeyValue
 // Too bad the JSON library doesn't provide this more straightforwardly
 using KeyValue = nlohmann::detail::iteration_proxy_value<
-   nlohmann::detail::iter_impl<
-      const nlohmann::basic_json<>
-   >
+   nlohmann::detail::iter_impl<const orderedJSON>
 >;
 
 // NamespaceAndClass
@@ -57,7 +56,7 @@ struct Class2Dependencies {
 
 // InfoMetadata
 struct InfoMetadata {
-   // A .json spec can make a metadatum be:
+   // A JSON spec can make a metadatum be:
    //    - a std::optional, or
    //    - a GNDStk::defaulted
    // but (in contrast with child nodes) can't make it be a vector of metadata.
@@ -75,7 +74,7 @@ struct InfoMetadata {
 
 // InfoChildren
 struct InfoChildren {
-   // A .json spec can make a child node be:
+   // A JSON spec can make a child node be:
    //    - a std::optional, and/or
    //    - a std::vector
    // but can't make it be a GNDStk::defaulted. (The use of a default value for
@@ -156,7 +155,7 @@ struct PerClass {
 // Overarching data structure reflecting all of the autogenerator's input
 // as well as various processed information
 struct InfoSpecs {
-   // From the .json file on the command line
+   // From the JSON file on the command line
    std::string Path;
    std::string Project;
    std::string Version;
@@ -168,7 +167,7 @@ struct InfoSpecs {
 
    // Directory-prefixed names
    std::string hppVersion; // hpp file for this version
-   std::string hppKey;     // hpp file for this version's Meta<>/Child<> keys
+   std::string hppKey;     // hpp file for this version's Meta and Child keys
 
    // Changes to apply to a metadatum's or child node's name.
    // Example: "double" (GNDS v1.9 does have this) to "Double" for C++.
@@ -195,7 +194,7 @@ struct InfoSpecs {
    std::map<std::string,PerNamespace> namespace2data;
 
    // Map from namespace::class to information about the class
-   std::map<NamespaceAndClass,PerClass> class2data;
+   nlohmann::ordered_map<NamespaceAndClass,PerClass> class2data;
 };
 
 
@@ -285,10 +284,10 @@ std::string replace(const std::string &str, const char from, const char to)
 
 // Stringify JSON
 // See: https://github.com/nlohmann/json/issues/642
-std::string stringify(const nlohmann::json &j)
+std::string stringify(const orderedJSON &j)
 {
    const auto tmp = j.dump();
-   return j.type() == nlohmann::json::value_t::string
+   return j.type() == orderedJSON::value_t::string
       ? tmp.substr(1, tmp.size()-2)
       : tmp;
 }
@@ -381,7 +380,7 @@ std::string namePython(const std::string &name)
 // -----------------------------------------------------------------------------
 
 // Get the JSON's "namespace"
-std::string getFileNamespace(const nlohmann::json &j)
+std::string getFileNamespace(const orderedJSON &j)
 {
    return j.contains("__namespace__")
       ? j["__namespace__"]
@@ -389,7 +388,7 @@ std::string getFileNamespace(const nlohmann::json &j)
 }
 
 // Get the JSON's "type", with any relevant specs.mapMetaType entry applied
-std::string getMetadatumType(const nlohmann::json &j, const InfoSpecs &specs)
+std::string getMetadatumType(const orderedJSON &j, const InfoSpecs &specs)
 {
    const std::string type = j["type"];
    const auto it = specs.mapMetaType.find(type);
@@ -401,7 +400,7 @@ std::string getMetadatumType(const nlohmann::json &j, const InfoSpecs &specs)
 // and (3) wish to determine the proper namespace for the parent's child node
 // named "child". Parameter j is the JSON value ({...}) for this child node.
 std::string getChildNamespace(
-   const nlohmann::json &j, const InfoSpecs &specs,
+   const orderedJSON &j, const InfoSpecs &specs,
    const PerClass &per, const std::string &childClass
 ) {
    // childClass' namespace...
@@ -455,7 +454,7 @@ std::string getChildNamespace(
 
 // getClassMetadata
 void getClassMetadata(
-   const nlohmann::json &j, const InfoSpecs &specs, PerClass &per
+   const orderedJSON &j, const InfoSpecs &specs, PerClass &per
 ) {
    for (const auto &field : j.items()) {
       const auto &metaRHS = field.value();
@@ -509,7 +508,7 @@ void getClassMetadata(
 
 // getClassChildren
 void getClassChildren(
-   const nlohmann::json &j, const InfoSpecs &specs,
+   const orderedJSON &j, const InfoSpecs &specs,
    PerClass &per, Class2Dependencies &dep
 ) {
    for (const auto &field : j.items()) {
@@ -567,7 +566,7 @@ void getClassChildren(
 
 // getClassVariants
 void getClassVariants(
-   const nlohmann::json &j, const InfoSpecs &specs,
+   const orderedJSON &j, const InfoSpecs &specs,
    PerClass &per, Class2Dependencies &dep
 ) {
    // Initialize per.variants, a vector<InfoVariants> that has the "choice"
@@ -1457,7 +1456,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
 // -----------------------------------------------------------------------------
 
 // readJSONFile
-nlohmann::json readJSONFile(const std::string &file, const bool print = false)
+orderedJSON readJSONFile(const std::string &file, const bool print = false)
 {
    static const std::string underlineON  = "\033[4m";
    static const std::string underlineOFF = "\033[24m";
@@ -1476,7 +1475,7 @@ nlohmann::json readJSONFile(const std::string &file, const bool print = false)
       throw std::exception{};
    }
 
-   nlohmann::json j;
+   orderedJSON j;
    ifs >> j;
    return j;
 } // readJSONFile
@@ -1484,7 +1483,7 @@ nlohmann::json readJSONFile(const std::string &file, const bool print = false)
 
 // getMetadataJSON
 template<bool required>
-auto getMetadataJSON(const nlohmann::json &j)
+auto getMetadataJSON(const orderedJSON &j)
 {
    static const std::string metastr = "metadata";
    static const std::string attrstr = "attributes";
@@ -1497,15 +1496,15 @@ auto getMetadataJSON(const nlohmann::json &j)
       return meta ? j[metastr] : j[attrstr];
    } else {
       assert(!(meta && attr)); // not both
-      return std::optional<nlohmann::json>(
-         meta ? j[metastr] : attr ? j[attrstr] : nlohmann::json{});
+      return std::optional<orderedJSON>(
+         meta ? j[metastr] : attr ? j[attrstr] : orderedJSON{});
    }
 } // getMetadataJSON
 
 
 // getChildrenJSON
 template<bool required>
-auto getChildrenJSON(const nlohmann::json &j)
+auto getChildrenJSON(const orderedJSON &j)
 {
    static const std::string chldstr = "children";
    static const std::string nodestr = "childNodes";
@@ -1518,8 +1517,8 @@ auto getChildrenJSON(const nlohmann::json &j)
       return chld ? j[chldstr] : j[nodestr];
    } else {
       assert(!(chld && node)); // not both
-      return std::optional<nlohmann::json>(
-         chld ? j[chldstr] : node ? j[nodestr] : nlohmann::json{});
+      return std::optional<orderedJSON>(
+         chld ? j[chldstr] : node ? j[nodestr] : orderedJSON{});
    }
 } // getChildrenJSON
 
@@ -1532,7 +1531,7 @@ auto getChildrenJSON(const nlohmann::json &j)
 // readChangesFile
 void readChangesFile(const std::string &file, InfoSpecs &specs)
 {
-   const nlohmann::json jchanges = readJSONFile(file);
+   const orderedJSON jchanges = readJSONFile(file);
    using pair = std::pair<std::string,std::string>;
 
    // Changes to name?
@@ -1561,11 +1560,11 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
 // printSingletons
 void printSingletons(const std::string &file)
 {
-   const nlohmann::json &jfile = readJSONFile(file,true);
+   const orderedJSON &jfile = readJSONFile(file,true);
 
    for (const auto &item : jfile.items()) {
       const std::string parent = item.key();
-      const nlohmann::json rhs = item.value();
+      const orderedJSON rhs = item.value();
       if (!isClass(item))
          continue;
 
@@ -1583,7 +1582,7 @@ void printSingletons(const std::string &file)
 
 
 // commandLine
-// Gather information from the .json file given on the command line
+// Gather information from the JSON file given on the command line
 void commandLine(
    const int argc, const char *const *const argv,
    InfoSpecs &specs
@@ -1603,18 +1602,18 @@ void commandLine(
    }
 
    // Input file
-   const nlohmann::json jmain = readJSONFile(argv[1]);
+   const orderedJSON jmain = readJSONFile(argv[1]);
 
    // Validate content
    if (!(jmain.contains(version) &&
          jmain.contains(input) &&
          jmain.contains(files))) {
-      log::error("The input json file needs {}, {}, and {}",
+      log::error("The input JSON file needs {}, {}, and {}",
                  version, input, files);
       throw std::exception{};
    }
 
-   // Extract information from the command line .json
+   // Extract information from the command line JSON file
    specs.Path = jmain.contains(path) ? jmain[path] : ".";
    specs.Project = jmain.contains(project) ? jmain[project] : "GNDStk";
    specs.Version = jmain[version];
@@ -1743,7 +1742,7 @@ void preprocessFiles(InfoSpecs &specs)
    action("\nPreprocessing input files...");
    // files
    for (const std::string &file : specs.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file,true);
+      const orderedJSON jmain = readJSONFile(file,true);
       const std::string nsname = getFileNamespace(jmain);
       // classes in the file
       for (const auto &cl : jmain.items())
@@ -1761,7 +1760,7 @@ void preprocessFiles(InfoSpecs &specs)
 // -----------------------------------------------------------------------------
 
 // Helper: validateMetadata
-void validateMetadata(const nlohmann::json &metadata)
+void validateMetadata(const orderedJSON &metadata)
 {
    for (const auto &field : metadata.items()) {
       assert(field.value().contains("type"));
@@ -1771,7 +1770,7 @@ void validateMetadata(const nlohmann::json &metadata)
 
 
 // Helper: validateChildren
-void validateChildren(const nlohmann::json &children)
+void validateChildren(const orderedJSON &children)
 {
    for (const auto &field : children.items()) {
       assert(field.value().contains("occurrence"));
@@ -1812,8 +1811,8 @@ void getClass(
    per.nameGNDS = nameGNDS(keyval);
 
    // metadata/children information
-   const nlohmann::json attrs = getMetadataJSON<true>(classRHS);
-   const nlohmann::json elems = getChildrenJSON<true>(classRHS);
+   const orderedJSON attrs = getMetadataJSON<true>(classRHS);
+   const orderedJSON elems = getChildrenJSON<true>(classRHS);
    validateMetadata(attrs);
    validateChildren(elems);
    getClassMetadata(attrs, specs, per);
@@ -1851,7 +1850,7 @@ void getFiles(InfoSpecs &specs)
    action("\nCreating classes...");
    // files
    for (const std::string &file : specs.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file,true);
+      const orderedJSON jmain = readJSONFile(file,true);
       const std::string nsname = getFileNamespace(jmain);
       // classes in the file
       for (const auto &cl : jmain.items())
@@ -1949,7 +1948,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
    std::multimap<std::string, std::set<pair>> namespace2children;
 
    for (const auto &file : specs.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file);
+      const orderedJSON jmain = readJSONFile(file);
       auto it = namespace2children.insert(
          std::make_pair(getFileNamespace(jmain),std::set<pair>{}));
 

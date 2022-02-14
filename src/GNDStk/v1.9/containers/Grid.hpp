@@ -9,8 +9,8 @@
 #include "GNDStk.hpp"
 
 // Dependencies
-#include "GNDStk/v1.9/containers/Link.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
+#include "GNDStk/v1.9/containers/Link.hpp"
 
 namespace njoy {
 namespace GNDStk {
@@ -30,8 +30,8 @@ namespace containers {
 class Grid : public Component<Grid> {
 
    using link_values_t = std::variant<
-      containers::Link,
-      containers::Values
+      containers::Values,
+      containers::Link
    >;
 
    // ------------------------
@@ -62,7 +62,7 @@ class Grid : public Component<Grid> {
             / Meta<>("unit") |
          // children
          link_values_t{}
-            / --(Child<>("link") || Child<>("values"))
+            / --(Child<>("values") || Child<>("link"))
       ;
    }
 
@@ -135,17 +135,17 @@ public:
    link_values_t &link_values()
       { return content.link_values; }
 
-   // link
-   const containers::Link *link() const
-      { return getter<containers::Link>(link_values(), "link"); }
-   containers::Link *link()
-      { return getter<containers::Link>(link_values(), "link"); }
-
    // values
    const containers::Values *values() const
       { return getter<containers::Values>(link_values(), "values"); }
    containers::Values *values()
       { return getter<containers::Values>(link_values(), "values"); }
+
+   // link
+   const containers::Link *link() const
+      { return getter<containers::Link>(link_values(), "link"); }
+   containers::Link *link()
+      { return getter<containers::Link>(link_values(), "link"); }
 
    // ------------------------
    // Setters
@@ -179,12 +179,12 @@ public:
    Grid &link_values(const link_values_t &obj)
       { link_values() = obj; return *this; }
 
-   // link(value)
-   Grid &link(const std::optional<containers::Link> &obj)
-      { if (obj) link_values(obj.value()); return *this; }
-
    // values(value)
    Grid &values(const std::optional<containers::Values> &obj)
+      { if (obj) link_values(obj.value()); return *this; }
+
+   // link(value)
+   Grid &link(const std::optional<containers::Link> &obj)
       { if (obj) link_values(obj.value()); return *this; }
 
    // ------------------------

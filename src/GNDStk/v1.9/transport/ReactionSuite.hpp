@@ -48,14 +48,14 @@ class ReactionSuite : public Component<ReactionSuite> {
             / Meta<>("evaluation") |
          std::string{}
             / Meta<>("format") |
-         std::optional<enums::Interaction>{}
-            / Meta<>("interaction") |
          std::string{}
             / Meta<>("projectile") |
          enums::Frame{}
             / Meta<>("projectileFrame") |
          std::string{}
             / Meta<>("target") |
+         std::optional<enums::Interaction>{}
+            / Meta<>("interaction") |
          // children
          std::optional<transport::Reactions>{}
             / --Child<>("reactions")
@@ -74,10 +74,10 @@ public:
       // metadata
       std::string evaluation;
       std::string format;
-      std::optional<enums::Interaction> interaction;
       std::string projectile;
       enums::Frame projectileFrame;
       std::string target;
+      std::optional<enums::Interaction> interaction;
       // children
       std::optional<transport::Reactions> reactions;
    } content;
@@ -99,12 +99,6 @@ public:
    std::string &format()
       { return content.format; }
 
-   // interaction
-   const std::optional<enums::Interaction> &interaction() const
-      { return content.interaction; }
-   std::optional<enums::Interaction> &interaction()
-      { return content.interaction; }
-
    // projectile
    const std::string &projectile() const
       { return content.projectile; }
@@ -122,6 +116,12 @@ public:
       { return content.target; }
    std::string &target()
       { return content.target; }
+
+   // interaction
+   const std::optional<enums::Interaction> &interaction() const
+      { return content.interaction; }
+   std::optional<enums::Interaction> &interaction()
+      { return content.interaction; }
 
    // reactions
    const std::optional<transport::Reactions> &reactions() const
@@ -143,10 +143,6 @@ public:
    ReactionSuite &format(const std::string &obj)
       { format() = obj; return *this; }
 
-   // interaction(value)
-   ReactionSuite &interaction(const std::optional<enums::Interaction> &obj)
-      { interaction() = obj; return *this; }
-
    // projectile(value)
    ReactionSuite &projectile(const std::string &obj)
       { projectile() = obj; return *this; }
@@ -158,6 +154,10 @@ public:
    // target(value)
    ReactionSuite &target(const std::string &obj)
       { target() = obj; return *this; }
+
+   // interaction(value)
+   ReactionSuite &interaction(const std::optional<enums::Interaction> &obj)
+      { interaction() = obj; return *this; }
 
    // reactions(value)
    ReactionSuite &reactions(const std::optional<transport::Reactions> &obj)
@@ -173,14 +173,14 @@ public:
          std::string{},
       const std::string &format =
          std::string{},
-      const std::optional<enums::Interaction> &interaction =
-         std::optional<enums::Interaction>{},
       const std::string &projectile =
          std::string{},
       const enums::Frame &projectileFrame =
          enums::Frame{},
       const std::string &target =
          std::string{},
+      const std::optional<enums::Interaction> &interaction =
+         std::optional<enums::Interaction>{},
       const std::optional<transport::Reactions> &reactions =
          std::optional<transport::Reactions>{}
    ) :
@@ -188,19 +188,19 @@ public:
          BlockData{},
          this->evaluation(),
          this->format(),
-         this->interaction(),
          this->projectile(),
          this->projectileFrame(),
          this->target(),
+         this->interaction(),
          this->reactions()
       },
       content{
          evaluation,
          format,
-         interaction,
          projectile,
          projectileFrame,
          target,
+         interaction,
          reactions
       }
    {
@@ -213,10 +213,10 @@ public:
          other.baseBlockData(),
          this->evaluation(),
          this->format(),
-         this->interaction(),
          this->projectile(),
          this->projectileFrame(),
          this->target(),
+         this->interaction(),
          this->reactions()
       },
       content{other.content}
@@ -230,10 +230,10 @@ public:
          other.baseBlockData(),
          this->evaluation(),
          this->format(),
-         this->interaction(),
          this->projectile(),
          this->projectileFrame(),
          this->target(),
+         this->interaction(),
          this->reactions()
       },
       content{std::move(other.content)}
@@ -247,10 +247,10 @@ public:
          BlockData{},
          this->evaluation(),
          this->format(),
-         this->interaction(),
          this->projectile(),
          this->projectileFrame(),
          this->target(),
+         this->interaction(),
          this->reactions()
       }
    {

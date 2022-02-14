@@ -38,18 +38,18 @@ void wrapReactionSuite(python::module &module)
          python::init<
             const std::string &,
             const std::string &,
-            const std::optional<enums::Interaction> &,
             const std::string &,
             const enums::Frame &,
             const std::string &,
+            const std::optional<enums::Interaction> &,
             const std::optional<transport::Reactions> &
          >(),
          python::arg("evaluation"),
          python::arg("format"),
-         python::arg("interaction") = std::nullopt,
          python::arg("projectile"),
          python::arg("projectile_frame"),
          python::arg("target"),
+         python::arg("interaction") = std::nullopt,
          python::arg("reactions") = std::nullopt,
          Component::documentation("constructor").data()
       )
@@ -62,11 +62,6 @@ void wrapReactionSuite(python::module &module)
          "format",
          &Component::format,
          Component::documentation("format").data()
-      )
-      .def_property_readonly(
-         "interaction",
-         &Component::interaction,
-         Component::documentation("interaction").data()
       )
       .def_property_readonly(
          "projectile",
@@ -82,6 +77,11 @@ void wrapReactionSuite(python::module &module)
          "target",
          &Component::target,
          Component::documentation("target").data()
+      )
+      .def_property_readonly(
+         "interaction",
+         &Component::interaction,
+         Component::documentation("interaction").data()
       )
       .def_property_readonly(
          "reactions",

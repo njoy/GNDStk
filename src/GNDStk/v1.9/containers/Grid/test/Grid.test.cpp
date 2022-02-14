@@ -181,7 +181,7 @@ std::string chunk() {
 
   return
 R"***(<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">
-   <values length="2" start="0" valueType="Float64">1e-05 2e+07</values>
+   <values valueType="Float64" start="0" length="2">1e-05 2e+07</values>
 </grid>
 )***";
 }

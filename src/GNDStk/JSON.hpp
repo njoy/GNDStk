@@ -1,29 +1,12 @@
 
 // -----------------------------------------------------------------------------
 // JSON
-// Wraps nlohmann::json
+// Wraps nlohmann::ordered_json
 // -----------------------------------------------------------------------------
 
 class JSON {
 public:
-
-   // Note: nlohmann::json reorders name/value pairs lexicographically, instead
-   // of preserving the order in which it reads them. nlohmann's json.hpp says:
-   //
-   //   "@note The order name/value pairs are added to the object is *not*
-   //    preserved by the library. Therefore, iterating an object may return
-   //    name/value pairs in a different order than they were originally stored.
-   //    In fact, keys will be traversed in alphabetical order as `std::map`
-   //    with `std::less` is used by default. Please note this behavior conforms
-   //    to [RFC 7159](http://rfc7159.net/rfc7159), because any order implements
-   //    the specified 'unordered' nature of JSON objects."
-   //
-   // OK, fair enough, but I'd have liked to have a way to preserve the original
-   // order, if for no other reason that being able to do certain tests more
-   // easily. This could be hacked in some way, of course, and it's worth noting
-   // that the GNDS document speaks of basically such a hack. -MFS
-
-   nlohmann::json doc;
+   nlohmann::ordered_json doc;
 
    // clear
    JSON &clear()

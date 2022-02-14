@@ -41,12 +41,12 @@ class Values : public Component<Values,true> {
    {
       return
          // metadata
-         std::optional<int>{}
-            / Meta<>("length") |
+         Defaulted<std::string>{"double"}
+            / Meta<>("valueType") |
          Defaulted<int>{0}
             / Meta<>("start") |
-         Defaulted<std::string>{"double"}
-            / Meta<>("valueType")
+         std::optional<int>{}
+            / Meta<>("length")
       ;
    }
 
@@ -61,8 +61,8 @@ public:
    // ------------------------
 
    static inline const struct Defaults {
-      static inline const int start = 0;
       static inline const std::string valueType = "double";
+      static inline const int start = 0;
    } defaults;
 
    // ------------------------
@@ -71,9 +71,9 @@ public:
 
    struct {
       // metadata
-      mutable std::optional<int> length;
-      mutable Defaulted<int> start{0};
       mutable Defaulted<std::string> valueType{"double"};
+      mutable Defaulted<int> start{0};
+      mutable std::optional<int> length;
    } content;
 
    // ------------------------
@@ -81,11 +81,11 @@ public:
    // const and non-const
    // ------------------------
 
-   // length
-   const std::optional<int> &length() const
-      { return content.length; }
-   std::optional<int> &length()
-      { return content.length; }
+   // valueType
+   const Defaulted<std::string> &valueType() const
+      { return content.valueType; }
+   Defaulted<std::string> &valueType()
+      { return content.valueType; }
 
    // start
    const Defaulted<int> &start() const
@@ -93,11 +93,11 @@ public:
    Defaulted<int> &start()
       { return content.start; }
 
-   // valueType
-   const Defaulted<std::string> &valueType() const
-      { return content.valueType; }
-   Defaulted<std::string> &valueType()
-      { return content.valueType; }
+   // length
+   const std::optional<int> &length() const
+      { return content.length; }
+   std::optional<int> &length()
+      { return content.length; }
 
    // ------------------------
    // Setters
@@ -105,9 +105,11 @@ public:
    // All return *this
    // ------------------------
 
-   // length(value)
-   Values &length(const std::optional<int> &obj)
-      { BlockData::length(length() = obj); return *this; }
+   // valueType(value)
+   Values &valueType(const Defaulted<std::string> &obj)
+      { BlockData::valueType(valueType() = obj); return *this; }
+   Values &valueType(const std::optional<std::string> &obj)
+      { BlockData::valueType(valueType() = obj); return *this; }
 
    // start(value)
    Values &start(const Defaulted<int> &obj)
@@ -115,11 +117,9 @@ public:
    Values &start(const std::optional<int> &obj)
       { BlockData::start(start() = obj); return *this; }
 
-   // valueType(value)
-   Values &valueType(const Defaulted<std::string> &obj)
-      { BlockData::valueType(valueType() = obj); return *this; }
-   Values &valueType(const std::optional<std::string> &obj)
-      { BlockData::valueType(valueType() = obj); return *this; }
+   // length(value)
+   Values &length(const std::optional<int> &obj)
+      { BlockData::length(length() = obj); return *this; }
 
    // ------------------------
    // Constructors
@@ -128,23 +128,23 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Values(
-      const std::optional<int> &length =
-         std::optional<int>{},
+      const std::optional<std::string> &valueType =
+         std::optional<std::string>{},
       const std::optional<int> &start =
          std::optional<int>{},
-      const std::optional<std::string> &valueType =
-         std::optional<std::string>{}
+      const std::optional<int> &length =
+         std::optional<int>{}
    ) :
       Component{
          BlockData{},
-         this->length(),
+         this->valueType(),
          this->start(),
-         this->valueType()
+         this->length()
       },
       content{
-         length,
+         Defaulted<std::string>(defaults.valueType,valueType),
          Defaulted<int>(defaults.start,start),
-         Defaulted<std::string>(defaults.valueType,valueType)
+         length
       }
    {
       Component::finish();
@@ -154,9 +154,9 @@ public:
    Values(const Values &other) :
       Component{
          other.baseBlockData(),
-         this->length(),
+         this->valueType(),
          this->start(),
-         this->valueType()
+         this->length()
       },
       content{other.content}
    {
@@ -167,9 +167,9 @@ public:
    Values(Values &&other) :
       Component{
          other.baseBlockData(),
-         this->length(),
+         this->valueType(),
          this->start(),
-         this->valueType()
+         this->length()
       },
       content{std::move(other.content)}
    {
@@ -180,9 +180,9 @@ public:
    Values(const Node &node) :
       Component{
          BlockData{},
-         this->length(),
+         this->valueType(),
          this->start(),
-         this->valueType()
+         this->length()
       }
    {
       Component::finish(node);
@@ -193,9 +193,9 @@ public:
    Values(const std::vector<T> &vector) :
       Component{
          BlockData{},
-         this->length(),
+         this->valueType(),
          this->start(),
-         this->valueType()
+         this->length()
       }
    {
       Component::finish(vector);

@@ -30,6 +30,10 @@ SCENARIO( "Regions1d" ) {
       Regions1d chunk(
           std::nullopt, // optional label
           std::nullopt, // optional outer domain value
+          Axes( std::nullopt,
+                std::vector< std::variant< Axis, Grid > >{
+                    Axis( 1, "energy_in", "eV" ),
+                    Axis( 0, "crossSection", "b" ) } ), // optional axes
           std::vector< XYs1d >{
 
               XYs1d( 0, std::nullopt, std::nullopt, std::nullopt,
@@ -40,11 +44,7 @@ SCENARIO( "Regions1d" ) {
                      std::nullopt,
                      Values( std::vector< double >{
                            30000, 1.65691, 2e+7, 2.35696 } ) )
-          }, // vector of 1D functions
-          Axes( std::nullopt,
-                std::vector< std::variant< Axis, Grid > >{
-                    Axis( 1, "energy_in", "eV" ),
-                    Axis( 0, "crossSection", "b" ) } ) // optional axes
+          } // vector of 1D functions
       );
 
       THEN( "the component can be constructed and members can be tested" ) {
@@ -145,16 +145,16 @@ std::string chunk() {
 
   return
 R"***(<regions1d>
-   <XYs1d index="0">
-      <values length="4" start="0" valueType="Float64">0.0253 4.34057 30000 1.62386</values>
-   </XYs1d>
-   <XYs1d index="1">
-      <values length="4" start="0" valueType="Float64">30000 1.65691 2e+07 2.35696</values>
-   </XYs1d>
    <axes>
       <axis index="0" label="crossSection" unit="b" />
       <axis index="1" label="energy_in" unit="eV" />
    </axes>
+   <XYs1d index="0">
+      <values valueType="Float64" start="0" length="4">0.0253 4.34057 30000 1.62386</values>
+   </XYs1d>
+   <XYs1d index="1">
+      <values valueType="Float64" start="0" length="4">30000 1.65691 2e+07 2.35696</values>
+   </XYs1d>
 </regions1d>
 )***";
 }
@@ -228,10 +228,10 @@ std::string invalidName() {
   return
 R"***(<wrongName>
    <XYs1d index="0">
-      <values length="4" start="0" valueType="Float64">0.0253 4.34057 30000 1.62386</values>
+      <values valueType="Float64" start="0" length="4">0.0253 4.34057 30000 1.62386</values>
    </XYs1d>
    <XYs1d index="1">
-      <values length="4" start="0" valueType="Float64">30000 1.65691 2e+07 2.35696</values>
+      <values valueType="Float64" start="0" length="4">30000 1.65691 2e+07 2.35696</values>
    </XYs1d>
    <axes>
       <axis index="0" label="crossSection" unit="b" />

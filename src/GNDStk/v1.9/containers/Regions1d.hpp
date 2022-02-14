@@ -9,8 +9,8 @@
 #include "GNDStk.hpp"
 
 // Dependencies
-#include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
+#include "GNDStk/v1.9/containers/XYs1d.hpp"
 
 namespace njoy {
 namespace GNDStk {
@@ -50,10 +50,10 @@ class Regions1d : public Component<Regions1d> {
          std::optional<double>{}
             / Meta<>("outerDomainValue") |
          // children
-         containers::XYs1d{}
-            / ++Child<>("XYs1d") |
          std::optional<containers::Axes>{}
-            / --Child<>("axes")
+            / --Child<>("axes") |
+         containers::XYs1d{}
+            / ++Child<>("XYs1d")
       ;
    }
 
@@ -70,8 +70,8 @@ public:
       std::optional<std::string> label;
       std::optional<double> outerDomainValue;
       // children
-      std::vector<containers::XYs1d> XYs1d;
       std::optional<containers::Axes> axes;
+      std::vector<containers::XYs1d> XYs1d;
    } content;
 
    // ------------------------
@@ -91,6 +91,12 @@ public:
    std::optional<double> &outerDomainValue()
       { return content.outerDomainValue; }
 
+   // axes
+   const std::optional<containers::Axes> &axes() const
+      { return content.axes; }
+   std::optional<containers::Axes> &axes()
+      { return content.axes; }
+
    // XYs1d
    const std::vector<containers::XYs1d> &XYs1d() const
       { return content.XYs1d; }
@@ -109,12 +115,6 @@ public:
    containers::XYs1d &XYs1d(const std::string &label)
       { return getter(XYs1d(), label, "XYs1d"); }
 
-   // axes
-   const std::optional<containers::Axes> &axes() const
-      { return content.axes; }
-   std::optional<containers::Axes> &axes()
-      { return content.axes; }
-
    // ------------------------
    // Setters
    // non-const
@@ -128,6 +128,10 @@ public:
    // outerDomainValue(value)
    Regions1d &outerDomainValue(const std::optional<double> &obj)
       { outerDomainValue() = obj; return *this; }
+
+   // axes(value)
+   Regions1d &axes(const std::optional<containers::Axes> &obj)
+      { axes() = obj; return *this; }
 
    // XYs1d(value)
    Regions1d &XYs1d(const std::vector<containers::XYs1d> &obj)
@@ -153,10 +157,6 @@ public:
    Regions1d &XYs1d(const containers::XYs1d &obj)
       { setter(XYs1d(), obj); return *this; }
 
-   // axes(value)
-   Regions1d &axes(const std::optional<containers::Axes> &obj)
-      { axes() = obj; return *this; }
-
    // ------------------------
    // Constructors
    // ------------------------
@@ -167,23 +167,23 @@ public:
          std::optional<std::string>{},
       const std::optional<double> &outerDomainValue =
          std::optional<double>{},
-      const std::vector<containers::XYs1d> &XYs1d =
-         std::vector<containers::XYs1d>{},
       const std::optional<containers::Axes> &axes =
-         std::optional<containers::Axes>{}
+         std::optional<containers::Axes>{},
+      const std::vector<containers::XYs1d> &XYs1d =
+         std::vector<containers::XYs1d>{}
    ) :
       Component{
          BlockData{},
          this->label(),
          this->outerDomainValue(),
-         this->XYs1d(),
-         this->axes()
+         this->axes(),
+         this->XYs1d()
       },
       content{
          label,
          outerDomainValue,
-         XYs1d,
-         axes
+         axes,
+         XYs1d
       }
    {
       Component::finish();
@@ -195,8 +195,8 @@ public:
          other.baseBlockData(),
          this->label(),
          this->outerDomainValue(),
-         this->XYs1d(),
-         this->axes()
+         this->axes(),
+         this->XYs1d()
       },
       content{other.content}
    {
@@ -209,8 +209,8 @@ public:
          other.baseBlockData(),
          this->label(),
          this->outerDomainValue(),
-         this->XYs1d(),
-         this->axes()
+         this->axes(),
+         this->XYs1d()
       },
       content{std::move(other.content)}
    {
@@ -223,8 +223,8 @@ public:
          BlockData{},
          this->label(),
          this->outerDomainValue(),
-         this->XYs1d(),
-         this->axes()
+         this->axes(),
+         this->XYs1d()
       }
    {
       Component::finish(node);

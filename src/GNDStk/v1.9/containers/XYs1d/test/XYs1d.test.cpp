@@ -136,7 +136,7 @@ R"***(<XYs1d>
       <axis index="0" label="crossSection" unit="b" />
       <axis index="1" label="energy_in" unit="eV" />
    </axes>
-   <values length="6" start="0" valueType="Float64">1e-05 1 0.0253 2 2500 3</values>
+   <values valueType="Float64" start="0" length="6">1e-05 1 0.0253 2 2500 3</values>
 </XYs1d>
 )***";
 }
