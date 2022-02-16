@@ -55,20 +55,11 @@ inline void convert(std::istream &is, T &value)
    }
 }
 
-/*
-/// fixme Will probably need this eventually, to resolve a similar ambiguity
-/// to the one I encountered with convert(string,ostream). I anticipate this
-/// issue arising when node2hdf5() is outfitted with proper type awareness,
-/// and in particular when we try to do a convert(string,vector<something>),
-/// which (see next commented block below) first converts the string to an
-/// istringstream, then needs to resolve convert(i[string]stream,string).
-
 // string
 inline void convert(std::istream &is, std::string &value)
 {
    is >> value;
 }
-*/
 
 // pair
 template<class X, class Y>

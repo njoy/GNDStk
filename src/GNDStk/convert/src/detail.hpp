@@ -296,42 +296,202 @@ bool json2node(const nlohmann::ordered_json::const_iterator &iter, NODE &node)
 
 
 // -----------------------------------------------------------------------------
-// node2hdf5
+// HDF5-related helper functions
 // -----------------------------------------------------------------------------
 
-// Here, OBJECT is either HighFive::File or HighFive::Group
+// scalarAttr
+template<class T, class OBJECT>
+HighFive::Attribute scalarAttr(
+   const std::string &key, const std::string &value,
+   OBJECT &hdf
+) {
+   T scalar;
+   convert(value,scalar);
+   return hdf.createAttribute(key,scalar);
+}
+
+// vectorAttr
+template<class T, class OBJECT>
+HighFive::Attribute vectorAttr(
+   const std::string &key, const std::string &value,
+   OBJECT &hdf
+) {
+   std::vector<T> vector;
+   convert(value,vector);
+   return hdf.createAttribute(key,vector);
+}
+
+// vecDataSet
+template<class T, class OBJECT>
+HighFive::DataSet vecDataSet(
+   const std::string &key, const std::string &value,
+   OBJECT &hdf
+) {
+   std::vector<T> vector;
+   convert(value,vector);
+   return hdf.createDataSet(key,vector);
+}
+
+// vecDataSet, w/ type string
+template<class OBJECT>
+HighFive::DataSet vecDataSet(
+   const std::string &type,
+   const std::string &key, const std::string &value,
+   OBJECT &hdf
+) {
+   return
+      type == "int"    || type == "ints"    ?
+         vecDataSet<int          >(key,value,hdf) :
+      type == "uint"   || type == "uints"   ?
+         vecDataSet<unsigned     >(key,value,hdf) :
+      type == "long"   || type == "longs"   ?
+         vecDataSet<long         >(key,value,hdf) :
+      type == "ulong"  || type == "ulongs"  ?
+         vecDataSet<unsigned long>(key,value,hdf) :
+      type == "double" || type == "doubles" ?
+         vecDataSet<double       >(key,value,hdf) :
+      // "string", "strings", or ""
+         vecDataSet<std::string  >(key,value,hdf) ;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// typedHDF5
+// -----------------------------------------------------------------------------
+
 template<class NODE, class OBJECT>
-bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
+void typedHDF5(const NODE &node, OBJECT &hdf)
+{
+   const std::string &parent = node.name;
+
+   for (auto &meta : node.metadata) {
+      const std::string &key = meta.first;
+      const std::string &value = meta.second;
+      const std::string type = detail::guessType(value);
+
+      // *** #cdata/#text
+      // *** #comment/#text
+      // ACTION: Write these as-is. That is, do NOT apply our type-guessing code
+      // to a comment, or to the contents of a <![CDATA[...]]> block like those
+      // that we see in existing XML-format GNDS files. The type guesser would
+      // see words, and think "vector of [whitespace-separated] strings," which
+      // would be painfully wrong for what are clearly free-form strings.
+      if (key == "#text" && (parent == "#cdata" || parent == "#comment")) {
+         hdf.createAttribute(key,value); // just a simple string attribute
+         continue;
+      }
+
+      // *** #pcdata/#text
+      // ACTION: Apply our type-guessing code, but write *vectors* only, never
+      // scalars. So, <values>10</values> would be interpreted as a vector with
+      // one element, NOT as a scalar; while <values>10 20 30</values> would be
+      // interpreted as a vector with three elements. What may look like scalars
+      // are folded into vectors because we think that reflects what nodes like
+      // this are intended to represent. (If something was really just a scalar,
+      // then surely it would be placed in the metadata, not in a node such as
+      // <values>scalar</values>.)
+      if constexpr (std::is_same_v<OBJECT,HighFive::Group>) {
+         if (key == "#text" && parent == "#pcdata") {
+            vecDataSet(type,key,value,hdf);
+            continue;
+         }
+      }
+
+      // *** key/#text not expected except as already handled
+      if (key == "#text") {
+         log::warning("Metadatum name \"#text\" not expected here; "
+                      "writing anyway");
+         log::function("detail::typedHDF5(Node named \"{}\", ...)", parent);
+      }
+
+      // *** key/value
+      // General case
+      // ACTION: Apply our type-guessing code almost fully, except that for
+      // a metadatum="that looks like this", interpret "..." as essentially
+      // a single descriptive string. So, don't split it up into a vector.
+      type == "int"     ? scalarAttr<int          >(key,value,hdf) :
+      type == "ints"    ? vectorAttr<int          >(key,value,hdf) :
+      type == "uint"    ? scalarAttr<unsigned     >(key,value,hdf) :
+      type == "uints"   ? vectorAttr<unsigned     >(key,value,hdf) :
+      type == "long"    ? scalarAttr<long         >(key,value,hdf) :
+      type == "longs"   ? vectorAttr<long         >(key,value,hdf) :
+      type == "ulong"   ? scalarAttr<unsigned long>(key,value,hdf) :
+      type == "ulongs"  ? vectorAttr<unsigned long>(key,value,hdf) :
+      type == "double"  ? scalarAttr<double       >(key,value,hdf) :
+      type == "doubles" ? vectorAttr<double       >(key,value,hdf) :
+      /* else........ */  scalarAttr<std::string  >(key,value,hdf) ;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Meta2HDF5
+// -----------------------------------------------------------------------------
+
+// Here, OBJECT hdf is either a HighFive::Group or a HighFive::DataSet
+template<class NODE, class OBJECT>
+void Meta2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix)
+{
+   // #nodeName if appropriate (as with JSON, allows recovery of original name)
+   if (suffix != "")
+      hdf.createAttribute(std::string("#nodeName"), node.name);
+
+   // Existing attributes
+   if (HDF5::typed) {
+      // Use our "guess what's in the string" code to try to infer what certain
+      // "string" values actually contain (a single int, say, or a vector of
+      // doubles). Then, use the inferred types in the HDF5 file.
+      typedHDF5(node,hdf);
+   } else {
+      // Write simple HDF5 where all data (metadata, and the content of "cdata"
+      // and "pcdata" nodes) end up being strings. Not even vectors of strings
+      // (as from <values>H He Li ...</values>), but single strings.
+      for (auto &meta : node.metadata)
+         hdf.createAttribute(meta.first, meta.second);
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Node2HDF5
+// -----------------------------------------------------------------------------
+
+// Here, OBJECT hdf is either a HighFive::File or a HighFive::Group
+template<class NODE, class OBJECT>
+bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
 {
    // As with JSON; see the comment in node2json()
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // Create new group in h
-   HighFive::Group group = h.createGroup(nameSuffixed);
+   if (
+      HDF5::flat &&
+      node.children.size() == 1 &&
+      node.children[0]->name == "#pcdata" &&
+      node.children[0]->metadata.size() == 1 &&
+      node.children[0]->metadata[0].first == "#text"
+   ) {
+      // Create DataSet
+      const std::string value = node.children[0]->metadata[0].second;
+      const std::string type = detail::guessType(value);
+      HighFive::DataSet dataset = vecDataSet(type,nameSuffixed,value,hdf);
+
+      // Handle metadata, then done (there are no children)
+      Meta2HDF5(node,dataset,suffix);
+      return true;
+   }
+
+   // Create Group
+   HighFive::Group group = hdf.createGroup(nameSuffixed);
+
+   // Handle metadata
+   Meta2HDF5(node,group,suffix);
 
    // ------------------------
-   // metadata ==> file/group
-   // ------------------------
-
-   // #nodeName if appropriate (as with JSON, allows recovery of original name)
-   if (suffix != "")
-      group.createAttribute(std::string("#nodeName"), nameOriginal);
-
-   // existing attributes
-   for (auto &meta : node.metadata)
-      group.createAttribute(meta.first, meta.second);
-
-   // todo
-   // Right now, we're doing a straight translation of our internal Node
-   // structure's string-based storage scheme, where everything (including
-   // in particular the text from XML CDATA and PCDATA nodes) is stored
-   // internally as std::strings. Of course, for HDF5 we'll actually want
-   // to recognize those constructs and write HDF5 DataSets instead! For
-   // now, we'll just get *something* working.
-
-   // ------------------------
-   // children ==> file/group
+   // children
    // ------------------------
 
    // Logic as with JSON; see the comment in node2json()
@@ -347,7 +507,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    // Now revisit and process the child nodes
    for (auto &c : node.children) {
       const std::size_t counter = childNames.find(c->name)->second++;
-      if (!node2hdf5(*c, group, counter ? std::to_string(counter-1) : ""))
+      if (!Node2HDF5(*c, group, counter ? std::to_string(counter-1) : ""))
          return false;
    }
 
@@ -358,7 +518,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
 
 
 // -----------------------------------------------------------------------------
-// hdf5attr2node
+// HDF5attr2Node
 // For HighFive::Attribute
 // -----------------------------------------------------------------------------
 
@@ -393,9 +553,9 @@ bool attrTYPE2node(const HighFive::Attribute &attr, NODE &node)
    return false;
 }
 
-// hdf5attr2node
+// HDF5attr2Node
 template<class NODE>
-bool hdf5attr2node(const HighFive::Attribute &attr, NODE &node)
+bool HDF5attr2Node(const HighFive::Attribute &attr, NODE &node)
 {
    // HighFive's documentation leaves much to be desired. I used what I found
    // in HighFive/include/highfive/bits/H5DataType_misc.hpp to get an idea of
@@ -423,7 +583,7 @@ bool hdf5attr2node(const HighFive::Attribute &attr, NODE &node)
    log::error(
      "HDF5 Attribute \"{}\"'s DataType \"{}\" is not handled at this time.",
       attr.getName(), attr.getDataType().string());
-   log::function("hdf5attr2node(HighFive::Attribute, Node)");
+   log::function("HDF5attr2Node(HighFive::Attribute, Node)");
 
    return false;
 }
@@ -431,7 +591,7 @@ bool hdf5attr2node(const HighFive::Attribute &attr, NODE &node)
 
 
 // -----------------------------------------------------------------------------
-// hdf5data2node
+// HDF5data2node
 // For HighFive::DataSet
 // -----------------------------------------------------------------------------
 
@@ -462,9 +622,9 @@ bool dataTYPE2node(const HighFive::DataSet &data, NODE &node)
    return false;
 }
 
-// hdf5data2node
+// HDF5data2node
 template<class NODE>
-bool hdf5data2node(
+bool HDF5data2node(
    const HighFive::DataSet &data, const std::string &dataName,
    NODE &node
 ) {
@@ -473,7 +633,7 @@ bool hdf5data2node(
 
    // the data set's attributes
    for (auto &attrName : data.listAttributeNames())
-      if (!hdf5attr2node(data.getAttribute(attrName), node))
+      if (!HDF5attr2Node(data.getAttribute(attrName), node))
          return false;
 
    // the data set's data
@@ -496,7 +656,7 @@ bool hdf5data2node(
    log::error(
      "HDF5 DataSet \"{}\"'s DataType \"{}\" is not handled at this time.",
       dataName, data.getDataType().string());
-   log::function("hdf5data2node(HighFive::DataSet, dataName, Node)");
+   log::function("HDF5data2node(HighFive::DataSet, dataName, Node)");
 
    return false;
 }
@@ -504,32 +664,32 @@ bool hdf5data2node(
 
 
 // -----------------------------------------------------------------------------
-// hdf52node
+// HDF52Node
 // -----------------------------------------------------------------------------
 
-// Helper: error_hdf52node
-inline void error_hdf52node(const std::string &message)
+// Helper: error_HDF52Node
+inline void error_HDF52Node(const std::string &message)
 {
    log::error(
-     "Internal error in hdf52node(HighFive::Group, std::string, Node):\n"
+     "Internal error in HDF52Node(HighFive::Group, std::string, Node):\n"
      "Message: \"{}\".",
       message
    );
    throw std::exception{};
 }
 
-// hdf52node
+// HDF52Node
 template<class NODE>
-bool hdf52node(
+bool HDF52Node(
    const HighFive::Group &group, const std::string &groupName,
    NODE &node, const bool requireEmpty = true
 ) {
    static const std::string context =
-      "hdf52node(HighFive::Group, std::string, Node)";
+      "HDF52Node(HighFive::Group, std::string, Node)";
 
    // The node sent here should be fresh, ready to receive entries
    if (requireEmpty && !node.empty())
-      error_hdf52node("!node.empty()");
+      error_HDF52Node("!node.empty()");
 
    // ------------------------
    // HDF5 group name
@@ -548,7 +708,7 @@ bool hdf52node(
    // if "/" then attributes were handled, in a special way, by the caller
    if (groupName != "/")
       for (auto &attrName : group.listAttributeNames())
-         if (!hdf5attr2node(group.getAttribute(attrName), node))
+         if (!HDF5attr2Node(group.getAttribute(attrName), node))
             return false;
 
    // ------------------------
@@ -562,14 +722,14 @@ bool hdf52node(
          // File
          // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::File :
-            error_hdf52node("ObjectType \"File\" not expected here");
+            error_HDF52Node("ObjectType \"File\" not expected here");
             break;
 
          // Group
          // ACTION: call the present function recursively
          case HighFive::ObjectType::Group :
             try {
-               if (!hdf52node(group.getGroup(elemName), elemName, node.add()))
+               if (!HDF52Node(group.getGroup(elemName), elemName, node.add()))
                   return false;
             } catch (...) {
                log::function(context);
@@ -580,20 +740,20 @@ bool hdf52node(
          // UserDataType
          // NOT HANDLED; perhaps we could provide something in the future
          case HighFive::ObjectType::UserDataType :
-            error_hdf52node("ObjectType \"UserDataType\" not handled");
+            error_HDF52Node("ObjectType \"UserDataType\" not handled");
             break;
 
          // DataSpace (not to be confused with Dataset)
          // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::DataSpace :
-            error_hdf52node("ObjectType \"DataSpace\" not expected here");
+            error_HDF52Node("ObjectType \"DataSpace\" not expected here");
             break;
 
          // Dataset
          // ACTION: handle the DataSet's data
          case HighFive::ObjectType::Dataset :
             try {
-               if (!hdf5data2node(
+               if (!HDF5data2node(
                   group.getDataSet(elemName),
                   elemName,
                   node.add()
@@ -613,19 +773,19 @@ bool hdf52node(
             // because we already handled attributes earlier. So, here, we just
             // produce an error if ObjectType::Attribute inexplicably made an
             // appearance here, where we don't expect it.
-            error_hdf52node("ObjectType \"Attribute\" not expected here");
+            error_HDF52Node("ObjectType \"Attribute\" not expected here");
             break;
 
          // Other
          // NOT HANDLED; we're not sure when this would arise
          case HighFive::ObjectType::Other :
-            error_hdf52node("ObjectType \"Other\" not handled");
+            error_HDF52Node("ObjectType \"Other\" not handled");
             break;
 
          // default
          // NOT HANDLED; presumably our switch has covered all bases already
          default:
-            error_hdf52node("ObjectType [unknown] not handled");
+            error_HDF52Node("ObjectType [unknown] not handled");
             break;
 
       } // switch
