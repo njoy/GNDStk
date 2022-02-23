@@ -1,6 +1,10 @@
 
+// -----------------------------------------------------------------------------
+// Component::getter()
+// -----------------------------------------------------------------------------
+
 // The getter() functions of class Component get some names from the derived
-// class (those are used when printing diagnostics, if applicable), and then
+// class (which are used when printing diagnostics, if applicable), and then
 // call getter() functions in the detail:: namespace to do most of the work.
 //
 // The motivation for having the following at all is to simplify the retrieval,
@@ -9,30 +13,24 @@
 // in the derived class' content struct, a derived-class getter will simply
 // do a "return content.something", because nothing more complicated is needed.
 // So, the below functions involve circumstances where something more involved
-// needs to be done. See the various remarks below for more information.
+// needs to be done.
 
 
 // -----------------------------------------------------------------------------
 // (field, key, name)
-// FIELD in this context is either a vector or an optional<vector>, and KEY
-// is either an integral index or a string label. (If FIELD were just a plain
-// data type, not an [optional] vector, then there would be no reason to bother
-// with a getter() function for it; we'd just return content.field in the
-// derived class, instead of calling getter() to do something more complicated.
-// And, besides, the fact that we're looking up by index or label suggests that
-// we're dealing with a vector, not something simple like an int or a string.)
+// FIELD here is either a vector or an optional<vector>, and KEY is an integral
+// index, a string label, or a Lookup object.
 // -----------------------------------------------------------------------------
 
 // const
-template<class FIELD, class KEY> // KEY: for index or label
+template<class FIELD, class KEY>
 const auto &getter(
    const FIELD &field,
    const KEY &key,
    const std::string &fieldName
 ) const {
    return detail::getter(
-      field, key,
-      DERIVED::namespaceName(), DERIVED::className(), fieldName
+      field, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
    );
 }
 
@@ -43,20 +41,18 @@ auto &getter(
    const KEY &key,
    const std::string &fieldName
 ) {
-   return detail::getter(
-      field, key,
-      DERIVED::namespaceName(), DERIVED::className(), fieldName
-   );
+   const auto *const ptr =
+      &std::as_const(*this).template getter(field, key, fieldName);
+   return const_cast<std::decay_t<decltype(*ptr)> &>(*ptr);
 }
 
 
 // -----------------------------------------------------------------------------
 // <RETURN>(variant, name)
 // These, in contrast to the getter()s above, don't involve a vector or an
-// optional vector, or an index or a label. We bother having these only because
-// of the (admittedly small, in this case) extra complexity of checking that
-// the variant holds the requested alternative, and of producing diagnostics
-// if it doesn't.
+// optional vector. We bother having these only because of the (admittedly
+// small, in this case) extra complexity of checking that the variant holds
+// the requested alternative, and of producing diagnostics if it doesn't.
 // -----------------------------------------------------------------------------
 
 // const
@@ -66,8 +62,7 @@ const RETURN *getter(
    const std::string &fieldName
 ) const {
    return detail::getter<RETURN>(
-      var,
-      DERIVED::namespaceName(), DERIVED::className(), fieldName
+      var, DERIVED::namespaceName(), DERIVED::className(), fieldName
    );
 }
 
@@ -78,8 +73,7 @@ RETURN *getter(
    const std::string &fieldName
 ) {
    return const_cast<RETURN *>(
-      std::as_const(*this).template
-      getter<RETURN>(std::as_const(var), fieldName)
+      std::as_const(*this).template getter<RETURN>(var, fieldName)
    );
 }
 
@@ -98,8 +92,7 @@ const RETURN *getter(
    const std::string &fieldName
 ) const {
    return detail::getter<RETURN>(
-      var, key,
-      DERIVED::namespaceName(), DERIVED::className(), fieldName
+      var, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
    );
 }
 
@@ -109,9 +102,8 @@ RETURN *getter(
    std::vector<std::variant<Ts...>> &var,
    const KEY &key,
    const std::string &fieldName
-) const {
+) {
    return const_cast<RETURN *>(
-      std::as_const(*this).template
-      getter<RETURN>(std::as_const(var), key, fieldName)
+      std::as_const(*this).template getter<RETURN>(var, key, fieldName)
    );
 }

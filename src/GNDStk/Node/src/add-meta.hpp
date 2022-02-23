@@ -32,7 +32,7 @@
 // string, plain
 template<
    class T,
-   class CONVERTER = typename detail::default_converter<T>::type,
+   class CONVERTER = detail::default_converter_t<T>,
    class = std::enable_if_t<!detail::isOptional<T>>
 >
 metaPair &add(
@@ -57,7 +57,7 @@ metaPair &add(
 // string, Defaulted
 template<
    class T,
-   class CONVERTER = typename detail::default_converter<T>::type
+   class CONVERTER = detail::default_converter_t<T>
 >
 metaPair &add(
    const std::string &key,
@@ -86,7 +86,7 @@ metaPair &add(
 // Meta<void>, Defaulted
 template<
    class T = std::string,
-   class CONVERTER = typename detail::default_converter<T>::type,
+   class CONVERTER = detail::default_converter_t<T>,
    class = std::enable_if_t<!detail::isOptional<T>>
 >
 metaPair &add(

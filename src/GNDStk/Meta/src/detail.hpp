@@ -29,10 +29,11 @@ public:
 
 // -----------------------------------------------------------------------------
 // default_converter
+// default_converter_t
 // Used for selecting the CONVERTER template argument of the Meta and Child
 // classes. Usually gives convert_t, but gives void (which in turn won't, and
-// shouldn't, be used) for Meta<void> and Child<void>, for which the concept
-// of a converter is not applicable.
+// shouldn't, be used as a converter) for Meta<void> and Child<void>, for which
+// the concept of a converter is not applicable.
 // -----------------------------------------------------------------------------
 
 template<class TYPE>
@@ -46,5 +47,8 @@ class default_converter<void> {
 public:
    using type = void;
 };
+
+template<class TYPE>
+using default_converter_t = typename default_converter<TYPE>::type;
 
 } // namespace detail

@@ -11,7 +11,7 @@
 
 template<
    class TYPE = void,
-   class CONVERTER = typename detail::default_converter<TYPE>::type
+   class CONVERTER = detail::default_converter_t<TYPE>
 >
 class Meta {
 public:

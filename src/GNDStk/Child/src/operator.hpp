@@ -42,7 +42,7 @@ inline auto operator/(
    const T &object,
    const Child<void,ALLOW,void,FILTER> &kwd
 ) {
-   using CONVERTER = typename detail::default_converter<T>::type;
+   using CONVERTER = detail::default_converter_t<T>;
    return Child<T,ALLOW,CONVERTER,FILTER>(
       kwd.name,
       object,
@@ -171,7 +171,7 @@ inline auto operator--(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const int
 ) {
-   using C = typename detail::default_converter<TYPE>::type;
+   using C = detail::default_converter_t<TYPE>;
    return Child<TYPE,ALLOW,C,FILTER>(
       kwd.name,
       kwd.object,

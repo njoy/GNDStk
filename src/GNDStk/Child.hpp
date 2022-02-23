@@ -57,7 +57,7 @@ FILTER
 template<
    class TYPE = void, // default means current Node type
    Allow ALLOW = Allow::one, // one, or any number allowed?
-   class CONVERTER = typename detail::default_converter<TYPE>::type,
+   class CONVERTER = detail::default_converter_t<TYPE>,
    class FILTER = detail::noFilter
 >
 class Child {

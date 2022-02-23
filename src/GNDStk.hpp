@@ -92,6 +92,7 @@ namespace GNDStk {
 
 // Miscellaneous support constructs for Standard Interface classes
 #include "GNDStk/Support.hpp"
+#include "GNDStk/Lookup.hpp"
 
 // Base classes for primary Standard Interface data classes
 #include "GNDStk/BlockData.hpp"
