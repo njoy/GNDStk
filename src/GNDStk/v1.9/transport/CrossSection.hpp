@@ -80,9 +80,9 @@ public:
       { return content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
-   const XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t index) const
+   const XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t &index) const
       { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-   XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t index)
+   XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t &index)
       { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
@@ -92,9 +92,9 @@ public:
       { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
-   const containers::XYs1d *XYs1d(const std::size_t index) const
+   const containers::XYs1d *XYs1d(const std::size_t &index) const
       { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
-   containers::XYs1d *XYs1d(const std::size_t index)
+   containers::XYs1d *XYs1d(const std::size_t &index)
       { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
 
    // XYs1d(label)
@@ -104,9 +104,9 @@ public:
       { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
 
    // regions1d(index)
-   const containers::Regions1d *regions1d(const std::size_t index) const
+   const containers::Regions1d *regions1d(const std::size_t &index) const
       { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
-   containers::Regions1d *regions1d(const std::size_t index)
+   containers::Regions1d *regions1d(const std::size_t &index)
       { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
 
    // regions1d(label)
@@ -127,7 +127,7 @@ public:
 
    // XYs1d_regions1d(index,value)
    CrossSection &XYs1d_regions1d(
-      const std::size_t index,
+      const std::size_t &index,
       const XYs1d_regions1d_t &obj
    ) {
       XYs1d_regions1d(index) = obj; return *this;
@@ -147,7 +147,7 @@ public:
 
    // XYs1d(index,value)
    CrossSection &XYs1d(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<containers::XYs1d> &obj
    ) {
       if (obj) XYs1d_regions1d(index,obj.value());
@@ -165,7 +165,7 @@ public:
 
    // regions1d(index,value)
    CrossSection &regions1d(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<containers::Regions1d> &obj
    ) {
       if (obj) XYs1d_regions1d(index,obj.value());

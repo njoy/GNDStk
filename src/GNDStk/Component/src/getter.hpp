@@ -17,38 +17,36 @@
 
 
 // -----------------------------------------------------------------------------
-// (field, key, name)
-// FIELD here is either a vector or an optional<vector>, and KEY is an integral
-// index, a string label, or a Lookup object.
+// getter(vec, key, name)
 // -----------------------------------------------------------------------------
 
 // const
-template<class FIELD, class KEY>
+template<class VEC, class KEY>
 const auto &getter(
-   const FIELD &field,
-   const KEY &key,
+   const VEC &vec, // vector, or optional vector
+   const KEY &key, // index, label, or Lookup
    const std::string &fieldName
 ) const {
    return detail::getter(
-      field, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
+      vec, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
    );
 }
 
 // non-const
-template<class FIELD, class KEY>
+template<class VEC, class KEY>
 auto &getter(
-   FIELD &field,
+   VEC &vec,
    const KEY &key,
    const std::string &fieldName
 ) {
    const auto *const ptr =
-      &std::as_const(*this).template getter(field, key, fieldName);
+      &std::as_const(*this).template getter(vec, key, fieldName);
    return const_cast<std::decay_t<decltype(*ptr)> &>(*ptr);
 }
 
 
 // -----------------------------------------------------------------------------
-// <RETURN>(variant, name)
+// getter<RETURN>(variant, name)
 // These, in contrast to the getter()s above, don't involve a vector or an
 // optional vector. We bother having these only because of the (admittedly
 // small, in this case) extra complexity of checking that the variant holds
@@ -79,7 +77,7 @@ RETURN *getter(
 
 
 // -----------------------------------------------------------------------------
-// <RETURN>(vector<variant>, key, name)
+// getter<RETURN>(vector<variant>, key, name)
 // The motivation for these essentially amounts to the combined motivations
 // for the above two sets of getter() functions.
 // -----------------------------------------------------------------------------
@@ -87,23 +85,23 @@ RETURN *getter(
 // const
 template<class RETURN, class KEY, class... Ts>
 const RETURN *getter(
-   const std::vector<std::variant<Ts...>> &var,
+   const std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,
    const std::string &fieldName
 ) const {
    return detail::getter<RETURN>(
-      var, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
+      vecvar, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
    );
 }
 
 // non-const
 template<class RETURN, class KEY, class... Ts>
 RETURN *getter(
-   std::vector<std::variant<Ts...>> &var,
+   std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,
    const std::string &fieldName
 ) {
    return const_cast<RETURN *>(
-      std::as_const(*this).template getter<RETURN>(var, key, fieldName)
+      std::as_const(*this).template getter<RETURN>(vecvar, key, fieldName)
    );
 }

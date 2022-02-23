@@ -698,9 +698,9 @@ class writer {
       if (recurse == 0) {
          using last = decltype(
             std::get<sizeof...(args)>(std::make_tuple(value,args...)));
-         const size_t nsub = std::count(str.begin(), str.end(), substitute);
+         const std::size_t nsub = std::count(str.begin(),str.end(),substitute);
          // a bool last argument is not interpreted as an argument to print...
-         const size_t narg =
+         const std::size_t narg =
             1 + sizeof...(args) - std::is_same_v<std::decay_t<last>,bool>;
          if (narg != nsub) {
             log::error(
@@ -1040,7 +1040,7 @@ void writeClassGetters(writer &out, const PerClass &per)
 
          if (isVector) {
             // with index or label
-            indlab("std::size_t ",  "index");
+            indlab("std::size_t &", "index");
             indlab("std::string &", "label");
          }
       };
@@ -1069,7 +1069,7 @@ void writeClassGetters(writer &out, const PerClass &per)
 
          if (v.isVector) {
             // with index or label
-            indlab("std::size_t ",  "index");
+            indlab("std::size_t &", "index");
             indlab("std::string &", "label");
          } else {
             out();
@@ -1118,7 +1118,7 @@ void writeClassSetterChild(
          };
 
       // with index or label
-      indlab("std::size_t ",  "index");
+      indlab("std::size_t &", "index");
       indlab("std::string &", "label");
 
       // push vector element
@@ -1197,7 +1197,7 @@ void writeClassSetters(writer &out, const PerClass &per)
                };
 
             // with index or label
-            indlab("std::size_t ",  "index");
+            indlab("std::size_t &", "index");
             indlab("std::string &", "label");
          }
       } else {

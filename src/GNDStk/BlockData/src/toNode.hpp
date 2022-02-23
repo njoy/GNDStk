@@ -50,7 +50,7 @@ void toNode(std::string &text) const
     ? runtime
     ? std::visit([](auto &&vec) { return detail::getBounds(vec); }, variant)
     : detail::getBounds(vector)
-    : std::make_pair(size_t(0),size());
+    : std::make_pair(std::size_t(0),size());
 
    // Compute length, start, and valueType
    vars.length = size(); // independent of trim

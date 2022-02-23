@@ -64,10 +64,10 @@ inline std::string colorize(
 // ------------------------
 
 inline std::string fullName(
-   const std::string &nsname,
-   const std::string &clname
+   const std::string &nname, // name of namespace
+   const std::string &cname  // name of class
 ) {
-   return (nsname == "" ? "" : nsname + "::") + clname;
+   return (nname == "" ? "" : nname + "::") + cname;
 }
 
 

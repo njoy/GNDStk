@@ -54,7 +54,7 @@ class Lookup<HAS,EXTRACTOR,void,CONVERTER> : public Meta<> {
    static_assert(
       std::is_same_v<CONVERTER,void>,
      "Can't create Lookup<HAS,EXTRACTOR,void,CONVERTER> "
-      "with non-default CONVERTER"
+     "with non-default CONVERTER"
    );
 
 public:
@@ -85,4 +85,23 @@ auto makeLookup(
    const std::string &name
 ) {
    return Lookup<HAS,EXTRACTOR>(extractor,name);
+}
+
+
+// -----------------------------------------------------------------------------
+// has
+// -----------------------------------------------------------------------------
+
+template<
+   class EXTRACTOR, class TYPE, class CONVERTER,
+   class = std::enable_if_t<!std::is_same_v<TYPE,void>>
+>
+auto has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &look)
+{
+   return Lookup<true,EXTRACTOR,TYPE,CONVERTER>(
+      look.extractor,
+      look.name,
+      look.object,
+      look.converter
+   );
 }

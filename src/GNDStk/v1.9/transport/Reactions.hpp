@@ -74,9 +74,9 @@ public:
       { return content.reaction; }
 
    // reaction(index)
-   const transport::Reaction &reaction(const std::size_t index) const
+   const transport::Reaction &reaction(const std::size_t &index) const
       { return getter(reaction(), index, "reaction"); }
-   transport::Reaction &reaction(const std::size_t index)
+   transport::Reaction &reaction(const std::size_t &index)
       { return getter(reaction(), index, "reaction"); }
 
    // reaction(label)
@@ -97,7 +97,7 @@ public:
 
    // reaction(index,value)
    Reactions &reaction(
-      const std::size_t index,
+      const std::size_t &index,
       const transport::Reaction &obj
    ) {
       reaction(index) = obj; return *this;

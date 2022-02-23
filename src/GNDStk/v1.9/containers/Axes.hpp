@@ -91,9 +91,9 @@ public:
       { return content.axis_grid; }
 
    // axis_grid(index)
-   const axis_grid_t &axis_grid(const std::size_t index) const
+   const axis_grid_t &axis_grid(const std::size_t &index) const
       { return getter(axis_grid(), index, "axis_grid"); }
-   axis_grid_t &axis_grid(const std::size_t index)
+   axis_grid_t &axis_grid(const std::size_t &index)
       { return getter(axis_grid(), index, "axis_grid"); }
 
    // axis_grid(label)
@@ -103,9 +103,9 @@ public:
       { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
-   const containers::Axis *axis(const std::size_t index) const
+   const containers::Axis *axis(const std::size_t &index) const
       { return getter<containers::Axis>(axis_grid(), index, "axis"); }
-   containers::Axis *axis(const std::size_t index)
+   containers::Axis *axis(const std::size_t &index)
       { return getter<containers::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
@@ -115,9 +115,9 @@ public:
       { return getter<containers::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
-   const containers::Grid *grid(const std::size_t index) const
+   const containers::Grid *grid(const std::size_t &index) const
       { return getter<containers::Grid>(axis_grid(), index, "grid"); }
-   containers::Grid *grid(const std::size_t index)
+   containers::Grid *grid(const std::size_t &index)
       { return getter<containers::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
@@ -142,7 +142,7 @@ public:
 
    // axis_grid(index,value)
    Axes &axis_grid(
-      const std::size_t index,
+      const std::size_t &index,
       const axis_grid_t &obj
    ) {
       axis_grid(index) = obj; return *this;
@@ -162,7 +162,7 @@ public:
 
    // axis(index,value)
    Axes &axis(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<containers::Axis> &obj
    ) {
       if (obj) axis_grid(index,obj.value());
@@ -180,7 +180,7 @@ public:
 
    // grid(index,value)
    Axes &grid(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<containers::Grid> &obj
    ) {
       if (obj) axis_grid(index,obj.value());

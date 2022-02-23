@@ -104,9 +104,9 @@ public:
       { return content.XYs1d; }
 
    // XYs1d(index)
-   const containers::XYs1d &XYs1d(const std::size_t index) const
+   const containers::XYs1d &XYs1d(const std::size_t &index) const
       { return getter(XYs1d(), index, "XYs1d"); }
-   containers::XYs1d &XYs1d(const std::size_t index)
+   containers::XYs1d &XYs1d(const std::size_t &index)
       { return getter(XYs1d(), index, "XYs1d"); }
 
    // XYs1d(label)
@@ -139,7 +139,7 @@ public:
 
    // XYs1d(index,value)
    Regions1d &XYs1d(
-      const std::size_t index,
+      const std::size_t &index,
       const containers::XYs1d &obj
    ) {
       XYs1d(index) = obj; return *this;
