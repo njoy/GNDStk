@@ -1026,22 +1026,15 @@ void writeClassGetters(writer &out, const PerClass &per)
          out(1,      "@ &@()",       i.typeFull, i.name);
          out(2,"{ return content.@; }", i.name);
 
-         const auto indlab =
-            [&out,&i](const auto &T, const auto &par)
-            {
-               // T par: index or label parameter
-               out();
-               out(1,"// @(@)", i.name, par);
-               out(1,"const @ &@(const @@) const", i.type, i.name, T, par);
-               out(2,"{ return getter(@(), @, \"@\"); }", i.name, par, i.name);
-               out(1,      "@ &@(const @@)",       i.type, i.name, T, par);
-               out(2,"{ return getter(@(), @, \"@\"); }", i.name, par, i.name);
-            };
-
          if (isVector) {
-            // with index or label
-            indlab("std::size_t &", "index");
-            indlab("std::string &", "label");
+            out();
+            out(1,"// @(index/label/Lookup)", i.name);
+            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
+            out(1,"decltype(auto) @(const KEY &key) const", i.name);
+            out(2,   "{ return getter(@(), key, \"@\"); }", i.name, i.name);
+            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
+            out(1,"decltype(auto) @(const KEY &key)", i.name);
+            out(2,   "{ return getter(@(), key, \"@\"); }", i.name, i.name);
          }
       };
 
@@ -1097,35 +1090,32 @@ void writeClassSetterChild(
    // setter
    // note that if type is optional<T>, a T can still be sent
    out();
-   out(1,"// @(value)", child.name);
+   if (child.isVector)
+      out(1,"// @(vector), for replacing the entire vector", child.name);
+   else
+      out(1,"// @(value)", child.name);
    out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.typeFull);
    out(2,"{ @() = obj; return *this; }", child.name);
 
    // if vector or optional<vector>
    if (child.isVector) {
-      const auto indlab =
-         [&out,&parent,&child](const auto &T, const auto &par)
-         {
-            // T par: index or label parameter
-            out();
-            out(1,"// @(@,value)", child.name, par);
-            out(1,"@ &@(", parent.clname, child.name);
-            out(2,"const @@,", T, par);
-            out(2,"const @ &obj", child.type);
-            out(1,") {");
-            out(2,"@(@) = obj; return *this;", child.name, par);
-            out(1,"}");
-         };
-
-      // with index or label
-      indlab("std::size_t &", "index");
-      indlab("std::string &", "label");
-
       // push vector element
       out();
-      out(1,"// @(value) for vector push_back", child.name);
+      out(1,"// @(scalar), for a vector push_back", child.name);
       out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.type);
       out(2,"{ setter(@(), obj); return *this; }", child.name);
+
+      // replace one vector value
+      out();
+      out(1,"// @(index/label/Lookup, value), for replacing one value",
+          child.name);
+      out(1,"template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>");
+      out(1,"@ &@(const KEY &key, const @ &obj)",
+          parent.clname, child.name, child.type);
+      out(1,"{");
+      out(2,   "@(key) = obj; return *this;",
+          child.name);
+      out(1,"}");
    }
 } // writeClassSetterChild
 
@@ -2002,8 +1992,18 @@ void fileGNDStkKey(const InfoSpecs &specs)
 
    if (metadata.size() > 0) {
       out();
+      out(0,"#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \\");
+      out(1,   "inline const auto nameField = makeLookup( \\");
+      out(2,      "[](const auto &obj) -> decltype(obj.nameField()) \\");
+      out(2,      "{ return obj.nameField(); }, \\");
+      out(2,      "#nameGNDS \\");
+      out(1,   ")");
+      out(0, "// nameField vs. nameGNDS: for, e.g., Double vs. double in GNDS");
+      out();
       for (const auto &meta : metadata)
-         out("inline const Meta<> @(\"@\");", meta.first, meta.second);
+         out("GNDSTK_MAKE_LOOKUP(@,@);", meta.first, meta.second);
+      out();
+      out(0,"#undef GNDSTK_MAKE_LOOKUP");
       out();
    }
 

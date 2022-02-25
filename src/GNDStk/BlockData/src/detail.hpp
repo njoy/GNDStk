@@ -57,7 +57,7 @@ struct has_index<
 // for variant
 template<class... Ts>
 struct has_index<std::variant<Ts...>> {
-   // for variant: does any alternative have index?
+   // does any alternative have index?
    static constexpr bool value = (has_index<Ts>::value || ...);
 };
 

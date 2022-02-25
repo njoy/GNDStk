@@ -21,8 +21,11 @@
 // -----------------------------------------------------------------------------
 
 // const
-template<class VEC, class KEY>
-const auto &getter(
+template<
+   class VEC, class KEY,
+   class = detail::isSearchKey<KEY>
+>
+decltype(auto) getter(
    const VEC &vec, // vector, or optional vector
    const KEY &key, // index, label, or Lookup
    const std::string &fieldName
@@ -33,15 +36,23 @@ const auto &getter(
 }
 
 // non-const
-template<class VEC, class KEY>
-auto &getter(
+template<
+   class VEC, class KEY,
+   class = detail::isSearchKey<KEY>
+>
+decltype(auto) getter(
    VEC &vec,
    const KEY &key,
    const std::string &fieldName
 ) {
-   const auto *const ptr =
-      &std::as_const(*this).template getter(vec, key, fieldName);
-   return const_cast<std::decay_t<decltype(*ptr)> &>(*ptr);
+   using RET = decltype(
+      std::as_const(*this).template getter(vec, key, fieldName));
+
+   if constexpr (std::is_reference_v<RET>)
+      return const_cast<std::decay_t<RET> &>(
+         std::as_const(*this).template getter(vec, key, fieldName));
+   else
+      return std::as_const(*this).template getter(vec, key, fieldName);
 }
 
 
@@ -54,7 +65,10 @@ auto &getter(
 // -----------------------------------------------------------------------------
 
 // const
-template<class RETURN, class... Ts>
+template<
+   class RETURN, class... Ts,
+   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
+>
 const RETURN *getter(
    const std::variant<Ts...> &var,
    const std::string &fieldName
@@ -65,7 +79,10 @@ const RETURN *getter(
 }
 
 // non-const
-template<class RETURN, class... Ts>
+template<
+   class RETURN, class... Ts,
+   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
+>
 RETURN *getter(
    std::variant<Ts...> &var,
    const std::string &fieldName
@@ -83,7 +100,11 @@ RETURN *getter(
 // -----------------------------------------------------------------------------
 
 // const
-template<class RETURN, class KEY, class... Ts>
+template<
+   class RETURN, class KEY, class... Ts,
+   class = detail::isSearchKey<KEY>,
+   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
+>
 const RETURN *getter(
    const std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,
@@ -95,7 +116,11 @@ const RETURN *getter(
 }
 
 // non-const
-template<class RETURN, class KEY, class... Ts>
+template<
+   class RETURN, class KEY, class... Ts,
+   class = detail::isSearchKey<KEY>,
+   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
+>
 RETURN *getter(
    std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,

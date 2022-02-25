@@ -1,32 +1,122 @@
 
 // -----------------------------------------------------------------------------
-// isSearchKey<T>
-// Type T is one of:
+// Some helper classes
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// isLookup
+// ------------------------
+
+// general
+template<class T>
+struct isLookup
+   : public std::false_type
+{ };
+
+// for Lookup
+template<bool HAS, class EXTRACTOR, class TYPE, class CONVERTER>
+struct isLookup<Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>>
+   : public std::true_type
+{ };
+
+// ------------------------
+// isLookupRefReturn
+// ------------------------
+
+// general
+template<class T>
+struct isLookupRefReturn
+   : public std::false_type
+{ };
+
+// for Lookup<false,EXTRACTOR,TYPE,CONVERTER>, with TYPE != void wanted
+template<class EXTRACTOR, class TYPE, class CONVERTER>
+struct isLookupRefReturn<Lookup<false,EXTRACTOR,TYPE,CONVERTER>>
+{
+   static inline constexpr bool value = !isVoid<TYPE>;
+};
+
+// ------------------------
+// isSearchKey
+// isSearchKeyRefReturn
+// ------------------------
+
+// Type is one of:
 //    - convertible to std::size_t, for use as an index
 //    - convertible to std::string, for use as a label
 //    - of type Lookup<...>
-// Used for SFINAE and such.
-// -----------------------------------------------------------------------------
-
-// isLookup: helper
 template<class T>
-class isLookup : std::false_type { };
-
-template<bool HAS, class EXTRACTOR, class TYPE, class CONVERTER>
-class isLookup<Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>> : std::true_type { };
-
-// isSearchKey
-template<class T>
-inline constexpr bool isSearchKey =
+using isSearchKey = std::enable_if_t<
    std::is_convertible_v<T,std::size_t> ||
    std::is_convertible_v<T,std::string> ||
-   isLookup<T>::value;
+   isLookup<T>::value
+>;
+
+// Like above, but allowing only a Lookup that triggers a reference return
+template<class T>
+using isSearchKeyRefReturn = std::enable_if_t<
+   std::is_convertible_v<T,std::size_t> ||
+   std::is_convertible_v<T,std::string> ||
+   isLookupRefReturn<T>::value
+>;
+
+// ------------------------
+// firstOrOnly
+// ------------------------
+
+// general
+template<class T>
+struct firstOrOnly {
+   using type = T;
+};
+
+// for variant
+template<class T, class... Ts>
+struct firstOrOnly<std::variant<T,Ts...>> {
+   using type = T;
+};
+
+// ------------------------
+// has_field
+// Compare with has_index,
+// as defined elsewhere
+// ------------------------
+
+// default
+template<class EXTRACTOR, class T, class = int>
+struct has_field
+   : std::false_type { };
+
+// general
+template<class EXTRACTOR, class T>
+struct has_field<
+   EXTRACTOR,
+   T,
+   decltype(
+      (void)std::declval<EXTRACTOR>()(
+         std::conditional_t<isVariant<T>::value,void,T>{}
+      ),
+      0
+   )
+>
+   : std::true_type { };
+
+// for variant
+template<class EXTRACTOR, class... Ts>
+struct has_field<
+   EXTRACTOR,
+   std::variant<Ts...>
+> {
+   // does any alternative have the field?
+   static constexpr bool value = (has_field<EXTRACTOR,Ts>::value || ...);
+};
 
 
 
 // -----------------------------------------------------------------------------
 // getter(vector, index, names...)
-// Index into vector data member of class.
+// Element of the vector that has .index() == index.
+// Or, use C++ [index] if the element type doesn't have an .index() getter.
 // -----------------------------------------------------------------------------
 
 template<class T>
@@ -53,25 +143,25 @@ const T &getter(
          // at [index], even though a vector [index] is not the interpretation.
          const T *object = nullptr;
 
-         for (auto &v : vec) {
+         for (auto &elem : vec) {
             const T *ptr = nullptr;
 
             if constexpr (isVariant<T>::value) {
                // T == variant
                std::visit(
-                  [&v,&index,&ptr](auto &&alternative)
+                  [&elem,&index,&ptr](auto &&alternative)
                   {
                      if constexpr (hasIndex<decltype(alternative)>)
                         if (alternative.index() == index)
-                           ptr = &v;
+                           ptr = &elem;
                   },
-                  v
+                  elem
                );
             } else {
                // T != variant
                if constexpr (hasIndex<T>)
-                  if (v.index() == index)
-                     ptr = &v;
+                  if (elem.index() == index)
+                     ptr = &elem;
             }
 
             if (ptr) {
@@ -88,35 +178,37 @@ const T &getter(
             }
          } // for
 
-         if (!object) {
-            log::error(
-              "Element with metadatum \"index\" {} was not found "
-              "in the vector" + std::string(vec.size()
-                  ? "."
-                  : ";\nin fact the vector is empty."),
-               index
-            );
-            throw std::exception{};
-         }
-         return *object;
+         if (object)
+            return *object;
+
+         log::error(
+           "Element with metadatum index == {} was not found in the vector" +
+            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+            index
+         );
+         throw std::exception{};
 
       } else {
-
          // !hasIndex<T>
          // No "index" is anywhere to be found in T. Here, then, we interpret
-         // this function's index parameter to be a regular, C++ [index] index.
-         if (!(index < vec.size())) {
+         // this function's index parameter to be a C++ vector [index].
+         if (index < vec.size())
+            return vec[index];
+
+         if (vec.size() == 0)
             log::error(
-              "Index {} is out of range; vector size is {}.",
-               vec.size());
-            throw std::exception{};
-         }
-         return vec[index];
+              "Index {} is out of range; vector is empty.",
+               index);
+         else
+            log::error(
+              "Index {} is out of range; vector has [0..{}].",
+               index, vec.size()-1);
+
+         throw std::exception{};
       }
 
    } catch (...) {
       // context
-      // Example: prints "getter containers::Axes.axis(100)"
       log::member(context, nname, cname, fname, index);
       throw;
    }
@@ -141,25 +233,25 @@ const T &getter(
    try {
       const T *object = nullptr;
 
-      for (auto &v : vec) {
+      for (auto &elem : vec) {
          const T *ptr = nullptr;
 
          if constexpr (isVariant<T>::value) {
             // T == variant
             std::visit(
-               [&v,&label,&ptr](auto &&alternative)
+               [&elem,&label,&ptr](auto &&alternative)
                {
                   if constexpr (hasLabel<decltype(alternative)>)
                      if (alternative.label() == label)
-                        ptr = &v;
+                        ptr = &elem;
                },
-               v
+               elem
             );
          } else {
             // T != variant
             if constexpr (hasLabel<T>)
-               if (v.label() == label)
-                  ptr = &v;
+               if (elem.label() == label)
+                  ptr = &elem;
          }
 
          if (ptr) {
@@ -175,15 +267,15 @@ const T &getter(
          }
       } // for
 
-      if (!object) {
-         log::error(
-           "Element with label \"{}\" was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
-            label
-         );
-         throw std::exception{};
-      }
-      return *object;
+      if (object)
+         return *object;
+
+      log::error(
+        "Element with metadatum label == \"{}\" was not found in the vector" +
+         std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+         label
+      );
+      throw std::exception{};
 
    } catch (...) {
       // context
@@ -195,20 +287,180 @@ const T &getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(optional<vector>, index or label, names...)
+// getter(vector, Lookup<HAS==true,EXTRACTOR,TYPE,CONVERTER>, names...)
+// -----------------------------------------------------------------------------
+
+template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
+bool getter(
+   const std::vector<T> &vec,
+   const Lookup<true,EXTRACTOR,TYPE,CONVERTER> &look,
+   const std::string &nname, const std::string &cname, const std::string &fname
+) {
+   try {
+      for (auto &elem : vec)
+         if constexpr (isVariant<T>::value) {
+            // T == variant
+            if (std::visit(
+               [&look](auto &&alternative)
+               {
+                  return look.extractor(alternative) == look.object;
+               },
+               elem
+            ))
+               return true;
+         } else
+            // T != variant
+            if (look.extractor(elem) == look.object)
+               return true;
+   } catch (...) {
+      // context
+      log::member(
+        "getter {}::{}.{}(has({}({}))) on vector",
+         nname, cname, fname, look.name, look.object);
+      throw;
+   }
+
+   return false;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// getter(vector, Lookup<HAS==false,EXTRACTOR,TYPE,CONVERTER>, names...)
+// -----------------------------------------------------------------------------
+
+template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
+const T &getter(
+   const std::vector<T> &vec,
+   const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &look,
+   const std::string &nname, const std::string &cname, const std::string &fname
+) {
+   static const std::string context = "getter {}::{}.{}({}({})) on vector";
+
+   try {
+      const T *object = nullptr;
+
+      for (auto &elem : vec) {
+         const T *ptr = nullptr;
+
+         if constexpr (isVariant<T>::value) {
+            // T == variant
+            std::visit(
+               [&elem,&look,&ptr](auto &&alternative)
+               {
+                  if (look.extractor(alternative) == look.object)
+                     ptr = &elem;
+               },
+               elem
+            );
+         } else {
+            // T != variant
+            if (look.extractor(elem) == look.object)
+               ptr = &elem;
+         }
+
+         if (ptr) {
+            if (object) {
+               log::warning(
+                 "Element with {}({}) was already found in the vector.\n"
+                 "Keeping the first element that was found.",
+                  look.name, look.object
+               );
+               log::member(context, nname, cname, fname, look.name, look.object);
+            } else
+               object = ptr;
+         }
+      } // for
+
+      if (object)
+         return *object;
+
+      log::error(
+        "Element with metadatum {} == {} was not found in the vector" +
+         std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+         look.name, look.object
+      );
+      throw std::exception{};
+
+   } catch (...) {
+      // context
+      log::member(context, nname, cname, fname, look.name, look.object);
+      throw;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// getter(vector, Lookup<HAS==true,EXTRACTOR,void,void>, names...)
+// -----------------------------------------------------------------------------
+
+template<class T, class EXTRACTOR>
+bool getter(
+   const std::vector<T> &,
+   const Lookup<true,EXTRACTOR,void,void> &,
+   const std::string &, const std::string &, const std::string &
+) {
+   return has_field<EXTRACTOR,T>::value;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// getter(vector, Lookup<HAS==false,EXTRACTOR,void,void>, names...)
+// -----------------------------------------------------------------------------
+
+template<class T, class EXTRACTOR>
+auto getter(
+   const std::vector<T> &vec,
+   const Lookup<false,EXTRACTOR,void,void> &look,
+   const std::string &nname, const std::string &cname, const std::string &fname
+) {
+   std::vector<std::decay_t<
+      decltype(look.extractor(typename firstOrOnly<T>::type{}))
+   >> ret;
+
+   try {
+      for (auto &elem : vec) {
+         if constexpr (isVariant<T>::value) {
+            // T == variant
+            std::visit(
+               [&look,&ret](auto &&alternative)
+               {
+                  ret.push_back(look.extractor(alternative));
+               },
+               elem
+            );
+         } else {
+            // T != variant
+            ret.push_back(look.extractor(elem));
+         }
+      } // for
+   } catch (...) {
+      // context
+      log::member(
+        "getter {}::{}.{}({}) on vector",
+         nname, cname, fname, look.name);
+      throw;
+   }
+
+   return ret;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// getter(optional<vector>, index/label/Lookup, names...)
 // As earlier, but for optional<vector> data member.
 // -----------------------------------------------------------------------------
 
 template<
-   class T, class INDEX_OR_LABEL,
-   class = std::enable_if_t<
-      std::is_convertible_v<INDEX_OR_LABEL,std::size_t> ||
-      std::is_convertible_v<INDEX_OR_LABEL,std::string>
-   >
+   class T, class KEY,
+   class = isSearchKey<KEY>
 >
-const T &getter(
+decltype(auto) getter(
    const std::optional<std::vector<T>> &optvec,
-   const INDEX_OR_LABEL &key,
+   const KEY &key,
    const std::string &nname, const std::string &cname, const std::string &fname
 ) {
    try {
@@ -220,11 +472,30 @@ const T &getter(
       return getter(*optvec, key, nname, cname, fname);
    } catch (...) {
       // context
-      log::member(
-         std::is_convertible_v<INDEX_OR_LABEL,std::size_t>
-            ? "getter {}::{}.{}({}) on optional<vector>"
-            : "getter {}::{}.{}(\"{}\") on optional<vector>",
-         nname, cname, fname, key);
+      if constexpr (isLookup<KEY>::value) {
+         // nname::cname.fname(field(value))
+         if constexpr (!KEY::Has && !KEY::Void)
+            log::member("getter {}::{}.{}({}({})) on optional<vector>",
+                        nname, cname, fname, key.name, key.object);
+         // nname::cname.fname(has(field(value)))
+         if constexpr ( KEY::Has && !KEY::Void)
+            log::member("getter {}::{}.{}(has({}({}))) on optional<vector>",
+                        nname, cname, fname, key.name, key.object);
+         // nname::cname.fname(field)
+         if constexpr (!KEY::Has &&  KEY::Void)
+            log::member("getter {}::{}.{}({}) on optional<vector>",
+                        nname, cname, fname, key.name);
+         // nname::cname.fname(has(field))
+         if constexpr ( KEY::Has &&  KEY::Void)
+            log::member("getter {}::{}.{}(has({})) on optional<vector>",
+                        nname, cname, fname, key.name);
+      } else {
+         log::member(
+            std::is_convertible_v<KEY,std::size_t>
+               ? "getter {}::{}.{}({}) on optional<vector>"
+               : "getter {}::{}.{}(\"{}\") on optional<vector>",
+            nname, cname, fname, key);
+      }
       throw;
    }
 }
@@ -236,9 +507,8 @@ const T &getter(
 // -----------------------------------------------------------------------------
 
 template<
-   class T,
-   class... Ts,
-   class = std::enable_if_t<detail::isAlternative<T,std::variant<Ts...>>>
+   class T, class... Ts,
+   class = std::enable_if_t<isAlternative<T,std::variant<Ts...>>>
 >
 const T *getter(
    const std::variant<Ts...> &var,
@@ -258,20 +528,17 @@ const T *getter(
 
 
 // -----------------------------------------------------------------------------
-// getter<T>(vector<variant>, index or label, names...)
+// getter<T>(vector<variant>, index/label/Lookup, names...)
 // -----------------------------------------------------------------------------
 
 template<
-   class T, class INDEX_OR_LABEL,
-   class = std::enable_if_t<
-      std::is_convertible_v<INDEX_OR_LABEL,std::size_t> ||
-      std::is_convertible_v<INDEX_OR_LABEL,std::string>
-   >,
-   class... Ts
+   class T, class KEY, class... Ts,
+   class = isSearchKey<KEY>,
+   class = std::enable_if_t<isAlternative<T,std::variant<Ts...>>>
 >
 const T *getter(
    const std::vector<std::variant<Ts...>> &vecvar,
-   const INDEX_OR_LABEL &key,
+   const KEY &key,
    const std::string &nname, const std::string &cname, const std::string &fname
 ) {
    try {
@@ -283,7 +550,7 @@ const T *getter(
    } catch (...) {
       // context
       log::member(
-         std::is_convertible_v<INDEX_OR_LABEL,std::size_t>
+         std::is_convertible_v<KEY,std::size_t>
             ? "getter {}::{}.{}({}) on vector<variant>"
             : "getter {}::{}.{}(\"{}\") on vector<variant>",
          nname, cname, fname, key);

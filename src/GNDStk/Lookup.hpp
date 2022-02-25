@@ -12,6 +12,9 @@ template<
 >
 class Lookup : public Meta<TYPE,CONVERTER> {
 public:
+   static inline constexpr bool Has = HAS;
+   static inline constexpr bool Void = false;
+
    // extractor
    EXTRACTOR extractor;
 
@@ -40,7 +43,8 @@ auto makeLookup(
    const TYPE &value,
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>(extractor,name,value,converter);
+   return Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>(
+      extractor, name, value, converter);
 }
 
 
@@ -58,6 +62,9 @@ class Lookup<HAS,EXTRACTOR,void,CONVERTER> : public Meta<> {
    );
 
 public:
+   static inline constexpr bool Has = HAS;
+   static inline constexpr bool Void = true;
+
    // extractor
    EXTRACTOR extractor;
 
@@ -72,9 +79,18 @@ public:
 
    // operator()
    template<class TYPE, class C = detail::default_converter_t<TYPE>>
-   auto operator()(const TYPE &value, const C &converter = C{})
+   auto operator()(const TYPE &value, const C &converter = C{}) const
    {
-      return Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>(extractor,name,value,converter);
+      return Lookup<HAS,EXTRACTOR,TYPE,C>(
+         extractor, name, value, converter);
+   }
+
+   // operator() for char*; needed in order to force std::string
+   template<class C = detail::default_converter_t<std::string>>
+   auto operator()(const char *const value, const C &converter = C{}) const
+   {
+      return Lookup<HAS,EXTRACTOR,std::string,C>(
+         extractor, name, value, converter);
    }
 };
 
@@ -92,6 +108,7 @@ auto makeLookup(
 // has
 // -----------------------------------------------------------------------------
 
+// For TYPE != void
 template<
    class EXTRACTOR, class TYPE, class CONVERTER,
    class = std::enable_if_t<!std::is_same_v<TYPE,void>>
@@ -103,5 +120,15 @@ auto has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &look)
       look.name,
       look.object,
       look.converter
+   );
+}
+
+// For TYPE == void
+template<class EXTRACTOR>
+auto has(const Lookup<false,EXTRACTOR,void,void> &look)
+{
+   return Lookup<true,EXTRACTOR,void,void>(
+      look.extractor,
+      look.name
    );
 }
