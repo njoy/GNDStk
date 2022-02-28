@@ -1046,24 +1046,17 @@ void writeClassGetters(writer &out, const PerClass &per)
    // variant alternatives
    for (const auto &v : per.variants) {
       for (const auto &c : v.children) {
-         const auto indlab =
-            [&out,&v,&c](const auto &T, const auto &par)
-            {
-               // T par: index or label parameter
-               out();
-               out(1,"// @(@)", c.name, par);
-               out(1,"const @ *@(const @@) const", c.type, c.name, T, par);
-               out(2,"{ return getter<@>(@(), @, \"@\"); }",
-                   c.type, v.name, par, c.name);
-               out(1,      "@ *@(const @@)",       c.type, c.name, T, par);
-               out(2,"{ return getter<@>(@(), @, \"@\"); }",
-                   c.type, v.name, par, c.name);
-            };
-
          if (v.isVector) {
-            // with index or label
-            indlab("std::size_t &", "index");
-            indlab("std::string &", "label");
+            out();
+            out(1,"// @(index/label/Lookup)", c.name);
+            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
+            out(1,"decltype(auto) @(const KEY &key) const", c.name);
+            out(2,   "{ return getter<@>(@(), key, \"@\"); }",
+                c.type, v.name, c.name);
+            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
+            out(1,"decltype(auto) @(const KEY &key)", c.name);
+            out(2,   "{ return getter<@>(@(), key, \"@\"); }",
+                c.type, v.name, c.name);
          } else {
             out();
             out(1,"// @", c.name);
@@ -1171,24 +1164,19 @@ void writeClassSetters(writer &out, const PerClass &per)
       if (v.isVector) {
          // choice is a vector<variant>
          for (const auto &c : v.children) {
-            const auto indlab =
-               [&out,&per,&v,&c](const auto &T, const auto &par)
-               {
-                  // T par: index or label parameter
-                  out();
-                  out(1,"// @(@,value)", c.name, par);
-                  out(1,"@ &@(", per.clname, c.name);
-                  out(2,"const @@,", T, par);
-                  out(2,"const std::optional<@> &obj", c.type);
-                  out(1,") {");
-                  out(2,"if (obj) @(@,obj.value());", v.name, par);
-                  out(2,"return *this;");
-                  out(1,"}");
-               };
-
-            // with index or label
-            indlab("std::size_t &", "index");
-            indlab("std::string &", "label");
+            // replace one vector value
+            out();
+            out(1,"// @(index/label/Lookup, value): replace vector entry",
+                c.name);
+            out(1,"template<class KEY, "
+                  "class = detail::isSearchKeyRefReturn<KEY>>");
+            out(1,"@ &@(", per.clname, c.name);
+            out(2,   "const KEY &key,");
+            out(2,   "const std::optional<@> &obj", c.type);
+            out(1,") {");
+            out(2,   "if (obj) @(key,obj.value());", v.name);
+            out(2,   "return *this;");
+            out(1,"}");
          }
       } else {
          // choice is a variant
