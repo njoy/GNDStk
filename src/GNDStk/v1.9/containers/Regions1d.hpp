@@ -103,17 +103,13 @@ public:
    std::vector<containers::XYs1d> &XYs1d()
       { return content.XYs1d; }
 
-   // XYs1d(index)
-   const containers::XYs1d &XYs1d(const std::size_t &index) const
-      { return getter(XYs1d(), index, "XYs1d"); }
-   containers::XYs1d &XYs1d(const std::size_t &index)
-      { return getter(XYs1d(), index, "XYs1d"); }
-
-   // XYs1d(label)
-   const containers::XYs1d &XYs1d(const std::string &label) const
-      { return getter(XYs1d(), label, "XYs1d"); }
-   containers::XYs1d &XYs1d(const std::string &label)
-      { return getter(XYs1d(), label, "XYs1d"); }
+   // XYs1d(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) XYs1d(const KEY &key) const
+      { return getter(XYs1d(), key, "XYs1d"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) XYs1d(const KEY &key)
+      { return getter(XYs1d(), key, "XYs1d"); }
 
    // ------------------------
    // Setters
@@ -133,29 +129,20 @@ public:
    Regions1d &axes(const std::optional<containers::Axes> &obj)
       { axes() = obj; return *this; }
 
-   // XYs1d(value)
+   // XYs1d(vector), for replacing the entire vector
    Regions1d &XYs1d(const std::vector<containers::XYs1d> &obj)
       { XYs1d() = obj; return *this; }
 
-   // XYs1d(index,value)
-   Regions1d &XYs1d(
-      const std::size_t &index,
-      const containers::XYs1d &obj
-   ) {
-      XYs1d(index) = obj; return *this;
-   }
-
-   // XYs1d(label,value)
-   Regions1d &XYs1d(
-      const std::string &label,
-      const containers::XYs1d &obj
-   ) {
-      XYs1d(label) = obj; return *this;
-   }
-
-   // XYs1d(value) for vector push_back
+   // XYs1d(scalar), for a vector push_back
    Regions1d &XYs1d(const containers::XYs1d &obj)
       { setter(XYs1d(), obj); return *this; }
+
+   // XYs1d(index/label/Lookup, value), for replacing one value
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
+   Regions1d &XYs1d(const KEY &key, const containers::XYs1d &obj)
+   {
+      XYs1d(key) = obj; return *this;
+   }
 
    // ------------------------
    // Constructors

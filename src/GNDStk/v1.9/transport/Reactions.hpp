@@ -73,17 +73,13 @@ public:
    std::vector<transport::Reaction> &reaction()
       { return content.reaction; }
 
-   // reaction(index)
-   const transport::Reaction &reaction(const std::size_t &index) const
-      { return getter(reaction(), index, "reaction"); }
-   transport::Reaction &reaction(const std::size_t &index)
-      { return getter(reaction(), index, "reaction"); }
-
-   // reaction(label)
-   const transport::Reaction &reaction(const std::string &label) const
-      { return getter(reaction(), label, "reaction"); }
-   transport::Reaction &reaction(const std::string &label)
-      { return getter(reaction(), label, "reaction"); }
+   // reaction(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) reaction(const KEY &key) const
+      { return getter(reaction(), key, "reaction"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) reaction(const KEY &key)
+      { return getter(reaction(), key, "reaction"); }
 
    // ------------------------
    // Setters
@@ -91,29 +87,20 @@ public:
    // All return *this
    // ------------------------
 
-   // reaction(value)
+   // reaction(vector), for replacing the entire vector
    Reactions &reaction(const std::vector<transport::Reaction> &obj)
       { reaction() = obj; return *this; }
 
-   // reaction(index,value)
-   Reactions &reaction(
-      const std::size_t &index,
-      const transport::Reaction &obj
-   ) {
-      reaction(index) = obj; return *this;
-   }
-
-   // reaction(label,value)
-   Reactions &reaction(
-      const std::string &label,
-      const transport::Reaction &obj
-   ) {
-      reaction(label) = obj; return *this;
-   }
-
-   // reaction(value) for vector push_back
+   // reaction(scalar), for a vector push_back
    Reactions &reaction(const transport::Reaction &obj)
       { setter(reaction(), obj); return *this; }
+
+   // reaction(index/label/Lookup, value), for replacing one value
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
+   Reactions &reaction(const KEY &key, const transport::Reaction &obj)
+   {
+      reaction(key) = obj; return *this;
+   }
 
    // ------------------------
    // Constructors

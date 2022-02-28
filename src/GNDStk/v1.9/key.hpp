@@ -18,24 +18,34 @@ using namespace njoy::GNDStk;
 
 namespace meta {
 
-inline const Meta<> ENDF_MT("ENDF_MT");
-inline const Meta<> evaluation("evaluation");
-inline const Meta<> fissionGenre("fissionGenre");
-inline const Meta<> format("format");
-inline const Meta<> href("href");
-inline const Meta<> index("index");
-inline const Meta<> interaction("interaction");
-inline const Meta<> interpolation("interpolation");
-inline const Meta<> label("label");
-inline const Meta<> length("length");
-inline const Meta<> outerDomainValue("outerDomainValue");
-inline const Meta<> projectile("projectile");
-inline const Meta<> projectileFrame("projectileFrame");
-inline const Meta<> start("start");
-inline const Meta<> style("style");
-inline const Meta<> target("target");
-inline const Meta<> unit("unit");
-inline const Meta<> valueType("valueType");
+#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
+   inline const auto nameField = makeLookup( \
+      [](const auto &obj) -> decltype(obj.nameField()) \
+      { return obj.nameField(); }, \
+      #nameGNDS \
+   )
+// nameField vs. nameGNDS: for, e.g., Double vs. double in GNDS
+
+GNDSTK_MAKE_LOOKUP(ENDF_MT,ENDF_MT);
+GNDSTK_MAKE_LOOKUP(evaluation,evaluation);
+GNDSTK_MAKE_LOOKUP(fissionGenre,fissionGenre);
+GNDSTK_MAKE_LOOKUP(format,format);
+GNDSTK_MAKE_LOOKUP(href,href);
+GNDSTK_MAKE_LOOKUP(index,index);
+GNDSTK_MAKE_LOOKUP(interaction,interaction);
+GNDSTK_MAKE_LOOKUP(interpolation,interpolation);
+GNDSTK_MAKE_LOOKUP(label,label);
+GNDSTK_MAKE_LOOKUP(length,length);
+GNDSTK_MAKE_LOOKUP(outerDomainValue,outerDomainValue);
+GNDSTK_MAKE_LOOKUP(projectile,projectile);
+GNDSTK_MAKE_LOOKUP(projectileFrame,projectileFrame);
+GNDSTK_MAKE_LOOKUP(start,start);
+GNDSTK_MAKE_LOOKUP(style,style);
+GNDSTK_MAKE_LOOKUP(target,target);
+GNDSTK_MAKE_LOOKUP(unit,unit);
+GNDSTK_MAKE_LOOKUP(valueType,valueType);
+
+#undef GNDSTK_MAKE_LOOKUP
 
 } // namespace meta
 

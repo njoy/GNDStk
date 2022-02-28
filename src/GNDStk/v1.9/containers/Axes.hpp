@@ -90,17 +90,13 @@ public:
    std::vector<axis_grid_t> &axis_grid()
       { return content.axis_grid; }
 
-   // axis_grid(index)
-   const axis_grid_t &axis_grid(const std::size_t &index) const
-      { return getter(axis_grid(), index, "axis_grid"); }
-   axis_grid_t &axis_grid(const std::size_t &index)
-      { return getter(axis_grid(), index, "axis_grid"); }
-
-   // axis_grid(label)
-   const axis_grid_t &axis_grid(const std::string &label) const
-      { return getter(axis_grid(), label, "axis_grid"); }
-   axis_grid_t &axis_grid(const std::string &label)
-      { return getter(axis_grid(), label, "axis_grid"); }
+   // axis_grid(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) axis_grid(const KEY &key) const
+      { return getter(axis_grid(), key, "axis_grid"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) axis_grid(const KEY &key)
+      { return getter(axis_grid(), key, "axis_grid"); }
 
    // axis(index)
    const containers::Axis *axis(const std::size_t &index) const
@@ -136,29 +132,20 @@ public:
    Axes &href(const std::optional<std::string> &obj)
       { href() = obj; return *this; }
 
-   // axis_grid(value)
+   // axis_grid(vector), for replacing the entire vector
    Axes &axis_grid(const std::vector<axis_grid_t> &obj)
       { axis_grid() = obj; return *this; }
 
-   // axis_grid(index,value)
-   Axes &axis_grid(
-      const std::size_t &index,
-      const axis_grid_t &obj
-   ) {
-      axis_grid(index) = obj; return *this;
-   }
-
-   // axis_grid(label,value)
-   Axes &axis_grid(
-      const std::string &label,
-      const axis_grid_t &obj
-   ) {
-      axis_grid(label) = obj; return *this;
-   }
-
-   // axis_grid(value) for vector push_back
+   // axis_grid(scalar), for a vector push_back
    Axes &axis_grid(const axis_grid_t &obj)
       { setter(axis_grid(), obj); return *this; }
+
+   // axis_grid(index/label/Lookup, value), for replacing one value
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
+   Axes &axis_grid(const KEY &key, const axis_grid_t &obj)
+   {
+      axis_grid(key) = obj; return *this;
+   }
 
    // axis(index,value)
    Axes &axis(

@@ -79,17 +79,13 @@ public:
    std::vector<XYs1d_regions1d_t> &XYs1d_regions1d()
       { return content.XYs1d_regions1d; }
 
-   // XYs1d_regions1d(index)
-   const XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t &index) const
-      { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-   XYs1d_regions1d_t &XYs1d_regions1d(const std::size_t &index)
-      { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-
-   // XYs1d_regions1d(label)
-   const XYs1d_regions1d_t &XYs1d_regions1d(const std::string &label) const
-      { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
-   XYs1d_regions1d_t &XYs1d_regions1d(const std::string &label)
-      { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+   // XYs1d_regions1d(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) XYs1d_regions1d(const KEY &key) const
+      { return getter(XYs1d_regions1d(), key, "XYs1d_regions1d"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) XYs1d_regions1d(const KEY &key)
+      { return getter(XYs1d_regions1d(), key, "XYs1d_regions1d"); }
 
    // XYs1d(index)
    const containers::XYs1d *XYs1d(const std::size_t &index) const
@@ -121,29 +117,20 @@ public:
    // All return *this
    // ------------------------
 
-   // XYs1d_regions1d(value)
+   // XYs1d_regions1d(vector), for replacing the entire vector
    CrossSection &XYs1d_regions1d(const std::vector<XYs1d_regions1d_t> &obj)
       { XYs1d_regions1d() = obj; return *this; }
 
-   // XYs1d_regions1d(index,value)
-   CrossSection &XYs1d_regions1d(
-      const std::size_t &index,
-      const XYs1d_regions1d_t &obj
-   ) {
-      XYs1d_regions1d(index) = obj; return *this;
-   }
-
-   // XYs1d_regions1d(label,value)
-   CrossSection &XYs1d_regions1d(
-      const std::string &label,
-      const XYs1d_regions1d_t &obj
-   ) {
-      XYs1d_regions1d(label) = obj; return *this;
-   }
-
-   // XYs1d_regions1d(value) for vector push_back
+   // XYs1d_regions1d(scalar), for a vector push_back
    CrossSection &XYs1d_regions1d(const XYs1d_regions1d_t &obj)
       { setter(XYs1d_regions1d(), obj); return *this; }
+
+   // XYs1d_regions1d(index/label/Lookup, value), for replacing one value
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
+   CrossSection &XYs1d_regions1d(const KEY &key, const XYs1d_regions1d_t &obj)
+   {
+      XYs1d_regions1d(key) = obj; return *this;
+   }
 
    // XYs1d(index,value)
    CrossSection &XYs1d(
