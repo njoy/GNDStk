@@ -1091,7 +1091,7 @@ void writeClassSetterChild(
    // note that if type is optional<T>, a T can still be sent
    out();
    if (child.isVector)
-      out(1,"// @(vector), for replacing the entire vector", child.name);
+      out(1,"// @(vector): replace vector", child.name);
    else
       out(1,"// @(value)", child.name);
    out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.typeFull);
@@ -1101,13 +1101,13 @@ void writeClassSetterChild(
    if (child.isVector) {
       // push vector element
       out();
-      out(1,"// @(scalar), for a vector push_back", child.name);
+      out(1,"// @(scalar): vector push_back", child.name);
       out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.type);
       out(2,"{ setter(@(), obj); return *this; }", child.name);
 
       // replace one vector value
       out();
-      out(1,"// @(index/label/Lookup, value), for replacing one value",
+      out(1,"// @(index/label/Lookup, value): replace vector entry",
           child.name);
       out(1,"template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>");
       out(1,"@ &@(const KEY &key, const @ &obj)",

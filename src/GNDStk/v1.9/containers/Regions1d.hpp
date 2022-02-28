@@ -129,15 +129,15 @@ public:
    Regions1d &axes(const std::optional<containers::Axes> &obj)
       { axes() = obj; return *this; }
 
-   // XYs1d(vector), for replacing the entire vector
+   // XYs1d(vector): replace vector
    Regions1d &XYs1d(const std::vector<containers::XYs1d> &obj)
       { XYs1d() = obj; return *this; }
 
-   // XYs1d(scalar), for a vector push_back
+   // XYs1d(scalar): vector push_back
    Regions1d &XYs1d(const containers::XYs1d &obj)
       { setter(XYs1d(), obj); return *this; }
 
-   // XYs1d(index/label/Lookup, value), for replacing one value
+   // XYs1d(index/label/Lookup, value): replace vector entry
    template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    Regions1d &XYs1d(const KEY &key, const containers::XYs1d &obj)
    {

@@ -98,29 +98,21 @@ public:
    decltype(auto) axis_grid(const KEY &key)
       { return getter(axis_grid(), key, "axis_grid"); }
 
-   // axis(index)
-   const containers::Axis *axis(const std::size_t &index) const
-      { return getter<containers::Axis>(axis_grid(), index, "axis"); }
-   containers::Axis *axis(const std::size_t &index)
-      { return getter<containers::Axis>(axis_grid(), index, "axis"); }
+   // axis(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) axis(const KEY &key) const
+      { return getter<containers::Axis>(axis_grid(), key, "axis"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) axis(const KEY &key)
+      { return getter<containers::Axis>(axis_grid(), key, "axis"); }
 
-   // axis(label)
-   const containers::Axis *axis(const std::string &label) const
-      { return getter<containers::Axis>(axis_grid(), label, "axis"); }
-   containers::Axis *axis(const std::string &label)
-      { return getter<containers::Axis>(axis_grid(), label, "axis"); }
-
-   // grid(index)
-   const containers::Grid *grid(const std::size_t &index) const
-      { return getter<containers::Grid>(axis_grid(), index, "grid"); }
-   containers::Grid *grid(const std::size_t &index)
-      { return getter<containers::Grid>(axis_grid(), index, "grid"); }
-
-   // grid(label)
-   const containers::Grid *grid(const std::string &label) const
-      { return getter<containers::Grid>(axis_grid(), label, "grid"); }
-   containers::Grid *grid(const std::string &label)
-      { return getter<containers::Grid>(axis_grid(), label, "grid"); }
+   // grid(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) grid(const KEY &key) const
+      { return getter<containers::Grid>(axis_grid(), key, "grid"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) grid(const KEY &key)
+      { return getter<containers::Grid>(axis_grid(), key, "grid"); }
 
    // ------------------------
    // Setters
@@ -132,54 +124,38 @@ public:
    Axes &href(const std::optional<std::string> &obj)
       { href() = obj; return *this; }
 
-   // axis_grid(vector), for replacing the entire vector
+   // axis_grid(vector): replace vector
    Axes &axis_grid(const std::vector<axis_grid_t> &obj)
       { axis_grid() = obj; return *this; }
 
-   // axis_grid(scalar), for a vector push_back
+   // axis_grid(scalar): vector push_back
    Axes &axis_grid(const axis_grid_t &obj)
       { setter(axis_grid(), obj); return *this; }
 
-   // axis_grid(index/label/Lookup, value), for replacing one value
+   // axis_grid(index/label/Lookup, value): replace vector entry
    template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    Axes &axis_grid(const KEY &key, const axis_grid_t &obj)
    {
       axis_grid(key) = obj; return *this;
    }
 
-   // axis(index,value)
+   // axis(index/label/Lookup, value): replace vector entry
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    Axes &axis(
-      const std::size_t &index,
+      const KEY &key,
       const std::optional<containers::Axis> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(key,obj.value());
       return *this;
    }
 
-   // axis(label,value)
-   Axes &axis(
-      const std::string &label,
-      const std::optional<containers::Axis> &obj
-   ) {
-      if (obj) axis_grid(label,obj.value());
-      return *this;
-   }
-
-   // grid(index,value)
+   // grid(index/label/Lookup, value): replace vector entry
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    Axes &grid(
-      const std::size_t &index,
+      const KEY &key,
       const std::optional<containers::Grid> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
-      return *this;
-   }
-
-   // grid(label,value)
-   Axes &grid(
-      const std::string &label,
-      const std::optional<containers::Grid> &obj
-   ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(key,obj.value());
       return *this;
    }
 

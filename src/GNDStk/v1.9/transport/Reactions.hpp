@@ -87,15 +87,15 @@ public:
    // All return *this
    // ------------------------
 
-   // reaction(vector), for replacing the entire vector
+   // reaction(vector): replace vector
    Reactions &reaction(const std::vector<transport::Reaction> &obj)
       { reaction() = obj; return *this; }
 
-   // reaction(scalar), for a vector push_back
+   // reaction(scalar): vector push_back
    Reactions &reaction(const transport::Reaction &obj)
       { setter(reaction(), obj); return *this; }
 
-   // reaction(index/label/Lookup, value), for replacing one value
+   // reaction(index/label/Lookup, value): replace vector entry
    template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    Reactions &reaction(const KEY &key, const transport::Reaction &obj)
    {

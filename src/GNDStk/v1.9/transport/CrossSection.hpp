@@ -87,29 +87,21 @@ public:
    decltype(auto) XYs1d_regions1d(const KEY &key)
       { return getter(XYs1d_regions1d(), key, "XYs1d_regions1d"); }
 
-   // XYs1d(index)
-   const containers::XYs1d *XYs1d(const std::size_t &index) const
-      { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
-   containers::XYs1d *XYs1d(const std::size_t &index)
-      { return getter<containers::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
+   // XYs1d(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) XYs1d(const KEY &key) const
+      { return getter<containers::XYs1d>(XYs1d_regions1d(), key, "XYs1d"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) XYs1d(const KEY &key)
+      { return getter<containers::XYs1d>(XYs1d_regions1d(), key, "XYs1d"); }
 
-   // XYs1d(label)
-   const containers::XYs1d *XYs1d(const std::string &label) const
-      { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
-   containers::XYs1d *XYs1d(const std::string &label)
-      { return getter<containers::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
-
-   // regions1d(index)
-   const containers::Regions1d *regions1d(const std::size_t &index) const
-      { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
-   containers::Regions1d *regions1d(const std::size_t &index)
-      { return getter<containers::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
-
-   // regions1d(label)
-   const containers::Regions1d *regions1d(const std::string &label) const
-      { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
-   containers::Regions1d *regions1d(const std::string &label)
-      { return getter<containers::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+   // regions1d(index/label/Lookup)
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) regions1d(const KEY &key) const
+      { return getter<containers::Regions1d>(XYs1d_regions1d(), key, "regions1d"); }
+   template<class KEY, class = detail::isSearchKey<KEY>>
+   decltype(auto) regions1d(const KEY &key)
+      { return getter<containers::Regions1d>(XYs1d_regions1d(), key, "regions1d"); }
 
    // ------------------------
    // Setters
@@ -117,54 +109,38 @@ public:
    // All return *this
    // ------------------------
 
-   // XYs1d_regions1d(vector), for replacing the entire vector
+   // XYs1d_regions1d(vector): replace vector
    CrossSection &XYs1d_regions1d(const std::vector<XYs1d_regions1d_t> &obj)
       { XYs1d_regions1d() = obj; return *this; }
 
-   // XYs1d_regions1d(scalar), for a vector push_back
+   // XYs1d_regions1d(scalar): vector push_back
    CrossSection &XYs1d_regions1d(const XYs1d_regions1d_t &obj)
       { setter(XYs1d_regions1d(), obj); return *this; }
 
-   // XYs1d_regions1d(index/label/Lookup, value), for replacing one value
+   // XYs1d_regions1d(index/label/Lookup, value): replace vector entry
    template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    CrossSection &XYs1d_regions1d(const KEY &key, const XYs1d_regions1d_t &obj)
    {
       XYs1d_regions1d(key) = obj; return *this;
    }
 
-   // XYs1d(index,value)
+   // XYs1d(index/label/Lookup, value): replace vector entry
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    CrossSection &XYs1d(
-      const std::size_t &index,
+      const KEY &key,
       const std::optional<containers::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(key,obj.value());
       return *this;
    }
 
-   // XYs1d(label,value)
-   CrossSection &XYs1d(
-      const std::string &label,
-      const std::optional<containers::XYs1d> &obj
-   ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
-      return *this;
-   }
-
-   // regions1d(index,value)
+   // regions1d(index/label/Lookup, value): replace vector entry
+   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
    CrossSection &regions1d(
-      const std::size_t &index,
+      const KEY &key,
       const std::optional<containers::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
-      return *this;
-   }
-
-   // regions1d(label,value)
-   CrossSection &regions1d(
-      const std::string &label,
-      const std::optional<containers::Regions1d> &obj
-   ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(key,obj.value());
       return *this;
    }
 
