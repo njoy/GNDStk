@@ -64,7 +64,7 @@ void wrapRegions1d(python::module &module)
       )
       .def_property_readonly(
          "xys1d",
-         python::overload_cast<>(&Component::XYs1d),
+         (const std::vector<containers::XYs1d> &(Component::*)() const)&Component::XYs1d,
          Component::documentation("xys1d").data()
       )
    ;

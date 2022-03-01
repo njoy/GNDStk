@@ -43,7 +43,7 @@ void wrapReactions(python::module &module)
       )
       .def_property_readonly(
          "reaction",
-         python::overload_cast<>(&Component::reaction),
+         (const std::vector<transport::Reaction> &(Component::*)() const)&Component::reaction,
          Component::documentation("reaction").data()
       )
    ;
