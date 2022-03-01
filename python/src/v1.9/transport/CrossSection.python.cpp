@@ -47,7 +47,8 @@ void wrapCrossSection(python::module &module)
       )
       .def_property_readonly(
          "xys1d_regions1d",
-         (const std::vector<XYs1d_regions1d_t> &(Component::*)() const)&Component::XYs1d_regions1d,
+         (const std::vector<XYs1d_regions1d_t> &(Component::*)() const)
+            &Component::XYs1d_regions1d,
          Component::documentation("xys1d_regions1d").data()
       )
    ;

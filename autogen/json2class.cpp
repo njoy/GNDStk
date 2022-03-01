@@ -2324,7 +2324,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       const auto pyname = namePython(c.name);
       out(2,".def_property_readonly(");
       out(3,"\"@\",", pyname);
-      out(3,"python::overload_cast<>(&Component::@),", c.name);
+      if (c.isVector) {
+         out(3,"(const @ &(Component::*)() const)", c.typeFull);
+         out(4,"&Component::@,", c.name);
+      } else
+         out(3,"python::overload_cast<>(&Component::@),", c.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
    }
@@ -2342,7 +2346,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       const auto pyname = namePython(v.name);
       out(2,".def_property_readonly(");
       out(3,"\"@\",", pyname);
-      out(3,"python::overload_cast<>(&Component::@),", v.name);
+      if (v.isVector) {
+         out(3,"(const @ &(Component::*)() const)", v.typeFull);
+         out(4,"&Component::@,", v.name);
+      } else
+         out(3,"python::overload_cast<>(&Component::@),", v.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
    }
