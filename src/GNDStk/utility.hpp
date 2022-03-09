@@ -372,7 +372,7 @@ bool convert(const HDF5 &, HDF5 &);
 // Utility constructs
 // The functions here could possibly go into the detail namespace, but could
 // arguably be useful, in their own right, to users. So, I'll leave them out
-// in the overall project namespace (which enclosed the #include of this file).
+// in the overall project namespace.
 // -----------------------------------------------------------------------------
 
 // endsin
@@ -380,6 +380,12 @@ bool convert(const HDF5 &, HDF5 &);
 inline bool endsin(const std::string &str, const std::string &end)
 {
    return str.size() >= end.size() && &str[str.size()-end.size()] == end;
+}
+
+// beginsin
+inline bool beginsin(const std::string &str, const std::string &begin)
+{
+   return strncmp(&str[0], &begin[0], begin.size()) == 0;
 }
 
 // nocasecmp

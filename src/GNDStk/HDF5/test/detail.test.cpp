@@ -190,7 +190,8 @@ SCENARIO("Testing HDF5 detail:: functionality") {
    }
 
    // ------------------------
-   // For use in double[s]
+   // Some values for use
+   // in the double[s]
    // and string[s] cases
    // ------------------------
 
@@ -304,6 +305,25 @@ SCENARIO("Testing HDF5 detail:: functionality") {
             CHECK(guessType(ulmax+space+"abc def") == "strings");
             CHECK(guessType( dmin+space+"abc def") == "strings");
             CHECK(guessType( dmax+space+"abc def") == "strings");
+         }
+      }
+   }
+
+   // ------------------------
+   // The cases initially
+   // foiled the type guesser,
+   // so they're tested now
+   // ------------------------
+
+   GIVEN("A couple of patterns that are common in GNDS files") {
+      WHEN("We call guessType()") {
+         THEN("We get the expected answers") {
+            // A typical "date" metadatum;
+            // is a string, NOT the ints 2011, -10, and -1
+            CHECK(guessType("2011-10-01") == "string");
+            // A typical "version" metadatum;
+            // is a string, NOT the doubles 8.0 and .1
+            CHECK(guessType("8.0.1") == "string");
          }
       }
    }

@@ -267,11 +267,11 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
       // into the Node's "#hdf5" child that would have been created above
       if (decl)
          for (auto &attrName : group.listAttributeNames())
-            if (!detail::HDF5attr2Node(group.getAttribute(attrName),*declnode))
+            if (!detail::attr2node(group.getAttribute(attrName),*declnode))
                return false;
 
       // visit the rest of "/"
-      if (!detail::HDF52Node(group, "/", node, !decl))
+      if (!detail::hdf52node(group, "/", node, !decl))
          return false;
    } catch (...) {
       log::function("convert(HDF5,Node)");
