@@ -106,10 +106,10 @@ public:
    }
 
    template<
-      class EXTRACTOR, bool FALSE,
-      class = std::enable_if_t<FALSE == false>
+      class EXTRACTOR, bool F,
+      class = std::enable_if_t<F == false>
    >
-   static constexpr bool has(const Lookup<FALSE,EXTRACTOR> &)
+   static constexpr bool has(const Lookup<F,EXTRACTOR> &)
    {
       return false;
    }
