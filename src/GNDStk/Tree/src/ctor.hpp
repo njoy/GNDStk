@@ -75,7 +75,7 @@ explicit Tree(const HDF5 &h)
 //    Tree t("n-008_O_016.xml", FileType::xml);
 explicit Tree(
    const std::string &filename,
-   const FileType format = FileType::null
+   const FileType format = FileType::guess
 ) {
    try {
       if (!read(filename,format))
@@ -104,7 +104,7 @@ Tree(const std::string &filename, const std::string &format)
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, FileType::xml);
-explicit Tree(std::istream &is, const FileType format = FileType::null)
+explicit Tree(std::istream &is, const FileType format = FileType::guess)
 {
    try {
       if (!read(is,format))

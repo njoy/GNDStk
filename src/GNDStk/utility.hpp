@@ -19,9 +19,9 @@ inline bool parents = false;
 // file type / format
 enum class FileType {
    // default, automagick, etc.
-   null,
-   // our plain text format (for writing only)
-   text,
+   guess,
+   // our plain-text "debug" format; for writing only
+   debug,
    // give users easy-to-type lowercase as well as acronym-style uppercase...
    xml,  XML  = xml,
    json, JSON = json,
@@ -450,18 +450,18 @@ inline bool endsin_hdf5(const std::string &str)
 // e.g. "xml", in place of a file format specifier ala enum class file.
 // -----------------------------------------------------------------------------
 
-// null
-inline bool eq_null(const std::string &str)
+// guess
+inline bool eq_guess(const std::string &str)
 {
    return
-      nocasecmp(str,"null") || str == "";
+      nocasecmp(str,"guess") || str == "";
 }
 
 // tree
-inline bool eq_text(const std::string &str)
+inline bool eq_debug(const std::string &str)
 {
    return
-      nocasecmp(str,"text");
+      nocasecmp(str,"debug");
 }
 
 // xml
@@ -650,11 +650,11 @@ namespace detail {
 inline std::string print_format(const FileType f, const bool brief = false)
 {
    return std::string(brief ? "" : "FileType::") + (
-      f == FileType::null ? "null"
-    : f == FileType::text ? "text"
-    : f == FileType::xml  ? "XML"
-    : f == FileType::json ? "JSON"
-    : f == FileType::hdf5 ? "HDF5"
+      f == FileType::guess ? "guess"
+    : f == FileType::debug ? "debug"
+    : f == FileType::xml   ? "XML"
+    : f == FileType::json  ? "JSON"
+    : f == FileType::hdf5  ? "HDF5"
     : "unknown"
    );
 }

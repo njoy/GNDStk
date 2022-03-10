@@ -150,7 +150,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
 
       WHEN("We call: Tree(top-level node, file format, version)") {
-         Tree t(covarianceSuite, FileType::null, "2.0");
+         Tree t(covarianceSuite, FileType::guess, "2.0");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
@@ -190,7 +190,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       }
 
       WHEN("We call: Tree(top-level node, string, version)") {
-         Tree t(PoPs, "text", "4.0");
+         Tree t(PoPs, "debug", "4.0");
          THEN("We can make various decl() and top() queries") {
             CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);

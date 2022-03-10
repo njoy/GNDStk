@@ -37,9 +37,9 @@ SCENARIO("Testing GNDStk tree decl()") {
          CHECK(t.decl().children.size() == 0);
       }
 
-      WHEN("We call reset(covarianceSuite, FileType::null, \"2.0\")") {
+      WHEN("We call reset(covarianceSuite, FileType::guess, \"2.0\")") {
          Tree t;
-         t.reset(covarianceSuite, FileType::null, "2.0");
+         t.reset(covarianceSuite, FileType::guess, "2.0");
          CHECK(t.decl().name == "#xml");
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "2.0");
@@ -67,9 +67,9 @@ SCENARIO("Testing GNDStk tree decl()") {
 
       }
 
-      WHEN("We call reset(PoPs, \"tree\", \"4.0\")") {
+      WHEN("We call reset(PoPs, \"debug\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "text", "4.0");
+         t.reset(PoPs, "debug", "4.0");
          CHECK(t.decl().name == "#xml");
          CHECK(t.decl().metadata.size() == 2);
          CHECK(t.decl().meta("version") == "4.0");

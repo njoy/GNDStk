@@ -52,9 +52,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(covarianceSuite, FileType::null, \"2.0\")") {
+           "Tree.reset(covarianceSuite, FileType::guess, \"2.0\")") {
          Tree t;
-         t.reset(covarianceSuite, FileType::null, "2.0");
+         t.reset(covarianceSuite, FileType::guess, "2.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "#xml");
@@ -102,9 +102,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(PoPs, \"tree\", \"4.0\")") {
+           "Tree.reset(PoPs, \"debug\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "text", "4.0");
+         t.reset(PoPs, "debug", "4.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "#xml");

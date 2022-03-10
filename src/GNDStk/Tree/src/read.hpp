@@ -8,7 +8,7 @@
 // 1. read(istream, FileType)
 std::istream &read(
    std::istream &is,
-   const FileType format = FileType::null
+   const FileType format = FileType::guess
 ) {
    try {
       return this->Node::read(is, format, true);
@@ -21,7 +21,7 @@ std::istream &read(
 // 2. read(file name, FileType)
 bool read(
    const std::string &filename,
-   const FileType format = FileType::null
+   const FileType format = FileType::guess
 ) {
    try {
       return this->Node::read(filename, format, true);

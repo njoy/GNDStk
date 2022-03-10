@@ -48,7 +48,7 @@ void writeReadHDF5(
    // a way that these issues won't appear here; if they do arise, somehow,
    // then we're sure we'll hear about it. :-)
    std::ostringstream oss;
-   newTree.sort().top().write(oss,"text");
+   newTree.sort().top().write(oss,"debug");
    CHECK(oss.str() == correct);
 
    // Test #2. Ensure that file newFile (written above, from the original Tree)
@@ -99,7 +99,7 @@ SCENARIO("Testing GNDStk HDF5, Part I") {
 
       // Write to a string, in our simple debug format
       std::ostringstream oss;
-      tree.sort().top().write(oss,"text");
+      tree.sort().top().write(oss,"debug");
       const std::string correct = oss.str();
 
       // Write/read to/from HDF5, for each combination of the available flags

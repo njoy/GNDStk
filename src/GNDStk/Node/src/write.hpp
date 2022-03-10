@@ -3,7 +3,7 @@
 // Node.write()
 // -----------------------------------------------------------------------------
 
-// Cases for our FileType::text "plain text" format:
+// Cases for our FileType::debug format:
 //    write(ostream,   int level)
 //    write(file name, int level)
 // The "level" parameter keeps track of the indentation level.
@@ -21,7 +21,7 @@
 // -----------------------------------------------------------------------------
 // Helper
 // write(ostream, int level)
-// For FileType::text
+// For FileType::debug
 // -----------------------------------------------------------------------------
 
 private:
@@ -71,7 +71,7 @@ std::ostream &write(std::ostream &os, const int level) const
 // -----------------------------------------------------------------------------
 // Helper
 // write(file name, int level)
-// For FileType::text
+// For FileType::debug
 // -----------------------------------------------------------------------------
 
 private:
@@ -112,7 +112,7 @@ public:
 
 std::ostream &write(
    std::ostream &os = std::cout,
-   const FileType format = FileType::null,
+   const FileType format = FileType::guess,
    const bool decl = false,
    // If circumstances are such that we end up writing an HDF5, the following
    // may be != "" if the ostream is from an ofstream. In that case, the HDF5
@@ -136,8 +136,8 @@ std::ostream &write(
    // a file name whose extension can be examined, nor an existing file (that
    // we care about, at least - we're doing *output*) whose file magic number
    // we can examine in order to guess at the file type. We therefore have
-   // our else { } catchall, below, write the Node in our plain text format,
-   // whether FileType::null or FileType::text arrived as the format.
+   // our else { } catchall, below, write the Node in our debugging format,
+   // whether FileType::guess or FileType::debug arrived as the format.
    //
    // A case could be made that this function should *require* that a format
    // be given, considering that we don't, here, have a file or a file name
@@ -162,7 +162,7 @@ std::ostream &write(
             convert(*this,tmp,filename);
          }
       } else {
-         // null or text: use our plain text format
+         // guess or debug: use our debugging format
          return write(os,0);
       }
 
@@ -189,16 +189,16 @@ public:
 
 bool write(
    const std::string &filename,
-   FileType format = FileType::null,
+   FileType format = FileType::guess,
    const bool decl = false
 ) const {
 
    // ------------------------
-   // FileType::null
+   // FileType::guess
    // Decide from file name
    // ------------------------
 
-   if (format == FileType::null) {
+   if (format == FileType::guess) {
       if (has_extension(filename) && endsin_xml(filename))
          format = FileType::xml;
       else if (has_extension(filename) && endsin_json(filename))
@@ -206,8 +206,8 @@ bool write(
       else if (has_extension(filename) && endsin_hdf5(filename))
          format = FileType::hdf5;
       else {
-         // fallback: our plain text format
-         format = FileType::text;
+         // fallback: our debugging format
+         format = FileType::debug;
       }
    }
 
@@ -269,21 +269,21 @@ std::ostream &write(
    const bool decl = false
 ) const {
    try {
-      if (eq_null(format)) return write(os, FileType::null, decl);
-      if (eq_text(format)) return write(os, FileType::text, decl);
-      if (eq_xml (format)) return write(os, FileType::xml,  decl);
-      if (eq_json(format)) return write(os, FileType::json, decl);
-      if (eq_hdf5(format)) return write(os, FileType::hdf5, decl);
+      if (eq_guess(format)) return write(os, FileType::guess, decl);
+      if (eq_debug(format)) return write(os, FileType::debug, decl);
+      if (eq_xml  (format)) return write(os, FileType::xml,   decl);
+      if (eq_json (format)) return write(os, FileType::json,  decl);
+      if (eq_hdf5 (format)) return write(os, FileType::hdf5,  decl);
 
       // unrecognized file format
       log::warning(
          "Unrecognized file format in call to Node.write(ostream,\"{}\").\n"
-         "We'll use our plain text format",
+         "We'll use our debugging format",
          format
       );
 
       // fallback: automagick
-      return write(os, FileType::null, decl);
+      return write(os, FileType::guess, decl);
    } catch (...) {
       log::member("Node.write(ostream,\"{}\")", format);
       throw;
@@ -304,22 +304,22 @@ bool write(
    const bool decl = false
 ) const {
    try {
-      if (eq_null(format)) return write(filename, FileType::null, decl);
-      if (eq_text(format)) return write(filename, FileType::text, decl);
-      if (eq_xml (format)) return write(filename, FileType::xml,  decl);
-      if (eq_json(format)) return write(filename, FileType::json, decl);
-      if (eq_hdf5(format)) return write(filename, FileType::hdf5, decl);
+      if (eq_guess(format)) return write(filename, FileType::guess, decl);
+      if (eq_debug(format)) return write(filename, FileType::debug, decl);
+      if (eq_xml  (format)) return write(filename, FileType::xml,   decl);
+      if (eq_json (format)) return write(filename, FileType::json,  decl);
+      if (eq_hdf5 (format)) return write(filename, FileType::hdf5,  decl);
 
       // unrecognized file format
       log::warning(
          "Unrecognized file format in call to Node.write(\"{}\",\"{}\").\n"
-         "We'll guess from the file extension, or use our plain text\n"
+         "We'll guess from the file extension, or use our debugging\n"
          "format if that fails",
          filename, format
       );
 
       // fallback: automagick
-      return write(filename, FileType::null, decl);
+      return write(filename, FileType::guess, decl);
    } catch (...) {
       log::member("Node.write(\"{}\",\"{}\")", filename, format);
       throw;

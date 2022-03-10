@@ -142,7 +142,7 @@ std::ostream &write(std::ostream &os, const int level) const
 // write(ostream, FileType)
 std::ostream &write(
    std::ostream &os = std::cout,
-   const FileType format = FileType::null,
+   const FileType format = FileType::guess,
    const bool decl = false
 ) const {
    return Node(*this).write(os, format, decl);
@@ -151,7 +151,7 @@ std::ostream &write(
 // write(file name, FileType)
 bool write(
    const std::string &filename,
-   FileType format = FileType::null,
+   FileType format = FileType::guess,
    const bool decl = false
 ) const {
    return Node(*this).write(filename, format, decl);

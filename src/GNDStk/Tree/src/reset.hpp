@@ -36,11 +36,11 @@ Tree &reset(
       // Declaration node: "#xml", etc.
       // This can specify an eventual intended file format
       // for the GNDS hierarchy.
-      if (format == FileType::xml  ||
-          format == FileType::null ||
-          format == FileType::text
+      if (format == FileType::xml ||
+          format == FileType::guess ||
+          format == FileType::debug
       ) {
-         // xml, null, tree
+         // xml, guess, tree
          add("#xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
@@ -84,11 +84,11 @@ Tree &reset(
 ) {
    try {
       // recognized file formats
-      if (eq_null(format)) return reset(kwd, FileType::null, version, encoding);
-      if (eq_text(format)) return reset(kwd, FileType::text, version, encoding);
-      if (eq_xml (format)) return reset(kwd, FileType::xml,  version, encoding);
-      if (eq_json(format)) return reset(kwd, FileType::json, version, encoding);
-      if (eq_hdf5(format)) return reset(kwd, FileType::hdf5, version, encoding);
+      if (eq_guess(format)) return reset(kwd,FileType::guess, version,encoding);
+      if (eq_debug(format)) return reset(kwd,FileType::debug, version,encoding);
+      if (eq_xml  (format)) return reset(kwd,FileType::xml,   version,encoding);
+      if (eq_json (format)) return reset(kwd,FileType::json,  version,encoding);
+      if (eq_hdf5 (format)) return reset(kwd,FileType::hdf5,  version,encoding);
 
       // fallback: use XML
       // Note: we should consider making this an error

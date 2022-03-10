@@ -7,7 +7,7 @@
 // 1. write(ostream, FileType)
 std::ostream &write(
    std::ostream &os = std::cout,
-   const FileType format = FileType::null,
+   const FileType format = FileType::guess,
    const bool decl = true
 ) const {
    try {
@@ -21,7 +21,7 @@ std::ostream &write(
 // 2. write(file name, FileType)
 bool write(
    const std::string &filename,
-   const FileType format = FileType::null,
+   const FileType format = FileType::guess,
    const bool decl = true
 ) const {
    try {

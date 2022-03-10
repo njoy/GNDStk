@@ -145,7 +145,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
    GIVEN("Several trees, read differently, but ultimately from the same file") {
       // While the present test file is about tree's read(), not about its
       // write(), let's nevertheless do a simple write(), to tree's basic
-      // text-output file format, from each of the trees read in different ways
+      // debug-output file format, from each of the trees read in different ways
       // above, and be sure there are absolutely no differences between them.
       // In effect, this helps test the read(), because it gives confidence
       // that our various ways of reading the same files give the same results.
@@ -170,13 +170,13 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
       WHEN("We test read(filename, file format") {
          // xml
-         tree.read(xfilename,FileType::null);
+         tree.read(xfilename,FileType::guess);
          compare(tree, decl_xml + correct_tree);
          tree.read(xfilename,FileType::xml );
          compare(tree, decl_xml + correct_tree);
 
          // json
-         tree.read(jfilename,FileType::null);
+         tree.read(jfilename,FileType::guess);
          compare(tree, decl_json + correct_tree);
          tree.read(jfilename,FileType::json);
          compare(tree, decl_json + correct_tree);
@@ -186,7 +186,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          // xml
          tree.read(xfilename,""    );
          compare(tree, decl_xml + correct_tree);
-         tree.read(xfilename,"null");
+         tree.read(xfilename,"guess");
          compare(tree, decl_xml + correct_tree);
          tree.read(xfilename,"xml" );
          compare(tree, decl_xml + correct_tree);
@@ -194,7 +194,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          // json
          tree.read(jfilename,""    );
          compare(tree, decl_json + correct_tree);
-         tree.read(jfilename,"null");
+         tree.read(jfilename,"guess");
          compare(tree, decl_json + correct_tree);
          tree.read(jfilename,"json");
          compare(tree, decl_json + correct_tree);
@@ -203,7 +203,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       WHEN("We test read(istream, file format") {
          // xml
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,FileType::null);
+         tree.read(xifs,FileType::guess);
          compare(tree, decl_xml + correct_tree);
          xifs.seekg (0,std::ios::beg);
          tree.read(xifs,FileType::xml );
@@ -211,7 +211,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
          // json
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,FileType::null);
+         tree.read(jifs,FileType::guess);
          compare(tree, decl_json + correct_tree);
          jifs.seekg (0,std::ios::beg);
          tree.read(jifs,FileType::json);
@@ -224,7 +224,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          tree.read(xifs,""    );
          compare(tree, decl_xml + correct_tree);
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,"null");
+         tree.read(xifs,"guess");
          compare(tree, decl_xml + correct_tree);
          xifs.seekg (0,std::ios::beg);
          tree.read(xifs,"xml" );
@@ -235,7 +235,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          tree.read(jifs,""    );
          compare(tree, decl_json + correct_tree);
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,"null");
+         tree.read(jifs,"guess");
          compare(tree, decl_json + correct_tree);
          jifs.seekg (0,std::ios::beg);
          tree.read(jifs,"json");
