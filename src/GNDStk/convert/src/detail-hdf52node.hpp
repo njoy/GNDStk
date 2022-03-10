@@ -1,4 +1,7 @@
 
+// rootHDF5: name of the root HDF5 group
+inline const std::string rootHDF5 = "/";
+
 // Helper: error_hdf52node
 inline void error_hdf52node(const std::string &message)
 {
@@ -180,17 +183,21 @@ bool hdf52node(
    // ==> node name
    // ------------------------
 
-   // if "/" then we're at the top-level node, which we call "" internally
-   if (groupName != "/")
-      node.name = groupName;
+   // zzz Want comment fix, and adjustment; treat rootHDF5 and rootNodeName
+   // zzz separate, even if they happen to equal each other
+   /*
+   if (groupName != rootHDF5)
+   */
+   node.name = (groupName != rootHDF5) ? groupName : "";
 
    // ------------------------
    // HDF5 attributes
    // ==> metadata
    // ------------------------
 
-   // if "/", then attributes were handled, in a special way, by the caller
-   if (groupName != "/") {
+   // Only if we're *not* at the root HDF5 group; if we are, then attributes
+   // would have already been handled, in a special way, by the caller...
+   if (groupName != rootHDF5) {
       for (const std::string &attrName : group.listAttributeNames()) {
          if (attrName == "#nodeName") {
             // #nodeName

@@ -258,7 +258,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
 
    // not empty in the earlier (h.filePtr == nullptr) sense,
    // but with no real content in the HDF5 document?
-   const HighFive::Group &group = h.filePtr->getGroup("/");
+   const HighFive::Group &group = h.filePtr->getGroup(detail::rootHDF5);
    if (group.getNumberAttributes() == 0 && group.getNumberObjects() == 0)
       return true;
 
@@ -270,8 +270,8 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
             if (!detail::attr2node(group.getAttribute(attrName),*declnode))
                return false;
 
-      // visit the rest of "/"
-      if (!detail::hdf52node(group, "/", node, !decl))
+      // visit the rest of the root HDF5 group
+      if (!detail::hdf52node(group, detail::rootHDF5, node, !decl))
          return false;
    } catch (...) {
       log::function("convert(HDF5,Node)");
