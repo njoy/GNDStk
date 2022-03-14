@@ -11,7 +11,7 @@ using namespace njoy::GNDStk;
 
 // tree
 static const std::string string_empty_tree =
-R"***(:)***";
+R"***(/:)***";
 
 // xml
 static const std::string string_empty_xml =
@@ -34,7 +34,7 @@ R"***(null)***";
 // ------------------------
 
 static const std::string string_real_tree =
-R"***(:
+R"***(/:
    #xml:
       version: 1.0
       encoding: UTF-8

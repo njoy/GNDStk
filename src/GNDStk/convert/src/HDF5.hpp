@@ -20,7 +20,7 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
       h.filePtr = new HighFive::File(h.fileName, HDF5::modeWrite);
 
       // Probably a regular Node...
-      if (node.name != "") {
+      if (node.name != slashTreeName) {
          const bool ret = detail::node2hdf5(node,*h.filePtr);
          h.filePtr->flush();
          return ret;

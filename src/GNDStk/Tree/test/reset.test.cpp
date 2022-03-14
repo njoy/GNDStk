@@ -119,9 +119,9 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(thermalScattering, \"#xml\", \"5.0\", \"UTF-10\")") {
+           "Tree.reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
          Tree t;
-         t.reset(thermalScattering, "#xml", "5.0", "UTF-10");
+         t.reset(thermalScattering, "xml", "5.0", "UTF-10");
 
          THEN("Declaration- and top-level-node queries can be made") {
             CHECK(t.decl().name == "#xml");

@@ -41,14 +41,14 @@ inline bool convert(const Node &node, XML &x)
    static const std::string context = "convert(Node,XML)";
    try {
 
-      if (node.name != "") {
-         // A Tree should have name == "" at the root level, so we don't
-         // consider this to be a Tree. Just do a straight Node conversion.
+      if (node.name != slashTreeName) {
+         // A Tree should have name == slashTreeName at the root level; so,
+         // don't consider this to be a Tree. Do a straight Node conversion.
          return detail::node2xml(node,x.doc);
       }
 
-      // Henceforth it's presumably a Tree, unless someone gave the name ""
-      // to a regular node, which they really shouldn't have done...
+      // Henceforth it's presumably a Tree, unless someone gave the root Tree-
+      // node name to a regular node, which they really shouldn't have done.
       if (node.metadata.size() != 0) {
          log::warning(
             "Encountered Node with empty name \"\",\n"

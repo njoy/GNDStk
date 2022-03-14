@@ -2,6 +2,13 @@
 #include "GNDStk/Node/src/detail.hpp"
 std::ostream &operator<<(std::ostream &os, const Node &node);
 
+// Name for newly-created nodes
+inline const std::string emptyNodeName = "";
+
+// Name for root nodes of trees
+inline const std::string slashTreeName = "/";
+
+
 // -----------------------------------------------------------------------------
 // Node
 // -----------------------------------------------------------------------------
@@ -37,7 +44,8 @@ public:
    // clear
    Node &clear()
    {
-      name = "";
+      if (name != slashTreeName) // else Tree; leave alone
+         name = emptyNodeName;
       metadata.clear();
       children.clear();
       return *this;
@@ -46,7 +54,10 @@ public:
    // empty?
    bool empty() const
    {
-      return name == "" && metadata.size() == 0 && children.size() == 0;
+      return
+        (name == emptyNodeName || name == slashTreeName) &&
+         metadata.size() == 0 &&
+         children.size() == 0;
    }
 
    // parent
@@ -152,7 +163,6 @@ public:
    }
 
 }; // class Node
-
 
 
 // -----------------------------------------------------------------------------

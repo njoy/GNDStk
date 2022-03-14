@@ -33,11 +33,11 @@
 // in the input, will be ignored. This behavior reflects what we want for
 // "regular" Node objects.
 //
-// If decl == true, we'll make *this be a Node with an empty name, "". Then,
-// we'll place any input non-declaration node into one of its children. And,
-// finally, we'll preserve any *declaration* node as another child. This
-// behavior reflects what we actually want for Tree objects (and, remember,
-// Tree derives from Node).
+// If decl == true, we'll make *this be a Node with the proper tree-root node
+// name. Then, we'll place any input non-declaration node into one of its
+// children. And, finally, we'll preserve any *declaration* node as another
+// child. This behavior reflects what we actually want for Tree objects (and,
+// remember, Tree derives from Node).
 
 
 

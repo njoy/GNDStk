@@ -57,10 +57,10 @@ const std::string &documentation(bool &found = detail::default_bool) const
       return found = true, *s;
 
    // top-level?
-   // If we're in what looks like the root node of a tree (named "" - the empty
-   // string), then look in all of the top-level nodes. In a properly formatted
-   // GNDS file, there will be just one such node, e.g. reactionSuite.
-   if (name == "")
+   // If we're in what looks like the root node of a tree, then look in all
+   // of the top-level nodes. In a properly formatted GNDS file, there will
+   // be just one such top-level node, e.g. reactionSuite.
+   if (name == slashTreeName)
       for (auto &ptr : children)
          if (look(*ptr,s))
             return found = true, *s;

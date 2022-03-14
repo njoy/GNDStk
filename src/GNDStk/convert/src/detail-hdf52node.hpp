@@ -1,6 +1,6 @@
 
-// rootHDF5: name of the root HDF5 group
-inline const std::string rootHDF5 = "/";
+// rootHDF5Name: name of the root HDF5 group
+inline const std::string rootHDF5Name = "/";
 
 // Helper: error_hdf52node
 inline void error_hdf52node(const std::string &message)
@@ -183,12 +183,7 @@ bool hdf52node(
    // ==> node name
    // ------------------------
 
-   // zzz Want comment fix, and adjustment; treat rootHDF5 and rootNodeName
-   // zzz separate, even if they happen to equal each other
-   /*
-   if (groupName != rootHDF5)
-   */
-   node.name = (groupName != rootHDF5) ? groupName : "";
+   node.name = groupName == rootHDF5Name ? slashTreeName : groupName;
 
    // ------------------------
    // HDF5 attributes
@@ -197,7 +192,7 @@ bool hdf52node(
 
    // Only if we're *not* at the root HDF5 group; if we are, then attributes
    // would have already been handled, in a special way, by the caller...
-   if (groupName != rootHDF5) {
+   if (groupName != rootHDF5Name) {
       for (const std::string &attrName : group.listAttributeNames()) {
          if (attrName == "#nodeName") {
             // #nodeName

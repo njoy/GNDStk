@@ -54,13 +54,13 @@ R"***(
                value: 0.0)***";
 
 static const std::string decl_xml =
-R"***(:
+R"***(/:
    #xml:
       encoding: UTF-8
       version: 1.0)***";
 
 static const std::string decl_json =
-R"***(:
+R"***(/:
    #json:)***";
 
 void compare(Tree &t, const std::string &correct)
@@ -172,7 +172,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          // xml
          tree.read(xfilename,FileType::guess);
          compare(tree, decl_xml + correct_tree);
-         tree.read(xfilename,FileType::xml );
+         tree.read(xfilename,FileType::xml);
          compare(tree, decl_xml + correct_tree);
 
          // json
@@ -184,15 +184,15 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
       WHEN("We test read(filename, string") {
          // xml
-         tree.read(xfilename,""    );
+         tree.read(xfilename,"");
          compare(tree, decl_xml + correct_tree);
          tree.read(xfilename,"guess");
          compare(tree, decl_xml + correct_tree);
-         tree.read(xfilename,"xml" );
+         tree.read(xfilename,"xml");
          compare(tree, decl_xml + correct_tree);
 
          // json
-         tree.read(jfilename,""    );
+         tree.read(jfilename,"");
          compare(tree, decl_json + correct_tree);
          tree.read(jfilename,"guess");
          compare(tree, decl_json + correct_tree);
@@ -206,7 +206,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          tree.read(xifs,FileType::guess);
          compare(tree, decl_xml + correct_tree);
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,FileType::xml );
+         tree.read(xifs,FileType::xml);
          compare(tree, decl_xml + correct_tree);
 
          // json
@@ -221,18 +221,18 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       WHEN("We test read(istream, string") {
          // xml
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,""    );
+         tree.read(xifs,"");
          compare(tree, decl_xml + correct_tree);
          xifs.seekg (0,std::ios::beg);
          tree.read(xifs,"guess");
          compare(tree, decl_xml + correct_tree);
          xifs.seekg (0,std::ios::beg);
-         tree.read(xifs,"xml" );
+         tree.read(xifs,"xml");
          compare(tree, decl_xml + correct_tree);
 
          // json
          jifs.seekg (0,std::ios::beg);
-         tree.read(jifs,""    );
+         tree.read(jifs,"");
          compare(tree, decl_json + correct_tree);
          jifs.seekg (0,std::ios::beg);
          tree.read(jifs,"guess");

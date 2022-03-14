@@ -17,7 +17,7 @@ inline bool convert(const Node &node, JSON &j)
    try {
 
       // Probably a regular Node...
-      if (node.name != "")
+      if (node.name != slashTreeName)
          return detail::node2json(node,j.doc);
 
       // Probably a Tree...
