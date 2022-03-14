@@ -58,10 +58,10 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
          // to copying bytes from *filePtr's file to the ostream.
          filePtr->flush();
 
-         std::ifstream ifs(fileName, std::ios::binary);
+         std::ifstream ifs(filePtr->getName(), std::ios::binary);
          if (!ifs) {
             log::error("Could not open file \"{}\" "
-                       "for writing to ostream", fileName);
+                       "for writing to ostream", filePtr->getName());
             throw std::exception{};
          }
 
@@ -76,7 +76,7 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
          if (!good) {
             log::error(
               "Error writing file \"{}\"'s contents to ostream",
-               fileName);
+               filePtr->getName());
             throw std::exception{};
          }
       }
@@ -97,8 +97,9 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
 
 bool write(const std::string &name, const bool decl = true) const
 {
-   // Well, I suppose it's possible...
-   if (!empty() && name == fileName) {
+   // In case the given file happens to be the same
+   // file that's already referenced by filePtr...
+   if (!empty() && name == filePtr->getName()) {
       filePtr->flush();
       return true;
    }

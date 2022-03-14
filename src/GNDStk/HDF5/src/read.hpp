@@ -51,7 +51,6 @@ std::istream &read(std::istream &is)
    ofs.close();
    try {
       filePtr = new HighFive::File(name,modeRead);
-      fileName = name;
       fileDesc = desc;
       is.clear(std::ios_base::eofbit); // as expected
       return is;
@@ -71,7 +70,7 @@ std::istream &read(std::istream &is)
 // read(file name)
 // -----------------------------------------------------------------------------
 
-bool read(const std::string name)
+bool read(const std::string &filename)
 {
    clear();
 
@@ -79,21 +78,20 @@ bool read(const std::string name)
    // does, in fact, open the file. However, a "test open" allows us to provide
    // diagnostics that resemble those that we provide in our read() functions
    // for other file formats.
-   std::ifstream ifs(name, std::ios::binary);
+   std::ifstream ifs(filename, std::ios::binary);
    if (ifs) {
       ifs.close();
       try {
-         filePtr = new HighFive::File(name,modeRead);
-         fileName = name;
+         filePtr = new HighFive::File(filename,modeRead);
          return true;
       } catch (...) {
          log::error("Call 'new HighFive::File(\"{}\",ReadOnly)' "
-                    "threw an exception", name);
+                    "threw an exception", filename);
       }
    } else
-      log::error("Could not open file \"{}\"", name);
+      log::error("Could not open file \"{}\"", filename);
 
-   log::member("HDF5.read(\"{}\")", name);
+   log::member("HDF5.read(\"{}\")", filename);
    delete filePtr;
    return false;
 }

@@ -14,10 +14,10 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 
    // Prepare the HDF5
    h.clear();
-   h.fileName = name != "" ? name : h.temporaryName(h.fileDesc);
+   const std::string fileName = name != "" ? name : h.temporaryName(h.fileDesc);
 
    try {
-      h.filePtr = new HighFive::File(h.fileName, HDF5::modeWrite);
+      h.filePtr = new HighFive::File(fileName, HDF5::modeWrite);
 
       // Probably a regular Node...
       if (node.name != slashTreeName) {
@@ -162,9 +162,9 @@ inline bool convert(const HDF5 &from, HDF5 &to)
 
    // convert
    try {
-      std::ifstream ifs(from.fileName, std::ios::binary);
+      std::ifstream ifs(from.filePtr->getName(), std::ios::binary);
       if (!ifs) {
-         log::error("Could not open file \"{}\"", from.fileName);
+         log::error("Could not open file \"{}\"", from.filePtr->getName());
          throw std::exception{};
       }
       if (!to.read(ifs))
