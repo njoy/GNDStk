@@ -13,27 +13,4 @@ namespace detail {
 #include "detail-node2hdf5.hpp"
 #include "detail-hdf52node.hpp"
 
-
-// -----------------------------------------------------------------------------
-// node2node
-// -----------------------------------------------------------------------------
-
-template<class NODE>
-void node2node(const NODE &from, NODE &to)
-{
-   // clear
-   to.clear();
-
-   // name
-   to.name = from.name;
-
-   // metadata
-   for (auto &m : from.metadata)
-      to.add(m.first,m.second);
-
-   // children
-   for (auto &c : from.children)
-      node2node(*c, to.add());
-}
-
 } // namespace detail
