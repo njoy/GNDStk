@@ -68,18 +68,6 @@ explicit XML(const Node &n)
    }
 }
 
-// From Tree
-explicit XML(const Tree &t)
-{
-   try {
-      if (!convert(t,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("XML(Tree)");
-      throw;
-   }
-}
-
 
 // ------------------------
 // From file and istream

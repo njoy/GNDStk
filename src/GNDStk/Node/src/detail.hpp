@@ -689,7 +689,7 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// Helpers for Node-reading code
+// Helpers for code related to Node I/O
 // -----------------------------------------------------------------------------
 
 // warning_io_name
@@ -725,6 +725,13 @@ inline const std::string error_format_read =
    "for debug writing, not for reading. "
    "Consider FileType:: xml, json, or hdf5"
 ;
+
+// getDecl
+template<class NODE>
+bool getDecl(const NODE &node, const bool &decl)
+{
+   return sent(decl) ? decl : node.name == slashTreeName;
+}
 
 
 

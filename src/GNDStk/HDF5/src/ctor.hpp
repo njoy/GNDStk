@@ -72,18 +72,6 @@ explicit HDF5(const Node &n)
    }
 }
 
-// From Tree
-explicit HDF5(const Tree &t)
-{
-   try {
-      if (!convert(t,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("HDF5(Tree)");
-      throw;
-   }
-}
-
 
 // ------------------------
 // From file and istream

@@ -79,34 +79,15 @@ inline bool convert(const Node &node, JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// Tree ==> JSON
+// XML  ==> JSON
+// HDF5 ==> JSON
+// As with convert()s to XML, these go through a Tree temporary.
 // -----------------------------------------------------------------------------
 
-inline bool convert(const Tree &tree, JSON &j)
-{
-   try {
-      return convert(*(const Node *)&tree, j);
-   } catch (...) {
-      log::function("convert(Tree,JSON)");
-      throw;
-   }
-}
-
-
-
-// -----------------------------------------------------------------------------
-// XML ==> JSON
-// -----------------------------------------------------------------------------
-
-// Goes through a tree. Could be made more efficient if written directly.
-// We'll revisit this if it becomes more of an issue.
 inline bool convert(const XML &x, JSON &j)
 {
-   // temporary
-   Tree t;
-
-   // convert
    try {
+      Tree t; // temporary
       return convert(x,t) && convert(t,j);
    } catch (...) {
       log::function("convert(XML,JSON)");
@@ -114,20 +95,10 @@ inline bool convert(const XML &x, JSON &j)
    }
 }
 
-
-
-// -----------------------------------------------------------------------------
-// HDF5 ==> JSON
-// -----------------------------------------------------------------------------
-
-// As above, goes through a tree.
 inline bool convert(const HDF5 &h, JSON &j)
 {
-   // temporary
-   Tree t;
-
-   // convert
    try {
+      Tree t; // temporary
       return convert(h,t) && convert(t,j);
    } catch (...) {
       log::function("convert(HDF5,JSON)");

@@ -64,18 +64,6 @@ explicit JSON(const Node &n)
    }
 }
 
-// From Tree
-explicit JSON(const Tree &t)
-{
-   try {
-      if (!convert(t,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("JSON(Tree)");
-      throw;
-   }
-}
-
 
 // ------------------------
 // From file and istream

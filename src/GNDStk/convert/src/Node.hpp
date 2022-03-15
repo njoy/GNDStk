@@ -1,47 +1,16 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,Tree)
-// That is, convert to Tree objects
-// Also:
-// convert(*,Node) for * = XML/JSON/HDF5
+// convert(*,Node), for * = XML/JSON/HDF5
 // -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-// Tree ==> Tree
-// -----------------------------------------------------------------------------
-
-inline bool convert(const Tree &from, Tree &to)
-{
-   // same Tree?
-   if (&to == &from)
-      return true;
-
-   // clear
-   to.clear();
-
-   // convert
-   try {
-      if (from.has_decl()) to.add() = from.decl();
-      if (from.has_top ()) to.add() = from.top ();
-   } catch (...) {
-      log::function("convert(Tree,Tree)");
-      throw;
-   }
-
-   // done
-   return true;
-}
-
-
 
 // -----------------------------------------------------------------------------
 // XML ==> Node
-// XML ==> Tree
 // -----------------------------------------------------------------------------
 
-// XML ==> Node
-inline bool convert(const XML &x, Node &node, const bool decl)
+inline bool convert(const XML &x, Node &node, const bool &DECL)
 {
+   const bool decl = detail::getDecl(node,DECL);
+
    // ------------------------
    // bookkeeping
    // ------------------------
@@ -130,27 +99,15 @@ inline bool convert(const XML &x, Node &node, const bool decl)
 }
 
 
-// XML ==> Tree
-inline bool convert(const XML &x, Tree &tree)
-{
-   try {
-      return convert(x, *(Node*)&tree, true);
-   } catch (...) {
-      log::function("convert(XML,Tree)");
-      throw;
-   }
-}
-
-
 
 // -----------------------------------------------------------------------------
 // JSON ==> Node
-// JSON ==> Tree
 // -----------------------------------------------------------------------------
 
-// JSON ==> Node
-inline bool convert(const JSON &j, Node &node, const bool decl)
+inline bool convert(const JSON &j, Node &node, const bool &DECL)
 {
+   const bool decl = detail::getDecl(node,DECL);
+
    // ------------------------
    // bookkeeping
    // ------------------------
@@ -202,44 +159,33 @@ inline bool convert(const JSON &j, Node &node, const bool decl)
 }
 
 
-// JSON ==> Tree
-inline bool convert(const JSON &j, Tree &tree)
-{
-   try {
-      return convert(j, *(Node*)&tree, true);
-   } catch (...) {
-      log::function("convert(JSON,Tree)");
-      throw;
-   }
-}
-
-
 
 // -----------------------------------------------------------------------------
 // HDF5 ==> Node
-// HDF5 ==> Tree
 // -----------------------------------------------------------------------------
 
 /*
 Remark
 
-HighFive::File, and by extension GNDStk::HDF5 (our simple wrapper around
-HighFive::File, to assist in providing uniform behavior between XML, JSON,
-and HDF5), references an entire HDF5 file. Unlike XML and JSON, it apparently
+HighFive::File references an entire HDF5 file. By extension, this applies to
+GNDStk::HDF5 - our simple wrapper around HighFive::File that helps us to provide
+uniform behavior between XML, JSON, and HDF5. Unlike XML and JSON, it apparently
 can't reference just part of such a file, i.e. part of an HDF5 hierarchy. The
-upshot: convert(HDF5,Tree) may be far more meaningful than convert(HDF5,Node),
-as the Tree is for a full GNDS hierarchy, Node for possibly a partial hierarchy.
-I'll keep the Node case, though. It will have slightly different behavior, due
-to the decl flag. Also, the Tree version will call the Node version to do most
-of the work. We might consider having a convert(HighFive::Group,Node), i.e. with
-a HighFive::Group rather than a HighFive::File, but such a thing might or might
+upshot: convert(HDF5,Tree) may be more meaningful than convert(HDF5,Node), as
+Tree is for a full GNDS hierarchy, while Node for possibly a partial hierarchy.
+Consistent with how we handle conversions from XML and JSON, however, we define
+the conversion in terms of Node (from which Tree is, of course, derived), and
+then guess, based on the Node's name, whether it's a Tree, or a Node proper. We
+may consider, at some point, having a convert(HighFive::Group,Node), i.e. with a
+HighFive::Group rather than a HighFive::File, but such a function might or might
 not prove to be useful. A HighFive::Group would come from a HighFive::File; it
 wouldn't be a string on its own, like a "snippet" of XML or JSON.
 */
 
-// HDF5 ==> Node
-inline bool convert(const HDF5 &h, Node &node, const bool decl)
+inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 {
+   const bool decl = detail::getDecl(node,DECL);
+
    // ------------------------
    // bookkeeping
    // ------------------------
@@ -280,16 +226,4 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
 
    // done
    return true;
-}
-
-
-// HDF5 ==> Tree
-inline bool convert(const HDF5 &h, Tree &tree)
-{
-   try {
-      return convert(h, *(Node*)&tree, true);
-   } catch (...) {
-      log::function("convert(HDF5,Tree)");
-      throw;
-   }
 }

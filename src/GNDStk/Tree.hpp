@@ -38,12 +38,6 @@ public:
    #include "GNDStk/Tree/src/read.hpp"
    #include "GNDStk/Tree/src/write.hpp"
 
-   // No-argument operator() returns the top-level Node. This overrides
-   // the base Node class' no-argument operator(), which returns itself.
-   const Node &operator()() const { return top(); }
-   Node &operator()() { return top(); }
-   using Node::operator(); // or the above would disappear Node's goodies
-
    // ------------------------
    // Comparison
    // ------------------------

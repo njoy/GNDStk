@@ -1,12 +1,12 @@
 
-#include "GNDStk/Node/src/detail.hpp"
-std::ostream &operator<<(std::ostream &os, const Node &node);
-
 // Name for newly-created nodes
 inline const std::string emptyNodeName = "";
 
 // Name for root nodes of trees
 inline const std::string slashTreeName = "/";
+
+#include "GNDStk/Node/src/detail.hpp"
+std::ostream &operator<<(std::ostream &os, const Node &node);
 
 
 // -----------------------------------------------------------------------------

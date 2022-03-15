@@ -87,32 +87,15 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 
 
 // -----------------------------------------------------------------------------
-// Tree ==> HDF5
-// -----------------------------------------------------------------------------
-
-inline bool convert(const Tree &tree, HDF5 &h)
-{
-   try {
-      return convert(*(const Node *)&tree, h);
-   } catch (...) {
-      log::function("convert(Tree,HDF5)");
-      throw;
-   }
-}
-
-
-
-// -----------------------------------------------------------------------------
-// XML ==> HDF5
+// XML  ==> HDF5
+// JSON ==> HDF5
+// As with convert()s to XML, these go through a Tree temporary.
 // -----------------------------------------------------------------------------
 
 inline bool convert(const XML &x, HDF5 &h)
 {
-   // temporary
-   Tree t;
-
-   // convert
    try {
+      Tree t; // temporary
       return convert(x,t) && convert(t,h);
    } catch (...) {
       log::function("convert(XML,HDF5)");
@@ -120,19 +103,10 @@ inline bool convert(const XML &x, HDF5 &h)
    }
 }
 
-
-
-// -----------------------------------------------------------------------------
-// JSON ==> HDF5
-// -----------------------------------------------------------------------------
-
 inline bool convert(const JSON &j, HDF5 &h)
 {
-   // temporary
-   Tree t;
-
-   // convert
    try {
+      Tree t; // temporary
       return convert(j,t) && convert(t,h);
    } catch (...) {
       log::function("convert(JSON,HDF5)");
