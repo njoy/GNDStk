@@ -52,7 +52,7 @@ void writeReadHDF5(
    CHECK(oss.str() == correct);
 
    // Test #2. Ensure that file newFile (written above, from the original Tree)
-   // is identical to the vetted HDF file vettedFile that we put into the git
+   // is identical to the vetted HDF5 file vettedFile that we put into the git
    // repository. BUT...we'll actually have this test if'd out in the repo! We
    // believe that that's the safe thing to do, because HDF5 is a binary format.
    // We can't know if the HDF5 files produced on any particular platform will
@@ -119,7 +119,7 @@ SCENARIO("Testing GNDStk HDF5, Part I") {
 SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // read an HDF5
-   HDF5 h("n-069_Tm_170-covar.hdf5");
+   HDF5 h("n-069_Tm_170-covar.h5");
 
    // construct a Tree from the HDF5
    Tree t(h);
@@ -163,17 +163,17 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // move
    WHEN("We call HDF5's move constructor") {
-      const HDF5 h(HDF5{"n-069_Tm_170-covar.hdf5"});
+      const HDF5 h(HDF5{"n-069_Tm_170-covar.h5"});
       CHECK(!h.empty());
       // and ensure it moved correctly
-      std::ostringstream oss1; oss1 << HDF5{"n-069_Tm_170-covar.hdf5"};
+      std::ostringstream oss1; oss1 << HDF5{"n-069_Tm_170-covar.h5"};
       std::ostringstream oss2; oss2 << h;
       CHECK(oss1.str() == oss2.str());
    }
 
    // copy
    WHEN("We call HDF5's copy constructor") {
-      const HDF5 a("n-069_Tm_170-covar.hdf5");
+      const HDF5 a("n-069_Tm_170-covar.h5");
       const HDF5 h(a);
       CHECK(!h.empty());
       // and ensure it copied correctly
@@ -218,10 +218,10 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
    // from file
    HDF5::reduced = true; HDF5::typed = true;
    WHEN("We construct an HDF5 from a file") {
-      const HDF5 h("n-069_Tm_170-covar.hdf5");
+      const HDF5 h("n-069_Tm_170-covar.h5");
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!h.empty());
-         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.hdf5");
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.h5");
          std::ostringstream oss2; oss2 << Tree(h);
          CHECK(oss1.str() == oss2.str());
       }
@@ -232,11 +232,11 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // from istream
    WHEN("We construct an HDF5 from an istream") {
-      std::ifstream ifs("n-069_Tm_170-covar.hdf5");
+      std::ifstream ifs("n-069_Tm_170-covar.h5");
       const HDF5 h(ifs);
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!h.empty());
-         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.hdf5");
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.h5");
          std::ostringstream oss2; oss2 << Tree(h);
          CHECK(oss1.str() == oss2.str());
       }
@@ -249,17 +249,17 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
    // move
    WHEN("We call HDF5's move assignment") {
       HDF5 h;
-      h = HDF5{"n-069_Tm_170-covar.hdf5"};
+      h = HDF5{"n-069_Tm_170-covar.h5"};
       CHECK(!h.empty());
       // and ensure it moved correctly
-      std::ostringstream oss1; oss1 << HDF5{"n-069_Tm_170-covar.hdf5"};
+      std::ostringstream oss1; oss1 << HDF5{"n-069_Tm_170-covar.h5"};
       std::ostringstream oss2; oss2 << h;
       CHECK(oss1.str() == oss2.str());
    }
 
    // copy
    WHEN("We call HDF5's copy assignment") {
-      const HDF5 a("n-069_Tm_170-covar.hdf5");
+      const HDF5 a("n-069_Tm_170-covar.h5");
       HDF5 h;
       h = a;
       CHECK(!h.empty());
@@ -275,11 +275,11 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // from istream
    WHEN("We read an HDF5 from an istream") {
-      std::ifstream ifs("n-069_Tm_170-covar.hdf5");
+      std::ifstream ifs("n-069_Tm_170-covar.h5");
       const HDF5 h(ifs);
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!h.empty());
-         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.hdf5");
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.h5");
          std::ostringstream oss2; oss2 << Tree(h);
          CHECK(oss1.str() == oss2.str());
       }
@@ -287,10 +287,10 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // from file
    WHEN("We read an HDF5 from a file") {
-      const HDF5 h("n-069_Tm_170-covar.hdf5");
+      const HDF5 h("n-069_Tm_170-covar.h5");
       THEN("It should produce an equivalent to the Tree made from the file") {
          CHECK(!h.empty());
-         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.hdf5");
+         std::ostringstream oss1; oss1 << Tree("n-069_Tm_170-covar.h5");
          std::ostringstream oss2; oss2 << Tree(h);
          CHECK(oss1.str() == oss2.str());
       }
@@ -310,8 +310,8 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
    // anyway. The behavior of what we're testing, below, should be such that the
    // original file's contents, placed here into string_real_hdf5, compare as in
    // the CHECK calls below.
-   std::ifstream ifs("n-069_Tm_170-covar.hdf5");   // original file
-   std::stringstream buf; buf << ifs.rdbuf();      // read into a stringstream
+   std::ifstream ifs("n-069_Tm_170-covar.h5"); // original file
+   std::stringstream buf; buf << ifs.rdbuf(); // read into a stringstream
    const std::string string_real_hdf5 = buf.str(); // make into a string
 
    // ------------------------
@@ -320,7 +320,7 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // to ostream
    WHEN("We write an HDF5 to an ostream") {
-      const HDF5 h("n-069_Tm_170-covar.hdf5");
+      const HDF5 h("n-069_Tm_170-covar.h5");
       std::ostringstream oss;
       h.write(oss);
       THEN("We can check that the result is what we expect") {
@@ -336,7 +336,7 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // operator>>
    WHEN("We do istream >> HDF5") {
-      std::ifstream ifs("n-069_Tm_170-covar.hdf5");
+      std::ifstream ifs("n-069_Tm_170-covar.h5");
       HDF5 h;
       ifs >> h;
       THEN("It should give what we expect") {
@@ -350,7 +350,7 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
 
    // operator<<
    WHEN("We do ostream << HDF5") {
-      const HDF5 h("n-069_Tm_170-covar.hdf5");
+      const HDF5 h("n-069_Tm_170-covar.h5");
       std::ostringstream oss;
       oss << h;
       THEN("It should give what we expect") {

@@ -7,7 +7,7 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os, const bool decl = true) const
+std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
    // ...fixme Can we prevent pugixml from emitting a newline at the end?
    // ...Concept: output functions shouldn't *assume* that someone who prints

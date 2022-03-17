@@ -114,10 +114,10 @@ public:
       return false;
    }
 
+   static std::string className() { return DERIVED::className(); }
+
    // Component << string
-   // Meaning: read the string's content (currently XML, JSON, or HDF5) into
-   // an object of the Component's DERIVED class. Uses Node's << string, which
-   // does most of the work.
+   // Like Node << string, but for Component's derived class.
    void operator<<(const std::string &str)
    {
       try {
@@ -125,7 +125,19 @@ public:
          node << str;
          derived() = DERIVED(node);
       } catch (...) {
-         log::function(std::string(DERIVED::className()) + " << string");
+         log::function("{} << string", className());
+         throw;
+      }
+   }
+
+   // Component >> string
+   // Like Node >> string, but for Component's derived class.
+   void operator>>(std::string &str) const
+   {
+      try {
+         Node(*this) >> str;
+      } catch (...) {
+         log::function("{} >> string", className());
          throw;
       }
    }
@@ -134,13 +146,33 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// ostream << Component
+// Stream I/O
 // -----------------------------------------------------------------------------
 
+// operator>>
+template<class DERIVED, bool hasBlockData, class DATATYPE>
+std::istream &operator>>(
+   std::istream &is,
+   Component<DERIVED,hasBlockData,DATATYPE> &comp
+) {
+   try {
+      return comp.read(is);
+   } catch (...) {
+      log::function("istream >> {}", comp.className());
+      throw;
+   }
+}
+
+// operator<<
 template<class DERIVED, bool hasBlockData, class DATATYPE>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,hasBlockData,DATATYPE> &obj
+   const Component<DERIVED,hasBlockData,DATATYPE> &comp
 ) {
-   return obj.write(os,0);
+   try {
+      return comp.write(os,0);
+   } catch (...) {
+      log::function("ostream << {}", comp.className());
+      throw;
+   }
 }

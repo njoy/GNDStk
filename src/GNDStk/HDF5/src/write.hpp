@@ -7,7 +7,7 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os, const bool decl = true) const
+std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
    static const std::string context = "HDF5.write(ostream)";
    os.clear();
@@ -95,26 +95,26 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
 // write(file name)
 // ------------------------
 
-bool write(const std::string &name, const bool decl = true) const
+bool write(const std::string &filename, const bool decl = true) const
 {
    // In case the given file happens to be the same
    // file that's already referenced by filePtr...
-   if (!empty() && name == filePtr->getName()) {
+   if (!empty() && filename == filePtr->getName()) {
       filePtr->flush();
       return true;
    }
 
    // Open file
-   std::ofstream ofs(name, std::ios::binary);
+   std::ofstream ofs(filename, std::ios::binary);
    if (!ofs) {
-      log::error("Could not open file \"{}\" for output", name);
-      log::member("HDF5.write(\"{}\")", name);
+      log::error("Could not open file \"{}\" for output", filename);
+      log::member("HDF5.write(\"{}\")", filename);
       return false;
    }
 
    // Write to ostream
    if (!write(ofs,decl)) {
-      log::member("HDF5.write(\"{}\")", name);
+      log::member("HDF5.write(\"{}\")", filename);
       return false;
    }
 

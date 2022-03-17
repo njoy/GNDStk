@@ -95,6 +95,10 @@ public:
    // Example: has(A,B,C,D) == "operator()(A,B,C,D) succeeds"
    #include "GNDStk/Node/src/has.hpp"
 
+   // Node << string
+   // Node >> string
+   #include "GNDStk/Node/src/string.hpp"
+
    // ------------------------
    // operator()
    // ------------------------
@@ -126,7 +130,7 @@ public:
    #define GNDSTK_CONST
    #include "GNDStk/Node/src/call-keywordtup.hpp"
 
-   // general multi-argument
+   // General multi-argument
    #define GNDSTK_CONST const
    #include "GNDStk/Node/src/call.hpp"
    #define GNDSTK_CONST
@@ -138,20 +142,17 @@ public:
    Node &operator()() { return *this; }
 
    // ------------------------
-   // miscellaneous specialty functions:
-   // documentation, cdata, ...
+   // Miscellaneous functions
    // ------------------------
 
+   // documentation, cdata, ...
    #include "GNDStk/Node/src/special.hpp"
 
-   // ------------------------
    // operator[]
-   // ------------------------
-
    #include "GNDStk/Node/src/subscript.hpp"
 
    // ------------------------
-   // destructor
+   // Destructor
    // ------------------------
 
    ~Node()
@@ -190,30 +191,3 @@ inline std::ostream &operator<<(std::ostream &os, const Node &node)
       throw;
    }
 }
-
-
-// -----------------------------------------------------------------------------
-// I/O with respect to a string
-// The string is considered to have content that would otherwise be in a file.
-// So, this is convenience for reading and writing, for instance, XML snippets.
-// -----------------------------------------------------------------------------
-
-// Node << string
-// Note that this is an INPUT operator to Node!
-// Treating the std::string as a "file" with XML, JSON, or HDF5 content, read it
-// into the Node. We return void, not the Node, so users don't incorrectly think
-// that the <<s can be stacked together in the way they can with stream output.
-// We're reading into ONE Node, so stacking the <<s doesn't really make sense.
-inline void operator<<(Node &node, const std::string &str)
-{
-   try {
-      std::istringstream iss(str);
-      node.read(iss);
-   } catch (...) {
-      log::function("Node << string");
-      throw;
-   }
-}
-
-// string >> Node
-// fixme Write and test this

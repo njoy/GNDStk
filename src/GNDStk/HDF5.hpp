@@ -103,10 +103,10 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, HDF5 &obj)
+inline std::istream &operator>>(std::istream &is, HDF5 &hdf5)
 {
    try {
-      return obj.read(is);
+      return hdf5.read(is);
    } catch (...) {
       log::function("istream >> HDF5");
       throw;
@@ -114,10 +114,10 @@ inline std::istream &operator>>(std::istream &is, HDF5 &obj)
 }
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const HDF5 &obj)
+inline std::ostream &operator<<(std::ostream &os, const HDF5 &hdf5)
 {
    try {
-      return obj.write(os);
+      return hdf5.write(os);
    } catch (...) {
       log::function("ostream << HDF5");
       throw;

@@ -31,7 +31,6 @@ Tree(const Tree &other) : Node(slashTreeName)
 
 // XML
 explicit Tree(const XML &x) : Node(slashTreeName)
-
 {
    try {
       if (!convert(x,*this))
@@ -86,7 +85,8 @@ explicit Tree(
       if (!read(filename,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(\"{}\")", filename);
+      log::ctor("Tree(\"{}\",format=\"{}\")",
+                filename, detail::printFormat(format));
       throw;
    }
 }
@@ -101,7 +101,7 @@ Tree(const std::string &filename, const std::string &format)
       if (!read(filename,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(\"{}\",type=\"{}\")", filename, format);
+      log::ctor("Tree(\"{}\",format=\"{}\")", filename, format);
       throw;
    }
 }
@@ -117,7 +117,7 @@ explicit Tree(std::istream &is, const FileType format = FileType::guess)
       if (!read(is,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(istream,string)");
+      log::ctor("Tree(istream,format=\"{}\")", detail::printFormat(format));
       throw;
    }
 }
@@ -133,7 +133,7 @@ Tree(std::istream &is, const std::string &format)
       if (!read(is,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(istream,format)", format);
+      log::ctor("Tree(istream,format=\"{}\")", format);
       throw;
    }
 }

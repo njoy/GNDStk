@@ -325,31 +325,30 @@ inline void assign(const std::string &str, Args &&...args)
 // the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
-// Node, XML, JSON, HDF5
 class Node;
 class XML;
 class JSON;
 class HDF5;
 
-// Node to {XML,JSON,HDF5}
+// Node ==> {Node,XML,JSON,HDF5}
 bool convert(const Node &, Node &);
 bool convert(const Node &, XML  &);
 bool convert(const Node &, JSON &);
 bool convert(const Node &, HDF5 &, const std::string & = "");
 
-// XML to {Node,XML,JSON,HDF5}
+// XML  ==> {Node,XML,JSON,HDF5}
 bool convert(const XML  &, Node &, const bool & = detail::default_bool);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
 bool convert(const XML  &, HDF5 &);
 
-// JSON to {Node,XML,JSON,HDF5}
+// JSON ==> {Node,XML,JSON,HDF5}
 bool convert(const JSON &, Node &, const bool & = detail::default_bool);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
 bool convert(const JSON &, HDF5 &);
 
-// HDF5 to {Node,XML,JSON,HDF5}
+// HDF5 ==> {Node,XML,JSON,HDF5}
 bool convert(const HDF5 &, Node &, const bool & = detail::default_bool);
 bool convert(const HDF5 &, XML  &);
 bool convert(const HDF5 &, JSON &);
@@ -631,14 +630,14 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// print_format
+// printFormat
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
-inline std::string print_format(const FileType f, const bool brief = false)
+inline std::string printFormat(const FileType f)
 {
-   return std::string(brief ? "" : "FileType::") + (
+   return std::string("FileType::") + (
       f == FileType::guess ? "guess"
     : f == FileType::debug ? "debug"
     : f == FileType::xml   ? "XML"

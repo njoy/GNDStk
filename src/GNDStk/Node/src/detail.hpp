@@ -704,7 +704,7 @@ inline void warning_io_data(
    log::warning(
       "Node.read() was called with {}, but the first character\n"
       "in the file suggests perhaps {}. Trying {} anyway...",
-      print_format(f), appears, print_format(f,true)
+      printFormat(f), appears, printFormat(f)
    );
 }
 

@@ -8,7 +8,7 @@
 // read(istream, FileType)
 std::istream &read(
    std::istream &is,
-   FileType format = FileType::guess,
+   const FileType format = FileType::guess,
    const bool decl = false
 ) {
    Node node;

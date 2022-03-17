@@ -7,7 +7,7 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os, const bool decl = true) const
+std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
    (void)decl; // unused, at least for now
 

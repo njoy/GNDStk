@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Component::write(), for "prettyprinting"
+// Component::write(), for prettyprinting
 // -----------------------------------------------------------------------------
 
 std::ostream &write(std::ostream &os, const int level) const
@@ -12,20 +12,7 @@ std::ostream &write(std::ostream &os, const int level) const
          detail::colorize_component(
             detail::fullName(DERIVED::namespaceName(), DERIVED::className())
          ) + " " +
-         detail::colorize_brace("{") +
-         /*
-         // fixme We may not actually want this. It's arguably largely clutter,
-         // and besides, someone may have used GNDStk's code generator to make
-         // a different library - for which "GNDS" verbiage may be confusing.
-         (comments
-            ? " " +
-              detail::colorize_comment(
-                 std::string("// GNDS: ") + DERIVED::GNDSName()
-              )
-            : ""
-         ) +
-         */
-         "\n"
+         detail::colorize_brace("{") + "\n"
       );
 
       if constexpr (!hasFields) {
@@ -151,7 +138,7 @@ std::ostream &write(
 // write(file name, FileType)
 bool write(
    const std::string &filename,
-   FileType format = FileType::guess,
+   const FileType format = FileType::guess,
    const bool decl = false
 ) const {
    return Node(*this).write(filename, format, decl);

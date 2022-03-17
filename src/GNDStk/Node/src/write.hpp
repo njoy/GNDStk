@@ -69,42 +69,6 @@ std::ostream &write(std::ostream &os, const int level) const
 
 
 // -----------------------------------------------------------------------------
-// Helper
-// write(file name, int level)
-// For FileType::debug
-// -----------------------------------------------------------------------------
-
-private:
-
-// fixme I noticed that this write() variant isn't used (other write() functions
-// with filename go through ostream first, and call the earlier write() helper
-// with const int level). Decide if there's any reason to keep it. If we do keep
-// it, then it needs to be exercised in the test suite, which it isn't now.
-/*
-bool write(const std::string &filename, const int level) const
-{
-   // open file
-   std::ofstream ofs(filename);
-   if (!ofs) {
-      log::error("Could not open file \"{}\" for output", filename);
-      log::member("Node.write(\"{}\")", filename);
-      return false;
-   }
-
-   // write to ostream
-   if (!write(ofs,level)) {
-      log::member("Node.write(\"{}\")", filename);
-      return false;
-   }
-
-   // done
-   return true;
-}
-*/
-
-
-
-// -----------------------------------------------------------------------------
 // 1. write(ostream, FileType)
 // -----------------------------------------------------------------------------
 
@@ -113,7 +77,7 @@ public:
 std::ostream &write(
    std::ostream &os = std::cout,
    const FileType format = FileType::guess,
-   const bool decl = false,
+   const bool &DECL = detail::default_bool,
    // If circumstances are such that we end up writing an HDF5, the following
    // may be != "" if the ostream is from an ofstream. In that case, the HDF5
    // writer can produce output directly into the intended file, bypassing the
@@ -147,6 +111,8 @@ std::ostream &write(
    // there's no opportunity to explicitly provide a format.
 
    try {
+      const bool decl = detail::getDecl(*this,DECL);
+
       if (format == FileType::xml) {
          // write via a temporary xml object...
          XML(*this).write(os,decl);
@@ -185,13 +151,12 @@ std::ostream &write(
 // 2. write(file name, FileType)
 // -----------------------------------------------------------------------------
 
-public:
-
 bool write(
    const std::string &filename,
-   FileType format = FileType::guess,
-   const bool decl = false
+   const FileType FORMAT = FileType::guess,
+   const bool &DECL = detail::default_bool
 ) const {
+   FileType format = FORMAT; // non-const; may change
 
    // ------------------------
    // FileType::guess
@@ -246,6 +211,7 @@ bool write(
       }
 
       // Call write(ostream) to do the remaining work.
+      const bool decl = detail::getDecl(*this,DECL);
       if (!write(ofs, format, decl, filename))
          throw std::exception{};
       return bool(ofs);
@@ -261,14 +227,14 @@ bool write(
 // 3. write(ostream, string)
 // -----------------------------------------------------------------------------
 
-public:
-
 std::ostream &write(
    std::ostream &os,
    const std::string &format,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) const {
    try {
+      const bool decl = detail::getDecl(*this,DECL);
+
       if (eq_guess(format)) return write(os, FileType::guess, decl);
       if (eq_debug(format)) return write(os, FileType::debug, decl);
       if (eq_xml  (format)) return write(os, FileType::xml,   decl);
@@ -296,14 +262,14 @@ std::ostream &write(
 // 4. write(file name, string)
 // -----------------------------------------------------------------------------
 
-public:
-
 bool write(
    const std::string &filename,
    const std::string &format,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) const {
    try {
+      const bool decl = detail::getDecl(*this,DECL);
+
       if (eq_guess(format)) return write(filename, FileType::guess, decl);
       if (eq_debug(format)) return write(filename, FileType::debug, decl);
       if (eq_xml  (format)) return write(filename, FileType::xml,   decl);

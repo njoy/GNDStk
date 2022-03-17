@@ -39,10 +39,10 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, JSON &obj)
+inline std::istream &operator>>(std::istream &is, JSON &json)
 {
    try {
-      return obj.read(is);
+      return json.read(is);
    } catch (...) {
       log::function("istream >> JSON");
       throw;
@@ -50,10 +50,10 @@ inline std::istream &operator>>(std::istream &is, JSON &obj)
 }
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const JSON &obj)
+inline std::ostream &operator<<(std::ostream &os, const JSON &json)
 {
    try {
-      return obj.write(os);
+      return json.write(os);
    } catch (...) {
       log::function("ostream << JSON");
       throw;

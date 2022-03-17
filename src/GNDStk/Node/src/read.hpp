@@ -47,9 +47,12 @@
 
 std::istream &read(
    std::istream &is,
-   FileType format = FileType::guess,
-   const bool decl = false
+   const FileType FORMAT = FileType::guess,
+   const bool &DECL = detail::default_bool
 ) {
+   FileType format = FORMAT; // non-const; may change
+   const bool decl = detail::getDecl(*this,DECL);
+
    // ------------------------
    // Clear current contents
    // ------------------------
@@ -112,7 +115,7 @@ std::istream &read(
          used = "Assumed XML, based on the first character of the istream";
       } else if (format != FileType::xml) {
          detail::warning_io_data(format, "XML");
-         used = "Used " + detail::print_format(format) + request;
+         used = "Used " + detail::printFormat(format) + request;
       }
    } else if (magicNumber == 137) {
       // looks like HDF5
@@ -121,7 +124,7 @@ std::istream &read(
          used = "Assumed HDF5, based on the first character of the istream";
       } else if (format != FileType::hdf5) {
          detail::warning_io_data(format, "HDF5");
-         used = "Used " + detail::print_format(format) + request;
+         used = "Used " + detail::printFormat(format) + request;
       }
    } else {
       // looks like JSON (via process of elimination)
@@ -130,7 +133,7 @@ std::istream &read(
          used = "Assumed JSON, based on the first character of the istream";
       } else if (format != FileType::json) {
          detail::warning_io_data(format, "JSON");
-         used = "Used " + detail::print_format(format) + request;
+         used = "Used " + detail::printFormat(format) + request;
       }
    }
 
@@ -188,8 +191,10 @@ std::istream &read(
 bool read(
    const std::string &filename,
    const FileType format = FileType::guess,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) {
+   const bool decl = detail::getDecl(*this,DECL);
+
    // Remark as in read(istream) above
    clear();
 
@@ -257,8 +262,10 @@ bool read(
 std::istream &read(
    std::istream &is,
    const std::string &format,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) {
+   const bool decl = detail::getDecl(*this,DECL);
+
    try {
       if (eq_guess(format)) return read(is, FileType::guess, decl);
       if (eq_debug(format)) return read(is, FileType::debug, decl);
@@ -290,8 +297,10 @@ std::istream &read(
 bool read(
    const std::string &filename,
    const std::string &format,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) {
+   const bool decl = detail::getDecl(*this,DECL);
+
    try {
       if (eq_guess(format)) return read(filename, FileType::guess, decl);
       if (eq_debug(format)) return read(filename, FileType::debug, decl);

@@ -39,10 +39,10 @@ public:
 // -----------------------------------------------------------------------------
 
 // operator>>
-inline std::istream &operator>>(std::istream &is, XML &obj)
+inline std::istream &operator>>(std::istream &is, XML &xml)
 {
    try {
-      return obj.read(is);
+      return xml.read(is);
    } catch (...) {
       log::function("istream >> XML");
       throw;
@@ -50,10 +50,10 @@ inline std::istream &operator>>(std::istream &is, XML &obj)
 }
 
 // operator<<
-inline std::ostream &operator<<(std::ostream &os, const XML &obj)
+inline std::ostream &operator<<(std::ostream &os, const XML &xml)
 {
    try {
-      return obj.write(os);
+      return xml.write(os);
    } catch (...) {
       log::function("ostream << XML");
       throw;
