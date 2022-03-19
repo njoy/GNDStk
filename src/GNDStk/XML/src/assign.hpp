@@ -8,7 +8,7 @@ XML &operator=(XML &&) = default;
 
 // copy
 // Note: pugi::xml_document's copy assignment is inaccessible;
-// otherwise, this could = default.
+// otherwise, we'd use it here.
 XML &operator=(const XML &other)
 {
    try {

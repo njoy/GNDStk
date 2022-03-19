@@ -16,28 +16,29 @@
 // or not any declaration node (say, <?xml version="1.0" encoding="UTF-8"?>)
 // should be read.
 //
-// GNDStk distinguishes between Node (which means a typical node somewhere in
-// an entire GNDS tree), and Tree, which specifically means an entire GNDS tree.
-// Tree derives from Node, and, for most functionality, Tree defers to Node.
-// For Tree I/O, however, GNDStk tries to preserve any declaration node that
-// might be present. It does not, by default, do this for Node.
+// GNDStk distinguishes between Node (meaning a typical node somewhere in an
+// entire GNDS tree), and Tree (meaning an entire GNDS tree). Tree derives from
+// Node, and, for most functionality, defers to Node. For its I/O, however, we
+// also try to preserve any declaration node that might be present.
 //
 // To support all this, Node's read functionality, below, provides the optional
-// bool decl parameter, indicating whether or not to handle any declaration node
-// that might be seen. It's false, by default. These Node read() functions are
-// called by the Tree read() functions, however, and those call these with decl
-// set to true, precisely so that they preserve declaration nodes.
+// bool DECL parameter, indicating whether or not to handle any declaration node
+// that might be seen. DECL is formulated in such a way that if a caller sends
+// it (as opposed to its default being used), then the function respects - i.e.
+// uses - the sent value. If the caller doesn't send it, then the function looks
+// at *this Node's name, decides if it's a Node proper or a Tree (via Tree's use
+// of a special name at its top level), and behaves accordingly.
 //
 // If decl == false, we'll find any NON-declaration node in the input, and
 // place it directly into the *this node. Any declaration node that's present,
-// in the input, will be ignored. This behavior reflects what we want for
-// "regular" Node objects.
+// in the input, is ignored. This behavior reflects what we want for "regular"
+// Node objects.
 //
 // If decl == true, we'll make *this be a Node with the proper tree-root node
 // name. Then, we'll place any input non-declaration node into one of its
 // children. And, finally, we'll preserve any *declaration* node as another
-// child. This behavior reflects what we actually want for Tree objects (and,
-// remember, Tree derives from Node).
+// child. This behavior reflects what we actually want for Tree, which in this
+// situation is probably what *this really is.
 
 
 

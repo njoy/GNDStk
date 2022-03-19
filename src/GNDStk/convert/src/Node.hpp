@@ -1,9 +1,5 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,Node), for * = XML/JSON/HDF5
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
 // XML ==> Node
 // -----------------------------------------------------------------------------
 
@@ -170,9 +166,9 @@ Remark
 HighFive::File references an entire HDF5 file. By extension, this applies to
 GNDStk::HDF5 - our simple wrapper around HighFive::File that helps us to provide
 uniform behavior between XML, JSON, and HDF5. Unlike XML and JSON, it apparently
-can't reference just part of such a file, i.e. part of an HDF5 hierarchy. The
-upshot: convert(HDF5,Tree) may be more meaningful than convert(HDF5,Node), as
-Tree is for a full GNDS hierarchy, while Node for possibly a partial hierarchy.
+can't reference just part of such a file, i.e. part of an HDF5 hierarchy. So,
+convert(HDF5,Tree) may be more meaningful than convert(HDF5,Node), as Tree is
+specifically for a full GNDS hierarchy, Node for possibly a partial hierarchy.
 Consistent with how we handle conversions from XML and JSON, however, we define
 the conversion in terms of Node (from which Tree is, of course, derived), and
 then guess, based on the Node's name, whether it's a Tree, or a Node proper. We

@@ -65,23 +65,19 @@ R"***(
 
 const std::string xml_metadata_individual =
 R"***(<?xml version="1.0"?>
-<numbers adouble="1.414214" afloat="1.7321" aquad="2.23606798" bdouble="2.44949" bfloat="2.6458" bquad="2.82842712" />
-)***";
+<numbers adouble="1.414214" afloat="1.7321" aquad="2.23606798" bdouble="2.44949" bfloat="2.6458" bquad="2.82842712" />)***";
 
 const std::string xml_metadata_real =
 R"***(<?xml version="1.0"?>
-<numbers adouble="1.41" afloat="1.73" aquad="2.24" bdouble="2.45" bfloat="2.65" bquad="2.83" />
-)***";
+<numbers adouble="1.41" afloat="1.73" aquad="2.24" bdouble="2.45" bfloat="2.65" bquad="2.83" />)***";
 
 const std::string xml_gndstk_individual =
 R"***(<?xml version="1.0"?>
-<numbers adouble="1.4142136" afloat="1.73205" aquad="2.236067977" bdouble="2.4494897" bfloat="2.64575" bquad="2.828427125" />
-)***";
+<numbers adouble="1.4142136" afloat="1.73205" aquad="2.236067977" bdouble="2.4494897" bfloat="2.64575" bquad="2.828427125" />)***";
 
 const std::string xml_gndstk_real =
 R"***(<?xml version="1.0"?>
-<numbers adouble="1.414" afloat="1.732" aquad="2.236" bdouble="2.449" bfloat="2.646" bquad="2.828" />
-)***";
+<numbers adouble="1.414" afloat="1.732" aquad="2.236" bdouble="2.449" bfloat="2.646" bquad="2.828" />)***";
 
 
 // ------------------------

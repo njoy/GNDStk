@@ -52,8 +52,8 @@ to produce a decimal representation of that number.
 What we plan to *do* with the decimal representation isn't relevant here.
 Perhaps we'll write it to std::cout, or to some other output stream. Perhaps
 we don't wish to do anything with it stream-wise, but instead plan to place
-it into a GNDStk Tree. Here, now, we're concerned only with the process of
-producing a decimal representation of the number.
+it into a GNDStk Node in some form. Here, now, we're concerned only with the
+process of producing a decimal representation of the number.
 
 Naturally, for the decimal representation, we'll use a std::string.
 

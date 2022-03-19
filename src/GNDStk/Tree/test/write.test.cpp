@@ -15,8 +15,7 @@ R"***(/:)***";
 
 // xml
 static const std::string string_empty_xml =
-R"***(<?xml version="1.0"?>
-)***";
+R"***(<?xml version="1.0"?>)***";
 
 // json
 static const std::string string_empty_json =
@@ -111,8 +110,7 @@ R"***(<?xml version="1.0" encoding="UTF-8"?>
          </parameterCovarianceMatrix>
       </parameterCovariance>
    </parameterCovariances>
-</covarianceSuite>
-)***";
+</covarianceSuite>)***";
 
 
 

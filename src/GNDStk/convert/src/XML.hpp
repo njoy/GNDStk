@@ -1,10 +1,5 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,XML)
-// That is, convert to XML objects
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
 // Node ==> XML
 // -----------------------------------------------------------------------------
 
@@ -27,7 +22,7 @@ inline bool convert(const Node &node, XML &x)
    //    children:
    //       N/A
    //
-   // or this if the Tree was built from a JSON:
+   // or this if it was built from a JSON:
    //
    //    name: "#json"
    //    metadata:
@@ -35,15 +30,15 @@ inline bool convert(const Node &node, XML &x)
    //    children:
    //       N/A
    //
-   // or something else if the Tree was built in another manner. In an XML
-   // file, the declaration node is the thing like: <?xml version="1.0"...?>.
+   // or something else if it was built in another manner. In an XML file,
+   // the declaration node is the thing like: <?xml version="1.0"...?>.
 
    static const std::string context = "convert(Node,XML)";
    try {
 
       if (node.name != slashTreeName) {
-         // A Tree should have name == slashTreeName at the root level; so,
-         // don't consider this to be a Tree. Do a straight Node conversion.
+         // A Tree should have name slashTreeName at the root level, so this
+         // looks like a garden-variety Node. Do a straight Node conversion.
          return detail::node2xml(node,x.doc);
       }
 
@@ -125,9 +120,7 @@ inline bool convert(const XML &from, XML &to)
 
    // Unfortunately, we can't use pugi::xml_document's assignment, or for
    // that matter its copy constructor, because, for whatever reason, the
-   // pugi library makes those private. (And, perhaps, those have shallow-
-   // copy semantics, too. I haven't checked into that, because we can't
-   // use those anyway.)
+   // pugi library makes those private.
 
    // For now, I'll write something simple that works, although not very
    // efficiently: write "from" to a stringstream, then read "to" out of
@@ -141,9 +134,9 @@ inline bool convert(const XML &from, XML &to)
 
    // from ==> stringstream ==> to
    try {
-      std::stringstream ss;
-      from.write(ss);
-      to.read(ss);
+      std::stringstream sstr;
+      from.write(sstr,true);
+      to.read(sstr);
    } catch (...) {
       log::function("convert(XML,XML)");
       throw;
@@ -161,7 +154,7 @@ inline bool convert(const XML &from, XML &to)
 // -----------------------------------------------------------------------------
 // JSON ==> XML
 // HDF5 ==> XML
-// These go through a tree temporary, for compactness. They could likely be
+// These go through temporaries, for compactness. They could likely be
 // made more efficient if written directly. We'll revisit this if necessary.
 // -----------------------------------------------------------------------------
 

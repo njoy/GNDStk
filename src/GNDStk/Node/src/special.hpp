@@ -35,13 +35,13 @@ const std::string &documentation(bool &found = detail::default_bool) const
          cdata("#cdata");
       static const Meta<void> text("#text");
 
-      // In the node parameter, tries to find CDATA text at any layer of:
+      // In Node n, we try to find CDATA text at any level of:
       //    <documentations>
       //       <documentation name="endfDoc">
       //          <![CDATA[...]]>
       //       </documentation>
       //    </documentations>
-      // or rather in the GNDS tree equivalent (XML is for illustration).
+      // in our internal structure. (XML for illustration only).
       bool found = false;
       return
             (s = &n(               text,found), found)

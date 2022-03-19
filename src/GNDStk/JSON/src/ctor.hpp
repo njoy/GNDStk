@@ -66,20 +66,8 @@ explicit JSON(const Node &n)
 
 
 // ------------------------
-// From file and istream
+// From istream and file
 // ------------------------
-
-// From file
-explicit JSON(const std::string &filename)
-{
-   try {
-      if (!read(filename))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("JSON(\"{}\")", filename);
-      throw;
-   }
-}
 
 // From istream
 explicit JSON(std::istream &is)
@@ -89,6 +77,18 @@ explicit JSON(std::istream &is)
          throw std::exception{};
    } catch (...) {
       log::ctor("JSON(istream)");
+      throw;
+   }
+}
+
+// From file
+explicit JSON(const std::string &filename)
+{
+   try {
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(\"{}\")", filename);
       throw;
    }
 }

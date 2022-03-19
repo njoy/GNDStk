@@ -55,7 +55,7 @@ operator Node() const
 // -----------------------------------------------------------------------------
 // Component
 // Conversion to Tree.
-// Like conversion to Node, but with a wrapper Node at the top.
+// Like conversion to Node, but with a proper root Node.
 // -----------------------------------------------------------------------------
 
 operator Tree() const

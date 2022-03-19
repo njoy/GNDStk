@@ -13,13 +13,13 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
 
     chunk = ( '<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">\n'
               '   <values valueType="Float64" start="0" length="2">1e-05 2e+07</values>\n'
-              '</grid>\n' )
+              '</grid>' )
     chunkWithLink = ( '<grid index="1" label="column_energy_bounds" style="link" unit="eV">\n'
                       '   <link href="../../grid[@index=\'2\']/values" />\n'
-                      '</grid>\n' )
+                      '</grid>' )
     wrong = ( '<wrongName index="2" label="row_energy_bounds" style="boundaries" unit="eV">\n'
               '   <values valueType="Float64" start="0" length="2">1e-05 2e+07</values>\n'
-              '</wrongName>\n' )
+              '</wrongName>' )
 
     def test_component( self ) :
 

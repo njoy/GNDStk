@@ -74,20 +74,8 @@ explicit HDF5(const Node &n)
 
 
 // ------------------------
-// From file and istream
+// From istream and file
 // ------------------------
-
-// From file
-explicit HDF5(const std::string &filename)
-{
-   try {
-      if (!read(filename))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("HDF5(\"{}\")", filename);
-      throw;
-   }
-}
 
 // From istream
 explicit HDF5(std::istream &is)
@@ -97,6 +85,18 @@ explicit HDF5(std::istream &is)
          throw std::exception{};
    } catch (...) {
       log::ctor("HDF5(istream)");
+      throw;
+   }
+}
+
+// From file
+explicit HDF5(const std::string &filename)
+{
+   try {
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("HDF5(\"{}\")", filename);
       throw;
    }
 }

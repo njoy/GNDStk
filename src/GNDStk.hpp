@@ -58,17 +58,17 @@
 namespace njoy {
 namespace GNDStk {
 
-// basic
+// Basic
 #include "GNDStk/utility.hpp"
 #include "GNDStk/precision.hpp"
 #include "GNDStk/enums.hpp"
 
-// external-library wrappers
+// External-library wrappers
 #include "GNDStk/XML.hpp"
 #include "GNDStk/JSON.hpp"
 #include "GNDStk/HDF5.hpp"
 
-// string/Node to/from type
+// std::string/Node to/from type
 #include "GNDStk/string2type.hpp"
 #include "GNDStk/type2string.hpp"
 
@@ -77,10 +77,10 @@ namespace GNDStk {
 #include "GNDStk/Child.hpp"
 #include "GNDStk/or.hpp"
 
-// optional, with default
+// Like std::optional, but with a default
 #include "GNDStk/Defaulted.hpp"
 
-// Tree: primary constructs
+// Main classes
 #include "GNDStk/Node.hpp"
 #include "GNDStk/Tree.hpp"
 
@@ -88,7 +88,7 @@ namespace GNDStk {
 #include "GNDStk/node2type.hpp"
 #include "GNDStk/type2node.hpp"
 
-// Tree/XML/JSON/HDF5 conversions
+// Node/XML/JSON/HDF5 conversions
 #include "GNDStk/convert.hpp"
 
 // Miscellaneous support constructs for Standard Interface classes

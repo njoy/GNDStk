@@ -10,9 +10,9 @@
 
 TYPE
 
-   The type to which GNDStk should convert a Node that's extracted from a Tree
-   with the Child object. If TYPE is void, then GNDStk uses Node - the child
-   node, in its original form in the tree.
+   The type to which GNDStk should convert a Node that's extracted, via our
+   query system, with the Child object. If TYPE is void, then GNDStk uses
+   type Node - the child node in its original form.
 
 ALLOW
 
@@ -29,8 +29,8 @@ ALLOW
 
    In other words: there are (or can be) any number of <axis> nodes within
    an enclosing context (here, <axes>). ALLOW is a template parameter because
-   it affects the *type* that's pulled from the Tree when the Child object
-   is used for a query. For example,
+   it affects the *type* that's extracted when the Child object is used for a
+   query. For example,
 
       tree(...,axes,axis)
 

@@ -82,8 +82,7 @@ R"***(<?xml version="1.0"?>
       </crossSection>
     </reaction>
   </reactions>
-</reactionSuite>
-)***";
+</reactionSuite>)***";
 
    return ret;
 }

@@ -124,8 +124,7 @@ SCENARIO( "Axis" ) {
 std::string chunk() {
 
   return
-R"***(<axis index="1" label="energy_in" unit="eV" />
-)***";
+R"***(<axis index="1" label="energy_in" unit="eV" />)***";
 }
 
 void verifyChunk( const Axis& component ) {
@@ -147,6 +146,5 @@ std::string invalidName() {
 
   // wrong name for the node
   return
-R"***(<wrongName index="1" label="energy_in" unit="eV" />
-)***";
+R"***(<wrongName index="1" label="energy_in" unit="eV" />)***";
 }

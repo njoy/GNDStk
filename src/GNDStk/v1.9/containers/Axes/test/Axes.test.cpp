@@ -133,8 +133,7 @@ std::string chunk() {
 R"***(<axes>
    <axis index="0" label="radius" unit="fm" />
    <axis index="1" label="energy_in" unit="eV" />
-</axes>
-)***";
+</axes>)***";
 }
 
 void verifyChunk( const Axes& component ) {
@@ -274,6 +273,5 @@ std::string invalidName() {
   return
 R"***(<wrongName>
   <axis index="1" label="energy_in" unit="eV" />
-  <axis index="0" label="radius" unit="fm" /></wrongName>
-)***";
+  <axis index="0" label="radius" unit="fm" /></wrongName>)***";
 }

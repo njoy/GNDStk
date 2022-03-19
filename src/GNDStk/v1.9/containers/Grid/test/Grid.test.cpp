@@ -182,8 +182,7 @@ std::string chunk() {
   return
 R"***(<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">
    <values valueType="Float64" start="0" length="2">1e-05 2e+07</values>
-</grid>
-)***";
+</grid>)***";
 }
 
 void verifyChunk( const Grid& component ) {
@@ -220,8 +219,7 @@ std::string chunkWithLink() {
   return
 R"***(<grid index="1" label="column_energy_bounds" style="link" unit="eV">
    <link href="../../grid[@index='2']/values" />
-</grid>
-)***";
+</grid>)***";
 }
 
 void verifyChunkWithLink( const Grid& component ) {
@@ -251,6 +249,5 @@ std::string invalidName() {
   return
 R"***(<wrongName index="1" label="column_energy_bounds" style="link" unit="eV">
    <link href="../../grid[@index='2']/values" />
-</wrongName>
-)***";
+</wrongName>)***";
 }

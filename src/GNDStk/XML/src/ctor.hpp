@@ -14,8 +14,8 @@ XML() = default;
 XML(XML &&) = default;
 
 // copy
-// Note: pugi::xml_document's copy constructor is inaccessible; otherwise we'd
-// use it here, as we do in JSON's copy constructor, instead of using convert().
+// Note: pugi::xml_document's copy constructor is inaccessible;
+// otherwise, we'd use it here.
 XML(const XML &other)
 {
    try {
@@ -70,20 +70,8 @@ explicit XML(const Node &n)
 
 
 // ------------------------
-// From file and istream
+// From istream and file
 // ------------------------
-
-// From file
-explicit XML(const std::string &filename)
-{
-   try {
-      if (!read(filename))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("XML(\"{}\")", filename);
-      throw;
-   }
-}
 
 // From istream
 explicit XML(std::istream &is)
@@ -93,6 +81,18 @@ explicit XML(std::istream &is)
          throw std::exception{};
    } catch (...) {
       log::ctor("XML(istream)");
+      throw;
+   }
+}
+
+// From file
+explicit XML(const std::string &filename)
+{
+   try {
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(\"{}\")", filename);
       throw;
    }
 }

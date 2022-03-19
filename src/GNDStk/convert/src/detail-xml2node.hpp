@@ -24,7 +24,6 @@ FYI, here's the pugixml code for pugi::xml_node_type:
 
 namespace pugi
 {
-   // Tree node types
    enum xml_node_type
    {
       node_null,        // Empty (null) node handle

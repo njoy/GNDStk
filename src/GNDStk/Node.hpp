@@ -157,10 +157,14 @@ public:
 
    ~Node()
    {
-      // Ensure that each child has the current Node as a parent.
-      // fixme This is just a validity check; consider removing it.
-      for (auto &c : children)
-         assert(c->parentNode == this);
+      // Ensure that each child node has *this Node as its parent. This is just
+      // a validity check, prior to destruction, but we might as well have it.
+      for (auto &c : children) {
+         if (c->parentNode != this) {
+            log::error("Internal error: child parentNode != parent");
+            log::dtor("~Node()");
+         }
+      }
    }
 
 }; // class Node

@@ -155,8 +155,7 @@ R"***(<regions1d>
    <XYs1d index="1">
       <values valueType="Float64" start="0" length="4">30000 1.65691 2e+07 2.35696</values>
    </XYs1d>
-</regions1d>
-)***";
+</regions1d>)***";
 }
 
 void verifyChunk( const Regions1d& component ) {
@@ -237,6 +236,5 @@ R"***(<wrongName>
       <axis index="0" label="crossSection" unit="b" />
       <axis index="1" label="energy_in" unit="eV" />
    </axes>
-</wrongName>
-)***";
+</wrongName>)***";
 }

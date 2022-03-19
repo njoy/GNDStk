@@ -150,6 +150,12 @@ inline std::string diagnostic(
    return color ? codes[label] + spaced + reset : spaced;
 }
 
+// context
+inline std::string context(const std::string &type, const std::string &name)
+{
+   return diagnostic("info", type + " " + name, "Context");
+}
+
 } // namespace detail
 
 
@@ -205,6 +211,7 @@ inline bool debug = false;
 // log::function()
 // log::member()
 // log::ctor()
+// log::dtor()
 // log::assign()
 inline bool context = true;
 
@@ -224,7 +231,7 @@ namespace log {
 
 // info
 template<class... Args>
-inline void info(const std::string &str, Args &&...args)
+void info(const std::string &str, Args &&...args)
 {
    if (GNDStk::info) {
       const std::string msg = detail::diagnostic("info",str);
@@ -234,7 +241,7 @@ inline void info(const std::string &str, Args &&...args)
 
 // warning
 template<class... Args>
-inline void warning(const std::string &str, Args &&...args)
+void warning(const std::string &str, Args &&...args)
 {
    if (GNDStk::warning) {
       const std::string msg = detail::diagnostic("warning",str);
@@ -244,7 +251,7 @@ inline void warning(const std::string &str, Args &&...args)
 
 // error
 template<class... Args>
-inline void error(const std::string &str, Args &&...args)
+void error(const std::string &str, Args &&...args)
 {
    const std::string msg = detail::diagnostic("error",str);
    Log::error(msg.data(), std::forward<Args>(args)...);
@@ -252,7 +259,7 @@ inline void error(const std::string &str, Args &&...args)
 
 // debug
 template<class... Args>
-inline void debug(const std::string &str, Args &&...args)
+void debug(const std::string &str, Args &&...args)
 {
    if (GNDStk::debug) {
       const std::string msg = detail::diagnostic("debug",str);
@@ -268,46 +275,47 @@ inline void debug(const std::string &str, Args &&...args)
 
 // context is a regular function
 template<class... Args>
-inline void function(const std::string &str, Args &&...args)
+void function(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "function " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("function", str).data(),
+                std::forward<Args>(args)...);
 }
 
 // context is a member function
 template<class... Args>
-inline void member(const std::string &str, Args &&...args)
+void member(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "member function " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("member function", str).data(),
+                std::forward<Args>(args)...);
 }
 
 // context is a constructor
 template<class... Args>
-inline void ctor(const std::string &str, Args &&...args)
+void ctor(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "constructor " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("constructor", str).data(),
+                std::forward<Args>(args)...);
+}
+
+// context is a destructor
+template<class... Args>
+void dtor(const std::string &str, Args &&...args)
+{
+   if (GNDStk::context)
+      Log::info(detail::context("destructor", str).data(),
+                std::forward<Args>(args)...);
 }
 
 // context is an assignment operator
 template<class... Args>
-inline void assign(const std::string &str, Args &&...args)
+void assign(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "assignment " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("assignment", str).data(),
+                std::forward<Args>(args)...);
 }
 
 } // namespace log
