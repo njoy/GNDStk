@@ -297,22 +297,29 @@ public:
 
 namespace common {
 
+// Helper: getNumeric
+// Doing numeric (below) strictly as a variable template would lead
+// to initialization-order issues with the specializations.
+template<class T = double>
+const auto &getNumeric()
+{
+   static const njoy::GNDStk::Child<
+      // for general T, the following produces a vector<T>;
+      // for T already a vector, it remains as-is
+      typename njoy::GNDStk::detail::numeric_type<T>::type,
+      njoy::GNDStk::Allow::one,
+      njoy::GNDStk::detail::convert_pcdata_text_t
+   > ret("#pcdata");
+   return ret;
+}
+
 // numeric
 template<class T = double>
-inline const njoy::GNDStk::Child<
-   // for general T, the following produces a vector<T>;
-   // for T already a vector, it remains as-is
-   typename njoy::GNDStk::detail::numeric_type<T>::type,
-   njoy::GNDStk::Allow::one,
-   njoy::GNDStk::detail::convert_pcdata_text_t
-> numeric("#pcdata");
+inline const auto numeric = getNumeric<T>();
 
-// shortcuts for numeric; each gives a vector
-inline const auto floats  = numeric<float >/"#pcdata";
-inline const auto doubles = numeric<double>/"#pcdata";
-// fixme I'm not sure why the "#pcdata" name doesn't come over automatically
-// from numeric; it probably relates to order-of-initialization rules (or
-// lack of rules?) for variable templates. We'll figure that out sometime.
+// specializations, for float and double
+inline const auto floats  = getNumeric<float >();
+inline const auto doubles = getNumeric<double>();
 
 } // namespace common
 

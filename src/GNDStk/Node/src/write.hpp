@@ -181,9 +181,9 @@ bool write(
    // Check: consistent name?
    // ------------------------
 
-   // The above code block might have changed format via automagick file type
-   // detection, but wouldn't have changed it in a manner that would cause any
-   // of the following warnings.
+   // Remark. The above code block might have changed the [format] variable,
+   // but not in a manner that would trigger any of the following warnings
+   // where they wouldn't have otherwise existed. So, print them if warranted.
 
    // Caller asked for XML, but there's an extension that isn't XML...
    if (format == FileType::xml && has_extension(filename)
@@ -248,7 +248,7 @@ std::ostream &write(
          format
       );
 
-      // fallback: automagick
+      // fallback: guess, from file extension
       return write(os, FileType::guess, decl);
    } catch (...) {
       log::member("Node.write(ostream,\"{}\")", format);
@@ -284,7 +284,7 @@ bool write(
          filename, format
       );
 
-      // fallback: automagick
+      // fallback: guess, from file extension
       return write(filename, FileType::guess, decl);
    } catch (...) {
       log::member("Node.write(\"{}\",\"{}\")", filename, format);

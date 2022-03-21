@@ -281,7 +281,7 @@ std::istream &read(
          format
       );
 
-      // fallback: automagick
+      // fallback: guess, from file magic number
       return read(is, FileType::guess, decl);
    } catch (...) {
       log::member("Node.read(istream,\"{}\")", format);
@@ -316,7 +316,7 @@ bool read(
          filename, format
       );
 
-      // fallback: automagick
+      // fallback: guess, from file magic number
       return read(filename, FileType::guess, decl);
    } catch (...) {
       log::member("Node.read(\"{}\",\"{}\")", filename, format);

@@ -18,9 +18,9 @@ inline bool parents = false;
 
 // file type / format
 enum class FileType {
-   // default, automagick, etc.
+   // default: guess from file magic number (input) or extension (output)
    guess,
-   // our plain-text "debug" format; for writing only
+   // our plain-text "debug format"; for writing only (not reading)
    debug,
    // give users easy-to-type lowercase as well as acronym-style uppercase...
    xml,  XML  = xml,
@@ -90,29 +90,6 @@ inline void failback(std::istream &is, const std::streampos pos)
 inline bool align = true;  // extra spaces, to line stuff up for easy reading
 inline bool color = false; // default: impose no ANSI escape-sequence clutter
 
-// fixme A possible concern here is that the alignment, as controlled by the
-// align bool, is only applied to the message string that's sent as the first
-// parameter to our log:: functions - not to the entire message that might be
-// constructed and printed.
-//
-// Imagine that you wrote:
-//
-//    log::error("Some information: {}", someStringParameterWithNewlines);
-//
-// Our log:: functions ultimately forward their own parameters to the external
-// Log library for final handling. Before doing so, they process the message
-// string ("Some information: {}", in our example above). If align == true,
-// they create a *modified* message string - with spacing for alignment after
-// any newlines. However, content that arrives through the "{}"s, from other
-// parameters, and that has newlines, doesn't get alignment spacing. Someone
-// might then see the diagnostic, and believe that our alignment flag is broken.
-//
-// We should consider solutions to this - ones that don't require replicating
-// too much content from the external Log library, and that allow us to still
-// take advantage of its convenient "{}" notation for writing parameters. For
-// now, a few particular "long" diagnostic messages in GNDStk are formatted
-// and printed completely into the format string, so that we avoid this issue.
-
 namespace detail {
 
 // diagnostic
@@ -121,6 +98,22 @@ inline std::string diagnostic(
    const std::string &message,
    const std::string &prefix = ""
 ) {
+   // Remark. Below, if align == true, we place spaces after any newlines that
+   // appear in the message, so that output that would otherwise:
+   //    [error] look something
+   //    like this
+   // will instead:
+   //    [error] look something
+   //            like this
+   // Later, in functions like our error() and warning(), strings returned from
+   // this present (diagnostic()) function are sent to one of the Log:: library
+   // functions. Those replace instances of "{}" with the values of parameters,
+   // similarly to how the old C-language printf() replaces "%". The code below
+   // just does the alignment business for the message string, not for any of
+   // those additional parameters. In the event that one of those is a string,
+   // and has newlines, alignment may not be as one might initially expect. So,
+   // this is just something to be aware of.
+
    static std::map<std::string,std::string> codes = {
       { "info",    "\033[36;21m" }, // cyan
       { "warning", "\033[33;1m"  }, // yellow
@@ -193,9 +186,9 @@ inline long truncate = -1;
 // Flags for fine-tuning diagnostic output
 // -----------------------------------------------------------------------------
 
-// Names of these flags align with those in our log:: functions (see below),
-// for consistency and predictability. These are in namespace GNDStk while
-// those are in namespace GNDStk::log, so the names don't conflict.
+// Names of these flags reflect names in our log:: functions (see below), for
+// consistency and predictability. These flags are in namespace GNDStk, while
+// those are in namespace GNDStk::log; so, the names don't conflict.
 
 // Print info messages? (with log::info())
 inline bool info = true;
@@ -611,9 +604,10 @@ public:
 // isIterable
 // ------------------------
 
-// fixme
-// At some point, we really need a reliable "is_container" traits class.
-// For now, I'll use this.
+// The intention of this traits class is to decide if an object of the given
+// type is suitable for use as the range-expression in a range-based for-loop.
+// For now, we're just checking that it has a begin() and an end(). This is
+// probably sufficient for our needs, and could be relaxed later if necessary.
 
 template<class T, class = void>
 class isIterable {
