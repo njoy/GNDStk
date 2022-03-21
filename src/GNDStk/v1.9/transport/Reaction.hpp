@@ -71,7 +71,7 @@ public:
       std::string label;
       // children
       transport::CrossSection crossSection;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -80,27 +80,27 @@ public:
 
    // ENDF_MT
    const int &ENDF_MT() const
-      { return content.ENDF_MT; }
+      { return Content.ENDF_MT; }
    int &ENDF_MT()
-      { return content.ENDF_MT; }
+      { return Content.ENDF_MT; }
 
    // fissionGenre
    const std::optional<std::string> &fissionGenre() const
-      { return content.fissionGenre; }
+      { return Content.fissionGenre; }
    std::optional<std::string> &fissionGenre()
-      { return content.fissionGenre; }
+      { return Content.fissionGenre; }
 
    // label
    const std::string &label() const
-      { return content.label; }
+      { return Content.label; }
    std::string &label()
-      { return content.label; }
+      { return Content.label; }
 
    // crossSection
    const transport::CrossSection &crossSection() const
-      { return content.crossSection; }
+      { return Content.crossSection; }
    transport::CrossSection &crossSection()
-      { return content.crossSection; }
+      { return Content.crossSection; }
 
    // ------------------------
    // Setters
@@ -146,7 +146,7 @@ public:
          this->label(),
          this->crossSection()
       },
-      content{
+      Content{
          ENDF_MT,
          fissionGenre,
          label,
@@ -165,7 +165,7 @@ public:
          this->label(),
          this->crossSection()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -179,7 +179,7 @@ public:
          this->label(),
          this->crossSection()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

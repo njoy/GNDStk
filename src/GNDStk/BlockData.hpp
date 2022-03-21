@@ -138,7 +138,7 @@ public:
    // Not to be confused with the process of writing data to a Node
    #include "GNDStk/BlockData/src/write.hpp"
 
-   // Pull/push length/start/valueType from/to derived-class struct content
+   // Pull/push length/start/valueType from/to derived-class struct Content
    #include "GNDStk/BlockData/src/sync.hpp"
 
    // Assignment

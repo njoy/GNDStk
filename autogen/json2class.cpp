@@ -1022,9 +1022,9 @@ void writeClassGetters(writer &out, const PerClass &per)
          out();
          out(1,"// @", i.name);
          out(1,"const @ &@() const", i.typeFull, i.name);
-         out(2,"{ return content.@; }", i.name);
+         out(2,"{ return Content.@; }", i.name);
          out(1,      "@ &@()",       i.typeFull, i.name);
-         out(2,"{ return content.@; }", i.name);
+         out(2,"{ return Content.@; }", i.name);
 
          if (isVector) {
             out();
@@ -1282,7 +1282,7 @@ void writeClassCtors(writer &out, const PerClass &per)
 
       // initialize fields
       out(",");
-      out(2,"content{");
+      out(2,"Content{");
       count = 0;
       for (const auto &m : per.metadata)
          out(3,"@@",
@@ -1309,7 +1309,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"@(const @ &other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true);
    out(",");
-   out(2,"content{other.content}");
+   out(2,"Content{other.Content}");
    writeClassCtorBody(out, "other");
 
    // ------------------------
@@ -1321,7 +1321,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"@(@ &&other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true);
    out(",");
-   out(2,"content{std::move(other.content)}");
+   out(2,"Content{std::move(other.Content)}");
    writeClassCtorBody(out, "other");
 
    // ------------------------
@@ -1395,7 +1395,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
       out(1,"} defaults;");
    }
 
-   // output: content (the metadata/children computed earlier)
+   // output: struct Content (for the metadata/children computed earlier)
    out();
    out(1,smallComment);
    out(1,"// Raw GNDS content");
@@ -1405,7 +1405,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    writeClassContentMetadata(out, per);
    writeClassContentChildren(out, per);
    writeClassContentVariants(out, per);
-   out(1,"} content;");
+   out(1,"} Content;");
 
    // output: getters, setters
    if (per.metadata.size() || per.children.size() || per.variants.size()) {

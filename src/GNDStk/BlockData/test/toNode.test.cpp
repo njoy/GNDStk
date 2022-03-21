@@ -23,7 +23,7 @@ void scenario_toNode()
             std::string text = "abc";
             struct : public BlockData<true,INTEGER> {
                struct {
-               } content;
+               } Content;
             } derived;
             BlockData<true,INTEGER> &b = derived;
 
@@ -48,7 +48,7 @@ void scenario_toNode()
          ) {
             struct : public BlockData<true,INTEGER> {
                struct {
-               } content;
+               } Content;
             } derived;
             BlockData<true,INTEGER> &b = derived;
 
@@ -89,7 +89,7 @@ void scenario_toNode()
          ) {
             struct : public BlockData<true,INTEGER> {
                struct {
-               } content;
+               } Content;
             } derived;
             BlockData<true,INTEGER> &b = derived;
 
@@ -128,7 +128,7 @@ void scenario_toNode()
          ) {
             struct : public BlockData<true,FLOAT> {
                struct {
-               } content;
+               } Content;
             } derived;
             BlockData<true,FLOAT> &b = derived;
 
@@ -169,7 +169,7 @@ void scenario_toNode()
          ) {
             struct : public BlockData<true,STRING> {
                struct {
-               } content;
+               } Content;
             } derived;
             BlockData<true,STRING> &b = derived;
 
@@ -213,7 +213,7 @@ void scenario_toNode()
          ) {
             struct : public BlockData<true,CHAR> {
                struct {
-               } content;
+               } Content;
             } derived;
             BlockData<true,CHAR> &b = derived;
 

@@ -63,7 +63,7 @@ public:
       std::optional<int> index;
       std::optional<std::string> label;
       std::optional<std::string> unit;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -72,21 +72,21 @@ public:
 
    // index
    const std::optional<int> &index() const
-      { return content.index; }
+      { return Content.index; }
    std::optional<int> &index()
-      { return content.index; }
+      { return Content.index; }
 
    // label
    const std::optional<std::string> &label() const
-      { return content.label; }
+      { return Content.label; }
    std::optional<std::string> &label()
-      { return content.label; }
+      { return Content.label; }
 
    // unit
    const std::optional<std::string> &unit() const
-      { return content.unit; }
+      { return Content.unit; }
    std::optional<std::string> &unit()
-      { return content.unit; }
+      { return Content.unit; }
 
    // ------------------------
    // Setters
@@ -125,7 +125,7 @@ public:
          this->label(),
          this->unit()
       },
-      content{
+      Content{
          index,
          label,
          unit
@@ -142,7 +142,7 @@ public:
          this->label(),
          this->unit()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -155,7 +155,7 @@ public:
          this->label(),
          this->unit()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

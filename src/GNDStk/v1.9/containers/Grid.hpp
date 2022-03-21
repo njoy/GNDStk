@@ -92,7 +92,7 @@ public:
       std::optional<std::string> unit;
       // children - variant
       link_values_t link_values;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -101,39 +101,39 @@ public:
 
    // index
    const std::optional<int> &index() const
-      { return content.index; }
+      { return Content.index; }
    std::optional<int> &index()
-      { return content.index; }
+      { return Content.index; }
 
    // interpolation
    const Defaulted<enums::Interpolation> &interpolation() const
-      { return content.interpolation; }
+      { return Content.interpolation; }
    Defaulted<enums::Interpolation> &interpolation()
-      { return content.interpolation; }
+      { return Content.interpolation; }
 
    // label
    const std::optional<std::string> &label() const
-      { return content.label; }
+      { return Content.label; }
    std::optional<std::string> &label()
-      { return content.label; }
+      { return Content.label; }
 
    // style
    const std::optional<enums::GridStyle> &style() const
-      { return content.style; }
+      { return Content.style; }
    std::optional<enums::GridStyle> &style()
-      { return content.style; }
+      { return Content.style; }
 
    // unit
    const std::optional<std::string> &unit() const
-      { return content.unit; }
+      { return Content.unit; }
    std::optional<std::string> &unit()
-      { return content.unit; }
+      { return Content.unit; }
 
    // link_values
    const link_values_t &link_values() const
-      { return content.link_values; }
+      { return Content.link_values; }
    link_values_t &link_values()
-      { return content.link_values; }
+      { return Content.link_values; }
 
    // values
    const containers::Values *values() const
@@ -216,7 +216,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{
+      Content{
          index,
          Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
          label,
@@ -239,7 +239,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -255,7 +255,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

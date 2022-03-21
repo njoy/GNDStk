@@ -8,10 +8,10 @@
 // call getter() functions in the detail:: namespace to do most of the work.
 //
 // The motivation for having the following at all is to simplify the retrieval,
-// in the derived-class getters, of certain information in the content{} struct
+// in the derived-class getters, of certain information in the Content{} struct
 // of the derived class object. For simple data, e.g. an int or a std::string
-// in the derived class' content struct, a derived-class getter will simply
-// do a "return content.something", because nothing more complicated is needed.
+// in the derived class' Content struct, a derived-class getter will simply
+// do a "return Content.something", because nothing more complicated is needed.
 // So, the below functions involve circumstances where something more involved
 // needs to be done.
 

@@ -56,12 +56,12 @@ class DerivedSomething : public Component<DerivedSomething>
    struct {
       int foo;
       double bar;
-   } content;
+   } Content;
 
-   const int &foo() const { return content.foo; }
-   int &foo() { return content.foo; }
-   const double &bar() const { return content.bar; }
-   double &bar() { return content.bar; }
+   const int &foo() const { return Content.foo; }
+   int &foo() { return Content.foo; }
+   const double &bar() const { return Content.bar; }
+   double &bar() { return Content.bar; }
 
 public:
 

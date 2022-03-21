@@ -74,7 +74,7 @@ public:
       mutable Defaulted<std::string> valueType{"double"};
       mutable Defaulted<int> start{0};
       mutable std::optional<int> length;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -83,21 +83,21 @@ public:
 
    // valueType
    const Defaulted<std::string> &valueType() const
-      { return content.valueType; }
+      { return Content.valueType; }
    Defaulted<std::string> &valueType()
-      { return content.valueType; }
+      { return Content.valueType; }
 
    // start
    const Defaulted<int> &start() const
-      { return content.start; }
+      { return Content.start; }
    Defaulted<int> &start()
-      { return content.start; }
+      { return Content.start; }
 
    // length
    const std::optional<int> &length() const
-      { return content.length; }
+      { return Content.length; }
    std::optional<int> &length()
-      { return content.length; }
+      { return Content.length; }
 
    // ------------------------
    // Setters
@@ -141,7 +141,7 @@ public:
          this->start(),
          this->length()
       },
-      content{
+      Content{
          Defaulted<std::string>(defaults.valueType,valueType),
          Defaulted<int>(defaults.start,start),
          length
@@ -158,7 +158,7 @@ public:
          this->start(),
          this->length()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -171,7 +171,7 @@ public:
          this->start(),
          this->length()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

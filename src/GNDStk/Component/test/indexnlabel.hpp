@@ -8,7 +8,7 @@
 // Has neither index nor label
 struct Empty {
    struct {
-   } content;
+   } Content;
 };
 
 
@@ -18,12 +18,12 @@ struct Index {
    struct {
       int index;
       std::string value;
-   } content;
+   } Content;
 
-   const int &index() const { return content.index; };
-   int &index() { return content.index; };
-   const std::string &value() const { return content.value; };
-   std::string &value() { return content.value; };
+   const int &index() const { return Content.index; };
+   int &index() { return Content.index; };
+   const std::string &value() const { return Content.value; };
+   std::string &value() { return Content.value; };
 
    Index(
       const int index = 0,
@@ -41,12 +41,12 @@ struct Label {
    struct {
       std::string label;
       std::string value;
-   } content;
+   } Content;
 
-   const std::string &label() const { return content.label; };
-   std::string &label() { return content.label; };
-   const std::string &value() const { return content.value; };
-   std::string &value() { return content.value; };
+   const std::string &label() const { return Content.label; };
+   std::string &label() { return Content.label; };
+   const std::string &value() const { return Content.value; };
+   std::string &value() { return Content.value; };
 
    Label(
       const std::string &label = "",
@@ -65,14 +65,14 @@ struct IndexLabel {
       int index;
       std::string label;
       std::string value;
-   } content;
+   } Content;
 
-   const int &index() const { return content.index; };
-   int &index() { return content.index; };
-   const std::string &label() const { return content.label; };
-   std::string &label() { return content.label; };
-   const std::string &value() const { return content.value; };
-   std::string &value() { return content.value; };
+   const int &index() const { return Content.index; };
+   int &index() { return Content.index; };
+   const std::string &label() const { return Content.label; };
+   std::string &label() { return Content.label; };
+   const std::string &value() const { return Content.value; };
+   std::string &value() { return Content.value; };
 
    IndexLabel(
       const int index = 0,

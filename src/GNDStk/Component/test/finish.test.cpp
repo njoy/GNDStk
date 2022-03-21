@@ -17,9 +17,9 @@ namespace test {
 struct IndexStruct {
    struct {
       std::size_t index;
-   } content;
-   const std::size_t &index() const { return content.index; }
-   std::size_t &index() { return content.index; }
+   } Content;
+   const std::size_t &index() const { return Content.index; }
+   std::size_t &index() { return Content.index; }
 
    IndexStruct(const std::size_t i = 0) { index() = i; }
    IndexStruct(const Node &) : IndexStruct(0) { }
@@ -62,7 +62,7 @@ class DerivedValue : public Component<DerivedValue,true>
 
 public:
 
-   // content
+   // Content
    // Typically doesn't need to be public, but we make it public here because
    // one of the tests involves checking these
    struct {
@@ -77,21 +77,21 @@ public:
       // functions detect and sort it.
       std::optional<std::vector<IndexStruct>> indices =
          {{3,2,17,7,5,9,13,11}};
-   } content;
+   } Content;
 
-   const int &length() const { return content.length; }
-   int &length() { return content.length; }
+   const int &length() const { return Content.length; }
+   int &length() { return Content.length; }
 
-   const int &start() const { return content.start; }
-   int &start() { return content.start; }
+   const int &start() const { return Content.start; }
+   int &start() { return Content.start; }
 
-   const std::string &valueType() const { return content.valueType; }
-   std::string &valueType() { return content.valueType; }
+   const std::string &valueType() const { return Content.valueType; }
+   std::string &valueType() { return Content.valueType; }
 
    const std::optional<std::vector<IndexStruct>> &indices() const
-   { return content.indices; }
+   { return Content.indices; }
    std::optional<std::vector<IndexStruct>> &indices()
-   { return content.indices; }
+   { return Content.indices; }
 
 private:
 
@@ -138,7 +138,7 @@ public:
          other,
          length(), start(), valueType(), indices()
       },
-      content{other.content}
+      Content{other.Content}
    {
       // finish(derived)
       Component::finish(other);
@@ -182,9 +182,9 @@ namespace test {
 struct LabelStruct {
    struct {
       std::string label;
-   } content;
-   const std::string &label() const { return content.label; }
-   std::string &label() { return content.label; }
+   } Content;
+   const std::string &label() const { return Content.label; }
+   std::string &label() { return Content.label; }
 
    // apparently need a char* ctor for initializer-list initialization to work
    LabelStruct(const char *const str = "") { label() = str; }
@@ -228,7 +228,7 @@ class DerivedPlain : public Component<DerivedPlain,false>
 
 public:
 
-   // content
+   // Content
    struct {
       int foo;
       double bar;
@@ -237,18 +237,18 @@ public:
       // functions detect and sort it.
       std::optional<std::vector<LabelStruct>> labels =
          {{"bc","a","p","efg","d","hi","no","jklm"}};
-   } content;
+   } Content;
 
-   const int &foo() const { return content.foo; }
-   int &foo() { return content.foo; }
+   const int &foo() const { return Content.foo; }
+   int &foo() { return Content.foo; }
 
-   const double &bar() const { return content.bar; }
-   double &bar() { return content.bar; }
+   const double &bar() const { return Content.bar; }
+   double &bar() { return Content.bar; }
 
    const std::optional<std::vector<LabelStruct>> &labels() const
-   { return content.labels; }
+   { return Content.labels; }
    std::optional<std::vector<LabelStruct>> &labels()
-   { return content.labels; }
+   { return Content.labels; }
 
 private:
 
@@ -289,7 +289,7 @@ public:
          other,
          foo(), bar(), labels()
       },
-      content{other.content}
+      Content{other.Content}
    {
       // finish(derived)
       Component::finish(other);

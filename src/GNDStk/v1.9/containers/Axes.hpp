@@ -71,7 +71,7 @@ public:
       std::optional<std::string> href;
       // children - variant
       std::vector<axis_grid_t> axis_grid;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -80,15 +80,15 @@ public:
 
    // href
    const std::optional<std::string> &href() const
-      { return content.href; }
+      { return Content.href; }
    std::optional<std::string> &href()
-      { return content.href; }
+      { return Content.href; }
 
    // axis_grid
    const std::vector<axis_grid_t> &axis_grid() const
-      { return content.axis_grid; }
+      { return Content.axis_grid; }
    std::vector<axis_grid_t> &axis_grid()
-      { return content.axis_grid; }
+      { return Content.axis_grid; }
 
    // axis_grid(index/label/Lookup)
    template<class KEY, class = detail::isSearchKey<KEY>>
@@ -175,7 +175,7 @@ public:
          this->href(),
          this->axis_grid()
       },
-      content{
+      Content{
          href,
          axis_grid
       }
@@ -190,7 +190,7 @@ public:
          this->href(),
          this->axis_grid()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -202,7 +202,7 @@ public:
          this->href(),
          this->axis_grid()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

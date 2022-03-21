@@ -72,7 +72,7 @@ public:
       // children
       std::optional<containers::Axes> axes;
       std::vector<containers::XYs1d> XYs1d;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -81,27 +81,27 @@ public:
 
    // label
    const std::optional<std::string> &label() const
-      { return content.label; }
+      { return Content.label; }
    std::optional<std::string> &label()
-      { return content.label; }
+      { return Content.label; }
 
    // outerDomainValue
    const std::optional<double> &outerDomainValue() const
-      { return content.outerDomainValue; }
+      { return Content.outerDomainValue; }
    std::optional<double> &outerDomainValue()
-      { return content.outerDomainValue; }
+      { return Content.outerDomainValue; }
 
    // axes
    const std::optional<containers::Axes> &axes() const
-      { return content.axes; }
+      { return Content.axes; }
    std::optional<containers::Axes> &axes()
-      { return content.axes; }
+      { return Content.axes; }
 
    // XYs1d
    const std::vector<containers::XYs1d> &XYs1d() const
-      { return content.XYs1d; }
+      { return Content.XYs1d; }
    std::vector<containers::XYs1d> &XYs1d()
-      { return content.XYs1d; }
+      { return Content.XYs1d; }
 
    // XYs1d(index/label/Lookup)
    template<class KEY, class = detail::isSearchKey<KEY>>
@@ -166,7 +166,7 @@ public:
          this->axes(),
          this->XYs1d()
       },
-      content{
+      Content{
          label,
          outerDomainValue,
          axes,
@@ -185,7 +185,7 @@ public:
          this->axes(),
          this->XYs1d()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -199,7 +199,7 @@ public:
          this->axes(),
          this->XYs1d()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

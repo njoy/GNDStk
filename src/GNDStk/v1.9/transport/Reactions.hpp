@@ -60,7 +60,7 @@ public:
    struct {
       // children
       std::vector<transport::Reaction> reaction;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -69,9 +69,9 @@ public:
 
    // reaction
    const std::vector<transport::Reaction> &reaction() const
-      { return content.reaction; }
+      { return Content.reaction; }
    std::vector<transport::Reaction> &reaction()
-      { return content.reaction; }
+      { return Content.reaction; }
 
    // reaction(index/label/Lookup)
    template<class KEY, class = detail::isSearchKey<KEY>>
@@ -115,7 +115,7 @@ public:
          BlockData{},
          this->reaction()
       },
-      content{
+      Content{
          reaction
       }
    {
@@ -128,7 +128,7 @@ public:
          other.baseBlockData(),
          this->reaction()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -139,7 +139,7 @@ public:
          other.baseBlockData(),
          this->reaction()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

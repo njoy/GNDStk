@@ -7,7 +7,7 @@ using namespace njoy::GNDStk;
 
 // -----------------------------------------------------------------------------
 // Scenario: pull
-// content == any of {length,start,valueType}
+// Content == any of {length,start,valueType}
 // -----------------------------------------------------------------------------
 
 // Helper
@@ -16,10 +16,10 @@ void scenario_pull()
 {
    WHEN("pullFromDerived() is called") {
       // none of length, start, valueType
-      THEN("Push to content{} works") {
+      THEN("Push to Content{} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
-            } content;
+            } Content;
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(100).start(200).valueType("300");
@@ -30,13 +30,13 @@ void scenario_pull()
       }
 
       // length only
-      THEN("Push to content{length} works") {
+      THEN("Push to Content{length} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 10;
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(11).start(12).valueType("13");
@@ -47,13 +47,13 @@ void scenario_pull()
       }
 
       // start only
-      THEN("Push to content{start} works") {
+      THEN("Push to Content{start} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int start = 14;
-            } content;
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
+            } Content;
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(15).start(16).valueType("17");
@@ -64,13 +64,13 @@ void scenario_pull()
       }
 
       // valueType only
-      THEN("Push to content{valueType} works") {
+      THEN("Push to Content{valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                std::string valueType = "18";
-            } content;
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(19).start(20).valueType("21");
@@ -81,16 +81,16 @@ void scenario_pull()
       }
 
       // all but length
-      THEN("Push to content{start,valueType} works") {
+      THEN("Push to Content{start,valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int start = 22;
                std::string valueType = "23";
-            } content;
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(24).start(25).valueType("26");
@@ -101,16 +101,16 @@ void scenario_pull()
       }
 
       // all but start
-      THEN("Push to content{length,valueType} works") {
+      THEN("Push to Content{length,valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 27;
                std::string valueType = "28";
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(29).start(30).valueType("31");
@@ -121,16 +121,16 @@ void scenario_pull()
       }
 
       // all but valueType
-      THEN("Push to content{length,start} works") {
+      THEN("Push to Content{length,start} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 32;
                int start  = 33;
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(34).start(35).valueType("36");
@@ -141,19 +141,19 @@ void scenario_pull()
       }
 
       // all three
-      THEN("Push to content{length,start,valueType} works") {
+      THEN("Push to Content{length,start,valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 37;
                int start  = 38;
                std::string valueType = "39";
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(40).start(41).valueType("42");
@@ -166,13 +166,13 @@ void scenario_pull()
 }
 
 
-SCENARIO("BlockData<DATATYPE == void> pull from content") {
+SCENARIO("BlockData<DATATYPE == void> pull from Content") {
    GIVEN("A BlockData<true,void> object") {
       scenario_pull<void>();
    }
 }
 
-SCENARIO("BlockData<DATATYPE != void> pull from content") {
+SCENARIO("BlockData<DATATYPE != void> pull from Content") {
    GIVEN("A BlockData<true,int> object") {
       scenario_pull<int>();
    }
@@ -181,7 +181,7 @@ SCENARIO("BlockData<DATATYPE != void> pull from content") {
 
 // -----------------------------------------------------------------------------
 // Scenario: push
-// content == any of {length,start,valueType}
+// Content == any of {length,start,valueType}
 // -----------------------------------------------------------------------------
 
 // Helper
@@ -190,13 +190,13 @@ void scenario_push()
 {
    WHEN("pushToDerived() is called") {
       // none of length, start, valueType
-      THEN("Push to content{} works") {
+      THEN("Push to Content{} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int ignored = 123456; // not length, start, or valueType
-            } content;
-            const int &ignored() const { return content.ignored; }
-            int &ignored() { return content.ignored; }
+            } Content;
+            const int &ignored() const { return Content.ignored; }
+            int &ignored() { return Content.ignored; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(0).start(0).valueType("0");
@@ -205,13 +205,13 @@ void scenario_push()
       }
 
       // length only
-      THEN("Push to content{length} works") {
+      THEN("Push to Content{length} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 10;
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(11).start(12).valueType("13");
@@ -220,13 +220,13 @@ void scenario_push()
       }
 
       // start only
-      THEN("Push to content{start} works") {
+      THEN("Push to Content{start} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int start = 14;
-            } content;
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
+            } Content;
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(15).start(16).valueType("17");
@@ -235,13 +235,13 @@ void scenario_push()
       }
 
       // valueType only
-      THEN("Push to content{valueType} works") {
+      THEN("Push to Content{valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                std::string valueType = "18";
-            } content;
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(19).start(20).valueType("21");
@@ -250,16 +250,16 @@ void scenario_push()
       }
 
       // all but length
-      THEN("Push to content{start,valueType} works") {
+      THEN("Push to Content{start,valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int start = 22;
                std::string valueType = "23";
-            } content;
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(24).start(25).valueType("26");
@@ -269,16 +269,16 @@ void scenario_push()
       }
 
       // all but start
-      THEN("Push to content{length,valueType} works") {
+      THEN("Push to Content{length,valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 27;
                std::string valueType = "28";
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(29).start(30).valueType("31");
@@ -288,16 +288,16 @@ void scenario_push()
       }
 
       // all but valueType
-      THEN("Push to content{length,start} works") {
+      THEN("Push to Content{length,start} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 32;
                int start  = 33;
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(34).start(35).valueType("36");
@@ -307,19 +307,19 @@ void scenario_push()
       }
 
       // all three
-      THEN("Push to content{length,start,valueType} works") {
+      THEN("Push to Content{length,start,valueType} works") {
          struct : public BlockData<true,DATATYPE> {
             struct {
                int length = 37;
                int start  = 38;
                std::string valueType = "39";
-            } content;
-            const int &length() const { return content.length; }
-            int &length() { return content.length; }
-            const int &start() const { return content.start; }
-            int &start() { return content.start; }
-            const std::string &valueType() const { return content.valueType; }
-            std::string &valueType() { return content.valueType; }
+            } Content;
+            const int &length() const { return Content.length; }
+            int &length() { return Content.length; }
+            const int &start() const { return Content.start; }
+            int &start() { return Content.start; }
+            const std::string &valueType() const { return Content.valueType; }
+            std::string &valueType() { return Content.valueType; }
          } derived;
          BlockData<true,DATATYPE> &b = derived;
          b.length(40).start(41).valueType("42");
@@ -332,13 +332,13 @@ void scenario_push()
 }
 
 
-SCENARIO("BlockData<DATATYPE == void> push to content") {
+SCENARIO("BlockData<DATATYPE == void> push to Content") {
    GIVEN("A BlockData<true,void> object") {
       scenario_push<void>();
    }
 }
 
-SCENARIO("BlockData<DATATYPE != void> push to content") {
+SCENARIO("BlockData<DATATYPE != void> push to Content") {
    GIVEN("A BlockData<true,int> object") {
       scenario_push<int>();
    }

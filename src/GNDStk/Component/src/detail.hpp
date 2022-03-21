@@ -372,7 +372,7 @@ bool writeComponentPart(
 // For sorting derived-class fields based on index and label, if and when one
 // or the other of those is determined to be present. That determination hinges
 // on both a compile-time check that the classes involved even *have* index or
-// label fields in their content struct, and if they do, if either of those is
+// label fields in their Content struct, and if they do, if either of those is
 // possibly a std::optional that may or may not contain a value at the moment.
 // -----------------------------------------------------------------------------
 

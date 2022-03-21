@@ -56,7 +56,7 @@ public:
       mutable std::optional<int> length;
       mutable Defaulted<int> start{0};
       mutable std::optional<std::string> valueType;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -65,21 +65,21 @@ public:
 
    // length
    const std::optional<int> &length() const
-    { return content.length; }
+    { return Content.length; }
    std::optional<int> &length()
-    { return content.length; }
+    { return Content.length; }
 
    // start
    const Defaulted<int> &start() const
-    { return content.start; }
+    { return Content.start; }
    Defaulted<int> &start()
-    { return content.start; }
+    { return Content.start; }
 
    // valueType
    const std::optional<std::string> &valueType() const
-    { return content.valueType; }
+    { return Content.valueType; }
    std::optional<std::string> &valueType()
-    { return content.valueType; }
+    { return Content.valueType; }
 
    // ------------------------
    // Setters
@@ -125,7 +125,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -138,7 +138,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -168,7 +168,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{
+      Content{
          length,
          Defaulted<int>(defaults.start,start),
          valueType
@@ -262,7 +262,7 @@ public:
       mutable std::optional<int> length;
       mutable Defaulted<int> start{0};
       mutable std::optional<std::string> valueType;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -271,21 +271,21 @@ public:
 
    // length
    const std::optional<int> &length() const
-    { return content.length; }
+    { return Content.length; }
    std::optional<int> &length()
-    { return content.length; }
+    { return Content.length; }
 
    // start
    const Defaulted<int> &start() const
-    { return content.start; }
+    { return Content.start; }
    Defaulted<int> &start()
-    { return content.start; }
+    { return Content.start; }
 
    // valueType
    const std::optional<std::string> &valueType() const
-    { return content.valueType; }
+    { return Content.valueType; }
    std::optional<std::string> &valueType()
-    { return content.valueType; }
+    { return Content.valueType; }
 
    // ------------------------
    // Setters
@@ -331,7 +331,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -344,7 +344,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -374,7 +374,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{
+      Content{
          length,
          Defaulted<int>(defaults.start,start),
          valueType
@@ -468,7 +468,7 @@ public:
       mutable std::optional<int> length;
       mutable Defaulted<int> start{0};
       mutable std::optional<std::string> valueType;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -477,21 +477,21 @@ public:
 
    // length
    const std::optional<int> &length() const
-    { return content.length; }
+    { return Content.length; }
    std::optional<int> &length()
-    { return content.length; }
+    { return Content.length; }
 
    // start
    const Defaulted<int> &start() const
-    { return content.start; }
+    { return Content.start; }
    Defaulted<int> &start()
-    { return content.start; }
+    { return Content.start; }
 
    // valueType
    const std::optional<std::string> &valueType() const
-    { return content.valueType; }
+    { return Content.valueType; }
    std::optional<std::string> &valueType()
-    { return content.valueType; }
+    { return Content.valueType; }
 
    // ------------------------
    // Setters
@@ -537,7 +537,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -550,7 +550,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -580,7 +580,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{
+      Content{
          length,
          Defaulted<int>(defaults.start,start),
          valueType
@@ -674,7 +674,7 @@ public:
       mutable std::optional<int> length;
       mutable Defaulted<int> start{0};
       mutable std::optional<std::string> valueType;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -683,21 +683,21 @@ public:
 
    // length
    const std::optional<int> &length() const
-    { return content.length; }
+    { return Content.length; }
    std::optional<int> &length()
-    { return content.length; }
+    { return Content.length; }
 
    // start
    const Defaulted<int> &start() const
-    { return content.start; }
+    { return Content.start; }
    Defaulted<int> &start()
-    { return content.start; }
+    { return Content.start; }
 
    // valueType
    const std::optional<std::string> &valueType() const
-    { return content.valueType; }
+    { return Content.valueType; }
    std::optional<std::string> &valueType()
-    { return content.valueType; }
+    { return Content.valueType; }
 
    // ------------------------
    // Setters
@@ -743,7 +743,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -756,7 +756,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -786,7 +786,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{
+      Content{
          length,
          Defaulted<int>(defaults.start,start),
          valueType
@@ -926,7 +926,7 @@ public:
       std::optional<precision::Floats> floats;
       std::optional<precision::Quads> quads;
       std::optional<precision::Reals> reals;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -935,63 +935,63 @@ public:
 
    // adouble
    const Defaulted<double> &adouble() const
-    { return content.adouble; }
+    { return Content.adouble; }
    Defaulted<double> &adouble()
-    { return content.adouble; }
+    { return Content.adouble; }
 
    // afloat
    const Defaulted<float> &afloat() const
-    { return content.afloat; }
+    { return Content.afloat; }
    Defaulted<float> &afloat()
-    { return content.afloat; }
+    { return Content.afloat; }
 
    // aquad
    const Defaulted<long double> &aquad() const
-    { return content.aquad; }
+    { return Content.aquad; }
    Defaulted<long double> &aquad()
-    { return content.aquad; }
+    { return Content.aquad; }
 
    // bdouble
    const Defaulted<double> &bdouble() const
-    { return content.bdouble; }
+    { return Content.bdouble; }
    Defaulted<double> &bdouble()
-    { return content.bdouble; }
+    { return Content.bdouble; }
 
    // bfloat
    const Defaulted<float> &bfloat() const
-    { return content.bfloat; }
+    { return Content.bfloat; }
    Defaulted<float> &bfloat()
-    { return content.bfloat; }
+    { return Content.bfloat; }
 
    // bquad
    const Defaulted<long double> &bquad() const
-    { return content.bquad; }
+    { return Content.bquad; }
    Defaulted<long double> &bquad()
-    { return content.bquad; }
+    { return Content.bquad; }
 
    // doubles
    const std::optional<precision::Doubles> &doubles() const
-    { return content.doubles; }
+    { return Content.doubles; }
    std::optional<precision::Doubles> &doubles()
-    { return content.doubles; }
+    { return Content.doubles; }
 
    // floats
    const std::optional<precision::Floats> &floats() const
-    { return content.floats; }
+    { return Content.floats; }
    std::optional<precision::Floats> &floats()
-    { return content.floats; }
+    { return Content.floats; }
 
    // quads
    const std::optional<precision::Quads> &quads() const
-    { return content.quads; }
+    { return Content.quads; }
    std::optional<precision::Quads> &quads()
-    { return content.quads; }
+    { return Content.quads; }
 
    // reals
    const std::optional<precision::Reals> &reals() const
-    { return content.reals; }
+    { return Content.reals; }
    std::optional<precision::Reals> &reals()
-    { return content.reals; }
+    { return Content.reals; }
 
    // ------------------------
    // Setters
@@ -1089,7 +1089,7 @@ public:
          this->quads(),
          this->reals()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1109,7 +1109,7 @@ public:
          this->quads(),
          this->reals()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1160,7 +1160,7 @@ public:
          this->quads(),
          this->reals()
       },
-      content{
+      Content{
          Defaulted<double>(defaults.adouble,adouble),
          Defaulted<float>(defaults.afloat,afloat),
          Defaulted<long double>(defaults.aquad,aquad),

@@ -151,7 +151,7 @@ public:
       mutable std::optional<int> length;
       mutable Defaulted<int> start{0};
       mutable Defaulted<std::string> valueType{"double"};
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -160,21 +160,21 @@ public:
 
    // length
    const auto &length() const
-    { return content.length; }
+    { return Content.length; }
    auto &length()
-    { return content.length; }
+    { return Content.length; }
 
    // start
    const auto &start() const
-    { return content.start; }
+    { return Content.start; }
    auto &start()
-    { return content.start; }
+    { return Content.start; }
 
    // valueType
    const auto &valueType() const
-    { return content.valueType; }
+    { return Content.valueType; }
    auto &valueType()
-    { return content.valueType; }
+    { return Content.valueType; }
 
    // ------------------------
    // Setters
@@ -222,7 +222,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -235,7 +235,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -264,7 +264,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{
+      Content{
          length,
          start,
          valueType
@@ -285,7 +285,7 @@ public:
          this->start(),
          this->valueType()
       },
-      content{
+      Content{
          length,
          start == 0
             ? Defaulted<int>{0}
@@ -358,7 +358,7 @@ public:
    struct {
       // metadata
       std::string href;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -367,9 +367,9 @@ public:
 
    // href
    const auto &href() const
-    { return content.href; }
+    { return Content.href; }
    auto &href()
-    { return content.href; }
+    { return Content.href; }
 
    // ------------------------
    // Setters
@@ -401,7 +401,7 @@ public:
          other,
          this->href()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -412,7 +412,7 @@ public:
          other,
          this->href()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -435,7 +435,7 @@ public:
          BlockData{},
          this->href()
       },
-      content{
+      Content{
          href
       }
    {
@@ -528,7 +528,7 @@ public:
 
       // children
       LINK_VALUES link_values;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -537,39 +537,39 @@ public:
 
    // index
    const auto &index() const
-    { return content.index; }
+    { return Content.index; }
    auto &index()
-    { return content.index; }
+    { return Content.index; }
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation; }
+    { return Content.interpolation; }
    auto &interpolation()
-    { return content.interpolation; }
+    { return Content.interpolation; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // style
    const auto &style() const
-    { return content.style; }
+    { return Content.style; }
    auto &style()
-    { return content.style; }
+    { return Content.style; }
 
    // unit
    const auto &unit() const
-    { return content.unit; }
+    { return Content.unit; }
    auto &unit()
-    { return content.unit; }
+    { return Content.unit; }
 
    // link_values
    const auto &link_values() const
-    { return content.link_values; }
+    { return Content.link_values; }
    auto &link_values()
-    { return content.link_values; }
+    { return Content.link_values; }
 
    // link
    auto link() const
@@ -653,7 +653,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -669,7 +669,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -707,7 +707,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{
+      Content{
          index,
          interpolation,
          label,
@@ -737,7 +737,7 @@ public:
          this->unit(),
          this->link_values()
       },
-      content{
+      Content{
          index,
          interpolation == enums::Interpolation::linlin
             ? Defaulted<enums::Interpolation>
@@ -819,7 +819,7 @@ public:
       std::optional<int> index;
       std::optional<std::string> label;
       std::optional<std::string> unit;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -828,21 +828,21 @@ public:
 
    // index
    const auto &index() const
-    { return content.index; }
+    { return Content.index; }
    auto &index()
-    { return content.index; }
+    { return Content.index; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // unit
    const auto &unit() const
-    { return content.unit; }
+    { return Content.unit; }
    auto &unit()
-    { return content.unit; }
+    { return Content.unit; }
 
    // ------------------------
    // Setters
@@ -886,7 +886,7 @@ public:
          this->label(),
          this->unit()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -899,7 +899,7 @@ public:
          this->label(),
          this->unit()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -928,7 +928,7 @@ public:
          this->label(),
          this->unit()
       },
-      content{
+      Content{
          index,
          label,
          unit
@@ -1008,7 +1008,7 @@ public:
 
       // children
       std::vector<AXIS_GRID> axis_grid;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1017,15 +1017,15 @@ public:
 
    // href
    const auto &href() const
-    { return content.href; }
+    { return Content.href; }
    auto &href()
-    { return content.href; }
+    { return Content.href; }
 
    // axis_grid
    const auto &axis_grid() const
-    { return content.axis_grid; }
+    { return Content.axis_grid; }
    auto &axis_grid()
-    { return content.axis_grid; }
+    { return Content.axis_grid; }
 
    // axis_grid(index)
    const auto &axis_grid(const std::size_t &index) const
@@ -1151,7 +1151,7 @@ public:
          this->href(),
          this->axis_grid()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1163,7 +1163,7 @@ public:
          this->href(),
          this->axis_grid()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1189,7 +1189,7 @@ public:
          this->href(),
          this->axis_grid()
       },
-      content{
+      Content{
          href,
          axis_grid
       }
@@ -1278,7 +1278,7 @@ public:
       // children
       std::optional<proto::Axes> axes;
       proto::Values values;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1287,39 +1287,39 @@ public:
 
    // index
    const auto &index() const
-    { return content.index; }
+    { return Content.index; }
    auto &index()
-    { return content.index; }
+    { return Content.index; }
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation; }
+    { return Content.interpolation; }
    auto &interpolation()
-    { return content.interpolation; }
+    { return Content.interpolation; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // outerDomainValue
    const auto &outerDomainValue() const
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
    auto &outerDomainValue()
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
 
    // axes
    const auto &axes() const
-    { return content.axes; }
+    { return Content.axes; }
    auto &axes()
-    { return content.axes; }
+    { return Content.axes; }
 
    // values
    const auto &values() const
-    { return content.values; }
+    { return Content.values; }
    auto &values()
-    { return content.values; }
+    { return Content.values; }
 
    // ------------------------
    // Setters
@@ -1383,7 +1383,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1399,7 +1399,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1437,7 +1437,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{
+      Content{
          index,
          interpolation,
          label,
@@ -1467,7 +1467,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{
+      Content{
          index,
          interpolation == enums::Interpolation::linlin
             ? Defaulted<enums::Interpolation>
@@ -1555,7 +1555,7 @@ public:
       // children
       std::vector<proto::XYs1d> XYs1d;
       std::optional<proto::Axes> axes;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1564,21 +1564,21 @@ public:
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // outerDomainValue
    const auto &outerDomainValue() const
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
    auto &outerDomainValue()
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
 
    // XYs1d
    const auto &XYs1d() const
-    { return content.XYs1d; }
+    { return Content.XYs1d; }
    auto &XYs1d()
-    { return content.XYs1d; }
+    { return Content.XYs1d; }
 
    // XYs1d(index)
    const auto &XYs1d(const std::size_t &index) const
@@ -1594,9 +1594,9 @@ public:
 
    // axes
    const auto &axes() const
-    { return content.axes; }
+    { return Content.axes; }
    auto &axes()
-    { return content.axes; }
+    { return Content.axes; }
 
    // ------------------------
    // Setters
@@ -1662,7 +1662,7 @@ public:
          this->XYs1d(),
          this->axes()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1676,7 +1676,7 @@ public:
          this->XYs1d(),
          this->axes()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1708,7 +1708,7 @@ public:
          this->XYs1d(),
          this->axes()
       },
-      content{
+      Content{
          label,
          outerDomainValue,
          XYs1d,
@@ -1783,7 +1783,7 @@ public:
    struct {
       // children
       std::vector<XYS1D_REGIONS1D> XYs1d_regions1d;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1792,9 +1792,9 @@ public:
 
    // XYs1d_regions1d
    const auto &XYs1d_regions1d() const
-    { return content.XYs1d_regions1d; }
+    { return Content.XYs1d_regions1d; }
    auto &XYs1d_regions1d()
-    { return content.XYs1d_regions1d; }
+    { return Content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
    const auto &XYs1d_regions1d(const std::size_t &index) const
@@ -1914,7 +1914,7 @@ public:
          other,
          this->XYs1d_regions1d()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1925,7 +1925,7 @@ public:
          other,
          this->XYs1d_regions1d()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1948,7 +1948,7 @@ public:
          BlockData{},
          this->XYs1d_regions1d()
       },
-      content{
+      Content{
          XYs1d_regions1d
       }
    {
@@ -2027,7 +2027,7 @@ public:
 
       // children
       proto::CrossSection crossSection;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -2036,27 +2036,27 @@ public:
 
    // ENDF_MT
    const auto &ENDF_MT() const
-    { return content.ENDF_MT; }
+    { return Content.ENDF_MT; }
    auto &ENDF_MT()
-    { return content.ENDF_MT; }
+    { return Content.ENDF_MT; }
 
    // fissionGenre
    const auto &fissionGenre() const
-    { return content.fissionGenre; }
+    { return Content.fissionGenre; }
    auto &fissionGenre()
-    { return content.fissionGenre; }
+    { return Content.fissionGenre; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // crossSection
    const auto &crossSection() const
-    { return content.crossSection; }
+    { return Content.crossSection; }
    auto &crossSection()
-    { return content.crossSection; }
+    { return Content.crossSection; }
 
    // ------------------------
    // Setters
@@ -2106,7 +2106,7 @@ public:
          this->label(),
          this->crossSection()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -2120,7 +2120,7 @@ public:
          this->label(),
          this->crossSection()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -2152,7 +2152,7 @@ public:
          this->label(),
          this->crossSection()
       },
-      content{
+      Content{
          ENDF_MT,
          fissionGenre,
          label,
@@ -2222,7 +2222,7 @@ public:
    struct {
       // children
       std::vector<proto::Reaction> reaction;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -2231,9 +2231,9 @@ public:
 
    // reaction
    const auto &reaction() const
-    { return content.reaction; }
+    { return Content.reaction; }
    auto &reaction()
-    { return content.reaction; }
+    { return Content.reaction; }
 
    // reaction(index)
    const auto &reaction(const std::size_t &index) const
@@ -2293,7 +2293,7 @@ public:
          other,
          this->reaction()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -2304,7 +2304,7 @@ public:
          other,
          this->reaction()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -2327,7 +2327,7 @@ public:
          BlockData{},
          this->reaction()
       },
-      content{
+      Content{
          reaction
       }
    {
@@ -2415,7 +2415,7 @@ public:
 
       // children
       std::optional<proto::Reactions> reactions;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -2424,45 +2424,45 @@ public:
 
    // evaluation
    const auto &evaluation() const
-    { return content.evaluation; }
+    { return Content.evaluation; }
    auto &evaluation()
-    { return content.evaluation; }
+    { return Content.evaluation; }
 
    // format
    const auto &format() const
-    { return content.format; }
+    { return Content.format; }
    auto &format()
-    { return content.format; }
+    { return Content.format; }
 
    // interaction
    const auto &interaction() const
-    { return content.interaction; }
+    { return Content.interaction; }
    auto &interaction()
-    { return content.interaction; }
+    { return Content.interaction; }
 
    // projectile
    const auto &projectile() const
-    { return content.projectile; }
+    { return Content.projectile; }
    auto &projectile()
-    { return content.projectile; }
+    { return Content.projectile; }
 
    // projectileFrame
    const auto &projectileFrame() const
-    { return content.projectileFrame; }
+    { return Content.projectileFrame; }
    auto &projectileFrame()
-    { return content.projectileFrame; }
+    { return Content.projectileFrame; }
 
    // target
    const auto &target() const
-    { return content.target; }
+    { return Content.target; }
    auto &target()
-    { return content.target; }
+    { return Content.target; }
 
    // reactions
    const auto &reactions() const
-    { return content.reactions; }
+    { return Content.reactions; }
    auto &reactions()
-    { return content.reactions; }
+    { return Content.reactions; }
 
    // ------------------------
    // Setters
@@ -2530,7 +2530,7 @@ public:
          this->target(),
          this->reactions()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -2547,7 +2547,7 @@ public:
          this->target(),
          this->reactions()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -2588,7 +2588,7 @@ public:
          this->target(),
          this->reactions()
       },
-      content{
+      Content{
          evaluation,
          format,
          interaction,

@@ -87,7 +87,7 @@ public:
       // children
       std::optional<containers::Axes> axes;
       containers::Values values;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -96,39 +96,39 @@ public:
 
    // index
    const std::optional<int> &index() const
-      { return content.index; }
+      { return Content.index; }
    std::optional<int> &index()
-      { return content.index; }
+      { return Content.index; }
 
    // interpolation
    const Defaulted<enums::Interpolation> &interpolation() const
-      { return content.interpolation; }
+      { return Content.interpolation; }
    Defaulted<enums::Interpolation> &interpolation()
-      { return content.interpolation; }
+      { return Content.interpolation; }
 
    // label
    const std::optional<std::string> &label() const
-      { return content.label; }
+      { return Content.label; }
    std::optional<std::string> &label()
-      { return content.label; }
+      { return Content.label; }
 
    // outerDomainValue
    const std::optional<double> &outerDomainValue() const
-      { return content.outerDomainValue; }
+      { return Content.outerDomainValue; }
    std::optional<double> &outerDomainValue()
-      { return content.outerDomainValue; }
+      { return Content.outerDomainValue; }
 
    // axes
    const std::optional<containers::Axes> &axes() const
-      { return content.axes; }
+      { return Content.axes; }
    std::optional<containers::Axes> &axes()
-      { return content.axes; }
+      { return Content.axes; }
 
    // values
    const containers::Values &values() const
-      { return content.values; }
+      { return Content.values; }
    containers::Values &values()
-      { return content.values; }
+      { return Content.values; }
 
    // ------------------------
    // Setters
@@ -191,7 +191,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{
+      Content{
          index,
          Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
          label,
@@ -214,7 +214,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -230,7 +230,7 @@ public:
          this->axes(),
          this->values()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

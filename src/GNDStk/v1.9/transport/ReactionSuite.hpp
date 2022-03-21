@@ -80,7 +80,7 @@ public:
       std::optional<enums::Interaction> interaction;
       // children
       std::optional<transport::Reactions> reactions;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -89,45 +89,45 @@ public:
 
    // evaluation
    const std::string &evaluation() const
-      { return content.evaluation; }
+      { return Content.evaluation; }
    std::string &evaluation()
-      { return content.evaluation; }
+      { return Content.evaluation; }
 
    // format
    const std::string &format() const
-      { return content.format; }
+      { return Content.format; }
    std::string &format()
-      { return content.format; }
+      { return Content.format; }
 
    // projectile
    const std::string &projectile() const
-      { return content.projectile; }
+      { return Content.projectile; }
    std::string &projectile()
-      { return content.projectile; }
+      { return Content.projectile; }
 
    // projectileFrame
    const enums::Frame &projectileFrame() const
-      { return content.projectileFrame; }
+      { return Content.projectileFrame; }
    enums::Frame &projectileFrame()
-      { return content.projectileFrame; }
+      { return Content.projectileFrame; }
 
    // target
    const std::string &target() const
-      { return content.target; }
+      { return Content.target; }
    std::string &target()
-      { return content.target; }
+      { return Content.target; }
 
    // interaction
    const std::optional<enums::Interaction> &interaction() const
-      { return content.interaction; }
+      { return Content.interaction; }
    std::optional<enums::Interaction> &interaction()
-      { return content.interaction; }
+      { return Content.interaction; }
 
    // reactions
    const std::optional<transport::Reactions> &reactions() const
-      { return content.reactions; }
+      { return Content.reactions; }
    std::optional<transport::Reactions> &reactions()
-      { return content.reactions; }
+      { return Content.reactions; }
 
    // ------------------------
    // Setters
@@ -194,7 +194,7 @@ public:
          this->interaction(),
          this->reactions()
       },
-      content{
+      Content{
          evaluation,
          format,
          projectile,
@@ -219,7 +219,7 @@ public:
          this->interaction(),
          this->reactions()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -236,7 +236,7 @@ public:
          this->interaction(),
          this->reactions()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

@@ -51,13 +51,13 @@ struct IndexLabel {
    struct {
       int index;
       std::string label;
-   } content;
+   } Content;
    std::string value;
 
-   const std::size_t &index() const { return content.index; };
-   std::size_t &index() { return content.index; };
-   const std::string &label() const { return content.label; };
-   std::string &label() { return content.label; };
+   const std::size_t &index() const { return Content.index; };
+   std::size_t &index() { return Content.index; };
+   const std::string &label() const { return Content.label; };
+   std::string &label() { return Content.label; };
 
    IndexLabel(
       const int index = 0,

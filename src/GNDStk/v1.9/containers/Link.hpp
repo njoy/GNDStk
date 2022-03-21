@@ -57,7 +57,7 @@ public:
    struct {
       // metadata
       std::string href;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -66,9 +66,9 @@ public:
 
    // href
    const std::string &href() const
-      { return content.href; }
+      { return Content.href; }
    std::string &href()
-      { return content.href; }
+      { return Content.href; }
 
    // ------------------------
    // Setters
@@ -93,7 +93,7 @@ public:
          BlockData{},
          this->href()
       },
-      content{
+      Content{
          href
       }
    {
@@ -106,7 +106,7 @@ public:
          other.baseBlockData(),
          this->href()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -117,7 +117,7 @@ public:
          other.baseBlockData(),
          this->href()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }

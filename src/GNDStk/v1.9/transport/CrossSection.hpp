@@ -66,7 +66,7 @@ public:
    struct {
       // children - variant
       std::vector<XYs1d_regions1d_t> XYs1d_regions1d;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -75,9 +75,9 @@ public:
 
    // XYs1d_regions1d
    const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d() const
-      { return content.XYs1d_regions1d; }
+      { return Content.XYs1d_regions1d; }
    std::vector<XYs1d_regions1d_t> &XYs1d_regions1d()
-      { return content.XYs1d_regions1d; }
+      { return Content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index/label/Lookup)
    template<class KEY, class = detail::isSearchKey<KEY>>
@@ -157,7 +157,7 @@ public:
          BlockData{},
          this->XYs1d_regions1d()
       },
-      content{
+      Content{
          XYs1d_regions1d
       }
    {
@@ -170,7 +170,7 @@ public:
          other.baseBlockData(),
          this->XYs1d_regions1d()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -181,7 +181,7 @@ public:
          other.baseBlockData(),
          this->XYs1d_regions1d()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
