@@ -69,7 +69,7 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 
 
 // ------------------------
-// write(file name)
+// write(file)
 // ------------------------
 
 bool write(const std::string &filename, const bool decl = true) const

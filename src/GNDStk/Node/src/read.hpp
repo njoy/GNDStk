@@ -5,10 +5,10 @@
 
 // Cases:
 //
-// 1. read(istream,   FileType)
-// 2. read(file name, FileType) calls 1 after making istream from file
-// 3. read(istream,   string  ) calls 1 after making FileType from string
-// 4. read(file name, string  ) calls 2 after making FileType from string
+// 1. read(istream, FileType)
+// 2. read(file,    FileType) calls 1 after making istream from file
+// 3. read(istream, string  ) calls 1 after making FileType from string
+// 4. read(file,    string  ) calls 2 after making FileType from string
 //
 // Discussion
 //
@@ -186,7 +186,7 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// 2. read(file name, FileType)
+// 2. read(file, FileType)
 // -----------------------------------------------------------------------------
 
 bool read(
@@ -216,7 +216,7 @@ bool read(
    // Check: consistent name?
    // ------------------------
 
-   // If we requested XML, but the file name has an extension that's not xml...
+   // If we requested XML, but the file's extension is not xml...
    if (format == FileType::xml && has_extension(filename)
        && !endsin_xml(filename)) {
       detail::warning_io_name("read", "xml",  filename, "XML" );
@@ -268,11 +268,10 @@ std::istream &read(
    const bool decl = detail::getDecl(*this,DECL);
 
    try {
-      if (eq_guess(format)) return read(is, FileType::guess, decl);
-      if (eq_debug(format)) return read(is, FileType::debug, decl);
-      if (eq_xml  (format)) return read(is, FileType::xml,   decl);
-      if (eq_json (format)) return read(is, FileType::json,  decl);
-      if (eq_hdf5 (format)) return read(is, FileType::hdf5,  decl);
+      bool matched;
+      const FileType type = string2filetype(format,matched);
+      if (matched)
+         return read(is, type, decl);
 
       // unrecognized file format
       log::warning(
@@ -292,7 +291,7 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// 4. read(file name, string)
+// 4. read(file, string)
 // -----------------------------------------------------------------------------
 
 bool read(
@@ -303,11 +302,10 @@ bool read(
    const bool decl = detail::getDecl(*this,DECL);
 
    try {
-      if (eq_guess(format)) return read(filename, FileType::guess, decl);
-      if (eq_debug(format)) return read(filename, FileType::debug, decl);
-      if (eq_xml  (format)) return read(filename, FileType::xml,   decl);
-      if (eq_json (format)) return read(filename, FileType::json,  decl);
-      if (eq_hdf5 (format)) return read(filename, FileType::hdf5,  decl);
+      bool matched;
+      const FileType type = string2filetype(format,matched);
+      if (matched)
+         return read(filename, type, decl);
 
       // unrecognized file format
       log::warning(

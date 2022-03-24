@@ -29,7 +29,7 @@ std::istream &read(std::istream &is)
 
 
 // ------------------------
-// read(file name)
+// read(file)
 // ------------------------
 
 bool read(const std::string &filename)

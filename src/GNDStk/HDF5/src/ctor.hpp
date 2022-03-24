@@ -15,7 +15,7 @@ HDF5(HDF5 &&other) :
    filePtr (std::move(other.filePtr )),
    fileDesc(std::move(other.fileDesc))
 {
-   other.filePtr  = nullptr;
+   other.filePtr = nullptr;
    other.fileDesc = 0;
 }
 

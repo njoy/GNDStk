@@ -72,7 +72,7 @@ explicit Tree(const HDF5 &h) : Node(slashTreeName)
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
-// file name, FileType
+// file, FileType
 // Example:
 //    Tree t("n-008_O_016.xml", FileType::xml);
 explicit Tree(
@@ -91,7 +91,7 @@ explicit Tree(
    }
 }
 
-// file name, string
+// file, string
 // Example:
 //    Tree t("n-008_O_016.xml", "xml");
 Tree(const std::string &filename, const std::string &format)

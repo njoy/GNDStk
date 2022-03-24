@@ -17,7 +17,7 @@ std::istream &read(
    return ret;
 }
 
-// read(file name, FileType)
+// read(file, FileType)
 bool read(
    const std::string &filename,
    const FileType format = FileType::guess,
@@ -41,7 +41,7 @@ std::istream &read(
    return ret;
 }
 
-// read(file name, string)
+// read(file, string)
 bool read(
    const std::string &filename,
    const std::string &format,

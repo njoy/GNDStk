@@ -235,7 +235,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       }
 
       WHEN("We write() the empty tree using FileType::guess") {
-         // write(), using FileType::guess (which defaults to tree)
+         // write(), using FileType::guess
          THEN("We get an empty string (case: FileType::guess)") {
             std::ostringstream oss;
             tree.write(oss, FileType::guess);
@@ -303,17 +303,17 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // FileType::debug
       WHEN("We write() the tree using FileType::debug") {
          // write()
-         THEN("We get the correct tree-format content") {
+         THEN("We get the correct debug-format content") {
             std::ostringstream oss;
             tree.write(oss);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN("We get the correct tree-format content (case: FileType::debug)") {
+         THEN("We get the correct debug-format content (case: FileType::debug)") {
             std::ostringstream oss;
             tree.write(oss, FileType::debug);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN("We get the correct tree-format content (case: \"debug\")") {
+         THEN("We get the correct debug-format content (case: \"debug\")") {
             std::ostringstream oss;
             tree.write(oss, "debug");
             CHECK(oss.str() == string_real_tree);
@@ -321,23 +321,23 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       }
 
       WHEN("We write() the tree using FileType::guess") {
-         // write(), using FileType::guess (which defaults to tree)
-         THEN("We get the correct tree-format content") {
+         // write(), using FileType::guess
+         THEN("We get the correct debug-format content") {
             std::ostringstream oss;
             tree.write(oss);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN("We get the correct tree-format content (case: FileType::guess)") {
+         THEN("We get the correct debug-format content (case: FileType::guess)") {
             std::ostringstream oss;
             tree.write(oss, FileType::guess);
             CHECK(oss.str() == string_real_tree);
          }
-         THEN("We get the correct tree-format content (case: \"guess\")") {
+         THEN("We get the correct debug-format content (case: \"guess\")") {
             std::ostringstream oss;
             tree.write(oss, "guess");
             CHECK(oss.str() == string_real_tree);
          }
-         THEN("We get the correct tree-format content (case: \"\")") {
+         THEN("We get the correct debug-format content (case: \"\")") {
             std::ostringstream oss;
             tree.write(oss, "");
             CHECK(oss.str() == string_real_tree);
@@ -347,7 +347,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We stream-output the tree") {
          // <<
          std::ostringstream oss;
-         THEN("We get the correct tree-format content") {
+         THEN("We get the correct debug-format content") {
             oss << tree;
             CHECK(oss.str() == string_real_tree);
          }

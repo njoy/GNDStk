@@ -20,7 +20,7 @@ std::ostream &write(std::ostream &os, const int level) const
          assert(0 == links.size());
       } else {
          // Make tuple (of individual keys) from DERIVED::keys()
-         const auto tup = toKeywordTup(DERIVED::keys()).tup;
+         static const auto tup = toKeywordTup(DERIVED::keys()).tup;
 
          // Consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());
@@ -135,7 +135,7 @@ std::ostream &write(
    return Node(*this).write(os, format, decl);
 }
 
-// write(file name, FileType)
+// write(file, FileType)
 bool write(
    const std::string &filename,
    const FileType format = FileType::guess,
@@ -153,7 +153,7 @@ std::ostream &write(
    return Node(*this).write(os, format, decl);
 }
 
-// write(file name, string)
+// write(file, string)
 bool write(
    const std::string &filename,
    const std::string &format,

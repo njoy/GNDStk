@@ -207,7 +207,7 @@ Here's a simple code that reads the XML format GNDS file named
 
 Obviously, but worth a reminder, this assumes that the file resides right there,
 in the directory from which this code is run. If it doesn't, include a suitable
-absolute or relative path in the file name string. We, and no doubt everyone
+absolute or relative path in the file name. We, and no doubt everyone
 reading this, have probably made this mistake often enough over the years.
 
 ``Tree`` is GNDStk's data structure for holding an entire GNDS hierarchy, a.k.a.
@@ -323,7 +323,7 @@ then GNDStk will write file ``pu239.xml`` in JSON format, as you asked for in
 the second argument, but will warn that the file extension is inconsistent with
 the format you asked for.
 
-What if the file name extension isn't given, or isn't recognized, *and* a format
+What if the file extension isn't given, or isn't recognized, *and* a format
 isn't forced with a second argument? That is, what if we wrote, for example,
 ``pu239.write("pu239")``? In that case, ``write`` writes the ``Tree`` into
 a simple output format that we created largely for debugging purposes. You

@@ -9,10 +9,10 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 
    // Prepare the HDF5
    h.clear();
-   const std::string fileName = name != "" ? name : h.temporaryName(h.fileDesc);
+   const std::string tmpfile = name != "" ? name : h.temporaryName(h.fileDesc);
 
    try {
-      h.filePtr = new HighFive::File(fileName, HDF5::modeWrite);
+      h.filePtr = new HighFive::File(tmpfile, HDF5::modeWrite);
 
       // Probably a regular Node...
       if (node.name != slashTreeName) {
@@ -134,6 +134,19 @@ inline bool convert(const HDF5 &from, HDF5 &to)
       std::ifstream ifs(from.filePtr->getName(), std::ios::binary);
       if (!ifs) {
          log::error("Could not open file \"{}\"", from.filePtr->getName());
+         // The HDF5 class is different from the XML and JSON classes in that
+         // it essentially employs a "file descriptor" of sorts, through the
+         // underlying class HighFive::File. So, unlike convert(XML,XML) and
+         // convert(JSON,JSON), this function - convert(HDF5,HDF5) - needs
+         // to create a *file* for the destination object. It cannot simply
+         // duplicate an internal data structure, as the analogous XML and
+         // JSON convert() functions do. The above error message might thus
+         // surprise a user, who wouldn't necessarily realize that a file
+         // is being created as a result of this convert(). To help clarify
+         // the situation, we'll write an informational note.
+         log::info(
+            "We're attempting to open this file here because it's referenced\n"
+            "by the source HDF5 object.");
          throw std::exception{};
       }
       if (!to.read(ifs))

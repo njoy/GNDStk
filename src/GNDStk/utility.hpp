@@ -476,6 +476,19 @@ inline bool eq_hdf5(const std::string &str)
      || nocasecmp(str,"he5" );
 }
 
+inline FileType string2filetype(const std::string &str, bool &matched)
+{
+   matched = true;
+   if (eq_guess(str)) return FileType::guess;
+   if (eq_debug(str)) return FileType::debug;
+   if (eq_xml  (str)) return FileType::xml;
+   if (eq_json (str)) return FileType::json;
+   if (eq_hdf5 (str)) return FileType::hdf5;
+
+   matched = false;
+   return FileType::guess;
+}
+
 
 
 // -----------------------------------------------------------------------------

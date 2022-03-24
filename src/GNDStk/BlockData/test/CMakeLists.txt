@@ -2,6 +2,7 @@
 add_executable( GNDStk.BlockData.test
                 BlockData.test.cpp
                 assign.test.cpp
+                convert.test.cpp
                 detail.test.cpp
                 fromNode.test.cpp
                 get.test.cpp

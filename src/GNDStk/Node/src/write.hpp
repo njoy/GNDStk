@@ -4,17 +4,17 @@
 // -----------------------------------------------------------------------------
 
 // Cases for our FileType::debug format:
-//    write(ostream,   int level)
-//    write(file name, int level)
+//    write(ostream, int level)
+//    write(file,    int level)
 // The "level" parameter keeps track of the indentation level.
 // These print exactly what's in the Node, even, say, if the Node's name
 // is the empty string.
 //
 // General cases:
-// 1. write(ostream,   FileType)
-// 2. write(file name, FileType) calls 1 after making ostream from file
-// 3. write(ostream,   string  ) calls 1 after making FileType from string
-// 4. write(file name, string  ) calls 2 after making FileType from string
+// 1. write(ostream, FileType)
+// 2. write(file,    FileType) calls 1 after making ostream from file
+// 3. write(ostream, string  ) calls 1 after making FileType from string
+// 4. write(file,    string  ) calls 2 after making FileType from string
 
 
 
@@ -87,24 +87,24 @@ std::ostream &write(
 
    // Discussion.
    //
-   // This function might have been called through the file name write().
-   // Or, it might have been called through the string (in place of FileType)
-   // format write, through ostream << Node, or perhaps just called directly.
+   // This function might have been called through the file write(). Or, it
+   // might have been called through the string (in place of FileType) format
+   // write, through ostream << Node, or perhaps just called directly.
    //
-   // In the former case, a file name was involved, and thus the caller had
-   // the opportunity to examine the file name and, if appropriate, try to
-   // make a decision (based on any file name extension) of what output format
-   // was intended. The decision would have arrived here via FileType format.
+   // In the former case, a file was involved, and thus the caller had the
+   // opportunity to examine the file name and, if appropriate, try to make
+   // a decision (based on any file extension) of what output format was
+   // intended. The decision would have arrived here via FileType format.
    //
    // In the latter cases, only an ostream was/is involved; there's neither
-   // a file name whose extension can be examined, nor an existing file (that
-   // we care about, at least - we're doing *output*) whose file magic number
+   // a file extension that can be examined, nor an existing file (that we
+   // care about, at least - we're doing *output*) whose file magic number
    // we can examine in order to guess at the file type. We therefore have
    // our else { } catchall, below, write the Node in our debugging format,
    // whether FileType::guess or FileType::debug arrived as the format.
    //
    // A case could be made that this function should *require* that a format
-   // be given, considering that we don't, here, have a file or a file name
+   // be given, considering that we don't, here, have a file or file extension
    // to examine. On the other hand, we like having format be optional, so
    // our various Node I/O functions are as consistent with one another as
    // reasonably possible. Note also that if the user calls operator<<, then
@@ -148,7 +148,7 @@ std::ostream &write(
 
 
 // -----------------------------------------------------------------------------
-// 2. write(file name, FileType)
+// 2. write(file, FileType)
 // -----------------------------------------------------------------------------
 
 bool write(
@@ -160,7 +160,7 @@ bool write(
 
    // ------------------------
    // FileType::guess
-   // Decide from file name
+   // Decide from extension
    // ------------------------
 
    if (format == FileType::guess) {
@@ -234,12 +234,10 @@ std::ostream &write(
 ) const {
    try {
       const bool decl = detail::getDecl(*this,DECL);
-
-      if (eq_guess(format)) return write(os, FileType::guess, decl);
-      if (eq_debug(format)) return write(os, FileType::debug, decl);
-      if (eq_xml  (format)) return write(os, FileType::xml,   decl);
-      if (eq_json (format)) return write(os, FileType::json,  decl);
-      if (eq_hdf5 (format)) return write(os, FileType::hdf5,  decl);
+      bool matched;
+      const FileType type = string2filetype(format,matched);
+      if (matched)
+         return write(os, type, decl);
 
       // unrecognized file format
       log::warning(
@@ -259,7 +257,7 @@ std::ostream &write(
 
 
 // -----------------------------------------------------------------------------
-// 4. write(file name, string)
+// 4. write(file, string)
 // -----------------------------------------------------------------------------
 
 bool write(
@@ -269,12 +267,10 @@ bool write(
 ) const {
    try {
       const bool decl = detail::getDecl(*this,DECL);
-
-      if (eq_guess(format)) return write(filename, FileType::guess, decl);
-      if (eq_debug(format)) return write(filename, FileType::debug, decl);
-      if (eq_xml  (format)) return write(filename, FileType::xml,   decl);
-      if (eq_json (format)) return write(filename, FileType::json,  decl);
-      if (eq_hdf5 (format)) return write(filename, FileType::hdf5,  decl);
+      bool matched;
+      const FileType type = string2filetype(format,matched);
+      if (matched)
+         return write(filename, type, decl);
 
       // unrecognized file format
       log::warning(

@@ -60,8 +60,9 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 
          std::ifstream ifs(filePtr->getName(), std::ios::binary);
          if (!ifs) {
-            log::error("Could not open file \"{}\" "
-                       "for writing to ostream", filePtr->getName());
+            log::error(
+               "Could not open file \"{}\" (referenced by the HDF5 object)\n"
+               "for writing to ostream", filePtr->getName());
             throw std::exception{};
          }
 
@@ -92,7 +93,7 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 
 
 // ------------------------
-// write(file name)
+// write(file)
 // ------------------------
 
 bool write(const std::string &filename, const bool decl = true) const

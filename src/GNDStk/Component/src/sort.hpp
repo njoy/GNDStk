@@ -11,7 +11,7 @@ void sort()
          assert(0 == links.size());
       } else {
          // Make tuple (of individual keys) from DERIVED::keys()
-         const auto tup = toKeywordTup(DERIVED::keys()).tup;
+         static const auto tup = toKeywordTup(DERIVED::keys()).tup;
 
          // Consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());

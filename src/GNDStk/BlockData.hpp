@@ -69,16 +69,16 @@ private:
    std::string rawstring;
 
    // Vector of <several possibilities>.
+   // *** This will be used if, and only if, DATATYPE == void.
    // Mutable, so that we can defer processing of the raw string into
    // a vector until, and unless, a caller *asks* for the vector.
-   // This will be used if, and only if, DATATYPE == void.
    mutable VariantOfVectors variant;
 
    // Vector of <DATATYPE>
-   // This will be used if, and only if, DATATYPE != void.
+   // *** This will be used if, and only if, DATATYPE != void.
    // data_t is used in a few places where, without it, we'd create compilation
    // errors by using "void" in invalid ways. The "int" below is arbitrary -
-   // essentially a placeholder; the following is only used when !runtime.
+   // basically a placeholder - because the following is used only if !runtime.
    using data_t = std::conditional_t<runtime,int,DATATYPE>;
    mutable std::vector<data_t> vector;
 
@@ -144,5 +144,17 @@ public:
    // Assignment
    // From string or vector; the former == calling our raw string setter
    #include "GNDStk/BlockData/src/assign.hpp"
+
+   // Conversion to vector<DATATYPE>
+   // *** Available if, and only if, DATATYPE != void.
+   template<
+      class T = DATATYPE,
+      class = std::enable_if_t<!runtime && std::is_same_v<T,DATATYPE>>
+   >
+   operator std::vector<T>() const
+   {
+      // get(), not vector; get() handles properly if the string is active
+      return get();
+   }
 
 }; // class BlockData<true,DATATYPE>

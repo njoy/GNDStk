@@ -143,9 +143,9 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
 
    // Why not...
    GIVEN("Several trees, read differently, but ultimately from the same file") {
-      // While the present test file is about tree's read(), not about its
-      // write(), let's nevertheless do a simple write(), to tree's basic
-      // debug-output file format, from each of the trees read in different ways
+      // While the present test file is about tree's read(), not its write(),
+      // let's nevertheless do a simple write(), in our debug output-file
+      // format, from each of the trees that were read in different ways
       // above, and be sure there are absolutely no differences between them.
       // In effect, this helps test the read(), because it gives confidence
       // that our various ways of reading the same files give the same results.

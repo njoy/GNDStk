@@ -35,7 +35,8 @@ void fromNode(const Node &node)
          assert(0 == links.size());
       } else {
          // retrieve the node's data by doing a multi-query
-         const auto tup = node(toKeywordTup(DERIVED::keys()));
+         static const auto keytup = toKeywordTup(DERIVED::keys());
+         const auto tup = node(keytup);
 
          // consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());
