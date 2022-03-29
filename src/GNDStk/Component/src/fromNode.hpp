@@ -35,7 +35,7 @@ void fromNode(const Node &node)
          assert(0 == links.size());
       } else {
          // retrieve the node's data by doing a multi-query
-         static const auto keytup = toKeywordTup(DERIVED::keys());
+         static const auto keytup = makeKeyTuple(DERIVED::keys());
          const auto tup = node(keytup);
 
          // consistency check

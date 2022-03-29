@@ -23,8 +23,8 @@ public:
    // ctor
    explicit Meta(
       const std::string &n,
-      const TYPE &t = TYPE{},
-      const CONVERTER &c = CONVERTER{}
+      const TYPE &t = detail::static_const<TYPE>(),
+      const CONVERTER &c = detail::static_const<CONVERTER>()
    ) :
       name(n),
       object(t),

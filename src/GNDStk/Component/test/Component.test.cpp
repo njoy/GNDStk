@@ -163,7 +163,7 @@ SCENARIO("Testing GNDStk Component") {
       //
       // Don't confuse the above two. Component << string reads from an XML
       // or JSON snippet into an object of the class that's derived from
-      // Component. ostream << Component writes (to the ostream) the object.
+      // Component. ostream << Component prints the object to the ostream.
       WHEN("We test (Component << string) and (ostream << Component)") {
          DerivedData der;
          color = false; // avoid cluttering the checked output below
@@ -179,7 +179,7 @@ SCENARIO("Testing GNDStk Component") {
          WHEN("We read a Component-derived object << XML text") {
             der << "<data foo=\"12\" bar=\"34.56\"></data>";
 
-            // write & check
+            // print, check
             THEN("The result is as expected") {
                std::ostringstream oss;
                oss << der;
@@ -199,7 +199,7 @@ SCENARIO("Testing GNDStk Component") {
                "   }"
                "}";
 
-            // write & check
+            // print, check
             THEN("The result is as expected") {
                std::ostringstream oss;
                oss << der;

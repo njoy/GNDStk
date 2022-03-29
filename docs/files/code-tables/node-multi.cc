@@ -1,3 +1,3 @@
 
-auto operator()( const KeywordTup<Ks...> &kwds ) const;
-auto operator()( const KeywordTup<Ks...> &kwds );
+auto operator()( const KeyTuple<Ks...> &keytup ) const;
+auto operator()( const KeyTuple<Ks...> &keytup );

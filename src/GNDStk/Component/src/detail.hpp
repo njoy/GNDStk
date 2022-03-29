@@ -83,57 +83,55 @@ inline void indentString(
 
 
 // ------------------------
-// hasWriteOneArg
-// hasWriteTwoArg
+// hasPrint*
 // ------------------------
 
 // These are adapted from an answer here:
 // https://stackoverflow.com/questions/87372
 
-// class
+// hasPrintOneArg
 template<class DERIVED>
-class HasWriteOneArg
+class HasPrintOneArg
 {
    template<
       class U,
       std::ostream &(U::*)(std::ostream &) const
    > struct SFINAE {};
 
-   template<class U> static char test(SFINAE<U, &U::write> *);
+   template<class U> static char test(SFINAE<U, &U::print> *);
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+   static constexpr bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
-// variable - use this
+// HasPrintTwoArg
 template<class DERIVED>
-inline constexpr bool hasWriteOneArg = HasWriteOneArg<DERIVED>::has;
-
-// class
-template<class DERIVED>
-class HasWriteTwoArg
+class HasPrintTwoArg
 {
    template<
       class U,
       std::ostream &(U::*)(std::ostream &, const int) const
    > struct SFINAE {};
 
-   template<class U> static char test(SFINAE<U, &U::write> *);
+   template<class U> static char test(SFINAE<U, &U::print> *);
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+   static constexpr bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
-// variable - use this
+// Variable templates for the above; prefer these
 template<class DERIVED>
-inline constexpr bool hasWriteTwoArg = HasWriteTwoArg<DERIVED>::has;
+inline constexpr bool hasPrintOneArg = HasPrintOneArg<DERIVED>::has;
+
+template<class DERIVED>
+inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 
 
 
 // -----------------------------------------------------------------------------
-// writeComponentPart
+// printComponentPart
 // -----------------------------------------------------------------------------
 
 // Cases:
@@ -143,33 +141,33 @@ inline constexpr bool hasWriteTwoArg = HasWriteTwoArg<DERIVED>::has;
 //    Defaulted<T>
 //    std::vector<T>
 
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const T &value,
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::optional<T> &opt,
    const std::string &label, const std::size_t maxlen
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const Defaulted<T> &def,
    const std::string &label, const std::size_t maxlen
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::vector<T> &vec,
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
@@ -180,7 +178,7 @@ bool writeComponentPart(
 // for string
 // ------------------------
 
-inline bool writeComponentPart(
+inline bool printComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
    const std::string &color
@@ -230,7 +228,7 @@ public:
 };
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const T &value,
    const std::string &label, const std::size_t maxlen,
    const std::string &color
@@ -239,12 +237,12 @@ bool writeComponentPart(
       // Suppress "unused parameter" warnings
       (void)value; (void)maxlen;
       (void)label; (void)color;
-      // T is derived from Component, and thus inherits a write()
-      value.write(os,level);
+      // T is derived from Component, and thus inherits a print()
+      value.Component::print(os,level);
    } else {
       // T is any old type, not derived from Component
       if constexpr (std::is_floating_point_v<T>) {
-         writeComponentPart(
+         printComponentPart(
             os, level,
             detail::Precision<
                detail::PrecisionContext::metadata,
@@ -257,7 +255,7 @@ bool writeComponentPart(
          // if the printed value has internal newlines.
          std::string str;
          convert_t{}(value,str);
-         writeComponentPart(os, level, str, label, maxlen, color);
+         printComponentPart(os, level, str, label, maxlen, color);
       }
    }
    return true;
@@ -269,17 +267,17 @@ bool writeComponentPart(
 // ------------------------
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::optional<T> &opt,
    const std::string &label, const std::size_t maxlen
 ) {
    if (opt.has_value())
-      writeComponentPart(
+      printComponentPart(
          os, level, opt.value(),
          label, maxlen, colors::optional
       );
    else if (comments)
-      writeComponentPart(
+      printComponentPart(
          os, level, colorize_comment("// optional; has no value"),
          label, maxlen, colors::optional
       );
@@ -294,19 +292,19 @@ bool writeComponentPart(
 // ------------------------
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const Defaulted<T> &def,
    const std::string &label, const std::size_t maxlen
 ) {
    if (def.has_value()) {
-      writeComponentPart(
+      printComponentPart(
          os, level, def.value(),
          label, maxlen, colors::defaulted
       );
    } else if (comments) {
       std::string str;
       convert_t{}(def.get_default(),str);
-      writeComponentPart(
+      printComponentPart(
          os, level,
          colorize_comment("// defaulted; is its default (" + str + ")"),
          label, maxlen, colors::defaulted
@@ -327,7 +325,7 @@ bool writeComponentPart(
 //    ...
 // ]
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::vector<T> &vec,
    const std::string &label, const std::size_t maxlen,
    const std::string &color
@@ -344,7 +342,7 @@ bool writeComponentPart(
    );
 
    for (auto &value : vec) {
-      writeComponentPart(os, level+1, value, "", 0);
+      printComponentPart(os, level+1, value, "", 0);
       os << '\n'; // between elements
    }
 

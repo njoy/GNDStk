@@ -59,7 +59,7 @@ Finally, our third test works with Values objects. Objects of this type have
 block data. Construction from Node does a get(), which takes the original, raw
 block data in the Node, and makes a vector (in this case vector<double>) from
 it. fromNode() doesn't do that until, and unless, we ask for it by calling get()
-directly. Values objects with only raw text write differently than those with
+directly. Values objects with only raw text print differently than those with
 text that was processed into a vector. So, this test first ensures that the two
 Values objects print differently. Then it does an explicit get() for the object
 that used fromNode(), and ensures that the results are identical thereafter.

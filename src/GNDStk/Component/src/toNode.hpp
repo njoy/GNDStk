@@ -23,7 +23,7 @@ operator Node() const
          assert(0 == links.size());
       } else {
          // make tuple (of individual keys) from DERIVED::keys()
-         static const auto tup = toKeywordTup(DERIVED::keys()).tup;
+         static const auto tup = makeKeyTuple(DERIVED::keys()).tup;
 
          // consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());

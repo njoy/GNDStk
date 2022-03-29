@@ -11,7 +11,7 @@ add_executable( GNDStk.BlockData.test
                 sync.test.cpp
                 toNode.test.cpp
                 types.test.cpp
-                write.test.cpp )
+                print.test.cpp )
 target_compile_options( GNDStk.BlockData.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

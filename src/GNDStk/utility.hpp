@@ -81,7 +81,7 @@ inline void failback(std::istream &is, const std::streampos pos)
 
 
 // -----------------------------------------------------------------------------
-// Helper constructs for some simple Log-enhancing pretty-printing
+// Helper constructs for some simple Log-enhancing prettyprinting
 // -----------------------------------------------------------------------------
 
 // align, color

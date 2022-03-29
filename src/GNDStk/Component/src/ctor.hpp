@@ -14,7 +14,7 @@ Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
    #define pairing_error \
      "The number and/or types of the fields sent to Component's " \
      "constructor is inconsistent with the query result implied " \
-     "by the derived class' keys()"
+     "by the keys() function in the derived class"
 
    // I'd have preferred to achieve the following check by using SFINAE
    // in the constructor's signature, but couldn't find a way to do that
@@ -33,7 +33,7 @@ Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
       // The following is the *type* that a multi-query with DERIVED::keys()
       // will produce.
       using multi_t =
-         detail::decays_t<decltype(Node{}(toKeywordTup(DERIVED::keys())))>;
+         detail::decays_t<decltype(Node{}(makeKeyTuple(DERIVED::keys())))>;
       static_assert(
          std::is_same_v<std::tuple<ARGS ...>, multi_t>,
          pairing_error

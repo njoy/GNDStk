@@ -1,12 +1,12 @@
 
 // -----------------------------------------------------------------------------
-// write
-// To an ostream, generally as part of Component's prettyprinting.
+// print
+// Used by Component's prettyprinting.
 // -----------------------------------------------------------------------------
 
-std::ostream &write(std::ostream &os, const int level) const
+std::ostream &print(std::ostream &os, const int level) const
 {
-   // If empty, don't even write a newline
+   // If empty, don't even print a newline
    if ((active() == Active::string && rawstring == "") ||
        (active() == Active::vector && size() == 0))
       return os;
@@ -19,8 +19,8 @@ std::ostream &write(std::ostream &os, const int level) const
    // ------------------------
 
    if (active() == Active::string) {
-      // Write the string exactly as-is, without our column formatting
-      // or any indentation; then also write a newline
+      // Print the string exactly as-is, without our column formatting
+      // or any indentation; then also print a newline
       return coloring
          ? os << colors::value << rawstring << colors::reset << std::endl
          : os << rawstring << std::endl;
@@ -33,7 +33,7 @@ std::ostream &write(std::ostream &os, const int level) const
    // Indentation (string, with some number of spaces)
    const std::string indent(GNDStk::indent*level,' ');
 
-   const auto writeLambda =
+   const auto printLambda =
       [&os,&indent,coloring](auto &&alt)
       {
          using T = std::decay_t<decltype(alt[0])>;
@@ -74,9 +74,9 @@ std::ostream &write(std::ostream &os, const int level) const
       };
 
    if constexpr (runtime)
-      std::visit(writeLambda,variant);
+      std::visit(printLambda,variant);
    else
-      writeLambda(vector);
+      printLambda(vector);
 
    return os << std::endl;
 }

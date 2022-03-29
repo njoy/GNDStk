@@ -14,9 +14,9 @@ using namespace basic;
 // Scenario
 // -----------------------------------------------------------------------------
 
-inline const std::string &CorrectWriteText();
+inline const std::string &CorrectPrintText();
 
-SCENARIO("Component write()") {
+SCENARIO("Component print()") {
    GIVEN("A GNDS tree") {
       const Tree t("n-001_H_002.xml");
       const ReactionSuite suite(t(child::reactionSuite));
@@ -27,11 +27,11 @@ SCENARIO("Component write()") {
          // point numbers across different platforms...
          oss << std::setprecision(8) << std::scientific;
 
-         THEN("Component's write() function gives the correct result") {
-            // Component's operator<< calls its write(ostream,0)
+         THEN("Component's print() function gives the correct result") {
+            // Component's operator<< calls its print(ostream,0)
             njoy::GNDStk::reals << std::setprecision(8) << std::scientific;
             oss << suite << std::endl;
-            CHECK(oss.str() == CorrectWriteText());
+            CHECK(oss.str() == CorrectPrintText());
          }
       }
    }
@@ -40,11 +40,11 @@ SCENARIO("Component write()") {
 
 // -----------------------------------------------------------------------------
 // The following returns a fairly long string, but serves as a good test of
-// Component's write() function, because so many elements (vectors, variants,
+// Component's print() function, because so many elements (vectors, variants,
 // std::optional objects, Defaulted objects, etc.) are involved.
 // -----------------------------------------------------------------------------
 
-inline const std::string &CorrectWriteText()
+inline const std::string &CorrectPrintText()
 {
    static const std::string ret =
 R"***(proto::ReactionSuite {

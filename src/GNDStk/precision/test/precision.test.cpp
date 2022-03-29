@@ -862,7 +862,7 @@ SCENARIO("Precision code in BlockData::write(), "
 {
    // Context/action:
    //    data, write
-   // This actually happens in detail::writeComponentPart()
+   // This actually happens in detail::printComponentPart()
 
    Node node;
    node << input_numbers_full;

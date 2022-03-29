@@ -83,9 +83,9 @@ public:
    // name, type, converter, filter
    explicit Child(
       const std::string &n,
-      const TYPE &t = TYPE{},
-      const CONVERTER &c = CONVERTER{},
-      const FILTER &f = FILTER{}
+      const TYPE &t = detail::static_const<TYPE>(),
+      const CONVERTER &c = detail::static_const<CONVERTER>(),
+      const FILTER &f = detail::static_const<FILTER>()
    ) :
       name(n), object(t), converter(c), filter(f)
    { }
@@ -154,7 +154,7 @@ public:
    // name, filter
    explicit Child(
       const std::string &n,
-      const FILTER &f = FILTER{}
+      const FILTER &f = detail::static_const<FILTER>()
    ) :
       name(n), filter(f)
    { }

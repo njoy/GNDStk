@@ -65,6 +65,7 @@ public:
 
    #include "GNDStk/Component/src/read.hpp"
    #include "GNDStk/Component/src/write.hpp"
+   #include "GNDStk/Component/src/print.hpp"
    #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/sort.hpp"
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
@@ -170,7 +171,7 @@ std::ostream &operator<<(
    const Component<DERIVED,hasBlockData,DATATYPE> &comp
 ) {
    try {
-      return comp.write(os,0);
+      return comp.print(os,0);
    } catch (...) {
       log::function("ostream << {}", comp.className());
       throw;

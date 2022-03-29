@@ -93,8 +93,8 @@ void finish()
    if constexpr (hasBlockData)
       BLOCKDATA::pullFromDerived(derived());
 
-   // Based on the derived class' keys(), locate and sort derived-class fields
-   // that are vectors, with vector elements that have index and/or label.
+   // Automatically locate and sort derived-class fields that are vectors
+   // with elements that have index and/or label.
    sort();
 
    // construct
@@ -132,8 +132,8 @@ void finish(const DERIVED &other)
 void finish(const Node &node)
 {
    // Read fields from the Node into the derived object. This applies the keys()
-   // multi-query in the derived class, and also runs BlockData::fromNode() if
-   // the Node has block data, in order to get the Node's string of block data.
+   // multi-query in the derived class, and also runs BlockData::fromNode() - if
+   // the Node has block data - in order to get the Node's string of block data.
    fromNode(node);
 
    if constexpr (hasBlockData) {

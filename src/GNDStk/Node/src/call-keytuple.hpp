@@ -15,7 +15,6 @@ auto operator()(
    bool &found,
    std::vector<std::string> &
 ) GNDSTK_CONST {
-   log::debug("Node(tuple<>), tuple size == 0");
    found = true;
    return tup;
 }
@@ -29,17 +28,12 @@ auto operator()(
    std::vector<std::string> &missing
 ) GNDSTK_CONST {
 
-   log::debug(
-     "Node(tuple<...>), tuple size == {}",
-      sizeof...(Ks)
-   );
-
    // Process tup's <0>
    // We *don't* simply write:
    //    std::make_tuple(operator()(std::get<0>(tup),head_found)),
    // because doing so would decay references to non-references. That would
    // mean, ultimately, that Meta<void> and Child<void> instances inside
-   // our KeywordTup<...> objects, which are returned by our | (or) operators,
+   // our KeyTuple<...> objects, which are returned by our | (or) operators,
    // would no longer produce [possibly const] *references* to std::string
    // and Node, respectively, but would surreptitiously lose the references.
    // We don't want to lose the references, though, because our multi-query
@@ -75,25 +69,20 @@ auto operator()(
 
 // -----------------------------------------------------------------------------
 // Public
-// (KeywordTup<...>)
+// (KeyTuple<...>)
 // -----------------------------------------------------------------------------
 
 public:
 
 template<class... Ks>
 auto operator()(
-   const KeywordTup<Ks...> &kwds,
+   const KeyTuple<Ks...> &keytup,
    bool &found = detail::default_bool // means "found all" in this context
 ) GNDSTK_CONST {
 
-   log::debug(
-     "Node(KeywordTup<...>), KeywordTup size == {}",
-      sizeof...(Ks)
-   );
-
    std::vector<std::string> missing;
    try {
-      const auto ret = operator()(kwds.tup, found, missing);
+      const auto ret = operator()(keytup.tup, found, missing);
       // As it does with other query functions, GNDStk returns with no error
       // if either the requested data were found, or if the "found" flag was
       // sent here explicitly. Either way, found == did we find the data?
@@ -125,9 +114,9 @@ auto operator()(
             std::size_t n = 0;
             ((names += keyname(key) + (++n < sizeof...(Ks) ? "," : "")), ...);
          },
-         kwds.tup
+         keytup.tup
       );
-      log::member("Node(KeywordTup({})", names);
+      log::member("Node(KeyTuple({})", names);
       throw;
    }
 }
