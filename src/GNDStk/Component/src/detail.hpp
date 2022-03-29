@@ -214,11 +214,11 @@ inline bool printComponentPart(
 // ------------------------
 
 // helper
-// is_base_of_Component
+// isDerivedFromComponent
 // Adapted from an answer here:
 // https://stackoverflow.com/questions/34672441
 template<class T>
-class is_base_of_Component {
+class isDerivedFromComponent {
    template<class A, bool B, class C>
    static constexpr std::true_type test(Component<A,B,C> *);
    static constexpr std::false_type test(...);
@@ -233,12 +233,12 @@ bool printComponentPart(
    const std::string &label, const std::size_t maxlen,
    const std::string &color
 ) {
-   if constexpr (is_base_of_Component<T>::value) {
+   if constexpr (isDerivedFromComponent<T>::value) {
       // Suppress "unused parameter" warnings
       (void)value; (void)maxlen;
       (void)label; (void)color;
       // T is derived from Component, and thus inherits a print()
-      value.Component::print(os,level);
+      value.baseComponent().print(os,level);
    } else {
       // T is any old type, not derived from Component
       if constexpr (std::is_floating_point_v<T>) {

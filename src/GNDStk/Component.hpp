@@ -73,10 +73,15 @@ public:
    // You can (but need not) override the following in DERIVED
    static std::string namespaceName() { return ""; }
 
-   // base
+   // baseBlockData
    // Convenient access to the BlockData base class
    BLOCKDATA &baseBlockData() { return *this; }
    const BLOCKDATA &baseBlockData() const { return *this; }
+
+   // baseComponent
+   // Convenient access to the Component base class (of the derived class)
+   Component &baseComponent() { return *this; }
+   const Component &baseComponent() const { return *this; }
 
    // derived
    // Convenient access to the derived class
