@@ -169,13 +169,14 @@ struct InfoSpecs {
    std::string hppVersion; // hpp file for this version
    std::string hppKey;     // hpp file for this version's Meta and Child keys
 
-   // Changes to apply to a metadatum's or child node's name.
-   // Example: "double" (GNDS v1.9 does have this) to "Double" for C++.
+   // Changes to apply to a metadatum's name or a child node's name.
+   // Example: "double" (GNDS v1.9 actually has "double") to "Double" for C++.
    std::map<std::string,std::string> mapName;
 
    // Changes to apply to metadata/attribute type and default.
    // Examples: "Boolean" to "bool", "interpolation" to "enums::Interpolation".
-   std::map<std::string,std::string> mapMetaType;
+   // We'll give a string ==> std::string type change as a freebie. :-)
+   std::map<std::string,std::string> mapMetaType = {{"string","std::string"}};
    std::map<std::string,std::string> mapMetaDefault;
 
    // For each class in the input JSON specifications, the namespace(s)
@@ -320,6 +321,18 @@ bool isClass(const KeyValue &keyval)
    return true;
 }
 
+std::string getTimes(const orderedJSON &value)
+{
+   const std::string times = "times"; // shorter, less easily misspelled
+   const std::string occurrence = "occurrence"; // accept; used in GNDS specs
+
+   // need exactly one - not neither, not both
+   assert(value.contains(times) != value.contains(occurrence));
+
+   return value.contains(times)
+      ? value[times]
+      : value[occurrence];
+}
 
 
 // -----------------------------------------------------------------------------
@@ -398,7 +411,7 @@ std::string getMetadatumType(const orderedJSON &j, const InfoSpecs &specs)
 // Determine to what namespace childClass belongs. Context: we're (1) in a JSON
 // spec with namespace parent.nsname, (2) in a parent node named parent.clname,
 // and (3) wish to determine the proper namespace for the parent's child node
-// named "child". Parameter j is the JSON value ({...}) for this child node.
+// named childClass. Parameter j is the JSON value ({...}) for this child node.
 std::string getChildNamespace(
    const orderedJSON &j, const InfoSpecs &specs,
    const PerClass &per, const std::string &childClass
@@ -412,7 +425,7 @@ std::string getChildNamespace(
    // ...isn't given, and this child isn't in any of the JSONs :-(
    if (specs.class2nspace.count(childClass) == 0) {
       log::warning(
-         "{}::{} has child of unknown class {}",
+         "{}::{} has a child of unknown class {}",
          per.nsname, per.clname, childClass
       );
       return "unknownNamespace";
@@ -427,7 +440,13 @@ std::string getChildNamespace(
    const auto range = specs.class2nspace.equal_range(childClass);
    for (auto it = range.first; it != range.second; ++it)
       if (it->second == per.nsname) {
-         // fixme: a *warning* might be in order, re: our assumption
+         log::warning(
+            "{}::{} has a child {} that appears in the present\n"
+            "namespace but also in one or more other namespaces. We'll\n"
+            "assume that the one in the present namespace is intended.\n"
+            "If this is wrong, please provide a \"namespace\" entry.",
+            per.nsname, per.clname, childClass
+         );
          return per.nsname;
       }
 
@@ -438,7 +457,7 @@ std::string getChildNamespace(
    for (auto it = range.first; it != range.second; ++it)
       warn << (count++ == 0 ? "" : ", ") << it->second;
    log::warning(
-      "{}::{} has child of ambiguous class {}.\n"
+      "{}::{} has a child of ambiguous class {}.\n"
       "Child class {} appears in all of the following namespaces:\n{}",
       per.nsname, per.clname, childClass, childClass, warn.str()
    );
@@ -515,8 +534,8 @@ void getClassChildren(
       const auto &elemRHS = field.value();
 
       // Choice children are handled elsewhere
-      const std::string occ = elemRHS["occurrence"];
-      if (occ == "choice" || occ == "choice+" || occ == "choice2+")
+      const std::string times = getTimes(elemRHS);
+      if (times == "choice" || times == "choice+" || times == "choice2+")
          continue;
 
       // Name
@@ -534,7 +553,7 @@ void getClassChildren(
       const std::string optSuffix = c.isOptional ? ">" : "";
 
       // Vector?
-      c.isVector = occ == "0+" || occ == "1+" || occ == "2+";
+      c.isVector = times == "0+" || times == "1+" || times == "2+";
       const std::string vecPrefix = c.isVector ? "std::vector<" : "";
       const std::string vecSuffix = c.isVector ? ">" : "";
 
@@ -590,8 +609,8 @@ void getClassVariants(
    for (const auto &field : j.items()) {
       // Is it a choice child?
       const auto &elemRHS = field.value();
-      const std::string occ = elemRHS["occurrence"];
-      if (occ != "choice" && occ != "choice+" && occ != "choice2+")
+      const std::string times = getTimes(elemRHS);
+      if (times != "choice" && times != "choice+" && times != "choice2+")
          continue;
 
       // Variant name
@@ -605,8 +624,8 @@ void getClassVariants(
    for (const auto &field : j.items()) {
       // Is it a choice child?
       const auto &elemRHS = field.value();
-      const std::string occ = elemRHS["occurrence"];
-      if (occ != "choice" && occ != "choice+" && occ != "choice2+")
+      const std::string times = getTimes(elemRHS);
+      if (times != "choice" && times != "choice+" && times != "choice2+")
          continue;
 
       // Variant name
@@ -625,7 +644,7 @@ void getClassVariants(
       const std::string ns = getChildNamespace(elemRHS, specs, per, c.type);
       c.type = ns + "::" + c.type;
       // ...its vector-ness
-      c.isVector = occ == "choice+" || occ == "choice2+";
+      c.isVector = times == "choice+" || times == "choice2+";
 
       // The GNDS JSON specifications all have "required":false for individual
       // choices in a set of choices; the concept of "the entire choice can be
@@ -833,7 +852,6 @@ void writeClassPrefix(writer &out, const PerClass &per)
    // comment introducing class
    out();
    out();
-   out();
    out(largeComment);
    out("// @::", per.nsname);
    out("// class @", per.clname);
@@ -843,8 +861,14 @@ void writeClassPrefix(writer &out, const PerClass &per)
    out();
    out("namespace @ {", per.nsname);
    out();
-   out("class @ : public Component<@@> {",
-       per.clname, per.clname,
+   out("class @ : public Component<@::@@> {",
+       // A namespace prefix in Component<> prevents possible ambiguities with
+       // the Child<> object for the class that was brought in through key.hpp.
+       // Normally the class name is capitalized while the Child<> object isn't,
+       // but if the node name was already capitalized in the specs (an example
+       // we encountered was "XYs1d"), then the Child<> key would reflect that.
+       // Then, without the nsname:: here, we'd have an ambiguity.
+       per.clname, per.nsname, per.clname,
        per.isData
           ? (",true" + (per.dataType == "" ? "" : "," + per.dataType))
           : ""
@@ -873,18 +897,18 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out();
    out(1,"friend class Component;");
    out();
-   out(1,"// Current namespace, current class, and GNDS node name");
-   out(1,"static auto namespaceName() { return \"@\"; }", per.nsname);
-   out(1,"static auto className() { return \"@\"; }", per.clname);
-   out(1,"static auto GNDSName() { return \"@\"; }", per.nameGNDS);
+   out(1,"// Names: this namespace, this class, a field / node of this type");
+   out(1,"static auto NAMESPACE() { return \"@\"; }", per.nsname);
+   out(1,"static auto CLASS() { return \"@\"; }", per.clname);
+   out(1,"static auto FIELD() { return \"@\"; }", per.nameGNDS);
 
-   // keys() begin
+   // KEYS() begin
    out();
    out(1,"// Core Interface multi-query to extract metadata and child nodes");
-   out(1,"static auto keys()");
+   out(1,"static auto KEYS()");
    out(1,"{");
 
-   // keys() contents
+   // KEYS() contents
    int count = 0, total = per.nfields();
    if (total == 0)
       out(2,"return std::tuple<>{};");
@@ -921,7 +945,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
       out(2,";");
    }
 
-   // keys() end
+   // KEYS() end
    out(1,"}");
    out();
    out("public:");
@@ -1751,15 +1775,14 @@ void validateMetadata(const orderedJSON &metadata)
 void validateChildren(const orderedJSON &children)
 {
    for (const auto &field : children.items()) {
-      assert(field.value().contains("occurrence"));
       assert(field.value().contains("required"));
 
-      // Consistency check: certain "occurrence" values imply *not* required.
+      // Consistency check: certain occurrence values imply *not* required.
       // Remark: the GNDS manual speaks of "choice2" and "choice2+" options
       // for occurrence. We're not sure if those will remain in future GNDS
       // specifications, so we won't worry now about how they might fit in.
-      const std::string occ = field.value()["occurrence"];
-      if (occ == "0+" || occ == "choice" || occ == "choice+")
+      const std::string times = getTimes(field.value());
+      if (times == "0+" || times == "choice" || times == "choice+")
          assert(!field.value()["required"]); // not required
    }
 }
@@ -1901,8 +1924,6 @@ void fileGNDStkVersion(const InfoSpecs &specs)
    }
 
    out();
-   out("#include \"@/@/key.hpp\"", specs.Project, specs.Version);
-   out();
    out("#endif");
 } // fileGNDStkVersion
 
@@ -1958,6 +1979,9 @@ void fileGNDStkKey(const InfoSpecs &specs)
        allcaps(specs.Project), allcaps(specs.VersionUnderscore));
    out("#define @_@_KEY",
        allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+   out();
+   out("// GNDStk Core Interface");
+   out("#include \"GNDStk.hpp\"");
    out();
    if (specs.Project == "GNDStk") // <== use namespace njoy only for this
       out("namespace njoy {");
@@ -2077,25 +2101,18 @@ void fileGNDStkClass(
    out();
    out("#ifndef @", guard);
    out("#define @", guard);
-   out();
-   out("// GNDStk Core Interface");
-   out("#include \"GNDStk.hpp\"");
 
-   if (c2d.dependencies.size() > 0) {
-      out();
-      out("// Dependencies");
-      for (const auto &dep : c2d.dependencies)
-         out("#include \"@/@/@/@.hpp\"",
-             specs.Project, specs.Version, dep.nsname, dep.clname);
-   }
+   out();
+   out("#include \"@/@/key.hpp\"", specs.Project, specs.Version);
+   for (const auto &dep : c2d.dependencies)
+      out("#include \"@/@/@/@.hpp\"",
+          specs.Project, specs.Version, dep.nsname, dep.clname);
 
    out();
    if (specs.Project == "GNDStk")
       out("namespace njoy {");
    out("namespace @ {", specs.Project);
    out("namespace @ {", specs.VersionUnderscore);
-   out();
-   out("using namespace njoy::GNDStk;");
    out(per.code,false);
    out("} // namespace @", specs.VersionUnderscore);
    out("} // namespace @", specs.Project);

@@ -130,9 +130,9 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
       if (size == 0)
          return true;
 
-      // a json document should have one main node
+      // a json document should have one main node, although we may at some
+      // point want to find a way to relax this
       if (size != 1) {
-         // fixme Consider relaxing this, if doing so might ever make sense
          log::error("More than one main node in the JSON");
          throw std::exception{};
       }

@@ -56,7 +56,7 @@ operator=(const std::vector<T> &vec)
    // length, start, valueType
    length(vec.size());
    start(0);
-   valueType(detail::MapTypeString<T>::value[0]);
+   valueType(detail::Type2Names<T>::value[0]);
 
    // assign vector
    if constexpr (runtime)

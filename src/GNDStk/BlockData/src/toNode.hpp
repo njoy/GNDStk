@@ -56,9 +56,9 @@ void toNode(std::string &text) const
    vars.length = size(); // independent of trim
    vars.start  = bounds.first; // dependent on trim, per the bounds computation
    if constexpr (runtime)
-      vars.valueType = detail::visitMapTypeString(variant);
+      vars.valueType = detail::visitType2Names(variant);
    else
-      vars.valueType = detail::MapTypeString<DATATYPE>::value[0];
+      vars.valueType = detail::Type2Names<DATATYPE>::value[0];
 
    // Values
    std::ostringstream oss;

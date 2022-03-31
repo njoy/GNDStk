@@ -178,7 +178,7 @@ std::enable_if_t<
       // We'll print a warning if that vector type appears to conflict with
       // valueType. Regardless, we'll return what the caller requested. Note
       // that valueType == "" is acceptable with any element type.
-      if (valueType() != "" && !detail::MapTypeString<T>::find(valueType())) {
+      if (valueType() != "" && !detail::Type2Names<T>::find(valueType())) {
          log::warning(
            "Vector element type may be inconsistent with valueType \"{}\";\n"
            "we'll create the requested std::vector<> anyway",
@@ -383,7 +383,7 @@ std::conditional_t<
 > get() const
 {
    if constexpr (runtime) {
-      detail::MapStringType(
+      detail::Names2Type(
          valueType(),
          [this](auto &&t)
          {
