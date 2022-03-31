@@ -22,11 +22,8 @@ operator Node() const
          // consistency check
          assert(0 == links.size());
       } else {
-         // make tuple (of individual keys) from DERIVED::KEYS()
-         static const auto tup = makeKeyTuple(DERIVED::KEYS()).tup;
-
          // consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+         assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
 
          // apply links:
          // derived-class data ==> Node
@@ -40,7 +37,7 @@ operator Node() const
               (node.add(key,*(std::decay_t<decltype(Node{}(key))>*)links[n++]),
                ...);
             },
-            tup
+            Keys().tup
          );
       }
    } catch (...) {

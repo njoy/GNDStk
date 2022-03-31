@@ -35,11 +35,10 @@ void fromNode(const Node &node)
          assert(0 == links.size());
       } else {
          // retrieve the node's data by doing a multi-query
-         static const auto keytup = makeKeyTuple(DERIVED::KEYS());
-         const auto tup = node(keytup);
+         const auto tuple = node(Keys());
 
          // consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+         assert(std::tuple_size<decltype(tuple)>::value == links.size());
 
          // apply links:
          // Node ==> derived-class data
@@ -50,7 +49,7 @@ void fromNode(const Node &node)
                std::size_t n = 0;
                ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
             },
-            tup
+            tuple
          );
       }
 

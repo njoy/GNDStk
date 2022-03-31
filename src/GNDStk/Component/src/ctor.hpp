@@ -32,8 +32,7 @@ Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
       // KEYS() is *not* empty, so...
       // The following is the *type* that a multi-query with DERIVED::KEYS()
       // will produce.
-      using multi_t =
-         detail::decays_t<decltype(Node{}(makeKeyTuple(DERIVED::KEYS())))>;
+      using multi_t = detail::decays_t<decltype(Node{}(Keys()))>;
       static_assert(
          std::is_same_v<std::tuple<ARGS ...>, multi_t>,
          pairing_error

@@ -72,11 +72,8 @@ std::ostream &print(std::ostream &os, const int level) const
          // Consistency check
          assert(0 == links.size());
       } else {
-         // Make tuple (of individual keys) from DERIVED::KEYS()
-         static const auto tup = makeKeyTuple(DERIVED::KEYS()).tup;
-
          // Consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+         assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
 
          // Compute maximum length of key names, if aligning. Note that we
          // could - but don't - take into account that keys associated with
@@ -93,7 +90,7 @@ std::ostream &print(std::ostream &os, const int level) const
                [&maxlen](const auto &... key) {
                   ((maxlen=std::max(maxlen,detail::getName(key).size())), ...);
                },
-               tup
+               Keys().tup
             );
 
          // Apply links:
@@ -115,7 +112,7 @@ std::ostream &print(std::ostream &os, const int level) const
                   ...
                );
             },
-            tup
+            Keys().tup
          );
       }
 

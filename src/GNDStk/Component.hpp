@@ -22,6 +22,11 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    using typename BLOCKDATA::VariantOfScalars;
    static inline constexpr bool hasFields =
       !std::is_same_v<decltype(DERIVED::KEYS()),std::tuple<>>;
+   static const auto &Keys()
+   {
+      static const auto value = makeKeyTuple(DERIVED::KEYS());
+      return value;
+   }
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::KEYS())-aware manner, because DERIVED
