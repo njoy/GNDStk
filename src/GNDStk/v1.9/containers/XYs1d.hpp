@@ -5,19 +5,13 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_XYS1D
 #define GNDSTK_V1_9_CONTAINERS_XYS1D
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
-
-// Dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -27,7 +21,7 @@ using namespace njoy::GNDStk;
 
 namespace containers {
 
-class XYs1d : public Component<XYs1d> {
+class XYs1d : public Component<containers::XYs1d> {
 
    // ------------------------
    // For Component
@@ -35,7 +29,7 @@ class XYs1d : public Component<XYs1d> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs1d"; }
    static auto FIELD() { return "XYs1d"; }

@@ -5,15 +5,11 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_VALUES
 #define GNDSTK_V1_9_CONTAINERS_VALUES
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
+#include "GNDStk/v1.9/key.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -23,7 +19,7 @@ using namespace njoy::GNDStk;
 
 namespace containers {
 
-class Values : public Component<Values,true> {
+class Values : public Component<containers::Values,true> {
 
    // ------------------------
    // For Component
@@ -31,7 +27,7 @@ class Values : public Component<Values,true> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Values"; }
    static auto FIELD() { return "values"; }

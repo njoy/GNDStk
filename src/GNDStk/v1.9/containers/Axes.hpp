@@ -5,19 +5,13 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_AXES
 #define GNDSTK_V1_9_CONTAINERS_AXES
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
-
-// Dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axis.hpp"
 #include "GNDStk/v1.9/containers/Grid.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -27,7 +21,7 @@ using namespace njoy::GNDStk;
 
 namespace containers {
 
-class Axes : public Component<Axes> {
+class Axes : public Component<containers::Axes> {
 
    using axis_grid_t = std::variant<
       containers::Axis,
@@ -40,7 +34,7 @@ class Axes : public Component<Axes> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Axes"; }
    static auto FIELD() { return "axes"; }

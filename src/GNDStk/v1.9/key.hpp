@@ -5,6 +5,9 @@
 #ifndef GNDSTK_V1_9_KEY
 #define GNDSTK_V1_9_KEY
 
+// GNDStk Core Interface
+#include "GNDStk.hpp"
+
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {

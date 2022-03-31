@@ -5,18 +5,12 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_REACTIONSUITE
 #define GNDSTK_V1_9_TRANSPORT_REACTIONSUITE
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
-
-// Dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reactions.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -26,7 +20,7 @@ using namespace njoy::GNDStk;
 
 namespace transport {
 
-class ReactionSuite : public Component<ReactionSuite> {
+class ReactionSuite : public Component<transport::ReactionSuite> {
 
    // ------------------------
    // For Component
@@ -34,7 +28,7 @@ class ReactionSuite : public Component<ReactionSuite> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ReactionSuite"; }
    static auto FIELD() { return "reactionSuite"; }

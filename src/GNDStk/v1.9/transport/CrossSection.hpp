@@ -5,19 +5,13 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_CROSSSECTION
 #define GNDSTK_V1_9_TRANSPORT_CROSSSECTION
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
-
-// Dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Regions1d.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -27,7 +21,7 @@ using namespace njoy::GNDStk;
 
 namespace transport {
 
-class CrossSection : public Component<CrossSection> {
+class CrossSection : public Component<transport::CrossSection> {
 
    using XYs1d_regions1d_t = std::variant<
       containers::XYs1d,
@@ -40,7 +34,7 @@ class CrossSection : public Component<CrossSection> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "CrossSection"; }
    static auto FIELD() { return "crossSection"; }

@@ -18,6 +18,4 @@
 #include "GNDStk/v1.9/transport/Reaction.hpp"
 #include "GNDStk/v1.9/transport/CrossSection.hpp"
 
-#include "GNDStk/v1.9/key.hpp"
-
 #endif

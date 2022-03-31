@@ -5,18 +5,12 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_REACTION
 #define GNDSTK_V1_9_TRANSPORT_REACTION
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
-
-// Dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/CrossSection.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -26,7 +20,7 @@ using namespace njoy::GNDStk;
 
 namespace transport {
 
-class Reaction : public Component<Reaction> {
+class Reaction : public Component<transport::Reaction> {
 
    // ------------------------
    // For Component
@@ -34,7 +28,7 @@ class Reaction : public Component<Reaction> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Reaction"; }
    static auto FIELD() { return "reaction"; }

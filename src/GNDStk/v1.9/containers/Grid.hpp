@@ -5,19 +5,13 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_GRID
 #define GNDSTK_V1_9_CONTAINERS_GRID
 
-// GNDStk Core Interface
-#include "GNDStk.hpp"
-
-// Dependencies
+#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 #include "GNDStk/v1.9/containers/Link.hpp"
 
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
-using namespace njoy::GNDStk;
-
 
 
 // -----------------------------------------------------------------------------
@@ -27,7 +21,7 @@ using namespace njoy::GNDStk;
 
 namespace containers {
 
-class Grid : public Component<Grid> {
+class Grid : public Component<containers::Grid> {
 
    using link_values_t = std::variant<
       containers::Values,
@@ -40,7 +34,7 @@ class Grid : public Component<Grid> {
 
    friend class Component;
 
-   // Current namespace, current class, and GNDS node name
+   // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Grid"; }
    static auto FIELD() { return "grid"; }
