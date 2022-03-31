@@ -32,12 +32,12 @@ class Axis : public Component<Axis> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "containers"; }
-   static auto className() { return "Axis"; }
-   static auto GNDSName() { return "axis"; }
+   static auto NAMESPACE() { return "containers"; }
+   static auto CLASS() { return "Axis"; }
+   static auto FIELD() { return "axis"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

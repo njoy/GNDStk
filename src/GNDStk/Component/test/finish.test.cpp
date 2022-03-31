@@ -45,12 +45,12 @@ class DerivedValue : public Component<DerivedValue,true>
    friend class Component;
 
    // names
-   static auto namespaceName() { return "test"; }
-   static auto className() { return "DerivedValue"; }
-   static auto GNDSName() { return "value"; }
+   static auto NAMESPACE() { return "test"; }
+   static auto CLASS() { return "DerivedValue"; }
+   static auto FIELD() { return "value"; }
 
    // keys
-   static auto keys()
+   static auto KEYS()
    {
       return
          int{} / Meta<>("length") |
@@ -212,12 +212,12 @@ class DerivedPlain : public Component<DerivedPlain,false>
    friend class Component;
 
    // names
-   static auto namespaceName() { return "test"; }
-   static auto className() { return "DerivedPlain"; }
-   static auto GNDSName() { return "plain"; }
+   static auto NAMESPACE() { return "test"; }
+   static auto CLASS() { return "DerivedPlain"; }
+   static auto FIELD() { return "plain"; }
 
    // keys
-   static auto keys()
+   static auto KEYS()
    {
       return
          int   {} / Meta<>("foo") |

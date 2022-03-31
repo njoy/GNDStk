@@ -177,9 +177,9 @@ void meta2hdf5_plain(const NODE &node, OBJECT &hdf5)
 template<class NODE, class OBJECT>
 void meta2hdf5(const NODE &node, OBJECT &hdf5, const std::string &suffix)
 {
-   // #nodeName if appropriate (as with JSON, allows recovery of original name)
+   // #nodename if appropriate (as with JSON, allows recovery of original name)
    if (suffix != "")
-      hdf5.createAttribute(std::string("#nodeName"), node.name);
+      hdf5.createAttribute(std::string("#nodename"), node.name);
 
    // Existing metadata
    if (HDF5::typed) {

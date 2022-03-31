@@ -187,8 +187,8 @@ SCENARIO("Testing GNDStk Tree meta()") {
       CHECK(t.top() .meta("projectile") == "abc"); // verify that it changed
 
       WHEN("We try assignment: Tree.meta(keyword) = ...") {
-         // assignments "work" (don't cause a crash) for nonexistent metadata
-         // keys, but give back found == false
+         // assignments "work" (don't cause a crash) for nonexistent metadata,
+         // but give back found == false
          CHECK((found = true, t.meta("foo key",found) = "foo value", !found));
          CHECK((found = true, t.meta("bar key",found) = "bar value", !found));
       }

@@ -21,11 +21,11 @@ void fromNode(const Node &node)
 {
    try {
       // does the node have the name we expect?
-      if (node.name != DERIVED::GNDSName()) {
+      if (node.name != DERIVED::FIELD()) {
          log::error(
            "Name \"{}\" in Node sent to Component::fromNode() is not the "
            "expected GNDS name \"{}\"",
-            node.name, DERIVED::GNDSName()
+            node.name, DERIVED::FIELD()
          );
          throw std::exception{};
       }
@@ -35,7 +35,7 @@ void fromNode(const Node &node)
          assert(0 == links.size());
       } else {
          // retrieve the node's data by doing a multi-query
-         static const auto keytup = makeKeyTuple(DERIVED::keys());
+         static const auto keytup = makeKeyTuple(DERIVED::KEYS());
          const auto tup = node(keytup);
 
          // consistency check

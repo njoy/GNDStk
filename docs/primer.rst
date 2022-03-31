@@ -490,15 +490,19 @@ with what XML is able to represent.
    the node. For example, in HDF5 the attribute ``nodeIndex`` could be added
    to each child in a group.
 
-For (1), GNDStk does the first suggested action (which we think is
-somewhat cleaner than using an ``_attr`` suffix), but with a slight twist:
-it groups a node's attributes under a child node called ``#attributes``. The
-``#`` prefix is something we use in node names throughout GNDStk, if and where
+For (1), GNDStk does largely the first suggested action (which we think is
+somewhat cleaner than using an ``_attr`` suffix), but with a slight twist,
+along with our preferred terminology of ``metadata`` in place of ``attributes``.
+It groups a node's metadata -- attributes -- under a child node
+called ``#metadata``.
+
+The ``#`` prefix is something we use in node names throughout GNDStk,
+if and where
 the nodes so named represent special things -- with special meaning, and needing
 special treatment. The extra character allows special nodes to be identified
 easily, in both the GNDStk code base itself or in files produced by GNDStk.
 Moreover, one could imagine that a future GNDS version might -- just might --
-have a normal node with the name ``attributes``, or with some other name that
+have a normal node with the name ``metadata``, or with some other name that
 we might wish to use for a special purpose. If and where such situations occur,
 our use of a special prefix character allows for an unambiguous interpretation.
 (As an aside: in principle, we'd have preferred to use the S-like dollar sign,
@@ -508,10 +512,9 @@ for use in identifying special nodes, as our various node-finding capabilities
 support the use of regular expressions.)
 
 For (2), GNDStk does as suggested, except again with the ``#`` terminology as
-described above. Multiple elements of the same name are suffixed with ``0``,
-``1``, etc. Then, a JSON name/value pair with the name ``#nodeName`` -- as
-suggested, but with our ``#`` prefix -- is created. Its value preserves the
-original element's name.
+described above, and an all-lowercase name. Multiple elements of the same name
+are suffixed with ``0``, ``1``, etc. Then, a JSON name/value pair with the
+name ``#nodename`` is created. Its value preserves the original element's name.
 
 For (3), GNDStk does nothing in particular right now. Our understanding of GNDS
 is that it's designed so that elements -- nodes -- can appear in any order.
@@ -521,7 +524,7 @@ GNDS file that we've been using for our examples:
 .. literalinclude:: tutorial/xml-axes-fragment.xml
    :language: xml
 
-Those ``axis`` child nodes already contain a 0-based ``index`` attribute, so
+Those ``axis`` child nodes already contain a 0-based ``index`` metadatum, so
 perhaps the specification's admonishment #3 is something we can consider to have
 been satisfied already by whomever has created an existing, valid GNDS file (so
 that no further treatment is required); or something that *we* must satisfy if
@@ -561,8 +564,8 @@ node. (Valid GNDS top-level nodes, per the standard, are ``reactionSuite``,
 about it for now.
 
 Naturally, GNDStk reverses the modifications when we *read* from a JSON file
-into our internal format. Specifically: values in an ``#attributes`` block are
-transformed into metadata in the enclosing node, and values from ``#nodeName``
+into our internal format. Specifically: values in an ``#metadata`` block are
+transformed into metadata in the enclosing node, and values from ``#nodename``
 name/value pairs replace index-suffixed names.
 
 At this time, GNDStk provides no other options, such as the ``_attr`` suffix

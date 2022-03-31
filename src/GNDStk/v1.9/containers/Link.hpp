@@ -32,12 +32,12 @@ class Link : public Component<Link> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "containers"; }
-   static auto className() { return "Link"; }
-   static auto GNDSName() { return "link"; }
+   static auto NAMESPACE() { return "containers"; }
+   static auto CLASS() { return "Link"; }
+   static auto FIELD() { return "link"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

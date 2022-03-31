@@ -15,12 +15,12 @@ class Floats : public Component<Floats,true,float> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "precision"; }
-   static auto className() { return "Floats"; }
-   static auto GNDSName() { return "floats"; }
+   static auto NAMESPACE() { return "precision"; }
+   static auto CLASS() { return "Floats"; }
+   static auto FIELD() { return "floats"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -221,12 +221,12 @@ class Doubles : public Component<Doubles,true,double> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "precision"; }
-   static auto className() { return "Doubles"; }
-   static auto GNDSName() { return "doubles"; }
+   static auto NAMESPACE() { return "precision"; }
+   static auto CLASS() { return "Doubles"; }
+   static auto FIELD() { return "doubles"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -427,12 +427,12 @@ class Quads : public Component<Quads,true,long double> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "precision"; }
-   static auto className() { return "Quads"; }
-   static auto GNDSName() { return "quads"; }
+   static auto NAMESPACE() { return "precision"; }
+   static auto CLASS() { return "Quads"; }
+   static auto FIELD() { return "quads"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -633,12 +633,12 @@ class Reals : public Component<Reals,true> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "precision"; }
-   static auto className() { return "Reals"; }
-   static auto GNDSName() { return "reals"; }
+   static auto NAMESPACE() { return "precision"; }
+   static auto CLASS() { return "Reals"; }
+   static auto FIELD() { return "reals"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -839,12 +839,12 @@ class Numbers : public Component<Numbers> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "precision"; }
-   static auto className() { return "Numbers"; }
-   static auto GNDSName() { return "numbers"; }
+   static auto NAMESPACE() { return "precision"; }
+   static auto CLASS() { return "Numbers"; }
+   static auto FIELD() { return "numbers"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

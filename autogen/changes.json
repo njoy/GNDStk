@@ -11,7 +11,6 @@
     "metadata": {
         "type": {
             "Boolean":       "bool",
-            "string":        "std::string",
             "encoding":      "enums::Encoding",
             "frame":         "enums::Frame",
             "interaction":   "enums::Interaction",

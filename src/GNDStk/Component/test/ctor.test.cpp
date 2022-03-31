@@ -17,7 +17,7 @@ using namespace njoy::GNDStk;
 // situations mentioned below: a class with no fields, and a class with fields.
 // We don't anticipate that people will need Component-derived classes that have
 // no fields, but still illustrate such a beast, for completeness. Note that the
-// keys() function should return a std::tuple<>{} in that situation.
+// KEYS() function should return a std::tuple<>{} in that situation.
 // -----------------------------------------------------------------------------
 
 // DerivedNothing
@@ -26,7 +26,7 @@ class DerivedNothing : public Component<DerivedNothing>
 {
    friend class Component;
 
-   static auto keys()
+   static auto KEYS()
    {
       return std::tuple<>{};
    }
@@ -46,7 +46,7 @@ class DerivedSomething : public Component<DerivedSomething>
 {
    friend class Component;
 
-   static auto keys()
+   static auto KEYS()
    {
       return
          int   {} / Meta<>("foo") |

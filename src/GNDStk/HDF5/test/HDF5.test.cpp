@@ -53,7 +53,7 @@ void writeReadHDF5(
 
    // Test #2. Ensure that file newFile (written above, from the original Tree)
    // is identical to the vetted HDF5 file vettedFile that we put into the git
-   // repository. BUT...we'll actually have this test if'd out in the repo! We
+   // repository. BUT...we'll actually have this test #if'd out in the repo! We
    // believe that that's the safe thing to do, because HDF5 is a binary format.
    // We can't know if the HDF5 files produced on any particular platform will
    // compare favorably with the vetted binary files we've placed into the repo.

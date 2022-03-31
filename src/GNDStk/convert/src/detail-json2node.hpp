@@ -45,10 +45,10 @@ bool json2node(const nlohmann::ordered_json::const_iterator &iter, NODE &node)
    if (!iter->is_object())
       error_json2node("!iter->is_object()");
 
-   // any "#attributes" key (a specially-named "child node" that we use in JSON
+   // any "#metadata" key (a specially-named "child node" that we use in JSON
    // in order to identify attributes) should have been handled in the caller...
-   if (iter.key() == "#attributes")
-      error_json2node("iter.key() == \"#attributes\"");
+   if (iter.key() == "#metadata")
+      error_json2node("iter.key() == \"#metadata\"");
 
    // key,value ==> node name, JSON value to bring in
    node.name = iter.key();
@@ -56,11 +56,11 @@ bool json2node(const nlohmann::ordered_json::const_iterator &iter, NODE &node)
 
    // elements
    for (auto elem = json.begin();  elem != json.end();  ++elem) {
-      if (elem.key() == "#nodeName") {
-         // #nodeName? ...extract as current node's true name
+      if (elem.key() == "#nodename") {
+         // #nodename? ...extract as current node's true name
          node.name = elem->get<std::string>();
-      } else if (elem.key() == "#attributes") {
-         // #attributes? ...extract as current node's metadata
+      } else if (elem.key() == "#metadata") {
+         // #metadata? ...extract as current node's metadata
          const auto &jsub = elem.value();
          for (auto attr = jsub.begin();  attr != jsub.end();  ++attr)
             node.add(attr.key(), attr->get<std::string>());

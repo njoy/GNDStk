@@ -32,12 +32,12 @@ class Values : public Component<Values,true> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "containers"; }
-   static auto className() { return "Values"; }
-   static auto GNDSName() { return "values"; }
+   static auto NAMESPACE() { return "containers"; }
+   static auto CLASS() { return "Values"; }
+   static auto FIELD() { return "values"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

@@ -35,12 +35,12 @@ class Reaction : public Component<Reaction> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "transport"; }
-   static auto className() { return "Reaction"; }
-   static auto GNDSName() { return "reaction"; }
+   static auto NAMESPACE() { return "transport"; }
+   static auto CLASS() { return "Reaction"; }
+   static auto FIELD() { return "reaction"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

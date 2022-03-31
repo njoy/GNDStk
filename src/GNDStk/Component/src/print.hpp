@@ -63,7 +63,7 @@ std::ostream &print(std::ostream &os, const int level) const
       detail::indentString(
          os, level,
          detail::colorize_component(
-            detail::fullName(DERIVED::namespaceName(), DERIVED::className())
+            detail::fullName(DERIVED::NAMESPACE(), DERIVED::CLASS())
          ) + " " +
          detail::colorize_brace("{") + "\n"
       );
@@ -72,8 +72,8 @@ std::ostream &print(std::ostream &os, const int level) const
          // Consistency check
          assert(0 == links.size());
       } else {
-         // Make tuple (of individual keys) from DERIVED::keys()
-         static const auto tup = makeKeyTuple(DERIVED::keys()).tup;
+         // Make tuple (of individual keys) from DERIVED::KEYS()
+         static const auto tup = makeKeyTuple(DERIVED::KEYS()).tup;
 
          // Consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());
@@ -172,8 +172,8 @@ std::ostream &print(std::ostream &os, const int level) const
                 detail::colorize_comment(
                    std::string("// ") +
                    detail::fullName(
-                      DERIVED::namespaceName(),
-                      DERIVED::className()
+                      DERIVED::NAMESPACE(),
+                      DERIVED::CLASS()
                    )
                 )
               : ""

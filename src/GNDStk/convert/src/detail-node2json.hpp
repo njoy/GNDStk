@@ -24,10 +24,10 @@ bool node2json(
    // ------------------------
 
    if (suffix != "")
-      json["#nodeName"] = nameOriginal;
+      json["#nodename"] = nameOriginal;
 
    for (auto &meta : node.metadata)
-      json["#attributes"][meta.first] = meta.second;
+      json["#metadata"][meta.first] = meta.second;
 
    // ------------------------
    // children ==> json

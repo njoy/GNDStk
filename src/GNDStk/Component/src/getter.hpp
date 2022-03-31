@@ -31,7 +31,7 @@ decltype(auto) getter(
    const std::string &fieldName
 ) const {
    return detail::getter(
-      vec, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
+      vec, key, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
    );
 }
 
@@ -74,7 +74,7 @@ const RETURN *getter(
    const std::string &fieldName
 ) const {
    return detail::getter<RETURN>(
-      var, DERIVED::namespaceName(), DERIVED::className(), fieldName
+      var, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
    );
 }
 
@@ -111,7 +111,7 @@ const RETURN *getter(
    const std::string &fieldName
 ) const {
    return detail::getter<RETURN>(
-      vecvar, key, DERIVED::namespaceName(), DERIVED::className(), fieldName
+      vecvar, key, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
    );
 }
 

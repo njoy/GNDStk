@@ -36,12 +36,12 @@ class XYs1d : public Component<XYs1d> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "containers"; }
-   static auto className() { return "XYs1d"; }
-   static auto GNDSName() { return "XYs1d"; }
+   static auto NAMESPACE() { return "containers"; }
+   static auto CLASS() { return "XYs1d"; }
+   static auto FIELD() { return "XYs1d"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

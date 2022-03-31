@@ -194,14 +194,14 @@ bool hdf52node(
    // would have already been handled, in a special way, by the caller...
    if (groupName != rootHDF5Name) {
       for (const std::string &attrName : group.listAttributeNames()) {
-         if (attrName == "#nodeName") {
-            // #nodeName
+         if (attrName == "#nodename") {
+            // #nodename
             // Handled not as a regular attribute, but as the present node's
             // true name. The following line is basically a compressed version
             // of attr2node<std::string> (see early in this file). It assumes,
-            // in short, that this #nodeName attribute is one (not a vector of)
+            // in short, that this #nodename attribute is one (not a vector of)
             // T == std::string. And that's precisely what it should be, given
-            // how GNDStk creates #nodeName attributes in the first place.
+            // how GNDStk creates #nodename attributes in the first place.
             group.getAttribute(attrName).read(node.name);
          } else if (beginsin(attrName,"#cdata")) {
             // #cdata, possibly with a numeric suffix

@@ -131,7 +131,7 @@ void finish(const DERIVED &other)
 
 void finish(const Node &node)
 {
-   // Read fields from the Node into the derived object. This applies the keys()
+   // Read fields from the Node into the derived object. This applies the KEYS()
    // multi-query in the derived class, and also runs BlockData::fromNode() - if
    // the Node has block data - in order to get the Node's string of block data.
    fromNode(node);

@@ -7,11 +7,11 @@ Discussion.
 KeyTuple is based mostly on std::tuple, but is specifically designed to help
 GNDStk's multi-query system work smoothly.
 
-makeKeyTuple() can be understood in terms of the keys() function in a class
-that derives from GNDStk::Component. Typically, a keys() function returns some
+makeKeyTuple() can be understood in terms of the KEYS() function in a class
+that derives from GNDStk::Component. Typically, a KEYS() function returns some
 number of Meta and/or Child objects, |'d together with one of the operator|
-overloads that we provide at the end of this file. However, a keys() function
-can in fact return any of the following:
+overloads that we provide at the end of this file. However, a KEYS() function
+can in fact return any of:
 
    - A KeyTuple (via operator| as described above).
    - A single Meta object.
@@ -20,16 +20,9 @@ can in fact return any of the following:
 
 The first use is probably the most common, but all are allowed. The purpose of
 makeKeyTuple() (which could be considered analogous to std::make_pair in C++)
-is, then, to take the result of any case, and return an appropriately templated
-version of KeyTuple that represents what keys() is asking for. Other functions
-can then be defined uniformly in terms of KeyTuple only - not KeyTuple and Meta
-and Child and ....
-
-The first use is probably the most common, but all are allowed. The purpose of
-makeKeyTuple() (which could be considered analogous to std::make_pair in C++) is
-to take the result of any case, and return an appropriately templated version of
-KeyTuple that represents what keys() is asking for. Other functions can then be
-defined uniformly in terms of KeyTuple only, not every possible keys() return.
+is to take any of the above, and return an appropriately templated version of
+KeyTuple, representing what KEYS() is asking for. Other functions can then be
+defined uniformly in terms of KeyTuple only - not KeyTuple, Meta, etc.
 */
 
 
@@ -43,9 +36,10 @@ class KeyTuple {
 public:
    std::tuple<Ks...> tup;
 
+   // last_t
    using last_t =
       // Without std::decay, const &ness can break detail::IsSomething<> traits.
-      // Note: sizeof...(Ks) >= 1 here, because we've specialized the <> case.
+      // Note: sizeof...(Ks) >= 1 here; we've specialized the KeyTuple<> case.
       std::decay_t<decltype(std::get<sizeof...(Ks)-1>(tup))>;
 
    // KeyTuple(KeyTuple<LHS...>, RHS)
@@ -53,12 +47,9 @@ public:
       class... LHS, class RHS,
       // require Ks... == LHS... RHS
       class = std::enable_if_t<
-         std::is_same_v<
-            std::tuple<Ks...>,
-            std::tuple<LHS...,RHS>
-         >
+         std::is_same_v<std::tuple<Ks...>, std::tuple<LHS...,RHS>>
       >,
-      // require RHS \in {Meta, Child, pair<Child,string|regex>, string, regex}
+      // require RHS \in {Meta, Child, pair<Child,string|regex>}
       class = std::enable_if_t<
           detail::IsMetaOrChild<RHS>::value ||
           detail::IsPairChildStringOrRegex<RHS>::value
@@ -66,6 +57,11 @@ public:
    >
    KeyTuple(const KeyTuple<LHS...> &lhs, const RHS &rhs) :
       tup(std::tuple_cat(lhs.tup, std::tuple<RHS>(rhs)))
+   { }
+
+   // KeyTuple(tuple)
+   KeyTuple(const std::tuple<Ks...> &tup) :
+      tup(tup)
    { }
 };
 
@@ -79,7 +75,7 @@ class KeyTuple<>
    KeyTuple(KeyTuple &&) = delete;
 };
 
-// Meta
+// for Meta
 template<class TYPE, class CONVERTER>
 class KeyTuple<Meta<TYPE,CONVERTER>> {
    using M = Meta<TYPE,CONVERTER>;
@@ -88,7 +84,7 @@ public:
    explicit KeyTuple(const M &m) : tup(m) { }
 };
 
-// Child
+// for Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 class KeyTuple<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
    using C = Child<TYPE,ALLOW,CONVERTER,FILTER>;
@@ -97,7 +93,7 @@ public:
    explicit KeyTuple(const C &c) : tup(c) { }
 };
 
-// std::pair<Child,string>
+// for std::pair<Child,string>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 class KeyTuple<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>> {
    using CPAIR = std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>;
@@ -107,7 +103,7 @@ public:
    explicit KeyTuple(const CPAIR &cpair) : tup(cpair) { }
 };
 
-// std::pair<Child,regex>
+// for std::pair<Child,regex>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 class KeyTuple<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>> {
    using CPAIR = std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>;
@@ -141,6 +137,13 @@ template<
 constexpr auto makeKeyTuple(const T &obj)
 {
    return KeyTuple<T>(obj);
+}
+
+// for std::tuple
+template<class... Args>
+constexpr auto makeKeyTuple(const std::tuple<Args...> &tup)
+{
+   return KeyTuple<Args...>(tup);
 }
 
 

@@ -10,8 +10,8 @@ void sort()
          // Consistency check; then nothing further to do
          assert(0 == links.size());
       } else {
-         // Make tuple (of individual keys) from DERIVED::keys()
-         static const auto tup = makeKeyTuple(DERIVED::keys()).tup;
+         // Make tuple (of individual keys) from DERIVED::KEYS()
+         static const auto tup = makeKeyTuple(DERIVED::KEYS()).tup;
 
          // Consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());

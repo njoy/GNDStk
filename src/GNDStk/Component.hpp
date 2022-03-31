@@ -21,10 +21,10 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    using typename BLOCKDATA::VariantOfVectors;
    using typename BLOCKDATA::VariantOfScalars;
    static inline constexpr bool hasFields =
-      !std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>;
+      !std::is_same_v<decltype(DERIVED::KEYS()),std::tuple<>>;
 
    // Links to fields in the object of the derived class. I can't find a way
-   // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
+   // to do this in a decltype(DERIVED::KEYS())-aware manner, because DERIVED
    // is generally an incomplete type *here* - outside of Component's member
    // functions. So, we'll do it the old-fashioned way.
    std::vector<void *> links;
@@ -71,7 +71,7 @@ public:
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
 
    // You can (but need not) override the following in DERIVED
-   static std::string namespaceName() { return ""; }
+   static std::string NAMESPACE() { return ""; }
 
    // baseBlockData
    // Convenient access to the BlockData base class
@@ -120,7 +120,7 @@ public:
       return false;
    }
 
-   static std::string className() { return DERIVED::className(); }
+   static std::string CLASS() { return DERIVED::CLASS(); }
 
    // Component << string
    // Like Node << string, but for Component's derived class.
@@ -131,7 +131,7 @@ public:
          node << str;
          derived() = DERIVED(node);
       } catch (...) {
-         log::function("{} << string", className());
+         log::function("{} << string", CLASS());
          throw;
       }
    }
@@ -143,7 +143,7 @@ public:
       try {
          Node(*this) >> str;
       } catch (...) {
-         log::function("{} >> string", className());
+         log::function("{} >> string", CLASS());
          throw;
       }
    }
@@ -164,7 +164,7 @@ std::istream &operator>>(
    try {
       return comp.read(is);
    } catch (...) {
-      log::function("istream >> {}", comp.className());
+      log::function("istream >> {}", comp.CLASS());
       throw;
    }
 }
@@ -178,7 +178,7 @@ std::ostream &operator<<(
    try {
       return comp.print(os,0);
    } catch (...) {
-      log::function("ostream << {}", comp.className());
+      log::function("ostream << {}", comp.CLASS());
       throw;
    }
 }

@@ -21,10 +21,10 @@ public:
       { "", "class DerivedT" },
       { "foo", "Help for foo" }
    };
-   static auto namespaceName() { return "hello"; }
-   static auto className() { return "DerivedT"; }
-   static auto GNDSName() { return "none"; }
-   static auto keys() { return std::tuple<>{}; }
+   static auto NAMESPACE() { return "hello"; }
+   static auto CLASS() { return "DerivedT"; }
+   static auto FIELD() { return "none"; }
+   static auto KEYS() { return std::tuple<>{}; }
    DerivedT() : Component(BlockData{}) { }
 };
 
@@ -38,27 +38,27 @@ public:
       { "", "class DerivedF" },
       { "bar", "Help for bar" }
    };
-   static auto namespaceName() { return "world"; }
-   static auto className() { return "DerivedF"; }
-   static auto GNDSName() { return "none"; }
-   static auto keys() { return std::tuple<>{}; }
+   static auto NAMESPACE() { return "world"; }
+   static auto CLASS() { return "DerivedF"; }
+   static auto FIELD() { return "none"; }
+   static auto KEYS() { return std::tuple<>{}; }
    DerivedF() : Component(BlockData{}) { }
 };
 
 
 // DerivedData
 // A Component-derived class with some data in it.
-// Note that this class doesn't have help or namespaceName(); so we'll also use
+// Note that this class doesn't have help or NAMESPACE(); so we'll also use
 // this class to test that Component's functionality that uses those still works
 // properly, as it should in that case.
 class DerivedData : public Component<DerivedData>
 {
 public:
    friend class Component<DerivedData>;
-   static auto className() { return "DerivedData"; }
-   static auto GNDSName() { return "data"; }
+   static auto CLASS() { return "DerivedData"; }
+   static auto FIELD() { return "data"; }
 
-   static auto keys()
+   static auto KEYS()
    {
       return
          int   {} / Meta<>("foo") |
@@ -145,17 +145,17 @@ SCENARIO("Testing GNDStk Component") {
          CHECK(der.documentation("bar") == "No help information is available");
       }
 
-      // namespaceName()
-      WHEN("We test namespaceName()") {
+      // NAMESPACE()
+      WHEN("We test NAMESPACE()") {
          // For these two we need the std::string() only because the functions
          // were written (above, in the class definitions) with an auto return
-         // of a plain character string. Where Component needs namespaceName(),
+         // of a plain character string. Where Component needs NAMESPACE(),
          // it converts to std::string, so it's fine to write it that way. Here,
          // though, in this test file, it means we need the std::string().
-         CHECK(der1.namespaceName() == std::string("hello"));
-         CHECK(der2.namespaceName() == std::string("world"));
+         CHECK(der1.NAMESPACE() == std::string("hello"));
+         CHECK(der2.NAMESPACE() == std::string("world"));
          DerivedData der;
-         CHECK(der.namespaceName() == "");
+         CHECK(der.NAMESPACE() == "");
       }
 
       // Component << string
@@ -192,7 +192,7 @@ SCENARIO("Testing GNDStk Component") {
             der <<
                "{"
                "   \"data\": {"
-               "      \"#attributes\": {"
+               "      \"#metadata\": {"
                "         \"foo\": \"12\","
                "         \"bar\": \"34.56\""
                "      }"

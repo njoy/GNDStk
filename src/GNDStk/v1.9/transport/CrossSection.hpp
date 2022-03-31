@@ -41,12 +41,12 @@ class CrossSection : public Component<CrossSection> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "transport"; }
-   static auto className() { return "CrossSection"; }
-   static auto GNDSName() { return "crossSection"; }
+   static auto NAMESPACE() { return "transport"; }
+   static auto CLASS() { return "CrossSection"; }
+   static auto FIELD() { return "crossSection"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // children

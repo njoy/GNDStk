@@ -18,9 +18,9 @@ class TestGetter : public Component<TestGetter>
 {
    friend class Component;
 
-   static auto className() { return "TestGetter"; }
-   // static auto GNDSName() - not actually needed here
-   static auto keys()
+   static auto CLASS() { return "TestGetter"; }
+   // static auto FIELD() - not actually needed here
+   static auto KEYS()
    {
       return std::tuple<>{};
    }
@@ -38,7 +38,7 @@ public:
    // ------------------------
 
    // See earlier remark. We don't bother linking these with GNDS fields, via
-   // Component's capabilities and the keys() function, because doing so isn't
+   // Component's capabilities and the KEYS() function, because doing so isn't
    // necessary for the present tests.
 
    // some vectors

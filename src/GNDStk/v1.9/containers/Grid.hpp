@@ -41,12 +41,12 @@ class Grid : public Component<Grid> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "containers"; }
-   static auto className() { return "Grid"; }
-   static auto GNDSName() { return "grid"; }
+   static auto NAMESPACE() { return "containers"; }
+   static auto CLASS() { return "Grid"; }
+   static auto FIELD() { return "grid"; }
 
    // Core Interface multi-query to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata

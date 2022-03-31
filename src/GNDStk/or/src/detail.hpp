@@ -140,7 +140,7 @@ public:
 // tupleAllButLast
 // ------------------------
 
-// These are adapted from: https://stackoverflow.com/questions/51810702
+// Adapted from: https://stackoverflow.com/questions/51810702
 
 template<class... Args, std::size_t... Is>
 constexpr auto tupleAllButLastHelper(

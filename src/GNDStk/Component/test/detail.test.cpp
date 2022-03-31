@@ -77,10 +77,10 @@ class Derived : public Component<Derived> {
 public:
    friend class Component<Derived>;
 
-   static auto className() { return "Derived"; }
-   static auto GNDSName() { return "none"; }
+   static auto CLASS() { return "Derived"; }
+   static auto FIELD() { return "none"; }
 
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
