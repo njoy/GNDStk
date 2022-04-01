@@ -10,36 +10,22 @@ friend DERIVED;
 template<class... ARGS>
 Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
 {
-   // static_assert needs string literal
-   #define pairing_error \
-     "The number and/or types of the fields sent to Component's " \
-     "constructor is inconsistent with the query result implied " \
-     "by the KEYS() function in the derived class"
-
    // I'd have preferred to achieve the following check by using SFINAE
    // in the constructor's signature, but couldn't find a way to do that
    // without again running into the issue of DERIVED being incomplete.
 
+   // Type that a multi-query with DERIVED::KEYS() will produce.
+   using multi_t = detail::decays_t<decltype(Node{}(Keys()))>;
+
    // The parameters that are sent to this constructor must EXACTLY reflect
    // what we'd get from a DERIVED::KEYS() multi-query.
-   if constexpr (!hasFields) {
-      // KEYS() is "empty" (std::tuple<>); that's OK, as long as ARGS is too
-      static_assert(
-         std::is_same_v<std::tuple<ARGS ...>, std::tuple<>>,
-         pairing_error
-      );
-   } else {
-      // KEYS() is *not* empty, so...
-      // The following is the *type* that a multi-query with DERIVED::KEYS()
-      // will produce.
-      using multi_t = detail::decays_t<decltype(Node{}(Keys()))>;
-      static_assert(
-         std::is_same_v<std::tuple<ARGS ...>, multi_t>,
-         pairing_error
-      );
-      // Create links
-      (links.push_back(&args), ...);
-   }
+   static_assert(
+      std::is_same_v<std::tuple<ARGS...>, multi_t>,
+      "The number and/or types of the fields sent to Component's "
+      "constructor is inconsistent with the query result implied "
+      "by the KEYS() function in the derived class"
+   );
 
-   #undef pairing_error
+   // Create links
+   (links.push_back(&args), ...);
 }

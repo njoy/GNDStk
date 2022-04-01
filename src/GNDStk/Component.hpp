@@ -20,8 +20,6 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    using BLOCKDATA = BlockData<hasBlockData,DATATYPE>;
    using typename BLOCKDATA::VariantOfVectors;
    using typename BLOCKDATA::VariantOfScalars;
-   static inline constexpr bool hasFields =
-      !std::is_same_v<decltype(DERIVED::KEYS()),std::tuple<>>;
    static const auto &Keys()
    {
       static const auto value = makeKeyTuple(DERIVED::KEYS());

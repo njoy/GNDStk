@@ -17,29 +17,25 @@ operator Node() const
          BLOCKDATA::toNode(text);
       }
 
-      // Write fields
-      if constexpr (!hasFields) {
-         // consistency check
-         assert(0 == links.size());
-      } else {
-         // consistency check
-         assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
+      // Write fields...
 
-         // apply links:
-         // derived-class data ==> Node
-         // Below, each apply'd "key" is one value from DERIVED::KEYS(), and
-         // is a Meta, Child, or pair<Child,string/regex>. The cast gives the
-         // underlying raw data type - int, say, or std::string - so that we
-         // can correctly use our generic void* link to a derived-class field.
-         std::apply(
-            [this,&node](const auto &... key) {
-               std::size_t n = 0;
-              (node.add(key,*(std::decay_t<decltype(Node{}(key))>*)links[n++]),
-               ...);
-            },
-            Keys().tup
-         );
-      }
+      // consistency check
+      assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
+
+      // apply links:
+      // derived-class data ==> Node
+      // Below, each apply'd "key" is one value from DERIVED::KEYS(), and
+      // is a Meta, Child, or pair<Child,string/regex>. The cast gives the
+      // underlying raw data type - int, say, or std::string - so that we
+      // can correctly use our generic void* link to a derived-class field.
+      std::apply(
+         [this,&node](const auto &... key) {
+            std::size_t n = 0;
+           (node.add(key,*(std::decay_t<decltype(Node{}(key))>*)links[n++]),
+            ...);
+         },
+         Keys().tup
+      );
    } catch (...) {
       log::member("Component.operator Node() const");
       throw;

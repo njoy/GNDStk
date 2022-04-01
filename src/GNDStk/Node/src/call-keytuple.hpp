@@ -11,12 +11,12 @@ private:
 
 // (tuple<>)
 auto operator()(
-   const std::tuple<> &tup,
+   const std::tuple<> &,
    bool &found,
    std::vector<std::string> &
 ) GNDSTK_CONST {
    found = true;
-   return tup;
+   return std::tuple<>{};
 }
 
 
@@ -106,16 +106,19 @@ auto operator()(
       }
       log::error(errorMessage);
 
-      // Construct and print the context
+      // Construct and print the context. (Note: the if-constexpr seems
+      // unnecessary, but a compiler gave a warning about "names" being
+      // unused, in the lambda, in the empty tuple (std::tuple<>) case.)
       std::string names;
-      std::apply(
-         [&names](const Ks &... key) {
-            using detail::keyname;
-            std::size_t n = 0;
-            ((names += keyname(key) + (++n < sizeof...(Ks) ? "," : "")), ...);
-         },
-         keytup.tup
-      );
+      if constexpr (!std::is_same_v<KeyTuple<Ks...>,KeyTuple<>>)
+         std::apply(
+            [&names](const Ks &... key) {
+               using detail::keyname;
+               std::size_t n = 0;
+             ((names += keyname(key) + (++n < sizeof...(Ks) ? "," : "")), ...);
+            },
+            keytup.tup
+         );
       log::member("Node(KeyTuple({})", names);
       throw;
    }

@@ -68,53 +68,48 @@ std::ostream &print(std::ostream &os, const int level) const
          detail::colorize_brace("{") + "\n"
       );
 
-      if constexpr (!hasFields) {
-         // Consistency check
-         assert(0 == links.size());
-      } else {
-         // Consistency check
-         assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
+      // Consistency check
+      assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
 
-         // Compute maximum length of key names, if aligning. Note that we
-         // could - but don't - take into account that keys associated with
-         // optional or Defaulted values *might* not in fact show up in the
-         // final printed text. In such cases, and if values of those types
-         // happen to have longer names, then the printing that does appear
-         // might use more spacing than it really needs to. By choosing not
-         // to factor this in, on a case-by-case basis, all objects of this
-         // particular Component<...> type will print with consistent spacing.
-         // We prefer this behavior, and its code is also slightly simpler.
-         std::size_t maxlen = 0;
-         if (GNDStk::align)
-            std::apply(
-               [&maxlen](const auto &... key) {
-                  ((maxlen=std::max(maxlen,detail::getName(key).size())), ...);
-               },
-               Keys().tup
-            );
-
-         // Apply links:
-         // derived-class data ==> print
+      // Compute maximum length of key names, if aligning. Note that we
+      // could - but don't - take into account that keys associated with
+      // optional or Defaulted values *might* not in fact show up in the
+      // final printed text. In such cases, and if values of those types
+      // happen to have longer names, then the printing that does appear
+      // might use more spacing than it really needs to. By choosing not
+      // to factor this in, on a case-by-case basis, all objects of this
+      // particular Component<...> type will print with consistent spacing.
+      // We prefer this behavior, and its code is also slightly simpler.
+      std::size_t maxlen = 0;
+      if (GNDStk::align)
          std::apply(
-            [this,&os,&level,maxlen](const auto &... key) {
-               std::size_t n = 0;
-               (
-                  (
-                     // indent, value, newline
-                     detail::printComponentPart(
-                        os,
-                        level+1,
-                      *(std::decay_t<decltype(Node{}(key))> *)links[n++],
-                        detail::getName(key),
-                        maxlen
-                     ) && (os << '\n') // no if()s in fold expressions :-/
-                  ),
-                  ...
-               );
+            [&maxlen](const auto &... key) {
+               ((maxlen=std::max(maxlen,detail::getName(key).size())), ...);
             },
             Keys().tup
          );
-      }
+
+      // Apply links:
+      // derived-class data ==> print
+      std::apply(
+         [this,&os,&level,maxlen](const auto &... key) {
+            std::size_t n = 0;
+            (
+               (
+                  // indent, value, newline
+                  detail::printComponentPart(
+                     os,
+                     level+1,
+                   *(std::decay_t<decltype(Node{}(key))> *)links[n++],
+                     detail::getName(key),
+                     maxlen
+                  ) && (os << '\n') // no if()s in fold expressions :-/
+               ),
+               ...
+            );
+         },
+         Keys().tup
+      );
 
       // Custom derived-class print()s, if any.
       // To be recognized here, derived-class print() functions must be public,

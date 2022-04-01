@@ -30,28 +30,23 @@ void fromNode(const Node &node)
          throw std::exception{};
       }
 
-      if constexpr (!hasFields) {
-         // consistency check; then nothing further to do
-         assert(0 == links.size());
-      } else {
-         // retrieve the node's data by doing a multi-query
-         const auto tuple = node(Keys());
+      // retrieve the node's data by doing a multi-query
+      const auto tuple = node(Keys());
 
-         // consistency check
-         assert(std::tuple_size<decltype(tuple)>::value == links.size());
+      // consistency check
+      assert(std::tuple_size<decltype(tuple)>::value == links.size());
 
-         // apply links:
-         // Node ==> derived-class data
-         // Below, each apply'd "result" is one particular element - one
-         // retrieved value - from the above multi-query on the node.
-         std::apply(
-            [this](const auto &... result) {
-               std::size_t n = 0;
-               ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
-            },
-            tuple
-         );
-      }
+      // apply links:
+      // Node ==> derived-class data
+      // Below, each apply'd "result" is one particular element - one
+      // retrieved value - from the above multi-query on the node.
+      std::apply(
+         [this](const auto &... result) {
+            std::size_t n = 0;
+            ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
+         },
+         tuple
+      );
 
       // block data, a.k.a. XML "pcdata" (plain character data), if any
       if constexpr (hasBlockData)

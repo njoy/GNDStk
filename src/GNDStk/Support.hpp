@@ -84,11 +84,6 @@ public:
    // constructors
    // ------------------------
 
-   // fixme
-   // The GNDS manual says that "any integer (0-9)" is allowed. If the 0-9
-   // part is really correct, then I should probably throw an error, or at
-   // least print a warning) if a provided value is outside of that range.
-
    IntegerTuple()
    { }
 

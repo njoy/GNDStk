@@ -60,19 +60,16 @@ public:
    { }
 
    // KeyTuple(tuple)
-   KeyTuple(const std::tuple<Ks...> &tup) :
-      tup(tup)
-   { }
+   KeyTuple(const std::tuple<Ks...> &tup) : tup(tup) { }
 };
 
 // <>
-// intentionally non-constructible
 template<>
 class KeyTuple<>
 {
-   KeyTuple() = delete;
-   KeyTuple(const KeyTuple &) = delete;
-   KeyTuple(KeyTuple &&) = delete;
+public:
+   std::tuple<> tup;
+   KeyTuple(const std::tuple<> &tup) : tup(tup) { }
 };
 
 // for Meta
