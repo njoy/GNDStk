@@ -45,8 +45,9 @@ void writeReadHDF5(
    // strings that look like floating-point numbers may be converted to doubles
    // and back again. That could lead to differences, depending on how floating-
    // point numbers are written. We've *tried* to write our test files in such
-   // a way that these issues won't appear here; if they do arise, somehow,
+   // a way that these issues won't appear here. If they do arise, somehow,
    // then we're sure we'll hear about it. :-)
+
    std::ostringstream oss;
    newTree.sort().top().write(oss,"debug");
    CHECK(oss.str() == correct);
@@ -57,22 +58,17 @@ void writeReadHDF5(
    // believe that that's the safe thing to do, because HDF5 is a binary format.
    // We can't know if the HDF5 files produced on any particular platform will
    // compare favorably with the vetted binary files we've placed into the repo.
-   // So, this is more a "know what you're doing" test that can be put back in,
-   // say by writing #if 1, by people who know how to deal with this situation.
-   // ADDITIONAL REMARK. Even on the same computer, I'm seeing non-comparable
-   // results, between runs, for each of the two HDF5::reduced == true cases.
-   // The offending files are equal in size (for what limited worth that has),
-   // and appear to be the same when I compare the output that the h5dump tool
-   // gives for each. (Also: in terms of recovering original Tree information -
-   // our Test #1 above - the newly created files check out.) todo: Determine
-   // what's going on with the vetted-vs-new-file comparison. Could a timestamp,
-   // or some other non-constant construct, be going into the file? And why does
-   // this happen only when HDF5::reduced == true? That flag simply means that
-   // the HDF5 writer simplifies certain special Tree constructs (relating to
-   // #cdata, #comment, and #pcdata). (In a predictable and reversible manner,
-   // of course, hence Test #1 working.) UPDATE: h5diff says the files match.
-   // Also, google [hdf5 file comparison] to see some relevant discussions.
-#if 0
+   // So, this is more a "know what you're doing" test that can be put back in
+   // if someone knows how to deal with this situation.
+   // Additional remark: Even on the same computer, I'm seeing non-comparable
+   // results, between runs, for each of the two HDF5::reduced == true cases,
+   // at least when the unix "cmp" is used. However, the h5diff tool, which is
+   // specifically designed to report *meaningful* same-ness or different-ness
+   // in HDF5 files, is indeed reporting comparable files where we expect. Try
+   // googling [hdf5 file comparison] to see some relevant discussions. Bottom
+   // line: we believe everything is actually in order here.
+
+#if 0 // <== intentional; see above remark
    std::ifstream ifsWant(vettedFile);
    std::stringstream bufWant;
    bufWant << ifsWant.rdbuf();

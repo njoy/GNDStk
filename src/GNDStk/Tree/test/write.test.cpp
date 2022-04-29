@@ -371,11 +371,15 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       WHEN("We write() the tree using FileType::json") {
          THEN("We get the correct JSON content (case: FileType::json)") {
             std::ostringstream oss;
+            JSON::reduced = false;
+            JSON::typed   = false;
             tree.sort().write(oss, FileType::json);
             CHECK(oss.str() == string_real_json);
          }
          THEN("We get the correct JSON content (case: \"json\")") {
             std::ostringstream oss;
+            JSON::reduced = false;
+            JSON::typed   = false;
             tree.sort().write(oss, "json");
             CHECK(oss.str() == string_real_json);
          }

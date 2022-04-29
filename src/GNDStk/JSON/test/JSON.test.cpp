@@ -96,10 +96,90 @@ R"***({
 
 
 // -----------------------------------------------------------------------------
+// writeReadJSON
+// Helper function
+// -----------------------------------------------------------------------------
+
+void writeReadJSON(
+   const Tree &oldTree,
+   const bool reduced, const bool typed,
+   const std::string &correct,
+   const std::string &baseName
+) {
+   // Set flags
+   JSON::reduced = reduced;
+   JSON::typed   = typed;
+
+   // Compute file names
+   const std::string newFile = baseName + ".json";
+   const std::string vettedFile = "correct-" + newFile;
+
+   // Write the Tree to a JSON file
+   oldTree.write(newFile);
+
+   // zzz Need to finish this; need full *read* capabilities first,
+   // zzz respecting the new "reduced" and "typed" flags.
+#if 0
+   // Read from the JSON file into a brand-new Tree
+   Tree newTree(newFile);
+
+   // Test #1. Ensure that the newly-read Tree prints (in our debug format)
+   // in exactly the same way as the original Tree did.
+   std::ostringstream oss;
+   newTree.sort().top().write(oss,"debug");
+   CHECK(oss.str() == correct);
+
+   // Test #2. Ensure that file newFile (written above, from the original Tree)
+   // is identical to the vetted JSON file vettedFile.
+#if 0 // <== intentional; see above remark
+   std::ifstream ifsWant(vettedFile);
+   std::stringstream bufWant;
+   bufWant << ifsWant.rdbuf();
+   std::cout << "bufWant.str().size() == " << bufWant.str().size() << std::endl;
+
+   std::ifstream ifsHave(newFile);
+   std::stringstream bufHave;
+   bufHave << ifsHave.rdbuf();
+   std::cout << "bufHave.str().size() == " << bufHave.str().size() << std::endl;
+
+   CHECK(bufWant.str() == bufHave.str());
+#endif
+
+#endif
+}
+
+
+// -----------------------------------------------------------------------------
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk JSON") {
+SCENARIO("Testing GNDStk JSON, Part I") {
+   WHEN("We create a Tree from an XML with various constructs in it") {
+      // Read Tree
+      Tree tree("various.xml");
+
+      // Write to a string, in our simple debug format
+      std::ostringstream oss;
+      tree.sort().top().write(oss,"debug");
+      const std::string correct = oss.str();
+
+      // Write/read to/from JSON, for each combination of the available flags
+      // for doing so: JSON::reduced = false/true (x) JSON::typed = false/true
+      writeReadJSON(tree, false, false, correct, "raw-string");
+      writeReadJSON(tree, false, true,  correct, "raw-typed");
+      writeReadJSON(tree, true,  false, correct, "reduced-string");
+      writeReadJSON(tree, true,  true,  correct, "reduced-typed");
+   }
+}
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+SCENARIO("Testing GNDStk JSON, Part II") {
+   JSON::reduced = false;
+   JSON::typed   = false;
 
    // read a JSON
    JSON j("n-069_Tm_170-covar.json");

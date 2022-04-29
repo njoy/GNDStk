@@ -9,9 +9,10 @@
 class HDF5 {
 public:
 
-   // todo: It's possible that we'll want these to be non-static, so that they
-   // can differ between HDF5 objects. That might, however, constitute excessive
-   // generality. Think about this.
+   // flags
+   // These affect precisely how Nodes are written into HDF5 files. Note that
+   // when *reading*, we recognize and accept whichever variation we may have
+   // used when we wrote the HDF5 file to begin with.
    static inline bool reduced = true;
    static inline bool typed = true;
 

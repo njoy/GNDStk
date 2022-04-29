@@ -629,10 +629,10 @@ void getClassVariants(
          continue;
 
       // Variant name
-      const std::string variant = elemRHS.contains("variant")
+      const std::string variantName = elemRHS.contains("variant")
          ? elemRHS["variant"]
          : "";
-      auto it = map.find(variant);
+      auto it = map.find(variantName);
       assert(it != map.end()); // should be there from the earlier loop
 
       // For the individual child that's part of a choice...

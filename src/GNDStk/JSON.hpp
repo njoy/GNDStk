@@ -6,6 +6,15 @@
 
 class JSON {
 public:
+
+   // flags
+   // These affect precisely how Nodes are written into JSON files. Note that
+   // when *reading*, we recognize and accept whichever variation we may have
+   // used when we wrote the JSON file to begin with.
+   static inline bool reduced = true;
+   static inline bool typed = true;
+
+   // data
    nlohmann::ordered_json doc;
 
    // clear
