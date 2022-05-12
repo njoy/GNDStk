@@ -103,15 +103,13 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // ------------------------
 
       // We'll store these in a special manner as children of the current node,
-      // reflecting how they arrived through pugi xml. Our manner of storing
+      // reflecting how they arrived through pugixml. Our manner of storing
       // them will allow us to maintain their original ordering if, say, someone
       // reads an XML, makes modest modifications or additions to data here and
       // there, and then writes an XML back out. GNDS has no ordering, so doing
       // this isn't necessary. It is, however, easy to handle, and users may
       // appreciate that GNDStk doesn't toss comments, or mess with the ordering
       // of cdata, pcdata, or comment nodes, either individually or together.
-      // Of note, all bets are off if someone converts to JSON and back, because
-      // the nlohmann JSON library reorders everything lexicographically.
 
       if (xsub.type() == pugi::node_cdata) {
          node.add("#cdata").add("#text", xsub.value());

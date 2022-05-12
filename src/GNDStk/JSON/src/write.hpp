@@ -11,18 +11,18 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
    (void)decl; // unused, at least for now
 
-   // call nlohmann::ordered_json's write capability
+   // call orderedJSON's write capability
    try {
       // intentional: no << std::endl
       os << std::setw(indent) << doc;
 
       // check for errors
       if (!os) {
-         log::error("ostream << nlohmann::ordered_json returned with !ostream");
+         log::error("ostream << orderedJSON returned with !ostream");
          log::member("JSON.write(ostream)");
       }
    } catch (...) {
-      log::error("ostream << nlohmann::ordered_json threw an exception");
+      log::error("ostream << orderedJSON threw an exception");
       log::member("JSON.write(ostream)");
       os.setstate(std::ios::failbit);
    }

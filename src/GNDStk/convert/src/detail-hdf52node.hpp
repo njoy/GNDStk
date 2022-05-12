@@ -96,7 +96,7 @@ template<class T, class NODE>
 bool dset2node(const HighFive::DataSet &dset, NODE &node)
 {
    if (dset.getDataType() == HighFive::AtomicType<T>{}) {
-      // Remarks as in the similar helper function attr2node()...
+      // Remarks as in the similar helper function attr2node()
       const std::size_t dataSize = dset.getElementCount();
 
       if (dataSize == 1) {
@@ -174,7 +174,7 @@ bool hdf52node(
    static const std::string context =
       "hdf52node(HighFive::Group, std::string, Node)";
 
-   // the node sent here should be fresh, ready to receive entries...
+   // the node sent here should be fresh, ready to receive entries
    if (requireEmpty && !node.empty())
       error_hdf52node("!node.empty()");
 
@@ -191,9 +191,11 @@ bool hdf52node(
    // ------------------------
 
    // Only if we're *not* at the root HDF5 group; if we are, then attributes
-   // would have already been handled, in a special way, by the caller...
+   // would have already been handled, in a special way, by the caller
    if (groupName != rootHDF5Name) {
       for (const std::string &attrName : group.listAttributeNames()) {
+
+         // zzz
          if (attrName == "#nodename") {
             // #nodename
             // Handled not as a regular attribute, but as the present node's

@@ -7,7 +7,7 @@
 inline void error_json2node(const std::string &message)
 {
    log::error(
-     "Internal error in json2node(nlohmann::ordered_json, Node):\n"
+     "Internal error in json2node(orderedJSON, Node):\n"
      "Message: \"{}\".",
       message
    );
@@ -19,9 +19,9 @@ inline void error_json2node(const std::string &message)
 // json2node
 // -----------------------------------------------------------------------------
 
-// nlohmann::ordered_json::const_iterator ==> Node
+// orderedJSON::const_iterator ==> Node
 // Why the iterator rather than the ordered_json object? I found that there
-// were some seemingly funny semantics in the nlohmann JSON library. As we
+// were some seemingly funny semantics in the nlohmann/json library. As we
 // can see below, we have for example iter->is_object() (so, the -> operator,
 // typical for iterators), but also iter.value() (the . operator - on an
 // iterator). Similarly, also seen below, with the sub-elements. This is why
@@ -31,39 +31,108 @@ inline void error_json2node(const std::string &message)
 // this is what we have for now.
 
 template<class NODE>
-bool json2node(const nlohmann::ordered_json::const_iterator &iter, NODE &node)
+bool json2node(const orderedJSON::const_iterator &iter, NODE &node)
 {
    static const std::string context =
-      "json2node(nlohmann::ordered_json::const_iterator, Node)";
+      "json2node(orderedJSON::const_iterator, Node)";
 
-   // the node sent here should be fresh, ready to receive entries...
+   // the node sent here should be fresh, ready to receive entries
    if (!node.empty())
       error_json2node("!node.empty()");
 
-   // non-object cases should have been handled
-   // before any caller calls this function...
+   // non-object cases should have been handled in the caller
    if (!iter->is_object())
       error_json2node("!iter->is_object()");
 
    // any "#metadata" key (a specially-named "child node" that we use in JSON
-   // in order to identify attributes) should have been handled in the caller...
+   // in order to identify attributes) should have been handled in the caller
    if (iter.key() == "#metadata")
       error_json2node("iter.key() == \"#metadata\"");
 
-   // key,value ==> node name, JSON value to bring in
-   node.name = iter.key();
-   const nlohmann::ordered_json &json = iter.value();
+   // ------------------------
+   // key
+   // ==> node name
+   // ------------------------
 
-   // elements
+   node.name = iter.key();
+
+   // ------------------------
+   // JSON value's elements
+   // ==> children
+   // ------------------------
+
+   const orderedJSON &json = iter.value();
    for (auto elem = json.begin();  elem != json.end();  ++elem) {
       if (elem.key() == "#nodename") {
          // #nodename? ...extract as current node's true name
          node.name = elem->get<std::string>();
       } else if (elem.key() == "#metadata") {
          // #metadata? ...extract as current node's metadata
-         const auto &jsub = elem.value();
-         for (auto attr = jsub.begin();  attr != jsub.end();  ++attr)
-            node.add(attr.key(), attr->get<std::string>());
+         const orderedJSON /*auto*/ &jsub = elem.value();
+         for (auto attr = jsub.begin();  attr != jsub.end();  ++attr) {
+            // zzz working here
+            // zzz should no longer assume it's necessarily a string
+            /*
+            (x) string
+            ( ) number
+            (-) null
+            (-) object
+            ( ) array
+            (-) boolean
+            */
+            if (attr->is_string()) {
+               node.add(attr.key(), attr->get<std::string>());
+
+               // zzz this is a test...
+               {
+                  /*
+                  // zzz works...
+                  using nlohmann::detail::json_sax_dom_parser;
+                  ///orderedJSON val = const_cast<orderedJSON>(attr.value());
+                  orderedJSON rhs = attr.value();
+                  json_sax_dom_parser<orderedJSON> parser(rhs);
+                  */
+
+                  orderedJSON rhs = attr.value();
+                  nlohmann::detail::json_sax_dom_parser<orderedJSON> sax(rhs);
+#if 0
+                  std::string str;
+                  zzz.string(str);
+                  std::cout << "zzz string is: \"" << str << '"' << std::endl;
+#endif
+               }
+
+            } else if (attr->is_number()) {
+#if 0
+#if 0
+#if 0
+               // zzz should handle this
+               /////const orderedJSON &zzz = attr.value();/////
+               ///const nlohmann::ordered_json &zzz = attr.value();/////
+               ///const nlohmann::json_sax<nlohmann::json> zzz = attr.value();
+               /**/
+               /**/
+               /**/
+               orderedJSON &val = const_cast<orderedJSON &>(attr.value());
+               using nlohmann::detail::json_sax_dom_parser;
+               json_sax_dom_parser<orderedJSON> zzz(val);
+               std::string str;
+               zzz.string(str);
+               /**/
+               /**/
+               /**/
+#endif
+#endif
+#endif
+               assert(false);
+            } else if (attr->is_array()) {
+               // zzz should handle this
+               assert(false);
+            } else {
+               // zzz have better message
+               assert(false);
+            }
+         }
       } else if (elem->is_string()) {
          // string? ...extract as metadata key/value pair
          node.add(elem.key(), elem->get<std::string>());

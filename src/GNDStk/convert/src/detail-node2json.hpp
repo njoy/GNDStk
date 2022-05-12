@@ -3,15 +3,11 @@
 // Helpers
 // -----------------------------------------------------------------------------
 
-// ------------------------
 // scalar2Value
-// vector2Value
-// ------------------------
-
 template<class T>
 void scalar2Value(
    const std::string &key, const std::string &value,
-   nlohmann::ordered_json &json
+   orderedJSON &json
 ) {
    // Parameter "value" is a string, for example "1", "2.34", or "foo"; then,
    // the caller will have guessed T == int, T == double, or T == std::string.
@@ -21,74 +17,66 @@ void scalar2Value(
    // would be inefficient, and would break our handling of significant digits.
 
    if constexpr (std::is_same_v<T,std::string>) {
-      // write JSON string
+      // Write JSON string.
       json[key] = value;
    } else {
-      // write JSON number (so unquoted, unlike in the string case above),
+      // Write JSON number (so unquoted, unlike in the string case above),
       // but write the "number" exactly as it appears in parameter value,
-      // which we've already decided contains a number: "1", "2.34", etc.
-      // qqq But retain string exactly as-is!!!
+      // which the caller guessed contains a number: "1", "2.34", etc.
+      //
+      // fixme Unfortunately, the nlohmann/json library does not, at the
+      // present time, allow us to write our string as a number - without
+      // quotes. It'll format the number as it wants to. Given that GNDStk
+      // allows fine control over the formatting of floating-point numbers,
+      // we'll need to deal with this at some point, to have the formatting
+      // respected in JSON output.
       T scalar;
       convert(value,scalar);
       json[key] = scalar;
    }
 }
 
+// vector2Value
 template<class T>
 void vector2Value(
    const std::string &key, const std::string &value,
-   nlohmann::ordered_json &json
+   orderedJSON &json
 ) {
    // Like the scalar case, but value is for example be "1 2", "3.4 5.6 7.8",
    // or "foo bar baz" - a vector of T == int, T = double, or T == std::string.
    if constexpr (std::is_same_v<T,std::string>) {
-      // write JSON array of strings
+      // Write JSON array of strings.
       std::vector<T> vector;
       convert(value,vector); // single string ==> vector<string>
       json[key] = vector;
    } else {
-      // write JSON array of numbers
-      // qqq But retain original strings!!!
+      // Write JSON array of numbers.
+      // fixme Basically the same fixme as above.
       std::vector<T> vector;
       convert(value,vector);
       json[key] = vector;
    }
 }
 
-
-// ------------------------
-// pcdata2Array
-// ------------------------
-
-// <T> helper
-template<class T>
-void pcdata2Array(
+// pcdata2Value
+inline void pcdata2Value(
    const std::string &key, const std::string &value,
-   nlohmann::ordered_json &json
-) {
-   // qqq Write comment here regarding HDF5 analog
-   vector2Value<T>(key, value, json);
-}
-
-// w/ type string
-inline void pcdata2Array(
-   const std::string &key, const std::string &value,
-   nlohmann::ordered_json &json
+   orderedJSON &json
 ) {
    if (JSON::typed) {
       const std::string type = guessType(value);
       if (type == "int"    || type == "ints"   )
-         { pcdata2Array<int          >(key,value,json); return; }
+         { vector2Value<int          >(key,value,json); return; }
       if (type == "uint"   || type == "uints"  )
-         { pcdata2Array<unsigned     >(key,value,json); return; }
+         { vector2Value<unsigned     >(key,value,json); return; }
       if (type == "long"   || type == "longs"  )
-         { pcdata2Array<long         >(key,value,json); return; }
+         { vector2Value<long         >(key,value,json); return; }
       if (type == "ulong"  || type == "ulongs" )
-         { pcdata2Array<unsigned long>(key,value,json); return; }
+         { vector2Value<unsigned long>(key,value,json); return; }
       if (type == "double" || type == "doubles")
-         { pcdata2Array<double       >(key,value,json); return; }
+         { vector2Value<double       >(key,value,json); return; }
    }
-   pcdata2Array<std::string>(key,value,json);
+   vector2Value<std::string>(key,value,json);
 }
 
 
@@ -104,7 +92,7 @@ inline void pcdata2Array(
 // metadatum's string value actually contains (a single int, say, or
 // a vector of doubles). Use the inferred types in the JSON file.
 template<class NODE>
-void meta2json_typed(const NODE &node, nlohmann::ordered_json &json)
+void meta2json_typed(const NODE &node, orderedJSON &json)
 {
    // Current node is the parent of its metadata
    const std::string &parent = node.name;
@@ -195,7 +183,7 @@ void meta2json_typed(const NODE &node, nlohmann::ordered_json &json)
 // of "cdata" and "pcdata" nodes) end up being strings. Not even vectors
 // of strings, as from <values>H He Li ...</values>, but single strings.
 template<class NODE>
-void meta2json_plain(const NODE &node, nlohmann::ordered_json &json)
+void meta2json_plain(const NODE &node, orderedJSON &json)
 {
    for (auto &meta : node.metadata)
       json[meta.first] = meta.second;
@@ -208,7 +196,7 @@ void meta2json_plain(const NODE &node, nlohmann::ordered_json &json)
 
 template<class NODE>
 void meta2json(
-   const NODE &node, nlohmann::ordered_json &json, const std::string &suffix,
+   const NODE &node, orderedJSON &json, const std::string &suffix,
    const std::string &base = ""
 ) {
    // Create #nodename iff necessary (allows recovery of original node name)
@@ -234,7 +222,7 @@ void meta2json(
 // Simplify certain #cdata and #comment cases.
 template<class NODE>
 bool json_reduce_cdata_comment(
-   const NODE &node, nlohmann::ordered_json &json, const std::string &suffix
+   const NODE &node, orderedJSON &json, const std::string &suffix
 ) {
    // Original node name, and suffixed name. The latter is for handling child
    // nodes of the same name under the same parent node, and includes a numeric
@@ -276,7 +264,7 @@ bool json_reduce_cdata_comment(
 // Simplify #pcdata case.
 template<class NODE>
 bool json_reduce_pcdata(
-   const NODE &node, nlohmann::ordered_json &json, const std::string &suffix
+   const NODE &node, orderedJSON &json, const std::string &suffix
 ) {
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
@@ -312,7 +300,7 @@ bool json_reduce_pcdata(
       // when #pcdata has sibling nodes.
 
       // JSON array
-      pcdata2Array(nameSuffixed, node.metadata[0].second, json);
+      pcdata2Value(nameSuffixed, node.metadata[0].second, json);
       return true;
    }
 
@@ -327,7 +315,7 @@ bool json_reduce_pcdata(
 // Simplify case of node with #pcdata AND metadata
 template<class NODE>
 bool json_reduce_pcdata_metadata(
-   const NODE &node, nlohmann::ordered_json &json, const std::string &suffix
+   const NODE &node, orderedJSON &json, const std::string &suffix
 ) {
    const std::string nameSuffixed = node.name + suffix;
 
@@ -354,7 +342,7 @@ bool json_reduce_pcdata_metadata(
    ) {
       // JSON array
       const std::string text = node.children[0]->metadata[0].second;
-      pcdata2Array(nameSuffixed, text, json);
+      pcdata2Value(nameSuffixed, text, json);
 
       // metadata
       meta2json(node, json, suffix, nameSuffixed);
@@ -373,7 +361,7 @@ bool json_reduce_pcdata_metadata(
 // it's an incomplete type at this point.
 template<class NODE>
 bool node2json(
-   const NODE &node, nlohmann::ordered_json &j,
+   const NODE &node, orderedJSON &j,
    const std::string &suffix = ""
 ) {
    const std::string nameSuffixed = node.name + suffix;
@@ -394,7 +382,7 @@ bool node2json(
    // ------------------------
 
    // Create a new ordered_json, in parameter j, for metadata and children
-   nlohmann::ordered_json &json = j[nameSuffixed];
+   orderedJSON &json = j[nameSuffixed];
 
    // metadata
    meta2json(node, json, suffix);

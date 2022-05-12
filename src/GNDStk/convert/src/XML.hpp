@@ -120,7 +120,7 @@ inline bool convert(const XML &from, XML &to)
 
    // Unfortunately, we can't use pugi::xml_document's assignment, or for
    // that matter its copy constructor, because, for whatever reason, the
-   // pugi library makes those private.
+   // pugixml library makes those private.
 
    // For now, I'll write something simple that works, although not very
    // efficiently: write "from" to a stringstream, then read "to" out of

@@ -118,7 +118,7 @@ inline bool convert(const JSON &from, JSON &to)
 
    // convert
    try {
-      to.doc = from.doc; // nlohmann::ordered_json's assignment
+      to.doc = from.doc; // orderedJSON's assignment
    } catch (...) {
       log::function("convert(JSON,JSON)");
       throw;
