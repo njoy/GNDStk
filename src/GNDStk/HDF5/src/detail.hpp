@@ -36,9 +36,9 @@ inline std::string guessType(std::istringstream &iss, const std::string &type)
 inline std::string guessType(const std::string &str)
 {
    // the above helper assumes there are no trailing spaces
-   std::size_t e = str.size();
-   while (e && isspace(str[e-1])) e--;
-   std::istringstream iss(str.substr(0,e));
+   std::size_t end = str.size();
+   while (end && isspace(str[end-1])) end--;
+   std::istringstream iss(str.substr(0,end));
 
    // one int, or more than one int, or one unsigned, or ...
    std::string s;

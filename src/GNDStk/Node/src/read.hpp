@@ -96,12 +96,9 @@ std::istream &read(
    std::string used;
    static const std::string request = ", because it was requested";
 
-   // Retrieve the stream's first character ("file magic number")
-   int magicNumber;
-   do {
-      magicNumber = is.get();
-   } while (isspace(magicNumber));
-   is.unget();
+   // Examine the stream's first character ("file magic number")
+   is >> std::ws;
+   const int magicNumber = is.peek();
 
    // Perform some checks
    if (magicNumber == EOF) {
