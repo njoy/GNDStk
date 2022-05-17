@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // JSON
-// Wraps nlohmann::ordered_json
+// Wraps orderedJSON
 // -----------------------------------------------------------------------------
 
 class JSON {
@@ -15,7 +15,7 @@ public:
    static inline bool typed = true;
 
    // data
-   nlohmann::ordered_json doc;
+   orderedJSON doc;
 
    // clear
    JSON &clear()

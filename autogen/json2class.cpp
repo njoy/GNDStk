@@ -6,7 +6,6 @@
 #include "GNDStk.hpp"
 #include <cstring>
 using namespace njoy::GNDStk;
-using orderedJSON = nlohmann::ordered_json;
 
 // Report cases of nodes that have no metadata, and zero or one child node(s).
 // Where these exist, a simplification of the spec may be worth considering.
@@ -1641,7 +1640,7 @@ void commandLine(
       action("\nFinding possible simplifications...");
       for (const std::string &file : specs.JSONFiles)
          printSingletons(file);
-      action("Done looking for simplifications.");
+      action("Done.");
    }
 
    // Changes?
@@ -1750,7 +1749,7 @@ void preprocessFiles(InfoSpecs &specs)
       for (const auto &cl : jmain.items())
          preprocessClass(specs, nsname, cl);
    }
-   action("Done preprocessing.");
+   action("Done.");
 } // preprocessFiles
 
 
@@ -1857,7 +1856,7 @@ void getFiles(InfoSpecs &specs)
       for (const auto &cl : jmain.items())
          getClass(specs, nsname, cl);
    }
-   action("Done creating classes.");
+   action("Done.");
 } // getFiles
 
 

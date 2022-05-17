@@ -3,6 +3,8 @@
 // Miscellaneous variables, enums, etc.
 // -----------------------------------------------------------------------------
 
+using orderedJSON = nlohmann::ordered_json;
+
 // indent
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
