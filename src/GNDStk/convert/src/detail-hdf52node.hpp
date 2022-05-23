@@ -6,9 +6,8 @@ inline const std::string rootHDF5Name = "/";
 inline void error_hdf52node(const std::string &message)
 {
    log::error(
-     "Internal error in hdf52node(HighFive::Group, std::string, Node):\n"
-     "Message: \"{}\".",
-      message
+     "Internal error in hdf52node():\n"
+     "Message: \"{}\".", message
    );
    throw std::exception{};
 }
@@ -171,9 +170,6 @@ bool hdf52node(
    const HighFive::Group &group, const std::string &groupName,
    NODE &node, const bool requireEmpty = true
 ) {
-   static const std::string context =
-      "hdf52node(HighFive::Group, std::string, Node)";
-
    // the node sent here should be fresh, ready to receive entries
    if (requireEmpty && !node.empty())
       error_hdf52node("!node.empty()");
@@ -190,12 +186,10 @@ bool hdf52node(
    // ==> metadata
    // ------------------------
 
-   // Only if we're *not* at the root HDF5 group; if we are, then attributes
-   // would have already been handled, in a special way, by the caller
+   // Only if we're *not* at the root HDF5 group. If we are, then attributes
+   // would have already been handled, in a special way, by the caller.
    if (groupName != rootHDF5Name) {
       for (const std::string &attrName : group.listAttributeNames()) {
-
-         // zzz
          if (attrName == "#nodename") {
             // #nodename
             // Handled not as a regular attribute, but as the present node's
@@ -248,7 +242,7 @@ bool hdf52node(
                if (!hdf52node(group.getGroup(elemName), elemName, node.add()))
                   return false;
             } catch (...) {
-               log::function(context);
+               log::function("hdf52node()");
                throw;
             }
             break;
@@ -274,7 +268,7 @@ bool hdf52node(
                if (!dset2node(group,elemName,node))
                   return false;
             } catch (...) {
-               log::function(context);
+               log::function("hdf52node()");
                throw;
             }
             break;

@@ -3,36 +3,46 @@
 // Helpers
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// scalar2Value
+// vector2Value
+// ------------------------
+
 // scalar2Value
 template<class T>
 void scalar2Value(
    const std::string &key, const std::string &value,
    orderedJSON &json
 ) {
-   // Parameter "value" is a string, for example "1", "2.34", or "foo"; then,
-   // the caller will have guessed T == int, T == double, or T == std::string.
-   // We wish to write value AS-IS into the value of a JSON key/value pair, but
-   // with quotes only when T == std::string. That way, for other T, we don't
-   // convert value to a T, and then back to a string for the JSON file. That
-   // would be inefficient, and would break our handling of significant digits.
+   // Parameter "value" is a string - for example "1", "2.34", or "foo". The
+   // caller will have guessed T == int, T == double, or T == std::string in
+   // those cases. In the present function, we wish to write std::string value
+   // AS-IS into the value part of a JSON key/value pair. However, when T is
+   // a number, like int or double, we wish to write it as a JSON number - so,
+   // without quotes. In constrast, only when T == std::string will we write
+   // it as a JSON string. Note that even when it's really a number, the value
+   // parameter arrives here as a std::string, because our (very customizable)
+   // handling of formatting and significant digits requires this. Here, right
+   // now, we can assume that a "number" inside std::string reflects the exact
+   // way that we want the number to be printed.
 
    if constexpr (std::is_same_v<T,std::string>) {
       // Write JSON string.
       json[key] = value;
    } else {
       // Write JSON number (so unquoted, unlike in the string case above),
-      // but write the "number" exactly as it appears in parameter value,
+      // but write the "number" exactly as it appears in parameter "value",
       // which the caller guessed contains a number: "1", "2.34", etc.
       //
       // fixme Unfortunately, the nlohmann/json library does not, at the
       // present time, allow us to write our string as a number - without
       // quotes. It'll format the number as it wants to. Given that GNDStk
       // allows fine control over the formatting of floating-point numbers,
-      // we'll need to deal with this at some point, to have the formatting
-      // respected in JSON output.
+      // we'll need to deal with this at some point, to have our formatting
+      // be respected in JSON output.
       T scalar;
       convert(value,scalar);
-      json[key] = scalar;
+      json[key] = scalar; // For now. Later, write the value literally
    }
 }
 
@@ -42,7 +52,7 @@ void vector2Value(
    const std::string &key, const std::string &value,
    orderedJSON &json
 ) {
-   // Like the scalar case, but value is for example be "1 2", "3.4 5.6 7.8",
+   // Like the scalar case, but value is, for example, "1 2", "3.4 5.6 7.8",
    // or "foo bar baz" - a vector of T == int, T = double, or T == std::string.
    if constexpr (std::is_same_v<T,std::string>) {
       // Write JSON array of strings.
@@ -51,20 +61,26 @@ void vector2Value(
       json[key] = vector;
    } else {
       // Write JSON array of numbers.
-      // fixme Basically the same fixme as above.
-      std::vector<T> vector;
+      // fixme Basically, the same fixme as above. For now, the "else" code
+      // here is the same as the "if" code, but that'll change.
+      std::vector<T> vector; // For now. Later, std::vector<std::string>...
       convert(value,vector);
-      json[key] = vector;
+      json[key] = vector; // For now. Later, write each string literally
    }
 }
 
+
+// ------------------------
 // pcdata2Value
+// ------------------------
+
 inline void pcdata2Value(
    const std::string &key, const std::string &value,
    orderedJSON &json
 ) {
    if (JSON::typed) {
       const std::string type = guessType(value);
+
       if (type == "int"    || type == "ints"   )
          { vector2Value<int          >(key,value,json); return; }
       if (type == "uint"   || type == "uints"  )
@@ -124,7 +140,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
       // three elements. What may look like scalars are made into vectors
       // because we think this reflects what these (#pcdata) nodes are intended
       // to represent. (If something was really just a scalar, then surely it
-      // would be placed into standard metadata (in <...>), not #pcdata.
+      // would be placed into standard metadata (in <...>), not into #pcdata.
       if (parent == "#pcdata" && key == "#text") {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
@@ -333,6 +349,23 @@ bool json_reduce_pcdata_metadata(
    //    |       #text   |     |    key/value pairs   |
    //    |       -       |     | }                    |
    //    +---------------+     +----------------------+
+   // Remark. We're not super psyched about the "name#metadata" construction.
+   // It effectively splits the original node into two siblings in the JSON
+   // file; and, it differs from the present scenario's HDF5 handling, which
+   // places those metadata into HDF5 "attributes" within an HDF5 "data set".
+   // Here, the analog would be to place the metadata into the [...] part.
+   // That's doable, because JSON arrays are polymorphic, but we believe it
+   // would clutter the [...] with elements that would need to be interpreted,
+   // by whatever tool someone might use to process the JSON file, separately
+   // from how the rest of the [...] is interpreted. With HDF5 that probably
+   // isn't an issue, because a data set's *attributes*, while residing in the
+   // data set, would presumably be seen by HDF5 tools as logically distinct
+   // from its *data* proper. With JSON, we don't see how that would happen.
+   // Hence, our choice above. An important thing is that the above system
+   // is reversible - a file, thus written, can be read back in, recovering
+   // our original internal data structure unambiguously. Also, the two JSON
+   // constructs, "name" and "name#metadata", will appear next to each other,
+   // allowing someone who looks at the file to see what's going on.
 
    if (node.children.size() == 1 &&
        node.children[0]->name == "#pcdata" &&
@@ -358,12 +391,10 @@ bool json_reduce_pcdata_metadata(
 // -----------------------------------------------------------------------------
 
 // NODE is just GNDStk::Node. The latter isn't used directly, because
-// it's an incomplete type at this point.
+// it's an "incomplete type", to the compiler, at this point.
 template<class NODE>
-bool node2json(
-   const NODE &node, orderedJSON &j,
-   const std::string &suffix = ""
-) {
+bool node2json(const NODE &node, orderedJSON &j, const std::string &suffix = "")
+{
    const std::string nameSuffixed = node.name + suffix;
 
    // ------------------------
@@ -381,7 +412,7 @@ bool node2json(
    // General case
    // ------------------------
 
-   // Create a new ordered_json, in parameter j, for metadata and children
+   // Create a new orderedJSON, in parameter j, for metadata and children
    orderedJSON &json = j[nameSuffixed];
 
    // metadata

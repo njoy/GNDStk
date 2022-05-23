@@ -7,7 +7,7 @@
 inline void error_xml2node(const std::string &type)
 {
    log::error(
-     "Internal error in xml2node(pugi::xml_node, Node):\n"
+     "Internal error in xml2node():\n"
      "Type pugi::{} found, but not handled, as sub-element.",
       type
    );
@@ -43,13 +43,10 @@ namespace pugi
 template<class NODE>
 bool xml2node(const pugi::xml_node &xnode, NODE &node)
 {
-   static const std::string context =
-      "xml2node(pugi::xml_node, Node)";
-
    // check destination node
    if (!node.empty()) {
       log::error(
-         "Internal error in xml2node(pugi::xml_node, Node):\n"
+         "Internal error in xml2node():\n"
          "Destination Node is supposed to arrive here empty, but didn't."
       );
       throw std::exception{};
@@ -92,7 +89,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
             if (!xml2node(xsub,node.add()))
                return false;
          } catch (...) {
-            log::function(context);
+            log::function("xml2node()");
             throw;
          }
          continue;
@@ -131,7 +128,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // ------------------------
 
       log::error(
-         "Internal error in xml2node(pugi::xml_node, Node):\n"
+         "Internal error in xml2node():\n"
          "Encountered a pugi:: node type that we don't know about."
       );
       throw std::exception{};
