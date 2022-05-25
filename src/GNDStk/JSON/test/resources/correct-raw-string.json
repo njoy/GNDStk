@@ -104,6 +104,39 @@
             }
          }
       },
+      "values0": {
+         "#nodename": "values",
+         "#metadata": {
+            "x": "123"
+         },
+         "#pcdata": {
+            "#metadata": {
+               "#text": "1 2 3"
+            }
+         }
+      },
+      "values1": {
+         "#nodename": "values",
+         "#metadata": {
+            "y": "4.5"
+         },
+         "#pcdata": {
+            "#metadata": {
+               "#text": "4.0 5.0"
+            }
+         }
+      },
+      "values2": {
+         "#nodename": "values",
+         "#metadata": {
+            "z": "abc"
+         },
+         "#pcdata": {
+            "#metadata": {
+               "#text": "a b c"
+            }
+         }
+      },
       "various": {
          "#cdata0": {
             "#nodename": "#cdata",

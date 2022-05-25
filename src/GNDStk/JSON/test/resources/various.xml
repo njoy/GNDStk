@@ -36,6 +36,10 @@
     <![CDATA[Block #1 of CDATA]]>
   </twocdata>
 
+  <values x="123">1 2 3</values>
+  <values y="4.5">4.0 5.0</values>
+  <values z="abc">a b c</values>
+
   <various>
     <!--First comment-->1 2 3 4<![CDATA[Some CDATA]]>
     <!--Second comment-->9.87 6.54 3.21<!--Third comment-->

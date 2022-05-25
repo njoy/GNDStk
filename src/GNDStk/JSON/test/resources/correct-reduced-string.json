@@ -53,6 +53,32 @@
          "#cdata0": "Block #0 of CDATA",
          "#cdata1": "Block #1 of CDATA"
       },
+      "values0": [
+         "1",
+         "2",
+         "3"
+      ],
+      "values0#nodename": "values",
+      "values0#metadata": {
+         "x": "123"
+      },
+      "values1": [
+         "4.0",
+         "5.0"
+      ],
+      "values1#nodename": "values",
+      "values1#metadata": {
+         "y": "4.5"
+      },
+      "values2": [
+         "a",
+         "b",
+         "c"
+      ],
+      "values2#nodename": "values",
+      "values2#metadata": {
+         "z": "abc"
+      },
       "various": {
          "#cdata0": "More CDATA",
          "#cdata1": "Some CDATA",
