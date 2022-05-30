@@ -8,11 +8,11 @@ using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
-// writeReadHDF5
+// writeAndReadHDF5
 // Helper function
 // -----------------------------------------------------------------------------
 
-void writeReadHDF5(
+void writeAndReadHDF5(
    const Tree &oldTree,
    const bool reduced, const bool typed,
    const std::string &correct,
@@ -100,10 +100,10 @@ SCENARIO("Testing GNDStk HDF5, Part I") {
 
       // Write/read to/from HDF5, for each combination of the available flags
       // for doing so: HDF5::reduced = false/true (x) HDF5::typed = false/true
-      writeReadHDF5(tree, false, false, correct, "raw-string");
-      writeReadHDF5(tree, false, true,  correct, "raw-typed");
-      writeReadHDF5(tree, true,  false, correct, "reduced-string");
-      writeReadHDF5(tree, true,  true,  correct, "reduced-typed");
+      writeAndReadHDF5(tree, false, false, correct, "raw-string");
+      writeAndReadHDF5(tree, false, true,  correct, "raw-typed");
+      writeAndReadHDF5(tree, true,  false, correct, "reduced-string");
+      writeAndReadHDF5(tree, true,  true,  correct, "reduced-typed");
    }
 }
 

@@ -96,11 +96,11 @@ R"***({
 
 
 // -----------------------------------------------------------------------------
-// writeReadJSON
+// writeAndReadJSON
 // Helper function
 // -----------------------------------------------------------------------------
 
-void writeReadJSON(
+void writeAndReadJSON(
    const Tree &oldTree,
    const bool reduced, const bool typed,
    const std::string &correct,
@@ -108,7 +108,7 @@ void writeReadJSON(
 ) {
    // Set flags
    JSON::reduced = reduced;
-   JSON::typed   = typed;
+   JSON::typed = typed;
 
    // Compute file names
    const std::string newFile = baseName + ".json";
@@ -117,9 +117,6 @@ void writeReadJSON(
    // Write the Tree to a JSON file
    oldTree.write(newFile);
 
-   // zzz Need to finish this; need full *read* capabilities first,
-   // zzz respecting the new "reduced" and "typed" flags.
-#if 0
    // Read from the JSON file into a brand-new Tree
    Tree newTree(newFile);
 
@@ -144,8 +141,6 @@ void writeReadJSON(
 
    CHECK(bufWant.str() == bufHave.str());
 #endif
-
-#endif
 }
 
 
@@ -165,10 +160,10 @@ SCENARIO("Testing GNDStk JSON, Part I") {
 
       // Write/read to/from JSON, for each combination of the available flags
       // for doing so: JSON::reduced = false/true (x) JSON::typed = false/true
-      writeReadJSON(tree, false, false, correct, "raw-string");
-      writeReadJSON(tree, false, true,  correct, "raw-typed");
-      writeReadJSON(tree, true,  false, correct, "reduced-string");
-      writeReadJSON(tree, true,  true,  correct, "reduced-typed");
+      writeAndReadJSON(tree, false, false, correct, "raw-string");
+      writeAndReadJSON(tree, false, true,  correct, "raw-typed");
+      /////writeAndReadJSON(tree, true,  false, correct, "reduced-string");
+      /////writeAndReadJSON(tree, true,  true,  correct, "reduced-typed");
    }
 }
 

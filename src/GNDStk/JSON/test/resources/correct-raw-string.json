@@ -8,6 +8,7 @@
          "string": "ab",
          "strings": "cd ef gh ij"
       },
+      "bar": null,
       "comment": {
          "#comment": {
             "#metadata": {
@@ -122,7 +123,7 @@
          },
          "#pcdata": {
             "#metadata": {
-               "#text": "4.0 5.0"
+               "#text": "4.4 5.5"
             }
          }
       },

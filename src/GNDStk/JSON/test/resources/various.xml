@@ -8,6 +8,8 @@
     string="ab"
     strings="cd ef gh ij">
 
+  <bar/>
+
   <comment>
     <!--Comment-->
   </comment>
@@ -37,7 +39,7 @@
   </twocdata>
 
   <values x="123">1 2 3</values>
-  <values y="4.5">4.0 5.0</values>
+  <values y="4.5">4.4 5.5</values>
   <values z="abc">a b c</values>
 
   <various>
