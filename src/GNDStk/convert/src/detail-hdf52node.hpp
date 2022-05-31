@@ -2,8 +2,8 @@
 // rootHDF5Name: name of the root HDF5 group
 inline const std::string rootHDF5Name = "/";
 
-// Helper: error_hdf52node
-inline void error_hdf52node(const std::string &message)
+// Helper: hdf52node_error
+inline void hdf52node_error(const std::string &message)
 {
    log::error(
      "Internal error in hdf52node():\n"
@@ -172,13 +172,9 @@ bool hdf52node(
 ) {
    // the node sent here should be fresh, ready to receive entries
    if (requireEmpty && !node.empty())
-      error_hdf52node("!node.empty()");
+      hdf52node_error("!node.empty()");
 
-   // ------------------------
-   // HDF5 group name
-   // ==> node name
-   // ------------------------
-
+   // node name: from HDF5 group name
    node.name = groupName == rootHDF5Name ? slashTreeName : groupName;
 
    // ------------------------
@@ -232,7 +228,7 @@ bool hdf52node(
          // File
          // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::File :
-            error_hdf52node("ObjectType \"File\" is not expected here");
+            hdf52node_error("ObjectType \"File\" is not expected here");
             break;
 
          // Group
@@ -250,13 +246,13 @@ bool hdf52node(
          // UserDataType
          // NOT HANDLED; These may or may not ever be needed
          case HighFive::ObjectType::UserDataType :
-            error_hdf52node("ObjectType \"UserDataType\" is not supported");
+            hdf52node_error("ObjectType \"UserDataType\" is not supported");
             break;
 
          // DataSpace (not to be confused with DataSet)
          // NOT EXPECTED IN THIS CONTEXT
          case HighFive::ObjectType::DataSpace :
-            error_hdf52node("ObjectType \"DataSpace\" is not expected here");
+            hdf52node_error("ObjectType \"DataSpace\" is not expected here");
             break;
 
          // DataSet
@@ -281,19 +277,19 @@ bool hdf52node(
             // because we already handled attributes earlier. So, here, we just
             // produce an error if ObjectType::Attribute inexplicably made an
             // appearance here, where we don't expect it.
-            error_hdf52node("ObjectType \"Attribute\" is not expected here");
+            hdf52node_error("ObjectType \"Attribute\" is not expected here");
             break;
 
          // Other
          // NOT HANDLED; We're not sure when this would arise
          case HighFive::ObjectType::Other :
-            error_hdf52node("ObjectType \"Other\" is not supported");
+            hdf52node_error("ObjectType \"Other\" is not supported");
             break;
 
          // default
          // NOT HANDLED; our switch() should have covered all bases
          default:
-            error_hdf52node("ObjectType [unknown] is not supported");
+            hdf52node_error("ObjectType [unknown] is not supported");
             break;
 
       } // switch

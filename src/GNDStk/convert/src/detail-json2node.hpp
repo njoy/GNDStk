@@ -1,6 +1,6 @@
 
-// Helper: error_json2node
-inline void error_json2node(const std::string &message)
+// Helper: json2node_error
+inline void json2node_error(const std::string &message)
 {
    log::error(
      "Internal error in json2node():\n"
@@ -9,28 +9,33 @@ inline void error_json2node(const std::string &message)
    throw std::exception{};
 }
 
+// json2node: forward declaration
+template<class NODE>
+bool json2node(const std::string &, const orderedJSON &, NODE &);
+
 
 // -----------------------------------------------------------------------------
 // json_array
 // -----------------------------------------------------------------------------
 
-inline std::string json_array(const orderedJSON &attr)
+inline std::string json_array(const orderedJSON &meta)
 {
    std::ostringstream oss;
    int count = 0;
 
-   for (const orderedJSON &e : attr) {
+   for (const orderedJSON &m : meta) {
       oss << (count++ ? " " : "");
-      if (e.is_string())
-         oss << e.get<std::string>();
-      else if (e.is_number_integer())
-         oss << e.get<std::int64_t>();
-      else if (e.is_number_unsigned())
-         oss << e.get<std::uint64_t>();
-      else if (e.is_number_float())
-         oss << e.get<double>();
-      else
+      if (m.is_string())
+         oss << m.get<std::string>();
+      else if (m.is_number_integer())
+         oss << m.get<std::int64_t>();
+      else if (m.is_number_unsigned())
+         oss << m.get<std::uint64_t>();
+      else if (m.is_number_float())
+         oss << m.get<double>();
+      else {
          assert(false);
+      }
    }
 
    return oss.str();
@@ -42,40 +47,50 @@ inline std::string json_array(const orderedJSON &attr)
 // -----------------------------------------------------------------------------
 
 template<class NODE>
-bool json2node(const orderedJSON::const_iterator &iter, NODE &node);
-
-template<class NODE>
-bool json_pair(NODE &node, const orderedJSON::const_iterator &keyval)
-{
-   const std::string key = keyval.key();
-
-   if (keyval->is_null()) {
+bool json_pair(
+   NODE &node, const orderedJSON &siblings,
+   const std::string &key, const orderedJSON &value,
+   const bool plain
+) {
+   if (value.is_null()) {
       // *** null
-      // Create a normal (albeit empty) child node.
-      // Example in XML GNDS: <RutherfordScattering/>.
       node.add(key);
-   } else if (keyval->is_boolean()) {
+   } else if (value.is_boolean()) {
       // *** boolean
-      node.add(key, keyval->get<bool>() ? "true" : "false");
-   } else if (keyval->is_number_integer()) {
+      node.add(key, value.get<bool>() ? "true" : "false");
+   } else if (value.is_number_integer()) {
       // *** number: integer
-      node.add(key, keyval->get<std::int64_t>());
-   } else if (keyval->is_number_unsigned()) {
+      node.add(key, value.get<std::int64_t>());
+   } else if (value.is_number_unsigned()) {
       // *** number: unsigned
-      node.add(key, keyval->get<std::uint64_t>());
-   } else if (keyval->is_number_float()) {
+      node.add(key, value.get<std::uint64_t>());
+   } else if (value.is_number_float()) {
       // *** number: double
-      node.add(key, keyval->get<double>());
-   } else if (keyval->is_string()) {
+      node.add(key, value.get<double>());
+   } else if (value.is_string()) {
       // *** string
-      node.add(key, keyval->get<std::string>());
-   } else if (keyval->is_array()) {
+      node.add(key, value.get<std::string>());
+   } else if (value.is_array()) {
       // *** array
-      node.add(key, json_array(*keyval));
-   } else if (keyval->is_object()) {
+      if (plain)
+         node.add(key, json_array(value));
+      else {
+         Node &child = node.add(key);
+         child.add("#pcdata").add("#text", json_array(value));
+         for (auto sib = siblings.begin();  sib != siblings.end();  ++sib) {
+            if (sib.key() == key + "#nodename")
+               child.name = sib->get<std::string>();
+            else if (sib.key() == key + "#metadata") {
+               const orderedJSON &jsub = sib.value();
+               for (auto attr = jsub.begin();  attr != jsub.end();  ++attr)
+                  json_pair(child, orderedJSON{}, attr.key(), *attr, true);
+            }
+         }
+      }
+   } else if (value.is_object()) {
       // *** object
       try {
-         if (!json2node(keyval,node.add()))
+         if (!json2node(key, value, node.add()))
             return false;
       } catch (...) {
          log::function("json2node()");
@@ -83,7 +98,7 @@ bool json_pair(NODE &node, const orderedJSON::const_iterator &keyval)
       }
    } else {
       // *** unknown!
-      error_json2node("Unknown/unhandled JSON value type");
+      json2node_error("Unknown/unhandled JSON value type");
    }
 
    return true;
@@ -96,27 +111,24 @@ bool json_pair(NODE &node, const orderedJSON::const_iterator &keyval)
 
 // NODE is GNDStk::Node, which is an "incomplete type" to the compiler here.
 template<class NODE>
-bool json2node(const orderedJSON::const_iterator &iter, NODE &node)
+bool json2node(const std::string &key, const orderedJSON &value, NODE &node)
 {
    // the node sent here should be fresh, ready to receive entries
    if (!node.empty())
-      error_json2node("!node.empty()");
+      json2node_error("!node.empty()");
 
    // non-(JSON "objects") should have been handled in the caller
-   if (!iter->is_object())
-      error_json2node("JSON value !is_object()");
+   if (!value.is_object())
+      json2node_error("JSON value !is_object()");
 
-   // any "#metadata" keys (specially-named "child nodes" that we use in JSON
-   // in order to identify attributes) should have been handled in the caller
-   if (endsin(iter.key(), "#metadata"))
-      error_json2node("JSON key ends in \"#metadata\"");
+   // the following cases should have been handled in the caller
+   if (endsin(key, "#nodename"))
+      json2node_error("JSON key ends in \"#nodename\"");
+   if (endsin(key, "#metadata"))
+      json2node_error("JSON key ends in \"#metadata\"");
 
-   // ------------------------
-   // key
-   // ==> node name
-   // ------------------------
-
-   node.name = iter.key();
+   // node name: from key
+   node.name = key;
 
    // ------------------------
    // JSON object's elements
@@ -124,66 +136,52 @@ bool json2node(const orderedJSON::const_iterator &iter, NODE &node)
    // ==> children
    // ------------------------
 
-   const orderedJSON &children = iter.value();
-   for (auto keyval = children.begin(); keyval != children.end(); ++keyval) {
-      const std::string &key = keyval.key();
+   const orderedJSON &siblings = value;
+   for (auto keyval = value.begin();  keyval != value.end();  ++keyval) {
+      const std::string &key   = keyval.key();
+      const orderedJSON &child = keyval.value();
 
-      // #nodename
-      // Special entry, giving the parent Node's original name
       if (key == "#nodename") {
-         node.name = keyval->get<std::string>();
-         continue;
-      }
-
-      // #metadata
-      if (key == "#metadata") {
-         assert(keyval->is_object());
-         const orderedJSON &jsub = keyval.value();
-         for (auto attr = jsub.begin(); attr != jsub.end(); ++attr)
-            json_pair(node,attr);
-         continue;
-      }
-
-      // #cdata/#comment
-      // Possibly with a numeric suffix.
-      // Expand into a child node #cdata/#comment with a #text attribute.
-      if (beginsin(key,"#cdata") || beginsin(key,"#comment")) {
-         assert(keyval->is_object() || keyval->is_string());
-         if (keyval->is_object())
+         // *** #nodename
+         // Special entry, giving the parent Node's original name
+         node.name = child.get<std::string>();
+      } else if (key == "#metadata") {
+         // *** #metadata
+         for (auto attr = child.begin();  attr != child.end();  ++attr)
+            json_pair(node, orderedJSON{}, attr.key(), *attr, true);
+      } else if (beginsin(key,"#cdata") || beginsin(key,"#comment")) {
+         // *** #cdata[N]/#comment[N]
+         // Expand into a child node #cdata/#comment with a #text attribute.
+         if (child.is_object())
             try {
-               if (!json2node(keyval,node.add()))
+               if (!json2node(key, child, node.add()))
                   return false;
             } catch (...) {
                log::function("json2node()");
                throw;
             }
-         else if (keyval->is_string())
+         else
             node.add(beginsin(key,"#cdata") ? "#cdata" : "#comment")
-                .add("#text",keyval->get<std::string>());
-         continue;
-      }
-
-      // #pcdata
-      // Possibly with a numeric suffix.
-      if (beginsin(key,"#pcdata")) {
-         assert(keyval->is_object() || keyval->is_array());
-         if (keyval->is_object())
+                .add("#text",child.get<std::string>());
+      } else if (beginsin(key,"#pcdata")) {
+         // *** #pcdata[N]
+         if (child.is_object())
             try {
-               if (!json2node(keyval,node.add()))
+               if (!json2node(key, child, node.add()))
                   return false;
             } catch (...) {
                log::function("json2node()");
                throw;
             }
          else // array
-            node.add("#pcdata").add("#text",json_array(*keyval));
-         continue;
+            node.add("#pcdata").add("#text", json_array(child));
+      } else if (endsin(key,"#nodename") || endsin(key,"#metadata")) {
+         // *** Ignore, in this context
+      } else {
+         // *** General case
+         json_pair(node, siblings, key, child, false);
       }
-
-      // general
-      json_pair(node,keyval);
-
-   } // for each element of the key/value corresponding to the Node
+   } // for each element of the key/value pair corresponding to the Node
 
    // done
    return true;

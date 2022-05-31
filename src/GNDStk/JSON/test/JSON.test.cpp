@@ -128,7 +128,6 @@ void writeAndReadJSON(
 
    // Test #2. Ensure that file newFile (written above, from the original Tree)
    // is identical to the vetted JSON file vettedFile.
-#if 0 // <== intentional; see above remark
    std::ifstream ifsWant(vettedFile);
    std::stringstream bufWant;
    bufWant << ifsWant.rdbuf();
@@ -140,7 +139,6 @@ void writeAndReadJSON(
    std::cout << "bufHave.str().size() == " << bufHave.str().size() << std::endl;
 
    CHECK(bufWant.str() == bufHave.str());
-#endif
 }
 
 
@@ -162,8 +160,8 @@ SCENARIO("Testing GNDStk JSON, Part I") {
       // for doing so: JSON::reduced = false/true (x) JSON::typed = false/true
       writeAndReadJSON(tree, false, false, correct, "raw-string");
       writeAndReadJSON(tree, false, true,  correct, "raw-typed");
-      /////writeAndReadJSON(tree, true,  false, correct, "reduced-string");
-      /////writeAndReadJSON(tree, true,  true,  correct, "reduced-typed");
+      writeAndReadJSON(tree, true,  false, correct, "reduced-string");
+      writeAndReadJSON(tree, true,  true,  correct, "reduced-typed");
    }
 }
 

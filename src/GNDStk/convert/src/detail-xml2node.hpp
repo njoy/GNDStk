@@ -3,8 +3,8 @@
 // Helpers
 // -----------------------------------------------------------------------------
 
-// error_xml2node
-inline void error_xml2node(const std::string &type)
+// xml2node_error
+inline void xml2node_error(const std::string &type)
 {
    log::error(
      "Internal error in xml2node():\n"
@@ -68,17 +68,17 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
 
       // I don't think that the following should ever appear in this context
       if (xsub.type() == pugi::node_document)
-         error_xml2node("node_document");
+         xml2node_error("node_document");
       if (xsub.type() == pugi::node_declaration)
-         error_xml2node("node_declaration");
+         xml2node_error("node_declaration");
 
       // For now I won't handle these; let's ensure that we don't see them
       if (xsub.type() == pugi::node_null)
-         error_xml2node("node_null");
+         xml2node_error("node_null");
       if (xsub.type() == pugi::node_pi)
-         error_xml2node("node_pi");
+         xml2node_error("node_pi");
       if (xsub.type() == pugi::node_doctype)
-         error_xml2node("node_doctype");
+         xml2node_error("node_doctype");
 
       // ------------------------
       // element (typical case)

@@ -142,7 +142,10 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
       // ------------------------
 
       // visit the node, and its children recursively
-      if (!detail::json2node(j.doc.begin(), decl ? node.add() : node))
+      if (!detail::json2node(
+         j.doc.begin().key(), *j.doc.begin(),
+         decl ? node.add() : node
+      ))
          return false;
 
    } catch (...) {
