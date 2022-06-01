@@ -23,16 +23,16 @@ SCENARIO("Testing GNDStk Tree one()") {
 
          // const
          found = false;
-         auto &cnode = c.one("#xml",found);
+         auto &cnode = c.one(special::xml,found);
          CHECK(found);
-         CHECK(cnode.name == "#xml");
+         CHECK(cnode.name == special::xml);
          CHECK(cnode.meta("version") == "1.0");
 
          // non-const
          found = false;
-         auto &tnode = t.one("#xml",found);
+         auto &tnode = t.one(special::xml,found);
          CHECK(found);
-         CHECK(tnode.name == "#xml");
+         CHECK(tnode.name == special::xml);
          CHECK(tnode.meta("encoding") == "UTF-8");
       }
 
@@ -70,12 +70,12 @@ SCENARIO("Testing GNDStk Tree one()") {
 
       // Illustrate that Tree's one(string) functions return references,
       // even when the child isn't found...
-      (void)&c.one("#xml");
+      (void)&c.one(special::xml);
       (void)&c.one("covarianceSuite");
       (void)&c.one("foo",found);
       CHECK(!found);
 
-      (void)&t.one("#xml");
+      (void)&t.one(special::xml);
       (void)&t.one("covarianceSuite");
       (void)&t.one("bar",found);
       CHECK(!found);

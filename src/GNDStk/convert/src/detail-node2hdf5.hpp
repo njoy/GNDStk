@@ -101,15 +101,16 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
       // Special cases
       // ------------------------
 
-      // *** #cdata/#text
-      // *** #comment/#text
-      if ((parent == "#cdata" || parent == "#comment") && key == "#text") {
+      // *** CDATA/TEXT
+      // *** COMMENT/TEXT
+      if ((parent == special::cdata ||
+           parent == special::comment) && key == special::text) {
          hdf5.createAttribute(key,value); // just a simple string attribute
          continue;
       }
 
-      // *** #pcdata/#text
-      if (parent == "#pcdata" && key == "#text") {
+      // *** PCDATA/TEXT
+      if (parent == special::pcdata && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
             vector2Attr<int          >(key,value,hdf5);
@@ -126,9 +127,10 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
          continue;
       }
 
-      // *** key/#text not expected, except as already handled
-      if (key == "#text") {
-         log::warning("Metadatum \"#text\" not expected here; writing anyway");
+      // *** key/TEXT not expected, except as already handled
+      if (key == special::text) {
+         log::warning("Metadatum \"{}\" not expected here; writing anyway",
+                      special::text);
          log::function("detail::meta2hdf5(Node named \"{}\", ...)", parent);
       }
 
@@ -173,9 +175,9 @@ void meta2hdf5_plain(const NODE &node, OBJECT &hdf5)
 template<class NODE, class OBJECT>
 void meta2hdf5(const NODE &node, OBJECT &hdf5, const std::string &suffix)
 {
-   // Create #nodename iff necessary (allows recovery of original node name)
+   // Create NODENAME iff necessary (allows recovery of original node name)
    if (suffix != "")
-      hdf5.createAttribute(std::string("#nodename"), node.name);
+      hdf5.createAttribute(special::nodename, node.name);
 
    // Existing metadata
    HDF5::typed
@@ -192,7 +194,7 @@ void meta2hdf5(const NODE &node, OBJECT &hdf5, const std::string &suffix)
 // hdf5_reduce_cdata_comment
 // ------------------------
 
-// Simplify certain #cdata and #comment cases.
+// Simplify certain CDATA and COMMENT cases.
 template<class NODE, class OBJECT>
 bool hdf5_reduce_cdata_comment(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
@@ -200,21 +202,21 @@ bool hdf5_reduce_cdata_comment(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // #cdata or #comment
-   //    #text the only metadatum
+   // CDATA or COMMENT
+   //    TEXT the only metadatum
    //    no children
-   // Reduce to: string attribute, w/name == (#cdata or #comment) + suffix
+   // Reduce to: string attribute, w/name == (CDATA or COMMENT) + suffix
    // Sketch:
-   //    +-----------------+     +-----------+
-   //    | #cdata/#comment | ==> | Attribute | name: #cdata/#comment + suffix
-   //    |    #text        |     |    value  |
-   //    +-----------------+     +-----------+
+   //    +---------------+     +-----------+
+   //    | CDATA/COMMENT | ==> | Attribute | name: CDATA/COMMENT + suffix
+   //    |    TEXT       |     |    value  |
+   //    +---------------+     +-----------+
 
    if (
-      (nameOriginal == "#cdata" || nameOriginal == "#comment") &&
+      (nameOriginal == special::cdata || nameOriginal == special::comment) &&
        node.children.size() == 0 &&
        node.metadata.size() == 1 &&
-       node.metadata[0].first == "#text"
+       node.metadata[0].first == special::text
    ) {
       // string attribute
       hdf5.createAttribute(nameSuffixed,node.metadata[0].second);
@@ -229,7 +231,7 @@ bool hdf5_reduce_cdata_comment(
 // hdf5_reduce_pcdata
 // ------------------------
 
-// Simplify #pcdata case.
+// Simplify PCDATA case.
 template<class NODE, class OBJECT>
 bool hdf5_reduce_pcdata(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
@@ -237,20 +239,20 @@ bool hdf5_reduce_pcdata(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // #pcdata
-   //    #text the only metadatum
+   // PCDATA
+   //    TEXT the only metadatum
    //    no children
-   // Reduce to: data set, w/name == #pcdata + suffix
+   // Reduce to: data set, w/name == PCDATA + suffix
    // Sketch:
-   //    +----------+     +---------+
-   //    | #pcdata  | ==> | DataSet | name: #pcdata + suffix
-   //    |    #text |     |    data |
-   //    +----------+     +---------+
+   //    +---------+     +---------+
+   //    | PCDATA  | ==> | DataSet | name: PCDATA + suffix
+   //    |    TEXT |     |    data |
+   //    +---------+     +---------+
 
-   if (nameOriginal == "#pcdata" &&
+   if (nameOriginal == special::pcdata &&
        node.children.size() == 0 &&
        node.metadata.size() == 1 &&
-       node.metadata[0].first == "#text"
+       node.metadata[0].first == special::text
    ) {
       // See the remark in the analogous JSON function regarding the difference
       // between this function and the one immediately below.
@@ -268,30 +270,30 @@ bool hdf5_reduce_pcdata(
 // hdf5_reduce_pcdata_metadata
 // ------------------------
 
-// Simplify case of node with #pcdata AND metadata
+// Simplify case of node with PCDATA AND metadata
 template<class NODE, class OBJECT>
 bool hdf5_reduce_pcdata_metadata(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
 ) {
    // name (think e.g. "values", as in XML <values>)
    //    any number of metadata (possibly 0)
-   //    #pcdata the only child
-   //       #text the only metadatum
+   //    PCDATA the only child
+   //       TEXT the only metadatum
    //       no children
    // Reduce to: data set, w/name == name + suffix
    // Sketch:
    //    +---------------+     +----------------+
    //    | name          | ==> | DataSet        | name: name + suffix
    //    |    [metadata] |     |   [Attributes] |
-   //    |    #pcdata    |     |    data        |
-   //    |       #text   |     +----------------+
+   //    |    PCDATA     |     |    data        |
+   //    |       TEXT    |     +----------------+
    //    |       -       |
    //    +---------------+
 
    if (node.children.size() == 1 &&
-       node.children[0]->name == "#pcdata" &&
+       node.children[0]->name == special::pcdata &&
        node.children[0]->metadata.size() == 1 &&
-       node.children[0]->metadata[0].first == "#text" &&
+       node.children[0]->metadata[0].first == special::text &&
        node.children[0]->children.size() == 0
    ) {
       // HDF5 data set

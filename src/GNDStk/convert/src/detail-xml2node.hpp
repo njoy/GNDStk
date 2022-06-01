@@ -109,17 +109,17 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // of cdata, pcdata, or comment nodes, either individually or together.
 
       if (xsub.type() == pugi::node_cdata) {
-         node.add("#cdata").add("#text", xsub.value());
+         node.add(special::cdata).add(special::text, xsub.value());
          continue;
       }
 
       if (xsub.type() == pugi::node_pcdata) {
-         node.add("#pcdata").add("#text", xsub.value());
+         node.add(special::pcdata).add(special::text, xsub.value());
          continue;
       }
 
       if (xsub.type() == pugi::node_comment) {
-         node.add("#comment").add("#text", xsub.value());
+         node.add(special::comment).add(special::text, xsub.value());
          continue;
       }
 

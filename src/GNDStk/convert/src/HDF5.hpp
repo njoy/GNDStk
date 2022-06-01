@@ -35,7 +35,10 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
       bool found_top  = false;
 
       for (auto &c : node.children) {
-         if (c->name == "#xml" || c->name == "#json" || c->name == "#hdf5") {
+         if (c->name == special::xml ||
+             c->name == special::json ||
+             c->name == special::hdf5
+         ) {
             // looks like a declaration node
             if (found_decl) {
                // already seen

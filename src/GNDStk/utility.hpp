@@ -36,6 +36,21 @@ enum class Allow {
    many
 };
 
+namespace special {
+   inline const char prefix = '#';
+
+   inline const std::string
+      nodename = prefix + std::string("nodename"),
+      metadata = prefix + std::string("metadata"),
+      cdata    = prefix + std::string("cdata"),
+      pcdata   = prefix + std::string("pcdata"),
+      comment  = prefix + std::string("comment"),
+      text     = prefix + std::string("text"),
+      xml      = prefix + std::string("xml"),
+      json     = prefix + std::string("json"),
+      hdf5     = prefix + std::string("hdf5");
+}
+
 namespace detail {
 
 // default_*
@@ -55,13 +70,6 @@ inline bool sent(const std::string &string)
 {
    return &string != &default_string;
 }
-
-// allowable declaration nodes
-inline std::set<std::string> AllowedDecl = {
-   "#xml",
-   "#json",
-   "#hdf5",
-};
 
 // noFilter
 class noFilter {

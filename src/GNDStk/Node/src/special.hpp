@@ -15,7 +15,7 @@
 // so we can find this content whether we're in the outer Tree/Node (above the
 // top-level GNDS node), or inside the top-level node, or in fact inside *any*
 // node from which we can drill down as above, beginning with a documentations,
-// documentation, or CDATA node, or even directly to a #text metadatum.
+// documentation, or CDATA node, or even directly to a special::text metadatum.
 //
 // Note: CDATA nodes that we've seen in available GNDS files always begin with
 // a newline. It's tempting, perhaps, to chuck the newline, except that (1) we
@@ -32,8 +32,8 @@ const std::string &documentation(bool &found = detail::default_bool) const
       static const Child<void,Allow::one>
          docs ("documentations"),
          doc  ("documentation"),
-         cdata("#cdata");
-      static const Meta<void> text("#text");
+         cdata(special::cdata);
+      static const Meta<void> text(special::text);
 
       // In Node n, we try to find CDATA text at any level of:
       //    <documentations>
@@ -105,16 +105,16 @@ std::string &doc(bool &found = detail::default_bool)
 // const
 const std::string &cdata(bool &found = detail::default_bool) const
 {
-   static const Child<void,Allow::one> cdata("#cdata");
-   static const Meta<void> text("#text");
+   static const Child<void,Allow::one> cdata(special::cdata);
+   static const Meta<void> text(special::text);
    return (*this)(cdata, text, found);
 }
 
 // non-const
 std::string &cdata(bool &found = detail::default_bool)
 {
-   static const Child<void,Allow::one> cdata("#cdata");
-   static const Meta<void> text("#text");
+   static const Child<void,Allow::one> cdata(special::cdata);
+   static const Meta<void> text(special::text);
    return (*this)(cdata, text, found);
 }
 
@@ -126,16 +126,16 @@ std::string &cdata(bool &found = detail::default_bool)
 // const
 const std::string &pcdata(bool &found = detail::default_bool) const
 {
-   static const Child<void,Allow::one> pcdata("#pcdata");
-   static const Meta<void> text("#text");
+   static const Child<void,Allow::one> pcdata(special::pcdata);
+   static const Meta<void> text(special::text);
    return (*this)(pcdata, text, found);
 }
 
 // non-const
 std::string &pcdata(bool &found = detail::default_bool)
 {
-   static const Child<void,Allow::one> pcdata("#pcdata");
-   static const Meta<void> text("#text");
+   static const Child<void,Allow::one> pcdata(special::pcdata);
+   static const Meta<void> text(special::text);
    return (*this)(pcdata, text, found);
 }
 
@@ -158,8 +158,8 @@ const std::string &comment(
    std::size_t count = 0;
 
    for (auto &c : children)
-      if (c->name == "#comment" && count++ == i)
-         return c->meta("#text",found);
+      if (c->name == special::comment && count++ == i)
+         return c->meta(special::text,found);
 
    // not found
    static std::string empty;
@@ -204,7 +204,8 @@ comments(bool &found = detail::default_bool) const
    CONTAINER<std::string,Args...> container;
    const std::string *text;
    for (auto &c : children)
-      if (c->name == "#comment" && (text = &c->meta("#text",found),found))
+      if (c->name == special::comment &&
+         (text = &c->meta(special::text,found), found))
          container.push_back(*text);
    return container;
 }

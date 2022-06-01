@@ -15,7 +15,7 @@ inline bool convert(const Node &node, XML &x)
    // The way we're storing things in Tree, a declaration node might contain,
    // for example, the following, if the Tree was built from an XML:
    //
-   //    name: "#xml"
+   //    name: special::xml
    //    metadata:
    //       "version",  "1.0"
    //       "encoding", "UTF-8"
@@ -24,7 +24,7 @@ inline bool convert(const Node &node, XML &x)
    //
    // or this if it was built from a JSON:
    //
-   //    name: "#json"
+   //    name: special::json
    //    metadata:
    //       (nothing; empty vector)
    //    children:
@@ -58,7 +58,9 @@ inline bool convert(const Node &node, XML &x)
       bool found_top  = false;
 
       for (auto &c : node.children) {
-         if (c->name == "#xml" || c->name == "#json" || c->name == "#hdf5") {
+         if (c->name == special::xml ||
+             c->name == special::json ||
+             c->name == special::hdf5) {
             // looks like a declaration node
             if (found_decl) {
                // already seen

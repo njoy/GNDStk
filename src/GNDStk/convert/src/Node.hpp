@@ -16,7 +16,7 @@ inline bool convert(const XML &x, Node &node, const bool &DECL)
 
    // optionally, make a boilerplate declaration node
    if (decl)
-      node.add("#xml"); // <== indicates that we built the object from an XML
+      node.add(special::xml); // <== meaning: we built the object from an XML
 
    // empty xml document?
    if (x.empty())
@@ -77,7 +77,7 @@ inline bool convert(const XML &x, Node &node, const bool &DECL)
             // Retrieve any XML attributes, e.g. version and encoding
             if (decl)
                for (const pugi::xml_attribute &xattr : xnode.attributes())
-                  node.one("#xml").add(xattr.name(), xattr.value());
+                  node.one(special::xml).add(xattr.name(), xattr.value());
          } else {
             // Document node
             // Visit the node, and its children recursively
@@ -113,7 +113,7 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
 
    // optionally, make a boilerplate declaration node
    if (decl)
-      node.add("#json"); // <== indicates that we built the object from a JSON
+      node.add(special::json); // <== meaning: we built the object from a JSON
 
    // empty json document?
    if (j.empty())
@@ -194,7 +194,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 
    // optionally, make a boilerplate declaration node
    Node *const declnode = decl
-      ? &node.add("#hdf5") // indicates that we built the object from an HDF5
+      ? &node.add(special::hdf5) // meaning: we built the object from an HDF5
       : nullptr;
 
    // empty HDF5 document?
@@ -209,7 +209,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 
    try {
       // if decl, then place any top-level attributes that exist, in the HDF5,
-      // into the Node's "#hdf5" child that would have been created above
+      // into the Node's special::hdf5 child that would have been created above
       if (decl)
          for (auto &attrName : group.listAttributeNames())
             if (!detail::attr2node(group.getAttribute(attrName),*declnode))

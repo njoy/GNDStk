@@ -101,9 +101,9 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
       if (dataSize == 1) {
          T scalar;
          dset.read(scalar);
-         node.name == "#pcdata"
-            ? node.add("#text",scalar)
-            : node.add("#pcdata").add("#text",scalar);
+         node.name == special::pcdata
+            ? node.add(special::text,scalar)
+            : node.add(special::pcdata).add(special::text,scalar);
          return true;
       }
 
@@ -111,9 +111,9 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
          std::vector<T> vector;
          vector.reserve(dataSize);
          dset.read(vector);
-         node.name == "#pcdata"
-            ? node.add("#text",vector)
-            : node.add("#pcdata").add("#text",vector);
+         node.name == special::pcdata
+            ? node.add(special::text,vector)
+            : node.add(special::pcdata).add(special::text,vector);
          return true;
       }
    }
@@ -127,7 +127,9 @@ bool dset2node(
    const HighFive::Group &group, const std::string &dsetName,
    NODE &parent
 ) {
-   Node &node = parent.add(beginsin(dsetName,"#pcdata") ? "#pcdata" : dsetName);
+   Node &node = parent.add(
+      beginsin(dsetName,special::pcdata) ? special::pcdata : dsetName
+   );
 
    // the DataSet's attributes
    const HighFive::DataSet &dset = group.getDataSet(dsetName);
@@ -186,31 +188,32 @@ bool hdf52node(
    // would have already been handled, in a special way, by the caller.
    if (groupName != rootHDF5Name) {
       for (const std::string &attrName : group.listAttributeNames()) {
-         if (attrName == "#nodename") {
-            // #nodename
+         if (attrName == special::nodename) {
+            // NODENAME
             // Handled not as a regular attribute, but as the present node's
             // true name. The following line is basically a compressed version
             // of attr2node<std::string> (see early in this file). It assumes,
-            // in short, that this #nodename attribute is one (not a vector of)
+            // in short, that this NODENAME attribute is one (not a vector of)
             // T == std::string. And that's precisely what it should be, given
-            // how GNDStk creates #nodename attributes in the first place.
+            // how GNDStk creates NODENAME attributes in the first place.
             group.getAttribute(attrName).read(node.name);
-         } else if (beginsin(attrName,"#cdata")) {
-            // #cdata, possibly with a numeric suffix
-            // Expand into a child node #cdata with a #text attribute.
+         } else if (beginsin(attrName,special::cdata)) {
+            // CDATA, possibly with a numeric suffix
+            // Expand into a child node CDATA with a TEXT attribute.
             std::string value;
             group.getAttribute(attrName).read(value);
-            node.add("#cdata").add("#text",value);
-         } else if (beginsin(attrName,"#comment")) {
-            // #comment, possibly with a numeric suffix
-            // Expand into a child node #comment with a #text attribute.
+            node.add(special::cdata).add(special::text,value);
+         } else if (beginsin(attrName,special::comment)) {
+            // COMMENT, possibly with a numeric suffix
+            // Expand into a child node COMMENT with a TEXT attribute.
             std::string value;
             group.getAttribute(attrName).read(value);
-            node.add("#comment").add("#text",value);
+            node.add(special::comment).add(special::text,value);
          } else {
             // Regular attribute
-            // Create a metadatum. Note that this gives the correct result for
-            // attributes with regular names, and also for attrName == "#text".
+            // Create a metadatum. Note that this gives the correct result
+            // for attributes with regular names, and also for attrName ==
+            // special::text.
             if (!attr2node(group.getAttribute(attrName), node))
                return false;
          } // else if

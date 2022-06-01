@@ -33,7 +33,7 @@ Tree &reset(
    clear();
 
    try {
-      // Declaration node: "#xml", etc.
+      // Declaration node: special::xml, etc.
       // This can specify an eventual intended file format
       // for the GNDS hierarchy.
       if (format == FileType::xml ||
@@ -41,15 +41,15 @@ Tree &reset(
           format == FileType::debug
       ) {
          // xml, guess, tree
-         add("#xml");
+         add(special::xml);
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
       } else if (format == FileType::json) {
          // json
-         add("#json");
+         add(special::json);
       } else if (format == FileType::hdf5) {
          // hdf5
-         add("#hdf5");
+         add(special::hdf5);
       } else {
          log::error(
             "Internal error in Tree.reset(" + detail::keyname(kwd) +

@@ -40,8 +40,8 @@ void writeAndReadHDF5(
    // reading process correctly recovers what we originally had in the internal
    // Tree format. IMPORTANT NOTE: It's actually not hard to create situations
    // where the Tree would look slightly different. Leading or trailing white
-   // space in #pcdata Nodes could, in some cases, disappear during the process
-   // of write-to-HDF5-then-read-back-in. Also, in the HDF5::typed cases,
+   // space in special::pcdata Nodes could, in some cases, disappear during the
+   // process of write-to-HDF5-then-read-back. Also, in the HDF5::typed cases,
    // strings that look like floating-point numbers may be converted to doubles
    // and back again. That could lead to differences, depending on how floating-
    // point numbers are written. We've *tried* to write our test files in such
@@ -132,7 +132,7 @@ SCENARIO("Testing GNDStk HDF5, Part II") {
       THEN("The Tree should have only an empty declaration node") {
          CHECK(t.children.size() == 1);
          CHECK(t.has_decl());
-         CHECK(t.decl().name == "#hdf5");
+         CHECK(t.decl().name == special::hdf5);
          CHECK(t.decl().metadata.size() == 0);
          CHECK(t.decl().children.size() == 0);
       }

@@ -27,7 +27,7 @@ bool check_special(const NODE &node, const std::string &label)
       throw std::exception{};
    }
 
-   if (node.metadata.begin()->first != "#text") {
+   if (node.metadata.begin()->first != special::text) {
       log::error(
         "Internal error in node2xml(Node, pugi::xml_node):\n"
         "Ill-formed <" + label + "> node; "
@@ -44,8 +44,10 @@ bool check_special(const NODE &node, const std::string &label)
 template<class NODE>
 bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,"#cdata")) return false;
-   xnode.append_child(pugi::node_cdata).set_value(node.meta("#text").data());
+   if (!check_special(node,special::cdata))
+      return false;
+   xnode.append_child(pugi::node_cdata)
+        .set_value(node.meta(special::text).data());
    return true;
 }
 
@@ -53,8 +55,10 @@ bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 template<class NODE>
 bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,"#pcdata")) return false;
-   xnode.append_child(pugi::node_pcdata).set_value(node.meta("#text").data());
+   if (!check_special(node,special::pcdata))
+      return false;
+   xnode.append_child(pugi::node_pcdata)
+        .set_value(node.meta(special::text).data());
    return true;
 }
 
@@ -62,8 +66,10 @@ bool write_pcdata(const NODE &node, pugi::xml_node &xnode)
 template<class NODE>
 bool write_comment(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,"#comment")) return false;
-   xnode.append_child(pugi::node_comment).set_value(node.meta("#text").data());
+   if (!check_special(node,special::comment))
+      return false;
+   xnode.append_child(pugi::node_comment)
+        .set_value(node.meta(special::text).data());
    return true;
 }
 
@@ -89,11 +95,11 @@ bool node2xml(const NODE &node, pugi::xml_node &x)
    for (auto &child : node.children) {
       try {
          // special element
-         if (child->name == "#cdata")
+         if (child->name == special::cdata)
             { if (write_cdata  (*child,xnode)) continue; else return false; }
-         if (child->name == "#pcdata")
+         if (child->name == special::pcdata)
             { if (write_pcdata (*child,xnode)) continue; else return false; }
-         if (child->name == "#comment")
+         if (child->name == special::comment)
             { if (write_comment(*child,xnode)) continue; else return false; }
 
          // typical element

@@ -80,11 +80,11 @@ bool json_pair(
          node.add(key, json_array(value));
       else {
          Node &child = node.add(key);
-         child.add("#pcdata").add("#text", json_array(value));
+         child.add(special::pcdata).add(special::text, json_array(value));
          for (const auto &sib : siblings.items()) {
-            if (sib.key() == key + "#nodename")
+            if (sib.key() == key + special::nodename)
                child.name = sib.value().get<std::string>();
-            else if (sib.key() == key + "#metadata")
+            else if (sib.key() == key + special::metadata)
                for (const auto &m : sib.value().items())
                   json_pair(child, orderedJSON{}, m.key(), m.value(), true);
          }
@@ -124,16 +124,18 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
       json2node_error("JSON value !is_object(), but need object here");
 
    // The following cases should have been handled in the caller
-   if (endsin(key, "#nodename"))
-      json2node_error("JSON key ends in \"#nodename\": not expected here");
-   if (endsin(key, "#metadata"))
-      json2node_error("JSON key ends in \"#metadata\": not expected here");
+   if (endsin(key, special::nodename))
+      json2node_error(
+         "JSON key ends in \"" + special::nodename + "\": not expected here");
+   if (endsin(key, special::metadata))
+      json2node_error(
+         "JSON key ends in \"" + special::metadata + "\": not expected here");
 
    // Node name: from key
-   // For special nodes (ones that begin with '#', e.g. "#cdata0"),
+   // For special nodes (ones that begin with special::prefix),
    // we know that we can, and should, remove trailing digits.
    node.name = key;
-   if (key != "" && key[0] == '#')
+   if (key != "" && key[0] == special::prefix)
       while (isdigit(node.name.back()))
          node.name.pop_back();
 
@@ -147,19 +149,19 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
       const std::string &childkey = child.key();
       const orderedJSON &childval = child.value();
 
-      if (childkey == "#nodename") {
-         // *** #nodename
+      if (childkey == special::nodename) {
+         // *** NODENAME
          node.name = childval.get<std::string>();
-      } else if (childkey == "#metadata") {
-         // *** #metadata
+      } else if (childkey == special::metadata) {
+         // *** METADATA
          for (const auto &m : childval.items())
             json_pair(node, orderedJSON{}, m.key(), m.value(), true);
       } else if (
-         beginsin(childkey,"#cdata") ||
-         beginsin(childkey,"#comment") ||
-         beginsin(childkey,"#pcdata")
+         beginsin(childkey,special::cdata) ||
+         beginsin(childkey,special::comment) ||
+         beginsin(childkey,special::pcdata)
       ) {
-         // *** #cdata[N], #comment[N], #pcdata[N]
+         // *** CDATA[N], COMMENT[N], PCDATA[N]
          if (childval.is_object())
             try {
                if (!json2node(childkey, childval, node.add()))
@@ -169,12 +171,16 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
                throw;
             }
          else
-            beginsin(childkey,"#pcdata")
-          ? node.add("#pcdata" ).add("#text", json_array(childval))
-          : beginsin(childkey,"#cdata")
-          ? node.add("#cdata"  ).add("#text", childval.get<std::string>())
-          : node.add("#comment").add("#text", childval.get<std::string>());
-      } else if (endsin(childkey,"#nodename") || endsin(childkey,"#metadata")) {
+            beginsin(childkey,special::pcdata)
+          ? node.add(special::pcdata )
+                .add(special::text, json_array(childval))
+          : beginsin(childkey,special::cdata)
+          ? node.add(special::cdata  )
+                .add(special::text, childval.get<std::string>())
+          : node.add(special::comment)
+                .add(special::text, childval.get<std::string>());
+      } else if (endsin(childkey,special::nodename) ||
+                 endsin(childkey,special::metadata)) {
          // *** Ignore, in this context. Note that childkey *equal* to either
          // *** of those strings - not just endsin() them - was handled above.
       } else {

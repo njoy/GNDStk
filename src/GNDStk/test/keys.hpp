@@ -19,7 +19,7 @@ namespace meta {
       label     ("label"     ),
       projectile("projectile"),
       symbol    ("symbol"    ),
-      text      ("#text"     ),
+      text      (njoy::GNDStk::special::text),
       unit      ("unit"      ),
       value     ("value"     ),
       version   ("version"   );
@@ -41,7 +41,7 @@ namespace child {
       RMatrix            ("RMatrix"            ),
       angularTwoBody     ("angularTwoBody"     ),
       axes               ("axes"               ),
-      cdata              ("#cdata"             ),
+      cdata              (njoy::GNDStk::special::cdata),
       chemicalElements   ("chemicalElements"   ),
       crossSection       ("crossSection"       ),
       data               ("data"               ),
@@ -52,7 +52,7 @@ namespace child {
       gaugeBosons        ("gaugeBosons"        ),
       mass               ("mass"               ),
       outputChannel      ("outputChannel"      ),
-      pcdata             ("#pcdata"            ),
+      pcdata             (njoy::GNDStk::special::pcdata),
       products           ("products"           ),
       reactions          ("reactions"          ),
       regions2d          ("regions2d"          ),
@@ -104,7 +104,7 @@ namespace detail {
       template<class NODE>
       void operator()(const NODE &node, std::string &to) const
       {
-         to = node.meta("#text");
+         to = node.meta(special::text);
       }
    };
 } // namespace detail
@@ -166,21 +166,22 @@ namespace child {
    GNDSTK_MAKE_CHILD(void, crossSection, one);
    GNDSTK_MAKE_CHILD(void, styles, one);
    GNDSTK_MAKE_CHILD(void, temperature, one);
-   inline const njoy::GNDStk::Child<void,njoy::GNDStk::Allow::one> xml("#xml");
+   inline const njoy::GNDStk::Child<void,njoy::GNDStk::Allow::one>
+      xml(njoy::GNDStk::special::xml);
    GNDSTK_MAKE_CHILD(void, evaluated, many);
    GNDSTK_MAKE_CHILD(void, XYs1d, many);
 
    // cdata
    // This is where XML <!-- ... --> (comment) material resides. It's reasonable
-   // to extract such content into std::strings. We then store these in nodes of
-   // name #cdata, each with one metadatum having a key of "#text" and a value
+   // to extract such content into std::strings. We then store these in nodes
+   // of name CDATA, each with one metadatum having a key of TEXT and a value
    // containing the original content.
    inline const njoy::GNDStk::Child<
       std::string,
       njoy::GNDStk::Allow::one,
       njoy::GNDStk::detail::text_metadatum_to_string
    >
-   cdata("#cdata");
+   cdata(njoy::GNDStk::special::cdata);
 } // namespace child
 
 using namespace meta;
@@ -213,15 +214,16 @@ public:
       using namespace njoy::GNDStk;
       try {
          // Context:
-         // We're inside of a <pcdata> node that's inside of a <values> node
-         // that looked something like this (in XML):
+         // We're inside of a <pcdata> node that's inside of a <values>
+         // node that looked something like this (in XML):
          //    <values>0.0 1.0 2.0 3.0 4.0</values>
-         // In GNDStk, the <pcdata> node has a metadatum with the key "#text".
-         // The metadatum's string value is the content: "0.0 1.0 ..." in
-         // our example. Goal here: extract that content into the container.
+         // In GNDStk, the <pcdata> node has a metadatum with the key
+         // special::text. The metadatum's string value is the content:
+         // "0.0 1.0 ..." in our example. Goal here: extract that content
+         // into the container.
          container.clear();
          for (auto &m : node.metadata)
-            if (m.first == "#text") {
+            if (m.first == special::text) {
                convert(m.second, container);
                return;
             }
@@ -244,8 +246,8 @@ public:
       using namespace njoy::GNDStk;
       try {
          node.clear();
-         node.name = "#pcdata";
-         std::string &destination = node.add("#text","").second;
+         node.name = special::pcdata;
+         std::string &destination = node.add(special::text,"").second;
          convert(container, destination);
       } catch (...) {
          log::function("convert_pcdata_text_t(container,Node)");
@@ -309,7 +311,7 @@ const auto &getNumeric()
       typename njoy::GNDStk::detail::numeric_type<T>::type,
       njoy::GNDStk::Allow::one,
       njoy::GNDStk::detail::convert_pcdata_text_t
-   > ret("#pcdata");
+   > ret(njoy::GNDStk::special::pcdata);
    return ret;
 }
 

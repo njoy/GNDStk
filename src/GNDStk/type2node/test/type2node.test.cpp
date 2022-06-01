@@ -29,10 +29,10 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
       detail::convert_pcdata_text_t{}(container,n);
 
       // one way to check the Node
-      CHECK(n.name == "#pcdata");
+      CHECK(n.name == special::pcdata);
       CHECK(n.metadata.size() == 1);
       CHECK(n.children.size() == 0);
-      CHECK(n.metadata[0].first == "#text");
+      CHECK(n.metadata[0].first == special::text);
       CHECK(n.metadata[0].second == "1 2.3 4.56");
 
       // a shorter way

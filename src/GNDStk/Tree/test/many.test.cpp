@@ -23,18 +23,18 @@ SCENARIO("Testing GNDStk Tree many()") {
 
          // const
          found = false;
-         auto cnode = c.many("#xml",found);
+         auto cnode = c.many(special::xml,found);
          CHECK(found);
          CHECK(cnode.size() == 1);
-         CHECK(cnode[0].name == "#xml");
+         CHECK(cnode[0].name == special::xml);
          CHECK(cnode[0].meta("version") == "1.0");
 
          // non-const
          found = false;
-         auto tnode = t.many("#xml",found);
+         auto tnode = t.many(special::xml,found);
          CHECK(found);
          CHECK(tnode.size() == 1);
-         CHECK(tnode[0].name == "#xml");
+         CHECK(tnode[0].name == special::xml);
          CHECK(tnode[0].meta("encoding") == "UTF-8");
       }
 

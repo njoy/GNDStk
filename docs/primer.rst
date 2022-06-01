@@ -564,7 +564,7 @@ node. (Valid GNDS top-level nodes, per the standard, are ``reactionSuite``,
 about it for now.
 
 Naturally, GNDStk reverses the modifications when we *read* from a JSON file
-into our internal format. Specifically: values in an ``#metadata`` block are
+into our internal format. Specifically: values in a ``#metadata`` block are
 transformed into metadata in the enclosing node, and values from ``#nodename``
 name/value pairs replace index-suffixed names.
 
