@@ -25,16 +25,22 @@ inline std::string json_array(const orderedJSON &meta)
 
    for (const orderedJSON &m : meta) {
       oss << (count++ ? " " : "");
-      if (m.is_string())
-         oss << m.get<std::string>();
-      else if (m.is_number_integer())
+      if (m.is_number_integer()) {
+         // *** number: integer
          oss << m.get<std::int64_t>();
-      else if (m.is_number_unsigned())
+      } else if (m.is_number_unsigned()) {
+         // *** number: unsigned
          oss << m.get<std::uint64_t>();
-      else if (m.is_number_float())
+      } else if (m.is_number_float()) {
+         // *** number: double
          oss << m.get<double>();
-      else
+      } else if (m.is_string()) {
+         // *** string
+         oss << m.get<std::string>();
+      } else {
+         // *** unexpected
          json2node_error("JSON array element has unexpected type");
+      }
    }
 
    return oss.str();
@@ -94,7 +100,7 @@ bool json_pair(
       }
    } else {
       // *** unknown
-      json2node_error("JSON value type unknown or not handled");
+      json2node_error("JSON value has unexpected type");
    }
 
    return true;
@@ -111,20 +117,25 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
 {
    // The node sent here should be fresh, ready to receive entries
    if (!node.empty())
-      json2node_error("Node not empty()");
+      json2node_error("Node is not empty");
 
    // Non-(JSON "objects") should have been handled in the caller
    if (!siblings.is_object())
-      json2node_error("JSON value !is_object() not expected here");
+      json2node_error("JSON value !is_object(), but need object here");
 
    // The following cases should have been handled in the caller
    if (endsin(key, "#nodename"))
-      json2node_error("JSON key ending in \"#nodename\" not expected here");
+      json2node_error("JSON key ends in \"#nodename\": not expected here");
    if (endsin(key, "#metadata"))
-      json2node_error("JSON key ending in \"#metadata\" not expected here");
+      json2node_error("JSON key ends in \"#metadata\": not expected here");
 
    // Node name: from key
+   // For special nodes (ones that begin with '#', e.g. "#cdata0"),
+   // we know that we can, and should, remove trailing digits.
    node.name = key;
+   if (key != "" && key[0] == '#')
+      while (isdigit(node.name.back()))
+         node.name.pop_back();
 
    // ------------------------
    // JSON object's elements
@@ -164,7 +175,8 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
           ? node.add("#cdata"  ).add("#text", childval.get<std::string>())
           : node.add("#comment").add("#text", childval.get<std::string>());
       } else if (endsin(childkey,"#nodename") || endsin(childkey,"#metadata")) {
-         // *** Ignore, in this context
+         // *** Ignore, in this context. Note that childkey *equal* to either
+         // *** of those strings - not just endsin() them - was handled above.
       } else {
          // *** General case
          json_pair(node, siblings, childkey, childval, false);

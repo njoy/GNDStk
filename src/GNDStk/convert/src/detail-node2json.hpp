@@ -212,18 +212,29 @@ void meta2json_plain(const NODE &node, orderedJSON &json)
 
 template<class NODE>
 void meta2json(
-   const NODE &node, orderedJSON &json, const std::string &suffix,
-   const std::string &base = ""
+   const NODE &node, orderedJSON &json,
+   const std::string &base,
+   const std::string &digits,
+   const std::string &prefix
 ) {
-   // Create #nodename iff necessary (allows recovery of original node name)
-   if (suffix != "")
-      json[base+"#nodename"] = node.name;
+   // Create #nodename iff necessary, to allow recovery of the node's original
+   // name. Note that #nodename is NOT necessary for special nodes: those that
+   // begin with '#', in particular #cdata, #pcdata, and #comment. For those,
+   // we can reliably reconstruct the original name by removing trailing digits.
+   // A regular node, in contrast, *might* have an actual name that has trailing
+   // digits (one user called a node "sigma0", for example); or, trailing digits
+   // might have been added - by us - solely for the purpose of disambiguating
+   // same-named child nodes (for example, "sigma") that appeared multiple times
+   // under the same XML parent (which is allowed), but which can't appear that
+   // way in JSON. (JSON doesn't allow duplicate keys in the same object).
+   if (digits != "" /* has digits */ && !beginsin(base,"#") /* isn't special */)
+      json[prefix+"#nodename"] = node.name;
 
    // Existing metadata
    if (node.metadata.size())
       JSON::typed
-         ? meta2json_typed(node,json[base+"#metadata"])
-         : meta2json_plain(node,json[base+"#metadata"]);
+         ? meta2json_typed(node,json[prefix+"#metadata"])
+         : meta2json_plain(node,json[prefix+"#metadata"]);
 }
 
 
@@ -238,7 +249,7 @@ void meta2json(
 // Simplify certain #cdata and #comment cases.
 template<class NODE>
 bool json_reduce_cdata_comment(
-   const NODE &node, orderedJSON &json, const std::string &suffix
+   const NODE &node, orderedJSON &json, const std::string &digits
 ) {
    // Original node name, and suffixed name. The latter is for handling child
    // nodes of the same name under the same parent node, and includes a numeric
@@ -246,15 +257,15 @@ bool json_reduce_cdata_comment(
    // because JSON doesn't support same-named child nodes. In cases where the
    // name was unique to begin with, nameOriginal == nameSuffixed.
    const std::string nameOriginal = node.name;
-   const std::string nameSuffixed = node.name + suffix;
+   const std::string nameSuffixed = node.name + digits;
 
    // #cdata or #comment
    //    #text the only metadatum
    //    no children
-   // Reduce to: string value, w/name == (#cdata or #comment) + suffix
+   // Reduce to: string value, w/name == (#cdata or #comment) + digits
    // Sketch:
    //    +-----------------+     +------------+
-   //    | #cdata/#comment | ==> | "name" :   | name: #cdata/#comment + suffix
+   //    | #cdata/#comment | ==> | "name" :   | name: #cdata/#comment + digits
    //    |    #text        |     |    "value" |
    //    +-----------------+     +------------+
 
@@ -280,18 +291,18 @@ bool json_reduce_cdata_comment(
 // Simplify #pcdata case.
 template<class NODE>
 bool json_reduce_pcdata(
-   const NODE &node, orderedJSON &json, const std::string &suffix
+   const NODE &node, orderedJSON &json, const std::string &digits
 ) {
    const std::string nameOriginal = node.name;
-   const std::string nameSuffixed = node.name + suffix;
+   const std::string nameSuffixed = node.name + digits;
 
    // #pcdata
    //    #text the only metadatum
    //    no children
-   // Reduce to: array, w/name == #pcdata + suffix
+   // Reduce to: array, w/name == #pcdata + digits
    // Sketch:
    //    +----------+     +----------+
-   //    | #pcdata  | ==> | "name" : | name: #pcdata + suffix
+   //    | #pcdata  | ==> | "name" : | name: #pcdata + digits
    //    |    #text |     |    [...] |
    //    +----------+     +----------+
 
@@ -331,19 +342,19 @@ bool json_reduce_pcdata(
 // Simplify case of node with #pcdata AND metadata
 template<class NODE>
 bool json_reduce_pcdata_metadata(
-   const NODE &node, orderedJSON &json, const std::string &suffix
+   const NODE &node, orderedJSON &json, const std::string &digits
 ) {
-   const std::string nameSuffixed = node.name + suffix;
+   const std::string nameSuffixed = node.name + digits;
 
    // name (think e.g. "values", as in XML <values>)
    //    any number of metadata (possibly 0)
    //    #pcdata the only child
    //       #text the only metadatum
    //       no children
-   // Reduce to: array, w/name == name + suffix; separately encoded metadata
+   // Reduce to: array, w/name == name + digits; separately encoded metadata
    // Sketch:
    //    +---------------+     +----------------------+
-   //    | name          | ==> | "name" :             | name: name + suffix
+   //    | name          | ==> | "name" :             | name: name + digits
    //    |    [metadata] |     |    [...]             |
    //    |    #pcdata    |     | "name#metadata" : {  |
    //    |       #text   |     |    key/value pairs   |
@@ -378,7 +389,7 @@ bool json_reduce_pcdata_metadata(
       pcdata2Value(nameSuffixed, text, json);
 
       // metadata
-      meta2json(node, json, suffix, nameSuffixed);
+      meta2json(node, json, node.name, digits, nameSuffixed);
       return true;
    }
 
@@ -393,18 +404,18 @@ bool json_reduce_pcdata_metadata(
 // NODE is just GNDStk::Node. The latter isn't used directly, because
 // it's an "incomplete type", to the compiler, at this point.
 template<class NODE>
-bool node2json(const NODE &node, orderedJSON &j, const std::string &suffix = "")
+bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
 {
-   const std::string nameSuffixed = node.name + suffix;
+   const std::string nameSuffixed = node.name + digits;
 
    // ------------------------
    // Special cases
    // ------------------------
 
    if (JSON::reduced && (
-      json_reduce_cdata_comment  (node,j,suffix) ||
-      json_reduce_pcdata         (node,j,suffix) ||
-      json_reduce_pcdata_metadata(node,j,suffix)
+      json_reduce_cdata_comment  (node,j,digits) ||
+      json_reduce_pcdata         (node,j,digits) ||
+      json_reduce_pcdata_metadata(node,j,digits)
    ))
       return true;
 
@@ -416,7 +427,7 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &suffix = "")
    orderedJSON &json = j[nameSuffixed];
 
    // metadata
-   meta2json(node, json, suffix);
+   meta2json(node, json, node.name, digits, "");
 
    // children - preprocess
    // First, account for what children appear in the current node. If any child

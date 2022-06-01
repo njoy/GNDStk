@@ -18,19 +18,16 @@
       },
       "comments": {
          "#comment0": {
-            "#nodename": "#comment",
             "#metadata": {
                "#text": "Comment #0"
             }
          },
          "#comment1": {
-            "#nodename": "#comment",
             "#metadata": {
                "#text": "Comment #1"
             }
          },
          "#comment2": {
-            "#nodename": "#comment",
             "#metadata": {
                "#text": "Comment #2"
             }
@@ -93,13 +90,11 @@
       },
       "twocdata": {
          "#cdata0": {
-            "#nodename": "#cdata",
             "#metadata": {
                "#text": "Block #0 of CDATA"
             }
          },
          "#cdata1": {
-            "#nodename": "#cdata",
             "#metadata": {
                "#text": "Block #1 of CDATA"
             }
@@ -140,49 +135,41 @@
       },
       "various": {
          "#cdata0": {
-            "#nodename": "#cdata",
             "#metadata": {
                "#text": "More CDATA"
             }
          },
          "#cdata1": {
-            "#nodename": "#cdata",
             "#metadata": {
                "#text": "Some CDATA"
             }
          },
          "#comment0": {
-            "#nodename": "#comment",
             "#metadata": {
                "#text": "First comment"
             }
          },
          "#comment1": {
-            "#nodename": "#comment",
             "#metadata": {
                "#text": "Second comment"
             }
          },
          "#comment2": {
-            "#nodename": "#comment",
             "#metadata": {
                "#text": "Third comment"
             }
          },
          "#pcdata0": {
-            "#nodename": "#pcdata",
             "#metadata": {
                "#text": "1 2 3 4"
             }
          },
          "#pcdata1": {
-            "#nodename": "#pcdata",
             "#metadata": {
                "#text": "9.87 6.54 3.21"
             }
          },
          "#pcdata2": {
-            "#nodename": "#pcdata",
             "#metadata": {
                "#text": "a b c d e f g"
             }
