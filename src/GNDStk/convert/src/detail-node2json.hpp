@@ -229,15 +229,20 @@ void meta2json(
    // (for example, "sigma") that appeared multiple times under the same XML
    // parent (which is allowed), but which can't appear that way in JSON. (JSON
    // doesn't allow duplicate keys in the same object).
-   if (digits != "" &&     // has digits
+   if (digits != "" && // will have suffixed digits
       !beginsin(base,std::string(1,special::prefix))) // isn't special
       json[prefix + special::nodename] = node.name;
 
    // Existing metadata
+   // Remark: we could do without the "if (node.metadata.size())" conditional,
+   // except that the "json[...]" expressions have the side effect of creating
+   // JSON values (nulls to start with, until/unless something is added later).
+   // We don't want those to be created at all here if they won't end up having
+   // anything, in this case metadata, added to them.
    if (node.metadata.size())
       JSON::typed
-         ? meta2json_typed(node,json[prefix + special::metadata])
-         : meta2json_plain(node,json[prefix + special::metadata]);
+         ? meta2json_typed(node, json[prefix + special::metadata])
+         : meta2json_plain(node, json[prefix + special::metadata]);
 }
 
 

@@ -8,9 +8,7 @@ inline void xml2node_error(const std::string &type)
 {
    log::error(
      "Internal error in xml2node():\n"
-     "Type pugi::{} found, but not handled, as sub-element.",
-      type
-   );
+     "Type pugi::{} found, but not handled, as sub-element.", type);
    throw std::exception{};
 }
 

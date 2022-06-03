@@ -173,10 +173,14 @@ void meta2hdf5_plain(const NODE &node, OBJECT &hdf5)
 // ------------------------
 
 template<class NODE, class OBJECT>
-void meta2hdf5(const NODE &node, OBJECT &hdf5, const std::string &suffix)
-{
-   // Create NODENAME iff necessary (allows recovery of original node name)
-   if (suffix != "")
+void meta2hdf5(
+   const NODE &node, OBJECT &hdf5,
+   const std::string &base,
+   const std::string &digits
+) {
+   // Create NODENAME iff necessary. See remarks in the analogous JSON code.
+   if (digits != "" &&
+      !beginsin(base,std::string(1,special::prefix)))
       hdf5.createAttribute(special::nodename, node.name);
 
    // Existing metadata
@@ -301,7 +305,7 @@ bool hdf5_reduce_pcdata_metadata(
       HighFive::DataSet dataset = pcdata2DataSet(node.name+suffix, text, hdf5);
 
       // metadata
-      meta2hdf5(node, dataset, suffix);
+      meta2hdf5(node, dataset, node.name, suffix);
       return true;
    }
 
@@ -340,7 +344,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    HighFive::Group group = h.createGroup(nameSuffixed);
 
    // metadata
-   meta2hdf5(node, group, suffix);
+   meta2hdf5(node, group, node.name, suffix);
 
    // children - preprocess
    // To understand this, see the remark in the JSON analog.

@@ -4,8 +4,7 @@ inline void json2node_error(const std::string &message)
 {
    log::error(
      "Internal error in json2node():\n"
-     "Message: \"{}\".", message
-   );
+     "Message: \"{}\".", message);
    throw std::exception{};
 }
 
@@ -99,7 +98,7 @@ bool json_pair(
          throw;
       }
    } else {
-      // *** unknown
+      // *** unexpected
       json2node_error("JSON value has unexpected type");
    }
 
@@ -135,7 +134,7 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
    // For special nodes (ones that begin with special::prefix),
    // we know that we can, and should, remove trailing digits.
    node.name = key;
-   if (key != "" && key[0] == special::prefix)
+   if (node.name != "" && node.name[0] == special::prefix)
       while (isdigit(node.name.back()))
          node.name.pop_back();
 
@@ -172,10 +171,10 @@ bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
             }
          else
             beginsin(childkey,special::pcdata)
-          ? node.add(special::pcdata )
+          ? node.add(special::pcdata)
                 .add(special::text, json_array(childval))
           : beginsin(childkey,special::cdata)
-          ? node.add(special::cdata  )
+          ? node.add(special::cdata)
                 .add(special::text, childval.get<std::string>())
           : node.add(special::comment)
                 .add(special::text, childval.get<std::string>());

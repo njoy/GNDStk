@@ -7,8 +7,7 @@ inline void hdf52node_error(const std::string &message)
 {
    log::error(
      "Internal error in hdf52node():\n"
-     "Message: \"{}\".", message
-   );
+     "Message: \"{}\".", message);
    throw std::exception{};
 }
 
@@ -79,7 +78,7 @@ bool attr2node(const HighFive::Attribute &attr, NODE &node)
    log::error(
      "HDF5 Attribute \"{}\"'s DataType \"{}\" is not supported at this time.",
       attr.getName(), attr.getDataType().string());
-   log::function("attr2node(HighFive::Attribute, Node)");
+   log::function("attr2node()");
 
    return false;
 }
@@ -124,17 +123,17 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
 // dset2node
 template<class NODE>
 bool dset2node(
-   const HighFive::Group &group, const std::string &dsetName,
+   const HighFive::DataSet &dset, const std::string &dsetName,
    NODE &parent
 ) {
    Node &node = parent.add(
-      beginsin(dsetName,special::pcdata) ? special::pcdata : dsetName
-   );
+      beginsin(dsetName,special::pcdata) ? special::pcdata : dsetName);
 
    // the DataSet's attributes
-   const HighFive::DataSet &dset = group.getDataSet(dsetName);
    for (const std::string &attrName : dset.listAttributeNames())
-      if (!attr2node(dset.getAttribute(attrName), node))
+      if (attrName == special::nodename)
+         dset.getAttribute(attrName).read(node.name);
+      else if (!attr2node(dset.getAttribute(attrName), node))
          return false;
 
    // the DataSet's data
@@ -157,7 +156,7 @@ bool dset2node(
    log::error(
      "HDF5 DataSet \"{}\"'s DataType \"{}\" is not supported at this time.",
       dsetName, dset.getDataType().string());
-   log::function("dset2node(HighFive::DataSet, dsetName, Node)");
+   log::function("dset2node()");
 
    return false;
 }
@@ -178,9 +177,12 @@ bool hdf52node(
 
    // node name: from HDF5 group name
    node.name = groupName == rootHDF5Name ? slashTreeName : groupName;
+   if (node.name != "" && node.name[0] == special::prefix)
+      while (isdigit(node.name.back()))
+         node.name.pop_back();
 
    // ------------------------
-   // HDF5 attributes
+   // Group's attributes
    // ==> metadata
    // ------------------------
 
@@ -221,7 +223,7 @@ bool hdf52node(
    } // if
 
    // ------------------------
-   // HDF5 sub-groups
+   // Group's objects
    // ==> children
    // ------------------------
 
@@ -264,7 +266,7 @@ bool hdf52node(
          // not DataSet (upper-case S), but uses "DataSet" elsewhere. :-/
          case HighFive::ObjectType::Dataset :
             try {
-               if (!dset2node(group,elemName,node))
+               if (!dset2node(group.getDataSet(elemName), elemName, node))
                   return false;
             } catch (...) {
                log::function("hdf52node()");
