@@ -40,7 +40,7 @@ inline std::string guessType(const std::string &str)
    while (end && isspace(str[end-1])) end--;
    std::istringstream iss(str.substr(0,end));
 
-   // one int, or more than one int, or one unsigned, or ...
+   // one int, or more than one int, or one unsigned, or...
    std::string s;
    if ((s = guessType<int          >(iss,"int"   )) != "") return s;
    if ((s = guessType<unsigned     >(iss,"uint"  )) != "") return s;
