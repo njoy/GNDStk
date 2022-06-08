@@ -47,54 +47,8 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // children
-      std::vector<transport::Reaction> reaction;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // reaction
-   const std::vector<transport::Reaction> &reaction() const
-      { return Content.reaction; }
-   std::vector<transport::Reaction> &reaction()
-      { return Content.reaction; }
-
-   // reaction(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) reaction(const KEY &key) const
-      { return getter(reaction(), key, "reaction"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) reaction(const KEY &key)
-      { return getter(reaction(), key, "reaction"); }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // reaction(vector): replace vector
-   Reactions &reaction(const std::vector<transport::Reaction> &obj)
-      { reaction() = obj; return *this; }
-
-   // reaction(scalar): vector push_back
-   Reactions &reaction(const transport::Reaction &obj)
-      { setter(reaction(), obj); return *this; }
-
-   // reaction(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   Reactions &reaction(const KEY &key, const transport::Reaction &obj)
-   {
-      reaction(key) = obj; return *this;
-   }
+   // children
+   Field<Reactions,std::vector<transport::Reaction>> reaction;
 
    // ------------------------
    // Constructors
@@ -102,16 +56,13 @@ public:
 
    // default, and from fields
    explicit Reactions(
-      const std::vector<transport::Reaction> &reaction =
-         std::vector<transport::Reaction>{}
+      const std::vector<transport::Reaction> &reaction = {}
    ) :
       Component{
          BlockData{},
-         this->reaction()
+         this->reaction
       },
-      Content{
-         reaction
-      }
+      reaction(this,reaction,"reaction")
    {
       Component::finish();
    }
@@ -120,9 +71,9 @@ public:
    Reactions(const Reactions &other) :
       Component{
          other.baseBlockData(),
-         this->reaction()
+         this->reaction
       },
-      Content{other.Content}
+      reaction(this,other.reaction)
    {
       Component::finish(other);
    }
@@ -131,9 +82,9 @@ public:
    Reactions(Reactions &&other) :
       Component{
          other.baseBlockData(),
-         this->reaction()
+         this->reaction
       },
-      Content{std::move(other.Content)}
+      reaction(this,std::move(other.reaction))
    {
       Component::finish(other);
    }
@@ -142,8 +93,9 @@ public:
    Reactions(const Node &node) :
       Component{
          BlockData{},
-         this->reaction()
-      }
+         this->reaction
+      },
+      reaction(this,{},"reaction")
    {
       Component::finish(node);
    }
@@ -152,10 +104,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Reactions &operator=(const Reactions &) = default;
-
-   // move
    Reactions &operator=(Reactions &&) = default;
 
    // ------------------------

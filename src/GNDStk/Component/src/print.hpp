@@ -69,7 +69,7 @@ std::ostream &print(std::ostream &os, const int level) const
       );
 
       // Consistency check
-      assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
       // Compute maximum length of key names, if aligning. Note that we
       // could - but don't - take into account that keys associated with

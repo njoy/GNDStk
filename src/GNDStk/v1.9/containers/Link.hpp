@@ -46,35 +46,8 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::string href;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // href
-   const std::string &href() const
-      { return Content.href; }
-   std::string &href()
-      { return Content.href; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // href(value)
-   Link &href(const std::string &obj)
-      { href() = obj; return *this; }
+   // metadata
+   Field<Link,std::string> href;
 
    // ------------------------
    // Constructors
@@ -82,16 +55,13 @@ public:
 
    // default, and from fields
    explicit Link(
-      const std::string &href =
-         std::string{}
+      const std::string &href = {}
    ) :
       Component{
          BlockData{},
-         this->href()
+         this->href
       },
-      Content{
-         href
-      }
+      href(this,href,"href")
    {
       Component::finish();
    }
@@ -100,9 +70,9 @@ public:
    Link(const Link &other) :
       Component{
          other.baseBlockData(),
-         this->href()
+         this->href
       },
-      Content{other.Content}
+      href(this,other.href)
    {
       Component::finish(other);
    }
@@ -111,9 +81,9 @@ public:
    Link(Link &&other) :
       Component{
          other.baseBlockData(),
-         this->href()
+         this->href
       },
-      Content{std::move(other.Content)}
+      href(this,std::move(other.href))
    {
       Component::finish(other);
    }
@@ -122,8 +92,9 @@ public:
    Link(const Node &node) :
       Component{
          BlockData{},
-         this->href()
-      }
+         this->href
+      },
+      href(this,{},"href")
    {
       Component::finish(node);
    }
@@ -132,10 +103,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Link &operator=(const Link &) = default;
-
-   // move
    Link &operator=(Link &&) = default;
 
    // ------------------------

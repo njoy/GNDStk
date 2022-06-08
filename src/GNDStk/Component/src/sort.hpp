@@ -7,7 +7,7 @@ void sort()
 {
    try {
       // Consistency check
-      assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
       // Apply links
       std::apply(

@@ -50,57 +50,10 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::optional<int> index;
-      std::optional<std::string> label;
-      std::optional<std::string> unit;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // index
-   const std::optional<int> &index() const
-      { return Content.index; }
-   std::optional<int> &index()
-      { return Content.index; }
-
-   // label
-   const std::optional<std::string> &label() const
-      { return Content.label; }
-   std::optional<std::string> &label()
-      { return Content.label; }
-
-   // unit
-   const std::optional<std::string> &unit() const
-      { return Content.unit; }
-   std::optional<std::string> &unit()
-      { return Content.unit; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // index(value)
-   Axis &index(const std::optional<int> &obj)
-      { index() = obj; return *this; }
-
-   // label(value)
-   Axis &label(const std::optional<std::string> &obj)
-      { label() = obj; return *this; }
-
-   // unit(value)
-   Axis &unit(const std::optional<std::string> &obj)
-      { unit() = obj; return *this; }
+   // metadata
+   Field<Axis,std::optional<int>> index;
+   Field<Axis,std::optional<std::string>> label;
+   Field<Axis,std::optional<std::string>> unit;
 
    // ------------------------
    // Constructors
@@ -108,24 +61,19 @@ public:
 
    // default, and from fields
    explicit Axis(
-      const std::optional<int> &index =
-         std::optional<int>{},
-      const std::optional<std::string> &label =
-         std::optional<std::string>{},
-      const std::optional<std::string> &unit =
-         std::optional<std::string>{}
+      const std::optional<int> &index = {},
+      const std::optional<std::string> &label = {},
+      const std::optional<std::string> &unit = {}
    ) :
       Component{
          BlockData{},
-         this->index(),
-         this->label(),
-         this->unit()
+         this->index,
+         this->label,
+         this->unit
       },
-      Content{
-         index,
-         label,
-         unit
-      }
+      index(this,index,"index"),
+      label(this,label,"label"),
+      unit(this,unit,"unit")
    {
       Component::finish();
    }
@@ -134,11 +82,13 @@ public:
    Axis(const Axis &other) :
       Component{
          other.baseBlockData(),
-         this->index(),
-         this->label(),
-         this->unit()
+         this->index,
+         this->label,
+         this->unit
       },
-      Content{other.Content}
+      index(this,other.index),
+      label(this,other.label),
+      unit(this,other.unit)
    {
       Component::finish(other);
    }
@@ -147,11 +97,13 @@ public:
    Axis(Axis &&other) :
       Component{
          other.baseBlockData(),
-         this->index(),
-         this->label(),
-         this->unit()
+         this->index,
+         this->label,
+         this->unit
       },
-      Content{std::move(other.Content)}
+      index(this,std::move(other.index)),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit))
    {
       Component::finish(other);
    }
@@ -160,10 +112,13 @@ public:
    Axis(const Node &node) :
       Component{
          BlockData{},
-         this->index(),
-         this->label(),
-         this->unit()
-      }
+         this->index,
+         this->label,
+         this->unit
+      },
+      index(this,{},"index"),
+      label(this,{},"label"),
+      unit(this,{},"unit")
    {
       Component::finish(node);
    }
@@ -172,10 +127,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Axis &operator=(const Axis &) = default;
-
-   // move
    Axis &operator=(Axis &&) = default;
 
    // ------------------------

@@ -56,41 +56,15 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::optional<std::string> href;
-      // children - variant
-      std::vector<axis_grid_t> axis_grid;
-   } Content;
+   // metadata
+   Field<Axes,std::optional<std::string>> href;
+   // children - variant
+   Field<Axes,std::vector<axis_grid_t>> axis_grid;
 
    // ------------------------
    // Getters
    // const and non-const
    // ------------------------
-
-   // href
-   const std::optional<std::string> &href() const
-      { return Content.href; }
-   std::optional<std::string> &href()
-      { return Content.href; }
-
-   // axis_grid
-   const std::vector<axis_grid_t> &axis_grid() const
-      { return Content.axis_grid; }
-   std::vector<axis_grid_t> &axis_grid()
-      { return Content.axis_grid; }
-
-   // axis_grid(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) axis_grid(const KEY &key) const
-      { return getter(axis_grid(), key, "axis_grid"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) axis_grid(const KEY &key)
-      { return getter(axis_grid(), key, "axis_grid"); }
 
    // axis(index/label/Lookup)
    template<class KEY, class = detail::isSearchKey<KEY>>
@@ -113,25 +87,6 @@ public:
    // non-const
    // All return *this
    // ------------------------
-
-   // href(value)
-   Axes &href(const std::optional<std::string> &obj)
-      { href() = obj; return *this; }
-
-   // axis_grid(vector): replace vector
-   Axes &axis_grid(const std::vector<axis_grid_t> &obj)
-      { axis_grid() = obj; return *this; }
-
-   // axis_grid(scalar): vector push_back
-   Axes &axis_grid(const axis_grid_t &obj)
-      { setter(axis_grid(), obj); return *this; }
-
-   // axis_grid(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   Axes &axis_grid(const KEY &key, const axis_grid_t &obj)
-   {
-      axis_grid(key) = obj; return *this;
-   }
 
    // axis(index/label/Lookup, value): replace vector entry
    template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
@@ -159,20 +114,16 @@ public:
 
    // default, and from fields
    explicit Axes(
-      const std::optional<std::string> &href =
-         std::optional<std::string>{},
-      const std::vector<axis_grid_t> &axis_grid =
-         std::vector<axis_grid_t>{}
+      const std::optional<std::string> &href = {},
+      const std::vector<axis_grid_t> &axis_grid = {}
    ) :
       Component{
          BlockData{},
-         this->href(),
-         this->axis_grid()
+         this->href,
+         this->axis_grid
       },
-      Content{
-         href,
-         axis_grid
-      }
+      href(this,href,"href"),
+      axis_grid(this,axis_grid,"axis_grid")
    {
       Component::finish();
    }
@@ -181,10 +132,11 @@ public:
    Axes(const Axes &other) :
       Component{
          other.baseBlockData(),
-         this->href(),
-         this->axis_grid()
+         this->href,
+         this->axis_grid
       },
-      Content{other.Content}
+      href(this,other.href),
+      axis_grid(this,other.axis_grid)
    {
       Component::finish(other);
    }
@@ -193,10 +145,11 @@ public:
    Axes(Axes &&other) :
       Component{
          other.baseBlockData(),
-         this->href(),
-         this->axis_grid()
+         this->href,
+         this->axis_grid
       },
-      Content{std::move(other.Content)}
+      href(this,std::move(other.href)),
+      axis_grid(this,std::move(other.axis_grid))
    {
       Component::finish(other);
    }
@@ -205,9 +158,11 @@ public:
    Axes(const Node &node) :
       Component{
          BlockData{},
-         this->href(),
-         this->axis_grid()
-      }
+         this->href,
+         this->axis_grid
+      },
+      href(this,{},"href"),
+      axis_grid(this,{},"axis_grid")
    {
       Component::finish(node);
    }
@@ -216,10 +171,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Axes &operator=(const Axes &) = default;
-
-   // move
    Axes &operator=(Axes &&) = default;
 
    // ------------------------

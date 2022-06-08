@@ -4,6 +4,38 @@
 // -----------------------------------------------------------------------------
 
 // ------------------------
+// isVector
+// ------------------------
+
+// general
+template<class T>
+struct isVector
+   : public std::false_type
+{ };
+
+// for std::vector
+template<class T, class Alloc>
+struct isVector<std::vector<T,Alloc>>
+   : public std::true_type
+{ };
+
+// ------------------------
+// isDefaulted
+// ------------------------
+
+// general
+template<class T>
+struct isDefaulted
+   : public std::false_type
+{ };
+
+// for Defaulted
+template<class T>
+struct isDefaulted<Defaulted<T>>
+   : public std::true_type
+{ };
+
+// ------------------------
 // isLookup
 // ------------------------
 

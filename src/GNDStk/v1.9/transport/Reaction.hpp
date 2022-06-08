@@ -54,69 +54,12 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      int ENDF_MT;
-      std::optional<std::string> fissionGenre;
-      std::string label;
-      // children
-      transport::CrossSection crossSection;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // ENDF_MT
-   const int &ENDF_MT() const
-      { return Content.ENDF_MT; }
-   int &ENDF_MT()
-      { return Content.ENDF_MT; }
-
-   // fissionGenre
-   const std::optional<std::string> &fissionGenre() const
-      { return Content.fissionGenre; }
-   std::optional<std::string> &fissionGenre()
-      { return Content.fissionGenre; }
-
-   // label
-   const std::string &label() const
-      { return Content.label; }
-   std::string &label()
-      { return Content.label; }
-
-   // crossSection
-   const transport::CrossSection &crossSection() const
-      { return Content.crossSection; }
-   transport::CrossSection &crossSection()
-      { return Content.crossSection; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // ENDF_MT(value)
-   Reaction &ENDF_MT(const int &obj)
-      { ENDF_MT() = obj; return *this; }
-
-   // fissionGenre(value)
-   Reaction &fissionGenre(const std::optional<std::string> &obj)
-      { fissionGenre() = obj; return *this; }
-
-   // label(value)
-   Reaction &label(const std::string &obj)
-      { label() = obj; return *this; }
-
-   // crossSection(value)
-   Reaction &crossSection(const transport::CrossSection &obj)
-      { crossSection() = obj; return *this; }
+   // metadata
+   Field<Reaction,int> ENDF_MT;
+   Field<Reaction,std::optional<std::string>> fissionGenre;
+   Field<Reaction,std::string> label;
+   // children
+   Field<Reaction,transport::CrossSection> crossSection;
 
    // ------------------------
    // Constructors
@@ -124,28 +67,22 @@ public:
 
    // default, and from fields
    explicit Reaction(
-      const int &ENDF_MT =
-         int{},
-      const std::optional<std::string> &fissionGenre =
-         std::optional<std::string>{},
-      const std::string &label =
-         std::string{},
-      const transport::CrossSection &crossSection =
-         transport::CrossSection{}
+      const int &ENDF_MT = {},
+      const std::optional<std::string> &fissionGenre = {},
+      const std::string &label = {},
+      const transport::CrossSection &crossSection = {}
    ) :
       Component{
          BlockData{},
-         this->ENDF_MT(),
-         this->fissionGenre(),
-         this->label(),
-         this->crossSection()
+         this->ENDF_MT,
+         this->fissionGenre,
+         this->label,
+         this->crossSection
       },
-      Content{
-         ENDF_MT,
-         fissionGenre,
-         label,
-         crossSection
-      }
+      ENDF_MT(this,ENDF_MT,"ENDF_MT"),
+      fissionGenre(this,fissionGenre,"fissionGenre"),
+      label(this,label,"label"),
+      crossSection(this,crossSection,"crossSection")
    {
       Component::finish();
    }
@@ -154,12 +91,15 @@ public:
    Reaction(const Reaction &other) :
       Component{
          other.baseBlockData(),
-         this->ENDF_MT(),
-         this->fissionGenre(),
-         this->label(),
-         this->crossSection()
+         this->ENDF_MT,
+         this->fissionGenre,
+         this->label,
+         this->crossSection
       },
-      Content{other.Content}
+      ENDF_MT(this,other.ENDF_MT),
+      fissionGenre(this,other.fissionGenre),
+      label(this,other.label),
+      crossSection(this,other.crossSection)
    {
       Component::finish(other);
    }
@@ -168,12 +108,15 @@ public:
    Reaction(Reaction &&other) :
       Component{
          other.baseBlockData(),
-         this->ENDF_MT(),
-         this->fissionGenre(),
-         this->label(),
-         this->crossSection()
+         this->ENDF_MT,
+         this->fissionGenre,
+         this->label,
+         this->crossSection
       },
-      Content{std::move(other.Content)}
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      fissionGenre(this,std::move(other.fissionGenre)),
+      label(this,std::move(other.label)),
+      crossSection(this,std::move(other.crossSection))
    {
       Component::finish(other);
    }
@@ -182,11 +125,15 @@ public:
    Reaction(const Node &node) :
       Component{
          BlockData{},
-         this->ENDF_MT(),
-         this->fissionGenre(),
-         this->label(),
-         this->crossSection()
-      }
+         this->ENDF_MT,
+         this->fissionGenre,
+         this->label,
+         this->crossSection
+      },
+      ENDF_MT(this,{},"ENDF_MT"),
+      fissionGenre(this,{},"fissionGenre"),
+      label(this,{},"label"),
+      crossSection(this,{},"crossSection")
    {
       Component::finish(node);
    }
@@ -195,10 +142,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Reaction &operator=(const Reaction &) = default;
-
-   // move
    Reaction &operator=(Reaction &&) = default;
 
    // ------------------------

@@ -64,70 +64,24 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Relevant defaults
-   // FYI for users
-   // ------------------------
-
+   // defaults
    static inline const struct Defaults {
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
-      std::optional<std::string> label;
-      std::optional<enums::GridStyle> style;
-      std::optional<std::string> unit;
-      // children - variant
-      link_values_t link_values;
-   } Content;
+   // metadata
+   Field<Grid,std::optional<int>> index;
+   Field<Grid,Defaulted<enums::Interpolation>> interpolation;
+   Field<Grid,std::optional<std::string>> label;
+   Field<Grid,std::optional<enums::GridStyle>> style;
+   Field<Grid,std::optional<std::string>> unit;
+   // children - variant
+   Field<Grid,link_values_t> link_values;
 
    // ------------------------
    // Getters
    // const and non-const
    // ------------------------
-
-   // index
-   const std::optional<int> &index() const
-      { return Content.index; }
-   std::optional<int> &index()
-      { return Content.index; }
-
-   // interpolation
-   const Defaulted<enums::Interpolation> &interpolation() const
-      { return Content.interpolation; }
-   Defaulted<enums::Interpolation> &interpolation()
-      { return Content.interpolation; }
-
-   // label
-   const std::optional<std::string> &label() const
-      { return Content.label; }
-   std::optional<std::string> &label()
-      { return Content.label; }
-
-   // style
-   const std::optional<enums::GridStyle> &style() const
-      { return Content.style; }
-   std::optional<enums::GridStyle> &style()
-      { return Content.style; }
-
-   // unit
-   const std::optional<std::string> &unit() const
-      { return Content.unit; }
-   std::optional<std::string> &unit()
-      { return Content.unit; }
-
-   // link_values
-   const link_values_t &link_values() const
-      { return Content.link_values; }
-   link_values_t &link_values()
-      { return Content.link_values; }
 
    // values
    const containers::Values *values() const
@@ -147,32 +101,6 @@ public:
    // All return *this
    // ------------------------
 
-   // index(value)
-   Grid &index(const std::optional<int> &obj)
-      { index() = obj; return *this; }
-
-   // interpolation(value)
-   Grid &interpolation(const Defaulted<enums::Interpolation> &obj)
-      { interpolation() = obj; return *this; }
-   Grid &interpolation(const std::optional<enums::Interpolation> &obj)
-      { interpolation() = obj; return *this; }
-
-   // label(value)
-   Grid &label(const std::optional<std::string> &obj)
-      { label() = obj; return *this; }
-
-   // style(value)
-   Grid &style(const std::optional<enums::GridStyle> &obj)
-      { style() = obj; return *this; }
-
-   // unit(value)
-   Grid &unit(const std::optional<std::string> &obj)
-      { unit() = obj; return *this; }
-
-   // link_values(value)
-   Grid &link_values(const link_values_t &obj)
-      { link_values() = obj; return *this; }
-
    // values(value)
    Grid &values(const std::optional<containers::Values> &obj)
       { if (obj) link_values(obj.value()); return *this; }
@@ -188,36 +116,28 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Grid(
-      const std::optional<int> &index =
-         std::optional<int>{},
-      const std::optional<enums::Interpolation> &interpolation =
-         std::optional<enums::Interpolation>{},
-      const std::optional<std::string> &label =
-         std::optional<std::string>{},
-      const std::optional<enums::GridStyle> &style =
-         std::optional<enums::GridStyle>{},
-      const std::optional<std::string> &unit =
-         std::optional<std::string>{},
-      const link_values_t &link_values =
-         link_values_t{}
+      const std::optional<int> &index = {},
+      const std::optional<enums::Interpolation> &interpolation = {},
+      const std::optional<std::string> &label = {},
+      const std::optional<enums::GridStyle> &style = {},
+      const std::optional<std::string> &unit = {},
+      const link_values_t &link_values = {}
    ) :
       Component{
          BlockData{},
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->style(),
-         this->unit(),
-         this->link_values()
+         this->index,
+         this->interpolation,
+         this->label,
+         this->style,
+         this->unit,
+         this->link_values
       },
-      Content{
-         index,
-         Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
-         label,
-         style,
-         unit,
-         link_values
-      }
+      index(this,index,"index"),
+      interpolation(this,defaults.interpolation,interpolation,"interpolation"),
+      label(this,label,"label"),
+      style(this,style,"style"),
+      unit(this,unit,"unit"),
+      link_values(this,link_values,"link_values")
    {
       Component::finish();
    }
@@ -226,14 +146,19 @@ public:
    Grid(const Grid &other) :
       Component{
          other.baseBlockData(),
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->style(),
-         this->unit(),
-         this->link_values()
+         this->index,
+         this->interpolation,
+         this->label,
+         this->style,
+         this->unit,
+         this->link_values
       },
-      Content{other.Content}
+      index(this,other.index),
+      interpolation(this,other.interpolation),
+      label(this,other.label),
+      style(this,other.style),
+      unit(this,other.unit),
+      link_values(this,other.link_values)
    {
       Component::finish(other);
    }
@@ -242,14 +167,19 @@ public:
    Grid(Grid &&other) :
       Component{
          other.baseBlockData(),
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->style(),
-         this->unit(),
-         this->link_values()
+         this->index,
+         this->interpolation,
+         this->label,
+         this->style,
+         this->unit,
+         this->link_values
       },
-      Content{std::move(other.Content)}
+      index(this,std::move(other.index)),
+      interpolation(this,std::move(other.interpolation)),
+      label(this,std::move(other.label)),
+      style(this,std::move(other.style)),
+      unit(this,std::move(other.unit)),
+      link_values(this,std::move(other.link_values))
    {
       Component::finish(other);
    }
@@ -258,13 +188,19 @@ public:
    Grid(const Node &node) :
       Component{
          BlockData{},
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->style(),
-         this->unit(),
-         this->link_values()
-      }
+         this->index,
+         this->interpolation,
+         this->label,
+         this->style,
+         this->unit,
+         this->link_values
+      },
+      index(this,{},"index"),
+      interpolation(this,defaults.interpolation,{},"interpolation"),
+      label(this,{},"label"),
+      style(this,{},"style"),
+      unit(this,{},"unit"),
+      link_values(this,{},"link_values")
    {
       Component::finish(node);
    }
@@ -273,10 +209,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Grid &operator=(const Grid &) = default;
-
-   // move
    Grid &operator=(Grid &&) = default;
 
    // ------------------------

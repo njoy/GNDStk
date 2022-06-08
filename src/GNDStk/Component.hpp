@@ -151,6 +151,9 @@ public:
       }
    }
 
+   // Wrapper for derived-class fields
+   #include "GNDStk/Component/src/field.hpp"
+
 }; // class Component
 
 

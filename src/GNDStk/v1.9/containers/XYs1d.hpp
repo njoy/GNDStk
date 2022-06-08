@@ -59,102 +59,19 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Relevant defaults
-   // FYI for users
-   // ------------------------
-
+   // defaults
    static inline const struct Defaults {
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
-      std::optional<std::string> label;
-      std::optional<double> outerDomainValue;
-      // children
-      std::optional<containers::Axes> axes;
-      containers::Values values;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // index
-   const std::optional<int> &index() const
-      { return Content.index; }
-   std::optional<int> &index()
-      { return Content.index; }
-
-   // interpolation
-   const Defaulted<enums::Interpolation> &interpolation() const
-      { return Content.interpolation; }
-   Defaulted<enums::Interpolation> &interpolation()
-      { return Content.interpolation; }
-
-   // label
-   const std::optional<std::string> &label() const
-      { return Content.label; }
-   std::optional<std::string> &label()
-      { return Content.label; }
-
-   // outerDomainValue
-   const std::optional<double> &outerDomainValue() const
-      { return Content.outerDomainValue; }
-   std::optional<double> &outerDomainValue()
-      { return Content.outerDomainValue; }
-
-   // axes
-   const std::optional<containers::Axes> &axes() const
-      { return Content.axes; }
-   std::optional<containers::Axes> &axes()
-      { return Content.axes; }
-
-   // values
-   const containers::Values &values() const
-      { return Content.values; }
-   containers::Values &values()
-      { return Content.values; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // index(value)
-   XYs1d &index(const std::optional<int> &obj)
-      { index() = obj; return *this; }
-
-   // interpolation(value)
-   XYs1d &interpolation(const Defaulted<enums::Interpolation> &obj)
-      { interpolation() = obj; return *this; }
-   XYs1d &interpolation(const std::optional<enums::Interpolation> &obj)
-      { interpolation() = obj; return *this; }
-
-   // label(value)
-   XYs1d &label(const std::optional<std::string> &obj)
-      { label() = obj; return *this; }
-
-   // outerDomainValue(value)
-   XYs1d &outerDomainValue(const std::optional<double> &obj)
-      { outerDomainValue() = obj; return *this; }
-
-   // axes(value)
-   XYs1d &axes(const std::optional<containers::Axes> &obj)
-      { axes() = obj; return *this; }
-
-   // values(value)
-   XYs1d &values(const containers::Values &obj)
-      { values() = obj; return *this; }
+   // metadata
+   Field<XYs1d,std::optional<int>> index;
+   Field<XYs1d,Defaulted<enums::Interpolation>> interpolation;
+   Field<XYs1d,std::optional<std::string>> label;
+   Field<XYs1d,std::optional<double>> outerDomainValue;
+   // children
+   Field<XYs1d,std::optional<containers::Axes>> axes;
+   Field<XYs1d,containers::Values> values;
 
    // ------------------------
    // Constructors
@@ -163,36 +80,28 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit XYs1d(
-      const std::optional<int> &index =
-         std::optional<int>{},
-      const std::optional<enums::Interpolation> &interpolation =
-         std::optional<enums::Interpolation>{},
-      const std::optional<std::string> &label =
-         std::optional<std::string>{},
-      const std::optional<double> &outerDomainValue =
-         std::optional<double>{},
-      const std::optional<containers::Axes> &axes =
-         std::optional<containers::Axes>{},
-      const containers::Values &values =
-         containers::Values{}
+      const std::optional<int> &index = {},
+      const std::optional<enums::Interpolation> &interpolation = {},
+      const std::optional<std::string> &label = {},
+      const std::optional<double> &outerDomainValue = {},
+      const std::optional<containers::Axes> &axes = {},
+      const containers::Values &values = containers::Values{}
    ) :
       Component{
          BlockData{},
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->values()
+         this->index,
+         this->interpolation,
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->values
       },
-      Content{
-         index,
-         Defaulted<enums::Interpolation>(defaults.interpolation,interpolation),
-         label,
-         outerDomainValue,
-         axes,
-         values
-      }
+      index(this,index,"index"),
+      interpolation(this,defaults.interpolation,interpolation,"interpolation"),
+      label(this,label,"label"),
+      outerDomainValue(this,outerDomainValue,"outerDomainValue"),
+      axes(this,axes,"axes"),
+      values(this,values,"values")
    {
       Component::finish();
    }
@@ -201,14 +110,19 @@ public:
    XYs1d(const XYs1d &other) :
       Component{
          other.baseBlockData(),
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->values()
+         this->index,
+         this->interpolation,
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->values
       },
-      Content{other.Content}
+      index(this,other.index),
+      interpolation(this,other.interpolation),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      axes(this,other.axes),
+      values(this,other.values)
    {
       Component::finish(other);
    }
@@ -217,14 +131,19 @@ public:
    XYs1d(XYs1d &&other) :
       Component{
          other.baseBlockData(),
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->values()
+         this->index,
+         this->interpolation,
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->values
       },
-      Content{std::move(other.Content)}
+      index(this,std::move(other.index)),
+      interpolation(this,std::move(other.interpolation)),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      axes(this,std::move(other.axes)),
+      values(this,std::move(other.values))
    {
       Component::finish(other);
    }
@@ -233,13 +152,19 @@ public:
    XYs1d(const Node &node) :
       Component{
          BlockData{},
-         this->index(),
-         this->interpolation(),
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->values()
-      }
+         this->index,
+         this->interpolation,
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->values
+      },
+      index(this,{},"index"),
+      interpolation(this,defaults.interpolation,{},"interpolation"),
+      label(this,{},"label"),
+      outerDomainValue(this,{},"outerDomainValue"),
+      axes(this,{},"axes"),
+      values(this,containers::Values{},"values")
    {
       Component::finish(node);
    }
@@ -248,10 +173,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    XYs1d &operator=(const XYs1d &) = default;
-
-   // move
    XYs1d &operator=(XYs1d &&) = default;
 
    // ------------------------

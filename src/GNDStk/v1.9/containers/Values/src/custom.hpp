@@ -45,10 +45,13 @@ public:
           const std::vector< T >& values ) :
       Component{
          BlockData{},
-         this->length(),
-         this->start(),
-         this->valueType()
-      }
+         this->length.value,
+         this->start.value,
+         this->valueType.value
+      },
+      valueType(this,defaults.valueType,{},"valueType"),
+      start(this,{},defaults.start,"start"),
+      length(this,{},"length")
   {
 
     *this = values;

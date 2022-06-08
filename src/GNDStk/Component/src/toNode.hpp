@@ -21,7 +21,7 @@ operator Node() const
       // Write fields...
 
       // consistency check
-      assert(std::tuple_size<decltype(Keys().tup)>::value == links.size());
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
       // apply links:
       // derived-class data ==> Node

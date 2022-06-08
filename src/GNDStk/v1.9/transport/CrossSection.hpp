@@ -53,33 +53,13 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // children - variant
-      std::vector<XYs1d_regions1d_t> XYs1d_regions1d;
-   } Content;
+   // children - variant
+   Field<CrossSection,std::vector<XYs1d_regions1d_t>> XYs1d_regions1d;
 
    // ------------------------
    // Getters
    // const and non-const
    // ------------------------
-
-   // XYs1d_regions1d
-   const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d() const
-      { return Content.XYs1d_regions1d; }
-   std::vector<XYs1d_regions1d_t> &XYs1d_regions1d()
-      { return Content.XYs1d_regions1d; }
-
-   // XYs1d_regions1d(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) XYs1d_regions1d(const KEY &key) const
-      { return getter(XYs1d_regions1d(), key, "XYs1d_regions1d"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) XYs1d_regions1d(const KEY &key)
-      { return getter(XYs1d_regions1d(), key, "XYs1d_regions1d"); }
 
    // XYs1d(index/label/Lookup)
    template<class KEY, class = detail::isSearchKey<KEY>>
@@ -102,21 +82,6 @@ public:
    // non-const
    // All return *this
    // ------------------------
-
-   // XYs1d_regions1d(vector): replace vector
-   CrossSection &XYs1d_regions1d(const std::vector<XYs1d_regions1d_t> &obj)
-      { XYs1d_regions1d() = obj; return *this; }
-
-   // XYs1d_regions1d(scalar): vector push_back
-   CrossSection &XYs1d_regions1d(const XYs1d_regions1d_t &obj)
-      { setter(XYs1d_regions1d(), obj); return *this; }
-
-   // XYs1d_regions1d(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   CrossSection &XYs1d_regions1d(const KEY &key, const XYs1d_regions1d_t &obj)
-   {
-      XYs1d_regions1d(key) = obj; return *this;
-   }
 
    // XYs1d(index/label/Lookup, value): replace vector entry
    template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
@@ -144,16 +109,13 @@ public:
 
    // default, and from fields
    explicit CrossSection(
-      const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d =
-         std::vector<XYs1d_regions1d_t>{}
+      const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d = {}
    ) :
       Component{
          BlockData{},
-         this->XYs1d_regions1d()
+         this->XYs1d_regions1d
       },
-      Content{
-         XYs1d_regions1d
-      }
+      XYs1d_regions1d(this,XYs1d_regions1d,"XYs1d_regions1d")
    {
       Component::finish();
    }
@@ -162,9 +124,9 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other.baseBlockData(),
-         this->XYs1d_regions1d()
+         this->XYs1d_regions1d
       },
-      Content{other.Content}
+      XYs1d_regions1d(this,other.XYs1d_regions1d)
    {
       Component::finish(other);
    }
@@ -173,9 +135,9 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other.baseBlockData(),
-         this->XYs1d_regions1d()
+         this->XYs1d_regions1d
       },
-      Content{std::move(other.Content)}
+      XYs1d_regions1d(this,std::move(other.XYs1d_regions1d))
    {
       Component::finish(other);
    }
@@ -184,8 +146,9 @@ public:
    CrossSection(const Node &node) :
       Component{
          BlockData{},
-         this->XYs1d_regions1d()
-      }
+         this->XYs1d_regions1d
+      },
+      XYs1d_regions1d(this,{},"XYs1d_regions1d")
    {
       Component::finish(node);
    }
@@ -194,10 +157,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    CrossSection &operator=(const CrossSection &) = default;
-
-   // move
    CrossSection &operator=(CrossSection &&) = default;
 
    // ------------------------

@@ -6,7 +6,7 @@
 
 friend DERIVED;
 
-// ctor: fields
+// ctor: BlockData<...>, fields
 template<class... ARGS>
 Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
 {
@@ -17,15 +17,16 @@ Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
    // Type that a multi-query with DERIVED::KEYS() will produce.
    using multi_t = detail::decays_t<decltype(Node{}(Keys()))>;
 
-   // The parameters that are sent to this constructor must EXACTLY reflect
-   // what we'd get from a DERIVED::KEYS() multi-query.
+   // The types in ARGS should exactly reflect what we'd get from a
+   // DERIVED::KEYS() multi-query, except that an ARG of Field<*,T>
+   // is accepted in place of a T.
    static_assert(
-      std::is_same_v<std::tuple<ARGS...>, multi_t>,
+      std::is_same_v<std::tuple<typename stripField<ARGS>::type...>, multi_t>,
       "The number and/or types of the fields sent to Component's "
       "constructor is inconsistent with the query result implied "
       "by the KEYS() function in the derived class"
    );
 
    // Create links
-   (links.push_back(&args), ...);
+   (links.push_back(fieldAddress(args)), ...);
 }

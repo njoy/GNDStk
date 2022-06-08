@@ -60,102 +60,15 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::string evaluation;
-      std::string format;
-      std::string projectile;
-      enums::Frame projectileFrame;
-      std::string target;
-      std::optional<enums::Interaction> interaction;
-      // children
-      std::optional<transport::Reactions> reactions;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // evaluation
-   const std::string &evaluation() const
-      { return Content.evaluation; }
-   std::string &evaluation()
-      { return Content.evaluation; }
-
-   // format
-   const std::string &format() const
-      { return Content.format; }
-   std::string &format()
-      { return Content.format; }
-
-   // projectile
-   const std::string &projectile() const
-      { return Content.projectile; }
-   std::string &projectile()
-      { return Content.projectile; }
-
-   // projectileFrame
-   const enums::Frame &projectileFrame() const
-      { return Content.projectileFrame; }
-   enums::Frame &projectileFrame()
-      { return Content.projectileFrame; }
-
-   // target
-   const std::string &target() const
-      { return Content.target; }
-   std::string &target()
-      { return Content.target; }
-
-   // interaction
-   const std::optional<enums::Interaction> &interaction() const
-      { return Content.interaction; }
-   std::optional<enums::Interaction> &interaction()
-      { return Content.interaction; }
-
-   // reactions
-   const std::optional<transport::Reactions> &reactions() const
-      { return Content.reactions; }
-   std::optional<transport::Reactions> &reactions()
-      { return Content.reactions; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // evaluation(value)
-   ReactionSuite &evaluation(const std::string &obj)
-      { evaluation() = obj; return *this; }
-
-   // format(value)
-   ReactionSuite &format(const std::string &obj)
-      { format() = obj; return *this; }
-
-   // projectile(value)
-   ReactionSuite &projectile(const std::string &obj)
-      { projectile() = obj; return *this; }
-
-   // projectileFrame(value)
-   ReactionSuite &projectileFrame(const enums::Frame &obj)
-      { projectileFrame() = obj; return *this; }
-
-   // target(value)
-   ReactionSuite &target(const std::string &obj)
-      { target() = obj; return *this; }
-
-   // interaction(value)
-   ReactionSuite &interaction(const std::optional<enums::Interaction> &obj)
-      { interaction() = obj; return *this; }
-
-   // reactions(value)
-   ReactionSuite &reactions(const std::optional<transport::Reactions> &obj)
-      { reactions() = obj; return *this; }
+   // metadata
+   Field<ReactionSuite,std::string> evaluation;
+   Field<ReactionSuite,std::string> format;
+   Field<ReactionSuite,std::string> projectile;
+   Field<ReactionSuite,enums::Frame> projectileFrame;
+   Field<ReactionSuite,std::string> target;
+   Field<ReactionSuite,std::optional<enums::Interaction>> interaction;
+   // children
+   Field<ReactionSuite,std::optional<transport::Reactions>> reactions;
 
    // ------------------------
    // Constructors
@@ -163,40 +76,31 @@ public:
 
    // default, and from fields
    explicit ReactionSuite(
-      const std::string &evaluation =
-         std::string{},
-      const std::string &format =
-         std::string{},
-      const std::string &projectile =
-         std::string{},
-      const enums::Frame &projectileFrame =
-         enums::Frame{},
-      const std::string &target =
-         std::string{},
-      const std::optional<enums::Interaction> &interaction =
-         std::optional<enums::Interaction>{},
-      const std::optional<transport::Reactions> &reactions =
-         std::optional<transport::Reactions>{}
+      const std::string &evaluation = {},
+      const std::string &format = {},
+      const std::string &projectile = {},
+      const enums::Frame &projectileFrame = {},
+      const std::string &target = {},
+      const std::optional<enums::Interaction> &interaction = {},
+      const std::optional<transport::Reactions> &reactions = {}
    ) :
       Component{
          BlockData{},
-         this->evaluation(),
-         this->format(),
-         this->projectile(),
-         this->projectileFrame(),
-         this->target(),
-         this->interaction(),
-         this->reactions()
+         this->evaluation,
+         this->format,
+         this->projectile,
+         this->projectileFrame,
+         this->target,
+         this->interaction,
+         this->reactions
       },
-      Content{
-         evaluation,
-         format,
-         projectile,
-         projectileFrame,
-         target,
-         interaction,
-         reactions
-      }
+      evaluation(this,evaluation,"evaluation"),
+      format(this,format,"format"),
+      projectile(this,projectile,"projectile"),
+      projectileFrame(this,projectileFrame,"projectileFrame"),
+      target(this,target,"target"),
+      interaction(this,interaction,"interaction"),
+      reactions(this,reactions,"reactions")
    {
       Component::finish();
    }
@@ -205,15 +109,21 @@ public:
    ReactionSuite(const ReactionSuite &other) :
       Component{
          other.baseBlockData(),
-         this->evaluation(),
-         this->format(),
-         this->projectile(),
-         this->projectileFrame(),
-         this->target(),
-         this->interaction(),
-         this->reactions()
+         this->evaluation,
+         this->format,
+         this->projectile,
+         this->projectileFrame,
+         this->target,
+         this->interaction,
+         this->reactions
       },
-      Content{other.Content}
+      evaluation(this,other.evaluation),
+      format(this,other.format),
+      projectile(this,other.projectile),
+      projectileFrame(this,other.projectileFrame),
+      target(this,other.target),
+      interaction(this,other.interaction),
+      reactions(this,other.reactions)
    {
       Component::finish(other);
    }
@@ -222,15 +132,21 @@ public:
    ReactionSuite(ReactionSuite &&other) :
       Component{
          other.baseBlockData(),
-         this->evaluation(),
-         this->format(),
-         this->projectile(),
-         this->projectileFrame(),
-         this->target(),
-         this->interaction(),
-         this->reactions()
+         this->evaluation,
+         this->format,
+         this->projectile,
+         this->projectileFrame,
+         this->target,
+         this->interaction,
+         this->reactions
       },
-      Content{std::move(other.Content)}
+      evaluation(this,std::move(other.evaluation)),
+      format(this,std::move(other.format)),
+      projectile(this,std::move(other.projectile)),
+      projectileFrame(this,std::move(other.projectileFrame)),
+      target(this,std::move(other.target)),
+      interaction(this,std::move(other.interaction)),
+      reactions(this,std::move(other.reactions))
    {
       Component::finish(other);
    }
@@ -239,14 +155,21 @@ public:
    ReactionSuite(const Node &node) :
       Component{
          BlockData{},
-         this->evaluation(),
-         this->format(),
-         this->projectile(),
-         this->projectileFrame(),
-         this->target(),
-         this->interaction(),
-         this->reactions()
-      }
+         this->evaluation,
+         this->format,
+         this->projectile,
+         this->projectileFrame,
+         this->target,
+         this->interaction,
+         this->reactions
+      },
+      evaluation(this,{},"evaluation"),
+      format(this,{},"format"),
+      projectile(this,{},"projectile"),
+      projectileFrame(this,{},"projectileFrame"),
+      target(this,{},"target"),
+      interaction(this,{},"interaction"),
+      reactions(this,{},"reactions")
    {
       Component::finish(node);
    }
@@ -255,10 +178,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    ReactionSuite &operator=(const ReactionSuite &) = default;
-
-   // move
    ReactionSuite &operator=(ReactionSuite &&) = default;
 
    // ------------------------

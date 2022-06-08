@@ -34,7 +34,7 @@ void fromNode(const Node &node)
       const auto tuple = node(Keys());
 
       // consistency check
-      assert(std::tuple_size<decltype(tuple)>::value == links.size());
+      assert(std::tuple_size_v<decltype(tuple)> == links.size());
 
       // apply links:
       // Node ==> derived-class data

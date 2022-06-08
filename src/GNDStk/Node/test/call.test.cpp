@@ -1058,7 +1058,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Meta | Meta")
    {
       const auto tup = node(a | b);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup) == 123);
       CHECK(std::get<1>(tup) == 4.56);
    }
@@ -1066,7 +1066,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Meta | Child")
    {
       const auto tup = node(a | bar);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup) == 123);
       CHECK(std::get<1>(tup).name == "bar");
    }
@@ -1074,7 +1074,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Child | Meta")
    {
       const auto tup = node(bar | a);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "bar");
       CHECK(std::get<1>(tup) == 123);
    }
@@ -1082,7 +1082,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Child | Child")
    {
       const auto tup = node(bar | baz);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "bar");
       CHECK(std::get<1>(tup).name == "baz");
    }
@@ -1094,7 +1094,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Child | string")
    {
       const auto tup = node(bar | std::string("xyz"));
-      CHECK(std::tuple_size<decltype(tup)>{} == 1);
+      CHECK(std::tuple_size_v<decltype(tup)> == 1);
       CHECK(std::get<0>(tup).name == "bar");
       CHECK(std::get<0>(tup)(label) == "xyz");
    }
@@ -1102,7 +1102,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Child | char *")
    {
       const auto tup = node(baz | "lmn");
-      CHECK(std::tuple_size<decltype(tup)>{} == 1);
+      CHECK(std::tuple_size_v<decltype(tup)> == 1);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "lmn");
    }
@@ -1110,7 +1110,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("Child | regex")
    {
       const auto tup = node(boo | std::regex("j[au]ne"));
-      CHECK(std::tuple_size<decltype(tup)>{} == 1);
+      CHECK(std::tuple_size_v<decltype(tup)> == 1);
       CHECK(std::get<0>(tup).name == "boo");
       CHECK(std::get<0>(tup)(label) == "jane");
    }
@@ -1122,7 +1122,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...> | Meta")
    {
       const auto tup = node(a | b | a);
-      CHECK(std::tuple_size<decltype(tup)>{} == 3);
+      CHECK(std::tuple_size_v<decltype(tup)> == 3);
       CHECK(std::get<0>(tup) == 123);
       CHECK(std::get<1>(tup) == 4.56);
       CHECK(std::get<2>(tup) == 123);
@@ -1131,7 +1131,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...> | Child")
    {
       const auto tup = node(a | b | bar);
-      CHECK(std::tuple_size<decltype(tup)>{} == 3);
+      CHECK(std::tuple_size_v<decltype(tup)> == 3);
       CHECK(std::get<0>(tup) == 123);
       CHECK(std::get<1>(tup) == 4.56);
       CHECK(std::get<2>(tup).name == "bar");
@@ -1140,7 +1140,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,pair<Child,string>> | Meta")
    {
       const auto tup = node(baz | std::string("ijk") | a);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "ijk");
       CHECK(std::get<1>(tup) == 123);
@@ -1149,7 +1149,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,pair<Child,char *>> | Meta")
    {
       const auto tup = node(baz | "lmn" | a);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "lmn");
       CHECK(std::get<0>(tup)(m) == 'm');
@@ -1160,7 +1160,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,pair<Child,regex>> | Meta")
    {
       const auto tup = node(baz | std::regex("[kji]+") | a);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "ijk");
       CHECK(std::get<1>(tup) == 123);
@@ -1169,7 +1169,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,pair<Child,string>> | Child")
    {
       const auto tup = node(baz | std::string("ijk") | bar);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "ijk");
       CHECK(std::get<1>(tup).name == "bar");
@@ -1178,7 +1178,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,pair<Child,char *>> | Child")
    {
       const auto tup = node(baz | "lmn" | bar);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "lmn");
       CHECK(std::get<1>(tup).name == "bar");
@@ -1187,7 +1187,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,pair<Child,regex>> | Child")
    {
       const auto tup = node(baz | std::regex("[kji]+") | bar);
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "baz");
       CHECK(std::get<0>(tup)(label) == "ijk");
       CHECK(std::get<1>(tup).name == "bar");
@@ -1200,7 +1200,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,Child> | string")
    {
       const auto tup = node(bar | baz | std::string("ijk"));
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "bar");
       CHECK(std::get<1>(tup).name == "baz");
       CHECK(std::get<1>(tup)(label) == "ijk");
@@ -1209,7 +1209,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,Child> | char *")
    {
       const auto tup = node(bar | baz | "lmn");
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "bar");
       CHECK(std::get<1>(tup).name == "baz");
       CHECK(std::get<1>(tup)(label) == "lmn");
@@ -1218,7 +1218,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    GIVEN("KeyTuple<...,Child> | regex")
    {
       const auto tup = node(bar | baz | std::regex("[kji]+"));
-      CHECK(std::tuple_size<decltype(tup)>{} == 2);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
       CHECK(std::get<0>(tup).name == "bar");
       CHECK(std::get<1>(tup).name == "baz");
       CHECK(std::get<1>(tup)(label) == "ijk");
@@ -1232,7 +1232,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
    {
       {
          const auto tup = node(a | b | bar | baz | boo);
-         CHECK(std::tuple_size<decltype(tup)>{} == 5);
+         CHECK(std::tuple_size_v<decltype(tup)> == 5);
          CHECK(std::get<0>(tup) == 123);
          CHECK(std::get<1>(tup) == 4.56);
          CHECK(std::get<2>(tup).name == "bar");
@@ -1241,7 +1241,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
       }
       {
          const auto tup = node(bar,"xyz")(label | x | y | z);
-         CHECK(std::tuple_size<decltype(tup)>{} == 4);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
          CHECK(std::get<0>(tup) == "xyz");
          CHECK(std::get<1>(tup) == "one");
          CHECK(std::get<2>(tup) == "two");
@@ -1249,7 +1249,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
       }
       {
          const auto tup = node(bar,"zyx")(label | x | y | z);
-         CHECK(std::tuple_size<decltype(tup)>{} == 4);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
          CHECK(std::get<0>(tup) == "zyx");
          CHECK(std::get<1>(tup) == "three");
          CHECK(std::get<2>(tup) == "four");
@@ -1257,7 +1257,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
       }
       {
          const auto tup = node(baz,"ijk")(label | i | j | k);
-         CHECK(std::tuple_size<decltype(tup)>{} == 4);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
          CHECK(std::get<0>(tup) == "ijk");
          CHECK(std::get<1>(tup) == "eye");
          CHECK(std::get<2>(tup) == "jay");
@@ -1265,7 +1265,7 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
       }
       {
          const auto tup = node(baz,"lmn")(label | l | m | n);
-         CHECK(std::tuple_size<decltype(tup)>{} == 4);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
          CHECK(std::get<0>(tup) == "lmn");
          CHECK(std::get<1>(tup) == "ell");
          CHECK(std::get<2>(tup) == 'm');
@@ -1273,13 +1273,13 @@ SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
       }
       {
          const auto tup = node(boo,"jane")(label | a);
-         CHECK(std::tuple_size<decltype(tup)>{} == 2);
+         CHECK(std::tuple_size_v<decltype(tup)> == 2);
          CHECK(std::get<0>(tup) == "jane");
          CHECK(std::get<1>(tup) == 321);
       }
       {
          const auto tup = node(boo,"john")(label | b);
-         CHECK(std::tuple_size<decltype(tup)>{} == 2);
+         CHECK(std::tuple_size_v<decltype(tup)> == 2);
          CHECK(std::get<0>(tup) == "john");
          CHECK(std::get<1>(tup) == 6.54);
       }

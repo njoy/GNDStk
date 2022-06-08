@@ -51,71 +51,16 @@ public:
    using Component::construct;
    using BlockData::operator=;
 
-   // ------------------------
-   // Relevant defaults
-   // FYI for users
-   // ------------------------
-
+   // defaults
    static inline const struct Defaults {
       static inline const std::string valueType = "double";
       static inline const int start = 0;
    } defaults;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      mutable Defaulted<std::string> valueType{"double"};
-      mutable Defaulted<int> start{0};
-      mutable std::optional<int> length;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // valueType
-   const Defaulted<std::string> &valueType() const
-      { return Content.valueType; }
-   Defaulted<std::string> &valueType()
-      { return Content.valueType; }
-
-   // start
-   const Defaulted<int> &start() const
-      { return Content.start; }
-   Defaulted<int> &start()
-      { return Content.start; }
-
-   // length
-   const std::optional<int> &length() const
-      { return Content.length; }
-   std::optional<int> &length()
-      { return Content.length; }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // valueType(value)
-   Values &valueType(const Defaulted<std::string> &obj)
-      { BlockData::valueType(valueType() = obj); return *this; }
-   Values &valueType(const std::optional<std::string> &obj)
-      { BlockData::valueType(valueType() = obj); return *this; }
-
-   // start(value)
-   Values &start(const Defaulted<int> &obj)
-      { BlockData::start(start() = obj); return *this; }
-   Values &start(const std::optional<int> &obj)
-      { BlockData::start(start() = obj); return *this; }
-
-   // length(value)
-   Values &length(const std::optional<int> &obj)
-      { BlockData::length(length() = obj); return *this; }
+   // metadata
+   mutable Field<Values,Defaulted<std::string>> valueType;
+   mutable Field<Values,Defaulted<int>> start;
+   mutable Field<Values,std::optional<int>> length;
 
    // ------------------------
    // Constructors
@@ -124,24 +69,19 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Values(
-      const std::optional<std::string> &valueType =
-         std::optional<std::string>{},
-      const std::optional<int> &start =
-         std::optional<int>{},
-      const std::optional<int> &length =
-         std::optional<int>{}
+      const std::optional<std::string> &valueType = {},
+      const std::optional<int> &start = {},
+      const std::optional<int> &length = {}
    ) :
       Component{
          BlockData{},
-         this->valueType(),
-         this->start(),
-         this->length()
+         this->valueType,
+         this->start,
+         this->length
       },
-      Content{
-         Defaulted<std::string>(defaults.valueType,valueType),
-         Defaulted<int>(defaults.start,start),
-         length
-      }
+      valueType(this,defaults.valueType,valueType,"valueType"),
+      start(this,defaults.start,start,"start"),
+      length(this,length,"length")
    {
       Component::finish();
    }
@@ -150,11 +90,13 @@ public:
    Values(const Values &other) :
       Component{
          other.baseBlockData(),
-         this->valueType(),
-         this->start(),
-         this->length()
+         this->valueType,
+         this->start,
+         this->length
       },
-      Content{other.Content}
+      valueType(this,other.valueType),
+      start(this,other.start),
+      length(this,other.length)
    {
       Component::finish(other);
    }
@@ -163,11 +105,13 @@ public:
    Values(Values &&other) :
       Component{
          other.baseBlockData(),
-         this->valueType(),
-         this->start(),
-         this->length()
+         this->valueType,
+         this->start,
+         this->length
       },
-      Content{std::move(other.Content)}
+      valueType(this,std::move(other.valueType)),
+      start(this,std::move(other.start)),
+      length(this,std::move(other.length))
    {
       Component::finish(other);
    }
@@ -176,10 +120,13 @@ public:
    Values(const Node &node) :
       Component{
          BlockData{},
-         this->valueType(),
-         this->start(),
-         this->length()
-      }
+         this->valueType,
+         this->start,
+         this->length
+      },
+      valueType(this,defaults.valueType,{},"valueType"),
+      start(this,{},defaults.start,"start"),
+      length(this,{},"length")
    {
       Component::finish(node);
    }
@@ -189,10 +136,13 @@ public:
    Values(const std::vector<T> &vector) :
       Component{
          BlockData{},
-         this->valueType(),
-         this->start(),
-         this->length()
-      }
+         this->valueType,
+         this->start,
+         this->length
+      },
+      valueType(this,defaults.valueType,{},"valueType"),
+      start(this,{},defaults.start,"start"),
+      length(this,{},"length")
    {
       Component::finish(vector);
    }
@@ -201,10 +151,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Values &operator=(const Values &) = default;
-
-   // move
    Values &operator=(Values &&) = default;
 
    // ------------------------

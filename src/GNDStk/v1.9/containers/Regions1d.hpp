@@ -55,88 +55,12 @@ public:
 
    using Component::construct;
 
-   // ------------------------
-   // Raw GNDS content
-   // ------------------------
-
-   struct {
-      // metadata
-      std::optional<std::string> label;
-      std::optional<double> outerDomainValue;
-      // children
-      std::optional<containers::Axes> axes;
-      std::vector<containers::XYs1d> XYs1d;
-   } Content;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // label
-   const std::optional<std::string> &label() const
-      { return Content.label; }
-   std::optional<std::string> &label()
-      { return Content.label; }
-
-   // outerDomainValue
-   const std::optional<double> &outerDomainValue() const
-      { return Content.outerDomainValue; }
-   std::optional<double> &outerDomainValue()
-      { return Content.outerDomainValue; }
-
-   // axes
-   const std::optional<containers::Axes> &axes() const
-      { return Content.axes; }
-   std::optional<containers::Axes> &axes()
-      { return Content.axes; }
-
-   // XYs1d
-   const std::vector<containers::XYs1d> &XYs1d() const
-      { return Content.XYs1d; }
-   std::vector<containers::XYs1d> &XYs1d()
-      { return Content.XYs1d; }
-
-   // XYs1d(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) XYs1d(const KEY &key) const
-      { return getter(XYs1d(), key, "XYs1d"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) XYs1d(const KEY &key)
-      { return getter(XYs1d(), key, "XYs1d"); }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // label(value)
-   Regions1d &label(const std::optional<std::string> &obj)
-      { label() = obj; return *this; }
-
-   // outerDomainValue(value)
-   Regions1d &outerDomainValue(const std::optional<double> &obj)
-      { outerDomainValue() = obj; return *this; }
-
-   // axes(value)
-   Regions1d &axes(const std::optional<containers::Axes> &obj)
-      { axes() = obj; return *this; }
-
-   // XYs1d(vector): replace vector
-   Regions1d &XYs1d(const std::vector<containers::XYs1d> &obj)
-      { XYs1d() = obj; return *this; }
-
-   // XYs1d(scalar): vector push_back
-   Regions1d &XYs1d(const containers::XYs1d &obj)
-      { setter(XYs1d(), obj); return *this; }
-
-   // XYs1d(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   Regions1d &XYs1d(const KEY &key, const containers::XYs1d &obj)
-   {
-      XYs1d(key) = obj; return *this;
-   }
+   // metadata
+   Field<Regions1d,std::optional<std::string>> label;
+   Field<Regions1d,std::optional<double>> outerDomainValue;
+   // children
+   Field<Regions1d,std::optional<containers::Axes>> axes;
+   Field<Regions1d,std::vector<containers::XYs1d>> XYs1d;
 
    // ------------------------
    // Constructors
@@ -144,28 +68,22 @@ public:
 
    // default, and from fields
    explicit Regions1d(
-      const std::optional<std::string> &label =
-         std::optional<std::string>{},
-      const std::optional<double> &outerDomainValue =
-         std::optional<double>{},
-      const std::optional<containers::Axes> &axes =
-         std::optional<containers::Axes>{},
-      const std::vector<containers::XYs1d> &XYs1d =
-         std::vector<containers::XYs1d>{}
+      const std::optional<std::string> &label = {},
+      const std::optional<double> &outerDomainValue = {},
+      const std::optional<containers::Axes> &axes = {},
+      const std::vector<containers::XYs1d> &XYs1d = {}
    ) :
       Component{
          BlockData{},
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->XYs1d()
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->XYs1d
       },
-      Content{
-         label,
-         outerDomainValue,
-         axes,
-         XYs1d
-      }
+      label(this,label,"label"),
+      outerDomainValue(this,outerDomainValue,"outerDomainValue"),
+      axes(this,axes,"axes"),
+      XYs1d(this,XYs1d,"XYs1d")
    {
       Component::finish();
    }
@@ -174,12 +92,15 @@ public:
    Regions1d(const Regions1d &other) :
       Component{
          other.baseBlockData(),
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->XYs1d()
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->XYs1d
       },
-      Content{other.Content}
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      axes(this,other.axes),
+      XYs1d(this,other.XYs1d)
    {
       Component::finish(other);
    }
@@ -188,12 +109,15 @@ public:
    Regions1d(Regions1d &&other) :
       Component{
          other.baseBlockData(),
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->XYs1d()
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->XYs1d
       },
-      Content{std::move(other.Content)}
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      axes(this,std::move(other.axes)),
+      XYs1d(this,std::move(other.XYs1d))
    {
       Component::finish(other);
    }
@@ -202,11 +126,15 @@ public:
    Regions1d(const Node &node) :
       Component{
          BlockData{},
-         this->label(),
-         this->outerDomainValue(),
-         this->axes(),
-         this->XYs1d()
-      }
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->XYs1d
+      },
+      label(this,{},"label"),
+      outerDomainValue(this,{},"outerDomainValue"),
+      axes(this,{},"axes"),
+      XYs1d(this,{},"XYs1d")
    {
       Component::finish(node);
    }
@@ -215,10 +143,7 @@ public:
    // Assignment
    // ------------------------
 
-   // copy
    Regions1d &operator=(const Regions1d &) = default;
-
-   // move
    Regions1d &operator=(Regions1d &&) = default;
 
    // ------------------------
