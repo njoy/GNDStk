@@ -21,6 +21,7 @@ namespace v1_9 {
 namespace containers {
 
 class Axes : public Component<containers::Axes> {
+   friend class Component;
 
    using axis_grid_t = std::variant<
       containers::Axis,
@@ -30,8 +31,6 @@ class Axes : public Component<containers::Axes> {
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -55,12 +54,14 @@ public:
 
    using Component::construct;
 
+   ///// but deal with [name]!
+
    // metadata
-   Field<Axes,std::optional<std::string>> href;
+   Field<Axes,std::optional<std::string>> href{this};
    // children - variant
-   Field<Axes,std::vector<axis_grid_t>> axis_grid;
-   FieldPart<decltype(axis_grid),containers::Axis> axis;
-   FieldPart<decltype(axis_grid),containers::Grid> grid;
+   Field<Axes,std::vector<axis_grid_t>> axis_grid{this};
+   FieldPart<decltype(axis_grid),containers::Axis> axis{axis_grid};
+   FieldPart<decltype(axis_grid),containers::Grid> grid{axis_grid};
 
    // ------------------------
    // Constructors
@@ -68,8 +69,8 @@ public:
 
    // default, and from fields
    explicit Axes(
-      const std::optional<std::string> &href = {},
-      const std::vector<axis_grid_t> &axis_grid = {}
+      const wrapper<std::optional<std::string>> &href = {},
+      const wrapper<std::vector<axis_grid_t>> &axis_grid = {}
    ) :
       Component{
          BlockData{},
@@ -88,13 +89,13 @@ public:
    Axes(const Node &node) :
       Component{
          BlockData{},
-         this->href,
-         this->axis_grid
+         href,
+         axis_grid
       },
       href(this,{},"href"),
       axis_grid(this,{},"axis_grid"),
-      axis(this->axis_grid,"axis"),
-      grid(this->axis_grid,"grid")
+      axis(axis_grid,"axis"),
+      grid(axis_grid,"grid")
    {
       Component::finish(node);
    }
@@ -103,14 +104,11 @@ public:
    Axes(const Axes &other) :
       Component{
          other.baseBlockData(),
-         this->href,
-         this->axis_grid
-      },
-      href(this,other.href),
-      axis_grid(this,other.axis_grid),
-      axis(this->axis_grid,other.axis),
-      grid(this->axis_grid,other.grid)
+         href,
+         axis_grid
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -118,14 +116,11 @@ public:
    Axes(Axes &&other) :
       Component{
          other.baseBlockData(),
-         this->href,
-         this->axis_grid
-      },
-      href(this,std::move(other.href)),
-      axis_grid(this,std::move(other.axis_grid)),
-      axis(this->axis_grid,std::move(other.axis)),
-      grid(this->axis_grid,std::move(other.grid))
+         href,
+         axis_grid
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

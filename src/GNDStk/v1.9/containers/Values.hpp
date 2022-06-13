@@ -20,12 +20,11 @@ namespace v1_9 {
 namespace containers {
 
 class Values : public Component<containers::Values,true> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -58,9 +57,9 @@ public:
    } defaults;
 
    // metadata
-   mutable Field<Values,Defaulted<std::string>> valueType;
-   mutable Field<Values,Defaulted<int>> start;
-   mutable Field<Values,std::optional<int>> length;
+   mutable Field<Values,Defaulted<std::string>> valueType{this,Defaults::valueType};
+   mutable Field<Values,Defaulted<int>> start{this,Defaults::start};
+   mutable Field<Values,std::optional<int>> length{this};
 
    // ------------------------
    // Constructors
@@ -69,9 +68,9 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Values(
-      const std::optional<std::string> &valueType = {},
-      const std::optional<int> &start = {},
-      const std::optional<int> &length = {}
+      const wrapper<std::optional<std::string>> &valueType = {},
+      const wrapper<std::optional<int>> &start = {},
+      const wrapper<std::optional<int>> &length = {}
    ) :
       Component{
          BlockData{},

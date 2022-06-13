@@ -21,6 +21,7 @@ namespace v1_9 {
 namespace transport {
 
 class CrossSection : public Component<transport::CrossSection> {
+   friend class Component;
 
    using XYs1d_regions1d_t = std::variant<
       containers::XYs1d,
@@ -30,8 +31,6 @@ class CrossSection : public Component<transport::CrossSection> {
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
@@ -53,9 +52,9 @@ public:
    using Component::construct;
 
    // children - variant
-   Field<CrossSection,std::vector<XYs1d_regions1d_t>> XYs1d_regions1d;
-   FieldPart<decltype(XYs1d_regions1d),containers::XYs1d> XYs1d;
-   FieldPart<decltype(XYs1d_regions1d),containers::Regions1d> regions1d;
+   Field<CrossSection,std::vector<XYs1d_regions1d_t>> XYs1d_regions1d{this};
+   FieldPart<decltype(XYs1d_regions1d),containers::XYs1d> XYs1d{XYs1d_regions1d};
+   FieldPart<decltype(XYs1d_regions1d),containers::Regions1d> regions1d{XYs1d_regions1d};
 
    // ------------------------
    // Constructors
@@ -63,7 +62,7 @@ public:
 
    // default, and from fields
    explicit CrossSection(
-      const std::vector<XYs1d_regions1d_t> &XYs1d_regions1d = {}
+      const wrapper<std::vector<XYs1d_regions1d_t>> &XYs1d_regions1d = {}
    ) :
       Component{
          BlockData{},

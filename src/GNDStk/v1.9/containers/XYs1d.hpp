@@ -21,12 +21,11 @@ namespace v1_9 {
 namespace containers {
 
 class XYs1d : public Component<containers::XYs1d> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -64,13 +63,13 @@ public:
    } defaults;
 
    // metadata
-   Field<XYs1d,std::optional<int>> index;
-   Field<XYs1d,Defaulted<enums::Interpolation>> interpolation;
-   Field<XYs1d,std::optional<std::string>> label;
-   Field<XYs1d,std::optional<double>> outerDomainValue;
+   Field<XYs1d,std::optional<int>> index{this};
+   Field<XYs1d,Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
+   Field<XYs1d,std::optional<std::string>> label{this};
+   Field<XYs1d,std::optional<double>> outerDomainValue{this};
    // children
-   Field<XYs1d,std::optional<containers::Axes>> axes;
-   Field<XYs1d,containers::Values> values;
+   Field<XYs1d,std::optional<containers::Axes>> axes{this};
+   Field<XYs1d,containers::Values> values{this};
 
    // ------------------------
    // Constructors
@@ -79,12 +78,12 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit XYs1d(
-      const std::optional<int> &index = {},
-      const std::optional<enums::Interpolation> &interpolation = {},
-      const std::optional<std::string> &label = {},
-      const std::optional<double> &outerDomainValue = {},
-      const std::optional<containers::Axes> &axes = {},
-      const containers::Values &values = containers::Values{}
+      const wrapper<std::optional<int>> &index = {},
+      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
+      const wrapper<std::optional<std::string>> &label = {},
+      const wrapper<std::optional<double>> &outerDomainValue = {},
+      const wrapper<std::optional<containers::Axes>> &axes = {},
+      const wrapper<containers::Values> &values = {}
    ) :
       Component{
          BlockData{},

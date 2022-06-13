@@ -20,12 +20,11 @@ namespace v1_9 {
 namespace transport {
 
 class ReactionSuite : public Component<transport::ReactionSuite> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
@@ -60,14 +59,14 @@ public:
    using Component::construct;
 
    // metadata
-   Field<ReactionSuite,std::string> evaluation;
-   Field<ReactionSuite,std::string> format;
-   Field<ReactionSuite,std::string> projectile;
-   Field<ReactionSuite,enums::Frame> projectileFrame;
-   Field<ReactionSuite,std::string> target;
-   Field<ReactionSuite,std::optional<enums::Interaction>> interaction;
+   Field<ReactionSuite,std::string> evaluation{this};
+   Field<ReactionSuite,std::string> format{this};
+   Field<ReactionSuite,std::string> projectile{this};
+   Field<ReactionSuite,enums::Frame> projectileFrame{this};
+   Field<ReactionSuite,std::string> target{this};
+   Field<ReactionSuite,std::optional<enums::Interaction>> interaction{this};
    // children
-   Field<ReactionSuite,std::optional<transport::Reactions>> reactions;
+   Field<ReactionSuite,std::optional<transport::Reactions>> reactions{this};
 
    // ------------------------
    // Constructors
@@ -75,13 +74,13 @@ public:
 
    // default, and from fields
    explicit ReactionSuite(
-      const std::string &evaluation = {},
-      const std::string &format = {},
-      const std::string &projectile = {},
-      const enums::Frame &projectileFrame = {},
-      const std::string &target = {},
-      const std::optional<enums::Interaction> &interaction = {},
-      const std::optional<transport::Reactions> &reactions = {}
+      const wrapper<std::string> &evaluation = {},
+      const wrapper<std::string> &format = {},
+      const wrapper<std::string> &projectile = {},
+      const wrapper<enums::Frame> &projectileFrame = {},
+      const wrapper<std::string> &target = {},
+      const wrapper<std::optional<enums::Interaction>> &interaction = {},
+      const wrapper<std::optional<transport::Reactions>> &reactions = {}
    ) :
       Component{
          BlockData{},

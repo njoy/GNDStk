@@ -20,12 +20,11 @@ namespace v1_9 {
 namespace containers {
 
 class Axis : public Component<containers::Axis> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -51,9 +50,9 @@ public:
    using Component::construct;
 
    // metadata
-   Field<Axis,std::optional<int>> index;
-   Field<Axis,std::optional<std::string>> label;
-   Field<Axis,std::optional<std::string>> unit;
+   Field<Axis,std::optional<int>> index{this};
+   Field<Axis,std::optional<std::string>> label{this};
+   Field<Axis,std::optional<std::string>> unit{this};
 
    // ------------------------
    // Constructors
@@ -61,9 +60,9 @@ public:
 
    // default, and from fields
    explicit Axis(
-      const std::optional<int> &index = {},
-      const std::optional<std::string> &label = {},
-      const std::optional<std::string> &unit = {}
+      const wrapper<std::optional<int>> &index = {},
+      const wrapper<std::optional<std::string>> &label = {},
+      const wrapper<std::optional<std::string>> &unit = {}
    ) :
       Component{
          BlockData{},

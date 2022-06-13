@@ -21,6 +21,7 @@ namespace v1_9 {
 namespace containers {
 
 class Grid : public Component<containers::Grid> {
+   friend class Component;
 
    using link_values_t = std::variant<
       containers::Values,
@@ -30,8 +31,6 @@ class Grid : public Component<containers::Grid> {
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -69,15 +68,15 @@ public:
    } defaults;
 
    // metadata
-   Field<Grid,std::optional<int>> index;
-   Field<Grid,Defaulted<enums::Interpolation>> interpolation;
-   Field<Grid,std::optional<std::string>> label;
-   Field<Grid,std::optional<enums::GridStyle>> style;
-   Field<Grid,std::optional<std::string>> unit;
+   Field<Grid,std::optional<int>> index{this};
+   Field<Grid,Defaulted<enums::Interpolation>> interpolation{this,Defaults::interpolation};
+   Field<Grid,std::optional<std::string>> label{this};
+   Field<Grid,std::optional<enums::GridStyle>> style{this};
+   Field<Grid,std::optional<std::string>> unit{this};
    // children - variant
-   Field<Grid,link_values_t> link_values;
-   FieldPart<decltype(link_values),containers::Values> values;
-   FieldPart<decltype(link_values),containers::Link> link;
+   Field<Grid,link_values_t> link_values{this};
+   FieldPart<decltype(link_values),containers::Values> values{link_values};
+   FieldPart<decltype(link_values),containers::Link> link{link_values};
 
    // ------------------------
    // Constructors
@@ -86,12 +85,12 @@ public:
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Grid(
-      const std::optional<int> &index = {},
-      const std::optional<enums::Interpolation> &interpolation = {},
-      const std::optional<std::string> &label = {},
-      const std::optional<enums::GridStyle> &style = {},
-      const std::optional<std::string> &unit = {},
-      const link_values_t &link_values = {}
+      const wrapper<std::optional<int>> &index = {},
+      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
+      const wrapper<std::optional<std::string>> &label = {},
+      const wrapper<std::optional<enums::GridStyle>> &style = {},
+      const wrapper<std::optional<std::string>> &unit = {},
+      const wrapper<link_values_t> &link_values = {}
    ) :
       Component{
          BlockData{},

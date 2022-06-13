@@ -20,12 +20,11 @@ namespace v1_9 {
 namespace containers {
 
 class Link : public Component<containers::Link> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -47,7 +46,7 @@ public:
    using Component::construct;
 
    // metadata
-   Field<Link,std::string> href;
+   Field<Link,std::string> href{this};
 
    // ------------------------
    // Constructors
@@ -55,7 +54,7 @@ public:
 
    // default, and from fields
    explicit Link(
-      const std::string &href = {}
+      const wrapper<std::string> &href = {}
    ) :
       Component{
          BlockData{},

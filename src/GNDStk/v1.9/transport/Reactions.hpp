@@ -20,12 +20,11 @@ namespace v1_9 {
 namespace transport {
 
 class Reactions : public Component<transport::Reactions> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
@@ -47,7 +46,7 @@ public:
    using Component::construct;
 
    // children
-   Field<Reactions,std::vector<transport::Reaction>> reaction;
+   Field<Reactions,std::vector<transport::Reaction>> reaction{this};
 
    // ------------------------
    // Constructors
@@ -55,7 +54,7 @@ public:
 
    // default, and from fields
    explicit Reactions(
-      const std::vector<transport::Reaction> &reaction = {}
+      const wrapper<std::vector<transport::Reaction>> &reaction = {}
    ) :
       Component{
          BlockData{},

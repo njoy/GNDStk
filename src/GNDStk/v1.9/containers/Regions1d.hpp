@@ -21,12 +21,11 @@ namespace v1_9 {
 namespace containers {
 
 class Regions1d : public Component<containers::Regions1d> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "containers"; }
@@ -55,11 +54,11 @@ public:
    using Component::construct;
 
    // metadata
-   Field<Regions1d,std::optional<std::string>> label;
-   Field<Regions1d,std::optional<double>> outerDomainValue;
+   Field<Regions1d,std::optional<std::string>> label{this};
+   Field<Regions1d,std::optional<double>> outerDomainValue{this};
    // children
-   Field<Regions1d,std::optional<containers::Axes>> axes;
-   Field<Regions1d,std::vector<containers::XYs1d>> XYs1d;
+   Field<Regions1d,std::optional<containers::Axes>> axes{this};
+   Field<Regions1d,std::vector<containers::XYs1d>> XYs1d{this};
 
    // ------------------------
    // Constructors
@@ -67,10 +66,10 @@ public:
 
    // default, and from fields
    explicit Regions1d(
-      const std::optional<std::string> &label = {},
-      const std::optional<double> &outerDomainValue = {},
-      const std::optional<containers::Axes> &axes = {},
-      const std::vector<containers::XYs1d> &XYs1d = {}
+      const wrapper<std::optional<std::string>> &label = {},
+      const wrapper<std::optional<double>> &outerDomainValue = {},
+      const wrapper<std::optional<containers::Axes>> &axes = {},
+      const wrapper<std::vector<containers::XYs1d>> &XYs1d = {}
    ) :
       Component{
          BlockData{},

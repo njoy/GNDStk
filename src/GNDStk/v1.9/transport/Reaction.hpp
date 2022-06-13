@@ -20,12 +20,11 @@ namespace v1_9 {
 namespace transport {
 
 class Reaction : public Component<transport::Reaction> {
+   friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
-
-   friend class Component;
 
    // Names: this namespace, this class, a field / node of this type
    static auto NAMESPACE() { return "transport"; }
@@ -54,11 +53,11 @@ public:
    using Component::construct;
 
    // metadata
-   Field<Reaction,int> ENDF_MT;
-   Field<Reaction,std::optional<std::string>> fissionGenre;
-   Field<Reaction,std::string> label;
+   Field<Reaction,int> ENDF_MT{this};
+   Field<Reaction,std::optional<std::string>> fissionGenre{this};
+   Field<Reaction,std::string> label{this};
    // children
-   Field<Reaction,transport::CrossSection> crossSection;
+   Field<Reaction,transport::CrossSection> crossSection{this};
 
    // ------------------------
    // Constructors
@@ -66,10 +65,10 @@ public:
 
    // default, and from fields
    explicit Reaction(
-      const int &ENDF_MT = {},
-      const std::optional<std::string> &fissionGenre = {},
-      const std::string &label = {},
-      const transport::CrossSection &crossSection = {}
+      const wrapper<int> &ENDF_MT = {},
+      const wrapper<std::optional<std::string>> &fissionGenre = {},
+      const wrapper<std::string> &label = {},
+      const wrapper<transport::CrossSection> &crossSection = {}
    ) :
       Component{
          BlockData{},
