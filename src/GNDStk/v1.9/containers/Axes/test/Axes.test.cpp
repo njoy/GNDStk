@@ -31,6 +31,42 @@ SCENARIO( "Axes" ) {
         Axis( 0, "radius", "fm" )
       };
 
+      using agvector = std::vector<std::variant<Axis,Grid>>;
+
+      THEN ( "Various getters work as expected" ) {
+         {
+            const Axes a1(std::nullopt, agvector{Axis(1)});
+                  Axes a2(std::nullopt, agvector{Axis(2)});
+            const Axis *ptr1 = a1.axis(1);
+                  Axis *ptr2 = a2.axis(2);
+            CHECK(ptr1 != nullptr);
+            CHECK(ptr2 != nullptr);
+
+            const Axes a3(std::nullopt, agvector{Grid(1)});
+                  Axes a4(std::nullopt, agvector{Grid(2)});
+            const Grid   *ptr3 = a3.grid(1);
+                  Grid   *ptr4 = a4.grid(2);
+            CHECK(ptr3 != nullptr);
+            CHECK(ptr4 != nullptr);
+         }
+
+         {
+            const Axes a1(std::nullopt, agvector{Axis(1)});
+                  Axes a2(std::nullopt, agvector{Axis(2)});
+            const Grid *ptr1 = a1.grid(1);
+                  Grid *ptr2 = a2.grid(2);
+            CHECK(ptr1 == nullptr);
+            CHECK(ptr2 == nullptr);
+
+            const Axes a3(std::nullopt, agvector{Grid(1)});
+                  Axes a4(std::nullopt, agvector{Grid(2)});
+            const Axis   *ptr3 = a3.axis(1);
+                  Axis   *ptr4 = a4.axis(2);
+            CHECK(ptr3 == nullptr);
+            CHECK(ptr4 == nullptr);
+         }
+      }
+
       Axes chunk( std::nullopt, axis );
 
       THEN( "the component can be constructed and members can be tested" ) {

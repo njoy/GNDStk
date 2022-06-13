@@ -31,6 +31,56 @@ SCENARIO( "Grid" ) {
       enums::GridStyle style = enums::GridStyle::boundaries;
       std::vector< double > values = { 1e-5, 2e7 };
 
+      THEN ( "Various getters work as expected" ) {
+         {
+            const Grid g1(index,std::nullopt,label,style,unit,Values(values));
+                  Grid g2(index,std::nullopt,label,style,unit,Values(values));
+            const Values *ptr1 = g1.values();
+                  Values *ptr2 = g2.values();
+            CHECK(ptr1 != nullptr);
+            CHECK(ptr2 != nullptr);
+
+            const Grid g3(index,std::nullopt,label,style,unit,Link("mylink"));
+                  Grid g4(index,std::nullopt,label,style,unit,Link("mylink"));
+            const Link   *ptr3 = g3.link();
+                  Link   *ptr4 = g4.link();
+            CHECK(ptr3 != nullptr);
+            CHECK(ptr4 != nullptr);
+         }
+
+         {
+            const Grid g1(index,std::nullopt,label,style,unit,Values(values));
+                  Grid g2(index,std::nullopt,label,style,unit,Values(values));
+            const Values *ptr1 = g1.values;
+                  Values *ptr2 = g2.values;
+            CHECK(ptr1 != nullptr);
+            CHECK(ptr2 != nullptr);
+
+            const Grid g3(index,std::nullopt,label,style,unit,Link("mylink"));
+                  Grid g4(index,std::nullopt,label,style,unit,Link("mylink"));
+            const Link   *ptr3 = g3.link;
+                  Link   *ptr4 = g4.link;
+            CHECK(ptr3 != nullptr);
+            CHECK(ptr4 != nullptr);
+         }
+
+         {
+            const Grid g1(index,std::nullopt,label,style,unit,Values(values));
+                  Grid g2(index,std::nullopt,label,style,unit,Values(values));
+            const Link   *ptr1 = g1.link();
+                  Link   *ptr2 = g2.link();
+            CHECK(ptr1 == nullptr);
+            CHECK(ptr2 == nullptr);
+
+            const Grid g3(index,std::nullopt,label,style,unit,Link("mylink"));
+                  Grid g4(index,std::nullopt,label,style,unit,Link("mylink"));
+            const Values *ptr3 = g3.values();
+                  Values *ptr4 = g4.values();
+            CHECK(ptr3 == nullptr);
+            CHECK(ptr4 == nullptr);
+         }
+      }
+
       Grid chunk( index, std::nullopt, label, style, unit, Values( values ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
