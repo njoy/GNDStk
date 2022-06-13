@@ -22,17 +22,17 @@ class Test_GNDStk_v1_9_containers_Link( unittest.TestCase ) :
             # verify string
             self.assertEqual( self.chunk, chunk.to_xml_string() )
 
-        # the data is given explicitly
+        # the data are given explicitly
         chunk = Link( href = '../../grid[@index=\'2\']/values' )
 
         verify_chunk( self, chunk )
 
-        # the data is read from a string
+        # the data are read from a string
         chunk = Link.from_string( self.chunk )
 
         verify_chunk( self, chunk )
 
-        # the data is copied
+        # the data are copied
         copy = Link( chunk )
 
         verify_chunk( self, copy )

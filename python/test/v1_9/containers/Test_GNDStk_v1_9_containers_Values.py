@@ -67,47 +67,47 @@ class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
             # verify string
             self.assertEqual( self.chunk_strings, chunk.to_xml_string() )
 
-        # the data is given explicitly (doubles)
+        # the data are given explicitly (doubles)
         chunk = Values( doubles = [ 2500., 8.9172, 2550., 8.9155 ] )
 
         verify_chunk_doubles( self, chunk )
 
-        # the data is read from a string
+        # the data are read from a string
         chunk = Values.from_string( self.chunk_doubles )
 
         verify_chunk_doubles( self, chunk )
 
-        # the data is copied
+        # the data are copied
         copy = Values( chunk )
 
         verify_chunk_doubles( self, copy )
 
-        # the data is given explicitly (ints)
+        # the data are given explicitly (ints)
         chunk = Values( ints = [ 2500, 9, 2550, 9 ] )
 
         verify_chunk_ints( self, chunk )
 
-        # the data is read from a string
+        # the data are read from a string
         chunk = Values.from_string( self.chunk_ints )
 
         verify_chunk_ints( self, chunk )
 
-        # the data is copied
+        # the data are copied
         copy = Values( chunk )
 
         verify_chunk_ints( self, copy )
 
-        # the data is given explicitly (strings)
+        # the data are given explicitly (strings)
         chunk = Values( strings = [ "2500", "8.9172", "2550", "8.9155" ] )
 
         verify_chunk_strings( self, chunk )
 
-        # the data is read from a string
+        # the data are read from a string
         chunk = Values.from_string( self.chunk_strings )
 
         verify_chunk_strings( self, chunk )
 
-        # the data is copied
+        # the data are copied
         copy = Values( chunk )
 
         verify_chunk_strings( self, copy )

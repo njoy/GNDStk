@@ -57,19 +57,19 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
             # verify string
             self.assertEqual( self.chunk, chunk.to_xml_string() )
 
-        # the data is given explicitly
+        # the data are given explicitly
         chunk = Grid( index = 2, label = "row_energy_bounds",
                       unit = "eV", style = GridStyle.boundaries,
                       link_values = Values( [ 1e-5, 2e7 ] ) )
 
         verify_chunk( self, chunk )
 
-        # the data is read from a string
+        # the data are read from a string
         chunk = Grid.from_string( self.chunk )
 
         verify_chunk( self, chunk )
 
-        # the data is copied
+        # the data are copied
         copy = Grid( chunk )
 
         verify_chunk( self, copy )
