@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_XYS1D
 #define GNDSTK_V1_9_CONTAINERS_XYS1D
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 
@@ -106,6 +105,27 @@ public:
       Component::finish();
    }
 
+   // from node
+   XYs1d(const Node &node) :
+      Component{
+         BlockData{},
+         this->index,
+         this->interpolation,
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->values
+      },
+      index(this,{},"index"),
+      interpolation(this,defaults.interpolation,{},"interpolation"),
+      label(this,{},"label"),
+      outerDomainValue(this,{},"outerDomainValue"),
+      axes(this,{},"axes"),
+      values(this,containers::Values{},"values")
+   {
+      Component::finish(node);
+   }
+
    // copy
    XYs1d(const XYs1d &other) :
       Component{
@@ -146,27 +166,6 @@ public:
       values(this,std::move(other.values))
    {
       Component::finish(other);
-   }
-
-   // from node
-   XYs1d(const Node &node) :
-      Component{
-         BlockData{},
-         this->index,
-         this->interpolation,
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->values
-      },
-      index(this,{},"index"),
-      interpolation(this,defaults.interpolation,{},"interpolation"),
-      label(this,{},"label"),
-      outerDomainValue(this,{},"outerDomainValue"),
-      axes(this,{},"axes"),
-      values(this,containers::Values{},"values")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

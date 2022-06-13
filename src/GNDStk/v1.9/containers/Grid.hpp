@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_GRID
 #define GNDSTK_V1_9_CONTAINERS_GRID
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Values.hpp"
 #include "GNDStk/v1.9/containers/Link.hpp"
 
@@ -77,37 +76,8 @@ public:
    Field<Grid,std::optional<std::string>> unit;
    // children - variant
    Field<Grid,link_values_t> link_values;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // values
-   const containers::Values *values() const
-      { return getter<containers::Values>(link_values(), "values"); }
-   containers::Values *values()
-      { return getter<containers::Values>(link_values(), "values"); }
-
-   // link
-   const containers::Link *link() const
-      { return getter<containers::Link>(link_values(), "link"); }
-   containers::Link *link()
-      { return getter<containers::Link>(link_values(), "link"); }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // values(value)
-   Grid &values(const std::optional<containers::Values> &obj)
-      { if (obj) link_values(obj.value()); return *this; }
-
-   // link(value)
-   Grid &link(const std::optional<containers::Link> &obj)
-      { if (obj) link_values(obj.value()); return *this; }
+   FieldPart<decltype(link_values),containers::Values> values;
+   FieldPart<decltype(link_values),containers::Link> link;
 
    // ------------------------
    // Constructors
@@ -137,9 +107,34 @@ public:
       label(this,label,"label"),
       style(this,style,"style"),
       unit(this,unit,"unit"),
-      link_values(this,link_values,"link_values")
+      link_values(this,link_values,"link_values"),
+      values(this->link_values,"values"),
+      link(this->link_values,"link")
    {
       Component::finish();
+   }
+
+   // from node
+   Grid(const Node &node) :
+      Component{
+         BlockData{},
+         this->index,
+         this->interpolation,
+         this->label,
+         this->style,
+         this->unit,
+         this->link_values
+      },
+      index(this,{},"index"),
+      interpolation(this,defaults.interpolation,{},"interpolation"),
+      label(this,{},"label"),
+      style(this,{},"style"),
+      unit(this,{},"unit"),
+      link_values(this,{},"link_values"),
+      values(this->link_values,"values"),
+      link(this->link_values,"link")
+   {
+      Component::finish(node);
    }
 
    // copy
@@ -158,7 +153,9 @@ public:
       label(this,other.label),
       style(this,other.style),
       unit(this,other.unit),
-      link_values(this,other.link_values)
+      link_values(this,other.link_values),
+      values(this->link_values,other.values),
+      link(this->link_values,other.link)
    {
       Component::finish(other);
    }
@@ -179,30 +176,11 @@ public:
       label(this,std::move(other.label)),
       style(this,std::move(other.style)),
       unit(this,std::move(other.unit)),
-      link_values(this,std::move(other.link_values))
+      link_values(this,std::move(other.link_values)),
+      values(this->link_values,std::move(other.values)),
+      link(this->link_values,std::move(other.link))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Grid(const Node &node) :
-      Component{
-         BlockData{},
-         this->index,
-         this->interpolation,
-         this->label,
-         this->style,
-         this->unit,
-         this->link_values
-      },
-      index(this,{},"index"),
-      interpolation(this,defaults.interpolation,{},"interpolation"),
-      label(this,{},"label"),
-      style(this,{},"style"),
-      unit(this,{},"unit"),
-      link_values(this,{},"link_values")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

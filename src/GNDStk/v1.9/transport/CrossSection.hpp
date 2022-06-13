@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_CROSSSECTION
 #define GNDSTK_V1_9_TRANSPORT_CROSSSECTION
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 #include "GNDStk/v1.9/containers/Regions1d.hpp"
 
@@ -55,53 +54,8 @@ public:
 
    // children - variant
    Field<CrossSection,std::vector<XYs1d_regions1d_t>> XYs1d_regions1d;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // XYs1d(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) XYs1d(const KEY &key) const
-      { return getter<containers::XYs1d>(XYs1d_regions1d(), key, "XYs1d"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) XYs1d(const KEY &key)
-      { return getter<containers::XYs1d>(XYs1d_regions1d(), key, "XYs1d"); }
-
-   // regions1d(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) regions1d(const KEY &key) const
-      { return getter<containers::Regions1d>(XYs1d_regions1d(), key, "regions1d"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) regions1d(const KEY &key)
-      { return getter<containers::Regions1d>(XYs1d_regions1d(), key, "regions1d"); }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // XYs1d(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   CrossSection &XYs1d(
-      const KEY &key,
-      const std::optional<containers::XYs1d> &obj
-   ) {
-      if (obj) XYs1d_regions1d(key,obj.value());
-      return *this;
-   }
-
-   // regions1d(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   CrossSection &regions1d(
-      const KEY &key,
-      const std::optional<containers::Regions1d> &obj
-   ) {
-      if (obj) XYs1d_regions1d(key,obj.value());
-      return *this;
-   }
+   FieldPart<decltype(XYs1d_regions1d),containers::XYs1d> XYs1d;
+   FieldPart<decltype(XYs1d_regions1d),containers::Regions1d> regions1d;
 
    // ------------------------
    // Constructors
@@ -115,9 +69,24 @@ public:
          BlockData{},
          this->XYs1d_regions1d
       },
-      XYs1d_regions1d(this,XYs1d_regions1d,"XYs1d_regions1d")
+      XYs1d_regions1d(this,XYs1d_regions1d,"XYs1d_regions1d"),
+      XYs1d(this->XYs1d_regions1d,"XYs1d"),
+      regions1d(this->XYs1d_regions1d,"regions1d")
    {
       Component::finish();
+   }
+
+   // from node
+   CrossSection(const Node &node) :
+      Component{
+         BlockData{},
+         this->XYs1d_regions1d
+      },
+      XYs1d_regions1d(this,{},"XYs1d_regions1d"),
+      XYs1d(this->XYs1d_regions1d,"XYs1d"),
+      regions1d(this->XYs1d_regions1d,"regions1d")
+   {
+      Component::finish(node);
    }
 
    // copy
@@ -126,7 +95,9 @@ public:
          other.baseBlockData(),
          this->XYs1d_regions1d
       },
-      XYs1d_regions1d(this,other.XYs1d_regions1d)
+      XYs1d_regions1d(this,other.XYs1d_regions1d),
+      XYs1d(this->XYs1d_regions1d,other.XYs1d),
+      regions1d(this->XYs1d_regions1d,other.regions1d)
    {
       Component::finish(other);
    }
@@ -137,20 +108,11 @@ public:
          other.baseBlockData(),
          this->XYs1d_regions1d
       },
-      XYs1d_regions1d(this,std::move(other.XYs1d_regions1d))
+      XYs1d_regions1d(this,std::move(other.XYs1d_regions1d)),
+      XYs1d(this->XYs1d_regions1d,std::move(other.XYs1d)),
+      regions1d(this->XYs1d_regions1d,std::move(other.regions1d))
    {
       Component::finish(other);
-   }
-
-   // from node
-   CrossSection(const Node &node) :
-      Component{
-         BlockData{},
-         this->XYs1d_regions1d
-      },
-      XYs1d_regions1d(this,{},"XYs1d_regions1d")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

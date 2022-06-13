@@ -78,6 +78,21 @@ public:
       Component::finish();
    }
 
+   // from node
+   Axis(const Node &node) :
+      Component{
+         BlockData{},
+         this->index,
+         this->label,
+         this->unit
+      },
+      index(this,{},"index"),
+      label(this,{},"label"),
+      unit(this,{},"unit")
+   {
+      Component::finish(node);
+   }
+
    // copy
    Axis(const Axis &other) :
       Component{
@@ -106,21 +121,6 @@ public:
       unit(this,std::move(other.unit))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Axis(const Node &node) :
-      Component{
-         BlockData{},
-         this->index,
-         this->label,
-         this->unit
-      },
-      index(this,{},"index"),
-      label(this,{},"label"),
-      unit(this,{},"unit")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

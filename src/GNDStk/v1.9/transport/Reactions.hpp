@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_REACTIONS
 #define GNDSTK_V1_9_TRANSPORT_REACTIONS
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reaction.hpp"
 
 namespace njoy {
@@ -67,6 +66,17 @@ public:
       Component::finish();
    }
 
+   // from node
+   Reactions(const Node &node) :
+      Component{
+         BlockData{},
+         this->reaction
+      },
+      reaction(this,{},"reaction")
+   {
+      Component::finish(node);
+   }
+
    // copy
    Reactions(const Reactions &other) :
       Component{
@@ -87,17 +97,6 @@ public:
       reaction(this,std::move(other.reaction))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Reactions(const Node &node) :
-      Component{
-         BlockData{},
-         this->reaction
-      },
-      reaction(this,{},"reaction")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_REACTIONSUITE
 #define GNDSTK_V1_9_TRANSPORT_REACTIONSUITE
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/Reactions.hpp"
 
 namespace njoy {
@@ -105,6 +104,29 @@ public:
       Component::finish();
    }
 
+   // from node
+   ReactionSuite(const Node &node) :
+      Component{
+         BlockData{},
+         this->evaluation,
+         this->format,
+         this->projectile,
+         this->projectileFrame,
+         this->target,
+         this->interaction,
+         this->reactions
+      },
+      evaluation(this,{},"evaluation"),
+      format(this,{},"format"),
+      projectile(this,{},"projectile"),
+      projectileFrame(this,{},"projectileFrame"),
+      target(this,{},"target"),
+      interaction(this,{},"interaction"),
+      reactions(this,{},"reactions")
+   {
+      Component::finish(node);
+   }
+
    // copy
    ReactionSuite(const ReactionSuite &other) :
       Component{
@@ -149,29 +171,6 @@ public:
       reactions(this,std::move(other.reactions))
    {
       Component::finish(other);
-   }
-
-   // from node
-   ReactionSuite(const Node &node) :
-      Component{
-         BlockData{},
-         this->evaluation,
-         this->format,
-         this->projectile,
-         this->projectileFrame,
-         this->target,
-         this->interaction,
-         this->reactions
-      },
-      evaluation(this,{},"evaluation"),
-      format(this,{},"format"),
-      projectile(this,{},"projectile"),
-      projectileFrame(this,{},"projectileFrame"),
-      target(this,{},"target"),
-      interaction(this,{},"interaction"),
-      reactions(this,{},"reactions")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

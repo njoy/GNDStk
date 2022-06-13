@@ -66,6 +66,17 @@ public:
       Component::finish();
    }
 
+   // from node
+   Link(const Node &node) :
+      Component{
+         BlockData{},
+         this->href
+      },
+      href(this,{},"href")
+   {
+      Component::finish(node);
+   }
+
    // copy
    Link(const Link &other) :
       Component{
@@ -86,17 +97,6 @@ public:
       href(this,std::move(other.href))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Link(const Node &node) :
-      Component{
-         BlockData{},
-         this->href
-      },
-      href(this,{},"href")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

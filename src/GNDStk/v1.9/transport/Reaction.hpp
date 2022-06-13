@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_TRANSPORT_REACTION
 #define GNDSTK_V1_9_TRANSPORT_REACTION
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/transport/CrossSection.hpp"
 
 namespace njoy {
@@ -87,6 +86,23 @@ public:
       Component::finish();
    }
 
+   // from node
+   Reaction(const Node &node) :
+      Component{
+         BlockData{},
+         this->ENDF_MT,
+         this->fissionGenre,
+         this->label,
+         this->crossSection
+      },
+      ENDF_MT(this,{},"ENDF_MT"),
+      fissionGenre(this,{},"fissionGenre"),
+      label(this,{},"label"),
+      crossSection(this,{},"crossSection")
+   {
+      Component::finish(node);
+   }
+
    // copy
    Reaction(const Reaction &other) :
       Component{
@@ -119,23 +135,6 @@ public:
       crossSection(this,std::move(other.crossSection))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Reaction(const Node &node) :
-      Component{
-         BlockData{},
-         this->ENDF_MT,
-         this->fissionGenre,
-         this->label,
-         this->crossSection
-      },
-      ENDF_MT(this,{},"ENDF_MT"),
-      fissionGenre(this,{},"fissionGenre"),
-      label(this,{},"label"),
-      crossSection(this,{},"crossSection")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

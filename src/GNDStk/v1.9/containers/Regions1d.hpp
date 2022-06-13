@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_REGIONS1D
 #define GNDSTK_V1_9_CONTAINERS_REGIONS1D
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axes.hpp"
 #include "GNDStk/v1.9/containers/XYs1d.hpp"
 
@@ -88,6 +87,23 @@ public:
       Component::finish();
    }
 
+   // from node
+   Regions1d(const Node &node) :
+      Component{
+         BlockData{},
+         this->label,
+         this->outerDomainValue,
+         this->axes,
+         this->XYs1d
+      },
+      label(this,{},"label"),
+      outerDomainValue(this,{},"outerDomainValue"),
+      axes(this,{},"axes"),
+      XYs1d(this,{},"XYs1d")
+   {
+      Component::finish(node);
+   }
+
    // copy
    Regions1d(const Regions1d &other) :
       Component{
@@ -120,23 +136,6 @@ public:
       XYs1d(this,std::move(other.XYs1d))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Regions1d(const Node &node) :
-      Component{
-         BlockData{},
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->XYs1d
-      },
-      label(this,{},"label"),
-      outerDomainValue(this,{},"outerDomainValue"),
-      axes(this,{},"axes"),
-      XYs1d(this,{},"XYs1d")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

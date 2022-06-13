@@ -5,7 +5,6 @@
 #ifndef GNDSTK_V1_9_CONTAINERS_AXES
 #define GNDSTK_V1_9_CONTAINERS_AXES
 
-#include "GNDStk/v1.9/key.hpp"
 #include "GNDStk/v1.9/containers/Axis.hpp"
 #include "GNDStk/v1.9/containers/Grid.hpp"
 
@@ -60,53 +59,8 @@ public:
    Field<Axes,std::optional<std::string>> href;
    // children - variant
    Field<Axes,std::vector<axis_grid_t>> axis_grid;
-
-   // ------------------------
-   // Getters
-   // const and non-const
-   // ------------------------
-
-   // axis(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) axis(const KEY &key) const
-      { return getter<containers::Axis>(axis_grid(), key, "axis"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) axis(const KEY &key)
-      { return getter<containers::Axis>(axis_grid(), key, "axis"); }
-
-   // grid(index/label/Lookup)
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) grid(const KEY &key) const
-      { return getter<containers::Grid>(axis_grid(), key, "grid"); }
-   template<class KEY, class = detail::isSearchKey<KEY>>
-   decltype(auto) grid(const KEY &key)
-      { return getter<containers::Grid>(axis_grid(), key, "grid"); }
-
-   // ------------------------
-   // Setters
-   // non-const
-   // All return *this
-   // ------------------------
-
-   // axis(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   Axes &axis(
-      const KEY &key,
-      const std::optional<containers::Axis> &obj
-   ) {
-      if (obj) axis_grid(key,obj.value());
-      return *this;
-   }
-
-   // grid(index/label/Lookup, value): replace vector entry
-   template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>
-   Axes &grid(
-      const KEY &key,
-      const std::optional<containers::Grid> &obj
-   ) {
-      if (obj) axis_grid(key,obj.value());
-      return *this;
-   }
+   FieldPart<decltype(axis_grid),containers::Axis> axis;
+   FieldPart<decltype(axis_grid),containers::Grid> grid;
 
    // ------------------------
    // Constructors
@@ -123,9 +77,26 @@ public:
          this->axis_grid
       },
       href(this,href,"href"),
-      axis_grid(this,axis_grid,"axis_grid")
+      axis_grid(this,axis_grid,"axis_grid"),
+      axis(this->axis_grid,"axis"),
+      grid(this->axis_grid,"grid")
    {
       Component::finish();
+   }
+
+   // from node
+   Axes(const Node &node) :
+      Component{
+         BlockData{},
+         this->href,
+         this->axis_grid
+      },
+      href(this,{},"href"),
+      axis_grid(this,{},"axis_grid"),
+      axis(this->axis_grid,"axis"),
+      grid(this->axis_grid,"grid")
+   {
+      Component::finish(node);
    }
 
    // copy
@@ -136,7 +107,9 @@ public:
          this->axis_grid
       },
       href(this,other.href),
-      axis_grid(this,other.axis_grid)
+      axis_grid(this,other.axis_grid),
+      axis(this->axis_grid,other.axis),
+      grid(this->axis_grid,other.grid)
    {
       Component::finish(other);
    }
@@ -149,22 +122,11 @@ public:
          this->axis_grid
       },
       href(this,std::move(other.href)),
-      axis_grid(this,std::move(other.axis_grid))
+      axis_grid(this,std::move(other.axis_grid)),
+      axis(this->axis_grid,std::move(other.axis)),
+      grid(this->axis_grid,std::move(other.grid))
    {
       Component::finish(other);
-   }
-
-   // from node
-   Axes(const Node &node) :
-      Component{
-         BlockData{},
-         this->href,
-         this->axis_grid
-      },
-      href(this,{},"href"),
-      axis_grid(this,{},"axis_grid")
-   {
-      Component::finish(node);
    }
 
    // ------------------------

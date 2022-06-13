@@ -86,36 +86,6 @@ public:
       Component::finish();
    }
 
-   // copy
-   Values(const Values &other) :
-      Component{
-         other.baseBlockData(),
-         this->valueType,
-         this->start,
-         this->length
-      },
-      valueType(this,other.valueType),
-      start(this,other.start),
-      length(this,other.length)
-   {
-      Component::finish(other);
-   }
-
-   // move
-   Values(Values &&other) :
-      Component{
-         other.baseBlockData(),
-         this->valueType,
-         this->start,
-         this->length
-      },
-      valueType(this,std::move(other.valueType)),
-      start(this,std::move(other.start)),
-      length(this,std::move(other.length))
-   {
-      Component::finish(other);
-   }
-
    // from node
    Values(const Node &node) :
       Component{
@@ -145,6 +115,36 @@ public:
       length(this,{},"length")
    {
       Component::finish(vector);
+   }
+
+   // copy
+   Values(const Values &other) :
+      Component{
+         other.baseBlockData(),
+         this->valueType,
+         this->start,
+         this->length
+      },
+      valueType(this,other.valueType),
+      start(this,other.start),
+      length(this,other.length)
+   {
+      Component::finish(other);
+   }
+
+   // move
+   Values(Values &&other) :
+      Component{
+         other.baseBlockData(),
+         this->valueType,
+         this->start,
+         this->length
+      },
+      valueType(this,std::move(other.valueType)),
+      start(this,std::move(other.start)),
+      length(this,std::move(other.length))
+   {
+      Component::finish(other);
    }
 
    // ------------------------
