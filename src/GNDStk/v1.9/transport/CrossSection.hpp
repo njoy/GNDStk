@@ -79,11 +79,11 @@ public:
    CrossSection(const Node &node) :
       Component{
          BlockData{},
-         this->XYs1d_regions1d
+         XYs1d_regions1d
       },
       XYs1d_regions1d(this,{},"XYs1d_regions1d"),
-      XYs1d(this->XYs1d_regions1d,"XYs1d"),
-      regions1d(this->XYs1d_regions1d,"regions1d")
+      XYs1d(XYs1d_regions1d,"XYs1d"),
+      regions1d(XYs1d_regions1d,"regions1d")
    {
       Component::finish(node);
    }
@@ -92,12 +92,10 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other.baseBlockData(),
-         this->XYs1d_regions1d
-      },
-      XYs1d_regions1d(this,other.XYs1d_regions1d),
-      XYs1d(this->XYs1d_regions1d,other.XYs1d),
-      regions1d(this->XYs1d_regions1d,other.regions1d)
+         XYs1d_regions1d
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -105,12 +103,10 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other.baseBlockData(),
-         this->XYs1d_regions1d
-      },
-      XYs1d_regions1d(this,std::move(other.XYs1d_regions1d)),
-      XYs1d(this->XYs1d_regions1d,std::move(other.XYs1d)),
-      regions1d(this->XYs1d_regions1d,std::move(other.regions1d))
+         XYs1d_regions1d
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -108,12 +108,12 @@ public:
    XYs1d(const Node &node) :
       Component{
          BlockData{},
-         this->index,
-         this->interpolation,
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->values
+         index,
+         interpolation,
+         label,
+         outerDomainValue,
+         axes,
+         values
       },
       index(this,{},"index"),
       interpolation(this,defaults.interpolation,{},"interpolation"),
@@ -129,20 +129,15 @@ public:
    XYs1d(const XYs1d &other) :
       Component{
          other.baseBlockData(),
-         this->index,
-         this->interpolation,
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->values
-      },
-      index(this,other.index),
-      interpolation(this,other.interpolation),
-      label(this,other.label),
-      outerDomainValue(this,other.outerDomainValue),
-      axes(this,other.axes),
-      values(this,other.values)
+         index,
+         interpolation,
+         label,
+         outerDomainValue,
+         axes,
+         values
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -150,20 +145,15 @@ public:
    XYs1d(XYs1d &&other) :
       Component{
          other.baseBlockData(),
-         this->index,
-         this->interpolation,
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->values
-      },
-      index(this,std::move(other.index)),
-      interpolation(this,std::move(other.interpolation)),
-      label(this,std::move(other.label)),
-      outerDomainValue(this,std::move(other.outerDomainValue)),
-      axes(this,std::move(other.axes)),
-      values(this,std::move(other.values))
+         index,
+         interpolation,
+         label,
+         outerDomainValue,
+         axes,
+         values
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -69,7 +69,7 @@ public:
    Link(const Node &node) :
       Component{
          BlockData{},
-         this->href
+         href
       },
       href(this,{},"href")
    {
@@ -80,10 +80,10 @@ public:
    Link(const Link &other) :
       Component{
          other.baseBlockData(),
-         this->href
-      },
-      href(this,other.href)
+         href
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -91,10 +91,10 @@ public:
    Link(Link &&other) :
       Component{
          other.baseBlockData(),
-         this->href
-      },
-      href(this,std::move(other.href))
+         href
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

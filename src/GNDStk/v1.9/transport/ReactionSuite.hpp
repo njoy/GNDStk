@@ -107,13 +107,13 @@ public:
    ReactionSuite(const Node &node) :
       Component{
          BlockData{},
-         this->evaluation,
-         this->format,
-         this->projectile,
-         this->projectileFrame,
-         this->target,
-         this->interaction,
-         this->reactions
+         evaluation,
+         format,
+         projectile,
+         projectileFrame,
+         target,
+         interaction,
+         reactions
       },
       evaluation(this,{},"evaluation"),
       format(this,{},"format"),
@@ -130,22 +130,16 @@ public:
    ReactionSuite(const ReactionSuite &other) :
       Component{
          other.baseBlockData(),
-         this->evaluation,
-         this->format,
-         this->projectile,
-         this->projectileFrame,
-         this->target,
-         this->interaction,
-         this->reactions
-      },
-      evaluation(this,other.evaluation),
-      format(this,other.format),
-      projectile(this,other.projectile),
-      projectileFrame(this,other.projectileFrame),
-      target(this,other.target),
-      interaction(this,other.interaction),
-      reactions(this,other.reactions)
+         evaluation,
+         format,
+         projectile,
+         projectileFrame,
+         target,
+         interaction,
+         reactions
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -153,22 +147,16 @@ public:
    ReactionSuite(ReactionSuite &&other) :
       Component{
          other.baseBlockData(),
-         this->evaluation,
-         this->format,
-         this->projectile,
-         this->projectileFrame,
-         this->target,
-         this->interaction,
-         this->reactions
-      },
-      evaluation(this,std::move(other.evaluation)),
-      format(this,std::move(other.format)),
-      projectile(this,std::move(other.projectile)),
-      projectileFrame(this,std::move(other.projectileFrame)),
-      target(this,std::move(other.target)),
-      interaction(this,std::move(other.interaction)),
-      reactions(this,std::move(other.reactions))
+         evaluation,
+         format,
+         projectile,
+         projectileFrame,
+         target,
+         interaction,
+         reactions
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

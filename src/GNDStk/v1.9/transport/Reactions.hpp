@@ -69,7 +69,7 @@ public:
    Reactions(const Node &node) :
       Component{
          BlockData{},
-         this->reaction
+         reaction
       },
       reaction(this,{},"reaction")
    {
@@ -80,10 +80,10 @@ public:
    Reactions(const Reactions &other) :
       Component{
          other.baseBlockData(),
-         this->reaction
-      },
-      reaction(this,other.reaction)
+         reaction
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -91,10 +91,10 @@ public:
    Reactions(Reactions &&other) :
       Component{
          other.baseBlockData(),
-         this->reaction
-      },
-      reaction(this,std::move(other.reaction))
+         reaction
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

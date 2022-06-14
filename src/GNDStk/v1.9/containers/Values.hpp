@@ -89,9 +89,9 @@ public:
    Values(const Node &node) :
       Component{
          BlockData{},
-         this->valueType,
-         this->start,
-         this->length
+         valueType,
+         start,
+         length
       },
       valueType(this,defaults.valueType,{},"valueType"),
       start(this,{},defaults.start,"start"),
@@ -105,9 +105,9 @@ public:
    Values(const std::vector<T> &vector) :
       Component{
          BlockData{},
-         this->valueType,
-         this->start,
-         this->length
+         valueType,
+         start,
+         length
       },
       valueType(this,defaults.valueType,{},"valueType"),
       start(this,{},defaults.start,"start"),
@@ -120,14 +120,12 @@ public:
    Values(const Values &other) :
       Component{
          other.baseBlockData(),
-         this->valueType,
-         this->start,
-         this->length
-      },
-      valueType(this,other.valueType),
-      start(this,other.start),
-      length(this,other.length)
+         valueType,
+         start,
+         length
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -135,14 +133,12 @@ public:
    Values(Values &&other) :
       Component{
          other.baseBlockData(),
-         this->valueType,
-         this->start,
-         this->length
-      },
-      valueType(this,std::move(other.valueType)),
-      start(this,std::move(other.start)),
-      length(this,std::move(other.length))
+         valueType,
+         start,
+         length
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -117,12 +117,12 @@ public:
    Grid(const Node &node) :
       Component{
          BlockData{},
-         this->index,
-         this->interpolation,
-         this->label,
-         this->style,
-         this->unit,
-         this->link_values
+         index,
+         interpolation,
+         label,
+         style,
+         unit,
+         link_values
       },
       index(this,{},"index"),
       interpolation(this,defaults.interpolation,{},"interpolation"),
@@ -130,8 +130,8 @@ public:
       style(this,{},"style"),
       unit(this,{},"unit"),
       link_values(this,{},"link_values"),
-      values(this->link_values,"values"),
-      link(this->link_values,"link")
+      values(link_values,"values"),
+      link(link_values,"link")
    {
       Component::finish(node);
    }
@@ -140,22 +140,15 @@ public:
    Grid(const Grid &other) :
       Component{
          other.baseBlockData(),
-         this->index,
-         this->interpolation,
-         this->label,
-         this->style,
-         this->unit,
-         this->link_values
-      },
-      index(this,other.index),
-      interpolation(this,other.interpolation),
-      label(this,other.label),
-      style(this,other.style),
-      unit(this,other.unit),
-      link_values(this,other.link_values),
-      values(this->link_values,other.values),
-      link(this->link_values,other.link)
+         index,
+         interpolation,
+         label,
+         style,
+         unit,
+         link_values
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -163,22 +156,15 @@ public:
    Grid(Grid &&other) :
       Component{
          other.baseBlockData(),
-         this->index,
-         this->interpolation,
-         this->label,
-         this->style,
-         this->unit,
-         this->link_values
-      },
-      index(this,std::move(other.index)),
-      interpolation(this,std::move(other.interpolation)),
-      label(this,std::move(other.label)),
-      style(this,std::move(other.style)),
-      unit(this,std::move(other.unit)),
-      link_values(this,std::move(other.link_values)),
-      values(this->link_values,std::move(other.values)),
-      link(this->link_values,std::move(other.link))
+         index,
+         interpolation,
+         label,
+         style,
+         unit,
+         link_values
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 

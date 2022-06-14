@@ -81,9 +81,9 @@ public:
    Axis(const Node &node) :
       Component{
          BlockData{},
-         this->index,
-         this->label,
-         this->unit
+         index,
+         label,
+         unit
       },
       index(this,{},"index"),
       label(this,{},"label"),
@@ -96,14 +96,12 @@ public:
    Axis(const Axis &other) :
       Component{
          other.baseBlockData(),
-         this->index,
-         this->label,
-         this->unit
-      },
-      index(this,other.index),
-      label(this,other.label),
-      unit(this,other.unit)
+         index,
+         label,
+         unit
+      }
    {
+      *this = other;
       Component::finish(other);
    }
 
@@ -111,14 +109,12 @@ public:
    Axis(Axis &&other) :
       Component{
          other.baseBlockData(),
-         this->index,
-         this->label,
-         this->unit
-      },
-      index(this,std::move(other.index)),
-      label(this,std::move(other.label)),
-      unit(this,std::move(other.unit))
+         index,
+         label,
+         unit
+      }
    {
+      *this = std::move(other);
       Component::finish(other);
    }
 
