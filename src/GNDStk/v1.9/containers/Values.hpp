@@ -10,14 +10,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class Values
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class Values : public Component<containers::Values,true> {
    friend class Component;
@@ -26,7 +24,7 @@ class Values : public Component<containers::Values,true> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Values"; }
    static auto FIELD() { return "values"; }
@@ -46,7 +44,6 @@ class Values : public Component<containers::Values,true> {
    }
 
 public:
-
    using Component::construct;
    using BlockData::operator=;
 
@@ -57,13 +54,18 @@ public:
    } defaults;
 
    // metadata
-   mutable Field<Values,Defaulted<std::string>> valueType{this,Defaults::valueType};
-   mutable Field<Values,Defaulted<int>> start{this,Defaults::start};
-   mutable Field<Values,std::optional<int>> length{this};
+   mutable Field<Defaulted<std::string>> valueType{this,Defaults::valueType};
+   mutable Field<Defaulted<int>> start{this,Defaults::start};
+   mutable Field<std::optional<int>> length{this};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->valueType, \
+      this->start, \
+      this->length)
 
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
@@ -72,30 +74,17 @@ public:
       const wrapper<std::optional<int>> &start = {},
       const wrapper<std::optional<int>> &length = {}
    ) :
-      Component{
-         BlockData{},
-         this->valueType,
-         this->start,
-         this->length
-      },
-      valueType(this,defaults.valueType,valueType,"valueType"),
-      start(this,defaults.start,start,"start"),
-      length(this,length,"length")
+      GNDSTK_COMPONENT(BlockData{}),
+      valueType(this,defaults.valueType,valueType),
+      start(this,defaults.start,start),
+      length(this,length)
    {
       Component::finish();
    }
 
    // from node
    Values(const Node &node) :
-      Component{
-         BlockData{},
-         valueType,
-         start,
-         length
-      },
-      valueType(this,defaults.valueType,{},"valueType"),
-      start(this,{},defaults.start,"start"),
-      length(this,{},"length")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
@@ -103,27 +92,14 @@ public:
    // from vector
    template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Values(const std::vector<T> &vector) :
-      Component{
-         BlockData{},
-         valueType,
-         start,
-         length
-      },
-      valueType(this,defaults.valueType,{},"valueType"),
-      start(this,{},defaults.start,"start"),
-      length(this,{},"length")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(vector);
    }
 
    // copy
    Values(const Values &other) :
-      Component{
-         other.baseBlockData(),
-         valueType,
-         start,
-         length
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -131,19 +107,14 @@ public:
 
    // move
    Values(Values &&other) :
-      Component{
-         other.baseBlockData(),
-         valueType,
-         start,
-         length
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Values &operator=(const Values &) = default;
@@ -154,6 +125,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Values/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Values
 

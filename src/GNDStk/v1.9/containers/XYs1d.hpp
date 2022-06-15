@@ -11,14 +11,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class XYs1d
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class XYs1d : public Component<containers::XYs1d> {
    friend class Component;
@@ -27,7 +25,7 @@ class XYs1d : public Component<containers::XYs1d> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs1d"; }
    static auto FIELD() { return "XYs1d"; }
@@ -54,7 +52,6 @@ class XYs1d : public Component<containers::XYs1d> {
    }
 
 public:
-
    using Component::construct;
 
    // defaults
@@ -63,17 +60,26 @@ public:
    } defaults;
 
    // metadata
-   Field<XYs1d,std::optional<int>> index{this};
-   Field<XYs1d,Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
-   Field<XYs1d,std::optional<std::string>> label{this};
-   Field<XYs1d,std::optional<double>> outerDomainValue{this};
+   Field<std::optional<int>> index{this};
+   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
+   Field<std::optional<std::string>> label{this};
+   Field<std::optional<double>> outerDomainValue{this};
+
    // children
-   Field<XYs1d,std::optional<containers::Axes>> axes{this};
-   Field<XYs1d,containers::Values> values{this};
+   Field<std::optional<containers::Axes>> axes{this};
+   Field<containers::Values> values{this};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->index, \
+      this->interpolation, \
+      this->label, \
+      this->outerDomainValue, \
+      this->axes, \
+      this->values)
 
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
@@ -85,57 +91,27 @@ public:
       const wrapper<std::optional<containers::Axes>> &axes = {},
       const wrapper<containers::Values> &values = {}
    ) :
-      Component{
-         BlockData{},
-         this->index,
-         this->interpolation,
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->values
-      },
-      index(this,index,"index"),
-      interpolation(this,defaults.interpolation,interpolation,"interpolation"),
-      label(this,label,"label"),
-      outerDomainValue(this,outerDomainValue,"outerDomainValue"),
-      axes(this,axes,"axes"),
-      values(this,values,"values")
+      GNDSTK_COMPONENT(BlockData{}),
+      index(this,index),
+      interpolation(this,defaults.interpolation,interpolation),
+      label(this,label),
+      outerDomainValue(this,outerDomainValue),
+      axes(this,axes),
+      values(this,values)
    {
       Component::finish();
    }
 
    // from node
    XYs1d(const Node &node) :
-      Component{
-         BlockData{},
-         index,
-         interpolation,
-         label,
-         outerDomainValue,
-         axes,
-         values
-      },
-      index(this,{},"index"),
-      interpolation(this,defaults.interpolation,{},"interpolation"),
-      label(this,{},"label"),
-      outerDomainValue(this,{},"outerDomainValue"),
-      axes(this,{},"axes"),
-      values(this,containers::Values{},"values")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    XYs1d(const XYs1d &other) :
-      Component{
-         other.baseBlockData(),
-         index,
-         interpolation,
-         label,
-         outerDomainValue,
-         axes,
-         values
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -143,22 +119,14 @@ public:
 
    // move
    XYs1d(XYs1d &&other) :
-      Component{
-         other.baseBlockData(),
-         index,
-         interpolation,
-         label,
-         outerDomainValue,
-         axes,
-         values
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    XYs1d &operator=(const XYs1d &) = default;
@@ -169,6 +137,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/XYs1d/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class XYs1d
 

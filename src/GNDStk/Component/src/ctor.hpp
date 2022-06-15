@@ -17,8 +17,8 @@ Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
    // Type that a multi-query with DERIVED::KEYS() will produce.
    using multi_t = detail::decays_t<decltype(Node{}(Keys()))>;
 
-   // The types in ARGS should exactly reflect what we'd get from a
-   // DERIVED::KEYS() multi-query, except that an ARG of Field<*,T>
+   // The types in ARGS should exactly reflect what we'd get from
+   // a DERIVED::KEYS() multi-query, except that an ARG of Field<T>
    // is accepted in place of a T.
    static_assert(
       std::is_same_v<std::tuple<typename stripField<ARGS>::type...>, multi_t>,

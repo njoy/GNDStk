@@ -8,16 +8,16 @@ class FieldPart {
 // Field
 // -----------------------------------------------------------------------------
 
-template<class PARENT, class T>
+template<class T>
 class Field {
-   PARENT &parent;
-   T value;
-   const std::string name;
-
+   using PARENT = DERIVED;
    friend PARENT;
 
    template<class, class>
    friend class FieldPart;
+
+   PARENT &parent;
+   T value;
 
 public:
 
@@ -32,21 +32,14 @@ public:
    // These accept PARENT*, not PARENT&, so that we can write "this",
    // not "*this", where Field objects are constructed.
 
-   explicit Field(
-      PARENT *const parent,
-      const T &value = T{}, const std::string &name = ""
-   ) :
+   explicit Field(PARENT *const parent, const T &value = T{}) :
       parent(*parent),
-      value(value),
-      name(name)
+      value(value)
    { }
 
-   Field(
-      PARENT *const parent, const Field &other
-   ) :
+   Field(PARENT *const parent, const Field &other) :
       parent(*parent),
-      value(other.value),
-      name(other.name)
+      value(other.value)
    { }
 
    // if T == Defaulted
@@ -56,12 +49,10 @@ public:
    Field(
       PARENT *const parent,
       const typename TEE::value_type &def,
-      const std::optional<typename TEE::value_type> &value = {},
-      const std::string &name = ""
+      const std::optional<typename TEE::value_type> &value = {}
    ) :
       parent(*parent),
-      value(def,value),
-      name(name)
+      value(def,value)
    { }
 
    // ------------------------
@@ -83,13 +74,13 @@ public:
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
    decltype(auto) operator()(const KEY &key) const
-      { return parent.getter(value, key, name); }
+      { return parent.getter(value, key); }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
    decltype(auto) operator()(const KEY &key)
-      { return parent.getter(value, key, name); }
+      { return parent.getter(value, key); }
 
    // ------------------------
    // Setters
@@ -151,19 +142,17 @@ public:
       value = std::move(other.value);
       return *this;
    }
-};
+}; // class Field
 
 
 // -----------------------------------------------------------------------------
 // FieldPart
 // -----------------------------------------------------------------------------
 
-template<class PARENT, class T, class PART>
-class FieldPart<Field<PARENT,T>,PART> {
-   using FIELD = Field<PARENT,T>;
-
+template<class T, class PART>
+class FieldPart<Field<T>,PART> {
+   using FIELD = Field<T>;
    FIELD &field;
-   const std::string name;
 
 public:
 
@@ -175,14 +164,12 @@ public:
    FieldPart(const FieldPart &) = delete;
    FieldPart(FieldPart &&) = delete;
 
-   explicit FieldPart(FIELD &field, const std::string &name = "") :
-      field(field),
-      name(name)
+   explicit FieldPart(FIELD &field) :
+      field(field)
    { }
 
    FieldPart(FIELD &field, const FieldPart &other) :
-      field(field),
-      name(other.name)
+      field(field)
    { }
 
    // ------------------------
@@ -196,7 +183,7 @@ public:
       class = std::enable_if_t<detail::isVariant<TEE>::value>>
    const PART *ptr() const
    {
-      return field.parent.template getter<PART>(field(), name);
+      return field.parent.template getter<PART>(field());
    }
 
    template<
@@ -204,7 +191,7 @@ public:
       class = std::enable_if_t<detail::isVariant<TEE>::value>>
    PART *ptr()
    {
-      return field.parent.template getter<PART>(field(), name);
+      return field.parent.template getter<PART>(field());
    }
 
    // ------------------------
@@ -264,7 +251,7 @@ public:
       class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
    decltype(auto) ptr(const KEY &key) const
    {
-      return field.parent.template getter<PART>(field(), key, name);
+      return field.parent.template getter<PART>(field(), key);
    }
 
    template<
@@ -272,7 +259,7 @@ public:
       class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
    decltype(auto) ptr(const KEY &key)
    {
-      return field.parent.template getter<PART>(field(), key, name);
+      return field.parent.template getter<PART>(field(), key);
    }
 
    // ------------------------
@@ -306,7 +293,7 @@ public:
    template<
       class TEE = T,
       class = std::enable_if_t<detail::isVariant<TEE>::value>>
-   PARENT &operator()(const std::optional<PART> &obj)
+   DERIVED &operator()(const std::optional<PART> &obj)
    {
       if (obj) field(obj.value());
       return field.parent;
@@ -317,7 +304,7 @@ public:
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
-   PARENT &operator()(const KEY &key, const std::optional<PART> &obj)
+   DERIVED &operator()(const KEY &key, const std::optional<PART> &obj)
    {
       if (obj) field(key,obj.value());
       return field.parent;
@@ -327,10 +314,10 @@ public:
    // Assignment
    // ------------------------
 
-   // intentional: don't assign field (wrong) or name (unnecessary)
+   // intentional: don't assign [referenced] field; doing so would be wrong
    FieldPart &operator=(const FieldPart &other) { return *this; }
    FieldPart &operator=(FieldPart &&other) { return *this; }
-};
+}; // class FieldPart
 
 
 // -----------------------------------------------------------------------------
@@ -380,8 +367,8 @@ void *fieldAddress(T &value)
    return &value;
 }
 
-template<class PARENT, class T>
-void *fieldAddress(Field<PARENT,T> &value)
+template<class T>
+void *fieldAddress(Field<T> &value)
 {
    return &value();
 }
@@ -395,7 +382,7 @@ struct stripField {
    using type = T;
 };
 
-template<class PARENT, class T>
-struct stripField<Field<PARENT,T>> {
+template<class T>
+struct stripField<Field<T>> {
    using type = T;
 };

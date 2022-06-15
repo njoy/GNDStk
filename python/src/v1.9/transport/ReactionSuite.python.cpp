@@ -55,37 +55,37 @@ void wrapReactionSuite(python::module &module)
       )
       .def_property_readonly(
          "evaluation",
-         &Component::evaluation,
+         [](const Component &self) { return self.evaluation(); },
          Component::documentation("evaluation").data()
       )
       .def_property_readonly(
          "format",
-         &Component::format,
+         [](const Component &self) { return self.format(); },
          Component::documentation("format").data()
       )
       .def_property_readonly(
          "projectile",
-         &Component::projectile,
+         [](const Component &self) { return self.projectile(); },
          Component::documentation("projectile").data()
       )
       .def_property_readonly(
          "projectile_frame",
-         &Component::projectileFrame,
+         [](const Component &self) { return self.projectileFrame(); },
          Component::documentation("projectile_frame").data()
       )
       .def_property_readonly(
          "target",
-         &Component::target,
+         [](const Component &self) { return self.target(); },
          Component::documentation("target").data()
       )
       .def_property_readonly(
          "interaction",
-         &Component::interaction,
+         [](const Component &self) { return self.interaction(); },
          Component::documentation("interaction").data()
       )
       .def_property_readonly(
          "reactions",
-         python::overload_cast<>(&Component::reactions),
+         [](const Component &self) { return self.reactions(); },
          Component::documentation("reactions").data()
       )
    ;

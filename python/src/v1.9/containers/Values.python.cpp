@@ -78,7 +78,7 @@ void wrapValues(python::module &module)
       )
       .def_property_readonly(
          "length",
-         &Component::length,
+         [](const Component &self) { return self.length(); },
          Component::documentation("length").data()
       )
       .def_property_readonly(

@@ -11,14 +11,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class Regions1d
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class Regions1d : public Component<containers::Regions1d> {
    friend class Component;
@@ -27,7 +25,7 @@ class Regions1d : public Component<containers::Regions1d> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Regions1d"; }
    static auto FIELD() { return "regions1d"; }
@@ -50,19 +48,25 @@ class Regions1d : public Component<containers::Regions1d> {
    }
 
 public:
-
    using Component::construct;
 
    // metadata
-   Field<Regions1d,std::optional<std::string>> label{this};
-   Field<Regions1d,std::optional<double>> outerDomainValue{this};
+   Field<std::optional<std::string>> label{this};
+   Field<std::optional<double>> outerDomainValue{this};
+
    // children
-   Field<Regions1d,std::optional<containers::Axes>> axes{this};
-   Field<Regions1d,std::vector<containers::XYs1d>> XYs1d{this};
+   Field<std::optional<containers::Axes>> axes{this};
+   Field<std::vector<containers::XYs1d>> XYs1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->label, \
+      this->outerDomainValue, \
+      this->axes, \
+      this->XYs1d)
 
    // default, and from fields
    explicit Regions1d(
@@ -71,47 +75,25 @@ public:
       const wrapper<std::optional<containers::Axes>> &axes = {},
       const wrapper<std::vector<containers::XYs1d>> &XYs1d = {}
    ) :
-      Component{
-         BlockData{},
-         this->label,
-         this->outerDomainValue,
-         this->axes,
-         this->XYs1d
-      },
-      label(this,label,"label"),
-      outerDomainValue(this,outerDomainValue,"outerDomainValue"),
-      axes(this,axes,"axes"),
-      XYs1d(this,XYs1d,"XYs1d")
+      GNDSTK_COMPONENT(BlockData{}),
+      label(this,label),
+      outerDomainValue(this,outerDomainValue),
+      axes(this,axes),
+      XYs1d(this,XYs1d)
    {
       Component::finish();
    }
 
    // from node
    Regions1d(const Node &node) :
-      Component{
-         BlockData{},
-         label,
-         outerDomainValue,
-         axes,
-         XYs1d
-      },
-      label(this,{},"label"),
-      outerDomainValue(this,{},"outerDomainValue"),
-      axes(this,{},"axes"),
-      XYs1d(this,{},"XYs1d")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Regions1d(const Regions1d &other) :
-      Component{
-         other.baseBlockData(),
-         label,
-         outerDomainValue,
-         axes,
-         XYs1d
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -119,20 +101,14 @@ public:
 
    // move
    Regions1d(Regions1d &&other) :
-      Component{
-         other.baseBlockData(),
-         label,
-         outerDomainValue,
-         axes,
-         XYs1d
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Regions1d &operator=(const Regions1d &) = default;
@@ -143,6 +119,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Regions1d/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Regions1d
 

@@ -11,14 +11,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class Grid
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class Grid : public Component<containers::Grid> {
    friend class Component;
@@ -32,7 +30,7 @@ class Grid : public Component<containers::Grid> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Grid"; }
    static auto FIELD() { return "grid"; }
@@ -59,7 +57,6 @@ class Grid : public Component<containers::Grid> {
    }
 
 public:
-
    using Component::construct;
 
    // defaults
@@ -68,19 +65,28 @@ public:
    } defaults;
 
    // metadata
-   Field<Grid,std::optional<int>> index{this};
-   Field<Grid,Defaulted<enums::Interpolation>> interpolation{this,Defaults::interpolation};
-   Field<Grid,std::optional<std::string>> label{this};
-   Field<Grid,std::optional<enums::GridStyle>> style{this};
-   Field<Grid,std::optional<std::string>> unit{this};
+   Field<std::optional<int>> index{this};
+   Field<Defaulted<enums::Interpolation>> interpolation{this,Defaults::interpolation};
+   Field<std::optional<std::string>> label{this};
+   Field<std::optional<enums::GridStyle>> style{this};
+   Field<std::optional<std::string>> unit{this};
+
    // children - variant
-   Field<Grid,link_values_t> link_values{this};
+   Field<link_values_t> link_values{this};
    FieldPart<decltype(link_values),containers::Values> values{link_values};
    FieldPart<decltype(link_values),containers::Link> link{link_values};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->index, \
+      this->interpolation, \
+      this->label, \
+      this->style, \
+      this->unit, \
+      this->link_values)
 
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
@@ -92,61 +98,29 @@ public:
       const wrapper<std::optional<std::string>> &unit = {},
       const wrapper<link_values_t> &link_values = {}
    ) :
-      Component{
-         BlockData{},
-         this->index,
-         this->interpolation,
-         this->label,
-         this->style,
-         this->unit,
-         this->link_values
-      },
-      index(this,index,"index"),
-      interpolation(this,defaults.interpolation,interpolation,"interpolation"),
-      label(this,label,"label"),
-      style(this,style,"style"),
-      unit(this,unit,"unit"),
-      link_values(this,link_values,"link_values"),
-      values(this->link_values,"values"),
-      link(this->link_values,"link")
+      GNDSTK_COMPONENT(BlockData{}),
+      index(this,index),
+      interpolation(this,defaults.interpolation,interpolation),
+      label(this,label),
+      style(this,style),
+      unit(this,unit),
+      link_values(this,link_values),
+      values(this->link_values),
+      link(this->link_values)
    {
       Component::finish();
    }
 
    // from node
    Grid(const Node &node) :
-      Component{
-         BlockData{},
-         index,
-         interpolation,
-         label,
-         style,
-         unit,
-         link_values
-      },
-      index(this,{},"index"),
-      interpolation(this,defaults.interpolation,{},"interpolation"),
-      label(this,{},"label"),
-      style(this,{},"style"),
-      unit(this,{},"unit"),
-      link_values(this,{},"link_values"),
-      values(link_values,"values"),
-      link(link_values,"link")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Grid(const Grid &other) :
-      Component{
-         other.baseBlockData(),
-         index,
-         interpolation,
-         label,
-         style,
-         unit,
-         link_values
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -154,22 +128,14 @@ public:
 
    // move
    Grid(Grid &&other) :
-      Component{
-         other.baseBlockData(),
-         index,
-         interpolation,
-         label,
-         style,
-         unit,
-         link_values
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Grid &operator=(const Grid &) = default;
@@ -180,6 +146,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Grid/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Grid
 

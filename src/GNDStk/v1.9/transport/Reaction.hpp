@@ -10,14 +10,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace transport {
 
 // -----------------------------------------------------------------------------
 // transport::
 // class Reaction
 // -----------------------------------------------------------------------------
-
-namespace transport {
 
 class Reaction : public Component<transport::Reaction> {
    friend class Component;
@@ -26,7 +24,7 @@ class Reaction : public Component<transport::Reaction> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Reaction"; }
    static auto FIELD() { return "reaction"; }
@@ -49,19 +47,25 @@ class Reaction : public Component<transport::Reaction> {
    }
 
 public:
-
    using Component::construct;
 
    // metadata
-   Field<Reaction,int> ENDF_MT{this};
-   Field<Reaction,std::optional<std::string>> fissionGenre{this};
-   Field<Reaction,std::string> label{this};
+   Field<int> ENDF_MT{this};
+   Field<std::optional<std::string>> fissionGenre{this};
+   Field<std::string> label{this};
+
    // children
-   Field<Reaction,transport::CrossSection> crossSection{this};
+   Field<transport::CrossSection> crossSection{this};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->ENDF_MT, \
+      this->fissionGenre, \
+      this->label, \
+      this->crossSection)
 
    // default, and from fields
    explicit Reaction(
@@ -70,47 +74,25 @@ public:
       const wrapper<std::string> &label = {},
       const wrapper<transport::CrossSection> &crossSection = {}
    ) :
-      Component{
-         BlockData{},
-         this->ENDF_MT,
-         this->fissionGenre,
-         this->label,
-         this->crossSection
-      },
-      ENDF_MT(this,ENDF_MT,"ENDF_MT"),
-      fissionGenre(this,fissionGenre,"fissionGenre"),
-      label(this,label,"label"),
-      crossSection(this,crossSection,"crossSection")
+      GNDSTK_COMPONENT(BlockData{}),
+      ENDF_MT(this,ENDF_MT),
+      fissionGenre(this,fissionGenre),
+      label(this,label),
+      crossSection(this,crossSection)
    {
       Component::finish();
    }
 
    // from node
    Reaction(const Node &node) :
-      Component{
-         BlockData{},
-         ENDF_MT,
-         fissionGenre,
-         label,
-         crossSection
-      },
-      ENDF_MT(this,{},"ENDF_MT"),
-      fissionGenre(this,{},"fissionGenre"),
-      label(this,{},"label"),
-      crossSection(this,{},"crossSection")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Reaction(const Reaction &other) :
-      Component{
-         other.baseBlockData(),
-         ENDF_MT,
-         fissionGenre,
-         label,
-         crossSection
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -118,20 +100,14 @@ public:
 
    // move
    Reaction(Reaction &&other) :
-      Component{
-         other.baseBlockData(),
-         ENDF_MT,
-         fissionGenre,
-         label,
-         crossSection
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Reaction &operator=(const Reaction &) = default;
@@ -142,6 +118,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/transport/Reaction/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Reaction
 

@@ -10,14 +10,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace transport {
 
 // -----------------------------------------------------------------------------
 // transport::
 // class Reactions
 // -----------------------------------------------------------------------------
-
-namespace transport {
 
 class Reactions : public Component<transport::Reactions> {
    friend class Component;
@@ -26,7 +24,7 @@ class Reactions : public Component<transport::Reactions> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Reactions"; }
    static auto FIELD() { return "reactions"; }
@@ -42,46 +40,38 @@ class Reactions : public Component<transport::Reactions> {
    }
 
 public:
-
    using Component::construct;
 
    // children
-   Field<Reactions,std::vector<transport::Reaction>> reaction{this};
+   Field<std::vector<transport::Reaction>> reaction{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->reaction)
+
    // default, and from fields
    explicit Reactions(
       const wrapper<std::vector<transport::Reaction>> &reaction = {}
    ) :
-      Component{
-         BlockData{},
-         this->reaction
-      },
-      reaction(this,reaction,"reaction")
+      GNDSTK_COMPONENT(BlockData{}),
+      reaction(this,reaction)
    {
       Component::finish();
    }
 
    // from node
    Reactions(const Node &node) :
-      Component{
-         BlockData{},
-         reaction
-      },
-      reaction(this,{},"reaction")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Reactions(const Reactions &other) :
-      Component{
-         other.baseBlockData(),
-         reaction
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -89,17 +79,14 @@ public:
 
    // move
    Reactions(Reactions &&other) :
-      Component{
-         other.baseBlockData(),
-         reaction
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Reactions &operator=(const Reactions &) = default;
@@ -110,6 +97,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/transport/Reactions/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Reactions
 

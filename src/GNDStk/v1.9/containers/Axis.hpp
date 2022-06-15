@@ -10,14 +10,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class Axis
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class Axis : public Component<containers::Axis> {
    friend class Component;
@@ -26,7 +24,7 @@ class Axis : public Component<containers::Axis> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Axis"; }
    static auto FIELD() { return "axis"; }
@@ -46,17 +44,21 @@ class Axis : public Component<containers::Axis> {
    }
 
 public:
-
    using Component::construct;
 
    // metadata
-   Field<Axis,std::optional<int>> index{this};
-   Field<Axis,std::optional<std::string>> label{this};
-   Field<Axis,std::optional<std::string>> unit{this};
+   Field<std::optional<int>> index{this};
+   Field<std::optional<std::string>> label{this};
+   Field<std::optional<std::string>> unit{this};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->index, \
+      this->label, \
+      this->unit)
 
    // default, and from fields
    explicit Axis(
@@ -64,42 +66,24 @@ public:
       const wrapper<std::optional<std::string>> &label = {},
       const wrapper<std::optional<std::string>> &unit = {}
    ) :
-      Component{
-         BlockData{},
-         this->index,
-         this->label,
-         this->unit
-      },
-      index(this,index,"index"),
-      label(this,label,"label"),
-      unit(this,unit,"unit")
+      GNDSTK_COMPONENT(BlockData{}),
+      index(this,index),
+      label(this,label),
+      unit(this,unit)
    {
       Component::finish();
    }
 
    // from node
    Axis(const Node &node) :
-      Component{
-         BlockData{},
-         index,
-         label,
-         unit
-      },
-      index(this,{},"index"),
-      label(this,{},"label"),
-      unit(this,{},"unit")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Axis(const Axis &other) :
-      Component{
-         other.baseBlockData(),
-         index,
-         label,
-         unit
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -107,19 +91,14 @@ public:
 
    // move
    Axis(Axis &&other) :
-      Component{
-         other.baseBlockData(),
-         index,
-         label,
-         unit
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Axis &operator=(const Axis &) = default;
@@ -130,6 +109,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Axis/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Axis
 

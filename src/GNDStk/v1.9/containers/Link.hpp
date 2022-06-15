@@ -10,14 +10,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class Link
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class Link : public Component<containers::Link> {
    friend class Component;
@@ -26,7 +24,7 @@ class Link : public Component<containers::Link> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Link"; }
    static auto FIELD() { return "link"; }
@@ -42,46 +40,38 @@ class Link : public Component<containers::Link> {
    }
 
 public:
-
    using Component::construct;
 
    // metadata
-   Field<Link,std::string> href{this};
+   Field<std::string> href{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->href)
+
    // default, and from fields
    explicit Link(
       const wrapper<std::string> &href = {}
    ) :
-      Component{
-         BlockData{},
-         this->href
-      },
-      href(this,href,"href")
+      GNDSTK_COMPONENT(BlockData{}),
+      href(this,href)
    {
       Component::finish();
    }
 
    // from node
    Link(const Node &node) :
-      Component{
-         BlockData{},
-         href
-      },
-      href(this,{},"href")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Link(const Link &other) :
-      Component{
-         other.baseBlockData(),
-         href
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -89,17 +79,14 @@ public:
 
    // move
    Link(Link &&other) :
-      Component{
-         other.baseBlockData(),
-         href
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Link &operator=(const Link &) = default;
@@ -110,6 +97,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Link/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Link
 

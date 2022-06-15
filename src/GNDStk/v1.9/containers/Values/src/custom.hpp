@@ -43,21 +43,12 @@ public:
           const std::optional< int >& start,
           const std::optional< std::string >& valueType,
           const std::vector< T >& values ) :
-      Component{
-         BlockData{},
-         this->length.value,
-         this->start.value,
-         this->valueType.value
-      },
-      valueType(this,defaults.valueType,{},"valueType"),
-      start(this,{},defaults.start,"start"),
-      length(this,{},"length")
+      GNDSTK_COMPONENT(BlockData{}),
+      valueType(this,defaults.valueType,valueType),
+      start(this,defaults.start,start),
+      length(this,length)
   {
 
     *this = values;
-    this->length( length );
-    this->start( start );
-    this->valueType( valueType );
-
     Component::finish(); // ensure that construct() gets called
   }

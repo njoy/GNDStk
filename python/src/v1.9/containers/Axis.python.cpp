@@ -47,17 +47,17 @@ void wrapAxis(python::module &module)
       )
       .def_property_readonly(
          "index",
-         &Component::index,
+         [](const Component &self) { return self.index(); },
          Component::documentation("index").data()
       )
       .def_property_readonly(
          "label",
-         &Component::label,
+         [](const Component &self) { return self.label(); },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "unit",
-         &Component::unit,
+         [](const Component &self) { return self.unit(); },
          Component::documentation("unit").data()
       )
    ;

@@ -896,7 +896,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out();
    out(1,"friend class Component;");
    out();
-   out(1,"// Names: this namespace, this class, a field / node of this type");
+   out(1,"// Names: this namespace, this class, a field/node of this type");
    out(1,"static auto NAMESPACE() { return \"@\"; }", per.nsname);
    out(1,"static auto CLASS() { return \"@\"; }", per.clname);
    out(1,"static auto FIELD() { return \"@\"; }", per.nameGNDS);

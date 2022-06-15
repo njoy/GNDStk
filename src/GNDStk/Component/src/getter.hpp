@@ -28,7 +28,7 @@ template<
 decltype(auto) getter(
    const VEC &vec, // vector, or optional vector
    const KEY &key, // index, label, or Lookup
-   const std::string &fieldName
+   const std::string &fieldName = ""
 ) const {
    return detail::getter(
       vec, key, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
@@ -43,7 +43,7 @@ template<
 decltype(auto) getter(
    VEC &vec,
    const KEY &key,
-   const std::string &fieldName
+   const std::string &fieldName = ""
 ) {
    using RET = decltype(
       std::as_const(*this).template getter(vec, key, fieldName));
@@ -71,7 +71,7 @@ template<
 >
 const RETURN *getter(
    const std::variant<Ts...> &var,
-   const std::string &fieldName
+   const std::string &fieldName = ""
 ) const {
    return detail::getter<RETURN>(
       var, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
@@ -85,7 +85,7 @@ template<
 >
 RETURN *getter(
    std::variant<Ts...> &var,
-   const std::string &fieldName
+   const std::string &fieldName = ""
 ) {
    return const_cast<RETURN *>(
       std::as_const(*this).template getter<RETURN>(var, fieldName)
@@ -108,7 +108,7 @@ template<
 const RETURN *getter(
    const std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,
-   const std::string &fieldName
+   const std::string &fieldName = ""
 ) const {
    return detail::getter<RETURN>(
       vecvar, key, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
@@ -124,7 +124,7 @@ template<
 RETURN *getter(
    std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,
-   const std::string &fieldName
+   const std::string &fieldName = ""
 ) {
    return const_cast<RETURN *>(
       std::as_const(*this).template getter<RETURN>(vecvar, key, fieldName)

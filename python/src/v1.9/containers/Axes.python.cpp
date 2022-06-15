@@ -49,13 +49,12 @@ void wrapAxes(python::module &module)
       )
       .def_property_readonly(
          "href",
-         &Component::href,
+         [](const Component &self) { return self.href(); },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "axis_grid",
-         (const std::vector<axis_grid_t> &(Component::*)() const)
-            &Component::axis_grid,
+         [](const Component &self) { return self.axis_grid(); },
          Component::documentation("axis_grid").data()
       )
    ;

@@ -11,14 +11,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace containers {
 
 // -----------------------------------------------------------------------------
 // containers::
 // class Axes
 // -----------------------------------------------------------------------------
-
-namespace containers {
 
 class Axes : public Component<containers::Axes> {
    friend class Component;
@@ -32,7 +30,7 @@ class Axes : public Component<containers::Axes> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Axes"; }
    static auto FIELD() { return "axes"; }
@@ -51,15 +49,13 @@ class Axes : public Component<containers::Axes> {
    }
 
 public:
-
    using Component::construct;
 
-   ///// but deal with [name]!
-
    // metadata
-   Field<Axes,std::optional<std::string>> href{this};
+   Field<std::optional<std::string>> href{this};
+
    // children - variant
-   Field<Axes,std::vector<axis_grid_t>> axis_grid{this};
+   Field<std::vector<axis_grid_t>> axis_grid{this};
    FieldPart<decltype(axis_grid),containers::Axis> axis{axis_grid};
    FieldPart<decltype(axis_grid),containers::Grid> grid{axis_grid};
 
@@ -67,46 +63,34 @@ public:
    // Constructors
    // ------------------------
 
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->href, \
+      this->axis_grid)
+
    // default, and from fields
    explicit Axes(
       const wrapper<std::optional<std::string>> &href = {},
       const wrapper<std::vector<axis_grid_t>> &axis_grid = {}
    ) :
-      Component{
-         BlockData{},
-         this->href,
-         this->axis_grid
-      },
-      href(this,href,"href"),
-      axis_grid(this,axis_grid,"axis_grid"),
-      axis(this->axis_grid,"axis"),
-      grid(this->axis_grid,"grid")
+      GNDSTK_COMPONENT(BlockData{}),
+      href(this,href),
+      axis_grid(this,axis_grid),
+      axis(this->axis_grid),
+      grid(this->axis_grid)
    {
       Component::finish();
    }
 
    // from node
    Axes(const Node &node) :
-      Component{
-         BlockData{},
-         href,
-         axis_grid
-      },
-      href(this,{},"href"),
-      axis_grid(this,{},"axis_grid"),
-      axis(axis_grid,"axis"),
-      grid(axis_grid,"grid")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Axes(const Axes &other) :
-      Component{
-         other.baseBlockData(),
-         href,
-         axis_grid
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -114,18 +98,14 @@ public:
 
    // move
    Axes(Axes &&other) :
-      Component{
-         other.baseBlockData(),
-         href,
-         axis_grid
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    Axes &operator=(const Axes &) = default;
@@ -136,6 +116,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/containers/Axes/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class Axes
 

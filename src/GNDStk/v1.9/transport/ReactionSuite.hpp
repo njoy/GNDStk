@@ -10,14 +10,12 @@
 namespace njoy {
 namespace GNDStk {
 namespace v1_9 {
-
+namespace transport {
 
 // -----------------------------------------------------------------------------
 // transport::
 // class ReactionSuite
 // -----------------------------------------------------------------------------
-
-namespace transport {
 
 class ReactionSuite : public Component<transport::ReactionSuite> {
    friend class Component;
@@ -26,7 +24,7 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field / node of this type
+   // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ReactionSuite"; }
    static auto FIELD() { return "reactionSuite"; }
@@ -55,22 +53,31 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
    }
 
 public:
-
    using Component::construct;
 
    // metadata
-   Field<ReactionSuite,std::string> evaluation{this};
-   Field<ReactionSuite,std::string> format{this};
-   Field<ReactionSuite,std::string> projectile{this};
-   Field<ReactionSuite,enums::Frame> projectileFrame{this};
-   Field<ReactionSuite,std::string> target{this};
-   Field<ReactionSuite,std::optional<enums::Interaction>> interaction{this};
+   Field<std::string> evaluation{this};
+   Field<std::string> format{this};
+   Field<std::string> projectile{this};
+   Field<enums::Frame> projectileFrame{this};
+   Field<std::string> target{this};
+   Field<std::optional<enums::Interaction>> interaction{this};
+
    // children
-   Field<ReactionSuite,std::optional<transport::Reactions>> reactions{this};
+   Field<std::optional<transport::Reactions>> reactions{this};
 
    // ------------------------
    // Constructors
    // ------------------------
+
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->evaluation, \
+      this->format, \
+      this->projectile, \
+      this->projectileFrame, \
+      this->target, \
+      this->interaction, \
+      this->reactions)
 
    // default, and from fields
    explicit ReactionSuite(
@@ -82,62 +89,28 @@ public:
       const wrapper<std::optional<enums::Interaction>> &interaction = {},
       const wrapper<std::optional<transport::Reactions>> &reactions = {}
    ) :
-      Component{
-         BlockData{},
-         this->evaluation,
-         this->format,
-         this->projectile,
-         this->projectileFrame,
-         this->target,
-         this->interaction,
-         this->reactions
-      },
-      evaluation(this,evaluation,"evaluation"),
-      format(this,format,"format"),
-      projectile(this,projectile,"projectile"),
-      projectileFrame(this,projectileFrame,"projectileFrame"),
-      target(this,target,"target"),
-      interaction(this,interaction,"interaction"),
-      reactions(this,reactions,"reactions")
+      GNDSTK_COMPONENT(BlockData{}),
+      evaluation(this,evaluation),
+      format(this,format),
+      projectile(this,projectile),
+      projectileFrame(this,projectileFrame),
+      target(this,target),
+      interaction(this,interaction),
+      reactions(this,reactions)
    {
       Component::finish();
    }
 
    // from node
    ReactionSuite(const Node &node) :
-      Component{
-         BlockData{},
-         evaluation,
-         format,
-         projectile,
-         projectileFrame,
-         target,
-         interaction,
-         reactions
-      },
-      evaluation(this,{},"evaluation"),
-      format(this,{},"format"),
-      projectile(this,{},"projectile"),
-      projectileFrame(this,{},"projectileFrame"),
-      target(this,{},"target"),
-      interaction(this,{},"interaction"),
-      reactions(this,{},"reactions")
+      GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ReactionSuite(const ReactionSuite &other) :
-      Component{
-         other.baseBlockData(),
-         evaluation,
-         format,
-         projectile,
-         projectileFrame,
-         target,
-         interaction,
-         reactions
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = other;
       Component::finish(other);
@@ -145,23 +118,14 @@ public:
 
    // move
    ReactionSuite(ReactionSuite &&other) :
-      Component{
-         other.baseBlockData(),
-         evaluation,
-         format,
-         projectile,
-         projectileFrame,
-         target,
-         interaction,
-         reactions
-      }
+      GNDSTK_COMPONENT(other.baseBlockData())
    {
       *this = std::move(other);
       Component::finish(other);
    }
 
    // ------------------------
-   // Assignment
+   // Assignment operators
    // ------------------------
 
    ReactionSuite &operator=(const ReactionSuite &) = default;
@@ -172,6 +136,7 @@ public:
    // ------------------------
 
    #include "GNDStk/v1.9/transport/ReactionSuite/src/custom.hpp"
+   #undef GNDSTK_COMPONENT
 
 }; // class ReactionSuite
 
