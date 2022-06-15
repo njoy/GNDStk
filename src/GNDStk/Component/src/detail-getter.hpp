@@ -156,9 +156,10 @@ const T &getter(
    const std::vector<T> &vec,
    const std::size_t &index,
    // for the Component-derived class: names of namespace, class, relevant field
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    static const std::string context = "getter {}::{}.{}({}) on vector";
+   const std::string fname = fn != "" ? fn : "<unknown name>";
 
    try {
 
@@ -258,9 +259,10 @@ template<class T>
 const T &getter(
    const std::vector<T> &vec,
    const std::string &label,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    static const std::string context = "getter {}::{}.{}(\"{}\") on vector";
+   const std::string fname = fn != "" ? fn : "<unknown name>";
 
    try {
       const T *object = nullptr;
@@ -326,8 +328,10 @@ template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
 bool getter(
    const std::vector<T> &vec,
    const Lookup<true,EXTRACTOR,TYPE,CONVERTER> &look,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
    try {
       for (auto &elem : vec)
          if constexpr (isVariant<T>::value) {
@@ -365,9 +369,10 @@ template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
 const T &getter(
    const std::vector<T> &vec,
    const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &look,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    static const std::string context = "getter {}::{}.{}({}({})) on vector";
+   const std::string fname = fn != "" ? fn : "<unknown name>";
 
    try {
       const T *object = nullptr;
@@ -446,8 +451,10 @@ template<class T, class EXTRACTOR>
 auto getter(
    const std::vector<T> &vec,
    const Lookup<false,EXTRACTOR,void,void> &look,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
    std::vector<std::decay_t<
       decltype(look.extractor(typename firstOrOnly<T>::type{}))
    >> ret;
@@ -493,8 +500,10 @@ template<
 decltype(auto) getter(
    const std::optional<std::vector<T>> &optvec,
    const KEY &key,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
    try {
       // optional must have value
       if (!optvec.has_value()) {
@@ -544,8 +553,10 @@ template<
 >
 const T *getter(
    const std::variant<Ts...> &var,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
    try {
       return std::holds_alternative<T>(var)
          ? &std::get<T>(var)
@@ -571,8 +582,10 @@ template<
 const T *getter(
    const std::vector<std::variant<Ts...>> &vecvar,
    const KEY &key,
-   const std::string &nname, const std::string &cname, const std::string &fname
+   const std::string &nname, const std::string &cname, const std::string &fn
 ) {
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
    try {
       return getter<T>(
          // no <T>, so it calls getter(generic vector); it isn't recursive
