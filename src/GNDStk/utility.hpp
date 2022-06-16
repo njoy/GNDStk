@@ -523,6 +523,9 @@ public:
    static constexpr bool value = true;
 };
 
+template<class T>
+using isVariant_t = std::enable_if_t<isVariant<T>::value>;
+
 // ------------------------
 // isAlternative
 // ------------------------

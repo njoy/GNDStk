@@ -19,6 +19,9 @@ struct isVector<std::vector<T,Alloc>>
    : public std::true_type
 { };
 
+template<class T>
+using isVector_t = std::enable_if_t<isVector<T>::value>;
+
 // ------------------------
 // isDefaulted
 // ------------------------
@@ -34,6 +37,9 @@ template<class T>
 struct isDefaulted<Defaulted<T>>
    : public std::true_type
 { };
+
+template<class T>
+using isDefaulted_t = std::enable_if_t<isDefaulted<T>::value>;
 
 // ------------------------
 // isLookup

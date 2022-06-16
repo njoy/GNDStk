@@ -1,7 +1,7 @@
 
 template<class, class>
 class FieldPart {
-   // nothing; see the partial specialization later in this file
+   // Nothing; see the partial specialization later in this file
 };
 
 // -----------------------------------------------------------------------------
@@ -10,13 +10,12 @@ class FieldPart {
 
 template<class T>
 class Field {
-   using PARENT = DERIVED;
-   friend PARENT;
+   friend DERIVED;
 
    template<class, class>
    friend class FieldPart;
 
-   PARENT &parent;
+   DERIVED &parent;
    T value;
 
 public:
@@ -25,30 +24,27 @@ public:
    // Constructors
    // ------------------------
 
-   // because [PARENT &parent] would be wrong
+   // Because data member [DERIVED &parent] would be wrong
    Field(const Field &) = delete;
    Field(Field &&) = delete;
 
-   // These accept PARENT*, not PARENT&, so that we can write "this",
+   // These accept DERIVED*, not DERIVED&, so that we can write "this",
    // not "*this", where Field objects are constructed.
 
-   explicit Field(PARENT *const parent, const T &value = T{}) :
+   explicit Field(DERIVED *const parent, const T &value = T{}) :
       parent(*parent),
       value(value)
    { }
 
-   Field(PARENT *const parent, const Field &other) :
+   Field(DERIVED *const parent, const Field &other) :
       parent(*parent),
       value(other.value)
    { }
 
-   // if T == Defaulted
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isDefaulted<TEE>::value>>
+   // If T == Defaulted
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field(
-      PARENT *const parent,
-      const typename TEE::value_type &def,
+      DERIVED *const parent, const typename TEE::value_type &def,
       const std::optional<typename TEE::value_type> &value = {}
    ) :
       parent(*parent),
@@ -60,25 +56,27 @@ public:
    // ------------------------
 
    // ()
+   // Return reference to value (which is of type T)
    const T &operator()() const { return value; }
    T &operator()() { return value; }
 
-   // conversion to T
-   // same as operator()()
+   // Conversion to T
+   // Same as operator()()
    operator const T &() const { return operator()(); }
    operator T &() { return operator()(); }
 
-   // if T == vector: (index/label/Lookup)
-   // get vector element
+   // If T == vector: (index/label/Lookup)
+   // Return reference to vector element (which is of type T::value_type,
+   // because T in this context is a vector).
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) const
       { return parent.getter(value, key); }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    decltype(auto) operator()(const KEY &key)
       { return parent.getter(value, key); }
 
@@ -87,39 +85,38 @@ public:
    // ------------------------
 
    // (T)
-   PARENT &operator()(const T &other)
+   // Replace existing value with other value.
+   DERIVED &operator()(const T &other)
    {
       value = other;
       return parent;
    }
 
-   // if T == Defaulted: (std::optional)
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isDefaulted<TEE>::value>>
-   PARENT &operator()(const std::optional<typename TEE::value_type> &opt)
+   // If T == Defaulted: (std::optional)
+   // Replace existing Defaulted's value with the given optional value.
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   DERIVED &operator()(const std::optional<typename TEE::value_type> &opt)
    {
       value = opt;
       return parent;
    }
 
-   // if T == vector: (scalar)
-   // vector push_back
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVector<TEE>::value>>
-   PARENT &operator()(const typename TEE::value_type &obj)
+   // If T == vector: (scalar)
+   // Add (via push_back) to this->value, which in this context is a vector.
+   template<class TEE = T, class = detail::isVector_t<TEE>>
+   DERIVED &operator()(const typename TEE::value_type &obj)
    {
       parent.setter(value, obj);
       return parent;
    }
 
    // if T == vector: (index/label/Lookup, value)
-   // replace vector element
+   // Find the vector's element that has the given index, label, or Lookup,
+   // and replace it with the given replacement value.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
-   PARENT &operator()(const KEY &key, const typename TEE::value_type &obj)
+      class TEE = T, class = detail::isVector_t<TEE>>
+   DERIVED &operator()(const KEY &key, const typename TEE::value_type &obj)
    {
       (*this)(key) = obj;
       return parent;
@@ -151,8 +148,7 @@ public:
 
 template<class T, class PART>
 class FieldPart<Field<T>,PART> {
-   using FIELD = Field<T>;
-   FIELD &field;
+   Field<T> &field;
 
 public:
 
@@ -160,15 +156,15 @@ public:
    // Constructors
    // ------------------------
 
-   // because [FIELD &field] would be wrong
+   // Because [Field<T> &field] would be wrong
    FieldPart(const FieldPart &) = delete;
    FieldPart(FieldPart &&) = delete;
 
-   explicit FieldPart(FIELD &field) :
+   explicit FieldPart(Field<T> &field) :
       field(field)
    { }
 
-   FieldPart(FIELD &field, const FieldPart &other) :
+   FieldPart(Field<T> &field, const FieldPart &other) :
       field(field)
    { }
 
@@ -178,17 +174,13 @@ public:
    // ptr()
    // ------------------------
 
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    const PART *ptr() const
    {
       return field.parent.template getter<PART>(field());
    }
 
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    PART *ptr()
    {
       return field.parent.template getter<PART>(field());
@@ -200,17 +192,13 @@ public:
    // operator()()
    // ------------------------
 
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    const PART *operator()() const
    {
       return ptr();
    }
 
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    PART *operator()()
    {
       return ptr();
@@ -223,17 +211,13 @@ public:
    // Same as operator()()
    // ------------------------
 
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    operator const PART *() const
    {
       return operator()();
    }
 
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    operator PART *()
    {
       return operator()();
@@ -248,7 +232,7 @@ public:
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    decltype(auto) ptr(const KEY &key) const
    {
       return field.parent.template getter<PART>(field(), key);
@@ -256,7 +240,7 @@ public:
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    decltype(auto) ptr(const KEY &key)
    {
       return field.parent.template getter<PART>(field(), key);
@@ -271,7 +255,7 @@ public:
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) const
    {
       return ptr(key);
@@ -279,7 +263,7 @@ public:
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    decltype(auto) operator()(const KEY &key)
    {
       return ptr(key);
@@ -289,21 +273,19 @@ public:
    // Setters
    // ------------------------
 
-   // if T == variant: (value)
-   template<
-      class TEE = T,
-      class = std::enable_if_t<detail::isVariant<TEE>::value>>
+   // If T == variant: (value)
+   template<class TEE = T, class = detail::isVariant_t<TEE>>
    DERIVED &operator()(const std::optional<PART> &obj)
    {
       if (obj) field(obj.value());
       return field.parent;
    }
 
-   // if T == vector: (index/label/Lookup, value)
-   // replace vector element
+   // If T == vector: (index/label/Lookup, value)
+   // Replace vector element.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
-      class TEE = T, class = std::enable_if_t<detail::isVector<TEE>::value>>
+      class TEE = T, class = detail::isVector_t<TEE>>
    DERIVED &operator()(const KEY &key, const std::optional<PART> &obj)
    {
       if (obj) field(key,obj.value());
@@ -314,19 +296,15 @@ public:
    // Assignment
    // ------------------------
 
-   // intentional: don't assign [referenced] field; doing so would be wrong
+   // Intentional: don't assign [referenced] field; doing so would be wrong
    FieldPart &operator=(const FieldPart &other) { return *this; }
    FieldPart &operator=(FieldPart &&other) { return *this; }
 }; // class FieldPart
 
 
 // -----------------------------------------------------------------------------
-// Helpers
-// -----------------------------------------------------------------------------
-
-// ------------------------
 // wrapper
-// ------------------------
+// -----------------------------------------------------------------------------
 
 template<class T>
 struct wrapper {
@@ -355,11 +333,16 @@ struct wrapper {
    operator T &() { return value; }
 };
 
+
+// -----------------------------------------------------------------------------
+// Helpers
+// -----------------------------------------------------------------------------
+
+private:
+
 // ------------------------
 // fieldAddress
 // ------------------------
-
-private:
 
 template<class T>
 void *fieldAddress(T &value)
