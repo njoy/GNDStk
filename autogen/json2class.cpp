@@ -848,17 +848,17 @@ int writer::recurse = 0;
 // Class prefix
 void writeClassPrefix(writer &out, const PerClass &per)
 {
+   // namespace
+   out("namespace @ {", per.nsname);
+
    // comment introducing class
-   out();
    out();
    out(largeComment);
    out("// @::", per.nsname);
    out("// class @", per.clname);
    out(largeComment);
 
-   // namespace+class begin
-   out();
-   out("namespace @ {", per.nsname);
+   // class begin
    out();
    out("class @ : public Component<@::@@> {",
        // A namespace prefix in Component<> prevents possible ambiguities with
@@ -872,6 +872,7 @@ void writeClassPrefix(writer &out, const PerClass &per)
           ? (",true" + (per.dataType == "" ? "" : "," + per.dataType))
           : ""
    );
+   out(1,"friend class Component;");
 } // writeClassPrefix
 
 
@@ -893,8 +894,6 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out(1,smallComment);
    out(1,"// For Component");
    out(1,smallComment);
-   out();
-   out(1,"friend class Component;");
    out();
    out(1,"// Names: this namespace, this class, a field/node of this type");
    out(1,"static auto NAMESPACE() { return \"@\"; }", per.nsname);
@@ -958,13 +957,10 @@ void writeClassSuffix(
    // assignment
    out();
    out(1,smallComment);
-   out(1,"// Assignment");
+   out(1,"// Assignment operators");
    out(1,smallComment);
    out();
-   out(1,"// copy");
    out(1,"@ &operator=(const @ &) = default;", per.clname, per.clname);
-   out();
-   out(1,"// move");
    out(1,"@ &operator=(@ &&) = default;", per.clname, per.clname);
 
    // customization #include
@@ -975,6 +971,9 @@ void writeClassSuffix(
    out();
    out(1,"#include \"@/@/@/@/src/custom.hpp\"",
        specs.Project, specs.Version, per.nsname, per.clname);
+
+   // this *follows* the customization #include (because it might be used there)
+   out(1,"#undef GNDSTK_COMPONENT");
 
    // class+namespace end
    out();
@@ -993,226 +992,49 @@ void writeClassSuffix(
 // writeClassContentMetadata
 void writeClassContentMetadata(writer &out, const PerClass &per)
 {
-   if (per.metadata.size())
-      out(2,"// metadata");
+   if (per.metadata.size()) {
+      out();
+      out(1,"// metadata");
+   }
+
    for (const auto &m : per.metadata) {
       per.isData && (
       m.name == "length" || m.name == "start" || m.name == "valueType")
-         ? out(2,"mutable @ @", m.typeFull, m.name, false)
-         : out(2,        "@ @", m.typeFull, m.name, false);
+         ? out(1,"mutable Field<@> @{this", m.typeFull, m.name, false)
+         : out(1,        "Field<@> @{this", m.typeFull, m.name, false);
       if (m.defaultValue != "")
-         out("{@}", initializer(m), false);
-      out(";");
+         out(",defaults.@", m.name, false);
+      out("};");
    }
+
 }
 
 // writeClassContentChildren
 void writeClassContentChildren(writer &out, const PerClass &per)
 {
-   if (per.children.size())
-      out(2,"// children");
+   if (per.children.size()) {
+      out();
+      out(1,"// children");
+   }
    for (const auto &c : per.children)
-      out(2,"@ @;", c.typeFull, c.name);
+      out(1,"Field<@> @{this};", c.typeFull, c.name);
 }
 
 // writeClassContentVariants
 void writeClassContentVariants(writer &out, const PerClass &per)
 {
-   if (per.variants.size())
-      out(2,"// children - variant");
-   for (const auto &v : per.variants)
-      out(2,"@ @;", v.typeFull, v.name);
-}
-
-
-
-// -----------------------------------------------------------------------------
-// writeClassGetters
-// -----------------------------------------------------------------------------
-
-void writeClassGetters(writer &out, const PerClass &per)
-{
-   out();
-   out(1,smallComment);
-   out(1,"// Getters");
-   out(1,"// const and non-const");
-   out(1,smallComment);
-
-   const auto write =
-      [&out](auto &&i, const bool isVector)
-      {
-         // i: info for metadatum, child, or variant
-         out();
-         out(1,"// @", i.name);
-         out(1,"const @ &@() const", i.typeFull, i.name);
-         out(2,"{ return Content.@; }", i.name);
-         out(1,      "@ &@()",       i.typeFull, i.name);
-         out(2,"{ return Content.@; }", i.name);
-
-         if (isVector) {
-            out();
-            out(1,"// @(index/label/Lookup)", i.name);
-            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
-            out(1,"decltype(auto) @(const KEY &key) const", i.name);
-            out(2,   "{ return getter(@(), key, \"@\"); }", i.name, i.name);
-            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
-            out(1,"decltype(auto) @(const KEY &key)", i.name);
-            out(2,   "{ return getter(@(), key, \"@\"); }", i.name, i.name);
-         }
-      };
-
-   // metadata, children, variants
-   for (const auto &m : per.metadata) write(m, false);
-   for (const auto &c : per.children) write(c, c.isVector);
-   for (const auto &v : per.variants) write(v, v.isVector);
-
-   // variant alternatives
+   if (per.variants.size()) {
+      out();
+      out(1,"// children - variant");
+   }
    for (const auto &v : per.variants) {
+      out(1,"Field<@> @{this};", v.typeFull, v.name);
       for (const auto &c : v.children) {
-         if (v.isVector) {
-            out();
-            out(1,"// @(index/label/Lookup)", c.name);
-            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
-            out(1,"decltype(auto) @(const KEY &key) const", c.name);
-            out(2,   "{ return getter<@>(@(), key, \"@\"); }",
-                c.type, v.name, c.name);
-            out(1,"template<class KEY, class = detail::isSearchKey<KEY>>");
-            out(1,"decltype(auto) @(const KEY &key)", c.name);
-            out(2,   "{ return getter<@>(@(), key, \"@\"); }",
-                c.type, v.name, c.name);
-         } else {
-            out();
-            out(1,"// @", c.name);
-            out(1,"const @ *@() const", c.type, c.name);
-            out(2,"{ return getter<@>(@(), \"@\"); }", c.type, v.name, c.name);
-            out(1,      "@ *@()",       c.type, c.name);
-            out(2,"{ return getter<@>(@(), \"@\"); }", c.type, v.name, c.name);
-         }
+         out(1,"FieldPart<decltype(@),@> @{@};",
+             v.name, c.type, c.name, v.name);
       }
    }
-} // writeClassGetters
-
-
-
-// -----------------------------------------------------------------------------
-// writeClassSetter*
-// -----------------------------------------------------------------------------
-
-// writeClassSetterChild
-template<class INFO> // InfoChildren or InfoVariants
-void writeClassSetterChild(
-   writer &out, const PerClass &parent, const INFO &child
-) {
-   // setter
-   // note that if type is optional<T>, a T can still be sent
-   out();
-   if (child.isVector)
-      out(1,"// @(vector): replace vector", child.name);
-   else
-      out(1,"// @(value)", child.name);
-   out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.typeFull);
-   out(2,"{ @() = obj; return *this; }", child.name);
-
-   // if vector or optional<vector>
-   if (child.isVector) {
-      // push vector element
-      out();
-      out(1,"// @(scalar): vector push_back", child.name);
-      out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.type);
-      out(2,"{ setter(@(), obj); return *this; }", child.name);
-
-      // replace one vector value
-      out();
-      out(1,"// @(index/label/Lookup, value): replace vector entry",
-          child.name);
-      out(1,"template<class KEY, class = detail::isSearchKeyRefReturn<KEY>>");
-      out(1,"@ &@(const KEY &key, const @ &obj)",
-          parent.clname, child.name, child.type);
-      out(1,"{");
-      out(2,   "@(key) = obj; return *this;",
-          child.name);
-      out(1,"}");
-   }
-} // writeClassSetterChild
-
-
-// writeClassSetters
-void writeClassSetters(writer &out, const PerClass &per)
-{
-   out();
-   out(1,smallComment);
-   out(1,"// Setters");
-   out(1,"// non-const");
-   out(1,"// All return *this");
-   out(1,smallComment);
-
-   // Reminder:
-   //    metadata can have: optional, defaulted (but not vector)
-   //    children can have: optional, vector (but not defaulted)
-
-   // metadata
-   for (const auto &m : per.metadata) {
-      out();
-      out(1,"// @(value)", m.name);
-
-      // special cases: we want to send length, start, and valueType
-      // to the BlockData base as well
-      const bool special =
-         per.isData &&
-        (m.name == "length" || m.name == "start" || m.name == "valueType");
-
-      // setter
-      // note that if type is optional<T>, a T can still be sent
-      out(1,"@ &@(const @ &obj)", per.clname, m.name, m.typeFull);
-
-      special
-       ? out(2,"{ BlockData::@(@() = obj); return *this; }", m.name, m.name)
-       : out(2,"{ @() = obj; return *this; }", m.name);
-
-      // setter, if type is Defaulted<T>
-      if (m.isDefaulted) {
-         out(1,"@ &@(const std::optional<@> &obj)", per.clname, m.name, m.type);
-         special
-          ? out(2,"{ BlockData::@(@() = obj); return *this; }", m.name, m.name)
-          : out(2,"{ @() = obj; return *this; }", m.name);
-      }
-   }
-
-   // children, variants
-   for (const auto &c : per.children) writeClassSetterChild(out, per, c);
-   for (const auto &v : per.variants) writeClassSetterChild(out, per, v);
-
-   // variant alternatives
-   for (const auto &v : per.variants) {
-      if (v.isVector) {
-         // choice is a vector<variant>
-         for (const auto &c : v.children) {
-            // replace one vector value
-            out();
-            out(1,"// @(index/label/Lookup, value): replace vector entry",
-                c.name);
-            out(1,"template<class KEY, "
-                  "class = detail::isSearchKeyRefReturn<KEY>>");
-            out(1,"@ &@(", per.clname, c.name);
-            out(2,   "const KEY &key,");
-            out(2,   "const std::optional<@> &obj", c.type);
-            out(1,") {");
-            out(2,   "if (obj) @(key,obj.value());", v.name);
-            out(2,   "return *this;");
-            out(1,"}");
-         }
-      } else {
-         // choice is a variant
-         for (const auto &c : v.children) {
-            out();
-            out(1,"// @(value)", c.name);
-            out(1,"@ &@(const std::optional<@> &obj)",
-                per.clname, c.name, c.type);
-            out(2,"{ if (obj) @(obj.value()); return *this; }", v.name);
-         }
-      }
-   }
-} // writeClassSetters
+}
 
 
 
@@ -1222,36 +1044,25 @@ void writeClassSetters(writer &out, const PerClass &per)
 
 // writeClassCtorComponent
 void writeClassCtorComponent(
-   writer &out, const PerClass &per, const bool copyOrMove
+   writer &out, const PerClass &per, const bool copyOrMove,
+   const bool newline = true
 ) {
-   out(2,"Component{");
-   out(3, copyOrMove ? "other.baseBlockData()" : "BlockData{}", false);
-
-   for (const auto &m : per.metadata) { // metadata
-      out(",");
-      out(3,"this->@()", m.name, false);
-   }
-   for (const auto &c : per.children) { // children
-      out(",");
-      out(3,"this->@()", c.name, false);
-   }
-   for (const auto &v : per.variants) { // variants
-      out(",");
-      out(3,"this->@()", v.name, false);
-   }
-
-   out();
-   out(2,"}",false);
-} // writeClassCtorComponent
+   out(2,"GNDSTK_COMPONENT(@)",
+       std::string(copyOrMove ? "other.baseBlockData()" : "BlockData{}"),
+       newline);
+}
 
 
 // writeClassCtorBody
-void writeClassCtorBody(writer &out, const std::string &argName)
-{
+void writeClassCtorBody(
+   writer &out, const std::string &line, const std::string &argName
+) {
    out(1,"{");
+   if (line != "")
+      out(2,line);
    out(2,"Component::finish(@);", argName);
    out(1,"}");
-} // writeClassCtorBody
+}
 
 
 // writeClassCtors
@@ -1269,8 +1080,20 @@ void writeClassCtors(writer &out, const PerClass &per)
       out(1,"// default");
       out(1,"@() :", per.clname);
       writeClassCtorComponent(out, per, false);
-      out();
    } else {
+      int count = 0;
+
+      // macro
+      out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
+      for (const auto &m : per.metadata)
+         out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
+      for (const auto &c : per.children)
+         out(2,"this->@@", c.name, ++count < total ? ", \\" : ")");
+      for (const auto &v : per.variants)
+         out(2,"this->@@", v.name, ++count < total ? ", \\" : ")");
+
+      // comment for this constructor
+      out();
       out(1,"// default, and from fields");
 
       // informational message, if applicable
@@ -1282,70 +1105,41 @@ void writeClassCtors(writer &out, const PerClass &per)
          }
 
       // signature, and base constructor call
-      int count = 0;
+      count = 0;
       out(1,"explicit @(", per.clname);
 
-      for (const auto &m : per.metadata) {
-         const std::string type =
-            m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull;
-         out(2,"const @ &@ =", type, m.name);
-         out(3,"@{}@", type, ++count < total ? "," : "");
-      }
-      for (const auto &c : per.children) {
-         out(2,"const @ &@ =", c.typeFull, c.name);
-         out(3,"@{}@", c.typeFull, ++count < total ? "," : "");
-      }
-      for (const auto &v : per.variants) {
-         out(2,"const @ &@ =", v.typeFull, v.name);
-         out(3,"@{}@", v.typeFull, ++count < total ? "," : "");
-      }
+      for (const auto &m : per.metadata)
+         out(2,"const wrapper<@> &@ = {}@",
+             m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
+             m.name, ++count < total ? "," : "");
+      for (const auto &c : per.children)
+         out(2,"const wrapper<@> &@ = {}@",
+             c.typeFull, c.name, ++count < total ? "," : "");
+      for (const auto &v : per.variants)
+         out(2,"const wrapper<@> &@ = {}@",
+             v.typeFull, v.name, ++count < total ? "," : "");
 
       out(1,") :");
-      writeClassCtorComponent(out, per, false);
+      writeClassCtorComponent(out, per, false, false);
 
       // initialize fields
       out(",");
-      out(2,"Content{");
       count = 0;
       for (const auto &m : per.metadata)
-         out(3,"@@",
-             m.isDefaulted
-                ? "Defaulted<"+m.type+">(defaults."+m.name+","+m.name+")"
-                : m.name,
-             ++count < total ? "," : "");
+         if (m.isDefaulted)
+            out(2,"@(this,defaults.@,@)@",
+                m.name, m.name, m.name, ++count < total ? "," : "");
+         else
+            out(2,"@(this,@)@",
+                m.name, m.name, ++count < total ? "," : "");
       for (const auto &c : per.children)
-         out(3,"@@", c.name, ++count < total ? "," : "");
+         out(2,"@(this,@)@", c.name, c.name, ++count < total ? "," : "");
       for (const auto &v : per.variants)
-         out(3,"@@", v.name, ++count < total ? "," : "");
-      out(2,"}");
+         out(2,"@(this,@)@", v.name, v.name, ++count < total ? "," : "");
    }
 
    // body
-   writeClassCtorBody(out, "");
-
-   // ------------------------
-   // ctor: copy
-   // ------------------------
-
-   out();
-   out(1,"// copy");
-   out(1,"@(const @ &other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   out(",");
-   out(2,"Content{other.Content}");
-   writeClassCtorBody(out, "other");
-
-   // ------------------------
-   // ctor: move
-   // ------------------------
-
-   out();
-   out(1,"// move");
-   out(1,"@(@ &&other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   out(",");
-   out(2,"Content{std::move(other.Content)}");
-   writeClassCtorBody(out, "other");
+   writeClassCtorBody(out, "", "");
 
    // ------------------------
    // ctor: node
@@ -1355,8 +1149,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// from node");
    out(1,"@(const Node &node) :", per.clname);
    writeClassCtorComponent(out, per, false);
-   out();
-   writeClassCtorBody(out, "node");
+   writeClassCtorBody(out, "", "node");
 
    // ------------------------
    // ctor: vector
@@ -1369,9 +1162,28 @@ void writeClassCtors(writer &out, const PerClass &per)
           "std::enable_if_t<BLOCKDATA::template supported<T>>>");
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
-      out();
-      writeClassCtorBody(out, "vector");
+      writeClassCtorBody(out, "", "vector");
    }
+
+   // ------------------------
+   // ctor: copy
+   // ------------------------
+
+   out();
+   out(1,"// copy");
+   out(1,"@(const @ &other) :", per.clname, per.clname);
+   writeClassCtorComponent(out, per, true);
+   writeClassCtorBody(out, "*this = other;", "other");
+
+   // ------------------------
+   // ctor: move
+   // ------------------------
+
+   out();
+   out(1,"// move");
+   out(1,"@(@ &&other) :", per.clname, per.clname);
+   writeClassCtorComponent(out, per, true);
+   writeClassCtorBody(out, "*this = std::move(other);", "other");
 } // writeClassCtors
 
 
@@ -1393,7 +1205,6 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    writeClassForComponent(out, per);
 
    // output: using directives
-   out();
    out(1,"using Component::construct;");
    if (per.isData)
       out(1,"using BlockData::operator=;");
@@ -1405,11 +1216,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
          ++ndefaults;
    if (ndefaults > 0) {
       out();
-      out(1,smallComment);
-      out(1,"// Relevant defaults");
-      out(1,"// FYI for users");
-      out(1,smallComment);
-      out();
+      out(1,"// defaults");
       out(1,"static inline const struct Defaults {");
       for (auto &m : per.metadata)
          if (m.isDefaulted)
@@ -1418,23 +1225,10 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
       out(1,"} defaults;");
    }
 
-   // output: struct Content (for the metadata/children computed earlier)
-   out();
-   out(1,smallComment);
-   out(1,"// Raw GNDS content");
-   out(1,smallComment);
-   out();
-   out(1,"struct {");
+   // output: fields
    writeClassContentMetadata(out, per);
    writeClassContentChildren(out, per);
    writeClassContentVariants(out, per);
-   out(1,"} Content;");
-
-   // output: getters, setters
-   if (per.metadata.size() || per.children.size() || per.variants.size()) {
-      writeClassGetters(out, per);
-      writeClassSetters(out, per);
-   }
 
    // output: constructors
    out();
@@ -2102,7 +1896,8 @@ void fileGNDStkClass(
    out("#define @", guard);
 
    out();
-   out("#include \"@/@/key.hpp\"", specs.Project, specs.Version);
+   if (c2d.dependencies.size() == 0) // <== otherwise, comes in through deps
+      out("#include \"@/@/key.hpp\"", specs.Project, specs.Version);
    for (const auto &dep : c2d.dependencies)
       out("#include \"@/@/@/@.hpp\"",
           specs.Project, specs.Version, dep.nsname, dep.clname);
@@ -2330,7 +2125,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       m.isDefaulted
          ? out(3,"[](const Component &self) { return self.@().value(); },",
                m.name)
-         : out(3,"&Component::@,",
+         : out(3,"[](const Component &self) { return self.@(); },",
                m.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
@@ -2340,11 +2135,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       const auto pyname = namePython(c.name);
       out(2,".def_property_readonly(");
       out(3,"\"@\",", pyname);
-      if (c.isVector) {
-         out(3,"(const @ &(Component::*)() const)", c.typeFull);
-         out(4,"&Component::@,", c.name);
-      } else
-         out(3,"python::overload_cast<>(&Component::@),", c.name);
+      out(3,"[](const Component &self) { return self.@(); },", c.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
    }
@@ -2355,18 +2146,14 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
             const auto pyname = namePython(c.name);
             out(2,".def_property_readonly(");
             out(3,"\"@\",", pyname);
-            out(3,"python::overload_cast<>(&Component::@),", c.name);
+            out(3,"[](const Component &self) { return self.@(); },", c.name);
             out(3,"Component::documentation(\"@\").data()", pyname);
             out(2,")");
          }
       const auto pyname = namePython(v.name);
       out(2,".def_property_readonly(");
       out(3,"\"@\",", pyname);
-      if (v.isVector) {
-         out(3,"(const @ &(Component::*)() const)", v.typeFull);
-         out(4,"&Component::@,", v.name);
-      } else
-         out(3,"python::overload_cast<>(&Component::@),", v.name);
+      out(3,"[](const Component &self) { return self.@(); },", v.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
    }
