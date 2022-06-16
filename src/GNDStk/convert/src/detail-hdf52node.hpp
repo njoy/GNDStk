@@ -26,11 +26,17 @@ bool attr2node(const HighFive::Attribute &attr, NODE &node)
       const std::size_t attrSize = attr.getSpace().getElementCount();
 
       // Scalar case. Includes bool.
-      if (attrSize == 1) {
-         T scalar;
-         attr.read(scalar);
-         node.add(attrName,scalar);
-         return true;
+      // fixme. ...or doesn't include bool. 2022-06-16, the current HighFive
+      // master appears to have broken HighFive's bool support, so I've
+      // if-constexpr'd it out here. We're not dealing with bool in the test
+      // suite at this time, so this is fine, at least for now.
+      if constexpr (!std::is_same_v<T,bool>) {
+         if (attrSize == 1) {
+            T scalar;
+            attr.read(scalar);
+            node.add(attrName,scalar);
+            return true;
+         }
       }
 
       // Vector case. EXcludes bool, as HighFive (perhaps HDF5 in general?)
@@ -97,13 +103,17 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
       // Remarks as in the similar helper function attr2node()
       const std::size_t dataSize = dset.getElementCount();
 
-      if (dataSize == 1) {
-         T scalar;
-         dset.read(scalar);
-         node.name == special::pcdata
-            ? node.add(special::text,scalar)
-            : node.add(special::pcdata).add(special::text,scalar);
-         return true;
+      // See earlier fixme. bool support is removed for now, because it appears
+      // to be broken in the latest HighFive.
+      if constexpr (!std::is_same_v<T,bool>) {
+         if (dataSize == 1) {
+            T scalar;
+            dset.read(scalar);
+            node.name == special::pcdata
+               ? node.add(special::text,scalar)
+               : node.add(special::pcdata).add(special::text,scalar);
+            return true;
+         }
       }
 
       if constexpr (!std::is_same_v<T,bool>) {
