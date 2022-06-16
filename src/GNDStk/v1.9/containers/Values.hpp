@@ -54,8 +54,8 @@ public:
    } defaults;
 
    // metadata
-   mutable Field<Defaulted<std::string>> valueType{this,Defaults::valueType};
-   mutable Field<Defaulted<int>> start{this,Defaults::start};
+   mutable Field<Defaulted<std::string>> valueType{this,defaults.valueType};
+   mutable Field<Defaulted<int>> start{this,defaults.start};
    mutable Field<std::optional<int>> length{this};
 
    // ------------------------
