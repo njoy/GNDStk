@@ -333,6 +333,11 @@ std::string getTimes(const orderedJSON &value)
       : value[occurrence];
 }
 
+std::string sep(int &count, const int total)
+{
+   return ++count < total ? "," : "";
+}
+
 
 // -----------------------------------------------------------------------------
 // name* functions
@@ -886,7 +891,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
       out(1,"using @ = std::variant<", v.type);
       int count = 0, total = v.children.size();
       for (const auto &c : v.children)
-         out(2,"@@", c.type, ++count == total ? "" : ",");
+         out(2,"@@", c.type, sep(count,total));
       out(1,">;");
    }
 
@@ -1073,7 +1078,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    // and from fields
    // ------------------------
 
-   const auto total = per.nfields();
+   const int total = per.nfields();
    out();
 
    if (total == 0) {
@@ -1111,13 +1116,13 @@ void writeClassCtors(writer &out, const PerClass &per)
       for (const auto &m : per.metadata)
          out(2,"const wrapper<@> &@ = {}@",
              m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
-             m.name, ++count < total ? "," : "");
+             m.name, sep(count,total));
       for (const auto &c : per.children)
          out(2,"const wrapper<@> &@ = {}@",
-             c.typeFull, c.name, ++count < total ? "," : "");
+             c.typeFull, c.name, sep(count,total));
       for (const auto &v : per.variants)
          out(2,"const wrapper<@> &@ = {}@",
-             v.typeFull, v.name, ++count < total ? "," : "");
+             v.typeFull, v.name, sep(count,total));
 
       out(1,") :");
       writeClassCtorComponent(out, per, false, false);
@@ -1128,14 +1133,13 @@ void writeClassCtors(writer &out, const PerClass &per)
       for (const auto &m : per.metadata)
          if (m.isDefaulted)
             out(2,"@(this,defaults.@,@)@",
-                m.name, m.name, m.name, ++count < total ? "," : "");
+                m.name, m.name, m.name, sep(count,total));
          else
-            out(2,"@(this,@)@",
-                m.name, m.name, ++count < total ? "," : "");
+            out(2,"@(this,@)@", m.name, m.name, sep(count,total));
       for (const auto &c : per.children)
-         out(2,"@(this,@)@", c.name, c.name, ++count < total ? "," : "");
+         out(2,"@(this,@)@", c.name, c.name, sep(count,total));
       for (const auto &v : per.variants)
-         out(2,"@(this,@)@", v.name, v.name, ++count < total ? "," : "");
+         out(2,"@(this,@)@", v.name, v.name, sep(count,total));
    }
 
    // body
@@ -2066,7 +2070,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(1,"using @ = std::variant<", v.type);
       int count = 0, total = v.children.size();
       for (const auto &c : v.children)
-         out(2, "@@", c.type, ++count == total ? "" : ",");
+         out(2, "@@", c.type, sep(count,total));
       out(1,">;");
    }
 
@@ -2088,11 +2092,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    for (auto &m : per.metadata)
       out(4,"const @ &@",
           m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
-          ++count < total ? "," : "");
+          sep(count,total));
    for (auto &c : per.children)
-      out(4,"const @ &@", c.typeFull, ++count < total ? "," : "");
+      out(4,"const @ &@", c.typeFull, sep(count,total));
    for (auto &v : per.variants)
-      out(4,"const @ &@", v.typeFull, ++count < total ? "," : "");
+      out(4,"const @ &@", v.typeFull, sep(count,total));
    out(3,">(),");
    for (auto &m : per.metadata)
       out(3,"python::arg(\"@\")@,",
