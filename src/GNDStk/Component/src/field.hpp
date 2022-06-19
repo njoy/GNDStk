@@ -28,8 +28,8 @@ public:
    Field(const Field &) = delete;
    Field(Field &&) = delete;
 
-   // These accept DERIVED*, not DERIVED&, so that we can write "this",
-   // not "*this", where Field objects are constructed.
+   // The following accept DERIVED*, not DERIVED&, so that we can write "this",
+   // not "*this", where Field objects are constructed. It's just a bit shorter.
 
    explicit Field(DERIVED *const parent, const T &value = T{}) :
       parent(*parent),
@@ -61,11 +61,12 @@ public:
    T &operator()() { return value; }
 
    // Conversion to T
-   // Same as operator()()
-   operator const T &() const { return operator()(); }
-   operator T &() { return operator()(); }
+   // Same as ()
+   operator const T &() const { return (*this)(); }
+   operator T &() { return (*this)(); }
 
-   // If T == vector: (index/label/Lookup)
+   // (index/label/Lookup)
+   // If T == vector
    // Return reference to vector element (which is of type T::value_type,
    // because T in this context is a vector).
    template<
@@ -85,14 +86,15 @@ public:
    // ------------------------
 
    // (T)
-   // Replace existing value with other value.
+   // Replace existing value with another value.
    DERIVED &operator()(const T &other)
    {
       value = other;
       return parent;
    }
 
-   // If T == Defaulted: (std::optional)
+   // (std::optional)
+   // If T == Defaulted
    // Replace existing Defaulted's value with the given optional value.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    DERIVED &operator()(const std::optional<typename TEE::value_type> &opt)
@@ -101,7 +103,8 @@ public:
       return parent;
    }
 
-   // If T == vector: (scalar)
+   // (scalar)
+   // If T == vector
    // Add (via push_back) to this->value, which in this context is a vector.
    template<class TEE = T, class = detail::isVector_t<TEE>>
    DERIVED &operator()(const typename TEE::value_type &obj)
@@ -110,7 +113,8 @@ public:
       return parent;
    }
 
-   // if T == vector: (index/label/Lookup, value)
+   // (index/label/Lookup, value)
+   // if T == vector
    // Find the vector's element that has the given index, label, or Lookup,
    // and replace it with the given replacement value.
    template<
@@ -146,9 +150,30 @@ public:
 // FieldPart
 // -----------------------------------------------------------------------------
 
-template<class T, class PART>
-class FieldPart<Field<T>,PART> {
-   Field<T> &field;
+template<class WHOLE, class PART>
+class FieldPart<Field<WHOLE>,PART> {
+   Field<WHOLE> &field;
+
+   // zzz I think it's always the case that WHOLE is either a variant
+   // or a vector<variant>.
+   static_assert(
+      detail::isVariant<WHOLE>::value || detail::isVectorVariant<WHOLE>::value,
+      /*
+      detail::isVectorVariant<WHOLE>::value,
+      /////////detail::isVariant<WHOLE>::value,
+      */
+     "FieldPart<Field<WHOLE>,PART>: "
+     "WHOLE must be std::variant or std::vector<std::variant>"
+   );
+
+   // zzz Below, we're working on dealing with ptr(), error messages,
+   // etc. In those places, in addition to the other work, and in
+   // general in this file, let's see if it's possible to minimize
+   // or eliminate auto/decltype(auto). I'm thinking that there was
+   // a good reason I originally wrote it - perhaps returns can end
+   // up being by-value or by-reference, depending on the situation -
+   // but let's review this nonetheless. And be sure we get reference
+   // returns in those cases where we're returning *ptr.
 
 public:
 
@@ -156,83 +181,109 @@ public:
    // Constructors
    // ------------------------
 
-   // Because [Field<T> &field] would be wrong
+   // Because [Field<WHOLE> &field] would be wrong
    FieldPart(const FieldPart &) = delete;
    FieldPart(FieldPart &&) = delete;
 
-   explicit FieldPart(Field<T> &field) :
+   explicit FieldPart(Field<WHOLE> &field) :
       field(field)
    { }
 
-   FieldPart(Field<T> &field, const FieldPart &other) :
+   // zzz Wait, is the following ever used...?
+   FieldPart(Field<WHOLE> &field, const FieldPart &other) :
       field(field)
    { }
 
    // ------------------------
    // Getters:
-   // For T == variant
-   // ptr()
+   // For WHOLE == variant
    // ------------------------
 
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
+   // ptr()
+   // Get as PART *
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
    const PART *ptr() const
    {
       return field.parent.template getter<PART>(field());
    }
 
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
    PART *ptr()
    {
       return field.parent.template getter<PART>(field());
    }
 
+   // ref()
+   // Get as PART &
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   const PART &ref() const
+   {
+      const PART *const p = ptr();
+      if (p) return *p;
+      log::error(
+        "Cannot get reference; variant contains a different alternative.");
+      throw std::exception{};
+   }
+
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   PART &ref()
+   {
+      return const_cast<PART &>(std::as_const(*this).template ref());
+   }
+
+   // operator()
+   // Get as PART &
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   const PART &operator()() const { return ref(); }
+
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   PART &operator()() { return ref(); }
+
+   // opt()
+   // Makes an optional. So, we must return by value,
+   // and only the const version is needed.
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   const std::optional<PART> opt() const
+   {
+      const PART *const p = ptr();
+      return p ? std::optional<PART>{*p} : std::optional<PART>{};
+   }
+
+   // ------------------------
+   // Conversions
+   // For WHOLE == variant
+   // ------------------------
+
+   // To PART *
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   operator const PART *() const { return ptr(); }
+
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   operator PART *() { return ptr(); }
+
+   // To PART &
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   operator const PART &() const { return ref(); }
+
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   operator PART &() { return ref(); }
+
+   // To optional<PART>
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   operator std::optional<PART>() const { return opt(); }
+
+   // zzz working here...
+
    // ------------------------
    // Getters:
-   // For T == variant
-   // operator()()
-   // ------------------------
-
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
-   const PART *operator()() const
-   {
-      return ptr();
-   }
-
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
-   PART *operator()()
-   {
-      return ptr();
-   }
-
-   // ------------------------
-   // Getters:
-   // For T == variant
-   // Conversion to PART
-   // Same as operator()()
-   // ------------------------
-
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
-   operator const PART *() const
-   {
-      return operator()();
-   }
-
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
-   operator PART *()
-   {
-      return operator()();
-   }
-
-   // ------------------------
-   // Getters:
-   // For T == vector
+   // For WHOLE == vector
    // ptr(index/label/Lookup)
    // Get vector element
    // ------------------------
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = WHOLE, class = detail::isVector_t<TEE>>
    decltype(auto) ptr(const KEY &key) const
    {
       return field.parent.template getter<PART>(field(), key);
@@ -240,7 +291,7 @@ public:
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = WHOLE, class = detail::isVector_t<TEE>>
    decltype(auto) ptr(const KEY &key)
    {
       return field.parent.template getter<PART>(field(), key);
@@ -248,14 +299,14 @@ public:
 
    // ------------------------
    // Getters:
-   // For T == vector
+   // For WHOLE == vector
    // operator()(index/label/Lookup)
    // Get vector element
    // ------------------------
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = WHOLE, class = detail::isVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) const
    {
       return ptr(key);
@@ -263,7 +314,7 @@ public:
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = WHOLE, class = detail::isVector_t<TEE>>
    decltype(auto) operator()(const KEY &key)
    {
       return ptr(key);
@@ -273,19 +324,21 @@ public:
    // Setters
    // ------------------------
 
-   // If T == variant: (value)
-   template<class TEE = T, class = detail::isVariant_t<TEE>>
+   // (value)
+   // If WHOLE == variant
+   template<class TEE = WHOLE, class = detail::isVariant_t<TEE>>
    DERIVED &operator()(const std::optional<PART> &obj)
    {
       if (obj) field(obj.value());
       return field.parent;
    }
 
-   // If T == vector: (index/label/Lookup, value)
+   // (index/label/Lookup, value)
+   // If WHOLE == vector
    // Replace vector element.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = WHOLE, class = detail::isVector_t<TEE>>
    DERIVED &operator()(const KEY &key, const std::optional<PART> &obj)
    {
       if (obj) field(key,obj.value());
@@ -297,8 +350,8 @@ public:
    // ------------------------
 
    // Intentional: don't assign [referenced] field; doing so would be wrong
-   FieldPart &operator=(const FieldPart &other) { return *this; }
-   FieldPart &operator=(FieldPart &&other) { return *this; }
+   FieldPart &operator=(const FieldPart &) { return *this; }
+   FieldPart &operator=(FieldPart &&) { return *this; }
 }; // class FieldPart
 
 

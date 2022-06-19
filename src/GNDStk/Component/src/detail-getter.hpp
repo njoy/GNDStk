@@ -23,6 +23,25 @@ template<class T>
 using isVector_t = std::enable_if_t<isVector<T>::value>;
 
 // ------------------------
+// isVectorVariant
+// ------------------------
+
+// general
+template<class T>
+struct isVectorVariant
+   : public std::false_type
+{ };
+
+// for std::vector<std::variant<...>>
+template<class... Ts, class Alloc>
+struct isVectorVariant<std::vector<std::variant<Ts...>,Alloc>>
+   : public std::true_type
+{ };
+
+template<class T>
+using isVectorVariant_t = std::enable_if_t<isVectorVariant<T>::value>;
+
+// ------------------------
 // isDefaulted
 // ------------------------
 
