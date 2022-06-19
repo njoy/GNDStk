@@ -66,7 +66,7 @@ public:
 
    // metadata
    Field<std::optional<int>> index{this};
-   Field<Defaulted<enums::Interpolation>> interpolation{this,Defaults::interpolation};
+   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
    Field<std::optional<std::string>> label{this};
    Field<std::optional<enums::GridStyle>> style{this};
    Field<std::optional<std::string>> unit{this};
@@ -104,9 +104,7 @@ public:
       label(this,label),
       style(this,style),
       unit(this,unit),
-      link_values(this,link_values),
-      values(this->link_values),
-      link(this->link_values)
+      link_values(this,link_values)
    {
       Component::finish();
    }

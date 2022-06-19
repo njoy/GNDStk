@@ -65,9 +65,7 @@ public:
       const wrapper<std::vector<XYs1d_regions1d_t>> &XYs1d_regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
-      XYs1d_regions1d(this,XYs1d_regions1d),
-      XYs1d(this->XYs1d_regions1d),
-      regions1d(this->XYs1d_regions1d)
+      XYs1d_regions1d(this,XYs1d_regions1d)
    {
       Component::finish();
    }

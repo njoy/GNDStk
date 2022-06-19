@@ -74,9 +74,7 @@ public:
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
-      axis_grid(this,axis_grid),
-      axis(this->axis_grid),
-      grid(this->axis_grid)
+      axis_grid(this,axis_grid)
    {
       Component::finish();
    }
