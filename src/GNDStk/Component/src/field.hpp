@@ -71,13 +71,15 @@ public:
    // because T in this context is a vector).
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = T, class = detail::isVector_t<TEE>
+   >
    decltype(auto) operator()(const KEY &key) const
       { return parent.getter(value, key); }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = T, class = detail::isVector_t<TEE>
+   >
    decltype(auto) operator()(const KEY &key)
       { return parent.getter(value, key); }
 
@@ -119,7 +121,8 @@ public:
    // and replace it with the given replacement value.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
-      class TEE = T, class = detail::isVector_t<TEE>>
+      class TEE = T, class = detail::isVector_t<TEE>
+   >
    DERIVED &operator()(const KEY &key, const typename TEE::value_type &obj)
    {
       (*this)(key) = obj;
@@ -152,28 +155,13 @@ public:
 
 template<class WHOLE, class PART>
 class FieldPart<Field<WHOLE>,PART> {
-   Field<WHOLE> &field;
+   Field<WHOLE> &field; /// maybe call this "whole"?
 
-   // zzz I think it's always the case that WHOLE is either a variant
-   // or a vector<variant>.
    static_assert(
       detail::isVariant<WHOLE>::value || detail::isVectorVariant<WHOLE>::value,
-      /*
-      detail::isVectorVariant<WHOLE>::value,
-      /////////detail::isVariant<WHOLE>::value,
-      */
      "FieldPart<Field<WHOLE>,PART>: "
      "WHOLE must be std::variant or std::vector<std::variant>"
    );
-
-   // zzz Below, we're working on dealing with ptr(), error messages,
-   // etc. In those places, in addition to the other work, and in
-   // general in this file, let's see if it's possible to minimize
-   // or eliminate auto/decltype(auto). I'm thinking that there was
-   // a good reason I originally wrote it - perhaps returns can end
-   // up being by-value or by-reference, depending on the situation -
-   // but let's review this nonetheless. And be sure we get reference
-   // returns in those cases where we're returning *ptr.
 
 public:
 
@@ -189,14 +177,9 @@ public:
       field(field)
    { }
 
-   // zzz Wait, is the following ever used...?
-   FieldPart(Field<WHOLE> &field, const FieldPart &other) :
-      field(field)
-   { }
-
    // ------------------------
    // Getters:
-   // For WHOLE == variant
+   // If WHOLE == variant
    // ------------------------
 
    // ptr()
@@ -231,14 +214,6 @@ public:
       return const_cast<PART &>(std::as_const(*this).template ref());
    }
 
-   // operator()
-   // Get as PART &
-   template<class T = WHOLE, class = detail::isVariant_t<T>>
-   const PART &operator()() const { return ref(); }
-
-   template<class T = WHOLE, class = detail::isVariant_t<T>>
-   PART &operator()() { return ref(); }
-
    // opt()
    // Makes an optional. So, we must return by value,
    // and only the const version is needed.
@@ -249,9 +224,17 @@ public:
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
    }
 
+   // operator()
+   // Get as PART &
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   const PART &operator()() const { return ref(); }
+
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   PART &operator()() { return ref(); }
+
    // ------------------------
    // Conversions
-   // For WHOLE == variant
+   // If WHOLE == variant
    // ------------------------
 
    // To PART *
@@ -272,53 +255,117 @@ public:
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    operator std::optional<PART>() const { return opt(); }
 
-   // zzz working here...
-
    // ------------------------
    // Getters:
-   // For WHOLE == vector
+   // If WHOLE == vector
    // ptr(index/label/Lookup)
    // Get vector element
    // ------------------------
 
+   // zzz Need to look these over carefully and compare with what we have
+   // in comp-detail-getter.hh. Make consistent the use, there, of pointers
+   // versus references for return type; then clarify in this file.
+   // Also: have log::context for log::error calls in this file.
+
+   // ptr(key)
+   // Get as PART *
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = WHOLE, class = detail::isVector_t<TEE>>
-   decltype(auto) ptr(const KEY &key) const
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   const PART *ptr(const KEY &key) const
    {
       return field.parent.template getter<PART>(field(), key);
    }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = WHOLE, class = detail::isVector_t<TEE>>
-   decltype(auto) ptr(const KEY &key)
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   PART *ptr(const KEY &key)
    {
       return field.parent.template getter<PART>(field(), key);
    }
 
+   // ref(key)
+   // Get as PART &
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   const PART &ref(const KEY &key) const
+   {
+      const PART *const p = ptr(key);
+      if (p) return *p;
+      log::error(
+        "Cannot get reference; key not found.");
+      throw std::exception{};
+   }
+
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   PART &ref(const KEY &key)
+   {
+      return const_cast<PART &>(std::as_const(*this).template ref(key));
+   }
+
+   // opt(key)
+   // Makes an optional. So, we must return by value,
+   // and only the const version is needed.
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   const std::optional<PART> opt(const KEY &key) const
+   {
+      const PART *const p = ptr(key);
+      return p ? std::optional<PART>{*p} : std::optional<PART>{};
+   }
+
+   // operator()(key)
+   // Get as PART &
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   const PART &operator()(const KEY &key) const { return ref(key); }
+
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   PART &operator()(const KEY &key) { return ref(key); }
+
+#if 0
+#if 0
+#if 0
    // ------------------------
    // Getters:
-   // For WHOLE == vector
+   // If WHOLE == vector
    // operator()(index/label/Lookup)
    // Get vector element
    // ------------------------
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = WHOLE, class = detail::isVector_t<TEE>>
+      class T = WHOLE, class = detail::isVector_t<T>>
    decltype(auto) operator()(const KEY &key) const
    {
       return ptr(key);
    }
-
+   // zzz I think these conflict with the above
    template<
       class KEY, class = detail::isSearchKey<KEY>,
-      class TEE = WHOLE, class = detail::isVector_t<TEE>>
+      class T = WHOLE, class = detail::isVector_t<T>>
    decltype(auto) operator()(const KEY &key)
    {
       return ptr(key);
    }
+#endif
+#endif
+#endif
 
    // ------------------------
    // Setters
@@ -326,7 +373,7 @@ public:
 
    // (value)
    // If WHOLE == variant
-   template<class TEE = WHOLE, class = detail::isVariant_t<TEE>>
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
    DERIVED &operator()(const std::optional<PART> &obj)
    {
       if (obj) field(obj.value());
@@ -338,7 +385,7 @@ public:
    // Replace vector element.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
-      class TEE = WHOLE, class = detail::isVector_t<TEE>>
+      class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &operator()(const KEY &key, const std::optional<PART> &obj)
    {
       if (obj) field(key,obj.value());
