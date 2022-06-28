@@ -6,11 +6,15 @@
 // External libraries
 // ------------------------
 
+// To circumvent errors in other libraries
+#include <limits>
+#undef CHAR_WIDTH
+
 #include "pugixml.hpp"
 #include "nlohmann/json.hpp"
+#include "Log.hpp"
 #include <highfive/H5File.hpp>
 #include <highfive/H5Easy.hpp>
-#include "Log.hpp"
 
 
 // ------------------------
