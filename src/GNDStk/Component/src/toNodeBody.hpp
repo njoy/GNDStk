@@ -12,7 +12,7 @@ if constexpr (hasBodyText) {
 }
 
 // 3. Write fields
-if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
+if constexpr (!hasFields) {
    // consistency check
    assert(0 == links.size());
 } else {

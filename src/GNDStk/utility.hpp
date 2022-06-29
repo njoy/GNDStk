@@ -136,7 +136,7 @@ inline std::string diagnostic(
       { "info",    "\033[36;21m" }, // cyan
       { "warning", "\033[33;1m"  }, // yellow
       { "error",   "\033[31;21m" }, // red
-      { "debug",   "\033[37;21m" }  // white
+      { "debug",   "\033[37;1m"  }  // white
    };
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off
@@ -323,44 +323,54 @@ inline void assign(const std::string &str, Args &&...args)
 // -----------------------------------------------------------------------------
 // Forward declarations: some classes; convert
 // We're not fans of having lots of forward declarations, but these are here
-// because (1) the relevant classes (Tree, XML, JSON) use these functions in,
-// e.g., their constructors, which are defined in-class; and (2) the convert()
+// because (1) relevant classes (Tree, XML, JSON, HDF5) use these functions in,
+// e.g., their constructors, which are defined in-class; and (2) our convert()
 // functions in turn work with the classes and thus need the class definitions
 // to be available. The alternative would be to mostly define the classes, but
 // only declare their constructors; then define the convert()s; then finally
 // define the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
-// Node
+// Node, Tree
 class Node;
-
-// Tree
 class Tree;
 
-// XML, JSON
+// XML, JSON, HDF5
 class XML;
 class JSON;
+class HDF5;
 
-// Node to {XML,JSON}
-bool convert(const Node &, XML  &x);
-bool convert(const Node &, JSON &j);
+// Node to {XML,JSON,HDF5}
+bool convert(const Node &, XML  &);
+bool convert(const Node &, JSON &);
+bool convert(const Node &, HDF5 &);
 
-// Tree to {Tree,XML,JSON}
+// Tree to {Tree,XML,JSON,HDF5}
 bool convert(const Tree &, Tree &);
 bool convert(const Tree &, XML  &);
 bool convert(const Tree &, JSON &);
+bool convert(const Tree &, HDF5 &);
 
-// XML to {Node,Tree,XML,JSON}
-bool convert(const XML  &, Node &, const bool);
+// XML to {Node,Tree,XML,JSON,HDF5}
+bool convert(const XML  &, Node &, const bool = false);
 bool convert(const XML  &, Tree &);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
+bool convert(const XML  &, HDF5 &);
 
-// JSON to {Node,Tree,XML,JSON}
-bool convert(const JSON &, Node &, const bool);
+// JSON to {Node,Tree,XML,JSON,HDF5}
+bool convert(const JSON &, Node &, const bool = false);
 bool convert(const JSON &, Tree &);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
+bool convert(const JSON &, HDF5 &);
+
+// HDF5 to {Node,Tree,XML,JSON,HDF5}
+bool convert(const HDF5 &, Node &, const bool = false);
+bool convert(const HDF5 &, Tree &);
+bool convert(const HDF5 &, XML  &);
+bool convert(const HDF5 &, JSON &);
+bool convert(const HDF5 &, HDF5 &);
 
 
 
@@ -424,9 +434,7 @@ inline bool endsin_json(const std::string &str)
 inline bool endsin_hdf5(const std::string &str)
 {
    return
-        endsin(str,".hdf" )
-     || endsin(str,".HDF" )
-     || endsin(str,".h5"  )
+        endsin(str,".h5"  )
      || endsin(str,".H5"  )
      || endsin(str,".hdf5")
      || endsin(str,".HDF5")
@@ -474,8 +482,7 @@ inline bool eq_json(const std::string &str)
 inline bool eq_hdf5(const std::string &str)
 {
    return
-        nocasecmp(str,"hdf" )
-     || nocasecmp(str,"h5"  )
+        nocasecmp(str,"h5"  )
      || nocasecmp(str,"hdf5")
      || nocasecmp(str,"he5" );
 }

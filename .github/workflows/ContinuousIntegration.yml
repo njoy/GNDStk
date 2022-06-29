@@ -21,6 +21,12 @@ jobs:
         build_type: [ Debug, Release ]
 
     steps:
+    - name: Install hdf5 libraries for Linux
+      if: matrix.os == 'ubuntu-18.04'
+      run: sudo apt-get install libhdf5-dev
+    - name: Install hdf5 libraries for MacOS
+      if: matrix.os == 'macos-10.15'
+      run: brew install hdf5
     - name: which CXX
       run: |
         which ${{matrix.cxx}}

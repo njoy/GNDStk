@@ -3,7 +3,6 @@
 template<class DERIVED, bool hasBodyText = false, class DATA = void>
 class Component;
 
-
 namespace detail {
 
 // -----------------------------------------------------------------------------
@@ -263,6 +262,9 @@ bool writeComponentPart(
    const std::string &color
 ) {
    if constexpr (is_base_of_Component<T>::value) {
+      // Suppress "unused parameter" warnings
+      (void)value; (void)maxlen;
+      (void)label; (void)color;
       // T is derived from Component, and thus inherits a write()
       value.write(os,level);
    } else {
@@ -407,57 +409,82 @@ const T &getter(
    static const std::string context = "getter {}::{}.{}({}) on vector";
 
    try {
-      // todo Make this more efficient, e.g. by assuming that the vector's
-      // elements are sorted by index, so that the wanted value is likely
-      // to be found at [index].
 
-      const T *selected = nullptr;
+      if constexpr (hasIndex<T>) {
+         // hasIndex<T>
+         // T (or at least one alternative in T, if T is a variant) has a
+         // metadatum called "index". In this case, this function's size_t
+         // index parameter is interpreted to mean: find the object with
+         // an "index" metadatum that matches the parameter. Importantly,
+         // then, index in this case is ***NOT*** a C++ [index] index!
 
-      for (auto &v : vec) {
-         const T *ptr = nullptr;
+         // fixme Make the following more efficient, e.g. by assuming that the
+         // vector's elements are sorted by index, so that the wanted value is
+         // likely to be found at [index], even though (as stated above) [index]
+         // is not the interpretation here...
+         const T *selected = nullptr;
 
-         if constexpr (isVariant<T>::value) {
-            // T == variant
-            std::visit(
-               [&v,&index,&ptr](auto &&alternative)
-               {
-                  if constexpr (hasIndex<decltype(alternative)>)
-                     if (alternative.index() == index)
-                        ptr = &v;
-               },
-               v
-            );
-         } else {
-            // T != variant
-            if constexpr (hasIndex<T>)
-               if (v.index() == index)
-                  ptr = &v;
-         }
+         for (auto &v : vec) {
+            const T *ptr = nullptr;
 
-         if (!ptr)
-            continue;
+            if constexpr (isVariant<T>::value) {
+               // T == variant
+               std::visit(
+                  [&v,&index,&ptr](auto &&alternative)
+                  {
+                     if constexpr (hasIndex<decltype(alternative)>)
+                        if (alternative.index() == index)
+                           ptr = &v;
+                  },
+                  v
+               );
+            } else {
+               // T != variant
+               if constexpr (hasIndex<T>)
+                  if (v.index() == index)
+                     ptr = &v;
+            }
 
-         if (selected) {
-            log::warning(
-              "Element with index {} was already found in the vector.\n"
-              "Keeping the first element that was found.",
+            if (!ptr)
+               continue;
+
+            if (selected) {
+               log::warning(
+                 "Element with metadatum \"index\" {} was already found "
+                 "in the vector.\n"
+                 "Keeping the first element that was found.",
+                  index
+               );
+               log::member(context, nsname, clname, field, index);
+            } else
+               selected = ptr;
+         } // for
+
+         if (!selected) {
+            log::error(
+              "Element with metadatum \"index\" {} was not found "
+              "in the vector" + std::string(vec.size()
+                  ? "."
+                  : ";\nin fact the vector is empty."),
                index
             );
-            log::member(context, nsname, clname, field, index);
-         } else
-            selected = ptr;
-      } // for
+            throw std::exception{};
+         }
+         return *selected;
 
-      if (!selected) {
-         log::error(
-           "Element with index {} was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
-            index
-         );
-         throw std::exception{};
+      } else {
+
+         // !hasIndex<T>
+         // No "index" is anywhere to be found in T. Here, then, we interpret
+         // this function's index parameter to be a regular, C++ [index] index.
+         if (!(index < vec.size())) {
+            log::error(
+              "Index {} is out of range; vector size is {}.",
+               vec.size());
+            throw std::exception{};
+         }
+         return vec[index];
       }
-
-      return *selected;
 
    } catch (...) {
       // context

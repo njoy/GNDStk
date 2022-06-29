@@ -1,24 +1,41 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,JSON)
-// That is, convert to JSON objects
+// convert(*,HDF5)
+// That is, convert to HDF5 objects
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-// Node ==> JSON
+// Node ==> HDF5
 // -----------------------------------------------------------------------------
 
-inline bool convert(const Node &node, JSON &j)
+inline bool convert(const Node &node, HDF5 &h)
 {
    // clear
-   j.clear();
+   h.clear();
 
-   static const std::string context = "convert(Node,JSON)";
+   // for the HDF5
+   h.filename = h.temporaryName();
+
+   static const std::string context = "convert(Node,HDF5)";
    try {
 
+      // Open temporary HDF5 file. This *should* work, but we check anyway.
+      std::ofstream ofs(h.filename, std::ios::binary);
+      if (!ofs) {
+         log::error("Could not open temporary HDF5 file \"{}\"", h.filename);
+         throw std::exception{};
+      }
+      ofs.close();
+
+      h.file = new HighFive::File(h.filename, HDF5::modeWrite);
+      h.temporary = true;
+
       // Probably a regular Node...
-      if (node.name != "")
-         return detail::node2json(node,j.doc);
+      if (node.name != "") {
+         const bool ret = detail::node2hdf5(node,*h.file);
+         h.file->flush();
+         return ret;
+      }
 
       // Probably a Tree...
       if (node.metadata.size() != 0) {
@@ -43,7 +60,7 @@ inline bool convert(const Node &node, JSON &j)
                   "and > 1 child nodes that look like "
                   "declaration nodes.\n"
                   "Not expected in this context. "
-                  "For JSON, we're ignoring declaration nodes anyway."
+                  "For HDF5, we're ignoring declaration nodes anyway."
                );
                log::function(context);
             }
@@ -61,8 +78,9 @@ inline bool convert(const Node &node, JSON &j)
                );
                log::function(context);
             }
-            if (!detail::node2json(*c,j.doc))
+            if (!detail::node2hdf5(*c,*h.file))
                return false;
+            h.file->flush();
             found_top = true;
          } // else
       } // for
@@ -79,17 +97,17 @@ inline bool convert(const Node &node, JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// Tree ==> JSON
+// Tree ==> HDF5
 // -----------------------------------------------------------------------------
 
-inline bool convert(const Tree &tree, JSON &j)
+inline bool convert(const Tree &tree, HDF5 &h)
 {
    try {
       if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
-      return convert(*(const Node *)&tree, j);
+         detail::check_top(tree.top().name, "Tree", "convert(Tree,HDF5)");
+      return convert(*(const Node *)&tree, h);
    } catch (...) {
-      log::function("convert(Tree,JSON)");
+      log::function("convert(Tree,HDF5)");
       throw;
    }
 }
@@ -97,21 +115,19 @@ inline bool convert(const Tree &tree, JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// XML ==> JSON
+// XML ==> HDF5
 // -----------------------------------------------------------------------------
 
-// Goes through a tree. Could be made more efficient if written directly.
-// We'll revisit this if it becomes more of an issue.
-inline bool convert(const XML &x, JSON &j)
+inline bool convert(const XML &x, HDF5 &h)
 {
    // temporary
    Tree t;
 
    // convert
    try {
-      return convert(x,t) && convert(t,j);
+      return convert(x,t) && convert(t,h);
    } catch (...) {
-      log::function("convert(XML,JSON)");
+      log::function("convert(XML,HDF5)");
       throw;
    }
 }
@@ -119,20 +135,19 @@ inline bool convert(const XML &x, JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// HDF5 ==> JSON
+// JSON ==> HDF5
 // -----------------------------------------------------------------------------
 
-// As above, goes through a tree.
-inline bool convert(const HDF5 &h, JSON &j)
+inline bool convert(const JSON &j, HDF5 &h)
 {
    // temporary
    Tree t;
 
    // convert
    try {
-      return convert(h,t) && convert(t,j);
+      return convert(j,t) && convert(t,h);
    } catch (...) {
-      log::function("convert(HDF5,JSON)");
+      log::function("convert(JSON,HDF5)");
       throw;
    }
 }
@@ -140,11 +155,11 @@ inline bool convert(const HDF5 &h, JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// JSON ==> JSON
+// HDF5 ==> HDF5
 // For completeness
 // -----------------------------------------------------------------------------
 
-inline bool convert(const JSON &from, JSON &to)
+inline bool convert(const HDF5 &from, HDF5 &to)
 {
    if (&to == &from)
       return true;
@@ -154,9 +169,17 @@ inline bool convert(const JSON &from, JSON &to)
 
    // convert
    try {
-      to.doc = from.doc; // nlohmann::json's assignment
+      if (!from.empty()) {
+         std::ifstream ifs(from.filename, std::ios::binary);
+         if (!ifs) {
+            log::error("Could not open file \"{}\"", from.filename);
+            throw std::exception{};
+         }
+         if (!to.read(ifs))
+            throw std::exception{};
+      }
    } catch (...) {
-      log::function("convert(JSON,JSON)");
+      log::function("convert(HDF5,HDF5)");
       throw;
    }
 
