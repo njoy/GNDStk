@@ -1,29 +1,26 @@
 
-// -----------------------------------------------------------------------------
 // Component::getter()
-// -----------------------------------------------------------------------------
-
-// The getter() functions of class Component get some names from the derived
-// class (which are used when printing diagnostics, if applicable), and then
-// call getter() functions in the detail:: namespace to do most of the work.
-//
-// The motivation for having the following at all is to simplify the retrieval,
-// in the derived-class getters, of certain information in the Content{} struct
-// of the derived class object. For simple data, e.g. an int or a std::string
-// in the derived class' Content struct, a derived-class getter will simply
-// do a "return Content.something", because nothing more complicated is needed.
-// So, the below functions involve circumstances where something more involved
-// needs to be done.
+// These retrieve names from the derived class (for use in printing diagnostics,
+// if applicable), then call detail::getter() functions to do most of the work.
 
 
 // -----------------------------------------------------------------------------
-// getter(vec, key, name)
+// getter(vector, key)
+// getter(optional<vector>, key)
+// Remark: while two getter() functions that appear later in this file work
+// specifically on a vector<variant>, those require that the caller provide
+// a template argument. The following two can, in fact, also be called with
+// vector<variant>. Also, note that depending on which detail::getter() these
+// forward to, the return type might be a reference to something, or might be
+// a bool. Hence the decltype(auto) return type.
 // -----------------------------------------------------------------------------
 
 // const
 template<
-   class VEC, class KEY,
-   class = detail::isSearchKey<KEY>
+   class VEC, class KEY, class = detail::isSearchKey<KEY>,
+   class = std::enable_if_t<
+      detail::isVector<VEC>::value ||
+      detail::isOptionalVector<VEC>::value>
 >
 decltype(auto) getter(
    const VEC &vec, // vector, or optional vector
@@ -37,8 +34,10 @@ decltype(auto) getter(
 
 // non-const
 template<
-   class VEC, class KEY,
-   class = detail::isSearchKey<KEY>
+   class VEC, class KEY, class = detail::isSearchKey<KEY>,
+   class = std::enable_if_t<
+      detail::isVector<VEC>::value ||
+      detail::isOptionalVector<VEC>::value>
 >
 decltype(auto) getter(
    VEC &vec,
@@ -57,11 +56,8 @@ decltype(auto) getter(
 
 
 // -----------------------------------------------------------------------------
-// getter<RETURN>(variant, name)
-// These, in contrast to the getter()s above, don't involve a vector or an
-// optional vector. We bother having these only because of the (admittedly
-// small, in this case) extra complexity of checking that the variant holds
-// the requested alternative, and of producing diagnostics if it doesn't.
+// getter<RETURN>(variant)
+// The caller must specify RETURN
 // -----------------------------------------------------------------------------
 
 // const
@@ -94,9 +90,8 @@ RETURN *getter(
 
 
 // -----------------------------------------------------------------------------
-// getter<RETURN>(vector<variant>, key, name)
-// The motivation for these essentially amounts to the combined motivations
-// for the above two sets of getter() functions.
+// getter<RETURN>(vector<variant>, key)
+// The caller must specify RETURN
 // -----------------------------------------------------------------------------
 
 // const

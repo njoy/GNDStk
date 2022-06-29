@@ -362,6 +362,7 @@ bool printComponentPart(
 // Intended for use in our auto-generated Standard Interface classes.
 // -----------------------------------------------------------------------------
 
+#include "GNDStk/Component/src/detail-sfinae.hpp"
 #include "GNDStk/Component/src/detail-getter.hpp"
 
 

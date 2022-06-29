@@ -207,9 +207,6 @@ void verifyChunk( const Axes& component ) {
   // using the index based axis_grid getter and accessing the variant directly
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//! @todo a compilation issue exists, where a pointer is returned
-//! instead of a reference?
-
   decltype(auto) axis_ii0 = std::get< Axis >( component.axis_grid( 0 ) );
 
   CHECK( std::nullopt != axis_ii0.index() );
@@ -258,6 +255,7 @@ void verifyChunk( const Axes& component ) {
   // using the index based axis getter
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  CHECK(component.axis(has(v1_9::index(0))));
   decltype(auto) axis_iv0 = component.axis( 0 );
 
   CHECK( std::nullopt != axis_iv0.index() );
@@ -268,6 +266,7 @@ void verifyChunk( const Axes& component ) {
   CHECK( "radius" == axis_iv0.label().value() );
   CHECK( "fm" == axis_iv0.unit().value() );
 
+  CHECK(component.axis(has(v1_9::index(1))));
   decltype(auto) axis_iv1 = component.axis( 1 );
 
   CHECK( std::nullopt != axis_iv1.index() );
@@ -282,6 +281,7 @@ void verifyChunk( const Axes& component ) {
   // using the label based axis getter
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  CHECK(component.axis(has(v1_9::label("radius"))));
   decltype(auto) axis_v0 = component.axis( "radius" );
 
   CHECK( std::nullopt != axis_v0.index() );
@@ -292,6 +292,7 @@ void verifyChunk( const Axes& component ) {
   CHECK( "radius" == axis_v0.label().value() );
   CHECK( "fm" == axis_v0.unit().value() );
 
+  CHECK(component.axis(has(v1_9::label("energy_in"))));
   decltype(auto) axis_v1 = component.axis( "energy_in" );
 
   CHECK( std::nullopt != axis_v1.index() );

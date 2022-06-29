@@ -53,6 +53,8 @@ SCENARIO( "Grid" ) {
                   Grid g2(index,std::nullopt,label,style,unit,Values(values));
             const Values *ptr1 = g1.values;
                   Values *ptr2 = g2.values;
+            const Values &ref1 = g1.values;
+                  Values &ref2 = g2.values;
             CHECK(ptr1 != nullptr);
             CHECK(ptr2 != nullptr);
 
@@ -60,6 +62,8 @@ SCENARIO( "Grid" ) {
                   Grid g4(index,std::nullopt,label,style,unit,Link("mylink"));
             const Link   *ptr3 = g3.link;
                   Link   *ptr4 = g4.link;
+            const Link   &ref3 = g3.link;
+                  Link   &ref4 = g4.link;
             CHECK(ptr3 != nullptr);
             CHECK(ptr4 != nullptr);
          }
