@@ -125,7 +125,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node)") {
          Tree t(reactionSuite);
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "1.0");
             CHECK(t.decl().meta("encoding") == "UTF-8");
@@ -139,7 +139,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node, file format)") {
          Tree t(reactionSuite, FileType::json);
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "json");
+            CHECK(t.decl().name == "#json");
             CHECK(t.decl().metadata.size() == 0);
             CHECK(t.decl().children.size() == 0);
             CHECK(t.top().name == "reactionSuite");
@@ -151,7 +151,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node, file format, version)") {
          Tree t(covarianceSuite, FileType::null, "2.0");
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "2.0");
             CHECK(t.decl().meta("encoding") == "UTF-8");
@@ -165,7 +165,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node, file format, version, encoding)") {
          Tree t(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "3.0");
             CHECK(t.decl().meta("encoding") == "UTF-9");
@@ -179,7 +179,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node, string)") {
          Tree t(PoPs, "hdf5");
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "hdf5");
+            CHECK(t.decl().name == "#hdf5");
             CHECK(t.decl().metadata.size() == 0);
             CHECK(t.decl().children.size() == 0);
             CHECK(t.top().name == "PoPs");
@@ -191,7 +191,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node, string, version)") {
          Tree t(PoPs, "text", "4.0");
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "4.0");
             CHECK(t.decl().meta("encoding") == "UTF-8");
@@ -205,7 +205,7 @@ SCENARIO("Testing GNDStk tree constructors") {
       WHEN("We call: Tree(top-level node, string, version, encoding)") {
          Tree t(thermalScattering, "xml", "5.0", "UTF-10");
          THEN("We can make various decl() and top() queries") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "5.0");
             CHECK(t.decl().meta("encoding") == "UTF-10");
