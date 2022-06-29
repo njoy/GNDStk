@@ -36,7 +36,7 @@ class Floats : public Component<Floats,true,float> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -89,17 +89,17 @@ public:
 
    // length(value)
    Floats &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Floats &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    Floats &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    Floats &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -108,10 +108,10 @@ public:
    // default
    Floats() :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -121,9 +121,9 @@ public:
    Floats(const Floats &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -134,9 +134,9 @@ public:
    Floats(Floats &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -146,10 +146,10 @@ public:
    // from node
    Floats(const Node &node) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -163,10 +163,10 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -178,13 +178,13 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Floats(const std::vector<T> &vector) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(vector);
@@ -242,7 +242,7 @@ class Doubles : public Component<Doubles,true,double> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -295,17 +295,17 @@ public:
 
    // length(value)
    Doubles &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Doubles &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    Doubles &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    Doubles &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -314,10 +314,10 @@ public:
    // default
    Doubles() :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -327,9 +327,9 @@ public:
    Doubles(const Doubles &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -340,9 +340,9 @@ public:
    Doubles(Doubles &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -352,10 +352,10 @@ public:
    // from node
    Doubles(const Node &node) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -369,10 +369,10 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -384,13 +384,13 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Doubles(const std::vector<T> &vector) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(vector);
@@ -448,7 +448,7 @@ class Quads : public Component<Quads,true,long double> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -501,17 +501,17 @@ public:
 
    // length(value)
    Quads &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Quads &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    Quads &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    Quads &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -520,10 +520,10 @@ public:
    // default
    Quads() :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -533,9 +533,9 @@ public:
    Quads(const Quads &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -546,9 +546,9 @@ public:
    Quads(Quads &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -558,10 +558,10 @@ public:
    // from node
    Quads(const Node &node) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -575,10 +575,10 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -590,13 +590,13 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Quads(const std::vector<T> &vector) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(vector);
@@ -654,7 +654,7 @@ class Reals : public Component<Reals,true> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -707,17 +707,17 @@ public:
 
    // length(value)
    Reals &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Reals &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    Reals &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    Reals &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -726,10 +726,10 @@ public:
    // default
    Reals() :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -739,9 +739,9 @@ public:
    Reals(const Reals &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -752,9 +752,9 @@ public:
    Reals(Reals &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -764,10 +764,10 @@ public:
    // from node
    Reals(const Node &node) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -781,10 +781,10 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -796,13 +796,13 @@ public:
    }
 
    // from vector
-   template<class T, class = std::enable_if_t<body::template supported<T>>>
+   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    Reals(const std::vector<T> &vector) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(vector);
@@ -983,39 +983,39 @@ public:
 
    // adouble(value)
    Numbers &adouble(const Defaulted<double> &obj)
-    { content.adouble = obj; return *this; }
+    { adouble() = obj; return *this; }
    Numbers &adouble(const std::optional<double> &obj)
-    { content.adouble = obj; return *this; }
+    { adouble() = obj; return *this; }
 
    // afloat(value)
    Numbers &afloat(const Defaulted<float> &obj)
-    { content.afloat = obj; return *this; }
+    { afloat() = obj; return *this; }
    Numbers &afloat(const std::optional<float> &obj)
-    { content.afloat = obj; return *this; }
+    { afloat() = obj; return *this; }
 
    // aquad(value)
    Numbers &aquad(const Defaulted<long double> &obj)
-    { content.aquad = obj; return *this; }
+    { aquad() = obj; return *this; }
    Numbers &aquad(const std::optional<long double> &obj)
-    { content.aquad = obj; return *this; }
+    { aquad() = obj; return *this; }
 
    // bdouble(value)
    Numbers &bdouble(const Defaulted<double> &obj)
-    { content.bdouble = obj; return *this; }
+    { bdouble() = obj; return *this; }
    Numbers &bdouble(const std::optional<double> &obj)
-    { content.bdouble = obj; return *this; }
+    { bdouble() = obj; return *this; }
 
    // bfloat(value)
    Numbers &bfloat(const Defaulted<float> &obj)
-    { content.bfloat = obj; return *this; }
+    { bfloat() = obj; return *this; }
    Numbers &bfloat(const std::optional<float> &obj)
-    { content.bfloat = obj; return *this; }
+    { bfloat() = obj; return *this; }
 
    // bquad(value)
    Numbers &bquad(const Defaulted<long double> &obj)
-    { content.bquad = obj; return *this; }
+    { bquad() = obj; return *this; }
    Numbers &bquad(const std::optional<long double> &obj)
-    { content.bquad = obj; return *this; }
+    { bquad() = obj; return *this; }
 
    // doubles(value)
    Numbers &doubles(const std::optional<precision::Doubles> &obj)
@@ -1040,17 +1040,17 @@ public:
    // default
    Numbers() :
       Component{
-         BodyText{},
-         content.adouble,
-         content.afloat,
-         content.aquad,
-         content.bdouble,
-         content.bfloat,
-         content.bquad,
-         content.doubles,
-         content.floats,
-         content.quads,
-         content.reals
+         BlockData{},
+         this->adouble(),
+         this->afloat(),
+         this->aquad(),
+         this->bdouble(),
+         this->bfloat(),
+         this->bquad(),
+         this->doubles(),
+         this->floats(),
+         this->quads(),
+         this->reals()
       }
    {
       Component::finish();
@@ -1060,16 +1060,16 @@ public:
    Numbers(const Numbers &other) :
       Component{
          other,
-         content.adouble,
-         content.afloat,
-         content.aquad,
-         content.bdouble,
-         content.bfloat,
-         content.bquad,
-         content.doubles,
-         content.floats,
-         content.quads,
-         content.reals
+         this->adouble(),
+         this->afloat(),
+         this->aquad(),
+         this->bdouble(),
+         this->bfloat(),
+         this->bquad(),
+         this->doubles(),
+         this->floats(),
+         this->quads(),
+         this->reals()
       },
       content{other.content}
    {
@@ -1080,16 +1080,16 @@ public:
    Numbers(Numbers &&other) :
       Component{
          other,
-         content.adouble,
-         content.afloat,
-         content.aquad,
-         content.bdouble,
-         content.bfloat,
-         content.bquad,
-         content.doubles,
-         content.floats,
-         content.quads,
-         content.reals
+         this->adouble(),
+         this->afloat(),
+         this->aquad(),
+         this->bdouble(),
+         this->bfloat(),
+         this->bquad(),
+         this->doubles(),
+         this->floats(),
+         this->quads(),
+         this->reals()
       },
       content{std::move(other.content)}
    {
@@ -1099,17 +1099,17 @@ public:
    // from node
    Numbers(const Node &node) :
       Component{
-         BodyText{},
-         content.adouble,
-         content.afloat,
-         content.aquad,
-         content.bdouble,
-         content.bfloat,
-         content.bquad,
-         content.doubles,
-         content.floats,
-         content.quads,
-         content.reals
+         BlockData{},
+         this->adouble(),
+         this->afloat(),
+         this->aquad(),
+         this->bdouble(),
+         this->bfloat(),
+         this->bquad(),
+         this->doubles(),
+         this->floats(),
+         this->quads(),
+         this->reals()
       }
    {
       Component::finish(node);
@@ -1130,17 +1130,17 @@ public:
       const std::optional<precision::Reals> &reals
    ) :
       Component{
-         BodyText{},
-         content.adouble,
-         content.afloat,
-         content.aquad,
-         content.bdouble,
-         content.bfloat,
-         content.bquad,
-         content.doubles,
-         content.floats,
-         content.quads,
-         content.reals
+         BlockData{},
+         this->adouble(),
+         this->afloat(),
+         this->aquad(),
+         this->bdouble(),
+         this->bfloat(),
+         this->bquad(),
+         this->doubles(),
+         this->floats(),
+         this->quads(),
+         this->reals()
       },
       content{
          Defaulted<double>(defaults.adouble,adouble),

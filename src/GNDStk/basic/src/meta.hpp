@@ -93,7 +93,7 @@ inline const Meta<void>
    symbol                         ("symbol"                         ),
    symmetry                       ("symmetry"                       ),
    target                         ("target"                         ),
-   text                           ("text"                           ),
+   text                           ("#text"                          ),
    type                           ("type"                           ),
    types                          ("types"                          ),
    unit                           ("unit"                           ),
