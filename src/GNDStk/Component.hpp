@@ -13,13 +13,15 @@ using helpMap = std::map<std::string,std::string>;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText, class DATA>
-class Component : public BodyText<hasBodyText,DATA>
+template<class DERIVED, bool hasBlockData, class DATA>
+class Component : public BlockData<hasBlockData,DATA>
 {
    // For convenience
-   using body = BodyText<hasBodyText,DATA>;
+   using body = BlockData<hasBlockData,DATA>;
    using typename body::VariantOfVectors;
    using typename body::VariantOfScalars;
+   static inline constexpr bool hasFields =
+      !std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>;
 
    // Links to fields in the object of the derived class. I can't find a way
    // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
@@ -51,22 +53,29 @@ class Component : public BodyText<hasBodyText,DATA>
    // See comments in finish.hpp
    #include "GNDStk/Component/src/finish.hpp"
 
-   // Intermediaries between derived-class getters, and getter functions
-   // in detail::. These shorten the code in the derived classes.
+   // Helpers for derived-class getters/setters.
+   // These shorten the code in the derived classes.
    #include "GNDStk/Component/src/getter.hpp"
+   #include "GNDStk/Component/src/setter.hpp"
 
    // Fallback for documentation() if DERIVED doesn't have help
    static inline helpMap help;
 
 public:
 
+   #include "GNDStk/Component/src/read.hpp"
+   #include "GNDStk/Component/src/write.hpp"
    #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/sort.hpp"
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
-   #include "GNDStk/Component/src/write.hpp"
 
-   // You can (but don't need to) override the following in DERIVED
+   // You can (but need not) override the following in DERIVED
    static std::string namespaceName() { return ""; }
+
+   // base
+   // Convenient access to the BlockData base class
+   body &baseBlockData() { return *this; }
+   const body &baseBlockData() const { return *this; }
 
    // derived
    // Convenient access to the derived class
@@ -80,15 +89,15 @@ public:
    {
       try {
          return DERIVED::help.at(subject);
-      }
-      catch ( ... ) {
+      } catch ( ... ) {
          return "No help information is available";
       }
    }
 
-   // Component << std::string
-   // Meaning: read the string's content (currently XML or JSON) into an object
-   // of the Component's DERIVED class. Uses Node's << std::string capability.
+   // Component << string
+   // Meaning: read the string's content (currently XML, JSON, or HDF5) into
+   // an object of the Component's DERIVED class. Uses Node's << string, which
+   // does most of the work.
    void operator<<(const std::string &str)
    {
       try {
@@ -108,10 +117,10 @@ public:
 // ostream << Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText, class DATA>
+template<class DERIVED, bool hasBlockData, class DATA>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,hasBodyText,DATA> &obj
+   const Component<DERIVED,hasBlockData,DATA> &obj
 ) {
-   return obj.write(os);
+   return obj.write(os,0);
 }

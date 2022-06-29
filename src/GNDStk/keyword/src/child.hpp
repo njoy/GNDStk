@@ -3,7 +3,7 @@
 // keyword_t.child()
 // -----------------------------------------------------------------------------
 
-// child(name,converter,filter,top)
+// child(name[,type[,converter[,filter]]])
 // To make a Child<TYPE,...>
 template<
    class TYPE,
@@ -20,14 +20,13 @@ static Child<
    const std::string &name,
    const TYPE &object = TYPE{},
    const CONVERTER &converter = CONVERTER{},
-   const FILTER &filter = FILTER{},
-   const bool top = false
+   const FILTER &filter = FILTER{}
 ) {
-   return Child<TYPE,ALLOW,CONVERTER,FILTER>(name,object,converter,filter,top);
+   return Child<TYPE,ALLOW,CONVERTER,FILTER>(name,object,converter,filter);
 }
 
 
-// child(name,filter,top)
+// child(name[,filter])
 // To make a Child<void,...>
 template<
    class TYPE = void,
@@ -41,8 +40,7 @@ static Child<
    FILTER
 > child(
    const std::string &name,
-   const FILTER &filter = FILTER{},
-   const bool top = false
+   const FILTER &filter = FILTER{}
 ) {
-   return Child<void,ALLOW,void,FILTER>(name,filter,top);
+   return Child<void,ALLOW,void,FILTER>(name,filter);
 }

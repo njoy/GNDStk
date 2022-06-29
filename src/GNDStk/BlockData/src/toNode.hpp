@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// BodyText::toNode
+// BlockData::toNode
 // This is called by Component's conversion-to-Node (not toNode()) function.
 // It's "toNode()" here, not a conversion, because we're simply writing text
 // that Component's full conversion-to-Node will place into the Node itself.
@@ -36,7 +36,7 @@ void toNode(std::string &text, DERIVED &derived) const
           (get<std::string>(0) == "" || get<std::string>(size()-1) == "")
       ) {
          log::warning(
-            "BodyText.toNode() called with BodyText "
+            "BlockData.toNode() called with BlockData "
             "trim flag == false, but active\n"
             "data are in a vector<string>. Printing "
             "leading/trailing empty strings\n"

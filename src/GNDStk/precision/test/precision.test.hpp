@@ -36,7 +36,7 @@ class Floats : public Component<Floats,true,float> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -89,17 +89,17 @@ public:
 
    // length(value)
    Floats &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Floats &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
    Floats &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
 
    // valueType(value)
    Floats &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -108,7 +108,7 @@ public:
    // default
    Floats() :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -146,7 +146,7 @@ public:
    // from node
    Floats(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -163,7 +163,7 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -181,7 +181,7 @@ public:
    template<class T, class = std::enable_if_t<body::template supported<T>>>
    Floats(const std::vector<T> &vector) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -242,7 +242,7 @@ class Doubles : public Component<Doubles,true,double> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -295,17 +295,17 @@ public:
 
    // length(value)
    Doubles &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Doubles &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
    Doubles &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
 
    // valueType(value)
    Doubles &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -314,7 +314,7 @@ public:
    // default
    Doubles() :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -352,7 +352,7 @@ public:
    // from node
    Doubles(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -369,7 +369,7 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -387,7 +387,7 @@ public:
    template<class T, class = std::enable_if_t<body::template supported<T>>>
    Doubles(const std::vector<T> &vector) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -448,7 +448,7 @@ class Quads : public Component<Quads,true,long double> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -501,17 +501,17 @@ public:
 
    // length(value)
    Quads &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Quads &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
    Quads &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
 
    // valueType(value)
    Quads &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -520,7 +520,7 @@ public:
    // default
    Quads() :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -558,7 +558,7 @@ public:
    // from node
    Quads(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -575,7 +575,7 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -593,7 +593,7 @@ public:
    template<class T, class = std::enable_if_t<body::template supported<T>>>
    Quads(const std::vector<T> &vector) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -654,7 +654,7 @@ class Reals : public Component<Reals,true> {
 public:
 
    using Component::construct;
-   using BodyText::operator=;
+   using BlockData::operator=;
 
    // ------------------------
    // Relevant defaults
@@ -707,17 +707,17 @@ public:
 
    // length(value)
    Reals &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    Reals &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
    Reals &start(const std::optional<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
 
    // valueType(value)
    Reals &valueType(const std::optional<std::string> &obj)
-    { BodyText::valueType(valueType() = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -726,7 +726,7 @@ public:
    // default
    Reals() :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -764,7 +764,7 @@ public:
    // from node
    Reals(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -781,7 +781,7 @@ public:
       const std::optional<std::string> &valueType
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -799,7 +799,7 @@ public:
    template<class T, class = std::enable_if_t<body::template supported<T>>>
    Reals(const std::vector<T> &vector) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -1040,7 +1040,7 @@ public:
    // default
    Numbers() :
       Component{
-         BodyText{},
+         BlockData{},
          content.adouble,
          content.afloat,
          content.aquad,
@@ -1099,7 +1099,7 @@ public:
    // from node
    Numbers(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.adouble,
          content.afloat,
          content.aquad,
@@ -1130,7 +1130,7 @@ public:
       const std::optional<precision::Reals> &reals
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.adouble,
          content.afloat,
          content.aquad,

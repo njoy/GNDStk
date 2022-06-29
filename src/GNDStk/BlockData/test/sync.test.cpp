@@ -21,7 +21,7 @@ void scenario_pull()
             struct {
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(100).start(200).valueType("300");
          b.pullFromDerived(derived); // should do nothing here
          CHECK(b.length() == 100);
@@ -36,7 +36,7 @@ void scenario_pull()
                int length = 10;
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(11).start(12).valueType("13");
          b.pullFromDerived(derived);
          CHECK(b.length() == 10);
@@ -51,7 +51,7 @@ void scenario_pull()
                int start = 14;
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(15).start(16).valueType("17");
          b.pullFromDerived(derived);
          CHECK(b.length() == 15);
@@ -66,7 +66,7 @@ void scenario_pull()
                std::string valueType = "18";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(19).start(20).valueType("21");
          b.pullFromDerived(derived);
          CHECK(b.length() == 19);
@@ -82,7 +82,7 @@ void scenario_pull()
                std::string valueType = "23";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(24).start(25).valueType("26");
          b.pullFromDerived(derived);
          CHECK(b.length() == 24);
@@ -98,7 +98,7 @@ void scenario_pull()
                std::string valueType = "28";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(29).start(30).valueType("31");
          b.pullFromDerived(derived);
          CHECK(b.length() == 27);
@@ -114,7 +114,7 @@ void scenario_pull()
                int start  = 33;
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(34).start(35).valueType("36");
          b.pullFromDerived(derived);
          CHECK(b.length() == 32);
@@ -131,7 +131,7 @@ void scenario_pull()
                std::string valueType = "39";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(40).start(41).valueType("42");
          b.pullFromDerived(derived);
          CHECK(b.length() == 37);
@@ -142,14 +142,14 @@ void scenario_pull()
 }
 
 
-SCENARIO("BodyText<DATA == void> pull from content") {
-   GIVEN("A BodyText<true,void> object") {
+SCENARIO("BlockData<DATA == void> pull from content") {
+   GIVEN("A BlockData<true,void> object") {
       scenario_pull<void>();
    }
 }
 
-SCENARIO("BodyText<DATA != void> pull from content") {
-   GIVEN("A BodyText<true,int> object") {
+SCENARIO("BlockData<DATA != void> pull from content") {
+   GIVEN("A BlockData<true,int> object") {
       scenario_pull<int>();
    }
 }
@@ -172,7 +172,7 @@ void scenario_push()
                int ignored = 123456; // not length, start, or valueType
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(0).start(0).valueType("0");
          b.pushToDerived(derived); // should do nothing here
          CHECK(derived.content.ignored == 123456);
@@ -185,7 +185,7 @@ void scenario_push()
                int length = 10;
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(11).start(12).valueType("13");
          b.pushToDerived(derived);
          CHECK(derived.content.length == 11);
@@ -198,7 +198,7 @@ void scenario_push()
                int start = 14;
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(15).start(16).valueType("17");
          b.pushToDerived(derived);
          CHECK(derived.content.start == 16);
@@ -211,7 +211,7 @@ void scenario_push()
                std::string valueType = "18";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(19).start(20).valueType("21");
          b.pushToDerived(derived);
          CHECK(derived.content.valueType == "21");
@@ -225,7 +225,7 @@ void scenario_push()
                std::string valueType = "23";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(24).start(25).valueType("26");
          b.pushToDerived(derived);
          CHECK(derived.content.start == 25);
@@ -240,7 +240,7 @@ void scenario_push()
                std::string valueType = "28";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(29).start(30).valueType("31");
          b.pushToDerived(derived);
          CHECK(derived.content.length == 29);
@@ -255,7 +255,7 @@ void scenario_push()
                int start  = 33;
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(34).start(35).valueType("36");
          b.pushToDerived(derived);
          CHECK(derived.content.length == 34);
@@ -271,7 +271,7 @@ void scenario_push()
                std::string valueType = "39";
             } content;
          } derived;
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(40).start(41).valueType("42");
          b.pushToDerived(derived);
          CHECK(derived.content.length == 40);
@@ -282,14 +282,14 @@ void scenario_push()
 }
 
 
-SCENARIO("BodyText<DATA == void> push to content") {
-   GIVEN("A BodyText<true,void> object") {
+SCENARIO("BlockData<DATA == void> push to content") {
+   GIVEN("A BlockData<true,void> object") {
       scenario_push<void>();
    }
 }
 
-SCENARIO("BodyText<DATA != void> push to content") {
-   GIVEN("A BodyText<true,int> object") {
+SCENARIO("BlockData<DATA != void> push to content") {
+   GIVEN("A BlockData<true,int> object") {
       scenario_push<int>();
    }
 }

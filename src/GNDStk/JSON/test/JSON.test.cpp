@@ -188,7 +188,7 @@ SCENARIO("Testing GNDStk JSON") {
       }
    }
 
-   // from file name
+   // from file
    WHEN("We construct a JSON from a file") {
       const JSON j("n-069_Tm_170-covar.json");
       THEN("It should produce an equivalent to the Tree made from the file") {

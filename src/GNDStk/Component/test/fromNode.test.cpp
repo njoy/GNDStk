@@ -19,7 +19,7 @@ Component does the following:
    - Calls Component's fromNode() function to read known fields from the
      Node into the derived class object.
 
-   - If the Node has "body text," syncs certain fields in the BodyText (base
+   - If the Node has "body text," syncs certain fields in the BlockData (base
      of Component) class, with fields in the derived class. Then, converts a
      raw body-text string into a vector of values.
 

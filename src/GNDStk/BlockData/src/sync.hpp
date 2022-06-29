@@ -1,8 +1,8 @@
 
 // pullFromDerived(derived)
-// Make this BodyText's length, start, and valueType be consistent with any or
+// Make this BlockData's length, start, and valueType be consistent with any or
 // all such parameters that exist in the given object. Remember that this class,
-// BodyText, is a base of Component, which is a base of some other class.
+// BlockData, is a base of Component, which is a base of some other class.
 template<class T>
 void pullFromDerived(const T &obj)
 {
