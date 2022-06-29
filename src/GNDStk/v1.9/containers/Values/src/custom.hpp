@@ -44,7 +44,7 @@ public:
           const std::optional< std::string >& valueType,
           const std::vector< T >& values ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType

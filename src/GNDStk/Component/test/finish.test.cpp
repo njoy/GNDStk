@@ -8,7 +8,7 @@ using namespace njoy::GNDStk::core;
 
 // -----------------------------------------------------------------------------
 // DerivedValue
-// Has body text
+// Has block data
 // -----------------------------------------------------------------------------
 
 namespace test {
@@ -64,7 +64,8 @@ public:
    // one of the tests involves checking these
    struct {
       // Initialize these to specific values, so that we can ensure that
-      // Component's finish() functions properly call body::pullFromDerived()
+      // Component's finish() functions properly call
+      // BLOCKDATA::pullFromDerived()
       int length = 11;
       int start = 3;
       std::string valueType = "foobar";
@@ -106,7 +107,7 @@ public:
    // ctor: default
    DerivedValue() :
       Component(
-         BodyText{},
+         BlockData{},
          content.length, content.start, content.valueType, content.indices
       )
    {
@@ -129,7 +130,7 @@ public:
    // ctor: node
    DerivedValue(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length, content.start, content.valueType, content.indices
       }
    {
@@ -140,7 +141,7 @@ public:
    // ctor: vector
    DerivedValue(const std::vector<double> &vec) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length, content.start, content.valueType, content.indices
       }
    {
@@ -155,7 +156,7 @@ public:
 
 // -----------------------------------------------------------------------------
 // DerivedPlain
-// Does not have body text
+// Does not have block data
 // -----------------------------------------------------------------------------
 
 namespace test {
@@ -243,7 +244,7 @@ public:
    // ctor: default
    DerivedPlain() :
       Component(
-         BodyText{},
+         BlockData{},
          content.foo, content.bar, content.labels
       )
    {
@@ -266,7 +267,7 @@ public:
    // ctor: node
    DerivedPlain(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.foo, content.bar, content.labels
       }
    {
@@ -289,7 +290,7 @@ public:
 
 SCENARIO("Component finish()") {
 
-   GIVEN("A component-derived class that has body text") {
+   GIVEN("A component-derived class that has block data") {
       const std::vector<test::IndexStruct> sorted =
          {{2,3,5,7,9,11,13,17}};
 
@@ -300,7 +301,7 @@ SCENARIO("Component finish()") {
          // Ensure that finish() called the construct() in the derived class...
          CHECK(test::construct1DerivedValue == true);
 
-         // Ensure that finish() did a BodyText::pullFromDerived()
+         // Ensure that finish() did a BlockData::pullFromDerived()
          CHECK(d.length() == 11);
          CHECK(d.start() == 3);
          CHECK(d.valueType() == "foobar");
@@ -357,7 +358,7 @@ SCENARIO("Component finish()") {
          test::DerivedValue d(node);
          CHECK(test::construct3DerivedValue == true);
 
-         // Here, the following values in the underlying BodyText should
+         // Here, the following values in the underlying BlockData should
          // reflect those that were brought in through the above string.
          CHECK(d.length() == 10);
          CHECK(d.start() == 2);
@@ -375,7 +376,7 @@ SCENARIO("Component finish()") {
          CHECK(d.get<double>(8) == 0);
          CHECK(d.get<double>(9) == 0);
 
-         // The node from which we read had body text, not child nodes,
+         // The node from which we read had block data, not child nodes,
          // and thus would give us nothing for (std::optional) indices...
          CHECK(d.content.indices.has_value() == false);
       }
@@ -388,7 +389,7 @@ SCENARIO("Component finish()") {
          CHECK(test::construct4DerivedValue == true);
 
          // Here, the finish(vector) function was called, which in turn called
-         // BodyText's operator=(vector), which sets the following according
+         // BlockData's operator=(vector), which sets the following according
          // to what's actually in the vector
          CHECK(d.length() == 3);
          CHECK(d.start() == 0); // <== always the case in this context
@@ -400,7 +401,7 @@ SCENARIO("Component finish()") {
          CHECK(Approx(d.get<double>(1)) == 2.71828);
          CHECK(Approx(d.get<double>(2)) == 1.41421);
 
-         // And, BodyText's operator=(vector) as mentioned above should also
+         // And, BlockData's operator=(vector) as mentioned above should also
          // have changed the corresponding values back up in the derived class
          CHECK(d.content.length == 3);
          CHECK(d.content.start == 0);
@@ -415,7 +416,7 @@ SCENARIO("Component finish()") {
    } // GIVEN
 
 
-   GIVEN("A component-derived class that does not have body text") {
+   GIVEN("A component-derived class that does not have block data") {
       const std::vector<test::LabelStruct> sorted =
          {{"a","bc","d","efg","hi","jklm","no","p"}};
 

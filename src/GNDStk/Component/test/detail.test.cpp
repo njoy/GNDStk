@@ -87,7 +87,7 @@ public:
    int foo = 56;
    double bar = 7.8;
 
-   Derived() : Component(BodyText{},foo,bar) { }
+   Derived() : Component(BlockData{},foo,bar) { }
 };
 
 
@@ -333,7 +333,7 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          // value.write(stream,level) to be called instead.
          // So we get the same result from each call.
          const std::string expected =
-            "    Derived { // GNDS: none\n"
+            "    Derived {\n"
             "      foo : 56\n"
             "      bar : 7.8\n"
             "    } // Derived";
