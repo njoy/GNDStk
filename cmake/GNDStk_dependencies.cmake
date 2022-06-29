@@ -43,7 +43,7 @@ endif()
 
 FetchContent_Declare(hdf5
     GIT_REPOSITORY   https://github.com/BlueBrain/HighFive.git
-    GIT_TAG          origin/master
+    GIT_TAG          v2.3.1
     GIT_SHALLOW      TRUE
     )
 set( HIGHFIVE_USE_BOOST  OFF CACHE INTERNAL "" )
