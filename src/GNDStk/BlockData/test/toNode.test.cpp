@@ -11,16 +11,16 @@ using namespace njoy::GNDStk::core;
 
 // Tests use either void for each template parameter, or int, double,
 // std::string, and char, in that order. In the former case, we're testing
-// toNode() for the generic BodyText<...,void>. In the latter case, we're
-// testing toNode() for non-generic BodyText.
+// toNode() for the generic BlockData<...,void>. In the latter case, we're
+// testing toNode() for non-generic BlockData.
 template<class INTEGER, class FLOAT, class STRING, class CHAR>
 void scenario_toNode()
 {
-   // Default-constructed BodyText
-   GIVEN("A default-constructed BodyText") {
+   // Default-constructed BlockData
+   GIVEN("A default-constructed BlockData") {
       WHEN("toNode() is called") {
          THEN("The computed text string is empty") {
-            const BodyText<true,INTEGER> b;
+            const BlockData<true,INTEGER> b;
 
             std::string text = "abc";
             struct {
@@ -40,13 +40,13 @@ void scenario_toNode()
       }
    }
 
-   // BodyText, after being given a particular raw string and parameters
-   GIVEN("A BodyText, with given raw string and parameters") {
+   // BlockData, after being given a particular raw string and parameters
+   GIVEN("A BlockData, with given raw string and parameters") {
       WHEN("toNode() is called") {
          THEN("The computed text string is as expected, "
               "and the parameters remain as given"
          ) {
-            BodyText<true,INTEGER> b;
+            BlockData<true,INTEGER> b;
             b.string("0 12 34 56 0 0")
              .start(100).length(200).valueType("hello");
 
@@ -58,7 +58,7 @@ void scenario_toNode()
 
             // Someone who sets the raw string directly (as opposed to using
             // a vector) is stating that they want *exactly* that raw string,
-            // including any 0s or anything else. To have BodyText's trim flag
+            // including any 0s or anything else. To have BlockData's trim flag
             // be relevant, use a vector.
 
             // w/trim == true (shouldn't matter here; applies to vector)
@@ -80,13 +80,13 @@ void scenario_toNode()
       }
    }
 
-   // BodyText, after being given a particular vector<int>
-   GIVEN("A BodyText, assigned from a particular vector<int>") {
+   // BlockData, after being given a particular vector<int>
+   GIVEN("A BlockData, assigned from a particular vector<int>") {
       WHEN("toNode() is called") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true,INTEGER> b;
+            BlockData<true,INTEGER> b;
             // what's set here should be replaced upon assignment from vector
             b.string("a b c").start(10).length(20).valueType("foobar");
 
@@ -118,13 +118,13 @@ void scenario_toNode()
       }
    }
 
-   // BodyText, after being given a particular vector<double>
-   GIVEN("A BodyText, assigned from a particular vector<double>") {
+   // BlockData, after being given a particular vector<double>
+   GIVEN("A BlockData, assigned from a particular vector<double>") {
       WHEN("toNode() is called") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true,FLOAT> b;
+            BlockData<true,FLOAT> b;
             // what's set here should be replaced upon assignment from vector
             b.string("d e f").start(100).length(200).valueType("foobar");
 
@@ -156,15 +156,15 @@ void scenario_toNode()
       }
    }
 
-   // BodyText, after being given a particular vector<string>
+   // BlockData, after being given a particular vector<string>
    // A key point here is to ensure that ""s (string "zeros") are properly
    // trimmed at the beginning and end.
-   GIVEN("A BodyText, assigned from a particular vector<std::string>") {
+   GIVEN("A BlockData, assigned from a particular vector<std::string>") {
       WHEN("toNode() is called") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true,STRING> b;
+            BlockData<true,STRING> b;
             // what's set here should be replaced upon assignment from vector
             b.string("d e f").start(100).length(200).valueType("foobar");
 
@@ -200,14 +200,14 @@ void scenario_toNode()
       }
    }
 
-   // BodyText, after being given a particular vector<T>
+   // BlockData, after being given a particular vector<T>
    // For T something other than int, double, and std::string
-   GIVEN("A BodyText, assigned from a particular vector<char>") {
+   GIVEN("A BlockData, assigned from a particular vector<char>") {
       WHEN("toNode() is called") {
          THEN("The computed text string is as expected, "
               "and the parameters were computed properly"
          ) {
-            BodyText<true,CHAR> b;
+            BlockData<true,CHAR> b;
             // what's set here should be replaced upon assignment from vector
             b.string("x y z").start(100).length(200).valueType("foobar");
 
@@ -232,7 +232,7 @@ void scenario_toNode()
    // Test various configurations of content{} when calling toNode(). Basically,
    // these test whether toNode properly updates whichever of length, start, and
    // valueType are in .content of toNode()'s second argument.
-   GIVEN("A BodyText, with vector<int>") {
+   GIVEN("A BlockData, with vector<int>") {
       WHEN("toNode() is called") {
 
          // none of length, start, valueType
@@ -242,7 +242,7 @@ void scenario_toNode()
                   int ignored = 12345;
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             // toNode doesn't care about what's *not* length/start/valueType...
@@ -256,7 +256,7 @@ void scenario_toNode()
                   int length = 0;
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -269,7 +269,7 @@ void scenario_toNode()
                   int start = 0;
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.start == 2);
@@ -282,7 +282,7 @@ void scenario_toNode()
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.valueType == "Integer32");
@@ -296,7 +296,7 @@ void scenario_toNode()
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.start == 2);
@@ -311,7 +311,7 @@ void scenario_toNode()
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -326,7 +326,7 @@ void scenario_toNode()
                   int start = 0;
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -342,7 +342,7 @@ void scenario_toNode()
                   std::string valueType = "";
                } content;
             } derived;
-            BodyText<true,INTEGER> b; std::string text;
+            BlockData<true,INTEGER> b; std::string text;
             b = std::vector<int>{{0,0,10,20,30,0,0,0}};
             b.toNode(text,derived);
             CHECK(derived.content.length == 8);
@@ -358,10 +358,10 @@ void scenario_toNode()
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText<DATA == void> toNode()") {
+SCENARIO("BlockData<DATA == void> toNode()") {
    scenario_toNode<void,void,void,void>();
 }
 
-SCENARIO("BodyText<DATA != void> toNode()") {
+SCENARIO("BlockData<DATA != void> toNode()") {
    scenario_toNode<int,double,std::string,char>();
 }

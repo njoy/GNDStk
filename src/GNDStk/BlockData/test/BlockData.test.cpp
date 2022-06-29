@@ -11,15 +11,15 @@ using namespace njoy::GNDStk::core;
 // Scenario for DATA == void
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk BodyText with DATA == void") {
-   // Most BodyText functionality is tested in the individual test files.
+SCENARIO("Testing GNDStk BlockData with DATA == void") {
+   // Most BlockData functionality is tested in the individual test files.
    // There are just a few things we'll do here.
 
-   // Ensure that we can make const and non-const <true> and <false> BodyText
-   // objects. Note that BodyText has only a default constructor.
+   // Ensure that we can make const and non-const <true> and <false> BlockData
+   // objects. Note that BlockData has only a default constructor.
 
-   GIVEN("A const BodyText<true,void> cbtextt") {
-      const BodyText<true,void> cbtextt;
+   GIVEN("A const BlockData<true,void> cbtextt") {
+      const BlockData<true,void> cbtextt;
       THEN("It constructed correctly, and its data are as expected") {
          CHECK(cbtextt.length   () == 0);
          CHECK(cbtextt.size     () == 0);
@@ -28,15 +28,15 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
       }
    }
 
-   GIVEN("A const BodyText<false,void> cbtextf") {
-      const BodyText<false,void> cbtextf;
+   GIVEN("A const BlockData<false,void> cbtextf") {
+      const BlockData<false,void> cbtextf;
       THEN("It constructed correctly") {
          // no data for <false>
       }
    }
 
-   GIVEN("A non-const BodyText<true,void> nbtextt") {
-      BodyText<true,void> nbtextt;
+   GIVEN("A non-const BlockData<true,void> nbtextt") {
+      BlockData<true,void> nbtextt;
       THEN("It constructed correctly, and its data are as expected") {
          CHECK(nbtextt.length   () == 0);
          CHECK(nbtextt.size     () == 0);
@@ -45,21 +45,21 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
       }
    }
 
-   GIVEN("A non-const BodyText<false,void> nbtextf") {
-      BodyText<false,void> nbtextf;
+   GIVEN("A non-const BlockData<false,void> nbtextf") {
+      BlockData<false,void> nbtextf;
       THEN("It constructed correctly") {
          // no data for <false>
       }
    }
 
    // clear() and size() are defined (at the time of this writing) in the
-   // BodyText.hpp file itself, so we'll test them here. size() actually
+   // BlockData.hpp file itself, so we'll test them here. size() actually
    // was used in various tests, and thus was indirectly tested elsewhere.
 
-   GIVEN("A BodyText") {
+   GIVEN("A BlockData") {
       // clear
       WHEN("We test clear()") {
-         BodyText<true,void> b;
+         BlockData<true,void> b;
 
          // try int
          THEN("size() works correctly for vector<int>") {
@@ -88,7 +88,7 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
 
       // size
       WHEN("We test size()") {
-         BodyText<true,void> b;
+         BlockData<true,void> b;
 
          // try int
          THEN("size() works correctly for vector<int>") {
@@ -128,10 +128,10 @@ SCENARIO("Testing GNDStk BodyText with DATA == void") {
 // Scenario for DATA != void
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk BodyText with DATA != void") {
+SCENARIO("Testing GNDStk BlockData with DATA != void") {
 
-   GIVEN("A const BodyText<true,double> cbtextt") {
-      const BodyText<true,double> cbtextt;
+   GIVEN("A const BlockData<true,double> cbtextt") {
+      const BlockData<true,double> cbtextt;
       THEN("It constructed correctly, and its data are as expected") {
          CHECK(cbtextt.length   () == 0);
          CHECK(cbtextt.size     () == 0);
@@ -140,15 +140,15 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
       }
    }
 
-   GIVEN("A const BodyText<false,double> cbtextf") {
-      const BodyText<false,double> cbtextf;
+   GIVEN("A const BlockData<false,double> cbtextf") {
+      const BlockData<false,double> cbtextf;
       THEN("It constructed correctly") {
          // no data for <false>
       }
    }
 
-   GIVEN("A non-const BodyText<true,int> nbtextt") {
-      BodyText<true,int> nbtextt;
+   GIVEN("A non-const BlockData<true,int> nbtextt") {
+      BlockData<true,int> nbtextt;
       THEN("It constructed correctly, and its data are as expected") {
          CHECK(nbtextt.length   () == 0);
          CHECK(nbtextt.size     () == 0);
@@ -157,17 +157,17 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
       }
    }
 
-   GIVEN("A non-const BodyText<false,int> nbtextf") {
-      BodyText<false,int> nbtextf;
+   GIVEN("A non-const BlockData<false,int> nbtextf") {
+      BlockData<false,int> nbtextf;
       THEN("It constructed correctly") {
          // no data for <false>
       }
    }
 
-   GIVEN("A BodyText") {
+   GIVEN("A BlockData") {
       // clear
       WHEN("We test clear()") {
-         BodyText<true,int> b;
+         BlockData<true,int> b;
          THEN("size() works correctly") {
             b = std::vector<int>{1,2,3,4,5};
             CHECK(b.size() == 5);
@@ -178,7 +178,7 @@ SCENARIO("Testing GNDStk BodyText with DATA != void") {
 
       // size
       WHEN("We test size()") {
-         BodyText<true,std::string> b;
+         BlockData<true,std::string> b;
          THEN("size() works correctly") {
             b = std::vector<std::string>{"one","two","three","four","five"};
             CHECK(b.size() == 5);

@@ -15,7 +15,7 @@ void scenario_params()
    // Default values of parameters are as expected
    WHEN("We examine the default length, start, and valueType") {
       THEN("They are as expected") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          CHECK(b.length() == 0);
          CHECK(b.start() == 0);
          CHECK(b.valueType() == "");
@@ -25,17 +25,17 @@ void scenario_params()
    // length setter/getter works
    WHEN("We set length, then get and verify") {
       THEN("It works for a plain value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(12);
          CHECK(b.length() == 12);
       }
       THEN("It works for optional-with-value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(std::optional<std::size_t>(34));
          CHECK(b.length() == 34);
       }
       THEN("It works for optional-without-value (remains unchanged)") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(56);
          b.length(std::optional<std::size_t>(std::nullopt));
          CHECK(b.length() == 56);
@@ -45,17 +45,17 @@ void scenario_params()
    // start setter/getter works
    WHEN("We set start, then get and verify") {
       THEN("It works for a plain value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.start(11);
          CHECK(b.start() == 11);
       }
       THEN("It works for optional-with-value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.start(std::optional<std::size_t>(13));
          CHECK(b.start() == 13);
       }
       THEN("It works for optional-without-value (remains unchanged)") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.start(17);
          b.start(std::optional<std::size_t>(std::nullopt));
          CHECK(b.start() == 17);
@@ -65,17 +65,17 @@ void scenario_params()
    // valueType setter/getter works
    WHEN("We set valueType, then get and verify") {
       THEN("It works for a plain value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.valueType("unknown");
          CHECK(b.valueType() == "unknown");
       }
       THEN("It works for optional-with-value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.valueType(std::optional<std::string>("Integer32"));
          CHECK(b.valueType() == "Integer32");
       }
       THEN("It works for optional-without-value (remains unchanged)") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.valueType("Float64");
          b.valueType(std::optional<std::string>(std::nullopt));
          CHECK(b.valueType() == "Float64");
@@ -85,7 +85,7 @@ void scenario_params()
    // Combo of the above, using builder-pattern nature of the setters
    WHEN("We set length/start/valueType together, then get and verify") {
       THEN("It works for a plain value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(1)
           .start(2)
           .valueType("a");
@@ -94,7 +94,7 @@ void scenario_params()
          CHECK(b.valueType() == "a");
       }
       THEN("It works for optional-with-value") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(std::optional<std::size_t>(3))
           .start(std::optional<std::size_t>(4))
           .valueType(std::optional<std::string>("b"));
@@ -103,7 +103,7 @@ void scenario_params()
          CHECK(b.valueType() == "b");
       }
       THEN("It works for optional-without-value (remains unchanged)") {
-         BodyText<true,DATA> b;
+         BlockData<true,DATA> b;
          b.length(100).start(200).valueType("c");
          b.length(std::optional<std::size_t>(std::nullopt))
           .start(std::optional<std::size_t>(std::nullopt))
@@ -120,14 +120,14 @@ void scenario_params()
 // Scenarios
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText<DATA == void> length/start/valueType") {
-   GIVEN("A default-constructed BodyText<true,void> object") {
+SCENARIO("BlockData<DATA == void> length/start/valueType") {
+   GIVEN("A default-constructed BlockData<true,void> object") {
       scenario_params<void>();
    }
 }
 
-SCENARIO("BodyText<DATA != void> length/start/valueType") {
-   GIVEN("A default-constructed BodyText<true,int> object") {
+SCENARIO("BlockData<DATA != void> length/start/valueType") {
+   GIVEN("A default-constructed BlockData<true,int> object") {
       scenario_params<int>();
    }
 }

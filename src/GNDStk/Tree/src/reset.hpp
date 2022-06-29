@@ -46,9 +46,9 @@ Tree &reset(
       // Declaration node: "xml", etc.
       // This can specify an eventual intended file format
       // for the GNDS hierarchy.
-      if (format == FileType::xml
-       || format == FileType::null
-       || format == FileType::text
+      if (format == FileType::xml  ||
+          format == FileType::null ||
+          format == FileType::text
       ) {
          // xml, null, tree
          add("xml");
@@ -57,18 +57,15 @@ Tree &reset(
       } else if (format == FileType::json) {
          // json
          add("json");
-         // any use for version and encoding?
       } else if (format == FileType::hdf5) {
          // hdf5
          add("hdf5");
-         // any use for version and encoding?
       } else {
          log::error(
-            "Internal error in Tree.reset(" + detail::keyname(kwd)
-          + ",format,...):\n"
-            "Unrecognized file format; apparently, we missed something. "
-            "Please report this to us"
-         );
+            "Internal error in Tree.reset(" + detail::keyname(kwd) +
+            ", format, ...):\n"
+            "Unrecognized file format; apparently, we missed something.\n"
+            "Please report this to us.");
          throw std::exception{};
       }
 

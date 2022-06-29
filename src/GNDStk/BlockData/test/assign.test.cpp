@@ -9,13 +9,13 @@ using namespace njoy::GNDStk::core;
 // Scenario for DATA == void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText<DATA == void> assignment operators") {
-   GIVEN("A default-constructed BodyText<true,void> object") {
+SCENARIO("BlockData<DATA == void> assignment operators") {
+   GIVEN("A default-constructed BlockData<true,void> object") {
 
       // Default value of raw string is as expected
       WHEN("We examine the raw string") {
          THEN("It is as expected") {
-            BodyText<true,void> b;
+            BlockData<true,void> b;
             CHECK(b.string() == "");
          }
       }
@@ -23,7 +23,7 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
       // Assignment from string works
       WHEN("We assign from a string") {
          THEN("The raw string has the correct value, and vector size() == 0") {
-            BodyText<true,void> b;
+            BlockData<true,void> b;
 
             // to ensure it clears the vector below...
             b = std::vector<int>(10);
@@ -40,7 +40,7 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
       // Assignment from vector works
       WHEN("We assign from a vector") {
          THEN("The variant has the correct value, and raw string == \"\"") {
-            BodyText<true,void> b;
+            BlockData<true,void> b;
 
             // to ensure it clears the raw string etc. below...
             b = "foo bar";
@@ -70,7 +70,7 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
       // Assign from vector<int>; should set valueType
       WHEN("We assign from a vector<int>") {
          THEN("valueType is set correctly") {
-            BodyText<true,void> b;
+            BlockData<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -83,7 +83,7 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
       // Assign from vector<double>; should set valueType
       WHEN("We assign from a vector<double>") {
          THEN("valueType is set correctly") {
-            BodyText<true,void> b;
+            BlockData<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -96,7 +96,7 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
       // For now, non-{int,double} sets valueType == ""
       WHEN("We assign from a vector<non-{int,double}>") {
          THEN("valueType is set correctly") {
-            BodyText<true,void> b;
+            BlockData<true,void> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -114,13 +114,13 @@ SCENARIO("BodyText<DATA == void> assignment operators") {
 // Scenario for DATA != void
 // -----------------------------------------------------------------------------
 
-SCENARIO("BodyText<DATA != void> assignment operators") {
-   GIVEN("A default-constructed BodyText<true,int> object") {
+SCENARIO("BlockData<DATA != void> assignment operators") {
+   GIVEN("A default-constructed BlockData<true,int> object") {
 
       // Default value of raw string is as expected
       WHEN("We examine the raw string") {
          THEN("It is as expected") {
-            BodyText<true,int> b;
+            BlockData<true,int> b;
             CHECK(b.string() == "");
          }
       }
@@ -128,7 +128,7 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
       // Assignment from string works
       WHEN("We assign from a string") {
          THEN("The raw string has the correct value, and vector size() == 0") {
-            BodyText<true,double> b;
+            BlockData<true,double> b;
 
             // to ensure it clears the vector below...
             b = std::vector<double>(10);
@@ -145,7 +145,7 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
       // Assignment from vector works
       WHEN("We assign from a vector") {
          THEN("The vector has the correct value, and raw string == \"\"") {
-            BodyText<true,int> b;
+            BlockData<true,int> b;
 
             // to ensure it clears the raw string etc. below...
             b = "foo bar";
@@ -175,7 +175,7 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
       // Assign from vector<int>; should set valueType
       WHEN("We assign from a vector<int>") {
          THEN("valueType is set correctly") {
-            BodyText<true,int> b;
+            BlockData<true,int> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -188,7 +188,7 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
       // Assign from vector<double>; should set valueType
       WHEN("We assign from a vector<double>") {
          THEN("valueType is set correctly") {
-            BodyText<true,double> b;
+            BlockData<true,double> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");
@@ -201,7 +201,7 @@ SCENARIO("BodyText<DATA != void> assignment operators") {
       // For now, non-{int,double} sets valueType == ""
       WHEN("We assign from a vector<non-{int,double}>") {
          THEN("valueType is set correctly") {
-            BodyText<true,char> b;
+            BlockData<true,char> b;
 
             b.string("foo").valueType("unknown");
             CHECK(b.valueType() == "unknown");

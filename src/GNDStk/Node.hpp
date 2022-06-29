@@ -156,7 +156,7 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// I/O
+// Stream I/O
 // -----------------------------------------------------------------------------
 
 // operator>>
@@ -166,23 +166,6 @@ inline std::istream &operator>>(std::istream &is, Node &node)
       return node.read(is);
    } catch (...) {
       log::function("istream >> Node");
-      throw;
-   }
-}
-
-// Node << std::string
-// Note that this is an INPUT operator to Node!
-// Treating the std::string as a "file" with XML, JSON, etc. content, read it
-// into the Node. We return void, not the Node, so users don't incorrectly think
-// that the <<s can be stacked together in the way they can with stream output.
-// We're reading into ONE Node, so stacking the <<s doesn't really make sense.
-inline void operator<<(Node &node, const std::string &str)
-{
-   try {
-      std::istringstream iss(str);
-      iss >> node;
-   } catch (...) {
-      log::function("Node << string");
       throw;
    }
 }
@@ -197,3 +180,30 @@ inline std::ostream &operator<<(std::ostream &os, const Node &node)
       throw;
    }
 }
+
+
+// -----------------------------------------------------------------------------
+// I/O with respect to a string
+// The string is considered to have content that would otherwise be in a file.
+// So, this is convenience for reading and writing, for instance, XML snippets.
+// -----------------------------------------------------------------------------
+
+// Node << string
+// Note that this is an INPUT operator to Node!
+// Treating the std::string as a "file" with XML, JSON, or HDF5 content, read it
+// into the Node. We return void, not the Node, so users don't incorrectly think
+// that the <<s can be stacked together in the way they can with stream output.
+// We're reading into ONE Node, so stacking the <<s doesn't really make sense.
+inline void operator<<(Node &node, const std::string &str)
+{
+   try {
+      std::istringstream iss(str);
+      node.read(iss);
+   } catch (...) {
+      log::function("Node << string");
+      throw;
+   }
+}
+
+// string >> Node
+// fixme Write and test this

@@ -33,33 +33,33 @@ void scenario_get_vector()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,INTEGER> b; b.start(0).length(0).string("");
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string("");
       CHECK((b.template get<ivec>() == ivec{})); }
-   { BodyText<true,INTEGER> b; b.start(0).length(4).string("");
+   { BlockData<true,INTEGER> b; b.start(0).length(4).string("");
       CHECK((b.template get<ivec>() == ivec{{0,0,0,0}})); }
-   { BodyText<true,INTEGER> b; b.start(1).length(5).string("");
+   { BlockData<true,INTEGER> b; b.start(1).length(5).string("");
       CHECK((b.template get<ivec>() == ivec{{0,0,0,0,0}})); }
-   { BodyText<true,INTEGER> b; b.start(2).length(6).string("");
+   { BlockData<true,INTEGER> b; b.start(2).length(6).string("");
       CHECK((b.template get<ivec>() == ivec{{0,0,0,0,0,0}})); }
 
    // 1 element in string
-   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12");
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string("-12");
       CHECK((b.template get<ivec>() == ivec(1,-12))); }
-   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12");
+   { BlockData<true,INTEGER> b; b.start(0).length(4).string("-12");
       CHECK((b.template get<ivec>() == ivec{{-12,0,0,0}})); }
-   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12");
+   { BlockData<true,INTEGER> b; b.start(1).length(5).string("-12");
       CHECK((b.template get<ivec>() == ivec{{0,-12,0,0,0}})); }
-   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12");
+   { BlockData<true,INTEGER> b; b.start(2).length(6).string("-12");
       CHECK((b.template get<ivec>() == ivec{{0,0,-12,0,0,0}})); }
 
    // 3 elements in string
-   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
       CHECK((b.template get<ivec>() == ivec{{-12,34,-56}})); }
-   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
       CHECK((b.template get<ivec>() == ivec{{-12,34,-56,0}})); }
-   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
       CHECK((b.template get<ivec>() == ivec{{0,-12,34,-56,0}})); }
-   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
       CHECK((b.template get<ivec>() == ivec{{0,0,-12,34,-56,0}})); }
 
    // ------------------------
@@ -67,33 +67,33 @@ void scenario_get_vector()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,FLOAT> b; b.start(0).length(0).string("");
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string("");
       CHECK((b.template get<fvec>() == fvec{})); }
-   { BodyText<true,FLOAT> b; b.start(0).length(4).string("");
+   { BlockData<true,FLOAT> b; b.start(0).length(4).string("");
       CHECK((b.template get<fvec>() == fvec{{0,0,0,0}})); }
-   { BodyText<true,FLOAT> b; b.start(1).length(5).string("");
+   { BlockData<true,FLOAT> b; b.start(1).length(5).string("");
       CHECK((b.template get<fvec>() == fvec{{0,0,0,0,0}})); }
-   { BodyText<true,FLOAT> b; b.start(2).length(6).string("");
+   { BlockData<true,FLOAT> b; b.start(2).length(6).string("");
       CHECK((b.template get<fvec>() == fvec{{0,0,0,0,0,0}})); }
 
    // 1 element in string
-   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string("1.2");
       CHECK((b.template get<fvec>() == fvec(1,1.2))); }
-   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(0).length(4).string("1.2");
       CHECK((b.template get<fvec>() == fvec{{1.2,0,0,0}})); }
-   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(1).length(5).string("1.2");
       CHECK((b.template get<fvec>() == fvec{{0,1.2,0,0,0}})); }
-   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(2).length(6).string("1.2");
       CHECK((b.template get<fvec>() == fvec{{0,0,1.2,0,0,0}})); }
 
    // 3 elements in string
-   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
       CHECK((b.template get<fvec>() == fvec{{1.2,3.4,5.6}})); }
-   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
       CHECK((b.template get<fvec>() == fvec{{1.2,3.4,5.6,0}})); }
-   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
       CHECK((b.template get<fvec>() == fvec{{0,1.2,3.4,5.6,0}})); }
-   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
       CHECK((b.template get<fvec>() == fvec{{0,0,1.2,3.4,5.6,0}})); }
 
    // ------------------------
@@ -101,33 +101,33 @@ void scenario_get_vector()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,STRING> b; b.start(0).length(0).string("");
+   { BlockData<true,STRING> b; b.start(0).length(0).string("");
       CHECK((b.template get<svec>() == svec{})); }
-   { BodyText<true,STRING> b; b.start(0).length(4).string("");
+   { BlockData<true,STRING> b; b.start(0).length(4).string("");
       CHECK((b.template get<svec>() == svec{{"","","",""}})); }
-   { BodyText<true,STRING> b; b.start(1).length(5).string("");
+   { BlockData<true,STRING> b; b.start(1).length(5).string("");
       CHECK((b.template get<svec>() == svec{{"","","","",""}})); }
-   { BodyText<true,STRING> b; b.start(2).length(6).string("");
+   { BlockData<true,STRING> b; b.start(2).length(6).string("");
       CHECK((b.template get<svec>() == svec{{"","","","","",""}})); }
 
    // 1 element in string
-   { BodyText<true,STRING> b; b.start(0).length(0).string("ab");
+   { BlockData<true,STRING> b; b.start(0).length(0).string("ab");
       CHECK((b.template get<svec>() == svec(1,"ab"))); }
-   { BodyText<true,STRING> b; b.start(0).length(4).string("ab");
+   { BlockData<true,STRING> b; b.start(0).length(4).string("ab");
       CHECK((b.template get<svec>() == svec{{"ab","","",""}})); }
-   { BodyText<true,STRING> b; b.start(1).length(5).string("ab");
+   { BlockData<true,STRING> b; b.start(1).length(5).string("ab");
       CHECK((b.template get<svec>() == svec{{"","ab","","",""}})); }
-   { BodyText<true,STRING> b; b.start(2).length(6).string("ab");
+   { BlockData<true,STRING> b; b.start(2).length(6).string("ab");
       CHECK((b.template get<svec>() == svec{{"","","ab","","",""}})); }
 
    // 3 elements in string
-   { BodyText<true,STRING> b; b.start(0).length(0).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(0).length(0).string("ab cd ef");
       CHECK((b.template get<svec>() == svec{{"ab","cd","ef"}})); }
-   { BodyText<true,STRING> b; b.start(0).length(4).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(0).length(4).string("ab cd ef");
       CHECK((b.template get<svec>() == svec{{"ab","cd","ef",""}})); }
-   { BodyText<true,STRING> b; b.start(1).length(5).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(1).length(5).string("ab cd ef");
       CHECK((b.template get<svec>() == svec{{"","ab","cd","ef",""}})); }
-   { BodyText<true,STRING> b; b.start(2).length(6).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(2).length(6).string("ab cd ef");
       CHECK((b.template get<svec>() == svec{{"","","ab","cd","ef",""}})); }
 
    // ------------------------
@@ -135,46 +135,46 @@ void scenario_get_vector()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string("");
       CHECK((b.template get<uvec>() == uvec{})); }
-   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("");
       CHECK((b.template get<uvec>() == uvec{{0,0,0,0}})); }
-   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("");
+   { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("");
       CHECK((b.template get<uvec>() == uvec{{0,0,0,0,0}})); }
-   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("");
+   { BlockData<true,UNSIGNED> b; b.start(2).length(6).string("");
       CHECK((b.template get<uvec>() == uvec{{0,0,0,0,0,0}})); }
 
    // 1 element in string
-   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string("12");
       CHECK((b.template get<uvec>() == uvec(1,12))); }
-   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("12");
       CHECK((b.template get<uvec>() == uvec{{12,0,0,0}})); }
-   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("12");
       CHECK((b.template get<uvec>() == uvec{{0,12,0,0,0}})); }
-   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(2).length(6).string("12");
       CHECK((b.template get<uvec>() == uvec{{0,0,12,0,0,0}})); }
 
    // 3 elements in string
-   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string("12 34 56");
       CHECK((b.template get<uvec>() == uvec{{12,34,56}})); }
-   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("12 34 56");
       CHECK((b.template get<uvec>() == uvec{{12,34,56,0}})); }
-   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("12 34 56");
       CHECK((b.template get<uvec>() == uvec{{0,12,34,56,0}})); }
-   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(2).length(6).string("12 34 56");
       CHECK((b.template get<uvec>() == uvec{{0,0,12,34,56,0}})); }
 }
 
-// For BodyText<DATA == void>
-SCENARIO("BodyText<DATA == void> get<vector>()") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA == void>
+SCENARIO("BlockData<DATA == void> get<vector>()") {
+   GIVEN("A BlockData object") {
       scenario_get_vector<void,void,void,void>();
    }
 }
 
-// For BodyText<DATA != void>
-SCENARIO("BodyText<DATA != void> get<vector>()") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA != void>
+SCENARIO("BlockData<DATA != void> get<vector>()") {
+   GIVEN("A BlockData object") {
       scenario_get_vector<int,double,std::string,unsigned>();
    }
 }
@@ -194,32 +194,32 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,INTEGER> b; b.start(0).length(0).string(""); /* no elements */ }
-   { BodyText<true,INTEGER> b; b.start(0).length(4).string("");
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,INTEGER> b; b.start(0).length(4).string("");
       CHECK(b.template get<int>(1) == 0); }
-   { BodyText<true,INTEGER> b; b.start(1).length(5).string("");
+   { BlockData<true,INTEGER> b; b.start(1).length(5).string("");
       CHECK(b.template get<int>(2) == 0); }
-   { BodyText<true,INTEGER> b; b.start(2).length(6).string("");
+   { BlockData<true,INTEGER> b; b.start(2).length(6).string("");
       CHECK(b.template get<int>(3) == 0); }
 
    // 1 element in string
-   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12");
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string("-12");
       CHECK(b.template get<int>(0) == -12); }
-   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12");
+   { BlockData<true,INTEGER> b; b.start(0).length(4).string("-12");
       CHECK(b.template get<int>(1) == 0); }
-   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12");
+   { BlockData<true,INTEGER> b; b.start(1).length(5).string("-12");
       CHECK(b.template get<int>(2) == 0); }
-   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12");
+   { BlockData<true,INTEGER> b; b.start(2).length(6).string("-12");
       CHECK(b.template get<int>(3) == 0); }
 
    // 3 elements in string
-   { BodyText<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(0).length(0).string("-12 34 -56");
       CHECK(b.template get<int>(0) == -12); }
-   { BodyText<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(0).length(4).string("-12 34 -56");
       CHECK(b.template get<int>(1) == 34); }
-   { BodyText<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(1).length(5).string("-12 34 -56");
       CHECK(b.template get<int>(2) == 34); }
-   { BodyText<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
+   { BlockData<true,INTEGER> b; b.start(2).length(6).string("-12 34 -56");
       CHECK(b.template get<int>(3) == 34); }
 
    // ------------------------
@@ -227,32 +227,32 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,FLOAT> b; b.start(0).length(0).string(""); /* no elements */ }
-   { BodyText<true,FLOAT> b; b.start(0).length(4).string("");
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,FLOAT> b; b.start(0).length(4).string("");
       CHECK(b.template get<double>(1) == 0); }
-   { BodyText<true,FLOAT> b; b.start(1).length(5).string("");
+   { BlockData<true,FLOAT> b; b.start(1).length(5).string("");
       CHECK(b.template get<double>(2) == 0); }
-   { BodyText<true,FLOAT> b; b.start(2).length(6).string("");
+   { BlockData<true,FLOAT> b; b.start(2).length(6).string("");
       CHECK(b.template get<double>(3) == 0); }
 
    // 1 element in string
-   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string("1.2");
       CHECK(b.template get<double>(0) == 1.2); }
-   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(0).length(4).string("1.2");
       CHECK(b.template get<double>(1) == 0); }
-   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(1).length(5).string("1.2");
       CHECK(b.template get<double>(2) == 0); }
-   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2");
+   { BlockData<true,FLOAT> b; b.start(2).length(6).string("1.2");
       CHECK(b.template get<double>(3) == 0); }
 
    // 3 elements in string
-   { BodyText<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(0).length(0).string("1.2 3.4 5.6");
       CHECK(b.template get<double>(0) == 1.2); }
-   { BodyText<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(0).length(4).string("1.2 3.4 5.6");
       CHECK(b.template get<double>(1) == 3.4); }
-   { BodyText<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(1).length(5).string("1.2 3.4 5.6");
       CHECK(b.template get<double>(2) == 3.4); }
-   { BodyText<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
+   { BlockData<true,FLOAT> b; b.start(2).length(6).string("1.2 3.4 5.6");
       CHECK(b.template get<double>(3) == 3.4); }
 
    // ------------------------
@@ -260,32 +260,32 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,STRING> b; b.start(0).length(0).string(""); /* no elements */ }
-   { BodyText<true,STRING> b; b.start(0).length(4).string("");
+   { BlockData<true,STRING> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,STRING> b; b.start(0).length(4).string("");
       CHECK(b.template get<std::string>(1) == ""); }
-   { BodyText<true,STRING> b; b.start(1).length(5).string("");
+   { BlockData<true,STRING> b; b.start(1).length(5).string("");
       CHECK(b.template get<std::string>(2) == ""); }
-   { BodyText<true,STRING> b; b.start(2).length(6).string("");
+   { BlockData<true,STRING> b; b.start(2).length(6).string("");
       CHECK(b.template get<std::string>(3) == ""); }
 
    // 1 element in string
-   { BodyText<true,STRING> b; b.start(0).length(0).string("ab");
+   { BlockData<true,STRING> b; b.start(0).length(0).string("ab");
       CHECK(b.template get<std::string>(0) == "ab"); }
-   { BodyText<true,STRING> b; b.start(0).length(4).string("ab");
+   { BlockData<true,STRING> b; b.start(0).length(4).string("ab");
       CHECK(b.template get<std::string>(1) == ""); }
-   { BodyText<true,STRING> b; b.start(1).length(5).string("ab");
+   { BlockData<true,STRING> b; b.start(1).length(5).string("ab");
       CHECK(b.template get<std::string>(2) == ""); }
-   { BodyText<true,STRING> b; b.start(2).length(6).string("ab");
+   { BlockData<true,STRING> b; b.start(2).length(6).string("ab");
       CHECK(b.template get<std::string>(3) == ""); }
 
    // 3 elements in string
-   { BodyText<true,STRING> b; b.start(0).length(0).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(0).length(0).string("ab cd ef");
       CHECK(b.template get<std::string>(0) == "ab"); }
-   { BodyText<true,STRING> b; b.start(0).length(4).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(0).length(4).string("ab cd ef");
       CHECK(b.template get<std::string>(1) == "cd"); }
-   { BodyText<true,STRING> b; b.start(1).length(5).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(1).length(5).string("ab cd ef");
       CHECK(b.template get<std::string>(2) == "cd"); }
-   { BodyText<true,STRING> b; b.start(2).length(6).string("ab cd ef");
+   { BlockData<true,STRING> b; b.start(2).length(6).string("ab cd ef");
       CHECK(b.template get<std::string>(3) == "cd"); }
 
    // ------------------------
@@ -293,45 +293,45 @@ void scenario_get_template_n()
    // ------------------------
 
    // 0 elements in string
-   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string(""); /* no elements */ }
-   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string(""); /* no elements */ }
+   { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("");
       CHECK(b.template get<unsigned>(1) == 0); }
-   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("");
+   { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("");
       CHECK(b.template get<unsigned>(2) == 0); }
-   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("");
+   { BlockData<true,UNSIGNED> b; b.start(2).length(6).string("");
       CHECK(b.template get<unsigned>(3) == 0); }
 
    // 1 element in string
-   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string("12");
       CHECK(b.template get<unsigned>(0) == 12); }
-   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("12");
       CHECK(b.template get<unsigned>(1) == 0); }
-   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("12");
       CHECK(b.template get<unsigned>(2) == 0); }
-   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12");
+   { BlockData<true,UNSIGNED> b; b.start(2).length(6).string("12");
       CHECK(b.template get<unsigned>(3) == 0); }
 
    // 3 elements in string
-   { BodyText<true,UNSIGNED> b; b.start(0).length(0).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(0).string("12 34 56");
       CHECK(b.template get<unsigned>(0) == 12); }
-   { BodyText<true,UNSIGNED> b; b.start(0).length(4).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(0).length(4).string("12 34 56");
       CHECK(b.template get<unsigned>(1) == 34); }
-   { BodyText<true,UNSIGNED> b; b.start(1).length(5).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(1).length(5).string("12 34 56");
       CHECK(b.template get<unsigned>(2) == 34); }
-   { BodyText<true,UNSIGNED> b; b.start(2).length(6).string("12 34 56");
+   { BlockData<true,UNSIGNED> b; b.start(2).length(6).string("12 34 56");
       CHECK(b.template get<unsigned>(3) == 34); }
 }
 
-// For BodyText<DATA == void>
-SCENARIO("BodyText<DATA == void> get<T>(n)") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA == void>
+SCENARIO("BlockData<DATA == void> get<T>(n)") {
+   GIVEN("A BlockData object") {
       scenario_get_template_n<void,void,void,void>();
    }
 }
 
-// For BodyText<DATA != void>
-SCENARIO("BodyText<DATA != void> get<T>(n)") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA != void>
+SCENARIO("BlockData<DATA != void> get<T>(n)") {
+   GIVEN("A BlockData object") {
       scenario_get_template_n<int,double,std::string,unsigned>();
    }
 }
@@ -342,15 +342,15 @@ SCENARIO("BodyText<DATA != void> get<T>(n)") {
 // 3. Scenario: get()
 // -----------------------------------------------------------------------------
 
-// For BodyText<DATA == void>
-SCENARIO("BodyText<DATA == void> get()") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA == void>
+SCENARIO("BlockData<DATA == void> get()") {
+   GIVEN("A BlockData object") {
 
       using ivec = std::vector<int>;
       using fvec = std::vector<double>;
       using svec = std::vector<std::string>;
 
-      BodyText<true,void> b;
+      BlockData<true,void> b;
 
       b.start(2).length(6).string("-12 34 -56");
       b.valueType("Integer32");
@@ -377,28 +377,28 @@ SCENARIO("BodyText<DATA == void> get()") {
 } // SCENARIO
 
 
-// For BodyText<DATA != void>
-SCENARIO("BodyText<DATA != void> get()") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA != void>
+SCENARIO("BlockData<DATA != void> get()") {
+   GIVEN("A BlockData object") {
 
       using ivec = std::vector<int>;
       using fvec = std::vector<double>;
       using svec = std::vector<std::string>;
 
       {
-         BodyText<true,int> b;
+         BlockData<true,int> b;
          b.start(2).length(6).string("-12 34 -56");
          CHECK((b.get() == ivec{{0,0,-12,34,-56,0}}));
       }
 
       {
-         BodyText<true,double> b;
+         BlockData<true,double> b;
          b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK((b.get() == fvec{{0,0,1.2,3.4,5.6,0}}));
       }
 
       {
-         BodyText<true,std::string> b;
+         BlockData<true,std::string> b;
          b.start(2).length(6).string("ab cd ef");
          CHECK((b.get() == svec{{"","","ab","cd","ef",""}}));
       }
@@ -412,11 +412,11 @@ SCENARIO("BodyText<DATA != void> get()") {
 // 4. Scenario: get(n)
 // -----------------------------------------------------------------------------
 
-// For BodyText<DATA == void>
-SCENARIO("BodyText<DATA == void> get(n)") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA == void>
+SCENARIO("BlockData<DATA == void> get(n)") {
+   GIVEN("A BlockData object") {
 
-      BodyText<true,void> b;
+      BlockData<true,void> b;
 
       // ------------------------
       // get(n) form
@@ -514,16 +514,16 @@ SCENARIO("BodyText<DATA == void> get(n)") {
 } // SCENARIO
 
 
-// For BodyText<DATA != void>
-SCENARIO("BodyText<DATA != void> get(n)") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA != void>
+SCENARIO("BlockData<DATA != void> get(n)") {
+   GIVEN("A BlockData object") {
 
       // ------------------------
       // get(n) form
       // ------------------------
 
       {
-         BodyText<true,int> b;
+         BlockData<true,int> b;
          b.start(2).length(6).string("-12 34 -56");
          CHECK(( b.get(0) ==   0 ));
          CHECK(( b.get(1) ==   0 ));
@@ -534,7 +534,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       }
 
       {
-         BodyText<true,double> b;
+         BlockData<true,double> b;
          b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK(( b.get(0) == 0   ));
          CHECK(( b.get(1) == 0   ));
@@ -545,7 +545,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       }
 
       {
-         BodyText<true,std::string> b;
+         BlockData<true,std::string> b;
          b.start(2).length(8).string("ab cd ef 123 4.5");
          CHECK(( b.get(0) == ""   ));
          CHECK(( b.get(1) == ""   ));
@@ -562,7 +562,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       // ------------------------
 
       {
-         BodyText<true,int> b;
+         BlockData<true,int> b;
          b.start(2).length(6).string("-12 34 -56");
          CHECK(( b[0] ==   0 ));
          CHECK(( b[1] ==   0 ));
@@ -573,7 +573,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       }
 
       {
-         BodyText<true,double> b;
+         BlockData<true,double> b;
          b.start(2).length(6).string("1.2 3.4 5.6");
          CHECK(( b[0] == 0   ));
          CHECK(( b[1] == 0   ));
@@ -584,7 +584,7 @@ SCENARIO("BodyText<DATA != void> get(n)") {
       }
 
       {
-         BodyText<true,std::string> b;
+         BlockData<true,std::string> b;
          b.start(2).length(6).string("ab cd ef");
          CHECK(( b[0] == ""   ));
          CHECK(( b[1] == ""   ));
@@ -608,7 +608,7 @@ template<class INT, class DOUBLE, class STRING>
 void scenario_get_named()
 {
    {
-      BodyText<true,INT> b;
+      BlockData<true,INT> b;
 
       b.start(2).length(6).string("-12 34 -56");
       auto result = b.ints();
@@ -631,10 +631,10 @@ void scenario_get_named()
    }
 
    {
-      BodyText<true,DOUBLE> b;
+      BlockData<true,DOUBLE> b;
 
       b.start(2).length(6).string("1.2 3.4 5.6");
-      const BodyText<true,DOUBLE> &bconst = b; // ensure it works with const
+      const BlockData<true,DOUBLE> &bconst = b; // ensure it works with const
       const auto result = bconst.doubles();
       CHECK((std::is_same_v<decltype(result),
              const std::vector<double>>));
@@ -655,7 +655,7 @@ void scenario_get_named()
    }
 
    {
-      BodyText<true,STRING> b;
+      BlockData<true,STRING> b;
 
       b.start(2).length(6).string("ab cd ef");
       const auto &result = b.strings();
@@ -678,16 +678,16 @@ void scenario_get_named()
    }
 }
 
-// For BodyText<DATA == void>
-SCENARIO("BodyText<DATA == void> type-specific get functions: doubles() etc.") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA == void>
+SCENARIO("BlockData<DATA == void> type-specific get functions: doubles() etc.") {
+   GIVEN("A BlockData object") {
       scenario_get_named<void,void,void>();
    }
 }
 
-// For BodyText<DATA != void>
-SCENARIO("BodyText<DATA != void> type-specific get functions: doubles() etc.") {
-   GIVEN("A BodyText object") {
+// For BlockData<DATA != void>
+SCENARIO("BlockData<DATA != void> type-specific get functions: doubles() etc.") {
+   GIVEN("A BlockData object") {
       scenario_get_named<int,double,std::string>();
    }
 }

@@ -3,7 +3,7 @@
 Node node(DERIVED::GNDSName());
 
 // 2. Body text, if applicable
-if constexpr (hasBodyText) {
+if constexpr (hasBlockData) {
    // GNDStk uses a "text" metadatum of a "pcdata" child node for this
    std::string &text = node.add("pcdata").add("text","").second;
    // Note: the following call might compute length, start, and valueType;
@@ -12,7 +12,7 @@ if constexpr (hasBodyText) {
 }
 
 // 3. Write fields
-if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
+if constexpr (!hasFields) {
    // consistency check
    assert(0 == links.size());
 } else {
