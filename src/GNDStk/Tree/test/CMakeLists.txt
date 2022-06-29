@@ -26,7 +26,7 @@ $<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
 $<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
 
 ${CXX_appended_flags} ${GNDStk_appended_flags} )
-target_link_libraries( GNDStk.Tree.test PUBLIC GNDStk ) 
+target_link_libraries( GNDStk.Tree.test PUBLIC GNDStk )
 file( GLOB resources "resources/*" )
 foreach( resource ${resources})
     file( COPY "${resource}" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" )

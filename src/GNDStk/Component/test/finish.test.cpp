@@ -8,7 +8,7 @@ using namespace njoy::GNDStk::core;
 
 // -----------------------------------------------------------------------------
 // DerivedValue
-// Has body text
+// Has block data
 // -----------------------------------------------------------------------------
 
 namespace test {
@@ -18,13 +18,16 @@ struct IndexStruct {
    struct {
       std::size_t index;
    } content;
-   IndexStruct(const std::size_t i = 0) { content.index = i; }
+   const std::size_t &index() const { return content.index; }
+   std::size_t &index() { return content.index; }
+
+   IndexStruct(const std::size_t i = 0) { index() = i; }
    IndexStruct(const Node &) : IndexStruct(0) { }
 };
 
 inline bool operator==(const IndexStruct &one, const IndexStruct &two)
 {
-   return one.content.index == two.content.index;
+   return one.index() == two.index();
 }
 
 
@@ -64,7 +67,8 @@ public:
    // one of the tests involves checking these
    struct {
       // Initialize these to specific values, so that we can ensure that
-      // Component's finish() functions properly call body::pullFromDerived()
+      // Component's finish() functions properly call
+      // BLOCKDATA::pullFromDerived()
       int length = 11;
       int start = 3;
       std::string valueType = "foobar";
@@ -74,6 +78,18 @@ public:
       std::optional<std::vector<IndexStruct>> indices =
          {{3,2,17,7,5,9,13,11}};
    } content;
+
+   const int &length() const { return content.length; }
+   int &length() { return content.length; }
+
+   const int &start() const { return content.start; }
+   int &start() { return content.start; }
+
+   const std::string &valueType() const { return content.valueType; }
+   std::string &valueType() { return content.valueType; }
+
+   const std::optional<std::vector<IndexStruct>> &indices() const { return content.indices; }
+   std::optional<std::vector<IndexStruct>> &indices() { return content.indices; }
 
 private:
 
@@ -106,8 +122,8 @@ public:
    // ctor: default
    DerivedValue() :
       Component(
-         BodyText{},
-         content.length, content.start, content.valueType, content.indices
+         BlockData{},
+         length(), start(), valueType(), indices()
       )
    {
       // finish()
@@ -118,7 +134,7 @@ public:
    DerivedValue(const DerivedValue &other) :
       Component{
          other,
-         content.length, content.start, content.valueType, content.indices
+         length(), start(), valueType(), indices()
       },
       content{other.content}
    {
@@ -129,8 +145,8 @@ public:
    // ctor: node
    DerivedValue(const Node &node) :
       Component{
-         BodyText{},
-         content.length, content.start, content.valueType, content.indices
+         BlockData{},
+         length(), start(), valueType(), indices()
       }
    {
       // finish(node)
@@ -140,8 +156,8 @@ public:
    // ctor: vector
    DerivedValue(const std::vector<double> &vec) :
       Component{
-         BodyText{},
-         content.length, content.start, content.valueType, content.indices
+         BlockData{},
+         length(), start(), valueType(), indices()
       }
    {
       // finish(vector)
@@ -155,7 +171,7 @@ public:
 
 // -----------------------------------------------------------------------------
 // DerivedPlain
-// Does not have body text
+// Does not have block data
 // -----------------------------------------------------------------------------
 
 namespace test {
@@ -165,17 +181,20 @@ struct LabelStruct {
    struct {
       std::string label;
    } content;
+   const std::string &label() const { return content.label; }
+   std::string &label() { return content.label; }
+
    // apparently need a char* ctor for initializer-list initialization to work
-   LabelStruct(const char *const str = "") { content.label = str; }
+   LabelStruct(const char *const str = "") { label() = str; }
    LabelStruct(const Node &node)
    {
-      content.label = node(std::string{}/Meta<>("label"));
+      label() = node(std::string{}/Meta<>("label"));
    }
 };
 
 inline bool operator==(const LabelStruct &one, const LabelStruct &two)
 {
-   return one.content.label == two.content.label;
+   return one.label() == two.label();
 }
 
 
@@ -218,6 +237,15 @@ public:
          {{"bc","a","p","efg","d","hi","no","jklm"}};
    } content;
 
+   const int &foo() const { return content.foo; }
+   int &foo() { return content.foo; }
+
+   const double &bar() const { return content.bar; }
+   double &bar() { return content.bar; }
+
+   const std::optional<std::vector<LabelStruct>> &labels() const { return content.labels; }
+   std::optional<std::vector<LabelStruct>> &labels() { return content.labels; }
+
 private:
 
    // construct functions
@@ -243,8 +271,8 @@ public:
    // ctor: default
    DerivedPlain() :
       Component(
-         BodyText{},
-         content.foo, content.bar, content.labels
+         BlockData{},
+         foo(), bar(), labels()
       )
    {
       // finish()
@@ -255,7 +283,7 @@ public:
    DerivedPlain(const DerivedPlain &other) :
       Component{
          other,
-         content.foo, content.bar, content.labels
+         foo(), bar(), labels()
       },
       content{other.content}
    {
@@ -266,8 +294,8 @@ public:
    // ctor: node
    DerivedPlain(const Node &node) :
       Component{
-         BodyText{},
-         content.foo, content.bar, content.labels
+         BlockData{},
+         foo(), bar(), labels()
       }
    {
       // finish(node)
@@ -289,7 +317,7 @@ public:
 
 SCENARIO("Component finish()") {
 
-   GIVEN("A component-derived class that has body text") {
+   GIVEN("A component-derived class that has block data") {
       const std::vector<test::IndexStruct> sorted =
          {{2,3,5,7,9,11,13,17}};
 
@@ -300,15 +328,15 @@ SCENARIO("Component finish()") {
          // Ensure that finish() called the construct() in the derived class...
          CHECK(test::construct1DerivedValue == true);
 
-         // Ensure that finish() did a BodyText::pullFromDerived()
+         // Ensure that finish() did a BlockData::pullFromDerived()
          CHECK(d.length() == 11);
          CHECK(d.start() == 3);
          CHECK(d.valueType() == "foobar");
 
          // Ensure that finish() did a sort()
-         CHECK(d.content.indices.has_value() == true);
-         CHECK(d.content.indices->size() == 8);
-         CHECK(*d.content.indices == sorted);
+         CHECK(d.indices().has_value() == true);
+         CHECK(d.indices()->size() == 8);
+         CHECK(*d.indices() == sorted);
       }
 
       // ctor: copy
@@ -340,9 +368,9 @@ SCENARIO("Component finish()") {
          CHECK(d.valueType() == "foobar");
 
          // Ensure that finish() did a sort()
-         CHECK(d.content.indices.has_value() == true);
-         CHECK(d.content.indices->size() == 8);
-         CHECK(*d.content.indices == sorted);
+         CHECK(d.indices().has_value() == true);
+         CHECK(d.indices()->size() == 8);
+         CHECK(*d.indices() == sorted);
       }
 
       // ctor: from node
@@ -357,7 +385,7 @@ SCENARIO("Component finish()") {
          test::DerivedValue d(node);
          CHECK(test::construct3DerivedValue == true);
 
-         // Here, the following values in the underlying BodyText should
+         // Here, the following values in the underlying BlockData should
          // reflect those that were brought in through the above string.
          CHECK(d.length() == 10);
          CHECK(d.start() == 2);
@@ -375,9 +403,9 @@ SCENARIO("Component finish()") {
          CHECK(d.get<double>(8) == 0);
          CHECK(d.get<double>(9) == 0);
 
-         // The node from which we read had body text, not child nodes,
+         // The node from which we read had block data, not child nodes,
          // and thus would give us nothing for (std::optional) indices...
-         CHECK(d.content.indices.has_value() == false);
+         CHECK(d.indices().has_value() == false);
       }
 
       // ctor: from vector
@@ -388,7 +416,7 @@ SCENARIO("Component finish()") {
          CHECK(test::construct4DerivedValue == true);
 
          // Here, the finish(vector) function was called, which in turn called
-         // BodyText's operator=(vector), which sets the following according
+         // BlockData's operator=(vector), which sets the following according
          // to what's actually in the vector
          CHECK(d.length() == 3);
          CHECK(d.start() == 0); // <== always the case in this context
@@ -400,22 +428,22 @@ SCENARIO("Component finish()") {
          CHECK(Approx(d.get<double>(1)) == 2.71828);
          CHECK(Approx(d.get<double>(2)) == 1.41421);
 
-         // And, BodyText's operator=(vector) as mentioned above should also
+         // And, BlockData's operator=(vector) as mentioned above should also
          // have changed the corresponding values back up in the derived class
-         CHECK(d.content.length == 3);
-         CHECK(d.content.start == 0);
-         CHECK(d.content.valueType == "Float64");
+         CHECK(d.length() == 3);
+         CHECK(d.start() == 0);
+         CHECK(d.valueType() == "Float64");
 
          // Ensure that finish() did a sort()
-         CHECK(d.content.indices.has_value() == true);
-         CHECK(d.content.indices->size() == 8);
-         CHECK(*d.content.indices == sorted);
+         CHECK(d.indices().has_value() == true);
+         CHECK(d.indices()->size() == 8);
+         CHECK(*d.indices() == sorted);
       }
 
    } // GIVEN
 
 
-   GIVEN("A component-derived class that does not have body text") {
+   GIVEN("A component-derived class that does not have block data") {
       const std::vector<test::LabelStruct> sorted =
          {{"a","bc","d","efg","hi","jklm","no","p"}};
 
@@ -425,9 +453,9 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d;
          CHECK(test::construct1DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == true);
-         CHECK(d.content.labels->size() == 8);
-         CHECK(*d.content.labels == sorted);
+         CHECK(d.labels().has_value() == true);
+         CHECK(d.labels()->size() == 8);
+         CHECK(*d.labels() == sorted);
       }
 
       // ctor: copy
@@ -438,9 +466,9 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d(dfrom);
          CHECK(test::construct2DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == true);
-         CHECK(d.content.labels->size() == 8);
-         CHECK(*d.content.labels == sorted);
+         CHECK(d.labels().has_value() == true);
+         CHECK(d.labels()->size() == 8);
+         CHECK(*d.labels() == sorted);
       }
 
       // ctor: from node, case 1
@@ -454,7 +482,7 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d(node);
          CHECK(test::construct3DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == false);
+         CHECK(d.labels().has_value() == false);
       }
 
       // ctor: from node, case 2
@@ -472,10 +500,10 @@ SCENARIO("Component finish()") {
          test::DerivedPlain d(node);
          CHECK(test::construct3DerivedPlain == true);
 
-         CHECK(d.content.labels.has_value() == true);
-         CHECK(d.content.labels->size() == 4);
+         CHECK(d.labels().has_value() == true);
+         CHECK(d.labels()->size() == 4);
          CHECK((
-           *d.content.labels ==
+            *d.labels() ==
             std::vector<test::LabelStruct>{{"abc","def","ghi","jkl"}}
          ));
       }

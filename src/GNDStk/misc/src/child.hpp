@@ -5,17 +5,16 @@ namespace child {
 // Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-// Note: the ~ (tilde) makes them allowed as top-level nodes
 inline const auto
-   PoPs                = ~Child<void,Allow::one>("PoPs");
+   PoPs                = Child<void,Allow::one>("PoPs");
 inline const auto
-   reactionSuite       = ~Child<void,Allow::one>("reactionSuite");
+   reactionSuite       = Child<void,Allow::one>("reactionSuite");
 inline const auto
-   covarianceSuite     = ~Child<void,Allow::one>("covarianceSuite");
+   covarianceSuite     = Child<void,Allow::one>("covarianceSuite");
 inline const auto
-   thermalScattering   = ~Child<void,Allow::one>("thermalScattering");
+   thermalScattering   = Child<void,Allow::one>("thermalScattering");
 inline const auto
-   fissionFragmentData = ~Child<void,Allow::one>("fissionFragmentData");
+   fissionFragmentData = Child<void,Allow::one>("fissionFragmentData");
 
 
 
@@ -266,7 +265,7 @@ GNDSTK_MAKE_CHILD(void, unresolved, one);
 GNDSTK_MAKE_CHILD(void, unresolvedRegion, one);
 GNDSTK_MAKE_CHILD(void, unspecified, one);
 GNDSTK_MAKE_CHILD(void, weightedFunctionals, one);
-GNDSTK_MAKE_CHILD(void, xml, one);
+inline const Child<void,Allow::one> xml("#xml");
 GNDSTK_MAKE_CHILD(void, yields, one);
 
 // Allow::many cases
@@ -314,25 +313,25 @@ inline const Child<void,Allow::one> Double("double");
 // These are where XML <![CDATA[...]]> or <!-- ... --> (comment) material
 // resides. It's reasonable to extract such content into std::strings. We
 // then store these as nodes of those respective names, each with one metadatum
-// having a key of "text" and a value containing the original content.
+// having a key of "#text" and a value containing the original content.
 inline const Child<std::string,Allow::one,detail::text_metadatum_to_string>
-   cdata("cdata");
+   cdata("#cdata");
 inline const Child<std::string,Allow::many,detail::text_metadatum_to_string>
-   comment("comment");
+   comment("#comment");
 
 // pcdata
 // These are where data appearing in constructs like this:
 //    <values>1.2 3.4 5.6 7.8 9.0</values>
 // reside. In that case, our internal tree structure would have a node named
-// "values", which would have a child node named "pcdata", which would have a
-// metadatum with a key of "text" and a value containing the original content:
+// "values", which would have a child node named "#pcdata", which would have a
+// metadatum with a key of "#text" and a value containing the original content:
 // the "1.2 ..." in the above example. Our examination of many GNDS files shows
 // that some pcdata nodes contain integers, while others contain doubles. We
 // therefore define pcdata as a Child with <void>, so that we can access it
-// in its original form and thus dig further down to its "text" metadatum, at
+// in its original form and thus dig further down to its "#text" metadatum, at
 // which point we can decide elsewhere what's appropriate for that. (Read into
 // a vector of ints? A vector of doubles? Something else?)
 inline const Child<void,Allow::one>
-   pcdata("pcdata");
+   pcdata("#pcdata");
 
 } // namespace child

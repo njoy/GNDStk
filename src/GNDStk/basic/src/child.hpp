@@ -20,17 +20,16 @@ namespace child {
 // Allowable top-level nodes, per LLNL-TR-774621-DRAFT
 // -----------------------------------------------------------------------------
 
-// Note: the ~ (tilde) makes them allowed as top-level nodes
 inline const auto
-   PoPs                = ~Child<void,Allow::one>("PoPs");
+   PoPs                = Child<void,Allow::one>("PoPs");
 inline const auto
-   reactionSuite       = ~Child<void,Allow::one>("reactionSuite");
+   reactionSuite       = Child<void,Allow::one>("reactionSuite");
 inline const auto
-   covarianceSuite     = ~Child<void,Allow::one>("covarianceSuite");
+   covarianceSuite     = Child<void,Allow::one>("covarianceSuite");
 inline const auto
-   thermalScattering   = ~Child<void,Allow::one>("thermalScattering");
+   thermalScattering   = Child<void,Allow::one>("thermalScattering");
 inline const auto
-   fissionFragmentData = ~Child<void,Allow::one>("fissionFragmentData");
+   fissionFragmentData = Child<void,Allow::one>("fissionFragmentData");
 
 
 
@@ -77,7 +76,7 @@ inline const Child<void,Allow::one>
    bindingEnergy                   ("bindingEnergy"                   ),
    branching1d                     ("branching1d"                     ),
    branching3d                     ("branching3d"                     ),
-   cdata                           ("cdata"                           ),
+   cdata                           ("#cdata"                          ),
    channels                        ("channels"                        ),
    characteristicCrossSection      ("characteristicCrossSection"      ),
    charge                          ("charge"                          ),
@@ -157,7 +156,7 @@ inline const Child<void,Allow::one>
    parameterCovariances            ("parameterCovariances"            ),
    parameters                      ("parameters"                      ),
    parity                          ("parity"                          ),
-   pcdata                          ("pcdata"                          ),
+   pcdata                          ("#pcdata"                         ),
    photonEmissionProbabilities     ("photonEmissionProbabilities"     ),
    pids                            ("pids"                            ),
    polynomial1d                    ("polynomial1d"                    ),
@@ -210,7 +209,7 @@ inline const Child<void,Allow::one>
    unspecified                     ("unspecified"                     ),
    weightedFunctionals             ("weightedFunctionals"             ),
    widths                          ("widths"                          ),
-   xml                             ("xml"                             ),
+   xml                             ("#xml"                            ),
    yields                          ("yields"                          );
 
 // ------------------------
@@ -232,7 +231,7 @@ inline const Child<void,Allow::many>
    channel                         ("channel"                         ),
    chemicalElement                 ("chemicalElement"                 ),
    column                          ("column"                          ),
-   comment                         ("comment"                         ),
+   comment                         ("#comment"                        ),
    configuration                   ("configuration"                   ),
    conversion                      ("conversion"                      ),
    covariance                      ("covariance"                      ),

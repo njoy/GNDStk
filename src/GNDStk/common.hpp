@@ -16,13 +16,13 @@ inline const Child<
    typename detail::numeric_type<T>::type,
    Allow::one,
    detail::convert_pcdata_text_t
-> numeric("pcdata");
+> numeric("#pcdata");
 
 // shortcuts for numeric; each gives a vector
-inline const auto ints = numeric<int>/"pcdata";
-inline const auto floats = numeric<float>/"pcdata";
-inline const auto doubles = numeric<double>/"pcdata";
-// fixme I'm not sure why the "pcdata" name doesn't come over automatically
+inline const auto ints = numeric<int>/"#pcdata";
+inline const auto floats = numeric<float>/"#pcdata";
+inline const auto doubles = numeric<double>/"#pcdata";
+// fixme I'm not sure why the "#pcdata" name doesn't come over automatically
 // from numeric; it probably relates to order-of-initialization rules (or
 // lack of rules?) for variable templates. We'll figure that out sometime.
 // For now, the shortcuts are given the name directly, so it doesn't matter.

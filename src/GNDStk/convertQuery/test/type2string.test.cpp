@@ -1,0 +1,230 @@
+
+// -----------------------------------------------------------------------------
+// convert(pair<int,double>,ostream)
+// To override GNDStk's general one:
+// template<class T>
+// void convert(const T &value, std::ostream &os)
+// -----------------------------------------------------------------------------
+
+#include <utility>
+#include <iostream>
+
+namespace njoy {
+namespace GNDStk {
+   inline void convert(
+      const std::pair<int,double> &p,
+      std::ostream &s
+   ) {
+      s << p.first << ' ' << p.second;
+   }
+}
+}
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+#include "catch.hpp"
+#include "GNDStk.hpp"
+
+using namespace njoy::GNDStk;
+
+SCENARIO("Testing GNDStk convert(type,ostream/string)") {
+
+   // ------------------------
+   // convert(*,ostream)
+   // ------------------------
+
+   WHEN("We call convert(T,ostream) for some scalars T") {
+      THEN("It works for T == int") {
+         const int i = 1;
+         std::ostringstream oss;
+         convert(i,oss);
+         CHECK(oss.str() == "1");
+      }
+
+      THEN("It works for T == float") {
+         const float f = 2.3f;
+         std::ostringstream oss;
+         convert(f,oss);
+         CHECK(oss.str() == "2.3");
+      }
+
+      THEN("It works for T == double") {
+         const double d = 4.56;
+         std::ostringstream oss;
+         convert(d,oss);
+         CHECK(oss.str() == "4.56");
+      }
+   }
+
+   WHEN("We call convert(T,ostream) for some sequence containers T") {
+      THEN("It works for T == deque") {
+         const std::deque<int> container = { 10, 20, 30 };
+         std::ostringstream oss;
+         convert(container,oss);
+         CHECK(oss.str() == "10 20 30");
+      }
+
+      THEN("It works for T == list") {
+         const std::list<int> container = { 100, 200, 300 };
+         std::ostringstream oss;
+         convert(container,oss);
+         CHECK(oss.str() == "100 200 300");
+      }
+
+      THEN("It works for T == vector") {
+         const std::vector<int> container = { 1000, 2000, 3000 };
+         std::ostringstream oss;
+         convert(container,oss);
+         CHECK(oss.str() == "1000 2000 3000");
+      }
+   }
+
+   // ------------------------
+   // convert(*,string)
+   // ------------------------
+
+   WHEN("We call convert(T,string) for pair T") {
+      THEN("It ends up calling our custom convert(pair,ostream)") {
+         const std::pair<int,double> p(12,3.45);
+         std::string str;
+         convert(p,str);
+         CHECK(str == "12 3.45");
+      }
+   }
+
+   WHEN("We call convert(T,string) for char *T") {
+      // Note: see remark in type2string.hpp about why we deal
+      // with char * at all (as opposed to just std::string)
+      THEN("It just does a string = char * assignment in this case") {
+         const char *const c = "abcdefg";
+         std::string str;
+         convert(c,str);
+         CHECK(str == "abcdefg");
+      }
+   }
+
+   WHEN("We call convert(T,string) for string T") {
+      THEN("It just does a string assignment in this case") {
+         const std::string s("abcdefg");
+         std::string str;
+         convert(s,str);
+         CHECK(str == "abcdefg");
+      }
+   }
+
+   WHEN("We call convert(T,string) for bool T") {
+      THEN("It produces \"true\" for bool true, per GNDS specs") {
+         const bool t = true;
+         std::string tstr;
+         convert(t,tstr);
+         CHECK(tstr == "true");
+      }
+
+      THEN("It produces \"false\" for bool false, per GNDS specs") {
+         const bool f = false;
+         std::string fstr;
+         convert(f,fstr);
+         CHECK(fstr == "false");
+      }
+   }
+
+   WHEN("We call convert(string,T) for some integral and floating-point Ts") {
+      THEN("It works correctly for int") {
+         const int val = -123;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "-123");
+      }
+
+      THEN("It works correctly for long") {
+         const long val = -123;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "-123");
+      }
+
+      THEN("It works correctly for long long") {
+         const long long val = -123;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "-123");
+      }
+
+      THEN("It works correctly for unsigned") {
+         const unsigned val = 456;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "456");
+      }
+
+      THEN("It works correctly for unsigned long") {
+         const unsigned long val = 456;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "456");
+      }
+
+      THEN("It works correctly for unsigned long long") {
+         const unsigned long long val = 456;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "456");
+      }
+
+      THEN("It works correctly for float") {
+         const float val = 7.89f;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "7.89");
+      }
+
+      THEN("It works correctly for double") {
+         const double val = 7.89;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "7.89");
+      }
+
+      THEN("It works correctly for long double") {
+         const long double val = 7.89L;
+         std::string str;
+         convert(val,str);
+         CHECK(str == "7.89");
+      }
+   } // WHEN
+} // SCENARIO
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+SCENARIO("Testing some GNDStk::convert(pair,ostream) functionality") {
+
+   // ------------------------
+   // pair ==> string
+   // ------------------------
+
+   WHEN("We call convert(pair,ostream)") {
+      THEN("It works correctly when GNDStk::comma == false") {
+         njoy::GNDStk::comma = false; // we don't want a comma in the output...
+         const std::pair<int,long> p(12,34);
+         std::ostringstream oss;
+         njoy::GNDStk::convert(p,oss);
+         const std::string str = oss.str();
+         CHECK(str == "12 34"); // ...so, no comma
+      }
+
+      THEN("It works correctly when GNDStk::comma == true") {
+         njoy::GNDStk::comma = true; // we do want a comma in the output...
+         const std::pair<int,long> p(56,78);
+         std::ostringstream oss;
+         njoy::GNDStk::convert(p,oss);
+         const std::string str = oss.str();
+         CHECK(str == "56,78"); // ...so, there it is
+      }
+   }
+} // SCENARIO
