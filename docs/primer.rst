@@ -262,8 +262,6 @@ or can be a direct string: ``"xml"``, etc. A direct string is shorter and
 slightly easier to type -- but, if mistyped, would lead to a run-time error,
 not a compile-time error, if that matters to you in this simple context.
 
-**HDF5 is not supported at this time!** Just XML and JSON.
-
 *You should seldom, if ever, need to provide the second argument*. Absent the
 second argument, **GNDStk determines the file type automatically**, and we doubt
 that you'll have any objections to that. If you do choose provide the second
@@ -276,9 +274,9 @@ as we attempt to read the file pursuant to the (incorrect) forced format.
 
 GNDStk uses the "file magic number," not the file name, to determine file type
 automatically. The file magic number really means the first byte, or bytes,
-of the file. XML files always begin with a ``<`` character. HDF files (not
-supported yet) begin with ASCII 137 and a few other specific bytes. If the
-first byte is neither of those values, then GNDStk assumes JSON format.
+of the file. XML files always begin with a ``<`` character. HDF5 files begin
+with ASCII 137 and a few other specific bytes. If the first byte is neither
+of those values, then GNDStk assumes JSON format.
 
 A nice thing about using the file magic number, not the file name, is that
 it works for ``std::istream``, for which a "file name" isn't even available.

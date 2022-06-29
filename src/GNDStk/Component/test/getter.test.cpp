@@ -56,7 +56,7 @@ public:
    // constructor: default
    // ------------------------
 
-   TestGetter() : Component{ BodyText{} }
+   TestGetter() : Component{ BlockData{} }
    {
       // Component::finish(); = not needed here
    }

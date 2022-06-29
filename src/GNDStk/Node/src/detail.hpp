@@ -1,13 +1,13 @@
 
 namespace detail {
 
-// node2Node: forward declaration
+// node2node: forward declaration
 // This function is called by some of Node's assignment operators. We'd instead
 // put this forward declaration into the file in which *those* are defined, but
 // that file is #included inside class Node { ... }'s definition, where writing
 // the forward declaration wouldn't make sense.
 template<class NODE>
-void node2Node(const NODE &, NODE &);
+void node2node(const NODE &, NODE &);
 
 
 
@@ -721,9 +721,9 @@ inline void warning_io_data(
 // error_format_read
 inline const std::string error_format_read =
    "FileType::text not allowed in Node.read(). "
-   "Our \"text\" file format is intended"
-   "mainly for debug writing, not for reading. "
-   "Consider xml, json, or hdf5"
+   "Our \"text\" file format is intended "
+   "for debug writing, not for reading. "
+   "Consider FileType:: xml, json, or hdf5"
 ;
 
 

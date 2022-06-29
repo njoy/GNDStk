@@ -45,7 +45,7 @@ void addStandardComponentDefinitions( PythonClass& component ) {
       return Component( node );
     },
     python::arg( "string" ),
-    "Read the component from an XML or json string\n\n"
+    "Read the component from an XML or JSON string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "component\n\n"
     "Arguments:\n"

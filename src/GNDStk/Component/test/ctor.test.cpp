@@ -33,7 +33,7 @@ class DerivedNothing : public Component<DerivedNothing>
 
 public:
 
-   DerivedNothing() : Component(BodyText{})
+   DerivedNothing() : Component(BlockData{})
    {
       Component::finish();
    }
@@ -62,7 +62,7 @@ public:
 
    DerivedSomething() :
       Component(
-         BodyText{},
+         BlockData{},
          content.foo,
          content.bar
       )

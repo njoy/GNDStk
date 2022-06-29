@@ -184,19 +184,19 @@ public:
 
    // length(value)
    auto &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    auto &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
    auto &start(const int &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(content.start = obj); return *this; }
 
    // valueType(value)
    auto &valueType(const Defaulted<std::string> &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(content.valueType = obj); return *this; }
    auto &valueType(const std::string &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(content.valueType = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -205,7 +205,7 @@ public:
    // default
    Values() :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -243,7 +243,7 @@ public:
    // from node
    Values(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -259,7 +259,7 @@ public:
       const Defaulted<std::string> &valueType
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -280,7 +280,7 @@ public:
       const std::string &valueType
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.length,
          content.start,
          content.valueType
@@ -388,7 +388,7 @@ public:
    // default
    Link() :
       Component{
-         BodyText{},
+         BlockData{},
          content.href
       }
    {
@@ -420,7 +420,7 @@ public:
    // from node
    Link(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href
       }
    {
@@ -432,7 +432,7 @@ public:
       const std::string &href
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href
       },
       content{
@@ -628,7 +628,7 @@ public:
    // default
    Grid() :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -675,7 +675,7 @@ public:
    // from node
    Grid(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -697,7 +697,7 @@ public:
       const LINK_VALUES &link_values
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -727,7 +727,7 @@ public:
       const LINK_VALUES &link_values
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -865,7 +865,7 @@ public:
    // default
    Axis() :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.label,
          content.unit
@@ -903,7 +903,7 @@ public:
    // from node
    Axis(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.label,
          content.unit
@@ -919,7 +919,7 @@ public:
       const std::optional<std::string> &unit
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.label,
          content.unit
@@ -1132,7 +1132,7 @@ public:
    // default
    Axes() :
       Component{
-         BodyText{},
+         BlockData{},
          content.href,
          content.axis_grid
       }
@@ -1167,7 +1167,7 @@ public:
    // from node
    Axes(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href,
          content.axis_grid
       }
@@ -1181,7 +1181,7 @@ public:
       const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.href,
          content.axis_grid
       },
@@ -1354,7 +1354,7 @@ public:
    // default
    XYs1d() :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -1401,7 +1401,7 @@ public:
    // from node
    XYs1d(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -1423,7 +1423,7 @@ public:
       const proto::Values &values
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -1453,7 +1453,7 @@ public:
       const proto::Values &values
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.index,
          content.interpolation,
          content.label,
@@ -1635,7 +1635,7 @@ public:
    // default
    Regions1d() :
       Component{
-         BodyText{},
+         BlockData{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -1676,7 +1676,7 @@ public:
    // from node
    Regions1d(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -1694,7 +1694,7 @@ public:
       const std::optional<proto::Axes> &axes
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.label,
          content.outerDomainValue,
          content.XYs1d,
@@ -1893,7 +1893,7 @@ public:
    // default
    CrossSection() :
       Component{
-         BodyText{},
+         BlockData{},
          content.XYs1d_regions1d
       }
    {
@@ -1925,7 +1925,7 @@ public:
    // from node
    CrossSection(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.XYs1d_regions1d
       }
    {
@@ -1937,7 +1937,7 @@ public:
       const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.XYs1d_regions1d
       },
       content{
@@ -2079,7 +2079,7 @@ public:
    // default
    Reaction() :
       Component{
-         BodyText{},
+         BlockData{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -2120,7 +2120,7 @@ public:
    // from node
    Reaction(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -2138,7 +2138,7 @@ public:
       const proto::CrossSection &crossSection
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.ENDF_MT,
          content.fissionGenre,
          content.label,
@@ -2272,7 +2272,7 @@ public:
    // default
    Reactions() :
       Component{
-         BodyText{},
+         BlockData{},
          content.reaction
       }
    {
@@ -2304,7 +2304,7 @@ public:
    // from node
    Reactions(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.reaction
       }
    {
@@ -2316,7 +2316,7 @@ public:
       const std::vector<proto::Reaction> &reaction
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.reaction
       },
       content{
@@ -2497,7 +2497,7 @@ public:
    // default
    ReactionSuite() :
       Component{
-         BodyText{},
+         BlockData{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -2547,7 +2547,7 @@ public:
    // from node
    ReactionSuite(const Node &node) :
       Component{
-         BodyText{},
+         BlockData{},
          content.evaluation,
          content.format,
          content.interaction,
@@ -2571,7 +2571,7 @@ public:
       const std::optional<proto::Reactions> &reactions
    ) :
       Component{
-         BodyText{},
+         BlockData{},
          content.evaluation,
          content.format,
          content.interaction,

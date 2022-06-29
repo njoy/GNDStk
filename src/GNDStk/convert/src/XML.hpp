@@ -44,12 +44,11 @@ inline bool convert(const Node &node, XML &x)
       if (node.name != "") {
          // A Tree should have name == "" at the root level, so we don't
          // consider this to be a Tree. Just do a straight Node conversion.
-         return detail::node2xml(node, x.doc);
+         return detail::node2xml(node,x.doc);
       }
 
       // Henceforth it's presumably a Tree, unless someone gave the name ""
       // to a regular node, which they really shouldn't have done...
-
       if (node.metadata.size() != 0) {
          log::warning(
             "Encountered Node with empty name \"\",\n"
@@ -94,7 +93,7 @@ inline bool convert(const Node &node, XML &x)
                );
                log::function(context);
             }
-            if (!detail::node2xml(*c, x.doc))
+            if (!detail::node2xml(*c,x.doc))
                return false;
             found_top = true;
          }
@@ -118,8 +117,6 @@ inline bool convert(const Node &node, XML &x)
 inline bool convert(const Tree &tree, XML &x)
 {
    try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,XML)");
       return convert(*(const Node *)&tree, x);
    } catch (...) {
       log::function("convert(Tree,XML)");
@@ -193,6 +190,27 @@ inline bool convert(const JSON &j, XML &x)
       return convert(j,t) && convert(t,x);
    } catch (...) {
       log::function("convert(JSON,XML)");
+      throw;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// HDF5 ==> XML
+// -----------------------------------------------------------------------------
+
+// As above, goes through a tree.
+inline bool convert(const HDF5 &h, XML &x)
+{
+   // temporary
+   Tree t;
+
+   // convert
+   try {
+      return convert(h,t) && convert(t,x);
+   } catch (...) {
+      log::function("convert(HDF5,XML)");
       throw;
    }
 }
