@@ -32,43 +32,30 @@ Tree &reset(
    // Begin a new tree
    clear();
 
-   // Warn if the given Child doesn't look valid for a top-level GNDS node
-   if (!kwd.top()) {
-      log::warning(
-         "Tree.reset(" + detail::keyname(kwd) + ") called, "
-         "but the Node as given by the\n"
-         "Child object is not encoded as being suitable for a top-level\n"
-         "GNDS node (bool Child.top() is false)"
-      );
-   }
-
    try {
-      // Declaration node: "xml", etc.
+      // Declaration node: "#xml", etc.
       // This can specify an eventual intended file format
       // for the GNDS hierarchy.
-      if (format == FileType::xml
-       || format == FileType::null
-       || format == FileType::text
+      if (format == FileType::xml  ||
+          format == FileType::null ||
+          format == FileType::text
       ) {
          // xml, null, tree
-         add("xml");
+         add("#xml");
          decl().add("version",  detail::sent(version ) ? version  : "1.0"  );
          decl().add("encoding", detail::sent(encoding) ? encoding : "UTF-8");
       } else if (format == FileType::json) {
          // json
-         add("json");
-         // any use for version and encoding?
+         add("#json");
       } else if (format == FileType::hdf5) {
          // hdf5
-         add("hdf5");
-         // any use for version and encoding?
+         add("#hdf5");
       } else {
          log::error(
-            "Internal error in Tree.reset(" + detail::keyname(kwd)
-          + ",format,...):\n"
-            "Unrecognized file format; apparently, we missed something. "
-            "Please report this to us"
-         );
+            "Internal error in Tree.reset(" + detail::keyname(kwd) +
+            ", format, ...):\n"
+            "Unrecognized file format; apparently, we missed something.\n"
+            "Please report this to us.");
          throw std::exception{};
       }
 

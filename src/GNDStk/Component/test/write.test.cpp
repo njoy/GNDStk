@@ -44,42 +44,42 @@ SCENARIO("Component write()") {
 inline const std::string &CorrectWriteText()
 {
    static const std::string ret =
-R"***(proto::ReactionSuite { // GNDS: reactionSuite
+R"***(proto::ReactionSuite {
   evaluation      : ENDF/B-8.0
   format          : 1.9
   interaction     : // optional; has no value
   projectile      : n
   projectileFrame : lab
   target          : H2
-  proto::Reactions { // GNDS: reactions
+  proto::Reactions {
     reaction [
-      proto::Reaction { // GNDS: reaction
+      proto::Reaction {
         ENDF_MT      : 16
         fissionGenre : // optional; has no value
         label        : 2n + H1
-        proto::CrossSection { // GNDS: crossSection
+        proto::CrossSection {
           XYs1d regions1d [
-            proto::XYs1d { // GNDS: XYs1d
+            proto::XYs1d {
               index            : // optional; has no value
               interpolation    : // defaulted; is its default (lin-lin)
               label            : eval
               outerDomainValue : // optional; has no value
-              proto::Axes { // GNDS: axes
+              proto::Axes {
                 href      : // optional; has no value
                 axis grid [
-                  proto::Axis { // GNDS: axis
+                  proto::Axis {
                     index : 0
                     label : crossSection
                     unit  : b
                   } // proto::Axis
-                  proto::Axis { // GNDS: axis
+                  proto::Axis {
                     index : 1
                     label : energy_in
                     unit  : eV
                   } // proto::Axis
                 ]
               } // proto::Axes
-              proto::Values { // GNDS: values
+              proto::Values {
                 length    : // optional; has no value
                 start     : // defaulted; is its default (0)
                 valueType : // defaulted; is its default (double)
@@ -150,23 +150,23 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
           ]
         } // proto::CrossSection
       } // proto::Reaction
-      proto::Reaction { // GNDS: reaction
+      proto::Reaction {
         ENDF_MT      : 102
         fissionGenre : // optional; has no value
         label        : H3 + photon
-        proto::CrossSection { // GNDS: crossSection
+        proto::CrossSection {
           XYs1d regions1d [
-            proto::Regions1d { // GNDS: regions1d
+            proto::Regions1d {
               label            : eval
               outerDomainValue : // optional; has no value
               XYs1d [
-                proto::XYs1d { // GNDS: XYs1d
+                proto::XYs1d {
                   index            : 0
                   interpolation    : log-log
                   label            : // optional; has no value
                   outerDomainValue : // optional; has no value
                   axes             : // optional; has no value
-                  proto::Values { // GNDS: values
+                  proto::Values {
                     length    : // optional; has no value
                     start     : // defaulted; is its default (0)
                     valueType : // defaulted; is its default (double)
@@ -177,13 +177,13 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
                     5.00000000e+03 1.19000000e-06 1.00000000e+04 1.00000000e-06
                   } // proto::Values
                 } // proto::XYs1d
-                proto::XYs1d { // GNDS: XYs1d
+                proto::XYs1d {
                   index            : 1
                   interpolation    : // defaulted; is its default (lin-lin)
                   label            : // optional; has no value
                   outerDomainValue : // optional; has no value
                   axes             : // optional; has no value
-                  proto::Values { // GNDS: values
+                  proto::Values {
                     length    : // optional; has no value
                     start     : // defaulted; is its default (0)
                     valueType : // defaulted; is its default (double)
@@ -261,15 +261,15 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
                   } // proto::Values
                 } // proto::XYs1d
               ]
-              proto::Axes { // GNDS: axes
+              proto::Axes {
                 href      : // optional; has no value
                 axis grid [
-                  proto::Axis { // GNDS: axis
+                  proto::Axis {
                     index : 0
                     label : crossSection
                     unit  : b
                   } // proto::Axis
-                  proto::Axis { // GNDS: axis
+                  proto::Axis {
                     index : 1
                     label : energy_in
                     unit  : eV
@@ -280,33 +280,33 @@ R"***(proto::ReactionSuite { // GNDS: reactionSuite
           ]
         } // proto::CrossSection
       } // proto::Reaction
-      proto::Reaction { // GNDS: reaction
+      proto::Reaction {
         ENDF_MT      : 2
         fissionGenre : // optional; has no value
         label        : n + H2
-        proto::CrossSection { // GNDS: crossSection
+        proto::CrossSection {
           XYs1d regions1d [
-            proto::XYs1d { // GNDS: XYs1d
+            proto::XYs1d {
               index            : // optional; has no value
               interpolation    : // defaulted; is its default (lin-lin)
               label            : eval
               outerDomainValue : // optional; has no value
-              proto::Axes { // GNDS: axes
+              proto::Axes {
                 href      : // optional; has no value
                 axis grid [
-                  proto::Axis { // GNDS: axis
+                  proto::Axis {
                     index : 0
                     label : crossSection
                     unit  : b
                   } // proto::Axis
-                  proto::Axis { // GNDS: axis
+                  proto::Axis {
                     index : 1
                     label : energy_in
                     unit  : eV
                   } // proto::Axis
                 ]
               } // proto::Axes
-              proto::Values { // GNDS: values
+              proto::Values {
                 length    : // optional; has no value
                 start     : // defaulted; is its default (0)
                 valueType : // defaulted; is its default (double)

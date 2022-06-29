@@ -19,7 +19,7 @@ public:
    static inline const std::vector<std::string> value = {""};
    static bool find(const std::string &str)
    {
-      return std::find(value.begin(),value.end(),str) != value.end();
+      return std::find(value.begin(), value.end(), str) != value.end();
    }
 };
 
@@ -34,7 +34,7 @@ public:
       static inline const std::vector<std::string> value = vec; \
       static bool find(const std::string &str) \
       { \
-         return std::find(value.begin(),value.end(),str) != value.end(); \
+         return std::find(value.begin(), value.end(), str) != value.end(); \
       } \
    }
 
