@@ -27,7 +27,7 @@ public:
                return;
             }
          log::error(
-           "Unable to find metadatum key \"text\" in the current Node (\"{}\")",
+           "Could not find metadatum key \"text\" in the current Node (\"{}\")",
             node.name
          );
          throw std::exception{};

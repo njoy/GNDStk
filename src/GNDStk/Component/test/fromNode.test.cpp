@@ -19,9 +19,9 @@ Component does the following:
    - Calls Component's fromNode() function to read known fields from the
      Node into the derived class object.
 
-   - If the Node has "body text," syncs certain fields in the BodyText (base
+   - If the Node has block data, syncs certain fields in the BlockData (base
      of Component) class, with fields in the derived class. Then, converts a
-     raw body-text string into a vector of values.
+     raw block data string into a vector of values.
 
    - Performs a sort() of derived-class vectors that are known to Component,
      and that have an index and/or a label.
@@ -35,7 +35,7 @@ The tests in this file make use of a particular GNDS file with a reactionSuite.
 We use a prototype ReactionSuite class (with content that's pared down from
 what's in the full GNDS spec) that's derived from Component.
 
-The reaction suite itself doesn't (directly) have any body text or sort-able
+The reaction suite itself doesn't (directly) have any block data or sort-able
 fields, and doesn't have a construct().
 
 So, our first test (1) constructs from a Node, (2) uses fromNode() to read from
@@ -53,8 +53,8 @@ give different results: the former sorts, the latter doesn't. After the results
 from (2) are sorted, however, the two Reactions objects are the same.
 
 Finally, our third test works with Values objects. Objects of this type have
-body text. Construction from Node does a get(), which takes the original, raw
-body text in the Node, and makes a vector (in this case vector<double>) from
+block data. Construction from Node does a get(), which takes the original, raw
+block data in the Node, and makes a vector (in this case vector<double>) from
 it. fromNode() doesn't do that until, and unless, we ask for it by calling get()
 directly. Values objects with only raw text write differently than those with
 text that was processed into a vector. So, this test first ensures that the two
@@ -162,7 +162,7 @@ SCENARIO("Component fromNode()") {
             oss2 << values2;
             CHECK(oss1.str() != oss2.str()); // not equal (yet)
 
-            // *** Apply get() *** to transform the raw string of body-text
+            // *** Apply get() *** to transform the raw string of block data
             // values into a vector
             values2.get();
             oss2.str("");

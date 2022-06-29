@@ -20,15 +20,17 @@ struct Index {
       std::string value;
    } content;
 
-   std::size_t index() const { return content.index; };
-   std::string value() const { return content.value; };
+   const int &index() const { return content.index; };
+   int &index() { return content.index; };
+   const std::string &value() const { return content.value; };
+   std::string &value() { return content.value; };
 
    Index(
       const int index = 0,
       const std::string &value = ""
    ) {
-      content.value = value;
-      content.index = index;
+      this->index() = index;
+      this->value() = value;
    }
 };
 
@@ -41,15 +43,17 @@ struct Label {
       std::string value;
    } content;
 
-   std::string label() const { return content.label; };
-   std::string value() const { return content.value; };
+   const std::string &label() const { return content.label; };
+   std::string &label() { return content.label; };
+   const std::string &value() const { return content.value; };
+   std::string &value() { return content.value; };
 
    Label(
       const std::string &label = "",
       const std::string &value = ""
    ) {
-      content.value = value;
-      content.label = label;
+      this->label() = label;
+      this->value() = value;
    }
 };
 
@@ -63,17 +67,20 @@ struct IndexLabel {
       std::string value;
    } content;
 
-   std::size_t index() const { return content.index; };
-   std::string label() const { return content.label; };
-   std::string value() const { return content.value; };
+   const int &index() const { return content.index; };
+   int &index() { return content.index; };
+   const std::string &label() const { return content.label; };
+   std::string &label() { return content.label; };
+   const std::string &value() const { return content.value; };
+   std::string &value() { return content.value; };
 
    IndexLabel(
       const int index = 0,
       const std::string &label = "",
       const std::string &value = ""
    ) {
-      content.value = value;
-      content.index = index;
-      content.label = label;
+      this->index() = index;
+      this->label() = label;
+      this->value() = value;
    }
 };

@@ -25,7 +25,7 @@ public:
    static auto className() { return "DerivedT"; }
    static auto GNDSName() { return "none"; }
    static auto keys() { return std::tuple<>{}; }
-   DerivedT() : Component(BodyText{}) { }
+   DerivedT() : Component(BlockData{}) { }
 };
 
 
@@ -42,7 +42,7 @@ public:
    static auto className() { return "DerivedF"; }
    static auto GNDSName() { return "none"; }
    static auto keys() { return std::tuple<>{}; }
-   DerivedF() : Component(BodyText{}) { }
+   DerivedF() : Component(BlockData{}) { }
 };
 
 
@@ -71,20 +71,25 @@ public:
       double bar;
    } content;
 
+   const int &foo() const { return content.foo; }
+   int &foo() { return content.foo; }
+   const double &bar() const { return content.bar; }
+   double &bar() { return content.bar; }
+
    DerivedData() :
       Component(
-         BodyText{},
-         content.foo,
-         content.bar
+         BlockData{},
+         foo(),
+         bar()
       )
    {
    }
 
    DerivedData(const Node &node) :
       Component(
-         BodyText{},
-         content.foo,
-         content.bar
+         BlockData{},
+         foo(),
+         bar()
       )
    {
       Component::finish(node);
@@ -164,7 +169,7 @@ SCENARIO("Testing GNDStk Component") {
          color = false; // avoid cluttering the checked output below
 
          const std::string expected =
-            "DerivedData { // GNDS: data\n"
+            "DerivedData {\n"
             "   foo : 12\n"
             "   bar : 34.56\n"
             "} // DerivedData"

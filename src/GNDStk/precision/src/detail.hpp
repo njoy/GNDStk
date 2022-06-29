@@ -8,7 +8,7 @@ namespace detail {
 // PrecisionContext
 enum class PrecisionContext {
    metadata, // for GNDStk metadata values
-   data,     // for "body text", a.k.a. XML "plain character data"
+   data,     // for block data, a.k.a. XML "plain character data"
    general   // for both of the above together
 };
 
