@@ -57,7 +57,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    #include "GNDStk/Component/src/finish.hpp"
 
    // Helpers for derived-class getters/setters.
-   // These shorten the code in the derived classes.
+   // These allow us to shorten some other code.
    #include "GNDStk/Component/src/getter.hpp"
    #include "GNDStk/Component/src/setter.hpp"
 

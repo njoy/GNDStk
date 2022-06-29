@@ -359,7 +359,7 @@ bool printComponentPart(
 // -----------------------------------------------------------------------------
 // getter()
 // Various cases.
-// Intended for use in our auto-generated Standard Interface classes.
+// Intended for use in our Standard Interface classes.
 // -----------------------------------------------------------------------------
 
 #include "GNDStk/Component/src/detail-sfinae.hpp"
