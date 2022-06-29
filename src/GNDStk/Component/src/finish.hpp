@@ -88,9 +88,9 @@ bool construct(const std::vector<T> &) { return true; }
 
 void finish()
 {
-   // If hasBodyText == true (else no-op), have Component's BodyText base
+   // If hasBlockData == true (else no-op), have Component's BlockData base
    // get length, start, and valueType, as available, from the derived class
-   if constexpr (hasBodyText)
+   if constexpr (hasBlockData)
       body::pullFromDerived(derived());
 
    // Based on the derived class' keys(), locate and sort derived-class fields
@@ -109,7 +109,7 @@ void finish()
 void finish(const DERIVED &other)
 {
    // length, start, valueType
-   if constexpr (hasBodyText)
+   if constexpr (hasBlockData)
       body::pullFromDerived(derived());
 
    // derived-class vector fields
@@ -132,11 +132,11 @@ void finish(const DERIVED &other)
 void finish(const Node &node)
 {
    // Read fields from the Node into the derived object. This applies the keys()
-   // multi-query in the derived class, and also runs BodyText::fromNode() if
+   // multi-query in the derived class, and also runs BlockData::fromNode() if
    // the Node has body text, in order to get the Node's string of "body text".
    fromNode(node);
 
-   if constexpr (hasBodyText) {
+   if constexpr (hasBlockData) {
       // length, start, valueType
       body::pullFromDerived(derived());
       // make vector

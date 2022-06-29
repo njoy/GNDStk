@@ -133,7 +133,7 @@ SCENARIO("Testing GNDStk XML") {
       }
    }
 
-   // from file name
+   // from file
    // Note: Things like this are of course tested indirectly
    // all over the place.
    WHEN("We construct an XML from a file") {

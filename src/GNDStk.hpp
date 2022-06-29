@@ -8,6 +8,8 @@
 
 #include "pugixml.hpp"
 #include "nlohmann/json.hpp"
+#include <highfive/H5File.hpp>
+#include <highfive/H5Easy.hpp>
 #include "Log.hpp"
 
 
@@ -63,6 +65,7 @@ namespace GNDStk {
 // external-library wrappers
 #include "GNDStk/XML.hpp"
 #include "GNDStk/JSON.hpp"
+#include "GNDStk/HDF5.hpp"
 
 // string/Node to/from type
 #include "GNDStk/string2type.hpp"
@@ -72,7 +75,6 @@ namespace GNDStk {
 #include "GNDStk/convert_t.hpp"
 #include "GNDStk/Meta.hpp"
 #include "GNDStk/Child.hpp"
-#include "GNDStk/keyword.hpp"
 #include "GNDStk/or.hpp"
 
 // optional, with default
@@ -96,7 +98,7 @@ namespace GNDStk {
 #include "GNDStk/node2type.hpp"
 #include "GNDStk/type2node.hpp"
 
-// xml/json/tree conversions
+// Tree/XML/JSON/HDF5 conversions
 #include "GNDStk/convert.hpp"
 
 // fixme See above fixme
@@ -107,7 +109,7 @@ namespace misc  { using namespace common; }
 #include "GNDStk/Support.hpp"
 
 // Base classes for primary Standard Interface data classes
-#include "GNDStk/BodyText.hpp"
+#include "GNDStk/BlockData.hpp"
 #include "GNDStk/Component.hpp"
 
 

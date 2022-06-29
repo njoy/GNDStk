@@ -7,7 +7,6 @@
 class XML {
 public:
 
-   // external XML-library document
    pugi::xml_document doc;
 
    // clear

@@ -56,15 +56,13 @@ const std::string &documentation(bool &found = detail::default_bool) const
       return found = true, *s;
 
    // top-level?
-   // I.e., assume we're perhaps in the root tree node, a.k.a. "over the top"
-   // node, look for any of our allowable top-level nodes, e.g. reactionSuite,
-   // and, if found, perform the above lookup (in the lambda) in that node.
-   for (auto &top : detail::AllowedTop) {
-      bool found_top = false; // found this particular top-level node?
-      const Node &n = one(top,found_top);
-      if (found_top && look(n,s))
-         return found = true, *s;
-   }
+   // If we're in what looks like the root node of a tree (named "" - the empty
+   // string), then look in all of the top-level nodes. In a properly formatted
+   // GNDS file, there will be just one such node, e.g. reactionSuite.
+   if (name == "")
+      for (auto &ptr : children)
+         if (look(*ptr,s))
+            return found = true, *s;
 
    // not found
    // Static, for reference return. Set to "" each time, just in case someone
