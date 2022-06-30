@@ -21,41 +21,36 @@ void fromNode(const Node &node)
 {
    try {
       // does the node have the name we expect?
-      if (node.name != DERIVED::GNDSName()) {
+      if (node.name != DERIVED::FIELD()) {
          log::error(
            "Name \"{}\" in Node sent to Component::fromNode() is not the "
            "expected GNDS name \"{}\"",
-            node.name, DERIVED::GNDSName()
+            node.name, DERIVED::FIELD()
          );
          throw std::exception{};
       }
 
-      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
-         // consistency check; then nothing further to do
-         assert(0 == links.size());
-      } else {
-         // retrieve the node's data by doing a multi-query
-         const auto tup = node(toKeywordTup(DERIVED::keys()));
+      // retrieve the node's data by doing a multi-query
+      const auto tuple = node(Keys());
 
-         // consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+      // consistency check
+      assert(std::tuple_size<decltype(tuple)>::value == links.size());
 
-         // apply links:
-         // Node ==> derived-class data
-         // Below, each apply'd "result" is one particular element - one
-         // retrieved value - from the above multi-query on the node.
-         std::apply(
-            [this](const auto &... result) {
-               std::size_t n = 0;
-               ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
-            },
-            tup
-         );
-      }
+      // apply links:
+      // Node ==> derived-class data
+      // Below, each apply'd "result" is one particular element - one
+      // retrieved value - from the above multi-query on the node.
+      std::apply(
+         [this](const auto &... result) {
+            std::size_t n = 0;
+            ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
+         },
+         tuple
+      );
 
-      // body text, a.k.a. XML "pcdata" (plain character data), if any
-      if constexpr (hasBodyText)
-         body::fromNode(node);
+      // block data, a.k.a. XML "pcdata" (plain character data), if any
+      if constexpr (hasBlockData)
+         BLOCKDATA::fromNode(node);
 
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);

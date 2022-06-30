@@ -5,7 +5,9 @@ bool has_decl() const
    // Does the tree have something that looks like a declaration node?
    int count = 0;
    for (auto &c : this->children)
-      if (c->name == "xml" || c->name == "json" || c->name == "hdf5")
+      if (c->name == special::xml ||
+          c->name == special::json ||
+          c->name == special::hdf5)
          count++;
 
    // Ill-formed if there's more than one such node

@@ -55,6 +55,12 @@ inline void convert(std::istream &is, T &value)
    }
 }
 
+// string
+inline void convert(std::istream &is, std::string &value)
+{
+   is >> value;
+}
+
 // pair
 template<class X, class Y>
 inline void convert(std::istream &is, std::pair<X,Y> &p)

@@ -54,7 +54,8 @@ void wrapAxes(python::module &module)
       )
       .def_property_readonly(
          "axis_grid",
-         python::overload_cast<>(&Component::axis_grid),
+         (const std::vector<axis_grid_t> &(Component::*)() const)
+            &Component::axis_grid,
          Component::documentation("axis_grid").data()
       )
    ;

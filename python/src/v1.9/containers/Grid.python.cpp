@@ -25,8 +25,8 @@ void wrapGrid(python::module &module)
    // type aliases
    using Component = containers::Grid;
    using link_values_t = std::variant<
-      containers::Link,
-      containers::Values
+      containers::Values,
+      containers::Link
    >;
 
    // create the component
@@ -81,14 +81,14 @@ void wrapGrid(python::module &module)
          Component::documentation("unit").data()
       )
       .def_property_readonly(
-         "link",
-         python::overload_cast<>(&Component::link),
-         Component::documentation("link").data()
-      )
-      .def_property_readonly(
          "values",
          python::overload_cast<>(&Component::values),
          Component::documentation("values").data()
+      )
+      .def_property_readonly(
+         "link",
+         python::overload_cast<>(&Component::link),
+         Component::documentation("link").data()
       )
       .def_property_readonly(
          "link_values",
