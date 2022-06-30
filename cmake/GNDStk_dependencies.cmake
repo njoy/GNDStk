@@ -18,7 +18,7 @@ FetchContent_Declare(catch-adapter
 
 FetchContent_Declare(Log
     GIT_REPOSITORY   http://github.com/njoy/Log
-    GIT_TAG          origin/build/fetchcontent
+    GIT_TAG          origin/master
     GIT_SHALLOW      TRUE
     )
 
