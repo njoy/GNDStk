@@ -1,8 +1,9 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-
 using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
 using namespace misc;
 
 
@@ -36,9 +37,9 @@ inline void convert(const NODE &node, xml_t &out)
 
 // keyword: my_xml_keyword
 // Users can write custom Child objects like this, and then use them in
-// child() functions. Here, "xml" is what the keyword uses to look up nodes
+// child() functions. Here, "#xml" is what the keyword uses to look up nodes
 // that can be converted to xml_t objects via the above convert().
-inline const Child<xml_t> my_xml_keyword("xml");
+inline const Child<xml_t> my_xml_keyword("#xml");
 
 
 

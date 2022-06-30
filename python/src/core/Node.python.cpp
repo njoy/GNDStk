@@ -13,7 +13,7 @@ namespace core {
   void wrapNode( python::module& module ) {
 
     // type aliases
-    using Component = njoy::GNDStk::core::Node;
+    using Component = njoy::GNDStk::Node;
     using ConstRefComponent = std::reference_wrapper< const Component >;
 
     // create the core component
