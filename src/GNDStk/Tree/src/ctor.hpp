@@ -4,13 +4,15 @@
 // -----------------------------------------------------------------------------
 
 // default
-Tree() = default;
+Tree() : Node(slashTreeName)
+{
+}
 
 // move
 Tree(Tree &&) = default;
 
 // copy
-Tree(const Tree &other) : Node{}
+Tree(const Tree &other) : Node(slashTreeName)
 {
    try {
       if (!convert(other,*this))
@@ -24,11 +26,11 @@ Tree(const Tree &other) : Node{}
 
 
 // -----------------------------------------------------------------------------
-// From XML and JSON objects
+// From XML, JSON, and HDF5 objects
 // -----------------------------------------------------------------------------
 
 // XML
-explicit Tree(const XML &x)
+explicit Tree(const XML &x) : Node(slashTreeName)
 {
    try {
       if (!convert(x,*this))
@@ -40,13 +42,25 @@ explicit Tree(const XML &x)
 }
 
 // JSON
-explicit Tree(const JSON &j)
+explicit Tree(const JSON &j) : Node(slashTreeName)
 {
    try {
       if (!convert(j,*this))
          throw std::exception{};
    } catch (...) {
       log::ctor("Tree(JSON)");
+      throw;
+   }
+}
+
+// HDF5
+explicit Tree(const HDF5 &h) : Node(slashTreeName)
+{
+   try {
+      if (!convert(h,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(HDF5)");
       throw;
    }
 }
@@ -58,32 +72,36 @@ explicit Tree(const JSON &j)
 // Compare with our Tree read() functions
 // -----------------------------------------------------------------------------
 
-// file name, FileType
+// file, FileType
 // Example:
 //    Tree t("n-008_O_016.xml", FileType::xml);
 explicit Tree(
    const std::string &filename,
-   const FileType format = FileType::null
-) {
-   try {
-      if (!read(filename,format))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("Tree(\"{}\")", filename);
-      throw;
-   }
-}
-
-// file name, string
-// Example:
-//    Tree t("n-008_O_016.xml", "xml");
-Tree(const std::string &filename, const std::string &format)
+   const FileType format = FileType::guess
+)
+ : Node(slashTreeName)
 {
    try {
       if (!read(filename,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(\"{}\",type=\"{}\")", filename, format);
+      log::ctor("Tree(\"{}\",format=\"{}\")",
+                filename, detail::printFormat(format));
+      throw;
+   }
+}
+
+// file, string
+// Example:
+//    Tree t("n-008_O_016.xml", "xml");
+Tree(const std::string &filename, const std::string &format)
+ : Node(slashTreeName)
+{
+   try {
+      if (!read(filename,format))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(\"{}\",format=\"{}\")", filename, format);
       throw;
    }
 }
@@ -92,13 +110,14 @@ Tree(const std::string &filename, const std::string &format)
 // Example:
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, FileType::xml);
-explicit Tree(std::istream &is, const FileType format = FileType::null)
+explicit Tree(std::istream &is, const FileType format = FileType::guess)
+ : Node(slashTreeName)
 {
    try {
       if (!read(is,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(istream,string)");
+      log::ctor("Tree(istream,format=\"{}\")", detail::printFormat(format));
       throw;
    }
 }
@@ -108,12 +127,13 @@ explicit Tree(std::istream &is, const FileType format = FileType::null)
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, "xml");
 Tree(std::istream &is, const std::string &format)
+ : Node(slashTreeName)
 {
    try {
       if (!read(is,format))
          throw std::exception{};
    } catch (...) {
-      log::ctor("Tree(istream,format)", format);
+      log::ctor("Tree(istream,format=\"{}\")", format);
       throw;
    }
 }
@@ -132,7 +152,7 @@ Tree(std::istream &is, const std::string &format)
 // or
 //    Tree newtree(reactionSuite, "xml", "1.0", "UTF-8");
 //
-// Note that the first argument is NOT quoted (""). It isn't the name of the
+// Note that the first argument is NOT in quotes. It isn't the name of the
 // top-level node that we want; rather, it's one of our Child "query objects."
 // These encode lots of information in them, including the quoted name that
 // we'd otherwise have expected above, and, importantly, a boolean value that
@@ -152,7 +172,9 @@ Tree(
    // the names "version" and "encoding" make sense for XML at least...
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
-) {
+)
+ : Node(slashTreeName)
+{
    try {
       reset(kwd, format, version, encoding);
    } catch (...) {
@@ -168,7 +190,9 @@ Tree(
    const std::string &format,
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
-) {
+)
+ : Node(slashTreeName)
+{
    try {
       reset(kwd, format, version, encoding);
    } catch (...) {

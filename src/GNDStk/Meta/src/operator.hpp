@@ -148,7 +148,7 @@ inline auto operator--(
    const Meta<TYPE,CONVERTER> &kwd,
    const int
 ) {
-   return Meta<TYPE,typename detail::default_converter<TYPE>::type>(
+   return Meta<TYPE,detail::default_converter_t<TYPE>>(
       kwd.name,
       kwd.object
    );

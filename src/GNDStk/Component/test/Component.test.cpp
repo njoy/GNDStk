@@ -4,7 +4,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 
 
@@ -21,11 +21,11 @@ public:
       { "", "class DerivedT" },
       { "foo", "Help for foo" }
    };
-   static auto namespaceName() { return "hello"; }
-   static auto className() { return "DerivedT"; }
-   static auto GNDSName() { return "none"; }
-   static auto keys() { return std::tuple<>{}; }
-   DerivedT() : Component(BodyText{}) { }
+   static auto NAMESPACE() { return "hello"; }
+   static auto CLASS() { return "DerivedT"; }
+   static auto FIELD() { return "none"; }
+   static auto KEYS() { return std::tuple<>{}; }
+   DerivedT() : Component(BlockData{}) { }
 };
 
 
@@ -38,27 +38,27 @@ public:
       { "", "class DerivedF" },
       { "bar", "Help for bar" }
    };
-   static auto namespaceName() { return "world"; }
-   static auto className() { return "DerivedF"; }
-   static auto GNDSName() { return "none"; }
-   static auto keys() { return std::tuple<>{}; }
-   DerivedF() : Component(BodyText{}) { }
+   static auto NAMESPACE() { return "world"; }
+   static auto CLASS() { return "DerivedF"; }
+   static auto FIELD() { return "none"; }
+   static auto KEYS() { return std::tuple<>{}; }
+   DerivedF() : Component(BlockData{}) { }
 };
 
 
 // DerivedData
 // A Component-derived class with some data in it.
-// Note that this class doesn't have help or namespaceName(); so we'll also use
+// Note that this class doesn't have help or NAMESPACE(); so we'll also use
 // this class to test that Component's functionality that uses those still works
 // properly, as it should in that case.
 class DerivedData : public Component<DerivedData>
 {
 public:
    friend class Component<DerivedData>;
-   static auto className() { return "DerivedData"; }
-   static auto GNDSName() { return "data"; }
+   static auto CLASS() { return "DerivedData"; }
+   static auto FIELD() { return "data"; }
 
-   static auto keys()
+   static auto KEYS()
    {
       return
          int   {} / Meta<>("foo") |
@@ -69,22 +69,27 @@ public:
    struct {
       int foo;
       double bar;
-   } content;
+   } Content;
+
+   const int &foo() const { return Content.foo; }
+   int &foo() { return Content.foo; }
+   const double &bar() const { return Content.bar; }
+   double &bar() { return Content.bar; }
 
    DerivedData() :
       Component(
-         BodyText{},
-         content.foo,
-         content.bar
+         BlockData{},
+         foo(),
+         bar()
       )
    {
    }
 
    DerivedData(const Node &node) :
       Component(
-         BodyText{},
-         content.foo,
-         content.bar
+         BlockData{},
+         foo(),
+         bar()
       )
    {
       Component::finish(node);
@@ -140,17 +145,17 @@ SCENARIO("Testing GNDStk Component") {
          CHECK(der.documentation("bar") == "No help information is available");
       }
 
-      // namespaceName()
-      WHEN("We test namespaceName()") {
+      // NAMESPACE()
+      WHEN("We test NAMESPACE()") {
          // For these two we need the std::string() only because the functions
          // were written (above, in the class definitions) with an auto return
-         // of a plain character string. Where Component needs namespaceName(),
+         // of a plain character string. Where Component needs NAMESPACE(),
          // it converts to std::string, so it's fine to write it that way. Here,
          // though, in this test file, it means we need the std::string().
-         CHECK(der1.namespaceName() == std::string("hello"));
-         CHECK(der2.namespaceName() == std::string("world"));
+         CHECK(der1.NAMESPACE() == std::string("hello"));
+         CHECK(der2.NAMESPACE() == std::string("world"));
          DerivedData der;
-         CHECK(der.namespaceName() == "");
+         CHECK(der.NAMESPACE() == "");
       }
 
       // Component << string
@@ -158,13 +163,13 @@ SCENARIO("Testing GNDStk Component") {
       //
       // Don't confuse the above two. Component << string reads from an XML
       // or JSON snippet into an object of the class that's derived from
-      // Component. ostream << Component writes (to the ostream) the object.
+      // Component. ostream << Component prints the object to the ostream.
       WHEN("We test (Component << string) and (ostream << Component)") {
          DerivedData der;
          color = false; // avoid cluttering the checked output below
 
          const std::string expected =
-            "DerivedData { // GNDS: data\n"
+            "DerivedData {\n"
             "   foo : 12\n"
             "   bar : 34.56\n"
             "} // DerivedData"
@@ -174,7 +179,7 @@ SCENARIO("Testing GNDStk Component") {
          WHEN("We read a Component-derived object << XML text") {
             der << "<data foo=\"12\" bar=\"34.56\"></data>";
 
-            // write & check
+            // print, check
             THEN("The result is as expected") {
                std::ostringstream oss;
                oss << der;
@@ -187,14 +192,14 @@ SCENARIO("Testing GNDStk Component") {
             der <<
                "{"
                "   \"data\": {"
-               "      \"attributes\": {"
+               "      \"#metadata\": {"
                "         \"foo\": \"12\","
                "         \"bar\": \"34.56\""
                "      }"
                "   }"
                "}";
 
-            // write & check
+            // print, check
             THEN("The result is as expected") {
                std::ostringstream oss;
                oss << der;

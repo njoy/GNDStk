@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 
 SCENARIO("Testing GNDStk Tree top()") {
    using namespace njoy::GNDStk;
@@ -40,9 +41,9 @@ SCENARIO("Testing GNDStk Tree top()") {
          }
       }
 
-      WHEN("We call reset(covarianceSuite, FileType::null, \"2.0\")") {
+      WHEN("We call reset(covarianceSuite, FileType::guess, \"2.0\")") {
          Tree t;
-         t.reset(covarianceSuite, FileType::null, "2.0");
+         t.reset(covarianceSuite, FileType::guess, "2.0");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "covarianceSuite");
             CHECK(t.top().metadata.size() == 0);
@@ -50,7 +51,8 @@ SCENARIO("Testing GNDStk Tree top()") {
          }
       }
 
-      WHEN("We call reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("We call reset(covarianceSuite, FileType::xml, "
+           "\"3.0\", \"UTF-9\")") {
          Tree t;
          t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          THEN("We can make various top() (top-level node) queries") {
@@ -70,9 +72,9 @@ SCENARIO("Testing GNDStk Tree top()") {
          }
       }
 
-      WHEN("We call reset(PoPs, \"tree\", \"4.0\")") {
+      WHEN("We call reset(PoPs, \"debug\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "text", "4.0");
+         t.reset(PoPs, "debug", "4.0");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "PoPs");
             CHECK(t.top().metadata.size() == 0);

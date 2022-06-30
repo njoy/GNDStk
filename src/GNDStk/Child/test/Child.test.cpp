@@ -24,28 +24,24 @@ SCENARIO("Testing GNDStk Child<TYPE,ALLOW,CONVERTER>") {
          const Child<double>
             foo("foo");
          CHECK(foo.name == "foo");
-         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,converter)") {
          const Child<double,Allow::one,converter>
             foo("foo", 0.0, converter{});
          CHECK(foo.name == "foo");
-         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,converter,filter)") {
          const Child<double,Allow::one,converter>
             foo("foo", 0.0, converter{}, filter);
          CHECK(foo.name == "foo");
-         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,converter,filter,top)") {
          const Child<double,Allow::one,converter>
-            foo("foo", 0.0, converter{}, filter, true);
+            foo("foo", 0.0, converter{}, filter);
          CHECK(foo.name == "foo");
-         CHECK(foo.top());
       }
    }
 
@@ -55,21 +51,18 @@ SCENARIO("Testing GNDStk Child<TYPE,ALLOW,CONVERTER>") {
          const Child<void>
             foo("foo");
          CHECK(foo.name == "foo");
-         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,filter)") {
          const Child<void>
             foo("foo", filter);
          CHECK(foo.name == "foo");
-         CHECK(!foo.top());
       }
 
       WHEN("Constructed with (name,filter,top)") {
          const Child<void>
-            foo("foo", filter, true);
+            foo("foo", filter);
          CHECK(foo.name == "foo");
-         CHECK(foo.top());
       }
    }
 }

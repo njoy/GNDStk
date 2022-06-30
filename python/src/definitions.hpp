@@ -37,7 +37,7 @@ void addStandardComponentDefinitions( PythonClass& component ) {
     "from_string",
     [] ( const std::string& string ) -> Component {
 
-      using namespace njoy::GNDStk::core;
+      using namespace njoy::GNDStk;
 
       Node node;
       node << string;
@@ -45,7 +45,7 @@ void addStandardComponentDefinitions( PythonClass& component ) {
       return Component( node );
     },
     python::arg( "string" ),
-    "Read the component from an XML or json string\n\n"
+    "Read the component from an XML or JSON string\n\n"
     "An exception is raised if something goes wrong while reading the\n"
     "component\n\n"
     "Arguments:\n"
@@ -56,7 +56,7 @@ void addStandardComponentDefinitions( PythonClass& component ) {
     "to_xml_string",
     [] ( const Component& self ) -> std::string {
 
-      using namespace njoy::GNDStk::core;
+      using namespace njoy::GNDStk;
 
       std::ostringstream out;
       XML( Node( self ) ).write( out, false );
@@ -72,7 +72,7 @@ void addStandardComponentDefinitions( PythonClass& component ) {
     "to_xml_file",
     [] ( const Component& self, const std::string& fileName ) {
 
-      using namespace njoy::GNDStk::core;
+      using namespace njoy::GNDStk;
 
       XML( Node( self ) ).write( fileName );
     },

@@ -133,8 +133,7 @@ std::string chunk() {
 R"***(<axes>
    <axis index="0" label="radius" unit="fm" />
    <axis index="1" label="energy_in" unit="eV" />
-</axes>
-)***";
+</axes>)***";
 }
 
 void verifyChunk( const Axes& component ) {
@@ -172,7 +171,8 @@ void verifyChunk( const Axes& component ) {
   // using the index based axis_grid getter and accessing the variant directly
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//! @todo a compilation issue exists, where a pointer is returned instead of a reference?
+//! @todo a compilation issue exists, where a pointer is returned
+//! instead of a reference?
 
   decltype(auto) axis_ii0 = std::get< Axis >( component.axis_grid( 0 ) );
 
@@ -198,7 +198,7 @@ void verifyChunk( const Axes& component ) {
   // using the label based axis_grid getter and accessing the variant directly
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  decltype(auto) axis_iii0 = std::get< Axis >( component.axis_grid( "radius" ) );
+  decltype(auto) axis_iii0 = std::get< Axis >(component.axis_grid("radius"));
 
   CHECK( std::nullopt != axis_iii0.index() );
   CHECK( std::nullopt != axis_iii0.label() );
@@ -208,7 +208,7 @@ void verifyChunk( const Axes& component ) {
   CHECK( "radius" == axis_iii0.label().value() );
   CHECK( "fm" == axis_iii0.unit().value() );
 
-  decltype(auto) axis_iii1 = std::get< Axis >( component.axis_grid( "energy_in" ) );
+  decltype(auto) axis_iii1 = std::get< Axis >(component.axis_grid("energy_in"));
 
   CHECK( std::nullopt != axis_iii1.index() );
   CHECK( std::nullopt != axis_iii1.label() );
@@ -273,6 +273,5 @@ std::string invalidName() {
   return
 R"***(<wrongName>
   <axis index="1" label="energy_in" unit="eV" />
-  <axis index="0" label="radius" unit="fm" /></wrongName>
-)***";
+  <axis index="0" label="radius" unit="fm" /></wrongName>)***";
 }

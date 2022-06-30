@@ -3,7 +3,7 @@
 #include "GNDStk.hpp"
 #include "indexnlabel.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
@@ -18,9 +18,9 @@ class TestGetter : public Component<TestGetter>
 {
    friend class Component;
 
-   static auto className() { return "TestGetter"; }
-   // static auto GNDSName() - not actually needed here
-   static auto keys()
+   static auto CLASS() { return "TestGetter"; }
+   // static auto FIELD() - not actually needed here
+   static auto KEYS()
    {
       return std::tuple<>{};
    }
@@ -38,7 +38,7 @@ public:
    // ------------------------
 
    // See earlier remark. We don't bother linking these with GNDS fields, via
-   // Component's capabilities and the keys() function, because doing so isn't
+   // Component's capabilities and the KEYS() function, because doing so isn't
    // necessary for the present tests.
 
    // some vectors
@@ -56,7 +56,7 @@ public:
    // constructor: default
    // ------------------------
 
-   TestGetter() : Component{ BodyText{} }
+   TestGetter() : Component{ BlockData{} }
    {
       // Component::finish(); = not needed here
    }
@@ -98,15 +98,24 @@ public:
       CHECK( getter(vecIndexLabel,7,"vecIndexLabel").value() == "7 (seven)" );
 
       // re: vecIndexLabel, lookup by label
-      CHECK( getter(vecIndexLabel,"five","vecIndexLabel").index() == 5 );
-      CHECK( getter(vecIndexLabel,"five","vecIndexLabel").label() == "five" );
-      CHECK( getter(vecIndexLabel,"five","vecIndexLabel").value() == "5 (five)" );
-      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").index() == 6 );
-      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").label() == "six" );
-      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").value() == "6 (six)" );
-      CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").index() == 7 );
-      CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").label() == "seven" );
-      CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").value() == "7 (seven)" );
+      CHECK( getter(vecIndexLabel,"five","vecIndexLabel").index()
+             == 5 );
+      CHECK( getter(vecIndexLabel,"five","vecIndexLabel").label()
+             == "five" );
+      CHECK( getter(vecIndexLabel,"five","vecIndexLabel").value()
+             == "5 (five)" );
+      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").index()
+             == 6 );
+      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").label()
+             == "six" );
+      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").value()
+             == "6 (six)" );
+      CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").index()
+             == 7 );
+      CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").label()
+             == "seven" );
+      CHECK( getter(vecIndexLabel,"seven","vecIndexLabel").value()
+             == "7 (seven)" );
    }
 
    // non-const
@@ -156,27 +165,36 @@ public:
          IndexLabel{ 11, "eleven",  "11 (eleven)" };
 
       // verify the new value
-      CHECK( getter(vecIndexLabel,11,"vecIndexLabel").index() == 11 );
-      CHECK( getter(vecIndexLabel,11,"vecIndexLabel").label() == "eleven" );
-      CHECK( getter(vecIndexLabel,11,"vecIndexLabel").value() == "11 (eleven)" );
+      CHECK( getter(vecIndexLabel,11,"vecIndexLabel").index()
+             == 11 );
+      CHECK( getter(vecIndexLabel,11,"vecIndexLabel").label()
+             == "eleven" );
+      CHECK( getter(vecIndexLabel,11,"vecIndexLabel").value()
+             == "11 (eleven)" );
 
       // ------------------------
       // re: vecIndexLabel, lookup by label
       // ------------------------
 
       // verify an existing value
-      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").index() == 6 );
-      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").label() == "six" );
-      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").value() == "6 (six)" );
+      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").index()
+             == 6 );
+      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").label()
+             == "six" );
+      CHECK( getter(vecIndexLabel,"six","vecIndexLabel").value()
+             == "6 (six)" );
 
       // change
       getter(vecIndexLabel,"six","vecIndexLabel") =
          IndexLabel{ 13, "thirteen",  "13 (thirteen)" };
 
       // verify new value
-      CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").index() == 13);
-      CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").label() == "thirteen" );
-      CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").value() == "13 (thirteen)" );
+      CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").index()
+             == 13);
+      CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").label()
+             == "thirteen" );
+      CHECK( getter(vecIndexLabel,"thirteen","vecIndexLabel").value()
+             == "13 (thirteen)" );
    }
 
    // ------------------------
@@ -223,14 +241,20 @@ public:
       CHECK( getter<Label>(vecVariant,"foo","vecVariant")->value() == "bar");
 
       // IndexLabel, lookup by index
-      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->index() == 10);
-      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->label() == "ten");
-      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->value() == "10 (ten)");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->index()
+             == 10);
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->label()
+             == "ten");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->value()
+             == "10 (ten)");
 
       // IndexLabel, lookup by label
-      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->index() == 10);
-      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->label() == "ten");
-      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->value() == "10 (ten)");
+      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->index()
+             == 10);
+      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->label()
+             == "ten");
+      CHECK( getter<IndexLabel>(vecVariant,"ten","vecVariant")->value()
+             == "10 (ten)");
    }
 
    // non-const
@@ -273,36 +297,48 @@ public:
       // ------------------------
 
       // verify an existing value
-      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->index() == 10);
-      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->label() == "ten");
-      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->value() == "10 (ten)");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->index()
+             == 10);
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->label()
+             == "ten");
+      CHECK( getter<IndexLabel>(vecVariant,10,"vecVariant")->value()
+             == "10 (ten)");
 
       // change
       *getter<IndexLabel>(vecVariant,10,"vecVariant") =
          IndexLabel{ 100, "a hundred",  "10*10" };
 
       // verify the new value
-      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->index() == 100);
-      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->label() == "a hundred");
-      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->value() == "10*10");
+      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->index()
+             == 100);
+      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->label()
+             == "a hundred");
+      CHECK( getter<IndexLabel>(vecVariant,100,"vecVariant")->value()
+             == "10*10");
 
       // ------------------------
       // IndexLabel, lookup by label
       // ------------------------
 
       // verify an existing value
-      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->index() == 12);
-      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->label() == "twelve");
-      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->value() == "12 (twelve)");
+      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->index()
+             == 12);
+      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->label()
+             == "twelve");
+      CHECK( getter<IndexLabel>(vecVariant,"twelve","vecVariant")->value()
+             == "12 (twelve)");
 
       // change
       *getter<IndexLabel>(vecVariant,"twelve","vecVariant") =
          IndexLabel{ 1000, "a thousand",  "10*10*10" };
 
       // verify the new value
-      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->index() == 1000);
-      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->label() == "a thousand");
-      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->value() == "10*10*10");
+      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->index()
+             == 1000);
+      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->label()
+             == "a thousand");
+      CHECK( getter<IndexLabel>(vecVariant,"a thousand","vecVariant")->value()
+             == "10*10*10");
    }
 
 }; // class TestGetter

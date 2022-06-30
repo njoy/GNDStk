@@ -33,11 +33,11 @@
         },
         "children": {
             "axes": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             },
             "values": {
-                "occurrence": "1",
+                "times": "1",
                 "required": true
             }
         }
@@ -52,12 +52,12 @@
         },
         "children": {
             "axis": {
-                "occurrence": "choice+",
+                "times": "choice+",
                 "variant": "axis_grid",
                 "required": false
             },
             "grid": {
-                "occurrence": "choice+",
+                "times": "choice+",
                 "variant": "axis_grid",
                 "required": false
             }
@@ -108,12 +108,12 @@
         },
         "children": {
             "values": {
-                "occurrence": "choice",
+                "times": "choice",
                 "variant": "link_values",
                 "required": false
             },
             "link": {
-                "occurrence": "choice",
+                "times": "choice",
                 "variant": "link_values",
                 "required": false
             }
@@ -154,11 +154,11 @@
         },
         "children": {
             "axes": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             },
             "XYs1d": {
-                "occurrence": "1+",
+                "times": "1+",
                 "required": true
             }
         },
