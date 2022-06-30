@@ -12,16 +12,19 @@
 //
 // General cases:
 // 1. write(ostream,   FileType)
-// 2. write(file name, FileType) calls 1 after making ostream from file name
+// 2. write(file name, FileType) calls 1 after making ostream from file
 // 3. write(ostream,   string  ) calls 1 after making FileType from string
 // 4. write(file name, string  ) calls 2 after making FileType from string
 
 
 
 // -----------------------------------------------------------------------------
+// Helper
 // write(ostream, int level)
 // For FileType::text
 // -----------------------------------------------------------------------------
+
+private:
 
 std::ostream &write(std::ostream &os, const int level) const
 {
@@ -66,9 +69,18 @@ std::ostream &write(std::ostream &os, const int level) const
 
 
 // -----------------------------------------------------------------------------
+// Helper
 // write(file name, int level)
 // For FileType::text
 // -----------------------------------------------------------------------------
+
+private:
+
+// fixme I noticed that this write() variant isn't used (other write() functions
+// with filename go through ostream first, and call the earlier write() helper
+// with const int level). Decide if there's any reason to keep it. If we do keep
+// it, then it needs to be exercised in the test suite, which it isn't now.
+#if 0
 
 bool write(const std::string &filename, const int level) const
 {
@@ -90,16 +102,25 @@ bool write(const std::string &filename, const int level) const
    return true;
 }
 
+#endif
+
 
 
 // -----------------------------------------------------------------------------
 // 1. write(ostream, FileType)
 // -----------------------------------------------------------------------------
 
+public:
+
 std::ostream &write(
    std::ostream &os = std::cout,
    const FileType format = FileType::null,
-   const bool decl = false
+   const bool decl = false,
+   // If circumstances are such that we end up writing an HDF5, the following
+   // may be != "" if the ostream is from an ofstream. In that case, the HDF5
+   // writer can produce output directly into the intended file, bypassing the
+   // need to create a temporary file and transfer its contents to the ostream.
+   const std::string &filename = ""
 ) const {
 
    // Discussion.
@@ -136,8 +157,12 @@ std::ostream &write(
          JSON(*this).write(os,decl);
       } else if (format == FileType::hdf5) {
          // write via a temporary hdf5 object...
-         log::error("Node.write() for HDF5 is not implemented yet");
-         throw std::exception{};
+         if (filename == "")
+            HDF5(*this).write(os,decl);
+         else {
+            HDF5 tmp;
+            convert(*this,tmp,filename);
+         }
       } else {
          // null or text: use our plain text format
          return write(os,0);
@@ -161,6 +186,8 @@ std::ostream &write(
 // -----------------------------------------------------------------------------
 // 2. write(file name, FileType)
 // -----------------------------------------------------------------------------
+
+public:
 
 bool write(
    const std::string &filename,
@@ -221,7 +248,7 @@ bool write(
       }
 
       // Call write(ostream) to do the remaining work.
-      if (!write(ofs, format, decl))
+      if (!write(ofs, format, decl, filename))
          throw std::exception{};
       return bool(ofs);
    } catch (...) {
@@ -235,6 +262,8 @@ bool write(
 // -----------------------------------------------------------------------------
 // 3. write(ostream, string)
 // -----------------------------------------------------------------------------
+
+public:
 
 std::ostream &write(
    std::ostream &os,
@@ -268,6 +297,8 @@ std::ostream &write(
 // -----------------------------------------------------------------------------
 // 4. write(file name, string)
 // -----------------------------------------------------------------------------
+
+public:
 
 bool write(
    const std::string &filename,

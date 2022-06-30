@@ -50,7 +50,8 @@ SCENARIO("Testing GNDStk Tree top()") {
          }
       }
 
-      WHEN("We call reset(covarianceSuite, FileType::xml, \"3.0\", \"UTF-9\")") {
+      WHEN("We call reset(covarianceSuite, FileType::xml, "
+           "\"3.0\", \"UTF-9\")") {
          Tree t;
          t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
          THEN("We can make various top() (top-level node) queries") {
@@ -80,9 +81,9 @@ SCENARIO("Testing GNDStk Tree top()") {
          }
       }
 
-      WHEN("We call reset(thermalScattering, \"xml\", \"5.0\", \"UTF-10\")") {
+      WHEN("We call reset(thermalScattering, \"#xml\", \"5.0\", \"UTF-10\")") {
          Tree t;
-         t.reset(thermalScattering, "xml", "5.0", "UTF-10");
+         t.reset(thermalScattering, "#xml", "5.0", "UTF-10");
          THEN("We can make various top() (top-level node) queries") {
             CHECK(t.top().name == "thermalScattering");
             CHECK(t.top().metadata.size() == 0);
