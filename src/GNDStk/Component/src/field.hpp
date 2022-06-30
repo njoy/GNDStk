@@ -4,6 +4,7 @@ class FieldPart {
    // Nothing; see the partial specialization later in this file
 };
 
+
 // -----------------------------------------------------------------------------
 // Field
 // -----------------------------------------------------------------------------
@@ -35,9 +36,9 @@ public:
    // not "*this", where Field objects are constructed. It's just a bit shorter.
 
    // parent, value
-   explicit Field(DERIVED *const parent, const T &value = T{}) :
+   explicit Field(DERIVED *const parent, const T &v = T{}) :
       parent(*parent),
-      value(value)
+      value(v)
    { }
 
    // parent, other Field object
@@ -51,10 +52,10 @@ public:
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field(
       DERIVED *const parent, const typename TEE::value_type &def,
-      const std::optional<typename TEE::value_type> &value = {}
+      const std::optional<typename TEE::value_type> &v = {}
    ) :
       parent(*parent),
-      value(def,value)
+      value(def,v)
    { }
 
    // ------------------------
@@ -122,6 +123,11 @@ public:
       return parent;
    }
 
+   DERIVED &replace(const T &val)
+   {
+      return (*this)(val);
+   }
+
    // (optional)
    // If T == Defaulted
    // Replace existing Defaulted's value with the given optional value.
@@ -130,6 +136,12 @@ public:
    {
       value = opt;
       return parent;
+   }
+
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
+   {
+      return (*this)(opt);
    }
 
    // (scalar)
@@ -141,6 +153,13 @@ public:
    ) {
       parent.setter(value, obj);
       return parent;
+   }
+
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   DERIVED &add(
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+   ) {
+      return (*this)(obj);
    }
 
    // (index/label/Lookup, value)
@@ -157,6 +176,17 @@ public:
    ) {
       (*this)(key) = obj;
       return parent;
+   }
+
+   template<
+      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   DERIVED &replace(
+      const KEY &key,
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+   ) {
+      return (*this)(key,obj);
    }
 
    // ------------------------
@@ -376,9 +406,11 @@ public:
    >
    decltype(auto) operator()(const KEY &key) const
    {
-      if constexpr (detail::isLookupBoolReturn<KEY>)
-         return whole(key); // a bool
-      else {
+      if constexpr (detail::isLookupBoolReturn<KEY>) {
+         // a bool
+         return whole(key);
+      } else {
+         // a reference
          try {
             return ref(key);
          } catch (...) {
@@ -394,10 +426,13 @@ public:
    >
    decltype(auto) operator()(const KEY &key)
    {
-      if constexpr (detail::isLookupBoolReturn<KEY>)
-         return whole(key); // a bool
-      else
+      if constexpr (detail::isLookupBoolReturn<KEY>) {
+         // a bool
+         return whole(key);
+      } else {
+         // a reference
          return const_cast<PART &>(std::as_const(*this)(key));
+      }
    }
 
    // ------------------------
@@ -406,6 +441,7 @@ public:
 
    // (value)
    // If WHOLE == variant
+   // Replace existing value with another value.
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    DERIVED &operator()(const std::optional<PART> &opt)
    {
@@ -413,9 +449,16 @@ public:
       return whole.parent;
    }
 
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   DERIVED &replace(const std::optional<PART> &opt)
+   {
+      return (*this)(opt);
+   }
+
    // (index/label/Lookup, value)
    // If WHOLE == vector
-   // Replace vector element.
+   // Find the vector's element that has the given index, label, or Lookup,
+   // and replace it with the given replacement value.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
@@ -423,6 +466,14 @@ public:
    {
       if (opt) whole(key,opt.value());
       return whole.parent;
+   }
+
+   template<
+      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>>
+   DERIVED &replace(const KEY &key, const std::optional<PART> &opt)
+   {
+      return (*this)(key,opt);
    }
 
    // ------------------------
@@ -486,9 +537,9 @@ void *fieldAddress(T &value)
 }
 
 template<class T>
-void *fieldAddress(Field<T> &value)
+void *fieldAddress(Field<T> &field)
 {
-   return &value();
+   return &field();
 }
 
 // ------------------------
