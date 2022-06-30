@@ -80,8 +80,7 @@ private:
 // with filename go through ostream first, and call the earlier write() helper
 // with const int level). Decide if there's any reason to keep it. If we do keep
 // it, then it needs to be exercised in the test suite, which it isn't now.
-#if 0
-
+/*
 bool write(const std::string &filename, const int level) const
 {
    // open file
@@ -101,8 +100,7 @@ bool write(const std::string &filename, const int level) const
    // done
    return true;
 }
-
-#endif
+*/
 
 
 

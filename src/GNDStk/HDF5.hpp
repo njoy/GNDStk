@@ -9,7 +9,10 @@
 class HDF5 {
 public:
 
-   static inline bool flat = true;
+   // todo: It's possible that we'll want these to be non-static, so that they
+   // can differ between HDF5 objects. That might, however, constitute excessive
+   // generality. Think about this.
+   static inline bool reduced = true;
    static inline bool typed = true;
 
    // data

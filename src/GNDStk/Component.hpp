@@ -94,6 +94,26 @@ public:
       }
    }
 
+   // has
+   // Usable in C++ "compile-time if" (a.k.a. "if constexpr") statements
+   template<
+      class EXTRACTOR, class THIS = DERIVED,
+      class = decltype(std::declval<EXTRACTOR>()(THIS{}))
+   >
+   static constexpr bool has(const Lookup<false,EXTRACTOR> &)
+   {
+      return true;
+   }
+
+   template<
+      class EXTRACTOR, bool F,
+      class = std::enable_if_t<F == false>
+   >
+   static constexpr bool has(const Lookup<F,EXTRACTOR> &)
+   {
+      return false;
+   }
+
    // Component << string
    // Meaning: read the string's content (currently XML, JSON, or HDF5) into
    // an object of the Component's DERIVED class. Uses Node's << string, which

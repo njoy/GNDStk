@@ -25,7 +25,11 @@ HighFive::Attribute vectorAttr(
    return hdf.createAttribute(key,vector);
 }
 
+// ------------------------
 // vecDataSet
+// ------------------------
+
+// <T> helper
 template<class T, class OBJECT>
 HighFive::DataSet vecDataSet(
    const std::string &key, const std::string &value,
@@ -36,35 +40,40 @@ HighFive::DataSet vecDataSet(
    return hdf.createDataSet(key,vector);
 }
 
-// vecDataSet, w/ type string
+// w/ type string
 template<class OBJECT>
 HighFive::DataSet vecDataSet(
    const std::string &key, const std::string &value,
    OBJECT &hdf
 ) {
-   const std::string type = guessType(value);
-   return
-      type == "int"    || type == "ints"    ?
-         vecDataSet<int          >(key,value,hdf) :
-      type == "uint"   || type == "uints"   ?
-         vecDataSet<unsigned     >(key,value,hdf) :
-      type == "long"   || type == "longs"   ?
-         vecDataSet<long         >(key,value,hdf) :
-      type == "ulong"  || type == "ulongs"  ?
-         vecDataSet<unsigned long>(key,value,hdf) :
-      type == "double" || type == "doubles" ?
-         vecDataSet<double       >(key,value,hdf) :
-      // "string", "strings", or ""
-         vecDataSet<std::string  >(key,value,hdf) ;
+   if (HDF5::typed) {
+      const std::string type = guessType(value);
+      if (type == "int"    || type == "ints"   )
+         return vecDataSet<int          >(key,value,hdf);
+      if (type == "uint"   || type == "uints"  )
+         return vecDataSet<unsigned     >(key,value,hdf);
+      if (type == "long"   || type == "longs"  )
+         return vecDataSet<long         >(key,value,hdf);
+      if (type == "ulong"  || type == "ulongs" )
+         return vecDataSet<unsigned long>(key,value,hdf);
+      if (type == "double" || type == "doubles")
+         return vecDataSet<double       >(key,value,hdf);
+   }
+   return vecDataSet<std::string>(key,value,hdf);
 }
 
 
 // -----------------------------------------------------------------------------
-// typedHDF5
+// meta2hdf5_typed
+// meta2hdf5_plain
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// meta2hdf5_typed
+// ------------------------
+
 template<class NODE, class OBJECT>
-void typedHDF5(const NODE &node, OBJECT &hdf)
+void meta2hdf5_typed(const NODE &node, OBJECT &hdf)
 {
    const std::string &parent = node.name;
 
@@ -72,97 +81,128 @@ void typedHDF5(const NODE &node, OBJECT &hdf)
       const std::string &key = meta.first;
       const std::string &value = meta.second;
 
+      // ------------------------
+      // Special cases
+      // ------------------------
+
       // *** #cdata/#text
       // *** #comment/#text
       // ACTION: Write these as-is. That is, do NOT apply our type-guessing code
       // to a comment, or to the contents of a <![CDATA[...]]> block like those
       // that we see in existing XML-format GNDS files. The type guesser would
       // see words, and think "vector of [whitespace-separated] strings," which
-      // would be painfully wrong for what are clearly free-form strings.
-      if (key == "#text" && (parent == "#cdata" || parent == "#comment")) {
+      // would be wrong for what are clearly intended to be free-form strings.
+      if ((parent == "#cdata" || parent == "#comment") && key == "#text") {
          hdf.createAttribute(key,value); // just a simple string attribute
          continue;
       }
 
       // *** #pcdata/#text
       // ACTION: Apply our type-guessing code, but write *vectors* only, never
-      // scalars. So, <values>10</values> would be interpreted as a vector with
-      // one element, NOT as a scalar; while <values>10 20 30</values> would be
-      // interpreted as a vector with three elements. What may look like scalars
-      // are folded into vectors because we think that reflects what nodes like
-      // this are intended to represent. (If something was really just a scalar,
-      // then surely it would be placed in the metadata, not in a node such as
-      // <values>scalar</values>.)
-      if constexpr (std::is_same_v<OBJECT,HighFive::Group>) {
-         if (key == "#text" && parent == "#pcdata") {
-            vecDataSet(key,value,hdf); // DataSet will have name "#text"
-            continue;
-         }
+      // scalars. So, <values>10</values> produces a vector with one element,
+      // NOT a scalar; while <values>10 20 30</values> would produces a vector
+      // with three elements. What may look like scalars are made into vectors
+      // because we think that reflects what these (#pcdata) nodes are intended
+      // to represent. (If something was really just a scalar, then surely it
+      // would be placed into standard metadata (in <...>), not #pcdata.
+      if (parent == "#pcdata" && key == "#text") {
+         std::string type = guessType(value);
+         if (type == "int" || type == "ints")
+            vectorAttr<int          >(key,value,hdf);
+         else if (type == "uint" || type == "uints")
+            vectorAttr<unsigned     >(key,value,hdf);
+         else if (type == "long" || type == "longs")
+            vectorAttr<long         >(key,value,hdf);
+         else if (type == "ulong" || type == "ulongs")
+            vectorAttr<unsigned long>(key,value,hdf);
+         else if (type == "double" || type == "doubles")
+            vectorAttr<double       >(key,value,hdf);
+         else
+            vectorAttr<std::string  >(key,value,hdf);
+         continue;
       }
 
-      // *** key/#text not expected except as already handled
+      // *** key/#text not expected, except as already handled
       if (key == "#text") {
          log::warning("Metadatum name \"#text\" not expected here; "
                       "writing anyway");
-         log::function("detail::typedHDF5(Node named \"{}\", ...)", parent);
+         log::function("detail::meta2hdf5_typed(Node named \"{}\", ...)",
+                       parent);
       }
 
-      // *** key/value
+      // ------------------------
       // General case
-      // ACTION: Apply our type-guessing code almost fully, except that for
-      // a metadatum="that looks like this", interpret "..." as essentially
-      // a single descriptive string. So, don't split it up into a vector.
+      // ------------------------
+
+      // *** key/value
+      // ACTION: Apply our type-guessing code.
+      // Here we have normal metadata, as in <foo meta="free-form string">.
+      // For numeric types we might produce vectors, if there appear to be
+      // multiple values. But for string types, we'll assume that the value
+      // is probably intended to be a free-form, human-readable descriptive
+      // string, which shouldn't be split into tokens and made into a vector.
       const std::string type = guessType(value);
-      type == "int"     ? scalarAttr<int          >(key,value,hdf) :
-      type == "ints"    ? vectorAttr<int          >(key,value,hdf) :
-      type == "uint"    ? scalarAttr<unsigned     >(key,value,hdf) :
-      type == "uints"   ? vectorAttr<unsigned     >(key,value,hdf) :
-      type == "long"    ? scalarAttr<long         >(key,value,hdf) :
-      type == "longs"   ? vectorAttr<long         >(key,value,hdf) :
-      type == "ulong"   ? scalarAttr<unsigned long>(key,value,hdf) :
-      type == "ulongs"  ? vectorAttr<unsigned long>(key,value,hdf) :
-      type == "double"  ? scalarAttr<double       >(key,value,hdf) :
-      type == "doubles" ? vectorAttr<double       >(key,value,hdf) :
-      /* else........ */  scalarAttr<std::string  >(key,value,hdf) ;
+      if (type == "int"    ) scalarAttr<int          >(key,value,hdf); else
+      if (type == "ints"   ) vectorAttr<int          >(key,value,hdf); else
+      if (type == "uint"   ) scalarAttr<unsigned     >(key,value,hdf); else
+      if (type == "uints"  ) vectorAttr<unsigned     >(key,value,hdf); else
+      if (type == "long"   ) scalarAttr<long         >(key,value,hdf); else
+      if (type == "longs"  ) vectorAttr<long         >(key,value,hdf); else
+      if (type == "ulong"  ) scalarAttr<unsigned long>(key,value,hdf); else
+      if (type == "ulongs" ) vectorAttr<unsigned long>(key,value,hdf); else
+      if (type == "double" ) scalarAttr<double       >(key,value,hdf); else
+      if (type == "doubles") vectorAttr<double       >(key,value,hdf); else
+      /* string or strings*/ scalarAttr<std::string  >(key,value,hdf);
    }
+} // meta2hdf5_typed
+
+
+// ------------------------
+// meta2hdf5_plain
+// ------------------------
+
+template<class NODE, class OBJECT>
+void meta2hdf5_plain(const NODE &node, OBJECT &hdf)
+{
+   for (auto &meta : node.metadata)
+      hdf.createAttribute(meta.first, meta.second);
 }
 
 
 // -----------------------------------------------------------------------------
-// Meta2HDF5
+// meta2hdf5
 // -----------------------------------------------------------------------------
 
 // Here, OBJECT hdf is either a HighFive::Group or a HighFive::DataSet
 template<class NODE, class OBJECT>
-void Meta2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix)
+void meta2hdf5(const NODE &node, OBJECT &hdf, const std::string &suffix)
 {
    // #nodeName if appropriate (as with JSON, allows recovery of original name)
    if (suffix != "")
       hdf.createAttribute(std::string("#nodeName"), node.name);
 
-   // Existing attributes
+   // Existing metadata
    if (HDF5::typed) {
-      // Use our "guess what's in the string" code to try to infer what certain
-      // "string" values actually contain (a single int, say, or a vector of
-      // doubles). Then, use the inferred types in the HDF5 file.
-      typedHDF5(node,hdf);
+      // Use our "guess what's in the string" code to try to infer what each
+      // metadatum's string value actually contains (a single int, say, or
+      // a vector of doubles). Use the inferred types in the HDF5 file.
+      meta2hdf5_typed(node,hdf);
    } else {
-      // Write simple HDF5 where all data (metadata, and the content of "cdata"
-      // and "pcdata" nodes) end up being strings. Not even vectors of strings
-      // (as from <values>H He Li ...</values>), but single strings.
-      for (auto &meta : node.metadata)
-         hdf.createAttribute(meta.first, meta.second);
+      // Write simple HDF5 in which all data (metadata, as well as the contents
+      // of "cdata" and "pcdata" nodes) end up being strings. Not even vectors
+      // of strings, as from <values>H He Li ...</values>, but single strings.
+      meta2hdf5_plain(node,hdf);
    }
 }
 
 
 // -----------------------------------------------------------------------------
-// Node2HDF5
+// node2hdf5
 // -----------------------------------------------------------------------------
 
 // Here, OBJECT hdf is either a HighFive::File or a HighFive::Group
 template<class NODE, class OBJECT>
-bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
+bool node2hdf5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
 {
    // As with JSON; see the remark in node2json()
    const std::string nameOriginal = node.name;
@@ -172,14 +212,14 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
    // Specific cases
    // ------------------------
 
-   if (HDF5::flat) {
+   if (HDF5::reduced) {
       // #cdata or #comment
       //    #text the only metadatum
       //    no children
       // Reduce to: a string attribute, w/name == (#cdata or #comment) + suffix
-      // Brief:
+      // Sketch:
       //    +-----------------+     +-----------+
-      //    | #cdata/#comment | ==> | Attribute |
+      //    | #cdata/#comment | ==> | Attribute | name: #... + suffix
       //    |    #text        |     |    value  |
       //    |    -            |     +-----------+
       //    +-----------------+
@@ -199,9 +239,9 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
       //    #text the only metadatum
       //    no children
       // Reduce to: a data set, w/name == #pcdata + suffix
-      // Brief:
+      // Sketch:
       //    +----------+     +---------+
-      //    | #pcdata  | ==> | DataSet |
+      //    | #pcdata  | ==> | DataSet | name: #pcdata + suffix
       //    |    #text |     |    data |
       //    +----------+     +---------+
       //
@@ -210,6 +250,21 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
           node.metadata.size() == 1 &&
           node.metadata[0].first == "#text"
       ) {
+         // Remark. This case (basically, #pcdata/#text) may look superficially
+         // like it would have been handled, in the case immediately below here,
+         // in the previous (next-up) recurse of the present function. Often
+         // it would have, but not always. Below, someName/#pcdata/#text (three
+         // levels, so to speak) reduces to one level (DataSet someName), but
+         // only if someName has ONE child - the #pcdata. That's true when we
+         // have (in XML) something like <values>1 2 3</values>, as the pcdata,
+         // i.e. the 1 2 3 part, is <values>' only child node. However, it's
+         // actually possible (though I don't see it in current GNDS files) to
+         // have something like: <values><foo></foo>1 2 3</values>. There, the
+         // outer someName node (<value>) has child foo and child #pcdata, and
+         // thus can't be reduced in the manner that's done if only #pcdata is
+         // there. In short, then, the present situation comes to pass if and
+         // when #pcdata has sibling nodes.
+
          // dataset
          const std::string value = node.metadata[0].second;
          HighFive::DataSet dataset = vecDataSet(nameSuffixed,value,hdf);
@@ -217,19 +272,19 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
       }
 
       // someName (think e.g. values, as in XML <values>)
-      //    any number of metadata
+      //    any number of metadata (possible 0)
       //    #pcdata the only child
       //       #text the only metadatum
       //       no children
       // Reduce to: a data set, w/name == someName + suffix
-      // Brief:
-      //    +--------------+     +---------------+
-      //    | someName     | ==> | DataSet       |
-      //    |    metadata  |     |    Attributes |
-      //    |    #pcdata   |     |    data       |
-      //    |       #text  |     +---------------+
-      //    |       -      |
-      //    +--------------+
+      // Sketch:
+      //    +---------------+     +----------------+
+      //    | someName      | ==> | DataSet        | name: someName + suffix
+      //    |    [metadata] |     |   [Attributes] |
+      //    |    #pcdata    |     |    data        |
+      //    |       #text   |     +----------------+
+      //    |       -       |
+      //    +---------------+
       //
       if (node.children.size() == 1 &&
           node.children[0]->name == "#pcdata" &&
@@ -241,10 +296,10 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
          const std::string value = node.children[0]->metadata[0].second;
          HighFive::DataSet dataset = vecDataSet(nameSuffixed,value,hdf);
          // metadata, then done; the #pcdata child was rolled into the data set
-         Meta2HDF5(node,dataset,suffix);
+         meta2hdf5(node,dataset,suffix);
          return true;
       }
-   }
+   } // if (HDF5::reduced)
 
    // ------------------------
    // General case
@@ -254,7 +309,7 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
    HighFive::Group group = hdf.createGroup(nameSuffixed);
 
    // metadata
-   Meta2HDF5(node,group,suffix);
+   meta2hdf5(node,group,suffix);
 
    // children
    // Logic is as with JSON; see the remark in node2json().
@@ -268,7 +323,7 @@ bool Node2HDF5(const NODE &node, OBJECT &hdf, const std::string &suffix = "")
    }
    for (auto &c : node.children) {
       const std::size_t counter = childNames.find(c->name)->second++;
-      if (!Node2HDF5(*c, group, counter ? std::to_string(counter-1) : ""))
+      if (!node2hdf5(*c, group, counter ? std::to_string(counter-1) : ""))
          return false;
    }
 
