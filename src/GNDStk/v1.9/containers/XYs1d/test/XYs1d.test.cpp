@@ -31,7 +31,8 @@ SCENARIO( "XYs1d" ) {
                          std::vector< std::variant< Axis, Grid > >{
                              Axis( 1, "energy_in", "eV" ),
                              Axis( 0, "crossSection", "b" ) } ),
-                   Values( std::vector< double >{ 1e-05, 1., 2.53e-2, 2., 2.5e+3, 3. } ) );
+                   Values( std::vector< double >
+                           { 1e-05, 1., 2.53e-2, 2., 2.5e+3, 3. } ) );
 
       THEN( "the component can be constructed and members can be tested" ) {
 
@@ -150,7 +151,8 @@ void verifyChunk( const XYs1d& component ) {
   CHECK( enums::Interpolation::linlin == component.interpolation() );
 
   // axes data
-  decltype(auto) axis0 = std::get< Axis >( component.axes().value().axis_grid()[0] );
+  decltype(auto) axis0 =
+     std::get< Axis >( component.axes().value().axis_grid()[0] );
 
   CHECK( std::nullopt != axis0.index() );
   CHECK( std::nullopt != axis0.label() );
@@ -160,7 +162,8 @@ void verifyChunk( const XYs1d& component ) {
   CHECK( "crossSection" == axis0.label().value() );
   CHECK( "b" == axis0.unit().value() );
 
-  decltype(auto) axis1 = std::get< Axis >( component.axes().value().axis_grid()[1] );
+  decltype(auto) axis1 =
+     std::get< Axis >( component.axes().value().axis_grid()[1] );
 
   CHECK( std::nullopt != axis1.index() );
   CHECK( std::nullopt != axis1.label() );

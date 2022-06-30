@@ -29,11 +29,16 @@ SCENARIO( "GridStyle" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( GridStyle::none == enums::fromString< GridStyle >( "none" ) );
-        CHECK( GridStyle::link == enums::fromString< GridStyle >( "link" ) );
-        CHECK( GridStyle::points == enums::fromString< GridStyle >( "points" ) );
-        CHECK( GridStyle::boundaries == enums::fromString< GridStyle >( "boundaries" ) );
-        CHECK( GridStyle::parameters == enums::fromString< GridStyle >( "parameters" ) );
+        CHECK( GridStyle::none ==
+               enums::fromString< GridStyle >( "none" ) );
+        CHECK( GridStyle::link ==
+               enums::fromString< GridStyle >( "link" ) );
+        CHECK( GridStyle::points ==
+               enums::fromString< GridStyle >( "points" ) );
+        CHECK( GridStyle::boundaries ==
+               enums::fromString< GridStyle >( "boundaries" ) );
+        CHECK( GridStyle::parameters ==
+               enums::fromString< GridStyle >( "parameters" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {

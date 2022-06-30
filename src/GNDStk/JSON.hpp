@@ -23,7 +23,6 @@ public:
    // easily. This could be hacked in some way, of course, and it's worth noting
    // that the GNDS document speaks of basically such a hack. -MFS
 
-   // external JSON-library document
    nlohmann::json doc;
 
    // clear

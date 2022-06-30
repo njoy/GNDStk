@@ -17,9 +17,12 @@ SCENARIO( "Interaction" ) {
 
       THEN( "no exception is thrown and the correct string is returned" ) {
 
-        CHECK( "nuclear" == enums::toString( Interaction::nuclear ) );
-        CHECK( "atomic" == enums::toString( Interaction::atomic ) );
-        CHECK( "thermalNeutronScatteringLaw" == enums::toString( Interaction::thermalNeutronScatteringLaw ) );
+        CHECK( "nuclear" ==
+               enums::toString( Interaction::nuclear ) );
+        CHECK( "atomic" ==
+               enums::toString( Interaction::atomic ) );
+        CHECK( "thermalNeutronScatteringLaw" ==
+               enums::toString( Interaction::thermalNeutronScatteringLaw ) );
       } // THEN
     } // WHEN
 
@@ -27,9 +30,12 @@ SCENARIO( "Interaction" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( Interaction::nuclear == enums::fromString< Interaction >( "nuclear" ) );
-        CHECK( Interaction::atomic == enums::fromString< Interaction >( "atomic" ) );
-        CHECK( Interaction::thermalNeutronScatteringLaw == enums::fromString< Interaction >( "thermalNeutronScatteringLaw" ) );
+        CHECK( Interaction::nuclear ==
+               enums::fromString<Interaction>("nuclear"));
+        CHECK( Interaction::atomic ==
+               enums::fromString<Interaction>("atomic"));
+        CHECK( Interaction::thermalNeutronScatteringLaw ==
+               enums::fromString<Interaction>("thermalNeutronScatteringLaw"));
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
@@ -87,7 +93,8 @@ SCENARIO( "Interaction" ) {
 
     WHEN( "isInteraction is used" ) {
 
-      THEN( "registered interaction values return true, unregistered interaction values return false" ) {
+      THEN( "registered interaction values return true, "
+            "unregistered interaction values return false" ) {
 
         CHECK( true == enums::isInteraction( "nuclear" ) );
         CHECK( true == enums::isInteraction( "atomic" ) );
