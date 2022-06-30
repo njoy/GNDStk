@@ -24,7 +24,7 @@ Tree(const Tree &other) : Node{}
 
 
 // -----------------------------------------------------------------------------
-// From XML and JSON objects
+// From XML, JSON, and HDF5 objects
 // -----------------------------------------------------------------------------
 
 // XML
@@ -47,6 +47,18 @@ explicit Tree(const JSON &j)
          throw std::exception{};
    } catch (...) {
       log::ctor("Tree(JSON)");
+      throw;
+   }
+}
+
+// HDF5
+explicit Tree(const HDF5 &h)
+{
+   try {
+      if (!convert(h,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("Tree(HDF5)");
       throw;
    }
 }

@@ -15,7 +15,7 @@
 // so we can find this content whether we're in the outer Tree/Node (above the
 // top-level GNDS node), or inside the top-level node, or in fact inside *any*
 // node from which we can drill down as above, beginning with a documentations,
-// documentation, or CDATA node, or even directly to a text metadatum.
+// documentation, or CDATA node, or even directly to a #text metadatum.
 //
 // Note: CDATA nodes that we've seen in available GNDS files always begin with
 // a newline. It's tempting, perhaps, to chuck the newline, except that (1) we
@@ -29,10 +29,11 @@ const std::string &documentation(bool &found = detail::default_bool) const
 {
    auto look = [](const Node &n, const std::string *&s)
    {
-      auto docs  = basic::child::documentations;
-      auto doc   = basic::child::documentation;
-      auto cdata = basic::child::cdata;
-      auto text  = basic::meta ::text;
+      static const Child<void,Allow::one>
+         docs ("documentations"),
+         doc  ("documentation"),
+         cdata("#cdata");
+      static const Meta<void> text("#text");
 
       // In the node parameter, tries to find CDATA text at any layer of:
       //    <documentations>
@@ -56,15 +57,13 @@ const std::string &documentation(bool &found = detail::default_bool) const
       return found = true, *s;
 
    // top-level?
-   // I.e., assume we're perhaps in the root tree node, a.k.a. "over the top"
-   // node, look for any of our allowable top-level nodes, e.g. reactionSuite,
-   // and, if found, perform the above lookup (in the lambda) in that node.
-   for (auto &top : detail::AllowedTop) {
-      bool found_top = false; // found this particular top-level node?
-      const Node &n = one(top,found_top);
-      if (found_top && look(n,s))
-         return found = true, *s;
-   }
+   // If we're in what looks like the root node of a tree (named "" - the empty
+   // string), then look in all of the top-level nodes. In a properly formatted
+   // GNDS file, there will be just one such node, e.g. reactionSuite.
+   if (name == "")
+      for (auto &ptr : children)
+         if (look(*ptr,s))
+            return found = true, *s;
 
    // not found
    // Static, for reference return. Set to "" each time, just in case someone
@@ -106,13 +105,17 @@ std::string &doc(bool &found = detail::default_bool)
 // const
 const std::string &cdata(bool &found = detail::default_bool) const
 {
-   return (*this)(basic::child::cdata, basic::meta::text, found);
+   static const Child<void,Allow::one> cdata("#cdata");
+   static const Meta<void> text("#text");
+   return (*this)(cdata, text, found);
 }
 
 // non-const
 std::string &cdata(bool &found = detail::default_bool)
 {
-   return (*this)(basic::child::cdata, basic::meta::text, found);
+   static const Child<void,Allow::one> cdata("#cdata");
+   static const Meta<void> text("#text");
+   return (*this)(cdata, text, found);
 }
 
 
@@ -123,13 +126,17 @@ std::string &cdata(bool &found = detail::default_bool)
 // const
 const std::string &pcdata(bool &found = detail::default_bool) const
 {
-   return (*this)(basic::child::pcdata, basic::meta::text, found);
+   static const Child<void,Allow::one> pcdata("#pcdata");
+   static const Meta<void> text("#text");
+   return (*this)(pcdata, text, found);
 }
 
 // non-const
 std::string &pcdata(bool &found = detail::default_bool)
 {
-   return (*this)(basic::child::pcdata, basic::meta::text, found);
+   static const Child<void,Allow::one> pcdata("#pcdata");
+   static const Meta<void> text("#text");
+   return (*this)(pcdata, text, found);
 }
 
 
@@ -151,8 +158,8 @@ const std::string &comment(
    std::size_t count = 0;
 
    for (auto &c : children)
-      if (c->name == "comment" && count++ == i)
-         return c->meta("text",found);
+      if (c->name == "#comment" && count++ == i)
+         return c->meta("#text",found);
 
    // not found
    static std::string empty;
@@ -197,7 +204,7 @@ comments(bool &found = detail::default_bool) const
    CONTAINER<std::string,Args...> container;
    const std::string *text;
    for (auto &c : children)
-      if (c->name == "comment" && (text = &c->meta("text",found),found))
+      if (c->name == "#comment" && (text = &c->meta("#text",found),found))
          container.push_back(*text);
    return container;
 }

@@ -4,6 +4,8 @@
 #include <cstring>
 
 using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
 using namespace misc;
 
 SCENARIO("Testing GNDStk Node many()") {
