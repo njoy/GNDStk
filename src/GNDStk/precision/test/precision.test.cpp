@@ -3,7 +3,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 #include "precision.test.hpp"
 
 // -----------------------------------------------------------------------------
@@ -149,7 +149,7 @@ SCENARIO("Precision code in the convert()s between stream and real, "
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Precision code in BodyText::get(), "
+SCENARIO("Precision code in BlockData::get(), "
          "for reworking a data vector to have a different data type")
 {
    // Context/action:
@@ -356,7 +356,7 @@ SCENARIO("Precision code in BodyText::get(), "
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Precision code in BodyText::get(), "
+SCENARIO("Precision code in BlockData::get(), "
          "for converting from a raw string to a vector of data")
 {
    // Context/action:
@@ -373,7 +373,7 @@ SCENARIO("Precision code in BodyText::get(), "
    // raw string to floats
    // ------------------------
 
-   WHEN("We convert a raw \"body text\" string to a vector<float>") {
+   WHEN("We convert a raw \"block data\" string to a vector<float>") {
       // Initialize the raw string
       r = string;
 
@@ -392,7 +392,7 @@ SCENARIO("Precision code in BodyText::get(), "
    // raw string to doubles
    // ------------------------
 
-   WHEN("We convert a raw \"body text\" string to a vector<double>") {
+   WHEN("We convert a raw \"block data\" string to a vector<double>") {
       r = string;
       THEN("We get the expected result") {
          r.get<std::vector<double>>();
@@ -406,7 +406,7 @@ SCENARIO("Precision code in BodyText::get(), "
    // raw string to long doubles
    // ------------------------
 
-   WHEN("We convert a raw \"body text\" string to a vector<long double>") {
+   WHEN("We convert a raw \"block data\" string to a vector<long double>") {
       r = string;
       THEN("We get the expected result") {
          r.get<std::vector<quad>>();
@@ -423,7 +423,7 @@ SCENARIO("Precision code in BodyText::get(), "
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Precision code in BodyText::toNode(), "
+SCENARIO("Precision code in BlockData::toNode(), "
          "for writing... <name>VALUES THAT ARE TO GO HERE</name>")
 {
    // Context/action:
@@ -560,7 +560,7 @@ SCENARIO("Precision code in BodyText::toNode(), "
 // ------------------------
 
 const std::string printed_metadata_individual =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : 1.414214
    afloat  : 1.7321
    aquad   : 2.23606798
@@ -575,7 +575,7 @@ R"***(precision::Numbers { // GNDS: numbers
 )***";
 
 const std::string printed_metadata_real =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : 1.41
    afloat  : 1.73
    aquad   : 2.24
@@ -590,7 +590,7 @@ R"***(precision::Numbers { // GNDS: numbers
 )***";
 
 const std::string printed_gndstk_individual =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : 1.4142136
    afloat  : 1.73205
    aquad   : 2.236067977
@@ -605,7 +605,7 @@ R"***(precision::Numbers { // GNDS: numbers
 )***";
 
 const std::string printed_gndstk_real =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : 1.414
    afloat  : 1.732
    aquad   : 2.236
@@ -725,28 +725,28 @@ R"***(
 // ------------------------
 
 const std::string block_data_individual =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : // defaulted; is its default (1.414)
    afloat  : // defaulted; is its default (1.732)
    aquad   : // defaulted; is its default (2.236)
    bdouble : // defaulted; is its default (2.449)
    bfloat  : // defaulted; is its default (2.646)
    bquad   : // defaulted; is its default (2.828)
-   precision::Doubles { // GNDS: doubles
+   precision::Doubles {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       3.352228 7.682296 2.777747 5.5397
       4.773971 6.288709
    } // precision::Doubles
-   precision::Floats { // GNDS: floats
+   precision::Floats {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       8.4019 3.9438 7.831 7.9844
       9.1165 1.9755
    } // precision::Floats
-   precision::Quads { // GNDS: quads
+   precision::Quads {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
@@ -758,28 +758,28 @@ R"***(precision::Numbers { // GNDS: numbers
 )***";
 
 const std::string block_data_real =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : // defaulted; is its default (1.414)
    afloat  : // defaulted; is its default (1.732)
    aquad   : // defaulted; is its default (2.236)
    bdouble : // defaulted; is its default (2.449)
    bfloat  : // defaulted; is its default (2.646)
    bquad   : // defaulted; is its default (2.828)
-   precision::Doubles { // GNDS: doubles
+   precision::Doubles {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       3.35 7.68 2.78 5.54
       4.77 6.29
    } // precision::Doubles
-   precision::Floats { // GNDS: floats
+   precision::Floats {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       8.4 3.94 7.83 7.98
       9.12 1.98
    } // precision::Floats
-   precision::Quads { // GNDS: quads
+   precision::Quads {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
@@ -791,28 +791,28 @@ R"***(precision::Numbers { // GNDS: numbers
 )***";
 
 const std::string block_gndstk_individual =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : // defaulted; is its default (1.4142136)
    afloat  : // defaulted; is its default (1.73205)
    aquad   : // defaulted; is its default (2.236067977)
    bdouble : // defaulted; is its default (2.4494897)
    bfloat  : // defaulted; is its default (2.64575)
    bquad   : // defaulted; is its default (2.828427125)
-   precision::Doubles { // GNDS: doubles
+   precision::Doubles {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       3.3522276 7.6822959 2.7777471 5.5396996
       4.7739705 6.2887092
    } // precision::Doubles
-   precision::Floats { // GNDS: floats
+   precision::Floats {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       8.40188 3.94383 7.83099 7.9844
       9.11647 1.97551
    } // precision::Floats
-   precision::Quads { // GNDS: quads
+   precision::Quads {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
@@ -824,28 +824,28 @@ R"***(precision::Numbers { // GNDS: numbers
 )***";
 
 const std::string block_gndstk_real =
-R"***(precision::Numbers { // GNDS: numbers
+R"***(precision::Numbers {
    adouble : // defaulted; is its default (1.414)
    afloat  : // defaulted; is its default (1.732)
    aquad   : // defaulted; is its default (2.236)
    bdouble : // defaulted; is its default (2.449)
    bfloat  : // defaulted; is its default (2.646)
    bquad   : // defaulted; is its default (2.828)
-   precision::Doubles { // GNDS: doubles
+   precision::Doubles {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       3.352 7.682 2.778 5.54
       4.774 6.289
    } // precision::Doubles
-   precision::Floats { // GNDS: floats
+   precision::Floats {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
       8.402 3.944 7.831 7.984
       9.116 1.976
    } // precision::Floats
-   precision::Quads { // GNDS: quads
+   precision::Quads {
       length    : // optional; has no value
       start     : // defaulted; is its default (0)
       valueType : // optional; has no value
@@ -861,7 +861,7 @@ R"***(precision::Numbers { // GNDS: numbers
 // SCENARIO
 // ------------------------
 
-SCENARIO("Precision code in BodyText::write(), "
+SCENARIO("Precision code in BlockData::write(), "
          "for writing data blocks with Component::write()'s prettyprinter")
 {
    // Context/action:

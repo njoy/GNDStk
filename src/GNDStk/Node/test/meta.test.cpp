@@ -28,14 +28,14 @@ SCENARIO("Testing GNDStk Node meta()") {
             CHECK(consttop.meta("format") == "1.99");
          }
 
-         auto format = keyword.meta<double>("format");
+         auto format = Meta<double>("format");
          CHECK(top.has_meta(format));
          double f = top.meta(format);
          CHECK(f == 1.99);
 
          WHEN("Node.meta(\"key\",found) is called for a key that isn't there") {
             // try something that doesn't work
-            auto foobar = keyword.meta<double>("foobar");
+            auto foobar = Meta<double>("foobar");
             CHECK(!top.has_meta(foobar)); // doesn't have
             bool found = true;
             f = top.meta(foobar,found); // foobar isn't there
@@ -47,8 +47,8 @@ SCENARIO("Testing GNDStk Node meta()") {
 
       WHEN("Node.meta(Meta) is called") {
          // string and void Meta ==> string
-         auto sstring = keyword.meta<std::string>("evaluation");
-         auto vstring = keyword.meta<void       >("evaluation");
+         auto sstring = Meta<std::string>("evaluation");
+         auto vstring = Meta<void       >("evaluation");
          std::string sstr = top.meta(sstring);
          std::string vstr = top.meta(vstring);
          CHECK(sstr == "ENDF/B-8.0");
@@ -56,7 +56,7 @@ SCENARIO("Testing GNDStk Node meta()") {
          // meta<void> case should trigger a reference return...
          (void)&top.meta(vstring);
 
-         auto var = keyword.meta<std::variant<std::string,double>>("format");
+         auto var = Meta<std::variant<std::string,double>>("format");
          auto s = top.meta<std::string>(var);
          auto d = top.meta<double     >(var);
          CHECK(s == "1.99");

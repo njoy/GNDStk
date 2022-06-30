@@ -42,6 +42,7 @@ target_link_libraries( GNDStk
     INTERFACE catch-adapter
     INTERFACE pugixml-adapter
     INTERFACE nlohmann_json::nlohmann_json
+    INTERFACE HighFive
     )
 
 add_executable( json2class.exe

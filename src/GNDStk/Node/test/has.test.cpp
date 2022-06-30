@@ -1,7 +1,10 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
+using namespace basic;
 
 // I'm arguably overdoing it in this file, testing so many different
 // permutations of essentially the same underlying capability. We do

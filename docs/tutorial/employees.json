@@ -2,30 +2,30 @@
    "employees": {
       "employee0": {
          "name": {
-            "attributes": {
+            "#attributes": {
                "first": "Doc",
                "last": "Jones"
             }
          },
-         "nodeName": "employee"
+         "#nodeName": "employee"
       },
       "employee1": {
          "name": {
-            "attributes": {
+            "#attributes": {
                "first": "Grumpy",
                "last": "Smith"
             }
          },
-         "nodeName": "employee"
+         "#nodeName": "employee"
       },
       "employee2": {
          "name": {
-            "attributes": {
+            "#attributes": {
                "first": "Happy",
                "last": "Earp"
             }
          },
-         "nodeName": "employee"
+         "#nodeName": "employee"
       }
    }
 }

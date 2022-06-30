@@ -35,7 +35,7 @@ ALLOW
       tree(...,axes,axis)
 
    gives back a container of axis objects, not a single axis object, because
-   our Child axis keyword has ALLOW == Allow::any. Note that axes, not to be
+   our Child axis object has ALLOW == Allow::any. Note that axes, not to be
    confused with axis, has ALLOW == Allow::one because it's expected just once.
 
 CONVERTER
@@ -57,7 +57,7 @@ FILTER
 template<
    class TYPE = void, // default means current Node type
    Allow ALLOW = Allow::one, // one, or any number allowed?
-   class CONVERTER = typename detail::default_converter<TYPE>::type,
+   class CONVERTER = detail::default_converter_t<TYPE>,
    class FILTER = detail::noFilter
 >
 class Child {
@@ -72,12 +72,6 @@ public:
    const TYPE object;
    CONVERTER converter; // optional custom converter; needs operator()
    FILTER filter; // optional custom filter; needs operator()
-private:
-   // allowable as top-level?
-   // We make this private, with a setter and a getter, so that the setter
-   // can register the name as "allowable as top-level" if we set to true.
-   bool canBeTopLevel;
-public:
 
    // ------------------------
    // constructors
@@ -87,36 +81,14 @@ public:
    // name, type
    // name, type, converter
    // name, type, converter, filter
-   // name, type, converter, filter, top
    explicit Child(
       const std::string &n,
       const TYPE &t = TYPE{},
       const CONVERTER &c = CONVERTER{},
-      const FILTER &f = FILTER{},
-      const bool canbetop = false
+      const FILTER &f = FILTER{}
    ) :
       name(n), object(t), converter(c), filter(f)
-   {
-      top(canbetop);
-   }
-
-   // ------------------------
-   // top(): allowable
-   // as a top-level node?
-   // ------------------------
-
-   // top()
-   bool top() const
-   {
-      return canBeTopLevel;
-   }
-
-   // top(bool)
-   void top(const bool t)
-   {
-      if (t) detail::AllowedTop.insert(name);
-      canBeTopLevel = t;
-   }
+   { }
 
    // ------------------------
    // simple functions
@@ -128,7 +100,7 @@ public:
    auto basic() const
    {
       return Child<void,ALLOW,void,FILTER>(
-         name, filter, canBeTopLevel // converter not possible here
+         name, filter // converter not possible here
       );
    }
 
@@ -137,7 +109,7 @@ public:
    auto one() const
    {
       return Child<TYPE,Allow::one,CONVERTER,FILTER>(
-         name, object, converter, filter, canBeTopLevel
+         name, object, converter, filter
       );
    }
 
@@ -146,7 +118,7 @@ public:
    auto many() const
    {
       return Child<TYPE,Allow::many,CONVERTER,FILTER>(
-         name, object, converter, filter, canBeTopLevel
+         name, object, converter, filter
       );
    }
 };
@@ -173,10 +145,6 @@ public:
    // name, filter
    std::string name;
    FILTER filter; // optional custom filter; needs operator()
-private:
-   // allowable as top-level?
-   bool canBeTopLevel;
-public:
 
    // ------------------------
    // constructors
@@ -184,34 +152,12 @@ public:
 
    // name
    // name, filter
-   // name, filter, top
    explicit Child(
       const std::string &n,
-      const FILTER &f = FILTER{},
-      const bool t = false
+      const FILTER &f = FILTER{}
    ) :
       name(n), filter(f)
-   {
-      top(t);
-   }
-
-   // ------------------------
-   // top(): allowable
-   // as a top-level node?
-   // ------------------------
-
-   // top()
-   bool top() const
-   {
-      return canBeTopLevel;
-   }
-
-   // top(bool)
-   void top(const bool t)
-   {
-      if (t) detail::AllowedTop.insert(name);
-      canBeTopLevel = t;
-   }
+   { }
 
    // ------------------------
    // simple functions
@@ -222,21 +168,21 @@ public:
    // we're already void; this is here for consistency with the general case.
    auto basic() const
    {
-      return Child<void,ALLOW,void,FILTER>(name,filter,canBeTopLevel);
+      return Child<void,ALLOW,void,FILTER>(name,filter);
    }
 
    // one()
    // Produce an equivalent Child, but formulated as Allow::one
    auto one() const
    {
-      return Child<void,Allow::one,void,FILTER>(name,filter,canBeTopLevel);
+      return Child<void,Allow::one,void,FILTER>(name,filter);
    }
 
    // many()
    // Produce an equivalent Child, but formulated as Allow::many
    auto many() const
    {
-      return Child<void,Allow::many,void,FILTER>(name,filter,canBeTopLevel);
+      return Child<void,Allow::many,void,FILTER>(name,filter);
    }
 };
 
@@ -246,13 +192,12 @@ public:
 // Macro
 // -----------------------------------------------------------------------------
 
-// For Child building. This macro doesn't handle the optional "top-level"
-// flag, the converter, or the filter; we don't believe those will be needed
-// very often. If you do need to provide one or both, construct a Child
-// in some other way than by using this macro.
+// For Child building. This macro doesn't handle the converter or the filter;
+// we don't believe those will be needed very often. If you do need to provide
+// one or both, construct a Child in some other way than by using this macro.
 
 #define GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
-   inline const Child<TYPE,Allow::ALLOW> name(#name)
+   inline const njoy::GNDStk::Child<TYPE,njoy::GNDStk::Allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.

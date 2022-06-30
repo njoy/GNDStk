@@ -2,7 +2,7 @@
 namespace GNDStk {
 namespace proto {
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 // -----------------------------------------------------------------------------
 // Sketch: prototype "ReactionSuite" hierarchy
@@ -166,15 +166,15 @@ public:
 
    // start
    const auto &start() const
-    { return content.start.value(); }
+    { return content.start; }
    auto &start()
-    { return content.start.value(); }
+    { return content.start; }
 
    // valueType
    const auto &valueType() const
-    { return content.valueType.value(); }
+    { return content.valueType; }
    auto &valueType()
-    { return content.valueType.value(); }
+    { return content.valueType; }
 
    // ------------------------
    // Setters
@@ -184,19 +184,19 @@ public:
 
    // length(value)
    auto &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    auto &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    auto &start(const int &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    auto &valueType(const Defaulted<std::string> &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
    auto &valueType(const std::string &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -205,10 +205,10 @@ public:
    // default
    Values() :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -218,9 +218,9 @@ public:
    Values(const Values &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{other.content}
    {
@@ -231,9 +231,9 @@ public:
    Values(Values &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{std::move(other.content)}
    {
@@ -243,10 +243,10 @@ public:
    // from node
    Values(const Node &node) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -259,10 +259,10 @@ public:
       const Defaulted<std::string> &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -280,10 +280,10 @@ public:
       const std::string &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
       content{
          length,
@@ -388,8 +388,8 @@ public:
    // default
    Link() :
       Component{
-         BodyText{},
-         content.href
+         BlockData{},
+         this->href()
       }
    {
       Component::finish();
@@ -399,7 +399,7 @@ public:
    Link(const Link &other) :
       Component{
          other,
-         content.href
+         this->href()
       },
       content{other.content}
    {
@@ -410,7 +410,7 @@ public:
    Link(Link &&other) :
       Component{
          other,
-         content.href
+         this->href()
       },
       content{std::move(other.content)}
    {
@@ -420,8 +420,8 @@ public:
    // from node
    Link(const Node &node) :
       Component{
-         BodyText{},
-         content.href
+         BlockData{},
+         this->href()
       }
    {
       Component::finish(node);
@@ -432,8 +432,8 @@ public:
       const std::string &href
    ) :
       Component{
-         BodyText{},
-         content.href
+         BlockData{},
+         this->href()
       },
       content{
          href
@@ -509,7 +509,8 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+      const enums::Interpolation interpolation
+         { enums::Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -519,7 +520,8 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
+      Defaulted<enums::Interpolation> interpolation
+         { enums::Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<enums::GridStyle> style;
       std::optional<std::string> unit;
@@ -541,9 +543,9 @@ public:
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
    auto &interpolation()
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
 
    // label
    const auto &label() const
@@ -593,9 +595,9 @@ public:
 
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
 
    // label(value)
    auto &label(const std::optional<std::string> &obj)
@@ -615,11 +617,11 @@ public:
 
    // link(value)
    auto &link(const std::optional<proto::Link> &obj)
-    { if (obj) link_values(obj.value()); return *this; }
+    { if (obj) link_values() = *obj; return *this; }
 
    // values(value)
    auto &values(const std::optional<proto::Values> &obj)
-    { if (obj) link_values(obj.value()); return *this; }
+    { if (obj) link_values() = *obj; return *this; }
 
    // ------------------------
    // Construction
@@ -628,13 +630,13 @@ public:
    // default
    Grid() :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish();
@@ -644,12 +646,12 @@ public:
    Grid(const Grid &other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{other.content}
    {
@@ -660,12 +662,12 @@ public:
    Grid(Grid &&other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{std::move(other.content)}
    {
@@ -675,13 +677,13 @@ public:
    // from node
    Grid(const Node &node) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish(node);
@@ -697,13 +699,13 @@ public:
       const LINK_VALUES &link_values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{
          index,
@@ -727,19 +729,21 @@ public:
       const LINK_VALUES &link_values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
       content{
          index,
          interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+            ? Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin }
+            : Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin,interpolation },
          label,
          style,
          unit,
@@ -865,10 +869,10 @@ public:
    // default
    Axis() :
       Component{
-         BodyText{},
-         content.index,
-         content.label,
-         content.unit
+         BlockData{},
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish();
@@ -878,9 +882,9 @@ public:
    Axis(const Axis &other) :
       Component{
          other,
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{other.content}
    {
@@ -891,9 +895,9 @@ public:
    Axis(Axis &&other) :
       Component{
          other,
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{std::move(other.content)}
    {
@@ -903,10 +907,10 @@ public:
    // from node
    Axis(const Node &node) :
       Component{
-         BodyText{},
-         content.index,
-         content.label,
-         content.unit
+         BlockData{},
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish(node);
@@ -919,10 +923,10 @@ public:
       const std::optional<std::string> &unit
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.label,
-         content.unit
+         BlockData{},
+         this->index(),
+         this->label(),
+         this->unit()
       },
       content{
          index,
@@ -1024,9 +1028,9 @@ public:
     { return content.axis_grid; }
 
    // axis_grid(index)
-   const auto &axis_grid(const std::size_t index) const
+   const auto &axis_grid(const std::size_t &index) const
     { return getter(axis_grid(), index, "axis_grid"); }
-   auto &axis_grid(const std::size_t index)
+   auto &axis_grid(const std::size_t &index)
     { return getter(axis_grid(), index, "axis_grid"); }
 
    // axis_grid(label)
@@ -1036,9 +1040,9 @@ public:
     { return getter(axis_grid(), label, "axis_grid"); }
 
    // axis(index)
-   auto axis(const std::size_t index) const
+   auto axis(const std::size_t &index) const
     { return getter<proto::Axis>(axis_grid(), index, "axis"); }
-   auto axis(const std::size_t index)
+   auto axis(const std::size_t &index)
     { return getter<proto::Axis>(axis_grid(), index, "axis"); }
 
    // axis(label)
@@ -1048,9 +1052,9 @@ public:
     { return getter<proto::Axis>(axis_grid(), label, "axis"); }
 
    // grid(index)
-   auto grid(const std::size_t index) const
+   auto grid(const std::size_t &index) const
     { return getter<proto::Grid>(axis_grid(), index, "grid"); }
-   auto grid(const std::size_t index)
+   auto grid(const std::size_t &index)
     { return getter<proto::Grid>(axis_grid(), index, "grid"); }
 
    // grid(label)
@@ -1075,7 +1079,7 @@ public:
 
    // axis_grid(index,value)
    auto &axis_grid(
-      const std::size_t index,
+      const std::size_t &index,
       const AXIS_GRID &obj
    ) {
       axis_grid(index) = obj; return *this;
@@ -1091,10 +1095,10 @@ public:
 
    // axis(index,value)
    auto &axis(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(index,*obj);
       return *this;
    }
 
@@ -1103,16 +1107,16 @@ public:
       const std::string &label,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(label,*obj);
       return *this;
    }
 
    // grid(index,value)
    auto &grid(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(index,*obj);
       return *this;
    }
 
@@ -1121,7 +1125,7 @@ public:
       const std::string &label,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(label,*obj);
       return *this;
    }
 
@@ -1132,9 +1136,9 @@ public:
    // default
    Axes() :
       Component{
-         BodyText{},
-         content.href,
-         content.axis_grid
+         BlockData{},
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish();
@@ -1144,8 +1148,8 @@ public:
    Axes(const Axes &other) :
       Component{
          other,
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{other.content}
    {
@@ -1156,8 +1160,8 @@ public:
    Axes(Axes &&other) :
       Component{
          other,
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
       content{std::move(other.content)}
    {
@@ -1167,9 +1171,9 @@ public:
    // from node
    Axes(const Node &node) :
       Component{
-         BodyText{},
-         content.href,
-         content.axis_grid
+         BlockData{},
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish(node);
@@ -1181,9 +1185,9 @@ public:
       const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
-         BodyText{},
-         content.href,
-         content.axis_grid
+         BlockData{},
+         this->href(),
+         this->axis_grid()
       },
       content{
          href,
@@ -1255,7 +1259,8 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+      const enums::Interpolation interpolation
+         { enums::Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -1265,7 +1270,8 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
+      Defaulted<enums::Interpolation> interpolation
+         { enums::Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<double> outerDomainValue;
 
@@ -1287,9 +1293,9 @@ public:
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
    auto &interpolation()
-    { return content.interpolation.value(); }
+    { return content.interpolation; }
 
    // label
    const auto &label() const
@@ -1327,9 +1333,9 @@ public:
 
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
 
    // label(value)
    auto &label(const std::optional<std::string> &obj)
@@ -1354,13 +1360,13 @@ public:
    // default
    XYs1d() :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish();
@@ -1370,12 +1376,12 @@ public:
    XYs1d(const XYs1d &other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{other.content}
    {
@@ -1386,12 +1392,12 @@ public:
    XYs1d(XYs1d &&other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{std::move(other.content)}
    {
@@ -1401,13 +1407,13 @@ public:
    // from node
    XYs1d(const Node &node) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish(node);
@@ -1423,13 +1429,13 @@ public:
       const proto::Values &values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{
          index,
@@ -1453,19 +1459,21 @@ public:
       const proto::Values &values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
       content{
          index,
          interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+            ? Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin }
+            : Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin,interpolation },
          label,
          outerDomainValue,
          axes,
@@ -1573,9 +1581,9 @@ public:
     { return content.XYs1d; }
 
    // XYs1d(index)
-   const auto &XYs1d(const std::size_t index) const
+   const auto &XYs1d(const std::size_t &index) const
     { return getter(XYs1d(), index, "XYs1d"); }
-   auto &XYs1d(const std::size_t index)
+   auto &XYs1d(const std::size_t &index)
     { return getter(XYs1d(), index, "XYs1d"); }
 
    // XYs1d(label)
@@ -1610,7 +1618,7 @@ public:
 
    // XYs1d(index,value)
    auto &XYs1d(
-      const std::size_t index,
+      const std::size_t &index,
       const proto::XYs1d &obj
    ) {
       XYs1d(index) = obj; return *this;
@@ -1635,11 +1643,11 @@ public:
    // default
    Regions1d() :
       Component{
-         BodyText{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         BlockData{},
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish();
@@ -1649,10 +1657,10 @@ public:
    Regions1d(const Regions1d &other) :
       Component{
          other,
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{other.content}
    {
@@ -1663,10 +1671,10 @@ public:
    Regions1d(Regions1d &&other) :
       Component{
          other,
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{std::move(other.content)}
    {
@@ -1676,11 +1684,11 @@ public:
    // from node
    Regions1d(const Node &node) :
       Component{
-         BodyText{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         BlockData{},
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish(node);
@@ -1694,11 +1702,11 @@ public:
       const std::optional<proto::Axes> &axes
    ) :
       Component{
-         BodyText{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         BlockData{},
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
       content{
          label,
@@ -1789,9 +1797,9 @@ public:
     { return content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
-   const auto &XYs1d_regions1d(const std::size_t index) const
+   const auto &XYs1d_regions1d(const std::size_t &index) const
     { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-   auto &XYs1d_regions1d(const std::size_t index)
+   auto &XYs1d_regions1d(const std::size_t &index)
     { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
@@ -1801,9 +1809,9 @@ public:
     { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
 
    // XYs1d(index)
-   auto XYs1d(const std::size_t index) const
+   auto XYs1d(const std::size_t &index) const
     { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
-   auto XYs1d(const std::size_t index)
+   auto XYs1d(const std::size_t &index)
     { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
 
    // XYs1d(label)
@@ -1813,9 +1821,9 @@ public:
     { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
 
    // regions1d(index)
-   auto regions1d(const std::size_t index) const
+   auto regions1d(const std::size_t &index) const
     { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
-   auto regions1d(const std::size_t index)
+   auto regions1d(const std::size_t &index)
     { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
 
    // regions1d(label)
@@ -1836,7 +1844,7 @@ public:
 
    // XYs1d_regions1d(index,value)
    auto &XYs1d_regions1d(
-      const std::size_t index,
+      const std::size_t &index,
       const XYS1D_REGIONS1D &obj
    ) {
       XYs1d_regions1d(index) = obj; return *this;
@@ -1852,10 +1860,10 @@ public:
 
    // XYs1d(index,value)
    auto &XYs1d(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(index,*obj);
       return *this;
    }
 
@@ -1864,16 +1872,16 @@ public:
       const std::string &label,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(label,*obj);
       return *this;
    }
 
    // regions1d(index,value)
    auto &regions1d(
-      const std::size_t index,
+      const std::size_t &index,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(index,*obj);
       return *this;
    }
 
@@ -1882,7 +1890,7 @@ public:
       const std::string &label,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(label,*obj);
       return *this;
    }
 
@@ -1893,8 +1901,8 @@ public:
    // default
    CrossSection() :
       Component{
-         BodyText{},
-         content.XYs1d_regions1d
+         BlockData{},
+         this->XYs1d_regions1d()
       }
    {
       Component::finish();
@@ -1904,7 +1912,7 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other,
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{other.content}
    {
@@ -1915,7 +1923,7 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other,
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
       content{std::move(other.content)}
    {
@@ -1925,8 +1933,8 @@ public:
    // from node
    CrossSection(const Node &node) :
       Component{
-         BodyText{},
-         content.XYs1d_regions1d
+         BlockData{},
+         this->XYs1d_regions1d()
       }
    {
       Component::finish(node);
@@ -1937,8 +1945,8 @@ public:
       const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d
    ) :
       Component{
-         BodyText{},
-         content.XYs1d_regions1d
+         BlockData{},
+         this->XYs1d_regions1d()
       },
       content{
          XYs1d_regions1d
@@ -2079,11 +2087,11 @@ public:
    // default
    Reaction() :
       Component{
-         BodyText{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         BlockData{},
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish();
@@ -2093,10 +2101,10 @@ public:
    Reaction(const Reaction &other) :
       Component{
          other,
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{other.content}
    {
@@ -2107,10 +2115,10 @@ public:
    Reaction(Reaction &&other) :
       Component{
          other,
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{std::move(other.content)}
    {
@@ -2120,11 +2128,11 @@ public:
    // from node
    Reaction(const Node &node) :
       Component{
-         BodyText{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         BlockData{},
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish(node);
@@ -2138,11 +2146,11 @@ public:
       const proto::CrossSection &crossSection
    ) :
       Component{
-         BodyText{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         BlockData{},
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
       content{
          ENDF_MT,
@@ -2228,9 +2236,9 @@ public:
     { return content.reaction; }
 
    // reaction(index)
-   const auto &reaction(const std::size_t index) const
+   const auto &reaction(const std::size_t &index) const
     { return getter(reaction(), index, "reaction"); }
-   auto &reaction(const std::size_t index)
+   auto &reaction(const std::size_t &index)
     { return getter(reaction(), index, "reaction"); }
 
    // reaction(label)
@@ -2251,7 +2259,7 @@ public:
 
    // reaction(index,value)
    auto &reaction(
-      const std::size_t index,
+      const std::size_t &index,
       const proto::Reaction &obj
    ) {
       reaction(index) = obj; return *this;
@@ -2272,8 +2280,8 @@ public:
    // default
    Reactions() :
       Component{
-         BodyText{},
-         content.reaction
+         BlockData{},
+         this->reaction()
       }
    {
       Component::finish();
@@ -2283,7 +2291,7 @@ public:
    Reactions(const Reactions &other) :
       Component{
          other,
-         content.reaction
+         this->reaction()
       },
       content{other.content}
    {
@@ -2294,7 +2302,7 @@ public:
    Reactions(Reactions &&other) :
       Component{
          other,
-         content.reaction
+         this->reaction()
       },
       content{std::move(other.content)}
    {
@@ -2304,8 +2312,8 @@ public:
    // from node
    Reactions(const Node &node) :
       Component{
-         BodyText{},
-         content.reaction
+         BlockData{},
+         this->reaction()
       }
    {
       Component::finish(node);
@@ -2316,8 +2324,8 @@ public:
       const std::vector<proto::Reaction> &reaction
    ) :
       Component{
-         BodyText{},
-         content.reaction
+         BlockData{},
+         this->reaction()
       },
       content{
          reaction
@@ -2497,14 +2505,14 @@ public:
    // default
    ReactionSuite() :
       Component{
-         BodyText{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         BlockData{},
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish();
@@ -2514,13 +2522,13 @@ public:
    ReactionSuite(const ReactionSuite &other) :
       Component{
          other,
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{other.content}
    {
@@ -2531,13 +2539,13 @@ public:
    ReactionSuite(ReactionSuite &&other) :
       Component{
          other,
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{std::move(other.content)}
    {
@@ -2547,14 +2555,14 @@ public:
    // from node
    ReactionSuite(const Node &node) :
       Component{
-         BodyText{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         BlockData{},
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish(node);
@@ -2571,14 +2579,14 @@ public:
       const std::optional<proto::Reactions> &reactions
    ) :
       Component{
-         BodyText{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         BlockData{},
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
       content{
          evaluation,

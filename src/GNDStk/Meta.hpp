@@ -1,4 +1,6 @@
 
+#include "GNDStk/Meta/src/detail.hpp"
+
 // -----------------------------------------------------------------------------
 // Meta
 // -----------------------------------------------------------------------------
@@ -9,7 +11,7 @@
 
 template<
    class TYPE = void,
-   class CONVERTER = typename detail::default_converter<TYPE>::type
+   class CONVERTER = detail::default_converter_t<TYPE>
 >
 class Meta {
 public:
@@ -80,7 +82,7 @@ public:
 // This macro doesn't allow for the (optional) TYPE object or the converter.
 // For those, construct a Meta directly.
 #define GNDSTK_MAKE_META(TYPE,name) \
-   inline const Meta<TYPE> name(#name)
+   inline const njoy::GNDStk::Meta<TYPE> name(#name)
 // Note: we won't #undef this eventually, as we normally would,
 // because it's a perfectly viable macro for users to invoke.
 
