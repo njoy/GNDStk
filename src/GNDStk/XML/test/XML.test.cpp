@@ -65,7 +65,7 @@ SCENARIO("Testing GNDStk XML") {
       THEN("The Tree should have only an empty declaration node") {
          CHECK(t.children.size() == 1);
          CHECK(t.has_decl());
-         CHECK(t.decl().name == "xml");
+         CHECK(t.decl().name == "#xml");
          CHECK(t.decl().metadata.size() == 0);
          CHECK(t.decl().children.size() == 0);
       }
@@ -133,7 +133,7 @@ SCENARIO("Testing GNDStk XML") {
       }
    }
 
-   // from file name
+   // from file
    // Note: Things like this are of course tested indirectly
    // all over the place.
    WHEN("We construct an XML from a file") {
