@@ -106,7 +106,7 @@ SCENARIO("BlockData<int> write(), when a vector is active")
             //    indent:  0, 3 (number of spaces per indentation level)
             //    columns: 0, 1, 2, 5, 10, 11 (note that 10 == vector size)
             //    level:   0, 1, 2 (indentation level)
-            // Note: columns == 0 ==> unlimited.
+            // Note: columns <= 0 means unlimited: so, all values on one line.
             // Lots of cases, but we want to check that our pretty-printing
             // functionality works perfectly, and doesn't do anything that's
             // unexpected around "boundaries" like columns==10 with 10 values.
@@ -178,19 +178,29 @@ SCENARIO("BlockData<int> write(), when a vector is active")
             CHECK(oss.str() == "2\n3\n5\n7\n11\n13\n17\n19\n21\n23\n");
 
             oss.str(""); indent = 3; columns =  1; b.write(oss,1);
-            CHECK(oss.str() == "   2\n   3\n   5\n   7\n   11\n   13\n   17\n   19\n   21\n   23\n");
+            CHECK(oss.str() ==
+                  "   2\n   3\n   5\n   7\n   11\n"
+                  "   13\n   17\n   19\n   21\n   23\n");
 
             oss.str(""); indent = 3; columns =  1; b.write(oss,2);
-            CHECK(oss.str() == "      2\n      3\n      5\n      7\n      11\n      13\n      17\n      19\n      21\n      23\n");
+            CHECK(oss.str() ==
+                  "      2\n      3\n      5\n      7\n      11\n"
+                  "      13\n      17\n      19\n      21\n      23\n");
 
             oss.str(""); indent = 3; columns =  2; b.write(oss,0);
             CHECK(oss.str() == "2 3\n5 7\n11 13\n17 19\n21 23\n");
 
             oss.str(""); indent = 3; columns =  2; b.write(oss,1);
-            CHECK(oss.str() == "   2 3\n   5 7\n   11 13\n   17 19\n   21 23\n");
+            CHECK(
+               oss.str() ==
+               "   2 3\n   5 7\n   11 13\n   17 19\n   21 23\n"
+            );
 
             oss.str(""); indent = 3; columns =  2; b.write(oss,2);
-            CHECK(oss.str() == "      2 3\n      5 7\n      11 13\n      17 19\n      21 23\n");
+            CHECK(
+               oss.str() ==
+               "      2 3\n      5 7\n      11 13\n      17 19\n      21 23\n"
+            );
 
             oss.str(""); indent = 3; columns =  5; b.write(oss,0);
             CHECK(oss.str() == "2 3 5 7 11\n13 17 19 21 23\n");
@@ -291,6 +301,7 @@ SCENARIO("BlockData<double> write(), vector, trying GNDStk::truncate")
             //    truncate: -1, 0, 1, 2, 3 (-1 means none; print all values)
             // Lots of cases; we want pretty-printing to be perfect.
 
+            // Integral parameters below are: indent, columns, level, truncate
             test_truncate(b, 3,  0,  0,  -1,
                           "2.3 5.7 11.13 17.19 21.23\n");
             test_truncate(b, 3,  0,  0,  +0,

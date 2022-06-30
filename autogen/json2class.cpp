@@ -2348,7 +2348,8 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    for ( const auto& dataTypeName : dataTypesNames ) {
       out(2,".def_property_readonly(");
       out(3,"\"@\",", dataTypeName.second);
-      out(3,"[] (const Component &self) { return self.@(); },", dataTypeName.second);
+      out(3,"[] (const Component &self) { return self.@(); },",
+          dataTypeName.second);
       out(3,"Component::documentation(\"@\").data()", dataTypeName.second);
       out(2,")");
    }

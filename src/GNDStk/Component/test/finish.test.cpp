@@ -88,8 +88,10 @@ public:
    const std::string &valueType() const { return content.valueType; }
    std::string &valueType() { return content.valueType; }
 
-   const std::optional<std::vector<IndexStruct>> &indices() const { return content.indices; }
-   std::optional<std::vector<IndexStruct>> &indices() { return content.indices; }
+   const std::optional<std::vector<IndexStruct>> &indices() const
+   { return content.indices; }
+   std::optional<std::vector<IndexStruct>> &indices()
+   { return content.indices; }
 
 private:
 
@@ -243,8 +245,10 @@ public:
    const double &bar() const { return content.bar; }
    double &bar() { return content.bar; }
 
-   const std::optional<std::vector<LabelStruct>> &labels() const { return content.labels; }
-   std::optional<std::vector<LabelStruct>> &labels() { return content.labels; }
+   const std::optional<std::vector<LabelStruct>> &labels() const
+   { return content.labels; }
+   std::optional<std::vector<LabelStruct>> &labels()
+   { return content.labels; }
 
 private:
 
