@@ -28,7 +28,7 @@
 
 // 0-argument
 // 1-argument: string (the name)
-Node &add(const std::string &name = "")
+Node &add(const std::string &name = emptyNodeName)
 {
    children.push_back(std::make_unique<Node>());
    Node &newChild = *children.back();

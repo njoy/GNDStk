@@ -9,10 +9,10 @@ from GNDStk.v1_9.containers import Values
 class Test_GNDStk_v1_9_containers_Values( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk_doubles = ( '<values length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</values>\n' )
-    chunk_ints = ( '<values length="4" start="0" valueType="Integer32">2500 9 2550 9</values>\n' )
-    chunk_strings = ( '<values length="4" start="0" valueType="UTF8Text">2500 8.9172 2550 8.9155</values>\n' )
-    wrong = ( '<wrongName length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</wrongName>\n' )
+    chunk_doubles = ( '<values valueType="Float64" start="0" length="4">2500 8.9172 2550 8.9155</values>' )
+    chunk_ints = ( '<values valueType="Integer32" start="0" length="4">2500 9 2550 9</values>' )
+    chunk_strings = ( '<values valueType="UTF8Text" start="0" length="4">2500 8.9172 2550 8.9155</values>' )
+    wrong = ( '<wrongName valueType="Float64" start="0" length="4">2500 8.9172 2550 8.9155</wrongName>' )
 
     def test_component( self ) :
 

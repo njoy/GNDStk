@@ -122,8 +122,7 @@ SCENARIO( "Link" ) {
 std::string chunk() {
 
   return
-R"***(<link href="../../grid[@index='2']/values" />
-)***";
+R"***(<link href="../../grid[@index='2']/values" />)***";
 }
 
 void verifyChunk( const Link& component ) {
@@ -135,6 +134,5 @@ std::string invalidName() {
 
   // wrong name for the node
   return
-R"***(<wrongName href="../../grid[@index='2']/values" />
-)***";
+R"***(<wrongName href="../../grid[@index='2']/values" />)***";
 }

@@ -1,0 +1,119 @@
+{
+   "foo": {
+      "#metadata": {
+         "double": 1.2,
+         "doubles": [
+            3.4,
+            5.6,
+            7.8
+         ],
+         "int": 1,
+         "ints": [
+            2,
+            3
+         ],
+         "string": "ab",
+         "strings": "cd ef gh ij"
+      },
+      "bar": null,
+      "comment": {
+         "#comment": "Comment"
+      },
+      "comments": {
+         "#comment0": "Comment #0",
+         "#comment1": "Comment #1",
+         "#comment2": "Comment #2"
+      },
+      "double": [
+         1.2
+      ],
+      "double#metadata": {
+         "remark": "one double"
+      },
+      "doubles": [
+         1.2,
+         3.45,
+         6.789
+      ],
+      "doubles#metadata": {
+         "remark": "three doubles"
+      },
+      "int": [
+         1
+      ],
+      "ints": [
+         12,
+         345,
+         6789
+      ],
+      "onecdata": {
+         "#cdata": "Block of CDATA"
+      },
+      "string": [
+         "ab"
+      ],
+      "strings": [
+         "cd",
+         "efg",
+         "hijk"
+      ],
+      "twocdata": {
+         "#cdata0": "Block #0 of CDATA",
+         "#cdata1": "Block #1 of CDATA"
+      },
+      "values0": [
+         1,
+         2,
+         3
+      ],
+      "values0#nodename": "values",
+      "values0#metadata": {
+         "x": 123
+      },
+      "values1": [
+         4.4,
+         5.5
+      ],
+      "values1#nodename": "values",
+      "values1#metadata": {
+         "y": 4.5
+      },
+      "values2": [
+         "a",
+         "b",
+         "c"
+      ],
+      "values2#nodename": "values",
+      "values2#metadata": {
+         "z": "abc"
+      },
+      "various": {
+         "#cdata0": "More CDATA",
+         "#cdata1": "Some CDATA",
+         "#comment0": "First comment",
+         "#comment1": "Second comment",
+         "#comment2": "Third comment",
+         "#pcdata0": [
+            1,
+            2,
+            3,
+            4
+         ],
+         "#pcdata1": [
+            9.87,
+            6.54,
+            3.21
+         ],
+         "#pcdata2": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g"
+         ],
+         "regularElement": null
+      }
+   }
+}

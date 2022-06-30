@@ -3,6 +3,8 @@
 // Miscellaneous variables, enums, etc.
 // -----------------------------------------------------------------------------
 
+using orderedJSON = nlohmann::ordered_json;
+
 // indent
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;
@@ -16,17 +18,12 @@ inline std::string indentTo(const int level)
 // Should Node's debugging output print addresses and parent-node addresses?
 inline bool parents = false;
 
-// top
-// When reading, check whether the document node is in our list of allowable
-// GNDS top-level nodes
-inline bool top = false;
-
 // file type / format
 enum class FileType {
-   // default, automagick, etc.
-   null,
-   // our plain text format (for writing only)
-   text,
+   // default: guess from file magic number (input) or extension (output)
+   guess,
+   // our plain-text "debug format"; for writing only (not reading)
+   debug,
    // give users easy-to-type lowercase as well as acronym-style uppercase...
    xml,  XML  = xml,
    json, JSON = json,
@@ -38,6 +35,21 @@ enum class Allow {
    one,
    many
 };
+
+namespace special {
+   inline const char prefix = '#';
+
+   inline const std::string
+      nodename = prefix + std::string("nodename"),
+      metadata = prefix + std::string("metadata"),
+      cdata    = prefix + std::string("cdata"),
+      pcdata   = prefix + std::string("pcdata"),
+      comment  = prefix + std::string("comment"),
+      text     = prefix + std::string("text"),
+      xml      = prefix + std::string("xml"),
+      json     = prefix + std::string("json"),
+      hdf5     = prefix + std::string("hdf5");
+}
 
 namespace detail {
 
@@ -59,19 +71,6 @@ inline bool sent(const std::string &string)
    return &string != &default_string;
 }
 
-// allowable declaration nodes
-inline std::set<std::string> AllowedDecl = {
-   "xml",
-   "json",
-   "hdf5",
-};
-
-// allowable top-level GNDS nodes
-inline std::set<std::string> AllowedTop = {
-   // added as they're identified
-   // in our Child class
-};
-
 // noFilter
 class noFilter {
 public:
@@ -92,7 +91,7 @@ inline void failback(std::istream &is, const std::streampos pos)
 
 
 // -----------------------------------------------------------------------------
-// Helper constructs for some simple Log-enhancing pretty-printing
+// Helper constructs for some simple Log-enhancing prettyprinting
 // -----------------------------------------------------------------------------
 
 // align, color
@@ -100,29 +99,6 @@ inline void failback(std::istream &is, const std::streampos pos)
 // Remember that they're scoped in njoy::GNDStk, like other things.
 inline bool align = true;  // extra spaces, to line stuff up for easy reading
 inline bool color = false; // default: impose no ANSI escape-sequence clutter
-
-// fixme A possible concern here is that the alignment, as controlled by the
-// align bool, is only applied to the message string that's sent as the first
-// parameter to our log:: functions - not to the entire message that might be
-// constructed and printed.
-//
-// Imagine that you wrote:
-//
-//    log::error("Some information: {}", someStringParameterWithNewlines);
-//
-// Our log:: functions ultimately forward their own parameters to the external
-// Log library for final handling. Before doing so, they process the message
-// string ("Some information: {}", in our example above). If align == true,
-// they create a *modified* message string - with spacing for alignment after
-// any newlines. However, content that arrives through the "{}"s, from other
-// parameters, and that has newlines, doesn't get alignment spacing. Someone
-// might then see the diagnostic, and believe that our alignment flag is broken.
-//
-// We should consider solutions to this - ones that don't require replicating
-// too much content from the external Log library, and that allow us to still
-// take advantage of its convenient "{}" notation for writing parameters. For
-// now, a few particular "long" diagnostic messages in GNDStk are formatted
-// and printed completely into the format string, so that we avoid this issue.
 
 namespace detail {
 
@@ -132,11 +108,27 @@ inline std::string diagnostic(
    const std::string &message,
    const std::string &prefix = ""
 ) {
+   // Remark. Below, if align == true, we place spaces after any newlines that
+   // appear in the message, so that output that would otherwise:
+   //    [error] look something
+   //    like this
+   // will instead:
+   //    [error] look something
+   //            like this
+   // Later, in functions like our error() and warning(), strings returned from
+   // this present (diagnostic()) function are sent to one of the Log:: library
+   // functions. Those replace instances of "{}" with the values of parameters,
+   // similarly to how the old C-language printf() replaces "%". The code below
+   // just does the alignment business for the message string, not for any of
+   // those additional parameters. In the event that one of those is a string,
+   // and has newlines, alignment may not be as one might initially expect. So,
+   // this is just something to be aware of.
+
    static std::map<std::string,std::string> codes = {
       { "info",    "\033[36;21m" }, // cyan
       { "warning", "\033[33;1m"  }, // yellow
       { "error",   "\033[31;21m" }, // red
-      { "debug",   "\033[37;21m" }  // white
+      { "debug",   "\033[37;1m"  }  // white
    };
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off
@@ -161,6 +153,12 @@ inline std::string diagnostic(
    return color ? codes[label] + spaced + reset : spaced;
 }
 
+// context
+inline std::string context(const std::string &type, const std::string &name)
+{
+   return diagnostic("info", type + " " + name, "Context");
+}
+
 } // namespace detail
 
 
@@ -177,15 +175,20 @@ inline std::string diagnostic(
 inline bool comments = true;
 
 // For printing.
-// When writing a Component with its generic write() function (or its stream
-// output, which uses write()), AND the Component is based on a BodyText with
-// hasBodyText == true, values will be printed with GNDStk::columns across.
-// "columns" is aliased to "across" for convenience, because, at the time of
-// this writing, GNDStk has a Meta<> object, named "columns", which would also
-// be in scope if the core namespace is used. So, a user might prefer to use
-// the name "across".
-inline std::size_t columns = 4;
-inline std::size_t &across = columns;
+//
+// Applicable when writing a Component with its "prettyprinting" generic write()
+// function - or with its stream output, which uses its generic write().
+//
+// If the Component is based on a BlockData with hasBlockData == true, then data
+// are printed using GNDStk::columns columns. If columns <= 0, it means to print
+// all data on one line.
+//
+// If the data array's size is large, a user may wish to limit the total number
+// of printed values. This can be done with the truncate variable. A value < 0
+// means unlimited. All other values, including 0, mean: print no more than that
+// number of values.
+inline long columns = 4;
+inline long truncate = -1;
 
 
 
@@ -193,9 +196,9 @@ inline std::size_t &across = columns;
 // Flags for fine-tuning diagnostic output
 // -----------------------------------------------------------------------------
 
-// Names of these flags align with those in our log:: functions (see below),
-// for consistency and predictability. These are in namespace GNDStk while
-// those are in namespace GNDStk::log, so the names don't conflict.
+// Names of these flags reflect names in our log:: functions (see below), for
+// consistency and predictability. These flags are in namespace GNDStk, while
+// those are in namespace GNDStk::log; so, the names don't conflict.
 
 // Print info messages? (with log::info())
 inline bool info = true;
@@ -211,6 +214,7 @@ inline bool debug = false;
 // log::function()
 // log::member()
 // log::ctor()
+// log::dtor()
 // log::assign()
 inline bool context = true;
 
@@ -230,7 +234,7 @@ namespace log {
 
 // info
 template<class... Args>
-inline void info(const std::string &str, Args &&...args)
+void info(const std::string &str, Args &&...args)
 {
    if (GNDStk::info) {
       const std::string msg = detail::diagnostic("info",str);
@@ -240,7 +244,7 @@ inline void info(const std::string &str, Args &&...args)
 
 // warning
 template<class... Args>
-inline void warning(const std::string &str, Args &&...args)
+void warning(const std::string &str, Args &&...args)
 {
    if (GNDStk::warning) {
       const std::string msg = detail::diagnostic("warning",str);
@@ -250,7 +254,7 @@ inline void warning(const std::string &str, Args &&...args)
 
 // error
 template<class... Args>
-inline void error(const std::string &str, Args &&...args)
+void error(const std::string &str, Args &&...args)
 {
    const std::string msg = detail::diagnostic("error",str);
    Log::error(msg.data(), std::forward<Args>(args)...);
@@ -258,7 +262,7 @@ inline void error(const std::string &str, Args &&...args)
 
 // debug
 template<class... Args>
-inline void debug(const std::string &str, Args &&...args)
+void debug(const std::string &str, Args &&...args)
 {
    if (GNDStk::debug) {
       const std::string msg = detail::diagnostic("debug",str);
@@ -274,46 +278,47 @@ inline void debug(const std::string &str, Args &&...args)
 
 // context is a regular function
 template<class... Args>
-inline void function(const std::string &str, Args &&...args)
+void function(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "function " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("function", str).data(),
+                std::forward<Args>(args)...);
 }
 
 // context is a member function
 template<class... Args>
-inline void member(const std::string &str, Args &&...args)
+void member(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "member function " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("member function", str).data(),
+                std::forward<Args>(args)...);
 }
 
 // context is a constructor
 template<class... Args>
-inline void ctor(const std::string &str, Args &&...args)
+void ctor(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "constructor " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("constructor", str).data(),
+                std::forward<Args>(args)...);
+}
+
+// context is a destructor
+template<class... Args>
+void dtor(const std::string &str, Args &&...args)
+{
+   if (GNDStk::context)
+      Log::info(detail::context("destructor", str).data(),
+                std::forward<Args>(args)...);
 }
 
 // context is an assignment operator
 template<class... Args>
-inline void assign(const std::string &str, Args &&...args)
+void assign(const std::string &str, Args &&...args)
 {
-   if (GNDStk::context) {
-      const std::string msg =
-         detail::diagnostic("info", "assignment " + str, "Context");
-      Log::info(msg.data(), std::forward<Args>(args)...);
-   }
+   if (GNDStk::context)
+      Log::info(detail::context("assignment", str).data(),
+                std::forward<Args>(args)...);
 }
 
 } // namespace log
@@ -323,44 +328,42 @@ inline void assign(const std::string &str, Args &&...args)
 // -----------------------------------------------------------------------------
 // Forward declarations: some classes; convert
 // We're not fans of having lots of forward declarations, but these are here
-// because (1) the relevant classes (Tree, XML, JSON) use these functions in,
-// e.g., their constructors, which are defined in-class; and (2) the convert()
-// functions in turn work with the classes and thus need the class definitions
-// to be available. The alternative would be to mostly define the classes, but
-// only declare their constructors; then define the convert()s; then finally
-// define the constructors. We think the forward declarations are clearer.
+// because (1) relevant classes use these functions in, for example, their
+// constructors, which are defined in-class; and (2) our convert() functions
+// in turn work with the classes and thus need the class definitions to be
+// available. The alternative would be to mostly define the classes, but only
+// declare their constructors; then define the convert()s; then finally define
+// the constructors. We think the forward declarations are clearer.
 // -----------------------------------------------------------------------------
 
-// Node
 class Node;
-
-// Tree
-class Tree;
-
-// XML, JSON
 class XML;
 class JSON;
+class HDF5;
 
-// Node to {XML,JSON}
-bool convert(const Node &, XML  &x);
-bool convert(const Node &, JSON &j);
+// Node ==> {Node,XML,JSON,HDF5}
+bool convert(const Node &, Node &);
+bool convert(const Node &, XML  &);
+bool convert(const Node &, JSON &);
+bool convert(const Node &, HDF5 &, const std::string & = "");
 
-// Tree to {Tree,XML,JSON}
-bool convert(const Tree &, Tree &);
-bool convert(const Tree &, XML  &);
-bool convert(const Tree &, JSON &);
-
-// XML to {Node,Tree,XML,JSON}
-bool convert(const XML  &, Node &, const bool);
-bool convert(const XML  &, Tree &);
+// XML  ==> {Node,XML,JSON,HDF5}
+bool convert(const XML  &, Node &, const bool & = detail::default_bool);
 bool convert(const XML  &, XML  &);
 bool convert(const XML  &, JSON &);
+bool convert(const XML  &, HDF5 &);
 
-// JSON to {Node,Tree,XML,JSON}
-bool convert(const JSON &, Node &, const bool);
-bool convert(const JSON &, Tree &);
+// JSON ==> {Node,XML,JSON,HDF5}
+bool convert(const JSON &, Node &, const bool & = detail::default_bool);
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
+bool convert(const JSON &, HDF5 &);
+
+// HDF5 ==> {Node,XML,JSON,HDF5}
+bool convert(const HDF5 &, Node &, const bool & = detail::default_bool);
+bool convert(const HDF5 &, XML  &);
+bool convert(const HDF5 &, JSON &);
+bool convert(const HDF5 &, HDF5 &);
 
 
 
@@ -368,7 +371,7 @@ bool convert(const JSON &, JSON &);
 // Utility constructs
 // The functions here could possibly go into the detail namespace, but could
 // arguably be useful, in their own right, to users. So, I'll leave them out
-// in the overall project namespace (which enclosed the #include of this file).
+// in the overall project namespace.
 // -----------------------------------------------------------------------------
 
 // endsin
@@ -376,6 +379,12 @@ bool convert(const JSON &, JSON &);
 inline bool endsin(const std::string &str, const std::string &end)
 {
    return str.size() >= end.size() && &str[str.size()-end.size()] == end;
+}
+
+// beginsin
+inline bool beginsin(const std::string &str, const std::string &begin)
+{
+   return strncmp(&str[0], &begin[0], begin.size()) == 0;
 }
 
 // nocasecmp
@@ -424,9 +433,7 @@ inline bool endsin_json(const std::string &str)
 inline bool endsin_hdf5(const std::string &str)
 {
    return
-        endsin(str,".hdf" )
-     || endsin(str,".HDF" )
-     || endsin(str,".h5"  )
+        endsin(str,".h5"  )
      || endsin(str,".H5"  )
      || endsin(str,".hdf5")
      || endsin(str,".HDF5")
@@ -442,18 +449,18 @@ inline bool endsin_hdf5(const std::string &str)
 // e.g. "xml", in place of a file format specifier ala enum class file.
 // -----------------------------------------------------------------------------
 
-// null
-inline bool eq_null(const std::string &str)
+// guess
+inline bool eq_guess(const std::string &str)
 {
    return
-      nocasecmp(str,"null") || str == "";
+      nocasecmp(str,"guess") || str == "";
 }
 
 // tree
-inline bool eq_text(const std::string &str)
+inline bool eq_debug(const std::string &str)
 {
    return
-      nocasecmp(str,"text");
+      nocasecmp(str,"debug");
 }
 
 // xml
@@ -474,10 +481,22 @@ inline bool eq_json(const std::string &str)
 inline bool eq_hdf5(const std::string &str)
 {
    return
-        nocasecmp(str,"hdf" )
-     || nocasecmp(str,"h5"  )
+        nocasecmp(str,"h5"  )
      || nocasecmp(str,"hdf5")
      || nocasecmp(str,"he5" );
+}
+
+inline FileType string2filetype(const std::string &str, bool &matched)
+{
+   matched = true;
+   if (eq_guess(str)) return FileType::guess;
+   if (eq_debug(str)) return FileType::debug;
+   if (eq_xml  (str)) return FileType::xml;
+   if (eq_json (str)) return FileType::json;
+   if (eq_hdf5 (str)) return FileType::hdf5;
+
+   matched = false;
+   return FileType::guess;
 }
 
 
@@ -608,9 +627,10 @@ public:
 // isIterable
 // ------------------------
 
-// fixme
-// At some point, we really need a reliable "is_container" traits class.
-// For now, I'll use this.
+// The intention of this traits class is to decide if an object of the given
+// type is suitable for use as the range-expression in a range-based for-loop.
+// For now, we're just checking that it has a begin() and an end(). This is
+// probably sufficient for our needs, and could be relaxed later if necessary.
 
 template<class T, class = void>
 class isIterable {
@@ -635,19 +655,19 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// print_format
+// printFormat
 // -----------------------------------------------------------------------------
 
 namespace detail {
 
-inline std::string print_format(const FileType f, const bool brief = false)
+inline std::string printFormat(const FileType f)
 {
-   return std::string(brief ? "" : "FileType::") + (
-      f == FileType::null ? "null"
-    : f == FileType::text ? "text"
-    : f == FileType::xml  ? "XML"
-    : f == FileType::json ? "JSON"
-    : f == FileType::hdf5 ? "HDF5"
+   return std::string("FileType::") + (
+      f == FileType::guess ? "guess"
+    : f == FileType::debug ? "debug"
+    : f == FileType::xml   ? "XML"
+    : f == FileType::json  ? "JSON"
+    : f == FileType::hdf5  ? "HDF5"
     : "unknown"
    );
 }

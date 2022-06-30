@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ using namespace njoy::GNDStk::core;
 // situations mentioned below: a class with no fields, and a class with fields.
 // We don't anticipate that people will need Component-derived classes that have
 // no fields, but still illustrate such a beast, for completeness. Note that the
-// keys() function should return a std::tuple<>{} in that situation.
+// KEYS() function should return a std::tuple<>{} in that situation.
 // -----------------------------------------------------------------------------
 
 // DerivedNothing
@@ -26,14 +26,14 @@ class DerivedNothing : public Component<DerivedNothing>
 {
    friend class Component;
 
-   static auto keys()
+   static auto KEYS()
    {
       return std::tuple<>{};
    }
 
 public:
 
-   DerivedNothing() : Component(BodyText{})
+   DerivedNothing() : Component(BlockData{})
    {
       Component::finish();
    }
@@ -46,7 +46,7 @@ class DerivedSomething : public Component<DerivedSomething>
 {
    friend class Component;
 
-   static auto keys()
+   static auto KEYS()
    {
       return
          int   {} / Meta<>("foo") |
@@ -56,15 +56,20 @@ class DerivedSomething : public Component<DerivedSomething>
    struct {
       int foo;
       double bar;
-   } content;
+   } Content;
+
+   const int &foo() const { return Content.foo; }
+   int &foo() { return Content.foo; }
+   const double &bar() const { return Content.bar; }
+   double &bar() { return Content.bar; }
 
 public:
 
    DerivedSomething() :
       Component(
-         BodyText{},
-         content.foo,
-         content.bar
+         BlockData{},
+         foo(),
+         bar()
       )
    {
       Component::finish();

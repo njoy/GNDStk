@@ -1,7 +1,10 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
+using namespace basic;
 
 SCENARIO("Testing certain special functions in GNDStk Node") {
    Tree t("n-008_O_016.xml");

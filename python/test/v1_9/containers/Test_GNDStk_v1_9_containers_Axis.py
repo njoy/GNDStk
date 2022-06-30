@@ -9,7 +9,7 @@ from GNDStk.v1_9.containers import Axis
 class Test_GNDStk_v1_9_containers_Axis( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk = ( '<axis index="1" label="energy_in" unit="eV" />\n' )
+    chunk = ( '<axis index="1" label="energy_in" unit="eV" />' )
     wrong = ( '<wrongName index="1" label="energy_in" unit="eV" />' )
 
     def test_component( self ) :

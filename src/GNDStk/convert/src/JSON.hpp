@@ -1,10 +1,5 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,JSON)
-// That is, convert to JSON objects
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
 // Node ==> JSON
 // -----------------------------------------------------------------------------
 
@@ -13,18 +8,14 @@ inline bool convert(const Node &node, JSON &j)
    // clear
    j.clear();
 
-   // See comments for convert(Node,XML); smiilar ones apply here, except
-   // that JSON files don't have declaration nodes.
-
    static const std::string context = "convert(Node,JSON)";
    try {
 
-      // Probably a regular Node
-      if (node.name != "")
-         return detail::node2json(node, j.doc);
+      // Probably a regular Node...
+      if (node.name != slashTreeName)
+         return detail::node2json(node,j.doc);
 
       // Probably a Tree...
-
       if (node.metadata.size() != 0) {
          log::warning(
             "Encountered Node with empty name \"\",\n"
@@ -38,7 +29,10 @@ inline bool convert(const Node &node, JSON &j)
       bool found_top  = false;
 
       for (auto &c : node.children) {
-         if (c->name == "xml" || c->name == "json" || c->name == "hdf5") {
+         if (c->name == special::xml ||
+             c->name == special::json ||
+             c->name == special::hdf5
+         ) {
             // looks like a declaration node
             if (found_decl) {
                // already seen
@@ -65,14 +59,14 @@ inline bool convert(const Node &node, JSON &j)
                );
                log::function(context);
             }
-            if (!detail::node2json(*c, j.doc))
+            if (!detail::node2json(*c,j.doc))
                return false;
             found_top = true;
-         }
-      }
+         } // else
+      } // for
 
    } catch (...) {
-      log::function("convert(Tree,JSON)");
+      log::function(context);
       throw;
    }
 
@@ -83,39 +77,29 @@ inline bool convert(const Node &node, JSON &j)
 
 
 // -----------------------------------------------------------------------------
-// Tree ==> JSON
+// XML  ==> JSON
+// HDF5 ==> JSON
+// As with convert()s to XML, these go through temporaries.
 // -----------------------------------------------------------------------------
 
-inline bool convert(const Tree &tree, JSON &j)
+inline bool convert(const XML &x, JSON &j)
 {
    try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
-      return convert(*(const Node *)&tree, j);
+      Tree t; // temporary
+      return convert(x,t) && convert(t,j);
    } catch (...) {
-      log::function("convert(Tree,JSON)");
+      log::function("convert(XML,JSON)");
       throw;
    }
 }
 
-
-
-// -----------------------------------------------------------------------------
-// XML ==> JSON
-// -----------------------------------------------------------------------------
-
-// Goes through a tree. Could be made more efficient if written directly.
-// We'll revisit this if it becomes more of an issue.
-inline bool convert(const XML &x, JSON &j)
+inline bool convert(const HDF5 &h, JSON &j)
 {
-   // temporary
-   Tree t;
-
-   // convert
    try {
-      return convert(x,t) && convert(t,j);
+      Tree t; // temporary
+      return convert(h,t) && convert(t,j);
    } catch (...) {
-      log::function("convert(XML,JSON)");
+      log::function("convert(HDF5,JSON)");
       throw;
    }
 }
@@ -137,7 +121,7 @@ inline bool convert(const JSON &from, JSON &to)
 
    // convert
    try {
-      to.doc = from.doc; // nlohmann::json's assignment
+      to.doc = from.doc; // orderedJSON's assignment
    } catch (...) {
       log::function("convert(JSON,JSON)");
       throw;
