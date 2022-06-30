@@ -207,7 +207,7 @@ Here's a simple code that reads the XML format GNDS file named
 
 Obviously, but worth a reminder, this assumes that the file resides right there,
 in the directory from which this code is run. If it doesn't, include a suitable
-absolute or relative path in the file name string. We, and no doubt everyone
+absolute or relative path in the file name. We, and no doubt everyone
 reading this, have probably made this mistake often enough over the years.
 
 ``Tree`` is GNDStk's data structure for holding an entire GNDS hierarchy, a.k.a.
@@ -262,8 +262,6 @@ or can be a direct string: ``"xml"``, etc. A direct string is shorter and
 slightly easier to type -- but, if mistyped, would lead to a run-time error,
 not a compile-time error, if that matters to you in this simple context.
 
-**HDF5 is not supported at this time!** Just XML and JSON.
-
 *You should seldom, if ever, need to provide the second argument*. Absent the
 second argument, **GNDStk determines the file type automatically**, and we doubt
 that you'll have any objections to that. If you do choose provide the second
@@ -276,9 +274,9 @@ as we attempt to read the file pursuant to the (incorrect) forced format.
 
 GNDStk uses the "file magic number," not the file name, to determine file type
 automatically. The file magic number really means the first byte, or bytes,
-of the file. XML files always begin with a ``<`` character. HDF files (not
-supported yet) begin with ASCII 137 and a few other specific bytes. If the
-first byte is neither of those values, then GNDStk assumes JSON format.
+of the file. XML files always begin with a ``<`` character. HDF5 files begin
+with ASCII 137 and a few other specific bytes. If the first byte is neither
+of those values, then GNDStk assumes JSON format.
 
 A nice thing about using the file magic number, not the file name, is that
 it works for ``std::istream``, for which a "file name" isn't even available.
@@ -325,7 +323,7 @@ then GNDStk will write file ``pu239.xml`` in JSON format, as you asked for in
 the second argument, but will warn that the file extension is inconsistent with
 the format you asked for.
 
-What if the file name extension isn't given, or isn't recognized, *and* a format
+What if the file extension isn't given, or isn't recognized, *and* a format
 isn't forced with a second argument? That is, what if we wrote, for example,
 ``pu239.write("pu239")``? In that case, ``write`` writes the ``Tree`` into
 a simple output format that we created largely for debugging purposes. You
@@ -406,7 +404,7 @@ Several remarks are in order here.
 The comparison operator for ``Tree`` compares the two GNDS trees in an
 *order-agnostic* manner. GNDS fundamentally provides data in two places: nodes
 (think XML "elements") in its overall tree structure, and metadata (think XML
-"attributes"). The GNDS standard does not, however, consider ordering to be
+attributes). The GNDS standard does not, however, consider ordering to be
 important. One tree node's child nodes or metadata, anywhere or everywhere
 throughout the entire tree structure, could be reordered arbitrarily, but if
 each remains equivalent -- in the same respect that we consider two mathematical
@@ -492,14 +490,28 @@ with what XML is able to represent.
    the node. For example, in HDF5 the attribute ``nodeIndex`` could be added
    to each child in a group.
 
-For (1), GNDStk does the first suggested action: it groups all of a node's
-attributes under a child node called ``attributes``. We consider that to be
-cleaner than using an ``_attr`` suffix.
+For (1), GNDStk does the first suggested action (which we think is
+somewhat cleaner than using an ``_attr`` suffix), but with a slight twist:
+it groups a node's attributes under a child node called ``#attributes``. The
+``#`` prefix is something we use in node names throughout GNDStk, if and where
+the nodes so named represent special things -- with special meaning, and needing
+special treatment. The extra character allows special nodes to be identified
+easily, in both the GNDStk code base itself or in files produced by GNDStk.
+Moreover, one could imagine that a future GNDS version might -- just might --
+have a normal node with the name ``attributes``, or with some other name that
+we might wish to use for a special purpose. If and where such situations occur,
+our use of a special prefix character allows for an unambiguous interpretation.
+(As an aside: in principle, we'd have preferred to use the S-like dollar sign,
+``$``, to inside S for "special" node. Unfortunately, ``$`` has a particular
+meaning in the C++ regular-expression library. As such, ``$`` is unsuitable
+for use in identifying special nodes, as our various node-finding capabilities
+support the use of regular expressions.)
 
-For (2), GNDStk does exactly as illustrated: multiple elements of the same name
-are suffixed with ``0``, ``1``, etc. And, then, a JSON name/value pair with the
-name ``nodeName``, as suggested, is created in order to preserve the original
-*unsuffixed* element's name.
+For (2), GNDStk does as suggested, except again with the ``#`` terminology as
+described above. Multiple elements of the same name are suffixed with ``0``,
+``1``, etc. Then, a JSON name/value pair with the name ``#nodeName`` -- as
+suggested, but with our ``#`` prefix -- is created. Its value preserves the
+original element's name.
 
 For (3), GNDStk does nothing in particular right now. Our understanding of GNDS
 is that it's designed so that elements -- nodes -- can appear in any order.
@@ -549,8 +561,8 @@ node. (Valid GNDS top-level nodes, per the standard, are ``reactionSuite``,
 about it for now.
 
 Naturally, GNDStk reverses the modifications when we *read* from a JSON file
-into our internal format. Specifically: values in an ``attributes`` block are
-transformed into metadata in the enclosing node, and values from ``nodeName``
+into our internal format. Specifically: values in an ``#attributes`` block are
+transformed into metadata in the enclosing node, and values from ``#nodeName``
 name/value pairs replace index-suffixed names.
 
 At this time, GNDStk provides no other options, such as the ``_attr`` suffix
@@ -560,7 +572,7 @@ We're not aware, at the time of this writing, of the existence any official
 JSON-format GNDS files. If and when such files come into existence, and if
 such files use a different scheme than we do for addressing the issues
 described above, then we'll provide capabilities at least for reading those
-files, and perhaps for writing them in that manner as well.
+files, and perhaps for writing files in that manner as well.
 
 
 
@@ -770,7 +782,7 @@ the top of the ``n-094_Pu_239.xml`` GNDS file:
    :language: xml
 
 Here, an outer ``evaluated`` node (XML "element") contains four metadata
-key/value pairs (XML "attributes") and two child elements. The first child
+key/value pairs (XML attributes) and two child elements. The first child
 element, ``temperature``, contains two metadata pairs but no further child
 nodes. The second child element, ``projectileEnergyDomain``, contains three
 metadata pairs but no further child nodes.

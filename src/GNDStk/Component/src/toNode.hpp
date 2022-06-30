@@ -1,43 +1,66 @@
 
 // -----------------------------------------------------------------------------
 // Component
-// conversion to Node
+// Conversion to Node.
 // -----------------------------------------------------------------------------
 
-// Normally we'd need just a const version of a conversion operator, and, if
-// we needed a non-const version at all, it could build on the const version.
-// A glitch in the present circumstances is that BodyText::toNode(), which is
-// called from within these, splits const and non-const cases, and that needs
-// to be preserved here. So, then, why does BodyText::toNode() have a non-const
-// version? The issue is that in the non-const case, BodyText::toNode() may
-// need to deal with a vector (not just an original "body text" string as may
-// have been read into a const BodyText). And, dealing with a vector means
-// computing a proper length, start, and valueType while doing toNode() - and
-// pushing those up to the class derived from Component, as it's from that
-// class that those fields are written to the Node. The need to compute proper
-// values for those parameters is why we need the non-const case. (And we can't
-// just make length etc. mutable in BodyText, as the length etc. in the derived
-// class come into play too.) Maybe we'll work out a different way to handle
-// all this, but for now, we have the following.
-
-// const
 operator Node() const
 {
+   // Initialize a Node, with the necessary name
+   Node node(DERIVED::GNDSName());
+
    try {
-      #include "GNDStk/Component/src/toNodeBody.hpp"
+      // Handle block data, if applicable
+      if constexpr (hasBlockData) {
+         // GNDStk uses a "#text" metadatum of a "#pcdata" child node for this
+         std::string &text = node.add("#pcdata").add("#text","").second;
+         BLOCKDATA::toNode(text);
+      }
+
+      // Write fields
+      if constexpr (!hasFields) {
+         // consistency check
+         assert(0 == links.size());
+      } else {
+         // make tuple (of individual keys) from DERIVED::keys()
+         static const auto tup = makeKeyTuple(DERIVED::keys()).tup;
+
+         // consistency check
+         assert(std::tuple_size<decltype(tup)>::value == links.size());
+
+         // apply links:
+         // derived-class data ==> Node
+         // Below, each apply'd "key" is one value from DERIVED::keys(), and
+         // is a Meta, Child, or pair<Child,string/regex>. The cast gives the
+         // underlying raw data type - int, say, or std::string - so that we
+         // can correctly use our generic void* link to a derived-class field.
+         std::apply(
+            [this,&node](const auto &... key) {
+               std::size_t n = 0;
+              (node.add(key,*(std::decay_t<decltype(Node{}(key))>*)links[n++]),
+               ...);
+            },
+            tup
+         );
+      }
    } catch (...) {
       log::member("Component.operator Node() const");
       throw;
    }
+
+   return node;
 }
 
-// non-const
-operator Node()
+
+// -----------------------------------------------------------------------------
+// Component
+// Conversion to Tree.
+// Like conversion to Node, but with a proper root Node.
+// -----------------------------------------------------------------------------
+
+operator Tree() const
 {
-   try {
-      #include "GNDStk/Component/src/toNodeBody.hpp"
-   } catch (...) {
-      log::member("Component.operator Node()");
-      throw;
-   }
+   Tree tree;
+   tree.add(Node(*this));
+   return tree;
 }

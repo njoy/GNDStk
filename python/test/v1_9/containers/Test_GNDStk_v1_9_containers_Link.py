@@ -9,8 +9,8 @@ from GNDStk.v1_9.containers import Link
 class Test_GNDStk_v1_9_containers_Link( unittest.TestCase ) :
     """Unit test for the Section class."""
 
-    chunk = ( '<link href="../../grid[@index=\'2\']/values" />\n' )
-    wrong = ( '<wrongName href="../../grid[@index=\'2\']/values" />\n' )
+    chunk = ( '<link href="../../grid[@index=\'2\']/values" />' )
+    wrong = ( '<wrongName href="../../grid[@index=\'2\']/values" />' )
 
     def test_component( self ) :
 

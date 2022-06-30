@@ -26,8 +26,10 @@ SCENARIO( "Frame" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( Frame::lab == enums::fromString< Frame >( "lab" ) );
-        CHECK( Frame::centerOfMass == enums::fromString< Frame >( "centerOfMass" ) );
+        CHECK( Frame::lab ==
+               enums::fromString< Frame >( "lab" ) );
+        CHECK( Frame::centerOfMass ==
+               enums::fromString< Frame >( "centerOfMass" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
@@ -79,7 +81,8 @@ SCENARIO( "Frame" ) {
 
     WHEN( "isFrame is used" ) {
 
-      THEN( "registered frame values return true, unregistered frame values return false" ) {
+      THEN( "registered frame values return true, "
+            "unregistered frame values return false" ) {
 
         CHECK( true == enums::isFrame( "lab" ) );
         CHECK( true == enums::isFrame( "centerOfMass" ) );

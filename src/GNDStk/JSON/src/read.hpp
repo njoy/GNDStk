@@ -9,16 +9,16 @@
 
 std::istream &read(std::istream &is)
 {
-   // call nlohmann::json's read capability
+   // call nlohmann::ordered_json's read capability
    const std::streampos pos = is.tellg();
    try {
       if (!(is >> doc)) {
-         log::error("istream >> nlohmann::json returned with !istream");
+         log::error("istream >> nlohmann::ordered_json returned with !istream");
          log::member("JSON.read(istream)");
          detail::failback(is,pos);
       }
    } catch (...) {
-      log::error("istream >> nlohmann::json threw an exception");
+      log::error("istream >> nlohmann::ordered_json threw an exception");
       log::member("JSON.read(istream)");
       detail::failback(is,pos);
    }
@@ -29,7 +29,7 @@ std::istream &read(std::istream &is)
 
 
 // ------------------------
-// read(file name)
+// read(file)
 // ------------------------
 
 bool read(const std::string &filename)

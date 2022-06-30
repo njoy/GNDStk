@@ -30,12 +30,13 @@ void fromNode(const Node &node)
          throw std::exception{};
       }
 
-      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
+      if constexpr (!hasFields) {
          // consistency check; then nothing further to do
          assert(0 == links.size());
       } else {
          // retrieve the node's data by doing a multi-query
-         const auto tup = node(toKeywordTup(DERIVED::keys()));
+         static const auto keytup = makeKeyTuple(DERIVED::keys());
+         const auto tup = node(keytup);
 
          // consistency check
          assert(std::tuple_size<decltype(tup)>::value == links.size());
@@ -53,9 +54,9 @@ void fromNode(const Node &node)
          );
       }
 
-      // body text, a.k.a. XML "pcdata" (plain character data), if any
-      if constexpr (hasBodyText)
-         body::fromNode(node);
+      // block data, a.k.a. XML "pcdata" (plain character data), if any
+      if constexpr (hasBlockData)
+         BLOCKDATA::fromNode(node);
 
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);

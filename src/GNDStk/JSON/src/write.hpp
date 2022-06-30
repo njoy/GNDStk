@@ -7,22 +7,22 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os, const bool decl = true) const
+std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
-   (void)decl; // ignored
+   (void)decl; // unused, at least for now
 
-   // call nlohmann::json's write capability
+   // call nlohmann::ordered_json's write capability
    try {
       // intentional: no << std::endl
       os << std::setw(indent) << doc;
 
       // check for errors
       if (!os) {
-         log::error("ostream << nlohmann::json returned with !ostream");
+         log::error("ostream << nlohmann::ordered_json returned with !ostream");
          log::member("JSON.write(ostream)");
       }
    } catch (...) {
-      log::error("ostream << nlohmann::json threw an exception");
+      log::error("ostream << nlohmann::ordered_json threw an exception");
       log::member("JSON.write(ostream)");
       os.setstate(std::ios::failbit);
    }
@@ -33,7 +33,7 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
 
 
 // ------------------------
-// write(file name)
+// write(file)
 // ------------------------
 
 bool write(const std::string &filename, const bool decl = true) const

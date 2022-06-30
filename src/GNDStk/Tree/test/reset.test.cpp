@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 
 SCENARIO("Testing GNDStk tree reset()") {
    using namespace njoy::GNDStk;
@@ -24,7 +25,7 @@ SCENARIO("Testing GNDStk tree reset()") {
          t.reset(reactionSuite);
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "1.0");
             CHECK(t.decl().meta("encoding") == "UTF-8");
@@ -41,7 +42,7 @@ SCENARIO("Testing GNDStk tree reset()") {
          t.reset(reactionSuite, FileType::json);
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "json");
+            CHECK(t.decl().name == "#json");
             CHECK(t.decl().metadata.size() == 0);
             CHECK(t.decl().children.size() == 0);
             CHECK(t.top().name == "reactionSuite");
@@ -51,12 +52,12 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(covarianceSuite, FileType::null, \"2.0\")") {
+           "Tree.reset(covarianceSuite, FileType::guess, \"2.0\")") {
          Tree t;
-         t.reset(covarianceSuite, FileType::null, "2.0");
+         t.reset(covarianceSuite, FileType::guess, "2.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "2.0");
             CHECK(t.decl().meta("encoding") == "UTF-8");
@@ -73,7 +74,7 @@ SCENARIO("Testing GNDStk tree reset()") {
          t.reset(covarianceSuite, FileType::xml, "3.0", "UTF-9");
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "3.0");
             CHECK(t.decl().meta("encoding") == "UTF-9");
@@ -90,7 +91,7 @@ SCENARIO("Testing GNDStk tree reset()") {
          t.reset(PoPs, "hdf5");
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "hdf5");
+            CHECK(t.decl().name == "#hdf5");
             CHECK(t.decl().metadata.size() == 0);
             CHECK(t.decl().children.size() == 0);
             CHECK(t.top().name == "PoPs");
@@ -101,12 +102,12 @@ SCENARIO("Testing GNDStk tree reset()") {
       }
 
       WHEN("We call "
-           "Tree.reset(PoPs, \"tree\", \"4.0\")") {
+           "Tree.reset(PoPs, \"debug\", \"4.0\")") {
          Tree t;
-         t.reset(PoPs, "text", "4.0");
+         t.reset(PoPs, "debug", "4.0");
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "4.0");
             CHECK(t.decl().meta("encoding") == "UTF-8");
@@ -123,7 +124,7 @@ SCENARIO("Testing GNDStk tree reset()") {
          t.reset(thermalScattering, "xml", "5.0", "UTF-10");
 
          THEN("Declaration- and top-level-node queries can be made") {
-            CHECK(t.decl().name == "xml");
+            CHECK(t.decl().name == "#xml");
             CHECK(t.decl().metadata.size() == 2);
             CHECK(t.decl().meta("version") == "5.0");
             CHECK(t.decl().meta("encoding") == "UTF-10");

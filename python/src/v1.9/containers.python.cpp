@@ -12,8 +12,8 @@ namespace python_v1_9 {
 
 // containers declarations
 namespace python_containers {
-   void wrapAxis(python::module &);
    void wrapLink(python::module &);
+   void wrapAxis(python::module &);
    void wrapValues(python::module &);
    void wrapGrid(python::module &);
    void wrapAxes(python::module &);
@@ -31,8 +31,8 @@ void wrapContainers(python::module &module)
    );
 
    // wrap containers components
-   python_containers::wrapAxis(submodule);
    python_containers::wrapLink(submodule);
+   python_containers::wrapAxis(submodule);
    python_containers::wrapValues(submodule);
    python_containers::wrapGrid(submodule);
    python_containers::wrapAxes(submodule);

@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 
 // -----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class DerivedNothing : public Component<DerivedNothing>
 
 public:
 
-   DerivedNothing() : Component(BodyText{})
+   DerivedNothing() : Component(BlockData{})
    {
       Component::finish();
    }
@@ -56,15 +56,20 @@ class DerivedSomething : public Component<DerivedSomething>
    struct {
       int foo;
       double bar;
-   } content;
+   } Content;
+
+   const int &foo() const { return Content.foo; }
+   int &foo() { return Content.foo; }
+   const double &bar() const { return Content.bar; }
+   double &bar() { return Content.bar; }
 
 public:
 
    DerivedSomething() :
       Component(
-         BodyText{},
-         content.foo,
-         content.bar
+         BlockData{},
+         foo(),
+         bar()
       )
    {
       Component::finish();

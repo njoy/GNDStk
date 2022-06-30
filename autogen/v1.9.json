@@ -1,4 +1,7 @@
 {
+    "Path": "../..",
+    "Version": "v1.9",
+
     "JSONDir": "v1.9",
     "JSONFiles": [
         "summary_abstract.json",
@@ -19,7 +22,5 @@
         "summary_tsl.json"
     ],
 
-    "GNDSDir": "test",
-    "Version": "v1.9",
     "Changes": "changes.json"
 }

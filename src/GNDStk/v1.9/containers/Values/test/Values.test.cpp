@@ -216,8 +216,7 @@ SCENARIO( "Values" ) {
 std::string chunk() {
 
   return
-R"***(<values length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</values>
-)***";
+R"***(<values valueType="Float64" start="0" length="4">2500 8.9172 2550 8.9155</values>)***";
 }
 
 void verifyChunk( const Values& component ) {
@@ -238,8 +237,7 @@ void verifyChunk( const Values& component ) {
 std::string chunkInts() {
 
   return
-R"***(<values length="4" start="0" valueType="Integer32">2500 9 2550 9</values>
-)***";
+R"***(<values valueType="Integer32" start="0" length="4">2500 9 2550 9</values>)***";
 }
 
 void verifyChunkInts( const Values& component ) {
@@ -260,8 +258,7 @@ void verifyChunkInts( const Values& component ) {
 std::string chunkStrings() {
 
   return
-R"***(<values length="4" start="0" valueType="UTF8Text">2500 8.9172 2550 8.9155</values>
-)***";
+R"***(<values valueType="UTF8Text" start="0" length="4">2500 8.9172 2550 8.9155</values>)***";
 }
 
 void verifyChunkStrings( const Values& component ) {
@@ -283,6 +280,5 @@ std::string invalidName() {
 
   // wrong name for the node
   return
-R"***(<wrongName length="4" start="0" valueType="Float64">2500 8.9172 2550 8.9155</wrongName>
-)***";
+R"***(<wrongName valueType="Float64" start="0" length="4">2500 8.9172 2550 8.9155</wrongName>)***";
 }

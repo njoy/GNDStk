@@ -38,13 +38,13 @@ void wrapRegions1d(python::module &module)
          python::init<
             const std::optional<std::string> &,
             const std::optional<double> &,
-            const std::vector<containers::XYs1d> &,
-            const std::optional<containers::Axes> &
+            const std::optional<containers::Axes> &,
+            const std::vector<containers::XYs1d> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("outer_domain_value") = std::nullopt,
-         python::arg("xys1d"),
          python::arg("axes") = std::nullopt,
+         python::arg("xys1d"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -58,14 +58,15 @@ void wrapRegions1d(python::module &module)
          Component::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
-         "xys1d",
-         python::overload_cast<>(&Component::XYs1d),
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
          "axes",
          python::overload_cast<>(&Component::axes),
          Component::documentation("axes").data()
+      )
+      .def_property_readonly(
+         "xys1d",
+         (const std::vector<containers::XYs1d> &(Component::*)() const)
+            &Component::XYs1d,
+         Component::documentation("xys1d").data()
       )
    ;
 

@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 using namespace njoy::GNDStk;
 
 
@@ -265,12 +266,12 @@ SCENARIO("Testing GNDStk Node operator()") {
    Tree tree("n-008_O_016.xml");
 
    // Child objects with Allow::one
-   auto temperature = keyword.child<temperature_t,Allow::one>("temperature");
-   auto styles = keyword.child<void,Allow::one>("styles");
+   auto temperature = Child<temperature_t,Allow::one>("temperature");
+   auto styles = Child<void,Allow::one>("styles");
 
    // Child objects with Allow::many
-   auto isotope = keyword.child<isotope_t,Allow::many>("isotope");
-   auto isotope_node = keyword.child<void,Allow::many>("isotope");
+   auto isotope = Child<isotope_t,Allow::many>("isotope");
+   auto isotope_node = Child<void,Allow::many>("isotope");
 
    GIVEN("The top-level node from a tree object") {
 
