@@ -252,7 +252,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
       ? &node.add("#hdf5") // indicates that we built the object from an HDF5
       : nullptr;
 
-   // empty hdf5 document?
+   // empty HDF5 document?
    if (h.empty())
       return true;
 
@@ -267,11 +267,11 @@ inline bool convert(const HDF5 &h, Node &node, const bool decl)
       // into the Node's "#hdf5" child that would have been created above
       if (decl)
          for (auto &attrName : group.listAttributeNames())
-            if (!detail::hdf5attr2node(group.getAttribute(attrName),*declnode))
+            if (!detail::HDF5attr2Node(group.getAttribute(attrName),*declnode))
                return false;
 
       // visit the rest of "/"
-      if (!detail::hdf52node(group, "/", node, !decl))
+      if (!detail::HDF52Node(group, "/", node, !decl))
          return false;
    } catch (...) {
       log::function("convert(HDF5,Node)");

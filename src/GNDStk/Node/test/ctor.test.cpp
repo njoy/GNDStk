@@ -111,8 +111,8 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
 
    WHEN("A Node is constructed from just a name (no metadata/children)") {
-      Node n("NodeName");
-      CHECK(n.name == "NodeName");
+      Node n("MyName");
+      CHECK(n.name == "MyName");
       CHECK(n.metadata.size() == 0);
       CHECK(n.children.size() == 0);
    }

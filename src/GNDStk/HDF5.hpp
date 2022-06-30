@@ -9,6 +9,9 @@
 class HDF5 {
 public:
 
+   static inline bool flat = true;
+   static inline bool typed = true;
+
    // data
    HighFive::File *filePtr = nullptr;
    std::string fileName = "";

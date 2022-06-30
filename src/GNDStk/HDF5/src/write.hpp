@@ -17,7 +17,7 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
       if (empty()) {
          // This HDF5 object is empty. We'll place "stub" HDF5 output into
          // a temporary file, then copy the file's contents to the ostream.
-         // A temporary is used here, as it is elsewhere in our HDF handling,
+         // A temporary is used here, as it is elsewhere in our HDF5 handling,
          // because HighFive deals directly with files, not with streams.
          int stubDesc;
          const std::string stubName = temporaryName(stubDesc);

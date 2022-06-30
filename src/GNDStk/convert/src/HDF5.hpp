@@ -21,7 +21,7 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 
       // Probably a regular Node...
       if (node.name != "") {
-         const bool ret = detail::node2hdf5(node,*h.filePtr);
+         const bool ret = detail::Node2HDF5(node,*h.filePtr);
          h.filePtr->flush();
          return ret;
       }
@@ -67,7 +67,7 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
                );
                log::function(context);
             }
-            const bool ret = detail::node2hdf5(*c,*h.filePtr);
+            const bool ret = detail::Node2HDF5(*c,*h.filePtr);
             h.filePtr->flush();
             if (!ret)
                return false;
