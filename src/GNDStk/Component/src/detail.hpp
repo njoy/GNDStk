@@ -1,36 +1,9 @@
 
 // Forward declaration, needed by some things later
-template<class DERIVED, bool hasBodyText = false, class DATA = void>
+template<class DERIVED, bool hasBlockData = false, class DATATYPE = void>
 class Component;
 
-
 namespace detail {
-
-// -----------------------------------------------------------------------------
-// colorize_*(text)
-// -----------------------------------------------------------------------------
-
-#define gndstkPaste(one,two) one ## two
-#define gndstkColorFun(part) \
-   inline std::string gndstkPaste(colorize_,part)(const std::string &text) \
-   { \
-      return GNDStk::color && colors::part != "" \
-         ? colors::part + text + colors::reset \
-         : text; \
-   }
-
-   // colorize_label() etc.
-   gndstkColorFun(label)
-   gndstkColorFun(colon)
-   gndstkColorFun(component)
-   gndstkColorFun(brace)
-   gndstkColorFun(bracket)
-   gndstkColorFun(comment)
-
-#undef gndstkColorFun
-#undef gndstkPaste
-
-
 
 // -----------------------------------------------------------------------------
 // Functions: miscellaneous
@@ -263,6 +236,9 @@ bool writeComponentPart(
    const std::string &color
 ) {
    if constexpr (is_base_of_Component<T>::value) {
+      // Suppress "unused parameter" warnings
+      (void)value; (void)maxlen;
+      (void)label; (void)color;
       // T is derived from Component, and thus inherits a write()
       value.write(os,level);
    } else {
@@ -407,57 +383,82 @@ const T &getter(
    static const std::string context = "getter {}::{}.{}({}) on vector";
 
    try {
-      // todo Make this more efficient, e.g. by assuming that the vector's
-      // elements are sorted by index, so that the wanted value is likely
-      // to be found at [index].
 
-      const T *selected = nullptr;
+      if constexpr (hasIndex<T>) {
+         // hasIndex<T>
+         // T (or at least one alternative in T, if T is a variant) has a
+         // metadatum called "index". In this case, this function's size_t
+         // index parameter is interpreted to mean: find the object with
+         // an "index" metadatum that matches the parameter. Importantly,
+         // then, index in this case is ***NOT*** a C++ [index] index!
 
-      for (auto &v : vec) {
-         const T *ptr = nullptr;
+         // fixme Make the following more efficient, e.g. by assuming that the
+         // vector's elements are sorted by index, so that the wanted value is
+         // likely to be found at [index], even though (as stated above) [index]
+         // is not the interpretation here...
+         const T *selected = nullptr;
 
-         if constexpr (isVariant<T>::value) {
-            // T == variant
-            std::visit(
-               [&v,&index,&ptr](auto &&alternative)
-               {
-                  if constexpr (hasIndex<decltype(alternative)>)
-                     if (alternative.index() == index)
-                        ptr = &v;
-               },
-               v
-            );
-         } else {
-            // T != variant
-            if constexpr (hasIndex<T>)
-               if (v.index() == index)
-                  ptr = &v;
-         }
+         for (auto &v : vec) {
+            const T *ptr = nullptr;
 
-         if (!ptr)
-            continue;
+            if constexpr (isVariant<T>::value) {
+               // T == variant
+               std::visit(
+                  [&v,&index,&ptr](auto &&alternative)
+                  {
+                     if constexpr (hasIndex<decltype(alternative)>)
+                        if (alternative.index() == index)
+                           ptr = &v;
+                  },
+                  v
+               );
+            } else {
+               // T != variant
+               if constexpr (hasIndex<T>)
+                  if (v.index() == index)
+                     ptr = &v;
+            }
 
-         if (selected) {
-            log::warning(
-              "Element with index {} was already found in the vector.\n"
-              "Keeping the first element that was found.",
+            if (!ptr)
+               continue;
+
+            if (selected) {
+               log::warning(
+                 "Element with metadatum \"index\" {} was already found "
+                 "in the vector.\n"
+                 "Keeping the first element that was found.",
+                  index
+               );
+               log::member(context, nsname, clname, field, index);
+            } else
+               selected = ptr;
+         } // for
+
+         if (!selected) {
+            log::error(
+              "Element with metadatum \"index\" {} was not found "
+              "in the vector" + std::string(vec.size()
+                  ? "."
+                  : ";\nin fact the vector is empty."),
                index
             );
-            log::member(context, nsname, clname, field, index);
-         } else
-            selected = ptr;
-      } // for
+            throw std::exception{};
+         }
+         return *selected;
 
-      if (!selected) {
-         log::error(
-           "Element with index {} was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
-            index
-         );
-         throw std::exception{};
+      } else {
+
+         // !hasIndex<T>
+         // No "index" is anywhere to be found in T. Here, then, we interpret
+         // this function's index parameter to be a regular, C++ [index] index.
+         if (!(index < vec.size())) {
+            log::error(
+              "Index {} is out of range; vector size is {}.",
+               vec.size());
+            throw std::exception{};
+         }
+         return vec[index];
       }
-
-      return *selected;
 
    } catch (...) {
       // context
@@ -731,46 +732,46 @@ bool compareRegular(const A &a, const B &b)
    // index?
    std::size_t aindex = 0;  bool ahasindex = false;
    if constexpr (hasIndex<A>) {
-      if constexpr (isOptional<decltype(A{}.content.index)>) {
-         if ((ahasindex = a.content.index.has_value()))
-            aindex = a.content.index.value();
+      if constexpr (isOptional<decltype(A{}.index())>) {
+         if ((ahasindex = a.index().has_value()))
+            aindex = a.index().value();
       } else {
          ahasindex = true;
-         aindex = a.content.index;
+         aindex = a.index();
       }
    }
 
    std::size_t bindex = 0;  bool bhasindex = false;
    if constexpr (hasIndex<B>) {
-      if constexpr (isOptional<decltype(B{}.content.index)>) {
-         if ((bhasindex = b.content.index.has_value()))
-            bindex = b.content.index.value();
+      if constexpr (isOptional<decltype(B{}.index())>) {
+         if ((bhasindex = b.index().has_value()))
+            bindex = b.index().value();
       } else {
          bhasindex = true;
-         bindex = b.content.index;
+         bindex = b.index();
       }
    }
 
    // label?
    std::string alabel = "";  bool ahaslabel = false;
    if constexpr (hasLabel<A>) {
-      if constexpr (isOptional<decltype(A{}.content.label)>) {
-         if ((ahaslabel = a.content.label.has_value()))
-            alabel = a.content.label.value();
+      if constexpr (isOptional<decltype(A{}.label())>) {
+         if ((ahaslabel = a.label().has_value()))
+            alabel = a.label().value();
       } else {
          ahaslabel = true;
-         alabel = a.content.label;
+         alabel = a.label();
       }
    }
 
    std::string blabel = "";  bool bhaslabel = false;
    if constexpr (hasLabel<B>) {
-      if constexpr (isOptional<decltype(B{}.content.label)>) {
-         if ((bhaslabel = b.content.label.has_value()))
-            blabel = b.content.label.value();
+      if constexpr (isOptional<decltype(B{}.label())>) {
+         if ((bhaslabel = b.label().has_value()))
+            blabel = b.label().value();
       } else {
          bhaslabel = true;
-         blabel = b.content.label;
+         blabel = b.label();
       }
    }
 

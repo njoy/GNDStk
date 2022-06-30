@@ -1,8 +1,9 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-
 using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
 using namespace misc;
 
 
@@ -27,7 +28,7 @@ inline void convert(const NODE &node, xml_t &out)
    out.encoding = node.meta(encoding);
 }
 
-inline const Child<xml_t> xml("xml");
+inline const Child<xml_t> xml("#xml");
 
 
 // ------------------------

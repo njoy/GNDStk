@@ -44,10 +44,10 @@ public:
           const std::optional< std::string >& valueType,
           const std::vector< T >& values ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
   {
 

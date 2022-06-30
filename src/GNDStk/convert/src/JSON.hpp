@@ -13,18 +13,14 @@ inline bool convert(const Node &node, JSON &j)
    // clear
    j.clear();
 
-   // See comments for convert(Node,XML); smiilar ones apply here, except
-   // that JSON files don't have declaration nodes.
-
    static const std::string context = "convert(Node,JSON)";
    try {
 
-      // Probably a regular Node
+      // Probably a regular Node...
       if (node.name != "")
-         return detail::node2json(node, j.doc);
+         return detail::node2json(node,j.doc);
 
       // Probably a Tree...
-
       if (node.metadata.size() != 0) {
          log::warning(
             "Encountered Node with empty name \"\",\n"
@@ -38,7 +34,7 @@ inline bool convert(const Node &node, JSON &j)
       bool found_top  = false;
 
       for (auto &c : node.children) {
-         if (c->name == "xml" || c->name == "json" || c->name == "hdf5") {
+         if (c->name == "#xml" || c->name == "#json" || c->name == "#hdf5") {
             // looks like a declaration node
             if (found_decl) {
                // already seen
@@ -65,14 +61,14 @@ inline bool convert(const Node &node, JSON &j)
                );
                log::function(context);
             }
-            if (!detail::node2json(*c, j.doc))
+            if (!detail::node2json(*c,j.doc))
                return false;
             found_top = true;
-         }
-      }
+         } // else
+      } // for
 
    } catch (...) {
-      log::function("convert(Tree,JSON)");
+      log::function(context);
       throw;
    }
 
@@ -89,8 +85,6 @@ inline bool convert(const Node &node, JSON &j)
 inline bool convert(const Tree &tree, JSON &j)
 {
    try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,JSON)");
       return convert(*(const Node *)&tree, j);
    } catch (...) {
       log::function("convert(Tree,JSON)");
@@ -116,6 +110,27 @@ inline bool convert(const XML &x, JSON &j)
       return convert(x,t) && convert(t,j);
    } catch (...) {
       log::function("convert(XML,JSON)");
+      throw;
+   }
+}
+
+
+
+// -----------------------------------------------------------------------------
+// HDF5 ==> JSON
+// -----------------------------------------------------------------------------
+
+// As above, goes through a tree.
+inline bool convert(const HDF5 &h, JSON &j)
+{
+   // temporary
+   Tree t;
+
+   // convert
+   try {
+      return convert(h,t) && convert(t,j);
+   } catch (...) {
+      log::function("convert(HDF5,JSON)");
       throw;
    }
 }

@@ -39,17 +39,23 @@ namespace enums {
     static inline const std::map< GNDStk::enums::Interaction,
                                   const std::string > values{
 
-      { GNDStk::enums::Interaction::nuclear, "nuclear" },
-      { GNDStk::enums::Interaction::atomic, "atomic" },
-      { GNDStk::enums::Interaction::thermalNeutronScatteringLaw, "thermalNeutronScatteringLaw" }
+      { GNDStk::enums::Interaction::nuclear,
+        "nuclear" },
+      { GNDStk::enums::Interaction::atomic,
+        "atomic" },
+      { GNDStk::enums::Interaction::thermalNeutronScatteringLaw,
+        "thermalNeutronScatteringLaw" }
     };
 
     static inline const std::map< const std::string,
                                   GNDStk::enums::Interaction > symbols{
 
-      { "nuclear", GNDStk::enums::Interaction::nuclear },
-      { "atomic", GNDStk::enums::Interaction::atomic },
-      { "thermalNeutronScatteringLaw", GNDStk::enums::Interaction::thermalNeutronScatteringLaw }
+      { "nuclear",
+        GNDStk::enums::Interaction::nuclear },
+      { "atomic",
+        GNDStk::enums::Interaction::atomic },
+      { "thermalNeutronScatteringLaw",
+        GNDStk::enums::Interaction::thermalNeutronScatteringLaw }
     };
   };
 
