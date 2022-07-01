@@ -144,7 +144,7 @@ public:
       return (*this)(opt);
    }
 
-   // (scalar)
+   // (element)
    // If T == [optional] vector
    // Add (via push_back) to this->value, which in this context is a vector.
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
@@ -160,6 +160,13 @@ public:
       const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
    ) {
       return (*this)(obj);
+   }
+
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   DERIVED &operator+=(
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+   ) {
+      return add(obj);
    }
 
    // (index/label/Lookup, value)
@@ -439,10 +446,18 @@ public:
    // Setters
    // ------------------------
 
-   // (value)
+   // (value) or (element)
    // If WHOLE == variant
-   // Replace existing value with another value.
-   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   // ...Replace existing value with another value.
+   // If WHOLE == vector
+   // ...Add (via push_back) to whole, which in this context wraps a vector.
+   template<
+      class T = WHOLE,
+      class = std::enable_if_t<
+         detail::isVariant_t<T>::value ||
+         detail::isVector_t <T>::value
+      >
+   >
    DERIVED &operator()(const std::optional<PART> &opt)
    {
       if (opt) whole(opt.value());
@@ -453,6 +468,18 @@ public:
    DERIVED &replace(const std::optional<PART> &opt)
    {
       return (*this)(opt);
+   }
+
+   template<class T = WHOLE, class = detail::isVector_t<T>>
+   DERIVED &add(const std::optional<PART> &opt)
+   {
+      return (*this)(opt);
+   }
+
+   template<class T = WHOLE, class = detail::isVector_t<T>>
+   DERIVED &operator+=(const std::optional<PART> &opt)
+   {
+      return add(opt);
    }
 
    // (index/label/Lookup, value)
