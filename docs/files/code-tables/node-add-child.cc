@@ -1,6 +1,6 @@
 
 // string
-Node &add( const string &name = "" );
+Node &add( const string &name = emptyNodeName );
 
 // value
 Node &add( const           T  &val );

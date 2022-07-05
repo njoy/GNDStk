@@ -22,7 +22,8 @@ SCENARIO( "Interpolation" ) {
         CHECK( "lin-log" == enums::toString( Interpolation::linlog ) );
         CHECK( "log-lin" == enums::toString( Interpolation::loglin ) );
         CHECK( "log-log" == enums::toString( Interpolation::loglog ) );
-        CHECK( "charged-particle" == enums::toString( Interpolation::chargedparticle ) );
+        CHECK( "charged-particle" ==
+               enums::toString( Interpolation::chargedparticle ) );
       } // THEN
     } // WHEN
 
@@ -30,12 +31,18 @@ SCENARIO( "Interpolation" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( Interpolation::flat == enums::fromString< Interpolation >( "flat" ) );
-        CHECK( Interpolation::linlin == enums::fromString< Interpolation >( "lin-lin" ) );
-        CHECK( Interpolation::linlog == enums::fromString< Interpolation >( "lin-log" ) );
-        CHECK( Interpolation::loglin == enums::fromString< Interpolation >( "log-lin" ) );
-        CHECK( Interpolation::loglog == enums::fromString< Interpolation >( "log-log" ) );
-        CHECK( Interpolation::chargedparticle == enums::fromString< Interpolation >( "charged-particle" ) );
+        CHECK( Interpolation::flat ==
+               enums::fromString< Interpolation >( "flat" ) );
+        CHECK( Interpolation::linlin ==
+               enums::fromString< Interpolation >( "lin-lin" ) );
+        CHECK( Interpolation::linlog ==
+               enums::fromString< Interpolation >( "lin-log" ) );
+        CHECK( Interpolation::loglin ==
+               enums::fromString< Interpolation >( "log-lin" ) );
+        CHECK( Interpolation::loglog ==
+               enums::fromString< Interpolation >( "log-log" ) );
+        CHECK( Interpolation::chargedparticle ==
+               enums::fromString< Interpolation >( "charged-particle" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
@@ -53,7 +60,8 @@ SCENARIO( "Interpolation" ) {
             << Interpolation::linlog << ' ' << Interpolation::loglin << ' '
             << Interpolation::loglog << ' ' << Interpolation::chargedparticle;
 
-        CHECK( "flat lin-lin lin-log log-lin log-log charged-particle" == out.str() );
+        CHECK( "flat lin-lin lin-log log-lin log-log charged-particle" ==
+               out.str() );
       } // THEN
     } // WHEN
 
@@ -110,7 +118,8 @@ SCENARIO( "Interpolation" ) {
 
     WHEN( "isInterpolation is used" ) {
 
-      THEN( "registered interpolation values return true, unregistered interpolation values return false" ) {
+      THEN( "registered interpolation values return true, "
+            "unregistered interpolation values return false" ) {
 
         CHECK( true == enums::isInterpolation( "flat" ) );
         CHECK( true == enums::isInterpolation( "lin-lin" ) );

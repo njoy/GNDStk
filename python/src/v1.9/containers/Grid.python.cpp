@@ -25,8 +25,8 @@ void wrapGrid(python::module &module)
    // type aliases
    using Component = containers::Grid;
    using link_values_t = std::variant<
-      containers::Link,
-      containers::Values
+      containers::Values,
+      containers::Link
    >;
 
    // create the component
@@ -57,7 +57,7 @@ void wrapGrid(python::module &module)
       )
       .def_property_readonly(
          "index",
-         &Component::index,
+         [](const Component &self) { return self.index(); },
          Component::documentation("index").data()
       )
       .def_property_readonly(
@@ -67,32 +67,32 @@ void wrapGrid(python::module &module)
       )
       .def_property_readonly(
          "label",
-         &Component::label,
+         [](const Component &self) { return self.label(); },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "style",
-         &Component::style,
+         [](const Component &self) { return self.style(); },
          Component::documentation("style").data()
       )
       .def_property_readonly(
          "unit",
-         &Component::unit,
+         [](const Component &self) { return self.unit(); },
          Component::documentation("unit").data()
       )
       .def_property_readonly(
-         "link",
-         python::overload_cast<>(&Component::link),
-         Component::documentation("link").data()
-      )
-      .def_property_readonly(
          "values",
-         python::overload_cast<>(&Component::values),
+         [](const Component &self) { return self.values(); },
          Component::documentation("values").data()
       )
       .def_property_readonly(
+         "link",
+         [](const Component &self) { return self.link(); },
+         Component::documentation("link").data()
+      )
+      .def_property_readonly(
          "link_values",
-         python::overload_cast<>(&Component::link_values),
+         [](const Component &self) { return self.link_values(); },
          Component::documentation("link_values").data()
       )
    ;

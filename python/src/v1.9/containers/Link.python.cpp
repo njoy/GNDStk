@@ -43,7 +43,7 @@ void wrapLink(python::module &module)
       )
       .def_property_readonly(
          "href",
-         &Component::href,
+         [](const Component &self) { return self.href(); },
          Component::documentation("href").data()
       )
    ;

@@ -12,14 +12,14 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
     """Unit test for the Section class."""
 
     chunk = ( '<grid index="2" label="row_energy_bounds" style="boundaries" unit="eV">\n'
-              '   <values length="2" start="0" valueType="Float64">1e-05 2e+07</values>\n'
-              '</grid>\n' )
+              '   <values valueType="Float64" start="0" length="2">1e-05 2e+07</values>\n'
+              '</grid>' )
     chunkWithLink = ( '<grid index="1" label="column_energy_bounds" style="link" unit="eV">\n'
                       '   <link href="../../grid[@index=\'2\']/values" />\n'
-                      '</grid>\n' )
+                      '</grid>' )
     wrong = ( '<wrongName index="2" label="row_energy_bounds" style="boundaries" unit="eV">\n'
-              '   <values length="2" start="0" valueType="Float64">1e-05 2e+07</values>\n'
-              '</wrongName>\n' )
+              '   <values valueType="Float64" start="0" length="2">1e-05 2e+07</values>\n'
+              '</wrongName>' )
 
     def test_component( self ) :
 
@@ -57,19 +57,19 @@ class Test_GNDStk_v1_9_containers_Grid( unittest.TestCase ) :
             # verify string
             self.assertEqual( self.chunk, chunk.to_xml_string() )
 
-        # the data is given explicitly
+        # the data are given explicitly
         chunk = Grid( index = 2, label = "row_energy_bounds",
                       unit = "eV", style = GridStyle.boundaries,
                       link_values = Values( [ 1e-5, 2e7 ] ) )
 
         verify_chunk( self, chunk )
 
-        # the data is read from a string
+        # the data are read from a string
         chunk = Grid.from_string( self.chunk )
 
         verify_chunk( self, chunk )
 
-        # the data is copied
+        # the data are copied
         copy = Grid( chunk )
 
         verify_chunk( self, copy )

@@ -38,72 +38,55 @@ void wrapReactionSuite(python::module &module)
          python::init<
             const std::string &,
             const std::string &,
-            const std::optional<enums::Interaction> &,
             const std::string &,
             const enums::Frame &,
             const std::string &,
+            const std::optional<enums::Interaction> &,
             const std::optional<transport::Reactions> &
          >(),
          python::arg("evaluation"),
          python::arg("format"),
-         python::arg("interaction") = std::nullopt,
          python::arg("projectile"),
          python::arg("projectile_frame"),
          python::arg("target"),
+         python::arg("interaction") = std::nullopt,
          python::arg("reactions") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
          "evaluation",
-         &Component::evaluation,
+         [](const Component &self) { return self.evaluation(); },
          Component::documentation("evaluation").data()
       )
       .def_property_readonly(
          "format",
-         &Component::format,
+         [](const Component &self) { return self.format(); },
          Component::documentation("format").data()
       )
       .def_property_readonly(
-         "interaction",
-         &Component::interaction,
-         Component::documentation("interaction").data()
-      )
-      .def_property_readonly(
          "projectile",
-         &Component::projectile,
+         [](const Component &self) { return self.projectile(); },
          Component::documentation("projectile").data()
       )
       .def_property_readonly(
          "projectile_frame",
-         &Component::projectileFrame,
+         [](const Component &self) { return self.projectileFrame(); },
          Component::documentation("projectile_frame").data()
       )
       .def_property_readonly(
          "target",
-         &Component::target,
+         [](const Component &self) { return self.target(); },
          Component::documentation("target").data()
       )
       .def_property_readonly(
-         "reactions",
-         python::overload_cast<>(&Component::reactions),
-         Component::documentation("reactions").data()
+         "interaction",
+         [](const Component &self) { return self.interaction(); },
+         Component::documentation("interaction").data()
       )
-      .def_static(
-
-        "from_file",
-        [] ( const std::string& filename ) -> Component {
-
-          using namespace njoy::GNDStk::core;
-          Tree tree( filename );
-
-          return Component( tree( child::reactionSuite ) );
-        },
-        python::arg( "filename" ),
-        "Read a reaction suite from an XML or json file\n\n"
-        "An exception is raised if something goes wrong while reading the\n"
-        "component\n\n"
-        "Arguments:\n"
-        "    filename    the name of the file"
+      .def_property_readonly(
+         "reactions",
+         [](const Component &self) { return self.reactions(); },
+         Component::documentation("reactions").data()
       )
    ;
 
