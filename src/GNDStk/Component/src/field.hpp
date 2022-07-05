@@ -521,20 +521,35 @@ template<class T>
 struct wrapper {
    T value;
 
-   // Constructor
+   // wrapper(from)
    template<
       class FROM = T,
-      class = std::enable_if_t<std::is_constructible_v<T,FROM>>>
+      class = std::enable_if_t<
+         std::is_constructible_v<T,FROM> || std::is_convertible_v<FROM,T>
+      >
+   >
    wrapper(const FROM &v = FROM{}) :
       value(T(v))
    { }
 
+   // wrapper(initializer_list)
+   // If T == vector
+   template<
+      class TEE = T,
+      class = std::enable_if_t<detail::isVector<TEE>::value>
+   >
+   wrapper(const std::initializer_list<typename TEE::value_type> &v) :
+      value(v)
+   { }
+
+   // wrapper(optional::value_type)
    // If T == optional
    template<class TEE = T, class = std::enable_if_t<detail::isOptional<TEE>>>
    wrapper(const typename TEE::value_type &v) :
       value(v)
    { }
 
+   // wrapper(nullopt_t)
    // If T == optional
    template<class TEE = T, class = std::enable_if_t<detail::isOptional<TEE>>>
    wrapper(const std::nullopt_t &v) :

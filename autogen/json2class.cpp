@@ -981,7 +981,6 @@ void writeClassSuffix(
    out(1,"#undef GNDSTK_COMPONENT");
 
    // class+namespace end
-   out();
    out("}; // class @", per.clname);
    out();
    out("} // namespace @", per.nsname);
@@ -1082,6 +1081,8 @@ void writeClassCtors(writer &out, const PerClass &per)
    out();
 
    if (total == 0) {
+      out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata)");
+      out();
       out(1,"// default");
       out(1,"@() :", per.clname);
       writeClassCtorComponent(out, per, false);
