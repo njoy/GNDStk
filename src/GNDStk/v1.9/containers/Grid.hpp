@@ -110,7 +110,7 @@ public:
    }
 
    // from node
-   Grid(const Node &node) :
+   explicit Grid(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -145,7 +145,6 @@ public:
 
    #include "GNDStk/v1.9/containers/Grid/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Grid
 
 } // namespace containers

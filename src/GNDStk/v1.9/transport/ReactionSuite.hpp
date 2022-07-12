@@ -102,7 +102,7 @@ public:
    }
 
    // from node
-   ReactionSuite(const Node &node) :
+   explicit ReactionSuite(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -137,7 +137,6 @@ public:
 
    #include "GNDStk/v1.9/transport/ReactionSuite/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class ReactionSuite
 
 } // namespace transport

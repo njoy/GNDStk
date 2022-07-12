@@ -16,15 +16,13 @@ namespace detail {
 
 // default
 template<class T>
-class IsMeta {
-public:
+struct IsMeta {
    static constexpr bool value = false;
 };
 
 // Meta
 template<class TYPE, class CONVERTER>
-class IsMeta<Meta<TYPE,CONVERTER>> {
-public:
+struct IsMeta<Meta<TYPE,CONVERTER>> {
    static constexpr bool value = true;
 };
 
@@ -35,15 +33,13 @@ public:
 
 // default
 template<class T>
-class IsChild {
-public:
+struct IsChild {
    static constexpr bool value = false;
 };
 
 // Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class IsChild<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
-public:
+struct IsChild<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
    static constexpr bool value = true;
 };
 
@@ -53,8 +49,7 @@ public:
 // ------------------------
 
 template<class T>
-class IsMetaOrChild {
-public:
+struct IsMetaOrChild {
    static constexpr bool value = IsMeta<T>::value || IsChild<T>::value;
 };
 
@@ -65,47 +60,41 @@ public:
 
 // default
 template<class T>
-class IsStringOrRegex {
-public:
+struct IsStringOrRegex {
    static constexpr bool value = false;
 };
 
 // string
 template<>
-class IsStringOrRegex<std::string> {
-public:
+struct IsStringOrRegex<std::string> {
    static constexpr bool value = true;
    using type = std::string;
 };
 
 // char *
 template<>
-class IsStringOrRegex<char *> {
-public:
+struct IsStringOrRegex<char *> {
    static constexpr bool value = true;
    using type = std::string;
 };
 
 // const char *
 template<>
-class IsStringOrRegex<const char *> {
-public:
+struct IsStringOrRegex<const char *> {
    static constexpr bool value = true;
    using type = std::string;
 };
 
 // char[N]
 template<std::size_t N>
-class IsStringOrRegex<char[N]> {
-public:
+struct IsStringOrRegex<char[N]> {
    static constexpr bool value = true;
    using type = std::string;
 };
 
 // regex
 template<>
-class IsStringOrRegex<std::regex> {
-public:
+struct IsStringOrRegex<std::regex> {
    static constexpr bool value = true;
    using type = std::regex;
 };
@@ -117,15 +106,13 @@ public:
 
 // default
 template<class T>
-class IsPairChildStringOrRegex {
-public:
+struct IsPairChildStringOrRegex {
    static constexpr bool value = false;
 };
 
 // pair
 template<class FIRST, class SECOND>
-class IsPairChildStringOrRegex<std::pair<FIRST,SECOND>> {
-public:
+struct IsPairChildStringOrRegex<std::pair<FIRST,SECOND>> {
    static constexpr bool value =
       IsChild<FIRST>::value && IsStringOrRegex<SECOND>::value;
 };

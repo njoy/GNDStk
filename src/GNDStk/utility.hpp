@@ -512,19 +512,20 @@ namespace detail {
 // ------------------------
 
 template<class T>
-class isVariant {
-public:
+struct isVariant {
    static constexpr bool value = false;
 };
 
 template<class... Ts>
-class isVariant<std::variant<Ts...>> {
-public:
+struct isVariant<std::variant<Ts...>> {
    static constexpr bool value = true;
 };
 
 template<class T>
-using isVariant_t = std::enable_if_t<isVariant<T>::value>;
+inline constexpr bool isVariant_v = isVariant<T>::value;
+
+template<class T>
+using isVariant_t = std::enable_if_t<isVariant_v<T>>;
 
 // ------------------------
 // isAlternative
@@ -534,15 +535,13 @@ using isVariant_t = std::enable_if_t<isVariant<T>::value>;
 
 // no (general case)
 template<class T, class VARIANT>
-class is_alternative {
-public:
+struct is_alternative {
    static constexpr bool value = false;
 };
 
 // yes
 template<class T, class... Ts>
-class is_alternative<T,std::variant<Ts...>> {
-public:
+struct is_alternative<T,std::variant<Ts...>> {
    static constexpr bool value = (std::is_same_v<T,Ts> || ...);
 };
 
@@ -573,8 +572,7 @@ inline constexpr bool isAlternative =
 // its types.
 
 template<class T, class VARIANT>
-class is_alternativeOrTheVariant {
-public:
+struct is_alternativeOrTheVariant {
    static constexpr bool value =
       isAlternative<T,VARIANT> || std::is_same_v<T,VARIANT>;
 };
@@ -589,15 +587,13 @@ inline constexpr bool isAlternativeOrTheVariant =
 
 // general
 template<class T>
-class is_void {
-public:
+struct is_void {
    static constexpr bool value = false;
 };
 
 // void
 template<>
-class is_void<void> {
-public:
+struct is_void<void> {
    static constexpr bool value = true;
    using type = void;
 };
@@ -612,16 +608,14 @@ inline constexpr bool isVoid = is_void<T>::value;
 
 // general
 template<class T>
-class isNotVoid {
-public:
+struct isNotVoid {
    static constexpr bool value = true;
    using type = T;
 };
 
 // void
 template<>
-class isNotVoid<void> {
-public:
+struct isNotVoid<void> {
    static constexpr bool value = false;
 };
 
@@ -636,20 +630,18 @@ public:
 // probably sufficient for our needs, and could be relaxed later if necessary.
 
 template<class T, class = void>
-class isIterable {
-public:
+struct isIterable {
    static constexpr bool value = false;
 };
 
 template<class T>
-class isIterable<
+struct isIterable<
    T,
    std::void_t<
       decltype(std::declval<T>().begin()),
       decltype(std::declval<T>().end())
    >
 > {
-public:
    static constexpr bool value = true;
 };
 

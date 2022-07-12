@@ -85,7 +85,7 @@ public:
    }
 
    // from node
-   Regions1d(const Node &node) :
+   explicit Regions1d(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -120,7 +120,6 @@ public:
 
    #include "GNDStk/v1.9/containers/Regions1d/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Regions1d
 
 } // namespace containers

@@ -71,7 +71,7 @@ public:
    }
 
    // from node
-   CrossSection(const Node &node) :
+   explicit CrossSection(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -106,7 +106,6 @@ public:
 
    #include "GNDStk/v1.9/transport/CrossSection/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class CrossSection
 
 } // namespace transport

@@ -1,6 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// Helper classes
+// Re: [optional] vector [of variant]
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -19,8 +19,13 @@ struct isVector<std::vector<T,Alloc>>
    : public std::true_type
 { };
 
+// isVector_v
 template<class T>
-using isVector_t = std::enable_if_t<isVector<T>::value>;
+inline constexpr bool isVector_v = isVector<T>::value;
+
+// isVector_t
+template<class T>
+using isVector_t = std::enable_if_t<isVector_v<T>>;
 
 // ------------------------
 // isOptionalVector
@@ -90,6 +95,11 @@ struct isVectorVariant<std::vector<std::variant<Ts...>,Alloc>>
 template<class T>
 using isVectorVariant_t = std::enable_if_t<isVectorVariant<T>::value>;
 
+
+// -----------------------------------------------------------------------------
+// Re: Defaulted
+// -----------------------------------------------------------------------------
+
 // ------------------------
 // isDefaulted
 // ------------------------
@@ -108,6 +118,11 @@ struct isDefaulted<Defaulted<T>>
 
 template<class T>
 using isDefaulted_t = std::enable_if_t<isDefaulted<T>::value>;
+
+
+// -----------------------------------------------------------------------------
+// Re: Lookup
+// -----------------------------------------------------------------------------
 
 // ------------------------
 // isLookup
@@ -151,6 +166,11 @@ inline constexpr bool isLookupBoolReturn =
    detail::isLookup<KEY>::value &&
   !detail::isLookupRefReturn<KEY>::value;
 
+
+// -----------------------------------------------------------------------------
+// Re: SearchKey
+// -----------------------------------------------------------------------------
+
 // ------------------------
 // isSearchKey
 // isSearchKeyRefReturn
@@ -176,6 +196,104 @@ using isSearchKeyRefReturn = std::enable_if_t<
    std::is_convertible_v<T,std::string> ||
    isLookupRefReturn<T>::value // not any Lookup; must give a reference return
 >;
+
+
+// -----------------------------------------------------------------------------
+// Re: Component's "forwards"
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// isMatchExact
+// ------------------------
+
+// general
+template<class, class>
+struct isMatchExact {
+   static constexpr int count = 0;
+};
+
+// FROM, vector<FROM>
+template<class FROM, class Alloc>
+struct isMatchExact<FROM,std::vector<FROM,Alloc>> {
+   static constexpr int count = 1;
+};
+
+// FROM, optional<vector<FROM>>
+template<class FROM, class Alloc>
+struct isMatchExact<FROM,std::optional<std::vector<FROM,Alloc>>>
+ : public isMatchExact<FROM,std::vector<FROM,Alloc>>
+{ };
+
+// ------------------------
+// MatchesExact
+// ------------------------
+
+// general
+template<class, class>
+struct MatchesExact {
+   static constexpr std::size_t count = 0;
+};
+
+// FROM, tuple<...>
+template<class FROM, class... TOs>
+struct MatchesExact<FROM,std::tuple<TOs...>> {
+   static constexpr std::size_t count = (
+      isMatchExact<
+         FROM,
+         std::decay_t<decltype(Node{}(std::declval<TOs>()))>
+      >::count +
+      ...
+   );
+};
+
+// ------------------------
+// isMatchViable
+// ------------------------
+
+// general
+template<class, class>
+struct isMatchViable {
+   static constexpr int count = 0;
+};
+
+// FROM, vector<TO>
+template<class FROM, class TO, class Alloc>
+struct isMatchViable<FROM,std::vector<TO,Alloc>> {
+   static constexpr int count = std::is_convertible_v<FROM,TO>;
+};
+
+// FROM, optional<vector<TO>>
+template<class FROM, class TO, class Alloc>
+struct isMatchViable<FROM,std::optional<std::vector<TO,Alloc>>>
+ : public isMatchViable<FROM,std::vector<TO,Alloc>>
+{ };
+
+// ------------------------
+// MatchesViable
+// ------------------------
+
+// general
+template<class, class>
+struct MatchesViable {
+   static constexpr std::size_t count = 0;
+};
+
+// FROM, tuple<...>
+template<class FROM, class... TOs>
+struct MatchesViable<FROM,std::tuple<TOs...>> {
+   static constexpr std::size_t count = (
+      isMatchViable<
+         FROM,
+         std::decay_t<decltype(Node{}(std::declval<TOs>()))>
+      >::count +
+      ...
+   );
+};
+
+
+// -----------------------------------------------------------------------------
+// Miscellaneous
+// -----------------------------------------------------------------------------
 
 // ------------------------
 // firstOrOnly

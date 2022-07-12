@@ -115,85 +115,96 @@ public:
    // Setters
    // ------------------------
 
-   // (T)
+   // replace(T)
    // Replace existing value with another value.
-   DERIVED &operator()(const T &val)
+   DERIVED &replace(const T &val)
    {
       value = val;
       return parent;
    }
 
-   DERIVED &replace(const T &val)
+   DERIVED &operator()(const T &val)
    {
-      return (*this)(val);
+      return replace(val);
    }
 
-   // (optional)
+   DERIVED &operator=(const T &val)
+   {
+      return replace(val);
+   }
+
+   // replace(optional)
    // If T == Defaulted
    // Replace existing Defaulted's value with the given optional value.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &operator()(const std::optional<typename TEE::value_type> &opt)
+   DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
    {
       value = opt;
       return parent;
    }
 
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
+   DERIVED &operator()(const std::optional<typename TEE::value_type> &opt)
    {
-      return (*this)(opt);
+      return replace(opt);
    }
 
-   // (element)
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   DERIVED &operator=(const std::optional<typename TEE::value_type> &opt)
+   {
+      return replace(opt);
+   }
+
+   // add(element)
    // If T == [optional] vector
    // Add (via push_back) to this->value, which in this context is a vector.
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &operator()(
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+   DERIVED &add(
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
-      parent.setter(value, obj);
+      parent.setter(value, elem);
       return parent;
    }
 
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &add(
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+   DERIVED &operator()(
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
-      return (*this)(obj);
+      return add(elem);
    }
 
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    DERIVED &operator+=(
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
-      return add(obj);
+      return add(elem);
    }
 
-   // (index/label/Lookup, value)
+   // replace(index/label/Lookup, element)
    // If T == [optional] vector
    // Find the vector's element that has the given index, label, or Lookup,
-   // and replace it with the given replacement value.
-   template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
-   >
-   DERIVED &operator()(
-      const KEY &key,
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
-   ) {
-      (*this)(key) = obj;
-      return parent;
-   }
-
+   // and replace it with the given replacement element.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
    >
    DERIVED &replace(
       const KEY &key,
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &obj
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
-      return (*this)(key,obj);
+      (*this)(key) = elem;
+      return parent;
+   }
+
+   template<
+      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   DERIVED &operator()(
+      const KEY &key,
+      const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
+   ) {
+      return replace(key,elem);
    }
 
    // ------------------------
@@ -446,34 +457,40 @@ public:
    // Setters
    // ------------------------
 
-   // (value) or (element)
+   // replace(value)
    // If WHOLE == variant
-   // ...Replace existing value with another value.
-   // If WHOLE == vector
-   // ...Add (via push_back) to whole, which in this context wraps a vector.
-   template<
-      class T = WHOLE,
-      class = std::enable_if_t<
-         detail::isVariant_t<T>::value ||
-         detail::isVector_t <T>::value
-      >
-   >
-   DERIVED &operator()(const std::optional<PART> &opt)
-   {
-      if (opt) whole(opt.value());
-      return whole.parent;
-   }
-
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    DERIVED &replace(const std::optional<PART> &opt)
    {
-      return (*this)(opt);
+      if (opt) whole.replace(opt.value());
+      return whole.parent;
    }
 
+   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
+   DERIVED &operator()(const std::optional<PART> &opt)
+   {
+      return replace(opt);
+   }
+
+   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
+   DERIVED &operator=(const std::optional<PART> &opt)
+   {
+      return replace(opt);
+   }
+
+   // add(value)
+   // If WHOLE == vector
    template<class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &add(const std::optional<PART> &opt)
    {
-      return (*this)(opt);
+      if (opt) whole.add(opt.value());
+      return whole.parent;
+   }
+
+   template<class T = WHOLE, std::enable_if_t<detail::isVector_v<T>, int> = 0>
+   DERIVED &operator()(const std::optional<PART> &opt)
+   {
+      return add(opt);
    }
 
    template<class T = WHOLE, class = detail::isVector_t<T>>
@@ -482,14 +499,14 @@ public:
       return add(opt);
    }
 
-   // (index/label/Lookup, value)
+   // replace(index/label/Lookup, element)
    // If WHOLE == vector
    // Find the vector's element that has the given index, label, or Lookup,
    // and replace it with the given replacement value.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &operator()(const KEY &key, const std::optional<PART> &opt)
+   DERIVED &replace(const KEY &key, const std::optional<PART> &opt)
    {
       if (opt) whole(key,opt.value());
       return whole.parent;
@@ -498,9 +515,9 @@ public:
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &replace(const KEY &key, const std::optional<PART> &opt)
+   DERIVED &operator()(const KEY &key, const std::optional<PART> &opt)
    {
-      return (*this)(key,opt);
+      return replace(key,opt);
    }
 
    // ------------------------

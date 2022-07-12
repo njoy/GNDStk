@@ -103,7 +103,7 @@ public:
    }
 
    // from node
-   XYs1d(const Node &node) :
+   explicit XYs1d(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -138,7 +138,6 @@ public:
 
    #include "GNDStk/v1.9/containers/XYs1d/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class XYs1d
 
 } // namespace containers

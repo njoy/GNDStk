@@ -1152,7 +1152,7 @@ void writeClassCtors(writer &out, const PerClass &per)
 
    out();
    out(1,"// from node");
-   out(1,"@(const Node &node) :", per.clname);
+   out(1,"explicit @(const Node &node) :", per.clname);
    writeClassCtorComponent(out, per, false);
    writeClassCtorBody(out, "", "node");
 

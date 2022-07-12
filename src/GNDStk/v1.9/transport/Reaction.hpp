@@ -84,7 +84,7 @@ public:
    }
 
    // from node
-   Reaction(const Node &node) :
+   explicit Reaction(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -119,7 +119,6 @@ public:
 
    #include "GNDStk/v1.9/transport/Reaction/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Reaction
 
 } // namespace transport

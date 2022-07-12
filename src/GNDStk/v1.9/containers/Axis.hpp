@@ -75,7 +75,7 @@ public:
    }
 
    // from node
-   Axis(const Node &node) :
+   explicit Axis(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -110,7 +110,6 @@ public:
 
    #include "GNDStk/v1.9/containers/Axis/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Axis
 
 } // namespace containers

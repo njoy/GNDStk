@@ -80,7 +80,7 @@ public:
    }
 
    // from node
-   Axes(const Node &node) :
+   explicit Axes(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -115,7 +115,6 @@ public:
 
    #include "GNDStk/v1.9/containers/Axes/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Axes
 
 } // namespace containers

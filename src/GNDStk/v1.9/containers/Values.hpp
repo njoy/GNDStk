@@ -83,7 +83,7 @@ public:
    }
 
    // from node
-   Values(const Node &node) :
+   explicit Values(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -126,7 +126,6 @@ public:
 
    #include "GNDStk/v1.9/containers/Values/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Values
 
 } // namespace containers

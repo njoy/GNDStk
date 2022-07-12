@@ -63,7 +63,7 @@ public:
    }
 
    // from node
-   Link(const Node &node) :
+   explicit Link(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
@@ -98,7 +98,6 @@ public:
 
    #include "GNDStk/v1.9/containers/Link/src/custom.hpp"
    #undef GNDSTK_COMPONENT
-
 }; // class Link
 
 } // namespace containers

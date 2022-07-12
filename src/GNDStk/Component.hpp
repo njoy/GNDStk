@@ -20,6 +20,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    using BLOCKDATA = BlockData<hasBlockData,DATATYPE>;
    using typename BLOCKDATA::VariantOfVectors;
    using typename BLOCKDATA::VariantOfScalars;
+
    static const auto &Keys()
    {
       static const auto value = makeKeyTuple(DERIVED::KEYS());
@@ -150,6 +151,10 @@ public:
          throw;
       }
    }
+
+   // Forwards, where viable and unambiguous, to certain capabilities
+   // in DERIVED's fields
+   #include "GNDStk/Component/src/forward.hpp"
 
    // Wrapper for derived-class fields
    #include "GNDStk/Component/src/field.hpp"

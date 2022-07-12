@@ -7,15 +7,13 @@ namespace detail {
 
 // default
 template<class T>
-class is_optional {
-public:
+struct is_optional {
    static constexpr bool value = false;
 };
 
 // optional
 template<class T>
-class is_optional<std::optional<T>> {
-public:
+struct is_optional<std::optional<T>> {
    static constexpr bool value = true;
 };
 
@@ -30,22 +28,19 @@ inline constexpr bool isOptional = is_optional<std::decay_t<T>>::value;
 
 // default
 template<class T>
-class remove_opt_def {
-public:
+struct remove_opt_def {
    using type = T;
 };
 
 // optional
 template<class T>
-class remove_opt_def<std::optional<T>> {
-public:
+struct remove_opt_def<std::optional<T>> {
    using type = T;
 };
 
 // Defaulted
 template<class T>
-class remove_opt_def<Defaulted<T>> {
-public:
+struct remove_opt_def<Defaulted<T>> {
    using type = T;
 };
 
