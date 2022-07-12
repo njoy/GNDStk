@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 using namespace njoy::GNDStk;
 
 
@@ -70,10 +71,10 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add("4",dimensions2d(12,34));
 
       // metadata, Meta key
-      auto v   = keyword.meta<void>("AStringViaVoid");
-      auto str = keyword.meta<std::string>("AString");
-      auto dbl = keyword.meta<double>("ADouble");
-      auto dim = keyword.meta<dimensions2d>("Dimensions");
+      auto v   = Meta<void>("AStringViaVoid");
+      auto str = Meta<std::string>("AString");
+      auto dbl = Meta<double>("ADouble");
+      auto dim = Meta<dimensions2d>("Dimensions");
       n.add(v);
       n.add(v,"fred");
       n.add(str);
@@ -85,8 +86,8 @@ SCENARIO("Testing GNDStk Node add()") {
       // these need the = TYPE on class T in the metadata Node.add() functions:
       n.add(dim,{321,987});
       CHECK(n.metadata.back().second == "321,987");
-      auto optdim = keyword.meta<std::optional<dimensions2d>>("OptDim");
-      auto defdim = Defaulted<dimensions2d>({1,2})/keyword.meta<>("DefDim");
+      auto optdim = Meta<std::optional<dimensions2d>>("OptDim");
+      auto defdim = Defaulted<dimensions2d>({1,2})/Meta<>("DefDim");
       n.add(optdim,{321,987});
       CHECK(n.metadata.back().second == "321,987");
       n.add(defdim,{321,987});
@@ -105,13 +106,13 @@ SCENARIO("Testing GNDStk Node add()") {
       // ------------------------
       // ------------------------
 
-      auto foo = keyword.child<void,Allow::one>("foo");
-      auto numbers = keyword.child<
+      auto foo = Child<void,Allow::one>("foo");
+      auto numbers = Child<
          std::vector<double>,
          Allow::one
-         >("pcdata",std::vector<double>{},detail::convert_pcdata_text_t{});
+      >(special::pcdata,std::vector<double>{})/detail::convert_pcdata_text_t{};
 
-      auto nrepeat = keyword.child<void,Allow::many>("repeated node");
+      auto nrepeat = Child<void,Allow::many>("repeated node");
       Node node1; node1.name = "aa11";
       Node node2; node2.name = "bb22";
       Node node3; node3.name = "cc33";
@@ -128,7 +129,7 @@ SCENARIO("Testing GNDStk Node add()") {
       // dim2d doesn't happen to have a default constructor, so we'll need
       // to give it a value in the following Child. For just the .add()s,
       // the value isn't used.
-      auto drepeat = keyword.child<dim2d,Allow::many>("dimension",dim2d{0,0});
+      auto drepeat = Child<dim2d,Allow::many>("dimension",dim2d{0,0});
       const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);

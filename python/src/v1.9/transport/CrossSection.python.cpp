@@ -47,7 +47,7 @@ void wrapCrossSection(python::module &module)
       )
       .def_property_readonly(
          "xys1d_regions1d",
-         python::overload_cast<>(&Component::XYs1d_regions1d),
+         [](const Component &self) { return self.XYs1d_regions1d(); },
          Component::documentation("xys1d_regions1d").data()
       )
    ;

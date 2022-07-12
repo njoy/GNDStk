@@ -49,22 +49,22 @@ void wrapReaction(python::module &module)
       )
       .def_property_readonly(
          "endf_mt",
-         &Component::ENDF_MT,
+         [](const Component &self) { return self.ENDF_MT(); },
          Component::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "fission_genre",
-         &Component::fissionGenre,
+         [](const Component &self) { return self.fissionGenre(); },
          Component::documentation("fission_genre").data()
       )
       .def_property_readonly(
          "label",
-         &Component::label,
+         [](const Component &self) { return self.label(); },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "cross_section",
-         python::overload_cast<>(&Component::crossSection),
+         [](const Component &self) { return self.crossSection(); },
          Component::documentation("cross_section").data()
       )
    ;

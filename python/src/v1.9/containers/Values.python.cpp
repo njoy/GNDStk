@@ -36,13 +36,13 @@ void wrapValues(python::module &module)
    component
       .def(
          python::init<
+            const std::optional<std::string> &,
             const std::optional<int> &,
-            const std::optional<int> &,
-            const std::optional<std::string> &
+            const std::optional<int> &
          >(),
-         python::arg("length") = std::nullopt,
-         python::arg("start") = std::nullopt,
          python::arg("value_type") = std::nullopt,
+         python::arg("start") = std::nullopt,
+         python::arg("length") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def(
@@ -67,9 +67,9 @@ void wrapValues(python::module &module)
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
-         "length",
-         &Component::length,
-         Component::documentation("length").data()
+         "value_type",
+         [](const Component &self) { return self.valueType().value(); },
+         Component::documentation("value_type").data()
       )
       .def_property_readonly(
          "start",
@@ -77,9 +77,9 @@ void wrapValues(python::module &module)
          Component::documentation("start").data()
       )
       .def_property_readonly(
-         "value_type",
-         [](const Component &self) { return self.valueType().value(); },
-         Component::documentation("value_type").data()
+         "length",
+         [](const Component &self) { return self.length(); },
+         Component::documentation("length").data()
       )
       .def_property_readonly(
          "ints",

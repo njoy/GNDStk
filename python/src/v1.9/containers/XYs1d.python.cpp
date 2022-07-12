@@ -53,7 +53,7 @@ void wrapXYs1d(python::module &module)
       )
       .def_property_readonly(
          "index",
-         &Component::index,
+         [](const Component &self) { return self.index(); },
          Component::documentation("index").data()
       )
       .def_property_readonly(
@@ -63,22 +63,22 @@ void wrapXYs1d(python::module &module)
       )
       .def_property_readonly(
          "label",
-         &Component::label,
+         [](const Component &self) { return self.label(); },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "outer_domain_value",
-         &Component::outerDomainValue,
+         [](const Component &self) { return self.outerDomainValue(); },
          Component::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
          "axes",
-         python::overload_cast<>(&Component::axes),
+         [](const Component &self) { return self.axes(); },
          Component::documentation("axes").data()
       )
       .def_property_readonly(
          "values",
-         python::overload_cast<>(&Component::values),
+         [](const Component &self) { return self.values(); },
          Component::documentation("values").data()
       )
    ;

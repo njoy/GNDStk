@@ -1,36 +1,24 @@
 
 namespace detail {
 
-// node2Node: forward declaration
-// This function is called by some of Node's assignment operators. We'd instead
-// put this forward declaration into the file in which *those* are defined, but
-// that file is #included inside class Node { ... }'s definition, where writing
-// the forward declaration wouldn't make sense.
-template<class NODE>
-void node2Node(const NODE &, NODE &);
-
-
-
 // -----------------------------------------------------------------------------
 // isOptional
 // -----------------------------------------------------------------------------
 
 // default
 template<class T>
-class is_optional {
-public:
+struct is_optional {
    static constexpr bool value = false;
 };
 
 // optional
 template<class T>
-class is_optional<std::optional<T>> {
-public:
+struct is_optional<std::optional<T>> {
    static constexpr bool value = true;
 };
 
 template<class T>
-inline constexpr bool isOptional = is_optional<T>::value;
+inline constexpr bool isOptional = is_optional<std::decay_t<T>>::value;
 
 
 
@@ -40,22 +28,19 @@ inline constexpr bool isOptional = is_optional<T>::value;
 
 // default
 template<class T>
-class remove_opt_def {
-public:
+struct remove_opt_def {
    using type = T;
 };
 
 // optional
 template<class T>
-class remove_opt_def<std::optional<T>> {
-public:
+struct remove_opt_def<std::optional<T>> {
    using type = T;
 };
 
 // Defaulted
 template<class T>
-class remove_opt_def<Defaulted<T>> {
-public:
+struct remove_opt_def<Defaulted<T>> {
    using type = T;
 };
 
@@ -582,7 +567,7 @@ public:
    }
 
    // ------------------------
-   // misc. functions
+   // miscellaneous functions
    // ------------------------
 
    // size
@@ -689,7 +674,7 @@ public:
 
 
 // -----------------------------------------------------------------------------
-// Helpers for Node-reading code
+// Helpers for code related to Node I/O
 // -----------------------------------------------------------------------------
 
 // warning_io_name
@@ -714,17 +699,24 @@ inline void warning_io_data(
    log::warning(
       "Node.read() was called with {}, but the first character\n"
       "in the file suggests perhaps {}. Trying {} anyway...",
-      print_format(f), appears, print_format(f,true)
+      printFormat(f), appears, printFormat(f)
    );
 }
 
 // error_format_read
 inline const std::string error_format_read =
-   "FileType::text not allowed in Node.read(). "
-   "Our \"text\" file format is intended"
-   "mainly for debug writing, not for reading. "
-   "Consider xml, json, or hdf5"
+   "FileType::debug not allowed in Node.read(). "
+   "Our \"debug\" file format is intended "
+   "for debug writing, not for reading. "
+   "Consider FileType:: xml, json, or hdf5"
 ;
+
+// getDecl
+template<class NODE>
+bool getDecl(const NODE &node, const bool &decl)
+{
+   return sent(decl) ? decl : node.name == slashTreeName;
+}
 
 
 
