@@ -77,6 +77,10 @@ bool added(
    const FROM &elem, const MC &mc,
    const bool exact, const std::size_t n
 ) {
+   // Silence warnings that seem to crop up with some compilers, when neither
+   // of the below constexpr ifs passes.
+   (void)n;
+
    // Remark. The below conditional code (involving both runtime and constexpr
    // ifs) doesn't simplify in what may seem like obvious ways. Note that bool
    // exact is runtime, and came from looking over all types in the caller's

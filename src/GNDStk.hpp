@@ -103,5 +103,8 @@ namespace GNDStk {
 #include "GNDStk/BlockData.hpp"
 #include "GNDStk/Component.hpp"
 
+// Helper constructs for C-language interfaces
+#include "GNDStk/CInterface.hpp"
+
 } // namespace GNDStk
 } // namespace njoy
