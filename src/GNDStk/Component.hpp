@@ -99,7 +99,7 @@ public:
    {
       try {
          return DERIVED::help.at(subject);
-      } catch ( ... ) {
+      } catch (...) {
          return "No help information is available";
       }
    }

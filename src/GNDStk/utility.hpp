@@ -118,7 +118,7 @@ inline std::string diagnostic(
    // Later, in functions like our error() and warning(), strings returned from
    // this present (diagnostic()) function are sent to one of the Log:: library
    // functions. Those replace instances of "{}" with the values of parameters,
-   // similarly to how the old C-language printf() replaces "%". The code below
+   // similarly to how the old C language printf() replaces "%". The code below
    // just does the alignment business for the message string, not for any of
    // those additional parameters. In the event that one of those is a string,
    // and has newlines, alignment may not be as one might initially expect. So,
@@ -171,7 +171,7 @@ inline std::string context(const std::string &type, const std::string &name)
 // re: Component class
 // ------------------------
 
-// Should Component's generic write() function print comments?
+// Should Component's generic print() function print comments?
 inline bool comments = true;
 
 // For printing.
@@ -275,6 +275,16 @@ void debug(const std::string &str, Args &&...args)
 // the intent of providing
 // some context information
 // ------------------------
+
+// context (general)
+template<class... Args>
+void context(const std::string &str, Args &&...args)
+{
+   if (GNDStk::context) {
+      const std::string msg = detail::diagnostic("info",str);
+      Log::info(msg.data(), std::forward<Args>(args)...);
+   }
+}
 
 // context is a regular function
 template<class... Args>
@@ -389,7 +399,7 @@ inline bool beginsin(const std::string &str, const std::string &begin)
 
 // nocasecmp
 // Case-insensitive string comparison.
-// The old C-language strcasecmp() is nonstandard. A modern, true caseless
+// The old C language strcasecmp() is nonstandard. A modern, true caseless
 // string comparison is actually a tougher nut to crack than meets the eye,
 // but the following will suffice for our English-language purposes.
 inline bool nocasecmp(const std::string &one, const std::string &two)

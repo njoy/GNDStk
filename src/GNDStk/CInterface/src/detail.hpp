@@ -2,7 +2,7 @@
 namespace detail {
 
 // -----------------------------------------------------------------------------
-// For handles: container, find
+// Helpers
 // -----------------------------------------------------------------------------
 
 // getAllHandles<CPP>
@@ -32,21 +32,26 @@ auto findHandle(const C *const ptr)
 
 
 // -----------------------------------------------------------------------------
-// get, delete
+// create, delete
 // -----------------------------------------------------------------------------
 
-// getNewHandle<CPP,C>
-template<class CPP, class C>
-C *getNewHandle()
+// createHandle<CPP,C>
+template<class CPP, class C, class... ARGS>
+C *createHandle(ARGS &&...args)
 {
-   const std::shared_ptr<CPP> ptr = std::make_shared<CPP>();
-   return reinterpret_cast<C *>(&(**getAllHandles<CPP>().insert(ptr).first));
+   return reinterpret_cast<C *>(
+      &(**getAllHandles<CPP>().insert(
+           std::make_shared<CPP>(std::forward<ARGS>(args)...)
+      ).first)
+   );
 }
 
 // deleteHandle<CPP,C>
 template<class CPP, class C>
-void deleteHandle(const C *const ptr)
-{
+void deleteHandle(
+   const std::string &classname,
+   const C *const ptr
+) {
    auto &pointers = getAllHandles<CPP>();
    const auto iter = findHandle<CPP>(ptr);
 
@@ -54,9 +59,9 @@ void deleteHandle(const C *const ptr)
       pointers.erase(iter);
    else {
       log::warning(
-        "Ignoring call to delete handle {}.\n"
+        "Ignoring call to delete {} handle {}.\n"
         "Handle is not valid, or was already deleted.",
-         reinterpret_cast<const void *>(ptr)
+         classname, reinterpret_cast<const void *>(ptr)
       );
    }
 }
@@ -68,12 +73,14 @@ void deleteHandle(const C *const ptr)
 
 // assignHandle<CPP,C>
 template<class CPP, class C>
-C *assignHandle(C *const lhs, const C *const rhs)
-{
+void assignHandle(
+   const std::string &classname,
+   C *const lhs, const C *const rhs
+) {
    auto &pointers = getAllHandles<CPP>();
 
    /*
-   // todo
+   // qqq
    // Think about reasonable ways of doing the following that are compatible
    // with C, which (unlike C++) doesn't have references. Sending &handle is
    // an obvious option, but we may or may not care about doing this.
@@ -82,7 +89,7 @@ C *assignHandle(C *const lhs, const C *const rhs)
    if (lhs == nullptr) {
       // note that we need to cast away const for this
       std::cout << "creating from nullptr..." << std::endl;
-      *const_cast<C **>(&lhs) = getNewHandle<CPP,C>();
+      *const_cast<C **>(&lhs) = createHandle<CPP,C>();
    } else
    */
 
@@ -93,23 +100,95 @@ C *assignHandle(C *const lhs, const C *const rhs)
    // check lhs
    if (findHandle<CPP>(lhs) == pointers.end()) {
       log::error(
-        "Unknown handle on left side of assignment {} = ...." + remark,
-         reinterpret_cast<const void *>(lhs)
+        "Unknown handle on left side of {} assignment {} = ...." + remark,
+         classname, reinterpret_cast<const void *>(lhs)
       );
-      return lhs;
+      return;
    }
 
    // check rhs
    if (findHandle<CPP>(rhs) == pointers.end()) {
       log::error(
-        "Unknown handle on right side of assignment ... = {}." + remark,
-         reinterpret_cast<const void *>(rhs)
+        "Unknown handle on right side of {} assignment ... = {}." + remark,
+         classname, reinterpret_cast<const void *>(rhs)
       );
-      return lhs;
+      return;
    }
 
    reinterpret_cast<CPP &>(*lhs) = reinterpret_cast<const CPP &>(*rhs);
-   return lhs;
+}
+
+
+// -----------------------------------------------------------------------------
+// read, write, print
+// -----------------------------------------------------------------------------
+
+// readHandle<CPP,C>
+template<class CPP, class C>
+int readHandle(
+   const std::string &classname,
+   C *const ptr, const std::string &filename
+) {
+   try {
+      reinterpret_cast<CPP &>(*ptr).baseComponent().read(filename);
+      return 1; // success
+   } catch (...) {
+      log::context(
+        "C language function for reading {} from file. "
+        "File name is \"{}\".", classname, filename
+      );
+      return 0; // failure
+   }
+}
+
+// writeHandle<CPP,C>
+template<class CPP, class C>
+int writeHandle(
+   const std::string &classname,
+   const C *const ptr, const std::string &filename
+) {
+   try {
+      reinterpret_cast<const CPP &>(*ptr).baseComponent().write(filename);
+      return 1; // success
+   } catch (...) {
+      log::context(
+         "C language function for writing {} to file.\n"
+         "File name is \"{}\".", classname, filename
+      );
+      return 0; // failure
+   }
+}
+
+// printHandle<CPP,C>
+template<class CPP, class C>
+int printHandle(
+   const std::string &classname,
+   const C *const ptr, const std::string &format = ""
+) {
+   try {
+      if (format == "") {
+         reinterpret_cast<const CPP &>(*ptr).
+            baseComponent().print();
+         // Component's print() already prints a newline
+      } else {
+         reinterpret_cast<const CPP &>(*ptr).
+            baseComponent().write(std::cout,format);
+         // Component's write() intentionally doesn't already print a newline.
+         // For this print(), for our C language interface, print one.
+         std::cout << std::endl;
+      }
+      return 1; // success
+   } catch (...) {
+      if (format == "")
+         log::context(
+           "C language function for printing {}.",
+            classname);
+      else
+         log::context(
+            "C language function for printing {} in {} format.",
+            classname, format);
+      return 0; // failure
+   }
 }
 
 } // namespace detail

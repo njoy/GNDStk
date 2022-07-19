@@ -1,12 +1,13 @@
 
 // -----------------------------------------------------------------------------
 // Interface for C
-// This file works in both C++ and C
+// Declarations
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_CINTERFACE
-#define GNDSTK_CINTERFACE
+#ifndef C_INTERFACE_GNDSTK
+#define C_INTERFACE_GNDSTK
 
+// This file works in both C++ and C
 #ifdef __cplusplus
    // For C++
    #include "GNDStk.hpp"
@@ -19,15 +20,24 @@
 
 // -----------------------------------------------------------------------------
 // Function declarations
-// Function definitions are in this file's .cpp
+// Definitions are in this file's .cpp
 // -----------------------------------------------------------------------------
 
-// colors
-extern_C
-void color(const int);
+extern_C void indent(const int);
+extern_C void align(const int);
+extern_C void colors(const int);
+
+extern_C void comments(const int);
+extern_C void columns(const long);
+extern_C void truncation(const long);
+
+extern_C void notes(const int);
+extern_C void warnings(const int);
+extern_C void debugs(const int);
+extern_C void context(const int);
 
 // todo
-// Obviously, we'll want much, much more here. I'll probably add additional
+// Obviously, we'll want much more here. I'll probably add additional
 // C-style interfaces to GNDStk's C++ code gradually, as we discover what
 // our C language users want. Note that we're speaking here about the C
 // interface to the overarching GNDStk library, not a C interface to some
