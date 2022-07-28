@@ -11,12 +11,14 @@ inline bool convert(const XML &x, Node &node, const bool &DECL)
    // bookkeeping
    // ------------------------
 
-   // clear the receiving object
+   // clear the receiving node
    node.clear();
 
    // optionally, make a boilerplate declaration node
-   if (decl)
-      node.add(special::xml); // <== meaning: we built the object from an XML
+   if (decl) {
+      node.name = slashTreeName;
+      node.add(special::xml); // "we built the object from an XML"
+   }
 
    // empty xml document?
    if (x.empty())
@@ -108,12 +110,14 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
    // bookkeeping
    // ------------------------
 
-   // clear the receiving object
+   // clear the receiving node
    node.clear();
 
    // optionally, make a boilerplate declaration node
-   if (decl)
-      node.add(special::json); // <== meaning: we built the object from a JSON
+   if (decl) {
+      node.name = slashTreeName;
+      node.add(special::json); // "we built the object from a JSON"
+   }
 
    // empty json document?
    if (j.empty())
@@ -189,13 +193,15 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
    // bookkeeping
    // ------------------------
 
-   // clear the receiving object
+   // clear the receiving node
    node.clear();
 
    // optionally, make a boilerplate declaration node
-   Node *const declnode = decl
-      ? &node.add(special::hdf5) // meaning: we built the object from an HDF5
-      : nullptr;
+   Node *declnode = nullptr;
+   if (decl) {
+      node.name = slashTreeName;
+      declnode = &node.add(special::hdf5); // "we built the object from an HDF5"
+   }
 
    // empty HDF5 document?
    if (h.empty())
@@ -203,26 +209,24 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 
    // not empty in the earlier (h.filePtr == nullptr) sense,
    // but with no real content in the HDF5 document?
-   const HighFive::Group &group = h.filePtr->getGroup(detail::rootHDF5Name);
-   if (group.getNumberAttributes() == 0 && group.getNumberObjects() == 0)
+   const HighFive::Group &rootGroup = h.filePtr->getGroup(detail::rootHDF5Name);
+   if (rootGroup.getNumberAttributes() == 0 &&
+       rootGroup.getNumberObjects() == 0)
       return true;
 
    try {
       // if decl, then place any top-level attributes that exist, in the HDF5,
       // into the Node's special::hdf5 child that would have been created above
+
       if (decl)
-         for (auto &attrName : group.listAttributeNames())
-            if (!detail::attr2node(group.getAttribute(attrName),*declnode))
+         for (auto &attrName : rootGroup.listAttributeNames())
+            if (!detail::attr2node(rootGroup.getAttribute(attrName),*declnode))
                return false;
 
       // visit the rest of the root HDF5 group
-      if (!detail::hdf52node(group, detail::rootHDF5Name, node, !decl))
-         return false;
+      return detail::hdf52node(rootGroup, detail::rootHDF5Name, node, decl);
    } catch (...) {
       log::function("convert(HDF5,Node)");
       throw;
    }
-
-   // done
-   return true;
 }

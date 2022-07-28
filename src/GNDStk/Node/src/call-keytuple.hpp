@@ -47,7 +47,7 @@ auto operator()(
    >( operator()(std::get<0>(tup), head_found) );
 
    if (!head_found)
-      missing.push_back("\nElement: " + detail::keyname(std::get<0>(tup)));
+      missing.push_back("\n" + detail::keyname(std::get<0>(tup)));
 
    // Process tup's <1...>
    bool tail_found = true;
@@ -94,13 +94,10 @@ auto operator()(
       // an error other than !found occurred in the try{} - which we suppose
       // could happen - and very informative if, as is likely, we came here
       // because nothing was found and the caller didn't send the found flag.
-      std::string errorMessage = "Error during multi-query.";
+      std::string errorMessage = "Error during query into \"" + name + "\".";
       if (missing.size() > 0) {
          errorMessage +=
-            " "
-            + std::to_string(missing.size())
-            + " element" + (missing.size() == 1 ? " was" : "s were")
-            + " not found:";
+            "\nOne or more required metadata and/or children were not found:";
          for (auto &m : missing)
             errorMessage += m;
       }

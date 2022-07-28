@@ -23,8 +23,7 @@ void fromNode(const Node &node)
       // does the node have the name we expect?
       if (node.name != DERIVED::FIELD()) {
          log::error(
-           "Name \"{}\" in Node sent to Component::fromNode() is not the "
-           "expected GNDS name \"{}\"",
+           "Node name \"{}\" is not the expected name \"{}\"",
             node.name, DERIVED::FIELD()
          );
          throw std::exception{};
