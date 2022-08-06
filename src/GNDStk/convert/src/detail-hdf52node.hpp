@@ -179,17 +179,19 @@ bool dset2node(
 template<class NODE>
 bool hdf52node(
    const HighFive::Group &group, const std::string &groupName,
-   NODE &node, const bool requireEmpty = true
+   NODE &node, const bool decl
 ) {
-   // the node sent here should be fresh, ready to receive entries
-   if (requireEmpty && !node.empty())
-      hdf52node_error("!node.empty()");
+   const bool atRoot = groupName == rootHDF5Name;
 
    // node name: from HDF5 group name
-   node.name = groupName == rootHDF5Name ? slashTreeName : groupName;
-   if (node.name != "" && node.name[0] == special::prefix)
-      while (isdigit(node.name.back()))
-         node.name.pop_back();
+   if (!decl) {
+      if (!atRoot)
+         node.name = groupName;
+      // strip digits from node name, if appropriate
+      if (node.name != "" && node.name[0] == special::prefix)
+         while (isdigit(node.name.back()))
+            node.name.pop_back();
+   }
 
    // ------------------------
    // Group's attributes
@@ -198,7 +200,7 @@ bool hdf52node(
 
    // Only if we're *not* at the root HDF5 group. If we are, then attributes
    // would have already been handled, in a special way, by the caller.
-   if (groupName != rootHDF5Name) {
+   if (!atRoot) {
       for (const std::string &attrName : group.listAttributeNames()) {
          if (attrName == special::nodename) {
             // NODENAME
@@ -237,37 +239,42 @@ bool hdf52node(
    // ==> children
    // ------------------------
 
+   size_t count = 0;
    for (const std::string &elemName : group.listObjectNames()) {
-      switch (group.getObjectType(elemName)) {
 
-         // File
-         // NOT EXPECTED IN THIS CONTEXT
-         case HighFive::ObjectType::File :
-            hdf52node_error("ObjectType \"File\" is not expected here");
-            break;
+      const HighFive::ObjectType type = group.getObjectType(elemName);
+      if (type == HighFive::ObjectType::Group ||
+          type == HighFive::ObjectType::Dataset
+      ) {
+         count++;
+         if (count > 1 && atRoot && !decl) {
+            log::error("More than one group and/or dataset at top HDF5 level");
+            throw std::exception{};
+         }
+      }
+
+      switch (type) {
+
+         // ------------------------
+         // Group and DataSet are
+         // allowable and handled
+         // ------------------------
 
          // Group
          // ACTION: Call the present function recursively
          case HighFive::ObjectType::Group :
             try {
-               if (!hdf52node(group.getGroup(elemName), elemName, node.add()))
+               if (!hdf52node(
+                  group.getGroup(elemName), elemName,
+                  node.name == "" ? node : node.add(),
+                  false
+               )) {
                   return false;
+               }
             } catch (...) {
                log::function("hdf52node()");
                throw;
             }
-            break;
-
-         // UserDataType
-         // NOT HANDLED; These may or may not ever be needed
-         case HighFive::ObjectType::UserDataType :
-            hdf52node_error("ObjectType \"UserDataType\" is not supported");
-            break;
-
-         // DataSpace (not to be confused with DataSet)
-         // NOT EXPECTED IN THIS CONTEXT
-         case HighFive::ObjectType::DataSpace :
-            hdf52node_error("ObjectType \"DataSpace\" is not expected here");
             break;
 
          // DataSet
@@ -276,12 +283,33 @@ bool hdf52node(
          // not DataSet (upper-case S), but uses "DataSet" elsewhere. :-/
          case HighFive::ObjectType::Dataset :
             try {
-               if (!dset2node(group.getDataSet(elemName), elemName, node))
+               if (!dset2node(
+                  group.getDataSet(elemName), elemName,
+                  node
+               )) {
                   return false;
+               }
             } catch (...) {
                log::function("hdf52node()");
                throw;
             }
+            break;
+
+         // ------------------------
+         // All other types are
+         // unexpected or unhandled
+         // ------------------------
+
+         // File
+         // NOT EXPECTED IN THIS CONTEXT
+         case HighFive::ObjectType::File :
+            hdf52node_error("ObjectType \"File\" is not expected here");
+            break;
+
+         // DataSpace (not to be confused with DataSet)
+         // NOT EXPECTED IN THIS CONTEXT
+         case HighFive::ObjectType::DataSpace :
+            hdf52node_error("ObjectType \"DataSpace\" is not expected here");
             break;
 
          // Attribute
@@ -293,6 +321,12 @@ bool hdf52node(
             // produce an error if ObjectType::Attribute inexplicably made an
             // appearance here, where we don't expect it.
             hdf52node_error("ObjectType \"Attribute\" is not expected here");
+            break;
+
+         // UserDataType
+         // NOT HANDLED; These may or may not ever be needed
+         case HighFive::ObjectType::UserDataType :
+            hdf52node_error("ObjectType \"UserDataType\" is not supported");
             break;
 
          // Other
