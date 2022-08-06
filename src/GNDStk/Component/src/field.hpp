@@ -20,7 +20,7 @@ class Field {
 
    // data
    DERIVED &parent;
-   T value;
+   T wrappedValue;
 
 public:
 
@@ -38,16 +38,16 @@ public:
    // parent, value
    explicit Field(DERIVED *const parent, const T &v = T{}) :
       parent(*parent),
-      value(v)
+      wrappedValue(v)
    { }
 
    // parent, other Field object
    Field(DERIVED *const parent, const Field &other) :
       parent(*parent),
-      value(other.value)
+      wrappedValue(other.wrappedValue)
    { }
 
-   // parent, default value, value
+   // parent, default value, current value
    // If T == Defaulted
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field(
@@ -55,32 +55,100 @@ public:
       const std::optional<typename TEE::value_type> &v = {}
    ) :
       parent(*parent),
-      value(def,v)
+      wrappedValue(def,v)
    { }
+
+   // ------------------------
+   // has
+   // ------------------------
+
+   // has()
+   // With no arguments.
+   // Relates to std::optional, not to the question of what metadata or metadata
+   // values the present Field might contain. (See the below function for that.)
+   // Returns true iff T is either *not* std::optional, or is std::optional and
+   // has a value.
+   bool has() const
+   {
+      if constexpr (detail::isOptional<T>)
+         return wrappedValue.has_value();
+      else
+         return true;
+   }
+
+   // has()
+   // With one argument.
+   // Forwards to [operator()(const KEY &key) const], below, essentially to
+   // provide an alternative form of a "has" query. Instead of, for example,
+   //    H.isotope(has(mass_number(2)))
+   // to inquire as to whether element H's vector of isotopes has one with
+   // a mass number of 2, one could instead write:
+   //    H.isotope.has(mass_number(2))
+   // to make exactly the same query. (The example assumes that H is of a
+   // class - say, Element - that contains a vector of isotopes, and that
+   // the Isotope class contains an integer metadatum called mass_number.)
+   // Note: the SFINAE is such that this function is enabled iff a call to
+   // operator()(key) of the present class would be valid, and return bool.
+   template<
+      class KEY,
+      class = std::enable_if_t<std::is_same_v<
+         decltype(std::declval<Field>()(GNDStk::has(std::declval<KEY>()))),
+         bool
+      >>
+   >
+   bool has(const KEY &key) const
+   {
+      return (*this)(GNDStk::has(key));
+   }
+
+   // ------------------------
+   // value()
+   // Get past std::optional
+   // where necessary
+   // ------------------------
+
+   // const
+   decltype(auto) value() const
+   {
+      if constexpr (detail::isOptional<T>)
+         return wrappedValue.value();
+      else
+         return wrappedValue;
+   }
+
+   // non-const
+   decltype(auto) value()
+   {
+      if constexpr (detail::isOptional<T>)
+         return wrappedValue.value();
+      else
+         return wrappedValue;
+   }
 
    // ------------------------
    // Getters
    // ------------------------
 
    // ()
-   const T &operator()() const { return value; }
-   T &operator()() { return value; }
+   // Get exactly the wrapped value, whatever it is (including std::optional)
+   const T &operator()() const { return wrappedValue; }
+   T &operator()() { return wrappedValue; }
 
-   // (index/label/Lookup), including Lookup<false> (via "has" function)
+   // index/label/Lookup, including Lookup<true> (via the "has" function)
    // If T == vector
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
    >
    decltype(auto) operator()(const KEY &key) const
-      { return parent.getter(value,key); }
+      { return parent.getter(wrappedValue,key); }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
    >
    decltype(auto) operator()(const KEY &key)
-      { return parent.getter(value,key); }
+      { return parent.getter(wrappedValue,key); }
 
    // ------------------------
    // Conversions
@@ -95,20 +163,24 @@ public:
    template<class TEE = T, class = detail::isOptionalVector_t<TEE>>
    operator const typename TEE::value_type &() const
    {
-      if (!value) {
+      if (!wrappedValue) {
          log::error(
            "Cannot give valueless optional<vector> a vector value\n"
            "when the object is const");
          log::member("Field:: conversion to vector");
          throw std::exception{};
       }
-      return *value;
+      return *wrappedValue;
    }
 
    template<class TEE = T, class = detail::isOptionalVector_t<TEE>>
    operator typename TEE::value_type &()
    {
-      return *(value ? value : value = typename TEE::value_type{});
+      return *(
+         wrappedValue
+          ? wrappedValue
+          : wrappedValue = typename TEE::value_type{}
+      );
    }
 
    // ------------------------
@@ -116,10 +188,10 @@ public:
    // ------------------------
 
    // replace(T)
-   // Replace existing value with another value.
+   // Replace existing value with another.
    DERIVED &replace(const T &val)
    {
-      value = val;
+      wrappedValue = val;
       return parent;
    }
 
@@ -139,7 +211,7 @@ public:
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
    {
-      value = opt;
+      wrappedValue = opt;
       return parent;
    }
 
@@ -157,12 +229,13 @@ public:
 
    // add(element)
    // If T == [optional] vector
-   // Add (via push_back) to this->value, which in this context is a vector.
+   // Add (via push_back) to this->wrappedValue, which in this context
+   // is a vector.
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    DERIVED &add(
       const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
-      parent.setter(value, elem);
+      parent.setter(wrappedValue, elem);
       return parent;
    }
 
@@ -214,14 +287,14 @@ public:
    // copy
    Field &operator=(const Field &other)
    {
-      value = other.value;
+      wrappedValue = other.wrappedValue;
       return *this;
    }
 
    // move
    Field &operator=(Field &&other)
    {
-      value = std::move(other.value);
+      wrappedValue = std::move(other.wrappedValue);
       return *this;
    }
 }; // class Field
@@ -357,6 +430,41 @@ public:
    operator std::optional<PART>() const { return opt(); }
 
    // ------------------------
+   // has
+   // Similar to Field's
+   // ------------------------
+
+   /*
+   // todo I'm not sure that this would have a clear meaning for FieldPart.
+   // For Field, it means whether or not a value exists - either it's not
+   // std::optional, or is std::optional but has a value. Here, that meaning
+   // could be confused with the concept of whether or not the variant
+   // contains the "PART" represented by this FieldPart. Think about this.
+
+   // has()
+   bool has() const
+   {
+      if constexpr (detail::isOptional<WHOLE>)
+         return wrappedValue.has_value();
+      else
+         return true;
+   }
+   */
+
+   // has(key)
+   template<
+      class KEY,
+      class = std::enable_if_t<std::is_same_v<
+         decltype(std::declval<FieldPart>()(GNDStk::has(std::declval<KEY>()))),
+         bool
+      >>
+   >
+   bool has(const KEY &key) const
+   {
+      return (*this)(GNDStk::has(key));
+   }
+
+   // ------------------------
    // Getters:
    // If WHOLE == vector
    // ------------------------
@@ -417,7 +525,7 @@ public:
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
    }
 
-   // (index/label/Lookup), including Lookup<false> (via "has" function)
+   // index/label/Lookup, including Lookup<true> (via the "has" function)
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>
@@ -576,7 +684,7 @@ struct wrapper {
    // Conversions
    operator const T &() const { return value; }
    operator T &() { return value; }
-};
+}; // class wrapper
 
 
 // -----------------------------------------------------------------------------

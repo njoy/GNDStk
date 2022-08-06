@@ -256,6 +256,9 @@ void verifyChunk( const Axes& component ) {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   CHECK(component.axis(has(v1_9::index(0))));
+  CHECK(component.axis.has(v1_9::index(0)));
+  CHECK(component.axis_grid.has(v1_9::index));
+  CHECK(component.axis_grid.has(v1_9::index(0)));
   decltype(auto) axis_iv0 = component.axis( 0 );
 
   CHECK( std::nullopt != axis_iv0.index() );
@@ -267,6 +270,9 @@ void verifyChunk( const Axes& component ) {
   CHECK( "fm" == axis_iv0.unit().value() );
 
   CHECK(component.axis(has(v1_9::index(1))));
+  CHECK(component.axis.has(v1_9::index(1)) );
+  CHECK(component.axis_grid.has(v1_9::index));
+  CHECK(component.axis_grid.has(v1_9::index(1)));
   decltype(auto) axis_iv1 = component.axis( 1 );
 
   CHECK( std::nullopt != axis_iv1.index() );
@@ -282,6 +288,9 @@ void verifyChunk( const Axes& component ) {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   CHECK(component.axis(has(v1_9::label("radius"))));
+  CHECK(component.axis.has(v1_9::label("radius")));
+  CHECK(component.axis_grid.has(v1_9::label));
+  CHECK(component.axis_grid.has(v1_9::label("radius")));
   decltype(auto) axis_v0 = component.axis( "radius" );
 
   CHECK( std::nullopt != axis_v0.index() );
@@ -293,6 +302,9 @@ void verifyChunk( const Axes& component ) {
   CHECK( "fm" == axis_v0.unit().value() );
 
   CHECK(component.axis(has(v1_9::label("energy_in"))));
+  CHECK(component.axis.has(v1_9::label("energy_in")));
+  CHECK(component.axis_grid.has(v1_9::label));
+  CHECK(component.axis_grid.has(v1_9::label("energy_in")));
   decltype(auto) axis_v1 = component.axis( "energy_in" );
 
   CHECK( std::nullopt != axis_v1.index() );

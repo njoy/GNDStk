@@ -1,4 +1,10 @@
 
+/*
+todo
+The contents of this file could really use some documentation.
+Let's do this when other priorities allow.
+*/
+
 // -----------------------------------------------------------------------------
 // Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>
 // Based on Meta<TYPE,CONVERTER>
@@ -18,7 +24,7 @@ public:
    // extractor
    EXTRACTOR extractor;
 
-   // ctor
+   // constructor
    Lookup(
       const EXTRACTOR &e,
       const std::string &name,
@@ -68,7 +74,7 @@ public:
    // extractor
    EXTRACTOR extractor;
 
-   // ctor
+   // constructor
    Lookup(
       const EXTRACTOR &e,
       const std::string &name
