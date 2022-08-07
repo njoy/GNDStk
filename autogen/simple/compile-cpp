@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# C++ compilation command
+COMPILE="
+   clang++ -std=c++17
+  -I../../GNDStk/src
+  -Imulti/src
+  -I../../GNDStk/build/_deps/pugixml-adapter-src/src/src
+  -I../../GNDStk/build/_deps/hdf5-src/include
+  -I../../GNDStk/build/_deps/json-src/include
+  -I../../GNDStk/build/_deps/json-src/include/nlohmann
+  -I../../GNDStk/build/_deps/log-src/src
+  -I../../GNDStk/build/_deps/spdlog-src/include
+  -I/usr/include/hdf5/serial
+  -DHIGHFIVE_USE_BOOST=OFF
+  -L/usr/lib/x86_64-linux-gnu/hdf5/serial
+  -lhdf5
+  -fno-show-column
+  -Wno-unused-command-line-argument
+  -Wall -Wextra -Wpedantic "
+
+# pugixml
+if [ ! -f "pugixml.o" ]; then
+$COMPILE ../../GNDStk/build/_deps/pugixml-adapter-src/src/src/pugixml.cpp -c
+fi
+
+# Compile
+$COMPILE example.cpp pugixml.o -o cpp.exe

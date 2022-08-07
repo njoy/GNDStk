@@ -1,0 +1,74 @@
+{
+    "namespace": "multigroup",
+
+    "multigroup": {
+        "metadata": {
+            "projectile": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "library": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "library": {
+        "metadata": {
+            "name": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "element": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+
+    "element": {
+        "metadata": {
+            "symbol": {
+                "type": "string",
+                "required": false
+            },
+            "atomic_number": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "isotope": {
+                "times": "1+",
+                "required": true
+            },
+            "foobar": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "isotope": {
+        "metadata": {
+            "mass_number": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "foobar": {
+        "metadata": { },
+        "children": { },
+        "data": "double"
+    }
+}

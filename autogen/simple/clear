@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/bin/rm -f *.o c cpp out *~
