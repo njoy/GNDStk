@@ -1,1 +1,14 @@
+
 [a-z]
+*.o
+*~
+
+*.h
+*.hh
+*.cc
+
+*.exe
+
+file.h5
+file.json
+file.xml

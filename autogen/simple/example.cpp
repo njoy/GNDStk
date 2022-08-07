@@ -1,6 +1,6 @@
 
-#include "NDILite/v3.hpp"
-using namespace NDILite::v3;
+#include "multi/v1.hpp"
+using namespace multi::v1;
 
 int main()
 {
