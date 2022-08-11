@@ -34,7 +34,7 @@ $COMPILE -c multi/c/src/v1/multigroup/Element.cpp
 clang \
   -I../../../GNDStk/c/src \
   -Imulti/c/src \
-   example.c \
+   example-01.c \
    pugixml.o GNDStk.o Foobar.o Isotope.o Element.o \
   -L/usr/lib/x86_64-linux-gnu/hdf5/serial \
   -lstdc++ -lm -lhdf5 \

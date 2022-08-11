@@ -3,7 +3,7 @@
 // DO NOT MODIFY!
 
 // -----------------------------------------------------------------------------
-// This file works with both C++ and C
+// This header file is designed to work with both C and C++
 // -----------------------------------------------------------------------------
 
 #ifndef C_INTERFACE_MULTI_V1

@@ -18,7 +18,7 @@
 //
 // Isotope is the basic handle type in this file:
 //    Isotope isotope = IsotopeDefault();
-// Functions for Isotope are declared throughout this file.
+// Functions involving Isotope are declared throughout this file.
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 

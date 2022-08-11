@@ -114,6 +114,8 @@ struct PerNamespace {
 struct PerClass {
    std::string cppPython; // cpp file for this class' Python interface
    std::string hppGNDStk; // hpp file for this class in GNDStk
+   std::string headerC;   // header that works with both C and C++
+   std::string sourceC;   // C++ backend source for the C interface
 
    std::string nsname;    // name of this class' namespace
    std::string clname;    // name of this class
@@ -167,6 +169,8 @@ struct InfoSpecs {
    // Directory-prefixed names
    std::string hppVersion; // hpp file for this version
    std::string hppKey;     // hpp file for this version's Meta and Child keys
+   std::string hVersion;   // header file for both C and C++
+   std::string cVersion;   // C++ backend source for the C interface
 
    // Changes to apply to a metadatum's name or a child node's name.
    // Example: "double" (GNDS v1.9 actually has "double") to "Double" for C++.
@@ -1429,10 +1433,22 @@ void commandLine(
       file = specs.JSONDir + '/' + file;
 
    // File names
-   const std::string base =
-      specs.Path + "/" + specs.Project + "/src/" + specs.Project + "/";
-   specs.hppVersion = base + specs.Version + ".hpp";
-   specs.hppKey     = base + specs.Version + "/key.hpp";
+   {
+      // For C++
+      const std::string base =
+         specs.Path + "/" + specs.Project + "/src/" + specs.Project + "/";
+      specs.hppVersion = base + specs.Version + ".hpp";
+      specs.hppKey     = base + specs.Version + "/key.hpp";
+   }
+   {
+      // For the C interface
+      const std::string base =
+         specs.Path + "/" + specs.Project + "/c/src/";
+      specs.hVersion = base + specs.Version + ".h";
+      // We don't currently know of anything that we'd have in the following
+      // file, so we won't create it. But I'll leave this in as a placeholder.
+      specs.cVersion = base + specs.Version + ".cpp";
+   }
 
    // Report on "singletons"
    if (singletons) {
@@ -1472,13 +1488,15 @@ void preprocessClass(
    // custom files as needed
    // ------------------------
 
-   // For the present namespace: C++ and Python directories. The present
-   // namespace probably contains multiple classes, so these directories
-   // may have been created already, but that's fine.
+   // For the present namespace: C++, Python, and C directories. The present
+   // namespace probably contains multiple classes, so these directories may
+   // have been created already, but that's fine.
    const std::string nsdir   = specs.Path + "/" + specs.Project +
       "/src/" + specs.Project + "/" + specs.Version + "/" + nsname;
    const std::string nsdirpy = specs.Path + "/" + specs.Project +
-      "/python/src" + "/" + specs.Version + "/" + nsname;
+      "/python/src/" + specs.Version + "/" + nsname;
+   const std::string nsdirc  = specs.Path + "/" + specs.Project +
+      "/c/src/" + specs.Version + "/" + nsname;
 
    // For the present class: C++ source and test directories.
    const std::string clsrc  = nsdir + "/" + clname + "/src";
@@ -1487,6 +1505,7 @@ void preprocessClass(
    // Create the above directories, if (and only if) they don't already exist.
    system(("mkdir -p " + nsdir  ).data());
    system(("mkdir -p " + nsdirpy).data());
+   system(("mkdir -p " + nsdirc ).data());
    system(("mkdir -p " + clsrc  ).data());
    system(("mkdir -p " + cltest ).data());
 
@@ -1519,11 +1538,14 @@ void preprocessClass(
    // For this namespace::class:
    //    The cpp file for Python
    //    The hpp file for GNDStk
+   //    The C/C++ header, and the C++ backend for the C interface
    auto cl = specs.class2data.insert(
       std::make_pair(NamespaceAndClass{nsname,clname}, PerClass{}));
    assert(cl.second); // should have been inserted - not there already
    cl.first->second.cppPython = nsdirpy + "/" + clname + ".python.cpp";
    cl.first->second.hppGNDStk = nsdir   + "/" + clname + ".hpp";
+   cl.first->second.headerC   = nsdirc  + "/" + clname + "qqq.h";
+   cl.first->second.sourceC   = nsdirc  + "/" + clname + "qqq.cpp";
 } // preprocessClass
 
 
@@ -1698,35 +1720,91 @@ void sortDependencies(InfoSpecs &specs)
 
 
 // -----------------------------------------------------------------------------
-// Functions for creating output files
+// Re: C++ header files
+// fileGNDStkVersion
+// fileGNDStkKey
+// fileGNDStkClass
 // -----------------------------------------------------------------------------
 
+// ------------------------
 // fileGNDStkVersion
+// ------------------------
+
 void fileGNDStkVersion(const InfoSpecs &specs)
 {
-   // Create an overarching file for this version
-   writer out(specs.hppVersion);
-   out();
-   out("#ifndef @_@", allcaps(specs.Project), allcaps(specs.VersionUnderscore));
-   out("#define @_@", allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+   // ------------------------
+   // Create a C++ header
+   // for this version
+   // ------------------------
 
-   std::string nsname_last = "";
-   for (auto &c : specs.class2data) {
-      const std::string nsname = c.first.nsname;
-      const std::string clname = c.first.clname;
-      if (nsname != nsname_last)
-         out();
-      nsname_last = nsname;
-      out("#include \"@/@/@/@.hpp\"",
-          specs.Project, specs.Version, nsname, clname);
+   {
+      writer out(specs.hppVersion);
+      out();
+      out("#ifndef @_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+      out("#define @_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+
+      std::string nsname_last = "";
+      for (auto &c : specs.class2data) {
+         const std::string nsname = c.first.nsname;
+         const std::string clname = c.first.clname;
+         if (nsname != nsname_last)
+            out();
+         nsname_last = nsname;
+         out("#include \"@/@/@/@.hpp\"",
+             specs.Project, specs.Version, nsname, clname);
+      }
+
+      out();
+      out("#endif");
    }
 
-   out();
-   out("#endif");
+   // ------------------------
+   // Create a C/C++ header
+   // for the C interface
+   // ------------------------
+
+   {
+      writer out(specs.hVersion);
+      out();
+      out(largeComment);
+      out("// This header file is designed to work with both C and C++");
+      out(largeComment);
+      out();
+      out("#ifndef C_INTERFACE_@_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+      out("#define C_INTERFACE_@_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+
+      out();
+      out("#include \"GNDStk.h\"");
+      out();
+      out("#ifdef __cplusplus");
+      out(1,"// For C++");
+      out(1,"#include \"@/@.hpp\"", specs.Project, specs.VersionUnderscore);
+      out("#endif");
+
+      std::string nsname_last = "";
+      for (auto &c : specs.class2data) {
+         const std::string nsname = c.first.nsname;
+         const std::string clname = c.first.clname;
+         if (nsname != nsname_last)
+            out();
+         nsname_last = nsname;
+         out("#include \"@/@/@.h\"", specs.Version, nsname, clname);
+      }
+
+      out();
+      out("#endif");
+   }
 } // fileGNDStkVersion
 
 
+// ------------------------
 // fileGNDStkKey
+// ------------------------
+
 void fileGNDStkKey(const InfoSpecs &specs)
 {
    // ------------------------
@@ -1884,7 +1962,10 @@ void fileGNDStkKey(const InfoSpecs &specs)
 } // fileGNDStkKey
 
 
+// ------------------------
 // fileGNDStkClass
+// ------------------------
+
 void fileGNDStkClass(
    const InfoSpecs &specs, const PerClass &per, const Class2Dependencies &c2d
 ) {
@@ -1922,7 +2003,236 @@ void fileGNDStkClass(
 } // fileGNDStkClass
 
 
+
+// -----------------------------------------------------------------------------
+// Re: C interface
+// Helpers
+// fileGNDStkCommon
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// fileGNDStkCommon
+// ------------------------
+
+void fileGNDStkCommon(
+   writer &hdr,
+   writer &src,
+   const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // zzz working here
+
+   (void)hdr;
+   (void)src;
+   (void)specs;
+   (void)per;
+   (void)c2d;
+} // fileGNDStkCommon
+
+
+
+// -----------------------------------------------------------------------------
+// Re: C interface
+// fileGNDStkHeader
+// fileGNDStkSource
+// fileGNDStkCInterface
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// fileGNDStkHeader
+// ------------------------
+
+void fileGNDStkHeader(
+   writer &hdr, const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // ------------------------
+   // Initial remarks
+   // ------------------------
+
+   hdr();
+   hdr("// Interface for C");
+   hdr("// This header file is designed to work with both C and C++");
+   hdr("// Function definitions are in this file's .cpp source");
+   hdr();
+
+   // ------------------------
+   // Instructions
+   // ------------------------
+
+   hdr(largeComment);
+   hdr(largeComment);
+   hdr("// Instructions for Users");
+   hdr("//");
+   hdr("// Constructs you're MORE likely to care about are preceded with:");
+   hdr("//    // +++ comment");
+   hdr("// Constructs you're LESS likely to care about are preceded with:");
+   hdr("//    // --- comment");
+   hdr("// Anything not marked as above can be ignored by most users.");
+   hdr("//");
+   hdr("// @ is the basic handle type in this file:", per.clname);
+   hdr("//    @ handle = @Default();", per.clname, per.clname);
+   hdr("// Functions involving @ are declared throughout this file.",
+       per.clname);
+   hdr(largeComment);
+   hdr(largeComment);
+   hdr();
+   hdr();
+
+   // ------------------------
+   // Preliminaries
+   // ------------------------
+
+   hdr(largeComment);
+   hdr("// Preliminaries");
+   hdr(largeComment);
+   hdr();
+
+   const std::string guard =
+      allcaps(specs.Project) + "_" +
+      allcaps(specs.VersionUnderscore) + "_" +
+      allcaps(per.nsname) + "_" +
+      allcaps(per.clname);
+
+   hdr("#ifndef C_INTERFACE_@", guard);
+   hdr("#define C_INTERFACE_@", guard);
+   hdr();
+   hdr("#include \"GNDStk.h\"");
+   for (const auto &dep : c2d.dependencies)
+      hdr("#include \"@/@/@.h\"", specs.Version, dep.nsname, dep.clname);
+   hdr();
+   hdr("#ifdef __cplusplus");
+   hdr(1,"#define extern_c extern \"C\"");
+   hdr("#else");
+   hdr(1,"#define extern_c");
+   hdr("#endif");
+   hdr();
+   hdr("// Proxy C struct for the handled C++ class");
+   hdr("struct @Class { };", per.clname);
+   hdr();
+   hdr();
+
+   // ------------------------
+   // Handle types
+   // ------------------------
+
+   hdr(largeComment);
+   hdr("// Handle types");
+   hdr(largeComment);
+   hdr();
+   hdr("// +++ @", per.clname);
+   hdr("// +++ General handle, suitable for many users. "
+       "If you're not concerned about");
+   hdr("// +++ strict \"const correctness\" in your C code, "
+       "you can probably use this in");
+   hdr("// +++ place of any function parameter of a const-aware handle type.");
+   hdr("typedef struct @Class *@;", per.clname, per.clname);
+   hdr();
+   hdr("// --- Const-aware handles, re: constness of handle vs. handled object");
+   hdr("typedef const struct @Class *const ConstHandle2Const@;",
+       per.clname, per.clname);
+   hdr("typedef       struct @Class *const ConstHandle2@;",
+       per.clname, per.clname);
+   hdr("typedef const struct @Class *      Handle2Const@;",
+       per.clname, per.clname);
+   hdr("typedef       struct @Class *      Handle2@;",
+       per.clname, per.clname);
+   hdr();
+} // fileGNDStkHeader
+
+
+// ------------------------
+// fileGNDStkSource
+// ------------------------
+
+void fileGNDStkSource(
+   writer &src, const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // includes
+   src();
+   src("#include \"@/@/@/@.hpp\"",
+       specs.Project, specs.VersionUnderscore, per.nsname, per.clname);
+   src("#include \"@.h\"", per.clname);
+   src();
+
+   // using namespace
+   src("using namespace njoy::GNDStk;");
+   src("using namespace @::@;", specs.Project, specs.VersionUnderscore);
+   src();
+
+   // using
+   src("using C = @Class;", per.clname);
+   src("using CPP = multigroup::@;", per.clname);
+   src();
+
+   // class name
+   src("static const std::string CLASSNAME = \"@\";", per.clname);
+
+   // extract
+   if (per.nfields()) {
+      src();
+      src("namespace extract {");
+   }
+   // extract: metadata
+   for (const auto &m : per.metadata)
+      src(1,"static auto @ = [](auto &obj) { return &obj.@; };",
+          m.name, m.name);
+   // extract: children
+   for (const auto &c : per.children)
+      src(1,"static auto @ = [](auto &obj) { return &obj.@; };",
+          c.name, c.name);
+   // extract: variants
+   // todo Prototype how variants will work in a C interface
+   if (per.nfields()) src("}");
+
+   if (c2d.dependencies.size())
+      src();
+   for (const auto &dep : c2d.dependencies)
+      src("using CPP@ = @::@;", dep.clname, dep.nsname, dep.clname);
+} // fileGNDStkSource
+
+
+// ------------------------
+// fileGNDStkCInterface
+// ------------------------
+
+void fileGNDStkCInterface(
+   const InfoSpecs &specs, const PerClass &per, const Class2Dependencies &c2d
+) {
+   // header beginning
+   writer hdr(per.headerC);
+   fileGNDStkHeader(hdr, specs, per, c2d);
+
+   // source beginning
+   writer src(per.sourceC);
+   fileGNDStkSource(src, specs, per, c2d);
+
+   // common or partially common to both header and source
+   fileGNDStkCommon(hdr, src, specs, per, c2d);
+
+   // header: ending
+   hdr();
+   hdr(largeComment);
+   hdr("// Done");
+   hdr(largeComment);
+   hdr();
+   hdr("#undef extern_c");
+   hdr("#endif");
+} // fileGNDStkCInterface
+
+
+
+// -----------------------------------------------------------------------------
+// Python:
 // filePythonNamespace
+// filePythonClass
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// filePythonNamespace
+// ------------------------
+
 void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 {
    writer out(per.cppPython);
@@ -1967,7 +2277,10 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 } // filePythonNamespace
 
 
+// ------------------------
 // filePythonClass
+// ------------------------
+
 void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 {
    const std::string &nsname = per.nsname;
@@ -2214,11 +2527,15 @@ int main(const int argc, const char *const *const argv)
    // GNDStk hpp file for Meta and Child keys
    fileGNDStkKey(specs);
 
-   // GNDStk hpp file for each namespace::class
+   // GNDStk hpp file, as well as header and source files for the C interface,
+   // for each namespace::class
    for (const auto &obj : specs.ClassDependenciesSorted) {
       auto find = specs.class2data.find(obj.theClass);
       assert(find != specs.class2data.end());
+      // C++ header
       fileGNDStkClass(specs, find->second, obj);
+      // C interface: header and source
+      fileGNDStkCInterface(specs, find->second, obj);
    }
 
    // Python cpp file for each namespace
