@@ -2007,42 +2007,294 @@ void fileGNDStkClass(
 // -----------------------------------------------------------------------------
 // Re: C interface
 // Helpers
-// fileGNDStkCommon
+// fileCInterfaceCommon
 // -----------------------------------------------------------------------------
 
+// two
+template<class... Ts>
+void two(writer &hdr, writer &src, Ts &&...args)
+{
+   hdr(std::forward<Ts>(args)...);
+   src(std::forward<Ts>(args)...);
+}
+
+// par
+template<class... Ts>
+void par(writer &hdr, writer &src, Ts &&...args)
+{
+   two(hdr, src, std::forward<Ts>(args)..., false);
+}
+
+// ext
+template<class... Ts>
+void ext(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   hdr("extern_c "+str, std::forward<Ts>(args)...);
+   src(            str, std::forward<Ts>(args)...);
+}
+
+// ppp
+template<class... Ts>
+void ppp(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   hdr("// +++ "+str, std::forward<Ts>(args)...);
+   src("// "    +str, std::forward<Ts>(args)...);
+}
+
+// mmm
+template<class... Ts>
+void mmm(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   hdr("// --- "+str, std::forward<Ts>(args)...);
+   src("// "    +str, std::forward<Ts>(args)...);
+}
+
+// fun
+template<class... Ts>
+void fun(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   two(hdr, src, str+"(", std::forward<Ts>(args)..., false);
+   /*
+   hdr(str+"(", std::forward<Ts>(args)..., false);
+   src(str+"(", std::forward<Ts>(args)..., false);
+   */
+}
+
+// sig
+void sig(writer &hdr, writer &src, const bool newline = true)
+{
+   // header: end of parameters, semicolon for declaration
+   hdr(");");
+   // source: end of parameters, beginning of body for definition
+   src(newline ? ")\n{" : ") {");
+}
+
+// def
+void def(writer &hdr, writer &src)
+{
+   // header: nothing
+   (void)hdr;
+   // source: ending of body for definition
+   src("}");
+}
+
+
 // ------------------------
-// fileGNDStkCommon
+// fileCInterfaceBasics
 // ------------------------
 
-void fileGNDStkCommon(
+void fileCInterfaceBasics(
    writer &hdr,
    writer &src,
    const InfoSpecs &specs,
    const PerClass &per, const Class2Dependencies &c2d
 ) {
+   (void)specs;
+   (void)c2d;
+
+   // section comment
+   two(hdr,src);
+   two(hdr,src);
+   two(hdr,src,largeComment);
+   two(hdr,src,"// Basics");
+   two(hdr,src,"// Create, Assign, Delete");
+   two(hdr,src,largeComment);
+
+   /*
+3
+ElementCreateConst(
+   const char *const symbol,
+   const int atomic_number,
+   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
+   ConstHandle2ConstFoobar foobar
+) {
+}
+
+zzz
+
+4
+ElementCreate(
+   const char *const symbol,
+   const int atomic_number,
+   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
+   ConstHandle2ConstFoobar foobar
+) {
+}
+   */
+
+   two(hdr,src);
+   mmm(hdr,src,"Create: default, const");
+   ext(hdr,src,"Handle2Const@", per.clname);
+   fun(hdr,src,"@DefaultConst", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::createHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"DefaultConst\");");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Create: default");
+   ext(hdr,src,"Handle2@", per.clname);
+   fun(hdr,src,"@Default", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::createHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Default\");");
+   def(hdr,src);
+
+   two(hdr,src);
+   mmm(hdr,src,"Create: general, const");
+   ext(hdr,src,"Handle2Const@", per.clname);
+   fun(hdr,src,"@CreateConst", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::createHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"CreateConst\");");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Create: general");
+   ext(hdr,src,"Handle2@", per.clname);
+   fun(hdr,src,"@Create", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::createHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Create\");");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Assign");
+   ppp(hdr,src,"Use this to assign one handled object to another. Don't assign handles,");
+   ppp(hdr,src,"as with to = from. That has a meaning that you probably don't intend.");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@Assign", per.clname);
+   par(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ from", per.clname, per.clname);
+   sig(hdr,src);
+   src(1,"detail::assignHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Assign\", This, from);");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Delete");
+   ppp(hdr,src,"We'll attempt to remove no-longer-used objects automatically, but you");
+   ppp(hdr,src,"may improve performance if you delete them when you're done with them.");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@Delete", per.clname);
+   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   sig(hdr,src);
+   src(1,"detail::deleteHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Delete\", This);");
+   def(hdr,src);
+
+} // fileCInterfaceBasics
+
+
+// ------------------------
+// fileCInterfaceIO
+// ------------------------
+
+void fileCInterfaceIO(
+   writer &hdr,
+   writer &src,
+   const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   (void)specs;
+   (void)c2d;
+
+   // comment for the section
+   two(hdr,src);
+   two(hdr,src);
+   two(hdr,src,largeComment);
+   two(hdr,src,"// I/O");
+   two(hdr,src,"// Read, Write, Print");
+   two(hdr,src,"// Each returns 0 if failure, 1 if success.");
+   two(hdr,src,largeComment);
+
    // zzz working here
 
-   (void)hdr;
-   (void)src;
-   (void)specs;
-   (void)per;
-   (void)c2d;
-} // fileGNDStkCommon
+   two(hdr,src);
+   ppp(hdr,src,"Read from file");
+   ppp(hdr,src,"File can be XML, JSON, or HDF5.");
+   ppp(hdr,src,"We'll examine the file's contents to determine its type automatically.");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@Read", per.clname);
+   par(hdr,src,"ConstHandle2@ This, const char *const filename", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::readHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Read\", This, filename);");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Write to file");
+   ppp(hdr,src,"File can be XML, JSON, or HDF5.");
+   ppp(hdr,src,"We'll use filename's extension to determine the type you want written.");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@Write", per.clname);
+   par(hdr,src,"ConstHandle2Const@ This, const char *const filename", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::writeHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Write\", This, filename);");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Print to standard output, in our prettyprinting format");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@Print", per.clname);
+   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::printHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Print\", This);");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Print to standard output, as XML");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@PrintXML", per.clname);
+   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::printHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"PrintXML\", This, \"XML\");");
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Print to standard output, as JSON");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@PrintJSON", per.clname);
+   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   sig(hdr,src);
+   src(1,"return detail::printHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"PrintJSON\", This, \"JSON\");");
+   def(hdr,src);
+
+} // fileCInterfaceIO
+
+
+// ------------------------
+// fileCInterfaceCommon
+// ------------------------
+
+void fileCInterfaceCommon(
+   writer &hdr,
+   writer &src,
+   const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   fileCInterfaceBasics(hdr, src, specs, per, c2d);
+   fileCInterfaceIO    (hdr, src, specs, per, c2d);
+   // qqq more here
+} // fileCInterfaceCommon
 
 
 
 // -----------------------------------------------------------------------------
 // Re: C interface
-// fileGNDStkHeader
-// fileGNDStkSource
-// fileGNDStkCInterface
+// fileCInterfaceHeader
+// fileCInterfaceSource
+// fileCInterface
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// fileGNDStkHeader
+// fileCInterfaceHeader
 // ------------------------
 
-void fileGNDStkHeader(
+void fileCInterfaceHeader(
    writer &hdr, const InfoSpecs &specs,
    const PerClass &per, const Class2Dependencies &c2d
 ) {
@@ -2138,14 +2390,14 @@ void fileGNDStkHeader(
    hdr("typedef       struct @Class *      Handle2@;",
        per.clname, per.clname);
    hdr();
-} // fileGNDStkHeader
+} // fileCInterfaceHeader
 
 
 // ------------------------
-// fileGNDStkSource
+// fileCInterfaceSource
 // ------------------------
 
-void fileGNDStkSource(
+void fileCInterfaceSource(
    writer &src, const InfoSpecs &specs,
    const PerClass &per, const Class2Dependencies &c2d
 ) {
@@ -2190,26 +2442,26 @@ void fileGNDStkSource(
       src();
    for (const auto &dep : c2d.dependencies)
       src("using CPP@ = @::@;", dep.clname, dep.nsname, dep.clname);
-} // fileGNDStkSource
+} // fileCInterfaceSource
 
 
 // ------------------------
-// fileGNDStkCInterface
+// fileCInterface
 // ------------------------
 
-void fileGNDStkCInterface(
+void fileCInterface(
    const InfoSpecs &specs, const PerClass &per, const Class2Dependencies &c2d
 ) {
    // header beginning
    writer hdr(per.headerC);
-   fileGNDStkHeader(hdr, specs, per, c2d);
+   fileCInterfaceHeader(hdr, specs, per, c2d);
 
    // source beginning
    writer src(per.sourceC);
-   fileGNDStkSource(src, specs, per, c2d);
+   fileCInterfaceSource(src, specs, per, c2d);
 
    // common or partially common to both header and source
-   fileGNDStkCommon(hdr, src, specs, per, c2d);
+   fileCInterfaceCommon(hdr, src, specs, per, c2d);
 
    // header: ending
    hdr();
@@ -2219,7 +2471,7 @@ void fileGNDStkCInterface(
    hdr();
    hdr("#undef extern_c");
    hdr("#endif");
-} // fileGNDStkCInterface
+} // fileCInterface
 
 
 
@@ -2535,7 +2787,7 @@ int main(const int argc, const char *const *const argv)
       // C++ header
       fileGNDStkClass(specs, find->second, obj);
       // C interface: header and source
-      fileGNDStkCInterface(specs, find->second, obj);
+      fileCInterface(specs, find->second, obj);
    }
 
    // Python cpp file for each namespace
