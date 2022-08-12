@@ -177,7 +177,7 @@ FoobarDoublesGetArray(ConstHandle2Foobar This)
 
 // Set new size and values
 void
-FoobarDoublesSetArray(ConstHandle2Foobar This, const size_t size, const double *const values)
+FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
       (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);

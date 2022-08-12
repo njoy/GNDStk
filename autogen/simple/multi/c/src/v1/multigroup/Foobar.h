@@ -16,7 +16,8 @@
 //    // --- comment
 // Anything not marked as above can be ignored by most users.
 //
-// Foobar is the basic handle type in this file:
+// Foobar is the basic handle type in this file. Example:
+//    // Create a default Foobar object:
 //    Foobar handle = FoobarDefault();
 // Functions involving Foobar are declared throughout this file.
 // -----------------------------------------------------------------------------
@@ -52,7 +53,7 @@ struct FoobarClass { };
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct FoobarClass *Foobar;
 
-// --- Const-aware handles, re: constness of handle vs. handled object
+// --- Const-aware handles, re: constness of handle vs. handled object.
 typedef const struct FoobarClass *const ConstHandle2ConstFoobar;
 typedef       struct FoobarClass *const ConstHandle2Foobar;
 typedef const struct FoobarClass *      Handle2ConstFoobar;
@@ -74,13 +75,11 @@ FoobarDefault();
 
 // --- Create: general, const
 extern_c Handle2ConstFoobar
-FoobarCreateConst(
-);
+FoobarCreateConst();
 
 // +++ Create: general
 extern_c Handle2Foobar
-FoobarCreate(
-);
+FoobarCreate();
 
 // +++ Assign
 // +++ Use this to assign one handled object to another. Don't assign handles,
@@ -151,7 +150,7 @@ FoobarDoublesGetArray(ConstHandle2Foobar This);
 
 // +++ Set new size and values
 extern_c void
-FoobarDoublesSetArray(ConstHandle2Foobar This, const size_t size, const double *const doubles);
+FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const doubles, const size_t size);
 
 
 // -----------------------------------------------------------------------------

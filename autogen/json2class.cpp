@@ -80,6 +80,7 @@ struct InfoChildren {
    // child nodes just doesn't exist in the GNDS specifications, even though the
    // concept would seem to make sense.)
    std::string name;
+   std::string plain;    // underlying type, EXcluding namespace
    std::string type;     // underlying type
    std::string typeFull; // WITH any optional<> or vector<>
    std::string typeHalf; // withOUT any vector<>
@@ -550,10 +551,12 @@ void getClassChildren(
       InfoChildren c;
       c.name = nameField(field,specs);
 
-      // Type, including namespace
-      c.type = nameClass(field,specs);
-      const std::string ns = getChildNamespace(elemRHS, specs, per, c.type);
-      c.type = ns + "::" + c.type;
+      // Type, EXcluding namespace
+      c.plain = nameClass(field,specs);
+
+      // Type, INcluding namespace
+      const std::string ns = getChildNamespace(elemRHS, specs, per, c.plain);
+      c.type = ns + "::" + c.plain;
 
       // Optional?
       c.isOptional = !elemRHS["required"];
@@ -2054,19 +2057,15 @@ template<class... Ts>
 void fun(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 {
    two(hdr, src, str+"(", std::forward<Ts>(args)..., false);
-   /*
-   hdr(str+"(", std::forward<Ts>(args)..., false);
-   src(str+"(", std::forward<Ts>(args)..., false);
-   */
 }
 
 // sig
-void sig(writer &hdr, writer &src, const bool newline = true)
+void sig(writer &hdr, writer &src, const bool hadFields = false)
 {
    // header: end of parameters, semicolon for declaration
    hdr(");");
    // source: end of parameters, beginning of body for definition
-   src(newline ? ")\n{" : ") {");
+   src(hadFields ? ") {" : ")\n{");
 }
 
 // def
@@ -2078,6 +2077,55 @@ void def(writer &hdr, writer &src)
    src("}");
 }
 
+// mtype
+std::string mtype(const InfoMetadata &m)
+{
+   if (m.type == "std::string")
+      return "char *const";
+   else
+      return m.type;
+}
+
+// ctype
+std::string ctype(const InfoChildren &c)
+{
+   if (c.isVector)
+      return "ConstHandle2Const" + c.plain + " *const";
+   else
+      return "ConstHandle2Const" + c.plain;
+}
+
+// fileCInterfaceParams
+void fileCInterfaceParams(writer &hdr, writer &src, const PerClass &per)
+{
+   int count = 0;
+   const int total = per.nfields();
+
+   // metadata
+   for (const auto &m : per.metadata) {
+      two(hdr,src);
+      two(hdr,src,1,"const @ @@",
+          mtype(m), m.name, ++count < total ? "," : "", false);
+   }
+
+   // children
+   for (const auto &c : per.children) {
+      two(hdr,src);
+      two(hdr,src,1,"@ @@@",
+          ctype(c),
+          c.name,
+          c.isVector ? ", const size_t "+c.name+"Size" : "",
+          ++count < total ? "," : "",
+          false
+      );
+   }
+
+   // variants
+   // todo
+
+   if (total)
+      two(hdr,src);
+}
 
 // ------------------------
 // fileCInterfaceBasics
@@ -2099,28 +2147,6 @@ void fileCInterfaceBasics(
    two(hdr,src,"// Basics");
    two(hdr,src,"// Create, Assign, Delete");
    two(hdr,src,largeComment);
-
-   /*
-3
-ElementCreateConst(
-   const char *const symbol,
-   const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
-   ConstHandle2ConstFoobar foobar
-) {
-}
-
-zzz
-
-4
-ElementCreate(
-   const char *const symbol,
-   const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
-   ConstHandle2ConstFoobar foobar
-) {
-}
-   */
 
    two(hdr,src);
    mmm(hdr,src,"Create: default, const");
@@ -2144,16 +2170,20 @@ ElementCreate(
    mmm(hdr,src,"Create: general, const");
    ext(hdr,src,"Handle2Const@", per.clname);
    fun(hdr,src,"@CreateConst", per.clname);
-   sig(hdr,src);
+   fileCInterfaceParams(hdr,src,per);
+   sig(hdr,src, per.nfields() != 0);
    src(1,"return detail::createHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"CreateConst\");");
    def(hdr,src);
+
+   // zzz working here
 
    two(hdr,src);
    ppp(hdr,src,"Create: general");
    ext(hdr,src,"Handle2@", per.clname);
    fun(hdr,src,"@Create", per.clname);
-   sig(hdr,src);
+   fileCInterfaceParams(hdr,src,per);
+   sig(hdr,src, per.nfields() != 0);
    src(1,"return detail::createHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Create\");");
    def(hdr,src);
@@ -2206,8 +2236,6 @@ void fileCInterfaceIO(
    two(hdr,src,"// Read, Write, Print");
    two(hdr,src,"// Each returns 0 if failure, 1 if success.");
    two(hdr,src,largeComment);
-
-   // zzz working here
 
    two(hdr,src);
    ppp(hdr,src,"Read from file");
@@ -2322,7 +2350,8 @@ void fileCInterfaceHeader(
    hdr("//    // --- comment");
    hdr("// Anything not marked as above can be ignored by most users.");
    hdr("//");
-   hdr("// @ is the basic handle type in this file:", per.clname);
+   hdr("// @ is the basic handle type in this file. Example:", per.clname);
+   hdr("//    // Create a default @ object:", per.clname);
    hdr("//    @ handle = @Default();", per.clname, per.clname);
    hdr("// Functions involving @ are declared throughout this file.",
        per.clname);
@@ -2380,7 +2409,7 @@ void fileCInterfaceHeader(
    hdr("// +++ place of any function parameter of a const-aware handle type.");
    hdr("typedef struct @Class *@;", per.clname, per.clname);
    hdr();
-   hdr("// --- Const-aware handles, re: constness of handle vs. handled object");
+   hdr("// --- Const-aware handles, re: constness of handle vs. handled object.");
    hdr("typedef const struct @Class *const ConstHandle2Const@;",
        per.clname, per.clname);
    hdr("typedef       struct @Class *const ConstHandle2@;",
@@ -2389,7 +2418,6 @@ void fileCInterfaceHeader(
        per.clname, per.clname);
    hdr("typedef       struct @Class *      Handle2@;",
        per.clname, per.clname);
-   hdr();
 } // fileCInterfaceHeader
 
 

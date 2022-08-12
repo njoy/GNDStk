@@ -8,16 +8,17 @@
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-// Instructions
+// Instructions for Users
 //
-// Constructs you're MORE likely to use are preceded with:
+// Constructs you're MORE likely to care about are preceded with:
 //    // +++ comment
-// Constructs you're LESS likely to use are preceded with:
+// Constructs you're LESS likely to care about are preceded with:
 //    // --- comment
-// You can probably ignore anything not marked in either way.
+// Anything not marked as above can be ignored by most users.
 //
-// Element is the basic handle type in this file:
-//    Element element = ElementCreate();
+// Element is the basic handle type in this file. Example:
+//    // Create a default Element object:
+//    Element handle = ElementDefault();
 // Functions involving Element are declared throughout this file.
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -54,7 +55,7 @@ struct ElementClass { };
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct ElementClass *Element;
 
-// --- Const-aware handles, re: constness of handle vs. handled object
+// --- Const-aware handles, re: constness of handle vs. handled object.
 typedef const struct ElementClass *const ConstHandle2ConstElement;
 typedef       struct ElementClass *const ConstHandle2Element;
 typedef const struct ElementClass *      Handle2ConstElement;
