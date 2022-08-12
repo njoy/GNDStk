@@ -34,7 +34,7 @@ Handle2ConstElement
 ElementDefaultConst()
 {
    return detail::createHandle<CPP,C>
-      (CLASSNAME, "ElementDefaultConst");
+      (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
 // Create: default
@@ -42,7 +42,7 @@ Handle2Element
 ElementDefault()
 {
    return detail::createHandle<CPP,C>
-      (CLASSNAME, "ElementDefault");
+      (CLASSNAME, CLASSNAME+"Default");
 }
 
 // Create: general, const
@@ -54,7 +54,7 @@ ElementCreateConst(
    ConstHandle2ConstFoobar foobar
 ) {
    ConstHandle2Element handle = detail::createHandle<CPP,C>(
-      CLASSNAME, "ElementCreateConst",
+      CLASSNAME, CLASSNAME+"CreateConst",
       symbol,
       atomic_number,
       std::vector<CPPIsotope>{},
@@ -74,7 +74,7 @@ ElementCreate(
    ConstHandle2ConstFoobar foobar
 ) {
    ConstHandle2Element handle = detail::createHandle<CPP,C>(
-      CLASSNAME, "ElementCreate",
+      CLASSNAME, CLASSNAME+"Create",
       symbol,
       atomic_number,
       std::vector<CPPIsotope>{},
@@ -86,19 +86,23 @@ ElementCreate(
 }
 
 // Assign
+// Use this to assign one handled object to another. Don't assign handles,
+// as with to = from. That has a meaning that you probably don't intend.
 void
 ElementAssign(ConstHandle2Element This, ConstHandle2ConstElement from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, "ElementAssign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", This, from);
 }
 
 // Delete
+// We'll attempt to remove no-longer-used objects automatically, but you
+// may improve performance if you delete them when you're done with them.
 void
 ElementDelete(ConstHandle2ConstElement This)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, "ElementDelete", This);
+      (CLASSNAME, CLASSNAME+"Delete", This);
 }
 
 
@@ -113,7 +117,7 @@ int
 ElementRead(ConstHandle2Element This, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, "ElementRead", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", This, filename);
 }
 
 // Write
@@ -121,7 +125,7 @@ int
 ElementWrite(ConstHandle2ConstElement This, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, "ElementWrite", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", This, filename);
 }
 
 // Print to standard output
@@ -129,7 +133,7 @@ int
 ElementPrint(ConstHandle2ConstElement This)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, "ElementPrint", This);
+      (CLASSNAME, CLASSNAME+"Print", This);
 }
 
 // Print to standard output, as XML
@@ -137,7 +141,7 @@ int
 ElementPrintXML(ConstHandle2ConstElement This)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, "ElementPrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
 }
 
 // Print to standard output, as JSON
@@ -145,7 +149,7 @@ int
 ElementPrintJSON(ConstHandle2ConstElement This)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, "ElementPrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
 
 
@@ -158,7 +162,7 @@ int
 ElementSymbolHas(ConstHandle2ConstElement This)
 {
    return detail::hasMetadatum<CPP>
-      (CLASSNAME, "ElementSymbolHas", This, extract::symbol);
+      (CLASSNAME, CLASSNAME+"SymbolHas", This, extract::symbol);
 }
 
 // Get
@@ -166,7 +170,7 @@ const char *
 ElementSymbolGet(ConstHandle2ConstElement This)
 {
    return detail::getMetadatum<CPP>
-      (CLASSNAME, "ElementSymbolGet", This, extract::symbol);
+      (CLASSNAME, CLASSNAME+"SymbolGet", This, extract::symbol);
 }
 
 // Set
@@ -174,7 +178,7 @@ void
 ElementSymbolSet(ConstHandle2Element This, const char *const symbol)
 {
    detail::setMetadatum<CPP>
-      (CLASSNAME, "ElementSymbolSet", This, extract::symbol, symbol);
+      (CLASSNAME, CLASSNAME+"SymbolSet", This, extract::symbol, symbol);
 }
 
 
@@ -187,7 +191,7 @@ int
 ElementAtomicNumberHas(ConstHandle2ConstElement This)
 {
    return detail::hasMetadatum<CPP>
-      (CLASSNAME, "ElementAtomicNumberHas", This, extract::atomic_number);
+      (CLASSNAME, CLASSNAME+"AtomicNumberHas", This, extract::atomic_number);
 }
 
 // Get
@@ -195,7 +199,7 @@ int
 ElementAtomicNumberGet(ConstHandle2ConstElement This)
 {
    return detail::getMetadatum<CPP>
-      (CLASSNAME, "ElementAtomicNumberGet", This, extract::atomic_number);
+      (CLASSNAME, CLASSNAME+"AtomicNumberGet", This, extract::atomic_number);
 }
 
 // Set
@@ -203,7 +207,7 @@ void
 ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number)
 {
    detail::setMetadatum<CPP>
-      (CLASSNAME, "ElementAtomicNumberSet", This, extract::atomic_number, atomic_number);
+      (CLASSNAME, CLASSNAME+"AtomicNumberSet", This, extract::atomic_number, atomic_number);
 }
 
 
@@ -216,7 +220,7 @@ void
 ElementIsotopeClear(ConstHandle2Element This)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, "ElementIsotopeClear", This, extract::isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeClear", This, extract::isotope);
 }
 
 // Size
@@ -224,7 +228,7 @@ size_t
 ElementIsotopeSize(ConstHandle2ConstElement This)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, "ElementIsotopeSize", This, extract::isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeSize", This, extract::isotope);
 }
 
 // Has
@@ -232,7 +236,7 @@ int
 ElementIsotopeHas(ConstHandle2ConstElement This)
 {
    return detail::hasMetadatum<CPP>
-      (CLASSNAME, "ElementIsotopeHas", This, extract::isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeHas", This, extract::isotope);
 }
 
 // Add
@@ -240,7 +244,7 @@ void
 ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope)
 {
    detail::addToContainer<CPP,CPPIsotope>
-      (CLASSNAME, "ElementIsotopeAdd", This, extract::isotope, isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeAdd", This, extract::isotope, isotope);
 }
 
 // Get, by index \in [0,size), const
@@ -248,7 +252,7 @@ Handle2ConstIsotope
 ElementIsotopeGetConst(ConstHandle2ConstElement This, const size_t index)
 {
    return detail::getByIndex<CPP,Handle2ConstIsotope>
-      (CLASSNAME, "ElementIsotopeGetConst", This, extract::isotope, index);
+      (CLASSNAME, CLASSNAME+"IsotopeGetConst", This, extract::isotope, index);
 }
 
 // Get, by index \in [0,size), non-const
@@ -256,7 +260,7 @@ Handle2Isotope
 ElementIsotopeGet(ConstHandle2Element This, const size_t index)
 {
    return detail::getByIndex<CPP,Handle2Isotope>
-      (CLASSNAME, "ElementIsotopeGet", This, extract::isotope, index);
+      (CLASSNAME, CLASSNAME+"IsotopeGet", This, extract::isotope, index);
 }
 
 // Set, by index \in [0,size)
@@ -267,7 +271,7 @@ ElementIsotopeSet(
    ConstHandle2ConstIsotope isotope
 ) {
    detail::setByIndex<CPP,CPPIsotope>
-      (CLASSNAME, "ElementIsotopeSet", This, extract::isotope, index, isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeSet", This, extract::isotope, index, isotope);
 }
 
 // Has, by mass_number
@@ -277,7 +281,7 @@ ElementIsotopeHasByMassNumber(
    const int mass_number
 ) {
    return detail::hasByMetadatum<CPP>
-      (CLASSNAME, "ElementIsotopeHasByMassNumber",
+      (CLASSNAME, CLASSNAME+"IsotopeHasByMassNumber",
        This, extract::isotope, meta::mass_number, mass_number);
 }
 
@@ -288,7 +292,7 @@ ElementIsotopeGetByMassNumberConst(
    const int mass_number
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstIsotope>
-      (CLASSNAME, "ElementIsotopeGetByMassNumberConst",
+      (CLASSNAME, CLASSNAME+"IsotopeGetByMassNumberConst",
        This, extract::isotope, meta::mass_number, mass_number);
 }
 
@@ -299,7 +303,7 @@ ElementIsotopeGetByMassNumber(
    const int mass_number
 ) {
    return detail::getByMetadatum<CPP,Handle2Isotope>
-      (CLASSNAME, "ElementIsotopeGetByMassNumber",
+      (CLASSNAME, CLASSNAME+"IsotopeGetByMassNumber",
        This, extract::isotope, meta::mass_number, mass_number);
 }
 
@@ -311,7 +315,7 @@ ElementIsotopeSetByMassNumber(
    ConstHandle2ConstIsotope isotope
 ) {
    detail::setByMetadatum<CPP,CPPIsotope>
-      (CLASSNAME, "ElementIsotopeSetByMassNumber",
+      (CLASSNAME, CLASSNAME+"IsotopeSetByMassNumber",
        This, extract::isotope, meta::mass_number, mass_number, isotope);
 }
 
@@ -325,7 +329,7 @@ int
 ElementFoobarHas(ConstHandle2ConstElement This)
 {
    return detail::hasMetadatum<CPP>
-      (CLASSNAME, "ElementFoobarHas", This, extract::foobar);
+      (CLASSNAME, CLASSNAME+"FoobarHas", This, extract::foobar);
 }
 
 // Get: const
@@ -333,7 +337,7 @@ Handle2ConstFoobar
 ElementFoobarGetConst(ConstHandle2ConstElement This)
 {
    return detail::getMetadatum<CPP,Handle2ConstFoobar>
-      (CLASSNAME, "ElementFoobarGetConst", This, extract::foobar);
+      (CLASSNAME, CLASSNAME+"FoobarGetConst", This, extract::foobar);
 }
 
 // Get: non-const
@@ -341,7 +345,7 @@ Handle2Foobar
 ElementFoobarGet(ConstHandle2Element This)
 {
    return detail::getMetadatum<CPP,Handle2Foobar>
-      (CLASSNAME, "ElementFoobarGet", This, extract::foobar);
+      (CLASSNAME, CLASSNAME+"FoobarGet", This, extract::foobar);
 }
 
 // Set
@@ -349,5 +353,5 @@ void
 ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar)
 {
    detail::setMetadatum<CPP,CPPFoobar>
-      (CLASSNAME, "ElementFoobarSet", This, extract::foobar, foobar);
+      (CLASSNAME, CLASSNAME+"FoobarSet", This, extract::foobar, foobar);
 }

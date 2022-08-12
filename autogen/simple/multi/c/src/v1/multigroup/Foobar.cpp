@@ -24,7 +24,7 @@ Handle2ConstFoobar
 FoobarDefaultConst()
 {
    return detail::createHandle<CPP,C>
-      (CLASSNAME, "FoobarDefaultConst");
+      (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
 // Create: default
@@ -32,7 +32,7 @@ Handle2Foobar
 FoobarDefault()
 {
    return detail::createHandle<CPP,C>
-      (CLASSNAME, "FoobarDefault");
+      (CLASSNAME, CLASSNAME+"Default");
 }
 
 // Create: general, const
@@ -40,7 +40,7 @@ Handle2ConstFoobar
 FoobarCreateConst()
 {
    return detail::createHandle<CPP,C>
-      (CLASSNAME, "FoobarCreateConst");
+      (CLASSNAME, CLASSNAME+"CreateConst");
 }
 
 // Create: general
@@ -48,23 +48,27 @@ Handle2Foobar
 FoobarCreate()
 {
    return detail::createHandle<CPP,C>
-      (CLASSNAME, "FoobarCreate");
+      (CLASSNAME, CLASSNAME+"Create");
 }
 
 // Assign
+// Use this to assign one handled object to another. Don't assign handles,
+// as with to = from. That has a meaning that you probably don't intend.
 void
 FoobarAssign(ConstHandle2Foobar This, ConstHandle2ConstFoobar from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, "FoobarAssign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", This, from);
 }
 
 // Delete
+// We'll attempt to remove no-longer-used objects automatically, but you
+// may improve performance if you delete them when you're done with them.
 void
 FoobarDelete(ConstHandle2ConstFoobar This)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, "FoobarDelete", This);
+      (CLASSNAME, CLASSNAME+"Delete", This);
 }
 
 
@@ -74,28 +78,32 @@ FoobarDelete(ConstHandle2ConstFoobar This)
 // Each returns 0 if failure, 1 if success.
 // -----------------------------------------------------------------------------
 
-// Read
+// Read from file
+// File can be XML, JSON, or HDF5.
+// We'll examine the file's contents to determine its type automatically.
 int
 FoobarRead(ConstHandle2Foobar This, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, "FoobarRead", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", This, filename);
 }
 
-// Write
+// Write to file
+// File can be XML, JSON, or HDF5.
+// We'll use filename's extension to determine the type you want written.
 int
 FoobarWrite(ConstHandle2ConstFoobar This, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, "FoobarWrite", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", This, filename);
 }
 
-// Print to standard output
+// Print to standard output, in our prettyprinting format
 int
 FoobarPrint(ConstHandle2ConstFoobar This)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, "FoobarPrint", This);
+      (CLASSNAME, CLASSNAME+"Print", This);
 }
 
 // Print to standard output, as XML
@@ -103,7 +111,7 @@ int
 FoobarPrintXML(ConstHandle2ConstFoobar This)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, "FoobarPrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
 }
 
 // Print to standard output, as JSON
@@ -111,7 +119,7 @@ int
 FoobarPrintJSON(ConstHandle2ConstFoobar This)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, "FoobarPrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
 
 
@@ -124,7 +132,7 @@ void
 FoobarDoublesClear(ConstHandle2Foobar This)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, "FoobarDoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", This);
 }
 
 // Size
@@ -132,7 +140,7 @@ size_t
 FoobarDoublesSize(ConstHandle2ConstFoobar This)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, "FoobarDoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", This);
 }
 
 // Get
@@ -140,7 +148,7 @@ double
 FoobarDoublesGet(ConstHandle2ConstFoobar This, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, "FoobarDoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
 }
 
 // Set
@@ -148,7 +156,7 @@ void
 FoobarDoublesSet(ConstHandle2Foobar This, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, "FoobarDoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
 }
 
 // Get pointer to values, const
@@ -156,7 +164,7 @@ const double *
 FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar This)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, "FoobarDoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
 }
 
 // Get pointer to values, non-const
@@ -164,7 +172,7 @@ double *
 FoobarDoublesGetArray(ConstHandle2Foobar This)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, "FoobarDoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
 }
 
 // Set new size and values
@@ -172,5 +180,5 @@ void
 FoobarDoublesSetArray(ConstHandle2Foobar This, const size_t size, const double *const values)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, "FoobarDoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
 }
