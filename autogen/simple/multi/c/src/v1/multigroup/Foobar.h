@@ -129,28 +129,35 @@ FoobarPrintJSON(ConstHandle2ConstFoobar This);
 // Re: vector
 // -----------------------------------------------------------------------------
 
-// +++ Clear, Size
+// +++ Clear
 extern_c void
 FoobarDoublesClear(ConstHandle2Foobar This);
+
+// +++ Get size
 extern_c size_t
 FoobarDoublesSize(ConstHandle2ConstFoobar This);
 
-// +++ Get, Set
+// +++ Get value
 // +++ By index \in [0,size)
 extern_c double
 FoobarDoublesGet(ConstHandle2ConstFoobar This, const size_t index);
+
+// +++ Set value
+// +++ By index \in [0,size)
 extern_c void
 FoobarDoublesSet(ConstHandle2Foobar This, const size_t index, const double value);
 
-// +++ Get pointer to values
+// --- Get pointer to existing values, const
 extern_c const double *
 FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar This);
+
+// +++ Get pointer to existing values, non-const
 extern_c double *
 FoobarDoublesGetArray(ConstHandle2Foobar This);
 
-// +++ Set new size and values
+// +++ Set completely new values and size
 extern_c void
-FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const doubles, const size_t size);
+FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------

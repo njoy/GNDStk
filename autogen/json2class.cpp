@@ -896,7 +896,8 @@ void writeClassForComponent(writer &out, const PerClass &per)
       out();
    for (const auto &v : per.variants) {
       out(1,"using @ = std::variant<", v.type);
-      int count = 0, total = v.children.size();
+      int count = 0;
+      const int total = v.children.size();
       for (const auto &c : v.children)
          out(2,"@@", c.type, sep(count,total));
       out(1,">;");
@@ -919,7 +920,8 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out(1,"{");
 
    // KEYS() contents
-   int count = 0, total = per.nfields();
+   int count = 0;
+   const int total = per.nfields();
    if (total == 0)
       out(2,"return std::tuple<>{};");
    else {
@@ -2010,10 +2012,15 @@ void fileGNDStkClass(
 // -----------------------------------------------------------------------------
 // Re: C interface
 // Helpers
-// fileCInterfaceCommon
+// fileCInterface*
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// Helpers
+// ------------------------
+
 // two
+// Forward args to two places: header and source
 template<class... Ts>
 void two(writer &hdr, writer &src, Ts &&...args)
 {
@@ -2022,6 +2029,7 @@ void two(writer &hdr, writer &src, Ts &&...args)
 }
 
 // par
+// For writing parameters; no \n added
 template<class... Ts>
 void par(writer &hdr, writer &src, Ts &&...args)
 {
@@ -2029,6 +2037,7 @@ void par(writer &hdr, writer &src, Ts &&...args)
 }
 
 // ext
+// For writing (or not writing) 'extern "C"'
 template<class... Ts>
 void ext(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 {
@@ -2037,6 +2046,7 @@ void ext(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 }
 
 // ppp
+// Comment, prefixed in header file with "+++"
 template<class... Ts>
 void ppp(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 {
@@ -2045,6 +2055,7 @@ void ppp(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 }
 
 // mmm
+// Comment, prefixed in header file with "---"
 template<class... Ts>
 void mmm(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 {
@@ -2053,6 +2064,7 @@ void mmm(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 }
 
 // fun
+// C interface function name, and left (, with no \n added
 template<class... Ts>
 void fun(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 {
@@ -2060,6 +2072,7 @@ void fun(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 }
 
 // sig
+// End C interface function signature; style dependent on hadFields bool
 void sig(writer &hdr, writer &src, const bool hadFields = false)
 {
    // header: end of parameters, semicolon for declaration
@@ -2069,6 +2082,8 @@ void sig(writer &hdr, writer &src, const bool hadFields = false)
 }
 
 // def
+// End C interface function definition.
+// Accept writer &hdr for consistency with above/below functions.
 void def(writer &hdr, writer &src)
 {
    // header: nothing
@@ -2078,6 +2093,7 @@ void def(writer &hdr, writer &src)
 }
 
 // mtype
+// Get metadata type, for C interface
 std::string mtype(const InfoMetadata &m)
 {
    if (m.type == "std::string")
@@ -2087,6 +2103,7 @@ std::string mtype(const InfoMetadata &m)
 }
 
 // ctype
+// Get child-node type, for C interface
 std::string ctype(const InfoChildren &c)
 {
    if (c.isVector)
@@ -2131,15 +2148,8 @@ void fileCInterfaceParams(writer &hdr, writer &src, const PerClass &per)
 // fileCInterfaceBasics
 // ------------------------
 
-void fileCInterfaceBasics(
-   writer &hdr,
-   writer &src,
-   const InfoSpecs &specs,
-   const PerClass &per, const Class2Dependencies &c2d
-) {
-   (void)specs;
-   (void)c2d;
-
+void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
+{
    // section comment
    two(hdr,src);
    two(hdr,src);
@@ -2175,8 +2185,6 @@ void fileCInterfaceBasics(
    src(1,"return detail::createHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"CreateConst\");");
    def(hdr,src);
-
-   // zzz working here
 
    two(hdr,src);
    ppp(hdr,src,"Create: general");
@@ -2219,16 +2227,9 @@ void fileCInterfaceBasics(
 // fileCInterfaceIO
 // ------------------------
 
-void fileCInterfaceIO(
-   writer &hdr,
-   writer &src,
-   const InfoSpecs &specs,
-   const PerClass &per, const Class2Dependencies &c2d
-) {
-   (void)specs;
-   (void)c2d;
-
-   // comment for the section
+void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
+{
+   // section comment
    two(hdr,src);
    two(hdr,src);
    two(hdr,src,largeComment);
@@ -2295,6 +2296,123 @@ void fileCInterfaceIO(
 
 
 // ------------------------
+// fileCInterfaceVector
+// ------------------------
+
+void fileCInterfaceVector(
+   writer &hdr, writer &src,
+   const PerClass &per, const std::string &type,
+   const bool section = true
+) {
+   // section comment
+   if (section) {
+      two(hdr,src);
+      two(hdr,src);
+      two(hdr,src,largeComment);
+      two(hdr,src,"// Re: vector");
+      two(hdr,src,largeComment);
+   } else {
+      assert(type != "");
+      two(hdr,src);
+      two(hdr,src,smallComment);
+      two(hdr,src,"// @", type);
+      two(hdr,src,smallComment);
+   }
+
+   // dynamic type?
+   if (type == "") {
+      fileCInterfaceVector(hdr,src,per,"int",     false);
+      fileCInterfaceVector(hdr,src,per,"unsigned",false);
+      fileCInterfaceVector(hdr,src,per,"float",   false);
+      fileCInterfaceVector(hdr,src,per,"double",  false);
+      return;
+   }
+
+   // Example:
+   //    ctype: "Foobar" (class type; for brevity)
+   //    type:  "double" (parameter to this function)
+   //    types: "doubles"
+   //    Types: "Doubles"
+   const std::string cname = per.clname;
+   const std::string types = type + 's';
+   const std::string Types = capital(type) + 's';
+
+   two(hdr,src);
+   ppp(hdr,src,"Clear");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@Clear", cname, Types);
+   par(hdr,src,"ConstHandle2@ This", cname);
+   sig(hdr,src);
+   src(1,"detail::vectorClear<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Clear\", This);", Types);
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Get size");
+   ext(hdr,src,"size_t");
+   fun(hdr,src,"@@Size", cname, Types);
+   par(hdr,src,"ConstHandle2Const@ This", cname);
+   sig(hdr,src);
+   src(1,"return detail::vectorSize<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Size\", This);", Types);
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Get value");
+   ppp(hdr,src,"By index \\in [0,size)");
+   ext(hdr,src,"@", type);
+   fun(hdr,src,"@@Get", cname, Types);
+   par(hdr,src,"ConstHandle2Const@ This, const size_t index", cname);
+   sig(hdr,src);
+   src(1,"return detail::vectorGet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, index);", Types);
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Set value");
+   ppp(hdr,src,"By index \\in [0,size)");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@Set", cname, Types);
+   par(hdr,src,"ConstHandle2@ This, const size_t index, const @ value", cname, type);
+   sig(hdr,src);
+   src(1,"detail::vectorSet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, index, value);", Types);
+   def(hdr,src);
+
+   two(hdr,src);
+   mmm(hdr,src,"Get pointer to existing values, const");
+   ext(hdr,src,"const @ *", type);
+   fun(hdr,src,"@@GetArrayConst", cname, Types);
+   par(hdr,src,"ConstHandle2Const@ This", cname);
+   sig(hdr,src);
+   src(1,"return detail::vectorGet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetArrayConst\", This);", Types);
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Get pointer to existing values, non-const");
+   ext(hdr,src,"@ *", type);
+   fun(hdr,src,"@@GetArray", cname, Types);
+   par(hdr,src,"ConstHandle2@ This", cname);
+   sig(hdr,src);
+   src(1,"return detail::vectorGet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetArray\", This);", Types);
+   def(hdr,src);
+
+   two(hdr,src);
+   ppp(hdr,src,"Set completely new values and size");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@SetArray", cname, Types);
+   par(hdr,src,"ConstHandle2@ This, const @ *const values, const size_t size", cname, type);
+   sig(hdr,src);
+   src(1,"return detail::vectorSet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@SetArray\", This, size, values);", Types);
+   def(hdr,src);
+
+} // fileCInterfaceVector
+
+
+// ------------------------
 // fileCInterfaceCommon
 // ------------------------
 
@@ -2304,9 +2422,11 @@ void fileCInterfaceCommon(
    const InfoSpecs &specs,
    const PerClass &per, const Class2Dependencies &c2d
 ) {
-   fileCInterfaceBasics(hdr, src, specs, per, c2d);
-   fileCInterfaceIO    (hdr, src, specs, per, c2d);
-   // qqq more here
+   fileCInterfaceBasics(hdr, src, per);
+   fileCInterfaceIO(hdr, src, per);
+   if (per.isData)
+      fileCInterfaceVector(hdr, src, per, per.dataType);
+   // zzz working here
 } // fileCInterfaceCommon
 
 
@@ -2493,6 +2613,7 @@ void fileCInterface(
 
    // header: ending
    hdr();
+   hdr();
    hdr(largeComment);
    hdr("// Done");
    hdr(largeComment);
@@ -2662,7 +2783,8 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    // using [variant name] = std::variant..., if necessary
    for (const auto &v : per.variants) {
       out(1,"using @ = std::variant<", v.type);
-      int count = 0, total = v.children.size();
+      int count = 0;
+      const int total = v.children.size();
       for (const auto &c : v.children)
          out(2, "@@", c.type, sep(count,total));
       out(1,">;");
@@ -2682,7 +2804,8 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    // python::init<...> for attributes and children
    out(2,".def(");
    out(3,"python::init<");
-   int count = 0, total = per.nfields();
+   int count = 0;
+   const int total = per.nfields();
    for (auto &m : per.metadata)
       out(4,"const @ &@",
           m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,

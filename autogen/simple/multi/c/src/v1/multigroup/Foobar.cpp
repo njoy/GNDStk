@@ -135,7 +135,7 @@ FoobarDoublesClear(ConstHandle2Foobar This)
       (CLASSNAME, CLASSNAME+"DoublesClear", This);
 }
 
-// Size
+// Get size
 size_t
 FoobarDoublesSize(ConstHandle2ConstFoobar This)
 {
@@ -143,7 +143,8 @@ FoobarDoublesSize(ConstHandle2ConstFoobar This)
       (CLASSNAME, CLASSNAME+"DoublesSize", This);
 }
 
-// Get
+// Get value
+// By index \in [0,size)
 double
 FoobarDoublesGet(ConstHandle2ConstFoobar This, const size_t index)
 {
@@ -151,7 +152,8 @@ FoobarDoublesGet(ConstHandle2ConstFoobar This, const size_t index)
       (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
 }
 
-// Set
+// Set value
+// By index \in [0,size)
 void
 FoobarDoublesSet(ConstHandle2Foobar This, const size_t index, const double value)
 {
@@ -159,7 +161,7 @@ FoobarDoublesSet(ConstHandle2Foobar This, const size_t index, const double value
       (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
 }
 
-// Get pointer to values, const
+// Get pointer to existing values, const
 const double *
 FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar This)
 {
@@ -167,7 +169,7 @@ FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar This)
       (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
 }
 
-// Get pointer to values, non-const
+// Get pointer to existing values, non-const
 double *
 FoobarDoublesGetArray(ConstHandle2Foobar This)
 {
@@ -175,7 +177,7 @@ FoobarDoublesGetArray(ConstHandle2Foobar This)
       (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
 }
 
-// Set new size and values
+// Set completely new values and size
 void
 FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const size_t size)
 {
