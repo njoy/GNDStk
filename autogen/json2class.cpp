@@ -277,6 +277,19 @@ std::string allcaps(const std::string &str)
    return ret;
 }
 
+// UpperCamel
+std::string UpperCamel(const std::string &str)
+{
+   std::string ret;
+   for (size_t i = 0; i < str.size(); ++i)
+      if (str[i] != '_')
+         ret += i ? str[i] : toupper(str[i]);
+      else if (++i < str.size())
+         ret += toupper(str[i]);
+   return ret;
+}
+
+
 // Replace character
 std::string replace(const std::string &str, const char from, const char to)
 {
@@ -2092,12 +2105,22 @@ void def(writer &hdr, writer &src)
    src("}");
 }
 
-// mtype
+// mtype_param
 // Get metadata type, for C interface
-std::string mtype(const InfoMetadata &m)
+std::string mtype_param(const InfoMetadata &m)
 {
    if (m.type == "std::string")
       return "char *const";
+   else
+      return m.type;
+}
+
+// mtype_return
+// Get metadata type, for C interface
+std::string mtype_return(const InfoMetadata &m)
+{
+   if (m.type == "std::string")
+      return "const char *";
    else
       return m.type;
 }
@@ -2122,7 +2145,7 @@ void fileCInterfaceParams(writer &hdr, writer &src, const PerClass &per)
    for (const auto &m : per.metadata) {
       two(hdr,src);
       two(hdr,src,1,"const @ @@",
-          mtype(m), m.name, ++count < total ? "," : "", false);
+          mtype_param(m), m.name, ++count < total ? "," : "", false);
    }
 
    // children
@@ -2321,6 +2344,7 @@ void fileCInterfaceVector(
 
    // dynamic type?
    if (type == "") {
+      // todo Any others here, for purposes of the C interface?
       fileCInterfaceVector(hdr,src,per,"int",     false);
       fileCInterfaceVector(hdr,src,per,"unsigned",false);
       fileCInterfaceVector(hdr,src,per,"float",   false);
@@ -2413,6 +2437,85 @@ void fileCInterfaceVector(
 
 
 // ------------------------
+// fileCInterfaceMeta
+// ------------------------
+
+void fileCInterfaceMeta(
+   writer &hdr, writer &src,
+   const PerClass &per, const InfoMetadata &m
+) {
+   const std::string Class = per.clname;
+   const std::string Name  = UpperCamel(m.name);
+   const std::string name  = m.name;
+
+   // section comment
+   two(hdr,src);
+   two(hdr,src);
+   two(hdr,src,largeComment);
+   two(hdr,src,"// Re: @", name);
+   two(hdr,src,largeComment);
+
+   // has
+   two(hdr,src);
+   ppp(hdr,src,"Has");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@@Has", Class, Name);
+   par(hdr,src,"ConstHandle2Const@ This", Class);
+   sig(hdr,src);
+   src(1,"return detail::hasMetadatum<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Name, name);
+   def(hdr,src);
+
+   // get
+   two(hdr,src);
+   ppp(hdr,src,"Get");
+   ppp(hdr,src,"Returns by value");
+   ext(hdr,src,"@", mtype_return(m));
+   fun(hdr,src,"@@Get", Class, Name);
+   par(hdr,src,"ConstHandle2Const@ This", Class);
+   sig(hdr,src);
+   src(1,"return detail::getMetadatum<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Name, name);
+   def(hdr,src);
+
+   // set
+   two(hdr,src);
+   ppp(hdr,src,"Set");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@Set", Class, Name);
+   par(hdr,src,"ConstHandle2@ This, ", Class);
+   par(hdr,src,"const @ @", mtype_param(m), name);
+   sig(hdr,src);
+   src(1,"detail::setMetadatum<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Name, name, name);
+   def(hdr,src);
+}
+
+
+// ------------------------
+// fileCInterfaceChild
+// ------------------------
+
+void fileCInterfaceChild(
+   writer &hdr, writer &src,
+   const PerClass &per, const InfoChildren &c
+) {
+   /*
+   zzz working here
+   account for difference between "one" child and "many" child
+   element:
+      optional symbol
+      int (not optional) atomic_number
+         Re: the above two: should just symbol have Has?
+      Isotope vector
+      optional Foobar (just one, not vector)
+   Also: Isotope mass_number is *not* optional; want Has?
+   Be sure stuff in prototype is what we really want.
+   */
+}
+
+
+// ------------------------
 // fileCInterfaceCommon
 // ------------------------
 
@@ -2422,11 +2525,26 @@ void fileCInterfaceCommon(
    const InfoSpecs &specs,
    const PerClass &per, const Class2Dependencies &c2d
 ) {
+   // Basics section: create, assign, delete
    fileCInterfaceBasics(hdr, src, per);
+
+   // IO section: read, write, print
    fileCInterfaceIO(hdr, src, per);
+
+   // Array support, if BlockData
    if (per.isData)
       fileCInterfaceVector(hdr, src, per, per.dataType);
-   // zzz working here
+
+   // Functions regarding metadata
+   for (const auto &m : per.metadata)
+      fileCInterfaceMeta(hdr, src, per, m);
+
+   // Functions regarding children
+   for (const auto &c : per.children)
+      fileCInterfaceChild(hdr, src, per, c);
+
+   // variants
+   // todo
 } // fileCInterfaceCommon
 
 
@@ -2574,16 +2692,19 @@ void fileCInterfaceSource(
       src();
       src("namespace extract {");
    }
+
    // extract: metadata
    for (const auto &m : per.metadata)
       src(1,"static auto @ = [](auto &obj) { return &obj.@; };",
           m.name, m.name);
+
    // extract: children
    for (const auto &c : per.children)
       src(1,"static auto @ = [](auto &obj) { return &obj.@; };",
           c.name, c.name);
+
    // extract: variants
-   // todo Prototype how variants will work in a C interface
+   // todo Determine how the C interface should deal with C++ variants
    if (per.nfields()) src("}");
 
    if (c2d.dependencies.size())

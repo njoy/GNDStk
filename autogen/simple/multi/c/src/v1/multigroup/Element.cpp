@@ -166,6 +166,7 @@ ElementSymbolHas(ConstHandle2ConstElement This)
 }
 
 // Get
+// Returns by value
 const char *
 ElementSymbolGet(ConstHandle2ConstElement This)
 {
@@ -195,6 +196,7 @@ ElementAtomicNumberHas(ConstHandle2ConstElement This)
 }
 
 // Get
+// Returns by value
 int
 ElementAtomicNumberGet(ConstHandle2ConstElement This)
 {

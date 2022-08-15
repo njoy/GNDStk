@@ -141,12 +141,16 @@ ElementPrintJSON(ConstHandle2ConstElement This);
 // Re: symbol
 // -----------------------------------------------------------------------------
 
-// +++ Has, Get, Set
-// +++ Get returns by value
+// +++ Has
 extern_c int
 ElementSymbolHas(ConstHandle2ConstElement This);
+
+// +++ Get
+// +++ Returns by value
 extern_c const char *
 ElementSymbolGet(ConstHandle2ConstElement This);
+
+// +++ Set
 extern_c void
 ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
 
@@ -155,12 +159,16 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
 // Re: atomic_number
 // -----------------------------------------------------------------------------
 
-// +++ Has, Get, Set
-// +++ Get returns by value
+// +++ Has
 extern_c int
 ElementAtomicNumberHas(ConstHandle2ConstElement This);
+
+// +++ Get
+// +++ Returns by value
 extern_c int
 ElementAtomicNumberGet(ConstHandle2ConstElement This);
+
+// +++ Set
 extern_c void
 ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
 
@@ -215,60 +223,6 @@ extern_c Handle2Foobar
 ElementFoobarGet(ConstHandle2Element This);
 extern_c void
 ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar);
-
-
-// -----------------------------------------------------------------------------
-// Summary
-// -----------------------------------------------------------------------------
-
-// General handle type: Element
-// Const-specific handle types: [Const]Handle2[Const]Element
-
-// C-callable Functions:
-#ifndef __cplusplus
-Handle2ConstElement ElementCreateDefaultConst();
-Handle2Element ElementCreateDefault();
-Handle2ConstElement ElementCreateConst(
-   const char *const symbol,
-   const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
-   ConstHandle2ConstFoobar foobar
-);
-Handle2Element ElementCreate(
-   const char *const symbol,
-   const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
-   ConstHandle2ConstFoobar foobar
-);
-void ElementAssign(ConstHandle2Element This, ConstHandle2ConstElement from);
-void ElementDelete(ConstHandle2ConstElement This);
-int ElementRead(ConstHandle2Element This, const char *const filename);
-int ElementWrite(ConstHandle2ConstElement This, const char *const filename);
-int ElementPrint(ConstHandle2ConstElement This);
-int ElementPrintXML(ConstHandle2ConstElement This);
-int ElementPrintJSON(ConstHandle2ConstElement This);
-int ElementSymbolHas(ConstHandle2ConstElement This);
-const char *ElementSymbolGet(ConstHandle2ConstElement This);
-void ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
-int ElementAtomicNumberHas(ConstHandle2ConstElement This);
-int ElementAtomicNumberGet(ConstHandle2ConstElement This);
-void ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
-int ElementFoobarHas(ConstHandle2ConstElement This);
-Handle2ConstFoobar ElementFoobarGetConst(ConstHandle2ConstElement This);
-Handle2Foobar ElementFoobarGet(ConstHandle2Element This);
-void ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar);
-void ElementIsotopeClear(ConstHandle2Element This);
-size_t ElementIsotopeSize(ConstHandle2ConstElement This);
-void ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope);
-int ElementIsotopeHas(ConstHandle2ConstElement This);
-Handle2ConstIsotope ElementIsotopeGetConst(ConstHandle2ConstElement This, const size_t index_);
-Handle2Isotope ElementIsotopeGet(ConstHandle2Element This, const size_t index_);
-void ElementIsotopeSet(ConstHandle2Element This, const size_t index_, ConstHandle2ConstIsotope isotope);
-int ElementIsotopeHasByMassNumber(ConstHandle2ConstElement This, const int mass_number);
-Handle2ConstIsotope ElementIsotopeGetByMassNumberConst(ConstHandle2ConstElement This, const int mass_number);
-Handle2Isotope ElementIsotopeGetByMassNumber(ConstHandle2Element This, const int mass_number);
-void ElementIsotopeSetByMassNumber(ConstHandle2Element This, const int mass_number, ConstHandle2ConstIsotope isotope);
-#endif
 
 
 // -----------------------------------------------------------------------------
