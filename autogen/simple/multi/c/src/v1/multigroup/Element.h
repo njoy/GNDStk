@@ -159,10 +159,6 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
 // Re: atomic_number
 // -----------------------------------------------------------------------------
 
-// +++ Has
-extern_c int
-ElementAtomicNumberHas(ConstHandle2ConstElement This);
-
 // +++ Get
 // +++ Returns by value
 extern_c int
@@ -177,50 +173,85 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
 // Re: isotope
 // -----------------------------------------------------------------------------
 
-// Clear, Size, Add, Has
-extern_c void
-ElementIsotopeClear(ConstHandle2Element This);
-extern_c size_t
-ElementIsotopeSize(ConstHandle2ConstElement This);
-extern_c void
-ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope);
+// +++ Has
 extern_c int
 ElementIsotopeHas(ConstHandle2ConstElement This);
 
-// Get, Set
-// By index \in [0,size)
+// +++ Clear
+extern_c void
+ElementIsotopeClear(ConstHandle2Element This);
+
+// +++ Size
+extern_c size_t
+ElementIsotopeSize(ConstHandle2ConstElement This);
+
+// +++ Add
+extern_c void
+ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope);
+
+// --- Get, by index \in [0,size), const
 extern_c Handle2ConstIsotope
 ElementIsotopeGetConst(ConstHandle2ConstElement This, const size_t index_);
+
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Isotope
 ElementIsotopeGet(ConstHandle2Element This, const size_t index_);
-extern_c void
-ElementIsotopeSet(ConstHandle2Element This, const size_t index_, ConstHandle2ConstIsotope isotope);
 
-// Has, Get, Set
-// By mass number
-extern_c int
-ElementIsotopeHasByMassNumber(ConstHandle2ConstElement This, const int mass_number);
-extern_c Handle2ConstIsotope
-ElementIsotopeGetByMassNumberConst(ConstHandle2ConstElement This, const int mass_number);
-extern_c Handle2Isotope
-ElementIsotopeGetByMassNumber(ConstHandle2Element This, const int mass_number);
+// +++ Set, by index \in [0,size)
 extern_c void
-ElementIsotopeSetByMassNumber(ConstHandle2Element This, const int mass_number, ConstHandle2ConstIsotope isotope);
+ElementIsotopeSet(
+   ConstHandle2Element This,
+   const size_t index_,
+   ConstHandle2ConstIsotope isotope
+);
+
+// +++ Has, by mass_number
+extern_c int
+ElementIsotopeHasByMassNumber(
+   ConstHandle2ConstElement This,
+   const int mass_number
+);
+
+// --- Get, by mass_number, const
+extern_c Handle2ConstIsotope
+ElementIsotopeGetByMassNumberConst(
+   ConstHandle2ConstElement This,
+   const int mass_number
+);
+
+// +++ Get, by mass_number, non-const
+extern_c Handle2Isotope
+ElementIsotopeGetByMassNumber(
+   ConstHandle2Element This,
+   const int mass_number
+);
+
+// +++ Set, by mass_number
+extern_c void
+ElementIsotopeSetByMassNumber(
+   ConstHandle2Element This,
+   const int mass_number,
+   ConstHandle2ConstIsotope isotope
+);
 
 
 // -----------------------------------------------------------------------------
 // Re: foobar
 // -----------------------------------------------------------------------------
 
-// +++ Has, Get, Set
-// +++ Get returns a handle, because the value is of a (handled)
-// +++ structure type. Thus we have const and non-const versions.
+// +++ Has
 extern_c int
 ElementFoobarHas(ConstHandle2ConstElement This);
+
+// --- Get, const
 extern_c Handle2ConstFoobar
 ElementFoobarGetConst(ConstHandle2ConstElement This);
+
+// +++ Get, non-const
 extern_c Handle2Foobar
 ElementFoobarGet(ConstHandle2Element This);
+
+// +++ Set
 extern_c void
 ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar);
 

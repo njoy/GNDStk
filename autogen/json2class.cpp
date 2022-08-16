@@ -80,7 +80,8 @@ struct InfoChildren {
    // child nodes just doesn't exist in the GNDS specifications, even though the
    // concept would seem to make sense.)
    std::string name;
-   std::string plain;    // underlying type, EXcluding namespace
+   std::string ns;       // enclosing namespace
+   std::string plain;    // underlying type, excluding namespace
    std::string type;     // underlying type
    std::string typeFull; // WITH any optional<> or vector<>
    std::string typeHalf; // withOUT any vector<>
@@ -91,7 +92,9 @@ struct InfoChildren {
 // InfoVariantsChildren
 struct InfoVariantsChildren {
    std::string name;
-   std::string type;
+   std::string ns;       // enclosing namespace
+   std::string plain;    // underlying type, excluding namespace
+   std::string type;     // underlying type
    bool        isVector;
 };
 
@@ -200,7 +203,7 @@ struct InfoSpecs {
 
    // Map from namespace::class to information about the class
    nlohmann::ordered_map<NamespaceAndClass,PerClass> class2data;
-};
+}; // InfoSpecs
 
 
 
@@ -564,12 +567,12 @@ void getClassChildren(
       InfoChildren c;
       c.name = nameField(field,specs);
 
-      // Type, EXcluding namespace
+      // Type, excluding namespace
       c.plain = nameClass(field,specs);
 
-      // Type, INcluding namespace
-      const std::string ns = getChildNamespace(elemRHS, specs, per, c.plain);
-      c.type = ns + "::" + c.plain;
+      // Type, including namespace
+      c.ns = getChildNamespace(elemRHS, specs, per, c.plain);
+      c.type = c.ns + "::" + c.plain;
 
       // Optional?
       c.isOptional = !elemRHS["required"];
@@ -599,7 +602,7 @@ void getClassChildren(
       // Save as a dependency (if it's not its own dependency)
       if (c.type != per.name())
          dep.dependencies.push_back(
-            NamespaceAndClass(ns,nameClass(field,specs)));
+            NamespaceAndClass(c.ns,nameClass(field,specs)));
 
       // Add to per.children
       per.children.push_back(c);
@@ -663,10 +666,11 @@ void getClassVariants(
       InfoVariantsChildren c;
       // ...its name
       c.name = nameField(field,specs);
+      // ...its type, excluding namespace
+      c.plain = nameClass(field,specs);
       // ...its type, including namespace
-      c.type = nameClass(field,specs);
-      const std::string ns = getChildNamespace(elemRHS, specs, per, c.type);
-      c.type = ns + "::" + c.type;
+      c.ns = getChildNamespace(elemRHS, specs, per, c.plain);
+      c.type = c.ns + "::" + c.plain;
       // ...its vector-ness
       c.isVector = times == "choice+" || times == "choice2+";
 
@@ -683,7 +687,7 @@ void getClassVariants(
       // Save as a dependency (if it's not its own dependency)
       if (c.type != per.name())
          dep.dependencies.push_back(
-            NamespaceAndClass(ns,nameClass(field,specs)));
+            NamespaceAndClass(c.ns,nameClass(field,specs)));
    }
 
    // Pass 3
@@ -2135,8 +2139,8 @@ std::string ctype(const InfoChildren &c)
       return "ConstHandle2Const" + c.plain;
 }
 
-// fileCInterfaceParams
-void fileCInterfaceParams(writer &hdr, writer &src, const PerClass &per)
+// fileCInterfaceCreateParams
+void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
 {
    int count = 0;
    const int total = per.nfields();
@@ -2173,13 +2177,20 @@ void fileCInterfaceParams(writer &hdr, writer &src, const PerClass &per)
 
 void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
 {
+   // ------------------------
    // section comment
+   // ------------------------
+
    two(hdr,src);
    two(hdr,src);
    two(hdr,src,largeComment);
    two(hdr,src,"// Basics");
    two(hdr,src,"// Create, Assign, Delete");
    two(hdr,src,largeComment);
+
+   // ------------------------
+   // create: default, const
+   // ------------------------
 
    two(hdr,src);
    mmm(hdr,src,"Create: default, const");
@@ -2190,6 +2201,10 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"DefaultConst\");");
    def(hdr,src);
 
+   // ------------------------
+   // create: default, non-const
+   // ------------------------
+
    two(hdr,src);
    ppp(hdr,src,"Create: default");
    ext(hdr,src,"Handle2@", per.clname);
@@ -2199,25 +2214,103 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"Default\");");
    def(hdr,src);
 
+   /// factor commonality in the next two blocks
+
+   // ------------------------
+   // create: general, const
+   // ------------------------
+
    two(hdr,src);
    mmm(hdr,src,"Create: general, const");
    ext(hdr,src,"Handle2Const@", per.clname);
    fun(hdr,src,"@CreateConst", per.clname);
-   fileCInterfaceParams(hdr,src,per);
+   fileCInterfaceCreateParams(hdr,src,per);
    sig(hdr,src, per.nfields() != 0);
-   src(1,"return detail::createHandle<CPP,C>");
-   src(2,"(CLASSNAME, CLASSNAME+\"CreateConst\");");
+   src(1,"ConstHandle2@ handle = detail::createHandle<CPP,C>(", per.clname);
+   src(2,"CLASSNAME, CLASSNAME+\"CreateConst\"", false);
+   {
+      // metadata
+      for (const auto &m : per.metadata) {
+         src(",");
+         src(2,"@", m.name, false);
+      }
+
+      // children
+      for (const auto &c : per.children) {
+         src(",");
+         const std::string Child = c.plain;
+         const std::string child = c.name;
+         c.isVector
+          ? src(2,"std::vector<CPP@>{}", Child, false)
+          : src(2,"detail::tocpp<CPP@>{@}", Child, child, false);
+      }
+
+      // variants
+      // todo
+   }
+   src();
+   src(1,");");
+   for (const auto &c : per.children)
+      if (c.isVector) {
+         const std::string Child = c.plain;
+         const std::string child = c.name;
+         src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
+             Child, Child, child, Child);
+         src(2,"Element@Add(handle, @[@N]);",
+             Child, child, Child);
+      }
+   src(1,"return handle;");
    def(hdr,src);
+
+   // ------------------------
+   // create: general, non-const
+   // ------------------------
 
    two(hdr,src);
    ppp(hdr,src,"Create: general");
    ext(hdr,src,"Handle2@", per.clname);
    fun(hdr,src,"@Create", per.clname);
-   fileCInterfaceParams(hdr,src,per);
+   fileCInterfaceCreateParams(hdr,src,per);
    sig(hdr,src, per.nfields() != 0);
-   src(1,"return detail::createHandle<CPP,C>");
-   src(2,"(CLASSNAME, CLASSNAME+\"Create\");");
+   src(1,"ConstHandle2@ handle = detail::createHandle<CPP,C>(", per.clname);
+   src(2,"CLASSNAME, CLASSNAME+\"Create\"", false);
+   {
+      // metadata
+      for (const auto &m : per.metadata) {
+         src(",");
+         src(2,"@", m.name, false);
+      }
+
+      // children
+      for (const auto &c : per.children) {
+         src(",");
+         const std::string Child = c.plain;
+         const std::string child = c.name;
+         c.isVector
+          ? src(2,"std::vector<CPP@>{}", Child, false)
+          : src(2,"detail::tocpp<CPP@>{@}", Child, child, false);
+      }
+
+      // variants
+      // todo
+   }
+   src();
+   src(1,");");
+   for (const auto &c : per.children)
+      if (c.isVector) {
+         const std::string Child = c.plain;
+         const std::string child = c.name;
+         src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
+             Child, Child, child, Child);
+         src(2,"Element@Add(handle, @[@N]);",
+             Child, child, Child);
+      }
+   src(1,"return handle;");
    def(hdr,src);
+
+   // ------------------------
+   // assign
+   // ------------------------
 
    two(hdr,src);
    ppp(hdr,src,"Assign");
@@ -2230,6 +2323,10 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    src(1,"detail::assignHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Assign\", This, from);");
    def(hdr,src);
+
+   // ------------------------
+   // delete
+   // ------------------------
 
    two(hdr,src);
    ppp(hdr,src,"Delete");
@@ -2261,6 +2358,7 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    two(hdr,src,"// Each returns 0 if failure, 1 if success.");
    two(hdr,src,largeComment);
 
+   // read from file
    two(hdr,src);
    ppp(hdr,src,"Read from file");
    ppp(hdr,src,"File can be XML, JSON, or HDF5.");
@@ -2273,6 +2371,7 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"Read\", This, filename);");
    def(hdr,src);
 
+   // write to file
    two(hdr,src);
    ppp(hdr,src,"Write to file");
    ppp(hdr,src,"File can be XML, JSON, or HDF5.");
@@ -2285,6 +2384,7 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"Write\", This, filename);");
    def(hdr,src);
 
+   // print
    two(hdr,src);
    ppp(hdr,src,"Print to standard output, in our prettyprinting format");
    ext(hdr,src,"int");
@@ -2295,6 +2395,7 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"Print\", This);");
    def(hdr,src);
 
+   // print, XML
    two(hdr,src);
    ppp(hdr,src,"Print to standard output, as XML");
    ext(hdr,src,"int");
@@ -2305,6 +2406,7 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"PrintXML\", This, \"XML\");");
    def(hdr,src);
 
+   // print, JSON
    two(hdr,src);
    ppp(hdr,src,"Print to standard output, as JSON");
    ext(hdr,src,"int");
@@ -2445,49 +2547,51 @@ void fileCInterfaceMeta(
    const PerClass &per, const InfoMetadata &m
 ) {
    const std::string Class = per.clname;
-   const std::string Name  = UpperCamel(m.name);
-   const std::string name  = m.name;
+   const std::string Meta  = UpperCamel(m.name);
+   const std::string meta  = m.name;
 
    // section comment
    two(hdr,src);
    two(hdr,src);
    two(hdr,src,largeComment);
-   two(hdr,src,"// Re: @", name);
+   two(hdr,src,"// Re: @", meta);
    two(hdr,src,largeComment);
 
    // has
-   two(hdr,src);
-   ppp(hdr,src,"Has");
-   ext(hdr,src,"int");
-   fun(hdr,src,"@@Has", Class, Name);
-   par(hdr,src,"ConstHandle2Const@ This", Class);
-   sig(hdr,src);
-   src(1,"return detail::hasMetadatum<CPP>");
-   src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Name, name);
-   def(hdr,src);
+   if (m.isOptional) {
+      two(hdr,src);
+      ppp(hdr,src,"Has");
+      ext(hdr,src,"int");
+      fun(hdr,src,"@@Has", Class, Meta);
+      par(hdr,src,"ConstHandle2Const@ This", Class);
+      sig(hdr,src);
+      src(1,"return detail::hasMetadatum<CPP>");
+      src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Meta, meta);
+      def(hdr,src);
+   }
 
    // get
    two(hdr,src);
    ppp(hdr,src,"Get");
    ppp(hdr,src,"Returns by value");
    ext(hdr,src,"@", mtype_return(m));
-   fun(hdr,src,"@@Get", Class, Name);
+   fun(hdr,src,"@@Get", Class, Meta);
    par(hdr,src,"ConstHandle2Const@ This", Class);
    sig(hdr,src);
    src(1,"return detail::getMetadatum<CPP>");
-   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Name, name);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Meta, meta);
    def(hdr,src);
 
    // set
    two(hdr,src);
    ppp(hdr,src,"Set");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Set", Class, Name);
+   fun(hdr,src,"@@Set", Class, Meta);
    par(hdr,src,"ConstHandle2@ This, ", Class);
-   par(hdr,src,"const @ @", mtype_param(m), name);
+   par(hdr,src,"const @ @", mtype_param(m), meta);
    sig(hdr,src);
    src(1,"detail::setMetadatum<CPP>");
-   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Name, name, name);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Meta, meta, meta);
    def(hdr,src);
 }
 
@@ -2498,21 +2602,230 @@ void fileCInterfaceMeta(
 
 void fileCInterfaceChild(
    writer &hdr, writer &src,
+   const InfoSpecs &specs,
    const PerClass &per, const InfoChildren &c
 ) {
-   /*
-   zzz working here
-   account for difference between "one" child and "many" child
-   element:
-      optional symbol
-      int (not optional) atomic_number
-         Re: the above two: should just symbol have Has?
-      Isotope vector
-      optional Foobar (just one, not vector)
-   Also: Isotope mass_number is *not* optional; want Has?
-   Be sure stuff in prototype is what we really want.
-   */
-}
+   const std::string Class = per.clname;
+   const std::string Child = c.plain;
+   const std::string child = c.name;
+
+   // section comment
+   two(hdr,src);
+   two(hdr,src);
+   two(hdr,src,largeComment);
+   two(hdr,src,"// Re: @", child);
+   two(hdr,src,largeComment);
+
+   // has
+   ///if (c.isOptional) {///eventually
+   two(hdr,src);
+   ppp(hdr,src,"Has");
+   ext(hdr,src,"int");
+   fun(hdr,src,"@@Has", Class, Child);
+   par(hdr,src,"ConstHandle2Const@ This", Class);
+   sig(hdr,src);
+   src(1,"return detail::hasMetadatum<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Child, child);
+   def(hdr,src);
+   ///}///eventually
+
+   // ------------------------
+   // scalar case
+   // ------------------------
+
+   if (!c.isVector) {
+      // get, const
+      two(hdr,src);
+      mmm(hdr,src,"Get, const");
+      ext(hdr,src,"Handle2Const@", Child);
+      fun(hdr,src,"@@GetConst", Class, Child);
+      par(hdr,src,"ConstHandle2Const@ This", Class);
+      sig(hdr,src);
+      src(1,"return detail::getMetadatum<CPP,Handle2Const@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@);", Child, child);
+      def(hdr,src);
+
+      // get, non-const
+      two(hdr,src);
+      ppp(hdr,src,"Get, non-const");
+      ext(hdr,src,"Handle2@", Child);
+      fun(hdr,src,"@@Get", Class, Child);
+      par(hdr,src,"ConstHandle2@ This", Class);
+      sig(hdr,src);
+      src(1,"return detail::getMetadatum<CPP,Handle2@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Child, child);
+      def(hdr,src);
+
+      // set
+      two(hdr,src);
+      ppp(hdr,src,"Set");
+      ext(hdr,src,"void");
+      fun(hdr,src,"@@Set", Class, Child);
+      par(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @", Class, Child, child);
+      sig(hdr,src);
+      src(1,"detail::setMetadatum<CPP,CPP@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Child, child, child);
+      def(hdr,src);
+
+      return;
+   }
+
+   // ------------------------
+   // vector case
+   // ------------------------
+
+   // clear
+   two(hdr,src);
+   ppp(hdr,src,"Clear");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@Clear", Class, Child);
+   par(hdr,src,"ConstHandle2@ This", Class);
+   sig(hdr,src);
+   src(1,"detail::clearContainer<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Clear\", This, extract::@);", Child, child);
+   def(hdr,src);
+
+   // size
+   two(hdr,src);
+   ppp(hdr,src,"Size");
+   ext(hdr,src,"size_t");
+   fun(hdr,src,"@@Size", Class, Child);
+   par(hdr,src,"ConstHandle2Const@ This", Class);
+   sig(hdr,src);
+   src(1,"return detail::sizeOfContainer<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Size\", This, extract::@);", Child, child);
+   def(hdr,src);
+
+   // add
+   two(hdr,src);
+   ppp(hdr,src,"Add");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@Add", Class, Child);
+   par(hdr,src,"ConstHandle2@ This, ", Class);
+   par(hdr,src,"ConstHandle2Const@ @", Child, child);
+   sig(hdr,src);
+   src(1,"detail::addToContainer<CPP,CPP@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Add\", This, extract::@, @);", Child, child, child);
+   def(hdr,src);
+
+   // get, by index, const
+   two(hdr,src);
+   mmm(hdr,src,"Get, by index \\in [0,size), const");
+   ext(hdr,src,"Handle2Const@", Child);
+   fun(hdr,src,"@@GetConst", Class, Child);
+   par(hdr,src,"ConstHandle2Const@ This, ", Class);
+   par(hdr,src,"const size_t index_");
+   sig(hdr,src);
+   src(1,"return detail::getByIndex<CPP,Handle2Const@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@, index_);", Child, child);
+   def(hdr,src);
+
+   // get, by index, non-const
+   two(hdr,src);
+   ppp(hdr,src,"Get, by index \\in [0,size), non-const");
+   ext(hdr,src,"Handle2@", Child);
+   fun(hdr,src,"@@Get", Class, Child);
+   par(hdr,src,"ConstHandle2@ This, ", Class);
+   par(hdr,src,"const size_t index_");
+   sig(hdr,src);
+   src(1,"return detail::getByIndex<CPP,Handle2@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@, index_);", Child, child);
+   def(hdr,src);
+
+   // set, by index
+   two(hdr,src);
+   ppp(hdr,src,"Set, by index \\in [0,size)");
+   ext(hdr,src,"void");
+   fun(hdr,src,"@@Set", Class, Child);
+   par(hdr,src);
+   par(hdr,src,1,"ConstHandle2@ This,", Class);
+   par(hdr,src);
+   par(hdr,src,1,"const size_t index_,");
+   par(hdr,src);
+   par(hdr,src,1,"ConstHandle2Const@ @", Child, child);
+   par(hdr,src);
+   sig(hdr,src,true);
+   src(1,"detail::setByIndex<CPP,CPP@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, index_, @);", Child, child, child);
+   def(hdr,src);
+
+   for (const auto &c : per.children) {
+      const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
+      assert(it != specs.class2data.end());
+
+      for (const auto &m : it->second.metadata) {
+         const std::string Meta = UpperCamel(m.name);
+         const std::string meta = m.name;
+
+         // has, by metadatum
+         two(hdr,src);
+         ppp(hdr,src,"Has, by @", meta);
+         ext(hdr,src,"@", m.type);
+         fun(hdr,src,"@@HasBy@", Class, Child, Meta);
+         par(hdr,src);
+         par(hdr,src,1,"ConstHandle2Const@ This,", Class);
+         par(hdr,src);
+         par(hdr,src,1,"const @ @", m.type, meta);
+         par(hdr,src);
+         sig(hdr,src,true);
+         src(1,"return detail::hasByMetadatum<CPP>");
+         src(2,"(CLASSNAME, CLASSNAME+\"@HasBy@\",", Child, Meta);
+         src(2," This, extract::@, meta::@, @);", child, meta, meta);
+         def(hdr,src);
+
+         // get, by metadatum, const
+         two(hdr,src);
+         mmm(hdr,src,"Get, by @, const", meta);
+         ext(hdr,src,"Handle2Const@", Child);
+         fun(hdr,src,"@@GetBy@Const", Class, Child, Meta);
+         par(hdr,src);
+         par(hdr,src,1,"ConstHandle2Const@ This,", Class);
+         par(hdr,src);
+         par(hdr,src,1,"const @ @", m.type, meta);
+         par(hdr,src);
+         sig(hdr,src,true);
+         src(1,"return detail::getByMetadatum<CPP,Handle2Const@>", Child);
+         src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@Const\",", Child, Meta);
+         src(2," This, extract::@, meta::@, @);", child, meta, meta);
+         def(hdr,src);
+
+         // get, by metadatum, non-const
+         two(hdr,src);
+         ppp(hdr,src,"Get, by @, non-const", meta);
+         ext(hdr,src,"Handle2@", Child);
+         fun(hdr,src,"@@GetBy@", Class, Child, Meta);
+         par(hdr,src);
+         par(hdr,src,1,"ConstHandle2@ This,", Class);
+         par(hdr,src);
+         par(hdr,src,1,"const @ @", m.type, meta);
+         par(hdr,src);
+         sig(hdr,src,true);
+         src(1,"return detail::getByMetadatum<CPP,Handle2@>", Child);
+         src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@\",", Child, Meta);
+         src(2," This, extract::@, meta::@, @);", child, meta, meta);
+         def(hdr,src);
+
+         // set, by metadatum
+         two(hdr,src);
+         ppp(hdr,src,"Set, by @", meta);
+         ext(hdr,src,"void");
+         fun(hdr,src,"@@SetBy@", Class, Child, Meta);
+         par(hdr,src);
+         par(hdr,src,1,"ConstHandle2@ This,", Class);
+         par(hdr,src);
+         par(hdr,src,1,"const @ @,", m.type, meta);
+         par(hdr,src);
+         par(hdr,src,1,"ConstHandle2Const@ @", Child, child);
+         par(hdr,src);
+         sig(hdr,src,true);
+         src(1,"detail::setByMetadatum<CPP,CPP@>", Child);
+         src(2,"(CLASSNAME, CLASSNAME+\"@SetBy@\",", Child, Meta);
+         src(2," This, extract::@, meta::@, @, @);", child, meta, meta, child);
+         def(hdr,src);
+
+      } // metadata
+   } // children
+} // fileCInterfaceChild
 
 
 // ------------------------
@@ -2541,10 +2854,11 @@ void fileCInterfaceCommon(
 
    // Functions regarding children
    for (const auto &c : per.children)
-      fileCInterfaceChild(hdr, src, per, c);
+      fileCInterfaceChild(hdr, src, specs, per, c);
 
    // variants
    // todo
+
 } // fileCInterfaceCommon
 
 
@@ -2687,7 +3001,7 @@ void fileCInterfaceSource(
    // class name
    src("static const std::string CLASSNAME = \"@\";", per.clname);
 
-   // extract
+   // extract: namespace begin
    if (per.nfields()) {
       src();
       src("namespace extract {");
@@ -2705,6 +3019,8 @@ void fileCInterfaceSource(
 
    // extract: variants
    // todo Determine how the C interface should deal with C++ variants
+
+   // extract: namespace end
    if (per.nfields()) src("}");
 
    if (c2d.dependencies.size())

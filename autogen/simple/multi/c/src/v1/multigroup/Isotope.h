@@ -133,12 +133,12 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This);
 // Re: mass_number
 // -----------------------------------------------------------------------------
 
-// +++ Has, Get, Set
-// +++ Get returns by value
-extern_c int
-IsotopeMassNumberHas(ConstHandle2ConstIsotope This);
+// +++ Get
+// +++ Returns by value
 extern_c int
 IsotopeMassNumberGet(ConstHandle2ConstIsotope This);
+
+// +++ Set
 extern_c void
 IsotopeMassNumberSet(ConstHandle2Isotope This, const int mass_number);
 

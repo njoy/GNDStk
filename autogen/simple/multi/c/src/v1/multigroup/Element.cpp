@@ -58,7 +58,7 @@ ElementCreateConst(
       symbol,
       atomic_number,
       std::vector<CPPIsotope>{},
-      detail::tocpp<CPPFoobar>(foobar)
+      detail::tocpp<CPPFoobar>{foobar}
    );
    for (size_t IsotopeN = 0; IsotopeN < isotopeSize; ++IsotopeN)
       ElementIsotopeAdd(handle, isotope[IsotopeN]);
@@ -78,7 +78,7 @@ ElementCreate(
       symbol,
       atomic_number,
       std::vector<CPPIsotope>{},
-      detail::tocpp<CPPFoobar>(foobar)
+      detail::tocpp<CPPFoobar>{foobar}
    );
    for (size_t IsotopeN = 0; IsotopeN < isotopeSize; ++IsotopeN)
       ElementIsotopeAdd(handle, isotope[IsotopeN]);
@@ -112,7 +112,9 @@ ElementDelete(ConstHandle2ConstElement This)
 // Each returns 0 if failure, 1 if success.
 // -----------------------------------------------------------------------------
 
-// Read
+// Read from file
+// File can be XML, JSON, or HDF5.
+// We'll examine the file's contents to determine its type automatically.
 int
 ElementRead(ConstHandle2Element This, const char *const filename)
 {
@@ -120,7 +122,9 @@ ElementRead(ConstHandle2Element This, const char *const filename)
       (CLASSNAME, CLASSNAME+"Read", This, filename);
 }
 
-// Write
+// Write to file
+// File can be XML, JSON, or HDF5.
+// We'll use filename's extension to determine the type you want written.
 int
 ElementWrite(ConstHandle2ConstElement This, const char *const filename)
 {
@@ -128,7 +132,7 @@ ElementWrite(ConstHandle2ConstElement This, const char *const filename)
       (CLASSNAME, CLASSNAME+"Write", This, filename);
 }
 
-// Print to standard output
+// Print to standard output, in our prettyprinting format
 int
 ElementPrint(ConstHandle2ConstElement This)
 {
@@ -187,14 +191,6 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol)
 // Re: atomic_number
 // -----------------------------------------------------------------------------
 
-// Has
-int
-ElementAtomicNumberHas(ConstHandle2ConstElement This)
-{
-   return detail::hasMetadatum<CPP>
-      (CLASSNAME, CLASSNAME+"AtomicNumberHas", This, extract::atomic_number);
-}
-
 // Get
 // Returns by value
 int
@@ -217,6 +213,14 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number)
 // Re: isotope
 // -----------------------------------------------------------------------------
 
+// Has
+int
+ElementIsotopeHas(ConstHandle2ConstElement This)
+{
+   return detail::hasMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"IsotopeHas", This, extract::isotope);
+}
+
 // Clear
 void
 ElementIsotopeClear(ConstHandle2Element This)
@@ -233,14 +237,6 @@ ElementIsotopeSize(ConstHandle2ConstElement This)
       (CLASSNAME, CLASSNAME+"IsotopeSize", This, extract::isotope);
 }
 
-// Has
-int
-ElementIsotopeHas(ConstHandle2ConstElement This)
-{
-   return detail::hasMetadatum<CPP>
-      (CLASSNAME, CLASSNAME+"IsotopeHas", This, extract::isotope);
-}
-
 // Add
 void
 ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope)
@@ -251,29 +247,29 @@ ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope)
 
 // Get, by index \in [0,size), const
 Handle2ConstIsotope
-ElementIsotopeGetConst(ConstHandle2ConstElement This, const size_t index)
+ElementIsotopeGetConst(ConstHandle2ConstElement This, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstIsotope>
-      (CLASSNAME, CLASSNAME+"IsotopeGetConst", This, extract::isotope, index);
+      (CLASSNAME, CLASSNAME+"IsotopeGetConst", This, extract::isotope, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Isotope
-ElementIsotopeGet(ConstHandle2Element This, const size_t index)
+ElementIsotopeGet(ConstHandle2Element This, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Isotope>
-      (CLASSNAME, CLASSNAME+"IsotopeGet", This, extract::isotope, index);
+      (CLASSNAME, CLASSNAME+"IsotopeGet", This, extract::isotope, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ElementIsotopeSet(
    ConstHandle2Element This,
-   const size_t index,
+   const size_t index_,
    ConstHandle2ConstIsotope isotope
 ) {
    detail::setByIndex<CPP,CPPIsotope>
-      (CLASSNAME, CLASSNAME+"IsotopeSet", This, extract::isotope, index, isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeSet", This, extract::isotope, index_, isotope);
 }
 
 // Has, by mass_number
@@ -334,7 +330,7 @@ ElementFoobarHas(ConstHandle2ConstElement This)
       (CLASSNAME, CLASSNAME+"FoobarHas", This, extract::foobar);
 }
 
-// Get: const
+// Get, const
 Handle2ConstFoobar
 ElementFoobarGetConst(ConstHandle2ConstElement This)
 {
@@ -342,7 +338,7 @@ ElementFoobarGetConst(ConstHandle2ConstElement This)
       (CLASSNAME, CLASSNAME+"FoobarGetConst", This, extract::foobar);
 }
 
-// Get: non-const
+// Get, non-const
 Handle2Foobar
 ElementFoobarGet(ConstHandle2Element This)
 {

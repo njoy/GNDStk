@@ -44,9 +44,11 @@ Handle2ConstIsotope
 IsotopeCreateConst(
    const int mass_number
 ) {
-   return detail::createHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"CreateConst",
-       mass_number);
+   ConstHandle2Isotope handle = detail::createHandle<CPP,C>(
+      CLASSNAME, CLASSNAME+"CreateConst",
+      mass_number
+   );
+   return handle;
 }
 
 // Create: general
@@ -54,9 +56,11 @@ Handle2Isotope
 IsotopeCreate(
    const int mass_number
 ) {
-   return detail::createHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Create",
-       mass_number);
+   ConstHandle2Isotope handle = detail::createHandle<CPP,C>(
+      CLASSNAME, CLASSNAME+"Create",
+      mass_number
+   );
+   return handle;
 }
 
 // Assign
@@ -135,15 +139,8 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This)
 // Re: mass_number
 // -----------------------------------------------------------------------------
 
-// Has
-int
-IsotopeMassNumberHas(ConstHandle2ConstIsotope This)
-{
-   return detail::hasMetadatum<CPP>
-      (CLASSNAME, CLASSNAME+"MassNumberHas", This, extract::mass_number);
-}
-
 // Get
+// Returns by value
 int
 IsotopeMassNumberGet(ConstHandle2ConstIsotope This)
 {

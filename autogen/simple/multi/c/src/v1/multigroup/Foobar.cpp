@@ -39,16 +39,20 @@ FoobarDefault()
 Handle2ConstFoobar
 FoobarCreateConst()
 {
-   return detail::createHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"CreateConst");
+   ConstHandle2Foobar handle = detail::createHandle<CPP,C>(
+      CLASSNAME, CLASSNAME+"CreateConst"
+   );
+   return handle;
 }
 
 // Create: general
 Handle2Foobar
 FoobarCreate()
 {
-   return detail::createHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Create");
+   ConstHandle2Foobar handle = detail::createHandle<CPP,C>(
+      CLASSNAME, CLASSNAME+"Create"
+   );
+   return handle;
 }
 
 // Assign
