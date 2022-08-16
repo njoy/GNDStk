@@ -54,7 +54,7 @@ LibraryCreateConst(
       std::vector<CPPElement>{}
    );
    for (size_t ElementN = 0; ElementN < elementSize; ++ElementN)
-      ElementElementAdd(handle, element[ElementN]);
+      LibraryElementAdd(handle, element[ElementN]);
    return handle;
 }
 
@@ -70,7 +70,7 @@ LibraryCreate(
       std::vector<CPPElement>{}
    );
    for (size_t ElementN = 0; ElementN < elementSize; ++ElementN)
-      ElementElementAdd(handle, element[ElementN]);
+      LibraryElementAdd(handle, element[ElementN]);
    return handle;
 }
 
@@ -224,7 +224,7 @@ LibraryElementSet(
 }
 
 // Has, by symbol
-std::string
+int
 LibraryElementHasBySymbol(
    ConstHandle2ConstLibrary This,
    const std::string symbol

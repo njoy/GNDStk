@@ -54,7 +54,7 @@ MultigroupCreateConst(
       std::vector<CPPLibrary>{}
    );
    for (size_t LibraryN = 0; LibraryN < librarySize; ++LibraryN)
-      ElementLibraryAdd(handle, library[LibraryN]);
+      MultigroupLibraryAdd(handle, library[LibraryN]);
    return handle;
 }
 
@@ -70,7 +70,7 @@ MultigroupCreate(
       std::vector<CPPLibrary>{}
    );
    for (size_t LibraryN = 0; LibraryN < librarySize; ++LibraryN)
-      ElementLibraryAdd(handle, library[LibraryN]);
+      MultigroupLibraryAdd(handle, library[LibraryN]);
    return handle;
 }
 
@@ -224,7 +224,7 @@ MultigroupLibrarySet(
 }
 
 // Has, by name
-std::string
+int
 MultigroupLibraryHasByName(
    ConstHandle2ConstMultigroup This,
    const std::string name

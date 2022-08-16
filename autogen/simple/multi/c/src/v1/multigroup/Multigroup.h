@@ -179,7 +179,7 @@ MultigroupLibrarySet(
 );
 
 // +++ Has, by name
-extern_c std::string
+extern_c int
 MultigroupLibraryHasByName(
    ConstHandle2ConstMultigroup This,
    const std::string name

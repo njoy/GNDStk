@@ -2160,7 +2160,7 @@ void fileCInterfaceCreateCall(writer &hdr, writer &src, const PerClass &per)
       const std::string child = c.name;
       c.isVector
          ? src(2,"std::vector<CPP@>{}", Child, false)
-         : src(2,"detail::tocpp<CPP@>{@}", Child, child, false);
+         : src(2,"detail::tocpp<CPP@>(@)", Child, child, false);
    }
 
    // variants
@@ -2175,8 +2175,8 @@ void fileCInterfaceCreateCall(writer &hdr, writer &src, const PerClass &per)
       const std::string child = c.name;
       src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
           Child, Child, child, Child);
-      src(2,"Element@Add(handle, @[@N]);",
-          Child, child, Child);
+      src(2,"@@Add(handle, @[@N]);",
+          per.clname, Child, child, Child);
    }
    src(1,"return handle;");
    src("}");
@@ -2630,7 +2630,7 @@ void fileCInterfaceChild(
 
          // has, by metadatum
          PPP(hdr,src,"Has, by @", meta);
-         ext(hdr,src,"@", m.type);
+         ext(hdr,src,"int");
          two(hdr,src,"@@HasBy@(", Class, Child, Meta, false);
          two(hdr,src);
          two(hdr,src,1,"ConstHandle2Const@ This,", Class);

@@ -58,7 +58,7 @@ ElementCreateConst(
       symbol,
       atomic_number,
       std::vector<CPPIsotope>{},
-      detail::tocpp<CPPFoobar>{foobar}
+      detail::tocpp<CPPFoobar>(foobar)
    );
    for (size_t IsotopeN = 0; IsotopeN < isotopeSize; ++IsotopeN)
       ElementIsotopeAdd(handle, isotope[IsotopeN]);
@@ -78,7 +78,7 @@ ElementCreate(
       symbol,
       atomic_number,
       std::vector<CPPIsotope>{},
-      detail::tocpp<CPPFoobar>{foobar}
+      detail::tocpp<CPPFoobar>(foobar)
    );
    for (size_t IsotopeN = 0; IsotopeN < isotopeSize; ++IsotopeN)
       ElementIsotopeAdd(handle, isotope[IsotopeN]);

@@ -179,10 +179,10 @@ LibraryElementSet(
 );
 
 // +++ Has, by symbol
-extern_c std::string
+extern_c int
 LibraryElementHasBySymbol(
    ConstHandle2ConstLibrary This,
-   const std::string symbol
+   const char *const symbol
 );
 
 // --- Get, by symbol, const

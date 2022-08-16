@@ -26,16 +26,19 @@ fi
 
 # Compile C++
 $COMPILE -c ../../../GNDStk/c/src/GNDStk.cpp
+
 $COMPILE -c multi/c/src/v1/multigroup/Foobar.cpp
 $COMPILE -c multi/c/src/v1/multigroup/Isotope.cpp
 $COMPILE -c multi/c/src/v1/multigroup/Element.cpp
+$COMPILE -c multi/c/src/v1/multigroup/Library.cpp
+$COMPILE -c multi/c/src/v1/multigroup/Multigroup.cpp
 
 # Compile C
 clang \
   -I../../../GNDStk/c/src \
   -Imulti/c/src \
    example-01.c \
-   pugixml.o GNDStk.o Foobar.o Isotope.o Element.o \
+   *.o \
   -L/usr/lib/x86_64-linux-gnu/hdf5/serial \
   -lstdc++ -lm -lhdf5 \
   -o c.exe
