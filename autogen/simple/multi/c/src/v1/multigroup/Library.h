@@ -189,21 +189,21 @@ LibraryElementHasBySymbol(
 extern_c Handle2ConstElement
 LibraryElementGetBySymbolConst(
    ConstHandle2ConstLibrary This,
-   const std::string symbol
+   const char *const symbol
 );
 
 // +++ Get, by symbol, non-const
 extern_c Handle2Element
 LibraryElementGetBySymbol(
    ConstHandle2Library This,
-   const std::string symbol
+   const char *const symbol
 );
 
 // +++ Set, by symbol
 extern_c void
 LibraryElementSetBySymbol(
    ConstHandle2Library This,
-   const std::string symbol,
+   const char *const symbol,
    ConstHandle2ConstElement element
 );
 

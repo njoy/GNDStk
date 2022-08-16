@@ -182,28 +182,28 @@ MultigroupLibrarySet(
 extern_c int
 MultigroupLibraryHasByName(
    ConstHandle2ConstMultigroup This,
-   const std::string name
+   const char *const name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstLibrary
 MultigroupLibraryGetByNameConst(
    ConstHandle2ConstMultigroup This,
-   const std::string name
+   const char *const name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2Library
 MultigroupLibraryGetByName(
    ConstHandle2Multigroup This,
-   const std::string name
+   const char *const name
 );
 
 // +++ Set, by name
 extern_c void
 MultigroupLibrarySetByName(
    ConstHandle2Multigroup This,
-   const std::string name,
+   const char *const name,
    ConstHandle2ConstLibrary library
 );
 

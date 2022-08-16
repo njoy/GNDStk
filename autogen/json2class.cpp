@@ -2634,7 +2634,7 @@ void fileCInterfaceChild(
          two(hdr,src,"@@HasBy@(", Class, Child, Meta, false);
          two(hdr,src);
          two(hdr,src,1,"ConstHandle2Const@ This,", Class);
-         two(hdr,src,1,"const @ @", m.type, meta);
+         two(hdr,src,1,"const @ @", mtype_param(m), meta);
          sig(hdr,src,true);
          src(1,"return detail::hasByMetadatum<CPP>");
          src(2,"(CLASSNAME, CLASSNAME+\"@HasBy@\",", Child, Meta);
@@ -2647,7 +2647,7 @@ void fileCInterfaceChild(
          two(hdr,src,"@@GetBy@Const(", Class, Child, Meta, false);
          two(hdr,src);
          two(hdr,src,1,"ConstHandle2Const@ This,", Class);
-         two(hdr,src,1,"const @ @", m.type, meta);
+         two(hdr,src,1,"const @ @", mtype_param(m), meta);
          sig(hdr,src,true);
          src(1,"return detail::getByMetadatum<CPP,Handle2Const@>", Child);
          src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@Const\",", Child, Meta);
@@ -2660,7 +2660,7 @@ void fileCInterfaceChild(
          two(hdr,src,"@@GetBy@(", Class, Child, Meta, false);
          two(hdr,src);
          two(hdr,src,1,"ConstHandle2@ This,", Class);
-         two(hdr,src,1,"const @ @", m.type, meta);
+         two(hdr,src,1,"const @ @", mtype_param(m), meta);
          sig(hdr,src,true);
          src(1,"return detail::getByMetadatum<CPP,Handle2@>", Child);
          src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@\",", Child, Meta);
@@ -2673,7 +2673,7 @@ void fileCInterfaceChild(
          two(hdr,src,"@@SetBy@(", Class, Child, Meta, false);
          two(hdr,src);
          two(hdr,src,1,"ConstHandle2@ This,", Class);
-         two(hdr,src,1,"const @ @,", m.type, meta);
+         two(hdr,src,1,"const @ @,", mtype_param(m), meta);
          two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
          sig(hdr,src,true);
          src(1,"detail::setByMetadatum<CPP,CPP@>", Child);

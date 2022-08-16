@@ -227,7 +227,7 @@ MultigroupLibrarySet(
 int
 MultigroupLibraryHasByName(
    ConstHandle2ConstMultigroup This,
-   const std::string name
+   const char *const name
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"LibraryHasByName",
@@ -238,7 +238,7 @@ MultigroupLibraryHasByName(
 Handle2ConstLibrary
 MultigroupLibraryGetByNameConst(
    ConstHandle2ConstMultigroup This,
-   const std::string name
+   const char *const name
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstLibrary>
       (CLASSNAME, CLASSNAME+"LibraryGetByNameConst",
@@ -249,7 +249,7 @@ MultigroupLibraryGetByNameConst(
 Handle2Library
 MultigroupLibraryGetByName(
    ConstHandle2Multigroup This,
-   const std::string name
+   const char *const name
 ) {
    return detail::getByMetadatum<CPP,Handle2Library>
       (CLASSNAME, CLASSNAME+"LibraryGetByName",
@@ -260,7 +260,7 @@ MultigroupLibraryGetByName(
 void
 MultigroupLibrarySetByName(
    ConstHandle2Multigroup This,
-   const std::string name,
+   const char *const name,
    ConstHandle2ConstLibrary library
 ) {
    detail::setByMetadatum<CPP,CPPLibrary>

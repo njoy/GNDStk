@@ -227,7 +227,7 @@ LibraryElementSet(
 int
 LibraryElementHasBySymbol(
    ConstHandle2ConstLibrary This,
-   const std::string symbol
+   const char *const symbol
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ElementHasBySymbol",
@@ -238,7 +238,7 @@ LibraryElementHasBySymbol(
 Handle2ConstElement
 LibraryElementGetBySymbolConst(
    ConstHandle2ConstLibrary This,
-   const std::string symbol
+   const char *const symbol
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstElement>
       (CLASSNAME, CLASSNAME+"ElementGetBySymbolConst",
@@ -249,7 +249,7 @@ LibraryElementGetBySymbolConst(
 Handle2Element
 LibraryElementGetBySymbol(
    ConstHandle2Library This,
-   const std::string symbol
+   const char *const symbol
 ) {
    return detail::getByMetadatum<CPP,Handle2Element>
       (CLASSNAME, CLASSNAME+"ElementGetBySymbol",
@@ -260,7 +260,7 @@ LibraryElementGetBySymbol(
 void
 LibraryElementSetBySymbol(
    ConstHandle2Library This,
-   const std::string symbol,
+   const char *const symbol,
    ConstHandle2ConstElement element
 ) {
    detail::setByMetadatum<CPP,CPPElement>
