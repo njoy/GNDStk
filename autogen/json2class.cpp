@@ -12,7 +12,6 @@ using namespace njoy::GNDStk;
 const bool singletons = true;
 
 
-
 // -----------------------------------------------------------------------------
 // Data structures
 // -----------------------------------------------------------------------------
@@ -152,7 +151,6 @@ struct PerClass {
 };
 
 
-
 // -----------------------------------------------------------------------------
 // InfoSpecs
 // -----------------------------------------------------------------------------
@@ -204,7 +202,6 @@ struct InfoSpecs {
    // Map from namespace::class to information about the class
    nlohmann::ordered_map<NamespaceAndClass,PerClass> class2data;
 }; // InfoSpecs
-
 
 
 // -----------------------------------------------------------------------------
@@ -412,7 +409,6 @@ std::string namePython(const std::string &name)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Functions for getting certain information from JSON input
 // -----------------------------------------------------------------------------
@@ -489,7 +485,6 @@ std::string getChildNamespace(
 
    return "ambiguousNamespace";
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -714,7 +709,6 @@ void getClassVariants(
 } // getClassVariants
 
 
-
 // -----------------------------------------------------------------------------
 // writer
 // -----------------------------------------------------------------------------
@@ -867,7 +861,16 @@ public:
 
 int writer::recurse = 0;
 
-
+// helper
+template<class... Ts>
+void section(writer &out, const std::string &str, Ts &&...args)
+{
+   out();
+   out();
+   out(largeComment);
+   out(str, std::forward<Ts>(args)...);
+   out(largeComment);
+}
 
 // -----------------------------------------------------------------------------
 // write*
@@ -1013,7 +1016,6 @@ void writeClassSuffix(
 } // writeClassSuffix
 
 
-
 // -----------------------------------------------------------------------------
 // writeClass*
 // For metadata, children, and variant children
@@ -1036,7 +1038,6 @@ void writeClassContentMetadata(writer &out, const PerClass &per)
          out(",defaults.@", m.name, false);
       out("};");
    }
-
 }
 
 // writeClassContentChildren
@@ -1065,7 +1066,6 @@ void writeClassContentVariants(writer &out, const PerClass &per)
       }
    }
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -1218,7 +1218,6 @@ void writeClassCtors(writer &out, const PerClass &per)
 } // writeClassCtors
 
 
-
 // -----------------------------------------------------------------------------
 // writeClass
 // -----------------------------------------------------------------------------
@@ -1274,7 +1273,6 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    // done
    per.code = out.str();
 } // writeClass
-
 
 
 // -----------------------------------------------------------------------------
@@ -1347,7 +1345,6 @@ auto getChildrenJSON(const orderedJSON &j)
          chld ? j[chldstr] : node ? j[nodestr] : orderedJSON{});
    }
 } // getChildrenJSON
-
 
 
 // -----------------------------------------------------------------------------
@@ -1486,7 +1483,6 @@ void commandLine(
 } // commandLine
 
 
-
 // -----------------------------------------------------------------------------
 // preprocess* functions
 // -----------------------------------------------------------------------------
@@ -1596,7 +1592,6 @@ void preprocessFiles(InfoSpecs &specs)
 } // preprocessFiles
 
 
-
 // -----------------------------------------------------------------------------
 // validate*
 // getClass
@@ -1703,7 +1698,6 @@ void getFiles(InfoSpecs &specs)
 } // getFiles
 
 
-
 // -----------------------------------------------------------------------------
 // Functions relating to our topological sort
 // Adapted from: http://coliru.stacked-crooked.com/a/7c0bf8d3443b804d
@@ -1738,7 +1732,6 @@ void sortDependencies(InfoSpecs &specs)
          specs.ClassDependenciesRaw,
          specs.ClassDependenciesSorted);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -1892,11 +1885,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
    // Meta<> objects
    // ------------------------
 
-   out();
-   out();
-   out(largeComment);
-   out("// meta::");
-   out(largeComment);
+   section(out,"// meta::");
    out();
    out("namespace meta {");
 
@@ -1924,11 +1913,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
    // ------------------------
 
    for (const auto &nspace : namespace2children) {
-      out();
-      out();
-      out(largeComment);
-      out("// @::child::", nspace.first);
-      out(largeComment);
+      section(out, "// @::child::", nspace.first);
       out();
       out("namespace @ {", nspace.first);
       out("namespace child {");
@@ -1950,11 +1935,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
    // Using directives
    // ------------------------
 
-   out();
-   out();
-   out(largeComment);
-   out("// For convenience: using directives");
-   out(largeComment);
+   section(out, "// For convenience: using directives");
    out();
    out("namespace key {");
    out(1,"using namespace meta;");
@@ -2025,16 +2006,10 @@ void fileGNDStkClass(
 } // fileGNDStkClass
 
 
-
 // -----------------------------------------------------------------------------
-// Re: C interface
+// C interface:
 // Helpers
-// fileCInterface*
 // -----------------------------------------------------------------------------
-
-// ------------------------
-// Helpers
-// ------------------------
 
 // two
 // Forward args to two places: header and source
@@ -2043,14 +2018,6 @@ void two(writer &hdr, writer &src, Ts &&...args)
 {
    hdr(std::forward<Ts>(args)...);
    src(std::forward<Ts>(args)...);
-}
-
-// par
-// For writing parameters; no \n added
-template<class... Ts>
-void par(writer &hdr, writer &src, Ts &&...args)
-{
-   two(hdr, src, std::forward<Ts>(args)..., false);
 }
 
 // ext
@@ -2070,6 +2037,12 @@ void ppp(writer &hdr, writer &src, const std::string &str, Ts &&...args)
    hdr("// +++ "+str, std::forward<Ts>(args)...);
    src("// "    +str, std::forward<Ts>(args)...);
 }
+template<class... Ts>
+void PPP(writer &hdr, writer &src, Ts &&...args)
+{
+   two(hdr,src);
+   ppp(hdr,src,std::forward<Ts>(args)...);
+}
 
 // mmm
 // Comment, prefixed in header file with "---"
@@ -2079,13 +2052,11 @@ void mmm(writer &hdr, writer &src, const std::string &str, Ts &&...args)
    hdr("// --- "+str, std::forward<Ts>(args)...);
    src("// "    +str, std::forward<Ts>(args)...);
 }
-
-// fun
-// C interface function name, and left (, with no \n added
 template<class... Ts>
-void fun(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+void MMM(writer &hdr, writer &src, Ts &&...args)
 {
-   two(hdr, src, str+"(", std::forward<Ts>(args)..., false);
+   two(hdr,src);
+   mmm(hdr,src,std::forward<Ts>(args)...);
 }
 
 // sig
@@ -2094,50 +2065,53 @@ void sig(writer &hdr, writer &src, const bool hadFields = false)
 {
    // header: end of parameters, semicolon for declaration
    hdr(");");
-   // source: end of parameters, beginning of body for definition
+   // source: end of parameters, left brace for definition
    src(hadFields ? ") {" : ")\n{");
-}
-
-// def
-// End C interface function definition.
-// Accept writer &hdr for consistency with above/below functions.
-void def(writer &hdr, writer &src)
-{
-   // header: nothing
-   (void)hdr;
-   // source: ending of body for definition
-   src("}");
 }
 
 // mtype_param
 // Get metadata type, for C interface
 std::string mtype_param(const InfoMetadata &m)
 {
-   if (m.type == "std::string")
-      return "char *const";
-   else
-      return m.type;
+   return m.type == "std::string"
+      ? "char *const"
+      : m.type;
 }
 
 // mtype_return
 // Get metadata type, for C interface
 std::string mtype_return(const InfoMetadata &m)
 {
-   if (m.type == "std::string")
-      return "const char *";
-   else
-      return m.type;
+   return m.type == "std::string"
+      ? "const char *"
+      : m.type;
 }
 
 // ctype
 // Get child-node type, for C interface
 std::string ctype(const InfoChildren &c)
 {
-   if (c.isVector)
-      return "ConstHandle2Const" + c.plain + " *const";
-   else
-      return "ConstHandle2Const" + c.plain;
+   return c.isVector
+      ? "ConstHandle2Const" + c.plain + " *const"
+      : "ConstHandle2Const" + c.plain;
 }
+
+// section
+template<class... Ts>
+void section(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   two(hdr,src);
+   two(hdr,src);
+   two(hdr,src,largeComment);
+   two(hdr,src,str, std::forward<Ts>(args)...);
+   two(hdr,src,largeComment);
+}
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceCreate*
+// -----------------------------------------------------------------------------
 
 // fileCInterfaceCreateParams
 void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
@@ -2156,8 +2130,7 @@ void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
    for (const auto &c : per.children) {
       two(hdr,src);
       two(hdr,src,1,"@ @@@",
-          ctype(c),
-          c.name,
+          ctype(c), c.name,
           c.isVector ? ", const size_t "+c.name+"Size" : "",
           ++count < total ? "," : "",
           false
@@ -2171,272 +2144,204 @@ void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
       two(hdr,src);
 }
 
-// ------------------------
+// fileCInterfaceCreateCall
+void fileCInterfaceCreateCall(writer &hdr, writer &src, const PerClass &per)
+{
+   // metadata
+   for (const auto &m : per.metadata) {
+      src(",");
+      src(2,"@", m.name, false);
+   }
+
+   // children
+   for (const auto &c : per.children) {
+      src(",");
+      const std::string Child = c.plain;
+      const std::string child = c.name;
+      c.isVector
+         ? src(2,"std::vector<CPP@>{}", Child, false)
+         : src(2,"detail::tocpp<CPP@>{@}", Child, child, false);
+   }
+
+   // variants
+   // todo
+
+   src();
+   src(1,");");
+   for (const auto &c : per.children) {
+      if (!c.isVector)
+         continue;
+      const std::string Child = c.plain;
+      const std::string child = c.name;
+      src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
+          Child, Child, child, Child);
+      src(2,"Element@Add(handle, @[@N]);",
+          Child, child, Child);
+   }
+   src(1,"return handle;");
+   src("}");
+}
+
+
+// -----------------------------------------------------------------------------
+// C interface:
 // fileCInterfaceBasics
-// ------------------------
+// -----------------------------------------------------------------------------
 
 void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
 {
-   // ------------------------
    // section comment
-   // ------------------------
+   section(hdr,src,
+           "// Basics\n"
+           "// Create, Assign, Delete");
 
-   two(hdr,src);
-   two(hdr,src);
-   two(hdr,src,largeComment);
-   two(hdr,src,"// Basics");
-   two(hdr,src,"// Create, Assign, Delete");
-   two(hdr,src,largeComment);
-
-   // ------------------------
    // create: default, const
-   // ------------------------
-
-   two(hdr,src);
-   mmm(hdr,src,"Create, default, const");
+   MMM(hdr,src,"Create, default, const");
    ext(hdr,src,"Handle2Const@", per.clname);
-   fun(hdr,src,"@DefaultConst", per.clname);
+   two(hdr,src,"@DefaultConst(", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::createHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"DefaultConst\");");
-   def(hdr,src);
+   src("}");
 
-   // ------------------------
    // create: default, non-const
-   // ------------------------
-
-   two(hdr,src);
-   ppp(hdr,src,"Create, default");
+   PPP(hdr,src,"Create, default");
    ext(hdr,src,"Handle2@", per.clname);
-   fun(hdr,src,"@Default", per.clname);
+   two(hdr,src,"@Default(", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::createHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Default\");");
-   def(hdr,src);
+   src("}");
 
-   // zzz factor commonality in the next two blocks
-
-   // ------------------------
    // create: general, const
-   // ------------------------
-
-   two(hdr,src);
-   mmm(hdr,src,"Create, general, const");
+   MMM(hdr,src,"Create, general, const");
    ext(hdr,src,"Handle2Const@", per.clname);
-   fun(hdr,src,"@CreateConst", per.clname);
+   two(hdr,src,"@CreateConst(", per.clname, false);
    fileCInterfaceCreateParams(hdr,src,per);
    sig(hdr,src, per.nfields() != 0);
    src(1,"ConstHandle2@ handle = detail::createHandle<CPP,C>(", per.clname);
    src(2,"CLASSNAME, CLASSNAME+\"CreateConst\"", false);
-   {
-      // metadata
-      for (const auto &m : per.metadata) {
-         src(",");
-         src(2,"@", m.name, false);
-      }
+   fileCInterfaceCreateCall(hdr,src,per);
 
-      // children
-      for (const auto &c : per.children) {
-         src(",");
-         const std::string Child = c.plain;
-         const std::string child = c.name;
-         c.isVector
-          ? src(2,"std::vector<CPP@>{}", Child, false)
-          : src(2,"detail::tocpp<CPP@>{@}", Child, child, false);
-      }
-
-      // variants
-      // todo
-   }
-   src();
-   src(1,");");
-   for (const auto &c : per.children)
-      if (c.isVector) {
-         const std::string Child = c.plain;
-         const std::string child = c.name;
-         src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
-             Child, Child, child, Child);
-         src(2,"Element@Add(handle, @[@N]);",
-             Child, child, Child);
-      }
-   src(1,"return handle;");
-   def(hdr,src);
-
-   // ------------------------
    // create: general, non-const
-   // ------------------------
-
-   two(hdr,src);
-   ppp(hdr,src,"Create, general");
+   PPP(hdr,src,"Create, general");
    ext(hdr,src,"Handle2@", per.clname);
-   fun(hdr,src,"@Create", per.clname);
+   two(hdr,src,"@Create(", per.clname, false);
    fileCInterfaceCreateParams(hdr,src,per);
    sig(hdr,src, per.nfields() != 0);
    src(1,"ConstHandle2@ handle = detail::createHandle<CPP,C>(", per.clname);
    src(2,"CLASSNAME, CLASSNAME+\"Create\"", false);
-   {
-      // metadata
-      for (const auto &m : per.metadata) {
-         src(",");
-         src(2,"@", m.name, false);
-      }
+   fileCInterfaceCreateCall(hdr,src,per);
 
-      // children
-      for (const auto &c : per.children) {
-         src(",");
-         const std::string Child = c.plain;
-         const std::string child = c.name;
-         c.isVector
-          ? src(2,"std::vector<CPP@>{}", Child, false)
-          : src(2,"detail::tocpp<CPP@>{@}", Child, child, false);
-      }
-
-      // variants
-      // todo
-   }
-   src();
-   src(1,");");
-   for (const auto &c : per.children)
-      if (c.isVector) {
-         const std::string Child = c.plain;
-         const std::string child = c.name;
-         src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
-             Child, Child, child, Child);
-         src(2,"Element@Add(handle, @[@N]);",
-             Child, child, Child);
-      }
-   src(1,"return handle;");
-   def(hdr,src);
-
-   // ------------------------
    // assign
-   // ------------------------
-
-   two(hdr,src);
-   ppp(hdr,src,"Assign");
+   PPP(hdr,src,"Assign");
    ppp(hdr,src,"Use this to assign one handled object to another. Don't assign handles,");
    ppp(hdr,src,"as with to = from. That has a meaning that you probably don't intend.");
    ext(hdr,src,"void");
-   fun(hdr,src,"@Assign", per.clname);
-   par(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ from", per.clname, per.clname);
+   two(hdr,src,"@Assign(", per.clname, false);
+   two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ from", per.clname, per.clname, false);
    sig(hdr,src);
    src(1,"detail::assignHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Assign\", This, from);");
-   def(hdr,src);
+   src("}");
 
-   // ------------------------
    // delete
-   // ------------------------
-
-   two(hdr,src);
-   ppp(hdr,src,"Delete");
+   PPP(hdr,src,"Delete");
    ppp(hdr,src,"We'll attempt to remove no-longer-used objects automatically, but you");
    ppp(hdr,src,"may improve performance if you delete them when you're done with them.");
    ext(hdr,src,"void");
-   fun(hdr,src,"@Delete", per.clname);
-   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   two(hdr,src,"@Delete(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
    sig(hdr,src);
    src(1,"detail::deleteHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Delete\", This);");
-   def(hdr,src);
-
+   src("}");
 } // fileCInterfaceBasics
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
+// C interface:
 // fileCInterfaceIO
-// ------------------------
+// -----------------------------------------------------------------------------
 
 void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
 {
    // section comment
-   two(hdr,src);
-   two(hdr,src);
-   two(hdr,src,largeComment);
-   two(hdr,src,"// I/O");
-   two(hdr,src,"// Read, Write, Print");
-   two(hdr,src,"// Each returns 0 if failure, 1 if success.");
-   two(hdr,src,largeComment);
+   section(hdr,src,
+           "// I/O\n"
+           "// Read, Write, Print\n"
+           "// Each returns 0 if failure, 1 if success.");
 
    // read from file
-   two(hdr,src);
-   ppp(hdr,src,"Read from file");
+   PPP(hdr,src,"Read from file");
    ppp(hdr,src,"File can be XML, JSON, or HDF5.");
    ppp(hdr,src,"We'll examine the file's contents to determine its type automatically.");
    ext(hdr,src,"int");
-   fun(hdr,src,"@Read", per.clname);
-   par(hdr,src,"ConstHandle2@ This, const char *const filename", per.clname);
+   two(hdr,src,"@Read(", per.clname, false);
+   two(hdr,src,"ConstHandle2@ This, const char *const filename", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::readHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Read\", This, filename);");
-   def(hdr,src);
+   src("}");
 
    // write to file
-   two(hdr,src);
-   ppp(hdr,src,"Write to file");
+   PPP(hdr,src,"Write to file");
    ppp(hdr,src,"File can be XML, JSON, or HDF5.");
    ppp(hdr,src,"We'll use filename's extension to determine the type you want written.");
    ext(hdr,src,"int");
-   fun(hdr,src,"@Write", per.clname);
-   par(hdr,src,"ConstHandle2Const@ This, const char *const filename", per.clname);
+   two(hdr,src,"@Write(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This, const char *const filename", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::writeHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Write\", This, filename);");
-   def(hdr,src);
+   src("}");
 
    // print
-   two(hdr,src);
-   ppp(hdr,src,"Print to standard output, in our prettyprinting format");
+   PPP(hdr,src,"Print to standard output, in our prettyprinting format");
    ext(hdr,src,"int");
-   fun(hdr,src,"@Print", per.clname);
-   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   two(hdr,src,"@Print(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::printHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Print\", This);");
-   def(hdr,src);
+   src("}");
 
    // print, XML
-   two(hdr,src);
-   ppp(hdr,src,"Print to standard output, as XML");
+   PPP(hdr,src,"Print to standard output, as XML");
    ext(hdr,src,"int");
-   fun(hdr,src,"@PrintXML", per.clname);
-   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   two(hdr,src,"@PrintXML(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::printHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"PrintXML\", This, \"XML\");");
-   def(hdr,src);
+   src("}");
 
    // print, JSON
-   two(hdr,src);
-   ppp(hdr,src,"Print to standard output, as JSON");
+   PPP(hdr,src,"Print to standard output, as JSON");
    ext(hdr,src,"int");
-   fun(hdr,src,"@PrintJSON", per.clname);
-   par(hdr,src,"ConstHandle2Const@ This", per.clname);
+   two(hdr,src,"@PrintJSON(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
    sig(hdr,src);
    src(1,"return detail::printHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"PrintJSON\", This, \"JSON\");");
-   def(hdr,src);
-
+   src("}");
 } // fileCInterfaceIO
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
+// C interface:
 // fileCInterfaceVector
-// ------------------------
+// -----------------------------------------------------------------------------
 
 void fileCInterfaceVector(
    writer &hdr, writer &src,
    const PerClass &per, const std::string &type,
-   const bool section = true
+   const bool isSection = true
 ) {
    // section comment
-   if (section) {
-      two(hdr,src);
-      two(hdr,src);
-      two(hdr,src,largeComment);
-      two(hdr,src,"// Re: vector");
-      two(hdr,src,largeComment);
-   } else {
+   if (isSection)
+      section(hdr,src,"// Re: vector");
+   else {
       assert(type != "");
       two(hdr,src);
       two(hdr,src,smallComment);
@@ -2446,7 +2351,7 @@ void fileCInterfaceVector(
 
    // dynamic type?
    if (type == "") {
-      // todo Any others here, for purposes of the C interface?
+      // for a C interface, these are probably sufficient
       fileCInterfaceVector(hdr,src,per,"int",     false);
       fileCInterfaceVector(hdr,src,per,"unsigned",false);
       fileCInterfaceVector(hdr,src,per,"float",   false);
@@ -2455,93 +2360,88 @@ void fileCInterfaceVector(
    }
 
    // Example:
-   //    ctype: "Foobar" (class type; for brevity)
-   //    type:  "double" (parameter to this function)
+   //    type:  "double" (parameter to the present function)
+   //    Class: "Foobar" (class type; for brevity)
    //    types: "doubles"
    //    Types: "Doubles"
-   const std::string cname = per.clname;
+   const std::string Class = per.clname;
    const std::string types = type + 's';
    const std::string Types = capital(type) + 's';
 
-   two(hdr,src);
-   ppp(hdr,src,"Clear");
+   PPP(hdr,src,"Clear");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Clear", cname, Types);
-   par(hdr,src,"ConstHandle2@ This", cname);
+   two(hdr,src,"@@Clear(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This", Class, false);
    sig(hdr,src);
    src(1,"detail::vectorClear<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Clear\", This);", Types);
-   def(hdr,src);
+   src("}");
 
-   two(hdr,src);
-   ppp(hdr,src,"Get size");
+   PPP(hdr,src,"Get size");
    ext(hdr,src,"size_t");
-   fun(hdr,src,"@@Size", cname, Types);
-   par(hdr,src,"ConstHandle2Const@ This", cname);
+   two(hdr,src,"@@Size(", Class, Types, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
    sig(hdr,src);
    src(1,"return detail::vectorSize<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Size\", This);", Types);
-   def(hdr,src);
+   src("}");
 
-   two(hdr,src);
-   ppp(hdr,src,"Get value");
+   PPP(hdr,src,"Get value");
    ppp(hdr,src,"By index \\in [0,size)");
    ext(hdr,src,"@", type);
-   fun(hdr,src,"@@Get", cname, Types);
-   par(hdr,src,"ConstHandle2Const@ This, const size_t index", cname);
+   two(hdr,src,"@@Get(", Class, Types, false);
+   two(hdr,src,"ConstHandle2Const@ This, const size_t index", Class, false);
    sig(hdr,src);
    src(1,"return detail::vectorGet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, index);", Types);
-   def(hdr,src);
+   src("}");
 
-   two(hdr,src);
-   ppp(hdr,src,"Set value");
+   PPP(hdr,src,"Set value");
    ppp(hdr,src,"By index \\in [0,size)");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Set", cname, Types);
-   par(hdr,src,"ConstHandle2@ This, const size_t index, const @ value", cname, type);
+   two(hdr,src,"@@Set(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This, const size_t index, const @ value", Class, type, false);
    sig(hdr,src);
    src(1,"detail::vectorSet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, index, value);", Types);
-   def(hdr,src);
+   src("}");
 
-   two(hdr,src);
-   mmm(hdr,src,"Get pointer to existing values, const");
+   MMM(hdr,src,"Get pointer to existing values, const");
    ext(hdr,src,"const @ *", type);
-   fun(hdr,src,"@@GetArrayConst", cname, Types);
-   par(hdr,src,"ConstHandle2Const@ This", cname);
+   two(hdr,src,"@@GetArrayConst(", Class, Types, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
    sig(hdr,src);
    src(1,"return detail::vectorGet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@GetArrayConst\", This);", Types);
-   def(hdr,src);
+   src("}");
 
-   two(hdr,src);
-   ppp(hdr,src,"Get pointer to existing values, non-const");
+   PPP(hdr,src,"Get pointer to existing values, non-const");
    ext(hdr,src,"@ *", type);
-   fun(hdr,src,"@@GetArray", cname, Types);
-   par(hdr,src,"ConstHandle2@ This", cname);
+   two(hdr,src,"@@GetArray(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This", Class, false);
    sig(hdr,src);
    src(1,"return detail::vectorGet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@GetArray\", This);", Types);
-   def(hdr,src);
+   src("}");
 
-   two(hdr,src);
-   ppp(hdr,src,"Set completely new values and size");
+   PPP(hdr,src,"Set completely new values and size");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@SetArray", cname, Types);
-   par(hdr,src,"ConstHandle2@ This, const @ *const values, const size_t size", cname, type);
+   two(hdr,src,"@@SetArray(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This, const @ *const values, const size_t size", Class, type, false);
    sig(hdr,src);
    src(1,"return detail::vectorSet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@SetArray\", This, size, values);", Types);
-   def(hdr,src);
-
+   src("}");
 } // fileCInterfaceVector
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
+// C interface:
 // fileCInterfaceMeta
-// ------------------------
+// fileCInterfaceChild
+// -----------------------------------------------------------------------------
 
+// fileCInterfaceMeta
 void fileCInterfaceMeta(
    writer &hdr, writer &src,
    const PerClass &per, const InfoMetadata &m
@@ -2551,55 +2451,43 @@ void fileCInterfaceMeta(
    const std::string meta  = m.name;
 
    // section comment
-   two(hdr,src);
-   two(hdr,src);
-   two(hdr,src,largeComment);
-   two(hdr,src,"// Re: @", meta);
-   two(hdr,src,largeComment);
+   section(hdr,src,"// Re: @", meta);
 
    // has
    if (m.isOptional) {
-      two(hdr,src);
-      ppp(hdr,src,"Has");
+      PPP(hdr,src,"Has");
       ext(hdr,src,"int");
-      fun(hdr,src,"@@Has", Class, Meta);
-      par(hdr,src,"ConstHandle2Const@ This", Class);
+      two(hdr,src,"@@Has(", Class, Meta, false);
+      two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
       src(1,"return detail::hasMetadatum<CPP>");
       src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Meta, meta);
-      def(hdr,src);
+      src("}");
    }
 
    // get
-   two(hdr,src);
-   ppp(hdr,src,"Get");
+   PPP(hdr,src,"Get");
    ppp(hdr,src,"Returns by value");
    ext(hdr,src,"@", mtype_return(m));
-   fun(hdr,src,"@@Get", Class, Meta);
-   par(hdr,src,"ConstHandle2Const@ This", Class);
+   two(hdr,src,"@@Get(", Class, Meta, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
    sig(hdr,src);
    src(1,"return detail::getMetadatum<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Meta, meta);
-   def(hdr,src);
+   src("}");
 
    // set
-   two(hdr,src);
-   ppp(hdr,src,"Set");
+   PPP(hdr,src,"Set");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Set", Class, Meta);
-   par(hdr,src,"ConstHandle2@ This, ", Class);
-   par(hdr,src,"const @ @", mtype_param(m), meta);
+   two(hdr,src,"@@Set(", Class, Meta, false);
+   two(hdr,src,"ConstHandle2@ This, const @ @", Class, mtype_param(m), meta, false);
    sig(hdr,src);
    src(1,"detail::setMetadatum<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Meta, meta, meta);
-   def(hdr,src);
+   src("}");
 }
 
-
-// ------------------------
 // fileCInterfaceChild
-// ------------------------
-
 void fileCInterfaceChild(
    writer &hdr, writer &src,
    const InfoSpecs &specs,
@@ -2610,23 +2498,18 @@ void fileCInterfaceChild(
    const std::string child = c.name;
 
    // section comment
-   two(hdr,src);
-   two(hdr,src);
-   two(hdr,src,largeComment);
-   two(hdr,src,"// Re: @", child);
-   two(hdr,src,largeComment);
+   section(hdr,src,"// Re: @", child);
 
    // has
    if (c.isOptional) {
-      two(hdr,src);
-      ppp(hdr,src,"Has");
+      PPP(hdr,src,"Has");
       ext(hdr,src,"int");
-      fun(hdr,src,"@@Has", Class, Child);
-      par(hdr,src,"ConstHandle2Const@ This", Class);
+      two(hdr,src,"@@Has(", Class, Child, false);
+      two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
       src(1,"return detail::hasMetadatum<CPP>");
       src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Child, child);
-      def(hdr,src);
+      src("}");
    }
 
    // ------------------------
@@ -2635,37 +2518,34 @@ void fileCInterfaceChild(
 
    if (!c.isVector) {
       // get, const
-      two(hdr,src);
-      mmm(hdr,src,"Get, const");
+      MMM(hdr,src,"Get, const");
       ext(hdr,src,"Handle2Const@", Child);
-      fun(hdr,src,"@@GetConst", Class, Child);
-      par(hdr,src,"ConstHandle2Const@ This", Class);
+      two(hdr,src,"@@GetConst(", Class, Child, false);
+      two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
       src(1,"return detail::getMetadatum<CPP,Handle2Const@>", Child);
       src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@);", Child, child);
-      def(hdr,src);
+      src("}");
 
       // get, non-const
-      two(hdr,src);
-      ppp(hdr,src,"Get, non-const");
+      PPP(hdr,src,"Get, non-const");
       ext(hdr,src,"Handle2@", Child);
-      fun(hdr,src,"@@Get", Class, Child);
-      par(hdr,src,"ConstHandle2@ This", Class);
+      two(hdr,src,"@@Get(", Class, Child, false);
+      two(hdr,src,"ConstHandle2@ This", Class, false);
       sig(hdr,src);
       src(1,"return detail::getMetadatum<CPP,Handle2@>", Child);
       src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Child, child);
-      def(hdr,src);
+      src("}");
 
       // set
-      two(hdr,src);
-      ppp(hdr,src,"Set");
+      PPP(hdr,src,"Set");
       ext(hdr,src,"void");
-      fun(hdr,src,"@@Set", Class, Child);
-      par(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @", Class, Child, child);
+      two(hdr,src,"@@Set(", Class, Child, false);
+      two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @", Class, Child, child, false);
       sig(hdr,src);
       src(1,"detail::setMetadatum<CPP,CPP@>", Child);
       src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Child, child, child);
-      def(hdr,src);
+      src("}");
 
       return;
    }
@@ -2675,79 +2555,70 @@ void fileCInterfaceChild(
    // ------------------------
 
    // clear
-   two(hdr,src);
-   ppp(hdr,src,"Clear");
+   PPP(hdr,src,"Clear");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Clear", Class, Child);
-   par(hdr,src,"ConstHandle2@ This", Class);
+   two(hdr,src,"@@Clear(", Class, Child, false);
+   two(hdr,src,"ConstHandle2@ This", Class, false);
    sig(hdr,src);
    src(1,"detail::clearContainer<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Clear\", This, extract::@);", Child, child);
-   def(hdr,src);
+   src("}");
 
    // size
-   two(hdr,src);
-   ppp(hdr,src,"Size");
+   PPP(hdr,src,"Size");
    ext(hdr,src,"size_t");
-   fun(hdr,src,"@@Size", Class, Child);
-   par(hdr,src,"ConstHandle2Const@ This", Class);
+   two(hdr,src,"@@Size(", Class, Child, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
    sig(hdr,src);
    src(1,"return detail::sizeOfContainer<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Size\", This, extract::@);", Child, child);
-   def(hdr,src);
+   src("}");
 
    // add
-   two(hdr,src);
-   ppp(hdr,src,"Add");
+   PPP(hdr,src,"Add");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Add", Class, Child);
-   par(hdr,src,"ConstHandle2@ This, ", Class);
-   par(hdr,src,"ConstHandle2Const@ @", Child, child);
+   two(hdr,src,"@@Add(", Class, Child, false);
+   two(hdr,src,"ConstHandle2@ This, ", Class, false);
+   two(hdr,src,"ConstHandle2Const@ @", Child, child, false);
    sig(hdr,src);
    src(1,"detail::addToContainer<CPP,CPP@>", Child);
    src(2,"(CLASSNAME, CLASSNAME+\"@Add\", This, extract::@, @);", Child, child, child);
-   def(hdr,src);
+   src("}");
 
    // get, by index, const
-   two(hdr,src);
-   mmm(hdr,src,"Get, by index \\in [0,size), const");
+   MMM(hdr,src,"Get, by index \\in [0,size), const");
    ext(hdr,src,"Handle2Const@", Child);
-   fun(hdr,src,"@@GetConst", Class, Child);
-   par(hdr,src,"ConstHandle2Const@ This, ", Class);
-   par(hdr,src,"const size_t index_");
+   two(hdr,src,"@@GetConst(", Class, Child, false);
+   two(hdr,src,"ConstHandle2Const@ This, ", Class, false);
+   two(hdr,src,"const size_t index_", false);
    sig(hdr,src);
    src(1,"return detail::getByIndex<CPP,Handle2Const@>", Child);
    src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@, index_);", Child, child);
-   def(hdr,src);
+   src("}");
 
    // get, by index, non-const
-   two(hdr,src);
-   ppp(hdr,src,"Get, by index \\in [0,size), non-const");
+   PPP(hdr,src,"Get, by index \\in [0,size), non-const");
    ext(hdr,src,"Handle2@", Child);
-   fun(hdr,src,"@@Get", Class, Child);
-   par(hdr,src,"ConstHandle2@ This, ", Class);
-   par(hdr,src,"const size_t index_");
+   two(hdr,src,"@@Get(", Class, Child, false);
+   two(hdr,src,"ConstHandle2@ This, ", Class, false);
+   two(hdr,src,"const size_t index_", false);
    sig(hdr,src);
    src(1,"return detail::getByIndex<CPP,Handle2@>", Child);
    src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@, index_);", Child, child);
-   def(hdr,src);
+   src("}");
 
    // set, by index
-   two(hdr,src);
-   ppp(hdr,src,"Set, by index \\in [0,size)");
+   PPP(hdr,src,"Set, by index \\in [0,size)");
    ext(hdr,src,"void");
-   fun(hdr,src,"@@Set", Class, Child);
-   par(hdr,src);
-   par(hdr,src,1,"ConstHandle2@ This,", Class);
-   par(hdr,src);
-   par(hdr,src,1,"const size_t index_,");
-   par(hdr,src);
-   par(hdr,src,1,"ConstHandle2Const@ @", Child, child);
-   par(hdr,src);
+   two(hdr,src,"@@Set(", Class, Child, false);
+   two(hdr,src);
+   two(hdr,src,1,"ConstHandle2@ This,", Class);
+   two(hdr,src,1,"const size_t index_,");
+   two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
    sig(hdr,src,true);
    src(1,"detail::setByIndex<CPP,CPP@>", Child);
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, index_, @);", Child, child, child);
-   def(hdr,src);
+   src("}");
 
    for (const auto &c : per.children) {
       const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
@@ -2758,115 +2629,67 @@ void fileCInterfaceChild(
          const std::string meta = m.name;
 
          // has, by metadatum
-         two(hdr,src);
-         ppp(hdr,src,"Has, by @", meta);
+         PPP(hdr,src,"Has, by @", meta);
          ext(hdr,src,"@", m.type);
-         fun(hdr,src,"@@HasBy@", Class, Child, Meta);
-         par(hdr,src);
-         par(hdr,src,1,"ConstHandle2Const@ This,", Class);
-         par(hdr,src);
-         par(hdr,src,1,"const @ @", m.type, meta);
-         par(hdr,src);
+         two(hdr,src,"@@HasBy@(", Class, Child, Meta, false);
+         two(hdr,src);
+         two(hdr,src,1,"ConstHandle2Const@ This,", Class);
+         two(hdr,src,1,"const @ @", m.type, meta);
          sig(hdr,src,true);
          src(1,"return detail::hasByMetadatum<CPP>");
          src(2,"(CLASSNAME, CLASSNAME+\"@HasBy@\",", Child, Meta);
          src(2," This, extract::@, meta::@, @);", child, meta, meta);
-         def(hdr,src);
+         src("}");
 
          // get, by metadatum, const
-         two(hdr,src);
-         mmm(hdr,src,"Get, by @, const", meta);
+         MMM(hdr,src,"Get, by @, const", meta);
          ext(hdr,src,"Handle2Const@", Child);
-         fun(hdr,src,"@@GetBy@Const", Class, Child, Meta);
-         par(hdr,src);
-         par(hdr,src,1,"ConstHandle2Const@ This,", Class);
-         par(hdr,src);
-         par(hdr,src,1,"const @ @", m.type, meta);
-         par(hdr,src);
+         two(hdr,src,"@@GetBy@Const(", Class, Child, Meta, false);
+         two(hdr,src);
+         two(hdr,src,1,"ConstHandle2Const@ This,", Class);
+         two(hdr,src,1,"const @ @", m.type, meta);
          sig(hdr,src,true);
          src(1,"return detail::getByMetadatum<CPP,Handle2Const@>", Child);
          src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@Const\",", Child, Meta);
          src(2," This, extract::@, meta::@, @);", child, meta, meta);
-         def(hdr,src);
+         src("}");
 
          // get, by metadatum, non-const
-         two(hdr,src);
-         ppp(hdr,src,"Get, by @, non-const", meta);
+         PPP(hdr,src,"Get, by @, non-const", meta);
          ext(hdr,src,"Handle2@", Child);
-         fun(hdr,src,"@@GetBy@", Class, Child, Meta);
-         par(hdr,src);
-         par(hdr,src,1,"ConstHandle2@ This,", Class);
-         par(hdr,src);
-         par(hdr,src,1,"const @ @", m.type, meta);
-         par(hdr,src);
+         two(hdr,src,"@@GetBy@(", Class, Child, Meta, false);
+         two(hdr,src);
+         two(hdr,src,1,"ConstHandle2@ This,", Class);
+         two(hdr,src,1,"const @ @", m.type, meta);
          sig(hdr,src,true);
          src(1,"return detail::getByMetadatum<CPP,Handle2@>", Child);
          src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@\",", Child, Meta);
          src(2," This, extract::@, meta::@, @);", child, meta, meta);
-         def(hdr,src);
+         src("}");
 
          // set, by metadatum
-         two(hdr,src);
-         ppp(hdr,src,"Set, by @", meta);
+         PPP(hdr,src,"Set, by @", meta);
          ext(hdr,src,"void");
-         fun(hdr,src,"@@SetBy@", Class, Child, Meta);
-         par(hdr,src);
-         par(hdr,src,1,"ConstHandle2@ This,", Class);
-         par(hdr,src);
-         par(hdr,src,1,"const @ @,", m.type, meta);
-         par(hdr,src);
-         par(hdr,src,1,"ConstHandle2Const@ @", Child, child);
-         par(hdr,src);
+         two(hdr,src,"@@SetBy@(", Class, Child, Meta, false);
+         two(hdr,src);
+         two(hdr,src,1,"ConstHandle2@ This,", Class);
+         two(hdr,src,1,"const @ @,", m.type, meta);
+         two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
          sig(hdr,src,true);
          src(1,"detail::setByMetadatum<CPP,CPP@>", Child);
          src(2,"(CLASSNAME, CLASSNAME+\"@SetBy@\",", Child, Meta);
          src(2," This, extract::@, meta::@, @, @);", child, meta, meta, child);
-         def(hdr,src);
-
+         src("}");
       } // metadata
    } // children
 } // fileCInterfaceChild
-
-
-// ------------------------
-// fileCInterfaceCommon
-// ------------------------
-
-void fileCInterfaceCommon(
-   writer &hdr,
-   writer &src,
-   const InfoSpecs &specs,
-   const PerClass &per, const Class2Dependencies &c2d
-) {
-   // Basics section: create, assign, delete
-   fileCInterfaceBasics(hdr, src, per);
-
-   // IO section: read, write, print
-   fileCInterfaceIO(hdr, src, per);
-
-   // Array support, if BlockData
-   if (per.isData)
-      fileCInterfaceVector(hdr, src, per, per.dataType);
-
-   // Functions regarding metadata
-   for (const auto &m : per.metadata)
-      fileCInterfaceMeta(hdr, src, per, m);
-
-   // Functions regarding children
-   for (const auto &c : per.children)
-      fileCInterfaceChild(hdr, src, specs, per, c);
-
-   // variants
-   // todo
-
-} // fileCInterfaceCommon
-
 
 
 // -----------------------------------------------------------------------------
 // Re: C interface
 // fileCInterfaceHeader
 // fileCInterfaceSource
+// fileCInterfaceCommon
 // fileCInterface
 // -----------------------------------------------------------------------------
 
@@ -2878,20 +2701,14 @@ void fileCInterfaceHeader(
    writer &hdr, const InfoSpecs &specs,
    const PerClass &per, const Class2Dependencies &c2d
 ) {
-   // ------------------------
    // Initial remarks
-   // ------------------------
-
    hdr();
    hdr("// Interface for C");
    hdr("// This header file is designed to work with both C and C++");
    hdr("// Function definitions are in this file's .cpp source");
    hdr();
 
-   // ------------------------
    // Instructions
-   // ------------------------
-
    hdr(largeComment);
    hdr(largeComment);
    hdr("// Instructions for Users");
@@ -2909,24 +2726,16 @@ void fileCInterfaceHeader(
        per.clname);
    hdr(largeComment);
    hdr(largeComment);
-   hdr();
-   hdr();
 
-   // ------------------------
    // Preliminaries
-   // ------------------------
-
-   hdr(largeComment);
-   hdr("// Preliminaries");
-   hdr(largeComment);
-   hdr();
-
+   section(hdr, "// Preliminaries");
    const std::string guard =
       allcaps(specs.Project) + "_" +
       allcaps(specs.VersionUnderscore) + "_" +
       allcaps(per.nsname) + "_" +
       allcaps(per.clname);
 
+   hdr();
    hdr("#ifndef C_INTERFACE_@", guard);
    hdr("#define C_INTERFACE_@", guard);
    hdr();
@@ -2942,16 +2751,9 @@ void fileCInterfaceHeader(
    hdr();
    hdr("// Proxy C struct for the handled C++ class");
    hdr("struct @Class { };", per.clname);
-   hdr();
-   hdr();
 
-   // ------------------------
    // Handle types
-   // ------------------------
-
-   hdr(largeComment);
-   hdr("// Handle types");
-   hdr(largeComment);
+   section(hdr, "// Handle types");
    hdr();
    hdr("// +++ @", per.clname);
    hdr("// +++ General handle, suitable for many users. "
@@ -3031,6 +2833,38 @@ void fileCInterfaceSource(
 
 
 // ------------------------
+// fileCInterfaceCommon
+// ------------------------
+
+void fileCInterfaceCommon(
+   writer &hdr, writer &src,
+   const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // Basics: create, assign, delete
+   fileCInterfaceBasics(hdr,src, per);
+
+   // IO: read, write, print
+   fileCInterfaceIO(hdr,src, per);
+
+   // Array support, if BlockData
+   if (per.isData)
+      fileCInterfaceVector(hdr,src, per, per.dataType);
+
+   // Functions regarding metadata
+   for (const auto &m : per.metadata)
+      fileCInterfaceMeta(hdr,src, per, m);
+
+   // Functions regarding children
+   for (const auto &c : per.children)
+      fileCInterfaceChild(hdr,src, specs, per, c);
+
+   // variants
+   // todo
+} // fileCInterfaceCommon
+
+
+// ------------------------
 // fileCInterface
 // ------------------------
 
@@ -3046,19 +2880,14 @@ void fileCInterface(
    fileCInterfaceSource(src, specs, per, c2d);
 
    // common or partially common to both header and source
-   fileCInterfaceCommon(hdr, src, specs, per, c2d);
+   fileCInterfaceCommon(hdr,src, specs, per, c2d);
 
    // header: ending
-   hdr();
-   hdr();
-   hdr(largeComment);
-   hdr("// Done");
-   hdr(largeComment);
+   section(hdr, "// Done");
    hdr();
    hdr("#undef extern_c");
    hdr("#endif");
 } // fileCInterface
-
 
 
 // -----------------------------------------------------------------------------
@@ -3335,7 +3164,6 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out("} // namespace python_@", nsname);
    out("} // namespace python_@", specs.VersionUnderscore);
 } // filePythonClass
-
 
 
 // -----------------------------------------------------------------------------
