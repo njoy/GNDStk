@@ -21,17 +21,18 @@ COMPILE="
 
 # pugixml
 if [ ! -f "pugixml.o" ]; then
-$COMPILE ../../../GNDStk/build/_deps/pugixml-adapter-src/src/src/pugixml.cpp -c
+   $COMPILE ../../../GNDStk/build/_deps/pugixml-adapter-src/src/src/pugixml.cpp -c &
 fi
 
 # Compile C++
-$COMPILE -c ../../../GNDStk/c/src/GNDStk.cpp
+$COMPILE -c ../../../GNDStk/c/src/GNDStk.cpp &
+$COMPILE -c multi/c/src/v1/multigroup/Foobar.cpp &
+$COMPILE -c multi/c/src/v1/multigroup/Isotope.cpp &
+$COMPILE -c multi/c/src/v1/multigroup/Element.cpp &
+$COMPILE -c multi/c/src/v1/multigroup/Library.cpp &
+$COMPILE -c multi/c/src/v1/multigroup/Multigroup.cpp &
 
-$COMPILE -c multi/c/src/v1/multigroup/Foobar.cpp
-$COMPILE -c multi/c/src/v1/multigroup/Isotope.cpp
-$COMPILE -c multi/c/src/v1/multigroup/Element.cpp
-$COMPILE -c multi/c/src/v1/multigroup/Library.cpp
-$COMPILE -c multi/c/src/v1/multigroup/Multigroup.cpp
+wait $(jobs -p)
 
 # Compile C
 clang \
