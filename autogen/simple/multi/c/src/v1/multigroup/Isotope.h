@@ -65,21 +65,21 @@ typedef       struct IsotopeClass *      Handle2Isotope;
 // Create, Assign, Delete
 // -----------------------------------------------------------------------------
 
-// --- Create: default, const
+// --- Create, default, const
 extern_c Handle2ConstIsotope
 IsotopeDefaultConst();
 
-// +++ Create: default
+// +++ Create, default
 extern_c Handle2Isotope
 IsotopeDefault();
 
-// --- Create: general, const
+// --- Create, general, const
 extern_c Handle2ConstIsotope
 IsotopeCreateConst(
    const int mass_number
 );
 
-// +++ Create: general
+// +++ Create, general
 extern_c Handle2Isotope
 IsotopeCreate(
    const int mass_number

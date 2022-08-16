@@ -19,7 +19,7 @@ static const std::string CLASSNAME = "Foobar";
 // Create, Assign, Delete
 // -----------------------------------------------------------------------------
 
-// Create: default, const
+// Create, default, const
 Handle2ConstFoobar
 FoobarDefaultConst()
 {
@@ -27,7 +27,7 @@ FoobarDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create: default
+// Create, default
 Handle2Foobar
 FoobarDefault()
 {
@@ -35,7 +35,7 @@ FoobarDefault()
       (CLASSNAME, CLASSNAME+"Default");
 }
 
-// Create: general, const
+// Create, general, const
 Handle2ConstFoobar
 FoobarCreateConst()
 {
@@ -45,7 +45,7 @@ FoobarCreateConst()
    return handle;
 }
 
-// Create: general
+// Create, general
 Handle2Foobar
 FoobarCreate()
 {

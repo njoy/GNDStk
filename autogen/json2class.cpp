@@ -1566,8 +1566,8 @@ void preprocessClass(
    assert(cl.second); // should have been inserted - not there already
    cl.first->second.cppPython = nsdirpy + "/" + clname + ".python.cpp";
    cl.first->second.hppGNDStk = nsdir   + "/" + clname + ".hpp";
-   cl.first->second.headerC   = nsdirc  + "/" + clname + "qqq.h";
-   cl.first->second.sourceC   = nsdirc  + "/" + clname + "qqq.cpp";
+   cl.first->second.headerC   = nsdirc  + "/" + clname + ".h";
+   cl.first->second.sourceC   = nsdirc  + "/" + clname + ".cpp";
 } // preprocessClass
 
 
@@ -2193,7 +2193,7 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    // ------------------------
 
    two(hdr,src);
-   mmm(hdr,src,"Create: default, const");
+   mmm(hdr,src,"Create, default, const");
    ext(hdr,src,"Handle2Const@", per.clname);
    fun(hdr,src,"@DefaultConst", per.clname);
    sig(hdr,src);
@@ -2206,7 +2206,7 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    // ------------------------
 
    two(hdr,src);
-   ppp(hdr,src,"Create: default");
+   ppp(hdr,src,"Create, default");
    ext(hdr,src,"Handle2@", per.clname);
    fun(hdr,src,"@Default", per.clname);
    sig(hdr,src);
@@ -2214,14 +2214,14 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"Default\");");
    def(hdr,src);
 
-   /// factor commonality in the next two blocks
+   // zzz factor commonality in the next two blocks
 
    // ------------------------
    // create: general, const
    // ------------------------
 
    two(hdr,src);
-   mmm(hdr,src,"Create: general, const");
+   mmm(hdr,src,"Create, general, const");
    ext(hdr,src,"Handle2Const@", per.clname);
    fun(hdr,src,"@CreateConst", per.clname);
    fileCInterfaceCreateParams(hdr,src,per);
@@ -2267,7 +2267,7 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    // ------------------------
 
    two(hdr,src);
-   ppp(hdr,src,"Create: general");
+   ppp(hdr,src,"Create, general");
    ext(hdr,src,"Handle2@", per.clname);
    fun(hdr,src,"@Create", per.clname);
    fileCInterfaceCreateParams(hdr,src,per);
@@ -2617,17 +2617,17 @@ void fileCInterfaceChild(
    two(hdr,src,largeComment);
 
    // has
-   ///if (c.isOptional) {///eventually
-   two(hdr,src);
-   ppp(hdr,src,"Has");
-   ext(hdr,src,"int");
-   fun(hdr,src,"@@Has", Class, Child);
-   par(hdr,src,"ConstHandle2Const@ This", Class);
-   sig(hdr,src);
-   src(1,"return detail::hasMetadatum<CPP>");
-   src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Child, child);
-   def(hdr,src);
-   ///}///eventually
+   if (c.isOptional) {
+      two(hdr,src);
+      ppp(hdr,src,"Has");
+      ext(hdr,src,"int");
+      fun(hdr,src,"@@Has", Class, Child);
+      par(hdr,src,"ConstHandle2Const@ This", Class);
+      sig(hdr,src);
+      src(1,"return detail::hasMetadatum<CPP>");
+      src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Child, child);
+      def(hdr,src);
+   }
 
    // ------------------------
    // scalar case

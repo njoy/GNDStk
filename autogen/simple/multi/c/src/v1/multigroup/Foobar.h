@@ -65,19 +65,19 @@ typedef       struct FoobarClass *      Handle2Foobar;
 // Create, Assign, Delete
 // -----------------------------------------------------------------------------
 
-// --- Create: default, const
+// --- Create, default, const
 extern_c Handle2ConstFoobar
 FoobarDefaultConst();
 
-// +++ Create: default
+// +++ Create, default
 extern_c Handle2Foobar
 FoobarDefault();
 
-// --- Create: general, const
+// --- Create, general, const
 extern_c Handle2ConstFoobar
 FoobarCreateConst();
 
-// +++ Create: general
+// +++ Create, general
 extern_c Handle2Foobar
 FoobarCreate();
 

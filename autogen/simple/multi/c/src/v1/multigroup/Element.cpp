@@ -29,7 +29,7 @@ using CPPFoobar = multigroup::Foobar;
 // Create, Assign, Delete
 // -----------------------------------------------------------------------------
 
-// Create: default, const
+// Create, default, const
 Handle2ConstElement
 ElementDefaultConst()
 {
@@ -37,7 +37,7 @@ ElementDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create: default
+// Create, default
 Handle2Element
 ElementDefault()
 {
@@ -45,7 +45,7 @@ ElementDefault()
       (CLASSNAME, CLASSNAME+"Default");
 }
 
-// Create: general, const
+// Create, general, const
 Handle2ConstElement
 ElementCreateConst(
    const char *const symbol,
@@ -65,7 +65,7 @@ ElementCreateConst(
    return handle;
 }
 
-// Create: general
+// Create, general
 Handle2Element
 ElementCreate(
    const char *const symbol,
@@ -212,14 +212,6 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number)
 // -----------------------------------------------------------------------------
 // Re: isotope
 // -----------------------------------------------------------------------------
-
-// Has
-int
-ElementIsotopeHas(ConstHandle2ConstElement This)
-{
-   return detail::hasMetadatum<CPP>
-      (CLASSNAME, CLASSNAME+"IsotopeHas", This, extract::isotope);
-}
 
 // Clear
 void

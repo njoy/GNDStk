@@ -23,7 +23,7 @@ namespace extract {
 // Create, Assign, Delete
 // -----------------------------------------------------------------------------
 
-// Create: default, const
+// Create, default, const
 Handle2ConstIsotope
 IsotopeDefaultConst()
 {
@@ -31,7 +31,7 @@ IsotopeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create: default
+// Create, default
 Handle2Isotope
 IsotopeDefault()
 {
@@ -39,7 +39,7 @@ IsotopeDefault()
       (CLASSNAME, CLASSNAME+"Default");
 }
 
-// Create: general, const
+// Create, general, const
 Handle2ConstIsotope
 IsotopeCreateConst(
    const int mass_number
@@ -51,7 +51,7 @@ IsotopeCreateConst(
    return handle;
 }
 
-// Create: general
+// Create, general
 Handle2Isotope
 IsotopeCreate(
    const int mass_number

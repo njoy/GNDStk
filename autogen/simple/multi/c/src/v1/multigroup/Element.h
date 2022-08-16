@@ -67,15 +67,15 @@ typedef       struct ElementClass *      Handle2Element;
 // Create, Assign, Delete
 // -----------------------------------------------------------------------------
 
-// --- Create: default, const
+// --- Create, default, const
 extern_c Handle2ConstElement
 ElementDefaultConst();
 
-// +++ Create: default
+// +++ Create, default
 extern_c Handle2Element
 ElementDefault();
 
-// --- Create: general, const
+// --- Create, general, const
 extern_c Handle2ConstElement
 ElementCreateConst(
    const char *const symbol,
@@ -84,7 +84,7 @@ ElementCreateConst(
    ConstHandle2ConstFoobar foobar
 );
 
-// +++ Create: general
+// +++ Create, general
 extern_c Handle2Element
 ElementCreate(
    const char *const symbol,
@@ -172,10 +172,6 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
 // -----------------------------------------------------------------------------
 // Re: isotope
 // -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-ElementIsotopeHas(ConstHandle2ConstElement This);
 
 // +++ Clear
 extern_c void
