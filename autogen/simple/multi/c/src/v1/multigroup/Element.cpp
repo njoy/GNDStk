@@ -158,14 +158,14 @@ ElementPrintJSON(ConstHandle2ConstElement This)
 
 
 // -----------------------------------------------------------------------------
-// Re: symbol
+// Metadatum: symbol
 // -----------------------------------------------------------------------------
 
 // Has
 int
 ElementSymbolHas(ConstHandle2ConstElement This)
 {
-   return detail::hasMetadatum<CPP>
+   return detail::hasField<CPP>
       (CLASSNAME, CLASSNAME+"SymbolHas", This, extract::symbol);
 }
 
@@ -174,7 +174,7 @@ ElementSymbolHas(ConstHandle2ConstElement This)
 const char *
 ElementSymbolGet(ConstHandle2ConstElement This)
 {
-   return detail::getMetadatum<CPP>
+   return detail::getField<CPP>
       (CLASSNAME, CLASSNAME+"SymbolGet", This, extract::symbol);
 }
 
@@ -182,13 +182,13 @@ ElementSymbolGet(ConstHandle2ConstElement This)
 void
 ElementSymbolSet(ConstHandle2Element This, const char *const symbol)
 {
-   detail::setMetadatum<CPP>
+   detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"SymbolSet", This, extract::symbol, symbol);
 }
 
 
 // -----------------------------------------------------------------------------
-// Re: atomic_number
+// Metadatum: atomic_number
 // -----------------------------------------------------------------------------
 
 // Get
@@ -196,7 +196,7 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol)
 int
 ElementAtomicNumberGet(ConstHandle2ConstElement This)
 {
-   return detail::getMetadatum<CPP>
+   return detail::getField<CPP>
       (CLASSNAME, CLASSNAME+"AtomicNumberGet", This, extract::atomic_number);
 }
 
@@ -204,13 +204,13 @@ ElementAtomicNumberGet(ConstHandle2ConstElement This)
 void
 ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number)
 {
-   detail::setMetadatum<CPP>
+   detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AtomicNumberSet", This, extract::atomic_number, atomic_number);
 }
 
 
 // -----------------------------------------------------------------------------
-// Re: isotope
+// Child: isotope
 // -----------------------------------------------------------------------------
 
 // Clear
@@ -311,14 +311,14 @@ ElementIsotopeSetByMassNumber(
 
 
 // -----------------------------------------------------------------------------
-// Re: foobar
+// Child: foobar
 // -----------------------------------------------------------------------------
 
 // Has
 int
 ElementFoobarHas(ConstHandle2ConstElement This)
 {
-   return detail::hasMetadatum<CPP>
+   return detail::hasField<CPP>
       (CLASSNAME, CLASSNAME+"FoobarHas", This, extract::foobar);
 }
 
@@ -326,7 +326,7 @@ ElementFoobarHas(ConstHandle2ConstElement This)
 Handle2ConstFoobar
 ElementFoobarGetConst(ConstHandle2ConstElement This)
 {
-   return detail::getMetadatum<CPP,Handle2ConstFoobar>
+   return detail::getField<CPP,Handle2ConstFoobar>
       (CLASSNAME, CLASSNAME+"FoobarGetConst", This, extract::foobar);
 }
 
@@ -334,7 +334,7 @@ ElementFoobarGetConst(ConstHandle2ConstElement This)
 Handle2Foobar
 ElementFoobarGet(ConstHandle2Element This)
 {
-   return detail::getMetadatum<CPP,Handle2Foobar>
+   return detail::getField<CPP,Handle2Foobar>
       (CLASSNAME, CLASSNAME+"FoobarGet", This, extract::foobar);
 }
 
@@ -342,6 +342,6 @@ ElementFoobarGet(ConstHandle2Element This)
 void
 ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar)
 {
-   detail::setMetadatum<CPP,CPPFoobar>
+   detail::setField<CPP,CPPFoobar>
       (CLASSNAME, CLASSNAME+"FoobarSet", This, extract::foobar, foobar);
 }

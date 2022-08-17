@@ -147,7 +147,7 @@ LibraryPrintJSON(ConstHandle2ConstLibrary This)
 
 
 // -----------------------------------------------------------------------------
-// Re: name
+// Metadatum: name
 // -----------------------------------------------------------------------------
 
 // Get
@@ -155,7 +155,7 @@ LibraryPrintJSON(ConstHandle2ConstLibrary This)
 const char *
 LibraryNameGet(ConstHandle2ConstLibrary This)
 {
-   return detail::getMetadatum<CPP>
+   return detail::getField<CPP>
       (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
 }
 
@@ -163,13 +163,13 @@ LibraryNameGet(ConstHandle2ConstLibrary This)
 void
 LibraryNameSet(ConstHandle2Library This, const char *const name)
 {
-   detail::setMetadatum<CPP>
+   detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
 }
 
 
 // -----------------------------------------------------------------------------
-// Re: element
+// Child: element
 // -----------------------------------------------------------------------------
 
 // Clear

@@ -269,25 +269,26 @@ int printHandle(
 // has, get, set
 // -----------------------------------------------------------------------------
 
-// hasMetadatum
+// hasField
 template<class CPP, class C, class EXTRACT>
-bool hasMetadatum(
+bool hasField(
    const std::string &classname,
    const std::string &funname,
    const C *const ptr,
    const EXTRACT &extract
 ) {
    try {
-      return extract(tocpp<CPP>(ptr))->has();
+      const auto &field = *extract(tocpp<CPP>(ptr));
+      return field.has();
    } catch (...) {
       log::function("{}({} handle = {})", funname, classname, (void *)ptr);
       return false;
    }
 }
 
-// getMetadatum
+// getField
 template<class CPP, class HANDLE = void, class C, class EXTRACT>
-auto getMetadatum(
+auto getField(
    const std::string &classname,
    const std::string &funname,
    const C *const ptr,
@@ -296,29 +297,38 @@ auto getMetadatum(
    using T = std::decay_t<decltype(extract(tocpp<CPP>(ptr))->value())>;
 
    try {
-      const T &ret = extract(tocpp<CPP>(ptr))->value();
-      if constexpr (!std::is_same_v<HANDLE,void>) {
-         return (HANDLE)(&ret);
-      } else if constexpr (std::is_same_v<T,std::string>) {
-         return ret.c_str();
+      const auto &field = *extract(tocpp<CPP>(ptr));
+      const T &ret = field.value(); // .value() gets us into any std::optional
+      if constexpr (std::is_same_v<HANDLE,void>) {
+         // metadatum
+         if constexpr (std::is_same_v<T,std::string>) {
+            return ret.c_str();
+         } else {
+            return ret;
+         }
       } else {
-         return ret;
+         // child
+         return (HANDLE)(&ret);
       }
    } catch (...) {
       log::function("{}({} handle = {})", funname, classname, (void *)ptr);
-      if constexpr (!std::is_same_v<HANDLE,void>) {
-         return (HANDLE)nullptr;
-      } else if constexpr (std::is_same_v<T,std::string>) {
-         return "";
+      if constexpr (std::is_same_v<HANDLE,void>) {
+         // metadatum
+         if constexpr (std::is_same_v<T,std::string>) {
+            return "";
+         } else {
+            return T{};
+         }
       } else {
-         return T{};
+         // child
+         return (HANDLE)nullptr;
       }
    }
 }
 
-// setMetadatum
+// setField
 template<class CPP, class CLASS = void, class C, class EXTRACT, class T>
-void setMetadatum(
+void setField(
    const std::string &classname,
    const std::string &funname,
    C *const ptr,
@@ -326,10 +336,14 @@ void setMetadatum(
    const T &newvalue
 ) {
    try {
-      if constexpr (!std::is_same_v<CLASS,void>)
-         extract(tocpp<CPP>(ptr))->replace(tocpp<CLASS>(newvalue));
-      else
-         extract(tocpp<CPP>(ptr))->replace(newvalue);
+      auto &field = *extract(tocpp<CPP>(ptr));
+      if constexpr (std::is_same_v<CLASS,void>) {
+         // metadatum
+         field.replace(newvalue);
+      } else {
+         // child
+         field.replace(tocpp<CLASS>(newvalue));
+      }
    } catch (...) {
       log::function(
          "{}({} handle = {}, value)", funname, classname, (void *)ptr);
@@ -353,7 +367,7 @@ void clearContainer(
       auto &container = (*extract(tocpp<CPP>(ptr)))();
       if constexpr (isOptional<decltype(container)>) {
          if (container)
-            container.clear();
+            container->clear();
       } else
          container.clear();
    } catch (...) {
@@ -374,7 +388,7 @@ size_t sizeOfContainer(
    try {
       auto &container = (*extract(tocpp<CPP>(ptr)))();
       if constexpr (isOptional<decltype(container)>)
-         return container ? container.size() : 0;
+         return container ? container->size() : 0;
       else
          return container.size();
    } catch (...) {
@@ -391,7 +405,7 @@ size_t sizeOfContainer(
 // -----------------------------------------------------------------------------
 
 // addToContainer
-template<class CPP, class CLASS = void, class C, class EXTRACT, class T>
+template<class CPP, class CLASS, class C, class EXTRACT, class T>
 void addToContainer(
    const std::string &classname,
    const std::string &funname,
@@ -401,12 +415,7 @@ void addToContainer(
 ) {
    try {
       auto &field = *extract(tocpp<CPP>(ptr));
-      if constexpr (!std::is_same_v<CLASS,void>) {
-         field.add(tocpp<CLASS>(value));
-      } else {
-         // todo Will this case arise?
-         field.add(value);
-      }
+      field.add(tocpp<CLASS>(value));
    } catch (...) {
       log::error("Exception thrown in detail::addToContainer");
       log::function(

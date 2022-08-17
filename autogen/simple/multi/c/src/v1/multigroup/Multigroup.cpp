@@ -147,7 +147,7 @@ MultigroupPrintJSON(ConstHandle2ConstMultigroup This)
 
 
 // -----------------------------------------------------------------------------
-// Re: projectile
+// Metadatum: projectile
 // -----------------------------------------------------------------------------
 
 // Get
@@ -155,7 +155,7 @@ MultigroupPrintJSON(ConstHandle2ConstMultigroup This)
 const char *
 MultigroupProjectileGet(ConstHandle2ConstMultigroup This)
 {
-   return detail::getMetadatum<CPP>
+   return detail::getField<CPP>
       (CLASSNAME, CLASSNAME+"ProjectileGet", This, extract::projectile);
 }
 
@@ -163,13 +163,13 @@ MultigroupProjectileGet(ConstHandle2ConstMultigroup This)
 void
 MultigroupProjectileSet(ConstHandle2Multigroup This, const char *const projectile)
 {
-   detail::setMetadatum<CPP>
+   detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ProjectileSet", This, extract::projectile, projectile);
 }
 
 
 // -----------------------------------------------------------------------------
-// Re: library
+// Child: library
 // -----------------------------------------------------------------------------
 
 // Clear

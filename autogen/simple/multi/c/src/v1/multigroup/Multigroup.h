@@ -133,7 +133,7 @@ MultigroupPrintJSON(ConstHandle2ConstMultigroup This);
 
 
 // -----------------------------------------------------------------------------
-// Re: projectile
+// Metadatum: projectile
 // -----------------------------------------------------------------------------
 
 // +++ Get
@@ -147,7 +147,7 @@ MultigroupProjectileSet(ConstHandle2Multigroup This, const char *const projectil
 
 
 // -----------------------------------------------------------------------------
-// Re: library
+// Child: library
 // -----------------------------------------------------------------------------
 
 // +++ Clear

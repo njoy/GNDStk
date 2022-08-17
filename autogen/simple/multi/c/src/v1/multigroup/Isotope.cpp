@@ -136,7 +136,7 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This)
 
 
 // -----------------------------------------------------------------------------
-// Re: mass_number
+// Metadatum: mass_number
 // -----------------------------------------------------------------------------
 
 // Get
@@ -144,7 +144,7 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This)
 int
 IsotopeMassNumberGet(ConstHandle2ConstIsotope This)
 {
-   return detail::getMetadatum<CPP>
+   return detail::getField<CPP>
       (CLASSNAME, CLASSNAME+"MassNumberGet", This, extract::mass_number);
 }
 
@@ -152,6 +152,6 @@ IsotopeMassNumberGet(ConstHandle2ConstIsotope This)
 void
 IsotopeMassNumberSet(ConstHandle2Isotope This, const int mass_number)
 {
-   detail::setMetadatum<CPP>
+   detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"MassNumberSet", This, extract::mass_number, mass_number);
 }

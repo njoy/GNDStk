@@ -1735,7 +1735,7 @@ void sortDependencies(InfoSpecs &specs)
 
 
 // -----------------------------------------------------------------------------
-// Re: C++ header files
+// For the C++ header files
 // fileGNDStkVersion
 // fileGNDStkKey
 // fileGNDStkClass
@@ -2340,7 +2340,7 @@ void fileCInterfaceVector(
 ) {
    // section comment
    if (isSection)
-      section(hdr,src,"// Re: vector");
+      section(hdr,src,"// Data vector");
    else {
       assert(type != "");
       two(hdr,src);
@@ -2438,10 +2438,8 @@ void fileCInterfaceVector(
 // -----------------------------------------------------------------------------
 // C interface:
 // fileCInterfaceMeta
-// fileCInterfaceChild
 // -----------------------------------------------------------------------------
 
-// fileCInterfaceMeta
 void fileCInterfaceMeta(
    writer &hdr, writer &src,
    const PerClass &per, const InfoMetadata &m
@@ -2451,7 +2449,7 @@ void fileCInterfaceMeta(
    const std::string meta  = m.name;
 
    // section comment
-   section(hdr,src,"// Re: @", meta);
+   section(hdr,src,"// Metadatum: @", meta);
 
    // has
    if (m.isOptional) {
@@ -2460,7 +2458,7 @@ void fileCInterfaceMeta(
       two(hdr,src,"@@Has(", Class, Meta, false);
       two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
-      src(1,"return detail::hasMetadatum<CPP>");
+      src(1,"return detail::hasField<CPP>");
       src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Meta, meta);
       src("}");
    }
@@ -2472,7 +2470,7 @@ void fileCInterfaceMeta(
    two(hdr,src,"@@Get(", Class, Meta, false);
    two(hdr,src,"ConstHandle2Const@ This", Class, false);
    sig(hdr,src);
-   src(1,"return detail::getMetadatum<CPP>");
+   src(1,"return detail::getField<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Meta, meta);
    src("}");
 
@@ -2482,12 +2480,17 @@ void fileCInterfaceMeta(
    two(hdr,src,"@@Set(", Class, Meta, false);
    two(hdr,src,"ConstHandle2@ This, const @ @", Class, mtype_param(m), meta, false);
    sig(hdr,src);
-   src(1,"detail::setMetadatum<CPP>");
+   src(1,"detail::setField<CPP>");
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Meta, meta, meta);
    src("}");
 }
 
+
+// -----------------------------------------------------------------------------
+// C interface:
 // fileCInterfaceChild
+// -----------------------------------------------------------------------------
+
 void fileCInterfaceChild(
    writer &hdr, writer &src,
    const InfoSpecs &specs,
@@ -2498,7 +2501,7 @@ void fileCInterfaceChild(
    const std::string child = c.name;
 
    // section comment
-   section(hdr,src,"// Re: @", child);
+   section(hdr,src,"// Child: @", child);
 
    // has
    if (c.isOptional) {
@@ -2507,7 +2510,7 @@ void fileCInterfaceChild(
       two(hdr,src,"@@Has(", Class, Child, false);
       two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
-      src(1,"return detail::hasMetadatum<CPP>");
+      src(1,"return detail::hasField<CPP>");
       src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Child, child);
       src("}");
    }
@@ -2523,7 +2526,7 @@ void fileCInterfaceChild(
       two(hdr,src,"@@GetConst(", Class, Child, false);
       two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
-      src(1,"return detail::getMetadatum<CPP,Handle2Const@>", Child);
+      src(1,"return detail::getField<CPP,Handle2Const@>", Child);
       src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@);", Child, child);
       src("}");
 
@@ -2533,7 +2536,7 @@ void fileCInterfaceChild(
       two(hdr,src,"@@Get(", Class, Child, false);
       two(hdr,src,"ConstHandle2@ This", Class, false);
       sig(hdr,src);
-      src(1,"return detail::getMetadatum<CPP,Handle2@>", Child);
+      src(1,"return detail::getField<CPP,Handle2@>", Child);
       src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Child, child);
       src("}");
 
@@ -2543,7 +2546,7 @@ void fileCInterfaceChild(
       two(hdr,src,"@@Set(", Class, Child, false);
       two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @", Class, Child, child, false);
       sig(hdr,src);
-      src(1,"detail::setMetadatum<CPP,CPP@>", Child);
+      src(1,"detail::setField<CPP,CPP@>", Child);
       src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Child, child, child);
       src("}");
 
@@ -2620,73 +2623,71 @@ void fileCInterfaceChild(
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, index_, @);", Child, child, child);
    src("}");
 
-   for (const auto &c : per.children) {
-      const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
-      assert(it != specs.class2data.end());
+   const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
+   assert(it != specs.class2data.end());
 
-      for (const auto &m : it->second.metadata) {
-         const std::string Meta = UpperCamel(m.name);
-         const std::string meta = m.name;
+   for (const auto &m : it->second.metadata) {
+      const std::string Meta = UpperCamel(m.name);
+      const std::string meta = m.name;
 
-         // has, by metadatum
-         PPP(hdr,src,"Has, by @", meta);
-         ext(hdr,src,"int");
-         two(hdr,src,"@@HasBy@(", Class, Child, Meta, false);
-         two(hdr,src);
-         two(hdr,src,1,"ConstHandle2Const@ This,", Class);
-         two(hdr,src,1,"const @ @", mtype_param(m), meta);
-         sig(hdr,src,true);
-         src(1,"return detail::hasByMetadatum<CPP>");
-         src(2,"(CLASSNAME, CLASSNAME+\"@HasBy@\",", Child, Meta);
-         src(2," This, extract::@, meta::@, @);", child, meta, meta);
-         src("}");
+      // has, by metadatum
+      PPP(hdr,src,"Has, by @", meta);
+      ext(hdr,src,"int");
+      two(hdr,src,"@@HasBy@(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2Const@ This,", Class);
+      two(hdr,src,1,"const @ @", mtype_param(m), meta);
+      sig(hdr,src,true);
+      src(1,"return detail::hasByMetadatum<CPP>");
+      src(2,"(CLASSNAME, CLASSNAME+\"@HasBy@\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @);", child, meta, meta);
+      src("}");
 
-         // get, by metadatum, const
-         MMM(hdr,src,"Get, by @, const", meta);
-         ext(hdr,src,"Handle2Const@", Child);
-         two(hdr,src,"@@GetBy@Const(", Class, Child, Meta, false);
-         two(hdr,src);
-         two(hdr,src,1,"ConstHandle2Const@ This,", Class);
-         two(hdr,src,1,"const @ @", mtype_param(m), meta);
-         sig(hdr,src,true);
-         src(1,"return detail::getByMetadatum<CPP,Handle2Const@>", Child);
-         src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@Const\",", Child, Meta);
-         src(2," This, extract::@, meta::@, @);", child, meta, meta);
-         src("}");
+      // get, by metadatum, const
+      MMM(hdr,src,"Get, by @, const", meta);
+      ext(hdr,src,"Handle2Const@", Child);
+      two(hdr,src,"@@GetBy@Const(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2Const@ This,", Class);
+      two(hdr,src,1,"const @ @", mtype_param(m), meta);
+      sig(hdr,src,true);
+      src(1,"return detail::getByMetadatum<CPP,Handle2Const@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@Const\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @);", child, meta, meta);
+      src("}");
 
-         // get, by metadatum, non-const
-         PPP(hdr,src,"Get, by @, non-const", meta);
-         ext(hdr,src,"Handle2@", Child);
-         two(hdr,src,"@@GetBy@(", Class, Child, Meta, false);
-         two(hdr,src);
-         two(hdr,src,1,"ConstHandle2@ This,", Class);
-         two(hdr,src,1,"const @ @", mtype_param(m), meta);
-         sig(hdr,src,true);
-         src(1,"return detail::getByMetadatum<CPP,Handle2@>", Child);
-         src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@\",", Child, Meta);
-         src(2," This, extract::@, meta::@, @);", child, meta, meta);
-         src("}");
+      // get, by metadatum, non-const
+      PPP(hdr,src,"Get, by @, non-const", meta);
+      ext(hdr,src,"Handle2@", Child);
+      two(hdr,src,"@@GetBy@(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2@ This,", Class);
+      two(hdr,src,1,"const @ @", mtype_param(m), meta);
+      sig(hdr,src,true);
+      src(1,"return detail::getByMetadatum<CPP,Handle2@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @);", child, meta, meta);
+      src("}");
 
-         // set, by metadatum
-         PPP(hdr,src,"Set, by @", meta);
-         ext(hdr,src,"void");
-         two(hdr,src,"@@SetBy@(", Class, Child, Meta, false);
-         two(hdr,src);
-         two(hdr,src,1,"ConstHandle2@ This,", Class);
-         two(hdr,src,1,"const @ @,", mtype_param(m), meta);
-         two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
-         sig(hdr,src,true);
-         src(1,"detail::setByMetadatum<CPP,CPP@>", Child);
-         src(2,"(CLASSNAME, CLASSNAME+\"@SetBy@\",", Child, Meta);
-         src(2," This, extract::@, meta::@, @, @);", child, meta, meta, child);
-         src("}");
-      } // metadata
-   } // children
+      // set, by metadatum
+      PPP(hdr,src,"Set, by @", meta);
+      ext(hdr,src,"void");
+      two(hdr,src,"@@SetBy@(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2@ This,", Class);
+      two(hdr,src,1,"const @ @,", mtype_param(m), meta);
+      two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
+      sig(hdr,src,true);
+      src(1,"detail::setByMetadatum<CPP,CPP@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@SetBy@\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @, @);", child, meta, meta, child);
+      src("}");
+   } // metadata
 } // fileCInterfaceChild
 
 
 // -----------------------------------------------------------------------------
-// Re: C interface
+// For the C interface
 // fileCInterfaceHeader
 // fileCInterfaceSource
 // fileCInterfaceCommon

@@ -28,7 +28,7 @@ public:
    // Constructors
    // ------------------------
 
-   // Because data member [DERIVED &parent] would be wrong
+   // Because parent would be wrong
    Field(const Field &) = delete; // no copy
    Field(Field &&) = delete; // no move
 
@@ -107,13 +107,16 @@ public:
    // where necessary
    // ------------------------
 
+   // Note: the parentheses in "return (wrappedValue)" are necessary in
+   // these, so that the decltype(auto) return types produce references!
+
    // const
    decltype(auto) value() const
    {
       if constexpr (detail::isOptional<T>)
          return wrappedValue.value();
       else
-         return wrappedValue;
+         return (wrappedValue);
    }
 
    // non-const
@@ -122,7 +125,7 @@ public:
       if constexpr (detail::isOptional<T>)
          return wrappedValue.value();
       else
-         return wrappedValue;
+         return (wrappedValue);
    }
 
    // ------------------------
