@@ -2091,8 +2091,13 @@ std::string mtype_return(const InfoMetadata &m)
 // Get child-node type, for C interface
 std::string ctype(const InfoChildren &c)
 {
+   // Why not ...2Const... in the first case? See:
+   //    https://stackoverflow.com/questions/5055655
+   // and:
+   //    https://c-faq.com/ansi/constmismatch.html
+   // Remember that we're making C code here, not C++.
    return c.isVector
-      ? "ConstHandle2Const" + c.plain + " *const"
+      ? "ConstHandle2" + c.plain + " *const"
       : "ConstHandle2Const" + c.plain;
 }
 
@@ -2123,14 +2128,18 @@ void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
    for (const auto &m : per.metadata) {
       two(hdr,src);
       two(hdr,src,1,"const @ @@",
-          mtype_param(m), m.name, ++count < total ? "," : "", false);
+          mtype_param(m),
+          m.name,
+          ++count < total ? "," : "",
+          false);
    }
 
    // children
    for (const auto &c : per.children) {
       two(hdr,src);
       two(hdr,src,1,"@ @@@",
-          ctype(c), c.name,
+          ctype(c),
+          c.name,
           c.isVector ? ", const size_t "+c.name+"Size" : "",
           ++count < total ? "," : "",
           false

@@ -25,15 +25,15 @@
 
 extern_C void indent(const int);
 extern_C void align(const int);
-extern_C void colors(const int);
+extern_C void color(const int);
 
 extern_C void comments(const int);
 extern_C void columns(const long);
 extern_C void truncation(const long);
 
-extern_C void notes(const int);
-extern_C void warnings(const int);
-extern_C void debugs(const int);
+extern_C void note(const int);
+extern_C void warning(const int);
+extern_C void debug(const int);
 extern_C void context(const int);
 
 // todo

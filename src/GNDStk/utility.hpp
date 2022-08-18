@@ -201,7 +201,8 @@ inline long truncate = -1;
 // those are in namespace GNDStk::log; so, the names don't conflict.
 
 // Print info messages? (with log::info())
-inline bool info = true;
+inline bool  info = true;
+inline bool &note = info; // alias
 
 // Print warnings? (with log::warning())
 inline bool  warning  = true;
