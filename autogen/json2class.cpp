@@ -2244,11 +2244,14 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
 
    // assign
    PPP(hdr,src,"Assign");
-   ppp(hdr,src,"Use this to assign one handled object to another. Don't assign handles,");
-   ppp(hdr,src,"as with to = from. That has a meaning that you probably don't intend.");
+   ppp(hdr,src,"Use this to assign one handled object to another. "
+       "Don't assign handles,");
+   ppp(hdr,src,"as with to = from. That has a meaning that you probably "
+       "don't intend.");
    ext(hdr,src,"void");
    two(hdr,src,"@Assign(", per.clname, false);
-   two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ from", per.clname, per.clname, false);
+   two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ from",
+       per.clname, per.clname, false);
    sig(hdr,src);
    src(1,"detail::assignHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Assign\", This, from);");
@@ -2256,8 +2259,10 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
 
    // delete
    PPP(hdr,src,"Delete");
-   ppp(hdr,src,"We'll attempt to remove no-longer-used objects automatically, but you");
-   ppp(hdr,src,"may improve performance if you delete them when you're done with them.");
+   ppp(hdr,src,"We'll attempt to remove no-longer-used objects "
+       "automatically, but you");
+   ppp(hdr,src,"may improve performance if you delete them when "
+       "you're done with them.");
    ext(hdr,src,"void");
    two(hdr,src,"@Delete(", per.clname, false);
    two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
@@ -2284,10 +2289,12 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    // read from file
    PPP(hdr,src,"Read from file");
    ppp(hdr,src,"File can be XML, JSON, or HDF5.");
-   ppp(hdr,src,"We'll examine the file's contents to determine its type automatically.");
+   ppp(hdr,src,"We'll examine the file's contents to determine "
+       "its type automatically.");
    ext(hdr,src,"int");
    two(hdr,src,"@Read(", per.clname, false);
-   two(hdr,src,"ConstHandle2@ This, const char *const filename", per.clname, false);
+   two(hdr,src,"ConstHandle2@ This, const char *const filename",
+       per.clname, false);
    sig(hdr,src);
    src(1,"return detail::readHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Read\", This, filename);");
@@ -2296,10 +2303,12 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
    // write to file
    PPP(hdr,src,"Write to file");
    ppp(hdr,src,"File can be XML, JSON, or HDF5.");
-   ppp(hdr,src,"We'll use filename's extension to determine the type you want written.");
+   ppp(hdr,src,"We'll use filename's extension to determine "
+       "the type you want written.");
    ext(hdr,src,"int");
    two(hdr,src,"@Write(", per.clname, false);
-   two(hdr,src,"ConstHandle2Const@ This, const char *const filename", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This, const char *const filename",
+       per.clname, false);
    sig(hdr,src);
    src(1,"return detail::writeHandle<CPP,C>");
    src(2,"(CLASSNAME, CLASSNAME+\"Write\", This, filename);");
@@ -2409,7 +2418,8 @@ void fileCInterfaceVector(
    ppp(hdr,src,"By index \\in [0,size)");
    ext(hdr,src,"void");
    two(hdr,src,"@@Set(", Class, Types, false);
-   two(hdr,src,"ConstHandle2@ This, const size_t index, const @ value", Class, type, false);
+   two(hdr,src,"ConstHandle2@ This, const size_t index, const @ value",
+       Class, type, false);
    sig(hdr,src);
    src(1,"detail::vectorSet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, index, value);", Types);
@@ -2436,7 +2446,8 @@ void fileCInterfaceVector(
    PPP(hdr,src,"Set completely new values and size");
    ext(hdr,src,"void");
    two(hdr,src,"@@SetArray(", Class, Types, false);
-   two(hdr,src,"ConstHandle2@ This, const @ *const values, const size_t size", Class, type, false);
+   two(hdr,src,"ConstHandle2@ This, const @ *const values, const size_t size",
+       Class, type, false);
    sig(hdr,src);
    src(1,"return detail::vectorSet<CPP,@>", type);
    src(2,"(CLASSNAME, CLASSNAME+\"@SetArray\", This, size, values);", Types);
@@ -2461,7 +2472,8 @@ void fileCInterfaceMeta(
    section(hdr,src,"// Metadatum: @", meta);
 
    // has
-   if (m.isOptional) {
+   // if (m.isOptional) // <== may or may not want this
+   {
       PPP(hdr,src,"Has");
       ext(hdr,src,"int");
       two(hdr,src,"@@Has(", Class, Meta, false);
@@ -2487,10 +2499,12 @@ void fileCInterfaceMeta(
    PPP(hdr,src,"Set");
    ext(hdr,src,"void");
    two(hdr,src,"@@Set(", Class, Meta, false);
-   two(hdr,src,"ConstHandle2@ This, const @ @", Class, mtype_param(m), meta, false);
+   two(hdr,src,"ConstHandle2@ This, const @ @",
+       Class, mtype_param(m), meta, false);
    sig(hdr,src);
    src(1,"detail::setField<CPP>");
-   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Meta, meta, meta);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);",
+       Meta, meta, meta);
    src("}");
 }
 
@@ -2513,7 +2527,8 @@ void fileCInterfaceChild(
    section(hdr,src,"// Child: @", child);
 
    // has
-   if (c.isOptional) {
+   // if (c.isOptional) // <== may or may not want this
+   {
       PPP(hdr,src,"Has");
       ext(hdr,src,"int");
       two(hdr,src,"@@Has(", Class, Child, false);
@@ -2536,7 +2551,8 @@ void fileCInterfaceChild(
       two(hdr,src,"ConstHandle2Const@ This", Class, false);
       sig(hdr,src);
       src(1,"return detail::getField<CPP,Handle2Const@>", Child);
-      src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@);", Child, child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@);",
+          Child, child);
       src("}");
 
       // get, non-const
@@ -2553,10 +2569,12 @@ void fileCInterfaceChild(
       PPP(hdr,src,"Set");
       ext(hdr,src,"void");
       two(hdr,src,"@@Set(", Class, Child, false);
-      two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @", Class, Child, child, false);
+      two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @",
+          Class, Child, child, false);
       sig(hdr,src);
       src(1,"detail::setField<CPP,CPP@>", Child);
-      src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);", Child, child, child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);",
+          Child, child, child);
       src("}");
 
       return;
@@ -2594,7 +2612,8 @@ void fileCInterfaceChild(
    two(hdr,src,"ConstHandle2Const@ @", Child, child, false);
    sig(hdr,src);
    src(1,"detail::addToContainer<CPP,CPP@>", Child);
-   src(2,"(CLASSNAME, CLASSNAME+\"@Add\", This, extract::@, @);", Child, child, child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Add\", This, extract::@, @);",
+       Child, child, child);
    src("}");
 
    // get, by index, const
@@ -2605,7 +2624,8 @@ void fileCInterfaceChild(
    two(hdr,src,"const size_t index_", false);
    sig(hdr,src);
    src(1,"return detail::getByIndex<CPP,Handle2Const@>", Child);
-   src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@, index_);", Child, child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@, index_);",
+       Child, child);
    src("}");
 
    // get, by index, non-const
@@ -2616,7 +2636,8 @@ void fileCInterfaceChild(
    two(hdr,src,"const size_t index_", false);
    sig(hdr,src);
    src(1,"return detail::getByIndex<CPP,Handle2@>", Child);
-   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@, index_);", Child, child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@, index_);",
+       Child, child);
    src("}");
 
    // set, by index
@@ -2629,7 +2650,8 @@ void fileCInterfaceChild(
    two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
    sig(hdr,src,true);
    src(1,"detail::setByIndex<CPP,CPP@>", Child);
-   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, index_, @);", Child, child, child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, index_, @);",
+       Child, child, child);
    src("}");
 
    const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
@@ -2766,14 +2788,14 @@ void fileCInterfaceHeader(
    section(hdr, "// Handle types");
    hdr();
    hdr("// +++ @", per.clname);
-   hdr("// +++ General handle, suitable for many users. "
+   hdr("// +++ General handle, suitable for most users. "
        "If you're not concerned about");
    hdr("// +++ strict \"const correctness\" in your C code, "
        "you can probably use this in");
    hdr("// +++ place of any function parameter of a const-aware handle type.");
    hdr("typedef struct @Class *@;", per.clname, per.clname);
    hdr();
-   hdr("// --- Const-aware handles, re: constness of handle vs. handled object.");
+   hdr("// --- Const-aware handles.");
    hdr("typedef const struct @Class *const ConstHandle2Const@;",
        per.clname, per.clname);
    hdr("typedef       struct @Class *const ConstHandle2@;",
