@@ -1,0 +1,258 @@
+{
+    "__namespace__":"map",
+    "map":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "library": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "String identifier for the library defined in this map file, e.g. 'ENDF/B-VIII.0'.",
+                "name": "library",
+                "required": true,
+                "type": "XMLName"
+            },
+            "format": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Map file format version id.",
+                "name": "format",
+                "required": true,
+                "type": "XMLName"
+            },
+            "checksum": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": ["Checksum for the map file, computed by string-concatenating all checksums inside",
+                    "the file (in the order they appear) and computing the checksum of the resulting string."],
+                "name": "checksum",
+                "required": true,
+                "type": "checksum"
+            },
+            "algorithm": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Algorithm used to compute the checksum.",
+                "name": "algorithm",
+                "required": true,
+                "type": "algorithm"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "import": {
+                "__class__": "nodes.ChildNode",
+                "description": "Imports another map file using a path (relative or absolute).",
+                "name": "import",
+                "occurrence": "0+",
+                "required": false
+            },
+            "protare": {
+                "__class__": "nodes.ChildNode",
+                "description": "Adds one evaluation to the map file, using relative or absolute path.",
+                "name": "protare",
+                "occurrence": "0+",
+                "required": false
+            },
+            "TNSL": {
+                "__class__": "nodes.ChildNode",
+                "description": "Adds a thermal neutron scattering law evaluation to the map file, using relative or absolute paths.",
+                "name": "TNSL",
+                "occurrence": "0+",
+                "required": false
+            }
+        },
+        "description": "A map file organizes multiple files into a library. Individual files are called `protares': PROjectile + TARget + Evaluation.",
+        "name": "map",
+        "required": false,
+        "rootNode": true
+    },
+    "import":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "path": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Path to another map file imported by this file.",
+                "name": "path",
+                "required": true,
+                "type": "XMLName"
+            },
+            "checksum": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Checksum of the imported map file, identical to the \\attr{checksum} attribute in the top node of that file.",
+                "name": "checksum",
+                "required": true,
+                "type": "checksum"
+            },
+            "algorithm": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Algorithm used to compute the checksum. Defaults to the \\attr{algorithm} of the parent \\element{map} file.",
+                "name": "algorithm",
+                "required": false,
+                "type": "algorithm"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Imports contents of another map file into this map file. Care must be taken to avoid circular imports.",
+        "name": "import",
+        "required": false,
+        "rootNode": false
+    },
+    "protare":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "projectile": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id of the projectile.",
+                "name": "projectile",
+                "required": true,
+                "type": "XMLName"
+            },
+            "target": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id of the target.",
+                "name": "target",
+                "required": true,
+                "type": "XMLName"
+            },
+            "evaluation": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Evaluation label, usually equal to the library name e.g. `ENDF/B-8.0`.",
+                "name": "evaluation",
+                "required": true,
+                "type": "XMLName"
+            },
+            "path": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Path (absolute or relative) to the reactionSuite associated with this protare.",
+                "name": "path",
+                "required": true,
+                "type": "XMLName"
+            },
+            "interaction": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Type of interaction. Options are: `nuclear', `atomic' and `TNSL'.",
+                "name": "interaction",
+                "required": true,
+                "type": "XMLName"
+            },
+            "checksum": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Checksum for the protare file located at the given \\attr{path}.",
+                "name": "checksum",
+                "required": true,
+                "type": "checksum"
+            },
+            "algorithm": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Algorithm used to compute the checksum. Defaults to the \\attr{algorithm} of the parent \\element{map} file.",
+                "name": "algorithm",
+                "required": false,
+                "type": "algorithm"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Adds a single reactionSuite (or `ProTarE') to the map file.",
+        "name": "protare",
+        "required": false,
+        "rootNode": false
+    },
+    "TNSL":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "projectile": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id of the projectile.",
+                "name": "projectile",
+                "required": true,
+                "type": "XMLName"
+            },
+            "target": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id of the target.",
+                "name": "target",
+                "required": true,
+                "type": "XMLName"
+            },
+            "evaluation": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Evaluation label, usually equal to the library name e.g. `ENDF/B-8.0`.",
+                "name": "evaluation",
+                "required": true,
+                "type": "XMLName"
+            },
+            "path": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Path (absolute or relative) to the reactionSuite associated with this protare.",
+                "name": "path",
+                "required": true,
+                "type": "XMLName"
+            },
+            "interaction": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Type of interaction. Only option in this case is `TNSL'.",
+                "name": "interaction",
+                "required": false,
+                "type": "XMLName"
+            },
+            "checksum": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Checksum for the TNSL file located at the given \\attr{path}.",
+                "name": "checksum",
+                "required": true,
+                "type": "checksum"
+            },
+            "algorithm": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Algorithm used to compute the checksum. Defaults to the \\attr{algorithm} of the parent \\element{map} file.",
+                "name": "algorithm",
+                "required": false,
+                "type": "algorithm"
+            },
+            "standardTarget": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Particle id of the protare to use for reactions / incident energies outside the range of this TNSL target.",
+                "name": "standardTarget",
+                "required": true,
+                "type": "XMLName"
+            },
+            "standardEvaluation": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Evaluation label for the protare to use for reactions / incident energies outside the range of this TNSL target.",
+                "name": "standardEvaluation",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "A thermal neutron scattering law (TNSL) target to add to the map file. Requires also listing the `standard' protare to be used outside the limits of the TNSL data.",
+        "name": "TNSL",
+        "required": true,
+        "rootNode": false
+    }
+}

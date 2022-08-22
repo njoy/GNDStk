@@ -1,0 +1,1518 @@
+{
+    "__namespace__":"containers",
+    "double":{
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "e.g. `kg' or `m'",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "numeric value",
+                "name": "value",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Stores a double-precision quantity along with a unit, optional label and uncertainty",
+        "name": "double",
+        "required": false,
+        "rootNode": false
+    },
+    "integer":{
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "e.g. `kg' or `m'",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": null,
+                "name": "value",
+                "required": true,
+                "type": "Integer32"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "The \\element{integer} physical quantity is used to store quantities that can only be integers. ",
+            "It is similar to the \\element{double}, except that the value must be an integer ",
+            "(e.g. value=`1' rather than value=`1.0').  ",
+            "Uncertainties are also treated differently: rather than an \\element{uncertainty} node, ",
+            "tentative assignments are indicated by storing each possible assignment along with a likelihood."
+        ],
+        "name": "integer",
+        "required": false,
+        "rootNode": false
+    },
+    "fraction":{
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "e.g. `J/s'",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "numeric value",
+                "name": "value",
+                "required": true,
+                "type": "Fraction32"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "The \\element{fraction} physical quantity is used to store values that can only be ",
+            "integers or fractions.  It is nearly identical to the \\element{integer}, ",
+            "but the value in this case may either be an integer or a ratio of integers separated ",
+            "by the `/' character, as in `3/2'.  Values like `1.5' are not allowed.  "
+        ],
+        "name": "fraction",
+        "required": false,
+        "rootNode": false
+    },
+    "string":{
+        "__class__": "nodes.Node",
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A valid unit",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "contains a string composed of printable ascii characters (e.g. `stable').",
+                "name": "value",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "The \\element{string} physical quantity is used to store quantities that cannot be represented numerically. The main examples are half-lives for\nstable particles, which are best represented as the string `stable'.",
+        "name": "string",
+        "required": false,
+        "rootNode": false
+    },
+    "link":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The URL or xpath-like string pointing to the referred-to element",
+                "name": "href",
+                "required": false,
+                "type": "bodyText"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "Used to explicitly link to another part of the GNDS document (or an external document).",
+            "For example, if both axis grids in a \\elemlink{gridded2d}",
+            "container are identical, the \\element{link} can be used rather than repeating the grid values."
+        ],
+        "name": "link",
+        "required": false,
+        "rootNode": false
+    },
+
+    "axes":{
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A the URL, in xpath syntax, of another \\element{axes} element",
+                "name": "href",
+                "required": false,
+                "type": "UTF8Text"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axis": {
+                "__class__": "nodes.ChildNode",
+                "description": "This node stores an \\element{index}, \\element{label} and \\element{unit} for an axis.",
+                "name": "axis",
+                "occurrence": "1+",
+                "required": false
+            },
+            "grid": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a list of boundaries or points along this axis, e.g. to define group boundaries for grouped data.",
+                "name": "grid",
+                "occurrence": "1+",
+                "required": false
+            }
+        },
+        "description": [
+            "Many of the data containers represent functions that have independent and dependent axes. ",
+            "The \\element{axes} node provides a way to assign a label and unit to each axis. ",
+            "If an \\element{axes} node is present, each independent and dependent axis must have an ",
+            "\\element{axis} or \\element{grid} node. ",
+            "The \\element{axis} or \\element{grid} nodes are indexed 0 to $n$ where $n$ is the number of independent axes. ",
+            "For the function $x_0(x_n, ..., x_1)$, index 0 is for dependent axis $x_0$, 1 is for ",
+            "independent axis $x_1$, ... and $n$ is for the independent axis $x_n$. ",
+            "Note: Two types of axes nodes are allowed: ",
+            "\\begin{itemize}",
+            "\\item One type gives an xlink to another axes node ",
+            "\\item The other lists the axes explicitly.",
+            "\\end{itemize}"
+        ],
+        "name": "axes",
+        "required": false,
+        "rootNode": false
+    },
+    "axis":{
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "An integer that indicates which independent/dependent axis this \\element{axis}  ",
+                    "node belongs to as defined in Section~\\ref{format:gpdc:axes}."
+                ],
+                "name": "index",
+                "required": false,
+                "type": "Integer32"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The unit for the axis.",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "This node stores an \\element{index}, \\element{label} and \\element{unit} for an axis.",
+        "name": "axis",
+        "required": false,
+        "rootNode": false
+    },
+    "grid":{
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "An integer that indicates which independent/dependent axis this \\element{grid}  ",
+                    "node belongs to."
+                ],
+                "name": "index",
+                "required": false,
+                "type": "Integer32"
+            },
+            "interpolation": {
+                "__class__": "nodes.Attribute",
+                "default": "\\attr{lin-lin}",
+                "description": [
+                    "Defines the interpolation to be used between consecutive domain points along this axis.  ",
+                    "Note, this attribute is required when \\element{style} is \\attr{points} or \\attr{boundaries} and ",
+                    "interpolation is other than \\attr{lin-lin}."
+                ],
+                "name": "interpolation",
+                "required": false,
+                "type": "interpolation"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "style": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "A string denoting the type of grid associated with this axis.   Allowed values are `none', `points', ",
+                    "`boundaries' and `parameters'."
+                ],
+                "name": "style",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The unit for the axis.",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childUnique" : "yes",
+        "childNodes": {
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": "List of values defining the grid.",
+                "name": "values",
+                "occurrence": "choice",
+                "required": false
+            },
+            "link": {
+                "__class__": "nodes.ChildNode",
+                "description": "Link to a list of values defining the grid.",
+                "name": "link",
+                "occurrence": "choice",
+                "required": false
+            }
+        },
+        "description": [
+            "The \\element{grid} node is like the \\element{axis} but adds a list of values that the function is evaluated at for the ",
+            "independent axis defined by the  \\element{grid}. The \\element{grid} has the same three attributes (\\element{index}, ",
+            "\\element{label}, and \\element{unit}) as the \\element{axis} node and adds the attributes \\element{style} ",
+            "and \\element{interpolation}. In addition, the \\element{grid} node has a \\element{values} child node ",
+            "that contains the list of values the function is evaluated at or parameters the function is specified at as ",
+            "indicated by the \\element{style} attribute. "
+        ],
+        "name": "grid",
+        "required": false,
+        "rootNode": false
+    },
+    "values":{
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+             "valueType": {
+                "__class__": "nodes.Attribute",
+                "default": "Float64",
+                "description": [
+                    "Specifies the type of data ",
+                    "in the body (e.g. Integer32, Float64).  Only one type of data can be stored ",
+                    "in each instance of a values node."
+                ],
+                "name": "valueType",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "start": {
+                "__class__": "nodes.Attribute",
+                "default": "0",
+                "description": "For start=``N'', the first N values are zero and are not stored.",
+                "name": "start",
+                "required": false,
+                "type": "Integer32"
+            },
+             "length": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "The total number of data values including leading and trailing zero ",
+                    "values that are not stored.  This attribute should only be used when ",
+                    "the sum of \\attr{start} and the number of listed values do not ",
+                    "add to the total number of data values.   This should only happen when there are trailing zeros not ",
+                    "listed in the Body text. "
+                ],
+                "name": "length",
+                "required": false,
+                "type": "Integer32"
+            },
+             "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "Link to another \\element{values} node or to a dataset in an external file such as HDF5.",
+                    "If the href points to an external file, the link should be of the form `href=``FileID\\#/path/in/external/file''', ",
+                    "where `FileID' is the label of one of the external files listed in the \\element{externalFiles} section."
+                ],
+                "name": "href",
+                "required": false,
+                "type": "UTF8Text"
+            },
+             "startIndex": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "Optionally used along with an \\attr{href} to indicate that a subset ",
+                    "of the externally-defined dataset should be used. ",
+                    "This option must only be used if an \\attr{href} and \\attr{count} are also defined. ",
+                    "Data from the external dataset between startIndex (inclusive) and startIndex + count (exclusive) are selected."
+                ],
+                "name": "startIndex",
+                "required": false,
+                "type": "Integer32"
+            },
+             "count": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "Optionally used along with an \\attr{href} to indicate that a subset ",
+                    "of the externally-defined dataset should be used. ",
+                    "This option must only be used if an \\attr{href} and \\attr{startIndex} are also defined. ",
+                    "Data from the external dataset between startIndex (inclusive) and startIndex + count (exclusive) are selected."
+                ],
+                "name": "count",
+                "required": false,
+                "type": "Integer32"
+            }
+         },
+        "bodyText": "Contains a space-delimited ordered list of data for the parent node, or an href pointing to the data.",
+        "childNodes": {},
+        "description": [
+            "Data containers have meta-data and data. In most cases the data have one common piece of meta-data, ",
+            "which is the \\element{type} of data.  For, this reason, many of the containers ",
+            "store their data in a \\element{values} node where, if needed, \\element{type} is stored. ",
+            "This node also allows for compressing leading and trailing zero data. If the \\element{start} attribute ",
+            "is defined, it specifies the first non-zero data value. If the sum of the \\element{start} ",
+            "and the number of data values is less than the value of the \\element{length} attribute, then the ",
+            "the \\element{length} value represents the total number of data values including the  ",
+            "non-specified leading and trailing zeros.  ",
+            "All data in this node must be of the same type and separated by one or more white spaces."
+        ],
+        "name": "values",
+        "required": false,
+        "rootNode": false
+    },
+    "array":{
+        "__class__": "nodes.Node",
+        "abstractNode": "label",
+        "attributes": {
+            "shape": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "a comma-separated list of integers representing the length of ",
+                    "the array along each dimension. The integer type is Integer32."
+                ],
+                "name": "shape",
+                "required": true,
+                "type": "IntegerTuple"
+            },
+            "compression": {
+                "__class__": "nodes.Attribute",
+                "default": "`none'",
+                "description": [
+                    "A flag indicating whether a sparse storage scheme is being used, ",
+                    "and if so which scheme is used.  Allowed value is either ",
+                    "`none', `diagonal', `flattened' or `embedded'.  Projects can also define their own",
+                    "compression schemes."
+                ],
+                "name": "compression",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "symmetry": {
+                "__class__": "nodes.Attribute",
+                "default": "`none'",
+                "description": [
+                    "Allows for storing values in only ",
+                    "the upper- or lower-diagonal hyper-triangle. Allowed values are `none', `lower' and `upper'.",
+                    "If \\attrval{permutation} is `none', non-stored values are zero.",
+                    "Otherwise, they are determine by the \\attrval{permutation} attribute."
+                ],
+                "name": "symmetry",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "permutation": {
+                "__class__": "nodes.Attribute",
+                "default": "`none'",
+                "description": [
+                    "If \\attrval{symmetry} is other then `none',  ",
+                    "this attribute specifies whether the permutation of two indices is +1 or -1. Allowed  ",
+                    "values are `none', `+1' and `-1'."
+                ],
+                "name": "permutation",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "storageOrder": {
+                "__class__": "nodes.Attribute",
+                "default": "row-major",
+                "description": [
+                    "Indicates whether the data are stored in row-major  ",
+                    "or column-major order (i.e. whether the last or first index is varying the fastest).  ",
+                    "Allowed values are `row-major' or `column-major',"
+                ],
+                "name": "storageOrder",
+                "required": false,
+                "type": "UTF8Text"
+            },
+            "offset": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": [
+                    "Required if this array is nested inside an \\attrval{embedded} array; not allowed otherwise; ",
+                    "Gives the starting indices for a sub-array nested inside an array that uses \\attrval{embedded} compression.  ",
+                    "A comma-separated list of integers equal in dimension to the parent array. The integer type is Integer32.,"
+                ],
+                "name": "offset",
+                "required": false,
+                "type": "IntegerTuple"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Containers holding the array values. The number of \\element{values} nodes depends on the \\attr{compression}",
+                    "attribute. For compression of `embedded', `none', or `flattened' the number of \\element{values}",
+                    "nodes are 0, 1, or 3 respectively. For `diagonal' compression, either 1 or 2 \\element{values} nodes may be present."
+                ],
+                "name": "values",
+                "occurrence": "0+",
+                "required": false
+            },
+            "array": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Containers holding sub-arrays embedded in a larger array. The number of \\element{array} nodes depends on the",
+                    "\\attr{compression} attribute. For compression of `embedded', 0 or more are allowed. For compression of `none',",
+                    "`diagonal' or `flattened' no \\element{array} nodes are allowed."
+                ],
+                "name": "array",
+                "occurrence": "0+",
+                "required": false
+            }
+        },
+        "description": [
+            "An array consists of attributes indicating the dimension, compression strategy, etc. and ",
+            "a list of one or more \\element{values} nodes that depend on the value of the \\attr{compression} attribute.  ",
+            "The \\attr{label} attribute of each \\element{values} node designates the type of data stored in  ",
+            "that node. For the \\element{values} node containing the data of the array, no label shall ",
+            "be specified. The allowed \\textbf{values} nodes for different compressions are: ",
+            "",
+            "\\begin{description}",
+            "\\item[compression=`none':] in this case the array only contains a single \\element{values} node that",
+            "    contains the array data. The \\attr{label} attribute of the \\element{values} node shall",
+            "    not be used. The number of data in  the \\element{values} node",
+            "    depends on the array shape and the values of the \\attr{symmetry} and \\attr{storageOrder} attributes.",
+            "",
+            "\\item[compression=`diagonal':] if all off-diagonal nodes are zero, then the",
+            "diagonal array only needs to contain a \\element{values} node, ",
+            "with size = N (the smallest array dimension). ",
+            "If some off-diagonal nodes are included, then the array contains two \\element{values} ",
+            "nodes. One node has label=``startingIndices'' and contains the starting indices. The ",
+            "other node contains the array data and its \\attr{label} attribute must ",
+            "not be used. ",
+            "",
+            "\\item[compression=`flattened':] In this case the array contains three \\element{values} nodes.",
+            "    One node contains a list of starting indices in the flattened array and has \\attr{label}=``starts''. Another node",
+            "    contains the number of values given after each `start' and has \\attr{label}=``lengths''.",
+            "    The third node contains the array data and its \\attr{label} attribute shall",
+            "    not be used.  The \\attr{starts} and \\attr{lengths} both shall have data",
+            "    type Integer32, and must have the same size.",
+            "",
+            "\\item[compression=`embedded':] contains 0 or more child \\element{array} nodes.",
+            "    Each child array shall have the same data type as the parent array,",
+            "    must have an \\attr{offset} attribute, and must obey size restrictions as described in",
+            "    Section~\\ref{embeddeddef}.",
+            "\\end{description}"
+        ],
+        "name": "array",
+        "required": false,
+        "rootNode": false
+    },
+    "table":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "columns": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The number of columns of the table.",
+                "name": "columns",
+                "required": true,
+                "type": "Integer32"
+            },
+            "rows": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The number of rows of the table.",
+                "name": "rows",
+                "required": true,
+                "type": "Integer32"
+            },
+            "storageOrder": {
+                "__class__": "nodes.Attribute",
+                "default": "row-major",
+                "description": "Allowed value is one of `row-major' and `column-major'",
+                "name": "storageOrder",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "columnHeaders": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains a list of N `header' nodes where N is the number of columns.",
+                "name": "columnHeaders",
+                "occurrence": "1",
+                "required": true
+            },
+            "data": {
+                "__class__": "nodes.ChildNode",
+                "description": "The data for the table, consisting of M $\\times$ N cells.",
+                "name": "data",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "table",
+        "required": false,
+        "rootNode": false
+    },
+    "columnHeaders":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "column": {
+                "__class__": "nodes.ChildNode",
+                "description": "Container which holds the name, units, etc. describing a column of data.",
+                "name": "column",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": "Contains a list of N `header' nodes where N is the number of columns.",
+        "name": "columnHeaders",
+        "required": true,
+        "rootNode": false
+    },
+    "column":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "An integer value in the range 0 to (N-1) that represents the order of the column.",
+                "name": "index",
+                "required": true,
+                "type": "Integer32"
+            },
+            "name": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A string representing the name of the column.",
+                "name": "name",
+                "required": true,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": "",
+                "description": "The unit of the data in the column.",
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "types": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Comma separated list of valid GNDS types denoting what types of elements are allowed in each cell in the column.",
+                "name": "types",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+            "Container which holds the attributes that describe a column of data including the name, units, etc."
+        ],
+        "name": "column",
+        "required": true,
+        "rootNode": false
+    },
+    "data":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "sep": {
+                "__class__": "nodes.Attribute",
+                "default": "whiteSpace",
+                "description": [
+                    "Valid options are ``whiteSpace'', ``,'', ",
+                    "``td'', ``tr'' or ``tc''. The standard rules for ``whiteSpace'' and ``comma'' separators ",
+                    "apply. The other separator options are described below."
+                ],
+                "name": "sep",
+                "required": false,
+                "type": "UTF8Text"
+            }
+        },
+        "bodyText": [
+            "The layout of the table data depends on the values of the \\attr{storageOrder} and \\attr{sep} attributes.  ",
+            "\\begin{description}",
+            "\\item[sep=`whiteSpace' or `,']",
+            "    In this case the table has no child node, and the body of the table consists of a",
+            "    \\textbf{sep}-separated list containing M $\\times$ N values. The order of data depends on the \\attr{storageOrder}.",
+            "    This option can only be used if all data in the table are numeric types.",
+            "\\item[sep=`td']",
+            "    In this case every cell in the table is explicitly contained inside `<td>' and `</td>' (or `<td/>', ",
+            "    to indicate an empty cell). The order of data depends on the \\attr{storageOrder}. This option can handle",
+            "    multiple data types, but if only a few cells contain non-numeric data the following two options may",
+            "    be more concise.",
+            "\\item[storageOrder=`row-major', sep=`tr']",
+            "    In this case each row of the table is stored inside `<tr sep=``...''>' and `</tr>'. Each row can define",
+            "    its own separator, which may be `whiteSpace' (the default), `td' or `,'. Any row containing non-numeric",
+            "    data must have `sep=``td'''.",
+            "\\item[storageOrder=`column-major', sep=`tc']",
+            "    In this case each column of the table is stored inside `<tc sep=``...''>' and `</tc>'.",
+            "    Each column can define its own separator, which may be `whiteSpace' (the default),",
+            "    `td' or `,'. Any column containing non-numeric data must have `sep=``td'''.  This storage",
+            "    is recommended whenever some columns contain only numeric data while",
+            "    others contain mixed data types, since it helps reduce the size of the numeric columns.",
+            "\\end{description}"
+        ],
+        "childNodes": {},
+        "description": "The data for the table, consisting of M $\\times$ N cells.",
+        "name": "data",
+        "required": true,
+        "rootNode": false
+    },
+
+    "XYs1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Integer index, used when the \\element{XYs1d} appears inside a \\element{regions1d}.",
+                "name": "index",
+                "required": false,
+                "type": "Integer32"
+            },
+            "interpolation": {
+                "__class__": "nodes.Attribute",
+                "default": "lin-lin",
+                "description": "The rule for interpolating $y$ along the $x$ axis.",
+                "name": "interpolation",
+                "required": false,
+                "type": "interpolation"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label. When the \\element{XYs1d} appears as a form, the label indicates the associated style.",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When an XYs1d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": false
+            },
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains the list of the $n$ pairs of $x_i, y_i$ as the list $x_0\\ y_0\\ x_1\\ y_1\\ ...\\ x_{n-1}\\ y_{n-1}$.",
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This node stores a single-valued function $x_0(x_1)$ (i.e. $y(x)$) as a tabulated list of $(x_i,y_i)$ pairs with $x_i < x_{i+1}$. ",
+            "It may appear on its own (i.e. when storing an energy-dependent cross section or multiplicity), or it may appear inside ",
+            "of another functional data container such as \\element{regions1d} or \\element{XYs2d}."
+        ],
+        "name": "XYs1d",
+        "required": false,
+        "rootNode": false
+    },
+    "Ys1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "interpolation": {
+                "__class__": "nodes.Attribute",
+                "default": "lin-lin",
+                "description": "The rule for interpolating $y$ rule along the $x$ axis.",
+                "name": "interpolation",
+                "required": false,
+                "type": "interpolation"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label. When the \\element{Ys1d} appears as a form, the label indicates the associated style.",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            },
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains the list of $y_i$ values.",
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "This node stores a tabulated representation of the single-valued function $x_0(x_1)$. This is like the ",
+            "\\element{XYs1d} node (see Section~\\ref{format:gpdc:XYs1d}) except that the independent axis must be a ",
+            "\\element{grid} node (see Section~\\ref{format:gpdc:grid}) that either stores a list of $x_i$ values or links to another grid that stores the list.  ",
+            "This node is useful when many tabulated $x_0(x_1)$'s contain the same $x_i$ points. Only one of the \\element{Ys1d} node ",
+            "needs to store the $x_i$ values and the others can link to it, allowing for reduced redundancy and storage.  ",
+            "The $x_i$ values must statisfy $x_i < x_{i+1}$.  The $y_i$ are stored in the \\element{values} child node.  "
+        ],
+        "name": "Ys1d",
+        "required": false,
+        "rootNode": false
+    },
+    "Legendre":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When a Legendre series appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            },
+            "lowerIndex": {
+                "__class__": "nodes.Attribute",
+                "default": "0",
+                "description": [
+                    "Used if the first \\attr{lowerIndex} coefficients are all zero. The upperIndex is equal to lowerIndex plus the number of coefficients ",
+                    "in the \\element{values} node, so it is not stored."
+                ],
+                "name": "lowerIndex",
+                "required": false,
+                "type": "Integer32"
+            },
+            "domainMin": {
+                "__class__": "nodes.Attribute",
+                "default": "-1.0",
+                "description": "$y(x_1)$ is only valid (i.e. defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
+                "name": "domainMin",
+                "required": false,
+                "type": "Float64"
+            },
+            "domainMax": {
+                "__class__": "nodes.Attribute",
+                "default": "1.0",
+                "description": "See \\attr{domainMin}.",
+                "name": "domainMax",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The specifications of the \\element{values} node are given in Section~\\ref{format:gpdc:values}.  ",
+                    "The numeric values are the coefficients $C_i$ listed by consecutive order $i$ starting with \\attr{lowerIndex}."
+                ],
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "Legendre",
+        "required": false,
+        "rootNode": false
+    },
+    "polynomial1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When a polynomial1d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            },
+            "lowerIndex": {
+                "__class__": "nodes.Attribute",
+                "default": "0",
+                "description": [
+                    "Used if the first \\attr{lowerIndex} coefficients are all zero. The upperIndex is equal to lowerIndex plus the number of coefficients ",
+                    "in the \\element{values} node, so it is not stored."
+                ],
+                "name": "lowerIndex",
+                "required": false,
+                "type": "Integer32"
+            },
+            "domainMin": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "$y(x_1)$ is only valid (i.e. defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
+                "name": "domainMin",
+                "required": false,
+                "type": "Float64"
+            },
+            "domainMax": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "See \\attr{domainMin}.",
+                "name": "domainMax",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            },
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "The specifications of the \\element{values} node are given in Section~\\ref{format:gpdc:values}.  ",
+                    "The numeric values are the coefficients $C_i$ listed by consecutive order $i$ starting with lowerIndex."
+                ],
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "polynomial1d",
+        "required": false,
+        "rootNode": false
+    },
+    "constant1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The value of the data.",
+                "name": "value",
+                "required": false,
+                "type": "Float64"
+            },
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When a constant1d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            },
+            "domainMin": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "$y(x_1)$ is only valid (i.e. defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
+                "name": "domainMin",
+                "required": false,
+                "type": "Float64"
+            },
+            "domainMax": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "See \\attr{domainMin}.",
+                "name": "domainMax",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "The \\element{axes} element describing the $x$ and $y$ directions.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Describes a constant one-dimensional function, $f(x) = C$.",
+        "name": "constant1d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "XYs2d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "index": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Integer index, required when the \\element{XYs2d} appears inside a \\element{regions2d}.",
+                "name": "index",
+                "required": false,
+                "type": "Integer32"
+            },
+            "interpolation": {
+                "__class__": "nodes.Attribute",
+                "default": "lin-lin",
+                "description": "The rule for interpolating $x_0$ along the $x_2$ axis.",
+                "name": "interpolation",
+                "required": false,
+                "type": "interpolation"
+            },
+            "interpolationQualifier": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The interpolation qualifier.",
+                "name": "interpolationQualifier",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When an XYs2d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "axes",
+                "occurrence": "1",
+                "required": false
+             },
+            "function1ds": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains the list of 1-dimensional functions $x_0(x_1)$ that represent $x_0(x_2, x_1)$ at various points along $x_2$.",
+                "name": "function1ds",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [ "This node stores a 2-dimensional function $x_0(x_2, x_1)$ as a list of 1-dimensional functions at various $x_2$ values. Each 1-dimensional ",
+                         "function stores its $x_2$ point in its \\attr{value} attribute. The attributes \\attr{interpolation} and \\attr{interpolationQualifier}",
+                         " instruct how to interpolate $x_2$ and $x_0$ between two adjacent 1-dimensional functions." ],
+        "name": "XYs2d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "function1ds" : {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "XYs1d",
+                "occurrence": "choice+",
+                "required": false
+            },
+            "constant1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "constant1d",
+                "occurrence": "choice+",
+                "required": false
+            },
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "polynomial1d",
+                "occurrence": "choice+",
+                "required": false
+            },
+            "Legendre": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "Legendre",
+                "occurrence": "choice+",
+                "required": false
+            },
+            "gridded1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "gridded1d",
+                "occurrence": "choice+",
+                "required": false
+            }
+        },
+        "description": "This node stores a list of 1-dimensional functions.",
+        "name": "function1ds",
+        "required": 1,
+        "rootNode": false
+    },
+
+    "XYs3d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "interpolation": {
+                "__class__": "nodes.Attribute",
+                "default": "lin-lin",
+                "description": "The rule for interpolating $x_0$ along the $x_3$ axis.",
+                "name": "interpolation",
+                "required": false,
+                "type": "interpolation"
+            },
+            "interpolationQualifier": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The interpolation qualifier.",
+                "name": "interpolationQualifier",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "axes",
+                "occurrence": "1",
+                "required": false
+            },
+            "function2ds": {
+                "__class__": "nodes.ChildNode",
+                "description": "Contains the list of 2-dimensional functions that represent $x_0(x_3, x_2, x_1)$ at various points along $x_3$ as a $x_0(x_2, x_1)$ functions.",
+                "name": "function2ds",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [ "This node stores a 3-dimensional function $x_0(x_3, x_2, x_1)$ as a list of 2-dimensional functions at various $x_3$ values. Each 2-dimensional ",
+                         "function stores its $x_3$ point in its \\attr{value} attribute. The attributes \\attr{interpolation} and \\attr{interpolationQualifier}",
+                         " instruct how to interpolate $x_3$ and $x_0$ between two adjacent 2-dimensional functions." ],
+        "name": "XYs3d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "function2ds" : {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "XYs2d",
+                "occurrence": "choice+",
+                "required": false
+            },
+            "gridded2d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "gridded2d",
+                "occurrence": "choice+",
+                "required": false
+            }
+        },
+        "description": "This node stores a list of 2-dimensional functions.",
+        "name": "function2ds",
+        "required": 1,
+        "rootNode": false
+    },
+
+    "regions1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default":  null,
+                "description": "A unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When an \\element{regions1d} appears inside a higher-dimensional container, the \\attr{outerDomainValue} corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "axes",
+                "occurrence": "1",
+                "required": false
+            },
+            "function1ds": {
+                "__class__": "nodes.ChildNode",
+                "description": [ "Contains the list of 1-dimensional functions that represent $x_0(x_1)$. The upper $x_1$ value for a function ",
+                                 "in the list must be equal to the lower $x_1$ value for the next function in the list." ],
+                "name": "function1ds",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "regions1d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "regions2d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default":  null,
+                "description": "A unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When a regions2d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "axes",
+                "occurrence": "1",
+                "required": false
+            },
+            "function2ds": {
+                "__class__": "nodes.ChildNode",
+                "description": [ "Contains the list of 2-dimensional functions that represent $x_0(x_2, x_1)$. The upper $x_2$ value for a function ",
+                                 "in the list must be equal to the lower $x_2$ value for the next function in the list." ],
+                "name": "function2ds",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "regions2d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "regions3d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default":  null,
+                "description": "A unique label",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When a regions3d appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "axes",
+                "occurrence": "1",
+                "required": false
+            },
+            "function3ds": {
+                "__class__": "nodes.ChildNode",
+                "description": [ "Contains the list of 3-dimensional functions that represent $x_0(x_3, x_2, x_1)$. The upper $x_3$ value for a function ",
+                                 "in the list must be equal to the lower $x_3$ value for the next function in the list." ],
+                "name": "function3ds",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": null,
+        "name": "regions3d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "function3ds" : {
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs3d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "XYs3d",
+                "occurrence": "choice+",
+                "required": false
+            },
+            "gridded3d": {
+                "__class__": "nodes.ChildNode",
+                "description": "",
+                "name": "gridded3d",
+                "occurrence": "choice+",
+                "required": false
+            }
+        },
+        "description": "This node stores a list of 3-dimensional functions.",
+        "name": "function3ds",
+        "required": 1,
+        "rootNode": false
+    },
+
+    "gridded1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A unique identifier.",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "array": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\element{array} node representing the $x_0$ values.",
+                "name": "array",
+                "occurrence": "1",
+                "required": true
+            },
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "A one-dimensional function defined on a grid or set of groups.",
+        "name": "gridded1d",
+        "required": false,
+        "rootNode": false
+    },
+    "gridded2d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "An unique identifier.",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "array": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\element{array} node representing the $x_0$ values.",
+                "name": "array",
+                "occurrence": "1",
+                "required": true
+            },
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "A two-dimensional function defined on a grid or set of groups.",
+        "name": "gridded2d",
+        "required": false,
+        "rootNode": false
+    },
+    "gridded3d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "An unique identifier.",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "array": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\element{array} node representing the $x_0$ values.",
+                "name": "array",
+                "occurrence": "1",
+                "required": true
+            },
+            "axes": {
+                "__class__": "nodes.ChildNode",
+                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "name": "axes",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "A three-dimensional function defined on a grid or set of groups.",
+        "name": "gridded3d",
+        "required": false,
+        "rootNode": false
+    }
+
+}

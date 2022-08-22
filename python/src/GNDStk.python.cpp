@@ -12,12 +12,28 @@ namespace core {
 
   void wrapNode( python::module& );
 
+  void wrapContributorType( python::module& );
+  void wrapDateType( python::module& );
+  void wrapDecayType( python::module& );
+  void wrapFrame( python::module& );
   void wrapGridStyle( python::module& );
+  void wrapHashAlgorithm( python::module& );
+  void wrapInteraction( python::module& );
   void wrapInterpolation( python::module& );
+  void wrapInterpolationQualifier( python::module& );
+  void wrapParity( python::module& );
+  void wrapRelationType( python::module& );
+  void wrapBoundaryCondition( python::module& );
 }
 
 // v1.9 interface declarations
 namespace python_v1_9 {
+
+  void wrapGNDS( python::module& );
+}
+
+// v2.0 interface declarations
+namespace python_v2_0 {
 
   void wrapGNDS( python::module& );
 }
@@ -41,9 +57,22 @@ PYBIND11_MODULE( GNDStk, module ) {
   core::wrapNode( submodule );
 
   // enumerations (in the GNDStk module)
+  core::wrapContributorType( module );
+  core::wrapDateType( module );
+  core::wrapDecayType( module );
+  core::wrapFrame( module );
   core::wrapGridStyle( module );
+  core::wrapHashAlgorithm( module );
+  core::wrapInteraction( module );
   core::wrapInterpolation( module );
+  core::wrapInterpolationQualifier( module );
+  core::wrapParity( module );
+  core::wrapRelationType( module );
+  core::wrapBoundaryCondition( module );
 
   // v1.9 components (in the v1_9 module, created in this function)
   python_v1_9::wrapGNDS( module );
+
+  // v2.0 components (in the v2_0 module, created in this function)
+  python_v2_0::wrapGNDS( module );
 }
