@@ -4,13 +4,12 @@
 // -----------------------------------------------------------------------------
 
 #include "GNDStk.hpp"
-#include "cstring"
-using namespace njoy::GNDStk::core;
+#include <cstring>
+using namespace njoy::GNDStk;
 
 // Report cases of nodes that have no metadata, and zero or one child node(s).
 // Where these exist, a simplification of the spec may be worth considering.
 const bool singletons = true;
-
 
 
 // -----------------------------------------------------------------------------
@@ -20,9 +19,7 @@ const bool singletons = true;
 // KeyValue
 // Too bad the JSON library doesn't provide this more straightforwardly
 using KeyValue = nlohmann::detail::iteration_proxy_value<
-   nlohmann::detail::iter_impl<
-      const nlohmann::basic_json<>
-   >
+   nlohmann::detail::iter_impl<const orderedJSON>
 >;
 
 // NamespaceAndClass
@@ -57,12 +54,12 @@ struct Class2Dependencies {
 
 // InfoMetadata
 struct InfoMetadata {
-   // A .json spec can make a metadatum be:
+   // A JSON spec can make a metadatum be:
    //    - a std::optional, or
    //    - a GNDStk::defaulted
    // but (in contrast with child nodes) can't make it be a vector of metadata.
    // An individual metadatum may be a vector in its own right, as in an XML
-   // construct such as <element meta="1,2,3,4"> (so that meta is a vector of
+   // construct such as <element meta="1 2 3 4"> (so that meta is a vector of
    // integers). We mean here that there isn't a vector of such [meta] entries,
    // and shouldn't be (XML wouldn't allow it).
    std::string name;
@@ -75,13 +72,15 @@ struct InfoMetadata {
 
 // InfoChildren
 struct InfoChildren {
-   // A .json spec can make a child node be:
+   // A JSON spec can make a child node be:
    //    - a std::optional, and/or
    //    - a std::vector
    // but can't make it be a GNDStk::defaulted. (The use of a default value for
    // child nodes just doesn't exist in the GNDS specifications, even though the
    // concept would seem to make sense.)
    std::string name;
+   std::string ns;       // enclosing namespace
+   std::string plain;    // underlying type, excluding namespace
    std::string type;     // underlying type
    std::string typeFull; // WITH any optional<> or vector<>
    std::string typeHalf; // withOUT any vector<>
@@ -92,7 +91,9 @@ struct InfoChildren {
 // InfoVariantsChildren
 struct InfoVariantsChildren {
    std::string name;
-   std::string type;
+   std::string ns;       // enclosing namespace
+   std::string plain;    // underlying type, excluding namespace
+   std::string type;     // underlying type
    bool        isVector;
 };
 
@@ -116,6 +117,8 @@ struct PerNamespace {
 struct PerClass {
    std::string cppPython; // cpp file for this class' Python interface
    std::string hppGNDStk; // hpp file for this class in GNDStk
+   std::string headerC;   // header that works with both C and C++
+   std::string sourceC;   // C++ backend source for the C interface
 
    std::string nsname;    // name of this class' namespace
    std::string clname;    // name of this class
@@ -148,7 +151,6 @@ struct PerClass {
 };
 
 
-
 // -----------------------------------------------------------------------------
 // InfoSpecs
 // -----------------------------------------------------------------------------
@@ -156,26 +158,30 @@ struct PerClass {
 // Overarching data structure reflecting all of the autogenerator's input
 // as well as various processed information
 struct InfoSpecs {
-   // From the .json file on the command line
+   // From the JSON file on the command line
+   std::string Path;
+   std::string Project;
+   std::string Version;
    std::string JSONDir;
    std::vector<std::string> JSONFiles;
-   std::string GNDSDir;
-   std::string Version;
 
    // Version, but with '_' in place of '.'
    std::string VersionUnderscore;
 
    // Directory-prefixed names
    std::string hppVersion; // hpp file for this version
-   std::string hppKey;     // hpp file for this version's Meta<>/Child<> keys
+   std::string hppKey;     // hpp file for this version's Meta and Child keys
+   std::string hVersion;   // header file for both C and C++
+   std::string cVersion;   // C++ backend source for the C interface
 
-   // Changes to apply to a metadatum's or child node's name.
-   // Example: "double" (GNDS v1.9 does have this) to "Double" for C++.
+   // Changes to apply to a metadatum's name or a child node's name.
+   // Example: "double" (GNDS v1.9 actually has "double") to "Double" for C++.
    std::map<std::string,std::string> mapName;
 
    // Changes to apply to metadata/attribute type and default.
    // Examples: "Boolean" to "bool", "interpolation" to "enums::Interpolation".
-   std::map<std::string,std::string> mapMetaType;
+   // We'll give a string ==> std::string type change as a freebie. :-)
+   std::map<std::string,std::string> mapMetaType = {{"string","std::string"}};
    std::map<std::string,std::string> mapMetaDefault;
 
    // For each class in the input JSON specifications, the namespace(s)
@@ -194,9 +200,8 @@ struct InfoSpecs {
    std::map<std::string,PerNamespace> namespace2data;
 
    // Map from namespace::class to information about the class
-   std::map<NamespaceAndClass,PerClass> class2data;
-};
-
+   nlohmann::ordered_map<NamespaceAndClass,PerClass> class2data;
+}; // InfoSpecs
 
 
 // -----------------------------------------------------------------------------
@@ -206,9 +211,7 @@ struct InfoSpecs {
 // Print text describing an action the code is about to take
 void action(const std::string &str)
 {
-   std::cout
-      << "\n"
-      << colors::plain::blue << str << "..." << colors::reset << std::endl;
+   std::cout << colors::plain::blue << str << colors::reset << std::endl;
 }
 
 // Is the string all whitespace?
@@ -246,13 +249,9 @@ std::string initializer(const InfoMetadata &m)
    // We assume that the input does NOT have the quotes already!
    // Note: we may not need all of these, but the GNDS manual does describe
    // several string-like types, so we might as well include them.
-   if (m.type == "XMLName" ||
-       m.type == "UTF8Text" ||
-       m.type == "printableText" ||
-       m.type == "quotedText" ||
-       m.type == "tdText" ||
-       m.type == "string" ||
-       m.type == "std::string")
+   if (m.type == "XMLName" || m.type == "UTF8Text" ||
+       m.type == "printableText" || m.type == "quotedText" ||
+       m.type == "tdText" || m.type == "string" || m.type == "std::string")
       return '"' + escape(m.defaultValue) + '"';
 
    // Leave as-is;
@@ -278,6 +277,19 @@ std::string allcaps(const std::string &str)
    return ret;
 }
 
+// UpperCamel
+std::string UpperCamel(const std::string &str)
+{
+   std::string ret;
+   for (size_t i = 0; i < str.size(); ++i)
+      if (str[i] != '_')
+         ret += i ? str[i] : toupper(str[i]);
+      else if (++i < str.size())
+         ret += toupper(str[i]);
+   return ret;
+}
+
+
 // Replace character
 std::string replace(const std::string &str, const char from, const char to)
 {
@@ -290,10 +302,10 @@ std::string replace(const std::string &str, const char from, const char to)
 
 // Stringify JSON
 // See: https://github.com/nlohmann/json/issues/642
-std::string stringify(const nlohmann::json &j)
+std::string stringify(const orderedJSON &j)
 {
    const auto tmp = j.dump();
-   return j.type() == nlohmann::json::value_t::string
+   return j.type() == orderedJSON::value_t::string
       ? tmp.substr(1, tmp.size()-2)
       : tmp;
 }
@@ -326,6 +338,23 @@ bool isClass(const KeyValue &keyval)
    return true;
 }
 
+std::string getTimes(const orderedJSON &value)
+{
+   const std::string times = "times"; // shorter, less easily misspelled
+   const std::string occurrence = "occurrence"; // accept; used in GNDS specs
+
+   // need exactly one - not neither, not both
+   assert(value.contains(times) != value.contains(occurrence));
+
+   return value.contains(times)
+      ? value[times]
+      : value[occurrence];
+}
+
+std::string sep(int &count, const int total)
+{
+   return ++count < total ? "," : "";
+}
 
 
 // -----------------------------------------------------------------------------
@@ -336,8 +365,8 @@ bool isClass(const KeyValue &keyval)
 // Name in GNDS (e.g., name of an XML element)
 std::string nameGNDS(const KeyValue &keyval)
 {
-   // As-is, directly as stipulated in a key in the JSON spec, except
-   // that we allow a "name" entry to override the key.
+   // As-is, directly as stipulated in the key in the JSON spec, except
+   // that we allow a "name" entry in the key's value to override the key.
    return keyval.value().contains("name")
       ? std::string(keyval.value()["name"])
       : keyval.key();
@@ -347,9 +376,10 @@ std::string nameGNDS(const KeyValue &keyval)
 // Name of a field (metadatum or child node) in an autogenerated class
 std::string nameField(const KeyValue &keyval, const InfoSpecs &specs)
 {
-   // Like nameGNDS, except that we apply any name-modification map that
-   // may have been provided. That can fix, for example, the name "double",
-   // which appears in GNDS v1.9 but is unsuitable for a name in C++.
+   // Like nameGNDS above, except that we apply any name-modification
+   // map that may have been provided in a "changes" file. Such changes
+   // can fix, for example, the name "double" that appears in GNDS v1.9
+   // as a JSON key, but is unsuitable for use in C++.
    const std::string name = nameGNDS(keyval);
    const auto it = specs.mapName.find(name);
    return it == specs.mapName.end() ? name : it->second;
@@ -359,8 +389,11 @@ std::string nameField(const KeyValue &keyval, const InfoSpecs &specs)
 // Name of an autogenerated class
 std::string nameClass(const KeyValue &keyval, const InfoSpecs &specs)
 {
-   // Like nameField, but capitalized (per our class naming convention).
-   return capital(nameField(keyval,specs));
+   // Capitalized version of either the JSON key, or, if applicable,
+   // its change under the name-modification map in a "changes" file.
+   const std::string name = keyval.key();
+   const auto it = specs.mapName.find(name);
+   return capital(it == specs.mapName.end() ? name : it->second);
 }
 
 // namePython
@@ -380,13 +413,12 @@ std::string namePython(const std::string &name)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Functions for getting certain information from JSON input
 // -----------------------------------------------------------------------------
 
 // Get the JSON's "namespace"
-std::string getFileNamespace(const nlohmann::json &j)
+std::string getFileNamespace(const orderedJSON &j)
 {
    return j.contains("__namespace__")
       ? j["__namespace__"]
@@ -394,7 +426,7 @@ std::string getFileNamespace(const nlohmann::json &j)
 }
 
 // Get the JSON's "type", with any relevant specs.mapMetaType entry applied
-std::string getMetadatumType(const nlohmann::json &j, const InfoSpecs &specs)
+std::string getMetadatumType(const orderedJSON &j, const InfoSpecs &specs)
 {
    const std::string type = j["type"];
    const auto it = specs.mapMetaType.find(type);
@@ -404,9 +436,9 @@ std::string getMetadatumType(const nlohmann::json &j, const InfoSpecs &specs)
 // Determine to what namespace childClass belongs. Context: we're (1) in a JSON
 // spec with namespace parent.nsname, (2) in a parent node named parent.clname,
 // and (3) wish to determine the proper namespace for the parent's child node
-// named "child". Parameter j is the JSON value ({...}) for this child node.
+// named childClass. Parameter j is the JSON value ({...}) for this child node.
 std::string getChildNamespace(
-   const nlohmann::json &j, const InfoSpecs &specs,
+   const orderedJSON &j, const InfoSpecs &specs,
    const PerClass &per, const std::string &childClass
 ) {
    // childClass' namespace...
@@ -418,7 +450,7 @@ std::string getChildNamespace(
    // ...isn't given, and this child isn't in any of the JSONs :-(
    if (specs.class2nspace.count(childClass) == 0) {
       log::warning(
-         "{}::{} has child of unknown class {}",
+         "{}::{} has a child of unknown class {}",
          per.nsname, per.clname, childClass
       );
       return "unknownNamespace";
@@ -433,7 +465,13 @@ std::string getChildNamespace(
    const auto range = specs.class2nspace.equal_range(childClass);
    for (auto it = range.first; it != range.second; ++it)
       if (it->second == per.nsname) {
-         // fixme: a *warning* might be in order, re: our assumption
+         log::warning(
+            "{}::{} has a child {} that appears in the present\n"
+            "namespace but also in one or more other namespaces. We'll\n"
+            "assume that the one in the present namespace is intended.\n"
+            "If this is wrong, please provide a \"namespace\" entry.",
+            per.nsname, per.clname, childClass
+         );
          return per.nsname;
       }
 
@@ -444,7 +482,7 @@ std::string getChildNamespace(
    for (auto it = range.first; it != range.second; ++it)
       warn << (count++ == 0 ? "" : ", ") << it->second;
    log::warning(
-      "{}::{} has child of ambiguous class {}.\n"
+      "{}::{} has a child of ambiguous class {}.\n"
       "Child class {} appears in all of the following namespaces:\n{}",
       per.nsname, per.clname, childClass, childClass, warn.str()
    );
@@ -453,14 +491,13 @@ std::string getChildNamespace(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // getClass* functions re: metadata, children, variant children
 // -----------------------------------------------------------------------------
 
 // getClassMetadata
 void getClassMetadata(
-   const nlohmann::json &j, const InfoSpecs &specs, PerClass &per
+   const orderedJSON &j, const InfoSpecs &specs, PerClass &per
 ) {
    for (const auto &field : j.items()) {
       const auto &metaRHS = field.value();
@@ -482,6 +519,11 @@ void getClassMetadata(
       };
       if (m.defaultValue != "") {
          // If it has a default, then presumably it isn't required...
+         // fixme Should print a real, useful error message here. The mistake
+         // in question is something a user could easily make!! Look at other
+         // assert()s in this file as well; assert should be more for internal
+         // sanity checks than for diagnostic messages, as they aren't very
+         // helpful to typical users.
          assert(!metaRHS["required"]);
       }
 
@@ -509,25 +551,27 @@ void getClassMetadata(
 
 // getClassChildren
 void getClassChildren(
-   const nlohmann::json &j, const InfoSpecs &specs,
+   const orderedJSON &j, const InfoSpecs &specs,
    PerClass &per, Class2Dependencies &dep
 ) {
    for (const auto &field : j.items()) {
       const auto &elemRHS = field.value();
 
       // Choice children are handled elsewhere
-      const std::string occ = elemRHS["occurrence"];
-      if (occ == "choice" || occ == "choice+" || occ == "choice2+")
+      const std::string times = getTimes(elemRHS);
+      if (times == "choice" || times == "choice+" || times == "choice2+")
          continue;
 
       // Name
       InfoChildren c;
       c.name = nameField(field,specs);
 
+      // Type, excluding namespace
+      c.plain = nameClass(field,specs);
+
       // Type, including namespace
-      c.type = nameClass(field,specs);
-      const std::string ns = getChildNamespace(elemRHS, specs, per, c.type);
-      c.type = ns + "::" + c.type;
+      c.ns = getChildNamespace(elemRHS, specs, per, c.plain);
+      c.type = c.ns + "::" + c.plain;
 
       // Optional?
       c.isOptional = !elemRHS["required"];
@@ -535,7 +579,7 @@ void getClassChildren(
       const std::string optSuffix = c.isOptional ? ">" : "";
 
       // Vector?
-      c.isVector = occ == "0+" || occ == "1+" || occ == "2+";
+      c.isVector = times == "0+" || times == "1+" || times == "2+";
       const std::string vecPrefix = c.isVector ? "std::vector<" : "";
       const std::string vecSuffix = c.isVector ? ">" : "";
 
@@ -557,7 +601,7 @@ void getClassChildren(
       // Save as a dependency (if it's not its own dependency)
       if (c.type != per.name())
          dep.dependencies.push_back(
-            NamespaceAndClass(ns,nameClass(field,specs)));
+            NamespaceAndClass(c.ns,nameClass(field,specs)));
 
       // Add to per.children
       per.children.push_back(c);
@@ -567,7 +611,7 @@ void getClassChildren(
 
 // getClassVariants
 void getClassVariants(
-   const nlohmann::json &j, const InfoSpecs &specs,
+   const orderedJSON &j, const InfoSpecs &specs,
    PerClass &per, Class2Dependencies &dep
 ) {
    // Initialize per.variants, a vector<InfoVariants> that has the "choice"
@@ -591,8 +635,8 @@ void getClassVariants(
    for (const auto &field : j.items()) {
       // Is it a choice child?
       const auto &elemRHS = field.value();
-      const std::string occ = elemRHS["occurrence"];
-      if (occ != "choice" && occ != "choice+" && occ != "choice2+")
+      const std::string times = getTimes(elemRHS);
+      if (times != "choice" && times != "choice+" && times != "choice2+")
          continue;
 
       // Variant name
@@ -606,27 +650,28 @@ void getClassVariants(
    for (const auto &field : j.items()) {
       // Is it a choice child?
       const auto &elemRHS = field.value();
-      const std::string occ = elemRHS["occurrence"];
-      if (occ != "choice" && occ != "choice+" && occ != "choice2+")
+      const std::string times = getTimes(elemRHS);
+      if (times != "choice" && times != "choice+" && times != "choice2+")
          continue;
 
       // Variant name
-      const std::string variant = elemRHS.contains("variant")
+      const std::string variantName = elemRHS.contains("variant")
          ? elemRHS["variant"]
          : "";
-      auto it = map.find(variant);
+      auto it = map.find(variantName);
       assert(it != map.end()); // should be there from the earlier loop
 
       // For the individual child that's part of a choice...
       InfoVariantsChildren c;
       // ...its name
       c.name = nameField(field,specs);
+      // ...its type, excluding namespace
+      c.plain = nameClass(field,specs);
       // ...its type, including namespace
-      c.type = nameClass(field,specs);
-      const std::string ns = getChildNamespace(elemRHS, specs, per, c.type);
-      c.type = ns + "::" + c.type;
+      c.ns = getChildNamespace(elemRHS, specs, per, c.plain);
+      c.type = c.ns + "::" + c.plain;
       // ...its vector-ness
-      c.isVector = occ == "choice+" || occ == "choice2+";
+      c.isVector = times == "choice+" || times == "choice2+";
 
       // The GNDS JSON specifications all have "required":false for individual
       // choices in a set of choices; the concept of "the entire choice can be
@@ -641,7 +686,7 @@ void getClassVariants(
       // Save as a dependency (if it's not its own dependency)
       if (c.type != per.name())
          dep.dependencies.push_back(
-            NamespaceAndClass(ns,nameClass(field,specs)));
+            NamespaceAndClass(c.ns,nameClass(field,specs)));
    }
 
    // Pass 3
@@ -666,7 +711,6 @@ void getClassVariants(
       per.variants.push_back(v);
    }
 } // getClassVariants
-
 
 
 // -----------------------------------------------------------------------------
@@ -699,9 +743,9 @@ class writer {
       if (recurse == 0) {
          using last = decltype(
             std::get<sizeof...(args)>(std::make_tuple(value,args...)));
-         const size_t nsub = std::count(str.begin(), str.end(), substitute);
+         const std::size_t nsub = std::count(str.begin(),str.end(),substitute);
          // a bool last argument is not interpreted as an argument to print...
-         const size_t narg =
+         const std::size_t narg =
             1 + sizeof...(args) - std::is_same_v<std::decay_t<last>,bool>;
          if (narg != nsub) {
             log::error(
@@ -821,7 +865,16 @@ public:
 
 int writer::recurse = 0;
 
-
+// helper
+template<class... Ts>
+void section(writer &out, const std::string &str, Ts &&...args)
+{
+   out();
+   out();
+   out(largeComment);
+   out(str, std::forward<Ts>(args)...);
+   out(largeComment);
+}
 
 // -----------------------------------------------------------------------------
 // write*
@@ -831,25 +884,31 @@ int writer::recurse = 0;
 // Class prefix
 void writeClassPrefix(writer &out, const PerClass &per)
 {
+   // namespace
+   out("namespace @ {", per.nsname);
+
    // comment introducing class
-   out();
-   out();
    out();
    out(largeComment);
    out("// @::", per.nsname);
    out("// class @", per.clname);
    out(largeComment);
 
-   // namespace+class begin
+   // class begin
    out();
-   out("namespace @ {", per.nsname);
-   out();
-   out("class @ : public Component<@@> {",
-       per.clname, per.clname,
+   out("class @ : public Component<@::@@> {",
+       // A namespace prefix in Component<> prevents possible ambiguities with
+       // the Child<> object for the class that was brought in through key.hpp.
+       // Normally the class name is capitalized while the Child<> object isn't,
+       // but if the node name was already capitalized in the specs (an example
+       // we encountered was "XYs1d"), then the Child<> key would reflect that.
+       // Then, without the nsname:: here, we'd have an ambiguity.
+       per.clname, per.nsname, per.clname,
        per.isData
           ? (",true" + (per.dataType == "" ? "" : "," + per.dataType))
           : ""
    );
+   out(1,"friend class Component;");
 } // writeClassPrefix
 
 
@@ -857,12 +916,14 @@ void writeClassPrefix(writer &out, const PerClass &per)
 void writeClassForComponent(writer &out, const PerClass &per)
 {
    // using [name for variant] = ...
-   out();
+   if (per.variants.size())
+      out();
    for (const auto &v : per.variants) {
       out(1,"using @ = std::variant<", v.type);
-      int count = 0, total = v.children.size();
+      int count = 0;
+      const int total = v.children.size();
       for (const auto &c : v.children)
-         out(2,"@@", c.type, ++count == total ? "" : ",");
+         out(2,"@@", c.type, sep(count,total));
       out(1,">;");
    }
 
@@ -871,21 +932,20 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out(1,"// For Component");
    out(1,smallComment);
    out();
-   out(1,"friend class Component;");
-   out();
-   out(1,"// Current namespace, current class, and GNDS node name");
-   out(1,"static auto namespaceName() { return \"@\"; }", per.nsname);
-   out(1,"static auto className() { return \"@\"; }", per.clname);
-   out(1,"static auto GNDSName() { return \"@\"; }", per.nameGNDS);
+   out(1,"// Names: this namespace, this class, a field/node of this type");
+   out(1,"static auto NAMESPACE() { return \"@\"; }", per.nsname);
+   out(1,"static auto CLASS() { return \"@\"; }", per.clname);
+   out(1,"static auto FIELD() { return \"@\"; }", per.nameGNDS);
 
-   // keys() begin
+   // KEYS() begin
    out();
    out(1,"// Core Interface multi-query to extract metadata and child nodes");
-   out(1,"static auto keys()");
+   out(1,"static auto KEYS()");
    out(1,"{");
 
-   // keys() contents
-   int count = 0, total = per.nfields();
+   // KEYS() contents
+   int count = 0;
+   const int total = per.nfields();
    if (total == 0)
       out(2,"return std::tuple<>{};");
    else {
@@ -921,7 +981,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
       out(2,";");
    }
 
-   // keys() end
+   // KEYS() end
    out(1,"}");
    out();
    out("public:");
@@ -930,18 +990,15 @@ void writeClassForComponent(writer &out, const PerClass &per)
 
 // Class suffix
 void writeClassSuffix(
-   writer &out, const PerClass &per, const std::string &version
+   writer &out, const PerClass &per, const InfoSpecs &specs
 ) {
    // assignment
    out();
    out(1,smallComment);
-   out(1,"// Assignment");
+   out(1,"// Assignment operators");
    out(1,smallComment);
    out();
-   out(1,"// copy");
    out(1,"@ &operator=(const @ &) = default;", per.clname, per.clname);
-   out();
-   out(1,"// move");
    out(1,"@ &operator=(@ &&) = default;", per.clname, per.clname);
 
    // customization #include
@@ -950,17 +1007,17 @@ void writeClassSuffix(
    out(1,"// Custom functionality");
    out(1,smallComment);
    out();
-   out(1,"#include \"GNDStk/@/@/@/src/custom.hpp\"",
-       version, per.nsname, per.clname);
+   out(1,"#include \"@/@/@/@/src/custom.hpp\"",
+       specs.Project, specs.Version, per.nsname, per.clname);
+
+   // this *follows* the customization #include (because it might be used there)
+   out(1,"#undef GNDSTK_COMPONENT");
 
    // class+namespace end
-   out();
    out("}; // class @", per.clname);
    out();
    out("} // namespace @", per.nsname);
 } // writeClassSuffix
-
-
 
 
 // -----------------------------------------------------------------------------
@@ -971,251 +1028,48 @@ void writeClassSuffix(
 // writeClassContentMetadata
 void writeClassContentMetadata(writer &out, const PerClass &per)
 {
-   if (per.metadata.size())
-      out(2,"// metadata");
+   if (per.metadata.size()) {
+      out();
+      out(1,"// metadata");
+   }
+
    for (const auto &m : per.metadata) {
       per.isData && (
       m.name == "length" || m.name == "start" || m.name == "valueType")
-         ? out(2,"mutable @ @", m.typeFull, m.name, false)
-         : out(2,        "@ @", m.typeFull, m.name, false);
+         ? out(1,"mutable Field<@> @{this", m.typeFull, m.name, false)
+         : out(1,        "Field<@> @{this", m.typeFull, m.name, false);
       if (m.defaultValue != "")
-         out("{@}", initializer(m), false);
-      out(";");
+         out(",defaults.@", m.name, false);
+      out("};");
    }
 }
 
 // writeClassContentChildren
 void writeClassContentChildren(writer &out, const PerClass &per)
 {
-   if (per.children.size())
-      out(2,"// children");
+   if (per.children.size()) {
+      out();
+      out(1,"// children");
+   }
    for (const auto &c : per.children)
-      out(2,"@ @;", c.typeFull, c.name);
+      out(1,"Field<@> @{this};", c.typeFull, c.name);
 }
 
 // writeClassContentVariants
 void writeClassContentVariants(writer &out, const PerClass &per)
 {
-   if (per.variants.size())
-      out(2,"// children - variant");
-   for (const auto &v : per.variants)
-      out(2,"@ @;", v.typeFull, v.name);
-}
-
-
-
-// -----------------------------------------------------------------------------
-// writeClassGetters
-// -----------------------------------------------------------------------------
-
-void writeClassGetters(writer &out, const PerClass &per)
-{
-   out();
-   out(1,smallComment);
-   out(1,"// Getters");
-   out(1,"// const and non-const");
-   out(1,smallComment);
-
-   const auto write =
-      [&out](auto &&i, const bool isVector)
-      {
-         // i: info for metadatum, child, or variant
-         out();
-         out(1,"// @", i.name);
-         out(1,"const @ &@() const", i.typeFull, i.name);
-         out(2,"{ return content.@; }", i.name);
-         out(1,      "@ &@()",       i.typeFull, i.name);
-         out(2,"{ return content.@; }", i.name);
-
-         const auto indlab =
-            [&out,&i](const auto &T, const auto &par)
-            {
-               // T par: index or label parameter
-               out();
-               out(1,"// @(@)", i.name, par);
-               out(1,"const @ &@(const @@) const", i.type, i.name, T, par);
-               out(2,"{ return getter(@(), @, \"@\"); }", i.name, par, i.name);
-               out(1,      "@ &@(const @@)",       i.type, i.name, T, par);
-               out(2,"{ return getter(@(), @, \"@\"); }", i.name, par, i.name);
-            };
-
-         if (isVector) {
-            // with index or label
-            indlab("std::size_t ",  "index");
-            indlab("std::string &", "label");
-         }
-      };
-
-   // metadata, children, variants
-   for (const auto &m : per.metadata) write(m, false);
-   for (const auto &c : per.children) write(c, c.isVector);
-   for (const auto &v : per.variants) write(v, v.isVector);
-
-   // variant alternatives
-   for (const auto &v : per.variants) {
-      for (const auto &c : v.children) {
-         const auto indlab =
-            [&out,&v,&c](const auto &T, const auto &par)
-            {
-               // T par: index or label parameter
-               out();
-               out(1,"// @(@)", c.name, par);
-               out(1,"const @ *@(const @@) const", c.type, c.name, T, par);
-               out(2,"{ return getter<@>(@(), @, \"@\"); }",
-                   c.type, v.name, par, c.name);
-               out(1,      "@ *@(const @@)",       c.type, c.name, T, par);
-               out(2,"{ return getter<@>(@(), @, \"@\"); }",
-                   c.type, v.name, par, c.name);
-            };
-
-         if (v.isVector) {
-            // with index or label
-            indlab("std::size_t ",  "index");
-            indlab("std::string &", "label");
-         } else {
-            out();
-            out(1,"// @", c.name);
-            out(1,"const @ *@() const", c.type, c.name);
-            out(2,"{ return getter<@>(@(), \"@\"); }", c.type, v.name, c.name);
-            out(1,      "@ *@()",       c.type, c.name);
-            out(2,"{ return getter<@>(@(), \"@\"); }", c.type, v.name, c.name);
-         }
-      }
-   }
-} // writeClassGetters
-
-
-
-// -----------------------------------------------------------------------------
-// writeClassSetter*
-// -----------------------------------------------------------------------------
-
-// writeClassSetterChild
-template<class INFO> // InfoChildren or InfoVariants
-void writeClassSetterChild(
-   writer &out, const PerClass &parent, const INFO &child
-) {
-   // setter
-   // note that if type is optional<T>, a T can still be sent
-   out();
-   out(1,"// @(value)", child.name);
-   out(1,"@ &@(const @ &obj)", parent.clname, child.name, child.typeFull);
-   out(2,"{ @() = obj; return *this; }", child.name);
-
-   const auto indlab =
-      [&out,&parent,&child](const auto &T, const auto &par)
-      {
-         // T par: index or label parameter
-         out();
-         out(1,"// @(@,value)", child.name, par);
-         out(1,"@ &@(", parent.clname, child.name);
-         out(2,"const @@,", T, par);
-         out(2,"const @ &obj", child.type);
-         out(1,") {");
-         out(2,"@(@) = obj; return *this;", child.name, par);
-         out(1,"}");
-      };
-
-   // with index or label
-   if (child.isVector) {
-      indlab("std::size_t ",  "index");
-      indlab("std::string &", "label");
-   }
-} // writeClassSetterChild
-
-
-// writeClassSetters
-void writeClassSetters(writer &out, const PerClass &per)
-{
-   out();
-   out(1,smallComment);
-   out(1,"// Setters");
-   out(1,"// non-const");
-   out(1,"// All return *this");
-   out(1,smallComment);
-
-   // Reminder:
-   //    metadata can have: optional, defaulted (but not vector)
-   //    children can have: optional, vector (but not defaulted)
-
-   // metadata
-   for (const auto &m : per.metadata) {
+   if (per.variants.size()) {
       out();
-      out(1,"// @(value)", m.name);
-
-      // special cases: we want to send length, start, and valueType
-      // to the BodyText base as well
-      const bool special =
-         per.isData &&
-        (m.name == "length" || m.name == "start" || m.name == "valueType");
-
-      // setter
-      // note that if type is optional<T>, a T can still be sent
-      out(1,"@ &@(const @ &obj)", per.clname, m.name, m.typeFull);
-      if (special && m.isDefaulted)
-         out(2,"{ BodyText::@(content.@ = obj); return *this; }",
-             m.name, m.name);
-      if (special && !m.isDefaulted)
-         out(2,"{ BodyText::@(@() = obj); return *this; }",
-             m.name, m.name);
-      if (!special && m.isDefaulted)
-         out(2,"{ content.@ = obj; return *this; }",
-             m.name);
-      if (!special && !m.isDefaulted)
-         out(2,"{ @() = obj; return *this; }",
-             m.name);
-
-      // setter, if type is Defaulted<T>
-      if (m.isDefaulted) {
-         out(1,"@ &@(const std::optional<@> &obj)", per.clname, m.name, m.type);
-         special
-            ? out(2,"{ BodyText::@(content.@ = obj); return *this; }",
-                  m.name, m.name)
-            : out(2,"{ content.@ = obj; return *this; }", m.name);
-      }
+      out(1,"// children - variant");
    }
-
-   // children, variants
-   for (const auto &c : per.children) writeClassSetterChild(out, per, c);
-   for (const auto &v : per.variants) writeClassSetterChild(out, per, v);
-
-   // variant alternatives
    for (const auto &v : per.variants) {
-      if (v.isVector) {
-         // choice is a vector<variant>
-         for (const auto &c : v.children) {
-            const auto indlab =
-               [&out,&per,&v,&c](const auto &T, const auto &par)
-               {
-                  // T par: index or label parameter
-                  out();
-                  out(1,"// @(@,value)", c.name, par);
-                  out(1,"@ &@(", per.clname, c.name);
-                  out(2,"const @@,", T, par);
-                  out(2,"const std::optional<@> &obj", c.type);
-                  out(1,") {");
-                  out(2,"if (obj) @(@,obj.value());", v.name, par);
-                  out(2,"return *this;");
-                  out(1,"}");
-               };
-
-            // with index or label
-            indlab("std::size_t ",  "index");
-            indlab("std::string &", "label");
-         }
-      } else {
-         // choice is a variant
-         for (const auto &c : v.children) {
-            out();
-            out(1,"// @(value)", c.name);
-            out(1,"@ &@(const std::optional<@> &obj)",
-                per.clname, c.name, c.type);
-            out(2,"{ if (obj) @(obj.value()); return *this; }", v.name);
-         }
+      out(1,"Field<@> @{this};", v.typeFull, v.name);
+      for (const auto &c : v.children) {
+         out(1,"FieldPart<decltype(@),@> @{@};",
+             v.name, c.type, c.name, v.name);
       }
    }
-} // writeClassSetters
-
+}
 
 
 // -----------------------------------------------------------------------------
@@ -1224,83 +1078,61 @@ void writeClassSetters(writer &out, const PerClass &per)
 
 // writeClassCtorComponent
 void writeClassCtorComponent(
-   writer &out, const PerClass &per, const bool hasOther
+   writer &out, const PerClass &per, const bool copyOrMove,
+   const bool newline = true
 ) {
-   out(2,"Component{");
-   out(3, hasOther ? "other" : "BodyText{}", false);
-
-   for (const auto &m : per.metadata) { // metadata
-      out(",");
-      out(3,"content.@", m.name, false);
-   }
-   for (const auto &c : per.children) { // children
-      out(",");
-      out(3,"content.@", c.name, false);
-   }
-   for (const auto &v : per.variants) { // variants
-      out(",");
-      out(3,"content.@", v.name, false);
-   }
-
-   out();
-   out(2,"}",false);
-} // writeClassCtorComponent
+   out(2,"GNDSTK_COMPONENT(@)",
+       std::string(copyOrMove ? "other.baseBlockData()" : "BlockData{}"),
+       newline);
+}
 
 
 // writeClassCtorBody
-void writeClassCtorBody(writer &out, const std::string &argName)
-{
+void writeClassCtorBody(
+   writer &out, const std::string &line, const std::string &argName
+) {
    out(1,"{");
+   if (line != "")
+      out(2,line);
    out(2,"Component::finish(@);", argName);
    out(1,"}");
-} // writeClassCtorBody
+}
 
 
 // writeClassCtors
 void writeClassCtors(writer &out, const PerClass &per)
 {
-   // ctor: default
-   out();
-   out(1,"// default");
-   out(1,"@() :", per.clname);
-   writeClassCtorComponent(out, per, false);
-   out();
-   writeClassCtorBody(out, "");
-
-   // ctor: copy
-   out();
-   out(1,"// copy");
-   out(1,"@(const @ &other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   out(",");
-   out(2,"content{other.content}");
-   writeClassCtorBody(out, "other");
-
-   // ctor: move
-   out();
-   out(1,"// move");
-   out(1,"@(@ &&other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   out(",");
-   out(2,"content{std::move(other.content)}");
-   writeClassCtorBody(out, "other");
-
-   // ctor: node
-   out();
-   out(1,"// from node");
-   out(1,"@(const Node &node) :", per.clname);
-   writeClassCtorComponent(out, per, false);
-   out();
-   writeClassCtorBody(out, "node");
-
    // ------------------------
-   // ctor: fields
+   // ctor: default,
+   // and from fields
    // ------------------------
 
-   const auto total = per.nfields();
-   if (total != 0) {
+   const int total = per.nfields();
+   out();
+
+   if (total == 0) {
+      out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata)");
       out();
-      out(1,"// from fields");
+      out(1,"// default");
+      out(1,"@() :", per.clname);
+      writeClassCtorComponent(out, per, false);
+   } else {
+      int count = 0;
+
+      // macro
+      out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
+      for (const auto &m : per.metadata)
+         out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
+      for (const auto &c : per.children)
+         out(2,"this->@@", c.name, ++count < total ? ", \\" : ")");
+      for (const auto &v : per.variants)
+         out(2,"this->@@", v.name, ++count < total ? ", \\" : ")");
+
+      // comment for this constructor
+      out();
+      out(1,"// default, and from fields");
+
+      // informational message, if applicable
       for (const auto &m : per.metadata)
          if (m.isDefaulted) {
             out(1,"// std::optional replaces Defaulted; "
@@ -1309,44 +1141,50 @@ void writeClassCtors(writer &out, const PerClass &per)
          }
 
       // signature, and base constructor call
-      // Note: we don't need "explicit" unless this constructor can be called
-      // with one argument. We'll always write it, however, in case someone
-      // modifies the auto-generated constructor (say, giving its arguments
-      // defaults) in such a way that is *can* be called with one argument.
-      // But we'd rather nobody modify the auto-generated classes.
-      int count = 0;
+      count = 0;
       out(1,"explicit @(", per.clname);
+
       for (const auto &m : per.metadata)
-         out(2,"const @ &@@",
+         out(2,"const wrapper<@> &@ = {}@",
              m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
-             m.name, ++count < total ? "," : "");
+             m.name, sep(count,total));
       for (const auto &c : per.children)
-         out(2,"const @ &@@", c.typeFull, c.name, ++count < total ? "," : "");
+         out(2,"const wrapper<@> &@ = {}@",
+             c.typeFull, c.name, sep(count,total));
       for (const auto &v : per.variants)
-         out(2,"const @ &@@", v.typeFull, v.name, ++count < total ? "," : "");
+         out(2,"const wrapper<@> &@ = {}@",
+             v.typeFull, v.name, sep(count,total));
 
       out(1,") :");
-      writeClassCtorComponent(out, per, false);
+      writeClassCtorComponent(out, per, false, false);
 
       // initialize fields
       out(",");
-      out(2,"content{");
       count = 0;
       for (const auto &m : per.metadata)
-         out(3,"@@",
-             m.isDefaulted
-                ? "Defaulted<"+m.type+">(defaults."+m.name+","+m.name+")"
-                : m.name,
-             ++count < total ? "," : "");
+         if (m.isDefaulted)
+            out(2,"@(this,defaults.@,@)@",
+                m.name, m.name, m.name, sep(count,total));
+         else
+            out(2,"@(this,@)@", m.name, m.name, sep(count,total));
       for (const auto &c : per.children)
-         out(3,"@@", c.name, ++count < total ? "," : "");
+         out(2,"@(this,@)@", c.name, c.name, sep(count,total));
       for (const auto &v : per.variants)
-         out(3,"@@", v.name, ++count < total ? "," : "");
-      out(2,"}");
-
-      // body
-      writeClassCtorBody(out, "");
+         out(2,"@(this,@)@", v.name, v.name, sep(count,total));
    }
+
+   // body
+   writeClassCtorBody(out, "", "");
+
+   // ------------------------
+   // ctor: node
+   // ------------------------
+
+   out();
+   out(1,"// from node");
+   out(1,"explicit @(const Node &node) :", per.clname);
+   writeClassCtorComponent(out, per, false);
+   writeClassCtorBody(out, "", "node");
 
    // ------------------------
    // ctor: vector
@@ -1356,14 +1194,32 @@ void writeClassCtors(writer &out, const PerClass &per)
       out();
       out(1,"// from vector");
       out(1,"template<class T, class = "
-          "std::enable_if_t<body::template supported<T>>>");
+          "std::enable_if_t<BLOCKDATA::template supported<T>>>");
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
-      out();
-      writeClassCtorBody(out, "vector");
+      writeClassCtorBody(out, "", "vector");
    }
-} // writeClassCtors
 
+   // ------------------------
+   // ctor: copy
+   // ------------------------
+
+   out();
+   out(1,"// copy");
+   out(1,"@(const @ &other) :", per.clname, per.clname);
+   writeClassCtorComponent(out, per, true);
+   writeClassCtorBody(out, "*this = other;", "other");
+
+   // ------------------------
+   // ctor: move
+   // ------------------------
+
+   out();
+   out(1,"// move");
+   out(1,"@(@ &&other) :", per.clname, per.clname);
+   writeClassCtorComponent(out, per, true);
+   writeClassCtorBody(out, "*this = std::move(other);", "other");
+} // writeClassCtors
 
 
 // -----------------------------------------------------------------------------
@@ -1377,62 +1233,50 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    writer out(false);
 
    // output: class begin
-   writeClassPrefix(out,per);
+   writeClassPrefix(out, per);
 
    // output: for the Component base
-   writeClassForComponent(out,per);
+   writeClassForComponent(out, per);
 
    // output: using directives
-   out();
    out(1,"using Component::construct;");
    if (per.isData)
-      out(1,"using BodyText::operator=;");
+      out(1,"using BlockData::operator=;");
 
    // output: defaults (applicable only to metadata)
-   out();
-   out(1,smallComment);
-   out(1,"// Relevant defaults");
-   out(1,"// FYI for users");
-   out(1,smallComment);
-   out();
-   out(1,"static inline const struct Defaults {");
+   std::size_t ndefaults = 0;
    for (auto &m : per.metadata)
       if (m.isDefaulted)
-         out(2,"static inline const @ @ = @;", m.type, m.name, initializer(m));
-   out(1,"} defaults;");
+         ++ndefaults;
+   if (ndefaults > 0) {
+      out();
+      out(1,"// defaults");
+      out(1,"static inline const struct Defaults {");
+      for (auto &m : per.metadata)
+         if (m.isDefaulted)
+            out(2, "static inline const @ @ = @;",
+                m.type, m.name, initializer(m));
+      out(1,"} defaults;");
+   }
 
-   // output: content (the metadata/children computed earlier)
-   out();
-   out(1,smallComment);
-   out(1,"// Raw GNDS content");
-   out(1,smallComment);
-   out();
-   out(1,"struct {");
+   // output: fields
    writeClassContentMetadata(out, per);
    writeClassContentChildren(out, per);
    writeClassContentVariants(out, per);
-   out(1,"} content;");
-
-   // output: getters, setters
-   if (per.metadata.size() || per.children.size() || per.variants.size()) {
-      writeClassGetters(out, per);
-      writeClassSetters(out, per);
-   }
 
    // output: constructors
    out();
    out(1,smallComment);
-   out(1,"// Construction");
+   out(1,"// Constructors");
    out(1,smallComment);
    writeClassCtors(out, per);
 
    // output: class end
-   writeClassSuffix(out, per, specs.Version);
+   writeClassSuffix(out, per, specs);
 
    // done
    per.code = out.str();
 } // writeClass
-
 
 
 // -----------------------------------------------------------------------------
@@ -1440,7 +1284,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
 // -----------------------------------------------------------------------------
 
 // readJSONFile
-nlohmann::json readJSONFile(const std::string &file, const bool print = false)
+orderedJSON readJSONFile(const std::string &file, const bool print = false)
 {
    static const std::string underlineON  = "\033[4m";
    static const std::string underlineOFF = "\033[24m";
@@ -1459,7 +1303,7 @@ nlohmann::json readJSONFile(const std::string &file, const bool print = false)
       throw std::exception{};
    }
 
-   nlohmann::json j;
+   orderedJSON j;
    ifs >> j;
    return j;
 } // readJSONFile
@@ -1467,7 +1311,7 @@ nlohmann::json readJSONFile(const std::string &file, const bool print = false)
 
 // getMetadataJSON
 template<bool required>
-auto getMetadataJSON(const nlohmann::json &j)
+auto getMetadataJSON(const orderedJSON &j)
 {
    static const std::string metastr = "metadata";
    static const std::string attrstr = "attributes";
@@ -1480,15 +1324,15 @@ auto getMetadataJSON(const nlohmann::json &j)
       return meta ? j[metastr] : j[attrstr];
    } else {
       assert(!(meta && attr)); // not both
-      return std::optional<nlohmann::json>(
-         meta ? j[metastr] : attr ? j[attrstr] : nlohmann::json{});
+      return std::optional<orderedJSON>(
+         meta ? j[metastr] : attr ? j[attrstr] : orderedJSON{});
    }
 } // getMetadataJSON
 
 
 // getChildrenJSON
 template<bool required>
-auto getChildrenJSON(const nlohmann::json &j)
+auto getChildrenJSON(const orderedJSON &j)
 {
    static const std::string chldstr = "children";
    static const std::string nodestr = "childNodes";
@@ -1501,11 +1345,10 @@ auto getChildrenJSON(const nlohmann::json &j)
       return chld ? j[chldstr] : j[nodestr];
    } else {
       assert(!(chld && node)); // not both
-      return std::optional<nlohmann::json>(
-         chld ? j[chldstr] : node ? j[nodestr] : nlohmann::json{});
+      return std::optional<orderedJSON>(
+         chld ? j[chldstr] : node ? j[nodestr] : orderedJSON{});
    }
 } // getChildrenJSON
-
 
 
 // -----------------------------------------------------------------------------
@@ -1515,7 +1358,7 @@ auto getChildrenJSON(const nlohmann::json &j)
 // readChangesFile
 void readChangesFile(const std::string &file, InfoSpecs &specs)
 {
-   const nlohmann::json jchanges = readJSONFile(file);
+   const orderedJSON jchanges = readJSONFile(file);
    using pair = std::pair<std::string,std::string>;
 
    // Changes to name?
@@ -1544,19 +1387,21 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
 // printSingletons
 void printSingletons(const std::string &file)
 {
-   const nlohmann::json &jfile = readJSONFile(file,true);
+   const orderedJSON &jfile = readJSONFile(file,true);
 
    for (const auto &item : jfile.items()) {
       const std::string parent = item.key();
-      const nlohmann::json rhs = item.value();
+      const orderedJSON rhs = item.value();
       if (!isClass(item))
          continue;
 
       const auto metadata = getMetadataJSON<true>(rhs);
       const auto children = getChildrenJSON<true>(rhs);
+      const bool data = rhs.contains("data") && !rhs["data"].is_null();
+      const bool body = rhs.contains("bodyText") && !rhs["bodyText"].is_null();
 
-      if (metadata.size() == 0 && children.size() == 0)
-         log::info("Class \"{}\" has no metadata and no children", parent);
+      if (metadata.size() == 0 && children.size() == 0 && !data && !body)
+         log::info("Class \"{}\" has no metadata, children, or data", parent);
       if (metadata.size() == 0 && children.size() == 1)
          log::info("Class \"{}\" has no metadata and just one child", parent);
    }
@@ -1564,16 +1409,17 @@ void printSingletons(const std::string &file)
 
 
 // commandLine
-// Gather information from the .json file given on the command line
+// Gather information from the JSON file given on the command line
 void commandLine(
    const int argc, const char *const *const argv,
    InfoSpecs &specs
 ) {
-   // Keys we'll look for
+   // JSON keys we'll look for
+   static const std::string path    = "Path";
+   static const std::string project = "Project";
+   static const std::string version = "Version";
    static const std::string input   = "JSONDir";
    static const std::string files   = "JSONFiles";
-   static const std::string output  = "GNDSDir";
-   static const std::string version = "Version";
    static const std::string changes = "Changes";
 
    // Usage
@@ -1583,21 +1429,31 @@ void commandLine(
    }
 
    // Input file
-   const nlohmann::json jmain = readJSONFile(argv[1]);
+   const orderedJSON jmain = readJSONFile(argv[1]);
 
-   // Validate content
-   if (!(jmain.contains(input) && jmain.contains(output) &&
-         jmain.contains(files) && jmain.contains(version))) {
-      log::error("The input json file needs {}, {}, {}, and {}",
-                 input, files, output, version);
+   // Need "Version"
+   if (!jmain.contains(version)) {
+      log::error("The input JSON file needs {}", version);
       throw std::exception{};
    }
 
-   // Extract information from the command line .json
-   specs.JSONDir   = jmain[input];
-   specs.JSONFiles = std::vector<std::string>(jmain[files]);
-   specs.GNDSDir   = jmain[output];
-   specs.Version   = jmain[version];
+   // Need "JSONFiles"
+   if (!jmain.contains(files)) {
+      log::error("The input JSON file needs {}", files);
+      throw std::exception{};
+   }
+
+   // Extract information from the command line JSON file...
+   // ...these are optional:
+   specs.Path    = jmain.contains(path   ) ? jmain[path   ] : ".";
+   specs.Project = jmain.contains(project) ? jmain[project] : "GNDStk";
+   specs.JSONDir = jmain.contains(input  ) ? jmain[input  ] : ".";
+   // ...these are required:
+   specs.Version = jmain[version];
+   for (const auto &str : jmain[files])
+      specs.JSONFiles.push_back(str);
+
+   // Version, with underscores in place of periods
    specs.VersionUnderscore = replace(specs.Version, '.', '_');
 
    // Prepend the JSON file names with their directory
@@ -1605,21 +1461,35 @@ void commandLine(
       file = specs.JSONDir + '/' + file;
 
    // File names
-   specs.hppVersion = specs.GNDSDir + "/src/GNDStk/" + specs.Version + ".hpp";
-   specs.hppKey = specs.GNDSDir + "/src/GNDStk/" + specs.Version + "/key.hpp";
+   {
+      // For C++
+      const std::string base =
+         specs.Path + "/" + specs.Project + "/src/" + specs.Project + "/";
+      specs.hppVersion = base + specs.Version + ".hpp";
+      specs.hppKey     = base + specs.Version + "/key.hpp";
+   }
+   {
+      // For the C interface
+      const std::string base =
+         specs.Path + "/" + specs.Project + "/c/src/";
+      specs.hVersion = base + specs.Version + ".h";
+      // We don't currently know of anything that we'd have in the following
+      // file, so we won't create it. But I'll leave this in as a placeholder.
+      specs.cVersion = base + specs.Version + ".cpp";
+   }
 
    // Report on "singletons"
    if (singletons) {
-      action("Finding possible simplifications");
+      action("\nFinding possible simplifications...");
       for (const std::string &file : specs.JSONFiles)
          printSingletons(file);
+      action("Done.");
    }
 
    // Changes?
    if (jmain.contains(changes))
       readChangesFile(jmain[changes],specs);
 } // commandLine
-
 
 
 // -----------------------------------------------------------------------------
@@ -1645,21 +1515,24 @@ void preprocessClass(
    // custom files as needed
    // ------------------------
 
-   // Given the base GNDS directory and the GNDS version, as obtained earlier
-   // from the JSON input file to this tool, compute relevant directory names.
-   const std::string
-      // For the present namespace: C++ and Python directories. The present
-      // namespace probably contains multiple classes, so its directories
-      // may have been created already, but that's fine.
-      nsdir   = specs.GNDSDir + "/src/GNDStk/" + specs.Version + "/" + nsname,
-      nsdirpy = specs.GNDSDir + "/python/src/" + specs.Version + "/" + nsname,
-      // For the present class: C++ source and test directories.
-      clsrc   = nsdir + "/" + clname + "/src",
-      cltest  = nsdir + "/" + clname + "/test";
+   // For the present namespace: C++, Python, and C directories. The present
+   // namespace probably contains multiple classes, so these directories may
+   // have been created already, but that's fine.
+   const std::string nsdir   = specs.Path + "/" + specs.Project +
+      "/src/" + specs.Project + "/" + specs.Version + "/" + nsname;
+   const std::string nsdirpy = specs.Path + "/" + specs.Project +
+      "/python/src/" + specs.Version + "/" + nsname;
+   const std::string nsdirc  = specs.Path + "/" + specs.Project +
+      "/c/src/" + specs.Version + "/" + nsname;
+
+   // For the present class: C++ source and test directories.
+   const std::string clsrc  = nsdir + "/" + clname + "/src";
+   const std::string cltest = nsdir + "/" + clname + "/test";
 
    // Create the above directories, if (and only if) they don't already exist.
    system(("mkdir -p " + nsdir  ).data());
    system(("mkdir -p " + nsdirpy).data());
+   system(("mkdir -p " + nsdirc ).data());
    system(("mkdir -p " + clsrc  ).data());
    system(("mkdir -p " + cltest ).data());
 
@@ -1692,11 +1565,14 @@ void preprocessClass(
    // For this namespace::class:
    //    The cpp file for Python
    //    The hpp file for GNDStk
+   //    The C/C++ header, and the C++ backend for the C interface
    auto cl = specs.class2data.insert(
       std::make_pair(NamespaceAndClass{nsname,clname}, PerClass{}));
    assert(cl.second); // should have been inserted - not there already
    cl.first->second.cppPython = nsdirpy + "/" + clname + ".python.cpp";
    cl.first->second.hppGNDStk = nsdir   + "/" + clname + ".hpp";
+   cl.first->second.headerC   = nsdirc  + "/" + clname + ".h";
+   cl.first->second.sourceC   = nsdirc  + "/" + clname + ".cpp";
 } // preprocessClass
 
 
@@ -1712,17 +1588,17 @@ void preprocessClass(
 // names are computed as part of the "information" for the maps just mentioned.
 void preprocessFiles(InfoSpecs &specs)
 {
-   action("Preprocessing input files");
+   action("\nPreprocessing input files...");
    // files
    for (const std::string &file : specs.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file,true);
+      const orderedJSON jmain = readJSONFile(file,true);
       const std::string nsname = getFileNamespace(jmain);
       // classes in the file
       for (const auto &cl : jmain.items())
          preprocessClass(specs, nsname, cl);
    }
+   action("Done.");
 } // preprocessFiles
-
 
 
 // -----------------------------------------------------------------------------
@@ -1732,7 +1608,7 @@ void preprocessFiles(InfoSpecs &specs)
 // -----------------------------------------------------------------------------
 
 // Helper: validateMetadata
-void validateMetadata(const nlohmann::json &metadata)
+void validateMetadata(const orderedJSON &metadata)
 {
    for (const auto &field : metadata.items()) {
       assert(field.value().contains("type"));
@@ -1742,18 +1618,17 @@ void validateMetadata(const nlohmann::json &metadata)
 
 
 // Helper: validateChildren
-void validateChildren(const nlohmann::json &children)
+void validateChildren(const orderedJSON &children)
 {
    for (const auto &field : children.items()) {
-      assert(field.value().contains("occurrence"));
       assert(field.value().contains("required"));
 
-      // Consistency check: certain "occurrence" values imply *not* required.
+      // Consistency check: certain occurrence values imply *not* required.
       // Remark: the GNDS manual speaks of "choice2" and "choice2+" options
       // for occurrence. We're not sure if those will remain in future GNDS
       // specifications, so we won't worry now about how they might fit in.
-      const std::string occ = field.value()["occurrence"];
-      if (occ == "0+" || occ == "choice" || occ == "choice+")
+      const std::string times = getTimes(field.value());
+      if (times == "0+" || times == "choice" || times == "choice+")
          assert(!field.value()["required"]); // not required
    }
 }
@@ -1783,8 +1658,8 @@ void getClass(
    per.nameGNDS = nameGNDS(keyval);
 
    // metadata/children information
-   const nlohmann::json attrs = getMetadataJSON<true>(classRHS);
-   const nlohmann::json elems = getChildrenJSON<true>(classRHS);
+   const orderedJSON attrs = getMetadataJSON<true>(classRHS);
+   const orderedJSON elems = getChildrenJSON<true>(classRHS);
    validateMetadata(attrs);
    validateChildren(elems);
    getClassMetadata(attrs, specs, per);
@@ -1798,7 +1673,15 @@ void getClass(
    const bool body = classRHS.contains(bodystr) && !classRHS[bodystr].is_null();
    assert(!(data && body)); // not both
    per.isData = data || body;
-   per.dataType = data ? classRHS[datastr] : "";
+   if (data) {
+      // A type change, as with metadata, could be wanted in this context as
+      // well. Perhaps the name "mapMetaType" (and the location and name for
+      // it in the changes.json file) should be modified to reflect this
+      const std::string type = classRHS[datastr];
+      const auto it = specs.mapMetaType.find(type);
+      per.dataType = it == specs.mapMetaType.end() ? type : it->second;
+   } else
+      per.dataType = "";
 
    // per.code will contain printed C++ code for the class itself
    writeClass(per,specs);
@@ -1811,17 +1694,17 @@ void getClass(
 // getFiles
 void getFiles(InfoSpecs &specs)
 {
-   action("Creating classes");
+   action("\nCreating classes...");
    // files
    for (const std::string &file : specs.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file,true);
+      const orderedJSON jmain = readJSONFile(file,true);
       const std::string nsname = getFileNamespace(jmain);
       // classes in the file
       for (const auto &cl : jmain.items())
          getClass(specs, nsname, cl);
    }
+   action("Done.");
 } // getFiles
-
 
 
 // -----------------------------------------------------------------------------
@@ -1860,61 +1743,91 @@ void sortDependencies(InfoSpecs &specs)
 }
 
 
-
 // -----------------------------------------------------------------------------
-// Functions for creating output files
-// -----------------------------------------------------------------------------
-
+// For the C++ header files
 // fileGNDStkVersion
+// fileGNDStkKey
+// fileGNDStkClass
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// fileGNDStkVersion
+// ------------------------
+
 void fileGNDStkVersion(const InfoSpecs &specs)
 {
-   // Create an overarching file for this version
-   writer out(specs.hppVersion);
-   out();
-   out("#ifndef NJOY_GNDSTK_@", allcaps(specs.VersionUnderscore));
-   out("#define NJOY_GNDSTK_@", allcaps(specs.VersionUnderscore));
+   // ------------------------
+   // Create a C++ header
+   // for this version
+   // ------------------------
 
-   std::string nsname_last = "";
-   for (auto &c : specs.class2data) {
-      const std::string nsname = c.first.nsname;
-      const std::string clname = c.first.clname;
-      if (nsname != nsname_last)
-         out();
-      nsname_last = nsname;
-      out("#include \"GNDStk/@/@/@.hpp\"", specs.Version, nsname, clname);
+   {
+      writer out(specs.hppVersion);
+      out();
+      out("#ifndef @_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+      out("#define @_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+
+      std::string nsname_last = "";
+      for (auto &c : specs.class2data) {
+         const std::string nsname = c.first.nsname;
+         const std::string clname = c.first.clname;
+         if (nsname != nsname_last)
+            out();
+         nsname_last = nsname;
+         out("#include \"@/@/@/@.hpp\"",
+             specs.Project, specs.Version, nsname, clname);
+      }
+
+      out();
+      out("#endif");
    }
 
-   out();
-   out("#include \"GNDStk/@/key.hpp\"", specs.Version);
-   out();
-   out("#endif");
+   // ------------------------
+   // Create a C/C++ header
+   // for the C interface
+   // ------------------------
+
+   {
+      writer out(specs.hVersion);
+      out();
+      out(largeComment);
+      out("// This header file is designed to work with both C and C++");
+      out(largeComment);
+      out();
+      out("#ifndef C_INTERFACE_@_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+      out("#define C_INTERFACE_@_@",
+          allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+
+      out();
+      out("#include \"GNDStk.h\"");
+      out();
+      out("#ifdef __cplusplus");
+      out(1,"// For C++");
+      out(1,"#include \"@/@.hpp\"", specs.Project, specs.VersionUnderscore);
+      out("#endif");
+
+      std::string nsname_last = "";
+      for (auto &c : specs.class2data) {
+         const std::string nsname = c.first.nsname;
+         const std::string clname = c.first.clname;
+         if (nsname != nsname_last)
+            out();
+         nsname_last = nsname;
+         out("#include \"@/@/@.h\"", specs.Version, nsname, clname);
+      }
+
+      out();
+      out("#endif");
+   }
 } // fileGNDStkVersion
 
 
-// fixme Reconsider the arrangement described here...
+// ------------------------
 // fileGNDStkKey
-const std::string file_key_comment =
-R"***(
-This file contains Meta and Child objects for metadata and child nodes in the
-current GNDS version. These may prove to be useful if you wish to use the Core
-Interface in conjunction with the autogenerated classes for this GNDS version.
-
-Within the outer njoy::GNDStk::version namespace below, the remaining namespace
-arrangement was chosen to make the use of these objects smooth and logical.
-
-Meta and Child objects are collectively called "keys." Meta keys are placed
-into key::meta. Child keys correspond to autogenerated classes, each of which
-is already in some namespace; we thus use theNamespace::key::child::. That way,
-an autogenerated class [ns::Foo] has [ns::key::foo] as its Child object, and
-a "using namespace ns" allows the class and the Child object to be [Foo] and
-[key::foo], respectively. (If we reordered ns:: and key::, that wouldn't work.)
-
-Within key::, we use meta:: and child:: around Meta and Child objects, just in
-case there exist any identical GNDS metadata names and child-node names. (That
-can, in fact, happen). The "using namespace meta" and "using namespace child"
-directives then make the Meta<> and Child<> objects appear directly in key::,
-so that "meta::" and "child::" are needed only to disambiguate identical names.
-)***";
+// ------------------------
 
 void fileGNDStkKey(const InfoSpecs &specs)
 {
@@ -1934,7 +1847,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
    std::multimap<std::string, std::set<pair>> namespace2children;
 
    for (const auto &file : specs.JSONFiles) {
-      const nlohmann::json jmain = readJSONFile(file);
+      const orderedJSON jmain = readJSONFile(file);
       auto it = namespace2children.insert(
          std::make_pair(getFileNamespace(jmain),std::set<pair>{}));
 
@@ -1943,14 +1856,14 @@ void fileGNDStkKey(const InfoSpecs &specs)
             // nodes ==> children
             it->second.insert(std::make_pair(
                nameField(node,specs),
-               nameGNDS (node)));
+               nameGNDS(node)));
 
             // attributes ==> metadata
             const auto attrs = getMetadataJSON<true>(node.value());
             for (const auto &attr : attrs.items())
                metadata.insert(std::make_pair(
                   nameField(attr,specs),
-                  nameGNDS (attr)));
+                  nameGNDS(attr)));
          }
       }
    }
@@ -1962,54 +1875,56 @@ void fileGNDStkKey(const InfoSpecs &specs)
 
    writer out(specs.hppKey);
    out();
-   out("/*",false);
-   out(file_key_comment,false);
-   out("*/");
+   out("#ifndef @_@_KEY",
+       allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+   out("#define @_@_KEY",
+       allcaps(specs.Project), allcaps(specs.VersionUnderscore));
    out();
-   out("#ifndef NJOY_GNDSTK_@_KEY", allcaps(specs.VersionUnderscore));
-   out("#define NJOY_GNDSTK_@_KEY", allcaps(specs.VersionUnderscore));
+   out("// GNDStk Core Interface");
+   out("#include \"GNDStk.hpp\"");
    out();
-   out("namespace njoy {");
-   out("namespace GNDStk {");
+   if (specs.Project == "GNDStk") // <== use namespace njoy only for this
+      out("namespace njoy {");
+   out("namespace @ {", specs.Project);
    out("namespace @ {", specs.VersionUnderscore);
+   out();
+   out("using namespace njoy::GNDStk;");
 
    // ------------------------
    // Meta<> objects
    // ------------------------
 
+   section(out,"// meta::");
    out();
-   out();
-   out(largeComment);
-   out("// key::meta::");
-   out(largeComment);
-   out();
-   out("namespace key {");
    out("namespace meta {");
 
    if (metadata.size() > 0) {
       out();
+      out(0,"#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \\");
+      out(1,   "inline const auto nameField = makeLookup( \\");
+      out(2,      "[](const auto &obj) -> decltype(obj.nameField()) \\");
+      out(2,      "{ return obj.nameField(); }, \\");
+      out(2,      "#nameGNDS \\");
+      out(1,   ")");
+      out(0, "// nameField vs. nameGNDS: for, e.g., Double vs. double in GNDS");
+      out();
       for (const auto &meta : metadata)
-         out("inline const Meta<> @(\"@\");", meta.first, meta.second);
+         out("GNDSTK_MAKE_LOOKUP(@,@);", meta.first, meta.second);
+      out();
+      out(0,"#undef GNDSTK_MAKE_LOOKUP");
       out();
    }
 
    out("} // namespace meta");
-   out("using namespace meta;");
-   out("} // namespace key");
 
    // ------------------------
    // Child<> objects
    // ------------------------
 
    for (const auto &nspace : namespace2children) {
-      out();
-      out();
-      out(largeComment);
-      out("// @::key::child::", nspace.first);
-      out(largeComment);
+      section(out, "// @::child::", nspace.first);
       out();
       out("namespace @ {", nspace.first);
-      out("namespace key {");
       out("namespace child {");
 
       const auto &children = nspace.second;
@@ -2022,9 +1937,24 @@ void fileGNDStkKey(const InfoSpecs &specs)
 
       out("} // namespace child");
       out("using namespace child;");
-      out("} // namespace key");
       out("} // namespace @", nspace.first);
    }
+
+   // ------------------------
+   // Using directives
+   // ------------------------
+
+   section(out, "// For convenience: using directives");
+   out();
+   out("namespace key {");
+   out(1,"using namespace meta;");
+   for (const auto &nspace : namespace2children)
+      out(1,"using namespace @::child;", nspace.first);
+   out("} // namespace key");
+   out();
+   out("using namespace key;");
+   for (const auto &nspace : namespace2children)
+      out("using namespace @;", nspace.first);
 
    // ------------------------
    // finish
@@ -2036,54 +1966,981 @@ void fileGNDStkKey(const InfoSpecs &specs)
    out(largeComment);
    out();
    out("} // namespace @", specs.VersionUnderscore);
-   out("} // namespace GNDStk");
-   out("} // namespace njoy");
+   out("} // namespace @", specs.Project);
+   if (specs.Project == "GNDStk") // <== end namespace njoy only for this
+      out("} // namespace njoy");
    out();
    out("#endif");
 } // fileGNDStkKey
 
 
+// ------------------------
 // fileGNDStkClass
+// ------------------------
+
 void fileGNDStkClass(
    const InfoSpecs &specs, const PerClass &per, const Class2Dependencies &c2d
 ) {
    // class-specific hpp file
    writer out(per.hppGNDStk);
    const std::string guard =
-     "NJOY_GNDSTK_" + allcaps(specs.VersionUnderscore) + "_" +
-      allcaps(per.nsname) + "_" + allcaps(per.clname);
+      allcaps(specs.Project) + "_" +
+      allcaps(specs.VersionUnderscore) + "_" +
+      allcaps(per.nsname) + "_" +
+      allcaps(per.clname);
 
    out();
    out("#ifndef @", guard);
    out("#define @", guard);
-   out();
-   out("// core interface");
-   out("#include \"GNDStk.hpp\"");
-
-   if (c2d.dependencies.size() > 0) {
-      out();
-      out("// @ dependencies", specs.Version);
-      for (const auto &dep : c2d.dependencies)
-         out("#include \"GNDStk/@/@/@.hpp\"",
-             specs.Version, dep.nsname, dep.clname);
-   }
 
    out();
-   out("namespace njoy {");
-   out("namespace GNDStk {");
+   if (c2d.dependencies.size() == 0) // <== otherwise, comes in through deps
+      out("#include \"@/@/key.hpp\"", specs.Project, specs.Version);
+   for (const auto &dep : c2d.dependencies)
+      out("#include \"@/@/@/@.hpp\"",
+          specs.Project, specs.Version, dep.nsname, dep.clname);
+
+   out();
+   if (specs.Project == "GNDStk")
+      out("namespace njoy {");
+   out("namespace @ {", specs.Project);
    out("namespace @ {", specs.VersionUnderscore);
-   out();
-   out("using namespace njoy::GNDStk::core;");
    out(per.code,false);
    out("} // namespace @", specs.VersionUnderscore);
-   out("} // namespace GNDStk");
-   out("} // namespace njoy");
+   out("} // namespace @", specs.Project);
+   if (specs.Project == "GNDStk")
+      out("} // namespace njoy");
    out();
    out("#endif");
 } // fileGNDStkClass
 
 
+// -----------------------------------------------------------------------------
+// C interface:
+// Helpers
+// -----------------------------------------------------------------------------
+
+// two
+// Forward args to two places: header and source
+template<class... Ts>
+void two(writer &hdr, writer &src, Ts &&...args)
+{
+   hdr(std::forward<Ts>(args)...);
+   src(std::forward<Ts>(args)...);
+}
+
+// ext
+// For writing (or not writing) 'extern "C"'
+template<class... Ts>
+void ext(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   hdr("extern_c "+str, std::forward<Ts>(args)...);
+   src(            str, std::forward<Ts>(args)...);
+}
+
+// ppp
+// Comment, prefixed in header file with "+++"
+template<class... Ts>
+void ppp(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   hdr("// +++ "+str, std::forward<Ts>(args)...);
+   src("// "    +str, std::forward<Ts>(args)...);
+}
+template<class... Ts>
+void PPP(writer &hdr, writer &src, Ts &&...args)
+{
+   two(hdr,src);
+   ppp(hdr,src,std::forward<Ts>(args)...);
+}
+
+// mmm
+// Comment, prefixed in header file with "---"
+template<class... Ts>
+void mmm(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   hdr("// --- "+str, std::forward<Ts>(args)...);
+   src("// "    +str, std::forward<Ts>(args)...);
+}
+template<class... Ts>
+void MMM(writer &hdr, writer &src, Ts &&...args)
+{
+   two(hdr,src);
+   mmm(hdr,src,std::forward<Ts>(args)...);
+}
+
+// sig
+// End C interface function signature; style dependent on hadFields bool
+void sig(writer &hdr, writer &src, const bool hadFields = false)
+{
+   // header: end of parameters, semicolon for declaration
+   hdr(");");
+   // source: end of parameters, left brace for definition
+   src(hadFields ? ") {" : ")\n{");
+}
+
+// mtype_param
+// Get metadata type, for C interface
+std::string mtype_param(const InfoMetadata &m)
+{
+   return m.type == "std::string"
+      ? "char *const"
+      : m.type;
+}
+
+// mtype_return
+// Get metadata type, for C interface
+std::string mtype_return(const InfoMetadata &m)
+{
+   return m.type == "std::string"
+      ? "const char *"
+      : m.type;
+}
+
+// ctype
+// Get child-node type, for C interface
+std::string ctype(const InfoChildren &c)
+{
+   // Why not ...2Const... in the first case? See:
+   //    https://stackoverflow.com/questions/5055655
+   // and:
+   //    https://c-faq.com/ansi/constmismatch.html
+   // Remember that we're making C code here, not C++.
+   return c.isVector
+      ? "ConstHandle2" + c.plain + " *const"
+      : "ConstHandle2Const" + c.plain;
+}
+
+// section
+template<class... Ts>
+void section(writer &hdr, writer &src, const std::string &str, Ts &&...args)
+{
+   two(hdr,src);
+   two(hdr,src);
+   two(hdr,src,largeComment);
+   two(hdr,src,str, std::forward<Ts>(args)...);
+   two(hdr,src,largeComment);
+}
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceCreate*
+// -----------------------------------------------------------------------------
+
+// fileCInterfaceCreateParams
+void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
+{
+   int count = 0;
+   const int total = per.nfields();
+
+   // metadata
+   for (const auto &m : per.metadata) {
+      two(hdr,src);
+      two(hdr,src,1,"const @ @@",
+          mtype_param(m),
+          m.name,
+          ++count < total ? "," : "",
+          false);
+   }
+
+   // children
+   for (const auto &c : per.children) {
+      two(hdr,src);
+      two(hdr,src,1,"@ @@@",
+          ctype(c),
+          c.name,
+          c.isVector ? ", const size_t "+c.name+"Size" : "",
+          ++count < total ? "," : "",
+          false
+      );
+   }
+
+   // variants
+   // todo
+
+   if (total)
+      two(hdr,src);
+}
+
+// fileCInterfaceCreateCall
+void fileCInterfaceCreateCall(writer &hdr, writer &src, const PerClass &per)
+{
+   // metadata
+   for (const auto &m : per.metadata) {
+      src(",");
+      src(2,"@", m.name, false);
+   }
+
+   // children
+   for (const auto &c : per.children) {
+      src(",");
+      const std::string Child = c.plain;
+      const std::string child = c.name;
+      c.isVector
+         ? src(2,"std::vector<CPP@>{}", Child, false)
+         : src(2,"detail::tocpp<CPP@>(@)", Child, child, false);
+   }
+
+   // variants
+   // todo
+
+   src();
+   src(1,");");
+   for (const auto &c : per.children) {
+      if (!c.isVector)
+         continue;
+      const std::string Child = c.plain;
+      const std::string child = c.name;
+      src(1,"for (size_t @N = 0; @N < @Size; ++@N)",
+          Child, Child, child, Child);
+      src(2,"@@Add(handle, @[@N]);",
+          per.clname, Child, child, Child);
+   }
+   src(1,"return handle;");
+   src("}");
+}
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceBasics
+// -----------------------------------------------------------------------------
+
+void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
+{
+   // section comment
+   section(hdr,src,
+           "// Basics\n"
+           "// Create, Assign, Delete");
+
+   // create: default, const
+   MMM(hdr,src,"Create, default, const");
+   ext(hdr,src,"Handle2Const@", per.clname);
+   two(hdr,src,"@DefaultConst(", per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::createHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"DefaultConst\");");
+   src("}");
+
+   // create: default, non-const
+   PPP(hdr,src,"Create, default");
+   ext(hdr,src,"Handle2@", per.clname);
+   two(hdr,src,"@Default(", per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::createHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Default\");");
+   src("}");
+
+   // create: general, const
+   MMM(hdr,src,"Create, general, const");
+   ext(hdr,src,"Handle2Const@", per.clname);
+   two(hdr,src,"@CreateConst(", per.clname, false);
+   fileCInterfaceCreateParams(hdr,src,per);
+   sig(hdr,src, per.nfields() != 0);
+   src(1,"ConstHandle2@ handle = detail::createHandle<CPP,C>(", per.clname);
+   src(2,"CLASSNAME, CLASSNAME+\"CreateConst\"", false);
+   fileCInterfaceCreateCall(hdr,src,per);
+
+   // create: general, non-const
+   PPP(hdr,src,"Create, general");
+   ext(hdr,src,"Handle2@", per.clname);
+   two(hdr,src,"@Create(", per.clname, false);
+   fileCInterfaceCreateParams(hdr,src,per);
+   sig(hdr,src, per.nfields() != 0);
+   src(1,"ConstHandle2@ handle = detail::createHandle<CPP,C>(", per.clname);
+   src(2,"CLASSNAME, CLASSNAME+\"Create\"", false);
+   fileCInterfaceCreateCall(hdr,src,per);
+
+   // assign
+   PPP(hdr,src,"Assign");
+   ppp(hdr,src,"Use this to assign one handled object to another. "
+       "Don't assign handles,");
+   ppp(hdr,src,"as with to = from. That has a meaning that you probably "
+       "don't intend.");
+   ext(hdr,src,"void");
+   two(hdr,src,"@Assign(", per.clname, false);
+   two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ from",
+       per.clname, per.clname, false);
+   sig(hdr,src);
+   src(1,"detail::assignHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Assign\", This, from);");
+   src("}");
+
+   // delete
+   PPP(hdr,src,"Delete");
+   ppp(hdr,src,"We'll attempt to remove no-longer-used objects "
+       "automatically, but you");
+   ppp(hdr,src,"may improve performance if you delete them when "
+       "you're done with them.");
+   ext(hdr,src,"void");
+   two(hdr,src,"@Delete(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
+   sig(hdr,src);
+   src(1,"detail::deleteHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Delete\", This);");
+   src("}");
+} // fileCInterfaceBasics
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceIO
+// -----------------------------------------------------------------------------
+
+void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
+{
+   // section comment
+   section(hdr,src,
+           "// I/O\n"
+           "// Read, Write, Print\n"
+           "// Each returns 0 if failure, 1 if success.");
+
+   // read from file
+   PPP(hdr,src,"Read from file");
+   ppp(hdr,src,"File can be XML, JSON, or HDF5.");
+   ppp(hdr,src,"We'll examine the file's contents to determine "
+       "its type automatically.");
+   ext(hdr,src,"int");
+   two(hdr,src,"@Read(", per.clname, false);
+   two(hdr,src,"ConstHandle2@ This, const char *const filename",
+       per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::readHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Read\", This, filename);");
+   src("}");
+
+   // write to file
+   PPP(hdr,src,"Write to file");
+   ppp(hdr,src,"File can be XML, JSON, or HDF5.");
+   ppp(hdr,src,"We'll use filename's extension to determine "
+       "the type you want written.");
+   ext(hdr,src,"int");
+   two(hdr,src,"@Write(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This, const char *const filename",
+       per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::writeHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Write\", This, filename);");
+   src("}");
+
+   // print
+   PPP(hdr,src,"Print to standard output, in our prettyprinting format");
+   ext(hdr,src,"int");
+   two(hdr,src,"@Print(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::printHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"Print\", This);");
+   src("}");
+
+   // print, XML
+   PPP(hdr,src,"Print to standard output, as XML");
+   ext(hdr,src,"int");
+   two(hdr,src,"@PrintXML(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::printHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"PrintXML\", This, \"XML\");");
+   src("}");
+
+   // print, JSON
+   PPP(hdr,src,"Print to standard output, as JSON");
+   ext(hdr,src,"int");
+   two(hdr,src,"@PrintJSON(", per.clname, false);
+   two(hdr,src,"ConstHandle2Const@ This", per.clname, false);
+   sig(hdr,src);
+   src(1,"return detail::printHandle<CPP,C>");
+   src(2,"(CLASSNAME, CLASSNAME+\"PrintJSON\", This, \"JSON\");");
+   src("}");
+} // fileCInterfaceIO
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceVector
+// -----------------------------------------------------------------------------
+
+void fileCInterfaceVector(
+   writer &hdr, writer &src,
+   const PerClass &per, const std::string &type,
+   const bool isSection = true
+) {
+   // section comment
+   if (isSection)
+      section(hdr,src,"// Data vector");
+   else {
+      assert(type != "");
+      two(hdr,src);
+      two(hdr,src,smallComment);
+      two(hdr,src,"// @", type);
+      two(hdr,src,smallComment);
+   }
+
+   // dynamic type?
+   if (type == "") {
+      // for a C interface, these are probably sufficient
+      fileCInterfaceVector(hdr,src,per,"int",     false);
+      fileCInterfaceVector(hdr,src,per,"unsigned",false);
+      fileCInterfaceVector(hdr,src,per,"float",   false);
+      fileCInterfaceVector(hdr,src,per,"double",  false);
+      return;
+   }
+
+   // Example:
+   //    type:  "double" (parameter to the present function)
+   //    Class: "Foobar" (class type; for brevity)
+   //    types: "doubles"
+   //    Types: "Doubles"
+   const std::string Class = per.clname;
+   const std::string types = type + 's';
+   const std::string Types = capital(type) + 's';
+
+   PPP(hdr,src,"Clear");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@Clear(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This", Class, false);
+   sig(hdr,src);
+   src(1,"detail::vectorClear<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Clear\", This);", Types);
+   src("}");
+
+   PPP(hdr,src,"Get size");
+   ext(hdr,src,"size_t");
+   two(hdr,src,"@@Size(", Class, Types, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
+   sig(hdr,src);
+   src(1,"return detail::vectorSize<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Size\", This);", Types);
+   src("}");
+
+   PPP(hdr,src,"Get value");
+   ppp(hdr,src,"By index \\in [0,size)");
+   ext(hdr,src,"@", type);
+   two(hdr,src,"@@Get(", Class, Types, false);
+   two(hdr,src,"ConstHandle2Const@ This, const size_t index", Class, false);
+   sig(hdr,src);
+   src(1,"return detail::vectorGet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, index);", Types);
+   src("}");
+
+   PPP(hdr,src,"Set value");
+   ppp(hdr,src,"By index \\in [0,size)");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@Set(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This, const size_t index, const @ value",
+       Class, type, false);
+   sig(hdr,src);
+   src(1,"detail::vectorSet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, index, value);", Types);
+   src("}");
+
+   MMM(hdr,src,"Get pointer to existing values, const");
+   ext(hdr,src,"const @ *", type);
+   two(hdr,src,"@@GetArrayConst(", Class, Types, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
+   sig(hdr,src);
+   src(1,"return detail::vectorGet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetArrayConst\", This);", Types);
+   src("}");
+
+   PPP(hdr,src,"Get pointer to existing values, non-const");
+   ext(hdr,src,"@ *", type);
+   two(hdr,src,"@@GetArray(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This", Class, false);
+   sig(hdr,src);
+   src(1,"return detail::vectorGet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetArray\", This);", Types);
+   src("}");
+
+   PPP(hdr,src,"Set completely new values and size");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@SetArray(", Class, Types, false);
+   two(hdr,src,"ConstHandle2@ This, const @ *const values, const size_t size",
+       Class, type, false);
+   sig(hdr,src);
+   src(1,"return detail::vectorSet<CPP,@>", type);
+   src(2,"(CLASSNAME, CLASSNAME+\"@SetArray\", This, size, values);", Types);
+   src("}");
+} // fileCInterfaceVector
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceMeta
+// -----------------------------------------------------------------------------
+
+void fileCInterfaceMeta(
+   writer &hdr, writer &src,
+   const PerClass &per, const InfoMetadata &m
+) {
+   const std::string Class = per.clname;
+   const std::string Meta  = UpperCamel(m.name);
+   const std::string meta  = m.name;
+
+   // section comment
+   section(hdr,src,"// Metadatum: @", meta);
+
+   // has
+   // if (m.isOptional) // <== may or may not want this
+   {
+      PPP(hdr,src,"Has");
+      ext(hdr,src,"int");
+      two(hdr,src,"@@Has(", Class, Meta, false);
+      two(hdr,src,"ConstHandle2Const@ This", Class, false);
+      sig(hdr,src);
+      src(1,"return detail::hasField<CPP>");
+      src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Meta, meta);
+      src("}");
+   }
+
+   // get
+   PPP(hdr,src,"Get");
+   ppp(hdr,src,"Returns by value");
+   ext(hdr,src,"@", mtype_return(m));
+   two(hdr,src,"@@Get(", Class, Meta, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
+   sig(hdr,src);
+   src(1,"return detail::getField<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Meta, meta);
+   src("}");
+
+   // set
+   PPP(hdr,src,"Set");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@Set(", Class, Meta, false);
+   two(hdr,src,"ConstHandle2@ This, const @ @",
+       Class, mtype_param(m), meta, false);
+   sig(hdr,src);
+   src(1,"detail::setField<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);",
+       Meta, meta, meta);
+   src("}");
+}
+
+
+// -----------------------------------------------------------------------------
+// C interface:
+// fileCInterfaceChild
+// -----------------------------------------------------------------------------
+
+void fileCInterfaceChild(
+   writer &hdr, writer &src,
+   const InfoSpecs &specs,
+   const PerClass &per, const InfoChildren &c
+) {
+   const std::string Class = per.clname;
+   const std::string Child = c.plain;
+   const std::string child = c.name;
+
+   // section comment
+   section(hdr,src,"// Child: @", child);
+
+   // has
+   // if (c.isOptional) // <== may or may not want this
+   {
+      PPP(hdr,src,"Has");
+      ext(hdr,src,"int");
+      two(hdr,src,"@@Has(", Class, Child, false);
+      two(hdr,src,"ConstHandle2Const@ This", Class, false);
+      sig(hdr,src);
+      src(1,"return detail::hasField<CPP>");
+      src(2,"(CLASSNAME, CLASSNAME+\"@Has\", This, extract::@);", Child, child);
+      src("}");
+   }
+
+   // ------------------------
+   // scalar case
+   // ------------------------
+
+   if (!c.isVector) {
+      // get, const
+      MMM(hdr,src,"Get, const");
+      ext(hdr,src,"Handle2Const@", Child);
+      two(hdr,src,"@@GetConst(", Class, Child, false);
+      two(hdr,src,"ConstHandle2Const@ This", Class, false);
+      sig(hdr,src);
+      src(1,"return detail::getField<CPP,Handle2Const@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@);",
+          Child, child);
+      src("}");
+
+      // get, non-const
+      PPP(hdr,src,"Get, non-const");
+      ext(hdr,src,"Handle2@", Child);
+      two(hdr,src,"@@Get(", Class, Child, false);
+      two(hdr,src,"ConstHandle2@ This", Class, false);
+      sig(hdr,src);
+      src(1,"return detail::getField<CPP,Handle2@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@);", Child, child);
+      src("}");
+
+      // set
+      PPP(hdr,src,"Set");
+      ext(hdr,src,"void");
+      two(hdr,src,"@@Set(", Class, Child, false);
+      two(hdr,src,"ConstHandle2@ This, ConstHandle2Const@ @",
+          Class, Child, child, false);
+      sig(hdr,src);
+      src(1,"detail::setField<CPP,CPP@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, @);",
+          Child, child, child);
+      src("}");
+
+      return;
+   }
+
+   // ------------------------
+   // vector case
+   // ------------------------
+
+   // clear
+   PPP(hdr,src,"Clear");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@Clear(", Class, Child, false);
+   two(hdr,src,"ConstHandle2@ This", Class, false);
+   sig(hdr,src);
+   src(1,"detail::clearContainer<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Clear\", This, extract::@);", Child, child);
+   src("}");
+
+   // size
+   PPP(hdr,src,"Size");
+   ext(hdr,src,"size_t");
+   two(hdr,src,"@@Size(", Class, Child, false);
+   two(hdr,src,"ConstHandle2Const@ This", Class, false);
+   sig(hdr,src);
+   src(1,"return detail::sizeOfContainer<CPP>");
+   src(2,"(CLASSNAME, CLASSNAME+\"@Size\", This, extract::@);", Child, child);
+   src("}");
+
+   // add
+   PPP(hdr,src,"Add");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@Add(", Class, Child, false);
+   two(hdr,src,"ConstHandle2@ This, ", Class, false);
+   two(hdr,src,"ConstHandle2Const@ @", Child, child, false);
+   sig(hdr,src);
+   src(1,"detail::addToContainer<CPP,CPP@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Add\", This, extract::@, @);",
+       Child, child, child);
+   src("}");
+
+   // get, by index, const
+   MMM(hdr,src,"Get, by index \\in [0,size), const");
+   ext(hdr,src,"Handle2Const@", Child);
+   two(hdr,src,"@@GetConst(", Class, Child, false);
+   two(hdr,src,"ConstHandle2Const@ This, ", Class, false);
+   two(hdr,src,"const size_t index_", false);
+   sig(hdr,src);
+   src(1,"return detail::getByIndex<CPP,Handle2Const@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@GetConst\", This, extract::@, index_);",
+       Child, child);
+   src("}");
+
+   // get, by index, non-const
+   PPP(hdr,src,"Get, by index \\in [0,size), non-const");
+   ext(hdr,src,"Handle2@", Child);
+   two(hdr,src,"@@Get(", Class, Child, false);
+   two(hdr,src,"ConstHandle2@ This, ", Class, false);
+   two(hdr,src,"const size_t index_", false);
+   sig(hdr,src);
+   src(1,"return detail::getByIndex<CPP,Handle2@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Get\", This, extract::@, index_);",
+       Child, child);
+   src("}");
+
+   // set, by index
+   PPP(hdr,src,"Set, by index \\in [0,size)");
+   ext(hdr,src,"void");
+   two(hdr,src,"@@Set(", Class, Child, false);
+   two(hdr,src);
+   two(hdr,src,1,"ConstHandle2@ This,", Class);
+   two(hdr,src,1,"const size_t index_,");
+   two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
+   sig(hdr,src,true);
+   src(1,"detail::setByIndex<CPP,CPP@>", Child);
+   src(2,"(CLASSNAME, CLASSNAME+\"@Set\", This, extract::@, index_, @);",
+       Child, child, child);
+   src("}");
+
+   const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
+   assert(it != specs.class2data.end());
+
+   for (const auto &m : it->second.metadata) {
+      const std::string Meta = UpperCamel(m.name);
+      const std::string meta = m.name;
+
+      // has, by metadatum
+      PPP(hdr,src,"Has, by @", meta);
+      ext(hdr,src,"int");
+      two(hdr,src,"@@HasBy@(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2Const@ This,", Class);
+      two(hdr,src,1,"const @ @", mtype_param(m), meta);
+      sig(hdr,src,true);
+      src(1,"return detail::hasByMetadatum<CPP>");
+      src(2,"(CLASSNAME, CLASSNAME+\"@HasBy@\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @);", child, meta, meta);
+      src("}");
+
+      // get, by metadatum, const
+      MMM(hdr,src,"Get, by @, const", meta);
+      ext(hdr,src,"Handle2Const@", Child);
+      two(hdr,src,"@@GetBy@Const(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2Const@ This,", Class);
+      two(hdr,src,1,"const @ @", mtype_param(m), meta);
+      sig(hdr,src,true);
+      src(1,"return detail::getByMetadatum<CPP,Handle2Const@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@Const\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @);", child, meta, meta);
+      src("}");
+
+      // get, by metadatum, non-const
+      PPP(hdr,src,"Get, by @, non-const", meta);
+      ext(hdr,src,"Handle2@", Child);
+      two(hdr,src,"@@GetBy@(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2@ This,", Class);
+      two(hdr,src,1,"const @ @", mtype_param(m), meta);
+      sig(hdr,src,true);
+      src(1,"return detail::getByMetadatum<CPP,Handle2@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetBy@\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @);", child, meta, meta);
+      src("}");
+
+      // set, by metadatum
+      PPP(hdr,src,"Set, by @", meta);
+      ext(hdr,src,"void");
+      two(hdr,src,"@@SetBy@(", Class, Child, Meta, false);
+      two(hdr,src);
+      two(hdr,src,1,"ConstHandle2@ This,", Class);
+      two(hdr,src,1,"const @ @,", mtype_param(m), meta);
+      two(hdr,src,1,"ConstHandle2Const@ @", Child, child);
+      sig(hdr,src,true);
+      src(1,"detail::setByMetadatum<CPP,CPP@>", Child);
+      src(2,"(CLASSNAME, CLASSNAME+\"@SetBy@\",", Child, Meta);
+      src(2," This, extract::@, meta::@, @, @);", child, meta, meta, child);
+      src("}");
+   } // metadata
+} // fileCInterfaceChild
+
+
+// -----------------------------------------------------------------------------
+// For the C interface
+// fileCInterfaceHeader
+// fileCInterfaceSource
+// fileCInterfaceCommon
+// fileCInterface
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// fileCInterfaceHeader
+// ------------------------
+
+void fileCInterfaceHeader(
+   writer &hdr, const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // Initial remarks
+   hdr();
+   hdr("// Interface for C");
+   hdr("// This header file is designed to work with both C and C++");
+   hdr("// Function definitions are in this file's .cpp source");
+   hdr();
+
+   // Instructions
+   hdr(largeComment);
+   hdr(largeComment);
+   hdr("// Instructions for Users");
+   hdr("//");
+   hdr("// Constructs you're MORE likely to care about are preceded with:");
+   hdr("//    // +++ comment");
+   hdr("// Constructs you're LESS likely to care about are preceded with:");
+   hdr("//    // --- comment");
+   hdr("// Anything not marked as above can be ignored by most users.");
+   hdr("//");
+   hdr("// @ is the basic handle type in this file. Example:", per.clname);
+   hdr("//    // Create a default @ object:", per.clname);
+   hdr("//    @ handle = @Default();", per.clname, per.clname);
+   hdr("// Functions involving @ are declared throughout this file.",
+       per.clname);
+   hdr(largeComment);
+   hdr(largeComment);
+
+   // Preliminaries
+   section(hdr, "// Preliminaries");
+   const std::string guard =
+      allcaps(specs.Project) + "_" +
+      allcaps(specs.VersionUnderscore) + "_" +
+      allcaps(per.nsname) + "_" +
+      allcaps(per.clname);
+
+   hdr();
+   hdr("#ifndef C_INTERFACE_@", guard);
+   hdr("#define C_INTERFACE_@", guard);
+   hdr();
+   hdr("#include \"GNDStk.h\"");
+   for (const auto &dep : c2d.dependencies)
+      hdr("#include \"@/@/@.h\"", specs.Version, dep.nsname, dep.clname);
+   hdr();
+   hdr("#ifdef __cplusplus");
+   hdr(1,"#define extern_c extern \"C\"");
+   hdr("#else");
+   hdr(1,"#define extern_c");
+   hdr("#endif");
+   hdr();
+   hdr("// Proxy C struct for the handled C++ class");
+   hdr("struct @Class { };", per.clname);
+
+   // Handle types
+   section(hdr, "// Handle types");
+   hdr();
+   hdr("// +++ @", per.clname);
+   hdr("// +++ General handle, suitable for most users. "
+       "If you're not concerned about");
+   hdr("// +++ strict \"const correctness\" in your C code, "
+       "you can probably use this in");
+   hdr("// +++ place of any function parameter of a const-aware handle type.");
+   hdr("typedef struct @Class *@;", per.clname, per.clname);
+   hdr();
+   hdr("// --- Const-aware handles.");
+   hdr("typedef const struct @Class *const ConstHandle2Const@;",
+       per.clname, per.clname);
+   hdr("typedef       struct @Class *const ConstHandle2@;",
+       per.clname, per.clname);
+   hdr("typedef const struct @Class *      Handle2Const@;",
+       per.clname, per.clname);
+   hdr("typedef       struct @Class *      Handle2@;",
+       per.clname, per.clname);
+} // fileCInterfaceHeader
+
+
+// ------------------------
+// fileCInterfaceSource
+// ------------------------
+
+void fileCInterfaceSource(
+   writer &src, const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // includes
+   src();
+   src("#include \"@/@/@/@.hpp\"",
+       specs.Project, specs.VersionUnderscore, per.nsname, per.clname);
+   src("#include \"@.h\"", per.clname);
+   src();
+
+   // using namespace
+   src("using namespace njoy::GNDStk;");
+   src("using namespace @::@;", specs.Project, specs.VersionUnderscore);
+   src();
+
+   // using
+   src("using C = @Class;", per.clname);
+   src("using CPP = multigroup::@;", per.clname);
+   src();
+
+   // class name
+   src("static const std::string CLASSNAME = \"@\";", per.clname);
+
+   // extract: namespace begin
+   if (per.nfields()) {
+      src();
+      src("namespace extract {");
+   }
+
+   // extract: metadata
+   for (const auto &m : per.metadata)
+      src(1,"static auto @ = [](auto &obj) { return &obj.@; };",
+          m.name, m.name);
+
+   // extract: children
+   for (const auto &c : per.children)
+      src(1,"static auto @ = [](auto &obj) { return &obj.@; };",
+          c.name, c.name);
+
+   // extract: variants
+   // todo Determine how the C interface should deal with C++ variants
+
+   // extract: namespace end
+   if (per.nfields()) src("}");
+
+   if (c2d.dependencies.size())
+      src();
+   for (const auto &dep : c2d.dependencies)
+      src("using CPP@ = @::@;", dep.clname, dep.nsname, dep.clname);
+} // fileCInterfaceSource
+
+
+// ------------------------
+// fileCInterfaceCommon
+// ------------------------
+
+void fileCInterfaceCommon(
+   writer &hdr, writer &src,
+   const InfoSpecs &specs,
+   const PerClass &per, const Class2Dependencies &c2d
+) {
+   // Basics: create, assign, delete
+   fileCInterfaceBasics(hdr,src, per);
+
+   // IO: read, write, print
+   fileCInterfaceIO(hdr,src, per);
+
+   // Array support, if BlockData
+   if (per.isData)
+      fileCInterfaceVector(hdr,src, per, per.dataType);
+
+   // Functions regarding metadata
+   for (const auto &m : per.metadata)
+      fileCInterfaceMeta(hdr,src, per, m);
+
+   // Functions regarding children
+   for (const auto &c : per.children)
+      fileCInterfaceChild(hdr,src, specs, per, c);
+
+   // variants
+   // todo
+} // fileCInterfaceCommon
+
+
+// ------------------------
+// fileCInterface
+// ------------------------
+
+void fileCInterface(
+   const InfoSpecs &specs, const PerClass &per, const Class2Dependencies &c2d
+) {
+   // header beginning
+   writer hdr(per.headerC);
+   fileCInterfaceHeader(hdr, specs, per, c2d);
+
+   // source beginning
+   writer src(per.sourceC);
+   fileCInterfaceSource(src, specs, per, c2d);
+
+   // common or partially common to both header and source
+   fileCInterfaceCommon(hdr,src, specs, per, c2d);
+
+   // header: ending
+   section(hdr, "// Done");
+   hdr();
+   hdr("#undef extern_c");
+   hdr("#endif");
+} // fileCInterface
+
+
+// -----------------------------------------------------------------------------
+// Python:
 // filePythonNamespace
+// filePythonClass
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// filePythonNamespace
+// ------------------------
+
 void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 {
    writer out(per.cppPython);
@@ -2111,7 +2968,10 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out(1,"// create the @ submodule", per.nsname);
    out(1,"python::module submodule = module.def_submodule(");
    out(2,"\"@\",", per.nsname);
-   out(2,"\"GNDS @ @\"", specs.Version, per.nsname);
+   if (specs.Project == "GNDStk")
+      out(2,"\"GNDS @ @\"", specs.Version, per.nsname); // "GNDS", not "GNDStk"
+   else
+      out(2,"\"@ @ @\"", specs.Project, specs.Version, per.nsname);
    out(1,");");
 
    out();
@@ -2125,7 +2985,10 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 } // filePythonNamespace
 
 
+// ------------------------
 // filePythonClass
+// ------------------------
+
 void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 {
    const std::string &nsname = per.nsname;
@@ -2200,7 +3063,8 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
    out();
    out("// local includes");
-   out("#include \"GNDStk/@/@/@.hpp\"", specs.Version, nsname, clname);
+   out("#include \"@/@/@/@.hpp\"",
+       specs.Project, specs.Version, nsname, clname);
    out("#include \"definitions.hpp\"");
 
    out();
@@ -2215,8 +3079,10 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out("// @ wrapper", clname);
    out("void wrap@(python::module &module)", clname);
    out("{");
-   out(1,"using namespace njoy::GNDStk;");
-   out(1,"using namespace njoy::GNDStk::@;", specs.VersionUnderscore);
+   const std::string prefix = specs.Project == "GNDStk" ? "njoy::" : "";
+   out(1,"using namespace @@;", prefix, specs.Project);
+   out(1,"using namespace @@::@;",
+       prefix, specs.Project, specs.VersionUnderscore);
    out();
    out(1,"// type aliases");
    out(1,"using Component = @::@;", nsname, clname);
@@ -2224,9 +3090,10 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    // using [variant name] = std::variant..., if necessary
    for (const auto &v : per.variants) {
       out(1,"using @ = std::variant<", v.type);
-      int count = 0, total = v.children.size();
+      int count = 0;
+      const int total = v.children.size();
       for (const auto &c : v.children)
-         out(2, "@@", c.type, ++count == total ? "" : ",");
+         out(2, "@@", c.type, sep(count,total));
       out(1,">;");
    }
 
@@ -2244,15 +3111,16 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    // python::init<...> for attributes and children
    out(2,".def(");
    out(3,"python::init<");
-   int count = 0, total = per.nfields();
+   int count = 0;
+   const int total = per.nfields();
    for (auto &m : per.metadata)
       out(4,"const @ &@",
           m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
-          ++count < total ? "," : "");
+          sep(count,total));
    for (auto &c : per.children)
-      out(4,"const @ &@", c.typeFull, ++count < total ? "," : "");
+      out(4,"const @ &@", c.typeFull, sep(count,total));
    for (auto &v : per.variants)
-      out(4,"const @ &@", v.typeFull, ++count < total ? "," : "");
+      out(4,"const @ &@", v.typeFull, sep(count,total));
    out(3,">(),");
    for (auto &m : per.metadata)
       out(3,"python::arg(\"@\")@,",
@@ -2285,7 +3153,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       m.isDefaulted
          ? out(3,"[](const Component &self) { return self.@().value(); },",
                m.name)
-         : out(3,"&Component::@,",
+         : out(3,"[](const Component &self) { return self.@(); },",
                m.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
@@ -2295,7 +3163,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       const auto pyname = namePython(c.name);
       out(2,".def_property_readonly(");
       out(3,"\"@\",", pyname);
-      out(3,"python::overload_cast<>(&Component::@),", c.name);
+      out(3,"[](const Component &self) { return self.@(); },", c.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
    }
@@ -2306,14 +3174,14 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
             const auto pyname = namePython(c.name);
             out(2,".def_property_readonly(");
             out(3,"\"@\",", pyname);
-            out(3,"python::overload_cast<>(&Component::@),", c.name);
+            out(3,"[](const Component &self) { return self.@(); },", c.name);
             out(3,"Component::documentation(\"@\").data()", pyname);
             out(2,")");
          }
       const auto pyname = namePython(v.name);
       out(2,".def_property_readonly(");
       out(3,"\"@\",", pyname);
-      out(3,"python::overload_cast<>(&Component::@),", v.name);
+      out(3,"[](const Component &self) { return self.@(); },", v.name);
       out(3,"Component::documentation(\"@\").data()", pyname);
       out(2,")");
    }
@@ -2321,7 +3189,8 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    for ( const auto& dataTypeName : dataTypesNames ) {
       out(2,".def_property_readonly(");
       out(3,"\"@\",", dataTypeName.second);
-      out(3,"[] (const Component &self) { return self.@(); },", dataTypeName.second);
+      out(3,"[] (const Component &self) { return self.@(); },",
+          dataTypeName.second);
       out(3,"Component::documentation(\"@\").data()", dataTypeName.second);
       out(2,")");
    }
@@ -2336,7 +3205,6 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out("} // namespace python_@", nsname);
    out("} // namespace python_@", specs.VersionUnderscore);
 } // filePythonClass
-
 
 
 // -----------------------------------------------------------------------------
@@ -2368,11 +3236,15 @@ int main(const int argc, const char *const *const argv)
    // GNDStk hpp file for Meta and Child keys
    fileGNDStkKey(specs);
 
-   // GNDStk hpp file for each namespace::class
+   // GNDStk hpp file, as well as header and source files for the C interface,
+   // for each namespace::class
    for (const auto &obj : specs.ClassDependenciesSorted) {
       auto find = specs.class2data.find(obj.theClass);
       assert(find != specs.class2data.end());
+      // C++ header
       fileGNDStkClass(specs, find->second, obj);
+      // C interface: header and source
+      fileCInterface(specs, find->second, obj);
    }
 
    // Python cpp file for each namespace
