@@ -246,9 +246,13 @@ std::string initializer(const InfoMetadata &m)
    // We assume that the input does NOT have the quotes already!
    // Note: we may not need all of these, but the GNDS manual does describe
    // several string-like types, so we might as well include them.
-   if (m.type == "XMLName" || m.type == "UTF8Text" ||
-       m.type == "printableText" || m.type == "quotedText" ||
-       m.type == "tdText" || m.type == "string" || m.type == "std::string")
+   if (m.type == "XMLName" ||
+       m.type == "UTF8Text" ||
+       m.type == "printableText" ||
+       m.type == "quotedText" ||
+       m.type == "tdText" ||
+       m.type == "string" ||
+       m.type == "std::string")
       return '"' + escape(m.defaultValue) + '"';
 
    // Leave as-is;
