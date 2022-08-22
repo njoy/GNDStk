@@ -178,7 +178,7 @@
             "type": "XMLName"
         }
       },
-      "bodyText": ["The list of characters. The value for the encoding attribute defines the allowed character set. .",
+      "bodyText": ["The list of characters. The value for the encoding attribute defines the allowed character set.",
 		   "If the data are being stored in an XML file and if the body contains XML markup characters ",
 		   "(e.g. '<', '>'), then the characters must wrapped in special XML CDATA\\footnote{An XML CDATA ",
 		   "section is need whenever a string contains characters that are normally reserved for xml ",
@@ -236,7 +236,7 @@
         }
       },
       "description": ["Within, for example, a particle property, each possible assignment is a physical quantity",
-	     "with a value, a unit and optional documentation and uncertainty information.",
+	     "with a value, a unit, and optional documentation and uncertainty information.",
 	     "Each physical quantity is assigned a label, so that if the database contains multiple",
 	     "possible assignments for a particle's property one can uniquely identify each possible",
 	     "assignment by the corresponding label.\n\nFor most properties in the particle database,",
