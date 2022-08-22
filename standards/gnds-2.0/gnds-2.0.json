@@ -1,28 +1,28 @@
 {
-  "Path": ".",
-  "Project": "try",
-  "Version": "v2.0",
+    "Path": ".",
+    "Project": "try",
+    "Version": "v2.0",
 
-  "JSONDir": ".",
-  "JSONFiles": [
-    "summary_abstract.json",
-    "summary_appData.json",
-    "summary_atomic.json",
-    "summary_common.json",
-    "summary_gpdc.json",
-    "summary_covariance.json",
-    "summary_cpTransport.json",
-    "summary_documentation.json",
-    "summary_fissionTransport.json",
-    "summary_fissionFragmentData.json",
-    "summary_fpy.json",
-    "summary_pops.json",
-    "summary_processed.json",
-    "summary_resonance.json",
-    "summary_styles.json",
-    "summary_transport.json",
-    "summary_tsl.json"
-  ],
+    "JSONDir": ".",
+    "JSONFiles": [
+        "summary_abstract.json",
+        "summary_appData.json",
+        "summary_atomic.json",
+        "summary_common.json",
+        "summary_gpdc.json",
+        "summary_covariance.json",
+        "summary_cpTransport.json",
+        "summary_documentation.json",
+        "summary_fissionTransport.json",
+        "summary_fissionFragmentData.json",
+        "summary_fpy.json",
+        "summary_pops.json",
+        "summary_processed.json",
+        "summary_resonance.json",
+        "summary_styles.json",
+        "summary_transport.json",
+        "summary_tsl.json"
+    ],
 
-  "Changes": "changes.json"
+    "Changes": "changes.json"
 }

@@ -39,7 +39,7 @@
             "nuclear": "enums::Interaction::nuclear",
             "atomic":  "enums::Interaction::atomic",
             "thermalNeutronScatteringLaw":
-                "enums::Interaction::thermalNeutronScatteringLaw",
+            "enums::Interaction::thermalNeutronScatteringLaw",
 
             "// INTERPOLATION": {},
             "flat":              "enums::Interpolation::flat",
