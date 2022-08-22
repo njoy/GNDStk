@@ -58,7 +58,7 @@ target_link_libraries( json2class.exe
 # GNDStk : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-include_directories( python/src/ )
+include_directories( python/src/ autogen/prototype/proto/src/ )
 
 pybind11_add_module( GNDStk.python
     EXCLUDE_FROM_ALL
@@ -66,20 +66,20 @@ pybind11_add_module( GNDStk.python
     python/src/core/Node.python.cpp
     python/src/Interpolation.python.cpp
     python/src/GridStyle.python.cpp
-    python/src/v1.9/containers.python.cpp
-    python/src/v1.9/containers/Axis.python.cpp
-    python/src/v1.9/containers/Values.python.cpp
-    python/src/v1.9/containers/Link.python.cpp
-    python/src/v1.9/containers/Grid.python.cpp
-    python/src/v1.9/containers/Axes.python.cpp
-    python/src/v1.9/containers/XYs1d.python.cpp
-    python/src/v1.9/containers/Regions1d.python.cpp
-    python/src/v1.9/transport/CrossSection.python.cpp
-    python/src/v1.9/transport/Reaction.python.cpp
-    python/src/v1.9/transport/Reactions.python.cpp
-    python/src/v1.9/transport/ReactionSuite.python.cpp
-    python/src/v1.9/transport.python.cpp
-    python/src/v1.9/GNDS.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/Axis.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/Values.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/Link.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/Grid.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/Axes.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/XYs1d.python.cpp
+    autogen/prototype/proto/python/src/v1.9/containers/Regions1d.python.cpp
+    autogen/prototype/proto/python/src/v1.9/transport/CrossSection.python.cpp
+    autogen/prototype/proto/python/src/v1.9/transport/Reaction.python.cpp
+    autogen/prototype/proto/python/src/v1.9/transport/Reactions.python.cpp
+    autogen/prototype/proto/python/src/v1.9/transport/ReactionSuite.python.cpp
+    autogen/prototype/proto/python/src/v1.9/transport.python.cpp
+    autogen/prototype/proto/python/src/v1.9/proto.python.cpp
     )
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
 target_compile_options( GNDStk.python PRIVATE "-fvisibility=hidden" )

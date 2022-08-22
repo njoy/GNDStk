@@ -1431,20 +1431,25 @@ void commandLine(
    // Input file
    const orderedJSON jmain = readJSONFile(argv[1]);
 
-   // Validate content
-   if (!(jmain.contains(version) &&
-         jmain.contains(input) &&
-         jmain.contains(files))) {
-      log::error("The input JSON file needs {}, {}, and {}",
-                 version, input, files);
+   // Need "Version"
+   if (!jmain.contains(version)) {
+      log::error("The input JSON file needs {}", version);
       throw std::exception{};
    }
 
-   // Extract information from the command line JSON file
-   specs.Path = jmain.contains(path) ? jmain[path] : ".";
+   // Need "JSONFiles"
+   if (!jmain.contains(files)) {
+      log::error("The input JSON file needs {}", files);
+      throw std::exception{};
+   }
+
+   // Extract information from the command line JSON file...
+   // ...these are optional:
+   specs.Path    = jmain.contains(path   ) ? jmain[path   ] : ".";
    specs.Project = jmain.contains(project) ? jmain[project] : "GNDStk";
+   specs.JSONDir = jmain.contains(input  ) ? jmain[input  ] : ".";
+   // ...these are required:
    specs.Version = jmain[version];
-   specs.JSONDir = jmain[input];
    for (const auto &str : jmain[files])
       specs.JSONFiles.push_back(str);
 
