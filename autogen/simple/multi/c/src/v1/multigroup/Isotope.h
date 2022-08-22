@@ -48,12 +48,12 @@ struct IsotopeClass { };
 // -----------------------------------------------------------------------------
 
 // +++ Isotope
-// +++ General handle, suitable for many users. If you're not concerned about
+// +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct IsotopeClass *Isotope;
 
-// --- Const-aware handles, re: constness of handle vs. handled object.
+// --- Const-aware handles.
 typedef const struct IsotopeClass *const ConstHandle2ConstIsotope;
 typedef       struct IsotopeClass *const ConstHandle2Isotope;
 typedef const struct IsotopeClass *      Handle2ConstIsotope;
@@ -132,6 +132,10 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This);
 // -----------------------------------------------------------------------------
 // Metadatum: mass_number
 // -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+IsotopeMassNumberHas(ConstHandle2ConstIsotope This);
 
 // +++ Get
 // +++ Returns by value

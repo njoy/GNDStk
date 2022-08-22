@@ -48,12 +48,12 @@ struct FoobarClass { };
 // -----------------------------------------------------------------------------
 
 // +++ Foobar
-// +++ General handle, suitable for many users. If you're not concerned about
+// +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct FoobarClass *Foobar;
 
-// --- Const-aware handles, re: constness of handle vs. handled object.
+// --- Const-aware handles.
 typedef const struct FoobarClass *const ConstHandle2ConstFoobar;
 typedef       struct FoobarClass *const ConstHandle2Foobar;
 typedef const struct FoobarClass *      Handle2ConstFoobar;

@@ -49,12 +49,12 @@ struct LibraryClass { };
 // -----------------------------------------------------------------------------
 
 // +++ Library
-// +++ General handle, suitable for many users. If you're not concerned about
+// +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct LibraryClass *Library;
 
-// --- Const-aware handles, re: constness of handle vs. handled object.
+// --- Const-aware handles.
 typedef const struct LibraryClass *const ConstHandle2ConstLibrary;
 typedef       struct LibraryClass *const ConstHandle2Library;
 typedef const struct LibraryClass *      Handle2ConstLibrary;
@@ -78,14 +78,14 @@ LibraryDefault();
 extern_c Handle2ConstLibrary
 LibraryCreateConst(
    const char *const name,
-   ConstHandle2ConstElement *const element, const size_t elementSize
+   ConstHandle2Element *const element, const size_t elementSize
 );
 
 // +++ Create, general
 extern_c Handle2Library
 LibraryCreate(
    const char *const name,
-   ConstHandle2ConstElement *const element, const size_t elementSize
+   ConstHandle2Element *const element, const size_t elementSize
 );
 
 // +++ Assign
@@ -136,6 +136,10 @@ LibraryPrintJSON(ConstHandle2ConstLibrary This);
 // Metadatum: name
 // -----------------------------------------------------------------------------
 
+// +++ Has
+extern_c int
+LibraryNameHas(ConstHandle2ConstLibrary This);
+
 // +++ Get
 // +++ Returns by value
 extern_c const char *
@@ -149,6 +153,10 @@ LibraryNameSet(ConstHandle2Library This, const char *const name);
 // -----------------------------------------------------------------------------
 // Child: element
 // -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+LibraryElementHas(ConstHandle2ConstLibrary This);
 
 // +++ Clear
 extern_c void

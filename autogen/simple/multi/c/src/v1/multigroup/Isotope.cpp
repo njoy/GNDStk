@@ -139,6 +139,14 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This)
 // Metadatum: mass_number
 // -----------------------------------------------------------------------------
 
+// Has
+int
+IsotopeMassNumberHas(ConstHandle2ConstIsotope This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"MassNumberHas", This, extract::mass_number);
+}
+
 // Get
 // Returns by value
 int

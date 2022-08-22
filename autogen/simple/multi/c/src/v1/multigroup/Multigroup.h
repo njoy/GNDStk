@@ -49,12 +49,12 @@ struct MultigroupClass { };
 // -----------------------------------------------------------------------------
 
 // +++ Multigroup
-// +++ General handle, suitable for many users. If you're not concerned about
+// +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct MultigroupClass *Multigroup;
 
-// --- Const-aware handles, re: constness of handle vs. handled object.
+// --- Const-aware handles.
 typedef const struct MultigroupClass *const ConstHandle2ConstMultigroup;
 typedef       struct MultigroupClass *const ConstHandle2Multigroup;
 typedef const struct MultigroupClass *      Handle2ConstMultigroup;
@@ -78,14 +78,14 @@ MultigroupDefault();
 extern_c Handle2ConstMultigroup
 MultigroupCreateConst(
    const char *const projectile,
-   ConstHandle2ConstLibrary *const library, const size_t librarySize
+   ConstHandle2Library *const library, const size_t librarySize
 );
 
 // +++ Create, general
 extern_c Handle2Multigroup
 MultigroupCreate(
    const char *const projectile,
-   ConstHandle2ConstLibrary *const library, const size_t librarySize
+   ConstHandle2Library *const library, const size_t librarySize
 );
 
 // +++ Assign
@@ -136,6 +136,10 @@ MultigroupPrintJSON(ConstHandle2ConstMultigroup This);
 // Metadatum: projectile
 // -----------------------------------------------------------------------------
 
+// +++ Has
+extern_c int
+MultigroupProjectileHas(ConstHandle2ConstMultigroup This);
+
 // +++ Get
 // +++ Returns by value
 extern_c const char *
@@ -149,6 +153,10 @@ MultigroupProjectileSet(ConstHandle2Multigroup This, const char *const projectil
 // -----------------------------------------------------------------------------
 // Child: library
 // -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+MultigroupLibraryHas(ConstHandle2ConstMultigroup This);
 
 // +++ Clear
 extern_c void

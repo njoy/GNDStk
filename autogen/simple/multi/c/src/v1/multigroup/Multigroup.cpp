@@ -46,7 +46,7 @@ MultigroupDefault()
 Handle2ConstMultigroup
 MultigroupCreateConst(
    const char *const projectile,
-   ConstHandle2ConstLibrary *const library, const size_t librarySize
+   ConstHandle2Library *const library, const size_t librarySize
 ) {
    ConstHandle2Multigroup handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -62,7 +62,7 @@ MultigroupCreateConst(
 Handle2Multigroup
 MultigroupCreate(
    const char *const projectile,
-   ConstHandle2ConstLibrary *const library, const size_t librarySize
+   ConstHandle2Library *const library, const size_t librarySize
 ) {
    ConstHandle2Multigroup handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -150,6 +150,14 @@ MultigroupPrintJSON(ConstHandle2ConstMultigroup This)
 // Metadatum: projectile
 // -----------------------------------------------------------------------------
 
+// Has
+int
+MultigroupProjectileHas(ConstHandle2ConstMultigroup This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"ProjectileHas", This, extract::projectile);
+}
+
 // Get
 // Returns by value
 const char *
@@ -171,6 +179,14 @@ MultigroupProjectileSet(ConstHandle2Multigroup This, const char *const projectil
 // -----------------------------------------------------------------------------
 // Child: library
 // -----------------------------------------------------------------------------
+
+// Has
+int
+MultigroupLibraryHas(ConstHandle2ConstMultigroup This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"LibraryHas", This, extract::library);
+}
 
 // Clear
 void

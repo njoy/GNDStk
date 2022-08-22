@@ -46,7 +46,7 @@ LibraryDefault()
 Handle2ConstLibrary
 LibraryCreateConst(
    const char *const name,
-   ConstHandle2ConstElement *const element, const size_t elementSize
+   ConstHandle2Element *const element, const size_t elementSize
 ) {
    ConstHandle2Library handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -62,7 +62,7 @@ LibraryCreateConst(
 Handle2Library
 LibraryCreate(
    const char *const name,
-   ConstHandle2ConstElement *const element, const size_t elementSize
+   ConstHandle2Element *const element, const size_t elementSize
 ) {
    ConstHandle2Library handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -150,6 +150,14 @@ LibraryPrintJSON(ConstHandle2ConstLibrary This)
 // Metadatum: name
 // -----------------------------------------------------------------------------
 
+// Has
+int
+LibraryNameHas(ConstHandle2ConstLibrary This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+}
+
 // Get
 // Returns by value
 const char *
@@ -171,6 +179,14 @@ LibraryNameSet(ConstHandle2Library This, const char *const name)
 // -----------------------------------------------------------------------------
 // Child: element
 // -----------------------------------------------------------------------------
+
+// Has
+int
+LibraryElementHas(ConstHandle2ConstLibrary This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"ElementHas", This, extract::element);
+}
 
 // Clear
 void

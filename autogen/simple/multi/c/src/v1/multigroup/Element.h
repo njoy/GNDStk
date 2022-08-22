@@ -50,12 +50,12 @@ struct ElementClass { };
 // -----------------------------------------------------------------------------
 
 // +++ Element
-// +++ General handle, suitable for many users. If you're not concerned about
+// +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
 typedef struct ElementClass *Element;
 
-// --- Const-aware handles, re: constness of handle vs. handled object.
+// --- Const-aware handles.
 typedef const struct ElementClass *const ConstHandle2ConstElement;
 typedef       struct ElementClass *const ConstHandle2Element;
 typedef const struct ElementClass *      Handle2ConstElement;
@@ -80,7 +80,7 @@ extern_c Handle2ConstElement
 ElementCreateConst(
    const char *const symbol,
    const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
+   ConstHandle2Isotope *const isotope, const size_t isotopeSize,
    ConstHandle2ConstFoobar foobar
 );
 
@@ -89,7 +89,7 @@ extern_c Handle2Element
 ElementCreate(
    const char *const symbol,
    const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
+   ConstHandle2Isotope *const isotope, const size_t isotopeSize,
    ConstHandle2ConstFoobar foobar
 );
 
@@ -159,6 +159,10 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
 // Metadatum: atomic_number
 // -----------------------------------------------------------------------------
 
+// +++ Has
+extern_c int
+ElementAtomicNumberHas(ConstHandle2ConstElement This);
+
 // +++ Get
 // +++ Returns by value
 extern_c int
@@ -172,6 +176,10 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
 // -----------------------------------------------------------------------------
 // Child: isotope
 // -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+ElementIsotopeHas(ConstHandle2ConstElement This);
 
 // +++ Clear
 extern_c void

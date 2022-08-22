@@ -50,7 +50,7 @@ Handle2ConstElement
 ElementCreateConst(
    const char *const symbol,
    const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
+   ConstHandle2Isotope *const isotope, const size_t isotopeSize,
    ConstHandle2ConstFoobar foobar
 ) {
    ConstHandle2Element handle = detail::createHandle<CPP,C>(
@@ -70,7 +70,7 @@ Handle2Element
 ElementCreate(
    const char *const symbol,
    const int atomic_number,
-   ConstHandle2ConstIsotope *const isotope, const size_t isotopeSize,
+   ConstHandle2Isotope *const isotope, const size_t isotopeSize,
    ConstHandle2ConstFoobar foobar
 ) {
    ConstHandle2Element handle = detail::createHandle<CPP,C>(
@@ -191,6 +191,14 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol)
 // Metadatum: atomic_number
 // -----------------------------------------------------------------------------
 
+// Has
+int
+ElementAtomicNumberHas(ConstHandle2ConstElement This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"AtomicNumberHas", This, extract::atomic_number);
+}
+
 // Get
 // Returns by value
 int
@@ -212,6 +220,14 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number)
 // -----------------------------------------------------------------------------
 // Child: isotope
 // -----------------------------------------------------------------------------
+
+// Has
+int
+ElementIsotopeHas(ConstHandle2ConstElement This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"IsotopeHas", This, extract::isotope);
+}
 
 // Clear
 void
