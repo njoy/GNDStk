@@ -96,19 +96,23 @@
         "__class__": "nodes.ElementaryTypeNode",
         "description": "This is text node composed of a comma-delimited list of integers. It is used to denote starting indices within an array. The integer type is Integer32.",
         "name": "IntegerTuple",
-        "allowedValueDescription": "Any integer (0-9), the comma `,', and any printable whitespace character.\n\n    \\noindent For example, the array index [3][4][7] can be represented as the IntegerTuple `3, 4, 7'."},
+        "allowedValueDescription": [
+            "A list of Integer32 values separated by a comma (i.e., ‘,’). ",
+            "Any number of printable white spaces are allow before and after each Integrer32 value.",
+            "\n\n    \\noindent For example, the array index [3][4][7] can be represented as the IntegerTuple `3, 4, 7'."]
+        },
 
     "Integer32": {
         "__class__": "nodes.ElementaryTypeNode",
         "description": [
-            "This represents the allowed set and sequence of characters, and values that are allowed for a ",
+            "\\texttt{Integer32} represents the allowed set and sequence of characters, and values that are allowed for a ",
             "32-bit signed integer."],
         "name": "Integer32",
         "allowedValueDescription": [
             "Any integer in the range [ $-2^{31}$ to $2^{31}$ ) --",
             "note that the lower limit is inclusive and the upper limit is exclusive. The minimum allowed",
-            "value (i.e. $-2^{31}$ = -2147483648) is defined to be \\textbf{Integer32$\\_$Min} and the maximum allowed",
-            "value (i.e. $2^{31}$ - 1 = 2147483647) is defined to be \\textbf{Integer32$\\_$Max}.",
+            "value (i.e. $-2^{31} = -2147483648$) is defined to be \\textbf{Integer32$\\_$Min} and the maximum allowed",
+            "value (i.e. $2^{31} - 1 = 2147483647$) is defined to be \\textbf{Integer32$\\_$Max}.",
             "The Python regular expression (see Section~\\ref{sec:pres}) for an \\textbf{Integer32} shall be",
             "\\begin{verbatim}",
             "`[+-]?([1-9][0-9]*|0+)'",
@@ -123,7 +127,7 @@
         "name": "UInteger32",
         "allowedValueDescription": ["Any integer in the range [ 0 to $2^{32}$ ).",
             "An unsigned integer is represented in the",
-            "same way as a signed integer, with the exception that a minus sign (e.g. `-') is not allowed).",
+            "same way as a signed integer, with the exception that a minus sign (e.g. `-' is not allowed).",
             "The minimum allowed value (i.e. 0) is defined to be \\textbf{UInteger32\\_Min} and the maximum allowed",
             "value (i.e. $2^{32} - 1$) is defined to be \\textbf{UInteger32\\_Max}.",
             "The Python regular expression (see Section~\\ref{sec:pres}) for an \\textbf{UInteger32} shall be",
@@ -185,9 +189,9 @@
         "allowedValueDescription": ["One of the following ISO-8061 'extended' formats",
             "\\vskip 0.1 in",
             "\\begin{itemize}",
-            "\\item date only as `YYYY-MM-DD' (e.g., `2015-02-01'),",
-            "\\item date and time as `YYYY-MM-DDThh:mm:ss' (e.g., '2015-02-01T16:55:18') and",
-            "\\item date and time with offset from UTC as `YYYY-MM-DDThh:mm:ss$\\pm$hh:mm' (e.g., '2015-02-01T16:55:18+01:00')",
+            "\\item date only as `YYYY-MM-DD' (e.g. `2015-02-01'),",
+            "\\item date and time as `YYYY-MM-DDThh:mm:ss' (e.g. '2015-02-01T16:55:18') and",
+            "\\item date and time with offset from UTC as `YYYY-MM-DDThh:mm:ss$\\pm$hh:mm' (e.g. '2015-02-01T16:55:18+01:00')",
             "\\end{itemize}",
             "\\vskip 0.1 in",
             "where",
@@ -202,8 +206,8 @@
             "\\end{itemize}",
             "\\vskip 0.1 in",
             "All characters must be ASCII. In particular, the 'minus sign', for representing a negative offset from UTC, must be the ASCII ",
-            "hyphen-minus character (i.e., 45 decimal).",
-            "All other ISO-8601 formats are not allowed. For example, `YYYYMMDD' (e.g., '20150201') is not allowed.  Date ranges are not supported."
+            "hyphen-minus character (i.e. 45 decimal).",
+            "All other ISO-8601 formats are not allowed. For example, `YYYYMMDD' (e.g. '20150201') is not allowed.  Date ranges are not supported."
         ]},
     "dateType": {
         "__class__": "nodes.EnumeratedTypeNode",
@@ -248,13 +252,13 @@
 
     "interpolation": {
          "__class__": "nodes.EnumeratedTypeNode",
-        "description": "Rule for interpolating between two points in a 1-dimensional function.",
+        "description": "Rule for interpolating between two points used to specify a function.",
         "name": "interpolation",
         "allowedValues":["flat", "charged-particle", "lin-lin", "lin-log", "log-lin", "log-log"]},
 
     "interpolationQualifier": {
          "__class__": "nodes.EnumeratedTypeNode",
-        "description": "Rule for interpolating between two N-dimensional functions inside an (N+1)-dimensional function.",
+        "description": "Additional rule for interpolating between two N-dimensional functions inside an (N+1)-dimensional function.",
         "name": "interpolationQualifier",
         "allowedValues":["direct", "unitBase", "correspondingEnergies", "correspondingPoints"]},
 

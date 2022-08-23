@@ -5,7 +5,17 @@
 
     "JSONDir": ".",
     "JSONFiles": [
-        "summary_abstract.json",
+        "summary_appData.json",
+        "summary_atomic.json",
+        "summary_covariance.json",
+        "summary_fissionFragmentData.json",
+        "summary_mapfile.json",
+        "summary_cpTransport.json",
+        "summary_fpy.json",
+        "summary_fissionTransport.json",
+        "summary_processed.json"
+    ],
+    "JSONFiles todo we're working though these...": [
         "summary_appData.json",
         "summary_atomic.json",
         "summary_common.json",
@@ -22,6 +32,10 @@
         "summary_styles.json",
         "summary_transport.json",
         "summary_tsl.json"
+    ],
+    "Remark: the following should NOT be part of the code generation!": [
+        "summary_abstract.json",
+        "summary_basic.json"
     ],
 
     "Changes": "changes.json"

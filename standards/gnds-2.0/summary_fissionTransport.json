@@ -423,6 +423,17 @@
         "required": false,
         "rootNode": false
     },
+    "a":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {},
+        "description":  "a for Watt spectrum",
+         "name": "a",
+         "required": false,
+        "rootNode": false
+    },
     "b":{
         "__class__": "nodes.Node",
         "abstractNode": null,

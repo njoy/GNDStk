@@ -153,6 +153,13 @@
                 "name": "gridded1d",
                 "occurrence": "1",
                 "required": false
+            },
+            "regions1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "regions1d",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": "A component function1d representing the lab-frame, average energy for an outgoing particle integrated over outgoing $\\mu$ and energy $E'$. This is needed to, for example, calculate KERMA.",
@@ -177,6 +184,13 @@
                 "__class__": "nodes.ChildNode",
                 "description": null,
                 "name": "gridded1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions1d": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "regions1d",
                 "occurrence": "1",
                 "required": false
             }

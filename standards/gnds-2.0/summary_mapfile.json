@@ -62,7 +62,7 @@
                 "required": false
             }
         },
-        "description": "A map file organizes multiple files into a library. Individual files are called `protares': PROjectile + TARget + Evaluation.",
+        "description": "A map file organises multiple files into a library. Individual files are called `protares': PROjectile + TARget + Evaluation.",
         "name": "map",
         "required": false,
         "rootNode": true

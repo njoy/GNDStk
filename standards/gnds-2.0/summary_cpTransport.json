@@ -8,7 +8,7 @@
         "childNodes": {},
         "description": [
             "Although strictly speaking the Rutherford scattering cross section is the Coulomb scattering cross section ",
-            "for two non-identical charged particles (see equation (\\ref{eq:6.7})), we also use this markup to ",
+            "for two non-identical charged particles (see equation (\\ref{eq:6.7})), this markup is also used to ",
             "describe the case of identical charged particle Coulomb scattering (see equation (\\ref{eq:6.8})). ",
             "In either case, the Coulomb scattering cross section is analytic."
         ],
