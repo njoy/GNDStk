@@ -13,7 +13,9 @@
         "summary_cpTransport.json",
         "summary_fpy.json",
         "summary_fissionTransport.json",
-        "summary_processed.json"
+        "summary_processed.json",
+        "summary_tsl.json",
+        "summary_resonance.json"
     ],
     "JSONFiles todo we're working though these...": [
         "summary_appData.json",
@@ -33,7 +35,7 @@
         "summary_transport.json",
         "summary_tsl.json"
     ],
-    "Remark: the following should NOT be part of the code generation!": [
+    "Remark. The following should NOT be part of the code generation!": [
         "summary_abstract.json",
         "summary_basic.json"
     ],

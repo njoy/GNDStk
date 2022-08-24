@@ -513,18 +513,22 @@ void getClassMetadata(
       m.defaultValue = "";
       if (metaRHS.contains("default") && !metaRHS["default"].is_null()) {
          m.defaultValue = stringify(metaRHS["default"]);
+         // Apply the "changes.json" change, if any, to the given value
          const auto it = specs.mapMetaDefault.find(m.defaultValue);
          if (it != specs.mapMetaDefault.end())
             m.defaultValue = it->second;
       };
       if (m.defaultValue != "") {
          // If it has a default, then presumably it isn't required...
-         // fixme Should print a real, useful error message here. The mistake
-         // in question is something a user could easily make!! Look at other
-         // assert()s in this file as well; assert should be more for internal
-         // sanity checks than for diagnostic messages, as they aren't very
-         // helpful to typical users.
-         assert(!metaRHS["required"]);
+         if (metaRHS["required"]) {
+            log::error(
+              "In namespace \"{}\", class \"{}\",\n"
+              "metadatum \"{}\" has a default ({}), but is required.\n"
+              "If it really is required, then it shouldn't have a default.\n"
+              "If it really has a default, then presumably it isn't required.",
+               per.nsname, per.clname, m.name, m.defaultValue);
+            throw std::exception{};
+         }
       }
 
       // Optional? (not required, and has no default)
@@ -2663,8 +2667,19 @@ void fileCInterfaceChild(
        Child, child, child);
    src("}");
 
+   // for this child's metadata: has, get, set
    const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
-   assert(it != specs.class2data.end());
+   if (it == specs.class2data.end()) {
+      log::warning(
+         "Unable to generate C interface has/get/set functions for:\n"
+         "   class: {}::{}\n"
+         "   child: {}::{}\n"
+         "Child class is unknown, so its metadata for has/get/set are unknown.",
+         per.nsname, Class,
+         c.ns, Child
+      );
+      return;
+   }
 
    for (const auto &m : it->second.metadata) {
       const std::string Meta = UpperCamel(m.name);
