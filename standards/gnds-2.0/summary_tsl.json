@@ -81,7 +81,7 @@
                 "default": "n",
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
-                "required": true,
+                "required": false,
                 "type": "XMLName"
             },
             "productFrame": {
@@ -89,7 +89,7 @@
                 "default": "lab",
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
-                "required": true,
+                "required": false,
                 "type": "frame"
             }
         },
@@ -381,7 +381,7 @@
                 "default": "n",
                 "description": "The id of the scattered particle (should always be `n').",
                 "name": "pid",
-                "required": true,
+                "required": false,
                 "type": "XMLName"
             },
             "productFrame": {
@@ -389,7 +389,7 @@
                 "default": "lab",
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
-                "required": true,
+                "required": false,
                 "type": "frame"
             },
             "calculatedAtThermal": {
