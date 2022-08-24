@@ -111,7 +111,7 @@
             }
         },
         "description": [
-            "Neutrons can only elastically scatter coherently off of regular substances such as crystals, including powdered crystalline material. ",
+            "Neutrons can elastically scatter coherently off of regular substances such as crystals, including powdered crystalline material. ",
             "The differential cross section for such scattering off a single scatterer can be written \\cite{ENDF6Doc}",
             "\\begin{equation}",
             "  \\frac{d^2 \\sigma}{dE' \\; d\\Omega}(E \\to E', \\mu,  T)  = \\frac{1}{2\\pi E} \\sum_{j = 1}^{E_{j}(T) < E}",
@@ -138,7 +138,7 @@
             "\\item Storing a list of Bragg edges which include the temperature-dependent structure factor $s_j(T)$ and Bragg energy $E_j(T)$ for ",
             "each Bragg edge. ",
             "\\end{itemize}",
-        "Parameterized coherent and incoherent elastic scattering were added to the ENDF format in the early 1990's.  "
+        "Parameterised coherent and incoherent elastic scattering were added to the ENDF format in the early 1990's.  "
         ],
         "name": "thermalNeutronScatteringLaw_coherentElastic",
         "required": false,
@@ -392,6 +392,17 @@
                 "required": true,
                 "type": "frame"
             },
+            "calculatedAtThermal": {
+                "__class__": "nodes.Attribute",
+                "default": false,
+                "description": ["Indicates that $\\alpha$ and $\\beta$ were calculated using kT=0.0253 eV",
+                    "for ALL temperatures. If true, $\\alpha$ and $\\beta$ must be multiplied",
+                    "by a temperature conversion factor before looking up values in the $S(\\alpha,\\beta)$ array.",
+                    "This option is equivalent to the `LAT=1' option in ENDF-6."],
+                "name": "calculatedAtThermal",
+                "required": false,
+                "type": "Boolean"
+            },
             "incoherentApproximation": {
                 "__class__": "nodes.Attribute",
                 "default": true,
@@ -453,7 +464,7 @@
             "        \\end{equation}",
             "\\end{varlist}",
             "\n\n",
-            "In the legacy ENDF-6 format, only the incoherent approximation is used."
+            "Note that GNDS extends the approximations allowed as in the legacy ENDF-6 format, only the incoherent approximation is used."
         ],
         "name": "thermalNeutronScatteringLaw_incoherentInelastic",
         "required": false,
@@ -466,7 +477,7 @@
            "pid": {
                 "__class__": "nodes.Attribute",
                 "default": null,
-                "description": "Particle id for this scatterer. Note that the pid will often be an element (i.e. 'Zr') rather than a nuclide.",
+                "description": "Particle id for this scatterer. Note that the pid will often be an element (i.e. `Zr') rather than a nuclide.",
                 "name": "pid",
                 "required": true,
                 "type": "XMLName"
@@ -542,6 +553,13 @@
                 "name": "selfScatteringKernel",
                 "occurrence": "1",
                 "required": true
+            },
+            "T_effective": {
+                "__class__": "nodes.ChildNode",
+                "description": "Effective temperature to use for this scattering atom in the short-collision-time approximation.",
+                "name": "T_effective",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": [
@@ -721,22 +739,25 @@
                 "occurrence": "choice",
                 "required": false
             },
-            "selfScatteringKernelGaussianApproximation": {
+            "GaussianApproximation": {
                 "__class__": "nodes.ChildNode",
                 "description": "The self part of the scattering kernel using the Gaussian approximation.",
-                "name": "selfScatteringKernelGaussianApproximation",
+                "name": "GaussianApproximation",
                 "occurrence": "choice",
                 "required": false
             },
-            "selfScatteringKernelSCTApproximation": {
+            "SCTApproximation": {
                 "__class__": "nodes.ChildNode",
-                "description": [
-                    "The self part of the scattering kernel using the short collision time approximation.  ",
-                    "Note: this approximation is only meant to be used in the event that the user  ``falls off'' ",
-                    "the $\\alpha$--$\\beta$ grid when using one of the other approximations."
-                ],
-                "name": "selfScatteringKernelSCTApproximation",
-                "occurrence": "1",
+                "description": "The self part of the scattering kernel using the short collision time approximation.",
+                "name": "SCTApproximation",
+                "occurrence": "choice",
+                "required": false
+            },
+            "freeGasApproximation": {
+                "__class__": "nodes.ChildNode",
+                "description": "The self part of the scattering kernel using the free gas approximation.",
+                "name": "freeGasApproximation",
+                "occurrence": "choice",
                 "required": false
             }
         },
@@ -782,8 +803,31 @@
         "required": false,
         "rootNode": false
     },
+    "T_effective":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "Function giving the correspondence between actual and effective temperature. Both axes are in units of temperature, e.g. `K'.",
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": ["Effective temperatures for use in the short collision time approximation.",
+                    "Note that the short-collision-time approximation may be required for more than one type of scattering kernel:",
+                    "if the scattering kernel is `SCTapproximation' then the SCT is used everywhere,",
+                    "but it is also used with scattering kernel `gridded3d' for values of $\\alpha$ and $\\beta$",
+                    "outside the tabulated array."],
+        "name": "T_effective",
+        "required": false,
+        "rootNode": false
+    },
 
-    "selfScatteringKernelGaussianApproximation":{
+    "GaussianApproximation":{
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
@@ -817,7 +861,7 @@
             "compact way to encapsulate the scattering kernel and it provides one with a two-dimensional object that ",
             "one can use to specify covariance."
         ],
-        "name": "selfScatteringKernelGaussianApproximation",
+        "name": "GaussianApproximation",
         "required": false,
         "rootNode": false
     },
@@ -841,25 +885,16 @@
         "rootNode": false
     },
 
-    "selfScatteringKernelSCTApproximation":{
+    "SCTApproximation":{
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "bodyText": null,
-        "childNodes": {
-            "T_effective": {
-                "__class__": "nodes.ChildNode",
-                "description": "Effective temperature to use for this scattering atom in the short-collision-time approximation.",
-                "name": "T_effective",
-                "occurrence": "1",
-                "required": false
-            }
-        },
+        "childNodes": {},
         "description": [
-            "For high incident energies, $\\alpha$ and/or $\\beta$ values may be ",
-            "required that are outside the ranges tabulated for $S(\\alpha,\\beta)$. ",
-            "In these cases, the short-collision-time (SCT) approximation should be ",
-            "used.\\footnote{This equation is given correctly in the General Atomics  ",
+            "Indicates that the short-collision-time (SCT) approximation should be ",
+            "used for this scattering atom for all values of $\\alpha$ and $\\beta$, not just for values",
+            "outside the tabulated grid.\\footnote{The SCT equation is given correctly in the General Atomics",
             "report GA-9950, UC-80, Reactor Technology (1970), but is misprinted in ",
             "LA-9303-M VOL II (ENDF-324) 1982, and in BNL-NCS-44945-05-Revised June 2005 (ENDF-102).} ",
             "\\begin{equation}",
@@ -869,26 +904,25 @@
             "\\end{equation}",
             "The legacy ENDF-6 format signals this with the B(7)=0.0 flag"
         ],
-        "name": "selfScatteringKernelSCTApproximation",
+        "name": "SCTApproximation",
         "required": false,
         "rootNode": false
     },
-    "T_effective":{
+
+    "freeGasApproximation":{
         "__class__": "nodes.Node",
         "abstractNode": null,
         "attributes": {},
         "bodyText": null,
-        "childNodes": {
-            "XYs1d": {
-                "__class__": "nodes.ChildNode",
-                "description": "Function giving the correspondence between actual and effective temperature. Both axes are in units of temperature, e.g. `K'.",
-                "name": "XYs1d",
-                "occurrence": "1",
-                "required": true
-            }
-        },
-        "description": "Effective temperatures for use in the short collision time approximation.",
-        "name": "T_effective",
+        "childNodes": {},
+        "description": [
+            "Indicates that a free-gas approximation should be ",
+            "used for this scattering atom. In practice the free-gas approximation is typically used for",
+            "secondary scattering atoms that have little impact on the scattering cross section,",
+            "and processing codes may simply ignore the contribution of these scattering atoms.",
+            "The legacy ENDF-6 format signals this with the B(7)=1.0 flag"
+        ],
+        "name": "freeGasApproximation",
         "required": false,
         "rootNode": false
     }
