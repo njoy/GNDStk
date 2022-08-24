@@ -93,7 +93,7 @@
             "IsDocumentedBy"      : "enums::RelationType::IsDocumentedBy",
             "Documents"           : "enums::RelationType::Documents",
             "IsCompiledBy"        : "enums::RelationType::IsCompiledBy",
-            "Complies"            : "enums::RelationType::Complies",
+            "Compiles"            : "enums::RelationType::Compiles",
             "IsVariantFormOf"     : "enums::RelationType::IsVariantFormOf",
             "IsOriginalFormOf"    : "enums::RelationType::IsOriginalFormOf",
             "IsIdenticalTo"       : "enums::RelationType::IsIdenticalTo",

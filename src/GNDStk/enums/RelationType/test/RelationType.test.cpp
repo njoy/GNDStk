@@ -39,7 +39,7 @@ SCENARIO( "RelationType" ) {
         CHECK( "IsDocumentedBy" == enums::toString( RelationType::IsDocumentedBy ) );
         CHECK( "Documents" == enums::toString( RelationType::Documents ) );
         CHECK( "IsCompiledBy" == enums::toString( RelationType::IsCompiledBy ) );
-        CHECK( "Complies" == enums::toString( RelationType::Complies ) );
+        CHECK( "Compiles" == enums::toString( RelationType::Compiles ) );
         CHECK( "IsVariantFormOf" == enums::toString( RelationType::IsVariantFormOf ) );
         CHECK( "IsOriginalFormOf" == enums::toString( RelationType::IsOriginalFormOf ) );
         CHECK( "IsIdenticalTo" == enums::toString( RelationType::IsIdenticalTo ) );
@@ -80,7 +80,7 @@ SCENARIO( "RelationType" ) {
         CHECK( RelationType::IsDocumentedBy == enums::fromString< RelationType >( "IsDocumentedBy" ) );
         CHECK( RelationType::Documents == enums::fromString< RelationType >( "Documents" ) );
         CHECK( RelationType::IsCompiledBy == enums::fromString< RelationType >( "IsCompiledBy" ) );
-        CHECK( RelationType::Complies == enums::fromString< RelationType >( "Complies" ) );
+        CHECK( RelationType::Compiles == enums::fromString< RelationType >( "Compiles" ) );
         CHECK( RelationType::IsVariantFormOf == enums::fromString< RelationType >( "IsVariantFormOf" ) );
         CHECK( RelationType::IsOriginalFormOf == enums::fromString< RelationType >( "IsOriginalFormOf" ) );
         CHECK( RelationType::IsIdenticalTo == enums::fromString< RelationType >( "IsIdenticalTo" ) );
@@ -127,7 +127,7 @@ SCENARIO( "RelationType" ) {
             << RelationType::IsDocumentedBy << ' '
             << RelationType::Documents << ' '
             << RelationType::IsCompiledBy << ' '
-            << RelationType::Complies << ' '
+            << RelationType::Compiles << ' '
             << RelationType::IsVariantFormOf << ' '
             << RelationType::IsOriginalFormOf << ' '
             << RelationType::IsIdenticalTo << ' '
@@ -144,7 +144,7 @@ SCENARIO( "RelationType" ) {
                "Continues Describes IsDescribedBy HasMetadata IsMetadataFor "
                "HasVersion IsVersionOf IsNewVersionOf IsPreviousVersionOf "
                "IsPartOf HasPart IsPublishedIn IsReferencedBy References "
-               "IsDocumentedBy Documents IsCompiledBy Complies IsVariantFormOf "
+               "IsDocumentedBy Documents IsCompiledBy Compiles IsVariantFormOf "
                "IsOriginalFormOf IsIdenticalTo IsReviewedBy Reviews IsDerivedFrom "
                "IsSourceOf IsRequiredBy Requires Obsoletes IsObsoletedBy"
                == out.str() );
@@ -160,7 +160,7 @@ SCENARIO( "RelationType" ) {
                                "Continues Describes IsDescribedBy HasMetadata IsMetadataFor "
                                "HasVersion IsVersionOf IsNewVersionOf IsPreviousVersionOf "
                                "IsPartOf HasPart IsPublishedIn IsReferencedBy References "
-                               "IsDocumentedBy Documents IsCompiledBy Complies IsVariantFormOf "
+                               "IsDocumentedBy Documents IsCompiledBy Compiles IsVariantFormOf "
                                "IsOriginalFormOf IsIdenticalTo IsReviewedBy Reviews IsDerivedFrom "
                                "IsSourceOf IsRequiredBy Requires Obsoletes IsObsoletedBy" );
 
@@ -275,7 +275,7 @@ SCENARIO( "RelationType" ) {
         CHECK( false == in.eof() );
 
         in >> value;
-        CHECK( RelationType::Complies == value );
+        CHECK( RelationType::Compiles == value );
         CHECK( false == in.fail() );
         CHECK( false == in.eof() );
 
@@ -374,7 +374,7 @@ SCENARIO( "RelationType" ) {
         CHECK( true == enums::isRelationType( "IsDocumentedBy" ) );
         CHECK( true == enums::isRelationType( "Documents" ) );
         CHECK( true == enums::isRelationType( "IsCompiledBy" ) );
-        CHECK( true == enums::isRelationType( "Complies" ) );
+        CHECK( true == enums::isRelationType( "Compiles" ) );
         CHECK( true == enums::isRelationType( "IsVariantFormOf" ) );
         CHECK( true == enums::isRelationType( "IsOriginalFormOf" ) );
         CHECK( true == enums::isRelationType( "IsIdenticalTo" ) );

@@ -50,7 +50,7 @@ void wrapRelationType( python::module& module ) {
   .value( "IsDocumentedBy", Component::IsDocumentedBy )
   .value( "Documents", Component::Documents )
   .value( "IsCompiledBy", Component::IsCompiledBy )
-  .value( "Complies", Component::Complies )
+  .value( "Compiles", Component::Compiles )
   .value( "IsVariantFormOf", Component::IsVariantFormOf )
   .value( "IsOriginalFormOf", Component::IsOriginalFormOf )
   .value( "IsIdenticalTo", Component::IsIdenticalTo )
