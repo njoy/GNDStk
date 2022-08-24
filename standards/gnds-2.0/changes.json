@@ -146,13 +146,13 @@
             "alpha"            : "enums::DecayType::Alpha",
             "atomicRelaxation" : "enums::DecayType::AtomicRelaxation",
 
-            "// grid style" : "",
+            "// gridStyle" : "",
             "none"       : "enums::GridStyle::none",
             "points"     : "enums::GridStyle::points",
             "boundaries" : "enums::GridStyle::boundaries",
             "parameters" : "enums::GridStyle::parameters",
 
-            "// grid style" : "",
+            "// boundaryCondition" : "",
             "EliminateShiftFunction"  : "enums::BoundaryCondition::EliminateShiftFunction",
             "NegativeOrbitalMomentum" : "enums::BoundaryCondition::NegativeOrbitalMomentum",
             "Brune"                   : "enums::BoundaryCondition::Brune",
