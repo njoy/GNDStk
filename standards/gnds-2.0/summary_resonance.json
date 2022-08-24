@@ -136,7 +136,7 @@
                                  "the observed R-matrix resonances using one of the following ",
                                  "formalisms: \\texttt{Froehner}, \\texttt{SAMMY}. " ],
                 "name": "type",
-                "required": true,
+                "required": false,
                 "type": "XMLName"
             }
         },
@@ -694,7 +694,7 @@
                 "default": 1,
                 "description": "The parity for the spin group, either \\texttt{1} or \\texttt{-1}.",
                 "name": "parity",
-                "required": true,
+                "required": false,
                 "type": "Integer32"
             }
         },
