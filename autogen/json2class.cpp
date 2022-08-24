@@ -1678,9 +1678,7 @@ void getClass(
    assert(!(data && body)); // not both
    per.isData = data || body;
    if (data) {
-      // A type change, as with metadata, could be wanted in this context as
-      // well. Perhaps the name "mapMetaType" (and the location and name for
-      // it in the changes.json file) should be modified to reflect this
+      // A type change, as with metadata, may be warranted here as well
       const std::string type = classRHS[datastr];
       const auto it = specs.mapMetaType.find(type);
       per.dataType = it == specs.mapMetaType.end() ? type : it->second;
