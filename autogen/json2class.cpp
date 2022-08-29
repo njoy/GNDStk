@@ -338,13 +338,21 @@ bool isClass(const KeyValue &keyval)
    return true;
 }
 
-std::string getTimes(const orderedJSON &value)
-{
+std::string getTimes(
+   const PerClass &per, const std::string &key, const orderedJSON &value
+) {
    const std::string times = "times"; // shorter, less easily misspelled
    const std::string occurrence = "occurrence"; // accept; used in GNDS specs
 
    // need exactly one - not neither, not both
-   assert(value.contains(times) != value.contains(occurrence));
+   if (value.contains(times) == value.contains(occurrence)) {
+      log::error(
+        "In namespace \"{}\", class \"{}\":\n"
+        "Child node \"{}\" needs exactly one of \"times\" or \"occurrence\".\n"
+        "Or, did you possibly intend \"{}\" to be an attribute/metadatum?",
+         per.nsname, per.clname, key, key);
+      throw std::exception{};
+   }
 
    return value.contains(times)
       ? value[times]
@@ -562,7 +570,7 @@ void getClassChildren(
       const auto &elemRHS = field.value();
 
       // Choice children are handled elsewhere
-      const std::string times = getTimes(elemRHS);
+      const std::string times = getTimes(per,field.key(),elemRHS);
       if (times == "choice" || times == "choice+" || times == "choice2+")
          continue;
 
@@ -639,7 +647,7 @@ void getClassVariants(
    for (const auto &field : j.items()) {
       // Is it a choice child?
       const auto &elemRHS = field.value();
-      const std::string times = getTimes(elemRHS);
+      const std::string times = getTimes(per,field.key(),elemRHS);
       if (times != "choice" && times != "choice+" && times != "choice2+")
          continue;
 
@@ -654,7 +662,7 @@ void getClassVariants(
    for (const auto &field : j.items()) {
       // Is it a choice child?
       const auto &elemRHS = field.value();
-      const std::string times = getTimes(elemRHS);
+      const std::string times = getTimes(per,field.key(),elemRHS);
       if (times != "choice" && times != "choice+" && times != "choice2+")
          continue;
 
@@ -1622,7 +1630,7 @@ void validateMetadata(const orderedJSON &metadata)
 
 
 // Helper: validateChildren
-void validateChildren(const orderedJSON &children)
+void validateChildren(const orderedJSON &children, const PerClass &per)
 {
    for (const auto &field : children.items()) {
       assert(field.value().contains("required"));
@@ -1631,7 +1639,7 @@ void validateChildren(const orderedJSON &children)
       // Remark: the GNDS manual speaks of "choice2" and "choice2+" options
       // for occurrence. We're not sure if those will remain in future GNDS
       // specifications, so we won't worry now about how they might fit in.
-      const std::string times = getTimes(field.value());
+      const std::string times = getTimes(per,field.key(),field.value());
       if (times == "0+" || times == "choice" || times == "choice+")
          assert(!field.value()["required"]); // not required
    }
@@ -1665,7 +1673,7 @@ void getClass(
    const orderedJSON attrs = getMetadataJSON<true>(classRHS);
    const orderedJSON elems = getChildrenJSON<true>(classRHS);
    validateMetadata(attrs);
-   validateChildren(elems);
+   validateChildren(elems, per);
    getClassMetadata(attrs, specs, per);
    getClassChildren(elems, specs, per, dep);
    getClassVariants(elems, specs, per, dep);
