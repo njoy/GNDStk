@@ -32,6 +32,11 @@
         "// Change json spec's 'default' to a valid GNDStk value" : "",
         "default" : {
 
+            "// values that really mean: no default" : "",
+            "`' (i.e. unitless)": "",
+            "`' (no label)": "",
+            "`none'": "",
+
             "// json spec corrections" : "",
             "\\\\attr{lin-lin}" : "enums::Interpolation::linlin",
 

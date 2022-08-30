@@ -62,17 +62,17 @@ void wrapArray(python::module &module)
       )
       .def_property_readonly(
          "compression",
-         [](const Component &self) { return self.compression().value(); },
+         [](const Component &self) { return self.compression(); },
          Component::documentation("compression").data()
       )
       .def_property_readonly(
          "symmetry",
-         [](const Component &self) { return self.symmetry().value(); },
+         [](const Component &self) { return self.symmetry(); },
          Component::documentation("symmetry").data()
       )
       .def_property_readonly(
          "permutation",
-         [](const Component &self) { return self.permutation().value(); },
+         [](const Component &self) { return self.permutation(); },
          Component::documentation("permutation").data()
       )
       .def_property_readonly(

@@ -61,7 +61,7 @@ struct InfoMetadata {
    // An individual metadatum may be a vector in its own right, as in an XML
    // construct such as <element meta="1 2 3 4"> (so that meta is a vector of
    // integers). We mean here that there isn't a vector of such [meta] entries,
-   // and shouldn't be (XML wouldn't allow it).
+   // and there shouldn't be (XML wouldn't allow it).
    std::string name;
    std::string type;     // underlying type
    std::string typeFull; // WITH any optional<> or defaulted<>
@@ -178,10 +178,12 @@ struct InfoSpecs {
    // Example: "double" (GNDS v1.9 actually has "double") to "Double" for C++.
    std::map<std::string,std::string> mapName;
 
-   // Changes to apply to metadata/attribute type and default.
+   // Changes to apply to metadata/attribute type.
    // Examples: "Boolean" to "bool", "interpolation" to "enums::Interpolation".
    // We'll give a string ==> std::string type change as a freebie. :-)
    std::map<std::string,std::string> mapMetaType = {{"string","std::string"}};
+
+   // Changes to apply to metadata/attribute default.
    std::map<std::string,std::string> mapMetaDefault;
 
    // For each class in the input JSON specifications, the namespace(s)

@@ -35,11 +35,11 @@ class Array : public Component<containers::Array> {
          // metadata
          IntegerTuple{}
             / Meta<>("shape") |
-         Defaulted<UTF8Text>{"`none'"}
+         std::optional<UTF8Text>{}
             / Meta<>("compression") |
-         Defaulted<UTF8Text>{"`none'"}
+         std::optional<UTF8Text>{}
             / Meta<>("symmetry") |
-         Defaulted<UTF8Text>{"`none'"}
+         std::optional<UTF8Text>{}
             / Meta<>("permutation") |
          Defaulted<UTF8Text>{"row-major"}
             / Meta<>("storageOrder") |
@@ -58,17 +58,14 @@ public:
 
    // defaults
    static inline const struct Defaults {
-      static inline const UTF8Text compression = "`none'";
-      static inline const UTF8Text symmetry = "`none'";
-      static inline const UTF8Text permutation = "`none'";
       static inline const UTF8Text storageOrder = "row-major";
    } defaults;
 
    // metadata
    Field<IntegerTuple> shape{this};
-   Field<Defaulted<UTF8Text>> compression{this,defaults.compression};
-   Field<Defaulted<UTF8Text>> symmetry{this,defaults.symmetry};
-   Field<Defaulted<UTF8Text>> permutation{this,defaults.permutation};
+   Field<std::optional<UTF8Text>> compression{this};
+   Field<std::optional<UTF8Text>> symmetry{this};
+   Field<std::optional<UTF8Text>> permutation{this};
    Field<Defaulted<UTF8Text>> storageOrder{this,defaults.storageOrder};
    Field<std::optional<IntegerTuple>> offset{this};
 
@@ -104,9 +101,9 @@ public:
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shape(this,shape),
-      compression(this,defaults.compression,compression),
-      symmetry(this,defaults.symmetry,symmetry),
-      permutation(this,defaults.permutation,permutation),
+      compression(this,compression),
+      symmetry(this,symmetry),
+      permutation(this,permutation),
       storageOrder(this,defaults.storageOrder,storageOrder),
       offset(this,offset),
       values(this,values),
