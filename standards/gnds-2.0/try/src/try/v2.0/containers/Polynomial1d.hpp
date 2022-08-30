@@ -40,9 +40,9 @@ class Polynomial1d : public Component<containers::Polynomial1d> {
             / Meta<>("outerDomainValue") |
          Defaulted<Integer32>{0}
             / Meta<>("lowerIndex") |
-         std::optional<Float64>{}
+         Float64{}
             / Meta<>("domainMin") |
-         std::optional<Float64>{}
+         Float64{}
             / Meta<>("domainMax") |
          // children
          containers::Axes{}
@@ -64,8 +64,8 @@ public:
    Field<std::optional<XMLName>> label{this};
    Field<std::optional<Float64>> outerDomainValue{this};
    Field<Defaulted<Integer32>> lowerIndex{this,defaults.lowerIndex};
-   Field<std::optional<Float64>> domainMin{this};
-   Field<std::optional<Float64>> domainMax{this};
+   Field<Float64> domainMin{this};
+   Field<Float64> domainMax{this};
 
    // children
    Field<containers::Axes> axes{this};
@@ -90,8 +90,8 @@ public:
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<Integer32>> &lowerIndex = {},
-      const wrapper<std::optional<Float64>> &domainMin = {},
-      const wrapper<std::optional<Float64>> &domainMax = {},
+      const wrapper<Float64> &domainMin = {},
+      const wrapper<Float64> &domainMax = {},
       const wrapper<containers::Axes> &axes = {},
       const wrapper<containers::Values> &values = {}
    ) :

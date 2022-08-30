@@ -12,15 +12,15 @@ namespace python_v2_0 {
 
 // pops declarations
 namespace python_pops {
+   void wrapAlias(python::module &);
+   void wrapMetaStable(python::module &);
+   void wrapAliases(python::module &);
    void wrapStandard(python::module &);
    void wrapLogNormal(python::module &);
    void wrapInterval(python::module &);
    void wrapConfidenceIntervals(python::module &);
    void wrapPdf(python::module &);
    void wrapUncertainty(python::module &);
-   void wrapAlias(python::module &);
-   void wrapMetaStable(python::module &);
-   void wrapAliases(python::module &);
    void wrapCharge(python::module &);
    void wrapHalflife(python::module &);
    void wrapMass(python::module &);
@@ -81,15 +81,15 @@ void wrapPops(python::module &module)
    );
 
    // wrap pops components
+   python_pops::wrapAlias(submodule);
+   python_pops::wrapMetaStable(submodule);
+   python_pops::wrapAliases(submodule);
    python_pops::wrapStandard(submodule);
    python_pops::wrapLogNormal(submodule);
    python_pops::wrapInterval(submodule);
    python_pops::wrapConfidenceIntervals(submodule);
    python_pops::wrapPdf(submodule);
    python_pops::wrapUncertainty(submodule);
-   python_pops::wrapAlias(submodule);
-   python_pops::wrapMetaStable(submodule);
-   python_pops::wrapAliases(submodule);
    python_pops::wrapCharge(submodule);
    python_pops::wrapHalflife(submodule);
    python_pops::wrapMass(submodule);

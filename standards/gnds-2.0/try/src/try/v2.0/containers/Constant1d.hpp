@@ -39,9 +39,9 @@ class Constant1d : public Component<containers::Constant1d> {
             / Meta<>("label") |
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
-         std::optional<Float64>{}
+         Float64{}
             / Meta<>("domainMin") |
-         std::optional<Float64>{}
+         Float64{}
             / Meta<>("domainMax") |
          // children
          containers::Axes{}
@@ -56,8 +56,8 @@ public:
    Field<std::optional<Float64>> value{this};
    Field<std::optional<XMLName>> label{this};
    Field<std::optional<Float64>> outerDomainValue{this};
-   Field<std::optional<Float64>> domainMin{this};
-   Field<std::optional<Float64>> domainMax{this};
+   Field<Float64> domainMin{this};
+   Field<Float64> domainMax{this};
 
    // children
    Field<containers::Axes> axes{this};
@@ -79,8 +79,8 @@ public:
       const wrapper<std::optional<Float64>> &value = {},
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<std::optional<Float64>> &domainMin = {},
-      const wrapper<std::optional<Float64>> &domainMax = {},
+      const wrapper<Float64> &domainMin = {},
+      const wrapper<Float64> &domainMax = {},
       const wrapper<containers::Axes> &axes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

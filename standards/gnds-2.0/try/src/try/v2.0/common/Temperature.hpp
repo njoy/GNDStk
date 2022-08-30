@@ -6,7 +6,7 @@
 #define TRY_V2_0_COMMON_TEMPERATURE
 
 #include "try/v2.0/documentation/Documentation.hpp"
-#include "try/v2.0/pops/Uncertainty.hpp"
+#include "try/v2.0/ambiguousNamespace/Uncertainty.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -43,7 +43,7 @@ class Temperature : public Component<common::Temperature> {
          // children
          std::optional<documentation::Documentation>{}
             / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
+         std::optional<ambiguousNamespace::Uncertainty>{}
             / --Child<>("uncertainty")
       ;
    }
@@ -58,7 +58,7 @@ public:
 
    // children
    Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<pops::Uncertainty>> uncertainty{this};
+   Field<std::optional<ambiguousNamespace::Uncertainty>> uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -77,7 +77,7 @@ public:
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<Float64>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<ambiguousNamespace::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

@@ -33,7 +33,7 @@ class Link : public Component<containers::Link> {
    {
       return
          // metadata
-         std::optional<std::string>{}
+         std::string{}
             / Meta<>("href")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // metadata
-   Field<std::optional<std::string>> href{this};
+   Field<std::string> href{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit Link(
-      const wrapper<std::optional<std::string>> &href = {}
+      const wrapper<std::string> &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)

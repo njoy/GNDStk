@@ -6,7 +6,7 @@
 #define TRY_V2_0_COMMON_Q
 
 #include "try/v2.0/documentation/Documentation.hpp"
-#include "try/v2.0/pops/Uncertainty.hpp"
+#include "try/v2.0/ambiguousNamespace/Uncertainty.hpp"
 #include "try/v2.0/containers/Constant1d.hpp"
 #include "try/v2.0/containers/XYs1d.hpp"
 #include "try/v2.0/containers/Regions1d.hpp"
@@ -56,7 +56,7 @@ class Q : public Component<common::Q> {
          // children
          std::optional<documentation::Documentation>{}
             / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
+         std::optional<ambiguousNamespace::Uncertainty>{}
             / --Child<>("uncertainty") |
          _t{}
             / --(Child<>("constant1d") || Child<>("XYs1d") || Child<>("regions1d") || Child<>("polynomial1d") || Child<>("gridded1d"))
@@ -73,7 +73,7 @@ public:
 
    // children
    Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<pops::Uncertainty>> uncertainty{this};
+   Field<std::optional<ambiguousNamespace::Uncertainty>> uncertainty{this};
 
    // children - variant
    Field<_t> _constant1dXYs1dregions1dpolynomial1dgridded1d{this};
@@ -101,7 +101,7 @@ public:
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<XMLName> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
+      const wrapper<std::optional<ambiguousNamespace::Uncertainty>> &uncertainty = {},
       const wrapper<_t> &_constant1dXYs1dregions1dpolynomial1dgridded1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

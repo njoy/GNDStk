@@ -6,7 +6,7 @@
 #define TRY_V2_0_COMMON_ENERGY
 
 #include "try/v2.0/documentation/Documentation.hpp"
-#include "try/v2.0/pops/Uncertainty.hpp"
+#include "try/v2.0/ambiguousNamespace/Uncertainty.hpp"
 #include "try/v2.0/containers/Double.hpp"
 
 namespace try {
@@ -44,7 +44,7 @@ class Energy : public Component<common::Energy> {
          // children
          std::optional<documentation::Documentation>{}
             / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
+         std::optional<ambiguousNamespace::Uncertainty>{}
             / --Child<>("uncertainty") |
          containers::Double{}
             / ++Child<>("Double")
@@ -61,7 +61,7 @@ public:
 
    // children
    Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<pops::Uncertainty>> uncertainty{this};
+   Field<std::optional<ambiguousNamespace::Uncertainty>> uncertainty{this};
    Field<std::vector<containers::Double>> Double{this};
 
    // ------------------------
@@ -82,7 +82,7 @@ public:
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<XMLName>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
+      const wrapper<std::optional<ambiguousNamespace::Uncertainty>> &uncertainty = {},
       const wrapper<std::vector<containers::Double>> &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

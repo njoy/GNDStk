@@ -39,7 +39,7 @@ void wrapResonancesWithBackground(python::module &module)
             const XMLName &,
             const transport::ResonancesLink &,
             const transport::Background &,
-            const std::optional<pops::Uncertainty> &
+            const std::optional<ambiguousNamespace::Uncertainty> &
          >(),
          python::arg("label"),
          python::arg("resonances"),

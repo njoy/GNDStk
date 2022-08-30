@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/fpy/Nuclides.h"
 #include "v2.0/containers/Values.h"
-#include "v2.0/pops/Uncertainty.h"
+#include "v2.0/ambiguousNamespace/Uncertainty.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

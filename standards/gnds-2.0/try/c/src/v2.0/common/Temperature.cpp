@@ -22,7 +22,7 @@ namespace extract {
 }
 
 using CPPDocumentation = documentation::Documentation;
-using CPPUncertainty = pops::Uncertainty;
+using CPPUncertainty = ambiguousNamespace::Uncertainty;
 
 
 // -----------------------------------------------------------------------------

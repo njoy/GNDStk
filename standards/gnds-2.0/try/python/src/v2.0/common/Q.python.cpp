@@ -47,7 +47,7 @@ void wrapQ(python::module &module)
             const std::optional<XMLName> &,
             const XMLName &,
             const std::optional<documentation::Documentation> &,
-            const std::optional<pops::Uncertainty> &,
+            const std::optional<ambiguousNamespace::Uncertainty> &,
             const _t &
          >(),
          python::arg("label") = std::nullopt,

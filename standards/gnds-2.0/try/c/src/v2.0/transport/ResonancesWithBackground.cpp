@@ -22,7 +22,7 @@ namespace extract {
 
 using CPPResonancesLink = transport::ResonancesLink;
 using CPPBackground = transport::Background;
-using CPPUncertainty = pops::Uncertainty;
+using CPPUncertainty = ambiguousNamespace::Uncertainty;
 
 
 // -----------------------------------------------------------------------------

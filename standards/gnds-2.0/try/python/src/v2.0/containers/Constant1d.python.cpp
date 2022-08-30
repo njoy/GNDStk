@@ -39,15 +39,15 @@ void wrapConstant1d(python::module &module)
             const std::optional<Float64> &,
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
-            const std::optional<Float64> &,
-            const std::optional<Float64> &,
+            const Float64 &,
+            const Float64 &,
             const containers::Axes &
          >(),
          python::arg("value") = std::nullopt,
          python::arg("label") = std::nullopt,
          python::arg("outer_domain_value") = std::nullopt,
-         python::arg("domain_min") = std::nullopt,
-         python::arg("domain_max") = std::nullopt,
+         python::arg("domain_min"),
+         python::arg("domain_max"),
          python::arg("axes"),
          Component::documentation("constructor").data()
       )

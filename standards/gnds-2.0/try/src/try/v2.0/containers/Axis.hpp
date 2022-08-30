@@ -35,7 +35,7 @@ class Axis : public Component<containers::Axis> {
          // metadata
          std::optional<Integer32>{}
             / Meta<>("index") |
-         std::optional<XMLName>{}
+         XMLName{}
             / Meta<>("label") |
          std::optional<XMLName>{}
             / Meta<>("unit")
@@ -47,7 +47,7 @@ public:
 
    // metadata
    Field<std::optional<Integer32>> index{this};
-   Field<std::optional<XMLName>> label{this};
+   Field<XMLName> label{this};
    Field<std::optional<XMLName>> unit{this};
 
    // ------------------------
@@ -62,7 +62,7 @@ public:
    // default, and from fields
    explicit Axis(
       const wrapper<std::optional<Integer32>> &index = {},
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<XMLName> &label = {},
       const wrapper<std::optional<XMLName>> &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

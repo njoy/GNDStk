@@ -37,11 +37,11 @@ void wrapAxis(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const std::optional<XMLName> &,
+            const XMLName &,
             const std::optional<XMLName> &
          >(),
          python::arg("index") = std::nullopt,
-         python::arg("label") = std::nullopt,
+         python::arg("label"),
          python::arg("unit") = std::nullopt,
          Component::documentation("constructor").data()
       )
