@@ -12,8 +12,6 @@ namespace python_v2_0 {
 
 // common declarations
 namespace python_common {
-   void wrapExternalFile(python::module &);
-   void wrapExternalFiles(python::module &);
    void wrapQ(python::module &);
    void wrapProduct(python::module &);
    void wrapProducts(python::module &);
@@ -21,6 +19,8 @@ namespace python_common {
    void wrapEnergy(python::module &);
    void wrapProbability(python::module &);
    void wrapTemperature(python::module &);
+   void wrapExternalFile(python::module &);
+   void wrapExternalFiles(python::module &);
 } // namespace python_common
 
 // common wrapper
@@ -33,8 +33,6 @@ void wrapCommon(python::module &module)
    );
 
    // wrap common components
-   python_common::wrapExternalFile(submodule);
-   python_common::wrapExternalFiles(submodule);
    python_common::wrapQ(submodule);
    python_common::wrapProduct(submodule);
    python_common::wrapProducts(submodule);
@@ -42,6 +40,8 @@ void wrapCommon(python::module &module)
    python_common::wrapEnergy(submodule);
    python_common::wrapProbability(submodule);
    python_common::wrapTemperature(submodule);
+   python_common::wrapExternalFile(submodule);
+   python_common::wrapExternalFiles(submodule);
 };
 
 } // namespace python_v2_0

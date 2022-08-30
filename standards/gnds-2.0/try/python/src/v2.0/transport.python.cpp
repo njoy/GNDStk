@@ -12,15 +12,9 @@ namespace python_v2_0 {
 
 // transport declarations
 namespace python_transport {
-   void wrapResonancesLink(python::module &);
-   void wrapResolvedRegion(python::module &);
-   void wrapUnresolvedRegion(python::module &);
-   void wrapFastRegion(python::module &);
-   void wrapBackground(python::module &);
-   void wrapResonancesWithBackground(python::module &);
+   void wrapBranching1d(python::module &);
    void wrapReference(python::module &);
-   void wrapURR_probabilityTables1d(python::module &);
-   void wrapCrossSection(python::module &);
+   void wrapMultiplicity(python::module &);
    void wrapIsotropic2d(python::module &);
    void wrapRecoil(python::module &);
    void wrapAngularTwoBody(python::module &);
@@ -45,6 +39,14 @@ namespace python_transport {
    void wrapA(python::module &);
    void wrapKalbachMann(python::module &);
    void wrapBranching3d(python::module &);
+   void wrapResonancesLink(python::module &);
+   void wrapResolvedRegion(python::module &);
+   void wrapUnresolvedRegion(python::module &);
+   void wrapFastRegion(python::module &);
+   void wrapBackground(python::module &);
+   void wrapResonancesWithBackground(python::module &);
+   void wrapURR_probabilityTables1d(python::module &);
+   void wrapCrossSection(python::module &);
    void wrapUnspecified(python::module &);
    void wrapMultiGroup3d(python::module &);
    void wrapDistribution(python::module &);
@@ -58,8 +60,6 @@ namespace python_transport {
    void wrapSummands(python::module &);
    void wrapCrossSectionSum(python::module &);
    void wrapCrossSectionSums(python::module &);
-   void wrapBranching1d(python::module &);
-   void wrapMultiplicity(python::module &);
    void wrapMultiplicitySum(python::module &);
    void wrapMultiplicitySums(python::module &);
    void wrapSums(python::module &);
@@ -82,15 +82,9 @@ void wrapTransport(python::module &module)
    );
 
    // wrap transport components
-   python_transport::wrapResonancesLink(submodule);
-   python_transport::wrapResolvedRegion(submodule);
-   python_transport::wrapUnresolvedRegion(submodule);
-   python_transport::wrapFastRegion(submodule);
-   python_transport::wrapBackground(submodule);
-   python_transport::wrapResonancesWithBackground(submodule);
+   python_transport::wrapBranching1d(submodule);
    python_transport::wrapReference(submodule);
-   python_transport::wrapURR_probabilityTables1d(submodule);
-   python_transport::wrapCrossSection(submodule);
+   python_transport::wrapMultiplicity(submodule);
    python_transport::wrapIsotropic2d(submodule);
    python_transport::wrapRecoil(submodule);
    python_transport::wrapAngularTwoBody(submodule);
@@ -115,6 +109,14 @@ void wrapTransport(python::module &module)
    python_transport::wrapA(submodule);
    python_transport::wrapKalbachMann(submodule);
    python_transport::wrapBranching3d(submodule);
+   python_transport::wrapResonancesLink(submodule);
+   python_transport::wrapResolvedRegion(submodule);
+   python_transport::wrapUnresolvedRegion(submodule);
+   python_transport::wrapFastRegion(submodule);
+   python_transport::wrapBackground(submodule);
+   python_transport::wrapResonancesWithBackground(submodule);
+   python_transport::wrapURR_probabilityTables1d(submodule);
+   python_transport::wrapCrossSection(submodule);
    python_transport::wrapUnspecified(submodule);
    python_transport::wrapMultiGroup3d(submodule);
    python_transport::wrapDistribution(submodule);
@@ -128,8 +130,6 @@ void wrapTransport(python::module &module)
    python_transport::wrapSummands(submodule);
    python_transport::wrapCrossSectionSum(submodule);
    python_transport::wrapCrossSectionSums(submodule);
-   python_transport::wrapBranching1d(submodule);
-   python_transport::wrapMultiplicity(submodule);
    python_transport::wrapMultiplicitySum(submodule);
    python_transport::wrapMultiplicitySums(submodule);
    python_transport::wrapSums(submodule);

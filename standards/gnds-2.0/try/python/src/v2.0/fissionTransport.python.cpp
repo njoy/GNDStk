@@ -12,6 +12,14 @@ namespace python_v2_0 {
 
 // fissionTransport declarations
 namespace python_fissionTransport {
+   void wrapSimpleMaxwellianFission(python::module &);
+   void wrapA(python::module &);
+   void wrapB(python::module &);
+   void wrapWatt(python::module &);
+   void wrapEFH(python::module &);
+   void wrapEFL(python::module &);
+   void wrapT_M(python::module &);
+   void wrapMadlandNix(python::module &);
    void wrapDelayedBetaEnergy(python::module &);
    void wrapDelayedGammaEnergy(python::module &);
    void wrapDelayedNeutronKE(python::module &);
@@ -22,14 +30,6 @@ namespace python_fissionTransport {
    void wrapPromptProductKE(python::module &);
    void wrapTotalEnergy(python::module &);
    void wrapFissionEnergyReleased(python::module &);
-   void wrapSimpleMaxwellianFission(python::module &);
-   void wrapA(python::module &);
-   void wrapB(python::module &);
-   void wrapWatt(python::module &);
-   void wrapEFH(python::module &);
-   void wrapEFL(python::module &);
-   void wrapT_M(python::module &);
-   void wrapMadlandNix(python::module &);
    void wrapFissionComponent(python::module &);
    void wrapFissionComponents(python::module &);
 } // namespace python_fissionTransport
@@ -44,6 +44,14 @@ void wrapFissionTransport(python::module &module)
    );
 
    // wrap fissionTransport components
+   python_fissionTransport::wrapSimpleMaxwellianFission(submodule);
+   python_fissionTransport::wrapA(submodule);
+   python_fissionTransport::wrapB(submodule);
+   python_fissionTransport::wrapWatt(submodule);
+   python_fissionTransport::wrapEFH(submodule);
+   python_fissionTransport::wrapEFL(submodule);
+   python_fissionTransport::wrapT_M(submodule);
+   python_fissionTransport::wrapMadlandNix(submodule);
    python_fissionTransport::wrapDelayedBetaEnergy(submodule);
    python_fissionTransport::wrapDelayedGammaEnergy(submodule);
    python_fissionTransport::wrapDelayedNeutronKE(submodule);
@@ -54,14 +62,6 @@ void wrapFissionTransport(python::module &module)
    python_fissionTransport::wrapPromptProductKE(submodule);
    python_fissionTransport::wrapTotalEnergy(submodule);
    python_fissionTransport::wrapFissionEnergyReleased(submodule);
-   python_fissionTransport::wrapSimpleMaxwellianFission(submodule);
-   python_fissionTransport::wrapA(submodule);
-   python_fissionTransport::wrapB(submodule);
-   python_fissionTransport::wrapWatt(submodule);
-   python_fissionTransport::wrapEFH(submodule);
-   python_fissionTransport::wrapEFL(submodule);
-   python_fissionTransport::wrapT_M(submodule);
-   python_fissionTransport::wrapMadlandNix(submodule);
    python_fissionTransport::wrapFissionComponent(submodule);
    python_fissionTransport::wrapFissionComponents(submodule);
 };
