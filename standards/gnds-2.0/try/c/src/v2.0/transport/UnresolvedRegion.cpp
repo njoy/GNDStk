@@ -16,8 +16,8 @@ static const std::string CLASSNAME = "UnresolvedRegion";
 namespace extract {
 }
 
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPRegions1d = unknownNamespace::Regions1d;
+using CPPXYs1d = containers::XYs1d;
+using CPPRegions1d = containers::Regions1d;
 
 
 // -----------------------------------------------------------------------------

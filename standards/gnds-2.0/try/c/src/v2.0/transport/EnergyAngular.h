@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_ENERGYANGULAR
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs3d.h"
+#include "v2.0/containers/XYs3d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

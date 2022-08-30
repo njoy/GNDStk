@@ -39,7 +39,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<XMLName> &,
             const std::optional<XMLName> &,
-            const std::optional<unknownNamespace::Gridded2d> &
+            const std::optional<containers::Gridded2d> &
          >(),
          python::arg("dependence_on_processed_group_width") = std::nullopt,
          python::arg("label") = std::nullopt,

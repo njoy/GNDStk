@@ -17,7 +17,7 @@ namespace extract {
    static auto constant1d = [](auto &obj) { return &obj.constant1d; };
 }
 
-using CPPConstant1d = unknownNamespace::Constant1d;
+using CPPConstant1d = containers::Constant1d;
 
 
 // -----------------------------------------------------------------------------

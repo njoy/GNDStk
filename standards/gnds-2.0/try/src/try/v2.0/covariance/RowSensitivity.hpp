@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_COVARIANCE_ROWSENSITIVITY
 #define TRY_V2_0_COVARIANCE_ROWSENSITIVITY
 
-#include "try/v2.0/unknownNamespace/Array.hpp"
+#include "try/v2.0/containers/Array.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class RowSensitivity : public Component<covariance::RowSensitivity> {
    {
       return
          // children
-         unknownNamespace::Array{}
+         containers::Array{}
             / --Child<>("array")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::Array> array{this};
+   Field<containers::Array> array{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit RowSensitivity(
-      const wrapper<unknownNamespace::Array> &array = {}
+      const wrapper<containers::Array> &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       array(this,array)

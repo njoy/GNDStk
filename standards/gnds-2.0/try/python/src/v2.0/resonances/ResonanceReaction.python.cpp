@@ -43,7 +43,7 @@ void wrapResonanceReaction(python::module &module)
             const std::optional<ambiguousNamespace::Q> &,
             const std::optional<resonances::ScatteringRadius> &,
             const std::optional<resonances::HardSphereRadius> &,
-            const unknownNamespace::Link &
+            const containers::Link &
          >(),
          python::arg("label"),
          python::arg("ejectile"),

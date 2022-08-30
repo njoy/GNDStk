@@ -25,8 +25,8 @@ void wrapHalflife(python::module &module)
    // type aliases
    using Component = pops::Halflife;
    using _t = std::variant<
-      unknownNamespace::String,
-      unknownNamespace::Double
+      containers::String,
+      containers::Double
    >;
 
    // create the component

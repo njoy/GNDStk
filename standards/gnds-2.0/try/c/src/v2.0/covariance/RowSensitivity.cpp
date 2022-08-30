@@ -17,7 +17,7 @@ namespace extract {
    static auto array = [](auto &obj) { return &obj.array; };
 }
 
-using CPPArray = unknownNamespace::Array;
+using CPPArray = containers::Array;
 
 
 // -----------------------------------------------------------------------------

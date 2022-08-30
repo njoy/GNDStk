@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TSL_DISTINCTSCATTERINGKERNEL
 #define TRY_V2_0_TSL_DISTINCTSCATTERINGKERNEL
 
-#include "try/v2.0/unknownNamespace/Gridded3d.hpp"
+#include "try/v2.0/containers/Gridded3d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class DistinctScatteringKernel : public Component<tsl::DistinctScatteringKernel>
    {
       return
          // children
-         std::optional<unknownNamespace::Gridded3d>{}
+         std::optional<containers::Gridded3d>{}
             / --Child<>("gridded3d")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::Gridded3d>> gridded3d{this};
+   Field<std::optional<containers::Gridded3d>> gridded3d{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit DistinctScatteringKernel(
-      const wrapper<std::optional<unknownNamespace::Gridded3d>> &gridded3d = {}
+      const wrapper<std::optional<containers::Gridded3d>> &gridded3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gridded3d(this,gridded3d)

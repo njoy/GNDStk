@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_RESONANCEPARAMETERS
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Table.h"
+#include "v2.0/containers/Table.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

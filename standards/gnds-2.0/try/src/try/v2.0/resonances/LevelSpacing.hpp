@@ -5,9 +5,9 @@
 #ifndef TRY_V2_0_RESONANCES_LEVELSPACING
 #define TRY_V2_0_RESONANCES_LEVELSPACING
 
-#include "try/v2.0/unknownNamespace/Constant1d.hpp"
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/Regions1d.hpp"
+#include "try/v2.0/containers/Constant1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/Regions1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -35,11 +35,11 @@ class LevelSpacing : public Component<resonances::LevelSpacing> {
    {
       return
          // children
-         std::optional<unknownNamespace::Constant1d>{}
+         std::optional<containers::Constant1d>{}
             / --Child<>("constant1d") |
-         std::optional<unknownNamespace::XYs1d>{}
+         std::optional<containers::XYs1d>{}
             / --Child<>("XYs1d") |
-         std::optional<unknownNamespace::Regions1d>{}
+         std::optional<containers::Regions1d>{}
             / --Child<>("regions1d")
       ;
    }
@@ -48,9 +48,9 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::Constant1d>> constant1d{this};
-   Field<std::optional<unknownNamespace::XYs1d>> XYs1d{this};
-   Field<std::optional<unknownNamespace::Regions1d>> regions1d{this};
+   Field<std::optional<containers::Constant1d>> constant1d{this};
+   Field<std::optional<containers::XYs1d>> XYs1d{this};
+   Field<std::optional<containers::Regions1d>> regions1d{this};
 
    // ------------------------
    // Constructors
@@ -63,9 +63,9 @@ public:
 
    // default, and from fields
    explicit LevelSpacing(
-      const wrapper<std::optional<unknownNamespace::Constant1d>> &constant1d = {},
-      const wrapper<std::optional<unknownNamespace::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<unknownNamespace::Regions1d>> &regions1d = {}
+      const wrapper<std::optional<containers::Constant1d>> &constant1d = {},
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d),

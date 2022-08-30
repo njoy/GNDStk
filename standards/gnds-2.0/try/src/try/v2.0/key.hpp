@@ -44,10 +44,13 @@ GNDSTK_MAKE_LOOKUP(channelSpin,channelSpin);
 GNDSTK_MAKE_LOOKUP(checksum,checksum);
 GNDSTK_MAKE_LOOKUP(coefficient,coefficient);
 GNDSTK_MAKE_LOOKUP(columnIndex,columnIndex);
+GNDSTK_MAKE_LOOKUP(columns,columns);
 GNDSTK_MAKE_LOOKUP(complete,complete);
+GNDSTK_MAKE_LOOKUP(compression,compression);
 GNDSTK_MAKE_LOOKUP(confidence,confidence);
 GNDSTK_MAKE_LOOKUP(conserve,conserve);
 GNDSTK_MAKE_LOOKUP(contributorType,contributorType);
+GNDSTK_MAKE_LOOKUP(count,count);
 GNDSTK_MAKE_LOOKUP(crossTerm,crossTerm);
 GNDSTK_MAKE_LOOKUP(date,date);
 GNDSTK_MAKE_LOOKUP(dateType,dateType);
@@ -79,9 +82,13 @@ GNDSTK_MAKE_LOOKUP(identicalParticles,identicalParticles);
 GNDSTK_MAKE_LOOKUP(incoherentApproximation,incoherentApproximation);
 GNDSTK_MAKE_LOOKUP(index,index);
 GNDSTK_MAKE_LOOKUP(interaction,interaction);
+GNDSTK_MAKE_LOOKUP(interpolation,interpolation);
+GNDSTK_MAKE_LOOKUP(interpolationQualifier,interpolationQualifier);
 GNDSTK_MAKE_LOOKUP(label,label);
+GNDSTK_MAKE_LOOKUP(length,length);
 GNDSTK_MAKE_LOOKUP(library,library);
 GNDSTK_MAKE_LOOKUP(lower,lower);
+GNDSTK_MAKE_LOOKUP(lowerIndex,lowerIndex);
 GNDSTK_MAKE_LOOKUP(markup,markup);
 GNDSTK_MAKE_LOOKUP(matrixStartIndex,matrixStartIndex);
 GNDSTK_MAKE_LOOKUP(max,max);
@@ -95,9 +102,12 @@ GNDSTK_MAKE_LOOKUP(numberOfBands,numberOfBands);
 GNDSTK_MAKE_LOOKUP(numberOfBins,numberOfBins);
 GNDSTK_MAKE_LOOKUP(numberOfProducts,numberOfProducts);
 GNDSTK_MAKE_LOOKUP(numberPerMolecule,numberPerMolecule);
+GNDSTK_MAKE_LOOKUP(offset,offset);
 GNDSTK_MAKE_LOOKUP(orcid,orcid);
+GNDSTK_MAKE_LOOKUP(outerDomainValue,outerDomainValue);
 GNDSTK_MAKE_LOOKUP(parity,parity);
 GNDSTK_MAKE_LOOKUP(path,path);
+GNDSTK_MAKE_LOOKUP(permutation,permutation);
 GNDSTK_MAKE_LOOKUP(pid,pid);
 GNDSTK_MAKE_LOOKUP(primaryScatterer,primaryScatterer);
 GNDSTK_MAKE_LOOKUP(process,process);
@@ -110,21 +120,31 @@ GNDSTK_MAKE_LOOKUP(resonanceReaction,resonanceReaction);
 GNDSTK_MAKE_LOOKUP(retrievalDate,retrievalDate);
 GNDSTK_MAKE_LOOKUP(revisionID,revisionID);
 GNDSTK_MAKE_LOOKUP(revisionSystem,revisionSystem);
+GNDSTK_MAKE_LOOKUP(rows,rows);
+GNDSTK_MAKE_LOOKUP(sep,sep);
+GNDSTK_MAKE_LOOKUP(shape,shape);
 GNDSTK_MAKE_LOOKUP(spin,spin);
 GNDSTK_MAKE_LOOKUP(standardEvaluation,standardEvaluation);
 GNDSTK_MAKE_LOOKUP(standardTarget,standardTarget);
+GNDSTK_MAKE_LOOKUP(start,start);
+GNDSTK_MAKE_LOOKUP(startIndex,startIndex);
+GNDSTK_MAKE_LOOKUP(storageOrder,storageOrder);
+GNDSTK_MAKE_LOOKUP(style,style);
 GNDSTK_MAKE_LOOKUP(subentry,subentry);
 GNDSTK_MAKE_LOOKUP(subshell,subshell);
 GNDSTK_MAKE_LOOKUP(supportsAngularReconstruction,supportsAngularReconstruction);
 GNDSTK_MAKE_LOOKUP(symbol,symbol);
 GNDSTK_MAKE_LOOKUP(symmetric,symmetric);
+GNDSTK_MAKE_LOOKUP(symmetry,symmetry);
 GNDSTK_MAKE_LOOKUP(target,target);
 GNDSTK_MAKE_LOOKUP(type,type);
+GNDSTK_MAKE_LOOKUP(types,types);
 GNDSTK_MAKE_LOOKUP(unit,unit);
 GNDSTK_MAKE_LOOKUP(upper,upper);
 GNDSTK_MAKE_LOOKUP(upperCalculatedGroup,upperCalculatedGroup);
 GNDSTK_MAKE_LOOKUP(useForSelfShieldingOnly,useForSelfShieldingOnly);
 GNDSTK_MAKE_LOOKUP(value,value);
+GNDSTK_MAKE_LOOKUP(valueType,valueType);
 GNDSTK_MAKE_LOOKUP(version,version);
 GNDSTK_MAKE_LOOKUP(xref,xref);
 
@@ -189,6 +209,49 @@ inline const Child<> temperature("temperature");
 } // namespace child
 using namespace child;
 } // namespace common
+
+
+// -----------------------------------------------------------------------------
+// containers::child::
+// -----------------------------------------------------------------------------
+
+namespace containers {
+namespace child {
+
+inline const Child<> Double("double");
+inline const Child<> Legendre("Legendre");
+inline const Child<> XYs1d("XYs1d");
+inline const Child<> XYs2d("XYs2d");
+inline const Child<> XYs3d("XYs3d");
+inline const Child<> Ys1d("Ys1d");
+inline const Child<> array("array");
+inline const Child<> axes("axes");
+inline const Child<> axis("axis");
+inline const Child<> column("column");
+inline const Child<> columnHeaders("columnHeaders");
+inline const Child<> constant1d("constant1d");
+inline const Child<> data("data");
+inline const Child<> fraction("fraction");
+inline const Child<> function1ds("function1ds");
+inline const Child<> function2ds("function2ds");
+inline const Child<> function3ds("function3ds");
+inline const Child<> grid("grid");
+inline const Child<> gridded1d("gridded1d");
+inline const Child<> gridded2d("gridded2d");
+inline const Child<> gridded3d("gridded3d");
+inline const Child<> integer("integer");
+inline const Child<> link("link");
+inline const Child<> polynomial1d("polynomial1d");
+inline const Child<> regions1d("regions1d");
+inline const Child<> regions2d("regions2d");
+inline const Child<> regions3d("regions3d");
+inline const Child<> string("string");
+inline const Child<> table("table");
+inline const Child<> values("values");
+
+} // namespace child
+using namespace child;
+} // namespace containers
 
 
 // -----------------------------------------------------------------------------
@@ -670,6 +733,7 @@ namespace key {
    using namespace appData::child;
    using namespace atomic::child;
    using namespace common::child;
+   using namespace containers::child;
    using namespace covariance::child;
    using namespace cpTransport::child;
    using namespace documentation::child;
@@ -689,6 +753,7 @@ using namespace key;
 using namespace appData;
 using namespace atomic;
 using namespace common;
+using namespace containers;
 using namespace covariance;
 using namespace cpTransport;
 using namespace documentation;

@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
 #include "v2.0/pops/Uncertainty.h"
-#include "v2.0/unknownNamespace/Fraction.h"
+#include "v2.0/containers/Fraction.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -271,6 +271,93 @@ extern_c void
 SpinFractionSet(
    ConstHandle2Spin This,
    const size_t index_,
+   ConstHandle2ConstFraction fraction
+);
+
+// +++ Has, by label
+extern_c int
+SpinFractionHasByLabel(
+   ConstHandle2ConstSpin This,
+   const XMLName label
+);
+
+// --- Get, by label, const
+extern_c Handle2ConstFraction
+SpinFractionGetByLabelConst(
+   ConstHandle2ConstSpin This,
+   const XMLName label
+);
+
+// +++ Get, by label, non-const
+extern_c Handle2Fraction
+SpinFractionGetByLabel(
+   ConstHandle2Spin This,
+   const XMLName label
+);
+
+// +++ Set, by label
+extern_c void
+SpinFractionSetByLabel(
+   ConstHandle2Spin This,
+   const XMLName label,
+   ConstHandle2ConstFraction fraction
+);
+
+// +++ Has, by unit
+extern_c int
+SpinFractionHasByUnit(
+   ConstHandle2ConstSpin This,
+   const XMLName unit
+);
+
+// --- Get, by unit, const
+extern_c Handle2ConstFraction
+SpinFractionGetByUnitConst(
+   ConstHandle2ConstSpin This,
+   const XMLName unit
+);
+
+// +++ Get, by unit, non-const
+extern_c Handle2Fraction
+SpinFractionGetByUnit(
+   ConstHandle2Spin This,
+   const XMLName unit
+);
+
+// +++ Set, by unit
+extern_c void
+SpinFractionSetByUnit(
+   ConstHandle2Spin This,
+   const XMLName unit,
+   ConstHandle2ConstFraction fraction
+);
+
+// +++ Has, by value
+extern_c int
+SpinFractionHasByValue(
+   ConstHandle2ConstSpin This,
+   const Fraction32 value
+);
+
+// --- Get, by value, const
+extern_c Handle2ConstFraction
+SpinFractionGetByValueConst(
+   ConstHandle2ConstSpin This,
+   const Fraction32 value
+);
+
+// +++ Get, by value, non-const
+extern_c Handle2Fraction
+SpinFractionGetByValue(
+   ConstHandle2Spin This,
+   const Fraction32 value
+);
+
+// +++ Set, by value
+extern_c void
+SpinFractionSetByValue(
+   ConstHandle2Spin This,
+   const Fraction32 value,
    ConstHandle2ConstFraction fraction
 );
 

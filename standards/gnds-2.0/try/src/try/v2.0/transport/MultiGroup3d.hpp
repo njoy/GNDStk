@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TRANSPORT_MULTIGROUP3D
 #define TRY_V2_0_TRANSPORT_MULTIGROUP3D
 
-#include "try/v2.0/unknownNamespace/Gridded3d.hpp"
+#include "try/v2.0/containers/Gridded3d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -38,7 +38,7 @@ class MultiGroup3d : public Component<transport::MultiGroup3d> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         unknownNamespace::Gridded3d{}
+         containers::Gridded3d{}
             / --Child<>("gridded3d")
       ;
    }
@@ -51,7 +51,7 @@ public:
    Field<XMLName> productFrame{this};
 
    // children
-   Field<unknownNamespace::Gridded3d> gridded3d{this};
+   Field<containers::Gridded3d> gridded3d{this};
 
    // ------------------------
    // Constructors
@@ -66,7 +66,7 @@ public:
    explicit MultiGroup3d(
       const wrapper<XMLName> &label = {},
       const wrapper<XMLName> &productFrame = {},
-      const wrapper<unknownNamespace::Gridded3d> &gridded3d = {}
+      const wrapper<containers::Gridded3d> &gridded3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

@@ -41,7 +41,7 @@ void wrapSpin(python::module &module)
             const XMLName &,
             const std::optional<documentation::Documentation> &,
             const std::optional<pops::Uncertainty> &,
-            const std::optional<std::vector<unknownNamespace::Fraction>> &
+            const std::optional<std::vector<containers::Fraction>> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("unit") = std::nullopt,

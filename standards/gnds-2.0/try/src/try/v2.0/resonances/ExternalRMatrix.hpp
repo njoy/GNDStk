@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_RESONANCES_EXTERNALRMATRIX
 #define TRY_V2_0_RESONANCES_EXTERNALRMATRIX
 
-#include "try/v2.0/unknownNamespace/Double.hpp"
+#include "try/v2.0/containers/Double.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -36,7 +36,7 @@ class ExternalRMatrix : public Component<resonances::ExternalRMatrix> {
          Defaulted<XMLName>{"Froehner"}
             / Meta<>("type") |
          // children
-         unknownNamespace::Double{}
+         containers::Double{}
             / ++Child<>("Double")
       ;
    }
@@ -53,7 +53,7 @@ public:
    Field<Defaulted<XMLName>> type{this,defaults.type};
 
    // children
-   Field<std::vector<unknownNamespace::Double>> Double{this};
+   Field<std::vector<containers::Double>> Double{this};
 
    // ------------------------
    // Constructors
@@ -67,7 +67,7 @@ public:
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit ExternalRMatrix(
       const wrapper<std::optional<XMLName>> &type = {},
-      const wrapper<std::vector<unknownNamespace::Double>> &Double = {}
+      const wrapper<std::vector<containers::Double>> &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       type(this,defaults.type,type),

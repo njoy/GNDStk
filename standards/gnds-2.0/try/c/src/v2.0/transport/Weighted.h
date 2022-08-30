@@ -32,8 +32,8 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_WEIGHTED
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs1d.h"
-#include "v2.0/unknownNamespace/XYs2d.h"
+#include "v2.0/containers/XYs1d.h"
+#include "v2.0/containers/XYs2d.h"
 #include "v2.0/transport/Evaporation.h"
 #include "v2.0/transport/GeneralEvaporation.h"
 #include "v2.0/fissionTransport/SimpleMaxwellianFission.h"

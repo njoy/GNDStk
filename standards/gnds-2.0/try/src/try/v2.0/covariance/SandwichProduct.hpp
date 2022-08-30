@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_COVARIANCE_SANDWICHPRODUCT
 #define TRY_V2_0_COVARIANCE_SANDWICHPRODUCT
 
-#include "try/v2.0/unknownNamespace/Axes.hpp"
+#include "try/v2.0/containers/Axes.hpp"
 #include "try/v2.0/covariance/Covariance.hpp"
 #include "try/v2.0/covariance/RowSensitivity.hpp"
 #include "try/v2.0/covariance/ColumnSensitivity.hpp"
@@ -36,7 +36,7 @@ class SandwichProduct : public Component<covariance::SandwichProduct> {
    {
       return
          // children
-         unknownNamespace::Axes{}
+         containers::Axes{}
             / --Child<>("axes") |
          covariance::Covariance{}
             / --Child<>("covariance") |
@@ -51,7 +51,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::Axes> axes{this};
+   Field<containers::Axes> axes{this};
    Field<covariance::Covariance> covariance{this};
    Field<covariance::RowSensitivity> rowSensitivity{this};
    Field<std::optional<covariance::ColumnSensitivity>> columnSensitivity{this};
@@ -68,7 +68,7 @@ public:
 
    // default, and from fields
    explicit SandwichProduct(
-      const wrapper<unknownNamespace::Axes> &axes = {},
+      const wrapper<containers::Axes> &axes = {},
       const wrapper<covariance::Covariance> &covariance = {},
       const wrapper<covariance::RowSensitivity> &rowSensitivity = {},
       const wrapper<std::optional<covariance::ColumnSensitivity>> &columnSensitivity = {}

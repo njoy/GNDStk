@@ -32,13 +32,13 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_MULTIPLICITY
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs1d.h"
-#include "v2.0/unknownNamespace/Constant1d.h"
-#include "v2.0/unknownNamespace/Polynomial1d.h"
+#include "v2.0/containers/XYs1d.h"
+#include "v2.0/containers/Constant1d.h"
+#include "v2.0/containers/Polynomial1d.h"
 #include "v2.0/transport/Branching1d.h"
 #include "v2.0/transport/Reference.h"
-#include "v2.0/unknownNamespace/Gridded1d.h"
-#include "v2.0/unknownNamespace/Regions1d.h"
+#include "v2.0/containers/Gridded1d.h"
+#include "v2.0/containers/Regions1d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

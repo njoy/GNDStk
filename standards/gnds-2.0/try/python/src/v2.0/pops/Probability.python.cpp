@@ -36,7 +36,7 @@ void wrapProbability(python::module &module)
    component
       .def(
          python::init<
-            const std::vector<unknownNamespace::Double> &
+            const std::vector<containers::Double> &
          >(),
          python::arg("double"),
          Component::documentation("constructor").data()

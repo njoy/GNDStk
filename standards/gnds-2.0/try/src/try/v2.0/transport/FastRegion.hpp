@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_FASTREGION
 #define TRY_V2_0_TRANSPORT_FASTREGION
 
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/Regions1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/Regions1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -21,8 +21,8 @@ class FastRegion : public Component<transport::FastRegion> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::XYs1d,
-      unknownNamespace::Regions1d
+      containers::XYs1d,
+      containers::Regions1d
    >;
 
    // ------------------------
@@ -49,8 +49,8 @@ public:
 
    // children - variant
    Field<_t> _XYs1dregions1d{this};
-   FieldPart<decltype(_XYs1dregions1d),unknownNamespace::XYs1d> XYs1d{_XYs1dregions1d};
-   FieldPart<decltype(_XYs1dregions1d),unknownNamespace::Regions1d> regions1d{_XYs1dregions1d};
+   FieldPart<decltype(_XYs1dregions1d),containers::XYs1d> XYs1d{_XYs1dregions1d};
+   FieldPart<decltype(_XYs1dregions1d),containers::Regions1d> regions1d{_XYs1dregions1d};
 
    // ------------------------
    // Constructors

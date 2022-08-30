@@ -37,7 +37,7 @@ void wrapExternalRMatrix(python::module &module)
       .def(
          python::init<
             const std::optional<XMLName> &,
-            const std::vector<unknownNamespace::Double> &
+            const std::vector<containers::Double> &
          >(),
          python::arg("type") = std::nullopt,
          python::arg("double"),

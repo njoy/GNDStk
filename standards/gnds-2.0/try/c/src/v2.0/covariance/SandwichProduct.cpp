@@ -20,7 +20,7 @@ namespace extract {
    static auto columnSensitivity = [](auto &obj) { return &obj.columnSensitivity; };
 }
 
-using CPPAxes = unknownNamespace::Axes;
+using CPPAxes = containers::Axes;
 using CPPCovariance = covariance::Covariance;
 using CPPRowSensitivity = covariance::RowSensitivity;
 using CPPColumnSensitivity = covariance::ColumnSensitivity;

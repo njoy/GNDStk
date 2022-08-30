@@ -21,7 +21,7 @@ namespace extract {
 }
 
 using CPPParameters = covariance::Parameters;
-using CPPArray = unknownNamespace::Array;
+using CPPArray = containers::Array;
 
 
 // -----------------------------------------------------------------------------

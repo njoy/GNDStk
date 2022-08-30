@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_STYLES_GRIDDEDCROSSSECTION
 #define TRY_V2_0_STYLES_GRIDDEDCROSSSECTION
 
-#include "try/v2.0/unknownNamespace/Grid.hpp"
+#include "try/v2.0/containers/Grid.hpp"
 #include "try/v2.0/documentation/Documentation.hpp"
 
 namespace try {
@@ -41,7 +41,7 @@ class GriddedCrossSection : public Component<styles::GriddedCrossSection> {
          XMLName{}
             / Meta<>("label") |
          // children
-         unknownNamespace::Grid{}
+         containers::Grid{}
             / --Child<>("grid") |
          std::optional<documentation::Documentation>{}
             / --Child<>("documentation")
@@ -57,7 +57,7 @@ public:
    Field<XMLName> label{this};
 
    // children
-   Field<unknownNamespace::Grid> grid{this};
+   Field<containers::Grid> grid{this};
    Field<std::optional<documentation::Documentation>> documentation{this};
 
    // ------------------------
@@ -76,7 +76,7 @@ public:
       const wrapper<std::string> &date = {},
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
-      const wrapper<unknownNamespace::Grid> &grid = {},
+      const wrapper<containers::Grid> &grid = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

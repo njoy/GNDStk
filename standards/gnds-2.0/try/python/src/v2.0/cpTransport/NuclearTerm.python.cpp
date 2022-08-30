@@ -36,8 +36,8 @@ void wrapNuclearTerm(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::XYs2d> &,
-            const std::optional<unknownNamespace::Regions2d> &
+            const std::optional<containers::XYs2d> &,
+            const std::optional<containers::Regions2d> &
          >(),
          python::arg("xys2d") = std::nullopt,
          python::arg("regions2d") = std::nullopt,

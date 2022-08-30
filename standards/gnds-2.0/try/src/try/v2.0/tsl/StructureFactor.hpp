@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TSL_STRUCTUREFACTOR
 #define TRY_V2_0_TSL_STRUCTUREFACTOR
 
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class StructureFactor : public Component<tsl::StructureFactor> {
    {
       return
          // children
-         unknownNamespace::XYs1d{}
+         containers::XYs1d{}
             / --Child<>("XYs1d")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::XYs1d> XYs1d{this};
+   Field<containers::XYs1d> XYs1d{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit StructureFactor(
-      const wrapper<unknownNamespace::XYs1d> &XYs1d = {}
+      const wrapper<containers::XYs1d> &XYs1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d)

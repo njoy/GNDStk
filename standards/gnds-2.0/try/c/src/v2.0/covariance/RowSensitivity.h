@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_COVARIANCE_ROWSENSITIVITY
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Array.h"
+#include "v2.0/containers/Array.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

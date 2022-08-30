@@ -24,7 +24,7 @@ namespace extract {
 
 using CPPDocumentation = documentation::Documentation;
 using CPPUncertainty = pops::Uncertainty;
-using CPPInteger = unknownNamespace::Integer;
+using CPPInteger = containers::Integer;
 
 
 // -----------------------------------------------------------------------------
@@ -393,4 +393,139 @@ ParityIntegerSet(
 ) {
    detail::setByIndex<CPP,CPPInteger>
       (CLASSNAME, CLASSNAME+"IntegerSet", This, extract::integer, index_, integer);
+}
+
+// Has, by label
+int
+ParityIntegerHasByLabel(
+   ConstHandle2ConstParity This,
+   const XMLName label
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"IntegerHasByLabel",
+       This, extract::integer, meta::label, label);
+}
+
+// Get, by label, const
+Handle2ConstInteger
+ParityIntegerGetByLabelConst(
+   ConstHandle2ConstParity This,
+   const XMLName label
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstInteger>
+      (CLASSNAME, CLASSNAME+"IntegerGetByLabelConst",
+       This, extract::integer, meta::label, label);
+}
+
+// Get, by label, non-const
+Handle2Integer
+ParityIntegerGetByLabel(
+   ConstHandle2Parity This,
+   const XMLName label
+) {
+   return detail::getByMetadatum<CPP,Handle2Integer>
+      (CLASSNAME, CLASSNAME+"IntegerGetByLabel",
+       This, extract::integer, meta::label, label);
+}
+
+// Set, by label
+void
+ParityIntegerSetByLabel(
+   ConstHandle2Parity This,
+   const XMLName label,
+   ConstHandle2ConstInteger integer
+) {
+   detail::setByMetadatum<CPP,CPPInteger>
+      (CLASSNAME, CLASSNAME+"IntegerSetByLabel",
+       This, extract::integer, meta::label, label, integer);
+}
+
+// Has, by unit
+int
+ParityIntegerHasByUnit(
+   ConstHandle2ConstParity This,
+   const XMLName unit
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"IntegerHasByUnit",
+       This, extract::integer, meta::unit, unit);
+}
+
+// Get, by unit, const
+Handle2ConstInteger
+ParityIntegerGetByUnitConst(
+   ConstHandle2ConstParity This,
+   const XMLName unit
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstInteger>
+      (CLASSNAME, CLASSNAME+"IntegerGetByUnitConst",
+       This, extract::integer, meta::unit, unit);
+}
+
+// Get, by unit, non-const
+Handle2Integer
+ParityIntegerGetByUnit(
+   ConstHandle2Parity This,
+   const XMLName unit
+) {
+   return detail::getByMetadatum<CPP,Handle2Integer>
+      (CLASSNAME, CLASSNAME+"IntegerGetByUnit",
+       This, extract::integer, meta::unit, unit);
+}
+
+// Set, by unit
+void
+ParityIntegerSetByUnit(
+   ConstHandle2Parity This,
+   const XMLName unit,
+   ConstHandle2ConstInteger integer
+) {
+   detail::setByMetadatum<CPP,CPPInteger>
+      (CLASSNAME, CLASSNAME+"IntegerSetByUnit",
+       This, extract::integer, meta::unit, unit, integer);
+}
+
+// Has, by value
+int
+ParityIntegerHasByValue(
+   ConstHandle2ConstParity This,
+   const Integer32 value
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"IntegerHasByValue",
+       This, extract::integer, meta::value, value);
+}
+
+// Get, by value, const
+Handle2ConstInteger
+ParityIntegerGetByValueConst(
+   ConstHandle2ConstParity This,
+   const Integer32 value
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstInteger>
+      (CLASSNAME, CLASSNAME+"IntegerGetByValueConst",
+       This, extract::integer, meta::value, value);
+}
+
+// Get, by value, non-const
+Handle2Integer
+ParityIntegerGetByValue(
+   ConstHandle2Parity This,
+   const Integer32 value
+) {
+   return detail::getByMetadatum<CPP,Handle2Integer>
+      (CLASSNAME, CLASSNAME+"IntegerGetByValue",
+       This, extract::integer, meta::value, value);
+}
+
+// Set, by value
+void
+ParityIntegerSetByValue(
+   ConstHandle2Parity This,
+   const Integer32 value,
+   ConstHandle2ConstInteger integer
+) {
+   detail::setByMetadatum<CPP,CPPInteger>
+      (CLASSNAME, CLASSNAME+"IntegerSetByValue",
+       This, extract::integer, meta::value, value, integer);
 }

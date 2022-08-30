@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TRANSPORT_ENERGYANGULAR
 #define TRY_V2_0_TRANSPORT_ENERGYANGULAR
 
-#include "try/v2.0/unknownNamespace/XYs3d.hpp"
+#include "try/v2.0/containers/XYs3d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -38,7 +38,7 @@ class EnergyAngular : public Component<transport::EnergyAngular> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         unknownNamespace::XYs3d{}
+         containers::XYs3d{}
             / --Child<>("XYs3d")
       ;
    }
@@ -51,7 +51,7 @@ public:
    Field<XMLName> productFrame{this};
 
    // children
-   Field<unknownNamespace::XYs3d> XYs3d{this};
+   Field<containers::XYs3d> XYs3d{this};
 
    // ------------------------
    // Constructors
@@ -66,7 +66,7 @@ public:
    explicit EnergyAngular(
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<XMLName> &productFrame = {},
-      const wrapper<unknownNamespace::XYs3d> &XYs3d = {}
+      const wrapper<containers::XYs3d> &XYs3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

@@ -36,7 +36,7 @@ void wrapContinuum(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::XYs1d> &
+            const std::optional<containers::XYs1d> &
          >(),
          python::arg("xys1d") = std::nullopt,
          Component::documentation("constructor").data()

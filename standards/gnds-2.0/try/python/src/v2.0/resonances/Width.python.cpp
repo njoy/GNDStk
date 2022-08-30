@@ -38,9 +38,9 @@ void wrapWidth(python::module &module)
          python::init<
             const std::string &,
             const Float64 &,
-            const std::optional<unknownNamespace::Constant1d> &,
-            const std::optional<unknownNamespace::XYs1d> &,
-            const std::optional<unknownNamespace::Regions1d> &
+            const std::optional<containers::Constant1d> &,
+            const std::optional<containers::XYs1d> &,
+            const std::optional<containers::Regions1d> &
          >(),
          python::arg("resonance_reaction"),
          python::arg("degrees_of_freedom"),

@@ -39,7 +39,7 @@ void wrapDiscreteGamma(python::module &module)
             const std::optional<Float64> &,
             const std::optional<Float64> &,
             const std::optional<Float64> &,
-            const std::optional<unknownNamespace::Axes> &
+            const std::optional<containers::Axes> &
          >(),
          python::arg("domain_max") = std::nullopt,
          python::arg("domain_min") = std::nullopt,

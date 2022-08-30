@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_COVARIANCE_COVARIANCE
 #define TRY_V2_0_COVARIANCE_COVARIANCE
 
-#include "try/v2.0/unknownNamespace/Array.hpp"
+#include "try/v2.0/containers/Array.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class Covariance : public Component<covariance::Covariance> {
    {
       return
          // children
-         unknownNamespace::Array{}
+         containers::Array{}
             / --Child<>("array")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::Array> array{this};
+   Field<containers::Array> array{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit Covariance(
-      const wrapper<unknownNamespace::Array> &array = {}
+      const wrapper<containers::Array> &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       array(this,array)

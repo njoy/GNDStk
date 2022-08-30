@@ -6,7 +6,7 @@
 #define TRY_V2_0_COVARIANCE_PARAMETERCOVARIANCEMATRIX
 
 #include "try/v2.0/covariance/Parameters.hpp"
-#include "try/v2.0/unknownNamespace/Array.hpp"
+#include "try/v2.0/containers/Array.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -41,7 +41,7 @@ class ParameterCovarianceMatrix : public Component<covariance::ParameterCovarian
          // children
          covariance::Parameters{}
             / --Child<>("parameters") |
-         unknownNamespace::Array{}
+         containers::Array{}
             / --Child<>("array")
       ;
    }
@@ -55,7 +55,7 @@ public:
 
    // children
    Field<covariance::Parameters> parameters{this};
-   Field<unknownNamespace::Array> array{this};
+   Field<containers::Array> array{this};
 
    // ------------------------
    // Constructors
@@ -72,7 +72,7 @@ public:
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<XMLName>> &type = {},
       const wrapper<covariance::Parameters> &parameters = {},
-      const wrapper<unknownNamespace::Array> &array = {}
+      const wrapper<containers::Array> &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_A
 #define TRY_V2_0_TRANSPORT_A
 
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
-#include "try/v2.0/unknownNamespace/Regions2d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
+#include "try/v2.0/containers/Regions2d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -21,8 +21,8 @@ class A : public Component<transport::A> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::XYs2d,
-      unknownNamespace::Regions2d
+      containers::XYs2d,
+      containers::Regions2d
    >;
 
    // ------------------------
@@ -49,8 +49,8 @@ public:
 
    // children - variant
    Field<_t> _XYs2dregions2d{this};
-   FieldPart<decltype(_XYs2dregions2d),unknownNamespace::XYs2d> XYs2d{_XYs2dregions2d};
-   FieldPart<decltype(_XYs2dregions2d),unknownNamespace::Regions2d> regions2d{_XYs2dregions2d};
+   FieldPart<decltype(_XYs2dregions2d),containers::XYs2d> XYs2d{_XYs2dregions2d};
+   FieldPart<decltype(_XYs2dregions2d),containers::Regions2d> regions2d{_XYs2dregions2d};
 
    // ------------------------
    // Constructors

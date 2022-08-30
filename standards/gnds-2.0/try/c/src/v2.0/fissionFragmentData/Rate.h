@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_FISSIONFRAGMENTDATA_RATE
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Double.h"
+#include "v2.0/containers/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

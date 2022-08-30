@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TSL_SELFSCATTERINGKERNEL
 #define TRY_V2_0_TSL_SELFSCATTERINGKERNEL
 
-#include "try/v2.0/unknownNamespace/Gridded3d.hpp"
+#include "try/v2.0/containers/Gridded3d.hpp"
 #include "try/v2.0/tsl/GaussianApproximation.hpp"
 #include "try/v2.0/tsl/SCTApproximation.hpp"
 #include "try/v2.0/tsl/FreeGasApproximation.hpp"
@@ -23,7 +23,7 @@ class SelfScatteringKernel : public Component<tsl::SelfScatteringKernel> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::Gridded3d,
+      containers::Gridded3d,
       tsl::GaussianApproximation,
       tsl::SCTApproximation,
       tsl::FreeGasApproximation
@@ -59,7 +59,7 @@ public:
 
    // children - variant
    Field<_t> _gridded3dGaussianApproximationSCTApproximationfreeGasApproximation{this};
-   FieldPart<decltype(_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation),unknownNamespace::Gridded3d> gridded3d{_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation};
+   FieldPart<decltype(_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation),containers::Gridded3d> gridded3d{_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation};
    FieldPart<decltype(_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation),tsl::GaussianApproximation> GaussianApproximation{_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation};
    FieldPart<decltype(_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation),tsl::SCTApproximation> SCTApproximation{_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation};
    FieldPart<decltype(_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation),tsl::FreeGasApproximation> freeGasApproximation{_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation};

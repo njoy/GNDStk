@@ -36,7 +36,7 @@ void wrapBraggEnergy(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::XYs1d &
+            const containers::XYs1d &
          >(),
          python::arg("xys1d"),
          Component::documentation("constructor").data()

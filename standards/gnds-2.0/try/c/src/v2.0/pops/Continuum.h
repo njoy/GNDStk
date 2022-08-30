@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_POPS_CONTINUUM
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs1d.h"
+#include "v2.0/containers/XYs1d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

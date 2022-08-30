@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_COVARIANCE_SANDWICHPRODUCT
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Axes.h"
+#include "v2.0/containers/Axes.h"
 #include "v2.0/covariance/Covariance.h"
 #include "v2.0/covariance/RowSensitivity.h"
 #include "v2.0/covariance/ColumnSensitivity.h"

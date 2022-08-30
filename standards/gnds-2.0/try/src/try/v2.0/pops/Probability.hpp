@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_POPS_PROBABILITY
 #define TRY_V2_0_POPS_PROBABILITY
 
-#include "try/v2.0/unknownNamespace/Double.hpp"
+#include "try/v2.0/containers/Double.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class Probability : public Component<pops::Probability> {
    {
       return
          // children
-         unknownNamespace::Double{}
+         containers::Double{}
             / ++Child<>("Double")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<std::vector<unknownNamespace::Double>> Double{this};
+   Field<std::vector<containers::Double>> Double{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit Probability(
-      const wrapper<std::vector<unknownNamespace::Double>> &Double = {}
+      const wrapper<std::vector<containers::Double>> &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)

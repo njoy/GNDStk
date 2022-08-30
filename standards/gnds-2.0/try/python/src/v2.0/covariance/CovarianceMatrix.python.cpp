@@ -25,7 +25,7 @@ void wrapCovarianceMatrix(python::module &module)
    // type aliases
    using Component = covariance::CovarianceMatrix;
    using _t = std::variant<
-      unknownNamespace::Gridded2d,
+      containers::Gridded2d,
       covariance::SandwichProduct
    >;
 

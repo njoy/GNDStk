@@ -17,14 +17,14 @@ namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
 }
 
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPRegions1d = unknownNamespace::Regions1d;
+using CPPXYs1d = containers::XYs1d;
+using CPPRegions1d = containers::Regions1d;
 using CPPResonancesWithBackground = transport::ResonancesWithBackground;
 using CPPCoulombPlusNuclearElastic = cpTransport::CoulombPlusNuclearElastic;
 using CPPThermalNeutronScatteringLaw1d = tsl::ThermalNeutronScatteringLaw1d;
 using CPPReference = transport::Reference;
-using CPPGridded1d = unknownNamespace::Gridded1d;
-using CPPYs1d = unknownNamespace::Ys1d;
+using CPPGridded1d = containers::Gridded1d;
+using CPPYs1d = containers::Ys1d;
 using CPPURR_probabilityTables1d = transport::URR_probabilityTables1d;
 
 

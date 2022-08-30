@@ -36,8 +36,8 @@ void wrapEnergy_uncorrelated(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::XYs2d> &,
-            const std::optional<unknownNamespace::Regions2d> &,
+            const std::optional<containers::XYs2d> &,
+            const std::optional<containers::Regions2d> &,
             const std::optional<transport::GeneralEvaporation> &,
             const std::optional<transport::DiscreteGamma> &,
             const std::optional<transport::PrimaryGamma> &,

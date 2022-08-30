@@ -36,7 +36,7 @@ void wrapResonanceParameters(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::Table &
+            const containers::Table &
          >(),
          python::arg("table"),
          Component::documentation("constructor").data()

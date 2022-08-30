@@ -23,8 +23,8 @@ namespace extract {
 
 using CPPDocumentation = documentation::Documentation;
 using CPPUncertainty = pops::Uncertainty;
-using CPPInteger = unknownNamespace::Integer;
-using CPPFraction = unknownNamespace::Fraction;
+using CPPInteger = containers::Integer;
+using CPPFraction = containers::Fraction;
 
 
 // -----------------------------------------------------------------------------

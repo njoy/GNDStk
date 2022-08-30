@@ -25,11 +25,11 @@ void wrapQ(python::module &module)
    // type aliases
    using Component = common::Q;
    using _t = std::variant<
-      unknownNamespace::Constant1d,
-      unknownNamespace::XYs1d,
-      unknownNamespace::Regions1d,
-      unknownNamespace::Polynomial1d,
-      unknownNamespace::Gridded1d
+      containers::Constant1d,
+      containers::XYs1d,
+      containers::Regions1d,
+      containers::Polynomial1d,
+      containers::Gridded1d
    >;
 
    // create the component

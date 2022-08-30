@@ -39,7 +39,7 @@ void wrapGriddedCrossSection(python::module &module)
             const std::string &,
             const XMLName &,
             const XMLName &,
-            const unknownNamespace::Grid &,
+            const containers::Grid &,
             const std::optional<documentation::Documentation> &
          >(),
          python::arg("date"),

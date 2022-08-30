@@ -41,7 +41,7 @@ void wrapMass(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<documentation::Documentation> &,
             const std::optional<pops::Uncertainty> &,
-            const std::vector<unknownNamespace::Double> &
+            const std::vector<containers::Double> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("unit") = std::nullopt,

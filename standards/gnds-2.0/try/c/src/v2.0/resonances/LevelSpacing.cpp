@@ -19,9 +19,9 @@ namespace extract {
    static auto regions1d = [](auto &obj) { return &obj.regions1d; };
 }
 
-using CPPConstant1d = unknownNamespace::Constant1d;
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPRegions1d = unknownNamespace::Regions1d;
+using CPPConstant1d = containers::Constant1d;
+using CPPXYs1d = containers::XYs1d;
+using CPPRegions1d = containers::Regions1d;
 
 
 // -----------------------------------------------------------------------------

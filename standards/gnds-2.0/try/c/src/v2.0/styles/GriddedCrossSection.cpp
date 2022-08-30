@@ -21,7 +21,7 @@ namespace extract {
    static auto documentation = [](auto &obj) { return &obj.documentation; };
 }
 
-using CPPGrid = unknownNamespace::Grid;
+using CPPGrid = containers::Grid;
 using CPPDocumentation = documentation::Documentation;
 
 

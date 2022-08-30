@@ -39,7 +39,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
             const XMLName &,
             const std::optional<XMLName> &,
             const covariance::Parameters &,
-            const unknownNamespace::Array &
+            const containers::Array &
          >(),
          python::arg("label"),
          python::arg("type") = std::nullopt,

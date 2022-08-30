@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TRANSPORT_PRIMARYGAMMA
 #define TRY_V2_0_TRANSPORT_PRIMARYGAMMA
 
-#include "try/v2.0/unknownNamespace/Axes.hpp"
+#include "try/v2.0/containers/Axes.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -42,7 +42,7 @@ class PrimaryGamma : public Component<transport::PrimaryGamma> {
          std::optional<XMLName>{}
             / Meta<>("finalState") |
          // children
-         std::optional<unknownNamespace::Axes>{}
+         std::optional<containers::Axes>{}
             / --Child<>("axes")
       ;
    }
@@ -57,7 +57,7 @@ public:
    Field<std::optional<XMLName>> finalState{this};
 
    // children
-   Field<std::optional<unknownNamespace::Axes>> axes{this};
+   Field<std::optional<containers::Axes>> axes{this};
 
    // ------------------------
    // Constructors
@@ -76,7 +76,7 @@ public:
       const wrapper<std::optional<Float64>> &domainMin = {},
       const wrapper<std::optional<Float64>> &value = {},
       const wrapper<std::optional<XMLName>> &finalState = {},
-      const wrapper<std::optional<unknownNamespace::Axes>> &axes = {}
+      const wrapper<std::optional<containers::Axes>> &axes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMax(this,domainMax),

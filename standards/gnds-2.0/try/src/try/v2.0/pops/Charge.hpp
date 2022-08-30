@@ -7,8 +7,8 @@
 
 #include "try/v2.0/documentation/Documentation.hpp"
 #include "try/v2.0/pops/Uncertainty.hpp"
-#include "try/v2.0/unknownNamespace/Integer.hpp"
-#include "try/v2.0/unknownNamespace/Fraction.hpp"
+#include "try/v2.0/containers/Integer.hpp"
+#include "try/v2.0/containers/Fraction.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -23,8 +23,8 @@ class Charge : public Component<pops::Charge> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::Integer,
-      unknownNamespace::Fraction
+      containers::Integer,
+      containers::Fraction
    >;
 
    // ------------------------
@@ -71,8 +71,8 @@ public:
 
    // children - variant
    Field<_t> _integerfraction{this};
-   FieldPart<decltype(_integerfraction),unknownNamespace::Integer> integer{_integerfraction};
-   FieldPart<decltype(_integerfraction),unknownNamespace::Fraction> fraction{_integerfraction};
+   FieldPart<decltype(_integerfraction),containers::Integer> integer{_integerfraction};
+   FieldPart<decltype(_integerfraction),containers::Fraction> fraction{_integerfraction};
 
    // ------------------------
    // Constructors

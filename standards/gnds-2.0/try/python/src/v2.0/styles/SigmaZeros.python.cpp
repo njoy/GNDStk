@@ -37,7 +37,7 @@ void wrapSigmaZeros(python::module &module)
       .def(
          python::init<
             const std::optional<XMLName> &,
-            const unknownNamespace::Values &
+            const containers::Values &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("values"),

@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TRANSPORT_ANGULAR_UNCORRELATED
 #define TRY_V2_0_TRANSPORT_ANGULAR_UNCORRELATED
 
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
 #include "try/v2.0/transport/Isotropic2d.hpp"
 #include "try/v2.0/transport/Forward.hpp"
 
@@ -35,7 +35,7 @@ class Angular_uncorrelated : public Component<transport::Angular_uncorrelated> {
    {
       return
          // children
-         std::optional<unknownNamespace::XYs2d>{}
+         std::optional<containers::XYs2d>{}
             / --Child<>("XYs2d") |
          std::optional<transport::Isotropic2d>{}
             / --Child<>("isotropic2d") |
@@ -48,7 +48,7 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::XYs2d>> XYs2d{this};
+   Field<std::optional<containers::XYs2d>> XYs2d{this};
    Field<std::optional<transport::Isotropic2d>> isotropic2d{this};
    Field<std::optional<transport::Forward>> forward{this};
 
@@ -63,7 +63,7 @@ public:
 
    // default, and from fields
    explicit Angular_uncorrelated(
-      const wrapper<std::optional<unknownNamespace::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
       const wrapper<std::optional<transport::Isotropic2d>> &isotropic2d = {},
       const wrapper<std::optional<transport::Forward>> &forward = {}
    ) :

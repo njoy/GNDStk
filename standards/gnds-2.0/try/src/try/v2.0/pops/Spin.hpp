@@ -7,7 +7,7 @@
 
 #include "try/v2.0/documentation/Documentation.hpp"
 #include "try/v2.0/pops/Uncertainty.hpp"
-#include "try/v2.0/unknownNamespace/Fraction.hpp"
+#include "try/v2.0/containers/Fraction.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -46,7 +46,7 @@ class Spin : public Component<pops::Spin> {
             / --Child<>("documentation") |
          std::optional<pops::Uncertainty>{}
             / --Child<>("uncertainty") |
-         std::optional<unknownNamespace::Fraction>{}
+         std::optional<containers::Fraction>{}
             / ++Child<>("fraction")
       ;
    }
@@ -62,7 +62,7 @@ public:
    // children
    Field<std::optional<documentation::Documentation>> documentation{this};
    Field<std::optional<pops::Uncertainty>> uncertainty{this};
-   Field<std::optional<std::vector<unknownNamespace::Fraction>>> fraction{this};
+   Field<std::optional<std::vector<containers::Fraction>>> fraction{this};
 
    // ------------------------
    // Constructors
@@ -83,7 +83,7 @@ public:
       const wrapper<XMLName> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
       const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
-      const wrapper<std::optional<std::vector<unknownNamespace::Fraction>>> &fraction = {}
+      const wrapper<std::optional<std::vector<containers::Fraction>>> &fraction = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

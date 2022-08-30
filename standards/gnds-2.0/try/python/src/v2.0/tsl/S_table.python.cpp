@@ -36,7 +36,7 @@ void wrapS_table(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::Gridded2d &
+            const containers::Gridded2d &
          >(),
          python::arg("gridded2d"),
          Component::documentation("constructor").data()

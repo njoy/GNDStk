@@ -34,8 +34,8 @@
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
 #include "v2.0/pops/Uncertainty.h"
-#include "v2.0/unknownNamespace/Integer.h"
-#include "v2.0/unknownNamespace/Fraction.h"
+#include "v2.0/containers/Integer.h"
+#include "v2.0/containers/Fraction.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

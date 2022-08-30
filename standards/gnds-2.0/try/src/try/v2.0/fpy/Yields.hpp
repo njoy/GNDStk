@@ -6,7 +6,7 @@
 #define TRY_V2_0_FPY_YIELDS
 
 #include "try/v2.0/fpy/Nuclides.hpp"
-#include "try/v2.0/unknownNamespace/Values.hpp"
+#include "try/v2.0/containers/Values.hpp"
 #include "try/v2.0/pops/Uncertainty.hpp"
 
 namespace try {
@@ -37,7 +37,7 @@ class Yields : public Component<fpy::Yields> {
          // children
          fpy::Nuclides{}
             / --Child<>("nuclides") |
-         unknownNamespace::Values{}
+         containers::Values{}
             / --Child<>("values") |
          std::optional<pops::Uncertainty>{}
             / --Child<>("uncertainty")
@@ -49,7 +49,7 @@ public:
 
    // children
    Field<fpy::Nuclides> nuclides{this};
-   Field<unknownNamespace::Values> values{this};
+   Field<containers::Values> values{this};
    Field<std::optional<pops::Uncertainty>> uncertainty{this};
 
    // ------------------------
@@ -64,7 +64,7 @@ public:
    // default, and from fields
    explicit Yields(
       const wrapper<fpy::Nuclides> &nuclides = {},
-      const wrapper<unknownNamespace::Values> &values = {},
+      const wrapper<containers::Values> &values = {},
       const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

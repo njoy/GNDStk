@@ -27,8 +27,8 @@ namespace extract {
    static auto MadlandNix = [](auto &obj) { return &obj.MadlandNix; };
 }
 
-using CPPXYs2d = unknownNamespace::XYs2d;
-using CPPRegions2d = unknownNamespace::Regions2d;
+using CPPXYs2d = containers::XYs2d;
+using CPPRegions2d = containers::Regions2d;
 using CPPGeneralEvaporation = transport::GeneralEvaporation;
 using CPPDiscreteGamma = transport::DiscreteGamma;
 using CPPPrimaryGamma = transport::PrimaryGamma;

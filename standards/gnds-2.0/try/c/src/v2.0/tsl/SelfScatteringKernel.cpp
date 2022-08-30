@@ -17,7 +17,7 @@ namespace extract {
    static auto symmetric = [](auto &obj) { return &obj.symmetric; };
 }
 
-using CPPGridded3d = unknownNamespace::Gridded3d;
+using CPPGridded3d = containers::Gridded3d;
 using CPPGaussianApproximation = tsl::GaussianApproximation;
 using CPPSCTApproximation = tsl::SCTApproximation;
 using CPPFreeGasApproximation = tsl::FreeGasApproximation;

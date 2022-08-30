@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_COVARIANCE_SHORTRANGESELFSCALINGVARIANCE
 #define TRY_V2_0_COVARIANCE_SHORTRANGESELFSCALINGVARIANCE
 
-#include "try/v2.0/unknownNamespace/Gridded2d.hpp"
+#include "try/v2.0/containers/Gridded2d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -40,7 +40,7 @@ class ShortRangeSelfScalingVariance : public Component<covariance::ShortRangeSel
          std::optional<XMLName>{}
             / Meta<>("type") |
          // children
-         std::optional<unknownNamespace::Gridded2d>{}
+         std::optional<containers::Gridded2d>{}
             / --Child<>("gridded2d")
       ;
    }
@@ -54,7 +54,7 @@ public:
    Field<std::optional<XMLName>> type{this};
 
    // children
-   Field<std::optional<unknownNamespace::Gridded2d>> gridded2d{this};
+   Field<std::optional<containers::Gridded2d>> gridded2d{this};
 
    // ------------------------
    // Constructors
@@ -71,7 +71,7 @@ public:
       const wrapper<std::optional<XMLName>> &dependenceOnProcessedGroupWidth = {},
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &type = {},
-      const wrapper<std::optional<unknownNamespace::Gridded2d>> &gridded2d = {}
+      const wrapper<std::optional<containers::Gridded2d>> &gridded2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       dependenceOnProcessedGroupWidth(this,dependenceOnProcessedGroupWidth),

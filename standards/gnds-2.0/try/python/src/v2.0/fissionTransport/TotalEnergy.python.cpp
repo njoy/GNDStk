@@ -36,7 +36,7 @@ void wrapTotalEnergy(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::Polynomial1d> &
+            const std::optional<containers::Polynomial1d> &
          >(),
          python::arg("polynomial1d") = std::nullopt,
          Component::documentation("constructor").data()

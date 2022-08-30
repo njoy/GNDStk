@@ -32,14 +32,14 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_CROSSSECTION
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs1d.h"
-#include "v2.0/unknownNamespace/Regions1d.h"
+#include "v2.0/containers/XYs1d.h"
+#include "v2.0/containers/Regions1d.h"
 #include "v2.0/transport/ResonancesWithBackground.h"
 #include "v2.0/cpTransport/CoulombPlusNuclearElastic.h"
 #include "v2.0/tsl/ThermalNeutronScatteringLaw1d.h"
 #include "v2.0/transport/Reference.h"
-#include "v2.0/unknownNamespace/Gridded1d.h"
-#include "v2.0/unknownNamespace/Ys1d.h"
+#include "v2.0/containers/Gridded1d.h"
+#include "v2.0/containers/Ys1d.h"
 #include "v2.0/transport/URR_probabilityTables1d.h"
 
 #ifdef __cplusplus

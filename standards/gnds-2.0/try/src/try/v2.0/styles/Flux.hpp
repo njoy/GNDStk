@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_STYLES_FLUX
 #define TRY_V2_0_STYLES_FLUX
 
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -36,7 +36,7 @@ class Flux : public Component<styles::Flux> {
          XMLName{}
             / Meta<>("label") |
          // children
-         unknownNamespace::XYs2d{}
+         containers::XYs2d{}
             / --Child<>("XYs2d")
       ;
    }
@@ -48,7 +48,7 @@ public:
    Field<XMLName> label{this};
 
    // children
-   Field<unknownNamespace::XYs2d> XYs2d{this};
+   Field<containers::XYs2d> XYs2d{this};
 
    // ------------------------
    // Constructors
@@ -61,7 +61,7 @@ public:
    // default, and from fields
    explicit Flux(
       const wrapper<XMLName> &label = {},
-      const wrapper<unknownNamespace::XYs2d> &XYs2d = {}
+      const wrapper<containers::XYs2d> &XYs2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

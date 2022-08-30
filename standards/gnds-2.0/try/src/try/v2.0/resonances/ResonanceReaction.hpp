@@ -8,7 +8,7 @@
 #include "try/v2.0/ambiguousNamespace/Q.hpp"
 #include "try/v2.0/resonances/ScatteringRadius.hpp"
 #include "try/v2.0/resonances/HardSphereRadius.hpp"
-#include "try/v2.0/unknownNamespace/Link.hpp"
+#include "try/v2.0/containers/Link.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -51,7 +51,7 @@ class ResonanceReaction : public Component<resonances::ResonanceReaction> {
             / --Child<>("scatteringRadius") |
          std::optional<resonances::HardSphereRadius>{}
             / --Child<>("hardSphereRadius") |
-         unknownNamespace::Link{}
+         containers::Link{}
             / --Child<>("link")
       ;
    }
@@ -74,7 +74,7 @@ public:
    Field<std::optional<ambiguousNamespace::Q>> Q{this};
    Field<std::optional<resonances::ScatteringRadius>> scatteringRadius{this};
    Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
-   Field<unknownNamespace::Link> link{this};
+   Field<containers::Link> link{this};
 
    // ------------------------
    // Constructors
@@ -100,7 +100,7 @@ public:
       const wrapper<std::optional<ambiguousNamespace::Q>> &Q = {},
       const wrapper<std::optional<resonances::ScatteringRadius>> &scatteringRadius = {},
       const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
-      const wrapper<unknownNamespace::Link> &link = {}
+      const wrapper<containers::Link> &link = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

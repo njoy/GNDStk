@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_STYLES_MULTIGROUP
 #define TRY_V2_0_STYLES_MULTIGROUP
 
-#include "try/v2.0/unknownNamespace/Grid.hpp"
+#include "try/v2.0/containers/Grid.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -36,7 +36,7 @@ class MultiGroup : public Component<styles::MultiGroup> {
          XMLName{}
             / Meta<>("label") |
          // children
-         unknownNamespace::Grid{}
+         containers::Grid{}
             / --Child<>("grid")
       ;
    }
@@ -48,7 +48,7 @@ public:
    Field<XMLName> label{this};
 
    // children
-   Field<unknownNamespace::Grid> grid{this};
+   Field<containers::Grid> grid{this};
 
    // ------------------------
    // Constructors
@@ -61,7 +61,7 @@ public:
    // default, and from fields
    explicit MultiGroup(
       const wrapper<XMLName> &label = {},
-      const wrapper<unknownNamespace::Grid> &grid = {}
+      const wrapper<containers::Grid> &grid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

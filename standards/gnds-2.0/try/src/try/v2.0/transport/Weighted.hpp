@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_WEIGHTED
 #define TRY_V2_0_TRANSPORT_WEIGHTED
 
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
 #include "try/v2.0/transport/Evaporation.hpp"
 #include "try/v2.0/transport/GeneralEvaporation.hpp"
 #include "try/v2.0/fissionTransport/SimpleMaxwellianFission.hpp"
@@ -39,9 +39,9 @@ class Weighted : public Component<transport::Weighted> {
    {
       return
          // children
-         unknownNamespace::XYs1d{}
+         containers::XYs1d{}
             / --Child<>("XYs1d") |
-         std::optional<unknownNamespace::XYs2d>{}
+         std::optional<containers::XYs2d>{}
             / --Child<>("XYs2d") |
          std::optional<transport::Evaporation>{}
             / --Child<>("evaporation") |
@@ -60,8 +60,8 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::XYs1d> XYs1d{this};
-   Field<std::optional<unknownNamespace::XYs2d>> XYs2d{this};
+   Field<containers::XYs1d> XYs1d{this};
+   Field<std::optional<containers::XYs2d>> XYs2d{this};
    Field<std::optional<transport::Evaporation>> evaporation{this};
    Field<std::optional<transport::GeneralEvaporation>> generalEvaporation{this};
    Field<std::optional<fissionTransport::SimpleMaxwellianFission>> simpleMaxwellianFission{this};
@@ -83,8 +83,8 @@ public:
 
    // default, and from fields
    explicit Weighted(
-      const wrapper<unknownNamespace::XYs1d> &XYs1d = {},
-      const wrapper<std::optional<unknownNamespace::XYs2d>> &XYs2d = {},
+      const wrapper<containers::XYs1d> &XYs1d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
       const wrapper<std::optional<transport::Evaporation>> &evaporation = {},
       const wrapper<std::optional<transport::GeneralEvaporation>> &generalEvaporation = {},
       const wrapper<std::optional<fissionTransport::SimpleMaxwellianFission>> &simpleMaxwellianFission = {},

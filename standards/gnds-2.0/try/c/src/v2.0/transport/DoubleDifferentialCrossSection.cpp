@@ -25,8 +25,8 @@ namespace extract {
    static auto thermalNeutronScatteringLaw_incoherentInelastic = [](auto &obj) { return &obj.thermalNeutronScatteringLaw_incoherentInelastic; };
 }
 
-using CPPRegions3d = unknownNamespace::Regions3d;
-using CPPXYs3d = unknownNamespace::XYs3d;
+using CPPRegions3d = containers::Regions3d;
+using CPPXYs3d = containers::XYs3d;
 using CPPCoulombPlusNuclearElastic = cpTransport::CoulombPlusNuclearElastic;
 using CPPReference = transport::Reference;
 using CPPCoherentPhotonScattering = atomic::CoherentPhotonScattering;

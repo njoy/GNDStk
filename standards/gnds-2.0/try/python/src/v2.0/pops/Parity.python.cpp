@@ -41,7 +41,7 @@ void wrapParity(python::module &module)
             const XMLName &,
             const std::optional<documentation::Documentation> &,
             const std::optional<pops::Uncertainty> &,
-            const std::optional<std::vector<unknownNamespace::Integer>> &
+            const std::optional<std::vector<containers::Integer>> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("unit") = std::nullopt,

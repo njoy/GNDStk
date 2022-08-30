@@ -35,7 +35,7 @@
 #include "v2.0/ambiguousNamespace/Q.h"
 #include "v2.0/resonances/ScatteringRadius.h"
 #include "v2.0/resonances/HardSphereRadius.h"
-#include "v2.0/unknownNamespace/Link.h"
+#include "v2.0/containers/Link.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

@@ -36,8 +36,8 @@ void wrapWeighted(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::XYs1d &,
-            const std::optional<unknownNamespace::XYs2d> &,
+            const containers::XYs1d &,
+            const std::optional<containers::XYs2d> &,
             const std::optional<transport::Evaporation> &,
             const std::optional<transport::GeneralEvaporation> &,
             const std::optional<fissionTransport::SimpleMaxwellianFission> &,

@@ -36,7 +36,7 @@ void wrapDistinctScatteringKernel(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::Gridded3d> &
+            const std::optional<containers::Gridded3d> &
          >(),
          python::arg("gridded3d") = std::nullopt,
          Component::documentation("constructor").data()

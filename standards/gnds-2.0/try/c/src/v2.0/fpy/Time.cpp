@@ -16,8 +16,8 @@ static const std::string CLASSNAME = "Time";
 namespace extract {
 }
 
-using CPPDouble = unknownNamespace::Double;
-using CPPString = unknownNamespace::String;
+using CPPDouble = containers::Double;
+using CPPString = containers::String;
 
 
 // -----------------------------------------------------------------------------

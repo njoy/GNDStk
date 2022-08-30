@@ -18,7 +18,7 @@ namespace extract {
    static auto grid = [](auto &obj) { return &obj.grid; };
 }
 
-using CPPGrid = unknownNamespace::Grid;
+using CPPGrid = containers::Grid;
 
 
 // -----------------------------------------------------------------------------

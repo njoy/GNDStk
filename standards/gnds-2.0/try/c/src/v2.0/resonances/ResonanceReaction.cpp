@@ -27,7 +27,7 @@ namespace extract {
 using CPPQ = ambiguousNamespace::Q;
 using CPPScatteringRadius = resonances::ScatteringRadius;
 using CPPHardSphereRadius = resonances::HardSphereRadius;
-using CPPLink = unknownNamespace::Link;
+using CPPLink = containers::Link;
 
 
 // -----------------------------------------------------------------------------

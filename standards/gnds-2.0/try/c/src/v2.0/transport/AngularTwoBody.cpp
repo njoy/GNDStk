@@ -22,8 +22,8 @@ namespace extract {
    static auto recoil = [](auto &obj) { return &obj.recoil; };
 }
 
-using CPPXYs2d = unknownNamespace::XYs2d;
-using CPPRegions2d = unknownNamespace::Regions2d;
+using CPPXYs2d = containers::XYs2d;
+using CPPRegions2d = containers::Regions2d;
 using CPPIsotropic2d = transport::Isotropic2d;
 using CPPRecoil = transport::Recoil;
 

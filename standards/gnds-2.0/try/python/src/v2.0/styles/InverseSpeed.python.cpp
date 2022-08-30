@@ -37,7 +37,7 @@ void wrapInverseSpeed(python::module &module)
       .def(
          python::init<
             const std::optional<XMLName> &,
-            const unknownNamespace::Gridded1d &
+            const containers::Gridded1d &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("gridded1d"),

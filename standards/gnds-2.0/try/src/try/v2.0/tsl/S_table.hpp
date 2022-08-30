@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TSL_S_TABLE
 #define TRY_V2_0_TSL_S_TABLE
 
-#include "try/v2.0/unknownNamespace/Gridded2d.hpp"
+#include "try/v2.0/containers/Gridded2d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class S_table : public Component<tsl::S_table> {
    {
       return
          // children
-         unknownNamespace::Gridded2d{}
+         containers::Gridded2d{}
             / --Child<>("gridded2d")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::Gridded2d> gridded2d{this};
+   Field<containers::Gridded2d> gridded2d{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit S_table(
-      const wrapper<unknownNamespace::Gridded2d> &gridded2d = {}
+      const wrapper<containers::Gridded2d> &gridded2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gridded2d(this,gridded2d)

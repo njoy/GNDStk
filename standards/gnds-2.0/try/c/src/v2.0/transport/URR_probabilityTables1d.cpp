@@ -17,8 +17,8 @@ namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
 }
 
-using CPPXYs2d = unknownNamespace::XYs2d;
-using CPPRegions2d = unknownNamespace::Regions2d;
+using CPPXYs2d = containers::XYs2d;
+using CPPRegions2d = containers::Regions2d;
 
 
 // -----------------------------------------------------------------------------

@@ -17,7 +17,7 @@ namespace extract {
    static auto table = [](auto &obj) { return &obj.table; };
 }
 
-using CPPTable = unknownNamespace::Table;
+using CPPTable = containers::Table;
 
 
 // -----------------------------------------------------------------------------

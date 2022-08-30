@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_STYLES_INVERSESPEED
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Gridded1d.h"
+#include "v2.0/containers/Gridded1d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

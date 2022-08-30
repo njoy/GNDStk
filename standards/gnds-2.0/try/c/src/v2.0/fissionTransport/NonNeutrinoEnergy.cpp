@@ -17,7 +17,7 @@ namespace extract {
    static auto polynomial1d = [](auto &obj) { return &obj.polynomial1d; };
 }
 
-using CPPPolynomial1d = unknownNamespace::Polynomial1d;
+using CPPPolynomial1d = containers::Polynomial1d;
 
 
 // -----------------------------------------------------------------------------

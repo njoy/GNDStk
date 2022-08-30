@@ -23,8 +23,8 @@ namespace extract {
 
 using CPPDocumentation = documentation::Documentation;
 using CPPUncertainty = pops::Uncertainty;
-using CPPString = unknownNamespace::String;
-using CPPDouble = unknownNamespace::Double;
+using CPPString = containers::String;
+using CPPDouble = containers::Double;
 
 
 // -----------------------------------------------------------------------------

@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_DOUBLEDIFFERENTIALCROSSSECTION
 #define TRY_V2_0_TRANSPORT_DOUBLEDIFFERENTIALCROSSSECTION
 
-#include "try/v2.0/unknownNamespace/Regions3d.hpp"
-#include "try/v2.0/unknownNamespace/XYs3d.hpp"
+#include "try/v2.0/containers/Regions3d.hpp"
+#include "try/v2.0/containers/XYs3d.hpp"
 #include "try/v2.0/cpTransport/CoulombPlusNuclearElastic.hpp"
 #include "try/v2.0/transport/Reference.hpp"
 #include "try/v2.0/atomic/CoherentPhotonScattering.hpp"
@@ -41,9 +41,9 @@ class DoubleDifferentialCrossSection : public Component<transport::DoubleDiffere
    {
       return
          // children
-         std::optional<unknownNamespace::Regions3d>{}
+         std::optional<containers::Regions3d>{}
             / --Child<>("regions3d") |
-         std::optional<unknownNamespace::XYs3d>{}
+         std::optional<containers::XYs3d>{}
             / --Child<>("XYs3d") |
          std::optional<cpTransport::CoulombPlusNuclearElastic>{}
             / --Child<>("CoulombPlusNuclearElastic") |
@@ -66,8 +66,8 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::Regions3d>> regions3d{this};
-   Field<std::optional<unknownNamespace::XYs3d>> XYs3d{this};
+   Field<std::optional<containers::Regions3d>> regions3d{this};
+   Field<std::optional<containers::XYs3d>> XYs3d{this};
    Field<std::optional<cpTransport::CoulombPlusNuclearElastic>> CoulombPlusNuclearElastic{this};
    Field<std::optional<transport::Reference>> reference{this};
    Field<std::optional<atomic::CoherentPhotonScattering>> coherentPhotonScattering{this};
@@ -93,8 +93,8 @@ public:
 
    // default, and from fields
    explicit DoubleDifferentialCrossSection(
-      const wrapper<std::optional<unknownNamespace::Regions3d>> &regions3d = {},
-      const wrapper<std::optional<unknownNamespace::XYs3d>> &XYs3d = {},
+      const wrapper<std::optional<containers::Regions3d>> &regions3d = {},
+      const wrapper<std::optional<containers::XYs3d>> &XYs3d = {},
       const wrapper<std::optional<cpTransport::CoulombPlusNuclearElastic>> &CoulombPlusNuclearElastic = {},
       const wrapper<std::optional<transport::Reference>> &reference = {},
       const wrapper<std::optional<atomic::CoherentPhotonScattering>> &coherentPhotonScattering = {},

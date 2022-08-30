@@ -24,7 +24,7 @@ namespace extract {
 
 using CPPDocumentation = documentation::Documentation;
 using CPPUncertainty = pops::Uncertainty;
-using CPPFraction = unknownNamespace::Fraction;
+using CPPFraction = containers::Fraction;
 
 
 // -----------------------------------------------------------------------------
@@ -393,4 +393,139 @@ SpinFractionSet(
 ) {
    detail::setByIndex<CPP,CPPFraction>
       (CLASSNAME, CLASSNAME+"FractionSet", This, extract::fraction, index_, fraction);
+}
+
+// Has, by label
+int
+SpinFractionHasByLabel(
+   ConstHandle2ConstSpin This,
+   const XMLName label
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"FractionHasByLabel",
+       This, extract::fraction, meta::label, label);
+}
+
+// Get, by label, const
+Handle2ConstFraction
+SpinFractionGetByLabelConst(
+   ConstHandle2ConstSpin This,
+   const XMLName label
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstFraction>
+      (CLASSNAME, CLASSNAME+"FractionGetByLabelConst",
+       This, extract::fraction, meta::label, label);
+}
+
+// Get, by label, non-const
+Handle2Fraction
+SpinFractionGetByLabel(
+   ConstHandle2Spin This,
+   const XMLName label
+) {
+   return detail::getByMetadatum<CPP,Handle2Fraction>
+      (CLASSNAME, CLASSNAME+"FractionGetByLabel",
+       This, extract::fraction, meta::label, label);
+}
+
+// Set, by label
+void
+SpinFractionSetByLabel(
+   ConstHandle2Spin This,
+   const XMLName label,
+   ConstHandle2ConstFraction fraction
+) {
+   detail::setByMetadatum<CPP,CPPFraction>
+      (CLASSNAME, CLASSNAME+"FractionSetByLabel",
+       This, extract::fraction, meta::label, label, fraction);
+}
+
+// Has, by unit
+int
+SpinFractionHasByUnit(
+   ConstHandle2ConstSpin This,
+   const XMLName unit
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"FractionHasByUnit",
+       This, extract::fraction, meta::unit, unit);
+}
+
+// Get, by unit, const
+Handle2ConstFraction
+SpinFractionGetByUnitConst(
+   ConstHandle2ConstSpin This,
+   const XMLName unit
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstFraction>
+      (CLASSNAME, CLASSNAME+"FractionGetByUnitConst",
+       This, extract::fraction, meta::unit, unit);
+}
+
+// Get, by unit, non-const
+Handle2Fraction
+SpinFractionGetByUnit(
+   ConstHandle2Spin This,
+   const XMLName unit
+) {
+   return detail::getByMetadatum<CPP,Handle2Fraction>
+      (CLASSNAME, CLASSNAME+"FractionGetByUnit",
+       This, extract::fraction, meta::unit, unit);
+}
+
+// Set, by unit
+void
+SpinFractionSetByUnit(
+   ConstHandle2Spin This,
+   const XMLName unit,
+   ConstHandle2ConstFraction fraction
+) {
+   detail::setByMetadatum<CPP,CPPFraction>
+      (CLASSNAME, CLASSNAME+"FractionSetByUnit",
+       This, extract::fraction, meta::unit, unit, fraction);
+}
+
+// Has, by value
+int
+SpinFractionHasByValue(
+   ConstHandle2ConstSpin This,
+   const Fraction32 value
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"FractionHasByValue",
+       This, extract::fraction, meta::value, value);
+}
+
+// Get, by value, const
+Handle2ConstFraction
+SpinFractionGetByValueConst(
+   ConstHandle2ConstSpin This,
+   const Fraction32 value
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstFraction>
+      (CLASSNAME, CLASSNAME+"FractionGetByValueConst",
+       This, extract::fraction, meta::value, value);
+}
+
+// Get, by value, non-const
+Handle2Fraction
+SpinFractionGetByValue(
+   ConstHandle2Spin This,
+   const Fraction32 value
+) {
+   return detail::getByMetadatum<CPP,Handle2Fraction>
+      (CLASSNAME, CLASSNAME+"FractionGetByValue",
+       This, extract::fraction, meta::value, value);
+}
+
+// Set, by value
+void
+SpinFractionSetByValue(
+   ConstHandle2Spin This,
+   const Fraction32 value,
+   ConstHandle2ConstFraction fraction
+) {
+   detail::setByMetadatum<CPP,CPPFraction>
+      (CLASSNAME, CLASSNAME+"FractionSetByValue",
+       This, extract::fraction, meta::value, value, fraction);
 }

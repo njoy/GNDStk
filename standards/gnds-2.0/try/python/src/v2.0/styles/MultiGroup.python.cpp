@@ -37,7 +37,7 @@ void wrapMultiGroup(python::module &module)
       .def(
          python::init<
             const XMLName &,
-            const unknownNamespace::Grid &
+            const containers::Grid &
          >(),
          python::arg("label"),
          python::arg("grid"),

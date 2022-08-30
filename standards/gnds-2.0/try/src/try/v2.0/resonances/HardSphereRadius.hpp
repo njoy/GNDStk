@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_RESONANCES_HARDSPHERERADIUS
 #define TRY_V2_0_RESONANCES_HARDSPHERERADIUS
 
-#include "try/v2.0/unknownNamespace/Constant1d.hpp"
+#include "try/v2.0/containers/Constant1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class HardSphereRadius : public Component<resonances::HardSphereRadius> {
    {
       return
          // children
-         unknownNamespace::Constant1d{}
+         containers::Constant1d{}
             / --Child<>("constant1d")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::Constant1d> constant1d{this};
+   Field<containers::Constant1d> constant1d{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit HardSphereRadius(
-      const wrapper<unknownNamespace::Constant1d> &constant1d = {}
+      const wrapper<containers::Constant1d> &constant1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d)

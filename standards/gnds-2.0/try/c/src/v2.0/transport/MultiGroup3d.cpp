@@ -19,7 +19,7 @@ namespace extract {
    static auto gridded3d = [](auto &obj) { return &obj.gridded3d; };
 }
 
-using CPPGridded3d = unknownNamespace::Gridded3d;
+using CPPGridded3d = containers::Gridded3d;
 
 
 // -----------------------------------------------------------------------------

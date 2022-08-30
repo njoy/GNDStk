@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
 #include "v2.0/pops/Uncertainty.h"
-#include "v2.0/unknownNamespace/Integer.h"
+#include "v2.0/containers/Integer.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -271,6 +271,93 @@ extern_c void
 ParityIntegerSet(
    ConstHandle2Parity This,
    const size_t index_,
+   ConstHandle2ConstInteger integer
+);
+
+// +++ Has, by label
+extern_c int
+ParityIntegerHasByLabel(
+   ConstHandle2ConstParity This,
+   const XMLName label
+);
+
+// --- Get, by label, const
+extern_c Handle2ConstInteger
+ParityIntegerGetByLabelConst(
+   ConstHandle2ConstParity This,
+   const XMLName label
+);
+
+// +++ Get, by label, non-const
+extern_c Handle2Integer
+ParityIntegerGetByLabel(
+   ConstHandle2Parity This,
+   const XMLName label
+);
+
+// +++ Set, by label
+extern_c void
+ParityIntegerSetByLabel(
+   ConstHandle2Parity This,
+   const XMLName label,
+   ConstHandle2ConstInteger integer
+);
+
+// +++ Has, by unit
+extern_c int
+ParityIntegerHasByUnit(
+   ConstHandle2ConstParity This,
+   const XMLName unit
+);
+
+// --- Get, by unit, const
+extern_c Handle2ConstInteger
+ParityIntegerGetByUnitConst(
+   ConstHandle2ConstParity This,
+   const XMLName unit
+);
+
+// +++ Get, by unit, non-const
+extern_c Handle2Integer
+ParityIntegerGetByUnit(
+   ConstHandle2Parity This,
+   const XMLName unit
+);
+
+// +++ Set, by unit
+extern_c void
+ParityIntegerSetByUnit(
+   ConstHandle2Parity This,
+   const XMLName unit,
+   ConstHandle2ConstInteger integer
+);
+
+// +++ Has, by value
+extern_c int
+ParityIntegerHasByValue(
+   ConstHandle2ConstParity This,
+   const Integer32 value
+);
+
+// --- Get, by value, const
+extern_c Handle2ConstInteger
+ParityIntegerGetByValueConst(
+   ConstHandle2ConstParity This,
+   const Integer32 value
+);
+
+// +++ Get, by value, non-const
+extern_c Handle2Integer
+ParityIntegerGetByValue(
+   ConstHandle2Parity This,
+   const Integer32 value
+);
+
+// +++ Set, by value
+extern_c void
+ParityIntegerSetByValue(
+   ConstHandle2Parity This,
+   const Integer32 value,
    ConstHandle2ConstInteger integer
 );
 

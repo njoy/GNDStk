@@ -5,9 +5,9 @@
 #ifndef TRY_V2_0_RESONANCES_SCATTERINGRADIUS
 #define TRY_V2_0_RESONANCES_SCATTERINGRADIUS
 
-#include "try/v2.0/unknownNamespace/Constant1d.hpp"
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/Regions1d.hpp"
+#include "try/v2.0/containers/Constant1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/Regions1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -22,9 +22,9 @@ class ScatteringRadius : public Component<resonances::ScatteringRadius> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::Constant1d,
-      unknownNamespace::XYs1d,
-      unknownNamespace::Regions1d
+      containers::Constant1d,
+      containers::XYs1d,
+      containers::Regions1d
    >;
 
    // ------------------------
@@ -51,9 +51,9 @@ public:
 
    // children - variant
    Field<_t> _constant1dXYs1dregions1d{this};
-   FieldPart<decltype(_constant1dXYs1dregions1d),unknownNamespace::Constant1d> constant1d{_constant1dXYs1dregions1d};
-   FieldPart<decltype(_constant1dXYs1dregions1d),unknownNamespace::XYs1d> XYs1d{_constant1dXYs1dregions1d};
-   FieldPart<decltype(_constant1dXYs1dregions1d),unknownNamespace::Regions1d> regions1d{_constant1dXYs1dregions1d};
+   FieldPart<decltype(_constant1dXYs1dregions1d),containers::Constant1d> constant1d{_constant1dXYs1dregions1d};
+   FieldPart<decltype(_constant1dXYs1dregions1d),containers::XYs1d> XYs1d{_constant1dXYs1dregions1d};
+   FieldPart<decltype(_constant1dXYs1dregions1d),containers::Regions1d> regions1d{_constant1dXYs1dregions1d};
 
    // ------------------------
    // Constructors

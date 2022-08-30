@@ -37,7 +37,7 @@ void wrapYields(python::module &module)
       .def(
          python::init<
             const fpy::Nuclides &,
-            const unknownNamespace::Values &,
+            const containers::Values &,
             const std::optional<pops::Uncertainty> &
          >(),
          python::arg("nuclides"),

@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_STYLES_SIGMAZEROS
 #define TRY_V2_0_STYLES_SIGMAZEROS
 
-#include "try/v2.0/unknownNamespace/Values.hpp"
+#include "try/v2.0/containers/Values.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -36,7 +36,7 @@ class SigmaZeros : public Component<styles::SigmaZeros> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         unknownNamespace::Values{}
+         containers::Values{}
             / --Child<>("values")
       ;
    }
@@ -48,7 +48,7 @@ public:
    Field<std::optional<XMLName>> label{this};
 
    // children
-   Field<unknownNamespace::Values> values{this};
+   Field<containers::Values> values{this};
 
    // ------------------------
    // Constructors
@@ -61,7 +61,7 @@ public:
    // default, and from fields
    explicit SigmaZeros(
       const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<unknownNamespace::Values> &values = {}
+      const wrapper<containers::Values> &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

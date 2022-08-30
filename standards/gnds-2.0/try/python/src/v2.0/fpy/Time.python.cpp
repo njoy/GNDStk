@@ -25,8 +25,8 @@ void wrapTime(python::module &module)
    // type aliases
    using Component = fpy::Time;
    using _t = std::variant<
-      unknownNamespace::Double,
-      unknownNamespace::String
+      containers::Double,
+      containers::String
    >;
 
    // create the component

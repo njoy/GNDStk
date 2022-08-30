@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_STYLES_INVERSESPEED
 #define TRY_V2_0_STYLES_INVERSESPEED
 
-#include "try/v2.0/unknownNamespace/Gridded1d.hpp"
+#include "try/v2.0/containers/Gridded1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -36,7 +36,7 @@ class InverseSpeed : public Component<styles::InverseSpeed> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         unknownNamespace::Gridded1d{}
+         containers::Gridded1d{}
             / --Child<>("gridded1d")
       ;
    }
@@ -48,7 +48,7 @@ public:
    Field<std::optional<XMLName>> label{this};
 
    // children
-   Field<unknownNamespace::Gridded1d> gridded1d{this};
+   Field<containers::Gridded1d> gridded1d{this};
 
    // ------------------------
    // Constructors
@@ -61,7 +61,7 @@ public:
    // default, and from fields
    explicit InverseSpeed(
       const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<unknownNamespace::Gridded1d> &gridded1d = {}
+      const wrapper<containers::Gridded1d> &gridded1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

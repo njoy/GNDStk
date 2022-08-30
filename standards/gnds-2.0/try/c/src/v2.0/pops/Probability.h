@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_POPS_PROBABILITY
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Double.h"
+#include "v2.0/containers/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -163,6 +163,93 @@ extern_c void
 ProbabilityDoubleSet(
    ConstHandle2Probability This,
    const size_t index_,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by label
+extern_c int
+ProbabilityDoubleHasByLabel(
+   ConstHandle2ConstProbability This,
+   const XMLName label
+);
+
+// --- Get, by label, const
+extern_c Handle2ConstDouble
+ProbabilityDoubleGetByLabelConst(
+   ConstHandle2ConstProbability This,
+   const XMLName label
+);
+
+// +++ Get, by label, non-const
+extern_c Handle2Double
+ProbabilityDoubleGetByLabel(
+   ConstHandle2Probability This,
+   const XMLName label
+);
+
+// +++ Set, by label
+extern_c void
+ProbabilityDoubleSetByLabel(
+   ConstHandle2Probability This,
+   const XMLName label,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by unit
+extern_c int
+ProbabilityDoubleHasByUnit(
+   ConstHandle2ConstProbability This,
+   const XMLName unit
+);
+
+// --- Get, by unit, const
+extern_c Handle2ConstDouble
+ProbabilityDoubleGetByUnitConst(
+   ConstHandle2ConstProbability This,
+   const XMLName unit
+);
+
+// +++ Get, by unit, non-const
+extern_c Handle2Double
+ProbabilityDoubleGetByUnit(
+   ConstHandle2Probability This,
+   const XMLName unit
+);
+
+// +++ Set, by unit
+extern_c void
+ProbabilityDoubleSetByUnit(
+   ConstHandle2Probability This,
+   const XMLName unit,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by value
+extern_c int
+ProbabilityDoubleHasByValue(
+   ConstHandle2ConstProbability This,
+   const Float64 value
+);
+
+// --- Get, by value, const
+extern_c Handle2ConstDouble
+ProbabilityDoubleGetByValueConst(
+   ConstHandle2ConstProbability This,
+   const Float64 value
+);
+
+// +++ Get, by value, non-const
+extern_c Handle2Double
+ProbabilityDoubleGetByValue(
+   ConstHandle2Probability This,
+   const Float64 value
+);
+
+// +++ Set, by value
+extern_c void
+ProbabilityDoubleSetByValue(
+   ConstHandle2Probability This,
+   const Float64 value,
    ConstHandle2ConstDouble Double
 );
 

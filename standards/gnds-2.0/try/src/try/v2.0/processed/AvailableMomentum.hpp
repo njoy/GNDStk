@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_PROCESSED_AVAILABLEMOMENTUM
 #define TRY_V2_0_PROCESSED_AVAILABLEMOMENTUM
 
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/Gridded1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/Gridded1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -34,9 +34,9 @@ class AvailableMomentum : public Component<processed::AvailableMomentum> {
    {
       return
          // children
-         std::optional<unknownNamespace::XYs1d>{}
+         std::optional<containers::XYs1d>{}
             / --Child<>("XYs1d") |
-         std::optional<unknownNamespace::Gridded1d>{}
+         std::optional<containers::Gridded1d>{}
             / --Child<>("gridded1d")
       ;
    }
@@ -45,8 +45,8 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::XYs1d>> XYs1d{this};
-   Field<std::optional<unknownNamespace::Gridded1d>> gridded1d{this};
+   Field<std::optional<containers::XYs1d>> XYs1d{this};
+   Field<std::optional<containers::Gridded1d>> gridded1d{this};
 
    // ------------------------
    // Constructors
@@ -58,8 +58,8 @@ public:
 
    // default, and from fields
    explicit AvailableMomentum(
-      const wrapper<std::optional<unknownNamespace::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<unknownNamespace::Gridded1d>> &gridded1d = {}
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::Gridded1d>> &gridded1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),

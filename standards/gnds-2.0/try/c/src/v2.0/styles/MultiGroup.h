@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_STYLES_MULTIGROUP
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Grid.h"
+#include "v2.0/containers/Grid.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_ENERGY_UNCORRELATED
 #define TRY_V2_0_TRANSPORT_ENERGY_UNCORRELATED
 
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
-#include "try/v2.0/unknownNamespace/Regions2d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
+#include "try/v2.0/containers/Regions2d.hpp"
 #include "try/v2.0/transport/GeneralEvaporation.hpp"
 #include "try/v2.0/transport/DiscreteGamma.hpp"
 #include "try/v2.0/transport/PrimaryGamma.hpp"
@@ -43,9 +43,9 @@ class Energy_uncorrelated : public Component<transport::Energy_uncorrelated> {
    {
       return
          // children
-         std::optional<unknownNamespace::XYs2d>{}
+         std::optional<containers::XYs2d>{}
             / --Child<>("XYs2d") |
-         std::optional<unknownNamespace::Regions2d>{}
+         std::optional<containers::Regions2d>{}
             / --Child<>("regions2d") |
          std::optional<transport::GeneralEvaporation>{}
             / --Child<>("generalEvaporation") |
@@ -72,8 +72,8 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::XYs2d>> XYs2d{this};
-   Field<std::optional<unknownNamespace::Regions2d>> regions2d{this};
+   Field<std::optional<containers::XYs2d>> XYs2d{this};
+   Field<std::optional<containers::Regions2d>> regions2d{this};
    Field<std::optional<transport::GeneralEvaporation>> generalEvaporation{this};
    Field<std::optional<transport::DiscreteGamma>> discreteGamma{this};
    Field<std::optional<transport::PrimaryGamma>> primaryGamma{this};
@@ -103,8 +103,8 @@ public:
 
    // default, and from fields
    explicit Energy_uncorrelated(
-      const wrapper<std::optional<unknownNamespace::XYs2d>> &XYs2d = {},
-      const wrapper<std::optional<unknownNamespace::Regions2d>> &regions2d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::Regions2d>> &regions2d = {},
       const wrapper<std::optional<transport::GeneralEvaporation>> &generalEvaporation = {},
       const wrapper<std::optional<transport::DiscreteGamma>> &discreteGamma = {},
       const wrapper<std::optional<transport::PrimaryGamma>> &primaryGamma = {},

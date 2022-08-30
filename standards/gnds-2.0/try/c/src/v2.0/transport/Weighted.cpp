@@ -23,8 +23,8 @@ namespace extract {
    static auto MadlandNix = [](auto &obj) { return &obj.MadlandNix; };
 }
 
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPXYs2d = unknownNamespace::XYs2d;
+using CPPXYs1d = containers::XYs1d;
+using CPPXYs2d = containers::XYs2d;
 using CPPEvaporation = transport::Evaporation;
 using CPPGeneralEvaporation = transport::GeneralEvaporation;
 using CPPSimpleMaxwellianFission = fissionTransport::SimpleMaxwellianFission;

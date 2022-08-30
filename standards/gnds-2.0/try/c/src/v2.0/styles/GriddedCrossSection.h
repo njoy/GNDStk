@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_STYLES_GRIDDEDCROSSSECTION
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Grid.h"
+#include "v2.0/containers/Grid.h"
 #include "v2.0/documentation/Documentation.h"
 
 #ifdef __cplusplus

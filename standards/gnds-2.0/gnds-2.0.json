@@ -7,27 +7,15 @@
     "JSONFiles": [
         "summary_appData.json",
         "summary_atomic.json",
-        "summary_covariance.json",
-        "summary_fissionFragmentData.json",
-        "summary_mapfile.json",
-        "summary_cpTransport.json",
-        "summary_fpy.json",
-        "summary_fissionTransport.json",
-        "summary_processed.json",
-        "summary_tsl.json",
-        "summary_resonance.json"
-    ],
-    "JSONFiles todo we're working though these...": [
-        "summary_appData.json",
-        "summary_atomic.json",
         "summary_common.json",
-        "summary_gpdc.json",
         "summary_covariance.json",
         "summary_cpTransport.json",
         "summary_documentation.json",
-        "summary_fissionTransport.json",
         "summary_fissionFragmentData.json",
+        "summary_fissionTransport.json",
         "summary_fpy.json",
+        "summary_gpdc.json",
+        "summary_mapfile.json",
         "summary_pops.json",
         "summary_processed.json",
         "summary_resonance.json",
@@ -35,7 +23,7 @@
         "summary_transport.json",
         "summary_tsl.json"
     ],
-    "Remark. The following should NOT be part of the code generation!": [
+    "Remark. The following should NOT now be part of the code generation!": [
         "summary_abstract.json",
         "summary_basic.json"
     ],

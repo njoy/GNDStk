@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_FISSIONTRANSPORT_DELAYEDBETAENERGY
 #define TRY_V2_0_FISSIONTRANSPORT_DELAYEDBETAENERGY
 
-#include "try/v2.0/unknownNamespace/Polynomial1d.hpp"
+#include "try/v2.0/containers/Polynomial1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class DelayedBetaEnergy : public Component<fissionTransport::DelayedBetaEnergy> 
    {
       return
          // children
-         std::optional<unknownNamespace::Polynomial1d>{}
+         std::optional<containers::Polynomial1d>{}
             / --Child<>("polynomial1d")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::Polynomial1d>> polynomial1d{this};
+   Field<std::optional<containers::Polynomial1d>> polynomial1d{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit DelayedBetaEnergy(
-      const wrapper<std::optional<unknownNamespace::Polynomial1d>> &polynomial1d = {}
+      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       polynomial1d(this,polynomial1d)

@@ -36,7 +36,7 @@ void wrapColumnSensitivity(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::Array &
+            const containers::Array &
          >(),
          python::arg("array"),
          Component::documentation("constructor").data()

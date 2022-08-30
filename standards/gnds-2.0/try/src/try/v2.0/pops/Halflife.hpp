@@ -7,8 +7,8 @@
 
 #include "try/v2.0/documentation/Documentation.hpp"
 #include "try/v2.0/pops/Uncertainty.hpp"
-#include "try/v2.0/unknownNamespace/String.hpp"
-#include "try/v2.0/unknownNamespace/Double.hpp"
+#include "try/v2.0/containers/String.hpp"
+#include "try/v2.0/containers/Double.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -23,8 +23,8 @@ class Halflife : public Component<pops::Halflife> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::String,
-      unknownNamespace::Double
+      containers::String,
+      containers::Double
    >;
 
    // ------------------------
@@ -71,8 +71,8 @@ public:
 
    // children - variant
    Field<_t> _stringDouble{this};
-   FieldPart<decltype(_stringDouble),unknownNamespace::String> string{_stringDouble};
-   FieldPart<decltype(_stringDouble),unknownNamespace::Double> Double{_stringDouble};
+   FieldPart<decltype(_stringDouble),containers::String> string{_stringDouble};
+   FieldPart<decltype(_stringDouble),containers::Double> Double{_stringDouble};
 
    // ------------------------
    // Constructors

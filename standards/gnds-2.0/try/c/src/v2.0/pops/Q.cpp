@@ -24,7 +24,7 @@ namespace extract {
 
 using CPPDocumentation = documentation::Documentation;
 using CPPUncertainty = pops::Uncertainty;
-using CPPDouble = unknownNamespace::Double;
+using CPPDouble = containers::Double;
 
 
 // -----------------------------------------------------------------------------
@@ -393,4 +393,139 @@ QDoubleSet(
 ) {
    detail::setByIndex<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, index_, Double);
+}
+
+// Has, by label
+int
+QDoubleHasByLabel(
+   ConstHandle2ConstQ This,
+   const XMLName label
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"DoubleHasByLabel",
+       This, extract::Double, meta::label, label);
+}
+
+// Get, by label, const
+Handle2ConstDouble
+QDoubleGetByLabelConst(
+   ConstHandle2ConstQ This,
+   const XMLName label
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstDouble>
+      (CLASSNAME, CLASSNAME+"DoubleGetByLabelConst",
+       This, extract::Double, meta::label, label);
+}
+
+// Get, by label, non-const
+Handle2Double
+QDoubleGetByLabel(
+   ConstHandle2Q This,
+   const XMLName label
+) {
+   return detail::getByMetadatum<CPP,Handle2Double>
+      (CLASSNAME, CLASSNAME+"DoubleGetByLabel",
+       This, extract::Double, meta::label, label);
+}
+
+// Set, by label
+void
+QDoubleSetByLabel(
+   ConstHandle2Q This,
+   const XMLName label,
+   ConstHandle2ConstDouble Double
+) {
+   detail::setByMetadatum<CPP,CPPDouble>
+      (CLASSNAME, CLASSNAME+"DoubleSetByLabel",
+       This, extract::Double, meta::label, label, Double);
+}
+
+// Has, by unit
+int
+QDoubleHasByUnit(
+   ConstHandle2ConstQ This,
+   const XMLName unit
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"DoubleHasByUnit",
+       This, extract::Double, meta::unit, unit);
+}
+
+// Get, by unit, const
+Handle2ConstDouble
+QDoubleGetByUnitConst(
+   ConstHandle2ConstQ This,
+   const XMLName unit
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstDouble>
+      (CLASSNAME, CLASSNAME+"DoubleGetByUnitConst",
+       This, extract::Double, meta::unit, unit);
+}
+
+// Get, by unit, non-const
+Handle2Double
+QDoubleGetByUnit(
+   ConstHandle2Q This,
+   const XMLName unit
+) {
+   return detail::getByMetadatum<CPP,Handle2Double>
+      (CLASSNAME, CLASSNAME+"DoubleGetByUnit",
+       This, extract::Double, meta::unit, unit);
+}
+
+// Set, by unit
+void
+QDoubleSetByUnit(
+   ConstHandle2Q This,
+   const XMLName unit,
+   ConstHandle2ConstDouble Double
+) {
+   detail::setByMetadatum<CPP,CPPDouble>
+      (CLASSNAME, CLASSNAME+"DoubleSetByUnit",
+       This, extract::Double, meta::unit, unit, Double);
+}
+
+// Has, by value
+int
+QDoubleHasByValue(
+   ConstHandle2ConstQ This,
+   const Float64 value
+) {
+   return detail::hasByMetadatum<CPP>
+      (CLASSNAME, CLASSNAME+"DoubleHasByValue",
+       This, extract::Double, meta::value, value);
+}
+
+// Get, by value, const
+Handle2ConstDouble
+QDoubleGetByValueConst(
+   ConstHandle2ConstQ This,
+   const Float64 value
+) {
+   return detail::getByMetadatum<CPP,Handle2ConstDouble>
+      (CLASSNAME, CLASSNAME+"DoubleGetByValueConst",
+       This, extract::Double, meta::value, value);
+}
+
+// Get, by value, non-const
+Handle2Double
+QDoubleGetByValue(
+   ConstHandle2Q This,
+   const Float64 value
+) {
+   return detail::getByMetadatum<CPP,Handle2Double>
+      (CLASSNAME, CLASSNAME+"DoubleGetByValue",
+       This, extract::Double, meta::value, value);
+}
+
+// Set, by value
+void
+QDoubleSetByValue(
+   ConstHandle2Q This,
+   const Float64 value,
+   ConstHandle2ConstDouble Double
+) {
+   detail::setByMetadatum<CPP,CPPDouble>
+      (CLASSNAME, CLASSNAME+"DoubleSetByValue",
+       This, extract::Double, meta::value, value, Double);
 }

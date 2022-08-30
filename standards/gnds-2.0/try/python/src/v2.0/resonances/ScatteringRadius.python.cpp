@@ -25,9 +25,9 @@ void wrapScatteringRadius(python::module &module)
    // type aliases
    using Component = resonances::ScatteringRadius;
    using _t = std::variant<
-      unknownNamespace::Constant1d,
-      unknownNamespace::XYs1d,
-      unknownNamespace::Regions1d
+      containers::Constant1d,
+      containers::XYs1d,
+      containers::Regions1d
    >;
 
    // create the component

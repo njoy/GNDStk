@@ -36,7 +36,7 @@ void wrapAngular_uncorrelated(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::XYs2d> &,
+            const std::optional<containers::XYs2d> &,
             const std::optional<transport::Isotropic2d> &,
             const std::optional<transport::Forward> &
          >(),

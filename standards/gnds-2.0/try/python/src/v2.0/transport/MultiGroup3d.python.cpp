@@ -38,7 +38,7 @@ void wrapMultiGroup3d(python::module &module)
          python::init<
             const XMLName &,
             const XMLName &,
-            const unknownNamespace::Gridded3d &
+            const containers::Gridded3d &
          >(),
          python::arg("label"),
          python::arg("product_frame"),

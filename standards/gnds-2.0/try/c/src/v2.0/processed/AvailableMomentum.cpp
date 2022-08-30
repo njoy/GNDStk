@@ -18,8 +18,8 @@ namespace extract {
    static auto gridded1d = [](auto &obj) { return &obj.gridded1d; };
 }
 
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPGridded1d = unknownNamespace::Gridded1d;
+using CPPXYs1d = containers::XYs1d;
+using CPPGridded1d = containers::Gridded1d;
 
 
 // -----------------------------------------------------------------------------

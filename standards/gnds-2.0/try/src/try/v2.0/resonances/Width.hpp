@@ -5,9 +5,9 @@
 #ifndef TRY_V2_0_RESONANCES_WIDTH
 #define TRY_V2_0_RESONANCES_WIDTH
 
-#include "try/v2.0/unknownNamespace/Constant1d.hpp"
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/Regions1d.hpp"
+#include "try/v2.0/containers/Constant1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/Regions1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -40,11 +40,11 @@ class Width : public Component<resonances::Width> {
          Float64{}
             / Meta<>("degreesOfFreedom") |
          // children
-         std::optional<unknownNamespace::Constant1d>{}
+         std::optional<containers::Constant1d>{}
             / --Child<>("constant1d") |
-         std::optional<unknownNamespace::XYs1d>{}
+         std::optional<containers::XYs1d>{}
             / --Child<>("XYs1d") |
-         std::optional<unknownNamespace::Regions1d>{}
+         std::optional<containers::Regions1d>{}
             / --Child<>("regions1d")
       ;
    }
@@ -57,9 +57,9 @@ public:
    Field<Float64> degreesOfFreedom{this};
 
    // children
-   Field<std::optional<unknownNamespace::Constant1d>> constant1d{this};
-   Field<std::optional<unknownNamespace::XYs1d>> XYs1d{this};
-   Field<std::optional<unknownNamespace::Regions1d>> regions1d{this};
+   Field<std::optional<containers::Constant1d>> constant1d{this};
+   Field<std::optional<containers::XYs1d>> XYs1d{this};
+   Field<std::optional<containers::Regions1d>> regions1d{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +76,9 @@ public:
    explicit Width(
       const wrapper<std::string> &resonanceReaction = {},
       const wrapper<Float64> &degreesOfFreedom = {},
-      const wrapper<std::optional<unknownNamespace::Constant1d>> &constant1d = {},
-      const wrapper<std::optional<unknownNamespace::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<unknownNamespace::Regions1d>> &regions1d = {}
+      const wrapper<std::optional<containers::Constant1d>> &constant1d = {},
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       resonanceReaction(this,resonanceReaction),

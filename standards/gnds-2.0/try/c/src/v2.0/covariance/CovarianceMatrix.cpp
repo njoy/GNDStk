@@ -19,7 +19,7 @@ namespace extract {
    static auto type = [](auto &obj) { return &obj.type; };
 }
 
-using CPPGridded2d = unknownNamespace::Gridded2d;
+using CPPGridded2d = containers::Gridded2d;
 using CPPSandwichProduct = covariance::SandwichProduct;
 
 

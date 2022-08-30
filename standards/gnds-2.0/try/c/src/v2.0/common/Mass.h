@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
 #include "v2.0/pops/Uncertainty.h"
-#include "v2.0/unknownNamespace/Double.h"
+#include "v2.0/containers/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -271,6 +271,93 @@ extern_c void
 MassDoubleSet(
    ConstHandle2Mass This,
    const size_t index_,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by label
+extern_c int
+MassDoubleHasByLabel(
+   ConstHandle2ConstMass This,
+   const XMLName label
+);
+
+// --- Get, by label, const
+extern_c Handle2ConstDouble
+MassDoubleGetByLabelConst(
+   ConstHandle2ConstMass This,
+   const XMLName label
+);
+
+// +++ Get, by label, non-const
+extern_c Handle2Double
+MassDoubleGetByLabel(
+   ConstHandle2Mass This,
+   const XMLName label
+);
+
+// +++ Set, by label
+extern_c void
+MassDoubleSetByLabel(
+   ConstHandle2Mass This,
+   const XMLName label,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by unit
+extern_c int
+MassDoubleHasByUnit(
+   ConstHandle2ConstMass This,
+   const XMLName unit
+);
+
+// --- Get, by unit, const
+extern_c Handle2ConstDouble
+MassDoubleGetByUnitConst(
+   ConstHandle2ConstMass This,
+   const XMLName unit
+);
+
+// +++ Get, by unit, non-const
+extern_c Handle2Double
+MassDoubleGetByUnit(
+   ConstHandle2Mass This,
+   const XMLName unit
+);
+
+// +++ Set, by unit
+extern_c void
+MassDoubleSetByUnit(
+   ConstHandle2Mass This,
+   const XMLName unit,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by value
+extern_c int
+MassDoubleHasByValue(
+   ConstHandle2ConstMass This,
+   const Float64 value
+);
+
+// --- Get, by value, const
+extern_c Handle2ConstDouble
+MassDoubleGetByValueConst(
+   ConstHandle2ConstMass This,
+   const Float64 value
+);
+
+// +++ Get, by value, non-const
+extern_c Handle2Double
+MassDoubleGetByValue(
+   ConstHandle2Mass This,
+   const Float64 value
+);
+
+// +++ Set, by value
+extern_c void
+MassDoubleSetByValue(
+   ConstHandle2Mass This,
+   const Float64 value,
    ConstHandle2ConstDouble Double
 );
 

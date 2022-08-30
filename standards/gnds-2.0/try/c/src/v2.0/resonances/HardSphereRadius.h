@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_HARDSPHERERADIUS
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Constant1d.h"
+#include "v2.0/containers/Constant1d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_CPTRANSPORT_IMAGINARYINTERFERENCETERM
 #define TRY_V2_0_CPTRANSPORT_IMAGINARYINTERFERENCETERM
 
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
-#include "try/v2.0/unknownNamespace/Regions2d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
+#include "try/v2.0/containers/Regions2d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -34,9 +34,9 @@ class ImaginaryInterferenceTerm : public Component<cpTransport::ImaginaryInterfe
    {
       return
          // children
-         std::optional<unknownNamespace::XYs2d>{}
+         std::optional<containers::XYs2d>{}
             / --Child<>("XYs2d") |
-         std::optional<unknownNamespace::Regions2d>{}
+         std::optional<containers::Regions2d>{}
             / --Child<>("regions2d")
       ;
    }
@@ -45,8 +45,8 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::XYs2d>> XYs2d{this};
-   Field<std::optional<unknownNamespace::Regions2d>> regions2d{this};
+   Field<std::optional<containers::XYs2d>> XYs2d{this};
+   Field<std::optional<containers::Regions2d>> regions2d{this};
 
    // ------------------------
    // Constructors
@@ -58,8 +58,8 @@ public:
 
    // default, and from fields
    explicit ImaginaryInterferenceTerm(
-      const wrapper<std::optional<unknownNamespace::XYs2d>> &XYs2d = {},
-      const wrapper<std::optional<unknownNamespace::Regions2d>> &regions2d = {}
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::Regions2d>> &regions2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs2d(this,XYs2d),

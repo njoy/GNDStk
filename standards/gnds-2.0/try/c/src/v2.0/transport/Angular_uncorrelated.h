@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_ANGULAR_UNCORRELATED
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs2d.h"
+#include "v2.0/containers/XYs2d.h"
 #include "v2.0/transport/Isotropic2d.h"
 #include "v2.0/transport/Forward.h"
 

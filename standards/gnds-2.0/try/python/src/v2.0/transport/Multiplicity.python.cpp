@@ -25,13 +25,13 @@ void wrapMultiplicity(python::module &module)
    // type aliases
    using Component = transport::Multiplicity;
    using _t = std::variant<
-      unknownNamespace::XYs1d,
-      unknownNamespace::Constant1d,
-      unknownNamespace::Polynomial1d,
+      containers::XYs1d,
+      containers::Constant1d,
+      containers::Polynomial1d,
       transport::Branching1d,
       transport::Reference,
-      unknownNamespace::Gridded1d,
-      unknownNamespace::Regions1d
+      containers::Gridded1d,
+      containers::Regions1d
    >;
 
    // create the component

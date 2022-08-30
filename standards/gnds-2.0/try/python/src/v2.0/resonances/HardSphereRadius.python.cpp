@@ -36,7 +36,7 @@ void wrapHardSphereRadius(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::Constant1d &
+            const containers::Constant1d &
          >(),
          python::arg("constant1d"),
          Component::documentation("constructor").data()

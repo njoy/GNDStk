@@ -16,13 +16,13 @@ static const std::string CLASSNAME = "Multiplicity";
 namespace extract {
 }
 
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPConstant1d = unknownNamespace::Constant1d;
-using CPPPolynomial1d = unknownNamespace::Polynomial1d;
+using CPPXYs1d = containers::XYs1d;
+using CPPConstant1d = containers::Constant1d;
+using CPPPolynomial1d = containers::Polynomial1d;
 using CPPBranching1d = transport::Branching1d;
 using CPPReference = transport::Reference;
-using CPPGridded1d = unknownNamespace::Gridded1d;
-using CPPRegions1d = unknownNamespace::Regions1d;
+using CPPGridded1d = containers::Gridded1d;
+using CPPRegions1d = containers::Regions1d;
 
 
 // -----------------------------------------------------------------------------

@@ -38,8 +38,8 @@ void wrapAngularTwoBody(python::module &module)
          python::init<
             const std::optional<XMLName> &,
             const XMLName &,
-            const std::optional<unknownNamespace::XYs2d> &,
-            const std::optional<unknownNamespace::Regions2d> &,
+            const std::optional<containers::XYs2d> &,
+            const std::optional<containers::Regions2d> &,
             const std::optional<transport::Isotropic2d> &,
             const std::optional<transport::Recoil> &
          >(),

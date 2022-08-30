@@ -36,9 +36,9 @@ void wrapAverageProductEnergy(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::XYs1d &,
-            const std::optional<unknownNamespace::Gridded1d> &,
-            const std::optional<unknownNamespace::Regions1d> &
+            const containers::XYs1d &,
+            const std::optional<containers::Gridded1d> &,
+            const std::optional<containers::Regions1d> &
          >(),
          python::arg("xys1d"),
          python::arg("gridded1d") = std::nullopt,

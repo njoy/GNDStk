@@ -21,7 +21,7 @@ namespace extract {
    static auto axes = [](auto &obj) { return &obj.axes; };
 }
 
-using CPPAxes = unknownNamespace::Axes;
+using CPPAxes = containers::Axes;
 
 
 // -----------------------------------------------------------------------------

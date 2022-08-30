@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
 #include "v2.0/pops/Uncertainty.h"
-#include "v2.0/unknownNamespace/Double.h"
+#include "v2.0/containers/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -271,6 +271,93 @@ extern_c void
 BindingEnergyDoubleSet(
    ConstHandle2BindingEnergy This,
    const size_t index_,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by label
+extern_c int
+BindingEnergyDoubleHasByLabel(
+   ConstHandle2ConstBindingEnergy This,
+   const XMLName label
+);
+
+// --- Get, by label, const
+extern_c Handle2ConstDouble
+BindingEnergyDoubleGetByLabelConst(
+   ConstHandle2ConstBindingEnergy This,
+   const XMLName label
+);
+
+// +++ Get, by label, non-const
+extern_c Handle2Double
+BindingEnergyDoubleGetByLabel(
+   ConstHandle2BindingEnergy This,
+   const XMLName label
+);
+
+// +++ Set, by label
+extern_c void
+BindingEnergyDoubleSetByLabel(
+   ConstHandle2BindingEnergy This,
+   const XMLName label,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by unit
+extern_c int
+BindingEnergyDoubleHasByUnit(
+   ConstHandle2ConstBindingEnergy This,
+   const XMLName unit
+);
+
+// --- Get, by unit, const
+extern_c Handle2ConstDouble
+BindingEnergyDoubleGetByUnitConst(
+   ConstHandle2ConstBindingEnergy This,
+   const XMLName unit
+);
+
+// +++ Get, by unit, non-const
+extern_c Handle2Double
+BindingEnergyDoubleGetByUnit(
+   ConstHandle2BindingEnergy This,
+   const XMLName unit
+);
+
+// +++ Set, by unit
+extern_c void
+BindingEnergyDoubleSetByUnit(
+   ConstHandle2BindingEnergy This,
+   const XMLName unit,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by value
+extern_c int
+BindingEnergyDoubleHasByValue(
+   ConstHandle2ConstBindingEnergy This,
+   const Float64 value
+);
+
+// --- Get, by value, const
+extern_c Handle2ConstDouble
+BindingEnergyDoubleGetByValueConst(
+   ConstHandle2ConstBindingEnergy This,
+   const Float64 value
+);
+
+// +++ Get, by value, non-const
+extern_c Handle2Double
+BindingEnergyDoubleGetByValue(
+   ConstHandle2BindingEnergy This,
+   const Float64 value
+);
+
+// +++ Set, by value
+extern_c void
+BindingEnergyDoubleSetByValue(
+   ConstHandle2BindingEnergy This,
+   const Float64 value,
    ConstHandle2ConstDouble Double
 );
 

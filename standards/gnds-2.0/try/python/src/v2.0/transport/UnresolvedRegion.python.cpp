@@ -25,8 +25,8 @@ void wrapUnresolvedRegion(python::module &module)
    // type aliases
    using Component = transport::UnresolvedRegion;
    using _t = std::variant<
-      unknownNamespace::XYs1d,
-      unknownNamespace::Regions1d
+      containers::XYs1d,
+      containers::Regions1d
    >;
 
    // create the component

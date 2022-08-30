@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TSL_DISTINCTSCATTERINGKERNEL
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Gridded3d.h"
+#include "v2.0/containers/Gridded3d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

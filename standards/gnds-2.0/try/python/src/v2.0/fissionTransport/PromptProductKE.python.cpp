@@ -36,8 +36,8 @@ void wrapPromptProductKE(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::XYs1d> &,
-            const std::optional<unknownNamespace::Polynomial1d> &
+            const std::optional<containers::XYs1d> &,
+            const std::optional<containers::Polynomial1d> &
          >(),
          python::arg("xys1d") = std::nullopt,
          python::arg("polynomial1d") = std::nullopt,

@@ -7,7 +7,7 @@
 
 #include "try/v2.0/documentation/Documentation.hpp"
 #include "try/v2.0/pops/Uncertainty.hpp"
-#include "try/v2.0/unknownNamespace/Double.hpp"
+#include "try/v2.0/containers/Double.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -46,7 +46,7 @@ class Mass : public Component<pops::Mass> {
             / --Child<>("documentation") |
          std::optional<pops::Uncertainty>{}
             / --Child<>("uncertainty") |
-         std::optional<unknownNamespace::Double>{}
+         std::optional<containers::Double>{}
             / --Child<>("Double")
       ;
    }
@@ -62,7 +62,7 @@ public:
    // children
    Field<std::optional<documentation::Documentation>> documentation{this};
    Field<std::optional<pops::Uncertainty>> uncertainty{this};
-   Field<std::optional<unknownNamespace::Double>> Double{this};
+   Field<std::optional<containers::Double>> Double{this};
 
    // ------------------------
    // Constructors
@@ -83,7 +83,7 @@ public:
       const wrapper<XMLName> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
       const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
-      const wrapper<std::optional<unknownNamespace::Double>> &Double = {}
+      const wrapper<std::optional<containers::Double>> &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

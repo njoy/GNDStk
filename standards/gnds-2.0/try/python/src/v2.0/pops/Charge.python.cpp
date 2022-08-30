@@ -25,8 +25,8 @@ void wrapCharge(python::module &module)
    // type aliases
    using Component = pops::Charge;
    using _t = std::variant<
-      unknownNamespace::Integer,
-      unknownNamespace::Fraction
+      containers::Integer,
+      containers::Fraction
    >;
 
    // create the component

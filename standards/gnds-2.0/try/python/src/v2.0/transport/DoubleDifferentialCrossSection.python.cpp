@@ -36,8 +36,8 @@ void wrapDoubleDifferentialCrossSection(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::Regions3d> &,
-            const std::optional<unknownNamespace::XYs3d> &,
+            const std::optional<containers::Regions3d> &,
+            const std::optional<containers::XYs3d> &,
             const std::optional<cpTransport::CoulombPlusNuclearElastic> &,
             const std::optional<transport::Reference> &,
             const std::optional<atomic::CoherentPhotonScattering> &,

@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_FISSIONTRANSPORT_PROMPTPRODUCTKE
 #define TRY_V2_0_FISSIONTRANSPORT_PROMPTPRODUCTKE
 
-#include "try/v2.0/unknownNamespace/XYs1d.hpp"
-#include "try/v2.0/unknownNamespace/Polynomial1d.hpp"
+#include "try/v2.0/containers/XYs1d.hpp"
+#include "try/v2.0/containers/Polynomial1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -34,9 +34,9 @@ class PromptProductKE : public Component<fissionTransport::PromptProductKE> {
    {
       return
          // children
-         std::optional<unknownNamespace::XYs1d>{}
+         std::optional<containers::XYs1d>{}
             / --Child<>("XYs1d") |
-         std::optional<unknownNamespace::Polynomial1d>{}
+         std::optional<containers::Polynomial1d>{}
             / --Child<>("polynomial1d")
       ;
    }
@@ -45,8 +45,8 @@ public:
    using Component::construct;
 
    // children
-   Field<std::optional<unknownNamespace::XYs1d>> XYs1d{this};
-   Field<std::optional<unknownNamespace::Polynomial1d>> polynomial1d{this};
+   Field<std::optional<containers::XYs1d>> XYs1d{this};
+   Field<std::optional<containers::Polynomial1d>> polynomial1d{this};
 
    // ------------------------
    // Constructors
@@ -58,8 +58,8 @@ public:
 
    // default, and from fields
    explicit PromptProductKE(
-      const wrapper<std::optional<unknownNamespace::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<unknownNamespace::Polynomial1d>> &polynomial1d = {}
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),

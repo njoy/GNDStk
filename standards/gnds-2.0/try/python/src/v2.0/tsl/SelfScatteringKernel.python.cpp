@@ -25,7 +25,7 @@ void wrapSelfScatteringKernel(python::module &module)
    // type aliases
    using Component = tsl::SelfScatteringKernel;
    using _t = std::variant<
-      unknownNamespace::Gridded3d,
+      containers::Gridded3d,
       tsl::GaussianApproximation,
       tsl::SCTApproximation,
       tsl::FreeGasApproximation

@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_EXTERNALRMATRIX
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Double.h"
+#include "v2.0/containers/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -183,6 +183,93 @@ extern_c void
 ExternalRMatrixDoubleSet(
    ConstHandle2ExternalRMatrix This,
    const size_t index_,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by label
+extern_c int
+ExternalRMatrixDoubleHasByLabel(
+   ConstHandle2ConstExternalRMatrix This,
+   const XMLName label
+);
+
+// --- Get, by label, const
+extern_c Handle2ConstDouble
+ExternalRMatrixDoubleGetByLabelConst(
+   ConstHandle2ConstExternalRMatrix This,
+   const XMLName label
+);
+
+// +++ Get, by label, non-const
+extern_c Handle2Double
+ExternalRMatrixDoubleGetByLabel(
+   ConstHandle2ExternalRMatrix This,
+   const XMLName label
+);
+
+// +++ Set, by label
+extern_c void
+ExternalRMatrixDoubleSetByLabel(
+   ConstHandle2ExternalRMatrix This,
+   const XMLName label,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by unit
+extern_c int
+ExternalRMatrixDoubleHasByUnit(
+   ConstHandle2ConstExternalRMatrix This,
+   const XMLName unit
+);
+
+// --- Get, by unit, const
+extern_c Handle2ConstDouble
+ExternalRMatrixDoubleGetByUnitConst(
+   ConstHandle2ConstExternalRMatrix This,
+   const XMLName unit
+);
+
+// +++ Get, by unit, non-const
+extern_c Handle2Double
+ExternalRMatrixDoubleGetByUnit(
+   ConstHandle2ExternalRMatrix This,
+   const XMLName unit
+);
+
+// +++ Set, by unit
+extern_c void
+ExternalRMatrixDoubleSetByUnit(
+   ConstHandle2ExternalRMatrix This,
+   const XMLName unit,
+   ConstHandle2ConstDouble Double
+);
+
+// +++ Has, by value
+extern_c int
+ExternalRMatrixDoubleHasByValue(
+   ConstHandle2ConstExternalRMatrix This,
+   const Float64 value
+);
+
+// --- Get, by value, const
+extern_c Handle2ConstDouble
+ExternalRMatrixDoubleGetByValueConst(
+   ConstHandle2ConstExternalRMatrix This,
+   const Float64 value
+);
+
+// +++ Get, by value, non-const
+extern_c Handle2Double
+ExternalRMatrixDoubleGetByValue(
+   ConstHandle2ExternalRMatrix This,
+   const Float64 value
+);
+
+// +++ Set, by value
+extern_c void
+ExternalRMatrixDoubleSetByValue(
+   ConstHandle2ExternalRMatrix This,
+   const Float64 value,
    ConstHandle2ConstDouble Double
 );
 

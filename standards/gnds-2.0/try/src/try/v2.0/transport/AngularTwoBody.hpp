@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_ANGULARTWOBODY
 #define TRY_V2_0_TRANSPORT_ANGULARTWOBODY
 
-#include "try/v2.0/unknownNamespace/XYs2d.hpp"
-#include "try/v2.0/unknownNamespace/Regions2d.hpp"
+#include "try/v2.0/containers/XYs2d.hpp"
+#include "try/v2.0/containers/Regions2d.hpp"
 #include "try/v2.0/transport/Isotropic2d.hpp"
 #include "try/v2.0/transport/Recoil.hpp"
 
@@ -41,9 +41,9 @@ class AngularTwoBody : public Component<transport::AngularTwoBody> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         std::optional<unknownNamespace::XYs2d>{}
+         std::optional<containers::XYs2d>{}
             / --Child<>("XYs2d") |
-         std::optional<unknownNamespace::Regions2d>{}
+         std::optional<containers::Regions2d>{}
             / --Child<>("regions2d") |
          std::optional<transport::Isotropic2d>{}
             / --Child<>("isotropic2d") |
@@ -60,8 +60,8 @@ public:
    Field<XMLName> productFrame{this};
 
    // children
-   Field<std::optional<unknownNamespace::XYs2d>> XYs2d{this};
-   Field<std::optional<unknownNamespace::Regions2d>> regions2d{this};
+   Field<std::optional<containers::XYs2d>> XYs2d{this};
+   Field<std::optional<containers::Regions2d>> regions2d{this};
    Field<std::optional<transport::Isotropic2d>> isotropic2d{this};
    Field<std::optional<transport::Recoil>> recoil{this};
 
@@ -81,8 +81,8 @@ public:
    explicit AngularTwoBody(
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<XMLName> &productFrame = {},
-      const wrapper<std::optional<unknownNamespace::XYs2d>> &XYs2d = {},
-      const wrapper<std::optional<unknownNamespace::Regions2d>> &regions2d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::Regions2d>> &regions2d = {},
       const wrapper<std::optional<transport::Isotropic2d>> &isotropic2d = {},
       const wrapper<std::optional<transport::Recoil>> &recoil = {}
    ) :

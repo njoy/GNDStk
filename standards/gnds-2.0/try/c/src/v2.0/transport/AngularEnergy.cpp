@@ -19,7 +19,7 @@ namespace extract {
    static auto XYs3d = [](auto &obj) { return &obj.XYs3d; };
 }
 
-using CPPXYs3d = unknownNamespace::XYs3d;
+using CPPXYs3d = containers::XYs3d;
 
 
 // -----------------------------------------------------------------------------

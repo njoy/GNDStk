@@ -19,7 +19,7 @@ namespace extract {
    static auto forward = [](auto &obj) { return &obj.forward; };
 }
 
-using CPPXYs2d = unknownNamespace::XYs2d;
+using CPPXYs2d = containers::XYs2d;
 using CPPIsotropic2d = transport::Isotropic2d;
 using CPPForward = transport::Forward;
 

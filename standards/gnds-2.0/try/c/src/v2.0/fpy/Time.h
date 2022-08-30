@@ -32,8 +32,8 @@
 #define C_INTERFACE_TRY_V2_0_FPY_TIME
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Double.h"
-#include "v2.0/unknownNamespace/String.h"
+#include "v2.0/containers/Double.h"
+#include "v2.0/containers/String.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

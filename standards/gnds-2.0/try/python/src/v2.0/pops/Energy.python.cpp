@@ -41,7 +41,7 @@ void wrapEnergy(python::module &module)
             const XMLName &,
             const std::optional<documentation::Documentation> &,
             const std::optional<pops::Uncertainty> &,
-            const std::optional<std::vector<unknownNamespace::Double>> &
+            const std::optional<std::vector<containers::Double>> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("unit") = std::nullopt,

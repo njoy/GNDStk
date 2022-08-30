@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TSL_SELFSCATTERINGKERNEL
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Gridded3d.h"
+#include "v2.0/containers/Gridded3d.h"
 #include "v2.0/tsl/GaussianApproximation.h"
 #include "v2.0/tsl/SCTApproximation.h"
 #include "v2.0/tsl/FreeGasApproximation.h"

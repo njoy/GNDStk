@@ -38,7 +38,7 @@ void wrapEnergyAngular(python::module &module)
          python::init<
             const std::optional<XMLName> &,
             const XMLName &,
-            const unknownNamespace::XYs3d &
+            const containers::XYs3d &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("product_frame"),

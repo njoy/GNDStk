@@ -36,7 +36,7 @@ void wrapRate(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::Double &
+            const containers::Double &
          >(),
          python::arg("double"),
          Component::documentation("constructor").data()

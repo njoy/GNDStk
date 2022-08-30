@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_COVARIANCE_COVARIANCEMATRIX
 #define TRY_V2_0_COVARIANCE_COVARIANCEMATRIX
 
-#include "try/v2.0/unknownNamespace/Gridded2d.hpp"
+#include "try/v2.0/containers/Gridded2d.hpp"
 #include "try/v2.0/covariance/SandwichProduct.hpp"
 
 namespace try {
@@ -21,7 +21,7 @@ class CovarianceMatrix : public Component<covariance::CovarianceMatrix> {
    friend class Component;
 
    using _t = std::variant<
-      unknownNamespace::Gridded2d,
+      containers::Gridded2d,
       covariance::SandwichProduct
    >;
 
@@ -61,7 +61,7 @@ public:
 
    // children - variant
    Field<_t> _gridded2dsandwichProduct{this};
-   FieldPart<decltype(_gridded2dsandwichProduct),unknownNamespace::Gridded2d> gridded2d{_gridded2dsandwichProduct};
+   FieldPart<decltype(_gridded2dsandwichProduct),containers::Gridded2d> gridded2d{_gridded2dsandwichProduct};
    FieldPart<decltype(_gridded2dsandwichProduct),covariance::SandwichProduct> sandwichProduct{_gridded2dsandwichProduct};
 
    // ------------------------

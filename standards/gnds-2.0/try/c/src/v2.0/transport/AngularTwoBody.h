@@ -32,8 +32,8 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_ANGULARTWOBODY
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/XYs2d.h"
-#include "v2.0/unknownNamespace/Regions2d.h"
+#include "v2.0/containers/XYs2d.h"
+#include "v2.0/containers/Regions2d.h"
 #include "v2.0/transport/Isotropic2d.h"
 #include "v2.0/transport/Recoil.h"
 

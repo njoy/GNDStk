@@ -32,8 +32,8 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_DOUBLEDIFFERENTIALCROSSSECTION
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Regions3d.h"
-#include "v2.0/unknownNamespace/XYs3d.h"
+#include "v2.0/containers/Regions3d.h"
+#include "v2.0/containers/XYs3d.h"
 #include "v2.0/cpTransport/CoulombPlusNuclearElastic.h"
 #include "v2.0/transport/Reference.h"
 #include "v2.0/atomic/CoherentPhotonScattering.h"

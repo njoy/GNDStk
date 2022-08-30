@@ -37,7 +37,7 @@ void wrapFlux(python::module &module)
       .def(
          python::init<
             const XMLName &,
-            const unknownNamespace::XYs2d &
+            const containers::XYs2d &
          >(),
          python::arg("label"),
          python::arg("xys2d"),

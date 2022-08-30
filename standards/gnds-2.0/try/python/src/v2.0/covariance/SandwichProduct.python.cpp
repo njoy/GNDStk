@@ -36,7 +36,7 @@ void wrapSandwichProduct(python::module &module)
    component
       .def(
          python::init<
-            const unknownNamespace::Axes &,
+            const containers::Axes &,
             const covariance::Covariance &,
             const covariance::RowSensitivity &,
             const std::optional<covariance::ColumnSensitivity> &

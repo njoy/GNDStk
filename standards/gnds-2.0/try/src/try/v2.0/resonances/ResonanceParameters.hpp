@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_RESONANCES_RESONANCEPARAMETERS
 #define TRY_V2_0_RESONANCES_RESONANCEPARAMETERS
 
-#include "try/v2.0/unknownNamespace/Table.hpp"
+#include "try/v2.0/containers/Table.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class ResonanceParameters : public Component<resonances::ResonanceParameters> {
    {
       return
          // children
-         unknownNamespace::Table{}
+         containers::Table{}
             / --Child<>("table")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<unknownNamespace::Table> table{this};
+   Field<containers::Table> table{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit ResonanceParameters(
-      const wrapper<unknownNamespace::Table> &table = {}
+      const wrapper<containers::Table> &table = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       table(this,table)

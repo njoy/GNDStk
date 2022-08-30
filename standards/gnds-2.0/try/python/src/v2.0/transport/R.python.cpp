@@ -25,8 +25,8 @@ void wrapR(python::module &module)
    // type aliases
    using Component = transport::R;
    using _t = std::variant<
-      unknownNamespace::XYs2d,
-      unknownNamespace::Regions2d
+      containers::XYs2d,
+      containers::Regions2d
    >;
 
    // create the component

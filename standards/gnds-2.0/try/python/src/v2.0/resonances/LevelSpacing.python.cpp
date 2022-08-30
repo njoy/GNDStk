@@ -36,9 +36,9 @@ void wrapLevelSpacing(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<unknownNamespace::Constant1d> &,
-            const std::optional<unknownNamespace::XYs1d> &,
-            const std::optional<unknownNamespace::Regions1d> &
+            const std::optional<containers::Constant1d> &,
+            const std::optional<containers::XYs1d> &,
+            const std::optional<containers::Regions1d> &
          >(),
          python::arg("constant1d") = std::nullopt,
          python::arg("xys1d") = std::nullopt,

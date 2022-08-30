@@ -23,11 +23,11 @@ namespace extract {
 
 using CPPDocumentation = documentation::Documentation;
 using CPPUncertainty = pops::Uncertainty;
-using CPPConstant1d = unknownNamespace::Constant1d;
-using CPPXYs1d = unknownNamespace::XYs1d;
-using CPPRegions1d = unknownNamespace::Regions1d;
-using CPPPolynomial1d = unknownNamespace::Polynomial1d;
-using CPPGridded1d = unknownNamespace::Gridded1d;
+using CPPConstant1d = containers::Constant1d;
+using CPPXYs1d = containers::XYs1d;
+using CPPRegions1d = containers::Regions1d;
+using CPPPolynomial1d = containers::Polynomial1d;
+using CPPGridded1d = containers::Gridded1d;
 
 
 // -----------------------------------------------------------------------------
