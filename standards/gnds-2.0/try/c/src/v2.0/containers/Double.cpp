@@ -17,7 +17,10 @@ namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
    static auto unit = [](auto &obj) { return &obj.unit; };
    static auto value = [](auto &obj) { return &obj.value; };
+   static auto uncertainty = [](auto &obj) { return &obj.uncertainty; };
 }
+
+using CPPUncertainty = containers::Uncertainty;
 
 
 // -----------------------------------------------------------------------------
@@ -46,13 +49,15 @@ Handle2ConstDouble
 DoubleCreateConst(
    const XMLName label,
    const XMLName unit,
-   const Float64 value
+   const Float64 value,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2Double handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       unit,
-      value
+      value,
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -62,13 +67,15 @@ Handle2Double
 DoubleCreate(
    const XMLName label,
    const XMLName unit,
-   const Float64 value
+   const Float64 value,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2Double handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       unit,
-      value
+      value,
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -232,4 +239,41 @@ DoubleValueSet(ConstHandle2Double This, const Float64 value)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// Has
+int
+DoubleUncertaintyHas(ConstHandle2ConstDouble This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+}
+
+// Get, const
+Handle2ConstUncertainty
+DoubleUncertaintyGetConst(ConstHandle2ConstDouble This)
+{
+   return detail::getField<CPP,Handle2ConstUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+}
+
+// Get, non-const
+Handle2Uncertainty
+DoubleUncertaintyGet(ConstHandle2Double This)
+{
+   return detail::getField<CPP,Handle2Uncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+}
+
+// Set
+void
+DoubleUncertaintySet(ConstHandle2Double This, ConstHandle2ConstUncertainty uncertainty)
+{
+   detail::setField<CPP,CPPUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }

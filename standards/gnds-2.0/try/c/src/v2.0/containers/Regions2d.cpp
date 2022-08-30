@@ -18,10 +18,12 @@ namespace extract {
    static auto outerDomainValue = [](auto &obj) { return &obj.outerDomainValue; };
    static auto axes = [](auto &obj) { return &obj.axes; };
    static auto function2ds = [](auto &obj) { return &obj.function2ds; };
+   static auto uncertainty = [](auto &obj) { return &obj.uncertainty; };
 }
 
 using CPPAxes = containers::Axes;
 using CPPFunction2ds = containers::Function2ds;
+using CPPUncertainty = containers::Uncertainty;
 
 
 // -----------------------------------------------------------------------------
@@ -51,14 +53,16 @@ Regions2dCreateConst(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction2ds function2ds
+   ConstHandle2ConstFunction2ds function2ds,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2Regions2d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       outerDomainValue,
       detail::tocpp<CPPAxes>(axes),
-      detail::tocpp<CPPFunction2ds>(function2ds)
+      detail::tocpp<CPPFunction2ds>(function2ds),
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -69,14 +73,16 @@ Regions2dCreate(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction2ds function2ds
+   ConstHandle2ConstFunction2ds function2ds,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2Regions2d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       outerDomainValue,
       detail::tocpp<CPPAxes>(axes),
-      detail::tocpp<CPPFunction2ds>(function2ds)
+      detail::tocpp<CPPFunction2ds>(function2ds),
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -284,4 +290,41 @@ Regions2dFunction2dsSet(ConstHandle2Regions2d This, ConstHandle2ConstFunction2ds
 {
    detail::setField<CPP,CPPFunction2ds>
       (CLASSNAME, CLASSNAME+"Function2dsSet", This, extract::function2ds, function2ds);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// Has
+int
+Regions2dUncertaintyHas(ConstHandle2ConstRegions2d This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+}
+
+// Get, const
+Handle2ConstUncertainty
+Regions2dUncertaintyGetConst(ConstHandle2ConstRegions2d This)
+{
+   return detail::getField<CPP,Handle2ConstUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+}
+
+// Get, non-const
+Handle2Uncertainty
+Regions2dUncertaintyGet(ConstHandle2Regions2d This)
+{
+   return detail::getField<CPP,Handle2Uncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+}
+
+// Set
+void
+Regions2dUncertaintySet(ConstHandle2Regions2d This, ConstHandle2ConstUncertainty uncertainty)
+{
+   detail::setField<CPP,CPPUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }

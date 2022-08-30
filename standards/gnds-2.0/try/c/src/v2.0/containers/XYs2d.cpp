@@ -20,10 +20,12 @@ namespace extract {
    static auto outerDomainValue = [](auto &obj) { return &obj.outerDomainValue; };
    static auto axes = [](auto &obj) { return &obj.axes; };
    static auto function1ds = [](auto &obj) { return &obj.function1ds; };
+   static auto uncertainty = [](auto &obj) { return &obj.uncertainty; };
 }
 
 using CPPAxes = containers::Axes;
 using CPPFunction1ds = containers::Function1ds;
+using CPPUncertainty = containers::Uncertainty;
 
 
 // -----------------------------------------------------------------------------
@@ -55,7 +57,8 @@ XYs2dCreateConst(
    const XMLName interpolationQualifier,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds
+   ConstHandle2ConstFunction1ds function1ds,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2XYs2d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -64,7 +67,8 @@ XYs2dCreateConst(
       interpolationQualifier,
       outerDomainValue,
       detail::tocpp<CPPAxes>(axes),
-      detail::tocpp<CPPFunction1ds>(function1ds)
+      detail::tocpp<CPPFunction1ds>(function1ds),
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -77,7 +81,8 @@ XYs2dCreate(
    const XMLName interpolationQualifier,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds
+   ConstHandle2ConstFunction1ds function1ds,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2XYs2d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -86,7 +91,8 @@ XYs2dCreate(
       interpolationQualifier,
       outerDomainValue,
       detail::tocpp<CPPAxes>(axes),
-      detail::tocpp<CPPFunction1ds>(function1ds)
+      detail::tocpp<CPPFunction1ds>(function1ds),
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -354,4 +360,41 @@ XYs2dFunction1dsSet(ConstHandle2XYs2d This, ConstHandle2ConstFunction1ds functio
 {
    detail::setField<CPP,CPPFunction1ds>
       (CLASSNAME, CLASSNAME+"Function1dsSet", This, extract::function1ds, function1ds);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// Has
+int
+XYs2dUncertaintyHas(ConstHandle2ConstXYs2d This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+}
+
+// Get, const
+Handle2ConstUncertainty
+XYs2dUncertaintyGetConst(ConstHandle2ConstXYs2d This)
+{
+   return detail::getField<CPP,Handle2ConstUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+}
+
+// Get, non-const
+Handle2Uncertainty
+XYs2dUncertaintyGet(ConstHandle2XYs2d This)
+{
+   return detail::getField<CPP,Handle2Uncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+}
+
+// Set
+void
+XYs2dUncertaintySet(ConstHandle2XYs2d This, ConstHandle2ConstUncertainty uncertainty)
+{
+   detail::setField<CPP,CPPUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }

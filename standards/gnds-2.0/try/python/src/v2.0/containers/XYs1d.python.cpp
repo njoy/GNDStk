@@ -41,6 +41,7 @@ void wrapXYs1d(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
+            const std::optional<containers::Uncertainty> &,
             const containers::Values &
          >(),
          python::arg("index") = std::nullopt,
@@ -48,6 +49,7 @@ void wrapXYs1d(python::module &module)
          python::arg("label") = std::nullopt,
          python::arg("outer_domain_value") = std::nullopt,
          python::arg("axes") = std::nullopt,
+         python::arg("uncertainty") = std::nullopt,
          python::arg("values"),
          Component::documentation("constructor").data()
       )
@@ -75,6 +77,11 @@ void wrapXYs1d(python::module &module)
          "axes",
          [](const Component &self) { return self.axes(); },
          Component::documentation("axes").data()
+      )
+      .def_property_readonly(
+         "uncertainty",
+         [](const Component &self) { return self.uncertainty(); },
+         Component::documentation("uncertainty").data()
       )
       .def_property_readonly(
          "values",

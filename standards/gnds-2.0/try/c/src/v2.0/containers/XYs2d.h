@@ -34,6 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/containers/Axes.h"
 #include "v2.0/containers/Function1ds.h"
+#include "v2.0/containers/Uncertainty.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -83,7 +84,8 @@ XYs2dCreateConst(
    const XMLName interpolationQualifier,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds
+   ConstHandle2ConstFunction1ds function1ds,
+   ConstHandle2ConstUncertainty uncertainty
 );
 
 // +++ Create, general
@@ -94,7 +96,8 @@ XYs2dCreate(
    const XMLName interpolationQualifier,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds
+   ConstHandle2ConstFunction1ds function1ds,
+   ConstHandle2ConstUncertainty uncertainty
 );
 
 // +++ Assign
@@ -253,6 +256,27 @@ XYs2dFunction1dsGet(ConstHandle2XYs2d This);
 // +++ Set
 extern_c void
 XYs2dFunction1dsSet(ConstHandle2XYs2d This, ConstHandle2ConstFunction1ds function1ds);
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+XYs2dUncertaintyHas(ConstHandle2ConstXYs2d This);
+
+// --- Get, const
+extern_c Handle2ConstUncertainty
+XYs2dUncertaintyGetConst(ConstHandle2ConstXYs2d This);
+
+// +++ Get, non-const
+extern_c Handle2Uncertainty
+XYs2dUncertaintyGet(ConstHandle2XYs2d This);
+
+// +++ Set
+extern_c void
+XYs2dUncertaintySet(ConstHandle2XYs2d This, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

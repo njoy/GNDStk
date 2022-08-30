@@ -39,12 +39,14 @@ void wrapXYs3d(python::module &module)
             const std::optional<enums::Interpolation> &,
             const std::optional<XMLName> &,
             const std::optional<containers::Axes> &,
-            const containers::Function2ds &
+            const containers::Function2ds &,
+            const std::optional<containers::Uncertainty> &
          >(),
          python::arg("interpolation") = std::nullopt,
          python::arg("interpolation_qualifier") = std::nullopt,
          python::arg("axes") = std::nullopt,
          python::arg("function2ds"),
+         python::arg("uncertainty") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -66,6 +68,11 @@ void wrapXYs3d(python::module &module)
          "function2ds",
          [](const Component &self) { return self.function2ds(); },
          Component::documentation("function2ds").data()
+      )
+      .def_property_readonly(
+         "uncertainty",
+         [](const Component &self) { return self.uncertainty(); },
+         Component::documentation("uncertainty").data()
       )
    ;
 

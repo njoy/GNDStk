@@ -20,10 +20,12 @@ namespace extract {
    static auto domainMin = [](auto &obj) { return &obj.domainMin; };
    static auto domainMax = [](auto &obj) { return &obj.domainMax; };
    static auto axes = [](auto &obj) { return &obj.axes; };
+   static auto uncertainty = [](auto &obj) { return &obj.uncertainty; };
    static auto values = [](auto &obj) { return &obj.values; };
 }
 
 using CPPAxes = containers::Axes;
+using CPPUncertainty = containers::Uncertainty;
 using CPPValues = containers::Values;
 
 
@@ -57,6 +59,7 @@ Polynomial1dCreateConst(
    const Float64 domainMin,
    const Float64 domainMax,
    ConstHandle2ConstAxes axes,
+   ConstHandle2ConstUncertainty uncertainty,
    ConstHandle2ConstValues values
 ) {
    ConstHandle2Polynomial1d handle = detail::createHandle<CPP,C>(
@@ -67,6 +70,7 @@ Polynomial1dCreateConst(
       domainMin,
       domainMax,
       detail::tocpp<CPPAxes>(axes),
+      detail::tocpp<CPPUncertainty>(uncertainty),
       detail::tocpp<CPPValues>(values)
    );
    return handle;
@@ -81,6 +85,7 @@ Polynomial1dCreate(
    const Float64 domainMin,
    const Float64 domainMax,
    ConstHandle2ConstAxes axes,
+   ConstHandle2ConstUncertainty uncertainty,
    ConstHandle2ConstValues values
 ) {
    ConstHandle2Polynomial1d handle = detail::createHandle<CPP,C>(
@@ -91,6 +96,7 @@ Polynomial1dCreate(
       domainMin,
       domainMax,
       detail::tocpp<CPPAxes>(axes),
+      detail::tocpp<CPPUncertainty>(uncertainty),
       detail::tocpp<CPPValues>(values)
    );
    return handle;
@@ -352,6 +358,43 @@ Polynomial1dAxesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
       (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// Has
+int
+Polynomial1dUncertaintyHas(ConstHandle2ConstPolynomial1d This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+}
+
+// Get, const
+Handle2ConstUncertainty
+Polynomial1dUncertaintyGetConst(ConstHandle2ConstPolynomial1d This)
+{
+   return detail::getField<CPP,Handle2ConstUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+}
+
+// Get, non-const
+Handle2Uncertainty
+Polynomial1dUncertaintyGet(ConstHandle2Polynomial1d This)
+{
+   return detail::getField<CPP,Handle2Uncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+}
+
+// Set
+void
+Polynomial1dUncertaintySet(ConstHandle2Polynomial1d This, ConstHandle2ConstUncertainty uncertainty)
+{
+   detail::setField<CPP,CPPUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
 
 

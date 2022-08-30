@@ -38,11 +38,13 @@ void wrapDouble(python::module &module)
          python::init<
             const std::optional<XMLName> &,
             const std::optional<XMLName> &,
-            const Float64 &
+            const Float64 &,
+            const std::optional<containers::Uncertainty> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("unit") = std::nullopt,
          python::arg("value"),
+         python::arg("uncertainty") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -59,6 +61,11 @@ void wrapDouble(python::module &module)
          "value",
          [](const Component &self) { return self.value(); },
          Component::documentation("value").data()
+      )
+      .def_property_readonly(
+         "uncertainty",
+         [](const Component &self) { return self.uncertainty(); },
+         Component::documentation("uncertainty").data()
       )
    ;
 

@@ -7,6 +7,7 @@
 
 #include "try/v2.0/containers/Axes.hpp"
 #include "try/v2.0/containers/Function2ds.hpp"
+#include "try/v2.0/containers/Uncertainty.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -42,7 +43,9 @@ class Regions2d : public Component<containers::Regions2d> {
          std::optional<containers::Axes>{}
             / --Child<>("axes") |
          containers::Function2ds{}
-            / --Child<>("function2ds")
+            / --Child<>("function2ds") |
+         std::optional<containers::Uncertainty>{}
+            / --Child<>("uncertainty")
       ;
    }
 
@@ -56,6 +59,7 @@ public:
    // children
    Field<std::optional<containers::Axes>> axes{this};
    Field<containers::Function2ds> function2ds{this};
+   Field<std::optional<containers::Uncertainty>> uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -65,20 +69,23 @@ public:
       this->label, \
       this->outerDomainValue, \
       this->axes, \
-      this->function2ds)
+      this->function2ds, \
+      this->uncertainty)
 
    // default, and from fields
    explicit Regions2d(
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<containers::Function2ds> &function2ds = {}
+      const wrapper<containers::Function2ds> &function2ds = {},
+      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       outerDomainValue(this,outerDomainValue),
       axes(this,axes),
-      function2ds(this,function2ds)
+      function2ds(this,function2ds),
+      uncertainty(this,uncertainty)
    {
       Component::finish();
    }

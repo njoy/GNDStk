@@ -33,6 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/containers/Axes.h"
+#include "v2.0/containers/Uncertainty.h"
 #include "v2.0/containers/Values.h"
 
 #ifdef __cplusplus
@@ -83,6 +84,7 @@ XYs1dCreateConst(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
+   ConstHandle2ConstUncertainty uncertainty,
    ConstHandle2ConstValues values
 );
 
@@ -94,6 +96,7 @@ XYs1dCreate(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
+   ConstHandle2ConstUncertainty uncertainty,
    ConstHandle2ConstValues values
 );
 
@@ -232,6 +235,27 @@ XYs1dAxesGet(ConstHandle2XYs1d This);
 // +++ Set
 extern_c void
 XYs1dAxesSet(ConstHandle2XYs1d This, ConstHandle2ConstAxes axes);
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+XYs1dUncertaintyHas(ConstHandle2ConstXYs1d This);
+
+// --- Get, const
+extern_c Handle2ConstUncertainty
+XYs1dUncertaintyGetConst(ConstHandle2ConstXYs1d This);
+
+// +++ Get, non-const
+extern_c Handle2Uncertainty
+XYs1dUncertaintyGet(ConstHandle2XYs1d This);
+
+// +++ Set
+extern_c void
+XYs1dUncertaintySet(ConstHandle2XYs1d This, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

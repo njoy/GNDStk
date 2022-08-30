@@ -39,12 +39,14 @@ void wrapRegions1d(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
-            const containers::Function1ds &
+            const containers::Function1ds &,
+            const std::optional<containers::Uncertainty> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("outer_domain_value") = std::nullopt,
          python::arg("axes") = std::nullopt,
          python::arg("function1ds"),
+         python::arg("uncertainty") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -66,6 +68,11 @@ void wrapRegions1d(python::module &module)
          "function1ds",
          [](const Component &self) { return self.function1ds(); },
          Component::documentation("function1ds").data()
+      )
+      .def_property_readonly(
+         "uncertainty",
+         [](const Component &self) { return self.uncertainty(); },
+         Component::documentation("uncertainty").data()
       )
    ;
 

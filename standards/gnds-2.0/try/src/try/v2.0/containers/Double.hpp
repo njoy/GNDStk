@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_CONTAINERS_DOUBLE
 #define TRY_V2_0_CONTAINERS_DOUBLE
 
-#include "try/v2.0/key.hpp"
+#include "try/v2.0/containers/Uncertainty.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -38,7 +38,10 @@ class Double : public Component<containers::Double> {
          std::optional<XMLName>{}
             / Meta<>("unit") |
          Float64{}
-            / Meta<>("value")
+            / Meta<>("value") |
+         // children
+         std::optional<containers::Uncertainty>{}
+            / --Child<>("uncertainty")
       ;
    }
 
@@ -50,6 +53,9 @@ public:
    Field<std::optional<XMLName>> unit{this};
    Field<Float64> value{this};
 
+   // children
+   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+
    // ------------------------
    // Constructors
    // ------------------------
@@ -57,18 +63,21 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->label, \
       this->unit, \
-      this->value)
+      this->value, \
+      this->uncertainty)
 
    // default, and from fields
    explicit Double(
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &unit = {},
-      const wrapper<Float64> &value = {}
+      const wrapper<Float64> &value = {},
+      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       unit(this,unit),
-      value(this,value)
+      value(this,value),
+      uncertainty(this,uncertainty)
    {
       Component::finish();
    }

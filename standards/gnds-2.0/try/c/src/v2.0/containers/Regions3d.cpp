@@ -18,10 +18,12 @@ namespace extract {
    static auto outerDomainValue = [](auto &obj) { return &obj.outerDomainValue; };
    static auto axes = [](auto &obj) { return &obj.axes; };
    static auto function3ds = [](auto &obj) { return &obj.function3ds; };
+   static auto uncertainty = [](auto &obj) { return &obj.uncertainty; };
 }
 
 using CPPAxes = containers::Axes;
 using CPPFunction3ds = containers::Function3ds;
+using CPPUncertainty = containers::Uncertainty;
 
 
 // -----------------------------------------------------------------------------
@@ -51,14 +53,16 @@ Regions3dCreateConst(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction3ds function3ds
+   ConstHandle2ConstFunction3ds function3ds,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2Regions3d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       outerDomainValue,
       detail::tocpp<CPPAxes>(axes),
-      detail::tocpp<CPPFunction3ds>(function3ds)
+      detail::tocpp<CPPFunction3ds>(function3ds),
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -69,14 +73,16 @@ Regions3dCreate(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction3ds function3ds
+   ConstHandle2ConstFunction3ds function3ds,
+   ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2Regions3d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       outerDomainValue,
       detail::tocpp<CPPAxes>(axes),
-      detail::tocpp<CPPFunction3ds>(function3ds)
+      detail::tocpp<CPPFunction3ds>(function3ds),
+      detail::tocpp<CPPUncertainty>(uncertainty)
    );
    return handle;
 }
@@ -284,4 +290,41 @@ Regions3dFunction3dsSet(ConstHandle2Regions3d This, ConstHandle2ConstFunction3ds
 {
    detail::setField<CPP,CPPFunction3ds>
       (CLASSNAME, CLASSNAME+"Function3dsSet", This, extract::function3ds, function3ds);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// Has
+int
+Regions3dUncertaintyHas(ConstHandle2ConstRegions3d This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+}
+
+// Get, const
+Handle2ConstUncertainty
+Regions3dUncertaintyGetConst(ConstHandle2ConstRegions3d This)
+{
+   return detail::getField<CPP,Handle2ConstUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+}
+
+// Get, non-const
+Handle2Uncertainty
+Regions3dUncertaintyGet(ConstHandle2Regions3d This)
+{
+   return detail::getField<CPP,Handle2Uncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+}
+
+// Set
+void
+Regions3dUncertaintySet(ConstHandle2Regions3d This, ConstHandle2ConstUncertainty uncertainty)
+{
+   detail::setField<CPP,CPPUncertainty>
+      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }

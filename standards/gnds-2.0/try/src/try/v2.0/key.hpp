@@ -227,6 +227,7 @@ inline const Child<> Ys1d("Ys1d");
 inline const Child<> array("array");
 inline const Child<> axes("axes");
 inline const Child<> axis("axis");
+inline const Child<> cdf("cdf");
 inline const Child<> column("column");
 inline const Child<> columnHeaders("columnHeaders");
 inline const Child<> confidenceIntervals("confidenceIntervals");
@@ -256,6 +257,8 @@ inline const Child<> string("string");
 inline const Child<> table("table");
 inline const Child<> uncertainty("uncertainty");
 inline const Child<> values("values");
+inline const Child<> xs("xs");
+inline const Child<> xs_pdf_cdf1d("xs_pdf_cdf1d");
 
 } // namespace child
 using namespace child;

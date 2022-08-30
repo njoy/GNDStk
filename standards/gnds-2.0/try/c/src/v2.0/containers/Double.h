@@ -32,6 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_CONTAINERS_DOUBLE
 
 #include "GNDStk.h"
+#include "v2.0/containers/Uncertainty.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -78,7 +79,8 @@ extern_c Handle2ConstDouble
 DoubleCreateConst(
    const XMLName label,
    const XMLName unit,
-   const Float64 value
+   const Float64 value,
+   ConstHandle2ConstUncertainty uncertainty
 );
 
 // +++ Create, general
@@ -86,7 +88,8 @@ extern_c Handle2Double
 DoubleCreate(
    const XMLName label,
    const XMLName unit,
-   const Float64 value
+   const Float64 value,
+   ConstHandle2ConstUncertainty uncertainty
 );
 
 // +++ Assign
@@ -185,6 +188,27 @@ DoubleValueGet(ConstHandle2ConstDouble This);
 // +++ Set
 extern_c void
 DoubleValueSet(ConstHandle2Double This, const Float64 value);
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+DoubleUncertaintyHas(ConstHandle2ConstDouble This);
+
+// --- Get, const
+extern_c Handle2ConstUncertainty
+DoubleUncertaintyGetConst(ConstHandle2ConstDouble This);
+
+// +++ Get, non-const
+extern_c Handle2Uncertainty
+DoubleUncertaintyGet(ConstHandle2Double This);
+
+// +++ Set
+extern_c void
+DoubleUncertaintySet(ConstHandle2Double This, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

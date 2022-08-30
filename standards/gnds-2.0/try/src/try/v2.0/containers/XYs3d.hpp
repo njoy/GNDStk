@@ -7,6 +7,7 @@
 
 #include "try/v2.0/containers/Axes.hpp"
 #include "try/v2.0/containers/Function2ds.hpp"
+#include "try/v2.0/containers/Uncertainty.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -42,7 +43,9 @@ class XYs3d : public Component<containers::XYs3d> {
          std::optional<containers::Axes>{}
             / --Child<>("axes") |
          containers::Function2ds{}
-            / --Child<>("function2ds")
+            / --Child<>("function2ds") |
+         std::optional<containers::Uncertainty>{}
+            / --Child<>("uncertainty")
       ;
    }
 
@@ -61,6 +64,7 @@ public:
    // children
    Field<std::optional<containers::Axes>> axes{this};
    Field<containers::Function2ds> function2ds{this};
+   Field<std::optional<containers::Uncertainty>> uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -70,7 +74,8 @@ public:
       this->interpolation, \
       this->interpolationQualifier, \
       this->axes, \
-      this->function2ds)
+      this->function2ds, \
+      this->uncertainty)
 
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
@@ -78,13 +83,15 @@ public:
       const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
       const wrapper<std::optional<XMLName>> &interpolationQualifier = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<containers::Function2ds> &function2ds = {}
+      const wrapper<containers::Function2ds> &function2ds = {},
+      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       interpolation(this,defaults.interpolation,interpolation),
       interpolationQualifier(this,interpolationQualifier),
       axes(this,axes),
-      function2ds(this,function2ds)
+      function2ds(this,function2ds),
+      uncertainty(this,uncertainty)
    {
       Component::finish();
    }

@@ -33,6 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/containers/Axes.h"
+#include "v2.0/containers/Uncertainty.h"
 #include "v2.0/containers/Values.h"
 
 #ifdef __cplusplus
@@ -84,6 +85,7 @@ Polynomial1dCreateConst(
    const Float64 domainMin,
    const Float64 domainMax,
    ConstHandle2ConstAxes axes,
+   ConstHandle2ConstUncertainty uncertainty,
    ConstHandle2ConstValues values
 );
 
@@ -96,6 +98,7 @@ Polynomial1dCreate(
    const Float64 domainMin,
    const Float64 domainMax,
    ConstHandle2ConstAxes axes,
+   ConstHandle2ConstUncertainty uncertainty,
    ConstHandle2ConstValues values
 );
 
@@ -252,6 +255,27 @@ Polynomial1dAxesGet(ConstHandle2Polynomial1d This);
 // +++ Set
 extern_c void
 Polynomial1dAxesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstAxes axes);
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+Polynomial1dUncertaintyHas(ConstHandle2ConstPolynomial1d This);
+
+// --- Get, const
+extern_c Handle2ConstUncertainty
+Polynomial1dUncertaintyGetConst(ConstHandle2ConstPolynomial1d This);
+
+// +++ Get, non-const
+extern_c Handle2Uncertainty
+Polynomial1dUncertaintyGet(ConstHandle2Polynomial1d This);
+
+// +++ Set
+extern_c void
+Polynomial1dUncertaintySet(ConstHandle2Polynomial1d This, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

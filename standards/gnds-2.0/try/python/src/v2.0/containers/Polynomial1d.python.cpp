@@ -42,6 +42,7 @@ void wrapPolynomial1d(python::module &module)
             const Float64 &,
             const Float64 &,
             const containers::Axes &,
+            const std::optional<containers::Uncertainty> &,
             const containers::Values &
          >(),
          python::arg("label") = std::nullopt,
@@ -50,6 +51,7 @@ void wrapPolynomial1d(python::module &module)
          python::arg("domain_min"),
          python::arg("domain_max"),
          python::arg("axes"),
+         python::arg("uncertainty") = std::nullopt,
          python::arg("values"),
          Component::documentation("constructor").data()
       )
@@ -82,6 +84,11 @@ void wrapPolynomial1d(python::module &module)
          "axes",
          [](const Component &self) { return self.axes(); },
          Component::documentation("axes").data()
+      )
+      .def_property_readonly(
+         "uncertainty",
+         [](const Component &self) { return self.uncertainty(); },
+         Component::documentation("uncertainty").data()
       )
       .def_property_readonly(
          "values",

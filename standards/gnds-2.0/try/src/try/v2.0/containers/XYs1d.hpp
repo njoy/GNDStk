@@ -6,6 +6,7 @@
 #define TRY_V2_0_CONTAINERS_XYS1D
 
 #include "try/v2.0/containers/Axes.hpp"
+#include "try/v2.0/containers/Uncertainty.hpp"
 #include "try/v2.0/containers/Values.hpp"
 
 namespace try {
@@ -45,6 +46,8 @@ class XYs1d : public Component<containers::XYs1d> {
          // children
          std::optional<containers::Axes>{}
             / --Child<>("axes") |
+         std::optional<containers::Uncertainty>{}
+            / --Child<>("uncertainty") |
          containers::Values{}
             / --Child<>("values")
       ;
@@ -66,6 +69,7 @@ public:
 
    // children
    Field<std::optional<containers::Axes>> axes{this};
+   Field<std::optional<containers::Uncertainty>> uncertainty{this};
    Field<containers::Values> values{this};
 
    // ------------------------
@@ -78,6 +82,7 @@ public:
       this->label, \
       this->outerDomainValue, \
       this->axes, \
+      this->uncertainty, \
       this->values)
 
    // default, and from fields
@@ -88,6 +93,7 @@ public:
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
+      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {},
       const wrapper<containers::Values> &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -96,6 +102,7 @@ public:
       label(this,label),
       outerDomainValue(this,outerDomainValue),
       axes(this,axes),
+      uncertainty(this,uncertainty),
       values(this,values)
    {
       Component::finish();

@@ -34,6 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/containers/Axes.h"
 #include "v2.0/containers/Function1ds.h"
+#include "v2.0/containers/Uncertainty.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -81,7 +82,8 @@ Regions1dCreateConst(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds
+   ConstHandle2ConstFunction1ds function1ds,
+   ConstHandle2ConstUncertainty uncertainty
 );
 
 // +++ Create, general
@@ -90,7 +92,8 @@ Regions1dCreate(
    const XMLName label,
    const Float64 outerDomainValue,
    ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds
+   ConstHandle2ConstFunction1ds function1ds,
+   ConstHandle2ConstUncertainty uncertainty
 );
 
 // +++ Assign
@@ -213,6 +216,27 @@ Regions1dFunction1dsGet(ConstHandle2Regions1d This);
 // +++ Set
 extern_c void
 Regions1dFunction1dsSet(ConstHandle2Regions1d This, ConstHandle2ConstFunction1ds function1ds);
+
+
+// -----------------------------------------------------------------------------
+// Child: uncertainty
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+Regions1dUncertaintyHas(ConstHandle2ConstRegions1d This);
+
+// --- Get, const
+extern_c Handle2ConstUncertainty
+Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d This);
+
+// +++ Get, non-const
+extern_c Handle2Uncertainty
+Regions1dUncertaintyGet(ConstHandle2Regions1d This);
+
+// +++ Set
+extern_c void
+Regions1dUncertaintySet(ConstHandle2Regions1d This, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
