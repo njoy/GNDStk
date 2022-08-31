@@ -2,11 +2,39 @@
     "__namespace__":"common",
     "Q":{
         "__class__": "nodes.Node",
-        "abstractNode": "physicalQuantityNode",
-        "attributes": {},
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "name": "unit",
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "name": "value",
+                "required": true,
+                "type": "XMLName"
+            }
+        },
         "bodyText": null,
         "childUnique":"yesLabel",
         "childNodes": {
+            "documentation": {
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "occurrence": "1",
+                "required": false
+            },
             "constant1d": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
@@ -119,10 +147,34 @@
     },
     "mass":{
         "__class__": "nodes.Node",
-        "abstractNode": "physicalQuantityNode",
-        "attributes": {},
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            }
+        },
         "bodyText": null,
         "childNodes": {
+            "documentation": {
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "occurrence": "1",
+                "required": false
+            },
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
@@ -138,10 +190,34 @@
     },
     "energy":{
         "__class__": "nodes.Node",
-        "abstractNode": "physicalQuantityNode",
-        "attributes": {},
+        "abstractNode": "physicalQuantity",
+        "attributes": {
+            "label": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            },
+            "unit": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            },
+            "value": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            }
+        },
         "bodyText": null,
         "childNodes": {
+            "documentation": {
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "occurrence": "1",
+                "required": false
+            },
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
@@ -176,8 +252,13 @@
     },
     "temperature":{
         "__class__": "nodes.Node",
-        "abstractNode": "physicalQuantityNode",
+        "abstractNode": "physicalQuantity",
         "attributes": {
+            "label": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            },
             "unit": {
                 "__class__": "nodes.Attribute",
                 "default": null,
@@ -196,7 +277,16 @@
             }
         },
         "bodyText": null,
-        "childNodes": {},
+        "childNodes": {
+            "documentation": {
+                "occurrence": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "occurrence": "1",
+                "required": false
+            }
+        },
         "description": null,
         "name": "temperature",
         "required": false,
@@ -216,7 +306,9 @@
                 "required": true
             }
         },
-        "description": "The \\texttt{externalFiles} node is used to link data from multiple GNDS files. The most common use is to establish the link between a \\texttt{reactionSuite} file and one or more corresponding \\texttt{covarianceSuite} files. ",
+        "description": [
+          "The \\element{externalFiles} node is a suite that stores a list of \\element{externalFile} nodes.   ",
+          "An \\element{externalFile} node establishes the link between a \\element{reactionSuite} file and one or more corresponding \\element{covarianceSuite} files.  "],
         "name": "externalFiles",
         "required": false,
         "rootNode": false
