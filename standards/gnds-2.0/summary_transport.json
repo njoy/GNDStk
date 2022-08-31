@@ -87,7 +87,7 @@
             },
             "reactions": {
                 "__class__": "nodes.ChildNode",
-                "description": "List of all reactions.",
+                "description": "List of all exclusive reaction nodes. The sum of the cross sections from each reaction must sum to the total cross section for neutral incident particles.",
                 "name": "reactions",
                 "occurrence": "1",
                 "required": false
@@ -256,7 +256,10 @@
                 "required": false
             }
         },
-        "description": "The \\element{sums} node contains cross sections that are summations over two or more reaction cross sections, and also multiplicities that are summations over two or more reaction product multiplicities.",
+        "description": [
+          "The \\element{sums} node contains two child nodes:  ",
+          "cross section nodes, which are summations over two or more reaction cross sections, and ",
+          "multiplicities, which are summations over two or more reaction product multiplicities."],
         "name": "sums",
         "required": false,
         "rootNode": false
@@ -333,8 +336,14 @@
     },
     "crossSection":{
         "__class__": "nodes.Node",
-        "abstractNode": null,
-        "attributes": {},
+        "abstractNode": "label",
+        "attributes": {
+            "label": {
+                "default": null,
+                "required": false,
+                "type": "XMLName"
+            }
+        },
         "bodyText": null,
         "childUnique" : "yesLabel",
         "childNodes": {
@@ -402,7 +411,12 @@
                 "required": false
             }
         },
-        "description": "The effective target area for a particular reaction or reaction-like quantity on a given target, $\\sigma(E)$.  Child elements of a \\element{crossSection} are the various representations of the cross section.  At least one element that describes the dependance of the cross section as a function of energy is required and that one contains the \\attr{representation}=\\attrval{eval} attribute.",
+        "description": [
+          "The effective target area for a particular reaction or reaction-like quantity on a given target, ",
+          "$\\sigma(E)$.  Child elements of a \\element{crossSection} correspond to various representations of ",
+          "the cross section.  At least one element that describes the dependance of the cross section as a ",
+          "function of energy is required.  For evaluated files, one element must contain the \\attr{label}=\\attrval{eval} attribute."
+        ],
         "name": "crossSection",
         "required": false,
         "rootNode": false
@@ -1391,7 +1405,7 @@
                 "required": true
             }
         },
-        "description": "A valid $P(\\mu,E'|E)$ represented with either a \\XYsThreeD\\ or \\regionsThreeD\\ functional data container.  A \\regionsThreeD\\ must contain one or more \\XYsThreeD. Each \\XYsThreeD\\ must contain a list of \\XYsTwoD and/or \\regionsTwoD\\ functional data container. A \\regionsTwoD\\ must contain one or more \\XYsTwoD.  Each \\XYsTwoD must contain a list of \\XYsOneD\\ and/or \\regionsOneD\\ functional data container.  Each \\regionsOneD\\ must contain one or more  \\XYsOneD\\ functional data container.",
+        "description": "A valid $P(\\mu,E'|E)$ represented with either a \\XYsThreeD\\ or \\regionsThreeD\\ functional data container.  A \\regionsThreeD\\ must contain one or more \\XYsThreeD. Each \\XYsThreeD\\ must contain a list of \\XYsTwoD\\ and/or \\regionsTwoD\\ functional data container. A \\regionsTwoD\\ must contain one or more \\XYsTwoD.  Each \\XYsTwoD\\ must contain a list of \\XYsOneD\\ and/or \\regionsOneD\\ functional data container.  Each \\regionsOneD\\ must contain one or more  \\XYsOneD\\ functional data container.",
         "name": "angularEnergy",
         "required": false,
         "rootNode": false
@@ -1490,7 +1504,7 @@
             "It corresponds to ENDF's File 6, LAW=2 and is very similar to ENDF's File~4.",
             "Since the energy of a particle emitted",
             "with a particular scattering cosine $\\mathrm{\\mu}$ is determined by",
-            "kinematics, it is only necessary to give:",
+            "kinematics, it is only necessary to specify the angular distribution which is easiest to do using Legendre polynomials:",
             "\\begin{eqnarray}",
             "   p_i (\\mu ,E) &=& \\int {dE' \\; f_i (\\mu ,E,E')}  \\nonumber \\\\",
             "                 &=& \\frac{1}{2} + \\sum_{l = 1}^{\\rm NL} {\\frac{{2l + 1}}{2} \\; a_l (E) \\; P_l (\\mu),}",
@@ -1547,7 +1561,7 @@
     },
     "recoil":{
         "__class__": "nodes.Node",
-        "abstractNode": "distributionNode",
+        "abstractNode": "link",
         "attributes": {
             "href": {
                 "__class__": "nodes.Attribute",
@@ -1929,8 +1943,8 @@
         "description": [
             "A \\elemlink{production} node defines a single production reaction.",
             "Like the \\elemlink{reaction} it contains a cross section and an outputChannel.",
-            "Unlike a \\elemlink{reaction}, the \\elemlink{production} does not support",
-            "differentiating between different ways of getting to the same residual. For example,",
+            "Unlike a \\elemlink{reaction}, the \\elemlink{production} does not force the evaluator to",
+            "differentiate between different ways of getting to the same residual. For example,",
             "the `n,d' `n,n+p' and `n,p+n' reactions all end up at the same residual. Inside the",
             "\\elemlink{reactions} section, evaluators may choose to store each one separately.",
             "In the \\elemlink{productions} section the three methods can be combined into a single",
@@ -1955,7 +1969,7 @@
             }
         },
         "description": [
-            "Production reactions are used for inventory applications (such as dosimetry, decay heat, activity, etc.) ",
+            "Production reactions are used for inventory applications (such as dosimetry, decay heat, and activity) ",
             "and for calculating the amount of ",
             "material accreted and/or depleted during radiation exposure."
         ],
@@ -1981,7 +1995,7 @@
             "The \\element{incompleteReactions} section allows evaluators to include information about reactions ", "without providing complete information. For example, some sub-actinide fission reaction cross sections ",
             "may be included as only a total fission cross section. This allows simulations to account for the ",
             "reaction while not considering all of the reaction process (e.g. neutron production and fission ",
-            "products) or allows the evaluator to provide unused, informative data. It is strongly recommended that",
+            "products) or allows the evaluator to provide other information. It is strongly recommended that",
             "this be used only in cases where the reaction cross sections are negligible. "
         ],
         "name": "incompleteReactions",
