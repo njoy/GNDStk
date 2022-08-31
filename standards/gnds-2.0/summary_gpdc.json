@@ -14,7 +14,7 @@
             },
             "unit": {
                 "__class__": "nodes.Attribute",
-                "default": null,
+                "default": "`' (no label)",
                 "description": "e.g. `kg' or `m'",
                 "name": "unit",
                 "required": false,
@@ -30,8 +30,16 @@
             }
         },
         "bodyText": null,
-        "childNodes": {},
-        "description": "Stores a double-precision quantity along with a unit, optional label and uncertainty",
+        "childNodes": {
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores the uncertainty on the parent \\element{double}.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores a \texttt{Float64} quantity along with a unit, optional label and uncertainty",
         "name": "double",
         "required": false,
         "rootNode": false
@@ -42,7 +50,7 @@
         "attributes": {
             "label": {
                 "__class__": "nodes.Attribute",
-                "default": null,
+                "default": "`' (no label)",
                 "description": "Unique label",
                 "name": "label",
                 "required": false,
@@ -50,7 +58,7 @@
             },
             "unit": {
                 "__class__": "nodes.Attribute",
-                "default": null,
+                "default": "`' (i.e. unitless)",
                 "description": "e.g. `kg' or `m'",
                 "name": "unit",
                 "required": false,
@@ -84,7 +92,7 @@
         "attributes": {
             "label": {
                 "__class__": "nodes.Attribute",
-                "default": null,
+                "default": "`' (no label)",
                 "description": "Unique label",
                 "name": "label",
                 "required": false,
@@ -92,7 +100,7 @@
             },
             "unit": {
                 "__class__": "nodes.Attribute",
-                "default": null,
+                "default": "`' (i.e. unitless)",
                 "description": "e.g. `J/s'",
                 "name": "unit",
                 "required": false,
@@ -164,7 +172,7 @@
                 "default": null,
                 "description": "The URL or xpath-like string pointing to the referred-to element",
                 "name": "href",
-                "required": false,
+                "required": true,
                 "type": "bodyText"
             }
         },
@@ -176,6 +184,279 @@
             "container are identical, the \\element{link} can be used rather than repeating the grid values."
         ],
         "name": "link",
+        "required": false,
+        "rootNode": false
+    },
+
+    "uncertainty":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "standard": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a normally-distributed uncertainty.",
+                "name": "standard",
+                "occurrence": "1",
+                "required": false
+            },
+            "logNormal": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a log-normal-distributed uncertainty.",
+                "name": "logNormal",
+                "occurrence": "1",
+                "required": false
+            },
+            "confidenceIntervals": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+                "name": "confidenceIntervals",
+                "occurrence": "1",
+                "required": false
+            },
+            "pdf": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores a probability distribution as a 1-dimensional function.",
+                "name": "pdf",
+                "occurrence": "1",
+                "required": false
+            },
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Store the uncertainty for a 1-dimensional function.",
+                    "Uncertainties are assumed to be normally distributed. If uncertainties are correlated,",
+                    "use the \\element{covariance} option instead."
+                ],
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "polynomial1d": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Stores uncertainties for each coefficient in a polynomial expansion.",
+                    "Uncertainties are assumed to be normally distributed. If coefficients are correlated,",
+                    "use the \\element{covariance} option instead."
+                ],
+                "name": "polynomial1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "covariance": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Stores a covariance matrix (or a link to a covariance matrix),",
+                    "usually for a 1-dimensional function."
+                ],
+                "name": "covariance",
+                "occurrence": "1",
+                "required": false
+            },
+            "listOfCovariances": {
+                "__class__": "nodes.ChildNode",
+                "description": [
+                    "Stores a list of covariance matrices (or a list of links to covariance matrices).",
+                    "This option is generally used for higher-dimensional functions. For example,",
+                    "if an angular distribution $P(\\mu|E)$ is stored as an energy-dependent list of",
+                    "\\element{Legendre} expansions, the full covariance may be decomposed into energy-dependent",
+                    "covariance matrices for each combination of $L_i$ and $L_j$. The \\element{listOfCovariances}",
+                    "lists all of these covariances."
+                ],
+                "name": "listOfCovariances",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores the uncertainty for a scalar quantity or a functional data container.",
+        "name": "uncertainty",
+        "required": false,
+        "rootNode": false
+    },
+    "listOfCovariances":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "covariance": {
+                "__class__": "nodes.ChildNode",
+                "description": "Covariance matrix (or link to a covariance matrix).",
+                "name": "covariance",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+                    "Stores a list of covariance matrices (or a list of links to covariance matrices).",
+                    "This option is generally used for higher-dimensional functions. For example,",
+                    "if an angular distribution $P(\\mu|E)$ is stored as an energy-dependent list of",
+                    "\\element{Legendre} expansions, the full covariance may be decomposed into energy-dependent",
+                    "covariance matrices for each combination of $L_i$ and $L_j$. The \\element{listOfCovariances}",
+                    "lists all of these covariances."
+        ],
+        "name": "listOfCovariances",
+        "required": false,
+        "rootNode": false
+    },
+    "covariance":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "label": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Unique label for this covariance (required if it resides in a \\elemlink{listOfCovariances}).",
+                "name": "label",
+                "required": false,
+                "type": "XMLName"
+            },
+            "href": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "The URL or xpath-like string pointing to the referred-to element. Often points to a covariance inside the \\elemlink{covarianceSuite}.",
+                "name": "href",
+                "required": false,
+                "type": "bodyText"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": [
+                    "Stores a covariance matrix (or a link to a covariance matrix),",
+                    "usually for a 1-dimensional function."
+        ],
+        "name": "covariance",
+        "required": false,
+        "rootNode": false
+    },
+
+    "standard":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores $\\sigma$ for the normal distribution.",
+                "name": "double",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store the standard deviation of a standard Gaussian uncertainty distribution. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} node."
+        ],
+        "name": "standard",
+        "required": false,
+        "rootNode": false
+    },
+    "logNormal":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "double": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores $\\sigma$ for the log-normal distribution.",
+                "name": "double",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "Used to store the standard deviation $\\sigma$ of a log-normal uncertainty distribution, $X = e^{\\mu + \\sigma Z}$. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "name": "logNormal",
+        "required": false,
+        "rootNode": false
+    },
+    "confidenceIntervals":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "interval": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores one confidence interval.",
+                "name": "interval",
+                "occurrence": "1+",
+                "required": true
+            }
+        },
+        "description": [
+            "Stores a list of intervals along with the confidence that the `true value' lies within each interval. The mean value and unit are ",
+            "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+        ],
+        "name": "confidenceIntervals",
+        "required": false,
+        "rootNode": false
+    },
+    "interval":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {
+            "confidence": {
+               "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
+                "name": "confidence",
+                "required": true,
+                "type": "Float64"
+            },
+            "lower": {
+               "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
+                "name": "lower",
+                "required": true,
+                "type": "Float64"
+            },
+            "upper": {
+               "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "Value to add to the mean to obtain the upper limit for this interval.",
+                "name": "upper",
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {},
+        "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+        "name": "interval",
+        "required": false,
+        "rootNode": false
+    },
+    "pdf":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "XYs1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability distribution stored as an \\element{XYs1d}.",
+                "name": "XYs1d",
+                "occurrence": "1",
+                "required": false
+            },
+            "regions1d": {
+                "__class__": "nodes.ChildNode",
+                "description": "Probability distribution stored as a \\element{regions1d}.",
+                "name": "regions1d",
+                "occurrence": "1",
+                "required": false
+            }
+        },
+        "description": "Stores an explicit probability distribution for the parent quantity.",
+        "name": "pdf",
         "required": false,
         "rootNode": false
     },
@@ -248,7 +529,7 @@
                 "default": null,
                 "description": "A unique label",
                 "name": "label",
-                "required": false,
+                "required": true,
                 "type": "XMLName"
             },
             "unit": {
@@ -269,7 +550,7 @@
     },
     "grid":{
         "__class__": "nodes.Node",
-        "abstractNode": "label",
+        "abstractNode": "axis",
         "attributes": {
             "index": {
                 "__class__": "nodes.Attribute",
@@ -505,7 +786,7 @@
                 "description": [
                     "Indicates whether the data are stored in row-major  ",
                     "or column-major order (i.e. whether the last or first index is varying the fastest).  ",
-                    "Allowed values are `row-major' or `column-major',"
+                    "Allowed values are `row-major' or `column-major'."
                 ],
                 "name": "storageOrder",
                 "required": false,
@@ -517,7 +798,7 @@
                 "description": [
                     "Required if this array is nested inside an \\attrval{embedded} array; not allowed otherwise; ",
                     "Gives the starting indices for a sub-array nested inside an array that uses \\attrval{embedded} compression.  ",
-                    "A comma-separated list of integers equal in dimension to the parent array. The integer type is Integer32.,"
+                    "A comma-separated list of integers equal in dimension to the parent array. The integer type is Integer32."
                 ],
                 "name": "offset",
                 "required": false,
@@ -570,12 +851,12 @@
             "other node contains the array data and its \\attr{label} attribute must ",
             "not be used. ",
             "",
-            "\\item[compression=`flattened':] In this case the array contains three \\element{values} nodes.",
+            "\\item[compression=`flattened':] in this case the array contains three \\element{values} nodes.",
             "    One node contains a list of starting indices in the flattened array and has \\attr{label}=``starts''. Another node",
             "    contains the number of values given after each `start' and has \\attr{label}=``lengths''.",
             "    The third node contains the array data and its \\attr{label} attribute shall",
             "    not be used.  The \\attr{starts} and \\attr{lengths} both shall have data",
-            "    type Integer32, and must have the same size.",
+            "    type Integer32, and must have the same number of values.",
             "",
             "\\item[compression=`embedded':] contains 0 or more child \\element{array} nodes.",
             "    Each child array shall have the same data type as the parent array,",
@@ -797,6 +1078,13 @@
                 "occurrence": "1",
                 "required": false
             },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
+            },
             "values": {
                 "__class__": "nodes.ChildNode",
                 "description": "Contains the list of the $n$ pairs of $x_i, y_i$ as the list $x_0\\ y_0\\ x_1\\ y_1\\ ...\\ x_{n-1}\\ y_{n-1}$.",
@@ -966,7 +1254,7 @@
                 "default": null,
                 "description": "$y(x_1)$ is only valid (i.e. defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
                 "name": "domainMin",
-                "required": false,
+                "required": true,
                 "type": "Float64"
             },
             "domainMax": {
@@ -974,7 +1262,7 @@
                 "default": null,
                 "description": "See \\attr{domainMin}.",
                 "name": "domainMax",
-                "required": false,
+                "required": true,
                 "type": "Float64"
             }
         },
@@ -986,6 +1274,13 @@
                 "name": "axes",
                 "occurrence": "1",
                 "required": true
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
             },
             "values": {
                 "__class__": "nodes.ChildNode",
@@ -1036,7 +1331,7 @@
                 "default": null,
                 "description": "$y(x_1)$ is only valid (i.e. defined) over the domain \\attr{domainMin} $\\le x_1 \\le$ \\attr{domainMax}.  \\attr{domainMin} must be less than or equal to \\attr{domainMax}.",
                 "name": "domainMin",
-                "required": false,
+                "required": true,
                 "type": "Float64"
             },
             "domainMax": {
@@ -1044,7 +1339,7 @@
                 "default": null,
                 "description": "See \\attr{domainMin}.",
                 "name": "domainMax",
-                "required": false,
+                "required": true,
                 "type": "Float64"
             }
         },
@@ -1060,6 +1355,112 @@
         },
         "description": "Describes a constant one-dimensional function, $f(x) = C$.",
         "name": "constant1d",
+        "required": false,
+        "rootNode": false
+    },
+
+    "xs_pdf_cdf1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": "functional",
+        "attributes": {
+            "outerDomainValue": {
+                "__class__": "nodes.Attribute",
+                "default": null,
+                "description": "When the xs\\_pdf\\_cdf1d container appears inside a higher-dimensional container, the outerDomainValue corresponds to the next higher dimension.",
+                "name": "outerDomainValue",
+                "required": false,
+                "type": "Float64"
+            }
+        },
+        "bodyText": null,
+        "childNodes": {
+            "xs": {
+                "__class__": "nodes.ChildNode",
+                "description": "Defines the common list of $x$ values for the pdf and cdf.",
+                "name": "xs",
+                "occurrence": "1",
+                "required": true
+            },
+            "pdf": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores the pdf evaluated at each corresponding $x$ value.",
+                "name": "pdf",
+                "occurrence": "1",
+                "required": true
+            },
+            "cdf": {
+                "__class__": "nodes.ChildNode",
+                "description": "Stores the cdf evaluated at each corresponding $x$ value.",
+                "name": "cdf",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": [
+            "For Monte-Carlo sampling it is often useful to store both the probability density (pdf) and cumulative probability density (cdf)",
+            "on the same grid. The sampling routine can then draw a random number in the range [0,1), do a bisection search through the cdf",
+            "to determine which interval the random number lies in, and then use the pdf to sample within that interval. The \\element{xs\\_pdf\\_cdf1d}",
+            "container provides a way to store these three related quantities together. The number of values in the \\element{xs}, \\element{pdf}",
+            "and \\element{cdf} must be the same."
+        ],
+        "name": "xs_pdf_cdf1d",
+        "required": false,
+        "rootNode": false
+    },
+    "xs_in_xs_pdf_cdf1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Stores the common list of $x$ values for use in an \\element{xs\\_pdf\\_cdf1d}.",
+        "name": "xs",
+        "required": false,
+        "rootNode": false
+    },
+    "pdf_in_xs_pdf_cdf1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Stores the value of the pdf at each $x$ in an \\element{xs\\_pdf\\_cdf1d}.",
+        "name": "pdf",
+        "required": false,
+        "rootNode": false
+    },
+    "cdf_in_xs_pdf_cdf1d":{
+        "__class__": "nodes.Node",
+        "abstractNode": null,
+        "attributes": {},
+        "bodyText": null,
+        "childNodes": {
+            "values": {
+                "__class__": "nodes.ChildNode",
+                "description": null,
+                "name": "values",
+                "occurrence": "1",
+                "required": true
+            }
+        },
+        "description": "Stores the value of the cdf at each $x$ in an \\element{xs\\_pdf\\_cdf1d}.",
+        "name": "cdf",
         "required": false,
         "rootNode": false
     },
@@ -1116,11 +1517,18 @@
                 "name": "function1ds",
                 "occurrence": "1",
                 "required": true
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this two-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": [ "This node stores a 2-dimensional function $x_0(x_2, x_1)$ as a list of 1-dimensional functions at various $x_2$ values. Each 1-dimensional ",
                          "function stores its $x_2$ point in its \\attr{value} attribute. The attributes \\attr{interpolation} and \\attr{interpolationQualifier}",
-                         " instruct how to interpolate $x_2$ and $x_0$ between two adjacent 1-dimensional functions." ],
+                         " instruct how to interpolate $x_2$ and $x_1$ between two adjacent 1-dimensional functions." ],
         "name": "XYs2d",
         "required": false,
         "rootNode": false
@@ -1210,6 +1618,13 @@
                 "name": "function2ds",
                 "occurrence": "1",
                 "required": true
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this three-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": [ "This node stores a 3-dimensional function $x_0(x_3, x_2, x_1)$ as a list of 2-dimensional functions at various $x_3$ values. Each 2-dimensional ",
@@ -1239,7 +1654,7 @@
                 "name": "gridded2d",
                 "occurrence": "choice+",
                 "required": false
-            }
+             }
         },
         "description": "This node stores a list of 2-dimensional functions.",
         "name": "function2ds",
@@ -1284,6 +1699,13 @@
                 "name": "function1ds",
                 "occurrence": "1",
                 "required": true
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": null,
@@ -1329,6 +1751,13 @@
                 "name": "function2ds",
                 "occurrence": "1",
                 "required": true
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this two-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": null,
@@ -1374,6 +1803,13 @@
                 "name": "function3ds",
                 "occurrence": "1",
                 "required": true
+            },
+            "uncertainty": {
+                "__class__": "nodes.ChildNode",
+                "description": "Uncertainty and/or covariance for this three-dimensional function.",
+                "name": "uncertainty",
+                "occurrence": "1",
+                "required": false
             }
         },
         "description": null,
@@ -1468,7 +1904,7 @@
             },
             "axes": {
                 "__class__": "nodes.ChildNode",
-                "description": "An \\element{axes} element containing the \\element{grid} elements.",
+                "description": "An \\element{axes} element containing the \\element{grid} elements for the independent axes and an axis node for the dependent axis.",
                 "name": "axes",
                 "occurrence": "1",
                 "required": true
