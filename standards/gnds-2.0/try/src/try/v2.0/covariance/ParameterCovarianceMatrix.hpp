@@ -27,7 +27,7 @@ class ParameterCovarianceMatrix : public Component<covariance::ParameterCovarian
    // Names: this namespace, this class, a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterCovarianceMatrix"; }
-   static auto FIELD() { return "parameterCovariancMatrix"; }
+   static auto FIELD() { return "parameterCovarianceMatrix"; }
 
    // Core Interface multi-query to extract metadata and child nodes
    static auto KEYS()
