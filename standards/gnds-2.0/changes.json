@@ -33,6 +33,7 @@
         "default" : {
 
             "// values that really mean: no default" : "",
+            " \\\\kern-1ex": "",
             "`' (i.e. unitless)": "",
             "`' (no label)": "",
             "`none'": "",

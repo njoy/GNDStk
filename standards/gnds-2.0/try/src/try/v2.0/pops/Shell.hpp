@@ -37,7 +37,7 @@ class Shell : public Component<pops::Shell> {
             / Meta<>("label") |
          Float64{}
             / Meta<>("value") |
-         Defaulted<XMLName>{" \\kern-1ex"}
+         std::optional<XMLName>{}
             / Meta<>("unit")
       ;
    }
@@ -45,15 +45,10 @@ class Shell : public Component<pops::Shell> {
 public:
    using Component::construct;
 
-   // defaults
-   static inline const struct Defaults {
-      static inline const XMLName unit = " \\kern-1ex";
-   } defaults;
-
    // metadata
    Field<XMLName> label{this};
    Field<Float64> value{this};
-   Field<Defaulted<XMLName>> unit{this,defaults.unit};
+   Field<std::optional<XMLName>> unit{this};
 
    // ------------------------
    // Constructors
@@ -65,7 +60,6 @@ public:
       this->unit)
 
    // default, and from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
    explicit Shell(
       const wrapper<XMLName> &label = {},
       const wrapper<Float64> &value = {},
@@ -74,7 +68,7 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       value(this,value),
-      unit(this,defaults.unit,unit)
+      unit(this,unit)
    {
       Component::finish();
    }

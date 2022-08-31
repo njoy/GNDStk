@@ -622,9 +622,33 @@
 "bindingEnergy":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Binding energy. Recommended unit: `eV', or `keV'",
@@ -931,9 +955,33 @@
 "mass":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Particle mass. Recommended units are `amu' or `MeV/c/c'.",
@@ -950,10 +998,34 @@
 "spin":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childUnique":"yesLabel",
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "fraction": {
             "__class__": "nodes.ChildNode",
             "description": "Spin assignment. Recommended unit is `hbar'. Multiple `fraction' entries may be used to indicate uncertain spin assignments.",
@@ -970,10 +1042,34 @@
 "parity":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childUnique":"yesLabel",
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "integer": {
             "__class__": "nodes.ChildNode",
             "description": "Parity assignment (unitless). Multiple `integer' entries may be used to indicate uncertain parity assignment.",
@@ -990,9 +1086,33 @@
 "charge":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "integer": {
             "__class__": "nodes.ChildNode",
             "description": "Net charge. Recommended unit is the elementary charge `e'.",
@@ -1016,9 +1136,33 @@
 "energy":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Excitation energy. Recommended unit: `eV', `MeV', etc.",
@@ -1035,10 +1179,34 @@
 "halflife":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childUnique":"yesLabel",
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "string": {
             "__class__": "nodes.ChildNode",
             "description": "Mainly used for stable particles, i.e. halflife = `stable'.",
@@ -1258,6 +1426,37 @@
     "required": false,
     "rootNode": false
 },
+"positronEmissionIntensity":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {
+        "value": {
+            "__class__": "nodes.Attribute",
+            "default": null,
+            "description": "Intensity of positron emission.",
+            "name": "value",
+            "required": true,
+            "type": "Float64"
+        }
+    },
+    "bodyText": null,
+    "childNodes": {
+        "uncertainty": {
+            "__class__": "nodes.ChildNode",
+            "description": null,
+            "name": "uncertainty",
+            "occurrence": "1",
+            "required": false
+        }
+    },
+    "description": [
+        "Contains a list of intensities for transitions in which internal conversion for a particular electron shell is ",
+        "accompanied by photon emission."
+    ],
+    "name": "positronEmissionIntensity",
+    "required": false,
+    "rootNode": false
+},
 "shell":{
     "__class__": "nodes.Node",
     "abstractNode": null,
@@ -1301,9 +1500,33 @@
 "Q":{
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
-    "attributes": {},
+    "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "value": {
+            "default": null,
+            "required": true,
+            "type": "XMLName"
+        }
+    },
     "bodyText": null,
     "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        },
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Numeric value of the decay Q-value, recommended unit `eV' or `MeV'.",
@@ -1581,6 +1804,13 @@
             "name": "photonEmissionProbabilities",
             "occurrence": "1",
             "required": false
+        },
+        "positronEmissionIntensity": {
+            "__class__": "nodes.ChildNode",
+            "description": "Intensity of transitions in which positrons are emitted as part of the decay.",
+            "name": "positronEmissionIntensity",
+            "occurrence": "1",
+            "required": false
         }
     },
     "description": "Stores a single discrete particle emission, including the energy of the emitted particle and the intensity of emission.",
@@ -1593,6 +1823,11 @@
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
     "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
         "value": {
             "__class__": "nodes.Attribute",
             "default": null,
@@ -1611,9 +1846,21 @@
         }
     },
     "bodyText": null,
-    "childNodes": {},
+    "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "__class__": "nodes.ChildNode",
+            "description": "Uncertainty on the intensity.",
+            "name": "uncertainty",
+            "occurrence": "1",
+            "required": false
+        }
+    },
     "description": "This is the energy of the discrete emitted particle.",
-    "name": "energy",
+    "name": "discreteEnergy",
     "required": false,
     "rootNode": false
 },
@@ -1621,6 +1868,16 @@
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
     "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
+        "unit": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
         "value": {
             "__class__": "nodes.Attribute",
             "default": null,
@@ -1631,7 +1888,19 @@
         }
     },
     "bodyText": null,
-    "childNodes": {},
+    "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "__class__": "nodes.ChildNode",
+            "description": "Uncertainty on the intensity.",
+            "name": "uncertainty",
+            "occurrence": "1",
+            "required": false
+        }
+    },
     "description": "Relative intensity of this decay branch (usually normalised so the most intense branch has intenisty = 1).",
     "name": "intensity",
     "required": false,
@@ -1641,6 +1910,11 @@
     "__class__": "nodes.Node",
     "abstractNode": "physicalQuantity",
     "attributes": {
+        "label": {
+            "default": null,
+            "required": false,
+            "type": "XMLName"
+        },
         "value": {
             "__class__": "nodes.Attribute",
             "default": null,
@@ -1659,7 +1933,16 @@
         }
     },
     "bodyText": null,
-    "childNodes": {},
+    "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "occurrence": "1",
+            "required": false
+        }
+    },
     "description": "Related to the probability of forming an electron/positron pair.",
     "name": "internalPairFormationCoefficient",
     "required": false,
@@ -1718,12 +2001,192 @@
         }
     },
     "bodyText": null,
-    "childNodes": {},
+    "childNodes": {
+        "documentation": {
+            "occurrence": "1",
+            "required": false
+        },
+        "uncertainty": {
+            "__class__": "nodes.ChildNode",
+            "description": null,
+            "name": "uncertainty",
+            "occurrence": "1",
+            "required": false
+        }
+    },
     "description": [
         "Stores the mean outgoing energy for one type of decay product, e.g. `n', `photon' or `e-'. ",
         "Note that the type of product is identified by the `label' attribute, but in the future this may change to a `pid'."
     ],
     "name": "averageEnergy",
+    "required": false,
+    "rootNode": false
+},
+"uncertainty":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {},
+    "bodyText": null,
+    "childNodes": {
+        "standard": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores a normally-distributed uncertainty.",
+            "name": "standard",
+            "occurrence": "1",
+            "required": false
+        },
+        "logNormal": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores a log-normal-distributed uncertainty.",
+            "name": "logNormal",
+            "occurrence": "1",
+            "required": false
+        },
+        "confidenceIntervals": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+            "name": "confidenceIntervals",
+            "occurrence": "1",
+            "required": false
+        },
+        "pdf": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores a probability distribution as a 1-dimensional function.",
+            "name": "pdf",
+            "occurrence": "1",
+            "required": false
+        }
+    },
+    "description": "Stores the uncertainty for a scalar quantity, e.g. probability or mean energy.",
+    "name": "uncertainty",
+    "required": false,
+    "rootNode": false
+},
+"standard":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {},
+    "bodyText": null,
+    "childNodes": {
+        "double": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores $\\sigma$ for the normal distribution.",
+            "name": "double",
+            "occurrence": "1",
+            "required": true
+        }
+    },
+    "description": [
+        "Used to store the standard deviation of a standard Gaussian uncertainty distribution. The mean value and unit are ",
+        "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+    ],
+    "name": "standard",
+    "required": false,
+    "rootNode": false
+},
+"logNormal":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {},
+    "bodyText": null,
+    "childNodes": {
+        "double": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores $\\sigma$ for the log-normal distribution.",
+            "name": "double",
+            "occurrence": "1",
+            "required": true
+        }
+    },
+    "description": [
+        "Used to store the standard deviation $\\sigma$ of a log-normal uncertainty distribution, $X = \\exp{\\mu + \\sigma Z}$. The mean value and unit are ",
+        "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+    ],
+    "name": "logNormal",
+    "required": false,
+    "rootNode": false
+},
+"confidenceIntervals":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {},
+    "bodyText": null,
+    "childNodes": {
+        "interval": {
+            "__class__": "nodes.ChildNode",
+            "description": "Stores one confidence interval.",
+            "name": "interval",
+            "occurrence": "1+",
+            "required": true
+        }
+    },
+    "description": [
+        "Stores a list of intervals along with the confidence that the `true value' lies within each interval. The mean value and unit are ",
+        "stored higher up in the hierarchy, for example in the parent \\element{double} or \\element{averageEnergy} node."
+    ],
+    "name": "confidenceIntervals",
+    "required": false,
+    "rootNode": false
+},
+"interval":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {
+        "confidence": {
+           "__class__": "nodes.Attribute",
+            "default": null,
+            "description": "A value between 0 and 1, indicating how confident the evaluator is that the `true' value lies between mean - lower and mean + upper.",
+            "name": "confidence",
+            "required": true,
+            "type": "Float64"
+        },
+        "lower": {
+           "__class__": "nodes.Attribute",
+            "default": null,
+            "description": "Value to subtract from the mean to obtain the lower limit for this interval.",
+            "name": "lower",
+            "required": true,
+            "type": "Float64"
+        },
+        "upper": {
+           "__class__": "nodes.Attribute",
+            "default": null,
+            "description": "Value to add to the mean to obtain the upper limit for this interval.",
+            "name": "upper",
+            "required": true,
+            "type": "Float64"
+        }
+    },
+    "bodyText": null,
+    "childNodes": {},
+    "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+    "name": "interval",
+    "required": false,
+    "rootNode": false
+},
+"pdf":{
+    "__class__": "nodes.Node",
+    "abstractNode": null,
+    "attributes": {},
+    "bodyText": null,
+    "childNodes": {
+        "XYs1d": {
+            "__class__": "nodes.ChildNode",
+            "description": "Probability distribution stored as an XYs1d.",
+            "name": "XYs1d",
+            "occurrence": "1",
+            "required": false
+        },
+        "regions1d": {
+            "__class__": "nodes.ChildNode",
+            "description": "Probability distribution stored as a regions1d.",
+            "name": "regions1d",
+            "occurrence": "1",
+            "required": false
+        }
+    },
+    "description": "Stores an explicit probability distribution for the parent quantity.",
+    "name": "pdf",
     "required": false,
     "rootNode": false
 }

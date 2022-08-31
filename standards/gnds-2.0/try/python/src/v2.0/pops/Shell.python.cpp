@@ -57,7 +57,7 @@ void wrapShell(python::module &module)
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit().value(); },
+         [](const Component &self) { return self.unit(); },
          Component::documentation("unit").data()
       )
    ;
