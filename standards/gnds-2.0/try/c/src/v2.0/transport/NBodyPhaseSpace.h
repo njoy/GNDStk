@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_NBODYPHASESPACE
 
 #include "GNDStk.h"
-#include "v2.0/ambiguousNamespace/Mass.h"
+#include "v2.0/tsl/Mass.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

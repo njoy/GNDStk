@@ -18,7 +18,7 @@ namespace extract {
    static auto mass = [](auto &obj) { return &obj.mass; };
 }
 
-using CPPMass = ambiguousNamespace::Mass;
+using CPPMass = tsl::Mass;
 
 
 // -----------------------------------------------------------------------------

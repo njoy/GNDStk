@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TRANSPORT_NBODYPHASESPACE
 #define TRY_V2_0_TRANSPORT_NBODYPHASESPACE
 
-#include "try/v2.0/ambiguousNamespace/Mass.hpp"
+#include "try/v2.0/tsl/Mass.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -36,7 +36,7 @@ class NBodyPhaseSpace : public Component<transport::NBodyPhaseSpace> {
          std::optional<Integer32>{}
             / Meta<>("numberOfProducts") |
          // children
-         std::optional<ambiguousNamespace::Mass>{}
+         std::optional<tsl::Mass>{}
             / --Child<>("mass")
       ;
    }
@@ -48,7 +48,7 @@ public:
    Field<std::optional<Integer32>> numberOfProducts{this};
 
    // children
-   Field<std::optional<ambiguousNamespace::Mass>> mass{this};
+   Field<std::optional<tsl::Mass>> mass{this};
 
    // ------------------------
    // Constructors
@@ -61,7 +61,7 @@ public:
    // default, and from fields
    explicit NBodyPhaseSpace(
       const wrapper<std::optional<Integer32>> &numberOfProducts = {},
-      const wrapper<std::optional<ambiguousNamespace::Mass>> &mass = {}
+      const wrapper<std::optional<tsl::Mass>> &mass = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       numberOfProducts(this,numberOfProducts),

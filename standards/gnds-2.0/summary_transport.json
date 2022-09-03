@@ -1241,6 +1241,7 @@
             "mass": {
                 "__class__": "nodes.ChildNode",
                 "description": "The total mass of the products being treated by this distribution.",
+                "namespace": "tsl",
                 "name": "mass",
                 "occurrence": "1",
                 "required": false

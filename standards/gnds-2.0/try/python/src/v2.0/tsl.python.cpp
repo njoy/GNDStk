@@ -12,6 +12,7 @@ namespace python_v2_0 {
 
 // tsl declarations
 namespace python_tsl {
+   void wrapMass(python::module &);
    void wrapThermalNeutronScatteringLaw1d(python::module &);
    void wrapThermalNeutronScatteringLaw(python::module &);
    void wrapS_table(python::module &);
@@ -23,7 +24,6 @@ namespace python_tsl {
    void wrapBoundAtomCrossSection(python::module &);
    void wrapDebyeWallerIntegral(python::module &);
    void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &);
-   void wrapMass(python::module &);
    void wrapE_critical(python::module &);
    void wrapE_max(python::module &);
    void wrapCoherentAtomCrossSection(python::module &);
@@ -49,6 +49,7 @@ void wrapTsl(python::module &module)
    );
 
    // wrap tsl components
+   python_tsl::wrapMass(submodule);
    python_tsl::wrapThermalNeutronScatteringLaw1d(submodule);
    python_tsl::wrapThermalNeutronScatteringLaw(submodule);
    python_tsl::wrapS_table(submodule);
@@ -60,7 +61,6 @@ void wrapTsl(python::module &module)
    python_tsl::wrapBoundAtomCrossSection(submodule);
    python_tsl::wrapDebyeWallerIntegral(submodule);
    python_tsl::wrapThermalNeutronScatteringLaw_incoherentElastic(submodule);
-   python_tsl::wrapMass(submodule);
    python_tsl::wrapE_critical(submodule);
    python_tsl::wrapE_max(submodule);
    python_tsl::wrapCoherentAtomCrossSection(submodule);

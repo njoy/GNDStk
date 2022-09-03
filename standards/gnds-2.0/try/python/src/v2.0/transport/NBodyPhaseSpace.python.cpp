@@ -37,7 +37,7 @@ void wrapNBodyPhaseSpace(python::module &module)
       .def(
          python::init<
             const std::optional<Integer32> &,
-            const std::optional<ambiguousNamespace::Mass> &
+            const std::optional<tsl::Mass> &
          >(),
          python::arg("number_of_products") = std::nullopt,
          python::arg("mass") = std::nullopt,
