@@ -370,6 +370,7 @@
 #include "try/v2.0/tsl/ThermalNeutronScatteringLaw_incoherentElastic.hpp"
 #include "try/v2.0/tsl/DebyeWallerIntegral.hpp"
 #include "try/v2.0/tsl/ThermalNeutronScatteringLaw_incoherentInelastic.hpp"
+#include "try/v2.0/tsl/Mass.hpp"
 #include "try/v2.0/tsl/ScatteringAtom.hpp"
 #include "try/v2.0/tsl/ScatteringAtoms.hpp"
 #include "try/v2.0/tsl/E_critical.hpp"

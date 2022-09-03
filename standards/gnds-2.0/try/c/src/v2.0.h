@@ -381,6 +381,7 @@
 #include "v2.0/tsl/ThermalNeutronScatteringLaw_incoherentElastic.h"
 #include "v2.0/tsl/DebyeWallerIntegral.h"
 #include "v2.0/tsl/ThermalNeutronScatteringLaw_incoherentInelastic.h"
+#include "v2.0/tsl/Mass.h"
 #include "v2.0/tsl/ScatteringAtom.h"
 #include "v2.0/tsl/ScatteringAtoms.h"
 #include "v2.0/tsl/E_critical.h"

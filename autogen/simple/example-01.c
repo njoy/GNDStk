@@ -5,7 +5,7 @@
 int main()
 {
    // colorize diagnostics and prettyprinting
-   colors(1);
+   color(1);
 
    Foobar one = FoobarDefault();
    Foobar two = FoobarDefault();

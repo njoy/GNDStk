@@ -470,6 +470,19 @@
         "required": false,
         "rootNode": false
     },
+    "mass":{
+        "attributes": {
+            "unit": {
+                "required": true,
+                "type": "XMLName"
+            },
+            "value": {
+                "required": true,
+                "type": "Float64"
+            }
+        },
+        "childNodes": {}
+    },
     "scatteringAtom":{
         "__class__": "nodes.Node",
         "abstractNode": null,
@@ -504,6 +517,7 @@
             "mass": {
                 "__class__": "nodes.ChildNode",
                 "description": "Mass of this scattering atom. Note that unlike ENDF-6, the mass is for a single atom (not multiplied by the number of atoms/molecule).",
+                "namespace": "tsl",
                 "name": "mass",
                 "occurrence": "1",
                 "required": true

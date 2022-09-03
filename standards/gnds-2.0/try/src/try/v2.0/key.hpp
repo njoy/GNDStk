@@ -719,6 +719,7 @@ inline const Child<> distinctScatteringKernel("distinctScatteringKernel");
 inline const Child<> e_critical("e_critical");
 inline const Child<> e_max("e_max");
 inline const Child<> freeGasApproximation("freeGasApproximation");
+inline const Child<> mass("mass");
 inline const Child<> phononSpectrum("phononSpectrum");
 inline const Child<> scatteringAtom("scatteringAtom");
 inline const Child<> scatteringAtoms("scatteringAtoms");

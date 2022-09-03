@@ -968,7 +968,7 @@
         },
         "value": {
             "default": null,
-            "required": true,
+            "required": false,
             "type": "XMLName"
         }
     },

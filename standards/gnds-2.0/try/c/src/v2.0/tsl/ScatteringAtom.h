@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TSL_SCATTERINGATOM
 
 #include "GNDStk.h"
-#include "v2.0/ambiguousNamespace/Mass.h"
+#include "v2.0/tsl/Mass.h"
 #include "v2.0/tsl/E_critical.h"
 #include "v2.0/tsl/E_max.h"
 #include "v2.0/tsl/BoundAtomCrossSection.h"

@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TSL_SCATTERINGATOM
 #define TRY_V2_0_TSL_SCATTERINGATOM
 
-#include "try/v2.0/ambiguousNamespace/Mass.hpp"
+#include "try/v2.0/tsl/Mass.hpp"
 #include "try/v2.0/tsl/E_critical.hpp"
 #include "try/v2.0/tsl/E_max.hpp"
 #include "try/v2.0/tsl/BoundAtomCrossSection.hpp"
@@ -47,7 +47,7 @@ class ScatteringAtom : public Component<tsl::ScatteringAtom> {
          Integer32{}
             / Meta<>("numberPerMolecule") |
          // children
-         ambiguousNamespace::Mass{}
+         tsl::Mass{}
             / --Child<>("mass") |
          std::optional<tsl::E_critical>{}
             / --Child<>("e_critical") |
@@ -75,7 +75,7 @@ public:
    Field<Integer32> numberPerMolecule{this};
 
    // children
-   Field<ambiguousNamespace::Mass> mass{this};
+   Field<tsl::Mass> mass{this};
    Field<std::optional<tsl::E_critical>> e_critical{this};
    Field<tsl::E_max> e_max{this};
    Field<tsl::BoundAtomCrossSection> boundAtomCrossSection{this};
@@ -106,7 +106,7 @@ public:
       const wrapper<XMLName> &pid = {},
       const wrapper<bool> &primaryScatterer = {},
       const wrapper<Integer32> &numberPerMolecule = {},
-      const wrapper<ambiguousNamespace::Mass> &mass = {},
+      const wrapper<tsl::Mass> &mass = {},
       const wrapper<std::optional<tsl::E_critical>> &e_critical = {},
       const wrapper<tsl::E_max> &e_max = {},
       const wrapper<tsl::BoundAtomCrossSection> &boundAtomCrossSection = {},

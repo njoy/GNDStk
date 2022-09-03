@@ -39,7 +39,7 @@ void wrapScatteringAtom(python::module &module)
             const XMLName &,
             const bool &,
             const Integer32 &,
-            const ambiguousNamespace::Mass &,
+            const tsl::Mass &,
             const std::optional<tsl::E_critical> &,
             const tsl::E_max &,
             const tsl::BoundAtomCrossSection &,

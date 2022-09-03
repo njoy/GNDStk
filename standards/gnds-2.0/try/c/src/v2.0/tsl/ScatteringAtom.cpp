@@ -27,7 +27,7 @@ namespace extract {
    static auto T_effective = [](auto &obj) { return &obj.T_effective; };
 }
 
-using CPPMass = ambiguousNamespace::Mass;
+using CPPMass = tsl::Mass;
 using CPPE_critical = tsl::E_critical;
 using CPPE_max = tsl::E_max;
 using CPPBoundAtomCrossSection = tsl::BoundAtomCrossSection;
