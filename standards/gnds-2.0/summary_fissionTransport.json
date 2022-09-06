@@ -383,6 +383,7 @@
             "a": {
                 "__class__": "nodes.ChildNode",
                 "description": "Contains one \\XYsOneD\\ or \\regionsOneD\\ functional data container that represents a valid $a(E)$.",
+                "namespace": "fissionTransport",
                 "name": "a",
                 "occurrence": "1",
                 "required": true

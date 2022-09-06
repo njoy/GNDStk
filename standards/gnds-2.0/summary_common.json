@@ -135,6 +135,7 @@
             "product": {
                 "__class__": "nodes.ChildNode",
                 "description": "One or more \\element{product} child element.",
+                "namespace": "common",
                 "name": "product",
                 "occurrence": "1+",
                 "required": false

@@ -157,6 +157,7 @@
             "temperature": {
                 "__class__": "nodes.ChildNode",
                 "description": "The temperature the data are evaluated at.",
+                "namespace": "styles",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": true
@@ -316,6 +317,7 @@
             "temperature": {
                 "__class__": "nodes.ChildNode",
                 "description": "The temperature the data are evalauted at.",
+                "namespace": "styles",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": false
@@ -368,6 +370,7 @@
             "temperature": {
                 "__class__": "nodes.ChildNode",
                 "description": "The temperature the data are evalauted at.",
+                "namespace": "styles",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": false
@@ -476,6 +479,7 @@
             "temperature": {
                 "__class__": "nodes.ChildNode",
                 "description": "The temperature the data for this style were heated to.",
+                "namespace": "styles",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": true
@@ -528,6 +532,7 @@
             "temperature": {
                 "__class__": "nodes.ChildNode",
                 "description": "The temperature the data for this style were heated to.",
+                "namespace": "styles",
                 "name": "temperature",
                 "occurrence": "1",
                 "required": true

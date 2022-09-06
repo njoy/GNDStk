@@ -34,6 +34,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores the uncertainty on the parent \\element{double}.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -197,6 +198,7 @@
             "standard": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores a normally-distributed uncertainty.",
+                "namespace": "containers",
                 "name": "standard",
                 "occurrence": "1",
                 "required": false
@@ -204,6 +206,7 @@
             "logNormal": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores a log-normal-distributed uncertainty.",
+                "namespace": "containers",
                 "name": "logNormal",
                 "occurrence": "1",
                 "required": false
@@ -211,6 +214,7 @@
             "confidenceIntervals": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+                "namespace": "containers",
                 "name": "confidenceIntervals",
                 "occurrence": "1",
                 "required": false
@@ -218,6 +222,7 @@
             "pdf": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores a probability distribution as a 1-dimensional function.",
+                "namespace": "containers",
                 "name": "pdf",
                 "occurrence": "1",
                 "required": false
@@ -250,6 +255,7 @@
                     "Stores a covariance matrix (or a link to a covariance matrix),",
                     "usually for a 1-dimensional function."
                 ],
+                "namespace": "containers",
                 "name": "covariance",
                 "occurrence": "1",
                 "required": false
@@ -283,6 +289,7 @@
             "covariance": {
                 "__class__": "nodes.ChildNode",
                 "description": "Covariance matrix (or link to a covariance matrix).",
+                "namespace": "containers",
                 "name": "covariance",
                 "occurrence": "1+",
                 "required": true
@@ -385,6 +392,7 @@
             "interval": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores one confidence interval.",
+                "namespace": "containers",
                 "name": "interval",
                 "occurrence": "1+",
                 "required": true
@@ -1081,6 +1089,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1278,6 +1287,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1384,6 +1394,7 @@
             "pdf": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores the pdf evaluated at each corresponding $x$ value.",
+                "namespace": "containers",
                 "name": "pdf",
                 "occurrence": "1",
                 "required": true
@@ -1521,6 +1532,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this two-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1622,6 +1634,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this three-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1703,6 +1716,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1755,6 +1769,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this two-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1807,6 +1822,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this three-dimensional function.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false

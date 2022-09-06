@@ -37,6 +37,7 @@
             "nuclides": {
                 "__class__": "nodes.ChildNode",
                 "description": "List of nuclide id's.  For spontaneous yields, all \\element{elapsedTimes} use the same list of nuclides.",
+                "namespace": "fpy",
                 "name": "nuclides",
                 "occurrence": "1",
                 "required": false
@@ -187,6 +188,7 @@
             "nuclides": {
                 "__class__": "nodes.ChildNode",
                 "description": "List of nuclide id's or href pointing to another \\element{nuclides} node.",
+                "namespace": "fpy",
                 "name": "nuclides",
                 "occurrence": "1",
                 "required": true
@@ -248,6 +250,7 @@
             "energy": {
                 "__class__": "nodes.ChildNode",
                 "description": "The projectile's incident energy.",
+                "namespace": "fpy",
                 "name": "energy",
                 "occurrence": "1",
                 "required": true

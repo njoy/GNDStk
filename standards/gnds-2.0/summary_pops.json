@@ -256,6 +256,7 @@
         "mass": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "mass",
             "occurrence": "1",
             "required": false
@@ -347,6 +348,7 @@
         "mass": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "mass",
             "occurrence": "1",
             "required": false
@@ -430,6 +432,7 @@
         "mass": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "mass",
             "occurrence": "1",
             "required": false
@@ -646,6 +649,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -708,6 +712,7 @@
         "nuclides": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "nuclides",
             "occurrence": "1",
             "required": false
@@ -766,6 +771,7 @@
         "mass": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "mass",
             "occurrence": "1",
             "required": false
@@ -847,6 +853,7 @@
         "energy": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "energy",
             "occurrence": "1",
             "required": false
@@ -937,6 +944,7 @@
         "mass": {
             "__class__": "nodes.ChildNode",
             "description": "",
+            "namespace": "pops",
             "name": "mass",
             "occurrence": "1",
             "required": false
@@ -979,6 +987,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1023,6 +1032,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1067,6 +1077,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1110,6 +1121,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1160,6 +1172,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1204,6 +1217,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1313,6 +1327,7 @@
         "probability": {
             "__class__": "nodes.ChildNode",
             "description": "Probability that this decay mode occurs. Probability of all `decayMode' nodes should sum to 1.0.",
+            "namespace": "pops",
             "name": "probability",
             "occurrence": "1",
             "required": true
@@ -1327,6 +1342,7 @@
         "photonEmissionProbabilities": {
             "__class__": "nodes.ChildNode",
             "description": "Probability that photons are emitted as part of the decay.",
+            "namespace": "pops",
             "name": "photonEmissionProbabilities",
             "occurrence": "1",
             "required": false
@@ -1334,6 +1350,7 @@
         "Q": {
             "__class__": "nodes.ChildNode",
             "description": "Decay Q-value.",
+            "namespace": "pops",
             "name": "Q",
             "occurrence": "1",
             "required": false
@@ -1444,6 +1461,7 @@
         "uncertainty": {
             "__class__": "nodes.ChildNode",
             "description": null,
+            "namespace": "pops",
             "name": "uncertainty",
             "occurrence": "1",
             "required": false
@@ -1524,6 +1542,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         },
@@ -1603,6 +1622,7 @@
         "products": {
             "__class__": "nodes.ChildNode",
             "description": "List of decay products.",
+            "namespace": "pops",
             "name": "products",
             "occurrence": "1",
             "required": false
@@ -1622,6 +1642,7 @@
         "product": {
             "__class__": "nodes.ChildNode",
             "description": "Single decay product.",
+            "namespace": "pops",
             "name": "product",
             "occurrence": "1+",
             "required": true
@@ -1773,6 +1794,7 @@
         "discreteEnergy": {
             "__class__": "nodes.ChildNode",
             "description": "Emitted particle energy.",
+            "namespace": "pops",
             "name": "energy",
             "occurrence": "1",
             "required": true
@@ -1801,6 +1823,7 @@
         "photonEmissionProbabilities": {
             "__class__": "nodes.ChildNode",
             "description": "Probability that photons are emitted as part of the decay.",
+            "namespace": "pops",
             "name": "photonEmissionProbabilities",
             "occurrence": "1",
             "required": false
@@ -1854,6 +1877,7 @@
         "uncertainty": {
             "__class__": "nodes.ChildNode",
             "description": "Uncertainty on the intensity.",
+            "namespace": "pops",
             "name": "uncertainty",
             "occurrence": "1",
             "required": false
@@ -1896,6 +1920,7 @@
         "uncertainty": {
             "__class__": "nodes.ChildNode",
             "description": "Uncertainty on the intensity.",
+            "namespace": "pops",
             "name": "uncertainty",
             "occurrence": "1",
             "required": false
@@ -1939,6 +1964,7 @@
             "required": false
         },
         "uncertainty": {
+            "namespace": "pops",
             "occurrence": "1",
             "required": false
         }
@@ -2009,6 +2035,7 @@
         "uncertainty": {
             "__class__": "nodes.ChildNode",
             "description": null,
+            "namespace": "pops",
             "name": "uncertainty",
             "occurrence": "1",
             "required": false
@@ -2031,6 +2058,7 @@
         "standard": {
             "__class__": "nodes.ChildNode",
             "description": "Stores a normally-distributed uncertainty.",
+            "namespace": "pops",
             "name": "standard",
             "occurrence": "1",
             "required": false
@@ -2038,6 +2066,7 @@
         "logNormal": {
             "__class__": "nodes.ChildNode",
             "description": "Stores a log-normal-distributed uncertainty.",
+            "namespace": "pops",
             "name": "logNormal",
             "occurrence": "1",
             "required": false
@@ -2045,6 +2074,7 @@
         "confidenceIntervals": {
             "__class__": "nodes.ChildNode",
             "description": "Stores a list of intervals along with the confidence that the `true value' lies within each interval.",
+            "namespace": "pops",
             "name": "confidenceIntervals",
             "occurrence": "1",
             "required": false
@@ -2052,6 +2082,7 @@
         "pdf": {
             "__class__": "nodes.ChildNode",
             "description": "Stores a probability distribution as a 1-dimensional function.",
+            "namespace": "pops",
             "name": "pdf",
             "occurrence": "1",
             "required": false
@@ -2115,6 +2146,7 @@
         "interval": {
             "__class__": "nodes.ChildNode",
             "description": "Stores one confidence interval.",
+            "namespace": "pops",
             "name": "interval",
             "occurrence": "1+",
             "required": true

@@ -201,6 +201,7 @@
             "covariance": {
                 "__class__": "nodes.ChildNode",
                 "description": "Array containing the inner portion of the sandwich product.",
+                "namespace": "covariance",
                 "name": "covariance",
                 "occurrence": "1",
                 "required": true

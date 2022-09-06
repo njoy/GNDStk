@@ -1132,6 +1132,7 @@
             "multiGroup3d": {
                 "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). This is a multi-group Legendre expanded representation with grouped integration over $E$ and $E'$. The representation is used by deterministic transport codes.",
+                "namespace": "transport",
                 "name": "multiGroup3d",
                 "occurrence": "choice",
                 "required": false
@@ -1620,6 +1621,7 @@
             "a": {
                 "__class__": "nodes.ChildNode",
                 "description": "Kalbach-Mann $a$ parameter.",
+                "namespace": "transport",
                 "name": "a",
                 "occurrence": "1",
                 "required": false
