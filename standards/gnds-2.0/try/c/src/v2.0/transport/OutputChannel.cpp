@@ -21,8 +21,8 @@ namespace extract {
    static auto fissionFragmentData = [](auto &obj) { return &obj.fissionFragmentData; };
 }
 
-using CPPQ = ambiguousNamespace::Q;
-using CPPProducts = ambiguousNamespace::Products;
+using CPPQ = common::Q;
+using CPPProducts = common::Products;
 using CPPFissionFragmentData = fissionFragmentData::FissionFragmentData;
 
 

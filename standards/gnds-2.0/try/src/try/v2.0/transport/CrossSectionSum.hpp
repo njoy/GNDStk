@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_TRANSPORT_CROSSSECTIONSUM
 #define TRY_V2_0_TRANSPORT_CROSSSECTIONSUM
 
-#include "try/v2.0/ambiguousNamespace/Q.hpp"
+#include "try/v2.0/common/Q.hpp"
 #include "try/v2.0/transport/CrossSection.hpp"
 #include "try/v2.0/transport/Summands.hpp"
 
@@ -40,7 +40,7 @@ class CrossSectionSum : public Component<transport::CrossSectionSum> {
          XMLName{}
             / Meta<>("label") |
          // children
-         ambiguousNamespace::Q{}
+         common::Q{}
             / --Child<>("Q") |
          transport::CrossSection{}
             / --Child<>("crossSection") |
@@ -57,7 +57,7 @@ public:
    Field<XMLName> label{this};
 
    // children
-   Field<ambiguousNamespace::Q> Q{this};
+   Field<common::Q> Q{this};
    Field<transport::CrossSection> crossSection{this};
    Field<transport::Summands> summands{this};
 
@@ -76,7 +76,7 @@ public:
    explicit CrossSectionSum(
       const wrapper<std::optional<Integer32>> &ENDF_MT = {},
       const wrapper<XMLName> &label = {},
-      const wrapper<ambiguousNamespace::Q> &Q = {},
+      const wrapper<common::Q> &Q = {},
       const wrapper<transport::CrossSection> &crossSection = {},
       const wrapper<transport::Summands> &summands = {}
    ) :

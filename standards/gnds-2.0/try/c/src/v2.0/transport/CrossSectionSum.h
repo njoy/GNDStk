@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_CROSSSECTIONSUM
 
 #include "GNDStk.h"
-#include "v2.0/ambiguousNamespace/Q.h"
+#include "v2.0/common/Q.h"
 #include "v2.0/transport/CrossSection.h"
 #include "v2.0/transport/Summands.h"
 

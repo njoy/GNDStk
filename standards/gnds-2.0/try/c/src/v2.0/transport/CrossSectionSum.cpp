@@ -21,7 +21,7 @@ namespace extract {
    static auto summands = [](auto &obj) { return &obj.summands; };
 }
 
-using CPPQ = ambiguousNamespace::Q;
+using CPPQ = common::Q;
 using CPPCrossSection = transport::CrossSection;
 using CPPSummands = transport::Summands;
 

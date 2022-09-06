@@ -38,7 +38,7 @@ void wrapCrossSectionSum(python::module &module)
          python::init<
             const std::optional<Integer32> &,
             const XMLName &,
-            const ambiguousNamespace::Q &,
+            const common::Q &,
             const transport::CrossSection &,
             const transport::Summands &
          >(),

@@ -38,8 +38,8 @@ void wrapOutputChannel(python::module &module)
          python::init<
             const std::optional<XMLName> &,
             const std::optional<XMLName> &,
-            const std::optional<ambiguousNamespace::Q> &,
-            const std::optional<ambiguousNamespace::Products> &,
+            const std::optional<common::Q> &,
+            const std::optional<common::Products> &,
             const std::optional<fissionFragmentData::FissionFragmentData> &
          >(),
          python::arg("genre") = std::nullopt,

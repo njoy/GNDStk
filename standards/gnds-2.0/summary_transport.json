@@ -290,6 +290,7 @@
             "Q": {
                 "__class__": "nodes.ChildNode",
                 "description": "The $Q$-value of the reaction. Fission reactions have a different format than other reactions.",
+                "namespace": "common",
                 "name": "Q",
                 "occurrence": "1",
                 "required": false
@@ -297,6 +298,7 @@
             "products": {
                 "__class__": "nodes.ChildNode",
                 "description": "A list of secondary products from the reaction",
+                "namespace": "common",
                 "name": "products",
                 "occurrence": "1",
                 "required": false
@@ -686,6 +688,7 @@
             "Q": {
                 "__class__": "nodes.ChildNode",
                 "description": "The $Q$-value of the summed reaction.",
+                "namespace": "common",
                 "name": "Q",
                 "occurrence": "1",
                 "required": true

@@ -32,8 +32,8 @@
 #define C_INTERFACE_TRY_V2_0_TRANSPORT_OUTPUTCHANNEL
 
 #include "GNDStk.h"
-#include "v2.0/ambiguousNamespace/Q.h"
-#include "v2.0/ambiguousNamespace/Products.h"
+#include "v2.0/common/Q.h"
+#include "v2.0/common/Products.h"
 #include "v2.0/fissionFragmentData/FissionFragmentData.h"
 
 #ifdef __cplusplus

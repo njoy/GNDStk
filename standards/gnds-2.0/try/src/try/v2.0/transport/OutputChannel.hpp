@@ -5,8 +5,8 @@
 #ifndef TRY_V2_0_TRANSPORT_OUTPUTCHANNEL
 #define TRY_V2_0_TRANSPORT_OUTPUTCHANNEL
 
-#include "try/v2.0/ambiguousNamespace/Q.hpp"
-#include "try/v2.0/ambiguousNamespace/Products.hpp"
+#include "try/v2.0/common/Q.hpp"
+#include "try/v2.0/common/Products.hpp"
 #include "try/v2.0/fissionFragmentData/FissionFragmentData.hpp"
 
 namespace try {
@@ -40,9 +40,9 @@ class OutputChannel : public Component<transport::OutputChannel> {
          std::optional<XMLName>{}
             / Meta<>("process") |
          // children
-         std::optional<ambiguousNamespace::Q>{}
+         std::optional<common::Q>{}
             / --Child<>("Q") |
-         std::optional<ambiguousNamespace::Products>{}
+         std::optional<common::Products>{}
             / --Child<>("products") |
          std::optional<fissionFragmentData::FissionFragmentData>{}
             / --Child<>("fissionFragmentData")
@@ -57,8 +57,8 @@ public:
    Field<std::optional<XMLName>> process{this};
 
    // children
-   Field<std::optional<ambiguousNamespace::Q>> Q{this};
-   Field<std::optional<ambiguousNamespace::Products>> products{this};
+   Field<std::optional<common::Q>> Q{this};
+   Field<std::optional<common::Products>> products{this};
    Field<std::optional<fissionFragmentData::FissionFragmentData>> fissionFragmentData{this};
 
    // ------------------------
@@ -76,8 +76,8 @@ public:
    explicit OutputChannel(
       const wrapper<std::optional<XMLName>> &genre = {},
       const wrapper<std::optional<XMLName>> &process = {},
-      const wrapper<std::optional<ambiguousNamespace::Q>> &Q = {},
-      const wrapper<std::optional<ambiguousNamespace::Products>> &products = {},
+      const wrapper<std::optional<common::Q>> &Q = {},
+      const wrapper<std::optional<common::Products>> &products = {},
       const wrapper<std::optional<fissionFragmentData::FissionFragmentData>> &fissionFragmentData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
