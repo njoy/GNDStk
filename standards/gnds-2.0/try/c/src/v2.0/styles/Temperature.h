@@ -33,7 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
-#include "v2.0/ambiguousNamespace/Uncertainty.h"
+#include "v2.0/pops/Uncertainty.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

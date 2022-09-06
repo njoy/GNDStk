@@ -40,7 +40,7 @@ void wrapTemperature(python::module &module)
             const Float64 &,
             const XMLName &,
             const std::optional<documentation::Documentation> &,
-            const std::optional<ambiguousNamespace::Uncertainty> &
+            const std::optional<pops::Uncertainty> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("value"),

@@ -269,6 +269,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "The \\elemlink{uncertainty} node.",
+                "namespace": "pops",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
