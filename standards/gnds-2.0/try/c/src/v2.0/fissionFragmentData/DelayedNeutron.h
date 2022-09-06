@@ -33,7 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/fissionFragmentData/Rate.h"
-#include "v2.0/ambiguousNamespace/Product.h"
+#include "v2.0/common/Product.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

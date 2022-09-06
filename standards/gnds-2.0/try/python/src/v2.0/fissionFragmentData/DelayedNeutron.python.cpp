@@ -38,7 +38,7 @@ void wrapDelayedNeutron(python::module &module)
          python::init<
             const XMLName &,
             const fissionFragmentData::Rate &,
-            const ambiguousNamespace::Product &
+            const common::Product &
          >(),
          python::arg("label"),
          python::arg("rate"),

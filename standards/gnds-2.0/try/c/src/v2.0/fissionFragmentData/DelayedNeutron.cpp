@@ -20,7 +20,7 @@ namespace extract {
 }
 
 using CPPRate = fissionFragmentData::Rate;
-using CPPProduct = ambiguousNamespace::Product;
+using CPPProduct = common::Product;
 
 
 // -----------------------------------------------------------------------------

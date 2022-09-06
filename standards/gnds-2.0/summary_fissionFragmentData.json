@@ -86,6 +86,7 @@
             "product": {
                 "__class__": "nodes.ChildNode",
                 "description": "Product describing this delayed neutron. Includes average multiplicity and distribution info.",
+                "namespace": "common",
                 "name": "product",
                 "occurrence": "1",
                 "required": true

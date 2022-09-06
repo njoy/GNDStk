@@ -6,7 +6,7 @@
 #define TRY_V2_0_FISSIONFRAGMENTDATA_DELAYEDNEUTRON
 
 #include "try/v2.0/fissionFragmentData/Rate.hpp"
-#include "try/v2.0/ambiguousNamespace/Product.hpp"
+#include "try/v2.0/common/Product.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -39,7 +39,7 @@ class DelayedNeutron : public Component<fissionFragmentData::DelayedNeutron> {
          // children
          fissionFragmentData::Rate{}
             / --Child<>("rate") |
-         ambiguousNamespace::Product{}
+         common::Product{}
             / --Child<>("product")
       ;
    }
@@ -52,7 +52,7 @@ public:
 
    // children
    Field<fissionFragmentData::Rate> rate{this};
-   Field<ambiguousNamespace::Product> product{this};
+   Field<common::Product> product{this};
 
    // ------------------------
    // Constructors
@@ -67,7 +67,7 @@ public:
    explicit DelayedNeutron(
       const wrapper<XMLName> &label = {},
       const wrapper<fissionFragmentData::Rate> &rate = {},
-      const wrapper<ambiguousNamespace::Product> &product = {}
+      const wrapper<common::Product> &product = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
