@@ -21,7 +21,7 @@ namespace extract {
 
 using CPPNuclides = fpy::Nuclides;
 using CPPValues = containers::Values;
-using CPPUncertainty = ambiguousNamespace::Uncertainty;
+using CPPUncertainty = containers::Uncertainty;
 
 
 // -----------------------------------------------------------------------------

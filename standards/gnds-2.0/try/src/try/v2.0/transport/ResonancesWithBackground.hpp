@@ -7,7 +7,7 @@
 
 #include "try/v2.0/transport/ResonancesLink.hpp"
 #include "try/v2.0/transport/Background.hpp"
-#include "try/v2.0/ambiguousNamespace/Uncertainty.hpp"
+#include "try/v2.0/containers/Uncertainty.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -42,7 +42,7 @@ class ResonancesWithBackground : public Component<transport::ResonancesWithBackg
             / --Child<>("resonances") |
          transport::Background{}
             / --Child<>("background") |
-         std::optional<ambiguousNamespace::Uncertainty>{}
+         std::optional<containers::Uncertainty>{}
             / --Child<>("uncertainty")
       ;
    }
@@ -56,7 +56,7 @@ public:
    // children
    Field<transport::ResonancesLink> resonances{this};
    Field<transport::Background> background{this};
-   Field<std::optional<ambiguousNamespace::Uncertainty>> uncertainty{this};
+   Field<std::optional<containers::Uncertainty>> uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -73,7 +73,7 @@ public:
       const wrapper<XMLName> &label = {},
       const wrapper<transport::ResonancesLink> &resonances = {},
       const wrapper<transport::Background> &background = {},
-      const wrapper<std::optional<ambiguousNamespace::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
