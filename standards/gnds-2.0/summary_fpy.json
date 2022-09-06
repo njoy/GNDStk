@@ -203,6 +203,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty/covariance on the actual values, in the order given by the corresponding \\element{nuclides} element.",
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false

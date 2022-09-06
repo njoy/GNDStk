@@ -453,6 +453,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
+                "namespace": "containers",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
