@@ -48,10 +48,10 @@ namespace python_containers {
    void wrapColumnHeaders(python::module &);
    void wrapData(python::module &);
    void wrapTable(python::module &);
-   void wrapXs_pdf_cdf1d(python::module &);
    void wrapXs_in_xs_pdf_cdf1d(python::module &);
-   void wrapPdf_in_xs_pdf_cdf1d(python::module &);
    void wrapCdf_in_xs_pdf_cdf1d(python::module &);
+   void wrapXs_pdf_cdf1d(python::module &);
+   void wrapPdf_in_xs_pdf_cdf1d(python::module &);
    void wrapFunction3ds(python::module &);
    void wrapRegions3d(python::module &);
 } // namespace python_containers
@@ -102,10 +102,10 @@ void wrapContainers(python::module &module)
    python_containers::wrapColumnHeaders(submodule);
    python_containers::wrapData(submodule);
    python_containers::wrapTable(submodule);
-   python_containers::wrapXs_pdf_cdf1d(submodule);
    python_containers::wrapXs_in_xs_pdf_cdf1d(submodule);
-   python_containers::wrapPdf_in_xs_pdf_cdf1d(submodule);
    python_containers::wrapCdf_in_xs_pdf_cdf1d(submodule);
+   python_containers::wrapXs_pdf_cdf1d(submodule);
+   python_containers::wrapPdf_in_xs_pdf_cdf1d(submodule);
    python_containers::wrapFunction3ds(submodule);
    python_containers::wrapRegions3d(submodule);
 };

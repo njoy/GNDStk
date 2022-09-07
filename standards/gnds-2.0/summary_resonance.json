@@ -488,7 +488,7 @@
         },
         "bodyText": null,
         "childNodes": {
-            "PoPs": {
+            "PoPs_database": {
                 "__class__": "nodes.ChildNode",
                 "description": [ "Particle database to be used for the resonance reconstruction. ",
                                  "This element only needs to be given if mass or spin values ",
@@ -934,7 +934,7 @@
         },
         "bodyText": null,
         "childNodes": {
-            "PoPs": {
+            "PoPs_database": {
                 "__class__": "nodes.ChildNode",
                 "description": [ "Particle database to be used for the resonance reconstruction. ",
                                  "This element only needs to be given if mass or spin values ",
@@ -1063,7 +1063,7 @@
         },
         "bodyText": null,
         "childNodes": {
-            "PoPs": {
+            "PoPs_database": {
                 "__class__": "nodes.ChildNode",
                 "description": [ "Particle database to be used for the resonance reconstruction. ",
                                  "This element only needs to be given if mass or spin values ",

@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_TABULATEDWIDTHS
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/PoPs.h"
+#include "v2.0/pops/PoPs_database.h"
 #include "v2.0/resonances/ScatteringRadius.h"
 #include "v2.0/resonances/HardSphereRadius.h"
 #include "v2.0/resonances/ResonanceReactions.h"
@@ -84,7 +84,7 @@ TabulatedWidthsCreateConst(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -97,7 +97,7 @@ TabulatedWidthsCreate(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -208,19 +208,19 @@ TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths This, cons
 
 // +++ Has
 extern_c int
-TabulatedWidthsPoPsHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsPoPs_databaseHas(ConstHandle2ConstTabulatedWidths This);
 
 // --- Get, const
-extern_c Handle2ConstPoPs
-TabulatedWidthsPoPsGetConst(ConstHandle2ConstTabulatedWidths This);
+extern_c Handle2ConstPoPs_database
+TabulatedWidthsPoPs_databaseGetConst(ConstHandle2ConstTabulatedWidths This);
 
 // +++ Get, non-const
-extern_c Handle2PoPs
-TabulatedWidthsPoPsGet(ConstHandle2TabulatedWidths This);
+extern_c Handle2PoPs_database
+TabulatedWidthsPoPs_databaseGet(ConstHandle2TabulatedWidths This);
 
 // +++ Set
 extern_c void
-TabulatedWidthsPoPsSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs PoPs);
+TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs);
 
 
 // -----------------------------------------------------------------------------

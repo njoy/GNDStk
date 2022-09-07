@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_RESONANCES_RMATRIX
 #define TRY_V2_0_RESONANCES_RMATRIX
 
-#include "try/v2.0/unknownNamespace/PoPs.hpp"
+#include "try/v2.0/pops/PoPs_database.hpp"
 #include "try/v2.0/resonances/ResonanceReactions.hpp"
 #include "try/v2.0/resonances/SpinGroups.hpp"
 
@@ -52,7 +52,7 @@ class RMatrix : public Component<resonances::RMatrix> {
          Defaulted<bool>{false}
             / Meta<>("supportsAngularReconstruction") |
          // children
-         std::optional<unknownNamespace::PoPs>{}
+         std::optional<pops::PoPs_database>{}
             / --Child<>("PoPs") |
          resonances::ResonanceReactions{}
             / --Child<>("resonanceReactions") |
@@ -84,7 +84,7 @@ public:
    Field<Defaulted<bool>> supportsAngularReconstruction{this,defaults.supportsAngularReconstruction};
 
    // children
-   Field<std::optional<unknownNamespace::PoPs>> PoPs{this};
+   Field<std::optional<pops::PoPs_database>> PoPs{this};
    Field<resonances::ResonanceReactions> resonanceReactions{this};
    Field<resonances::SpinGroups> spinGroups{this};
 
@@ -116,7 +116,7 @@ public:
       const wrapper<std::optional<bool>> &calculatePenetrability = {},
       const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
       const wrapper<std::optional<bool>> &supportsAngularReconstruction = {},
-      const wrapper<std::optional<unknownNamespace::PoPs>> &PoPs = {},
+      const wrapper<std::optional<pops::PoPs_database>> &PoPs = {},
       const wrapper<resonances::ResonanceReactions> &resonanceReactions = {},
       const wrapper<resonances::SpinGroups> &spinGroups = {}
    ) :

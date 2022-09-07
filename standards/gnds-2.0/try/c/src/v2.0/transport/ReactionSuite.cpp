@@ -35,7 +35,7 @@ namespace extract {
 
 using CPPExternalFiles = common::ExternalFiles;
 using CPPStyles = styles::Styles;
-using CPPPoPs = unknownNamespace::PoPs;
+using CPPPoPs_database = pops::PoPs_database;
 using CPPResonances = resonances::Resonances;
 using CPPReactions = transport::Reactions;
 using CPPOrphanProducts = transport::OrphanProducts;
@@ -78,7 +78,7 @@ ReactionSuiteCreateConst(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -98,7 +98,7 @@ ReactionSuiteCreateConst(
       interaction,
       detail::tocpp<CPPExternalFiles>(externalFiles),
       detail::tocpp<CPPStyles>(styles),
-      detail::tocpp<CPPPoPs>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs),
       detail::tocpp<CPPResonances>(resonances),
       detail::tocpp<CPPReactions>(reactions),
       detail::tocpp<CPPOrphanProducts>(orphanProducts),
@@ -122,7 +122,7 @@ ReactionSuiteCreate(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -142,7 +142,7 @@ ReactionSuiteCreate(
       interaction,
       detail::tocpp<CPPExternalFiles>(externalFiles),
       detail::tocpp<CPPStyles>(styles),
-      detail::tocpp<CPPPoPs>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs),
       detail::tocpp<CPPResonances>(resonances),
       detail::tocpp<CPPReactions>(reactions),
       detail::tocpp<CPPOrphanProducts>(orphanProducts),
@@ -487,34 +487,34 @@ ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles s
 
 // Has
 int
-ReactionSuitePoPsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPsHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
 }
 
 // Get, const
-Handle2ConstPoPs
-ReactionSuitePoPsGetConst(ConstHandle2ConstReactionSuite This)
+Handle2ConstPoPs_database
+ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite This)
 {
-   return detail::getField<CPP,Handle2ConstPoPs>
-      (CLASSNAME, CLASSNAME+"PoPsGetConst", This, extract::PoPs);
+   return detail::getField<CPP,Handle2ConstPoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
 }
 
 // Get, non-const
-Handle2PoPs
-ReactionSuitePoPsGet(ConstHandle2ReactionSuite This)
+Handle2PoPs_database
+ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite This)
 {
-   return detail::getField<CPP,Handle2PoPs>
-      (CLASSNAME, CLASSNAME+"PoPsGet", This, extract::PoPs);
+   return detail::getField<CPP,Handle2PoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
 }
 
 // Set
 void
-ReactionSuitePoPsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs PoPs)
+ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs)
 {
-   detail::setField<CPP,CPPPoPs>
-      (CLASSNAME, CLASSNAME+"PoPsSet", This, extract::PoPs, PoPs);
+   detail::setField<CPP,CPPPoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
 }
 
 

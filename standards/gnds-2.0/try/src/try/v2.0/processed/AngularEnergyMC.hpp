@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_PROCESSED_ANGULARENERGYMC
 #define TRY_V2_0_PROCESSED_ANGULARENERGYMC
 
-#include "try/v2.0/unknownNamespace/Angular.hpp"
+#include "try/v2.0/transport/Angular_uncorrelated.hpp"
 #include "try/v2.0/transport/AngularEnergy.hpp"
 
 namespace try {
@@ -39,7 +39,7 @@ class AngularEnergyMC : public Component<processed::AngularEnergyMC> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         unknownNamespace::Angular{}
+         transport::Angular_uncorrelated{}
             / --Child<>("angular") |
          transport::AngularEnergy{}
             / --Child<>("angularEnergy")
@@ -54,7 +54,7 @@ public:
    Field<XMLName> productFrame{this};
 
    // children
-   Field<unknownNamespace::Angular> angular{this};
+   Field<transport::Angular_uncorrelated> angular{this};
    Field<transport::AngularEnergy> angularEnergy{this};
 
    // ------------------------
@@ -71,7 +71,7 @@ public:
    explicit AngularEnergyMC(
       const wrapper<XMLName> &label = {},
       const wrapper<XMLName> &productFrame = {},
-      const wrapper<unknownNamespace::Angular> &angular = {},
+      const wrapper<transport::Angular_uncorrelated> &angular = {},
       const wrapper<transport::AngularEnergy> &angularEnergy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_RESONANCES_BREITWIGNER
 #define TRY_V2_0_RESONANCES_BREITWIGNER
 
-#include "try/v2.0/unknownNamespace/PoPs.hpp"
+#include "try/v2.0/pops/PoPs_database.hpp"
 #include "try/v2.0/resonances/ScatteringRadius.hpp"
 #include "try/v2.0/resonances/HardSphereRadius.hpp"
 #include "try/v2.0/resonances/ResonanceParameters.hpp"
@@ -45,7 +45,7 @@ class BreitWigner : public Component<resonances::BreitWigner> {
          Defaulted<bool>{false}
             / Meta<>("useForSelfShieldingOnly") |
          // children
-         std::optional<unknownNamespace::PoPs>{}
+         std::optional<pops::PoPs_database>{}
             / --Child<>("PoPs") |
          std::optional<resonances::ScatteringRadius>{}
             / --Child<>("scatteringRadius") |
@@ -72,7 +72,7 @@ public:
    Field<Defaulted<bool>> useForSelfShieldingOnly{this,defaults.useForSelfShieldingOnly};
 
    // children
-   Field<std::optional<unknownNamespace::PoPs>> PoPs{this};
+   Field<std::optional<pops::PoPs_database>> PoPs{this};
    Field<std::optional<resonances::ScatteringRadius>> scatteringRadius{this};
    Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
    Field<std::optional<resonances::ResonanceParameters>> resonanceParameters{this};
@@ -98,7 +98,7 @@ public:
       const wrapper<XMLName> &approximation = {},
       const wrapper<std::optional<bool>> &calculateChannelRadius = {},
       const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
-      const wrapper<std::optional<unknownNamespace::PoPs>> &PoPs = {},
+      const wrapper<std::optional<pops::PoPs_database>> &PoPs = {},
       const wrapper<std::optional<resonances::ScatteringRadius>> &scatteringRadius = {},
       const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
       const wrapper<std::optional<resonances::ResonanceParameters>> &resonanceParameters = {}

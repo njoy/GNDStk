@@ -5,9 +5,9 @@
 #ifndef TRY_V2_0_CONTAINERS_XS_PDF_CDF1D
 #define TRY_V2_0_CONTAINERS_XS_PDF_CDF1D
 
-#include "try/v2.0/unknownNamespace/Xs.hpp"
+#include "try/v2.0/containers/Xs_in_xs_pdf_cdf1d.hpp"
 #include "try/v2.0/containers/Pdf.hpp"
-#include "try/v2.0/unknownNamespace/Cdf.hpp"
+#include "try/v2.0/containers/Cdf_in_xs_pdf_cdf1d.hpp"
 
 namespace try {
 namespace v2_0 {
@@ -38,11 +38,11 @@ class Xs_pdf_cdf1d : public Component<containers::Xs_pdf_cdf1d> {
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
          // children
-         unknownNamespace::Xs{}
+         containers::Xs_in_xs_pdf_cdf1d{}
             / --Child<>("xs") |
          containers::Pdf{}
             / --Child<>("pdf") |
-         unknownNamespace::Cdf{}
+         containers::Cdf_in_xs_pdf_cdf1d{}
             / --Child<>("cdf")
       ;
    }
@@ -54,9 +54,9 @@ public:
    Field<std::optional<Float64>> outerDomainValue{this};
 
    // children
-   Field<unknownNamespace::Xs> xs{this};
+   Field<containers::Xs_in_xs_pdf_cdf1d> xs{this};
    Field<containers::Pdf> pdf{this};
-   Field<unknownNamespace::Cdf> cdf{this};
+   Field<containers::Cdf_in_xs_pdf_cdf1d> cdf{this};
 
    // ------------------------
    // Constructors
@@ -71,9 +71,9 @@ public:
    // default, and from fields
    explicit Xs_pdf_cdf1d(
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<unknownNamespace::Xs> &xs = {},
+      const wrapper<containers::Xs_in_xs_pdf_cdf1d> &xs = {},
       const wrapper<containers::Pdf> &pdf = {},
-      const wrapper<unknownNamespace::Cdf> &cdf = {}
+      const wrapper<containers::Cdf_in_xs_pdf_cdf1d> &cdf = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       outerDomainValue(this,outerDomainValue),

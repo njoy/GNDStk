@@ -40,7 +40,7 @@ void wrapBreitWigner(python::module &module)
             const XMLName &,
             const std::optional<bool> &,
             const std::optional<bool> &,
-            const std::optional<unknownNamespace::PoPs> &,
+            const std::optional<pops::PoPs_database> &,
             const std::optional<resonances::ScatteringRadius> &,
             const std::optional<resonances::HardSphereRadius> &,
             const std::optional<resonances::ResonanceParameters> &

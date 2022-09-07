@@ -32,9 +32,9 @@
 #define C_INTERFACE_TRY_V2_0_CONTAINERS_XS_PDF_CDF1D
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Xs.h"
+#include "v2.0/containers/Xs_in_xs_pdf_cdf1d.h"
 #include "v2.0/containers/Pdf.h"
-#include "v2.0/unknownNamespace/Cdf.h"
+#include "v2.0/containers/Cdf_in_xs_pdf_cdf1d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -80,18 +80,18 @@ Xs_pdf_cdf1dDefault();
 extern_c Handle2ConstXs_pdf_cdf1d
 Xs_pdf_cdf1dCreateConst(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
 );
 
 // +++ Create, general
 extern_c Handle2Xs_pdf_cdf1d
 Xs_pdf_cdf1dCreate(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
 );
 
 // +++ Assign
@@ -162,19 +162,19 @@ Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d This, const Float64 out
 
 // +++ Has
 extern_c int
-Xs_pdf_cdf1dXsHas(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This);
 
 // --- Get, const
-extern_c Handle2ConstXs
-Xs_pdf_cdf1dXsGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
+extern_c Handle2ConstXs_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
 
 // +++ Get, non-const
-extern_c Handle2Xs
-Xs_pdf_cdf1dXsGet(ConstHandle2Xs_pdf_cdf1d This);
+extern_c Handle2Xs_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dXsSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs xs);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs);
 
 
 // -----------------------------------------------------------------------------
@@ -204,19 +204,19 @@ Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstPdf pdf);
 
 // +++ Has
 extern_c int
-Xs_pdf_cdf1dCdfHas(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This);
 
 // --- Get, const
-extern_c Handle2ConstCdf
-Xs_pdf_cdf1dCdfGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
+extern_c Handle2ConstCdf_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
 
 // +++ Get, non-const
-extern_c Handle2Cdf
-Xs_pdf_cdf1dCdfGet(ConstHandle2Xs_pdf_cdf1d This);
+extern_c Handle2Cdf_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dCdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf cdf);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf);
 
 
 // -----------------------------------------------------------------------------

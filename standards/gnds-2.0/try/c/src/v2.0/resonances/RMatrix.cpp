@@ -27,7 +27,7 @@ namespace extract {
    static auto spinGroups = [](auto &obj) { return &obj.spinGroups; };
 }
 
-using CPPPoPs = unknownNamespace::PoPs;
+using CPPPoPs_database = pops::PoPs_database;
 using CPPResonanceReactions = resonances::ResonanceReactions;
 using CPPSpinGroups = resonances::SpinGroups;
 
@@ -64,7 +64,7 @@ RMatrixCreateConst(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 ) {
@@ -78,7 +78,7 @@ RMatrixCreateConst(
       calculatePenetrability,
       useForSelfShieldingOnly,
       supportsAngularReconstruction,
-      detail::tocpp<CPPPoPs>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
       detail::tocpp<CPPSpinGroups>(spinGroups)
    );
@@ -96,7 +96,7 @@ RMatrixCreate(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 ) {
@@ -110,7 +110,7 @@ RMatrixCreate(
       calculatePenetrability,
       useForSelfShieldingOnly,
       supportsAngularReconstruction,
-      detail::tocpp<CPPPoPs>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
       detail::tocpp<CPPSpinGroups>(spinGroups)
    );
@@ -435,34 +435,34 @@ RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool sup
 
 // Has
 int
-RMatrixPoPsHas(ConstHandle2ConstRMatrix This)
+RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPsHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
 }
 
 // Get, const
-Handle2ConstPoPs
-RMatrixPoPsGetConst(ConstHandle2ConstRMatrix This)
+Handle2ConstPoPs_database
+RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix This)
 {
-   return detail::getField<CPP,Handle2ConstPoPs>
-      (CLASSNAME, CLASSNAME+"PoPsGetConst", This, extract::PoPs);
+   return detail::getField<CPP,Handle2ConstPoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
 }
 
 // Get, non-const
-Handle2PoPs
-RMatrixPoPsGet(ConstHandle2RMatrix This)
+Handle2PoPs_database
+RMatrixPoPs_databaseGet(ConstHandle2RMatrix This)
 {
-   return detail::getField<CPP,Handle2PoPs>
-      (CLASSNAME, CLASSNAME+"PoPsGet", This, extract::PoPs);
+   return detail::getField<CPP,Handle2PoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
 }
 
 // Set
 void
-RMatrixPoPsSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs PoPs)
+RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs)
 {
-   detail::setField<CPP,CPPPoPs>
-      (CLASSNAME, CLASSNAME+"PoPsSet", This, extract::PoPs, PoPs);
+   detail::setField<CPP,CPPPoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
 }
 
 

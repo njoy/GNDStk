@@ -37,9 +37,9 @@ void wrapXs_pdf_cdf1d(python::module &module)
       .def(
          python::init<
             const std::optional<Float64> &,
-            const unknownNamespace::Xs &,
+            const containers::Xs_in_xs_pdf_cdf1d &,
             const containers::Pdf &,
-            const unknownNamespace::Cdf &
+            const containers::Cdf_in_xs_pdf_cdf1d &
          >(),
          python::arg("outer_domain_value") = std::nullopt,
          python::arg("xs"),

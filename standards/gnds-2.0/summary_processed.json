@@ -59,7 +59,7 @@
         },
         "bodyText": null,
         "childNodes": {
-            "angular": {
+            "angular_uncorrelated": {
                 "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle $\\mu$ distribution $P(\\mu|E)$ give the projectile energy using a \\element{XYs2d} or \\element{regions2d} is a list of \\element{xs\\_pdf\\_cdf1d} for its function1d's.",
                 "name": "angular",

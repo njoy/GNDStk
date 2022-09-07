@@ -7,7 +7,7 @@
 
 #include "try/v2.0/common/ExternalFiles.hpp"
 #include "try/v2.0/styles/Styles.hpp"
-#include "try/v2.0/unknownNamespace/PoPs.hpp"
+#include "try/v2.0/pops/PoPs_database.hpp"
 #include "try/v2.0/resonances/Resonances.hpp"
 #include "try/v2.0/transport/Reactions.hpp"
 #include "try/v2.0/transport/OrphanProducts.hpp"
@@ -60,7 +60,7 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
             / --Child<>("externalFiles") |
          styles::Styles{}
             / --Child<>("styles") |
-         unknownNamespace::PoPs{}
+         pops::PoPs_database{}
             / --Child<>("PoPs") |
          std::optional<resonances::Resonances>{}
             / --Child<>("resonances") |
@@ -95,7 +95,7 @@ public:
    // children
    Field<std::optional<common::ExternalFiles>> externalFiles{this};
    Field<styles::Styles> styles{this};
-   Field<unknownNamespace::PoPs> PoPs{this};
+   Field<pops::PoPs_database> PoPs{this};
    Field<std::optional<resonances::Resonances>> resonances{this};
    Field<std::optional<transport::Reactions>> reactions{this};
    Field<std::optional<transport::OrphanProducts>> orphanProducts{this};
@@ -138,7 +138,7 @@ public:
       const wrapper<enums::Interaction> &interaction = {},
       const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
       const wrapper<styles::Styles> &styles = {},
-      const wrapper<unknownNamespace::PoPs> &PoPs = {},
+      const wrapper<pops::PoPs_database> &PoPs = {},
       const wrapper<std::optional<resonances::Resonances>> &resonances = {},
       const wrapper<std::optional<transport::Reactions>> &reactions = {},
       const wrapper<std::optional<transport::OrphanProducts>> &orphanProducts = {},

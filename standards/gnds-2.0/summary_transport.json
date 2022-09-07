@@ -71,7 +71,7 @@
                 "occurrence": "1",
                 "required": true
             },
-            "PoPs": {
+            "PoPs_database": {
                 "__class__": "nodes.ChildNode",
                 "description": "Particle database, as described in document~\\cite{PoPs}.  The database describes all particles involved in the reactionSuite, including projectile, target and reaction products.",
                 "name": "PoPs",

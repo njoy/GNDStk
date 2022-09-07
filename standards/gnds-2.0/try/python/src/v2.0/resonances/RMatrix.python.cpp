@@ -44,7 +44,7 @@ void wrapRMatrix(python::module &module)
             const std::optional<bool> &,
             const std::optional<bool> &,
             const std::optional<bool> &,
-            const std::optional<unknownNamespace::PoPs> &,
+            const std::optional<pops::PoPs_database> &,
             const resonances::ResonanceReactions &,
             const resonances::SpinGroups &
          >(),

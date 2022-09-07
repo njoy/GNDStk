@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/common/ExternalFiles.h"
 #include "v2.0/styles/Styles.h"
-#include "v2.0/unknownNamespace/PoPs.h"
+#include "v2.0/pops/PoPs_database.h"
 #include "v2.0/resonances/Resonances.h"
 #include "v2.0/transport/Reactions.h"
 #include "v2.0/transport/OrphanProducts.h"
@@ -95,7 +95,7 @@ ReactionSuiteCreateConst(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -117,7 +117,7 @@ ReactionSuiteCreate(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -328,19 +328,19 @@ ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles s
 
 // +++ Has
 extern_c int
-ReactionSuitePoPsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite This);
 
 // --- Get, const
-extern_c Handle2ConstPoPs
-ReactionSuitePoPsGetConst(ConstHandle2ConstReactionSuite This);
+extern_c Handle2ConstPoPs_database
+ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite This);
 
 // +++ Get, non-const
-extern_c Handle2PoPs
-ReactionSuitePoPsGet(ConstHandle2ReactionSuite This);
+extern_c Handle2PoPs_database
+ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite This);
 
 // +++ Set
 extern_c void
-ReactionSuitePoPsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs PoPs);
+ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs);
 
 
 // -----------------------------------------------------------------------------

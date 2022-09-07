@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_BREITWIGNER
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/PoPs.h"
+#include "v2.0/pops/PoPs_database.h"
 #include "v2.0/resonances/ScatteringRadius.h"
 #include "v2.0/resonances/HardSphereRadius.h"
 #include "v2.0/resonances/ResonanceParameters.h"
@@ -84,7 +84,7 @@ BreitWignerCreateConst(
    const XMLName approximation,
    const bool calculateChannelRadius,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceParameters resonanceParameters
@@ -97,7 +97,7 @@ BreitWignerCreate(
    const XMLName approximation,
    const bool calculateChannelRadius,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceParameters resonanceParameters
@@ -225,19 +225,19 @@ BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool u
 
 // +++ Has
 extern_c int
-BreitWignerPoPsHas(ConstHandle2ConstBreitWigner This);
+BreitWignerPoPs_databaseHas(ConstHandle2ConstBreitWigner This);
 
 // --- Get, const
-extern_c Handle2ConstPoPs
-BreitWignerPoPsGetConst(ConstHandle2ConstBreitWigner This);
+extern_c Handle2ConstPoPs_database
+BreitWignerPoPs_databaseGetConst(ConstHandle2ConstBreitWigner This);
 
 // +++ Get, non-const
-extern_c Handle2PoPs
-BreitWignerPoPsGet(ConstHandle2BreitWigner This);
+extern_c Handle2PoPs_database
+BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner This);
 
 // +++ Set
 extern_c void
-BreitWignerPoPsSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs PoPs);
+BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs);
 
 
 // -----------------------------------------------------------------------------

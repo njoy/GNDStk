@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_RMATRIX
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/PoPs.h"
+#include "v2.0/pops/PoPs_database.h"
 #include "v2.0/resonances/ResonanceReactions.h"
 #include "v2.0/resonances/SpinGroups.h"
 
@@ -87,7 +87,7 @@ RMatrixCreateConst(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 );
@@ -103,7 +103,7 @@ RMatrixCreate(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 );
@@ -302,19 +302,19 @@ RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool sup
 
 // +++ Has
 extern_c int
-RMatrixPoPsHas(ConstHandle2ConstRMatrix This);
+RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix This);
 
 // --- Get, const
-extern_c Handle2ConstPoPs
-RMatrixPoPsGetConst(ConstHandle2ConstRMatrix This);
+extern_c Handle2ConstPoPs_database
+RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix This);
 
 // +++ Get, non-const
-extern_c Handle2PoPs
-RMatrixPoPsGet(ConstHandle2RMatrix This);
+extern_c Handle2PoPs_database
+RMatrixPoPs_databaseGet(ConstHandle2RMatrix This);
 
 // +++ Set
 extern_c void
-RMatrixPoPsSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs PoPs);
+RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs);
 
 
 // -----------------------------------------------------------------------------

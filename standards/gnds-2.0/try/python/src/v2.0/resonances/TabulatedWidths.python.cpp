@@ -39,7 +39,7 @@ void wrapTabulatedWidths(python::module &module)
             const XMLName &,
             const XMLName &,
             const std::optional<bool> &,
-            const std::optional<unknownNamespace::PoPs> &,
+            const std::optional<pops::PoPs_database> &,
             const std::optional<resonances::ScatteringRadius> &,
             const std::optional<resonances::HardSphereRadius> &,
             const resonances::ResonanceReactions &,

@@ -20,9 +20,9 @@ namespace extract {
    static auto cdf = [](auto &obj) { return &obj.cdf; };
 }
 
-using CPPXs = unknownNamespace::Xs;
+using CPPXs_in_xs_pdf_cdf1d = containers::Xs_in_xs_pdf_cdf1d;
 using CPPPdf = containers::Pdf;
-using CPPCdf = unknownNamespace::Cdf;
+using CPPCdf_in_xs_pdf_cdf1d = containers::Cdf_in_xs_pdf_cdf1d;
 
 
 // -----------------------------------------------------------------------------
@@ -50,16 +50,16 @@ Xs_pdf_cdf1dDefault()
 Handle2ConstXs_pdf_cdf1d
 Xs_pdf_cdf1dCreateConst(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
 ) {
    ConstHandle2Xs_pdf_cdf1d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       outerDomainValue,
-      detail::tocpp<CPPXs>(xs),
+      detail::tocpp<CPPXs_in_xs_pdf_cdf1d>(xs),
       detail::tocpp<CPPPdf>(pdf),
-      detail::tocpp<CPPCdf>(cdf)
+      detail::tocpp<CPPCdf_in_xs_pdf_cdf1d>(cdf)
    );
    return handle;
 }
@@ -68,16 +68,16 @@ Xs_pdf_cdf1dCreateConst(
 Handle2Xs_pdf_cdf1d
 Xs_pdf_cdf1dCreate(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
 ) {
    ConstHandle2Xs_pdf_cdf1d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       outerDomainValue,
-      detail::tocpp<CPPXs>(xs),
+      detail::tocpp<CPPXs_in_xs_pdf_cdf1d>(xs),
       detail::tocpp<CPPPdf>(pdf),
-      detail::tocpp<CPPCdf>(cdf)
+      detail::tocpp<CPPCdf_in_xs_pdf_cdf1d>(cdf)
    );
    return handle;
 }
@@ -190,34 +190,34 @@ Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d This, const Float64 out
 
 // Has
 int
-Xs_pdf_cdf1dXsHas(ConstHandle2ConstXs_pdf_cdf1d This)
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XsHas", This, extract::xs);
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dHas", This, extract::xs);
 }
 
 // Get, const
-Handle2ConstXs
-Xs_pdf_cdf1dXsGetConst(ConstHandle2ConstXs_pdf_cdf1d This)
+Handle2ConstXs_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This)
 {
-   return detail::getField<CPP,Handle2ConstXs>
-      (CLASSNAME, CLASSNAME+"XsGetConst", This, extract::xs);
+   return detail::getField<CPP,Handle2ConstXs_in_xs_pdf_cdf1d>
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dGetConst", This, extract::xs);
 }
 
 // Get, non-const
-Handle2Xs
-Xs_pdf_cdf1dXsGet(ConstHandle2Xs_pdf_cdf1d This)
+Handle2Xs_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This)
 {
-   return detail::getField<CPP,Handle2Xs>
-      (CLASSNAME, CLASSNAME+"XsGet", This, extract::xs);
+   return detail::getField<CPP,Handle2Xs_in_xs_pdf_cdf1d>
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dGet", This, extract::xs);
 }
 
 // Set
 void
-Xs_pdf_cdf1dXsSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs xs)
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs)
 {
-   detail::setField<CPP,CPPXs>
-      (CLASSNAME, CLASSNAME+"XsSet", This, extract::xs, xs);
+   detail::setField<CPP,CPPXs_in_xs_pdf_cdf1d>
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dSet", This, extract::xs, xs);
 }
 
 
@@ -264,32 +264,32 @@ Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstPdf pdf)
 
 // Has
 int
-Xs_pdf_cdf1dCdfHas(ConstHandle2ConstXs_pdf_cdf1d This)
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CdfHas", This, extract::cdf);
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dHas", This, extract::cdf);
 }
 
 // Get, const
-Handle2ConstCdf
-Xs_pdf_cdf1dCdfGetConst(ConstHandle2ConstXs_pdf_cdf1d This)
+Handle2ConstCdf_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This)
 {
-   return detail::getField<CPP,Handle2ConstCdf>
-      (CLASSNAME, CLASSNAME+"CdfGetConst", This, extract::cdf);
+   return detail::getField<CPP,Handle2ConstCdf_in_xs_pdf_cdf1d>
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dGetConst", This, extract::cdf);
 }
 
 // Get, non-const
-Handle2Cdf
-Xs_pdf_cdf1dCdfGet(ConstHandle2Xs_pdf_cdf1d This)
+Handle2Cdf_in_xs_pdf_cdf1d
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This)
 {
-   return detail::getField<CPP,Handle2Cdf>
-      (CLASSNAME, CLASSNAME+"CdfGet", This, extract::cdf);
+   return detail::getField<CPP,Handle2Cdf_in_xs_pdf_cdf1d>
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dGet", This, extract::cdf);
 }
 
 // Set
 void
-Xs_pdf_cdf1dCdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf cdf)
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf)
 {
-   detail::setField<CPP,CPPCdf>
-      (CLASSNAME, CLASSNAME+"CdfSet", This, extract::cdf, cdf);
+   detail::setField<CPP,CPPCdf_in_xs_pdf_cdf1d>
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dSet", This, extract::cdf, cdf);
 }

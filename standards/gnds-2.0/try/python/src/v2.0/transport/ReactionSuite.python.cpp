@@ -44,7 +44,7 @@ void wrapReactionSuite(python::module &module)
             const enums::Interaction &,
             const std::optional<common::ExternalFiles> &,
             const styles::Styles &,
-            const unknownNamespace::PoPs &,
+            const pops::PoPs_database &,
             const std::optional<resonances::Resonances> &,
             const std::optional<transport::Reactions> &,
             const std::optional<transport::OrphanProducts> &,

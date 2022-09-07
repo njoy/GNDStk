@@ -20,7 +20,7 @@ namespace extract {
    static auto angularEnergy = [](auto &obj) { return &obj.angularEnergy; };
 }
 
-using CPPAngular = unknownNamespace::Angular;
+using CPPAngular_uncorrelated = transport::Angular_uncorrelated;
 using CPPAngularEnergy = transport::AngularEnergy;
 
 
@@ -50,14 +50,14 @@ Handle2ConstAngularEnergyMC
 AngularEnergyMCCreateConst(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular angular,
+   ConstHandle2ConstAngular_uncorrelated angular,
    ConstHandle2ConstAngularEnergy angularEnergy
 ) {
    ConstHandle2AngularEnergyMC handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       productFrame,
-      detail::tocpp<CPPAngular>(angular),
+      detail::tocpp<CPPAngular_uncorrelated>(angular),
       detail::tocpp<CPPAngularEnergy>(angularEnergy)
    );
    return handle;
@@ -68,14 +68,14 @@ Handle2AngularEnergyMC
 AngularEnergyMCCreate(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular angular,
+   ConstHandle2ConstAngular_uncorrelated angular,
    ConstHandle2ConstAngularEnergy angularEnergy
 ) {
    ConstHandle2AngularEnergyMC handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       productFrame,
-      detail::tocpp<CPPAngular>(angular),
+      detail::tocpp<CPPAngular_uncorrelated>(angular),
       detail::tocpp<CPPAngularEnergy>(angularEnergy)
    );
    return handle;
@@ -219,34 +219,34 @@ AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC This, const XMLName p
 
 // Has
 int
-AngularEnergyMCAngularHas(ConstHandle2ConstAngularEnergyMC This)
+AngularEnergyMCAngular_uncorrelatedHas(ConstHandle2ConstAngularEnergyMC This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AngularHas", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", This, extract::angular);
 }
 
 // Get, const
-Handle2ConstAngular
-AngularEnergyMCAngularGetConst(ConstHandle2ConstAngularEnergyMC This)
+Handle2ConstAngular_uncorrelated
+AngularEnergyMCAngular_uncorrelatedGetConst(ConstHandle2ConstAngularEnergyMC This)
 {
-   return detail::getField<CPP,Handle2ConstAngular>
-      (CLASSNAME, CLASSNAME+"AngularGetConst", This, extract::angular);
+   return detail::getField<CPP,Handle2ConstAngular_uncorrelated>
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", This, extract::angular);
 }
 
 // Get, non-const
-Handle2Angular
-AngularEnergyMCAngularGet(ConstHandle2AngularEnergyMC This)
+Handle2Angular_uncorrelated
+AngularEnergyMCAngular_uncorrelatedGet(ConstHandle2AngularEnergyMC This)
 {
-   return detail::getField<CPP,Handle2Angular>
-      (CLASSNAME, CLASSNAME+"AngularGet", This, extract::angular);
+   return detail::getField<CPP,Handle2Angular_uncorrelated>
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", This, extract::angular);
 }
 
 // Set
 void
-AngularEnergyMCAngularSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular angular)
+AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular)
 {
-   detail::setField<CPP,CPPAngular>
-      (CLASSNAME, CLASSNAME+"AngularSet", This, extract::angular, angular);
+   detail::setField<CPP,CPPAngular_uncorrelated>
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", This, extract::angular, angular);
 }
 
 

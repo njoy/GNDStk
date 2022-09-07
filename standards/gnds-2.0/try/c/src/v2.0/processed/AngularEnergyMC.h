@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_PROCESSED_ANGULARENERGYMC
 
 #include "GNDStk.h"
-#include "v2.0/unknownNamespace/Angular.h"
+#include "v2.0/transport/Angular_uncorrelated.h"
 #include "v2.0/transport/AngularEnergy.h"
 
 #ifdef __cplusplus
@@ -80,7 +80,7 @@ extern_c Handle2ConstAngularEnergyMC
 AngularEnergyMCCreateConst(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular angular,
+   ConstHandle2ConstAngular_uncorrelated angular,
    ConstHandle2ConstAngularEnergy angularEnergy
 );
 
@@ -89,7 +89,7 @@ extern_c Handle2AngularEnergyMC
 AngularEnergyMCCreate(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular angular,
+   ConstHandle2ConstAngular_uncorrelated angular,
    ConstHandle2ConstAngularEnergy angularEnergy
 );
 
@@ -179,19 +179,19 @@ AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC This, const XMLName p
 
 // +++ Has
 extern_c int
-AngularEnergyMCAngularHas(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCAngular_uncorrelatedHas(ConstHandle2ConstAngularEnergyMC This);
 
 // --- Get, const
-extern_c Handle2ConstAngular
-AngularEnergyMCAngularGetConst(ConstHandle2ConstAngularEnergyMC This);
+extern_c Handle2ConstAngular_uncorrelated
+AngularEnergyMCAngular_uncorrelatedGetConst(ConstHandle2ConstAngularEnergyMC This);
 
 // +++ Get, non-const
-extern_c Handle2Angular
-AngularEnergyMCAngularGet(ConstHandle2AngularEnergyMC This);
+extern_c Handle2Angular_uncorrelated
+AngularEnergyMCAngular_uncorrelatedGet(ConstHandle2AngularEnergyMC This);
 
 // +++ Set
 extern_c void
-AngularEnergyMCAngularSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular angular);
+AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular);
 
 
 // -----------------------------------------------------------------------------

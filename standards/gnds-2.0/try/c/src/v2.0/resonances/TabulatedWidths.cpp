@@ -24,7 +24,7 @@ namespace extract {
    static auto Ls = [](auto &obj) { return &obj.Ls; };
 }
 
-using CPPPoPs = unknownNamespace::PoPs;
+using CPPPoPs_database = pops::PoPs_database;
 using CPPScatteringRadius = resonances::ScatteringRadius;
 using CPPHardSphereRadius = resonances::HardSphereRadius;
 using CPPResonanceReactions = resonances::ResonanceReactions;
@@ -58,7 +58,7 @@ TabulatedWidthsCreateConst(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -69,7 +69,7 @@ TabulatedWidthsCreateConst(
       label,
       approximation,
       useForSelfShieldingOnly,
-      detail::tocpp<CPPPoPs>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs),
       detail::tocpp<CPPScatteringRadius>(scatteringRadius),
       detail::tocpp<CPPHardSphereRadius>(hardSphereRadius),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
@@ -84,7 +84,7 @@ TabulatedWidthsCreate(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs PoPs,
+   ConstHandle2ConstPoPs_database PoPs,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -95,7 +95,7 @@ TabulatedWidthsCreate(
       label,
       approximation,
       useForSelfShieldingOnly,
-      detail::tocpp<CPPPoPs>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs),
       detail::tocpp<CPPScatteringRadius>(scatteringRadius),
       detail::tocpp<CPPHardSphereRadius>(hardSphereRadius),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
@@ -272,34 +272,34 @@ TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths This, cons
 
 // Has
 int
-TabulatedWidthsPoPsHas(ConstHandle2ConstTabulatedWidths This)
+TabulatedWidthsPoPs_databaseHas(ConstHandle2ConstTabulatedWidths This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPsHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
 }
 
 // Get, const
-Handle2ConstPoPs
-TabulatedWidthsPoPsGetConst(ConstHandle2ConstTabulatedWidths This)
+Handle2ConstPoPs_database
+TabulatedWidthsPoPs_databaseGetConst(ConstHandle2ConstTabulatedWidths This)
 {
-   return detail::getField<CPP,Handle2ConstPoPs>
-      (CLASSNAME, CLASSNAME+"PoPsGetConst", This, extract::PoPs);
+   return detail::getField<CPP,Handle2ConstPoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
 }
 
 // Get, non-const
-Handle2PoPs
-TabulatedWidthsPoPsGet(ConstHandle2TabulatedWidths This)
+Handle2PoPs_database
+TabulatedWidthsPoPs_databaseGet(ConstHandle2TabulatedWidths This)
 {
-   return detail::getField<CPP,Handle2PoPs>
-      (CLASSNAME, CLASSNAME+"PoPsGet", This, extract::PoPs);
+   return detail::getField<CPP,Handle2PoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
 }
 
 // Set
 void
-TabulatedWidthsPoPsSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs PoPs)
+TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs)
 {
-   detail::setField<CPP,CPPPoPs>
-      (CLASSNAME, CLASSNAME+"PoPsSet", This, extract::PoPs, PoPs);
+   detail::setField<CPP,CPPPoPs_database>
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
 }
 
 

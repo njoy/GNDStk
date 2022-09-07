@@ -1384,7 +1384,7 @@
         },
         "bodyText": null,
         "childNodes": {
-            "xs": {
+            "xs_in_xs_pdf_cdf1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Defines the common list of $x$ values for the pdf and cdf.",
                 "name": "xs",
@@ -1399,7 +1399,7 @@
                 "occurrence": "1",
                 "required": true
             },
-            "cdf": {
+            "cdf_in_xs_pdf_cdf1d": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores the cdf evaluated at each corresponding $x$ value.",
                 "name": "cdf",
