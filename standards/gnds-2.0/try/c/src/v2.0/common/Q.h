@@ -33,7 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/documentation/Documentation.h"
-#include "v2.0/ambiguousNamespace/Uncertainty.h"
+#include "v2.0/containers/Uncertainty.h"
 #include "v2.0/containers/Constant1d.h"
 #include "v2.0/containers/XYs1d.h"
 #include "v2.0/containers/Regions1d.h"

@@ -40,7 +40,7 @@ void wrapEnergy(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<XMLName> &,
             const std::optional<documentation::Documentation> &,
-            const std::optional<ambiguousNamespace::Uncertainty> &,
+            const std::optional<containers::Uncertainty> &,
             const std::vector<containers::Double> &
          >(),
          python::arg("label") = std::nullopt,
