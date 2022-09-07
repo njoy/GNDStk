@@ -20,7 +20,7 @@ namespace extract {
    static auto energyAngular = [](auto &obj) { return &obj.energyAngular; };
 }
 
-using CPPEnergy = ambiguousNamespace::Energy;
+using CPPEnergy = common::Energy;
 using CPPEnergyAngular = transport::EnergyAngular;
 
 

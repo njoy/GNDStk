@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_PROCESSED_ENERGYANGULARMC
 #define TRY_V2_0_PROCESSED_ENERGYANGULARMC
 
-#include "try/v2.0/ambiguousNamespace/Energy.hpp"
+#include "try/v2.0/common/Energy.hpp"
 #include "try/v2.0/transport/EnergyAngular.hpp"
 
 namespace try {
@@ -39,7 +39,7 @@ class EnergyAngularMC : public Component<processed::EnergyAngularMC> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         ambiguousNamespace::Energy{}
+         common::Energy{}
             / --Child<>("energy") |
          transport::EnergyAngular{}
             / --Child<>("energyAngular")
@@ -54,7 +54,7 @@ public:
    Field<XMLName> productFrame{this};
 
    // children
-   Field<ambiguousNamespace::Energy> energy{this};
+   Field<common::Energy> energy{this};
    Field<transport::EnergyAngular> energyAngular{this};
 
    // ------------------------
@@ -71,7 +71,7 @@ public:
    explicit EnergyAngularMC(
       const wrapper<XMLName> &label = {},
       const wrapper<XMLName> &productFrame = {},
-      const wrapper<ambiguousNamespace::Energy> &energy = {},
+      const wrapper<common::Energy> &energy = {},
       const wrapper<transport::EnergyAngular> &energyAngular = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

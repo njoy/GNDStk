@@ -38,7 +38,7 @@ void wrapEnergyAngularMC(python::module &module)
          python::init<
             const XMLName &,
             const XMLName &,
-            const ambiguousNamespace::Energy &,
+            const common::Energy &,
             const transport::EnergyAngular &
          >(),
          python::arg("label"),

@@ -111,6 +111,7 @@
             "energy": {
                 "__class__": "nodes.ChildNode",
                 "description": "The outgoing particle $E'$ distribution $P(E'|E)$ give the projectile energy using a \\element{XYs2d} or \\element{regions2d} with a list of \\element{xs\\_pdf\\_cdf1d} for its function1d's.",
+                "namespace": "common",
                 "name": "energy",
                 "occurrence": "1",
                 "required": true

@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_PROCESSED_ENERGYANGULARMC
 
 #include "GNDStk.h"
-#include "v2.0/ambiguousNamespace/Energy.h"
+#include "v2.0/common/Energy.h"
 #include "v2.0/transport/EnergyAngular.h"
 
 #ifdef __cplusplus
