@@ -24,7 +24,7 @@ namespace extract {
    static auto link = [](auto &obj) { return &obj.link; };
 }
 
-using CPPQ = ambiguousNamespace::Q;
+using CPPQ = common::Q;
 using CPPScatteringRadius = resonances::ScatteringRadius;
 using CPPHardSphereRadius = resonances::HardSphereRadius;
 using CPPLink = containers::Link;

@@ -32,7 +32,7 @@
 #define C_INTERFACE_TRY_V2_0_RESONANCES_RESONANCEREACTION
 
 #include "GNDStk.h"
-#include "v2.0/ambiguousNamespace/Q.h"
+#include "v2.0/common/Q.h"
 #include "v2.0/resonances/ScatteringRadius.h"
 #include "v2.0/resonances/HardSphereRadius.h"
 #include "v2.0/containers/Link.h"

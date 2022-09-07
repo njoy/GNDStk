@@ -40,7 +40,7 @@ void wrapResonanceReaction(python::module &module)
             const XMLName &,
             const std::optional<Float64> &,
             const std::optional<bool> &,
-            const std::optional<ambiguousNamespace::Q> &,
+            const std::optional<common::Q> &,
             const std::optional<resonances::ScatteringRadius> &,
             const std::optional<resonances::HardSphereRadius> &,
             const containers::Link &

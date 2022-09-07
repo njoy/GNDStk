@@ -5,7 +5,7 @@
 #ifndef TRY_V2_0_RESONANCES_RESONANCEREACTION
 #define TRY_V2_0_RESONANCES_RESONANCEREACTION
 
-#include "try/v2.0/ambiguousNamespace/Q.hpp"
+#include "try/v2.0/common/Q.hpp"
 #include "try/v2.0/resonances/ScatteringRadius.hpp"
 #include "try/v2.0/resonances/HardSphereRadius.hpp"
 #include "try/v2.0/containers/Link.hpp"
@@ -45,7 +45,7 @@ class ResonanceReaction : public Component<resonances::ResonanceReaction> {
          Defaulted<bool>{false}
             / Meta<>("eliminated") |
          // children
-         std::optional<ambiguousNamespace::Q>{}
+         std::optional<common::Q>{}
             / --Child<>("Q") |
          std::optional<resonances::ScatteringRadius>{}
             / --Child<>("scatteringRadius") |
@@ -71,7 +71,7 @@ public:
    Field<Defaulted<bool>> eliminated{this,defaults.eliminated};
 
    // children
-   Field<std::optional<ambiguousNamespace::Q>> Q{this};
+   Field<std::optional<common::Q>> Q{this};
    Field<std::optional<resonances::ScatteringRadius>> scatteringRadius{this};
    Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
    Field<containers::Link> link{this};
@@ -97,7 +97,7 @@ public:
       const wrapper<XMLName> &ejectile = {},
       const wrapper<std::optional<Float64>> &boundaryConditionValue = {},
       const wrapper<std::optional<bool>> &eliminated = {},
-      const wrapper<std::optional<ambiguousNamespace::Q>> &Q = {},
+      const wrapper<std::optional<common::Q>> &Q = {},
       const wrapper<std::optional<resonances::ScatteringRadius>> &scatteringRadius = {},
       const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
       const wrapper<containers::Link> &link = {}
