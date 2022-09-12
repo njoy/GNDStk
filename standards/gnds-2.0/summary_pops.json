@@ -656,6 +656,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Binding energy. Recommended unit: `eV', or `keV'",
+            "namespace": "containers",
             "name": "double",
             "occurrence": "1+",
             "required": false
@@ -994,6 +995,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Particle mass. Recommended units are `amu' or `MeV/c/c'.",
+            "namespace": "containers",
             "name": "double",
             "occurrence": "1",
             "required": false
@@ -1179,6 +1181,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Excitation energy. Recommended unit: `eV', `MeV', etc.",
+            "namespace": "containers",
             "name": "double",
             "occurrence": "1+",
             "required": false
@@ -1231,6 +1234,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Numeric value of halflife. Recommended unit = `s'.",
+            "namespace": "containers",
             "name": "double",
             "occurrence": "choice",
             "required": false
@@ -1388,6 +1392,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Numeric value of the probability (unitless). Should be in the range (0, 1]",
+            "namespace": "containers",
             "name": "double",
             "occurrence": "1+",
             "required": true
@@ -1549,6 +1554,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Numeric value of the decay Q-value, recommended unit `eV' or `MeV'.",
+            "namespace": "containers",
             "name": "double",
             "occurrence": "1+",
             "required": true
@@ -2102,6 +2108,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Stores $\\sigma$ for the normal distribution.",
+            "namespace": "extra",
             "name": "double",
             "occurrence": "1",
             "required": true
@@ -2124,6 +2131,7 @@
         "double": {
             "__class__": "nodes.ChildNode",
             "description": "Stores $\\sigma$ for the log-normal distribution.",
+            "namespace": "extra",
             "name": "double",
             "occurrence": "1",
             "required": true

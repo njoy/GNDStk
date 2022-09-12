@@ -17,7 +17,7 @@ namespace extract {
    static auto encoding = [](auto &obj) { return &obj.encoding; };
    static auto markup = [](auto &obj) { return &obj.markup; };
    static auto label = [](auto &obj) { return &obj.label; };
-   static auto label = [](auto &obj) { return &obj.label; };
+   static auto type = [](auto &obj) { return &obj.type; };
 }
 
 
@@ -48,14 +48,14 @@ AcknowledgementCreateConst(
    const XMLName encoding,
    const char *const markup,
    const XMLName label,
-   const XMLName label
+   const XMLName type
 ) {
    ConstHandle2Acknowledgement handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       encoding,
       markup,
       label,
-      label
+      type
    );
    return handle;
 }
@@ -66,14 +66,14 @@ AcknowledgementCreate(
    const XMLName encoding,
    const char *const markup,
    const XMLName label,
-   const XMLName label
+   const XMLName type
 ) {
    ConstHandle2Acknowledgement handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       encoding,
       markup,
       label,
-      label
+      type
    );
    return handle;
 }
@@ -494,30 +494,30 @@ AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label)
 
 
 // -----------------------------------------------------------------------------
-// Metadatum: label
+// Metadatum: type
 // -----------------------------------------------------------------------------
 
 // Has
 int
-AcknowledgementLabelHas(ConstHandle2ConstAcknowledgement This)
+AcknowledgementTypeHas(ConstHandle2ConstAcknowledgement This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"TypeHas", This, extract::type);
 }
 
 // Get
 // Returns by value
 XMLName
-AcknowledgementLabelGet(ConstHandle2ConstAcknowledgement This)
+AcknowledgementTypeGet(ConstHandle2ConstAcknowledgement This)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"TypeGet", This, extract::type);
 }
 
 // Set
 void
-AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label)
+AcknowledgementTypeSet(ConstHandle2Acknowledgement This, const XMLName type)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
 }

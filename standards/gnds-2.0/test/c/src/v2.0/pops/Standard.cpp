@@ -17,7 +17,7 @@ namespace extract {
    static auto Double = [](auto &obj) { return &obj.Double; };
 }
 
-using CPPDouble = containers::Double;
+using CPPDouble = extra::Double;
 
 
 // -----------------------------------------------------------------------------

@@ -106,6 +106,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": "Defines the decay rate. Recommended units are `1/s' or equivalent.",
+                "namespace": "containers",
                 "name": "double",
                 "occurrence": "1",
                 "required": true

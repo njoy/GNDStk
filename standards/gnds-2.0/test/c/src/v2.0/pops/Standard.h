@@ -32,7 +32,7 @@
 #define C_INTERFACE_TEST_V2_0_POPS_STANDARD
 
 #include "GNDStk.h"
-#include "v2.0/containers/Double.h"
+#include "v2.0/extra/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

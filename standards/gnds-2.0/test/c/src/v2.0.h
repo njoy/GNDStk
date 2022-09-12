@@ -16,6 +16,9 @@
    #include "test/v2_0.hpp"
 #endif
 
+#include "v2.0/extra/Double.h"
+#include "v2.0/extra/Uncertainty.h"
+
 #include "v2.0/appData/ApplicationData.h"
 #include "v2.0/appData/Institution.h"
 #include "v2.0/appData/ENDFconversionFlags.h"

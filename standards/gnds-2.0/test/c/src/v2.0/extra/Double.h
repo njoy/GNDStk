@@ -16,10 +16,10 @@
 //    // --- comment
 // Anything not marked as above can be ignored by most users.
 //
-// LogNormal is the basic handle type in this file. Example:
-//    // Create a default LogNormal object:
-//    LogNormal handle = LogNormalDefault();
-// Functions involving LogNormal are declared throughout this file.
+// Double is the basic handle type in this file. Example:
+//    // Create a default Double object:
+//    Double handle = DoubleDefault();
+// Functions involving Double are declared throughout this file.
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
@@ -28,11 +28,10 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_POPS_LOGNORMAL
-#define C_INTERFACE_TEST_V2_0_POPS_LOGNORMAL
+#ifndef C_INTERFACE_TEST_V2_0_EXTRA_DOUBLE
+#define C_INTERFACE_TEST_V2_0_EXTRA_DOUBLE
 
 #include "GNDStk.h"
-#include "v2.0/extra/Double.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -41,24 +40,24 @@
 #endif
 
 // Proxy C struct for the handled C++ class
-struct LogNormalClass { };
+struct DoubleClass { };
 
 
 // -----------------------------------------------------------------------------
 // Handle types
 // -----------------------------------------------------------------------------
 
-// +++ LogNormal
+// +++ Double
 // +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
-typedef struct LogNormalClass *LogNormal;
+typedef struct DoubleClass *Double;
 
 // --- Const-aware handles.
-typedef const struct LogNormalClass *const ConstHandle2ConstLogNormal;
-typedef       struct LogNormalClass *const ConstHandle2LogNormal;
-typedef const struct LogNormalClass *      Handle2ConstLogNormal;
-typedef       struct LogNormalClass *      Handle2LogNormal;
+typedef const struct DoubleClass *const ConstHandle2ConstDouble;
+typedef       struct DoubleClass *const ConstHandle2Double;
+typedef const struct DoubleClass *      Handle2ConstDouble;
+typedef       struct DoubleClass *      Handle2Double;
 
 
 // -----------------------------------------------------------------------------
@@ -67,36 +66,40 @@ typedef       struct LogNormalClass *      Handle2LogNormal;
 // -----------------------------------------------------------------------------
 
 // --- Create, default, const
-extern_c Handle2ConstLogNormal
-LogNormalDefaultConst();
+extern_c Handle2ConstDouble
+DoubleDefaultConst();
 
 // +++ Create, default
-extern_c Handle2LogNormal
-LogNormalDefault();
+extern_c Handle2Double
+DoubleDefault();
 
 // --- Create, general, const
-extern_c Handle2ConstLogNormal
-LogNormalCreateConst(
-   ConstHandle2ConstDouble Double
+extern_c Handle2ConstDouble
+DoubleCreateConst(
+   const XMLName label,
+   const XMLName unit,
+   const Float64 value
 );
 
 // +++ Create, general
-extern_c Handle2LogNormal
-LogNormalCreate(
-   ConstHandle2ConstDouble Double
+extern_c Handle2Double
+DoubleCreate(
+   const XMLName label,
+   const XMLName unit,
+   const Float64 value
 );
 
 // +++ Assign
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LogNormalAssign(ConstHandle2LogNormal This, ConstHandle2ConstLogNormal from);
+DoubleAssign(ConstHandle2Double This, ConstHandle2ConstDouble from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LogNormalDelete(ConstHandle2ConstLogNormal This);
+DoubleDelete(ConstHandle2ConstDouble This);
 
 
 // -----------------------------------------------------------------------------
@@ -109,46 +112,79 @@ LogNormalDelete(ConstHandle2ConstLogNormal This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LogNormalRead(ConstHandle2LogNormal This, const char *const filename);
+DoubleRead(ConstHandle2Double This, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LogNormalWrite(ConstHandle2ConstLogNormal This, const char *const filename);
+DoubleWrite(ConstHandle2ConstDouble This, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LogNormalPrint(ConstHandle2ConstLogNormal This);
+DoublePrint(ConstHandle2ConstDouble This);
 
 // +++ Print to standard output, as XML
 extern_c int
-LogNormalPrintXML(ConstHandle2ConstLogNormal This);
+DoublePrintXML(ConstHandle2ConstDouble This);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LogNormalPrintJSON(ConstHandle2ConstLogNormal This);
+DoublePrintJSON(ConstHandle2ConstDouble This);
 
 
 // -----------------------------------------------------------------------------
-// Child: Double
+// Metadatum: label
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-LogNormalDoubleHas(ConstHandle2ConstLogNormal This);
+DoubleLabelHas(ConstHandle2ConstDouble This);
 
-// --- Get, const
-extern_c Handle2ConstDouble
-LogNormalDoubleGetConst(ConstHandle2ConstLogNormal This);
-
-// +++ Get, non-const
-extern_c Handle2Double
-LogNormalDoubleGet(ConstHandle2LogNormal This);
+// +++ Get
+// +++ Returns by value
+extern_c XMLName
+DoubleLabelGet(ConstHandle2ConstDouble This);
 
 // +++ Set
 extern_c void
-LogNormalDoubleSet(ConstHandle2LogNormal This, ConstHandle2ConstDouble Double);
+DoubleLabelSet(ConstHandle2Double This, const XMLName label);
+
+
+// -----------------------------------------------------------------------------
+// Metadatum: unit
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+DoubleUnitHas(ConstHandle2ConstDouble This);
+
+// +++ Get
+// +++ Returns by value
+extern_c XMLName
+DoubleUnitGet(ConstHandle2ConstDouble This);
+
+// +++ Set
+extern_c void
+DoubleUnitSet(ConstHandle2Double This, const XMLName unit);
+
+
+// -----------------------------------------------------------------------------
+// Metadatum: value
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+DoubleValueHas(ConstHandle2ConstDouble This);
+
+// +++ Get
+// +++ Returns by value
+extern_c Float64
+DoubleValueGet(ConstHandle2ConstDouble This);
+
+// +++ Set
+extern_c void
+DoubleValueSet(ConstHandle2Double This, const Float64 value);
 
 
 // -----------------------------------------------------------------------------

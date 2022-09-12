@@ -146,6 +146,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": "Each of the terms in the Froehner or SAMMY formalisms",
+                "namespace": "containers",
                 "name": "double",
                 "occurrence": "1+",
                 "required": true

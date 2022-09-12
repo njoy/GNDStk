@@ -79,7 +79,7 @@ AcknowledgementCreateConst(
    const XMLName encoding,
    const char *const markup,
    const XMLName label,
-   const XMLName label
+   const XMLName type
 );
 
 // +++ Create, general
@@ -88,7 +88,7 @@ AcknowledgementCreate(
    const XMLName encoding,
    const char *const markup,
    const XMLName label,
-   const XMLName label
+   const XMLName type
 );
 
 // +++ Assign
@@ -331,21 +331,21 @@ AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Metadatum: label
+// Metadatum: type
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-AcknowledgementLabelHas(ConstHandle2ConstAcknowledgement This);
+AcknowledgementTypeHas(ConstHandle2ConstAcknowledgement This);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AcknowledgementLabelGet(ConstHandle2ConstAcknowledgement This);
+AcknowledgementTypeGet(ConstHandle2ConstAcknowledgement This);
 
 // +++ Set
 extern_c void
-AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label);
+AcknowledgementTypeSet(ConstHandle2Acknowledgement This, const XMLName type);
 
 
 // -----------------------------------------------------------------------------

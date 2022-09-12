@@ -7,7 +7,7 @@
 
 #include "test/v2.0/containers/Axes.hpp"
 #include "test/v2.0/containers/Function1ds.hpp"
-#include "test/v2.0/containers/Uncertainty.hpp"
+#include "test/v2.0/extra/Uncertainty.hpp"
 
 namespace test {
 namespace v2_0 {
@@ -44,7 +44,7 @@ class Regions1d : public Component<containers::Regions1d> {
             / --Child<>("axes") |
          containers::Function1ds{}
             / --Child<>("function1ds") |
-         std::optional<containers::Uncertainty>{}
+         std::optional<extra::Uncertainty>{}
             / --Child<>("uncertainty")
       ;
    }
@@ -59,7 +59,7 @@ public:
    // children
    Field<std::optional<containers::Axes>> axes{this};
    Field<containers::Function1ds> function1ds{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<extra::Uncertainty>> uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -78,7 +78,7 @@ public:
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
       const wrapper<containers::Function1ds> &function1ds = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<extra::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

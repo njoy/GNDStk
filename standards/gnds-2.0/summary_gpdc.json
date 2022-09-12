@@ -348,6 +348,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores $\\sigma$ for the normal distribution.",
+                "namespace": "extra",
                 "name": "double",
                 "occurrence": "1",
                 "required": true
@@ -370,6 +371,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": "Stores $\\sigma$ for the log-normal distribution.",
+                "namespace": "extra",
                 "name": "double",
                 "occurrence": "1",
                 "required": true
@@ -1089,7 +1091,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
-                "namespace": "containers",
+                "namespace": "extra",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1288,6 +1290,7 @@
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
                 "namespace": "containers",
+                "namespace": "extra",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false
@@ -1716,7 +1719,7 @@
             "uncertainty": {
                 "__class__": "nodes.ChildNode",
                 "description": "Uncertainty and/or covariance for this one-dimensional function.",
-                "namespace": "containers",
+                "namespace": "extra",
                 "name": "uncertainty",
                 "occurrence": "1",
                 "required": false

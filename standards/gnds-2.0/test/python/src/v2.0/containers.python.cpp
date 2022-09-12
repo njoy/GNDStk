@@ -12,16 +12,18 @@ namespace python_v2_0 {
 
 // containers declarations
 namespace python_containers {
+   void wrapStandard(python::module &);
+   void wrapLogNormal(python::module &);
+   void wrapInterval(python::module &);
+   void wrapConfidenceIntervals(python::module &);
+   void wrapCovariance(python::module &);
+   void wrapListOfCovariances(python::module &);
    void wrapAxis(python::module &);
    void wrapValues(python::module &);
    void wrapLink(python::module &);
    void wrapGrid(python::module &);
    void wrapAxes(python::module &);
-   void wrapDouble(python::module &);
-   void wrapStandard(python::module &);
-   void wrapLogNormal(python::module &);
-   void wrapInterval(python::module &);
-   void wrapConfidenceIntervals(python::module &);
+   void wrapXYs1d(python::module &);
    void wrapConstant1d(python::module &);
    void wrapPolynomial1d(python::module &);
    void wrapLegendre(python::module &);
@@ -30,10 +32,7 @@ namespace python_containers {
    void wrapFunction1ds(python::module &);
    void wrapRegions1d(python::module &);
    void wrapPdf(python::module &);
-   void wrapCovariance(python::module &);
-   void wrapListOfCovariances(python::module &);
    void wrapUncertainty(python::module &);
-   void wrapXYs1d(python::module &);
    void wrapXYs2d(python::module &);
    void wrapGridded2d(python::module &);
    void wrapFunction2ds(python::module &);
@@ -41,6 +40,7 @@ namespace python_containers {
    void wrapXYs3d(python::module &);
    void wrapYs1d(python::module &);
    void wrapGridded3d(python::module &);
+   void wrapDouble(python::module &);
    void wrapString(python::module &);
    void wrapInteger(python::module &);
    void wrapFraction(python::module &);
@@ -66,16 +66,18 @@ void wrapContainers(python::module &module)
    );
 
    // wrap containers components
+   python_containers::wrapStandard(submodule);
+   python_containers::wrapLogNormal(submodule);
+   python_containers::wrapInterval(submodule);
+   python_containers::wrapConfidenceIntervals(submodule);
+   python_containers::wrapCovariance(submodule);
+   python_containers::wrapListOfCovariances(submodule);
    python_containers::wrapAxis(submodule);
    python_containers::wrapValues(submodule);
    python_containers::wrapLink(submodule);
    python_containers::wrapGrid(submodule);
    python_containers::wrapAxes(submodule);
-   python_containers::wrapDouble(submodule);
-   python_containers::wrapStandard(submodule);
-   python_containers::wrapLogNormal(submodule);
-   python_containers::wrapInterval(submodule);
-   python_containers::wrapConfidenceIntervals(submodule);
+   python_containers::wrapXYs1d(submodule);
    python_containers::wrapConstant1d(submodule);
    python_containers::wrapPolynomial1d(submodule);
    python_containers::wrapLegendre(submodule);
@@ -84,10 +86,7 @@ void wrapContainers(python::module &module)
    python_containers::wrapFunction1ds(submodule);
    python_containers::wrapRegions1d(submodule);
    python_containers::wrapPdf(submodule);
-   python_containers::wrapCovariance(submodule);
-   python_containers::wrapListOfCovariances(submodule);
    python_containers::wrapUncertainty(submodule);
-   python_containers::wrapXYs1d(submodule);
    python_containers::wrapXYs2d(submodule);
    python_containers::wrapGridded2d(submodule);
    python_containers::wrapFunction2ds(submodule);
@@ -95,6 +94,7 @@ void wrapContainers(python::module &module)
    python_containers::wrapXYs3d(submodule);
    python_containers::wrapYs1d(submodule);
    python_containers::wrapGridded3d(submodule);
+   python_containers::wrapDouble(submodule);
    python_containers::wrapString(submodule);
    python_containers::wrapInteger(submodule);
    python_containers::wrapFraction(submodule);

@@ -6,7 +6,7 @@
 #define TEST_V2_0_CONTAINERS_POLYNOMIAL1D
 
 #include "test/v2.0/containers/Axes.hpp"
-#include "test/v2.0/containers/Uncertainty.hpp"
+#include "test/v2.0/extra/Uncertainty.hpp"
 #include "test/v2.0/containers/Values.hpp"
 
 namespace test {
@@ -48,7 +48,7 @@ class Polynomial1d : public Component<containers::Polynomial1d> {
          // children
          containers::Axes{}
             / --Child<>("axes") |
-         std::optional<containers::Uncertainty>{}
+         std::optional<extra::Uncertainty>{}
             / --Child<>("uncertainty") |
          containers::Values{}
             / --Child<>("values")
@@ -72,7 +72,7 @@ public:
 
    // children
    Field<containers::Axes> axes{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<extra::Uncertainty>> uncertainty{this};
    Field<containers::Values> values{this};
 
    // ------------------------
@@ -98,7 +98,7 @@ public:
       const wrapper<Float64> &domainMin = {},
       const wrapper<Float64> &domainMax = {},
       const wrapper<containers::Axes> &axes = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {},
+      const wrapper<std::optional<extra::Uncertainty>> &uncertainty = {},
       const wrapper<containers::Values> &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

@@ -373,6 +373,21 @@ using namespace child;
 
 
 // -----------------------------------------------------------------------------
+// extra::child::
+// -----------------------------------------------------------------------------
+
+namespace extra {
+namespace child {
+
+inline const Child<> Double("double");
+inline const Child<> uncertainty("uncertainty");
+
+} // namespace child
+using namespace child;
+} // namespace extra
+
+
+// -----------------------------------------------------------------------------
 // fissionFragmentData::child::
 // -----------------------------------------------------------------------------
 
@@ -749,6 +764,7 @@ namespace key {
    using namespace covariance::child;
    using namespace cpTransport::child;
    using namespace documentation::child;
+   using namespace extra::child;
    using namespace fissionFragmentData::child;
    using namespace fissionTransport::child;
    using namespace fpy::child;
@@ -769,6 +785,7 @@ using namespace containers;
 using namespace covariance;
 using namespace cpTransport;
 using namespace documentation;
+using namespace extra;
 using namespace fissionFragmentData;
 using namespace fissionTransport;
 using namespace fpy;

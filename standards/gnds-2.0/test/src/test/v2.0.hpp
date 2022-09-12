@@ -5,9 +5,10 @@
 #ifndef TEST_V2_0
 #define TEST_V2_0
 
-#include "test/v2.0/appData/ApplicationData.hpp"
+#include "test/v2.0/extra/Double.hpp"
+#include "test/v2.0/extra/Uncertainty.hpp"
 
-/*
+#include "test/v2.0/appData/ApplicationData.hpp"
 #include "test/v2.0/appData/Institution.hpp"
 #include "test/v2.0/appData/ENDFconversionFlags.hpp"
 #include "test/v2.0/appData/Conversion.hpp"
@@ -386,6 +387,5 @@
 #include "test/v2.0/tsl/PhononSpectrum.hpp"
 #include "test/v2.0/tsl/SCTApproximation.hpp"
 #include "test/v2.0/tsl/FreeGasApproximation.hpp"
-*/
 
 #endif

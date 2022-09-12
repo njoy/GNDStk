@@ -23,7 +23,7 @@ namespace extract {
 
 using CPPAxes = containers::Axes;
 using CPPFunction1ds = containers::Function1ds;
-using CPPUncertainty = containers::Uncertainty;
+using CPPUncertainty = extra::Uncertainty;
 
 
 // -----------------------------------------------------------------------------

@@ -33,7 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/containers/Axes.h"
-#include "v2.0/containers/Uncertainty.h"
+#include "v2.0/extra/Uncertainty.h"
 #include "v2.0/containers/Values.h"
 
 #ifdef __cplusplus

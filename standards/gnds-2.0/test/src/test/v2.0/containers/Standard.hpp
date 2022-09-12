@@ -5,7 +5,7 @@
 #ifndef TEST_V2_0_CONTAINERS_STANDARD
 #define TEST_V2_0_CONTAINERS_STANDARD
 
-#include "test/v2.0/containers/Double.hpp"
+#include "test/v2.0/extra/Double.hpp"
 
 namespace test {
 namespace v2_0 {
@@ -33,7 +33,7 @@ class Standard : public Component<containers::Standard> {
    {
       return
          // children
-         containers::Double{}
+         extra::Double{}
             / --Child<>("Double")
       ;
    }
@@ -42,7 +42,7 @@ public:
    using Component::construct;
 
    // children
-   Field<containers::Double> Double{this};
+   Field<extra::Double> Double{this};
 
    // ------------------------
    // Constructors
@@ -53,7 +53,7 @@ public:
 
    // default, and from fields
    explicit Standard(
-      const wrapper<containers::Double> &Double = {}
+      const wrapper<extra::Double> &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)

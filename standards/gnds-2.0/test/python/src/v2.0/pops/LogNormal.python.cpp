@@ -36,7 +36,7 @@ void wrapLogNormal(python::module &module)
    component
       .def(
          python::init<
-            const containers::Double &
+            const extra::Double &
          >(),
          python::arg("double"),
          Component::documentation("constructor").data()

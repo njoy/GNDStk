@@ -40,7 +40,7 @@ class Acknowledgement : public Component<documentation::Acknowledgement,true> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          XMLName{}
-            / Meta<>("label")
+            / Meta<>("type")
       ;
    }
 
@@ -58,7 +58,7 @@ public:
    Field<Defaulted<XMLName>> encoding{this,defaults.encoding};
    Field<Defaulted<std::string>> markup{this,defaults.markup};
    Field<std::optional<XMLName>> label{this};
-   Field<XMLName> label{this};
+   Field<XMLName> type{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +68,7 @@ public:
       this->encoding, \
       this->markup, \
       this->label, \
-      this->label)
+      this->type)
 
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
@@ -76,13 +76,13 @@ public:
       const wrapper<std::optional<XMLName>> &encoding = {},
       const wrapper<std::optional<std::string>> &markup = {},
       const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<XMLName> &label = {}
+      const wrapper<XMLName> &type = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       encoding(this,defaults.encoding,encoding),
       markup(this,defaults.markup,markup),
       label(this,label),
-      label(this,label)
+      type(this,type)
    {
       Component::finish();
    }

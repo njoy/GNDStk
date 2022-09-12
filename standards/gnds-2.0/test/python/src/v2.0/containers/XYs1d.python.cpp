@@ -41,7 +41,7 @@ void wrapXYs1d(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
-            const std::optional<containers::Uncertainty> &,
+            const std::optional<extra::Uncertainty> &,
             const containers::Values &
          >(),
          python::arg("index") = std::nullopt,

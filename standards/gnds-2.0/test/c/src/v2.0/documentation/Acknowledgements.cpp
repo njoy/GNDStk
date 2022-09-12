@@ -339,47 +339,47 @@ AcknowledgementsAcknowledgementSetByLabel(
        This, extract::acknowledgement, meta::label, label, acknowledgement);
 }
 
-// Has, by label
+// Has, by type
 int
-AcknowledgementsAcknowledgementHasByLabel(
+AcknowledgementsAcknowledgementHasByType(
    ConstHandle2ConstAcknowledgements This,
-   const XMLName label
+   const XMLName type
 ) {
    return detail::hasByMetadatum<CPP>
-      (CLASSNAME, CLASSNAME+"AcknowledgementHasByLabel",
-       This, extract::acknowledgement, meta::label, label);
+      (CLASSNAME, CLASSNAME+"AcknowledgementHasByType",
+       This, extract::acknowledgement, meta::type, type);
 }
 
-// Get, by label, const
+// Get, by type, const
 Handle2ConstAcknowledgement
-AcknowledgementsAcknowledgementGetByLabelConst(
+AcknowledgementsAcknowledgementGetByTypeConst(
    ConstHandle2ConstAcknowledgements This,
-   const XMLName label
+   const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAcknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementGetByLabelConst",
-       This, extract::acknowledgement, meta::label, label);
+      (CLASSNAME, CLASSNAME+"AcknowledgementGetByTypeConst",
+       This, extract::acknowledgement, meta::type, type);
 }
 
-// Get, by label, non-const
+// Get, by type, non-const
 Handle2Acknowledgement
-AcknowledgementsAcknowledgementGetByLabel(
+AcknowledgementsAcknowledgementGetByType(
    ConstHandle2Acknowledgements This,
-   const XMLName label
+   const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2Acknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementGetByLabel",
-       This, extract::acknowledgement, meta::label, label);
+      (CLASSNAME, CLASSNAME+"AcknowledgementGetByType",
+       This, extract::acknowledgement, meta::type, type);
 }
 
-// Set, by label
+// Set, by type
 void
-AcknowledgementsAcknowledgementSetByLabel(
+AcknowledgementsAcknowledgementSetByType(
    ConstHandle2Acknowledgements This,
-   const XMLName label,
+   const XMLName type,
    ConstHandle2ConstAcknowledgement acknowledgement
 ) {
    detail::setByMetadatum<CPP,CPPAcknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementSetByLabel",
-       This, extract::acknowledgement, meta::label, label, acknowledgement);
+      (CLASSNAME, CLASSNAME+"AcknowledgementSetByType",
+       This, extract::acknowledgement, meta::type, type, acknowledgement);
 }

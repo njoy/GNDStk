@@ -16,10 +16,10 @@
 //    // --- comment
 // Anything not marked as above can be ignored by most users.
 //
-// Regions1d is the basic handle type in this file. Example:
-//    // Create a default Regions1d object:
-//    Regions1d handle = Regions1dDefault();
-// Functions involving Regions1d are declared throughout this file.
+// Uncertainty is the basic handle type in this file. Example:
+//    // Create a default Uncertainty object:
+//    Uncertainty handle = UncertaintyDefault();
+// Functions involving Uncertainty are declared throughout this file.
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
@@ -28,13 +28,15 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_CONTAINERS_REGIONS1D
-#define C_INTERFACE_TEST_V2_0_CONTAINERS_REGIONS1D
+#ifndef C_INTERFACE_TEST_V2_0_EXTRA_UNCERTAINTY
+#define C_INTERFACE_TEST_V2_0_EXTRA_UNCERTAINTY
 
 #include "GNDStk.h"
-#include "v2.0/containers/Axes.h"
-#include "v2.0/containers/Function1ds.h"
-#include "v2.0/extra/Uncertainty.h"
+#include "v2.0/containers/Standard.h"
+#include "v2.0/containers/LogNormal.h"
+#include "v2.0/containers/ConfidenceIntervals.h"
+#include "v2.0/containers/Covariance.h"
+#include "v2.0/containers/ListOfCovariances.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -43,24 +45,24 @@
 #endif
 
 // Proxy C struct for the handled C++ class
-struct Regions1dClass { };
+struct UncertaintyClass { };
 
 
 // -----------------------------------------------------------------------------
 // Handle types
 // -----------------------------------------------------------------------------
 
-// +++ Regions1d
+// +++ Uncertainty
 // +++ General handle, suitable for most users. If you're not concerned about
 // +++ strict "const correctness" in your C code, you can probably use this in
 // +++ place of any function parameter of a const-aware handle type.
-typedef struct Regions1dClass *Regions1d;
+typedef struct UncertaintyClass *Uncertainty;
 
 // --- Const-aware handles.
-typedef const struct Regions1dClass *const ConstHandle2ConstRegions1d;
-typedef       struct Regions1dClass *const ConstHandle2Regions1d;
-typedef const struct Regions1dClass *      Handle2ConstRegions1d;
-typedef       struct Regions1dClass *      Handle2Regions1d;
+typedef const struct UncertaintyClass *const ConstHandle2ConstUncertainty;
+typedef       struct UncertaintyClass *const ConstHandle2Uncertainty;
+typedef const struct UncertaintyClass *      Handle2ConstUncertainty;
+typedef       struct UncertaintyClass *      Handle2Uncertainty;
 
 
 // -----------------------------------------------------------------------------
@@ -69,44 +71,44 @@ typedef       struct Regions1dClass *      Handle2Regions1d;
 // -----------------------------------------------------------------------------
 
 // --- Create, default, const
-extern_c Handle2ConstRegions1d
-Regions1dDefaultConst();
+extern_c Handle2ConstUncertainty
+UncertaintyDefaultConst();
 
 // +++ Create, default
-extern_c Handle2Regions1d
-Regions1dDefault();
+extern_c Handle2Uncertainty
+UncertaintyDefault();
 
 // --- Create, general, const
-extern_c Handle2ConstRegions1d
-Regions1dCreateConst(
-   const XMLName label,
-   const Float64 outerDomainValue,
-   ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds,
-   ConstHandle2ConstUncertainty uncertainty
+extern_c Handle2ConstUncertainty
+UncertaintyCreateConst(
+   ConstHandle2ConstStandard standard,
+   ConstHandle2ConstLogNormal logNormal,
+   ConstHandle2ConstConfidenceIntervals confidenceIntervals,
+   ConstHandle2ConstCovariance covariance,
+   ConstHandle2ConstListOfCovariances listOfCovariances
 );
 
 // +++ Create, general
-extern_c Handle2Regions1d
-Regions1dCreate(
-   const XMLName label,
-   const Float64 outerDomainValue,
-   ConstHandle2ConstAxes axes,
-   ConstHandle2ConstFunction1ds function1ds,
-   ConstHandle2ConstUncertainty uncertainty
+extern_c Handle2Uncertainty
+UncertaintyCreate(
+   ConstHandle2ConstStandard standard,
+   ConstHandle2ConstLogNormal logNormal,
+   ConstHandle2ConstConfidenceIntervals confidenceIntervals,
+   ConstHandle2ConstCovariance covariance,
+   ConstHandle2ConstListOfCovariances listOfCovariances
 );
 
 // +++ Assign
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Regions1dAssign(ConstHandle2Regions1d This, ConstHandle2ConstRegions1d from);
+UncertaintyAssign(ConstHandle2Uncertainty This, ConstHandle2ConstUncertainty from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Regions1dDelete(ConstHandle2ConstRegions1d This);
+UncertaintyDelete(ConstHandle2ConstUncertainty This);
 
 
 // -----------------------------------------------------------------------------
@@ -119,124 +121,130 @@ Regions1dDelete(ConstHandle2ConstRegions1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Regions1dRead(ConstHandle2Regions1d This, const char *const filename);
+UncertaintyRead(ConstHandle2Uncertainty This, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Regions1dWrite(ConstHandle2ConstRegions1d This, const char *const filename);
+UncertaintyWrite(ConstHandle2ConstUncertainty This, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Regions1dPrint(ConstHandle2ConstRegions1d This);
+UncertaintyPrint(ConstHandle2ConstUncertainty This);
 
 // +++ Print to standard output, as XML
 extern_c int
-Regions1dPrintXML(ConstHandle2ConstRegions1d This);
+UncertaintyPrintXML(ConstHandle2ConstUncertainty This);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Regions1dPrintJSON(ConstHandle2ConstRegions1d This);
+UncertaintyPrintJSON(ConstHandle2ConstUncertainty This);
 
 
 // -----------------------------------------------------------------------------
-// Metadatum: label
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-Regions1dLabelHas(ConstHandle2ConstRegions1d This);
-
-// +++ Get
-// +++ Returns by value
-extern_c XMLName
-Regions1dLabelGet(ConstHandle2ConstRegions1d This);
-
-// +++ Set
-extern_c void
-Regions1dLabelSet(ConstHandle2Regions1d This, const XMLName label);
-
-
-// -----------------------------------------------------------------------------
-// Metadatum: outerDomainValue
+// Child: standard
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d This);
-
-// +++ Get
-// +++ Returns by value
-extern_c Float64
-Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d This);
-
-// +++ Set
-extern_c void
-Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const Float64 outerDomainValue);
-
-
-// -----------------------------------------------------------------------------
-// Child: axes
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-Regions1dAxesHas(ConstHandle2ConstRegions1d This);
+UncertaintyStandardHas(ConstHandle2ConstUncertainty This);
 
 // --- Get, const
-extern_c Handle2ConstAxes
-Regions1dAxesGetConst(ConstHandle2ConstRegions1d This);
+extern_c Handle2ConstStandard
+UncertaintyStandardGetConst(ConstHandle2ConstUncertainty This);
 
 // +++ Get, non-const
-extern_c Handle2Axes
-Regions1dAxesGet(ConstHandle2Regions1d This);
+extern_c Handle2Standard
+UncertaintyStandardGet(ConstHandle2Uncertainty This);
 
 // +++ Set
 extern_c void
-Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes);
+UncertaintyStandardSet(ConstHandle2Uncertainty This, ConstHandle2ConstStandard standard);
 
 
 // -----------------------------------------------------------------------------
-// Child: function1ds
+// Child: logNormal
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-Regions1dFunction1dsHas(ConstHandle2ConstRegions1d This);
+UncertaintyLogNormalHas(ConstHandle2ConstUncertainty This);
 
 // --- Get, const
-extern_c Handle2ConstFunction1ds
-Regions1dFunction1dsGetConst(ConstHandle2ConstRegions1d This);
+extern_c Handle2ConstLogNormal
+UncertaintyLogNormalGetConst(ConstHandle2ConstUncertainty This);
 
 // +++ Get, non-const
-extern_c Handle2Function1ds
-Regions1dFunction1dsGet(ConstHandle2Regions1d This);
+extern_c Handle2LogNormal
+UncertaintyLogNormalGet(ConstHandle2Uncertainty This);
 
 // +++ Set
 extern_c void
-Regions1dFunction1dsSet(ConstHandle2Regions1d This, ConstHandle2ConstFunction1ds function1ds);
+UncertaintyLogNormalSet(ConstHandle2Uncertainty This, ConstHandle2ConstLogNormal logNormal);
 
 
 // -----------------------------------------------------------------------------
-// Child: uncertainty
+// Child: confidenceIntervals
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-Regions1dUncertaintyHas(ConstHandle2ConstRegions1d This);
+UncertaintyConfidenceIntervalsHas(ConstHandle2ConstUncertainty This);
 
 // --- Get, const
-extern_c Handle2ConstUncertainty
-Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d This);
+extern_c Handle2ConstConfidenceIntervals
+UncertaintyConfidenceIntervalsGetConst(ConstHandle2ConstUncertainty This);
 
 // +++ Get, non-const
-extern_c Handle2Uncertainty
-Regions1dUncertaintyGet(ConstHandle2Regions1d This);
+extern_c Handle2ConfidenceIntervals
+UncertaintyConfidenceIntervalsGet(ConstHandle2Uncertainty This);
 
 // +++ Set
 extern_c void
-Regions1dUncertaintySet(ConstHandle2Regions1d This, ConstHandle2ConstUncertainty uncertainty);
+UncertaintyConfidenceIntervalsSet(ConstHandle2Uncertainty This, ConstHandle2ConstConfidenceIntervals confidenceIntervals);
+
+
+// -----------------------------------------------------------------------------
+// Child: covariance
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+UncertaintyCovarianceHas(ConstHandle2ConstUncertainty This);
+
+// --- Get, const
+extern_c Handle2ConstCovariance
+UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty This);
+
+// +++ Get, non-const
+extern_c Handle2Covariance
+UncertaintyCovarianceGet(ConstHandle2Uncertainty This);
+
+// +++ Set
+extern_c void
+UncertaintyCovarianceSet(ConstHandle2Uncertainty This, ConstHandle2ConstCovariance covariance);
+
+
+// -----------------------------------------------------------------------------
+// Child: listOfCovariances
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+UncertaintyListOfCovariancesHas(ConstHandle2ConstUncertainty This);
+
+// --- Get, const
+extern_c Handle2ConstListOfCovariances
+UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty This);
+
+// +++ Get, non-const
+extern_c Handle2ListOfCovariances
+UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty This);
+
+// +++ Set
+extern_c void
+UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty This, ConstHandle2ConstListOfCovariances listOfCovariances);
 
 
 // -----------------------------------------------------------------------------

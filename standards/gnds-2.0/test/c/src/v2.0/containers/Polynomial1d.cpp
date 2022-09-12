@@ -25,7 +25,7 @@ namespace extract {
 }
 
 using CPPAxes = containers::Axes;
-using CPPUncertainty = containers::Uncertainty;
+using CPPUncertainty = extra::Uncertainty;
 using CPPValues = containers::Values;
 
 

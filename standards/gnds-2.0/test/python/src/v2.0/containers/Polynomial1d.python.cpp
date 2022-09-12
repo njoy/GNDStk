@@ -42,7 +42,7 @@ void wrapPolynomial1d(python::module &module)
             const Float64 &,
             const Float64 &,
             const containers::Axes &,
-            const std::optional<containers::Uncertainty> &,
+            const std::optional<extra::Uncertainty> &,
             const containers::Values &
          >(),
          python::arg("label") = std::nullopt,

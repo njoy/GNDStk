@@ -40,7 +40,7 @@ void wrapRegions1d(python::module &module)
             const std::optional<Float64> &,
             const std::optional<containers::Axes> &,
             const containers::Function1ds &,
-            const std::optional<containers::Uncertainty> &
+            const std::optional<extra::Uncertainty> &
          >(),
          python::arg("label") = std::nullopt,
          python::arg("outer_domain_value") = std::nullopt,

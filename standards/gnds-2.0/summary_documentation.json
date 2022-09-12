@@ -616,7 +616,7 @@
                 "__class__": "nodes.Attribute",
                 "default": null,
                 "description": "The {\\em unique} reference to the acknowledgement.",
-                "name": "label",
+                "name": "type",
                 "required": true,
                 "type": "XMLName"
             }

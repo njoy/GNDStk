@@ -6,7 +6,7 @@
 #define TEST_V2_0_CONTAINERS_XYS1D
 
 #include "test/v2.0/containers/Axes.hpp"
-#include "test/v2.0/containers/Uncertainty.hpp"
+#include "test/v2.0/extra/Uncertainty.hpp"
 #include "test/v2.0/containers/Values.hpp"
 
 namespace test {
@@ -46,7 +46,7 @@ class XYs1d : public Component<containers::XYs1d> {
          // children
          std::optional<containers::Axes>{}
             / --Child<>("axes") |
-         std::optional<containers::Uncertainty>{}
+         std::optional<extra::Uncertainty>{}
             / --Child<>("uncertainty") |
          containers::Values{}
             / --Child<>("values")
@@ -69,7 +69,7 @@ public:
 
    // children
    Field<std::optional<containers::Axes>> axes{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<extra::Uncertainty>> uncertainty{this};
    Field<containers::Values> values{this};
 
    // ------------------------
@@ -93,7 +93,7 @@ public:
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {},
+      const wrapper<std::optional<extra::Uncertainty>> &uncertainty = {},
       const wrapper<containers::Values> &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

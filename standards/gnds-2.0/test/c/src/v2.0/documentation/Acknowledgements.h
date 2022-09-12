@@ -253,32 +253,32 @@ AcknowledgementsAcknowledgementSetByLabel(
    ConstHandle2ConstAcknowledgement acknowledgement
 );
 
-// +++ Has, by label
+// +++ Has, by type
 extern_c int
-AcknowledgementsAcknowledgementHasByLabel(
+AcknowledgementsAcknowledgementHasByType(
    ConstHandle2ConstAcknowledgements This,
-   const XMLName label
+   const XMLName type
 );
 
-// --- Get, by label, const
+// --- Get, by type, const
 extern_c Handle2ConstAcknowledgement
-AcknowledgementsAcknowledgementGetByLabelConst(
+AcknowledgementsAcknowledgementGetByTypeConst(
    ConstHandle2ConstAcknowledgements This,
-   const XMLName label
+   const XMLName type
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by type, non-const
 extern_c Handle2Acknowledgement
-AcknowledgementsAcknowledgementGetByLabel(
+AcknowledgementsAcknowledgementGetByType(
    ConstHandle2Acknowledgements This,
-   const XMLName label
+   const XMLName type
 );
 
-// +++ Set, by label
+// +++ Set, by type
 extern_c void
-AcknowledgementsAcknowledgementSetByLabel(
+AcknowledgementsAcknowledgementSetByType(
    ConstHandle2Acknowledgements This,
-   const XMLName label,
+   const XMLName type,
    ConstHandle2ConstAcknowledgement acknowledgement
 );
 

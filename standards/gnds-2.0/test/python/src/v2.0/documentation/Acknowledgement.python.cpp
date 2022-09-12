@@ -44,7 +44,7 @@ void wrapAcknowledgement(python::module &module)
          python::arg("encoding") = std::nullopt,
          python::arg("markup") = std::nullopt,
          python::arg("label") = std::nullopt,
-         python::arg("label"),
+         python::arg("type"),
          Component::documentation("constructor").data()
       )
       .def(
@@ -84,9 +84,9 @@ void wrapAcknowledgement(python::module &module)
          Component::documentation("label").data()
       )
       .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
+         "type",
+         [](const Component &self) { return self.type(); },
+         Component::documentation("type").data()
       )
       .def_property_readonly(
          "ints",
