@@ -5,6 +5,7 @@
 
     "JSONDir": ".",
     "JSONFiles": [
+        "summary_extra.json",
         "summary_appData.json",
         "summary_atomic.json",
         "summary_common.json",
