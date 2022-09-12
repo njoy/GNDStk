@@ -181,6 +181,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
+                "namespace": "containers",
                 "name": "double",
                 "occurrence": "1+",
                 "required": true
@@ -225,6 +226,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
+                "namespace": "containers",
                 "name": "double",
                 "occurrence": "1+",
                 "required": true
@@ -244,6 +246,7 @@
             "double": {
                 "__class__": "nodes.ChildNode",
                 "description": null,
+                "namespace": "containers",
                 "name": "double",
                 "occurrence": "1",
                 "required": false
