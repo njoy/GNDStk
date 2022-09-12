@@ -13,6 +13,10 @@ using CPP = multigroup::Foobar;
 
 static const std::string CLASSNAME = "Foobar";
 
+namespace extract {
+   static auto value = [](auto &obj) { return &obj.value; };
+}
+
 
 // -----------------------------------------------------------------------------
 // Basics
@@ -37,20 +41,24 @@ FoobarDefault()
 
 // Create, general, const
 Handle2ConstFoobar
-FoobarCreateConst()
-{
+FoobarCreateConst(
+   const char *const value
+) {
    ConstHandle2Foobar handle = detail::createHandle<CPP,C>(
-      CLASSNAME, CLASSNAME+"CreateConst"
+      CLASSNAME, CLASSNAME+"CreateConst",
+      value
    );
    return handle;
 }
 
 // Create, general
 Handle2Foobar
-FoobarCreate()
-{
+FoobarCreate(
+   const char *const value
+) {
    ConstHandle2Foobar handle = detail::createHandle<CPP,C>(
-      CLASSNAME, CLASSNAME+"Create"
+      CLASSNAME, CLASSNAME+"Create",
+      value
    );
    return handle;
 }
@@ -187,4 +195,34 @@ FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const
 {
    return detail::vectorSet<CPP,double>
       (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+}
+
+
+// -----------------------------------------------------------------------------
+// Metadatum: value
+// -----------------------------------------------------------------------------
+
+// Has
+int
+FoobarValueHas(ConstHandle2ConstFoobar This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+}
+
+// Get
+// Returns by value
+const char *
+FoobarValueGet(ConstHandle2ConstFoobar This)
+{
+   return detail::getField<CPP>
+      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+}
+
+// Set
+void
+FoobarValueSet(ConstHandle2Foobar This, const char *const value)
+{
+   detail::setField<CPP>
+      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }

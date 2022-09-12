@@ -36,7 +36,9 @@ void wrapFoobar(python::module &module)
    component
       .def(
          python::init<
+            const std::string &
          >(),
+         python::arg("value"),
          Component::documentation("constructor").data()
       )
       .def(
@@ -45,6 +47,11 @@ void wrapFoobar(python::module &module)
          >(),
          python::arg("doubles"),
          Component::documentation("constructor").data()
+      )
+      .def_property_readonly(
+         "value",
+         [](const Component &self) { return self.value(); },
+         Component::documentation("value").data()
       )
       .def_property_readonly(
          "doubles",

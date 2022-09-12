@@ -33,6 +33,7 @@ GNDSTK_MAKE_LOOKUP(mass_number,mass_number);
 GNDSTK_MAKE_LOOKUP(name,name);
 GNDSTK_MAKE_LOOKUP(projectile,projectile);
 GNDSTK_MAKE_LOOKUP(symbol,symbol);
+GNDSTK_MAKE_LOOKUP(value,value);
 
 #undef GNDSTK_MAKE_LOOKUP
 

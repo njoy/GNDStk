@@ -25,4 +25,7 @@ $COMPILE ../../../GNDStk/build/_deps/pugixml-adapter-src/src/src/pugixml.cpp -c
 fi
 
 # Compile
-$COMPILE example-01.cpp pugixml.o -o cpp.exe
+$COMPILE example-01.cpp pugixml.o -o cpp-01.exe &
+$COMPILE example-02.cpp pugixml.o -o cpp-02.exe &
+
+wait $(jobs -p)

@@ -31,22 +31,33 @@ class Foobar : public Component<multigroup::Foobar,true,double> {
    // Core Interface multi-query to extract metadata and child nodes
    static auto KEYS()
    {
-      return std::tuple<>{};
+      return
+         // metadata
+         std::string{}
+            / Meta<>("value")
+      ;
    }
 
 public:
    using Component::construct;
    using BlockData::operator=;
 
+   // metadata
+   Field<std::string> value{this};
+
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata)
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->value)
 
-   // default
-   Foobar() :
-      GNDSTK_COMPONENT(BlockData{})
+   // default, and from fields
+   explicit Foobar(
+      const wrapper<std::string> &value = {}
+   ) :
+      GNDSTK_COMPONENT(BlockData{}),
+      value(this,value)
    {
       Component::finish();
    }

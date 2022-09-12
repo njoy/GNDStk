@@ -4,6 +4,8 @@ using namespace multi::v1;
 
 int main()
 {
+   color = true;
+
    // Make some elements. We can make elements ("outer
    // objects") first, then add isotopes ("inner objects").
    Element H ("H", 1);
@@ -67,6 +69,5 @@ int main()
    multi.write("file.h5");
 
    // Prettyprint.
-   color = true;
    multi.print();
 }

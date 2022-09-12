@@ -11,13 +11,16 @@ using namespace njoy::GNDStk;
 // Where these exist, a simplification of the spec may be worth considering.
 const bool singletons = true;
 
+// Extra debug/informational printing?
+const bool debugging = false;
+
 
 // -----------------------------------------------------------------------------
 // Data structures
 // -----------------------------------------------------------------------------
 
 // KeyValue
-// Too bad the JSON library doesn't provide this more straightforwardly
+// Too bad the JSON library doesn't provide this directly
 using KeyValue = nlohmann::detail::iteration_proxy_value<
    nlohmann::detail::iter_impl<const orderedJSON>
 >;
@@ -213,7 +216,15 @@ struct InfoSpecs {
 // Print text describing an action the code is about to take
 void action(const std::string &str)
 {
-   std::cout << colors::plain::blue << str << colors::reset << std::endl;
+   static const std::string inverse = "\033[7m";
+   static const std::string background(80,' ');
+   std::cout
+      << inverse << colors::plain::blue << '\n'
+      << background << '\n'
+      << std::setw(80) << std::left << str << '\n'
+      << background << '\n'
+      << colors::reset
+      << std::endl;
 }
 
 // Is the string all whitespace?
@@ -372,9 +383,25 @@ std::string sep(int &count, const int total)
 // -----------------------------------------------------------------------------
 
 // nameGNDS
-// Name in GNDS (e.g., name of an XML element)
-std::string nameGNDS(const KeyValue &keyval)
-{
+// Name in a GNDS file (e.g., name of an XML element)
+std::string nameGNDS(
+   const KeyValue &keyval,
+   const std::string &nsname = "",
+   const bool print = false
+) {
+   if (debugging && print) {
+      const std::string key = keyval.key();
+      const std::string name = keyval.value().contains("name")
+         ? std::string(keyval.value()["name"])
+         : key;
+      std::cout
+         << "class:  "
+         << std::setw(20) << std::left << nsname << " "
+         << std::setw(48) << std::left << key << " "
+         << (key == name ? " " : "*")  << " "
+         << std::left << name << std::endl;
+   }
+
    // As-is, directly as stipulated in the key in the JSON spec, except
    // that we allow a "name" entry in the key's value to override the key.
    return keyval.value().contains("name")
@@ -1065,8 +1092,31 @@ void writeClassContentChildren(writer &out, const PerClass &per)
       out();
       out(1,"// children");
    }
-   for (const auto &c : per.children)
+   for (const auto &c : per.children) {
       out(1,"Field<@> @{this};", c.typeFull, c.name);
+
+      if (debugging && c.name == "xs") {
+         // todo
+         // Consider some terminology changes...
+         //    ns ==> nsname
+         //    plain ==> key (as in, the JSON key)
+         //    typeFull ==> ?
+         //    typeHalf ==> ?
+         // Also ordering:
+         //    nsname
+         //    key
+         //    name
+         //    type
+         //    typeFull
+         //    typeHalf
+         std::cout << "name     == " << c.name     << std::endl;
+         std::cout << "ns       == " << c.ns       << std::endl;
+         std::cout << "plain    == " << c.plain    << std::endl;
+         std::cout << "type     == " << c.type     << std::endl;
+         std::cout << "typeFull == " << c.typeFull << std::endl;
+         std::cout << "typeHalf == " << c.typeHalf << std::endl;
+      }
+   }
 }
 
 // writeClassContentVariants
@@ -1303,11 +1353,11 @@ orderedJSON readJSONFile(const std::string &file, const bool print = false)
    static const std::string underlineON  = "\033[4m";
    static const std::string underlineOFF = "\033[24m";
 
-   // Depending on call context, we might want to print the file name
+   // Depending on the call context, we might or might not print the file name
    if (print) {
-      std::cout << "   ";
-      std::cout << underlineON << "File:" << underlineOFF << " ";
-      std::cout << '"' << colors::vivid::green << file << colors::reset << '"';
+      const std::string f = beginsin(file,"./") ? std::string(&file[2]) : file;
+      std::cout << "File: ";
+      std::cout << '"' << colors::plain::purple << f << colors::reset << '"';
       std::cout << std::endl;
    }
 
@@ -1415,9 +1465,11 @@ void printSingletons(const std::string &file)
       const bool body = rhs.contains("bodyText") && !rhs["bodyText"].is_null();
 
       if (metadata.size() == 0 && children.size() == 0 && !data && !body)
-         log::info("Class \"{}\" has no metadata, children, or data", parent);
-      if (metadata.size() == 0 && children.size() == 1)
-         log::info("Class \"{}\" has no metadata and just one child", parent);
+         log::info("This class has no metadata, data, or children: "
+                   "\"{}\"", parent);
+      if (metadata.size() == 0 && children.size() == 1 && !data && !body)
+         log::info("This class has no metadata or data, and just one child: "
+                   "\"{}\"", parent);
    }
 } // printSingletons
 
@@ -1494,10 +1546,9 @@ void commandLine(
 
    // Report on "singletons"
    if (singletons) {
-      action("\nFinding possible simplifications...");
+      action("Finding Possible Simplifications");
       for (const std::string &file : specs.JSONFiles)
          printSingletons(file);
-      action("Done.");
    }
 
    // Changes?
@@ -1602,7 +1653,7 @@ void preprocessClass(
 // names are computed as part of the "information" for the maps just mentioned.
 void preprocessFiles(InfoSpecs &specs)
 {
-   action("\nPreprocessing input files...");
+   action("Preprocessing");
    // files
    for (const std::string &file : specs.JSONFiles) {
       const orderedJSON jmain = readJSONFile(file,true);
@@ -1611,7 +1662,6 @@ void preprocessFiles(InfoSpecs &specs)
       for (const auto &cl : jmain.items())
          preprocessClass(specs, nsname, cl);
    }
-   action("Done.");
 } // preprocessFiles
 
 
@@ -1644,6 +1694,20 @@ void validateChildren(const orderedJSON &children, const PerClass &per)
       const std::string times = getTimes(per,field.key(),field.value());
       if (times == "0+" || times == "choice" || times == "choice+")
          assert(!field.value()["required"]); // not required
+
+      if (debugging) {
+         const std::string key  = field.key();
+         const std::string name = field.value().contains("name")
+            ? std::string(field.value()["name"])
+            : key;
+         std::cout
+            << "child:  "
+            << std::setw(20) << std::left << per.nsname << " "
+            << std::setw(48) << std::left << per.clname << " "
+            << std::setw(48) << std::left << key << " "
+            << (key == name ? " " : "*")  << " "
+            << std::left << name << std::endl;
+      }
    }
 }
 
@@ -1669,7 +1733,7 @@ void getClass(
    // names
    per.nsname = nsname;
    per.clname = clname;
-   per.nameGNDS = nameGNDS(keyval);
+   per.nameGNDS = nameGNDS(keyval,nsname,true);
 
    // metadata/children information
    const orderedJSON attrs = getMetadataJSON<true>(classRHS);
@@ -1706,7 +1770,7 @@ void getClass(
 // getFiles
 void getFiles(InfoSpecs &specs)
 {
-   action("\nCreating classes...");
+   action("Generating Code");
    // files
    for (const std::string &file : specs.JSONFiles) {
       const orderedJSON jmain = readJSONFile(file,true);
@@ -1715,7 +1779,6 @@ void getFiles(InfoSpecs &specs)
       for (const auto &cl : jmain.items())
          getClass(specs, nsname, cl);
    }
-   action("Done.");
 } // getFiles
 
 

@@ -67,7 +67,12 @@
     },
 
     "foobar": {
-        "metadata": { },
+        "metadata": {
+            "value": {
+                "type": "string",
+                "required": true
+            }
+        },
         "children": { },
         "data": "double"
     }

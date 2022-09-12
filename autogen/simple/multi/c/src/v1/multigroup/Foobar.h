@@ -75,11 +75,15 @@ FoobarDefault();
 
 // --- Create, general, const
 extern_c Handle2ConstFoobar
-FoobarCreateConst();
+FoobarCreateConst(
+   const char *const value
+);
 
 // +++ Create, general
 extern_c Handle2Foobar
-FoobarCreate();
+FoobarCreate(
+   const char *const value
+);
 
 // +++ Assign
 // +++ Use this to assign one handled object to another. Don't assign handles,
@@ -158,6 +162,24 @@ FoobarDoublesGetArray(ConstHandle2Foobar This);
 // +++ Set completely new values and size
 extern_c void
 FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const size_t size);
+
+
+// -----------------------------------------------------------------------------
+// Metadatum: value
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+FoobarValueHas(ConstHandle2ConstFoobar This);
+
+// +++ Get
+// +++ Returns by value
+extern_c const char *
+FoobarValueGet(ConstHandle2ConstFoobar This);
+
+// +++ Set
+extern_c void
+FoobarValueSet(ConstHandle2Foobar This, const char *const value);
 
 
 // -----------------------------------------------------------------------------
