@@ -106,10 +106,6 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
 {
    const bool decl = detail::getDecl(node,DECL);
 
-   // ------------------------
-   // bookkeeping
-   // ------------------------
-
    // clear the receiving node
    node.clear();
 
@@ -124,41 +120,18 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
       return true;
 
    try {
-
-      // ------------------------
-      // validate
-      // ------------------------
-
-      // possibly redundant with the earlier empty() test, but harmless
-      const std::size_t size = j.doc.size();
-      if (size == 0)
-         return true;
-
-      // a json document should have one main node, although we may at some
-      // point want to find a way to relax this
-      if (size != 1) {
-         log::error("More than one main node in the JSON");
-         throw std::exception{};
-      }
-
-      // ------------------------
-      // convert the nodes
-      // ------------------------
-
-      // visit the node, and its children recursively
-      if (!detail::json2node(
-         j.doc.begin().key(), *j.doc.begin(),
-         decl ? node.add() : node
-      ))
-         return false;
-
+      // j.doc gives a JSON "object": {...}, i.e. a JSON brace construct,
+      // as opposed to a JSON key/value pair or specific JSON entity such
+      // as integer or boolean. Elsewhere, in recursive calls to the below
+      // function, we'd have already determined a node's name from a key.
+      // In this context, however, we don't have a key. The trailing "true"
+      // tells json2node to infer node.name from the contents of the {...}.
+      detail::json2node(j.doc, decl ? node.add() : node, true);
+      return true;
    } catch (...) {
       log::function("convert(JSON,Node)");
       throw;
    }
-
-   // done
-   return true;
 }
 
 

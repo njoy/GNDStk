@@ -8,38 +8,32 @@ inline void json2node_error(const std::string &message)
    throw std::exception{};
 }
 
-// json2node: forward declaration
+// Forward declaration
 template<class NODE>
-bool json2node(const std::string &, const orderedJSON &, NODE &);
+void json2node(const orderedJSON &, NODE &, const bool inferNodeName = false);
 
 
 // -----------------------------------------------------------------------------
 // json_array
 // -----------------------------------------------------------------------------
 
-inline std::string json_array(const orderedJSON &meta)
+inline std::string json_array(const orderedJSON &array)
 {
+   assert(array.is_array());
+
    std::ostringstream oss;
    int count = 0;
 
-   for (const orderedJSON &m : meta) {
+   for (const orderedJSON &element : array) {
+      // separator
       oss << (count++ ? " " : "");
-      if (m.is_number_integer()) {
-         // *** number: integer
-         oss << m.get<std::int64_t>();
-      } else if (m.is_number_unsigned()) {
-         // *** number: unsigned
-         oss << m.get<std::uint64_t>();
-      } else if (m.is_number_float()) {
-         // *** number: double
-         oss << m.get<double>();
-      } else if (m.is_string()) {
-         // *** string
-         oss << m.get<std::string>();
-      } else {
-         // *** unexpected
-         json2node_error("JSON array element has unexpected type");
-      }
+      // array element types we use
+      element.is_number_integer () ? (oss << element.get<std::int64_t >())
+    : element.is_number_unsigned() ? (oss << element.get<std::uint64_t>())
+    : element.is_number_float   () ? (oss << element.get<double       >())
+    : element.is_string         () ? (oss << element.get<std::string  >())
+    : // unexpected
+     (json2node_error("JSON array element is of unexpected type"), oss);
    }
 
    return oss.str();
@@ -51,58 +45,54 @@ inline std::string json_array(const orderedJSON &meta)
 // -----------------------------------------------------------------------------
 
 template<class NODE>
-bool json_pair(
-   NODE &node, const orderedJSON &siblings,
-   const std::string &key, const orderedJSON &value, const bool metadatum
+void json_pair(
+   const std::string &key, const orderedJSON &val,
+   const orderedJSON &peers, NODE &node
 ) {
-   if (value.is_null()) {
-      // *** null
-      node.add(key);
-   } else if (value.is_boolean()) {
-      // *** boolean
-      node.add(key, value.get<bool>() ? "true" : "false");
-   } else if (value.is_number_integer()) {
-      // *** number: integer
-      node.add(key, value.get<std::int64_t>());
-   } else if (value.is_number_unsigned()) {
-      // *** number: unsigned
-      node.add(key, value.get<std::uint64_t>());
-   } else if (value.is_number_float()) {
-      // *** number: double
-      node.add(key, value.get<double>());
-   } else if (value.is_string()) {
-      // *** string
-      node.add(key, value.get<std::string>());
-   } else if (value.is_array()) {
-      // *** array
-      if (metadatum)
-         node.add(key, json_array(value));
+   if (val.is_null()) {
+      // null; nothing to do
+   } else if (val.is_boolean()) {
+      // boolean
+      node.add(key, val.get<bool>() ? "true" : "false");
+   } else if (val.is_number_integer()) {
+      // number: integer
+      node.add(key, val.get<std::int64_t>());
+   } else if (val.is_number_unsigned()) {
+      // number: unsigned
+      node.add(key, val.get<std::uint64_t>());
+   } else if (val.is_number_float()) {
+      // number: double
+      node.add(key, val.get<double>());
+   } else if (val.is_string()) {
+      // string
+      node.add(key, val.get<std::string>());
+   } else if (val.is_array()) {
+      // array
+      if (peers.size() == 0)
+         node.add(key, json_array(val)); // context is such that it's metadata
       else {
-         Node &child = node.add(key);
-         child.add(special::pcdata).add(special::text, json_array(value));
-         for (const auto &sib : siblings.items()) {
-            if (sib.key() == key + special::nodename)
-               child.name = sib.value().get<std::string>();
-            else if (sib.key() == key + special::metadata)
-               for (const auto &m : sib.value().items())
-                  json_pair(child, orderedJSON{}, m.key(), m.value(), true);
+         node.add(special::pcdata).add(special::text, json_array(val));
+         for (const auto &peer : peers.items()) {
+            if (peer.key() == key + special::nodename)
+               node.name = peer.value().get<std::string>();
+            if (peer.key() == key + special::metadata) {
+               for (const auto &m : peer.value().items())
+                  json_pair(m.key(), m.value(), orderedJSON{}, node);
+            }
          }
       }
-   } else if (value.is_object()) {
-      // *** object
+   } else if (val.is_object()) {
+      // object
       try {
-         if (!json2node(key, value, node.add()))
-            return false;
+         json2node(val,node);
       } catch (...) {
          log::function("json2node()");
          throw;
       }
    } else {
-      // *** unexpected
-      json2node_error("JSON value has unexpected type");
+      // unexpected
+      json2node_error("JSON key/value pair's value is of unexpected type");
    }
-
-   return true;
 }
 
 
@@ -110,84 +100,69 @@ bool json_pair(
 // json2node
 // -----------------------------------------------------------------------------
 
-// NODE is GNDStk::Node, which is an "incomplete type" to the compiler here.
+// NODE is GNDStk::Node, an incomplete type to the compiler here.
+// Note: the object parameter is a JSON "object", i.e. {...}.
 template<class NODE>
-bool json2node(const std::string &key, const orderedJSON &siblings, NODE &node)
+void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
 {
-   // The node sent here should be fresh, ready to receive entries
-   if (!node.empty())
-      json2node_error("Node is not empty");
+   // The node sent here shouldn't already have metadata or children
+   if (node.metadata.size() != 0 || node.children.size() != 0)
+      json2node_error("Node should be empty, but has metadata and/or children");
 
-   // Non-(JSON "objects") should have been handled in the caller
-   if (!siblings.is_object())
-      json2node_error("JSON value !is_object(), but need object here");
-
-   // The following cases should have been handled in the caller
-   if (endsin(key, special::nodename))
-      json2node_error(
-         "JSON key ends in \"" + special::nodename + "\": not expected here");
-   if (endsin(key, special::metadata))
-      json2node_error(
-         "JSON key ends in \"" + special::metadata + "\": not expected here");
-
-   // Node name: from key
-   // For special nodes (ones that begin with special::prefix),
-   // we know that we can, and should, remove trailing digits.
-   node.name = key;
+   // Special node names (special::prefix...) need trailing digits removed
    if (node.name != "" && node.name[0] == special::prefix)
       while (isdigit(node.name.back()))
          node.name.pop_back();
 
-   // ------------------------
-   // JSON object's elements
-   // ==> metadata
-   // ==> children
-   // ------------------------
+   // For each key/value pair
+   for (const auto &pair : object.items()) {
+      const std::string &key = pair.key();
+      const orderedJSON &val = pair.value();
 
-   for (const auto &child : siblings.items()) {
-      const std::string &childkey = child.key();
-      const orderedJSON &childval = child.value();
-
-      if (childkey == special::nodename) {
-         // *** NODENAME
-         node.name = childval.get<std::string>();
-      } else if (childkey == special::metadata) {
-         // *** METADATA
-         for (const auto &m : childval.items())
-            json_pair(node, orderedJSON{}, m.key(), m.value(), true);
+      if (inferNodeName && key.find(special::prefix) == std::string::npos) {
+         // Infer the node name from this (non-special) key
+         node.name = key;
+         inferNodeName = false;
+         json_pair(key, val, object, node);
+      } else if (key == special::nodename) {
+         // Special key: nodename
+         node.name = val.get<std::string>();
+         inferNodeName = false;
+      } else if (key == special::metadata) {
+         // Special key: metadata
+         for (const auto &m : val.items())
+            json_pair(m.key(), m.value(), orderedJSON{}, node);
       } else if (
-         beginsin(childkey,special::cdata) ||
-         beginsin(childkey,special::comment) ||
-         beginsin(childkey,special::pcdata)
+         beginsin(key,special::cdata) ||
+         beginsin(key,special::comment) ||
+         beginsin(key,special::pcdata)
       ) {
-         // *** CDATA[N], COMMENT[N], PCDATA[N]
-         if (childval.is_object())
+         // Special key: cdata, comment, or pcdata, with optional suffix
+         if (val.is_object()) {
             try {
-               if (!json2node(childkey, childval, node.add()))
-                  return false;
+               json2node(val, node.add(key));
             } catch (...) {
                log::function("json2node()");
                throw;
             }
-         else
-            beginsin(childkey,special::pcdata)
-          ? node.add(special::pcdata)
-                .add(special::text, json_array(childval))
-          : beginsin(childkey,special::cdata)
-          ? node.add(special::cdata)
-                .add(special::text, childval.get<std::string>())
-          : node.add(special::comment)
-                .add(special::text, childval.get<std::string>());
-      } else if (endsin(childkey,special::nodename) ||
-                 endsin(childkey,special::metadata)) {
-         // *** Ignore, in this context. Note that childkey *equal* to either
-         // *** of those strings - not just endsin() them - was handled above.
+         } else {
+            using namespace special;
+            beginsin(key,pcdata)
+          ? node.add(pcdata ).add(text, json_array(val))
+          : beginsin(key,cdata)
+          ? node.add(cdata  ).add(text, val.get<std::string>())
+          : node.add(comment).add(text, val.get<std::string>());
+         }
+      } else if (endsin(key,special::nodename) ||
+                 endsin(key,special::metadata)) {
+         // Special key: with nodename or metadata *suffix*
+         // Ignore, in this context. Note that key *equal* to either of those
+         // was handled earlier. The cases here are dealt with in json_pair(),
+         // called below. There, we process e.g. "foo", and scan object.items()
+         // to process "foo*" where * is either of the relevant suffixes.
       } else {
-         // *** General case
-         json_pair(node, siblings, childkey, childval, false);
+         // Normal key
+         json_pair(key, val, object, node.add(key));
       }
-   }
-
-   // done
-   return true;
+   } // key/value pairs
 }

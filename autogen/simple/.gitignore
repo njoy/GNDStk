@@ -1,5 +1,6 @@
 
 [a-z]
+[0-9]
 *.o
 *~
 
@@ -13,5 +14,7 @@ file.h5
 file.json
 file.xml
 out
+foobar.xml
 foobar.json
+foobar.h5
 m
