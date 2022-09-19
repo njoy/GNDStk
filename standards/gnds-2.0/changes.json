@@ -12,6 +12,7 @@
             "bodyText"       : "std::string",
             "attributeValue" : "std::string",
             "date"           : "std::string",
+            "checksum"       : "std::string",
             "Boolean"        : "bool",
 
             "// enumerator types" : "",
@@ -23,6 +24,7 @@
             "interpolation"          : "enums::Interpolation",
             "interpolationQualifier" : "enums::InterpolationQualifier",
             "hashAlgorithm"          : "enums::HashAlgorithm",
+            "algorithm"              : "enums::HashAlgorithm",
             "decayType"              : "enums::DecayType",
             "gridStyle"              : "enums::GridStyle",
             "boundaryCondition"      : "enums::BoundaryCondition",
