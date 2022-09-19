@@ -81,8 +81,8 @@ TNSLCreateConst(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    const XMLName standardTarget,
    const XMLName standardEvaluation
 );
@@ -95,8 +95,8 @@ TNSLCreate(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    const XMLName standardTarget,
    const XMLName standardEvaluation
 );
@@ -245,12 +245,12 @@ TNSLChecksumHas(ConstHandle2ConstTNSL This);
 
 // +++ Get
 // +++ Returns by value
-extern_c checksum
+extern_c const char *
 TNSLChecksumGet(ConstHandle2ConstTNSL This);
 
 // +++ Set
 extern_c void
-TNSLChecksumSet(ConstHandle2TNSL This, const checksum checksum);
+TNSLChecksumSet(ConstHandle2TNSL This, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -263,12 +263,12 @@ TNSLAlgorithmHas(ConstHandle2ConstTNSL This);
 
 // +++ Get
 // +++ Returns by value
-extern_c algorithm
+extern_c enums::HashAlgorithm
 TNSLAlgorithmGet(ConstHandle2ConstTNSL This);
 
 // +++ Set
 extern_c void
-TNSLAlgorithmSet(ConstHandle2TNSL This, const algorithm algorithm);
+TNSLAlgorithmSet(ConstHandle2TNSL This, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------

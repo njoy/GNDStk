@@ -55,8 +55,8 @@ TNSLCreateConst(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    const XMLName standardTarget,
    const XMLName standardEvaluation
 ) {
@@ -83,8 +83,8 @@ TNSLCreate(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    const XMLName standardTarget,
    const XMLName standardEvaluation
 ) {
@@ -339,7 +339,7 @@ TNSLChecksumHas(ConstHandle2ConstTNSL This)
 
 // Get
 // Returns by value
-checksum
+const char *
 TNSLChecksumGet(ConstHandle2ConstTNSL This)
 {
    return detail::getField<CPP>
@@ -348,7 +348,7 @@ TNSLChecksumGet(ConstHandle2ConstTNSL This)
 
 // Set
 void
-TNSLChecksumSet(ConstHandle2TNSL This, const checksum checksum)
+TNSLChecksumSet(ConstHandle2TNSL This, const char *const checksum)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
@@ -369,7 +369,7 @@ TNSLAlgorithmHas(ConstHandle2ConstTNSL This)
 
 // Get
 // Returns by value
-algorithm
+enums::HashAlgorithm
 TNSLAlgorithmGet(ConstHandle2ConstTNSL This)
 {
    return detail::getField<CPP>
@@ -378,7 +378,7 @@ TNSLAlgorithmGet(ConstHandle2ConstTNSL This)
 
 // Set
 void
-TNSLAlgorithmSet(ConstHandle2TNSL This, const algorithm algorithm)
+TNSLAlgorithmSet(ConstHandle2TNSL This, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);

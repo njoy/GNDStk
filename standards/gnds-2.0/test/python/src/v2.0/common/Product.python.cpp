@@ -39,14 +39,12 @@ void wrapProduct(python::module &module)
             const XMLName &,
             const XMLName &,
             const transport::Multiplicity &,
-            const transport::Distribution &,
-            const std::optional<transport::OutputChannel> &
+            const transport::Distribution &
          >(),
          python::arg("label"),
          python::arg("pid"),
          python::arg("multiplicity"),
          python::arg("distribution"),
-         python::arg("output_channel") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -68,11 +66,6 @@ void wrapProduct(python::module &module)
          "distribution",
          [](const Component &self) { return self.distribution(); },
          Component::documentation("distribution").data()
-      )
-      .def_property_readonly(
-         "output_channel",
-         [](const Component &self) { return self.outputChannel(); },
-         Component::documentation("output_channel").data()
       )
    ;
 

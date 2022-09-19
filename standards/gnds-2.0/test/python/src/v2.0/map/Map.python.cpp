@@ -38,8 +38,8 @@ void wrapMap(python::module &module)
          python::init<
             const XMLName &,
             const XMLName &,
-            const checksum &,
-            const algorithm &,
+            const std::string &,
+            const enums::HashAlgorithm &,
             const std::optional<std::vector<map::Import>> &,
             const std::optional<std::vector<map::Protare>> &,
             const std::optional<std::vector<map::TNSL>> &

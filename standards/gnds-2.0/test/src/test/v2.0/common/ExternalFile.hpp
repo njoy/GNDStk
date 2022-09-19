@@ -37,9 +37,9 @@ class ExternalFile : public Component<common::ExternalFile> {
             / Meta<>("label") |
          XMLName{}
             / Meta<>("path") |
-         std::optional<checksum>{}
+         std::optional<std::string>{}
             / Meta<>("checksum") |
-         std::optional<algorithm>{}
+         std::optional<enums::HashAlgorithm>{}
             / Meta<>("algorithm")
       ;
    }
@@ -50,8 +50,8 @@ public:
    // metadata
    Field<XMLName> label{this};
    Field<XMLName> path{this};
-   Field<std::optional<checksum>> checksum{this};
-   Field<std::optional<algorithm>> algorithm{this};
+   Field<std::optional<std::string>> checksum{this};
+   Field<std::optional<enums::HashAlgorithm>> algorithm{this};
 
    // ------------------------
    // Constructors
@@ -67,8 +67,8 @@ public:
    explicit ExternalFile(
       const wrapper<XMLName> &label = {},
       const wrapper<XMLName> &path = {},
-      const wrapper<std::optional<checksum>> &checksum = {},
-      const wrapper<std::optional<algorithm>> &algorithm = {}
+      const wrapper<std::optional<std::string>> &checksum = {},
+      const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),

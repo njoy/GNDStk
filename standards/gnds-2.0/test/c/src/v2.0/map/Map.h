@@ -81,8 +81,8 @@ extern_c Handle2ConstMap
 MapCreateConst(
    const XMLName library,
    const XMLName format,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2Import *const import, const size_t importSize,
    ConstHandle2Protare *const protare, const size_t protareSize,
    ConstHandle2TNSL *const TNSL, const size_t TNSLSize
@@ -93,8 +93,8 @@ extern_c Handle2Map
 MapCreate(
    const XMLName library,
    const XMLName format,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2Import *const import, const size_t importSize,
    ConstHandle2Protare *const protare, const size_t protareSize,
    ConstHandle2TNSL *const TNSL, const size_t TNSLSize
@@ -190,12 +190,12 @@ MapChecksumHas(ConstHandle2ConstMap This);
 
 // +++ Get
 // +++ Returns by value
-extern_c checksum
+extern_c const char *
 MapChecksumGet(ConstHandle2ConstMap This);
 
 // +++ Set
 extern_c void
-MapChecksumSet(ConstHandle2Map This, const checksum checksum);
+MapChecksumSet(ConstHandle2Map This, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -208,12 +208,12 @@ MapAlgorithmHas(ConstHandle2ConstMap This);
 
 // +++ Get
 // +++ Returns by value
-extern_c algorithm
+extern_c enums::HashAlgorithm
 MapAlgorithmGet(ConstHandle2ConstMap This);
 
 // +++ Set
 extern_c void
-MapAlgorithmSet(ConstHandle2Map This, const algorithm algorithm);
+MapAlgorithmSet(ConstHandle2Map This, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------
@@ -285,28 +285,28 @@ MapImportSetByPath(
 extern_c int
 MapImportHasByChecksum(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // --- Get, by checksum, const
 extern_c Handle2ConstImport
 MapImportGetByChecksumConst(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Get, by checksum, non-const
 extern_c Handle2Import
 MapImportGetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Set, by checksum
 extern_c void
 MapImportSetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstImport import
 );
 
@@ -314,28 +314,28 @@ MapImportSetByChecksum(
 extern_c int
 MapImportHasByAlgorithm(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // --- Get, by algorithm, const
 extern_c Handle2ConstImport
 MapImportGetByAlgorithmConst(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Get, by algorithm, non-const
 extern_c Handle2Import
 MapImportGetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Set, by algorithm
 extern_c void
 MapImportSetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstImport import
 );
 
@@ -525,28 +525,28 @@ MapProtareSetByInteraction(
 extern_c int
 MapProtareHasByChecksum(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // --- Get, by checksum, const
 extern_c Handle2ConstProtare
 MapProtareGetByChecksumConst(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Get, by checksum, non-const
 extern_c Handle2Protare
 MapProtareGetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Set, by checksum
 extern_c void
 MapProtareSetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstProtare protare
 );
 
@@ -554,28 +554,28 @@ MapProtareSetByChecksum(
 extern_c int
 MapProtareHasByAlgorithm(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // --- Get, by algorithm, const
 extern_c Handle2ConstProtare
 MapProtareGetByAlgorithmConst(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Get, by algorithm, non-const
 extern_c Handle2Protare
 MapProtareGetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Set, by algorithm
 extern_c void
 MapProtareSetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstProtare protare
 );
 
@@ -765,28 +765,28 @@ MapTNSLSetByInteraction(
 extern_c int
 MapTNSLHasByChecksum(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // --- Get, by checksum, const
 extern_c Handle2ConstTNSL
 MapTNSLGetByChecksumConst(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Get, by checksum, non-const
 extern_c Handle2TNSL
 MapTNSLGetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Set, by checksum
 extern_c void
 MapTNSLSetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstTNSL TNSL
 );
 
@@ -794,28 +794,28 @@ MapTNSLSetByChecksum(
 extern_c int
 MapTNSLHasByAlgorithm(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // --- Get, by algorithm, const
 extern_c Handle2ConstTNSL
 MapTNSLGetByAlgorithmConst(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Get, by algorithm, non-const
 extern_c Handle2TNSL
 MapTNSLGetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Set, by algorithm
 extern_c void
 MapTNSLSetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstTNSL TNSL
 );
 

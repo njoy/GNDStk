@@ -38,9 +38,9 @@ namespace python_containers {
    void wrapFunction2ds(python::module &);
    void wrapRegions2d(python::module &);
    void wrapXYs3d(python::module &);
-   void wrapYs1d(python::module &);
    void wrapGridded3d(python::module &);
    void wrapDouble(python::module &);
+   void wrapYs1d(python::module &);
    void wrapString(python::module &);
    void wrapInteger(python::module &);
    void wrapFraction(python::module &);
@@ -92,9 +92,9 @@ void wrapContainers(python::module &module)
    python_containers::wrapFunction2ds(submodule);
    python_containers::wrapRegions2d(submodule);
    python_containers::wrapXYs3d(submodule);
-   python_containers::wrapYs1d(submodule);
    python_containers::wrapGridded3d(submodule);
    python_containers::wrapDouble(submodule);
+   python_containers::wrapYs1d(submodule);
    python_containers::wrapString(submodule);
    python_containers::wrapInteger(submodule);
    python_containers::wrapFraction(submodule);

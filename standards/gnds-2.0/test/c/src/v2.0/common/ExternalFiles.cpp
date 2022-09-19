@@ -298,7 +298,7 @@ ExternalFilesExternalFileSetByPath(
 int
 ExternalFilesExternalFileHasByChecksum(
    ConstHandle2ConstExternalFiles This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ExternalFileHasByChecksum",
@@ -309,7 +309,7 @@ ExternalFilesExternalFileHasByChecksum(
 Handle2ConstExternalFile
 ExternalFilesExternalFileGetByChecksumConst(
    ConstHandle2ConstExternalFiles This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstExternalFile>
       (CLASSNAME, CLASSNAME+"ExternalFileGetByChecksumConst",
@@ -320,7 +320,7 @@ ExternalFilesExternalFileGetByChecksumConst(
 Handle2ExternalFile
 ExternalFilesExternalFileGetByChecksum(
    ConstHandle2ExternalFiles This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ExternalFile>
       (CLASSNAME, CLASSNAME+"ExternalFileGetByChecksum",
@@ -331,7 +331,7 @@ ExternalFilesExternalFileGetByChecksum(
 void
 ExternalFilesExternalFileSetByChecksum(
    ConstHandle2ExternalFiles This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstExternalFile externalFile
 ) {
    detail::setByMetadatum<CPP,CPPExternalFile>
@@ -343,7 +343,7 @@ ExternalFilesExternalFileSetByChecksum(
 int
 ExternalFilesExternalFileHasByAlgorithm(
    ConstHandle2ConstExternalFiles This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ExternalFileHasByAlgorithm",
@@ -354,7 +354,7 @@ ExternalFilesExternalFileHasByAlgorithm(
 Handle2ConstExternalFile
 ExternalFilesExternalFileGetByAlgorithmConst(
    ConstHandle2ConstExternalFiles This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstExternalFile>
       (CLASSNAME, CLASSNAME+"ExternalFileGetByAlgorithmConst",
@@ -365,7 +365,7 @@ ExternalFilesExternalFileGetByAlgorithmConst(
 Handle2ExternalFile
 ExternalFilesExternalFileGetByAlgorithm(
    ConstHandle2ExternalFiles This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ExternalFile>
       (CLASSNAME, CLASSNAME+"ExternalFileGetByAlgorithm",
@@ -376,7 +376,7 @@ ExternalFilesExternalFileGetByAlgorithm(
 void
 ExternalFilesExternalFileSetByAlgorithm(
    ConstHandle2ExternalFiles This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstExternalFile externalFile
 ) {
    detail::setByMetadatum<CPP,CPPExternalFile>

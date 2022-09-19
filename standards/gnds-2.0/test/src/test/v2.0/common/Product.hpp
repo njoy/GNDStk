@@ -7,7 +7,6 @@
 
 #include "test/v2.0/transport/Multiplicity.hpp"
 #include "test/v2.0/transport/Distribution.hpp"
-#include "test/v2.0/transport/OutputChannel.hpp"
 
 namespace test {
 namespace v2_0 {
@@ -43,9 +42,7 @@ class Product : public Component<common::Product> {
          transport::Multiplicity{}
             / --Child<>("multiplicity") |
          transport::Distribution{}
-            / --Child<>("distribution") |
-         std::optional<transport::OutputChannel>{}
-            / --Child<>("outputChannel")
+            / --Child<>("distribution")
       ;
    }
 
@@ -59,7 +56,6 @@ public:
    // children
    Field<transport::Multiplicity> multiplicity{this};
    Field<transport::Distribution> distribution{this};
-   Field<std::optional<transport::OutputChannel>> outputChannel{this};
 
    // ------------------------
    // Constructors
@@ -69,23 +65,20 @@ public:
       this->label, \
       this->pid, \
       this->multiplicity, \
-      this->distribution, \
-      this->outputChannel)
+      this->distribution)
 
    // default, and from fields
    explicit Product(
       const wrapper<XMLName> &label = {},
       const wrapper<XMLName> &pid = {},
       const wrapper<transport::Multiplicity> &multiplicity = {},
-      const wrapper<transport::Distribution> &distribution = {},
-      const wrapper<std::optional<transport::OutputChannel>> &outputChannel = {}
+      const wrapper<transport::Distribution> &distribution = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       pid(this,pid),
       multiplicity(this,multiplicity),
-      distribution(this,distribution),
-      outputChannel(this,outputChannel)
+      distribution(this,distribution)
    {
       Component::finish();
    }

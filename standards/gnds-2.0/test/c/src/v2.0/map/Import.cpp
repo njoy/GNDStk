@@ -45,8 +45,8 @@ ImportDefault()
 Handle2ConstImport
 ImportCreateConst(
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 ) {
    ConstHandle2Import handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -61,8 +61,8 @@ ImportCreateConst(
 Handle2Import
 ImportCreate(
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 ) {
    ConstHandle2Import handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -189,7 +189,7 @@ ImportChecksumHas(ConstHandle2ConstImport This)
 
 // Get
 // Returns by value
-checksum
+const char *
 ImportChecksumGet(ConstHandle2ConstImport This)
 {
    return detail::getField<CPP>
@@ -198,7 +198,7 @@ ImportChecksumGet(ConstHandle2ConstImport This)
 
 // Set
 void
-ImportChecksumSet(ConstHandle2Import This, const checksum checksum)
+ImportChecksumSet(ConstHandle2Import This, const char *const checksum)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
@@ -219,7 +219,7 @@ ImportAlgorithmHas(ConstHandle2ConstImport This)
 
 // Get
 // Returns by value
-algorithm
+enums::HashAlgorithm
 ImportAlgorithmGet(ConstHandle2ConstImport This)
 {
    return detail::getField<CPP>
@@ -228,7 +228,7 @@ ImportAlgorithmGet(ConstHandle2ConstImport This)
 
 // Set
 void
-ImportAlgorithmSet(ConstHandle2Import This, const algorithm algorithm)
+ImportAlgorithmSet(ConstHandle2Import This, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);

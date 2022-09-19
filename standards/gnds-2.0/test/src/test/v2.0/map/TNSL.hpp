@@ -43,9 +43,9 @@ class TNSL : public Component<map::TNSL> {
             / Meta<>("path") |
          std::optional<XMLName>{}
             / Meta<>("interaction") |
-         checksum{}
+         std::string{}
             / Meta<>("checksum") |
-         std::optional<algorithm>{}
+         std::optional<enums::HashAlgorithm>{}
             / Meta<>("algorithm") |
          XMLName{}
             / Meta<>("standardTarget") |
@@ -63,8 +63,8 @@ public:
    Field<XMLName> evaluation{this};
    Field<XMLName> path{this};
    Field<std::optional<XMLName>> interaction{this};
-   Field<checksum> checksum{this};
-   Field<std::optional<algorithm>> algorithm{this};
+   Field<std::string> checksum{this};
+   Field<std::optional<enums::HashAlgorithm>> algorithm{this};
    Field<XMLName> standardTarget{this};
    Field<XMLName> standardEvaluation{this};
 
@@ -90,8 +90,8 @@ public:
       const wrapper<XMLName> &evaluation = {},
       const wrapper<XMLName> &path = {},
       const wrapper<std::optional<XMLName>> &interaction = {},
-      const wrapper<checksum> &checksum = {},
-      const wrapper<std::optional<algorithm>> &algorithm = {},
+      const wrapper<std::string> &checksum = {},
+      const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {},
       const wrapper<XMLName> &standardTarget = {},
       const wrapper<XMLName> &standardEvaluation = {}
    ) :

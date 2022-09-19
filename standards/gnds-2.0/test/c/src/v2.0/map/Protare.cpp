@@ -53,8 +53,8 @@ ProtareCreateConst(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 ) {
    ConstHandle2Protare handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -77,8 +77,8 @@ ProtareCreate(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 ) {
    ConstHandle2Protare handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -329,7 +329,7 @@ ProtareChecksumHas(ConstHandle2ConstProtare This)
 
 // Get
 // Returns by value
-checksum
+const char *
 ProtareChecksumGet(ConstHandle2ConstProtare This)
 {
    return detail::getField<CPP>
@@ -338,7 +338,7 @@ ProtareChecksumGet(ConstHandle2ConstProtare This)
 
 // Set
 void
-ProtareChecksumSet(ConstHandle2Protare This, const checksum checksum)
+ProtareChecksumSet(ConstHandle2Protare This, const char *const checksum)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
@@ -359,7 +359,7 @@ ProtareAlgorithmHas(ConstHandle2ConstProtare This)
 
 // Get
 // Returns by value
-algorithm
+enums::HashAlgorithm
 ProtareAlgorithmGet(ConstHandle2ConstProtare This)
 {
    return detail::getField<CPP>
@@ -368,7 +368,7 @@ ProtareAlgorithmGet(ConstHandle2ConstProtare This)
 
 // Set
 void
-ProtareAlgorithmSet(ConstHandle2Protare This, const algorithm algorithm)
+ProtareAlgorithmSet(ConstHandle2Protare This, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);

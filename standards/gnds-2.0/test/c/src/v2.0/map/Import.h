@@ -77,16 +77,16 @@ ImportDefault();
 extern_c Handle2ConstImport
 ImportCreateConst(
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Create, general
 extern_c Handle2Import
 ImportCreate(
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Assign
@@ -161,12 +161,12 @@ ImportChecksumHas(ConstHandle2ConstImport This);
 
 // +++ Get
 // +++ Returns by value
-extern_c checksum
+extern_c const char *
 ImportChecksumGet(ConstHandle2ConstImport This);
 
 // +++ Set
 extern_c void
-ImportChecksumSet(ConstHandle2Import This, const checksum checksum);
+ImportChecksumSet(ConstHandle2Import This, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -179,12 +179,12 @@ ImportAlgorithmHas(ConstHandle2ConstImport This);
 
 // +++ Get
 // +++ Returns by value
-extern_c algorithm
+extern_c enums::HashAlgorithm
 ImportAlgorithmGet(ConstHandle2ConstImport This);
 
 // +++ Set
 extern_c void
-ImportAlgorithmSet(ConstHandle2Import This, const algorithm algorithm);
+ImportAlgorithmSet(ConstHandle2Import This, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------

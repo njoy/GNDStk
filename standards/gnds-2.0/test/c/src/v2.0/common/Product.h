@@ -34,7 +34,6 @@
 #include "GNDStk.h"
 #include "v2.0/transport/Multiplicity.h"
 #include "v2.0/transport/Distribution.h"
-#include "v2.0/transport/OutputChannel.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -82,8 +81,7 @@ ProductCreateConst(
    const XMLName label,
    const XMLName pid,
    ConstHandle2ConstMultiplicity multiplicity,
-   ConstHandle2ConstDistribution distribution,
-   ConstHandle2ConstOutputChannel outputChannel
+   ConstHandle2ConstDistribution distribution
 );
 
 // +++ Create, general
@@ -92,8 +90,7 @@ ProductCreate(
    const XMLName label,
    const XMLName pid,
    ConstHandle2ConstMultiplicity multiplicity,
-   ConstHandle2ConstDistribution distribution,
-   ConstHandle2ConstOutputChannel outputChannel
+   ConstHandle2ConstDistribution distribution
 );
 
 // +++ Assign
@@ -216,27 +213,6 @@ ProductDistributionGet(ConstHandle2Product This);
 // +++ Set
 extern_c void
 ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution distribution);
-
-
-// -----------------------------------------------------------------------------
-// Child: outputChannel
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-ProductOutputChannelHas(ConstHandle2ConstProduct This);
-
-// --- Get, const
-extern_c Handle2ConstOutputChannel
-ProductOutputChannelGetConst(ConstHandle2ConstProduct This);
-
-// +++ Get, non-const
-extern_c Handle2OutputChannel
-ProductOutputChannelGet(ConstHandle2Product This);
-
-// +++ Set
-extern_c void
-ProductOutputChannelSet(ConstHandle2Product This, ConstHandle2ConstOutputChannel outputChannel);
 
 
 // -----------------------------------------------------------------------------

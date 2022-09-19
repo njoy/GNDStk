@@ -38,8 +38,8 @@ void wrapExternalFile(python::module &module)
          python::init<
             const XMLName &,
             const XMLName &,
-            const std::optional<checksum> &,
-            const std::optional<algorithm> &
+            const std::optional<std::string> &,
+            const std::optional<enums::HashAlgorithm> &
          >(),
          python::arg("label"),
          python::arg("path"),

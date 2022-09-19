@@ -37,8 +37,8 @@ void wrapImport(python::module &module)
       .def(
          python::init<
             const XMLName &,
-            const checksum &,
-            const std::optional<algorithm> &
+            const std::string &,
+            const std::optional<enums::HashAlgorithm> &
          >(),
          python::arg("path"),
          python::arg("checksum"),

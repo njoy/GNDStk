@@ -81,8 +81,8 @@ ProtareCreateConst(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Create, general
@@ -93,8 +93,8 @@ ProtareCreate(
    const XMLName evaluation,
    const XMLName path,
    const XMLName interaction,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Assign
@@ -241,12 +241,12 @@ ProtareChecksumHas(ConstHandle2ConstProtare This);
 
 // +++ Get
 // +++ Returns by value
-extern_c checksum
+extern_c const char *
 ProtareChecksumGet(ConstHandle2ConstProtare This);
 
 // +++ Set
 extern_c void
-ProtareChecksumSet(ConstHandle2Protare This, const checksum checksum);
+ProtareChecksumSet(ConstHandle2Protare This, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -259,12 +259,12 @@ ProtareAlgorithmHas(ConstHandle2ConstProtare This);
 
 // +++ Get
 // +++ Returns by value
-extern_c algorithm
+extern_c enums::HashAlgorithm
 ProtareAlgorithmGet(ConstHandle2ConstProtare This);
 
 // +++ Set
 extern_c void
-ProtareAlgorithmSet(ConstHandle2Protare This, const algorithm algorithm);
+ProtareAlgorithmSet(ConstHandle2Protare This, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------

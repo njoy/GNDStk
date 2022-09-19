@@ -39,7 +39,6 @@
 #include "v2.0/transport/KalbachMann.h"
 #include "v2.0/transport/Reference.h"
 #include "v2.0/transport/Branching3d.h"
-#include "v2.0/cpTransport/CoulombPlusNuclearElastic.h"
 #include "v2.0/tsl/ThermalNeutronScatteringLaw.h"
 #include "v2.0/atomic/CoherentPhotonScattering.h"
 #include "v2.0/atomic/IncoherentPhotonScattering.h"

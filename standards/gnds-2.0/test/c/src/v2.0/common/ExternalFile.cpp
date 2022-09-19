@@ -47,8 +47,8 @@ Handle2ConstExternalFile
 ExternalFileCreateConst(
    const XMLName label,
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 ) {
    ConstHandle2ExternalFile handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -65,8 +65,8 @@ Handle2ExternalFile
 ExternalFileCreate(
    const XMLName label,
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 ) {
    ConstHandle2ExternalFile handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -224,7 +224,7 @@ ExternalFileChecksumHas(ConstHandle2ConstExternalFile This)
 
 // Get
 // Returns by value
-checksum
+const char *
 ExternalFileChecksumGet(ConstHandle2ConstExternalFile This)
 {
    return detail::getField<CPP>
@@ -233,7 +233,7 @@ ExternalFileChecksumGet(ConstHandle2ConstExternalFile This)
 
 // Set
 void
-ExternalFileChecksumSet(ConstHandle2ExternalFile This, const checksum checksum)
+ExternalFileChecksumSet(ConstHandle2ExternalFile This, const char *const checksum)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
@@ -254,7 +254,7 @@ ExternalFileAlgorithmHas(ConstHandle2ConstExternalFile This)
 
 // Get
 // Returns by value
-algorithm
+enums::HashAlgorithm
 ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile This)
 {
    return detail::getField<CPP>
@@ -263,7 +263,7 @@ ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile This)
 
 // Set
 void
-ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const algorithm algorithm)
+ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);

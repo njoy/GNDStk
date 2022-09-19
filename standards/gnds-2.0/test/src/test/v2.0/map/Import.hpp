@@ -35,9 +35,9 @@ class Import : public Component<map::Import> {
          // metadata
          XMLName{}
             / Meta<>("path") |
-         checksum{}
+         std::string{}
             / Meta<>("checksum") |
-         std::optional<algorithm>{}
+         std::optional<enums::HashAlgorithm>{}
             / Meta<>("algorithm")
       ;
    }
@@ -47,8 +47,8 @@ public:
 
    // metadata
    Field<XMLName> path{this};
-   Field<checksum> checksum{this};
-   Field<std::optional<algorithm>> algorithm{this};
+   Field<std::string> checksum{this};
+   Field<std::optional<enums::HashAlgorithm>> algorithm{this};
 
    // ------------------------
    // Constructors
@@ -62,8 +62,8 @@ public:
    // default, and from fields
    explicit Import(
       const wrapper<XMLName> &path = {},
-      const wrapper<checksum> &checksum = {},
-      const wrapper<std::optional<algorithm>> &algorithm = {}
+      const wrapper<std::string> &checksum = {},
+      const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       path(this,path),

@@ -14,8 +14,8 @@ namespace python_v2_0 {
 namespace python_common {
    void wrapQ(python::module &);
    void wrapEnergy(python::module &);
-   void wrapProducts(python::module &);
    void wrapProduct(python::module &);
+   void wrapProducts(python::module &);
    void wrapMass(python::module &);
    void wrapProbability(python::module &);
    void wrapTemperature(python::module &);
@@ -35,8 +35,8 @@ void wrapCommon(python::module &module)
    // wrap common components
    python_common::wrapQ(submodule);
    python_common::wrapEnergy(submodule);
-   python_common::wrapProducts(submodule);
    python_common::wrapProduct(submodule);
+   python_common::wrapProducts(submodule);
    python_common::wrapMass(submodule);
    python_common::wrapProbability(submodule);
    python_common::wrapTemperature(submodule);

@@ -54,8 +54,8 @@ Handle2ConstMap
 MapCreateConst(
    const XMLName library,
    const XMLName format,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2Import *const import, const size_t importSize,
    ConstHandle2Protare *const protare, const size_t protareSize,
    ConstHandle2TNSL *const TNSL, const size_t TNSLSize
@@ -84,8 +84,8 @@ Handle2Map
 MapCreate(
    const XMLName library,
    const XMLName format,
-   const checksum checksum,
-   const algorithm algorithm,
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2Import *const import, const size_t importSize,
    ConstHandle2Protare *const protare, const size_t protareSize,
    ConstHandle2TNSL *const TNSL, const size_t TNSLSize
@@ -255,7 +255,7 @@ MapChecksumHas(ConstHandle2ConstMap This)
 
 // Get
 // Returns by value
-checksum
+const char *
 MapChecksumGet(ConstHandle2ConstMap This)
 {
    return detail::getField<CPP>
@@ -264,7 +264,7 @@ MapChecksumGet(ConstHandle2ConstMap This)
 
 // Set
 void
-MapChecksumSet(ConstHandle2Map This, const checksum checksum)
+MapChecksumSet(ConstHandle2Map This, const char *const checksum)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
@@ -285,7 +285,7 @@ MapAlgorithmHas(ConstHandle2ConstMap This)
 
 // Get
 // Returns by value
-algorithm
+enums::HashAlgorithm
 MapAlgorithmGet(ConstHandle2ConstMap This)
 {
    return detail::getField<CPP>
@@ -294,7 +294,7 @@ MapAlgorithmGet(ConstHandle2ConstMap This)
 
 // Set
 void
-MapAlgorithmSet(ConstHandle2Map This, const algorithm algorithm)
+MapAlgorithmSet(ConstHandle2Map This, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
@@ -413,7 +413,7 @@ MapImportSetByPath(
 int
 MapImportHasByChecksum(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ImportHasByChecksum",
@@ -424,7 +424,7 @@ MapImportHasByChecksum(
 Handle2ConstImport
 MapImportGetByChecksumConst(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstImport>
       (CLASSNAME, CLASSNAME+"ImportGetByChecksumConst",
@@ -435,7 +435,7 @@ MapImportGetByChecksumConst(
 Handle2Import
 MapImportGetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2Import>
       (CLASSNAME, CLASSNAME+"ImportGetByChecksum",
@@ -446,7 +446,7 @@ MapImportGetByChecksum(
 void
 MapImportSetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstImport import
 ) {
    detail::setByMetadatum<CPP,CPPImport>
@@ -458,7 +458,7 @@ MapImportSetByChecksum(
 int
 MapImportHasByAlgorithm(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ImportHasByAlgorithm",
@@ -469,7 +469,7 @@ MapImportHasByAlgorithm(
 Handle2ConstImport
 MapImportGetByAlgorithmConst(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstImport>
       (CLASSNAME, CLASSNAME+"ImportGetByAlgorithmConst",
@@ -480,7 +480,7 @@ MapImportGetByAlgorithmConst(
 Handle2Import
 MapImportGetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2Import>
       (CLASSNAME, CLASSNAME+"ImportGetByAlgorithm",
@@ -491,7 +491,7 @@ MapImportGetByAlgorithm(
 void
 MapImportSetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstImport import
 ) {
    detail::setByMetadatum<CPP,CPPImport>
@@ -792,7 +792,7 @@ MapProtareSetByInteraction(
 int
 MapProtareHasByChecksum(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByChecksum",
@@ -803,7 +803,7 @@ MapProtareHasByChecksum(
 Handle2ConstProtare
 MapProtareGetByChecksumConst(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByChecksumConst",
@@ -814,7 +814,7 @@ MapProtareGetByChecksumConst(
 Handle2Protare
 MapProtareGetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByChecksum",
@@ -825,7 +825,7 @@ MapProtareGetByChecksum(
 void
 MapProtareSetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
@@ -837,7 +837,7 @@ MapProtareSetByChecksum(
 int
 MapProtareHasByAlgorithm(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByAlgorithm",
@@ -848,7 +848,7 @@ MapProtareHasByAlgorithm(
 Handle2ConstProtare
 MapProtareGetByAlgorithmConst(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByAlgorithmConst",
@@ -859,7 +859,7 @@ MapProtareGetByAlgorithmConst(
 Handle2Protare
 MapProtareGetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByAlgorithm",
@@ -870,7 +870,7 @@ MapProtareGetByAlgorithm(
 void
 MapProtareSetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
@@ -1171,7 +1171,7 @@ MapTNSLSetByInteraction(
 int
 MapTNSLHasByChecksum(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByChecksum",
@@ -1182,7 +1182,7 @@ MapTNSLHasByChecksum(
 Handle2ConstTNSL
 MapTNSLGetByChecksumConst(
    ConstHandle2ConstMap This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByChecksumConst",
@@ -1193,7 +1193,7 @@ MapTNSLGetByChecksumConst(
 Handle2TNSL
 MapTNSLGetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum
+   const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByChecksum",
@@ -1204,7 +1204,7 @@ MapTNSLGetByChecksum(
 void
 MapTNSLSetByChecksum(
    ConstHandle2Map This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
@@ -1216,7 +1216,7 @@ MapTNSLSetByChecksum(
 int
 MapTNSLHasByAlgorithm(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByAlgorithm",
@@ -1227,7 +1227,7 @@ MapTNSLHasByAlgorithm(
 Handle2ConstTNSL
 MapTNSLGetByAlgorithmConst(
    ConstHandle2ConstMap This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByAlgorithmConst",
@@ -1238,7 +1238,7 @@ MapTNSLGetByAlgorithmConst(
 Handle2TNSL
 MapTNSLGetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByAlgorithm",
@@ -1249,7 +1249,7 @@ MapTNSLGetByAlgorithm(
 void
 MapTNSLSetByAlgorithm(
    ConstHandle2Map This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>

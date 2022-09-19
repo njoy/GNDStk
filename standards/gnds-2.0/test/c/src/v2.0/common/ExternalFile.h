@@ -78,8 +78,8 @@ extern_c Handle2ConstExternalFile
 ExternalFileCreateConst(
    const XMLName label,
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Create, general
@@ -87,8 +87,8 @@ extern_c Handle2ExternalFile
 ExternalFileCreate(
    const XMLName label,
    const XMLName path,
-   const checksum checksum,
-   const algorithm algorithm
+   const char *const checksum,
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Assign
@@ -181,12 +181,12 @@ ExternalFileChecksumHas(ConstHandle2ConstExternalFile This);
 
 // +++ Get
 // +++ Returns by value
-extern_c checksum
+extern_c const char *
 ExternalFileChecksumGet(ConstHandle2ConstExternalFile This);
 
 // +++ Set
 extern_c void
-ExternalFileChecksumSet(ConstHandle2ExternalFile This, const checksum checksum);
+ExternalFileChecksumSet(ConstHandle2ExternalFile This, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -199,12 +199,12 @@ ExternalFileAlgorithmHas(ConstHandle2ConstExternalFile This);
 
 // +++ Get
 // +++ Returns by value
-extern_c algorithm
+extern_c enums::HashAlgorithm
 ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile This);
 
 // +++ Set
 extern_c void
-ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const algorithm algorithm);
+ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------

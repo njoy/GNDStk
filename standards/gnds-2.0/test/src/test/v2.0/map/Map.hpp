@@ -39,9 +39,9 @@ class Map : public Component<map::Map> {
             / Meta<>("library") |
          XMLName{}
             / Meta<>("format") |
-         checksum{}
+         std::string{}
             / Meta<>("checksum") |
-         algorithm{}
+         enums::HashAlgorithm{}
             / Meta<>("algorithm") |
          // children
          std::optional<map::Import>{}
@@ -59,8 +59,8 @@ public:
    // metadata
    Field<XMLName> library{this};
    Field<XMLName> format{this};
-   Field<checksum> checksum{this};
-   Field<algorithm> algorithm{this};
+   Field<std::string> checksum{this};
+   Field<enums::HashAlgorithm> algorithm{this};
 
    // children
    Field<std::optional<std::vector<map::Import>>> import{this};
@@ -84,8 +84,8 @@ public:
    explicit Map(
       const wrapper<XMLName> &library = {},
       const wrapper<XMLName> &format = {},
-      const wrapper<checksum> &checksum = {},
-      const wrapper<algorithm> &algorithm = {},
+      const wrapper<std::string> &checksum = {},
+      const wrapper<enums::HashAlgorithm> &algorithm = {},
       const wrapper<std::optional<std::vector<map::Import>>> &import = {},
       const wrapper<std::optional<std::vector<map::Protare>>> &protare = {},
       const wrapper<std::optional<std::vector<map::TNSL>>> &TNSL = {}

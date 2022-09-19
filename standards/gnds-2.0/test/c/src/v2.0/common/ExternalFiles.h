@@ -228,28 +228,28 @@ ExternalFilesExternalFileSetByPath(
 extern_c int
 ExternalFilesExternalFileHasByChecksum(
    ConstHandle2ConstExternalFiles This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // --- Get, by checksum, const
 extern_c Handle2ConstExternalFile
 ExternalFilesExternalFileGetByChecksumConst(
    ConstHandle2ConstExternalFiles This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Get, by checksum, non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByChecksum(
    ConstHandle2ExternalFiles This,
-   const checksum checksum
+   const char *const checksum
 );
 
 // +++ Set, by checksum
 extern_c void
 ExternalFilesExternalFileSetByChecksum(
    ConstHandle2ExternalFiles This,
-   const checksum checksum,
+   const char *const checksum,
    ConstHandle2ConstExternalFile externalFile
 );
 
@@ -257,28 +257,28 @@ ExternalFilesExternalFileSetByChecksum(
 extern_c int
 ExternalFilesExternalFileHasByAlgorithm(
    ConstHandle2ConstExternalFiles This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // --- Get, by algorithm, const
 extern_c Handle2ConstExternalFile
 ExternalFilesExternalFileGetByAlgorithmConst(
    ConstHandle2ConstExternalFiles This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Get, by algorithm, non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByAlgorithm(
    ConstHandle2ExternalFiles This,
-   const algorithm algorithm
+   const enums::HashAlgorithm algorithm
 );
 
 // +++ Set, by algorithm
 extern_c void
 ExternalFilesExternalFileSetByAlgorithm(
    ConstHandle2ExternalFiles This,
-   const algorithm algorithm,
+   const enums::HashAlgorithm algorithm,
    ConstHandle2ConstExternalFile externalFile
 );
 

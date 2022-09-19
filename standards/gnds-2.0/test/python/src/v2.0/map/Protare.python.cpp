@@ -41,8 +41,8 @@ void wrapProtare(python::module &module)
             const XMLName &,
             const XMLName &,
             const XMLName &,
-            const checksum &,
-            const std::optional<algorithm> &
+            const std::string &,
+            const std::optional<enums::HashAlgorithm> &
          >(),
          python::arg("projectile"),
          python::arg("target"),

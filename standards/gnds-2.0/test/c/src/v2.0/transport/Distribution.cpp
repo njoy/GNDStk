@@ -23,7 +23,6 @@ using CPPEnergyAngular = transport::EnergyAngular;
 using CPPKalbachMann = transport::KalbachMann;
 using CPPReference = transport::Reference;
 using CPPBranching3d = transport::Branching3d;
-using CPPCoulombPlusNuclearElastic = cpTransport::CoulombPlusNuclearElastic;
 using CPPThermalNeutronScatteringLaw = tsl::ThermalNeutronScatteringLaw;
 using CPPCoherentPhotonScattering = atomic::CoherentPhotonScattering;
 using CPPIncoherentPhotonScattering = atomic::IncoherentPhotonScattering;

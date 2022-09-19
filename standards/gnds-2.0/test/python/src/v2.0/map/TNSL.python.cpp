@@ -41,8 +41,8 @@ void wrapTNSL(python::module &module)
             const XMLName &,
             const XMLName &,
             const std::optional<XMLName> &,
-            const checksum &,
-            const std::optional<algorithm> &,
+            const std::string &,
+            const std::optional<enums::HashAlgorithm> &,
             const XMLName &,
             const XMLName &
          >(),

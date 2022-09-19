@@ -43,9 +43,9 @@ class Protare : public Component<map::Protare> {
             / Meta<>("path") |
          XMLName{}
             / Meta<>("interaction") |
-         checksum{}
+         std::string{}
             / Meta<>("checksum") |
-         std::optional<algorithm>{}
+         std::optional<enums::HashAlgorithm>{}
             / Meta<>("algorithm")
       ;
    }
@@ -59,8 +59,8 @@ public:
    Field<XMLName> evaluation{this};
    Field<XMLName> path{this};
    Field<XMLName> interaction{this};
-   Field<checksum> checksum{this};
-   Field<std::optional<algorithm>> algorithm{this};
+   Field<std::string> checksum{this};
+   Field<std::optional<enums::HashAlgorithm>> algorithm{this};
 
    // ------------------------
    // Constructors
@@ -82,8 +82,8 @@ public:
       const wrapper<XMLName> &evaluation = {},
       const wrapper<XMLName> &path = {},
       const wrapper<XMLName> &interaction = {},
-      const wrapper<checksum> &checksum = {},
-      const wrapper<std::optional<algorithm>> &algorithm = {}
+      const wrapper<std::string> &checksum = {},
+      const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),

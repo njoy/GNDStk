@@ -18,12 +18,10 @@ namespace extract {
    static auto pid = [](auto &obj) { return &obj.pid; };
    static auto multiplicity = [](auto &obj) { return &obj.multiplicity; };
    static auto distribution = [](auto &obj) { return &obj.distribution; };
-   static auto outputChannel = [](auto &obj) { return &obj.outputChannel; };
 }
 
 using CPPMultiplicity = transport::Multiplicity;
 using CPPDistribution = transport::Distribution;
-using CPPOutputChannel = transport::OutputChannel;
 
 
 // -----------------------------------------------------------------------------
@@ -53,16 +51,14 @@ ProductCreateConst(
    const XMLName label,
    const XMLName pid,
    ConstHandle2ConstMultiplicity multiplicity,
-   ConstHandle2ConstDistribution distribution,
-   ConstHandle2ConstOutputChannel outputChannel
+   ConstHandle2ConstDistribution distribution
 ) {
    ConstHandle2Product handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       pid,
       detail::tocpp<CPPMultiplicity>(multiplicity),
-      detail::tocpp<CPPDistribution>(distribution),
-      detail::tocpp<CPPOutputChannel>(outputChannel)
+      detail::tocpp<CPPDistribution>(distribution)
    );
    return handle;
 }
@@ -73,16 +69,14 @@ ProductCreate(
    const XMLName label,
    const XMLName pid,
    ConstHandle2ConstMultiplicity multiplicity,
-   ConstHandle2ConstDistribution distribution,
-   ConstHandle2ConstOutputChannel outputChannel
+   ConstHandle2ConstDistribution distribution
 ) {
    ConstHandle2Product handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       pid,
       detail::tocpp<CPPMultiplicity>(multiplicity),
-      detail::tocpp<CPPDistribution>(distribution),
-      detail::tocpp<CPPOutputChannel>(outputChannel)
+      detail::tocpp<CPPDistribution>(distribution)
    );
    return handle;
 }
@@ -290,41 +284,4 @@ ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution d
 {
    detail::setField<CPP,CPPDistribution>
       (CLASSNAME, CLASSNAME+"DistributionSet", This, extract::distribution, distribution);
-}
-
-
-// -----------------------------------------------------------------------------
-// Child: outputChannel
-// -----------------------------------------------------------------------------
-
-// Has
-int
-ProductOutputChannelHas(ConstHandle2ConstProduct This)
-{
-   return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputChannelHas", This, extract::outputChannel);
-}
-
-// Get, const
-Handle2ConstOutputChannel
-ProductOutputChannelGetConst(ConstHandle2ConstProduct This)
-{
-   return detail::getField<CPP,Handle2ConstOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", This, extract::outputChannel);
-}
-
-// Get, non-const
-Handle2OutputChannel
-ProductOutputChannelGet(ConstHandle2Product This)
-{
-   return detail::getField<CPP,Handle2OutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGet", This, extract::outputChannel);
-}
-
-// Set
-void
-ProductOutputChannelSet(ConstHandle2Product This, ConstHandle2ConstOutputChannel outputChannel)
-{
-   detail::setField<CPP,CPPOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
 }

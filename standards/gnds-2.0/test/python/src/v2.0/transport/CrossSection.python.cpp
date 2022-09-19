@@ -28,7 +28,6 @@ void wrapCrossSection(python::module &module)
       containers::XYs1d,
       containers::Regions1d,
       transport::ResonancesWithBackground,
-      cpTransport::CoulombPlusNuclearElastic,
       tsl::ThermalNeutronScatteringLaw1d,
       transport::Reference,
       containers::Gridded1d,
@@ -51,7 +50,7 @@ void wrapCrossSection(python::module &module)
             const _t &
          >(),
          python::arg("label") = std::nullopt,
-         python::arg("_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d"),
+         python::arg("_xys1dregions1dresonances_with_backgroundthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -73,11 +72,6 @@ void wrapCrossSection(python::module &module)
          "resonances_with_background",
          [](const Component &self) { return self.resonancesWithBackground(); },
          Component::documentation("resonances_with_background").data()
-      )
-      .def_property_readonly(
-         "coulomb_plus_nuclear_elastic",
-         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
-         Component::documentation("coulomb_plus_nuclear_elastic").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law1d",
@@ -105,9 +99,9 @@ void wrapCrossSection(python::module &module)
          Component::documentation("urr_probability_tables1d").data()
       )
       .def_property_readonly(
-         "_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d",
-         [](const Component &self) { return self._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(); },
-         Component::documentation("_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d").data()
+         "_xys1dregions1dresonances_with_backgroundthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d",
+         [](const Component &self) { return self._XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(); },
+         Component::documentation("_xys1dregions1dresonances_with_backgroundthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d").data()
       )
    ;
 

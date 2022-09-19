@@ -13,8 +13,8 @@ namespace python_v2_0 {
 // tsl declarations
 namespace python_tsl {
    void wrapMass(python::module &);
-   void wrapThermalNeutronScatteringLaw1d(python::module &);
    void wrapThermalNeutronScatteringLaw(python::module &);
+   void wrapThermalNeutronScatteringLaw1d(python::module &);
    void wrapS_table(python::module &);
    void wrapBraggEnergy(python::module &);
    void wrapStructureFactor(python::module &);
@@ -50,8 +50,8 @@ void wrapTsl(python::module &module)
 
    // wrap tsl components
    python_tsl::wrapMass(submodule);
-   python_tsl::wrapThermalNeutronScatteringLaw1d(submodule);
    python_tsl::wrapThermalNeutronScatteringLaw(submodule);
+   python_tsl::wrapThermalNeutronScatteringLaw1d(submodule);
    python_tsl::wrapS_table(submodule);
    python_tsl::wrapBraggEnergy(submodule);
    python_tsl::wrapStructureFactor(submodule);
