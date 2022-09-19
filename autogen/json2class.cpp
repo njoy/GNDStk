@@ -596,10 +596,12 @@ void getClassChildren(
    PerClass &per, Class2Dependencies &dep
 ) {
    for (const auto &field : j.items()) {
+      if (beginsin(field.key(), "//"))
+          continue;
       const auto &elemRHS = field.value();
 
       // Choice children are handled elsewhere
-      const std::string times = getTimes(per,field.key(),elemRHS);
+      const std::string times = getTimes(per, field.key(), elemRHS);
       if (times == "choice" || times == "choice+" || times == "choice2+")
          continue;
 
@@ -674,6 +676,9 @@ void getClassVariants(
    // Collect "variant" names, and if ever it's absent, a to-be-determined
    // name for all choice children for which it's absent
    for (const auto &field : j.items()) {
+      if (beginsin(field.key(), "//"))
+          continue;
+
       // Is it a choice child?
       const auto &elemRHS = field.value();
       const std::string times = getTimes(per,field.key(),elemRHS);
@@ -689,6 +694,9 @@ void getClassVariants(
 
    // Pass 2
    for (const auto &field : j.items()) {
+      if (beginsin(field.key(), "//"))
+          continue;
+
       // Is it a choice child?
       const auto &elemRHS = field.value();
       const std::string times = getTimes(per,field.key(),elemRHS);
