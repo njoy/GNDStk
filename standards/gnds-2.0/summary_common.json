@@ -114,7 +114,7 @@
                 "occurrence": "1",
                 "required": true
             },
-            "outputChannel": {
+            "// outputChannel": {
                 "__class__": "nodes.ChildNode",
                 "description": "Used if the product breaks up into fragments (e.g. \\attrval{Be8 -> He4 + He4})",
                 "name": "outputChannel",

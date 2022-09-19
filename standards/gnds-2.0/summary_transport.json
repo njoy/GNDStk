@@ -370,7 +370,7 @@
                 "occurrence": "choice",
                 "required": false
             },
-            "CoulombPlusNuclearElastic": {
+            "// CoulombPlusNuclearElastic": {
                 "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
@@ -1098,7 +1098,7 @@
                 "occurrence": "choice",
                 "required": false
             },
-            "CoulombPlusNuclearElastic": {
+            "// CoulombPlusNuclearElastic": {
                 "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
