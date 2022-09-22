@@ -17,6 +17,7 @@ COMPILE="
   -fno-show-column
   -Wno-unused-command-line-argument
   -Wall -Wextra -Wpedantic "
+# -g -O3
 
 if [ ! -f "pugixml.o" ]; then
 echo 'Compiling pugixml.cpp...'

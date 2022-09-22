@@ -28,5 +28,7 @@ Component(const BLOCKDATA &other, ARGS &...args) : BLOCKDATA(other)
    );
 
    // Create links
+   ///std::cout << "ctor: " << Class() << std::endl;
+   links.reserve(sizeof...(args));
    (links.push_back(fieldAddress(args)), ...);
 }

@@ -186,7 +186,7 @@ public:
    template<class KEYWORD>
    void operator()(const KEYWORD &kwd, const Node &node) const
    {
-      TYPE obj = kwd.object;
+      static TYPE obj = kwd.object;
       kwd.converter(node,obj);
    }
 };
@@ -391,7 +391,7 @@ public:
    // to TYPE
    operator TYPE() const
    {
-      TYPE obj{};
+      static TYPE obj{};
       kwd.converter(metaValueRef,obj);
       return obj;
    }
@@ -495,7 +495,7 @@ public:
    // to TYPE
    operator TYPE() const
    {
-      TYPE obj{};
+      static TYPE obj{};
       kwd.converter(childNodeRef,obj);
       return obj;
    }
@@ -647,7 +647,7 @@ public:
       std::vector<TYPE> vec;
       vec.reserve(size());
       for (auto &elem : childNodePtr) {
-         TYPE obj{};
+         static TYPE obj{};
          kwd.converter(*elem,obj);
          vec.push_back(obj);
       }
@@ -751,5 +751,22 @@ auto name_split(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
    // done
    return names;
 }
+
+
+
+// -----------------------------------------------------------------------------
+// keys2outputs
+// -----------------------------------------------------------------------------
+
+template<class NODE, class T>
+struct keys2outputs;
+
+template<class NODE, class... Ks>
+struct keys2outputs<NODE,std::tuple<Ks...>>
+{
+   using type = std::tuple<
+      decltype(NODE{}.operator()(std::declval<Ks>()))...
+   >;
+};
 
 } // namespace detail

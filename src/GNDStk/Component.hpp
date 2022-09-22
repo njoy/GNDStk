@@ -74,8 +74,8 @@ public:
    #include "GNDStk/Component/src/sort.hpp"
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
 
-   // You can (but need not) override the following in DERIVED
-   static std::string NAMESPACE() { return ""; }
+   // Namespace
+   static std::string Namespace() { return DERIVED::NAMESPACE(); }
 
    // baseBlockData
    // Convenient access to the BlockData base class
@@ -124,7 +124,8 @@ public:
       return false;
    }
 
-   static std::string CLASS() { return DERIVED::CLASS(); }
+   // Class
+   static std::string Class() { return DERIVED::CLASS(); }
 
    // Component << string
    // Like Node << string, but for Component's derived class.
@@ -135,7 +136,7 @@ public:
          node << str;
          derived() = DERIVED(node);
       } catch (...) {
-         log::function("{} << string", CLASS());
+         log::function("{} << string", Class());
          throw;
       }
    }
@@ -147,7 +148,7 @@ public:
       try {
          Node(*this) >> str;
       } catch (...) {
-         log::function("{} >> string", CLASS());
+         log::function("{} >> string", Class());
          throw;
       }
    }
@@ -175,7 +176,7 @@ std::istream &operator>>(
    try {
       return comp.read(is);
    } catch (...) {
-      log::function("istream >> {}", comp.CLASS());
+      log::function("istream >> {}", comp.Class());
       throw;
    }
 }
@@ -189,7 +190,7 @@ std::ostream &operator<<(
    try {
       return comp.print(os,0);
    } catch (...) {
-      log::function("ostream << {}", comp.CLASS());
+      log::function("ostream << {}", comp.Class());
       throw;
    }
 }

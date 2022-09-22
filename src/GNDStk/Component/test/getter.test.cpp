@@ -18,6 +18,7 @@ class TestGetter : public Component<TestGetter>
 {
    friend class Component;
 
+   static auto NAMESPACE() { return ""; }
    static auto CLASS() { return "TestGetter"; }
    // static auto FIELD() - not actually needed here
    static auto KEYS()

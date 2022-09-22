@@ -89,7 +89,7 @@ meta(
       // call meta(string), with the Meta's key
       const std::string &value = meta(kwd.name,found);
       // convert value, if any, to an object of the appropriate type
-      TYPE obj = kwd.object;
+      static TYPE obj = kwd.object;
       if (found)
          kwd.converter(value,obj);
       return obj;

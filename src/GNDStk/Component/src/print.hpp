@@ -63,7 +63,7 @@ std::ostream &print(std::ostream &os, const int level) const
       detail::indentString(
          os, level,
          detail::colorize_component(
-            detail::fullName(DERIVED::NAMESPACE(), DERIVED::CLASS())
+            detail::fullName(Namespace(), Class())
          ) + " " +
          detail::colorize_brace("{") + "\n"
       );
@@ -162,11 +162,7 @@ std::ostream &print(std::ostream &os, const int level) const
           + (comments
               ? " " +
                 detail::colorize_comment(
-                   std::string("// ") +
-                   detail::fullName(
-                      DERIVED::NAMESPACE(),
-                      DERIVED::CLASS()
-                   )
+                   std::string("// ") + detail::fullName(Namespace(), Class())
                 )
               : ""
             )

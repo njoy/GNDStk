@@ -39,7 +39,7 @@ class Spin : public Component<pops::Spin> {
             / Meta<>("label") |
          std::optional<XMLName>{}
             / Meta<>("unit") |
-         XMLName{}
+         std::optional<XMLName>{}
             / Meta<>("value") |
          // children
          std::optional<documentation::Documentation>{}
@@ -57,7 +57,7 @@ public:
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<std::optional<XMLName>> unit{this};
-   Field<XMLName> value{this};
+   Field<std::optional<XMLName>> value{this};
 
    // children
    Field<std::optional<documentation::Documentation>> documentation{this};
@@ -80,7 +80,7 @@ public:
    explicit Spin(
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &unit = {},
-      const wrapper<XMLName> &value = {},
+      const wrapper<std::optional<XMLName>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
       const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
       const wrapper<std::optional<std::vector<containers::Fraction>>> &fraction = {}

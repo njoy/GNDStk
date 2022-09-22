@@ -48,16 +48,16 @@ public:
 
 // DerivedData
 // A Component-derived class with some data in it.
-// Note that this class doesn't have help or NAMESPACE(); so we'll also use
-// this class to test that Component's functionality that uses those still works
-// properly, as it should in that case.
+// Note that this class doesn't have help. So, we'll also use this class
+// to test that Component's functionality that uses it still works properly,
+// as it should in that case.
 class DerivedData : public Component<DerivedData>
 {
 public:
    friend class Component<DerivedData>;
+   static auto NAMESPACE() { return ""; }
    static auto CLASS() { return "DerivedData"; }
    static auto FIELD() { return "data"; }
-
    static auto KEYS()
    {
       return
@@ -149,9 +149,7 @@ SCENARIO("Testing GNDStk Component") {
       WHEN("We test NAMESPACE()") {
          // For these two we need the std::string() only because the functions
          // were written (above, in the class definitions) with an auto return
-         // of a plain character string. Where Component needs NAMESPACE(),
-         // it converts to std::string, so it's fine to write it that way. Here,
-         // though, in this test file, it means we need the std::string().
+         // of a plain character string.
          CHECK(der1.NAMESPACE() == std::string("hello"));
          CHECK(der2.NAMESPACE() == std::string("world"));
          DerivedData der;

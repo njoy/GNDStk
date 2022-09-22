@@ -27,9 +27,7 @@ decltype(auto) getter(
    const KEY &key, // index, label, or Lookup
    const std::string &fieldName = ""
 ) const {
-   return detail::getter(
-      vec, key, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
-   );
+   return detail::getter(vec, key, Namespace(), Class(), fieldName);
 }
 
 // non-const
@@ -69,9 +67,7 @@ const RETURN *getter(
    const std::variant<Ts...> &var,
    const std::string &fieldName = ""
 ) const {
-   return detail::getter<RETURN>(
-      var, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
-   );
+   return detail::getter<RETURN>(var, Namespace(), Class(), fieldName);
 }
 
 // non-const
@@ -105,9 +101,7 @@ const RETURN *getter(
    const KEY &key,
    const std::string &fieldName = ""
 ) const {
-   return detail::getter<RETURN>(
-      vecvar, key, DERIVED::NAMESPACE(), DERIVED::CLASS(), fieldName
-   );
+   return detail::getter<RETURN>(vecvar, key, Namespace(), Class(), fieldName);
 }
 
 // non-const

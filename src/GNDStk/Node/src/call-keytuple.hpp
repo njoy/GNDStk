@@ -3,67 +3,46 @@
 // Multi-query
 // -----------------------------------------------------------------------------
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // Private helpers
-// ------------------------
+// -----------------------------------------------------------------------------
 
 private:
 
-// (tuple<>)
-auto operator()(
-   const std::tuple<> &,
-   bool &found,
-   std::vector<std::string> &
-) GNDSTK_CONST {
-   found = true;
-   return std::tuple<>{};
-}
+// Note: In these, notice that we use decltype(auto), not auto. Where the input
+// query tuple has Meta<void> and/or Child<void>, with the decltype(auto) we'll
+// get *references* (not copies) in the output tuple - just as we would with a
+// single-value query. (Of course, where we use a non-<void> Meta or Child, the
+// output object is of some prescribed type and is created on-the-fly. So, there
+// aren't references in those cases in any event.)
 
-
-// (tuple<...>)
-template<class... Ks>
-auto operator()(
-   const std::tuple<Ks...> &tup,
-   bool &found,
+// tupleApplyHead
+template<class T>
+decltype(auto) tupleApplyHead(
+   const T &head,
+   bool &found, // overall "found"
    std::vector<std::string> &missing
 ) GNDSTK_CONST {
+   bool f = true; // head-specific "found"
+   decltype(auto) ret = operator()(head, f);
+   if (!f)
+      missing.push_back("\n" + detail::keyname(head));
+   found = found && f;
+   return ret;
+}
 
-   // Process tup's <0>
-   // We *don't* simply write:
-   //    std::make_tuple(operator()(std::get<0>(tup),head_found)),
-   // because doing so would decay references to non-references. That would
-   // mean, ultimately, that Meta<void> and Child<void> instances inside
-   // our KeyTuple<...> objects, which are returned by our | (or) operators,
-   // would no longer produce [possibly const] *references* to std::string
-   // and Node, respectively, but would surreptitiously lose the references.
-   // We don't want to lose the references, though, because our multi-query
-   // system is far more awesome if we keep them. For the same reason - not
-   // losing the references - we also need the explicit <decltype(...)> on
-   // std::tuple, even though this would be syntactically valid without it.
-   bool head_found = true;
-
-   const auto head = std::tuple<decltype(
-      operator()(std::get<0>(tup)))
-   >( operator()(std::get<0>(tup), head_found) );
-
-   if (!head_found)
-      missing.push_back("\n" + detail::keyname(std::get<0>(tup)));
-
-   // Process tup's <1...>
-   bool tail_found = true;
-
-   const auto tail = operator()( // <== gives a tuple
-      std::apply(
-         [](auto, auto... tail) { return std::make_tuple(tail...); },
-         tup
-      ),
-      tail_found,
-      missing
+// tupleApply
+template<class... Ks, std::size_t... Is>
+decltype(auto) tupleApply(
+   const std::tuple<Ks...> &tup,
+   bool &found,
+   std::vector<std::string> &missing,
+   const std::index_sequence<Is...> &
+) GNDSTK_CONST {
+   return typename detail::keys2outputs<Node,std::tuple<Ks...>>::type(
+      tupleApplyHead(std::get<Is>(tup), found, missing)
+      ...
    );
-
-   // Done
-   found = head_found && tail_found;
-   return std::tuple_cat(head,tail);
 }
 
 
@@ -81,14 +60,21 @@ auto operator()(
 ) GNDSTK_CONST {
 
    std::vector<std::string> missing;
+
    try {
-      const auto ret = operator()(keytup.tup, found, missing);
+      found = true;
+      const auto ret = tupleApply(
+         keytup.tup, found, missing,
+         std::make_index_sequence<sizeof...(Ks)>{}
+      );
+
       // As it does with other query functions, GNDStk returns with no error
       // if either the requested data were found, or if the "found" flag was
       // sent here explicitly. Either way, found == did we find the data?
       if (found || detail::sent(found))
          return ret;
       throw std::exception{};
+
    } catch (...) {
       // Construct and print an error. The message is short and generic if
       // an error other than !found occurred in the try{} - which we suppose

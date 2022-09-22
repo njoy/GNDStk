@@ -122,7 +122,7 @@ void variant_find_one(
             );
          } else { // not already global "found"...
             // convert the Node to an object of the n-th variant alternative
-            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            static std::variant_alternative_t<n,std::variant<Ts...>> alt;
             kwd.converter(node,alt);
             var = alt;
             selectedAlternative = n;
@@ -162,31 +162,36 @@ child(
    bool &found = detail::default_bool
 ) const {
    try {
-      TYPE obj = kwd.object;
-
       if constexpr (detail::isVariant<TYPE>::value) {
          // ------------------------
          // variant obj
          // ------------------------
 
+         static TYPE obj = kwd.object;
          const auto names = detail::name_split(kwd);
          found = false;
          variant_find_one<0,std::variant_size_v<TYPE>>(kwd,names,found,obj,0);
+         return obj;
 
       } else {
          // ------------------------
          // non-variant obj
          // ------------------------
 
-         // call one(string), with the Child's key
          const Node &node = one(kwd.name, kwd.filter, found);
-         // convert the node, if found, to an object of the appropriate type
-         if (found)
+         if (found) {
+            // Many nodes are optional in GNDS, and may not appear at all in a
+            // given GNDS file. Consider that such a node is slated to go into
+            // some user-defined (or generated) class that may be expensive to
+            // construct. I've found that creating obj only "if (found)", as we
+            // do right here, tends to improve performance in the event that an
+            // input file could - but doesn't - contain any such nodes.
+            static TYPE obj = kwd.object;
             kwd.converter(node,obj);
+            return obj;
+         }
+         return kwd.object; // !found, so the return shouldn't be used anyway
       }
-
-      return obj;
-
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -330,7 +335,7 @@ bool variant_find_many(
          } else {
             // not (found)
             // convert the Node to an object of the n-th variant alternative
-            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            static std::variant_alternative_t<n,std::variant<Ts...>> alt;
             kwd.converter(c,alt);
             container.push_back(alt);
             selectedAlternative = n;
@@ -389,7 +394,7 @@ child(
          // ""
          // meaning: return a container with the converted-to-TYPE current Node
          if (kwd.name == "") {
-            TYPE obj = kwd.object;
+            static TYPE obj = kwd.object;
             kwd.converter(*this,obj);
             container.push_back(obj);
             found = true;
@@ -400,7 +405,7 @@ child(
                    kwd.filter(*c)
                ) {
                   // convert *c to an object of the appropriate type
-                  TYPE obj = kwd.object;
+                  static TYPE obj = kwd.object;
                   kwd.converter(*c,obj);
                   container.push_back(obj);
                   found = true;

@@ -77,6 +77,7 @@ class Derived : public Component<Derived> {
 public:
    friend class Component<Derived>;
 
+   static auto NAMESPACE() { return ""; }
    static auto CLASS() { return "Derived"; }
    static auto FIELD() { return "none"; }
 

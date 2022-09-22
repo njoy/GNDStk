@@ -26,6 +26,8 @@ class DerivedNothing : public Component<DerivedNothing>
 {
    friend class Component;
 
+   static auto NAMESPACE() { return ""; }
+   static auto CLASS() { return "DerivedNothing"; }
    static auto KEYS()
    {
       return std::tuple<>{};
@@ -46,6 +48,8 @@ class DerivedSomething : public Component<DerivedSomething>
 {
    friend class Component;
 
+   static auto NAMESPACE() { return ""; }
+   static auto CLASS() { return "DerivedSomething"; }
    static auto KEYS()
    {
       return
