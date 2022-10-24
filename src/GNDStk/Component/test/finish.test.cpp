@@ -320,6 +320,7 @@ public:
 // Detailed tests of those other functions aren't done *here*.
 
 SCENARIO("Component finish()") {
+   njoy::GNDStk::sort = true;
 
    GIVEN("A component-derived class that has block data") {
       const std::vector<test::IndexStruct> sorted =

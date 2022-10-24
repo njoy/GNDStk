@@ -7,7 +7,6 @@
 
 #include "test/v2.0/cpTransport/RutherfordScattering.hpp"
 #include "test/v2.0/cpTransport/NuclearAmplitudeExpansion.hpp"
-#include "test/v2.0/cpTransport/NuclearPlusInterference.hpp"
 
 namespace test {
 namespace v2_0 {
@@ -41,17 +40,15 @@ class CoulombPlusNuclearElastic : public Component<cpTransport::CoulombPlusNucle
             / Meta<>("identicalParticles") |
          XMLName{}
             / Meta<>("label") |
-         XMLName{}
+         std::optional<XMLName>{}
             / Meta<>("pid") |
-         enums::Frame{}
+         std::optional<enums::Frame>{}
             / Meta<>("productFrame") |
          // children
          std::optional<cpTransport::RutherfordScattering>{}
             / --Child<>("RutherfordScattering") |
          std::optional<cpTransport::NuclearAmplitudeExpansion>{}
-            / --Child<>("nuclearAmplitudeExpansion") |
-         std::optional<cpTransport::NuclearPlusInterference>{}
-            / --Child<>("nuclearPlusInterference")
+            / --Child<>("nuclearAmplitudeExpansion")
       ;
    }
 
@@ -67,13 +64,12 @@ public:
    Field<std::optional<XMLName>> href{this};
    Field<Defaulted<bool>> identicalParticles{this,defaults.identicalParticles};
    Field<XMLName> label{this};
-   Field<XMLName> pid{this};
-   Field<enums::Frame> productFrame{this};
+   Field<std::optional<XMLName>> pid{this};
+   Field<std::optional<enums::Frame>> productFrame{this};
 
    // children
    Field<std::optional<cpTransport::RutherfordScattering>> RutherfordScattering{this};
    Field<std::optional<cpTransport::NuclearAmplitudeExpansion>> nuclearAmplitudeExpansion{this};
-   Field<std::optional<cpTransport::NuclearPlusInterference>> nuclearPlusInterference{this};
 
    // ------------------------
    // Constructors
@@ -86,8 +82,7 @@ public:
       this->pid, \
       this->productFrame, \
       this->RutherfordScattering, \
-      this->nuclearAmplitudeExpansion, \
-      this->nuclearPlusInterference)
+      this->nuclearAmplitudeExpansion)
 
    // default, and from fields
    // std::optional replaces Defaulted; this class knows the default(s)
@@ -95,11 +90,10 @@ public:
       const wrapper<std::optional<XMLName>> &href = {},
       const wrapper<std::optional<bool>> &identicalParticles = {},
       const wrapper<XMLName> &label = {},
-      const wrapper<XMLName> &pid = {},
-      const wrapper<enums::Frame> &productFrame = {},
+      const wrapper<std::optional<XMLName>> &pid = {},
+      const wrapper<std::optional<enums::Frame>> &productFrame = {},
       const wrapper<std::optional<cpTransport::RutherfordScattering>> &RutherfordScattering = {},
-      const wrapper<std::optional<cpTransport::NuclearAmplitudeExpansion>> &nuclearAmplitudeExpansion = {},
-      const wrapper<std::optional<cpTransport::NuclearPlusInterference>> &nuclearPlusInterference = {}
+      const wrapper<std::optional<cpTransport::NuclearAmplitudeExpansion>> &nuclearAmplitudeExpansion = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -108,8 +102,7 @@ public:
       pid(this,pid),
       productFrame(this,productFrame),
       RutherfordScattering(this,RutherfordScattering),
-      nuclearAmplitudeExpansion(this,nuclearAmplitudeExpansion),
-      nuclearPlusInterference(this,nuclearPlusInterference)
+      nuclearAmplitudeExpansion(this,nuclearAmplitudeExpansion)
    {
       Component::finish();
    }

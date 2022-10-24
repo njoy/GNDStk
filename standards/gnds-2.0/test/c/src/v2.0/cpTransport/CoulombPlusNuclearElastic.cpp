@@ -21,12 +21,10 @@ namespace extract {
    static auto productFrame = [](auto &obj) { return &obj.productFrame; };
    static auto RutherfordScattering = [](auto &obj) { return &obj.RutherfordScattering; };
    static auto nuclearAmplitudeExpansion = [](auto &obj) { return &obj.nuclearAmplitudeExpansion; };
-   static auto nuclearPlusInterference = [](auto &obj) { return &obj.nuclearPlusInterference; };
 }
 
 using CPPRutherfordScattering = cpTransport::RutherfordScattering;
 using CPPNuclearAmplitudeExpansion = cpTransport::NuclearAmplitudeExpansion;
-using CPPNuclearPlusInterference = cpTransport::NuclearPlusInterference;
 
 
 // -----------------------------------------------------------------------------
@@ -59,8 +57,7 @@ CoulombPlusNuclearElasticCreateConst(
    const XMLName pid,
    const enums::Frame productFrame,
    ConstHandle2ConstRutherfordScattering RutherfordScattering,
-   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion,
-   ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference
+   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion
 ) {
    ConstHandle2CoulombPlusNuclearElastic handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
@@ -70,8 +67,7 @@ CoulombPlusNuclearElasticCreateConst(
       pid,
       productFrame,
       detail::tocpp<CPPRutherfordScattering>(RutherfordScattering),
-      detail::tocpp<CPPNuclearAmplitudeExpansion>(nuclearAmplitudeExpansion),
-      detail::tocpp<CPPNuclearPlusInterference>(nuclearPlusInterference)
+      detail::tocpp<CPPNuclearAmplitudeExpansion>(nuclearAmplitudeExpansion)
    );
    return handle;
 }
@@ -85,8 +81,7 @@ CoulombPlusNuclearElasticCreate(
    const XMLName pid,
    const enums::Frame productFrame,
    ConstHandle2ConstRutherfordScattering RutherfordScattering,
-   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion,
-   ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference
+   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion
 ) {
    ConstHandle2CoulombPlusNuclearElastic handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
@@ -96,8 +91,7 @@ CoulombPlusNuclearElasticCreate(
       pid,
       productFrame,
       detail::tocpp<CPPRutherfordScattering>(RutherfordScattering),
-      detail::tocpp<CPPNuclearAmplitudeExpansion>(nuclearAmplitudeExpansion),
-      detail::tocpp<CPPNuclearPlusInterference>(nuclearPlusInterference)
+      detail::tocpp<CPPNuclearAmplitudeExpansion>(nuclearAmplitudeExpansion)
    );
    return handle;
 }
@@ -395,41 +389,4 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuc
 {
    detail::setField<CPP,CPPNuclearAmplitudeExpansion>
       (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionSet", This, extract::nuclearAmplitudeExpansion, nuclearAmplitudeExpansion);
-}
-
-
-// -----------------------------------------------------------------------------
-// Child: nuclearPlusInterference
-// -----------------------------------------------------------------------------
-
-// Has
-int
-CoulombPlusNuclearElasticNuclearPlusInterferenceHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
-{
-   return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceHas", This, extract::nuclearPlusInterference);
-}
-
-// Get, const
-Handle2ConstNuclearPlusInterference
-CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This)
-{
-   return detail::getField<CPP,Handle2ConstNuclearPlusInterference>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGetConst", This, extract::nuclearPlusInterference);
-}
-
-// Get, non-const
-Handle2NuclearPlusInterference
-CoulombPlusNuclearElasticNuclearPlusInterferenceGet(ConstHandle2CoulombPlusNuclearElastic This)
-{
-   return detail::getField<CPP,Handle2NuclearPlusInterference>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGet", This, extract::nuclearPlusInterference);
-}
-
-// Set
-void
-CoulombPlusNuclearElasticNuclearPlusInterferenceSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference)
-{
-   detail::setField<CPP,CPPNuclearPlusInterference>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceSet", This, extract::nuclearPlusInterference, nuclearPlusInterference);
 }

@@ -399,6 +399,10 @@ child(
             container.push_back(obj);
             found = true;
          } else {
+            // prepare container
+            // todo Should do something similar for the variant case, above
+            container.reserve(count(kwd));
+
             // search in the current Node's children
             for (auto &c : children)
                if (std::regex_match(c->name, std::regex(kwd.name)) &&

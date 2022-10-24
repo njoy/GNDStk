@@ -23,6 +23,7 @@ void verifyChunk( const Regions1d& );
 std::string invalidName();
 
 SCENARIO( "Regions1d" ) {
+  njoy::GNDStk::sort = true;
 
   GIVEN( "valid data for the component" ) {
 

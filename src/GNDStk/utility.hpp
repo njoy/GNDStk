@@ -164,12 +164,15 @@ inline std::string context(const std::string &type, const std::string &name)
 
 
 // -----------------------------------------------------------------------------
-// Miscellaneous output/printing related flags
+// Miscellaneous flags
 // -----------------------------------------------------------------------------
 
 // ------------------------
 // re: Component class
 // ------------------------
+
+// Should vectors in Component-derived classes be sorted automatically?
+inline bool sort = false;
 
 // Should Component's generic print() function print comments?
 inline bool comments = true;

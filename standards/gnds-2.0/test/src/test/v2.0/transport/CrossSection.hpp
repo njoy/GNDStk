@@ -8,6 +8,7 @@
 #include "test/v2.0/containers/XYs1d.hpp"
 #include "test/v2.0/containers/Regions1d.hpp"
 #include "test/v2.0/transport/ResonancesWithBackground.hpp"
+#include "test/v2.0/cpTransport/CoulombPlusNuclearElastic.hpp"
 #include "test/v2.0/tsl/ThermalNeutronScatteringLaw1d.hpp"
 #include "test/v2.0/transport/Reference.hpp"
 #include "test/v2.0/containers/Gridded1d.hpp"
@@ -30,6 +31,7 @@ class CrossSection : public Component<transport::CrossSection> {
       containers::XYs1d,
       containers::Regions1d,
       transport::ResonancesWithBackground,
+      cpTransport::CoulombPlusNuclearElastic,
       tsl::ThermalNeutronScatteringLaw1d,
       transport::Reference,
       containers::Gridded1d,
@@ -55,7 +57,7 @@ class CrossSection : public Component<transport::CrossSection> {
             / Meta<>("label") |
          // children
          _t{}
-            / --(Child<>("XYs1d") || Child<>("regions1d") || Child<>("resonancesWithBackground") || Child<>("thermalNeutronScatteringLaw1d") || Child<>("reference") || Child<>("gridded1d") || Child<>("Ys1d") || Child<>("URR_probabilityTables1d"))
+            / --(Child<>("XYs1d") || Child<>("regions1d") || Child<>("resonancesWithBackground") || Child<>("CoulombPlusNuclearElastic") || Child<>("thermalNeutronScatteringLaw1d") || Child<>("reference") || Child<>("gridded1d") || Child<>("Ys1d") || Child<>("URR_probabilityTables1d"))
       ;
    }
 
@@ -66,15 +68,16 @@ public:
    Field<std::optional<XMLName>> label{this};
 
    // children - variant
-   Field<_t> _XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d{this};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::XYs1d> XYs1d{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::Regions1d> regions1d{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),transport::ResonancesWithBackground> resonancesWithBackground{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),tsl::ThermalNeutronScatteringLaw1d> thermalNeutronScatteringLaw1d{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),transport::Reference> reference{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::Gridded1d> gridded1d{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::Ys1d> Ys1d{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
-   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),transport::URR_probabilityTables1d> URR_probabilityTables1d{_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   Field<_t> _XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d{this};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::XYs1d> XYs1d{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::Regions1d> regions1d{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),transport::ResonancesWithBackground> resonancesWithBackground{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),cpTransport::CoulombPlusNuclearElastic> CoulombPlusNuclearElastic{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),tsl::ThermalNeutronScatteringLaw1d> thermalNeutronScatteringLaw1d{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),transport::Reference> reference{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::Gridded1d> gridded1d{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),containers::Ys1d> Ys1d{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
+   FieldPart<decltype(_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d),transport::URR_probabilityTables1d> URR_probabilityTables1d{_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d};
 
    // ------------------------
    // Constructors
@@ -82,16 +85,16 @@ public:
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->label, \
-      this->_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
+      this->_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
 
    // default, and from fields
    explicit CrossSection(
       const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<_t> &_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d = {}
+      const wrapper<_t> &_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
-      _XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(this,_XYs1dregions1dresonancesWithBackgroundthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
+      _XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(this,_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
    {
       Component::finish();
    }

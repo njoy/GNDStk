@@ -5,6 +5,9 @@
 
 void sort()
 {
+   if (!njoy::GNDStk::sort)
+      return;
+
    try {
       // Consistency check
       assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
@@ -20,6 +23,7 @@ void sort()
          },
          Keys().tup
       );
+
    } catch (...) {
       log::member("Component.sort()");
       throw;

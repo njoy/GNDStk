@@ -1,0 +1,256 @@
+{
+    "namespace": "gnds",
+
+    "PoPs": {
+        "metadata": {
+            "name": {
+                "required": true,
+                "type": "string"
+            },
+            "version": {
+                "required": true,
+                "type": "string"
+            },
+            "format": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "chemicalElements": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "styles": {
+        "metadata": {},
+        "children": {
+            "evaluated": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "evaluated": {
+        "metadata": {
+            "label": {
+                "required": true,
+                "type": "string"
+            },
+            "date": {
+                "required": true,
+                "type": "string"
+            },
+            "library": {
+                "required": true,
+                "type": "string"
+            },
+            "version": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "documentation": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "documentation": {
+        "metadata": {},
+        "children": {
+            "authors": {
+                "times": "1",
+                "required": true
+            },
+            "dates": {
+                "times": "1",
+                "required": true
+            },
+            "title": {
+                "times": "1",
+                "required": true
+            },
+            "body": {
+                "times": "1",
+                "required": true
+            },
+            "endfCompatible": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "authors": {
+        "metadata": {},
+        "children": {
+            "author": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "author": {
+        "metadata": {
+            "name": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {}
+    },
+
+    "dates": {
+        "metadata": {},
+        "children": {
+            "date": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "date": {
+        "metadata": {
+            "value": {
+                "required": true,
+                "type": "date"
+            },
+            "dateType": {
+                "required": true,
+                "type": "dateType"
+            }
+        },
+        "children": {}
+    },
+
+    "title": {
+        "metadata": {},
+        "data": "",
+        "children": {}
+    },
+
+    "body": {
+        "metadata": {},
+        "data": "",
+        "children": {}
+    },
+
+    "endfCompatible": {
+        "metadata": {},
+        "data": "",
+        "children": {}
+    },
+
+    "chemicalElements": {
+        "metadata": {},
+        "children": {
+            "chemicalElement": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "chemicalElement": {
+        "metadata": {
+            "symbol": {
+                "required": true,
+                "type": "string"
+            },
+            "Z": {
+                "required": true,
+                "type": "int"
+            },
+            "name": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "atomic": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "atomic": {
+        "metadata": {},
+        "children": {
+            "configurations": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "configurations": {
+        "metadata": {},
+        "children": {
+            "configuration": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "configuration": {
+        "metadata": {
+            "subshell": {
+                "required": true,
+                "type": "string"
+            },
+            "electronNumber": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {},
+        "// THIS SHOULD BE AN ERROR (itself-circular!)... children": {
+            "configuration": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "bindingEnergy": {
+        "metadata": {},
+        "children": {
+            "double": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "double": {
+        "metadata": {
+            "label": {
+                "required": true,
+                "type": "string"
+            },
+            "value": {
+                "required": true,
+                "type": "double"
+            },
+            "unit": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {}
+    }
+}

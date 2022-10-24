@@ -20,6 +20,7 @@ namespace extract {
 using CPPXYs1d = containers::XYs1d;
 using CPPRegions1d = containers::Regions1d;
 using CPPResonancesWithBackground = transport::ResonancesWithBackground;
+using CPPCoulombPlusNuclearElastic = cpTransport::CoulombPlusNuclearElastic;
 using CPPThermalNeutronScatteringLaw1d = tsl::ThermalNeutronScatteringLaw1d;
 using CPPReference = transport::Reference;
 using CPPGridded1d = containers::Gridded1d;

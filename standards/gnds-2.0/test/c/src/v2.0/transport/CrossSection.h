@@ -35,6 +35,7 @@
 #include "v2.0/containers/XYs1d.h"
 #include "v2.0/containers/Regions1d.h"
 #include "v2.0/transport/ResonancesWithBackground.h"
+#include "v2.0/cpTransport/CoulombPlusNuclearElastic.h"
 #include "v2.0/tsl/ThermalNeutronScatteringLaw1d.h"
 #include "v2.0/transport/Reference.h"
 #include "v2.0/containers/Gridded1d.h"

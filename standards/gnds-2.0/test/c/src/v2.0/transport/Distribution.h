@@ -39,6 +39,7 @@
 #include "v2.0/transport/KalbachMann.h"
 #include "v2.0/transport/Reference.h"
 #include "v2.0/transport/Branching3d.h"
+#include "v2.0/cpTransport/CoulombPlusNuclearElastic.h"
 #include "v2.0/tsl/ThermalNeutronScatteringLaw.h"
 #include "v2.0/atomic/CoherentPhotonScattering.h"
 #include "v2.0/atomic/IncoherentPhotonScattering.h"
@@ -46,6 +47,7 @@
 #include "v2.0/transport/MultiGroup3d.h"
 #include "v2.0/processed/AngularEnergyMC.h"
 #include "v2.0/processed/EnergyAngularMC.h"
+#include "v2.0/containers/XYs2d.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

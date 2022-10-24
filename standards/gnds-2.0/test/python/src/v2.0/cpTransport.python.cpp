@@ -17,8 +17,8 @@ namespace python_cpTransport {
    void wrapRealInterferenceTerm(python::module &);
    void wrapImaginaryInterferenceTerm(python::module &);
    void wrapNuclearAmplitudeExpansion(python::module &);
-   void wrapNuclearPlusInterference(python::module &);
    void wrapCoulombPlusNuclearElastic(python::module &);
+   void wrapNuclearPlusInterference(python::module &);
 } // namespace python_cpTransport
 
 // cpTransport wrapper
@@ -36,8 +36,8 @@ void wrapCpTransport(python::module &module)
    python_cpTransport::wrapRealInterferenceTerm(submodule);
    python_cpTransport::wrapImaginaryInterferenceTerm(submodule);
    python_cpTransport::wrapNuclearAmplitudeExpansion(submodule);
-   python_cpTransport::wrapNuclearPlusInterference(submodule);
    python_cpTransport::wrapCoulombPlusNuclearElastic(submodule);
+   python_cpTransport::wrapNuclearPlusInterference(submodule);
 };
 
 } // namespace python_v2_0

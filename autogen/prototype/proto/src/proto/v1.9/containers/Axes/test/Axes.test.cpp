@@ -21,6 +21,7 @@ void verifyChunk( const Axes& );
 std::string invalidName();
 
 SCENARIO( "Axes" ) {
+  njoy::GNDStk::sort = true;
 
   GIVEN( "valid data for the component" ) {
 

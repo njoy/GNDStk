@@ -22,6 +22,7 @@ void verifyChunk( const XYs1d& );
 std::string invalidName();
 
 SCENARIO( "XYs1d" ) {
+  njoy::GNDStk::sort = true;
 
   GIVEN( "valid data for the component" ) {
 

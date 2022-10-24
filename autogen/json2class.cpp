@@ -14,6 +14,9 @@ const bool singletons = true;
 // Extra debug/informational printing?
 const bool debugging = false;
 
+// Put print statement in constructor calls. For debugging.
+const bool printCtorCalls = false;
+
 
 // -----------------------------------------------------------------------------
 // Data structures
@@ -1161,9 +1164,13 @@ void writeClassCtorComponent(
 
 // writeClassCtorBody
 void writeClassCtorBody(
-   writer &out, const std::string &line, const std::string &argName
+   writer &out,
+   const std::string &kind, const std::string &clname,
+   const std::string &line, const std::string &argName
 ) {
    out(1,"{");
+   if (printCtorCalls)
+      out(2,"std::cout << \"ctor: @: @\" << std::endl;", clname, kind);
    if (line != "")
       out(2,line);
    out(2,"Component::finish(@);", argName);
@@ -1246,7 +1253,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    }
 
    // body
-   writeClassCtorBody(out, "", "");
+   writeClassCtorBody(out, "1. default/parameters", per.clname, "", "");
 
    // ------------------------
    // ctor: node
@@ -1256,7 +1263,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// from node");
    out(1,"explicit @(const Node &node) :", per.clname);
    writeClassCtorComponent(out, per, false);
-   writeClassCtorBody(out, "", "node");
+   writeClassCtorBody(out, "2. node", per.clname, "", "node");
 
    // ------------------------
    // ctor: vector
@@ -1269,7 +1276,7 @@ void writeClassCtors(writer &out, const PerClass &per)
           "std::enable_if_t<BLOCKDATA::template supported<T>>>");
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
-      writeClassCtorBody(out, "", "vector");
+      writeClassCtorBody(out, "3. vector", per.clname, "", "vector");
    }
 
    // ------------------------
@@ -1280,7 +1287,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// copy");
    out(1,"@(const @ &other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true);
-   writeClassCtorBody(out, "*this = other;", "other");
+   writeClassCtorBody(out, "4. copy", per.clname, "*this = other;", "other");
 
    // ------------------------
    // ctor: move
@@ -1290,7 +1297,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// move");
    out(1,"@(@ &&other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true);
-   writeClassCtorBody(out, "*this = std::move(other);", "other");
+   writeClassCtorBody(out, "5. move", per.clname, "*this = std::move(other);", "other");
 } // writeClassCtors
 
 

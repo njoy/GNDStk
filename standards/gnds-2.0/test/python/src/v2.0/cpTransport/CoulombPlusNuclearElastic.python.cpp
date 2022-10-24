@@ -39,20 +39,18 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
             const std::optional<XMLName> &,
             const std::optional<bool> &,
             const XMLName &,
-            const XMLName &,
-            const enums::Frame &,
+            const std::optional<XMLName> &,
+            const std::optional<enums::Frame> &,
             const std::optional<cpTransport::RutherfordScattering> &,
-            const std::optional<cpTransport::NuclearAmplitudeExpansion> &,
-            const std::optional<cpTransport::NuclearPlusInterference> &
+            const std::optional<cpTransport::NuclearAmplitudeExpansion> &
          >(),
          python::arg("href") = std::nullopt,
          python::arg("identical_particles") = std::nullopt,
          python::arg("label"),
-         python::arg("pid"),
-         python::arg("product_frame"),
+         python::arg("pid") = std::nullopt,
+         python::arg("product_frame") = std::nullopt,
          python::arg("rutherford_scattering") = std::nullopt,
          python::arg("nuclear_amplitude_expansion") = std::nullopt,
-         python::arg("nuclear_plus_interference") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -89,11 +87,6 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          "nuclear_amplitude_expansion",
          [](const Component &self) { return self.nuclearAmplitudeExpansion(); },
          Component::documentation("nuclear_amplitude_expansion").data()
-      )
-      .def_property_readonly(
-         "nuclear_plus_interference",
-         [](const Component &self) { return self.nuclearPlusInterference(); },
-         Component::documentation("nuclear_plus_interference").data()
       )
    ;
 

@@ -57,7 +57,7 @@
                 "default": null,
                 "description": "The particle identifier of the outgoing particle.",
                 "name": "pid",
-                "required": true,
+                "required": false,
                 "type": "XMLName"
             },
             "productFrame": {
@@ -65,7 +65,7 @@
                 "default": null,
                 "description": "The frame that the product data are defined in.",
                 "name": "productFrame",
-                "required": true,
+                "required": false,
                 "type": "frame"
             }
         },
@@ -85,7 +85,7 @@
                 "occurrence": "1",
                 "required": false
             },
-            "nuclearPlusInterference": {
+            "// nuclearPlusInterference": {
                 "__class__": "nodes.ChildNode",
                 "description": "This differential cross section is given by the nuclear plus interference approach.",
                 "name": "nuclearPlusInterference",

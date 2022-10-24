@@ -32,13 +32,15 @@ void wrapDistribution(python::module &module)
       transport::KalbachMann,
       transport::Reference,
       transport::Branching3d,
+      cpTransport::CoulombPlusNuclearElastic,
       tsl::ThermalNeutronScatteringLaw,
       atomic::CoherentPhotonScattering,
       atomic::IncoherentPhotonScattering,
       transport::Unspecified,
       transport::MultiGroup3d,
       processed::AngularEnergyMC,
-      processed::EnergyAngularMC
+      processed::EnergyAngularMC,
+      containers::XYs2d
    >;
 
    // create the component
@@ -54,7 +56,7 @@ void wrapDistribution(python::module &module)
          python::init<
             const _t &
          >(),
-         python::arg("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3dthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mc"),
+         python::arg("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -93,6 +95,11 @@ void wrapDistribution(python::module &module)
          Component::documentation("branching3d").data()
       )
       .def_property_readonly(
+         "coulomb_plus_nuclear_elastic",
+         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
+         Component::documentation("coulomb_plus_nuclear_elastic").data()
+      )
+      .def_property_readonly(
          "thermal_neutron_scattering_law",
          [](const Component &self) { return self.thermalNeutronScatteringLaw(); },
          Component::documentation("thermal_neutron_scattering_law").data()
@@ -128,9 +135,14 @@ void wrapDistribution(python::module &module)
          Component::documentation("energy_angular_mc").data()
       )
       .def_property_readonly(
-         "_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3dthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mc",
-         [](const Component &self) { return self._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMC(); },
-         Component::documentation("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3dthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mc").data()
+         "xys2d",
+         [](const Component &self) { return self.XYs2d(); },
+         Component::documentation("xys2d").data()
+      )
+      .def_property_readonly(
+         "_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d",
+         [](const Component &self) { return self._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(); },
+         Component::documentation("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d").data()
       )
    ;
 

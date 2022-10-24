@@ -370,7 +370,7 @@
                 "occurrence": "choice",
                 "required": false
             },
-            "// CoulombPlusNuclearElastic": {
+            "CoulombPlusNuclearElastic": {
                 "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
@@ -1098,7 +1098,7 @@
                 "occurrence": "choice",
                 "required": false
             },
-            "// CoulombPlusNuclearElastic": {
+            "CoulombPlusNuclearElastic": {
                 "__class__": "nodes.ChildNode",
                 "description": "This is either a container holding the differential charged particle scattering cross section or a reference to said container.",
                 "name": "CoulombPlusNuclearElastic",
@@ -1152,6 +1152,10 @@
                 "__class__": "nodes.ChildNode",
                 "description": "(appears only in processed data files). The distribution is the product of $P(E',E) \\times P(\\mu | E,E')$. This representation is used by Monte Carlo transport codes.",
                 "name": "energyAngularMC",
+                "occurrence": "choice",
+                "required": false
+            },
+            "XYs2d": {
                 "occurrence": "choice",
                 "required": false
             }

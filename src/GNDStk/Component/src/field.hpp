@@ -35,8 +35,17 @@ public:
    // The following accept DERIVED*, not DERIVED&, so that we can write "this",
    // not "*this", where Field objects are constructed. It's just a bit shorter.
 
+   // parent
+   // This could be rolled into the (parent, value) constructor below, but the
+   // compiler seems to be better able to optimize the construction of objects
+   // with class Field data members if we split it out.
+   explicit Field(DERIVED *const parent) :
+      parent(*parent),
+      wrappedValue(T{})
+   { }
+
    // parent, value
-   explicit Field(DERIVED *const parent, const T &v = T{}) :
+   explicit Field(DERIVED *const parent, const T &v) :
       parent(*parent),
       wrappedValue(v)
    { }

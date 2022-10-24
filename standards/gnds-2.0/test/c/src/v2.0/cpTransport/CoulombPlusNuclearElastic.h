@@ -34,7 +34,6 @@
 #include "GNDStk.h"
 #include "v2.0/cpTransport/RutherfordScattering.h"
 #include "v2.0/cpTransport/NuclearAmplitudeExpansion.h"
-#include "v2.0/cpTransport/NuclearPlusInterference.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -85,8 +84,7 @@ CoulombPlusNuclearElasticCreateConst(
    const XMLName pid,
    const enums::Frame productFrame,
    ConstHandle2ConstRutherfordScattering RutherfordScattering,
-   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion,
-   ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference
+   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion
 );
 
 // +++ Create, general
@@ -98,8 +96,7 @@ CoulombPlusNuclearElasticCreate(
    const XMLName pid,
    const enums::Frame productFrame,
    ConstHandle2ConstRutherfordScattering RutherfordScattering,
-   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion,
-   ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference
+   ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion
 );
 
 // +++ Assign
@@ -276,27 +273,6 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuc
 // +++ Set
 extern_c void
 CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion);
-
-
-// -----------------------------------------------------------------------------
-// Child: nuclearPlusInterference
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-CoulombPlusNuclearElasticNuclearPlusInterferenceHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
-
-// --- Get, const
-extern_c Handle2ConstNuclearPlusInterference
-CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This);
-
-// +++ Get, non-const
-extern_c Handle2NuclearPlusInterference
-CoulombPlusNuclearElasticNuclearPlusInterferenceGet(ConstHandle2CoulombPlusNuclearElastic This);
-
-// +++ Set
-extern_c void
-CoulombPlusNuclearElasticNuclearPlusInterferenceSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference);
 
 
 // -----------------------------------------------------------------------------
