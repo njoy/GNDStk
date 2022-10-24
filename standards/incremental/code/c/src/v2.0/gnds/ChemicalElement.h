@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_GNDS_CHEMICALELEMENT
-#define C_INTERFACE_TEST_V2_0_GNDS_CHEMICALELEMENT
+#ifndef C_INTERFACE_CODE_V2_0_GNDS_CHEMICALELEMENT
+#define C_INTERFACE_CODE_V2_0_GNDS_CHEMICALELEMENT
 
 #include "GNDStk.h"
 #include "v2.0/gnds/Atomic.h"

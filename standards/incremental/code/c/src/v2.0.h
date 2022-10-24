@@ -6,14 +6,14 @@
 // This header file is designed to work with both C and C++
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0
-#define C_INTERFACE_TEST_V2_0
+#ifndef C_INTERFACE_CODE_V2_0
+#define C_INTERFACE_CODE_V2_0
 
 #include "GNDStk.h"
 
 #ifdef __cplusplus
    // For C++
-   #include "test/v2_0.hpp"
+   #include "code/v2_0.hpp"
 #endif
 
 #include "v2.0/gnds/PoPs.h"

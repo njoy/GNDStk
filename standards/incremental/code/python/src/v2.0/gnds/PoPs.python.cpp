@@ -7,7 +7,7 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "test/v2.0/gnds/PoPs.hpp"
+#include "code/v2.0/gnds/PoPs.hpp"
 #include "definitions.hpp"
 
 // namespace aliases
@@ -19,8 +19,8 @@ namespace python_gnds {
 // PoPs wrapper
 void wrapPoPs(python::module &module)
 {
-   using namespace test;
-   using namespace test::v2_0;
+   using namespace code;
+   using namespace code::v2_0;
 
    // type aliases
    using Component = gnds::PoPs;

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_GNDS_ENDFCOMPATIBLE
-#define C_INTERFACE_TEST_V2_0_GNDS_ENDFCOMPATIBLE
+#ifndef C_INTERFACE_CODE_V2_0_GNDS_ENDFCOMPATIBLE
+#define C_INTERFACE_CODE_V2_0_GNDS_ENDFCOMPATIBLE
 
 #include "GNDStk.h"
 

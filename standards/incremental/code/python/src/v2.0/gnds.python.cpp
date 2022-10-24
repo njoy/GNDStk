@@ -38,7 +38,7 @@ void wrapGnds(python::module &module)
    // create the gnds submodule
    python::module submodule = module.def_submodule(
       "gnds",
-      "test v2.0 gnds"
+      "code v2.0 gnds"
    );
 
    // wrap gnds components

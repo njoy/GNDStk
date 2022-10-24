@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_GNDS_AUTHORS
-#define C_INTERFACE_TEST_V2_0_GNDS_AUTHORS
+#ifndef C_INTERFACE_CODE_V2_0_GNDS_AUTHORS
+#define C_INTERFACE_CODE_V2_0_GNDS_AUTHORS
 
 #include "GNDStk.h"
 #include "v2.0/gnds/Author.h"

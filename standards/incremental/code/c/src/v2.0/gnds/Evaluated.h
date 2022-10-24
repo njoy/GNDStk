@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_GNDS_EVALUATED
-#define C_INTERFACE_TEST_V2_0_GNDS_EVALUATED
+#ifndef C_INTERFACE_CODE_V2_0_GNDS_EVALUATED
+#define C_INTERFACE_CODE_V2_0_GNDS_EVALUATED
 
 #include "GNDStk.h"
 #include "v2.0/gnds/Documentation.h"

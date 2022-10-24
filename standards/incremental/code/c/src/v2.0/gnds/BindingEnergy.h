@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_TEST_V2_0_GNDS_BINDINGENERGY
-#define C_INTERFACE_TEST_V2_0_GNDS_BINDINGENERGY
+#ifndef C_INTERFACE_CODE_V2_0_GNDS_BINDINGENERGY
+#define C_INTERFACE_CODE_V2_0_GNDS_BINDINGENERGY
 
 #include "GNDStk.h"
 #include "v2.0/gnds/Double.h"
