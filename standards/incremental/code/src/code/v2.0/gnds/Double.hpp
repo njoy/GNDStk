@@ -59,9 +59,17 @@ public:
       this->value, \
       this->unit)
 
-   // default, and from fields
+   // default
+   Double() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Double: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Double(
-      const wrapper<std::string> &label = {},
+      const wrapper<std::string> &label,
       const wrapper<double> &value = {},
       const wrapper<std::string> &unit = {}
    ) :
@@ -70,6 +78,7 @@ public:
       value(this,value),
       unit(this,unit)
    {
+      std::cout << "ctor: Double: fields" << std::endl;
       Component::finish();
    }
 
@@ -77,6 +86,7 @@ public:
    explicit Double(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Double: node" << std::endl;
       Component::finish(node);
    }
 
@@ -84,6 +94,7 @@ public:
    Double(const Double &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Double: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -92,6 +103,7 @@ public:
    Double(Double &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Double: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

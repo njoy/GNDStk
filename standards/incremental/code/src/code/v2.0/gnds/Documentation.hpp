@@ -37,16 +37,11 @@ class Documentation : public Component<gnds::Documentation> {
    {
       return
          // children
-         gnds::Authors{}
-            / --Child<>("authors") |
-         gnds::Dates{}
-            / --Child<>("dates") |
-         gnds::Title{}
-            / --Child<>("title") |
-         gnds::Body{}
-            / --Child<>("body") |
-         gnds::EndfCompatible{}
-            / --Child<>("endfCompatible")
+         --Child<gnds::Authors>("authors") |
+         --Child<gnds::Dates>("dates") |
+         --Child<gnds::Title>("title") |
+         --Child<gnds::Body>("body") |
+         --Child<gnds::EndfCompatible>("endfCompatible")
       ;
    }
 
@@ -71,9 +66,17 @@ public:
       this->body, \
       this->endfCompatible)
 
-   // default, and from fields
+   // default
+   Documentation() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Documentation: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Documentation(
-      const wrapper<gnds::Authors> &authors = {},
+      const wrapper<gnds::Authors> &authors,
       const wrapper<gnds::Dates> &dates = {},
       const wrapper<gnds::Title> &title = {},
       const wrapper<gnds::Body> &body = {},
@@ -86,6 +89,7 @@ public:
       body(this,body),
       endfCompatible(this,endfCompatible)
    {
+      std::cout << "ctor: Documentation: fields" << std::endl;
       Component::finish();
    }
 
@@ -93,6 +97,7 @@ public:
    explicit Documentation(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Documentation: node" << std::endl;
       Component::finish(node);
    }
 
@@ -100,6 +105,7 @@ public:
    Documentation(const Documentation &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Documentation: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -108,6 +114,7 @@ public:
    Documentation(Documentation &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Documentation: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

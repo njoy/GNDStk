@@ -33,8 +33,7 @@ class ChemicalElements : public Component<gnds::ChemicalElements> {
    {
       return
          // children
-         gnds::ChemicalElement{}
-            / ++Child<>("chemicalElement")
+         ++Child<gnds::ChemicalElement>("chemicalElement")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->chemicalElement)
 
-   // default, and from fields
+   // default
+   ChemicalElements() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: ChemicalElements: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit ChemicalElements(
-      const wrapper<std::vector<gnds::ChemicalElement>> &chemicalElement = {}
+      const wrapper<std::vector<gnds::ChemicalElement>> &chemicalElement
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       chemicalElement(this,chemicalElement)
    {
+      std::cout << "ctor: ChemicalElements: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit ChemicalElements(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: ChemicalElements: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    ChemicalElements(const ChemicalElements &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: ChemicalElements: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    ChemicalElements(ChemicalElements &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: ChemicalElements: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

@@ -48,6 +48,7 @@ public:
    Title() :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Title: default" << std::endl;
       Component::finish();
    }
 
@@ -55,6 +56,7 @@ public:
    explicit Title(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Title: node" << std::endl;
       Component::finish(node);
    }
 
@@ -63,6 +65,7 @@ public:
    Title(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Title: vector" << std::endl;
       Component::finish(vector);
    }
 
@@ -70,6 +73,7 @@ public:
    Title(const Title &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Title: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -78,6 +82,7 @@ public:
    Title(Title &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Title: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

@@ -41,10 +41,8 @@ class PoPs : public Component<gnds::PoPs> {
          std::string{}
             / Meta<>("format") |
          // children
-         gnds::Styles{}
-            / --Child<>("styles") |
-         gnds::ChemicalElements{}
-            / --Child<>("chemicalElements")
+         --Child<gnds::Styles>("styles") |
+         --Child<gnds::ChemicalElements>("chemicalElements")
       ;
    }
 
@@ -71,9 +69,17 @@ public:
       this->styles, \
       this->chemicalElements)
 
-   // default, and from fields
+   // default
+   PoPs() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: PoPs: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit PoPs(
-      const wrapper<std::string> &name = {},
+      const wrapper<std::string> &name,
       const wrapper<std::string> &version = {},
       const wrapper<std::string> &format = {},
       const wrapper<gnds::Styles> &styles = {},
@@ -86,6 +92,7 @@ public:
       styles(this,styles),
       chemicalElements(this,chemicalElements)
    {
+      std::cout << "ctor: PoPs: fields" << std::endl;
       Component::finish();
    }
 
@@ -93,6 +100,7 @@ public:
    explicit PoPs(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: PoPs: node" << std::endl;
       Component::finish(node);
    }
 
@@ -100,6 +108,7 @@ public:
    PoPs(const PoPs &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: PoPs: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -108,6 +117,7 @@ public:
    PoPs(PoPs &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: PoPs: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

@@ -48,6 +48,7 @@ public:
    Body() :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Body: default" << std::endl;
       Component::finish();
    }
 
@@ -55,6 +56,7 @@ public:
    explicit Body(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Body: node" << std::endl;
       Component::finish(node);
    }
 
@@ -63,6 +65,7 @@ public:
    Body(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Body: vector" << std::endl;
       Component::finish(vector);
    }
 
@@ -70,6 +73,7 @@ public:
    Body(const Body &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Body: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -78,6 +82,7 @@ public:
    Body(Body &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Body: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

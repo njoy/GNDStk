@@ -84,7 +84,7 @@ std::ostream &print(std::ostream &os, const int level) const
       if (GNDStk::align)
          std::apply(
             [&maxlen](const auto &... key) {
-               ((maxlen=std::max(maxlen,detail::getName(key).size())), ...);
+               ((maxlen = std::max(maxlen,detail::getName(key).size())), ...);
             },
             Keys().tup
          );

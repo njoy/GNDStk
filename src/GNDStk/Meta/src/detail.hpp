@@ -53,15 +53,15 @@ using default_converter_t = typename default_converter<TYPE>::type;
 
 
 // -----------------------------------------------------------------------------
-// static_const
+// make_once
 // Used in certain places in which default initializations of class T objects
 // may be needed, but might be expensive.
 // -----------------------------------------------------------------------------
 
 template<class T>
-inline const T &static_const()
+inline T &make_once()
 {
-   static const T value{};
+   static T value{};
    return value;
 }
 

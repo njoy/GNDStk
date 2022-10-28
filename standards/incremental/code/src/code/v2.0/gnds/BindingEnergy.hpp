@@ -33,8 +33,7 @@ class BindingEnergy : public Component<gnds::BindingEnergy> {
    {
       return
          // children
-         gnds::Double{}
-            / --Child<>("Double")
+         --Child<gnds::Double>("double")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->Double)
 
-   // default, and from fields
+   // default
+   BindingEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: BindingEnergy: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit BindingEnergy(
-      const wrapper<gnds::Double> &Double = {}
+      const wrapper<gnds::Double> &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
    {
+      std::cout << "ctor: BindingEnergy: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit BindingEnergy(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: BindingEnergy: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    BindingEnergy(const BindingEnergy &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: BindingEnergy: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    BindingEnergy(BindingEnergy &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: BindingEnergy: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

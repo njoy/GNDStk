@@ -48,6 +48,7 @@ public:
    EndfCompatible() :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: EndfCompatible: default" << std::endl;
       Component::finish();
    }
 
@@ -55,6 +56,7 @@ public:
    explicit EndfCompatible(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: EndfCompatible: node" << std::endl;
       Component::finish(node);
    }
 
@@ -63,6 +65,7 @@ public:
    EndfCompatible(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: EndfCompatible: vector" << std::endl;
       Component::finish(vector);
    }
 
@@ -70,6 +73,7 @@ public:
    EndfCompatible(const EndfCompatible &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: EndfCompatible: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -78,6 +82,7 @@ public:
    EndfCompatible(EndfCompatible &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: EndfCompatible: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

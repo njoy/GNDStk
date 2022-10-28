@@ -55,15 +55,24 @@ public:
       this->value, \
       this->dateType)
 
-   // default, and from fields
+   // default
+   Date() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Date: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Date(
-      const wrapper<std::string> &value = {},
+      const wrapper<std::string> &value,
       const wrapper<enums::DateType> &dateType = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
       dateType(this,dateType)
    {
+      std::cout << "ctor: Date: fields" << std::endl;
       Component::finish();
    }
 
@@ -71,6 +80,7 @@ public:
    explicit Date(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Date: node" << std::endl;
       Component::finish(node);
    }
 
@@ -78,6 +88,7 @@ public:
    Date(const Date &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Date: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -86,6 +97,7 @@ public:
    Date(Date &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Date: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

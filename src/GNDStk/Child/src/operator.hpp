@@ -134,7 +134,7 @@ inline Child<
 ) {
    return Child<TYPE,ALLOW,C,FILTER>(
       kwd.name,
-      kwd.object,
+      kwd.placeholder,
       converter, // the new one; not kwd.converter!
       kwd.filter
    );
@@ -174,7 +174,7 @@ inline auto operator--(
    using C = detail::default_converter_t<TYPE>;
    return Child<TYPE,ALLOW,C,FILTER>(
       kwd.name,
-      kwd.object,
+      kwd.placeholder,
       C{},
       kwd.filter
    );
@@ -225,7 +225,7 @@ inline auto operator+(
 ) {
    return Child<TYPE,ALLOW,CONVERTER,F>(
       kwd.name,
-      kwd.object,
+      kwd.placeholder,
       kwd.converter,
       filter // the new one
    );
@@ -285,6 +285,6 @@ inline auto operator||(
       // both names, space-separated; this gets special treatment elsewhere
       a.name + " " + b.name,
       // need an object, converter, and filter; use the first Child's
-      a.object, a.converter, a.filter
+      a.placeholder, a.converter, a.filter
    );
 }

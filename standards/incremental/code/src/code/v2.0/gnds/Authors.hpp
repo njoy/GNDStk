@@ -33,8 +33,7 @@ class Authors : public Component<gnds::Authors> {
    {
       return
          // children
-         gnds::Author{}
-            / ++Child<>("author")
+         ++Child<gnds::Author>("author")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->author)
 
-   // default, and from fields
+   // default
+   Authors() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Authors: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Authors(
-      const wrapper<std::vector<gnds::Author>> &author = {}
+      const wrapper<std::vector<gnds::Author>> &author
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       author(this,author)
    {
+      std::cout << "ctor: Authors: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit Authors(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Authors: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    Authors(const Authors &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Authors: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    Authors(Authors &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Authors: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

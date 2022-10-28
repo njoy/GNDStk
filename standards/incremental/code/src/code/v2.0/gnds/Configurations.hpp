@@ -33,8 +33,7 @@ class Configurations : public Component<gnds::Configurations> {
    {
       return
          // children
-         gnds::Configuration{}
-            / ++Child<>("configuration")
+         ++Child<gnds::Configuration>("configuration")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->configuration)
 
-   // default, and from fields
+   // default
+   Configurations() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Configurations: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Configurations(
-      const wrapper<std::vector<gnds::Configuration>> &configuration = {}
+      const wrapper<std::vector<gnds::Configuration>> &configuration
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configuration(this,configuration)
    {
+      std::cout << "ctor: Configurations: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit Configurations(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Configurations: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    Configurations(const Configurations &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Configurations: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    Configurations(Configurations &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Configurations: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

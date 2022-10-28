@@ -69,7 +69,45 @@ public:
 
    // name, object, converter, filter
    std::string name;
-   const TYPE object;
+   TYPE &placeholder;
+   CONVERTER converter; // optional custom converter; needs operator()
+   FILTER filter; // optional custom filter; needs operator()
+
+   // ------------------------
+   // constructors
+   // ------------------------
+
+   /// Some work-in-progress material here...
+
+   explicit Child(
+      const std::string &name
+   ) :
+      name(name),
+      placeholder(detail::make_once<TYPE>()),
+      converter(detail::make_once<CONVERTER>()),
+      filter(detail::make_once<FILTER>())
+   { }
+
+   explicit Child(
+      const std::string &name,
+      const TYPE &t,/// = detail::make_once<TYPE>(),
+      const CONVERTER &c = detail::make_once<CONVERTER>(),
+      const FILTER &f = detail::make_once<FILTER>()
+   ) :
+      name(name),
+      placeholder(detail::make_once<TYPE>() = t),
+      converter(c),
+      filter(f)
+   { }
+
+#if 0
+   // ------------------------
+   // data
+   // ------------------------
+
+   // name, object, converter, filter
+   std::string name;
+   mutable TYPE placeholder;
    CONVERTER converter; // optional custom converter; needs operator()
    FILTER filter; // optional custom filter; needs operator()
 
@@ -83,12 +121,13 @@ public:
    // name, type, converter, filter
    explicit Child(
       const std::string &n,
-      const TYPE &t = detail::static_const<TYPE>(),
-      const CONVERTER &c = detail::static_const<CONVERTER>(),
-      const FILTER &f = detail::static_const<FILTER>()
+      const TYPE &t = detail::make_once<TYPE>(),
+      const CONVERTER &c = detail::make_once<CONVERTER>(),
+      const FILTER &f = detail::make_once<FILTER>()
    ) :
-      name(n), object(t), converter(c), filter(f)
+      name(n), placeholder(t), converter(c), filter(f)
    { }
+#endif
 
    // ------------------------
    // simple functions
@@ -109,7 +148,7 @@ public:
    auto one() const
    {
       return Child<TYPE,Allow::one,CONVERTER,FILTER>(
-         name, object, converter, filter
+         name, placeholder, converter, filter
       );
    }
 
@@ -118,7 +157,7 @@ public:
    auto many() const
    {
       return Child<TYPE,Allow::many,CONVERTER,FILTER>(
-         name, object, converter, filter
+         name, placeholder, converter, filter
       );
    }
 };
@@ -154,7 +193,7 @@ public:
    // name, filter
    explicit Child(
       const std::string &n,
-      const FILTER &f = detail::static_const<FILTER>()
+      const FILTER &f = detail::make_once<FILTER>()
    ) :
       name(n), filter(f)
    { }

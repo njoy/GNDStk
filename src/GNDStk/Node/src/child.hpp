@@ -167,31 +167,22 @@ child(
          // variant obj
          // ------------------------
 
-         static TYPE obj = kwd.object;
          const auto names = detail::name_split(kwd);
          found = false;
-         variant_find_one<0,std::variant_size_v<TYPE>>(kwd,names,found,obj,0);
-         return obj;
+         variant_find_one<0,std::variant_size_v<TYPE>>(
+            kwd, names, found, kwd.placeholder, 0);
 
       } else {
+
          // ------------------------
          // non-variant obj
          // ------------------------
 
          const Node &node = one(kwd.name, kwd.filter, found);
-         if (found) {
-            // Many nodes are optional in GNDS, and may not appear at all in a
-            // given GNDS file. Consider that such a node is slated to go into
-            // some user-defined (or generated) class that may be expensive to
-            // construct. I've found that creating obj only "if (found)", as we
-            // do right here, tends to improve performance in the event that an
-            // input file could - but doesn't - contain any such nodes.
-            static TYPE obj = kwd.object;
-            kwd.converter(node,obj);
-            return obj;
-         }
-         return kwd.object; // !found, so the return shouldn't be used anyway
+         if (found)
+            kwd.converter(node,kwd.placeholder);
       }
+      return kwd.placeholder;
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -213,7 +204,7 @@ child(
       // Comments as in the meta() analog of this child() function
       bool f;
       const TYPE obj =
-         child((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
+         child((kwd.placeholder.has_value() ? kwd.placeholder.value() : TYPE{})/kwd, f);
       found = true;
       return f ? std::optional<TYPE>(obj) : std::nullopt;
    } catch (...) {
@@ -235,11 +226,11 @@ child(
 ) const {
    try {
       bool f;
-      const TYPE obj = child(kwd.object.value()/kwd, f);
+      const TYPE obj = child(kwd.placeholder.value()/kwd, f);
       found = true;
       return f
-         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
-         : Defaulted<TYPE>(kwd.object.get_default());
+         ? Defaulted<TYPE>(kwd.placeholder.get_default(),obj)
+         : Defaulted<TYPE>(kwd.placeholder.get_default());
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -260,7 +251,7 @@ std::enable_if_t<
    const Child<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const auto ptr = std::get_if<TYPE>(&kwd.object);
+   const auto ptr = std::get_if<TYPE>(&kwd.placeholder);
    return child((ptr ? *ptr : TYPE{})/kwd, found);
 }
 
@@ -394,9 +385,8 @@ child(
          // ""
          // meaning: return a container with the converted-to-TYPE current Node
          if (kwd.name == "") {
-            static TYPE obj = kwd.object;
-            kwd.converter(*this,obj);
-            container.push_back(obj);
+            kwd.converter(*this,kwd.placeholder);
+            container.push_back(kwd.placeholder);
             found = true;
          } else {
             // prepare container
@@ -404,16 +394,16 @@ child(
             container.reserve(count(kwd));
 
             // search in the current Node's children
-            for (auto &c : children)
+            for (auto &c : children) {
                if (std::regex_match(c->name, std::regex(kwd.name)) &&
                    kwd.filter(*c)
                ) {
                   // convert *c to an object of the appropriate type
-                  static TYPE obj = kwd.object;
-                  kwd.converter(*c,obj);
-                  container.push_back(obj);
+                  kwd.converter(*c,kwd.placeholder);
+                  container.push_back(kwd.placeholder);
                   found = true;
                }
+            }
          }
       }
 
@@ -472,7 +462,7 @@ child(
    try {
       bool f;
       const auto container =
-         child((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
+         child((kwd.placeholder.has_value() ? kwd.placeholder.value() : TYPE{})/kwd, f);
       found = true;
       return f ? std::optional<CONTAINER<TYPE>>(container) : std::nullopt;
    } catch (...) {
@@ -500,13 +490,13 @@ child(
 ) const {
    try {
       bool f;
-      const auto container = child(kwd.object.value()/kwd, f);
+      const auto container = child(kwd.placeholder.value()/kwd, f);
       found = true;
       return f
          ? Defaulted<CONTAINER<TYPE>>(
-              CONTAINER<TYPE>(1, kwd.object.get_default()), container)
+              CONTAINER<TYPE>(1, kwd.placeholder.get_default()), container)
          : Defaulted<CONTAINER<TYPE>>(
-              CONTAINER<TYPE>(1, kwd.object.get_default()));
+              CONTAINER<TYPE>(1, kwd.placeholder.get_default()));
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
@@ -533,6 +523,6 @@ CONTAINER<
    const Child<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const auto ptr = std::get_if<TYPE>(&kwd.object);
+   const auto ptr = std::get_if<TYPE>(&kwd.placeholder);
    return child<CONTAINER>((ptr ? *ptr : TYPE{})/kwd, found);
 }

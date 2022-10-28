@@ -4,51 +4,108 @@
 using namespace njoy::GNDStk;
 using namespace code::v2_0;
 
+void print()
+{
+   std::cout << std::endl;
+}
+
+template<class T>
+void print(const T &value)
+{
+   std::cout << value << std::endl;
+}
+
+// -----------------------------------------------------------------------------
+// typeof
+// -----------------------------------------------------------------------------
+
+#include <boost/core/demangle.hpp>
+#include <typeinfo>
+
+// typeof
+template<class T>
+inline void typeof(const T &)
+{
+   std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
+}
+
+#if 0
+   typeof(gnds::PoPs::KEYS());
+   typeof(gnds::PoPs::KEYS().tup);
+#endif
+
+// -----------------------------------------------------------------------------
+// main
+// -----------------------------------------------------------------------------
+
 int main(const int argc, const char *const *const argv)
 {
+   print();
+
    // for printing
    color = true;
    comments = false;
 
-   /*
+   // documentation: default construction
+   print("1");
+   gnds::Documentation d;
+   print("2");
+
    // usage
    if (argc < 2) {
       std::cout << "Usage: " << argv[0] << " file ..." << std::endl;
       exit(EXIT_FAILURE);
    }
-   */
 
-   std::cout << "1" << std::endl;
-   gnds::Documentation d;
-   std::cout << "2" << std::endl;
+#if 0
+   // speed test: read
+   for (int n = 1; n < argc; ++n) {
+      const std::string filename = argv[n];
+      std::cout << "\nFile: \"" << filename << '"' << std::endl;
+
+      gnds::PoPs pops;
+      for (int n = 0; n < 100000; ++n)
+         pops.read(filename);
+   }
+#endif
+
+#if 0
+   // speed test: construct from node
+   for (int n = 1; n < argc; ++n) {
+      const std::string filename = argv[n];
+      std::cout << "\nFile: \"" << filename << '"' << std::endl;
+
+      Node node;
+      node.read(filename);
+      for (int n = 0; n < 100000; ++n)
+         gnds::PoPs pops(node);
+   }
+#endif
 
    // files
    for (int n = 1; n < argc; ++n) {
       const std::string filename = argv[n];
-      std::cout << "File: \"" << filename << '"' << std::endl;
+      std::cout << "\nFile: \"" << filename << '"' << std::endl;
 
-      /*
       // The following doesn't do what we might intend. Rather, it calls
       // PoPs' default constructor. Think about this...it could prove to
-      // be something that could trip up our users.
-      // gnds::PoPs p(filename);
+      // be something that confuses users.
+      //    gnds::PoPs p(filename);
+      // CORRECT WAY:
+      print("1");
+      gnds::PoPs p;
+      print("2");
 
-      // The CORRECT way to do this:
-      for (int n = 0; n < 10; ++n) {
-         static gnds::PoPs p;
-         p.read(filename);
-         p.print();
-      }
-      */
+      print();
+
+      print("read begin");
+      p.read(filename);
+      print("read end");
 
       /*
-      std::cout << "1" << std::endl;
-      gnds::Documentation d;
-      std::cout << "2" << std::endl;
-      d.read(filename);
-      std::cout << "3" << std::endl;
-      d.print();
-      std::cout << "4" << std::endl;
+      print();
+      p.print();
+      print();
       */
    }
 }

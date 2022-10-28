@@ -33,8 +33,7 @@ class Styles : public Component<gnds::Styles> {
    {
       return
          // children
-         gnds::Evaluated{}
-            / --Child<>("evaluated")
+         --Child<gnds::Evaluated>("evaluated")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->evaluated)
 
-   // default, and from fields
+   // default
+   Styles() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Styles: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Styles(
-      const wrapper<gnds::Evaluated> &evaluated = {}
+      const wrapper<gnds::Evaluated> &evaluated
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluated(this,evaluated)
    {
+      std::cout << "ctor: Styles: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit Styles(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Styles: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    Styles(const Styles &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Styles: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    Styles(Styles &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Styles: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

@@ -68,6 +68,7 @@ struct InfoMetadata {
    // construct such as <element meta="1 2 3 4"> (so that meta is a vector of
    // integers). We mean here that there isn't a vector of such [meta] entries,
    // and there shouldn't be (XML wouldn't allow it).
+   std::string original; // without e.g. the "double" to "Double" change
    std::string name;
    std::string type;     // underlying type
    std::string typeFull; // WITH any optional<> or defaulted<>
@@ -84,6 +85,7 @@ struct InfoChildren {
    // but can't make it be a GNDStk::defaulted. (The use of a default value for
    // child nodes just doesn't exist in the GNDS specifications, even though the
    // concept would seem to make sense.)
+   std::string original; // without e.g. the "double" to "Double" change
    std::string name;
    std::string ns;       // enclosing namespace
    std::string plain;    // underlying type, excluding namespace
@@ -392,6 +394,7 @@ std::string nameGNDS(
    const std::string &nsname = "",
    const bool print = false
 ) {
+   // For debugging
    if (debugging && print) {
       const std::string key = keyval.key();
       const std::string name = keyval.value().contains("name")
@@ -418,8 +421,8 @@ std::string nameField(const KeyValue &keyval, const InfoSpecs &specs)
 {
    // Like nameGNDS above, except that we apply any name-modification
    // map that may have been provided in a "changes" file. Such changes
-   // can fix, for example, the name "double" that appears in GNDS v1.9
-   // as a JSON key, but is unsuitable for use in C++.
+   // can fix, for example, the name "double" that appears in some GNDS
+   // specs as a JSON key, because "double" is unsuitable for use in C++.
    const std::string name = nameGNDS(keyval);
    const auto it = specs.mapName.find(name);
    return it == specs.mapName.end() ? name : it->second;
@@ -544,6 +547,7 @@ void getClassMetadata(
 
       // Name
       InfoMetadata m;
+      m.original = nameGNDS(field);
       m.name = nameField(field,specs);
 
       // Type
@@ -610,6 +614,7 @@ void getClassChildren(
 
       // Name
       InfoChildren c;
+      c.original = nameGNDS(field);
       c.name = nameField(field,specs);
 
       // Type, excluding namespace
@@ -1008,21 +1013,24 @@ void writeClassForComponent(writer &out, const PerClass &per)
          out(3,"// metadata");
       for (const auto &m : per.metadata) {
          out(3,"@{@}", m.typeFull, initializer(m));
-         out(4,"/ Meta<>(\"@\")@", m.name, ++count < total ? " |" : "");
+         out(4,"/ Meta<>(\"@\")@", m.original, ++count < total ? " |" : "");
       }
 
       // children
       if (per.children.size() || per.variants.size())
          out(3,"// children");
       for (const auto &c : per.children) {
-         out(3,"@{}", c.typeHalf); // w/o any std::vector
-         out(4,"/ @Child<>(\"@\")@",
-             c.isVector ? "++" : "--", c.name, ++count < total ? " |" : "");
+         out(3,"@Child<@>(\"@\")@",
+             c.isVector ? "++" : "--",
+             c.typeHalf, // without any std::vector
+             c.original,
+             ++count < total ? " |" : ""
+         );
       }
 
       // variants
       for (const auto &v : per.variants) {
-         out(3,"@{}", v.typeHalf); // w/o any std::vector
+         out(3,"@{}", v.typeHalf); // without any std::vector
          out(4,"/ @(", v.isVector ? "++" : "--", false);
          int n = 0; // for alternatives; not to be confused w/count
          for (const auto &c : v.children)
@@ -1182,34 +1190,44 @@ void writeClassCtorBody(
 void writeClassCtors(writer &out, const PerClass &per)
 {
    // ------------------------
-   // ctor: default,
-   // and from fields
+   // macro
    // ------------------------
 
    const int total = per.nfields();
    out();
 
-   if (total == 0) {
+   if (total == 0)
       out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata)");
-      out();
-      out(1,"// default");
-      out(1,"@() :", per.clname);
-      writeClassCtorComponent(out, per, false);
-   } else {
-      int count = 0;
-
-      // macro
+   else {
       out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
+      int count = 0;
       for (const auto &m : per.metadata)
          out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
       for (const auto &c : per.children)
          out(2,"this->@@", c.name, ++count < total ? ", \\" : ")");
       for (const auto &v : per.variants)
          out(2,"this->@@", v.name, ++count < total ? ", \\" : ")");
+   }
+
+   // ------------------------
+   // ctor: default
+   // ------------------------
+
+   out();
+   out(1,"// default");
+   out(1,"@() :", per.clname);
+   writeClassCtorComponent(out, per, false);
+   writeClassCtorBody(out, "default", per.clname, "", "");
+
+   // ------------------------
+   // ctor: from fields
+   // ------------------------
+
+   if (total > 0) {
+      out();
 
       // comment for this constructor
-      out();
-      out(1,"// default, and from fields");
+      out(1,"// from fields");
 
       // informational message, if applicable
       for (const auto &m : per.metadata)
@@ -1220,19 +1238,39 @@ void writeClassCtors(writer &out, const PerClass &per)
          }
 
       // signature, and base constructor call
-      count = 0;
+      int count = 0;
       out(1,"explicit @(", per.clname);
 
-      for (const auto &m : per.metadata)
-         out(2,"const wrapper<@> &@ = {}@",
-             m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
-             m.name, sep(count,total));
-      for (const auto &c : per.children)
-         out(2,"const wrapper<@> &@ = {}@",
-             c.typeFull, c.name, sep(count,total));
-      for (const auto &v : per.variants)
-         out(2,"const wrapper<@> &@ = {}@",
-             v.typeFull, v.name, sep(count,total));
+      for (const auto &m : per.metadata) {
+         out(
+            2,"const wrapper<@> &@@@",
+            m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
+            m.name,
+            count ? " = {}" : "",
+            count+1 < total ? "," : ""
+         );
+         count++;
+      }
+      for (const auto &c : per.children) {
+         out(
+            2,"const wrapper<@> &@@@",
+            c.typeFull,
+            c.name,
+            count ? " = {}" : "",
+            count+1 < total ? "," : ""
+         );
+         count++;
+      }
+      for (const auto &v : per.variants) {
+         out(
+            2,"const wrapper<@> &@@@",
+            v.typeFull,
+            v.name,
+            count ? " = {}" : "",
+            count+1 < total ? "," : ""
+         );
+         count++;
+      }
 
       out(1,") :");
       writeClassCtorComponent(out, per, false, false);
@@ -1250,10 +1288,10 @@ void writeClassCtors(writer &out, const PerClass &per)
          out(2,"@(this,@)@", c.name, c.name, sep(count,total));
       for (const auto &v : per.variants)
          out(2,"@(this,@)@", v.name, v.name, sep(count,total));
-   }
 
-   // body
-   writeClassCtorBody(out, "1. default/parameters", per.clname, "", "");
+      // body
+      writeClassCtorBody(out, "fields", per.clname, "", "");
+   }
 
    // ------------------------
    // ctor: node
@@ -1263,7 +1301,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// from node");
    out(1,"explicit @(const Node &node) :", per.clname);
    writeClassCtorComponent(out, per, false);
-   writeClassCtorBody(out, "2. node", per.clname, "", "node");
+   writeClassCtorBody(out, "node", per.clname, "", "node");
 
    // ------------------------
    // ctor: vector
@@ -1276,7 +1314,7 @@ void writeClassCtors(writer &out, const PerClass &per)
           "std::enable_if_t<BLOCKDATA::template supported<T>>>");
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
-      writeClassCtorBody(out, "3. vector", per.clname, "", "vector");
+      writeClassCtorBody(out, "vector", per.clname, "", "vector");
    }
 
    // ------------------------
@@ -1287,7 +1325,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// copy");
    out(1,"@(const @ &other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true);
-   writeClassCtorBody(out, "4. copy", per.clname, "*this = other;", "other");
+   writeClassCtorBody(out, "copy", per.clname, "*this = other;", "other");
 
    // ------------------------
    // ctor: move
@@ -1297,7 +1335,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// move");
    out(1,"@(@ &&other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true);
-   writeClassCtorBody(out, "5. move", per.clname, "*this = std::move(other);", "other");
+   writeClassCtorBody(out, "move", per.clname, "*this = std::move(other);", "other");
 } // writeClassCtors
 
 

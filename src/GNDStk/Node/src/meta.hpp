@@ -89,10 +89,9 @@ meta(
       // call meta(string), with the Meta's key
       const std::string &value = meta(kwd.name,found);
       // convert value, if any, to an object of the appropriate type
-      static TYPE obj = kwd.object;
       if (found)
-         kwd.converter(value,obj);
-      return obj;
+         kwd.converter(value,kwd.placeholder);
+      return kwd.placeholder;
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
@@ -115,7 +114,7 @@ meta(
       // We still place in a try{}, in case an exception otherwise arises.
       bool f;
       const TYPE obj =
-         meta((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
+         meta((kwd.placeholder.has_value() ? kwd.placeholder.value() : TYPE{})/kwd, f);
       // The "found" status affects our behavior here, but for optional we'll
       // always *return* with found == true. After all, being optional means
       // something can be (1) there or (2) not there. That condition is always
@@ -143,11 +142,11 @@ meta(
    try {
       // Comments similar to those for std::optional above
       bool f; // local "found"
-      const TYPE obj = meta(kwd.object.value()/kwd, f);
+      const TYPE obj = meta(kwd.placeholder.value()/kwd, f);
       found = true; // always
       return f
-         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
-         : Defaulted<TYPE>(kwd.object.get_default());
+         ? Defaulted<TYPE>(kwd.placeholder.get_default(),obj)
+         : Defaulted<TYPE>(kwd.placeholder.get_default());
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
@@ -168,6 +167,6 @@ std::enable_if_t<
    const Meta<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const auto ptr = std::get_if<TYPE>(&kwd.object);
+   const auto ptr = std::get_if<TYPE>(&kwd.placeholder);
    return meta((ptr ? *ptr : TYPE{})/kwd, found);
 }

@@ -42,8 +42,7 @@ class Evaluated : public Component<gnds::Evaluated> {
          std::string{}
             / Meta<>("version") |
          // children
-         gnds::Documentation{}
-            / --Child<>("documentation")
+         --Child<gnds::Documentation>("documentation")
       ;
    }
 
@@ -70,9 +69,17 @@ public:
       this->version, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   Evaluated() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Evaluated: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Evaluated(
-      const wrapper<std::string> &label = {},
+      const wrapper<std::string> &label,
       const wrapper<std::string> &date = {},
       const wrapper<std::string> &library = {},
       const wrapper<std::string> &version = {},
@@ -85,6 +92,7 @@ public:
       version(this,version),
       documentation(this,documentation)
    {
+      std::cout << "ctor: Evaluated: fields" << std::endl;
       Component::finish();
    }
 
@@ -92,6 +100,7 @@ public:
    explicit Evaluated(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Evaluated: node" << std::endl;
       Component::finish(node);
    }
 
@@ -99,6 +108,7 @@ public:
    Evaluated(const Evaluated &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Evaluated: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -107,6 +117,7 @@ public:
    Evaluated(Evaluated &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Evaluated: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

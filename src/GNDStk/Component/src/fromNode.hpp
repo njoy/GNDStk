@@ -17,6 +17,23 @@
 // new(), below, but to no real effect: the result would be replaced, anyway,
 // when the derived class' own members are initialized in its constructor.
 
+private:
+
+template<class KEY>
+void transfer(const std::size_t n, const Node &node, const KEY &key)
+{
+   // todo working here on possibly optimizations
+   if constexpr (detail::IsMeta<KEY>::value) {
+      *(std::decay_t<decltype(node(key))> *)links[n] = node(key);
+   } else if constexpr (detail::IsChild<KEY>::value) {
+      *(std::decay_t<decltype(node(key))> *)links[n] = node(key);
+   } else {
+      assert(false);
+   }
+}
+
+public:
+
 void fromNode(const Node &node)
 {
    try {
@@ -29,22 +46,23 @@ void fromNode(const Node &node)
          throw std::exception{};
       }
 
-      // retrieve the node's data by doing a multi-query
-      const auto tuple = node(Keys());
-
       // consistency check
-      assert(std::tuple_size_v<decltype(tuple)> == links.size());
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
       // apply links:
       // Node ==> derived-class data
-      // Below, each apply'd "result" is one particular element - one
-      // retrieved value - from the above multi-query on the node.
       std::apply(
-         [this](const auto &... result) {
+         [this,node](const auto &... key) {
             std::size_t n = 0;
-            ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
+            (
+               (
+                  this->transfer(n++, node, key)
+                  ///*(std::decay_t<decltype(node(key))> *)links[n++] = node(key)
+               ),
+               ...
+            );
          },
-         tuple
+         Keys().tup
       );
 
       // block data, a.k.a. XML "pcdata" (plain character data), if any

@@ -33,8 +33,7 @@ class Atomic : public Component<gnds::Atomic> {
    {
       return
          // children
-         gnds::Configurations{}
-            / --Child<>("configurations")
+         --Child<gnds::Configurations>("configurations")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->configurations)
 
-   // default, and from fields
+   // default
+   Atomic() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Atomic: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Atomic(
-      const wrapper<gnds::Configurations> &configurations = {}
+      const wrapper<gnds::Configurations> &configurations
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configurations(this,configurations)
    {
+      std::cout << "ctor: Atomic: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit Atomic(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Atomic: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    Atomic(const Atomic &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Atomic: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    Atomic(Atomic &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Atomic: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

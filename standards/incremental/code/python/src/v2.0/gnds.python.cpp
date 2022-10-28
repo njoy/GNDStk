@@ -22,14 +22,14 @@ namespace python_gnds {
    void wrapDocumentation(python::module &);
    void wrapEvaluated(python::module &);
    void wrapStyles(python::module &);
+   void wrapDouble(python::module &);
+   void wrapBindingEnergy(python::module &);
    void wrapConfiguration(python::module &);
    void wrapConfigurations(python::module &);
    void wrapAtomic(python::module &);
    void wrapChemicalElement(python::module &);
    void wrapChemicalElements(python::module &);
    void wrapPoPs(python::module &);
-   void wrapDouble(python::module &);
-   void wrapBindingEnergy(python::module &);
 } // namespace python_gnds
 
 // gnds wrapper
@@ -52,14 +52,14 @@ void wrapGnds(python::module &module)
    python_gnds::wrapDocumentation(submodule);
    python_gnds::wrapEvaluated(submodule);
    python_gnds::wrapStyles(submodule);
+   python_gnds::wrapDouble(submodule);
+   python_gnds::wrapBindingEnergy(submodule);
    python_gnds::wrapConfiguration(submodule);
    python_gnds::wrapConfigurations(submodule);
    python_gnds::wrapAtomic(submodule);
    python_gnds::wrapChemicalElement(submodule);
    python_gnds::wrapChemicalElements(submodule);
    python_gnds::wrapPoPs(submodule);
-   python_gnds::wrapDouble(submodule);
-   python_gnds::wrapBindingEnergy(submodule);
 };
 
 } // namespace python_v2_0

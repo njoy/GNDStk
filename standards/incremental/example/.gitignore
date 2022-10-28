@@ -5,3 +5,5 @@ pugixml.o
 *.xml
 *.out
 out
+h
+notes

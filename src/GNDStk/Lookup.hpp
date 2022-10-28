@@ -124,7 +124,7 @@ auto has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &look)
    return Lookup<true,EXTRACTOR,TYPE,CONVERTER>(
       look.extractor,
       look.name,
-      look.object,
+      look.placeholder,
       look.converter
    );
 }

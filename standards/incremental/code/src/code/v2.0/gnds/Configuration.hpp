@@ -5,7 +5,7 @@
 #ifndef CODE_V2_0_GNDS_CONFIGURATION
 #define CODE_V2_0_GNDS_CONFIGURATION
 
-#include "code/v2.0/key.hpp"
+#include "code/v2.0/gnds/BindingEnergy.hpp"
 
 namespace code {
 namespace v2_0 {
@@ -36,7 +36,9 @@ class Configuration : public Component<gnds::Configuration> {
          std::string{}
             / Meta<>("subshell") |
          std::string{}
-            / Meta<>("electronNumber")
+            / Meta<>("electronNumber") |
+         // children
+         --Child<gnds::BindingEnergy>("bindingEnergy")
       ;
    }
 
@@ -47,23 +49,38 @@ public:
    Field<std::string> subshell{this};
    Field<std::string> electronNumber{this};
 
+   // children
+   Field<gnds::BindingEnergy> bindingEnergy{this};
+
    // ------------------------
    // Constructors
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->subshell, \
-      this->electronNumber)
+      this->electronNumber, \
+      this->bindingEnergy)
 
-   // default, and from fields
+   // default
+   Configuration() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Configuration: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Configuration(
-      const wrapper<std::string> &subshell = {},
-      const wrapper<std::string> &electronNumber = {}
+      const wrapper<std::string> &subshell,
+      const wrapper<std::string> &electronNumber = {},
+      const wrapper<gnds::BindingEnergy> &bindingEnergy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       subshell(this,subshell),
-      electronNumber(this,electronNumber)
+      electronNumber(this,electronNumber),
+      bindingEnergy(this,bindingEnergy)
    {
+      std::cout << "ctor: Configuration: fields" << std::endl;
       Component::finish();
    }
 
@@ -71,6 +88,7 @@ public:
    explicit Configuration(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Configuration: node" << std::endl;
       Component::finish(node);
    }
 
@@ -78,6 +96,7 @@ public:
    Configuration(const Configuration &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Configuration: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -86,6 +105,7 @@ public:
    Configuration(Configuration &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Configuration: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

@@ -33,8 +33,7 @@ class Dates : public Component<gnds::Dates> {
    {
       return
          // children
-         gnds::Date{}
-            / ++Child<>("date")
+         ++Child<gnds::Date>("date")
       ;
    }
 
@@ -51,13 +50,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->date)
 
-   // default, and from fields
+   // default
+   Dates() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Dates: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Dates(
-      const wrapper<std::vector<gnds::Date>> &date = {}
+      const wrapper<std::vector<gnds::Date>> &date
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date)
    {
+      std::cout << "ctor: Dates: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +73,7 @@ public:
    explicit Dates(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Dates: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +81,7 @@ public:
    Dates(const Dates &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Dates: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +90,7 @@ public:
    Dates(Dates &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Dates: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }

@@ -115,7 +115,7 @@ inline Meta<
    const C &converter
 ) {
    // Keep the old type
-   return Meta<TYPE,C>(kwd.name, kwd.object, converter);
+   return Meta<TYPE,C>(kwd.name, kwd.placeholder, converter);
 }
 
 // Meta<void>/C
@@ -130,7 +130,7 @@ inline Meta<
       !std::is_same_v<TYPE,void>, // ...require non-void!
       "Meta<void>/CONVERTER not allowed; the Meta type must be non-void"
    );
-   return kwd; // placeholder; the static_assert will always fail
+   return kwd; // need a return; but the static_assert will always fail
 }
 
 
@@ -150,6 +150,6 @@ inline auto operator--(
 ) {
    return Meta<TYPE,detail::default_converter_t<TYPE>>(
       kwd.name,
-      kwd.object
+      kwd.placeholder
    );
 }

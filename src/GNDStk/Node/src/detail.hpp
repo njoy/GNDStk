@@ -186,7 +186,12 @@ public:
    template<class KEYWORD>
    void operator()(const KEYWORD &kwd, const Node &node) const
    {
-      static TYPE obj = kwd.object;
+      // fixme 2022-10-27. I visited this function while looking at other
+      // issues, but now wonder: what's the effect of this function supposed
+      // to be? We create obj, then convert node ==> obj, then do nothing
+      // with obj. Am I missing something, and/or not testing something that
+      // should be tested? -MFS
+      static TYPE obj = kwd.placeholder;
       kwd.converter(node,obj);
    }
 };

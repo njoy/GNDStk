@@ -16,7 +16,10 @@ static const std::string CLASSNAME = "Configuration";
 namespace extract {
    static auto subshell = [](auto &obj) { return &obj.subshell; };
    static auto electronNumber = [](auto &obj) { return &obj.electronNumber; };
+   static auto bindingEnergy = [](auto &obj) { return &obj.bindingEnergy; };
 }
+
+using CPPBindingEnergy = gnds::BindingEnergy;
 
 
 // -----------------------------------------------------------------------------
@@ -44,12 +47,14 @@ ConfigurationDefault()
 Handle2ConstConfiguration
 ConfigurationCreateConst(
    const char *const subshell,
-   const char *const electronNumber
+   const char *const electronNumber,
+   ConstHandle2ConstBindingEnergy bindingEnergy
 ) {
    ConstHandle2Configuration handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       subshell,
-      electronNumber
+      electronNumber,
+      detail::tocpp<CPPBindingEnergy>(bindingEnergy)
    );
    return handle;
 }
@@ -58,12 +63,14 @@ ConfigurationCreateConst(
 Handle2Configuration
 ConfigurationCreate(
    const char *const subshell,
-   const char *const electronNumber
+   const char *const electronNumber,
+   ConstHandle2ConstBindingEnergy bindingEnergy
 ) {
    ConstHandle2Configuration handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       subshell,
-      electronNumber
+      electronNumber,
+      detail::tocpp<CPPBindingEnergy>(bindingEnergy)
    );
    return handle;
 }
@@ -197,4 +204,41 @@ ConfigurationElectronNumberSet(ConstHandle2Configuration This, const char *const
 {
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ElectronNumberSet", This, extract::electronNumber, electronNumber);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: bindingEnergy
+// -----------------------------------------------------------------------------
+
+// Has
+int
+ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"BindingEnergyHas", This, extract::bindingEnergy);
+}
+
+// Get, const
+Handle2ConstBindingEnergy
+ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration This)
+{
+   return detail::getField<CPP,Handle2ConstBindingEnergy>
+      (CLASSNAME, CLASSNAME+"BindingEnergyGetConst", This, extract::bindingEnergy);
+}
+
+// Get, non-const
+Handle2BindingEnergy
+ConfigurationBindingEnergyGet(ConstHandle2Configuration This)
+{
+   return detail::getField<CPP,Handle2BindingEnergy>
+      (CLASSNAME, CLASSNAME+"BindingEnergyGet", This, extract::bindingEnergy);
+}
+
+// Set
+void
+ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstBindingEnergy bindingEnergy)
+{
+   detail::setField<CPP,CPPBindingEnergy>
+      (CLASSNAME, CLASSNAME+"BindingEnergySet", This, extract::bindingEnergy, bindingEnergy);
 }

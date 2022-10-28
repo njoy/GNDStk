@@ -217,10 +217,9 @@
                 "type": "string"
             }
         },
-        "children": {},
-        "// THIS SHOULD BE AN ERROR (itself-circular!)... children": {
-            "configuration": {
-                "times": "1+",
+        "children": {
+            "bindingEnergy": {
+                "times": "1",
                 "required": true
             }
         }

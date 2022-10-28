@@ -32,6 +32,7 @@
 #define C_INTERFACE_CODE_V2_0_GNDS_CONFIGURATION
 
 #include "GNDStk.h"
+#include "v2.0/gnds/BindingEnergy.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -77,14 +78,16 @@ ConfigurationDefault();
 extern_c Handle2ConstConfiguration
 ConfigurationCreateConst(
    const char *const subshell,
-   const char *const electronNumber
+   const char *const electronNumber,
+   ConstHandle2ConstBindingEnergy bindingEnergy
 );
 
 // +++ Create, general
 extern_c Handle2Configuration
 ConfigurationCreate(
    const char *const subshell,
-   const char *const electronNumber
+   const char *const electronNumber,
+   ConstHandle2ConstBindingEnergy bindingEnergy
 );
 
 // +++ Assign
@@ -165,6 +168,27 @@ ConfigurationElectronNumberGet(ConstHandle2ConstConfiguration This);
 // +++ Set
 extern_c void
 ConfigurationElectronNumberSet(ConstHandle2Configuration This, const char *const electronNumber);
+
+
+// -----------------------------------------------------------------------------
+// Child: bindingEnergy
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration This);
+
+// --- Get, const
+extern_c Handle2ConstBindingEnergy
+ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration This);
+
+// +++ Get, non-const
+extern_c Handle2BindingEnergy
+ConfigurationBindingEnergyGet(ConstHandle2Configuration This);
+
+// +++ Set
+extern_c void
+ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstBindingEnergy bindingEnergy);
 
 
 // -----------------------------------------------------------------------------

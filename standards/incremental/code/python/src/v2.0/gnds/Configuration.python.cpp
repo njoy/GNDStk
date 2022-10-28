@@ -37,10 +37,12 @@ void wrapConfiguration(python::module &module)
       .def(
          python::init<
             const std::string &,
-            const std::string &
+            const std::string &,
+            const gnds::BindingEnergy &
          >(),
          python::arg("subshell"),
          python::arg("electron_number"),
+         python::arg("binding_energy"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -52,6 +54,11 @@ void wrapConfiguration(python::module &module)
          "electron_number",
          [](const Component &self) { return self.electronNumber(); },
          Component::documentation("electron_number").data()
+      )
+      .def_property_readonly(
+         "binding_energy",
+         [](const Component &self) { return self.bindingEnergy(); },
+         Component::documentation("binding_energy").data()
       )
    ;
 

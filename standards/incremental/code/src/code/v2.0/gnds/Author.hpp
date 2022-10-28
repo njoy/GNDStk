@@ -51,13 +51,22 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->name)
 
-   // default, and from fields
+   // default
+   Author() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      std::cout << "ctor: Author: default" << std::endl;
+      Component::finish();
+   }
+
+   // from fields
    explicit Author(
-      const wrapper<std::string> &name = {}
+      const wrapper<std::string> &name
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name)
    {
+      std::cout << "ctor: Author: fields" << std::endl;
       Component::finish();
    }
 
@@ -65,6 +74,7 @@ public:
    explicit Author(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
+      std::cout << "ctor: Author: node" << std::endl;
       Component::finish(node);
    }
 
@@ -72,6 +82,7 @@ public:
    Author(const Author &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Author: copy" << std::endl;
       *this = other;
       Component::finish(other);
    }
@@ -80,6 +91,7 @@ public:
    Author(Author &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
+      std::cout << "ctor: Author: move" << std::endl;
       *this = std::move(other);
       Component::finish(other);
    }
