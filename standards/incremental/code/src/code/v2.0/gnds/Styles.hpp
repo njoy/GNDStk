@@ -99,8 +99,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Styles &operator=(const Styles &) = default;
-   Styles &operator=(Styles &&) = default;
+   // copy
+   Styles &operator=(const Styles &other)
+   {
+      if (this != &other) {
+         evaluated = other.evaluated;
+      }
+      std::cout << "assign: Styles: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Styles &operator=(Styles &&other)
+   {
+      if (this != &other) {
+         evaluated = std::move(other.evaluated);
+      }
+      std::cout << "assign: Styles: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

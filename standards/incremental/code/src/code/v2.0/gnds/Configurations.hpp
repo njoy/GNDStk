@@ -99,8 +99,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Configurations &operator=(const Configurations &) = default;
-   Configurations &operator=(Configurations &&) = default;
+   // copy
+   Configurations &operator=(const Configurations &other)
+   {
+      if (this != &other) {
+         configuration = other.configuration;
+      }
+      std::cout << "assign: Configurations: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Configurations &operator=(Configurations &&other)
+   {
+      if (this != &other) {
+         configuration = std::move(other.configuration);
+      }
+      std::cout << "assign: Configurations: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -112,8 +112,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Double &operator=(const Double &) = default;
-   Double &operator=(Double &&) = default;
+   // copy
+   Double &operator=(const Double &other)
+   {
+      if (this != &other) {
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+      }
+      std::cout << "assign: Double: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Double &operator=(Double &&other)
+   {
+      if (this != &other) {
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      std::cout << "assign: Double: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

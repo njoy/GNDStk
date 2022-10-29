@@ -99,8 +99,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   ChemicalElements &operator=(const ChemicalElements &) = default;
-   ChemicalElements &operator=(ChemicalElements &&) = default;
+   // copy
+   ChemicalElements &operator=(const ChemicalElements &other)
+   {
+      if (this != &other) {
+         chemicalElement = other.chemicalElement;
+      }
+      std::cout << "assign: ChemicalElements: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   ChemicalElements &operator=(ChemicalElements &&other)
+   {
+      if (this != &other) {
+         chemicalElement = std::move(other.chemicalElement);
+      }
+      std::cout << "assign: ChemicalElements: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

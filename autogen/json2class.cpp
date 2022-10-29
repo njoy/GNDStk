@@ -14,8 +14,8 @@ const bool singletons = true;
 // Extra debug/informational printing?
 const bool debugging = false;
 
-// Put print statement in constructor calls. For debugging.
-const bool printCtorCalls = false;
+// Put print statements in constructor and assignment calls. For debugging.
+const bool printCtorCalls = true;
 
 
 // -----------------------------------------------------------------------------
@@ -1052,16 +1052,65 @@ void writeClassForComponent(writer &out, const PerClass &per)
 void writeClassSuffix(
    writer &out, const PerClass &per, const InfoSpecs &specs
 ) {
+   // ------------------------
    // assignment
+   // ------------------------
+
    out();
    out(1,smallComment);
    out(1,"// Assignment operators");
    out(1,smallComment);
    out();
-   out(1,"@ &operator=(const @ &) = default;", per.clname, per.clname);
-   out(1,"@ &operator=(@ &&) = default;", per.clname, per.clname);
 
+   if (printCtorCalls) {
+      // copy
+      out(1,"// copy");
+      out(1,"@ &operator=(const @ &other)", per.clname, per.clname);
+      out(1,"{");
+      out(2,"if (this != &other) {");
+      if (per.nfields() > 0) {
+         for (const auto &m : per.metadata)
+            out(3,"@ = other.@;", m.name, m.name);
+         for (const auto &c : per.children)
+            out(3,"@ = other.@;", c.name, c.name);
+         for (const auto &v : per.variants)
+            out(3,"@ = other.@;", v.name, v.name);
+      }
+      out(2,"}");
+      out(2,"std::cout << \"assign: @: copy\" << std::endl;", per.clname);
+      out(2,"return *this;");
+      out(1,"}");
+      out();
+
+      // move
+      out(1,"// move");
+      out(1,"@ &operator=(@ &&other)", per.clname, per.clname);
+      out(1,"{");
+      out(2,"if (this != &other) {");
+      if (per.nfields() > 0) {
+         for (const auto &m : per.metadata)
+            out(3,"@ = std::move(other.@);", m.name, m.name);
+         for (const auto &c : per.children)
+            out(3,"@ = std::move(other.@);", c.name, c.name);
+         for (const auto &v : per.variants)
+            out(3,"@ = std::move(other.@);", v.name, v.name);
+      }
+      out(2,"}");
+      out(2,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
+      out(2,"return *this;");
+      out(1,"}");
+
+   } else {
+      // copy
+      out(1,"@ &operator=(const @ &) = default;", per.clname, per.clname);
+      // move
+      out(1,"@ &operator=(@ &&) = default;", per.clname, per.clname);
+   }
+
+   // ------------------------
    // customization #include
+   // ------------------------
+
    out();
    out(1,smallComment);
    out(1,"// Custom functionality");
@@ -1073,7 +1122,10 @@ void writeClassSuffix(
    // this *follows* the customization #include (because it might be used there)
    out(1,"#undef GNDSTK_COMPONENT");
 
+   // ------------------------
    // class+namespace end
+   // ------------------------
+
    out("}; // class @", per.clname);
    out();
    out("} // namespace @", per.nsname);

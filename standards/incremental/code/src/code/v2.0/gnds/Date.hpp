@@ -106,8 +106,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Date &operator=(const Date &) = default;
-   Date &operator=(Date &&) = default;
+   // copy
+   Date &operator=(const Date &other)
+   {
+      if (this != &other) {
+         value = other.value;
+         dateType = other.dateType;
+      }
+      std::cout << "assign: Date: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Date &operator=(Date &&other)
+   {
+      if (this != &other) {
+         value = std::move(other.value);
+         dateType = std::move(other.dateType);
+      }
+      std::cout << "assign: Date: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

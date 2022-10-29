@@ -120,8 +120,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ChemicalElement &operator=(const ChemicalElement &) = default;
-   ChemicalElement &operator=(ChemicalElement &&) = default;
+   // copy
+   ChemicalElement &operator=(const ChemicalElement &other)
+   {
+      if (this != &other) {
+         symbol = other.symbol;
+         Z = other.Z;
+         name = other.name;
+         atomic = other.atomic;
+      }
+      std::cout << "assign: ChemicalElement: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   ChemicalElement &operator=(ChemicalElement &&other)
+   {
+      if (this != &other) {
+         symbol = std::move(other.symbol);
+         Z = std::move(other.Z);
+         name = std::move(other.name);
+         atomic = std::move(other.atomic);
+      }
+      std::cout << "assign: ChemicalElement: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

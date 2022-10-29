@@ -91,8 +91,23 @@ public:
    // Assignment operators
    // ------------------------
 
-   Body &operator=(const Body &) = default;
-   Body &operator=(Body &&) = default;
+   // copy
+   Body &operator=(const Body &other)
+   {
+      if (this != &other) {
+      }
+      std::cout << "assign: Body: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Body &operator=(Body &&other)
+   {
+      if (this != &other) {
+      }
+      std::cout << "assign: Body: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

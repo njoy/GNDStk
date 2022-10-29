@@ -126,8 +126,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Evaluated &operator=(const Evaluated &) = default;
-   Evaluated &operator=(Evaluated &&) = default;
+   // copy
+   Evaluated &operator=(const Evaluated &other)
+   {
+      if (this != &other) {
+         label = other.label;
+         date = other.date;
+         library = other.library;
+         version = other.version;
+         documentation = other.documentation;
+      }
+      std::cout << "assign: Evaluated: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Evaluated &operator=(Evaluated &&other)
+   {
+      if (this != &other) {
+         label = std::move(other.label);
+         date = std::move(other.date);
+         library = std::move(other.library);
+         version = std::move(other.version);
+         documentation = std::move(other.documentation);
+      }
+      std::cout << "assign: Evaluated: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

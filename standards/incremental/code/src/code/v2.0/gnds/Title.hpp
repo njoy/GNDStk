@@ -91,8 +91,23 @@ public:
    // Assignment operators
    // ------------------------
 
-   Title &operator=(const Title &) = default;
-   Title &operator=(Title &&) = default;
+   // copy
+   Title &operator=(const Title &other)
+   {
+      if (this != &other) {
+      }
+      std::cout << "assign: Title: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Title &operator=(Title &&other)
+   {
+      if (this != &other) {
+      }
+      std::cout << "assign: Title: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

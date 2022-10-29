@@ -99,8 +99,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   BindingEnergy &operator=(const BindingEnergy &) = default;
-   BindingEnergy &operator=(BindingEnergy &&) = default;
+   // copy
+   BindingEnergy &operator=(const BindingEnergy &other)
+   {
+      if (this != &other) {
+         Double = other.Double;
+      }
+      std::cout << "assign: BindingEnergy: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   BindingEnergy &operator=(BindingEnergy &&other)
+   {
+      if (this != &other) {
+         Double = std::move(other.Double);
+      }
+      std::cout << "assign: BindingEnergy: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

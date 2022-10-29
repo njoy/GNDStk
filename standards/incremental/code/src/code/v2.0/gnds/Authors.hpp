@@ -99,8 +99,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Authors &operator=(const Authors &) = default;
-   Authors &operator=(Authors &&) = default;
+   // copy
+   Authors &operator=(const Authors &other)
+   {
+      if (this != &other) {
+         author = other.author;
+      }
+      std::cout << "assign: Authors: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Authors &operator=(Authors &&other)
+   {
+      if (this != &other) {
+         author = std::move(other.author);
+      }
+      std::cout << "assign: Authors: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

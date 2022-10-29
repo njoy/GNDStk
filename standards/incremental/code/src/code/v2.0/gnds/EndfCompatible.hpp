@@ -91,8 +91,23 @@ public:
    // Assignment operators
    // ------------------------
 
-   EndfCompatible &operator=(const EndfCompatible &) = default;
-   EndfCompatible &operator=(EndfCompatible &&) = default;
+   // copy
+   EndfCompatible &operator=(const EndfCompatible &other)
+   {
+      if (this != &other) {
+      }
+      std::cout << "assign: EndfCompatible: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   EndfCompatible &operator=(EndfCompatible &&other)
+   {
+      if (this != &other) {
+      }
+      std::cout << "assign: EndfCompatible: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

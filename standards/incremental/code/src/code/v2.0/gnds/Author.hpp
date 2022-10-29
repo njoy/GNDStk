@@ -100,8 +100,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Author &operator=(const Author &) = default;
-   Author &operator=(Author &&) = default;
+   // copy
+   Author &operator=(const Author &other)
+   {
+      if (this != &other) {
+         name = other.name;
+      }
+      std::cout << "assign: Author: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Author &operator=(Author &&other)
+   {
+      if (this != &other) {
+         name = std::move(other.name);
+      }
+      std::cout << "assign: Author: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -123,8 +123,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Documentation &operator=(const Documentation &) = default;
-   Documentation &operator=(Documentation &&) = default;
+   // copy
+   Documentation &operator=(const Documentation &other)
+   {
+      if (this != &other) {
+         authors = other.authors;
+         dates = other.dates;
+         title = other.title;
+         body = other.body;
+         endfCompatible = other.endfCompatible;
+      }
+      std::cout << "assign: Documentation: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Documentation &operator=(Documentation &&other)
+   {
+      if (this != &other) {
+         authors = std::move(other.authors);
+         dates = std::move(other.dates);
+         title = std::move(other.title);
+         body = std::move(other.body);
+         endfCompatible = std::move(other.endfCompatible);
+      }
+      std::cout << "assign: Documentation: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

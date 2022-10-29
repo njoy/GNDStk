@@ -191,7 +191,7 @@ public:
       // to be? We create obj, then convert node ==> obj, then do nothing
       // with obj. Am I missing something, and/or not testing something that
       // should be tested? -MFS
-      static TYPE obj = kwd.placeholder;
+      static TYPE obj;
       kwd.converter(node,obj);
    }
 };

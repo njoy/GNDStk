@@ -114,8 +114,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Configuration &operator=(const Configuration &) = default;
-   Configuration &operator=(Configuration &&) = default;
+   // copy
+   Configuration &operator=(const Configuration &other)
+   {
+      if (this != &other) {
+         subshell = other.subshell;
+         electronNumber = other.electronNumber;
+         bindingEnergy = other.bindingEnergy;
+      }
+      std::cout << "assign: Configuration: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Configuration &operator=(Configuration &&other)
+   {
+      if (this != &other) {
+         subshell = std::move(other.subshell);
+         electronNumber = std::move(other.electronNumber);
+         bindingEnergy = std::move(other.bindingEnergy);
+      }
+      std::cout << "assign: Configuration: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

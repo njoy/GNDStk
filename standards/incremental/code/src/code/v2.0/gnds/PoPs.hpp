@@ -126,8 +126,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   PoPs &operator=(const PoPs &) = default;
-   PoPs &operator=(PoPs &&) = default;
+   // copy
+   PoPs &operator=(const PoPs &other)
+   {
+      if (this != &other) {
+         name = other.name;
+         version = other.version;
+         format = other.format;
+         styles = other.styles;
+         chemicalElements = other.chemicalElements;
+      }
+      std::cout << "assign: PoPs: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   PoPs &operator=(PoPs &&other)
+   {
+      if (this != &other) {
+         name = std::move(other.name);
+         version = std::move(other.version);
+         format = std::move(other.format);
+         styles = std::move(other.styles);
+         chemicalElements = std::move(other.chemicalElements);
+      }
+      std::cout << "assign: PoPs: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -99,8 +99,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Atomic &operator=(const Atomic &) = default;
-   Atomic &operator=(Atomic &&) = default;
+   // copy
+   Atomic &operator=(const Atomic &other)
+   {
+      if (this != &other) {
+         configurations = other.configurations;
+      }
+      std::cout << "assign: Atomic: copy" << std::endl;
+      return *this;
+   }
+
+   // move
+   Atomic &operator=(Atomic &&other)
+   {
+      if (this != &other) {
+         configurations = std::move(other.configurations);
+      }
+      std::cout << "assign: Atomic: move" << std::endl;
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality
