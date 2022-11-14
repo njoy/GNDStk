@@ -1068,6 +1068,8 @@ void writeClassSuffix(
       out(1,"@ &operator=(const @ &other)", per.clname, per.clname);
       out(1,"{");
       out(2,"if (this != &other) {");
+      out(3,"std::cout << \"assign: @: copy\" << std::endl;", per.clname);
+      out(3,"Component::operator=(other);");
       if (per.nfields() > 0) {
          for (const auto &m : per.metadata)
             out(3,"@ = other.@;", m.name, m.name);
@@ -1077,7 +1079,6 @@ void writeClassSuffix(
             out(3,"@ = other.@;", v.name, v.name);
       }
       out(2,"}");
-      out(2,"std::cout << \"assign: @: copy\" << std::endl;", per.clname);
       out(2,"return *this;");
       out(1,"}");
       out();
@@ -1087,6 +1088,8 @@ void writeClassSuffix(
       out(1,"@ &operator=(@ &&other)", per.clname, per.clname);
       out(1,"{");
       out(2,"if (this != &other) {");
+      out(3,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
+      out(3,"Component::operator=(std::move(other));");
       if (per.nfields() > 0) {
          for (const auto &m : per.metadata)
             out(3,"@ = std::move(other.@);", m.name, m.name);
@@ -1096,7 +1099,6 @@ void writeClassSuffix(
             out(3,"@ = std::move(other.@);", v.name, v.name);
       }
       out(2,"}");
-      out(2,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
       out(2,"return *this;");
       out(1,"}");
 
@@ -1225,14 +1227,13 @@ void writeClassCtorComponent(
 // writeClassCtorBody
 void writeClassCtorBody(
    writer &out,
-   const std::string &kind, const std::string &clname,
-   const std::string &line, const std::string &argName
+   const std::string &kind,
+   const std::string &clname,
+   const std::string &argName
 ) {
    out(1,"{");
    if (printCtorCalls)
       out(2,"std::cout << \"ctor: @: @\" << std::endl;", clname, kind);
-   if (line != "")
-      out(2,line);
    out(2,"Component::finish(@);", argName);
    out(1,"}");
 }
@@ -1245,14 +1246,14 @@ void writeClassCtors(writer &out, const PerClass &per)
    // macro
    // ------------------------
 
-   const int total = per.nfields();
+   int count; const int total = per.nfields();
    out();
 
    if (total == 0)
       out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata)");
    else {
       out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
-      int count = 0;
+      count = 0;
       for (const auto &m : per.metadata)
          out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
       for (const auto &c : per.children)
@@ -1269,7 +1270,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// default");
    out(1,"@() :", per.clname);
    writeClassCtorComponent(out, per, false);
-   writeClassCtorBody(out, "default", per.clname, "", "");
+   writeClassCtorBody(out, "default", per.clname, "");
 
    // ------------------------
    // ctor: from fields
@@ -1290,7 +1291,7 @@ void writeClassCtors(writer &out, const PerClass &per)
          }
 
       // signature, and base constructor call
-      int count = 0;
+      count = 0;
       out(1,"explicit @(", per.clname);
 
       for (const auto &m : per.metadata) {
@@ -1342,7 +1343,7 @@ void writeClassCtors(writer &out, const PerClass &per)
          out(2,"@(this,@)@", v.name, v.name, sep(count,total));
 
       // body
-      writeClassCtorBody(out, "fields", per.clname, "", "");
+      writeClassCtorBody(out, "fields", per.clname, "");
    }
 
    // ------------------------
@@ -1353,7 +1354,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"// from node");
    out(1,"explicit @(const Node &node) :", per.clname);
    writeClassCtorComponent(out, per, false);
-   writeClassCtorBody(out, "node", per.clname, "", "node");
+   writeClassCtorBody(out, "node", per.clname, "node");
 
    // ------------------------
    // ctor: vector
@@ -1366,7 +1367,7 @@ void writeClassCtors(writer &out, const PerClass &per)
           "std::enable_if_t<BLOCKDATA::template supported<T>>>");
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
-      writeClassCtorBody(out, "vector", per.clname, "", "vector");
+      writeClassCtorBody(out, "vector", per.clname, "vector");
    }
 
    // ------------------------
@@ -1376,8 +1377,18 @@ void writeClassCtors(writer &out, const PerClass &per)
    out();
    out(1,"// copy");
    out(1,"@(const @ &other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   writeClassCtorBody(out, "copy", per.clname, "*this = other;", "other");
+   writeClassCtorComponent(out, per, true, total == 0);
+   if (total > 0) {
+      out(",");
+      count = 0;
+      for (const auto &m : per.metadata)
+         out(2,"@(this,other.@)@", m.name, m.name, sep(count,total));
+      for (const auto &c : per.children)
+         out(2,"@(this,other.@)@", c.name, c.name, sep(count,total));
+      for (const auto &v : per.variants)
+         out(2,"@(this,other.@)@", v.name, v.name, sep(count,total));
+   }
+   writeClassCtorBody(out, "copy", per.clname, "other");
 
    // ------------------------
    // ctor: move
@@ -1386,8 +1397,18 @@ void writeClassCtors(writer &out, const PerClass &per)
    out();
    out(1,"// move");
    out(1,"@(@ &&other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true);
-   writeClassCtorBody(out, "move", per.clname, "*this = std::move(other);", "other");
+   writeClassCtorComponent(out, per, true, total == 0);
+   if (total > 0) {
+      out(",");
+      count = 0;
+      for (const auto &m : per.metadata)
+         out(2,"@(this,std::move(other.@))@", m.name, m.name, sep(count,total));
+      for (const auto &c : per.children)
+         out(2,"@(this,std::move(other.@))@", c.name, c.name, sep(count,total));
+      for (const auto &v : per.variants)
+         out(2,"@(this,std::move(other.@))@", v.name, v.name, sep(count,total));
+   }
+   writeClassCtorBody(out, "move", per.clname, "other");
 } // writeClassCtors
 
 
