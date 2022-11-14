@@ -110,7 +110,7 @@ SCENARIO("Testing GNDStk Node add()") {
       auto numbers = Child<
          std::vector<double>,
          Allow::one
-      >(special::pcdata,std::vector<double>{})/detail::convert_pcdata_text_t{};
+      >(special::pcdata)/detail::convert_pcdata_text_t{};
 
       auto nrepeat = Child<void,Allow::many>("repeated node");
       Node node1; node1.name = "aa11";
@@ -126,10 +126,8 @@ SCENARIO("Testing GNDStk Node add()") {
       n.add(nrepeat,vec);
       n.add(nrepeat,node5);
 
-      // dim2d doesn't happen to have a default constructor, so we'll need
-      // to give it a value in the following Child. For just the .add()s,
-      // the value isn't used.
-      auto drepeat = Child<dim2d,Allow::many>("dimension",dim2d{0,0});
+      // dim2d doesn't have a default constructor. That fine in the following.
+      auto drepeat = Child<dim2d,Allow::many>("dimension");
       const dim2d a(1,2), b(3,4), c(5,6), d(7,8), e(9,10);
       n.add(drepeat,{a,b,c,d});
       n.add(drepeat,e);

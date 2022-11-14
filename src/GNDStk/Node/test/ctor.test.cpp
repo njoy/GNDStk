@@ -177,8 +177,8 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
 
    GIVEN("Some Child<type> objects") {
-      const Child<yyyymmdd,Allow::one> ymd("YearMonthDay",yyyymmdd{0,0,0});
-      const Child<mmddyyyy,Allow::one> mdy("MonthDayYear",mmddyyyy{0,0,0});
+      const Child<yyyymmdd,Allow::one> ymd("YearMonthDay");
+      const Child<mmddyyyy,Allow::one> mdy("MonthDayYear");
 
       WHEN("A Node is constructed with (Child<type>,type)") {
          Node n(ymd,yyyymmdd{1776,7,4});
