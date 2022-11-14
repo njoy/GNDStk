@@ -17,17 +17,14 @@ class Meta {
 public:
    // name, object, converter
    std::string name;
-   mutable TYPE placeholder;
    CONVERTER converter; // optional custom converter; needs operator()
 
    // ctor
    explicit Meta(
       const std::string &n,
-      const TYPE &t = detail::make_once<TYPE>(),
       const CONVERTER &c = detail::make_once<CONVERTER>()
    ) :
       name(n),
-      placeholder(t),
       converter(c)
    { }
 

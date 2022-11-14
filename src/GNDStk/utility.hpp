@@ -564,38 +564,6 @@ inline constexpr bool isAlternative =
    is_alternative<T,VARIANT>::value;
 
 // ------------------------
-// isAlternativeOrTheVariant
-// ------------------------
-
-// Is T one of the alternatives in variant<Ts...>, OR is T == variant<Ts...>
-// itself? (Not any variant, but precisely that one.)
-//
-// Consider the functionality (Node::meta() and Node::child(), at the time of
-// this writing) that use this. Invoked with a particular type from the variant,
-// a call - say, to meta() - might look like node.template meta<type>(M), where
-// M is a Meta<> object with the variant type. In contrast, one could merely
-// write node.meta(M) for the full variant, i.e. with no specific alternative
-// type stipulated. By making this SFINAE work for the full variant, not just
-// for each of its constituent types (as with isAlternative), we allow the
-// node.template meta<type>(M) form also to work for the full variant. While
-// the short (and no doubt preferred) form would be available even without the
-// following, we choose to support consistency by allowing the .template form
-// to be used too. This might prove to be useful if, for instance, a user embeds
-// the call in question into a single function template that invokes the long
-// form, while intending to support calls of either the full variant or any of
-// its types.
-
-template<class T, class VARIANT>
-struct is_alternativeOrTheVariant {
-   static constexpr bool value =
-      isAlternative<T,VARIANT> || std::is_same_v<T,VARIANT>;
-};
-
-template<class T, class VARIANT>
-inline constexpr bool isAlternativeOrTheVariant =
-   is_alternativeOrTheVariant<T,VARIANT>::value;
-
-// ------------------------
 // is_void
 // ------------------------
 

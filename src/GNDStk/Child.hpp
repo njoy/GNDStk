@@ -1,9 +1,4 @@
 
-// zzz
-namespace detail {
-   class dummy { };
-}
-
 // -----------------------------------------------------------------------------
 // Child
 // -----------------------------------------------------------------------------
@@ -54,7 +49,6 @@ FILTER
 */
 
 
-
 // -----------------------------------------------------------------------------
 // default
 // -----------------------------------------------------------------------------
@@ -68,162 +62,12 @@ template<
 class Child {
 public:
 
-   /*
    // ------------------------
    // data
    // ------------------------
 
-   // name, object, converter, filter
+   // name, converter, filter
    std::string name;
-   TYPE &placeholder;
-   CONVERTER converter; // optional custom converter; needs operator()
-   FILTER filter; // optional custom filter; needs operator()
-
-   // ------------------------
-   // constructors
-   // ------------------------
-
-   /// Some work-in-progress material here...
-
-   explicit Child(
-      const std::string &name
-   ) :
-      name(name),
-      placeholder(detail::make_once<TYPE>()),
-      converter(detail::make_once<CONVERTER>()),
-      filter(detail::make_once<FILTER>())
-   { }
-
-   explicit Child(
-      const std::string &name,
-      const TYPE &t,/// = detail::make_once<TYPE>(),
-      const CONVERTER &c = detail::make_once<CONVERTER>(),
-      const FILTER &f = detail::make_once<FILTER>()
-   ) :
-      name(name),
-      placeholder(detail::make_once<TYPE>() = t),
-      converter(c),
-      filter(f)
-   { }
-   */
-
-   // ------------------------
-   // data
-   // ------------------------
-
-   static const bool defcon = std::is_default_constructible_v<TYPE>;
-   using PLACEHOLDER = std::conditional_t<defcon,detail::dummy,TYPE>;
-
-   // name, object, converter, filter
-   std::string name;
-   mutable PLACEHOLDER placeholder;
-   CONVERTER converter; // optional custom converter; needs operator()
-   FILTER filter; // optional custom filter; needs operator()
-
-   // ------------------------
-   // constructors
-   // ------------------------
-
-/*
-zzz
-Think about what we need...
-
-------------------------
-CASE 1
-TYPE is default constructible
-------------------------
-
-In this case, store a dummy, not an instance of the object.
-
-Allow construction with or without a caller-provided instance.
-If caller-provided, ignore the argument! We're just making a dummy.
-
-------------------------
-CASE 2
-TYPE is NOT default constructible
-------------------------
-
-In this case, we *must* store an instance of the object, for use elsewhere.
-
-Require that the caller provide an instance of the object. Emphasis: required!
-Copy that over to the stored instance.
-*/
-
-   // If TYPE is NOT default constructible, then we must provide an object
-   // of type TYPE. So we have:
-   //    name, type
-   //    name, type, converter
-   //    name, type, converter, filter
-   // as available constructor arguments.
-   template<
-      class T = TYPE,
-      class = std::enable_if_t<!std::is_default_constructible_v<T>>
-   >
-   explicit Child(
-      const std::string &n,
-      const TYPE &t,
-      const CONVERTER &c = detail::make_once<CONVERTER>(),
-      const FILTER &f = detail::make_once<FILTER>()
-   ) :
-      name(n), placeholder(t), converter(c), filter(f)
-   { }
-
-   // If TYPE is default constructible, then we're allowed to provide an object
-   // of type TYPE, in order to be consistent with the above case, but any such
-   // value is ignored, as we're not going to store it anyway. So we again have:
-   //    name, type
-   //    name, type, converter
-   //    name, type, converter, filter
-   // as available constructor arguments. We also allow the ignored argument to
-   // be of type detail::dummy. This allows for more uniformity here and there,
-   // for example in Child's one() and many() member functions.
-   template<
-      class FROM,
-      class = std::enable_if_t<
-         std::is_same_v<FROM,TYPE> ||
-         std::is_same_v<FROM,detail::dummy>
-      >,
-      class T = TYPE,
-      class = std::enable_if_t<std::is_default_constructible_v<T>>
-   >
-   explicit Child(
-      const std::string &n,
-      const FROM &,
-      const CONVERTER &c = detail::make_once<CONVERTER>(),
-      const FILTER &f = detail::make_once<FILTER>()
-   ) :
-      name(n), converter(c), filter(f)
-   { }
-
-   // If TYPE is default constructible, then we're allowed to forego the object
-   // of type TYPE altogether. Here, then, we allow:
-   //    name
-   //    name, converter
-   //    name, converter, filter
-   // as available constructor arguments.
-   template<
-      class T = TYPE,
-      class = std::enable_if_t<std::is_default_constructible_v<T>>
-   >
-   explicit Child(
-      const std::string &n,
-      const CONVERTER &c = detail::make_once<CONVERTER>(),
-      const FILTER &f = detail::make_once<FILTER>()
-   ) :
-      name(n), converter(c), filter(f)
-   { }
-
-   /*
-   // ------------------------
-   // data
-   // ------------------------
-
-   static const bool defcon = std::is_default_constructible_v<TYPE>;
-   using PLACEHOLDER = std::conditional_t<defcon,detail::dummy,TYPE>;
-
-   // name, object, converter, filter
-   std::string name;
-   mutable PLACEHOLDER placeholder;
    CONVERTER converter; // optional custom converter; needs operator()
    FILTER filter; // optional custom filter; needs operator()
 
@@ -232,29 +76,15 @@ Copy that over to the stored instance.
    // ------------------------
 
    // name
-   // name, type
-   // name, type, converter
-   // name, type, converter, filter
-   explicit Child(
-      const std::string &n,
-      const PLACEHOLDER &t = detail::make_once<TYPE>(),
-      const CONVERTER &c = detail::make_once<CONVERTER>(),
-      const FILTER &f = detail::make_once<FILTER>()
-   ) :
-      name(n), placeholder(t), converter(c), filter(f)
-   { }
-
    // name, converter
    // name, converter, filter
    explicit Child(
       const std::string &n,
-      ///const PLACEHOLDER &t = detail::make_once<TYPE>(),
       const CONVERTER &c = detail::make_once<CONVERTER>(),
       const FILTER &f = detail::make_once<FILTER>()
    ) :
       name(n), converter(c), filter(f)
    { }
-   */
 
    // ------------------------
    // simple functions
@@ -265,30 +95,24 @@ Copy that over to the stored instance.
    // See remarks for Meta's basic(); similar remarks apply here
    auto basic() const
    {
-      return Child<void,ALLOW,void,FILTER>(
-         name, filter // converter not possible here
-      );
+      // converter isn't possible here
+      return Child<void,ALLOW,void,FILTER>(name, filter);
    }
 
    // one()
    // Produce an equivalent Child, but formulated as Allow::one
    auto one() const
    {
-      return Child<TYPE,Allow::one,CONVERTER,FILTER>(
-         name, placeholder, converter, filter
-      );
+      return Child<TYPE,Allow::one,CONVERTER,FILTER>(name, converter, filter);
    }
 
    // many()
    // Produce an equivalent Child, but formulated as Allow::many
    auto many() const
    {
-      return Child<TYPE,Allow::many,CONVERTER,FILTER>(
-         name, placeholder, converter, filter
-      );
+      return Child<TYPE,Allow::many,CONVERTER,FILTER>(name, converter, filter);
    }
 };
-
 
 
 // -----------------------------------------------------------------------------
@@ -353,7 +177,6 @@ public:
 };
 
 
-
 // -----------------------------------------------------------------------------
 // Macro
 // -----------------------------------------------------------------------------
@@ -367,7 +190,6 @@ public:
 
 // Note: we don't #undef this after we use it within GNDStk, as we might
 // normally do, because users might find it handy.
-
 
 
 // -----------------------------------------------------------------------------

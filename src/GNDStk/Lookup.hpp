@@ -23,6 +23,7 @@ public:
 
    // extractor
    EXTRACTOR extractor;
+   TYPE placeholder;
 
    // constructor
    Lookup(
@@ -31,8 +32,9 @@ public:
       const TYPE &value,
       const CONVERTER &converter = CONVERTER{}
    ) :
-      Meta<TYPE,CONVERTER>(name,value,converter),
-      extractor(e)
+      Meta<TYPE,CONVERTER>(name,converter),
+      extractor(e),
+      placeholder(value)
    { }
 };
 
