@@ -48,7 +48,6 @@ public:
    EndfCompatible() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: EndfCompatible: default" << std::endl;
       Component::finish();
    }
 
@@ -56,7 +55,6 @@ public:
    explicit EndfCompatible(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: EndfCompatible: node" << std::endl;
       Component::finish(node);
    }
 
@@ -65,7 +63,6 @@ public:
    EndfCompatible(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: EndfCompatible: vector" << std::endl;
       Component::finish(vector);
    }
 
@@ -73,7 +70,6 @@ public:
    EndfCompatible(const EndfCompatible &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      std::cout << "ctor: EndfCompatible: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -81,7 +77,6 @@ public:
    EndfCompatible(EndfCompatible &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      std::cout << "ctor: EndfCompatible: move" << std::endl;
       Component::finish(other);
    }
 
@@ -89,25 +84,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   EndfCompatible &operator=(const EndfCompatible &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: EndfCompatible: copy" << std::endl;
-         Component::operator=(other);
-      }
-      return *this;
-   }
-
-   // move
-   EndfCompatible &operator=(EndfCompatible &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: EndfCompatible: move" << std::endl;
-         Component::operator=(std::move(other));
-      }
-      return *this;
-   }
+   EndfCompatible &operator=(const EndfCompatible &) = default;
+   EndfCompatible &operator=(EndfCompatible &&) = default;
 
    // ------------------------
    // Custom functionality

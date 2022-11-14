@@ -54,7 +54,6 @@ public:
    BindingEnergy() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: BindingEnergy: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
    {
-      std::cout << "ctor: BindingEnergy: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit BindingEnergy(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: BindingEnergy: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       Double(this,other.Double)
    {
-      std::cout << "ctor: BindingEnergy: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       Double(this,std::move(other.Double))
    {
-      std::cout << "ctor: BindingEnergy: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   BindingEnergy &operator=(const BindingEnergy &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: BindingEnergy: copy" << std::endl;
-         Component::operator=(other);
-         Double = other.Double;
-      }
-      return *this;
-   }
-
-   // move
-   BindingEnergy &operator=(BindingEnergy &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: BindingEnergy: move" << std::endl;
-         Component::operator=(std::move(other));
-         Double = std::move(other.Double);
-      }
-      return *this;
-   }
+   BindingEnergy &operator=(const BindingEnergy &) = default;
+   BindingEnergy &operator=(BindingEnergy &&) = default;
 
    // ------------------------
    // Custom functionality

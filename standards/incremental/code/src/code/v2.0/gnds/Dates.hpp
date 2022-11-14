@@ -54,7 +54,6 @@ public:
    Dates() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Dates: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date)
    {
-      std::cout << "ctor: Dates: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit Dates(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Dates: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       date(this,other.date)
    {
-      std::cout << "ctor: Dates: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       date(this,std::move(other.date))
    {
-      std::cout << "ctor: Dates: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Dates &operator=(const Dates &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Dates: copy" << std::endl;
-         Component::operator=(other);
-         date = other.date;
-      }
-      return *this;
-   }
-
-   // move
-   Dates &operator=(Dates &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Dates: move" << std::endl;
-         Component::operator=(std::move(other));
-         date = std::move(other.date);
-      }
-      return *this;
-   }
+   Dates &operator=(const Dates &) = default;
+   Dates &operator=(Dates &&) = default;
 
    // ------------------------
    // Custom functionality

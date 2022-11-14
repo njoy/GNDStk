@@ -73,7 +73,6 @@ public:
    Evaluated() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Evaluated: default" << std::endl;
       Component::finish();
    }
 
@@ -92,7 +91,6 @@ public:
       version(this,version),
       documentation(this,documentation)
    {
-      std::cout << "ctor: Evaluated: fields" << std::endl;
       Component::finish();
    }
 
@@ -100,7 +98,6 @@ public:
    explicit Evaluated(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Evaluated: node" << std::endl;
       Component::finish(node);
    }
 
@@ -113,7 +110,6 @@ public:
       version(this,other.version),
       documentation(this,other.documentation)
    {
-      std::cout << "ctor: Evaluated: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -126,7 +122,6 @@ public:
       version(this,std::move(other.version)),
       documentation(this,std::move(other.documentation))
    {
-      std::cout << "ctor: Evaluated: move" << std::endl;
       Component::finish(other);
    }
 
@@ -134,35 +129,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Evaluated &operator=(const Evaluated &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Evaluated: copy" << std::endl;
-         Component::operator=(other);
-         label = other.label;
-         date = other.date;
-         library = other.library;
-         version = other.version;
-         documentation = other.documentation;
-      }
-      return *this;
-   }
-
-   // move
-   Evaluated &operator=(Evaluated &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Evaluated: move" << std::endl;
-         Component::operator=(std::move(other));
-         label = std::move(other.label);
-         date = std::move(other.date);
-         library = std::move(other.library);
-         version = std::move(other.version);
-         documentation = std::move(other.documentation);
-      }
-      return *this;
-   }
+   Evaluated &operator=(const Evaluated &) = default;
+   Evaluated &operator=(Evaluated &&) = default;
 
    // ------------------------
    // Custom functionality

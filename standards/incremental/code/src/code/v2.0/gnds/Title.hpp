@@ -48,7 +48,6 @@ public:
    Title() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Title: default" << std::endl;
       Component::finish();
    }
 
@@ -56,7 +55,6 @@ public:
    explicit Title(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Title: node" << std::endl;
       Component::finish(node);
    }
 
@@ -65,7 +63,6 @@ public:
    Title(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Title: vector" << std::endl;
       Component::finish(vector);
    }
 
@@ -73,7 +70,6 @@ public:
    Title(const Title &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      std::cout << "ctor: Title: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -81,7 +77,6 @@ public:
    Title(Title &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      std::cout << "ctor: Title: move" << std::endl;
       Component::finish(other);
    }
 
@@ -89,25 +84,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Title &operator=(const Title &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Title: copy" << std::endl;
-         Component::operator=(other);
-      }
-      return *this;
-   }
-
-   // move
-   Title &operator=(Title &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Title: move" << std::endl;
-         Component::operator=(std::move(other));
-      }
-      return *this;
-   }
+   Title &operator=(const Title &) = default;
+   Title &operator=(Title &&) = default;
 
    // ------------------------
    // Custom functionality

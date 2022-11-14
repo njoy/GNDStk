@@ -69,7 +69,6 @@ public:
    ChemicalElement() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: ChemicalElement: default" << std::endl;
       Component::finish();
    }
 
@@ -86,7 +85,6 @@ public:
       name(this,name),
       atomic(this,atomic)
    {
-      std::cout << "ctor: ChemicalElement: fields" << std::endl;
       Component::finish();
    }
 
@@ -94,7 +92,6 @@ public:
    explicit ChemicalElement(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: ChemicalElement: node" << std::endl;
       Component::finish(node);
    }
 
@@ -106,7 +103,6 @@ public:
       name(this,other.name),
       atomic(this,other.atomic)
    {
-      std::cout << "ctor: ChemicalElement: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -118,7 +114,6 @@ public:
       name(this,std::move(other.name)),
       atomic(this,std::move(other.atomic))
    {
-      std::cout << "ctor: ChemicalElement: move" << std::endl;
       Component::finish(other);
    }
 
@@ -126,33 +121,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   ChemicalElement &operator=(const ChemicalElement &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: ChemicalElement: copy" << std::endl;
-         Component::operator=(other);
-         symbol = other.symbol;
-         Z = other.Z;
-         name = other.name;
-         atomic = other.atomic;
-      }
-      return *this;
-   }
-
-   // move
-   ChemicalElement &operator=(ChemicalElement &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: ChemicalElement: move" << std::endl;
-         Component::operator=(std::move(other));
-         symbol = std::move(other.symbol);
-         Z = std::move(other.Z);
-         name = std::move(other.name);
-         atomic = std::move(other.atomic);
-      }
-      return *this;
-   }
+   ChemicalElement &operator=(const ChemicalElement &) = default;
+   ChemicalElement &operator=(ChemicalElement &&) = default;
 
    // ------------------------
    // Custom functionality

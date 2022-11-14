@@ -54,7 +54,6 @@ public:
    Atomic() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Atomic: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       configurations(this,configurations)
    {
-      std::cout << "ctor: Atomic: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit Atomic(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Atomic: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       configurations(this,other.configurations)
    {
-      std::cout << "ctor: Atomic: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       configurations(this,std::move(other.configurations))
    {
-      std::cout << "ctor: Atomic: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Atomic &operator=(const Atomic &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Atomic: copy" << std::endl;
-         Component::operator=(other);
-         configurations = other.configurations;
-      }
-      return *this;
-   }
-
-   // move
-   Atomic &operator=(Atomic &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Atomic: move" << std::endl;
-         Component::operator=(std::move(other));
-         configurations = std::move(other.configurations);
-      }
-      return *this;
-   }
+   Atomic &operator=(const Atomic &) = default;
+   Atomic &operator=(Atomic &&) = default;
 
    // ------------------------
    // Custom functionality

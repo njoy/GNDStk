@@ -63,7 +63,6 @@ public:
    Double() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Double: default" << std::endl;
       Component::finish();
    }
 
@@ -78,7 +77,6 @@ public:
       value(this,value),
       unit(this,unit)
    {
-      std::cout << "ctor: Double: fields" << std::endl;
       Component::finish();
    }
 
@@ -86,7 +84,6 @@ public:
    explicit Double(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Double: node" << std::endl;
       Component::finish(node);
    }
 
@@ -97,7 +94,6 @@ public:
       value(this,other.value),
       unit(this,other.unit)
    {
-      std::cout << "ctor: Double: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -108,7 +104,6 @@ public:
       value(this,std::move(other.value)),
       unit(this,std::move(other.unit))
    {
-      std::cout << "ctor: Double: move" << std::endl;
       Component::finish(other);
    }
 
@@ -116,31 +111,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Double &operator=(const Double &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Double: copy" << std::endl;
-         Component::operator=(other);
-         label = other.label;
-         value = other.value;
-         unit = other.unit;
-      }
-      return *this;
-   }
-
-   // move
-   Double &operator=(Double &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Double: move" << std::endl;
-         Component::operator=(std::move(other));
-         label = std::move(other.label);
-         value = std::move(other.value);
-         unit = std::move(other.unit);
-      }
-      return *this;
-   }
+   Double &operator=(const Double &) = default;
+   Double &operator=(Double &&) = default;
 
    // ------------------------
    // Custom functionality

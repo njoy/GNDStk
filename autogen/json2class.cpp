@@ -15,7 +15,7 @@ const bool singletons = true;
 const bool debugging = false;
 
 // Put print statements in constructor and assignment calls. For debugging.
-const bool printCtorCalls = true;
+const bool printCtorCalls = false;
 
 
 // -----------------------------------------------------------------------------

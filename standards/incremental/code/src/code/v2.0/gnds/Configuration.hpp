@@ -65,7 +65,6 @@ public:
    Configuration() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Configuration: default" << std::endl;
       Component::finish();
    }
 
@@ -80,7 +79,6 @@ public:
       electronNumber(this,electronNumber),
       bindingEnergy(this,bindingEnergy)
    {
-      std::cout << "ctor: Configuration: fields" << std::endl;
       Component::finish();
    }
 
@@ -88,7 +86,6 @@ public:
    explicit Configuration(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Configuration: node" << std::endl;
       Component::finish(node);
    }
 
@@ -99,7 +96,6 @@ public:
       electronNumber(this,other.electronNumber),
       bindingEnergy(this,other.bindingEnergy)
    {
-      std::cout << "ctor: Configuration: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -110,7 +106,6 @@ public:
       electronNumber(this,std::move(other.electronNumber)),
       bindingEnergy(this,std::move(other.bindingEnergy))
    {
-      std::cout << "ctor: Configuration: move" << std::endl;
       Component::finish(other);
    }
 
@@ -118,31 +113,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Configuration &operator=(const Configuration &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Configuration: copy" << std::endl;
-         Component::operator=(other);
-         subshell = other.subshell;
-         electronNumber = other.electronNumber;
-         bindingEnergy = other.bindingEnergy;
-      }
-      return *this;
-   }
-
-   // move
-   Configuration &operator=(Configuration &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Configuration: move" << std::endl;
-         Component::operator=(std::move(other));
-         subshell = std::move(other.subshell);
-         electronNumber = std::move(other.electronNumber);
-         bindingEnergy = std::move(other.bindingEnergy);
-      }
-      return *this;
-   }
+   Configuration &operator=(const Configuration &) = default;
+   Configuration &operator=(Configuration &&) = default;
 
    // ------------------------
    // Custom functionality

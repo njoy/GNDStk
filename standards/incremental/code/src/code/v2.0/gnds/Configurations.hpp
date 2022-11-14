@@ -54,7 +54,6 @@ public:
    Configurations() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Configurations: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       configuration(this,configuration)
    {
-      std::cout << "ctor: Configurations: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit Configurations(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Configurations: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       configuration(this,other.configuration)
    {
-      std::cout << "ctor: Configurations: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       configuration(this,std::move(other.configuration))
    {
-      std::cout << "ctor: Configurations: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Configurations &operator=(const Configurations &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Configurations: copy" << std::endl;
-         Component::operator=(other);
-         configuration = other.configuration;
-      }
-      return *this;
-   }
-
-   // move
-   Configurations &operator=(Configurations &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Configurations: move" << std::endl;
-         Component::operator=(std::move(other));
-         configuration = std::move(other.configuration);
-      }
-      return *this;
-   }
+   Configurations &operator=(const Configurations &) = default;
+   Configurations &operator=(Configurations &&) = default;
 
    // ------------------------
    // Custom functionality

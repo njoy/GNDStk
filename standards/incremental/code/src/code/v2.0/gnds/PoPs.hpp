@@ -73,7 +73,6 @@ public:
    PoPs() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: PoPs: default" << std::endl;
       Component::finish();
    }
 
@@ -92,7 +91,6 @@ public:
       styles(this,styles),
       chemicalElements(this,chemicalElements)
    {
-      std::cout << "ctor: PoPs: fields" << std::endl;
       Component::finish();
    }
 
@@ -100,7 +98,6 @@ public:
    explicit PoPs(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: PoPs: node" << std::endl;
       Component::finish(node);
    }
 
@@ -113,7 +110,6 @@ public:
       styles(this,other.styles),
       chemicalElements(this,other.chemicalElements)
    {
-      std::cout << "ctor: PoPs: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -126,7 +122,6 @@ public:
       styles(this,std::move(other.styles)),
       chemicalElements(this,std::move(other.chemicalElements))
    {
-      std::cout << "ctor: PoPs: move" << std::endl;
       Component::finish(other);
    }
 
@@ -134,35 +129,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   PoPs &operator=(const PoPs &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: PoPs: copy" << std::endl;
-         Component::operator=(other);
-         name = other.name;
-         version = other.version;
-         format = other.format;
-         styles = other.styles;
-         chemicalElements = other.chemicalElements;
-      }
-      return *this;
-   }
-
-   // move
-   PoPs &operator=(PoPs &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: PoPs: move" << std::endl;
-         Component::operator=(std::move(other));
-         name = std::move(other.name);
-         version = std::move(other.version);
-         format = std::move(other.format);
-         styles = std::move(other.styles);
-         chemicalElements = std::move(other.chemicalElements);
-      }
-      return *this;
-   }
+   PoPs &operator=(const PoPs &) = default;
+   PoPs &operator=(PoPs &&) = default;
 
    // ------------------------
    // Custom functionality

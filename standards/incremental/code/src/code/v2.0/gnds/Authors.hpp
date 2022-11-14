@@ -54,7 +54,6 @@ public:
    Authors() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Authors: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       author(this,author)
    {
-      std::cout << "ctor: Authors: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit Authors(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Authors: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       author(this,other.author)
    {
-      std::cout << "ctor: Authors: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       author(this,std::move(other.author))
    {
-      std::cout << "ctor: Authors: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Authors &operator=(const Authors &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Authors: copy" << std::endl;
-         Component::operator=(other);
-         author = other.author;
-      }
-      return *this;
-   }
-
-   // move
-   Authors &operator=(Authors &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Authors: move" << std::endl;
-         Component::operator=(std::move(other));
-         author = std::move(other.author);
-      }
-      return *this;
-   }
+   Authors &operator=(const Authors &) = default;
+   Authors &operator=(Authors &&) = default;
 
    // ------------------------
    // Custom functionality

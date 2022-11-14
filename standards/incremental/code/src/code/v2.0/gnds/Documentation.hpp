@@ -70,7 +70,6 @@ public:
    Documentation() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Documentation: default" << std::endl;
       Component::finish();
    }
 
@@ -89,7 +88,6 @@ public:
       body(this,body),
       endfCompatible(this,endfCompatible)
    {
-      std::cout << "ctor: Documentation: fields" << std::endl;
       Component::finish();
    }
 
@@ -97,7 +95,6 @@ public:
    explicit Documentation(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Documentation: node" << std::endl;
       Component::finish(node);
    }
 
@@ -110,7 +107,6 @@ public:
       body(this,other.body),
       endfCompatible(this,other.endfCompatible)
    {
-      std::cout << "ctor: Documentation: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -123,7 +119,6 @@ public:
       body(this,std::move(other.body)),
       endfCompatible(this,std::move(other.endfCompatible))
    {
-      std::cout << "ctor: Documentation: move" << std::endl;
       Component::finish(other);
    }
 
@@ -131,35 +126,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Documentation &operator=(const Documentation &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Documentation: copy" << std::endl;
-         Component::operator=(other);
-         authors = other.authors;
-         dates = other.dates;
-         title = other.title;
-         body = other.body;
-         endfCompatible = other.endfCompatible;
-      }
-      return *this;
-   }
-
-   // move
-   Documentation &operator=(Documentation &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Documentation: move" << std::endl;
-         Component::operator=(std::move(other));
-         authors = std::move(other.authors);
-         dates = std::move(other.dates);
-         title = std::move(other.title);
-         body = std::move(other.body);
-         endfCompatible = std::move(other.endfCompatible);
-      }
-      return *this;
-   }
+   Documentation &operator=(const Documentation &) = default;
+   Documentation &operator=(Documentation &&) = default;
 
    // ------------------------
    // Custom functionality

@@ -54,7 +54,6 @@ public:
    ChemicalElements() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: ChemicalElements: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       chemicalElement(this,chemicalElement)
    {
-      std::cout << "ctor: ChemicalElements: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit ChemicalElements(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: ChemicalElements: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       chemicalElement(this,other.chemicalElement)
    {
-      std::cout << "ctor: ChemicalElements: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       chemicalElement(this,std::move(other.chemicalElement))
    {
-      std::cout << "ctor: ChemicalElements: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   ChemicalElements &operator=(const ChemicalElements &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: ChemicalElements: copy" << std::endl;
-         Component::operator=(other);
-         chemicalElement = other.chemicalElement;
-      }
-      return *this;
-   }
-
-   // move
-   ChemicalElements &operator=(ChemicalElements &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: ChemicalElements: move" << std::endl;
-         Component::operator=(std::move(other));
-         chemicalElement = std::move(other.chemicalElement);
-      }
-      return *this;
-   }
+   ChemicalElements &operator=(const ChemicalElements &) = default;
+   ChemicalElements &operator=(ChemicalElements &&) = default;
 
    // ------------------------
    // Custom functionality

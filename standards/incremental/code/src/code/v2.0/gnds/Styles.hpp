@@ -54,7 +54,6 @@ public:
    Styles() :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Styles: default" << std::endl;
       Component::finish();
    }
 
@@ -65,7 +64,6 @@ public:
       GNDSTK_COMPONENT(BlockData{}),
       evaluated(this,evaluated)
    {
-      std::cout << "ctor: Styles: fields" << std::endl;
       Component::finish();
    }
 
@@ -73,7 +71,6 @@ public:
    explicit Styles(const Node &node) :
       GNDSTK_COMPONENT(BlockData{})
    {
-      std::cout << "ctor: Styles: node" << std::endl;
       Component::finish(node);
    }
 
@@ -82,7 +79,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       evaluated(this,other.evaluated)
    {
-      std::cout << "ctor: Styles: copy" << std::endl;
       Component::finish(other);
    }
 
@@ -91,7 +87,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData()),
       evaluated(this,std::move(other.evaluated))
    {
-      std::cout << "ctor: Styles: move" << std::endl;
       Component::finish(other);
    }
 
@@ -99,27 +94,8 @@ public:
    // Assignment operators
    // ------------------------
 
-   // copy
-   Styles &operator=(const Styles &other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Styles: copy" << std::endl;
-         Component::operator=(other);
-         evaluated = other.evaluated;
-      }
-      return *this;
-   }
-
-   // move
-   Styles &operator=(Styles &&other)
-   {
-      if (this != &other) {
-         std::cout << "assign: Styles: move" << std::endl;
-         Component::operator=(std::move(other));
-         evaluated = std::move(other.evaluated);
-      }
-      return *this;
-   }
+   Styles &operator=(const Styles &) = default;
+   Styles &operator=(Styles &&) = default;
 
    // ------------------------
    // Custom functionality
