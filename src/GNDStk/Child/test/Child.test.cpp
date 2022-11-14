@@ -28,19 +28,13 @@ SCENARIO("Testing GNDStk Child<TYPE,ALLOW,CONVERTER>") {
 
       WHEN("Constructed with (name,converter)") {
          const Child<double,Allow::one,converter>
-            foo("foo", 0.0, converter{});
+            foo("foo", converter{});
          CHECK(foo.name == "foo");
       }
 
       WHEN("Constructed with (name,converter,filter)") {
          const Child<double,Allow::one,converter>
-            foo("foo", 0.0, converter{}, filter);
-         CHECK(foo.name == "foo");
-      }
-
-      WHEN("Constructed with (name,converter,filter,top)") {
-         const Child<double,Allow::one,converter>
-            foo("foo", 0.0, converter{}, filter);
+            foo("foo", converter{}, filter);
          CHECK(foo.name == "foo");
       }
    }

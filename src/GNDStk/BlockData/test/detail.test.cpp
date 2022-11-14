@@ -55,25 +55,6 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
 
 
    // ------------------------
-   // decays
-   // ------------------------
-
-   GIVEN("Testing detail::decays") {
-      using tup1 = std::tuple<>;
-      using tup2 = std::tuple<int, volatile double &>;
-      using tup3 = std::tuple<const int, float &>;
-      using tup4 = std::tuple<int &, long>;
-      using tup5 = std::tuple<const int &>;
-
-      CHECK((std::is_same_v<detail::decays_t<tup1>, std::tuple<>>));
-      CHECK((std::is_same_v<detail::decays_t<tup2>, std::tuple<int,double>>));
-      CHECK((std::is_same_v<detail::decays_t<tup3>, std::tuple<int,float>>));
-      CHECK((std::is_same_v<detail::decays_t<tup4>, std::tuple<int,long>>));
-      CHECK((std::is_same_v<detail::decays_t<tup5>, std::tuple<int>>));
-   } // GIVEN
-
-
-   // ------------------------
    // element2element
    // ------------------------
 
