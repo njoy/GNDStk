@@ -7,10 +7,11 @@ void fromNode(const Node &node)
 {
    // length, start, and valueType might be present in the Node, but we won't
    // fetch any of them here. Elsewhere, the current BlockData object should
-   // have its length, start, and valueType pulled from those respective values
-   // in an object of a class derived from Component, which in turn derives from
-   // BlockData. That object's content will have been pulled from the same Node.
-   // Here, we just get the Node's values: "plain character data" in XML terms.
+   // have had its length, start, and valueType pulled from those respective
+   // values in an object of a class derived from Component, which in turn
+   // derived from BlockData. That object's content will have been pulled from
+   // the same Node. Here, we just get the Node's values: plain character data,
+   // in XML terminology.
 
    bool found = false;
    rawstring = node.pcdata(found);

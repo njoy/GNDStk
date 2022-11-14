@@ -15,7 +15,6 @@ inline auto operator-(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // T/Child
 // Change type to T
@@ -25,12 +24,11 @@ inline auto operator-(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // T/Child<TYPE,ALLOW,CONVERTER,FILTER>
 template<class T, class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 inline auto operator/(
-   const T &object,
+   const T &,
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd
 ) {
    return Child<T,ALLOW,CONVERTER,FILTER>(
       kwd.name,
-      object,
       kwd.converter,
       kwd.filter
    );
@@ -39,18 +37,16 @@ inline auto operator/(
 // T/Child<void,ALLOW,void,FILTER>
 template<class T, Allow ALLOW, class FILTER>
 inline auto operator/(
-   const T &object,
+   const T &,
    const Child<void,ALLOW,void,FILTER> &kwd
 ) {
    using CONVERTER = detail::default_converter_t<T>;
    return Child<T,ALLOW,CONVERTER,FILTER>(
       kwd.name,
-      object,
       CONVERTER{}, // because the input Child didn't have one
       kwd.filter
    );
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -101,7 +97,6 @@ inline auto operator/(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // *
 // regex match-anything
@@ -112,7 +107,6 @@ inline auto operator*(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd/".*";
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -134,7 +128,6 @@ inline Child<
 ) {
    return Child<TYPE,ALLOW,C,FILTER>(
       kwd.name,
-      kwd.placeholder,
       converter, // the new one; not kwd.converter!
       kwd.filter
    );
@@ -159,7 +152,6 @@ inline Child<
 }
 
 
-
 // -----------------------------------------------------------------------------
 // post--
 // Change converter to its default
@@ -174,7 +166,6 @@ inline auto operator--(
    using C = detail::default_converter_t<TYPE>;
    return Child<TYPE,ALLOW,C,FILTER>(
       kwd.name,
-      kwd.placeholder,
       C{},
       kwd.filter
    );
@@ -188,7 +179,6 @@ inline auto operator--(
 ) {
    return kwd;
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -211,7 +201,6 @@ inline auto operator++(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child + F
 // Change filter to F
@@ -225,7 +214,6 @@ inline auto operator+(
 ) {
    return Child<TYPE,ALLOW,CONVERTER,F>(
       kwd.name,
-      kwd.placeholder,
       kwd.converter,
       filter // the new one
    );
@@ -242,7 +230,6 @@ inline auto operator+(
       filter // the new one
    );
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -284,8 +271,7 @@ inline auto operator||(
    return Child<std::variant<ATYPE,BTYPE>,ALLOW,CONVERTER,FILTER>(
       // both names, space-separated; this gets special treatment elsewhere
       a.name + " " + b.name,
-      // we need an object, a converter, and a filter; use the first Child's
-      a.placeholder,
+      // we need a converter and a filter; use the first Child's
       a.converter,
       a.filter
    );

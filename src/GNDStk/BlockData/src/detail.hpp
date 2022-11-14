@@ -12,19 +12,6 @@ auto scalarize(const std::variant<Ts...>)
    return std::variant<typename Ts::value_type ...>{};
 }
 
-// decays, decays_t
-// Like std::decay and std::decay_t, but for tuple
-template<class T>
-struct decays { };
-template<class... Ts>
-struct decays<std::tuple<Ts...>> {
-   using type = std::tuple<std::decay_t<Ts> ...>;
-};
-
-template<class T>
-using decays_t = typename decays<T>::type;
-
-
 
 // -----------------------------------------------------------------------------
 // SFINAE constructs for detecting whether or not a class has certain members.
@@ -98,7 +85,6 @@ template<class T>
 inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
 
 
-
 // -----------------------------------------------------------------------------
 // element2element
 // -----------------------------------------------------------------------------
@@ -138,7 +124,6 @@ void element2element(const T &value, std::string &str)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // getBounds
 // -----------------------------------------------------------------------------
@@ -153,7 +138,6 @@ auto getBounds(const std::vector<T> &vec)
    while (bnd.first < bnd.second && vec[bnd.second-1] == zero) --bnd.second;
    return bnd;
 }
-
 
 
 // -----------------------------------------------------------------------------
