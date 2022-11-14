@@ -17,7 +17,13 @@ void sort()
          [this](const auto &... key) {
             std::size_t n = 0;
             (
-               detail::sort(*(std::decay_t<decltype(Node{}(key))> *)links[n++]),
+               detail::sort(
+                  *(
+                     typename detail::queryResult<
+                        std::decay_t<decltype(key)>
+                     >::type
+                  *)links[n++]
+               ),
                ...
             );
          },

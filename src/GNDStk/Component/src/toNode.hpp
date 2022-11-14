@@ -32,8 +32,17 @@ operator Node() const
       std::apply(
          [this,&node](const auto &... key) {
             std::size_t n = 0;
-           (node.add(key,*(std::decay_t<decltype(Node{}(key))>*)links[n++]),
-            ...);
+            (
+               node.add(
+                  key,
+                  *(
+                     typename detail::queryResult<
+                        std::decay_t<decltype(key)>
+                     >::type
+                  *)links[n++]
+               ),
+               ...
+            );
          },
          Keys().tup
       );

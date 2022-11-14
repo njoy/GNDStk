@@ -100,7 +100,11 @@ std::ostream &print(std::ostream &os, const int level) const
                   detail::printComponentPart(
                      os,
                      level+1,
-                   *(std::decay_t<decltype(Node{}(key))> *)links[n++],
+                     *(
+                        typename detail::queryResult<
+                           std::decay_t<decltype(key)>
+                        >::type
+                     *)links[n++],
                      detail::getName(key),
                      maxlen
                   ) && (os << '\n') // no if()s in fold expressions :-/

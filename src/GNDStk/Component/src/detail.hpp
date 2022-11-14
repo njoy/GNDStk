@@ -506,4 +506,28 @@ void sort(std::optional<std::vector<T>> &opt)
       sort(opt.value());
 }
 
+
+
+// -----------------------------------------------------------------------------
+// queryResult
+// -----------------------------------------------------------------------------
+
+// default
+template<class KEY>
+struct queryResult {
+   using type = std::decay_t<decltype(Node{}(std::declval<KEY>()))>;
+};
+
+// For Meta<Defaulted>
+template<class TYPE, class CONVERTER>
+struct queryResult<Meta<Defaulted<TYPE>,CONVERTER>> {
+   using type = Defaulted<TYPE>;
+};
+
+// For std::tuple
+template<class... KEYS>
+struct queryResult<std::tuple<KEYS...>> {
+   using type = std::tuple<typename queryResult<KEYS>::type...>;
+};
+
 } // namespace detail

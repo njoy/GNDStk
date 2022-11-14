@@ -116,9 +116,12 @@ void finish(const DERIVED &other)
    sort();
 
    // construct
-   void (Component::*stub)(const DERIVED &) = &Component::construct;
-   void (DERIVED::*custom)(const DERIVED &) = &DERIVED::construct;
-   if (custom != stub)
+   void (Component::*componentConstruct)
+      (const DERIVED &) = &Component::construct;
+   void (DERIVED::*derivedConstruct)
+      (const DERIVED &) = &DERIVED::construct;
+
+   if (derivedConstruct != componentConstruct)
       derived().construct(other);
    else
       derived().construct();
@@ -131,28 +134,7 @@ void finish(const DERIVED &other)
 
 void finish(const Node &node)
 {
-   // Read fields from the Node into the derived object. This applies the KEYS()
-   // multi-query in the derived class, and also runs BlockData::fromNode() - if
-   // the Node has block data - in order to get the Node's string of block data.
-   fromNode(node);
-
-   if constexpr (hasBlockData) {
-      // length, start, valueType
-      BLOCKDATA::pullFromDerived(derived());
-      // make vector
-      BLOCKDATA::get();
-   }
-
-   // derived-class vector fields
-   sort();
-
-   // construct
-   void (Component::*stub)(const Node &) = &Component::construct;
-   void (DERIVED::*custom)(const Node &) = &DERIVED::construct;
-   if (custom != stub)
-      derived().construct(node);
-   else
-      derived().construct();
+   read(node);
 }
 
 
