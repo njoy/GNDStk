@@ -16,25 +16,6 @@ void print(const T &value)
 }
 
 // -----------------------------------------------------------------------------
-// typeof
-// -----------------------------------------------------------------------------
-
-#include <boost/core/demangle.hpp>
-#include <typeinfo>
-
-// typeof
-template<class T>
-inline void typeof(const T &)
-{
-   std::cout << boost::core::demangle(typeid(T).name()) << std::endl;
-}
-
-#if 0
-   typeof(gnds::PoPs::KEYS());
-   typeof(gnds::PoPs::KEYS().tup);
-#endif
-
-// -----------------------------------------------------------------------------
 // main
 // -----------------------------------------------------------------------------
 
@@ -102,10 +83,8 @@ int main(const int argc, const char *const *const argv)
       p.read(filename);
       print("read end");
 
-      /*
       print();
       p.print();
       print();
-      */
    }
 }
