@@ -284,7 +284,9 @@ inline auto operator||(
    return Child<std::variant<ATYPE,BTYPE>,ALLOW,CONVERTER,FILTER>(
       // both names, space-separated; this gets special treatment elsewhere
       a.name + " " + b.name,
-      // need an object, converter, and filter; use the first Child's
-      a.placeholder, a.converter, a.filter
+      // we need an object, a converter, and a filter; use the first Child's
+      a.placeholder,
+      a.converter,
+      a.filter
    );
 }

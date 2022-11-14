@@ -79,19 +79,19 @@ public:
 
    // copy
    ChemicalElements(const ChemicalElements &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      chemicalElement(this,other.chemicalElement)
    {
       std::cout << "ctor: ChemicalElements: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ChemicalElements(ChemicalElements &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      chemicalElement(this,std::move(other.chemicalElement))
    {
       std::cout << "ctor: ChemicalElements: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -103,9 +103,10 @@ public:
    ChemicalElements &operator=(const ChemicalElements &other)
    {
       if (this != &other) {
+         std::cout << "assign: ChemicalElements: copy" << std::endl;
+         Component::operator=(other);
          chemicalElement = other.chemicalElement;
       }
-      std::cout << "assign: ChemicalElements: copy" << std::endl;
       return *this;
    }
 
@@ -113,9 +114,10 @@ public:
    ChemicalElements &operator=(ChemicalElements &&other)
    {
       if (this != &other) {
+         std::cout << "assign: ChemicalElements: move" << std::endl;
+         Component::operator=(std::move(other));
          chemicalElement = std::move(other.chemicalElement);
       }
-      std::cout << "assign: ChemicalElements: move" << std::endl;
       return *this;
    }
 

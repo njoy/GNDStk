@@ -106,19 +106,27 @@ public:
 
    // copy
    Evaluated(const Evaluated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      date(this,other.date),
+      library(this,other.library),
+      version(this,other.version),
+      documentation(this,other.documentation)
    {
       std::cout << "ctor: Evaluated: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Evaluated(Evaluated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      date(this,std::move(other.date)),
+      library(this,std::move(other.library)),
+      version(this,std::move(other.version)),
+      documentation(this,std::move(other.documentation))
    {
       std::cout << "ctor: Evaluated: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -130,13 +138,14 @@ public:
    Evaluated &operator=(const Evaluated &other)
    {
       if (this != &other) {
+         std::cout << "assign: Evaluated: copy" << std::endl;
+         Component::operator=(other);
          label = other.label;
          date = other.date;
          library = other.library;
          version = other.version;
          documentation = other.documentation;
       }
-      std::cout << "assign: Evaluated: copy" << std::endl;
       return *this;
    }
 
@@ -144,13 +153,14 @@ public:
    Evaluated &operator=(Evaluated &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Evaluated: move" << std::endl;
+         Component::operator=(std::move(other));
          label = std::move(other.label);
          date = std::move(other.date);
          library = std::move(other.library);
          version = std::move(other.version);
          documentation = std::move(other.documentation);
       }
-      std::cout << "assign: Evaluated: move" << std::endl;
       return *this;
    }
 

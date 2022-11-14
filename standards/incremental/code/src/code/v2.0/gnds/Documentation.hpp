@@ -103,19 +103,27 @@ public:
 
    // copy
    Documentation(const Documentation &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      authors(this,other.authors),
+      dates(this,other.dates),
+      title(this,other.title),
+      body(this,other.body),
+      endfCompatible(this,other.endfCompatible)
    {
       std::cout << "ctor: Documentation: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Documentation(Documentation &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      authors(this,std::move(other.authors)),
+      dates(this,std::move(other.dates)),
+      title(this,std::move(other.title)),
+      body(this,std::move(other.body)),
+      endfCompatible(this,std::move(other.endfCompatible))
    {
       std::cout << "ctor: Documentation: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -127,13 +135,14 @@ public:
    Documentation &operator=(const Documentation &other)
    {
       if (this != &other) {
+         std::cout << "assign: Documentation: copy" << std::endl;
+         Component::operator=(other);
          authors = other.authors;
          dates = other.dates;
          title = other.title;
          body = other.body;
          endfCompatible = other.endfCompatible;
       }
-      std::cout << "assign: Documentation: copy" << std::endl;
       return *this;
    }
 
@@ -141,13 +150,14 @@ public:
    Documentation &operator=(Documentation &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Documentation: move" << std::endl;
+         Component::operator=(std::move(other));
          authors = std::move(other.authors);
          dates = std::move(other.dates);
          title = std::move(other.title);
          body = std::move(other.body);
          endfCompatible = std::move(other.endfCompatible);
       }
-      std::cout << "assign: Documentation: move" << std::endl;
       return *this;
    }
 

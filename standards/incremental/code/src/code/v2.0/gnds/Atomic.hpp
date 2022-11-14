@@ -79,19 +79,19 @@ public:
 
    // copy
    Atomic(const Atomic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configurations(this,other.configurations)
    {
       std::cout << "ctor: Atomic: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Atomic(Atomic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configurations(this,std::move(other.configurations))
    {
       std::cout << "ctor: Atomic: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -103,9 +103,10 @@ public:
    Atomic &operator=(const Atomic &other)
    {
       if (this != &other) {
+         std::cout << "assign: Atomic: copy" << std::endl;
+         Component::operator=(other);
          configurations = other.configurations;
       }
-      std::cout << "assign: Atomic: copy" << std::endl;
       return *this;
    }
 
@@ -113,9 +114,10 @@ public:
    Atomic &operator=(Atomic &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Atomic: move" << std::endl;
+         Component::operator=(std::move(other));
          configurations = std::move(other.configurations);
       }
-      std::cout << "assign: Atomic: move" << std::endl;
       return *this;
    }
 

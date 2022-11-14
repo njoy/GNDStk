@@ -100,19 +100,25 @@ public:
 
    // copy
    ChemicalElement(const ChemicalElement &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symbol(this,other.symbol),
+      Z(this,other.Z),
+      name(this,other.name),
+      atomic(this,other.atomic)
    {
       std::cout << "ctor: ChemicalElement: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ChemicalElement(ChemicalElement &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symbol(this,std::move(other.symbol)),
+      Z(this,std::move(other.Z)),
+      name(this,std::move(other.name)),
+      atomic(this,std::move(other.atomic))
    {
       std::cout << "ctor: ChemicalElement: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -124,12 +130,13 @@ public:
    ChemicalElement &operator=(const ChemicalElement &other)
    {
       if (this != &other) {
+         std::cout << "assign: ChemicalElement: copy" << std::endl;
+         Component::operator=(other);
          symbol = other.symbol;
          Z = other.Z;
          name = other.name;
          atomic = other.atomic;
       }
-      std::cout << "assign: ChemicalElement: copy" << std::endl;
       return *this;
    }
 
@@ -137,12 +144,13 @@ public:
    ChemicalElement &operator=(ChemicalElement &&other)
    {
       if (this != &other) {
+         std::cout << "assign: ChemicalElement: move" << std::endl;
+         Component::operator=(std::move(other));
          symbol = std::move(other.symbol);
          Z = std::move(other.Z);
          name = std::move(other.name);
          atomic = std::move(other.atomic);
       }
-      std::cout << "assign: ChemicalElement: move" << std::endl;
       return *this;
    }
 

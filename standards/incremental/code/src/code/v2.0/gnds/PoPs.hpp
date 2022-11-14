@@ -106,19 +106,27 @@ public:
 
    // copy
    PoPs(const PoPs &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      version(this,other.version),
+      format(this,other.format),
+      styles(this,other.styles),
+      chemicalElements(this,other.chemicalElements)
    {
       std::cout << "ctor: PoPs: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    PoPs(PoPs &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      version(this,std::move(other.version)),
+      format(this,std::move(other.format)),
+      styles(this,std::move(other.styles)),
+      chemicalElements(this,std::move(other.chemicalElements))
    {
       std::cout << "ctor: PoPs: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -130,13 +138,14 @@ public:
    PoPs &operator=(const PoPs &other)
    {
       if (this != &other) {
+         std::cout << "assign: PoPs: copy" << std::endl;
+         Component::operator=(other);
          name = other.name;
          version = other.version;
          format = other.format;
          styles = other.styles;
          chemicalElements = other.chemicalElements;
       }
-      std::cout << "assign: PoPs: copy" << std::endl;
       return *this;
    }
 
@@ -144,13 +153,14 @@ public:
    PoPs &operator=(PoPs &&other)
    {
       if (this != &other) {
+         std::cout << "assign: PoPs: move" << std::endl;
+         Component::operator=(std::move(other));
          name = std::move(other.name);
          version = std::move(other.version);
          format = std::move(other.format);
          styles = std::move(other.styles);
          chemicalElements = std::move(other.chemicalElements);
       }
-      std::cout << "assign: PoPs: move" << std::endl;
       return *this;
    }
 

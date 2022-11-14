@@ -92,19 +92,23 @@ public:
 
    // copy
    Double(const Double &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      value(this,other.value),
+      unit(this,other.unit)
    {
       std::cout << "ctor: Double: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Double(Double &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      value(this,std::move(other.value)),
+      unit(this,std::move(other.unit))
    {
       std::cout << "ctor: Double: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -116,11 +120,12 @@ public:
    Double &operator=(const Double &other)
    {
       if (this != &other) {
+         std::cout << "assign: Double: copy" << std::endl;
+         Component::operator=(other);
          label = other.label;
          value = other.value;
          unit = other.unit;
       }
-      std::cout << "assign: Double: copy" << std::endl;
       return *this;
    }
 
@@ -128,11 +133,12 @@ public:
    Double &operator=(Double &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Double: move" << std::endl;
+         Component::operator=(std::move(other));
          label = std::move(other.label);
          value = std::move(other.value);
          unit = std::move(other.unit);
       }
-      std::cout << "assign: Double: move" << std::endl;
       return *this;
    }
 

@@ -86,19 +86,21 @@ public:
 
    // copy
    Date(const Date &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,other.value),
+      dateType(this,other.dateType)
    {
       std::cout << "ctor: Date: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Date(Date &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,std::move(other.value)),
+      dateType(this,std::move(other.dateType))
    {
       std::cout << "ctor: Date: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -110,10 +112,11 @@ public:
    Date &operator=(const Date &other)
    {
       if (this != &other) {
+         std::cout << "assign: Date: copy" << std::endl;
+         Component::operator=(other);
          value = other.value;
          dateType = other.dateType;
       }
-      std::cout << "assign: Date: copy" << std::endl;
       return *this;
    }
 
@@ -121,10 +124,11 @@ public:
    Date &operator=(Date &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Date: move" << std::endl;
+         Component::operator=(std::move(other));
          value = std::move(other.value);
          dateType = std::move(other.dateType);
       }
-      std::cout << "assign: Date: move" << std::endl;
       return *this;
    }
 

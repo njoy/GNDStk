@@ -80,19 +80,19 @@ public:
 
    // copy
    Author(const Author &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name)
    {
       std::cout << "ctor: Author: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Author(Author &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name))
    {
       std::cout << "ctor: Author: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -104,9 +104,10 @@ public:
    Author &operator=(const Author &other)
    {
       if (this != &other) {
+         std::cout << "assign: Author: copy" << std::endl;
+         Component::operator=(other);
          name = other.name;
       }
-      std::cout << "assign: Author: copy" << std::endl;
       return *this;
    }
 
@@ -114,9 +115,10 @@ public:
    Author &operator=(Author &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Author: move" << std::endl;
+         Component::operator=(std::move(other));
          name = std::move(other.name);
       }
-      std::cout << "assign: Author: move" << std::endl;
       return *this;
    }
 

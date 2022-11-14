@@ -79,19 +79,19 @@ public:
 
    // copy
    Styles(const Styles &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluated(this,other.evaluated)
    {
       std::cout << "ctor: Styles: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Styles(Styles &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluated(this,std::move(other.evaluated))
    {
       std::cout << "ctor: Styles: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -103,9 +103,10 @@ public:
    Styles &operator=(const Styles &other)
    {
       if (this != &other) {
+         std::cout << "assign: Styles: copy" << std::endl;
+         Component::operator=(other);
          evaluated = other.evaluated;
       }
-      std::cout << "assign: Styles: copy" << std::endl;
       return *this;
    }
 
@@ -113,9 +114,10 @@ public:
    Styles &operator=(Styles &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Styles: move" << std::endl;
+         Component::operator=(std::move(other));
          evaluated = std::move(other.evaluated);
       }
-      std::cout << "assign: Styles: move" << std::endl;
       return *this;
    }
 

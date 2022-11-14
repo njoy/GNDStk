@@ -79,19 +79,19 @@ public:
 
    // copy
    Configurations(const Configurations &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configuration(this,other.configuration)
    {
       std::cout << "ctor: Configurations: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Configurations(Configurations &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configuration(this,std::move(other.configuration))
    {
       std::cout << "ctor: Configurations: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -103,9 +103,10 @@ public:
    Configurations &operator=(const Configurations &other)
    {
       if (this != &other) {
+         std::cout << "assign: Configurations: copy" << std::endl;
+         Component::operator=(other);
          configuration = other.configuration;
       }
-      std::cout << "assign: Configurations: copy" << std::endl;
       return *this;
    }
 
@@ -113,9 +114,10 @@ public:
    Configurations &operator=(Configurations &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Configurations: move" << std::endl;
+         Component::operator=(std::move(other));
          configuration = std::move(other.configuration);
       }
-      std::cout << "assign: Configurations: move" << std::endl;
       return *this;
    }
 

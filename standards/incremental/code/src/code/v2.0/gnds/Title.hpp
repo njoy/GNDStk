@@ -74,7 +74,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData())
    {
       std::cout << "ctor: Title: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
@@ -83,7 +82,6 @@ public:
       GNDSTK_COMPONENT(other.baseBlockData())
    {
       std::cout << "ctor: Title: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -95,8 +93,9 @@ public:
    Title &operator=(const Title &other)
    {
       if (this != &other) {
+         std::cout << "assign: Title: copy" << std::endl;
+         Component::operator=(other);
       }
-      std::cout << "assign: Title: copy" << std::endl;
       return *this;
    }
 
@@ -104,8 +103,9 @@ public:
    Title &operator=(Title &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Title: move" << std::endl;
+         Component::operator=(std::move(other));
       }
-      std::cout << "assign: Title: move" << std::endl;
       return *this;
    }
 

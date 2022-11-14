@@ -2,12 +2,7 @@
 namespace detail {
 
 // -----------------------------------------------------------------------------
-// Helper classes:
-//    IsMeta
-//    IsChild
-//    IsMetaOrChild
-//    IsStringOrRegex
-// for SFINAE.
+// Helper classes for SFINAE
 // -----------------------------------------------------------------------------
 
 // ------------------------

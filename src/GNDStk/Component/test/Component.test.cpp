@@ -153,7 +153,7 @@ SCENARIO("Testing GNDStk Component") {
          CHECK(der1.NAMESPACE() == std::string("hello"));
          CHECK(der2.NAMESPACE() == std::string("world"));
          DerivedData der;
-         CHECK(der.NAMESPACE() == "");
+         CHECK(der.NAMESPACE() == std::string(""));
       }
 
       // Component << string

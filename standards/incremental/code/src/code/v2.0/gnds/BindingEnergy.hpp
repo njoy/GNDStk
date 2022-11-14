@@ -79,19 +79,19 @@ public:
 
    // copy
    BindingEnergy(const BindingEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,other.Double)
    {
       std::cout << "ctor: BindingEnergy: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    BindingEnergy(BindingEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,std::move(other.Double))
    {
       std::cout << "ctor: BindingEnergy: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -103,9 +103,10 @@ public:
    BindingEnergy &operator=(const BindingEnergy &other)
    {
       if (this != &other) {
+         std::cout << "assign: BindingEnergy: copy" << std::endl;
+         Component::operator=(other);
          Double = other.Double;
       }
-      std::cout << "assign: BindingEnergy: copy" << std::endl;
       return *this;
    }
 
@@ -113,9 +114,10 @@ public:
    BindingEnergy &operator=(BindingEnergy &&other)
    {
       if (this != &other) {
+         std::cout << "assign: BindingEnergy: move" << std::endl;
+         Component::operator=(std::move(other));
          Double = std::move(other.Double);
       }
-      std::cout << "assign: BindingEnergy: move" << std::endl;
       return *this;
    }
 

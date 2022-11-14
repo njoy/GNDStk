@@ -94,19 +94,23 @@ public:
 
    // copy
    Configuration(const Configuration &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      subshell(this,other.subshell),
+      electronNumber(this,other.electronNumber),
+      bindingEnergy(this,other.bindingEnergy)
    {
       std::cout << "ctor: Configuration: copy" << std::endl;
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Configuration(Configuration &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      subshell(this,std::move(other.subshell)),
+      electronNumber(this,std::move(other.electronNumber)),
+      bindingEnergy(this,std::move(other.bindingEnergy))
    {
       std::cout << "ctor: Configuration: move" << std::endl;
-      *this = std::move(other);
       Component::finish(other);
    }
 
@@ -118,11 +122,12 @@ public:
    Configuration &operator=(const Configuration &other)
    {
       if (this != &other) {
+         std::cout << "assign: Configuration: copy" << std::endl;
+         Component::operator=(other);
          subshell = other.subshell;
          electronNumber = other.electronNumber;
          bindingEnergy = other.bindingEnergy;
       }
-      std::cout << "assign: Configuration: copy" << std::endl;
       return *this;
    }
 
@@ -130,11 +135,12 @@ public:
    Configuration &operator=(Configuration &&other)
    {
       if (this != &other) {
+         std::cout << "assign: Configuration: move" << std::endl;
+         Component::operator=(std::move(other));
          subshell = std::move(other.subshell);
          electronNumber = std::move(other.electronNumber);
          bindingEnergy = std::move(other.bindingEnergy);
       }
-      std::cout << "assign: Configuration: move" << std::endl;
       return *this;
    }
 
