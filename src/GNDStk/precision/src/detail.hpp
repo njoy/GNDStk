@@ -149,7 +149,7 @@ class Precision {
          std::to_chars_result
       >>
    >
-   bool write(const T &value, std::string &str, int)
+   bool write(const T &value, std::string &str, int) const
    {
       // todo: Use a T-dependent sufficient size
       std::string chars(100,'\0');
@@ -170,7 +170,7 @@ class Precision {
 #endif
 
    template<class T>
-   bool write(const T &, std::string &, double)
+   bool write(const T &, std::string &, double) const
    {
       // tell the caller that floating-point to_chars() isn't available
       return false;
@@ -188,7 +188,7 @@ class Precision {
 
 #ifdef GNDSTK_PRECISION
    template<class T>
-   auto read(const std::string &str, T &value, int) ->
+   auto read(const std::string &str, T &value, int) const ->
       std::enable_if_t<
          std::is_same_v<
             decltype(std::from_chars((char*)0, (char*)0, value)),
@@ -211,7 +211,7 @@ class Precision {
 #endif
 
    template<class T>
-   bool read(const std::string &, T &, double)
+   bool read(const std::string &, T &, double) const
    {
       // tell the caller that floating-point from_chars() isn't available
       return false;
@@ -223,7 +223,7 @@ public:
    // write
    // ------------------------
 
-   std::string write(const REAL &value)
+   std::string write(const REAL &value) const
    {
       if (otype != PrecisionType::stream) {
          // Use std::to_chars() for REAL, if it exists;
@@ -244,7 +244,7 @@ public:
    // read
    // ------------------------
 
-   REAL read(const std::string &str)
+   REAL read(const std::string &str) const
    {
       REAL value = REAL(0);
 
@@ -260,6 +260,31 @@ public:
       iss.clear();
       iss >> value;
       return value;
+   }
+
+   void read_vector(
+      const std::string &str,
+      std::vector<REAL> &vec,
+      const bool clear = true
+   ) const {
+      if (clear)
+         vec.clear();
+
+      if (itype != PrecisionType::stream) {
+         // todo Can probably be made more efficient, but be careful of the
+         // fall-through logic noted in the comment in the above function.
+         std::istringstream i(str);
+         std::string tmp;
+         while (i >> tmp)
+            vec.push_back(read(tmp));
+      }
+
+      // Use the istringstream
+      iss.clear();
+      iss.str(str);
+      REAL elem;
+      while (iss >> elem)
+         vec.push_back(elem);
    }
 
    // ------------------------
