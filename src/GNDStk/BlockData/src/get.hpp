@@ -209,10 +209,10 @@ std::enable_if_t<
 
       // [-----*****-----]: values from the raw string
       if constexpr (std::is_floating_point_v<T>) {
+         // Below, the "false" means "don't clear the vector"; we want that
+         // here, because leading 0s from the earlier loop might be present.
          detail::Precision<detail::PrecisionContext::data,T>{}.
-            read_vector(rawstring,*to,false);
-         // the "false" means "don't clear the vector"; we want that here,
-         // because leading 0s, from the earlier loop, might be present
+            read(rawstring,*to,false);
       } else {
          std::istringstream iss(rawstring);
          T element;
