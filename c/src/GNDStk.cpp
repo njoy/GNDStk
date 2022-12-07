@@ -77,3 +77,12 @@ void context(const int value)
 {
    njoy::GNDStk::context = bool(value);
 }
+
+// ------------------------
+// Re: OpenMP
+// ------------------------
+
+void threads(const int value)
+{
+   njoy::GNDStk::threads = value;
+}

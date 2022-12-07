@@ -209,7 +209,7 @@ std::enable_if_t<
 
       // [-----*****-----]: values from the raw string
       if constexpr (std::is_floating_point_v<T>) {
-         // Below, the "false" means "don't clear the vector"; we want that
+         // Below, the "false" means "don't clear the vector." We need that
          // here, because leading 0s from the earlier loop might be present.
          detail::Precision<detail::PrecisionContext::data,T>{}.
             read(rawstring,*to,false);

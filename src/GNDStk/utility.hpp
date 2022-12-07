@@ -650,3 +650,51 @@ inline std::string printFormat(const FileType f)
 }
 
 } // namespace detail
+
+
+
+// -----------------------------------------------------------------------------
+// Re: OpenMP
+// Completely optional - and turned off by default - to use in GNDStk.
+// A user must compile with -fopenmp (g++/clang++) to get OpenMP at all.
+// At the moment, what we do with threading is very limited.
+// -----------------------------------------------------------------------------
+
+// Number of threads
+// Users can set this in their own codes
+inline int threads = 1;
+
+namespace detail {
+
+#ifdef _OPENMP
+   // get_nthreads()
+   inline int get_nthreads()
+   {
+      const int want = njoy::GNDStk::threads;
+      const int have = omp_get_num_procs();
+
+      if (want <= 0)
+         return std::max(1,want+have);
+      if (want >= have)
+         return have;
+      return want;
+   }
+
+   // set_nthreads()
+   inline void set_nthreads(const int nthreads)
+   {
+      omp_set_num_threads(nthreads);
+   }
+
+   // this_thread()
+   inline int this_thread()
+   {
+      return omp_get_thread_num();
+   }
+#else
+   inline int  get_nthreads() { return 1; }
+   inline void set_nthreads(const int) { /* nothing */ }
+   inline int  this_thread () { return 0; }
+#endif
+
+} // namespace detail

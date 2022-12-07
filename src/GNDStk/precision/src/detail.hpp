@@ -309,6 +309,102 @@ public:
    }
 
    // ------------------------
+   // read vector of values:
+   // private OpenMP version
+   // ------------------------
+
+private:
+
+#ifdef _OPENMP
+   bool readOpenMP(const std::string &str, std::vector<REAL> &vec) const
+   {
+      // String size.
+      const std::size_t size = str.size();
+
+      // Number of threads.
+      // If there's just *one* thread, then we certainly won't bother with the
+      // overhead of using OpenMP. Instead, we'll return to the serial read().
+      const int nthreads = detail::get_nthreads();
+      if (nthreads == 1)
+         return false;
+
+      // Assume, as a approximation that probably isn't too terrible, that the
+      // printed floating-point numbers in the input string average around some
+      // number nchars of characters in length, including separating whitespace.
+      // Compute a rough estimate of how many floating-points are in the string.
+      // If that value is less than some minimum threshold, then don't deal with
+      // OpenMP's overhead, and instead return to the serial read().
+      // todo: It might be worth factoring float vs. double vs. long double into
+      // this computation. It also might be worth considering the actual number
+      // of threads, as computed above - and possibly, in borderline situations,
+      // reducing the number of threads but still using more than just one.
+      static const std::size_t NCHARS = 10;
+      static const std::size_t MINFLOATS = 200;
+      if (size/NCHARS < MINFLOATS)
+         return false;
+
+      // Compute an approximate splitting of the input string into substrings,
+      // each to be handled by a different thread.
+      std::vector<const char *> loc;
+      for (int t = 0; t < nthreads; ++t)
+         loc.push_back(&str[t*(size/nthreads)]);
+      loc.push_back(&str[size]); // simplifies logic below
+
+      // Refine the approximate splitting so that borders occur at whitespace.
+      for (int t = 1; t < nthreads; ++t) {
+         const char *const prev = loc[t-1];
+         while (prev < loc[t] && !isspace(*(loc[t]  ))) loc[t]--;
+         while (prev < loc[t] &&  isspace(*(loc[t]-1))) loc[t]--;
+      }
+
+      // Set number of threads
+      detail::set_nthreads(nthreads);
+      std::vector<std::vector<REAL>> subvec(nthreads);
+
+      // CASE: strto
+      if (itype == PrecisionType::strto) {
+         if constexpr (std::is_floating_point_v<REAL>) {
+            #pragma omp parallel
+            {
+               const int t = detail::this_thread();
+               char *end = (char *)loc[t];
+
+               for (const char *begin = end; end < loc[t+1]; begin = end+1) {
+                  REAL element;
+
+                  if constexpr (std::is_same_v<REAL,float>)
+                     element = strtof (begin,&end);
+                  if constexpr (std::is_same_v<REAL,double>)
+                     element = strtod (begin,&end);
+                  if constexpr (std::is_same_v<REAL,long double>)
+                     element = strtold(begin,&end);
+
+                  if (!(begin < end))
+                     break;
+                  subvec[t].push_back(element);
+               }
+            }
+
+            // Splice the per-thread vectors; then we're done
+            std::size_t total = 0;
+            for (int t = 0; t < nthreads; ++t)
+               total += subvec[t].size();
+            vec.reserve(vec.size() + total);
+            for (int t = 0; t < nthreads; ++t)
+               vec.insert(vec.end(), subvec[t].begin(), subvec[t].end());
+            return true;
+         }
+         // Fall through...
+      }
+
+      // todo Implement support for other than PrecisionType::strto
+      return false;
+   }
+   #endif // #ifdef _OPENMP
+
+public:
+
+   // ------------------------
    // read vector of values
    // ------------------------
 
@@ -322,25 +418,35 @@ public:
       if (clear)
          vec.clear();
 
+      // If the string is empty, there's nothing more to do. Note that some
+      // constructs we'll use (e.g. str.back()) actually require a non-empty
+      // string, so here we dispose of the empty case immediately.
+      if (str.size() == 0)
+         return;
+
+      // If OpenMP is available, AND circumstances are such that the
+      // readOpenMP() function actually does the reading, then we're
+      // done in this function. Else, continue and do the read below.
+      #ifdef _OPENMP
+      if (readOpenMP(str,vec))
+         return;
+      #endif
+
       REAL element;
 
       // CASE: strto
       if (itype == PrecisionType::strto) {
-         if constexpr (
-            // otherwise we'll need to fall through to other cases,
-            // and in fact wouldn't want to enter the below do-loop
-            std::is_same_v<REAL,float> ||
-            std::is_same_v<REAL,double> ||
-            std::is_same_v<REAL,long double>
-         ) {
+         // Otherwise, we'll need to fall through to other cases, and in fact
+         // we wouldn't want to enter the below do-loop...
+         if constexpr (std::is_floating_point_v<REAL>) {
             const char *begin = str.data();
-            char *end = nullptr;
+            char *end;
 
             do {
                if constexpr (std::is_same_v<REAL,float>)
-                  element = strtof(begin,&end);
+                  element = strtof (begin,&end);
                if constexpr (std::is_same_v<REAL,double>)
-                  element = strtod(begin,&end);
+                  element = strtod (begin,&end);
                if constexpr (std::is_same_v<REAL,long double>)
                   element = strtold(begin,&end);
                if (end == begin) break;
@@ -349,7 +455,7 @@ public:
             } while (*end);
             return; // done
          }
-         // fall through...
+         // Fall through...
       }
 
       // CASE: fixed, scientific, shortest
@@ -367,7 +473,7 @@ public:
             while (i >> tmpstr)
                vec.push_back(read(tmpstr,element,0));
          }
-         // fall through...
+         // Fall through...
       }
 
       // CASE: stream

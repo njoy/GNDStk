@@ -16,6 +16,11 @@
 #include <highfive/H5File.hpp>
 #include <highfive/H5Easy.hpp>
 
+// OpenMP
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 
 // ------------------------
 // C++ #includes

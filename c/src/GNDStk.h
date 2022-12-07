@@ -36,6 +36,8 @@ extern_C void warning(const int);
 extern_C void debug(const int);
 extern_C void context(const int);
 
+extern_C void threads(const int);
+
 // todo
 // Obviously, we'll want much more here. I'll probably add additional
 // C-style interfaces to GNDStk's C++ code gradually, as we discover what
