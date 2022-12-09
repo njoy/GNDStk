@@ -32,12 +32,12 @@ void vector2Attr(
 
 
 // ------------------------
-// pcdata2DataSet
+// data2DataSet
 // ------------------------
 
 // <T> helper
 template<class T, class OBJECT>
-HighFive::DataSet pcdata2DataSet(
+HighFive::DataSet data2DataSet(
    const std::string &key, const std::string &value,
    OBJECT &hdf5
 ) {
@@ -57,7 +57,7 @@ HighFive::DataSet pcdata2DataSet(
 
 // w/ type string
 template<class OBJECT>
-HighFive::DataSet pcdata2DataSet(
+HighFive::DataSet data2DataSet(
    const std::string &key, const std::string &value,
    OBJECT &hdf5
 ) {
@@ -65,17 +65,17 @@ HighFive::DataSet pcdata2DataSet(
       const std::string type = guessType(value);
 
       if (type == "int"    || type == "ints"   )
-         return pcdata2DataSet<int          >(key,value,hdf5);
+         return data2DataSet<int          >(key,value,hdf5);
       if (type == "uint"   || type == "uints"  )
-         return pcdata2DataSet<unsigned     >(key,value,hdf5);
+         return data2DataSet<unsigned     >(key,value,hdf5);
       if (type == "long"   || type == "longs"  )
-         return pcdata2DataSet<long         >(key,value,hdf5);
+         return data2DataSet<long         >(key,value,hdf5);
       if (type == "ulong"  || type == "ulongs" )
-         return pcdata2DataSet<unsigned long>(key,value,hdf5);
+         return data2DataSet<unsigned long>(key,value,hdf5);
       if (type == "double" || type == "doubles")
-         return pcdata2DataSet<double       >(key,value,hdf5);
+         return data2DataSet<double       >(key,value,hdf5);
    }
-   return pcdata2DataSet<std::string>(key,value,hdf5);
+   return data2DataSet<std::string>(key,value,hdf5);
 }
 
 
@@ -262,7 +262,7 @@ bool hdf5_reduce_data(
       // between this function and the one immediately below.
 
       // HDF5 data set
-      pcdata2DataSet(nameSuffixed, node.metadata[0].second, hdf5);
+      data2DataSet(nameSuffixed, node.metadata[0].second, hdf5);
       return true;
    }
 
@@ -302,7 +302,7 @@ bool hdf5_reduce_data_metadata(
    ) {
       // HDF5 data set
       const std::string text = node.children[0]->metadata[0].second;
-      HighFive::DataSet dataset = pcdata2DataSet(node.name+suffix, text, hdf5);
+      HighFive::DataSet dataset = data2DataSet(node.name+suffix, text, hdf5);
 
       // metadata
       meta2hdf5(node, dataset, node.name, suffix);

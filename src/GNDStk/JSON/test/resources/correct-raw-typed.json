@@ -44,7 +44,7 @@
          "#metadata": {
             "remark": "one double"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   1.2
@@ -56,7 +56,7 @@
          "#metadata": {
             "remark": "three doubles"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   1.2,
@@ -67,7 +67,7 @@
          }
       },
       "int": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   1
@@ -76,7 +76,7 @@
          }
       },
       "ints": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   12,
@@ -94,7 +94,7 @@
          }
       },
       "string": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   "ab"
@@ -103,7 +103,7 @@
          }
       },
       "strings": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   "cd",
@@ -130,7 +130,7 @@
          "#metadata": {
             "x": 123
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   1,
@@ -145,7 +145,7 @@
          "#metadata": {
             "y": 4.5
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   4.4,
@@ -159,7 +159,7 @@
          "#metadata": {
             "z": "abc"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": [
                   "a",
@@ -195,7 +195,7 @@
                "#text": "Third comment"
             }
          },
-         "#pcdata0": {
+         "#data0": {
             "#metadata": {
                "#text": [
                   1,
@@ -205,7 +205,7 @@
                ]
             }
          },
-         "#pcdata1": {
+         "#data1": {
             "#metadata": {
                "#text": [
                   9.87,
@@ -214,7 +214,7 @@
                ]
             }
          },
-         "#pcdata2": {
+         "#data2": {
             "#metadata": {
                "#text": [
                   "a",

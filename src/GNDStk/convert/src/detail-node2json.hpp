@@ -71,10 +71,10 @@ void vector2Value(
 
 
 // ------------------------
-// pcdata2Value
+// data2Value
 // ------------------------
 
-inline void pcdata2Value(
+inline void data2Value(
    const std::string &key, const std::string &value,
    orderedJSON &json
 ) {
@@ -198,7 +198,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
 // ------------------------
 
 // Write simple JSON in which all metadata, as well as the contents
-// of "cdata" and "pcdata" nodes) end up being strings. Not even vectors
+// of CDATA and DATA nodes) end up being strings. Not even vectors
 // of strings, as from <values>H He Li ...</values>, but single strings.
 template<class NODE>
 void meta2json_plain(const NODE &node, orderedJSON &json)
@@ -335,7 +335,7 @@ bool json_reduce_data(
       // when PCDATA has sibling nodes.
 
       // JSON array
-      pcdata2Value(nameSuffixed, node.metadata[0].second, json);
+      data2Value(nameSuffixed, node.metadata[0].second, json);
       return true;
    }
 
@@ -394,7 +394,7 @@ bool json_reduce_data_metadata(
    ) {
       // JSON array
       const std::string text = node.children[0]->metadata[0].second;
-      pcdata2Value(nameSuffixed, text, json);
+      data2Value(nameSuffixed, text, json);
 
       // metadata
       meta2json(node, json, node.name, digits, nameSuffixed);

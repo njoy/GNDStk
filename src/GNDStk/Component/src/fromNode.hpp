@@ -152,7 +152,7 @@ void fromNode(const Node &node)
          Keys().tup
       );
 
-      // block data, a.k.a. XML "pcdata" (plain character data), if any
+      // block data
       if constexpr (hasBlockData)
          BLOCKDATA::fromNode(node);
 

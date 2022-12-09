@@ -37,7 +37,7 @@
          "#metadata": {
             "remark": "one double"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "1.2"
             }
@@ -47,21 +47,21 @@
          "#metadata": {
             "remark": "three doubles"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "1.2 3.45 6.789"
             }
          }
       },
       "int": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "1"
             }
          }
       },
       "ints": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "12 345 6789"
             }
@@ -75,14 +75,14 @@
          }
       },
       "string": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "ab"
             }
          }
       },
       "strings": {
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "cd efg hijk"
             }
@@ -105,7 +105,7 @@
          "#metadata": {
             "x": "123"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "1 2 3"
             }
@@ -116,7 +116,7 @@
          "#metadata": {
             "y": "4.5"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "4.4 5.5"
             }
@@ -127,7 +127,7 @@
          "#metadata": {
             "z": "abc"
          },
-         "#pcdata": {
+         "#data": {
             "#metadata": {
                "#text": "a b c"
             }
@@ -159,17 +159,17 @@
                "#text": "Third comment"
             }
          },
-         "#pcdata0": {
+         "#data0": {
             "#metadata": {
                "#text": "1 2 3 4"
             }
          },
-         "#pcdata1": {
+         "#data1": {
             "#metadata": {
                "#text": "9.87 6.54 3.21"
             }
          },
-         "#pcdata2": {
+         "#data2": {
             "#metadata": {
                "#text": "a b c d e f g"
             }

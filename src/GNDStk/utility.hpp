@@ -43,7 +43,7 @@ namespace special {
       nodename = prefix + std::string("nodename"),
       metadata = prefix + std::string("metadata"),
       cdata    = prefix + std::string("cdata"),
-      data     = prefix + std::string("pcdata"),
+      data     = prefix + std::string("data"),
       comment  = prefix + std::string("comment"),
       text     = prefix + std::string("text"),
       xml      = prefix + std::string("xml"),
