@@ -40,7 +40,7 @@ void writeAndReadHDF5(
    // reading process correctly recovers what we originally had in the internal
    // Tree format. IMPORTANT NOTE: It's actually not hard to create situations
    // where the Tree would look slightly different. Leading or trailing white
-   // space in special::pcdata Nodes could, in some cases, disappear during the
+   // space in special::data Nodes could, in some cases, disappear during the
    // process of write-to-HDF5-then-read-back. Also, in the HDF5::typed cases,
    // strings that look like floating-point numbers may be converted to doubles
    // and back again. That could lead to differences, depending on how floating-

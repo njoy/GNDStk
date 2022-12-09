@@ -109,9 +109,9 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
          if (dataSize == 1) {
             T scalar;
             dset.read(scalar);
-            node.name == special::pcdata
+            node.name == special::data
                ? node.add(special::text,scalar)
-               : node.add(special::pcdata).add(special::text,scalar);
+               : node.add(special::data).add(special::text,scalar);
             return true;
          }
       }
@@ -120,9 +120,9 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
          std::vector<T> vector;
          vector.reserve(dataSize);
          dset.read(vector);
-         node.name == special::pcdata
+         node.name == special::data
             ? node.add(special::text,vector)
-            : node.add(special::pcdata).add(special::text,vector);
+            : node.add(special::data).add(special::text,vector);
          return true;
       }
    }
@@ -137,7 +137,7 @@ bool dset2node(
    NODE &parent
 ) {
    Node &node = parent.add(
-      beginsin(dsetName,special::pcdata) ? special::pcdata : dsetName);
+      beginsin(dsetName,special::data) ? special::data : dsetName);
 
    // the DataSet's attributes
    for (const std::string &attrName : dset.listAttributeNames())

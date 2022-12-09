@@ -112,7 +112,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       }
 
       if (xsub.type() == pugi::node_pcdata) {
-         node.add(special::pcdata).add(special::text, xsub.value());
+         node.add(special::data).add(special::text, xsub.value());
          continue;
       }
 

@@ -71,7 +71,7 @@ void json_pair(
       if (peers.size() == 0)
          node.add(key, json_array(val)); // context is such that it's metadata
       else {
-         node.add(special::pcdata).add(special::text, json_array(val));
+         node.add(special::data).add(special::text, json_array(val));
          for (const auto &peer : peers.items()) {
             if (peer.key() == key + special::nodename)
                node.name = peer.value().get<std::string>();
@@ -135,7 +135,7 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
       } else if (
          beginsin(key,special::cdata) ||
          beginsin(key,special::comment) ||
-         beginsin(key,special::pcdata)
+         beginsin(key,special::data)
       ) {
          // Special key: cdata, comment, or pcdata, with optional suffix
          if (val.is_object()) {
@@ -146,12 +146,11 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
                throw;
             }
          } else {
-            using namespace special;
-            beginsin(key,pcdata)
-          ? node.add(pcdata ).add(text, json_array(val))
-          : beginsin(key,cdata)
-          ? node.add(cdata  ).add(text, val.get<std::string>())
-          : node.add(comment).add(text, val.get<std::string>());
+            beginsin(key,special::data)
+          ? node.add(special::data   ).add(special::text, json_array(val))
+          : beginsin(key,special::cdata)
+          ? node.add(special::cdata  ).add(special::text, val.get<std::string>())
+          : node.add(special::comment).add(special::text, val.get<std::string>());
          }
       } else if (endsin(key,special::nodename) ||
                  endsin(key,special::metadata)) {

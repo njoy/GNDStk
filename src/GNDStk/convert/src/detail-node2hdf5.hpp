@@ -110,7 +110,7 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
       }
 
       // *** PCDATA/TEXT
-      if (parent == special::pcdata && key == special::text) {
+      if (parent == special::data && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
             vector2Attr<int          >(key,value,hdf5);
@@ -253,7 +253,7 @@ bool hdf5_reduce_data(
    //    |    TEXT |     |    data |
    //    +---------+     +---------+
 
-   if (nameOriginal == special::pcdata &&
+   if (nameOriginal == special::data &&
        node.children.size() == 0 &&
        node.metadata.size() == 1 &&
        node.metadata[0].first == special::text
@@ -295,7 +295,7 @@ bool hdf5_reduce_data_metadata(
    //    +---------------+
 
    if (node.children.size() == 1 &&
-       node.children[0]->name == special::pcdata &&
+       node.children[0]->name == special::data &&
        node.children[0]->metadata.size() == 1 &&
        node.children[0]->metadata[0].first == special::text &&
        node.children[0]->children.size() == 0

@@ -55,7 +55,7 @@ bool write_cdata(const NODE &node, pugi::xml_node &xnode)
 template<class NODE>
 bool write_data(const NODE &node, pugi::xml_node &xnode)
 {
-   if (!check_special(node,special::pcdata))
+   if (!check_special(node,special::data))
       return false;
    xnode.append_child(pugi::node_pcdata)
         .set_value(node.meta(special::text).data());
@@ -97,7 +97,7 @@ bool node2xml(const NODE &node, pugi::xml_node &x)
          // special element
          if (child->name == special::cdata)
             { if (write_cdata  (*child,xnode)) continue; else return false; }
-         if (child->name == special::pcdata)
+         if (child->name == special::data)
             { if (write_data   (*child,xnode)) continue; else return false; }
          if (child->name == special::comment)
             { if (write_comment(*child,xnode)) continue; else return false; }

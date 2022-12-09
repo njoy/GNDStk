@@ -126,7 +126,7 @@ std::string &cdata(bool &found = detail::default_bool)
 // const
 const std::string &pcdata(bool &found = detail::default_bool) const
 {
-   static const Child<void,Allow::one> pcdata(special::pcdata);
+   static const Child<void,Allow::one> pcdata(special::data);
    static const Meta<void> text(special::text);
    return (*this)(pcdata, text, found);
 }
@@ -134,7 +134,7 @@ const std::string &pcdata(bool &found = detail::default_bool) const
 // non-const
 std::string &pcdata(bool &found = detail::default_bool)
 {
-   static const Child<void,Allow::one> pcdata(special::pcdata);
+   static const Child<void,Allow::one> pcdata(special::data);
    static const Meta<void> text(special::text);
    return (*this)(pcdata, text, found);
 }

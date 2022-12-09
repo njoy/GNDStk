@@ -142,7 +142,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
       // because we think this reflects what these (PCDATA) nodes are intended
       // to represent. (If something was really just a scalar, then surely it
       // would be placed into standard metadata (in <...>), not into PCDATA.
-      if (parent == special::pcdata && key == special::text) {
+      if (parent == special::data && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
             vector2Value<int          >(key,value,json);
@@ -314,7 +314,7 @@ bool json_reduce_data(
    //    |    TEXT |     |    [...] |
    //    +---------+     +----------+
 
-   if (nameOriginal == special::pcdata &&
+   if (nameOriginal == special::data &&
        node.children.size() == 0 &&
        node.metadata.size() == 1 &&
        node.metadata[0].first == special::text
@@ -387,7 +387,7 @@ bool json_reduce_data_metadata(
    // allowing someone who looks at the file to see what's going on.
 
    if (node.children.size() == 1 &&
-       node.children[0]->name == special::pcdata &&
+       node.children[0]->name == special::data &&
        node.children[0]->metadata.size() == 1 &&
        node.children[0]->metadata[0].first == special::text &&
        node.children[0]->children.size() == 0

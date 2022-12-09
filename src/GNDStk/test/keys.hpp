@@ -52,7 +52,7 @@ namespace child {
       gaugeBosons        ("gaugeBosons"        ),
       mass               ("mass"               ),
       outputChannel      ("outputChannel"      ),
-      pcdata             (njoy::GNDStk::special::pcdata),
+      pcdata             (njoy::GNDStk::special::data),
       products           ("products"           ),
       reactions          ("reactions"          ),
       regions2d          ("regions2d"          ),
@@ -246,7 +246,7 @@ public:
       using namespace njoy::GNDStk;
       try {
          node.clear();
-         node.name = special::pcdata;
+         node.name = special::data;
          std::string &destination = node.add(special::text,"").second;
          convert(container, destination);
       } catch (...) {
@@ -311,7 +311,7 @@ const auto &getNumeric()
       typename njoy::GNDStk::detail::numeric_type<T>::type,
       njoy::GNDStk::Allow::one,
       njoy::GNDStk::detail::convert_data_text_t
-   > ret(njoy::GNDStk::special::pcdata);
+   > ret(njoy::GNDStk::special::data);
    return ret;
 }
 

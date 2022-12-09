@@ -14,7 +14,7 @@ operator Node() const
       if constexpr (hasBlockData) {
          // GNDStk uses a TEXT metadatum of a PCDATA child node for this
          std::string &text =
-            node.add(special::pcdata).add(special::text,"").second;
+            node.add(special::data).add(special::text,"").second;
          BLOCKDATA::toNode(text);
       }
 
