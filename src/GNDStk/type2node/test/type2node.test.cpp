@@ -19,14 +19,14 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
    // convert(type,Node) function.
 
    // Update, 2020-10-19. The relevant convert() functionality has been
-   // reformulated into the detail::convert_pcdata_text_t callable object,
+   // reformulated into the detail::convert_data_text_t callable object,
    // so we'll reformulate with that. Ultimately, due to the location of
    // the new code, we should probably put this test material elsewhere.
 
    WHEN("type is vector") {
       std::vector<double> container = { 1, 2.3, 4.56 };
       Node n("old name");
-      detail::convert_pcdata_text_t{}(container,n);
+      detail::convert_data_text_t{}(container,n);
 
       // one way to check the Node
       CHECK(n.name == special::pcdata);
@@ -43,7 +43,7 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
    WHEN("type is deque") {
       std::deque<double> container = { 1, 2.3, 4.56 };
       Node n("old name");
-      detail::convert_pcdata_text_t{}(container,n);
+      detail::convert_data_text_t{}(container,n);
       std::ostringstream oss; oss << n;
       CHECK(oss.str() == correct_node);
    }
@@ -51,7 +51,7 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
    WHEN("type is list") {
       std::list<double> container = { 1, 2.3, 4.56 };
       Node n("old name");
-      detail::convert_pcdata_text_t{}(container,n);
+      detail::convert_data_text_t{}(container,n);
       std::ostringstream oss; oss << n;
       CHECK(oss.str() == correct_node);
    }

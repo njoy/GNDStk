@@ -232,12 +232,12 @@ bool hdf5_reduce_cdata_comment(
 
 
 // ------------------------
-// hdf5_reduce_pcdata
+// hdf5_reduce_data
 // ------------------------
 
 // Simplify PCDATA case.
 template<class NODE, class OBJECT>
-bool hdf5_reduce_pcdata(
+bool hdf5_reduce_data(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
 ) {
    const std::string nameOriginal = node.name;
@@ -271,12 +271,12 @@ bool hdf5_reduce_pcdata(
 
 
 // ------------------------
-// hdf5_reduce_pcdata_metadata
+// hdf5_reduce_data_metadata
 // ------------------------
 
 // Simplify case of node with PCDATA AND metadata
 template<class NODE, class OBJECT>
-bool hdf5_reduce_pcdata_metadata(
+bool hdf5_reduce_data_metadata(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
 ) {
    // name (think e.g. "values", as in XML <values>)
@@ -330,9 +330,9 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    // ------------------------
 
    if (HDF5::reduced && (
-      hdf5_reduce_cdata_comment  (node,h,suffix) ||
-      hdf5_reduce_pcdata         (node,h,suffix) ||
-      hdf5_reduce_pcdata_metadata(node,h,suffix)
+      hdf5_reduce_cdata_comment(node,h,suffix) ||
+      hdf5_reduce_data         (node,h,suffix) ||
+      hdf5_reduce_data_metadata(node,h,suffix)
    ))
       return true;
 

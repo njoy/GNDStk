@@ -47,13 +47,13 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
       foo.add(special::text,"12 34 56 78 90");
 
       // Update, 2020-10-19. The relevant convert() functionality has been
-      // reformulated into the detail::convert_pcdata_text_t callable object,
+      // reformulated into the detail::convert_data_text_t callable object,
       // so we'll reformulate with that. Ultimately, due to the location of
       // the new code, we should probably put this test material elsewhere.
 
       THEN("convert(foo,deque) extracts the content correctly") {
          std::deque<int> container;
-         detail::convert_pcdata_text_t{}(foo,container);
+         detail::convert_data_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
          CHECK(container[1] == 34);
@@ -64,7 +64,7 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
 
       THEN("convert(foo,list) extracts the content correctly") {
          std::list<int> container;
-         detail::convert_pcdata_text_t{}(foo,container);
+         detail::convert_data_text_t{}(foo,container);
          CHECK(container.size() == 5);
          auto iter = container.begin();
          CHECK(*iter++ == 12);
@@ -76,7 +76,7 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
 
       THEN("convert(foo,vector) extracts the content correctly") {
          std::vector<int> container;
-         detail::convert_pcdata_text_t{}(foo,container);
+         detail::convert_data_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
          CHECK(container[1] == 34);

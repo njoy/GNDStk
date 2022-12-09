@@ -201,10 +201,10 @@ namespace GNDStk {
 namespace detail {
 
 // ------------------------
-// convert_pcdata_text_t
+// convert_data_text_t
 // ------------------------
 
-class convert_pcdata_text_t {
+class convert_data_text_t {
 public:
 
    // Node to container
@@ -234,7 +234,7 @@ public:
          );
          throw std::exception{};
       } catch (...) {
-         log::function("convert_pcdata_text_t(Node,container)");
+         log::function("convert_data_text_t(Node,container)");
          throw;
       }
    }
@@ -250,7 +250,7 @@ public:
          std::string &destination = node.add(special::text,"").second;
          convert(container, destination);
       } catch (...) {
-         log::function("convert_pcdata_text_t(container,Node)");
+         log::function("convert_data_text_t(container,Node)");
          throw;
       }
    }
@@ -310,7 +310,7 @@ const auto &getNumeric()
       // for T already a vector, it remains as-is
       typename njoy::GNDStk::detail::numeric_type<T>::type,
       njoy::GNDStk::Allow::one,
-      njoy::GNDStk::detail::convert_pcdata_text_t
+      njoy::GNDStk::detail::convert_data_text_t
    > ret(njoy::GNDStk::special::pcdata);
    return ret;
 }

@@ -293,12 +293,12 @@ bool json_reduce_cdata_comment(
 
 
 // ------------------------
-// json_reduce_pcdata
+// json_reduce_data
 // ------------------------
 
 // Simplify PCDATA case.
 template<class NODE>
-bool json_reduce_pcdata(
+bool json_reduce_data(
    const NODE &node, orderedJSON &json, const std::string &digits
 ) {
    const std::string nameOriginal = node.name;
@@ -344,12 +344,12 @@ bool json_reduce_pcdata(
 
 
 // ------------------------
-// json_reduce_pcdata_metadata
+// json_reduce_data_metadata
 // ------------------------
 
 // Simplify case of node with PCDATA AND metadata
 template<class NODE>
-bool json_reduce_pcdata_metadata(
+bool json_reduce_data_metadata(
    const NODE &node, orderedJSON &json, const std::string &digits
 ) {
    const std::string nameSuffixed = node.name + digits;
@@ -421,9 +421,9 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
    // ------------------------
 
    if (JSON::reduced && (
-      json_reduce_cdata_comment  (node,j,digits) ||
-      json_reduce_pcdata         (node,j,digits) ||
-      json_reduce_pcdata_metadata(node,j,digits)
+      json_reduce_cdata_comment(node,j,digits) ||
+      json_reduce_data         (node,j,digits) ||
+      json_reduce_data_metadata(node,j,digits)
    ))
       return true;
 
