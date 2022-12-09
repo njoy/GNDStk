@@ -17,7 +17,7 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
          reactionSuite,
          documentations,
          documentation,
-         cdata,
+         CDATA,
          text
       );
       CHECK(thedocs.size() == 46742);
@@ -54,14 +54,14 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
          CHECK(t(reactionSuite,documentations,documentation).doc() == thedocs);
          CHECK(c(reactionSuite,documentations,documentation).doc() == thedocs);
 
-         // works from the <cdata> node...
-         CHECK(t(reactionSuite,documentations,documentation,cdata).
+         // works from the CDATA node...
+         CHECK(t(reactionSuite,documentations,documentation,CDATA).
                documentation() == thedocs);
-         CHECK(c(reactionSuite,documentations,documentation,cdata).
+         CHECK(c(reactionSuite,documentations,documentation,CDATA).
                documentation() == thedocs);
-         CHECK(t(reactionSuite,documentations,documentation,cdata).
+         CHECK(t(reactionSuite,documentations,documentation,CDATA).
                doc() == thedocs);
-         CHECK(c(reactionSuite,documentations,documentation,cdata).
+         CHECK(c(reactionSuite,documentations,documentation,CDATA).
                doc() == thedocs);
 
          // doesn't work from some other place...
@@ -89,10 +89,10 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
       }
 
       // ------------------------
-      // pcdata()
+      // data()
       // ------------------------
 
-      WHEN("Testing pcdata()") {
+      WHEN("Testing data()") {
          auto &valnode = t(
             reactionSuite,
             reactions,
@@ -102,11 +102,11 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
          ).one("values");
          const auto &constvalnode = valnode;
 
-         const std::string vals = valnode(pcdata,text);
+         const std::string vals = valnode(DATA,text);
          CHECK(vals.size() == 70254);
 
-         CHECK(valnode.pcdata() == vals);
-         CHECK(constvalnode.pcdata() == vals);
+         CHECK(valnode.data() == vals);
+         CHECK(constvalnode.data() == vals);
       }
 
       // ------------------------

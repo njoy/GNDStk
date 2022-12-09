@@ -120,23 +120,23 @@ std::string &cdata(bool &found = detail::default_bool)
 
 
 // ------------------------
-// pcdata
+// data
 // ------------------------
 
 // const
-const std::string &pcdata(bool &found = detail::default_bool) const
+const std::string &data(bool &found = detail::default_bool) const
 {
-   static const Child<void,Allow::one> pcdata(special::data);
+   static const Child<void,Allow::one> data(special::data);
    static const Meta<void> text(special::text);
-   return (*this)(pcdata, text, found);
+   return (*this)(data, text, found);
 }
 
 // non-const
-std::string &pcdata(bool &found = detail::default_bool)
+std::string &data(bool &found = detail::default_bool)
 {
-   static const Child<void,Allow::one> pcdata(special::data);
+   static const Child<void,Allow::one> data(special::data);
    static const Meta<void> text(special::text);
-   return (*this)(pcdata, text, found);
+   return (*this)(data, text, found);
 }
 
 
@@ -184,11 +184,11 @@ std::string &comment(
 
 // We provide this because comments occasionally appear *multiple* times
 // within a given GNDS parent node. Example:
-//    <data>
+//    <foo>
 //       <!--  energy | capture | elastic  -->
 //       <!--         |  width  |  width   -->
-//       ... numeric data ...
-//    </data>
+//       ...
+//    </foo>
 // One could argue that the second comment here really isn't important.
 // However, GNDStk is careful to maintain ALL information that's present
 // in a GNDS file it reads; it does not make decisions about importance.

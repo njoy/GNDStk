@@ -236,28 +236,28 @@ SCENARIO("Precision code in BlockData::get(), "
          num.reals() = fvec;
          data::floats << std::setprecision(4);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "1.414 1.732 2.236");
+         CHECK((Node(num))(reals).data() == "1.414 1.732 2.236");
       }
 
       THEN("data::reals precision has the intended effect") {
          num.reals() = fvec;
          data::reals << std::setprecision(5);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "1.4142 1.7321 2.2361");
+         CHECK((Node(num))(reals).data() == "1.4142 1.7321 2.2361");
       }
 
       THEN("GNDStk::floats precision has the intended effect") {
          num.reals() = fvec;
          njoy::GNDStk::floats << std::setprecision(6);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "1.41421 1.73205 2.23607");
+         CHECK((Node(num))(reals).data() == "1.41421 1.73205 2.23607");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
          num.reals() = fvec;
          njoy::GNDStk::reals << std::setprecision(7);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "1.414214 1.732051 2.236068");
+         CHECK((Node(num))(reals).data() == "1.414214 1.732051 2.236068");
       }
    } // WHEN
 
@@ -278,28 +278,28 @@ SCENARIO("Precision code in BlockData::get(), "
          num.reals() = dvec;
          data::doubles << std::setprecision(4);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "2.646 3.317 3.606");
+         CHECK((Node(num))(reals).data() == "2.646 3.317 3.606");
       }
 
       THEN("data::reals precision has the intended effect") {
          num.reals() = dvec;
          data::reals << std::setprecision(5);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "2.6458 3.3166 3.6056");
+         CHECK((Node(num))(reals).data() == "2.6458 3.3166 3.6056");
       }
 
       THEN("GNDStk::doubles precision has the intended effect") {
          num.reals() = dvec;
          njoy::GNDStk::doubles << std::setprecision(6);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "2.64575 3.31662 3.60555");
+         CHECK((Node(num))(reals).data() == "2.64575 3.31662 3.60555");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
          num.reals() = dvec;
          njoy::GNDStk::reals << std::setprecision(7);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "2.645751 3.316625 3.605551");
+         CHECK((Node(num))(reals).data() == "2.645751 3.316625 3.605551");
       }
    } // WHEN
 
@@ -320,28 +320,28 @@ SCENARIO("Precision code in BlockData::get(), "
          num.reals() = qvec;
          data::longdoubles << std::setprecision(4);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "4.123 4.359 4.796");
+         CHECK((Node(num))(reals).data() == "4.123 4.359 4.796");
       }
 
       THEN("data::reals precision has the intended effect") {
          num.reals() = qvec;
          data::reals << std::setprecision(5);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "4.1231 4.3589 4.7958");
+         CHECK((Node(num))(reals).data() == "4.1231 4.3589 4.7958");
       }
 
       THEN("GNDStk::longdoubles precision has the intended effect") {
          num.reals() = qvec;
          njoy::GNDStk::longdoubles << std::setprecision(6);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "4.12311 4.3589 4.79583");
+         CHECK((Node(num))(reals).data() == "4.12311 4.3589 4.79583");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
          num.reals() = qvec;
          njoy::GNDStk::reals << std::setprecision(7);
          num.reals()->get<std::vector<std::string>>();
-         CHECK((Node(num))(reals).pcdata() == "4.123106 4.358899 4.795832");
+         CHECK((Node(num))(reals).data() == "4.123106 4.358899 4.795832");
       }
    } // WHEN
 } // SCENARIO
@@ -450,25 +450,25 @@ SCENARIO("Precision code in BlockData::toNode(), "
       THEN("data::floats precision has the intended effect") {
          r = fvec;
          data::floats << std::setprecision(4);
-         CHECK((Node(r)).pcdata() == "1.414 1.732 2.236");
+         CHECK((Node(r)).data() == "1.414 1.732 2.236");
       }
 
       THEN("data::reals precision has the intended effect") {
          r = fvec;
          data::reals << std::setprecision(5);
-         CHECK((Node(r)).pcdata() == "1.4142 1.7321 2.2361");
+         CHECK((Node(r)).data() == "1.4142 1.7321 2.2361");
       }
 
       THEN("GNDStk::floats precision has the intended effect") {
          r = fvec;
          njoy::GNDStk::floats << std::setprecision(6);
-         CHECK((Node(r)).pcdata() == "1.41421 1.73205 2.23607");
+         CHECK((Node(r)).data() == "1.41421 1.73205 2.23607");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
          r = fvec;
          njoy::GNDStk::reals << std::setprecision(7);
-         CHECK((Node(r)).pcdata() == "1.414214 1.732051 2.236068");
+         CHECK((Node(r)).data() == "1.414214 1.732051 2.236068");
       }
    } // WHEN
 
@@ -486,25 +486,25 @@ SCENARIO("Precision code in BlockData::toNode(), "
       THEN("data::doubles precision has the intended effect") {
          r = dvec;
          data::doubles << std::setprecision(4);
-         CHECK((Node(r)).pcdata() == "2.646 3.317 3.606");
+         CHECK((Node(r)).data() == "2.646 3.317 3.606");
       }
 
       THEN("data::reals precision has the intended effect") {
          r = dvec;
          data::reals << std::setprecision(5);
-         CHECK((Node(r)).pcdata() == "2.6458 3.3166 3.6056");
+         CHECK((Node(r)).data() == "2.6458 3.3166 3.6056");
       }
 
       THEN("GNDStk::doubles precision has the intended effect") {
          r = dvec;
          njoy::GNDStk::doubles << std::setprecision(6);
-         CHECK((Node(r)).pcdata() == "2.64575 3.31662 3.60555");
+         CHECK((Node(r)).data() == "2.64575 3.31662 3.60555");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
          r = dvec;
          njoy::GNDStk::reals << std::setprecision(7);
-         CHECK((Node(r)).pcdata() == "2.645751 3.316625 3.605551");
+         CHECK((Node(r)).data() == "2.645751 3.316625 3.605551");
       }
    } // WHEN
 
@@ -522,25 +522,25 @@ SCENARIO("Precision code in BlockData::toNode(), "
       THEN("data::longdoubles precision has the intended effect") {
          r = qvec;
          data::longdoubles << std::setprecision(4);
-         CHECK((Node(r)).pcdata() == "4.123 4.359 4.796");
+         CHECK((Node(r)).data() == "4.123 4.359 4.796");
       }
 
       THEN("data::reals precision has the intended effect") {
          r = qvec;
          data::reals << std::setprecision(5);
-         CHECK((Node(r)).pcdata() == "4.1231 4.3589 4.7958");
+         CHECK((Node(r)).data() == "4.1231 4.3589 4.7958");
       }
 
       THEN("GNDStk::longdoubles precision has the intended effect") {
          r = qvec;
          njoy::GNDStk::longdoubles << std::setprecision(6);
-         CHECK((Node(r)).pcdata() == "4.12311 4.3589 4.79583");
+         CHECK((Node(r)).data() == "4.12311 4.3589 4.79583");
       }
 
       THEN("GNDStk::reals precision has the intended effect") {
          r = qvec;
          njoy::GNDStk::reals << std::setprecision(7);
-         CHECK((Node(r)).pcdata() == "4.123106 4.358899 4.795832");
+         CHECK((Node(r)).data() == "4.123106 4.358899 4.795832");
       }
    } // WHEN
 } // SCENARIO

@@ -117,7 +117,7 @@ SCENARIO("Testing precision detail:: functionality") {
       { detail::Precision<detail::PrecisionContext::data,    void  > p; };
       */
 
-      // Use <data> for the test...
+      // Use Precision<data> for the test...
       detail::Precision<detail::PrecisionContext::data,void  > v;
       detail::Precision<detail::PrecisionContext::data,float > f;
       detail::Precision<detail::PrecisionContext::data,double> d;

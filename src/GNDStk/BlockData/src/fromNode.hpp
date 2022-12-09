@@ -14,7 +14,7 @@ void fromNode(const Node &node)
    // in XML terminology.
 
    bool found = false;
-   rawstring = node.pcdata(found);
+   rawstring = node.data(found);
 
    if (!found) {
       rawstring = "";

@@ -41,7 +41,7 @@ namespace child {
       RMatrix            ("RMatrix"            ),
       angularTwoBody     ("angularTwoBody"     ),
       axes               ("axes"               ),
-      cdata              (njoy::GNDStk::special::cdata),
+      CDATA              (njoy::GNDStk::special::cdata),
       chemicalElements   ("chemicalElements"   ),
       crossSection       ("crossSection"       ),
       data               ("data"               ),
@@ -52,7 +52,7 @@ namespace child {
       gaugeBosons        ("gaugeBosons"        ),
       mass               ("mass"               ),
       outputChannel      ("outputChannel"      ),
-      pcdata             (njoy::GNDStk::special::data),
+      DATA               (njoy::GNDStk::special::data),
       products           ("products"           ),
       reactions          ("reactions"          ),
       regions2d          ("regions2d"          ),
@@ -214,13 +214,12 @@ public:
       using namespace njoy::GNDStk;
       try {
          // Context:
-         // We're inside of a <pcdata> node that's inside of a <values>
-         // node that looked something like this (in XML):
+         // We're inside of a data node that's inside of a <values> node that
+         // that looked something like this (in XML):
          //    <values>0.0 1.0 2.0 3.0 4.0</values>
-         // In GNDStk, the <pcdata> node has a metadatum with the key
-         // special::text. The metadatum's string value is the content:
-         // "0.0 1.0 ..." in our example. Goal here: extract that content
-         // into the container.
+         // In GNDStk, the data node has a metadatum with the key special::text.
+         // The metadatum's string value is the content: "0.0 1.0 ..." in our
+         // example. Goal here: extract that content into the container.
          container.clear();
          for (auto &m : node.metadata)
             if (m.first == special::text) {
