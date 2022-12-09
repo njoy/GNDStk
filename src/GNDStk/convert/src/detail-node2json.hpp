@@ -121,8 +121,8 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
       // Special cases
       // ------------------------
 
-      // *** CDATA/TEXT
-      // *** COMMENT/TEXT
+      // *** #cdata/#text
+      // *** #comment/#text
       // ACTION: Write these as-is. That is, do NOT apply our type-guessing code
       // to a comment, or to the contents of a <![CDATA[...]]> block like those
       // that we see in existing XML-format GNDS files. The type guesser would
@@ -134,14 +134,14 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
          continue;
       }
 
-      // *** DATA/TEXT
+      // *** #data/#text
       // ACTION: Apply our type-guessing code, but write *vectors* only, never
       // scalars. So, <values>10</values> produces a vector with one element,
       // NOT a scalar; while <values>10 20 30</values> produces a vector with
       // three elements. What may look like scalars are made into vectors
-      // because we think this reflects what these (DATA) nodes are intended
+      // because we think this reflects what these data nodes are intended
       // to represent. (If something was really just a scalar, then surely it
-      // would be placed into standard metadata (in <...>), not into DATA.
+      // would be placed into standard metadata (in <...>), not into data.
       if (parent == special::data && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
@@ -159,7 +159,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
          continue;
       }
 
-      // *** key/TEXT not expected, except as already handled
+      // *** key/#text not expected, except as already handled
       if (key == special::text) {
          log::warning("Metadatum \"{}\" not expected here; writing anyway",
                       special::text);
@@ -198,7 +198,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
 // ------------------------
 
 // Write simple JSON in which all metadata, as well as the contents
-// of CDATA and DATA nodes) end up being strings. Not even vectors
+// of #cdata and #data nodes) end up being strings. Not even vectors
 // of strings, as from <values>H He Li ...</values>, but single strings.
 template<class NODE>
 void meta2json_plain(const NODE &node, orderedJSON &json)
@@ -219,9 +219,9 @@ void meta2json(
    const std::string &digits,
    const std::string &prefix
 ) {
-   // Create NODENAME iff necessary, to allow recovery of the node's original
-   // name. Note that NODENAME is not necessary for special nodes, in particular
-   // CDATA, DATA, and COMMENT. For those, we can reliably reconstruct the
+   // Create #nodename iff necessary, to allow recovery of the node's original
+   // name. Note that #nodename isn't necessary for special nodes, in particular
+   // #cdata, #data, and #comment. For those, we can reliably reconstruct the
    // original name by removing trailing digits. A regular node, in contrast,
    // *might* have an actual name that has trailing digits (one user called a
    // node "sigma0", for example); or, trailing digits might have been added -
@@ -254,7 +254,7 @@ void meta2json(
 // json_reduce_cdata_comment
 // ------------------------
 
-// Simplify certain CDATA and COMMENT cases.
+// Simplify certain #cdata and #comment cases.
 template<class NODE>
 bool json_reduce_cdata_comment(
    const NODE &node, orderedJSON &json, const std::string &digits
@@ -267,15 +267,15 @@ bool json_reduce_cdata_comment(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + digits;
 
-   // CDATA or COMMENT
-   //    TEXT the only metadatum
+   // #cdata or #comment
+   //    #text the only metadatum
    //    no children
-   // Reduce to: string value, w/name == (CDATA or COMMENT) + digits
+   // Reduce to: string value, w/name == (#cdata or #comment) + digits
    // Sketch:
-   //    +---------------+     +------------+
-   //    | CDATA/COMMENT | ==> | "name" :   | name: CDATA/COMMENT + digits
-   //    |    TEXT       |     |    "value" |
-   //    +---------------+     +------------+
+   //    +-----------------+     +------------+
+   //    | #cdata/#comment | ==> | "name" :   | name: #cdata/#comment + digits
+   //    |    #text        |     |    "value" |
+   //    +-----------------+     +------------+
 
    if (
       (nameOriginal == special::cdata || nameOriginal == special::comment) &&
@@ -296,7 +296,7 @@ bool json_reduce_cdata_comment(
 // json_reduce_data
 // ------------------------
 
-// Simplify DATA case.
+// Simplify #data case.
 template<class NODE>
 bool json_reduce_data(
    const NODE &node, orderedJSON &json, const std::string &digits
@@ -304,35 +304,35 @@ bool json_reduce_data(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + digits;
 
-   // DATA
-   //    TEXT the only metadatum
+   // #data
+   //    #text the only metadatum
    //    no children
-   // Reduce to: array, w/name == DATA + digits
+   // Reduce to: array, w/name == #data + digits
    // Sketch:
-   //    +---------+     +----------+
-   //    | DATA    | ==> | "name" : | name: DATA + digits
-   //    |    TEXT |     |    [...] |
-   //    +---------+     +----------+
+   //    +----------+     +----------+
+   //    | #data    | ==> | "name" : | name: #data + digits
+   //    |    #text |     |    [...] |
+   //    +----------+     +----------+
 
    if (nameOriginal == special::data &&
        node.children.size() == 0 &&
        node.metadata.size() == 1 &&
        node.metadata[0].first == special::text
    ) {
-      // Remark. This case (basically, DATA/TEXT) may look superficially
+      // Remark. This case (basically, #data/#text) may look superficially
       // like it would have been handled, in the case immediately below here,
       // in the previous (next-up) recurse of the node2json() function. Often
-      // it would have, but not always. Later, name/DATA/TEXT (three
+      // it would have, but not always. Later, name/#data/#text (three
       // levels, so to speak) reduces to one level (name : [...]), but
-      // only if name has ONE child - the DATA. That's true when we
+      // only if name has ONE child - the #data. That's true when we
       // have (in XML) something like <values>1 2 3</values>, as the data,
       // i.e. the 1 2 3 part, is <values>' only child node. However, it's
       // actually possible (though I don't see it in current GNDS files) to
       // have something like: <values><foo></foo>1 2 3</values>. There, the
-      // outer "name" node (<value>) has child foo and child DATA, and
-      // thus can't be reduced in the manner that's done if only DATA is
+      // outer "name" node (<value>) has child foo and child #data, and
+      // thus can't be reduced in the manner that's done if only #data is
       // there. In short, then, the present situation comes to pass if and
-      // when DATA has sibling nodes.
+      // when #data has sibling nodes.
 
       // JSON array
       data2Value(nameSuffixed, node.metadata[0].second, json);
@@ -347,7 +347,7 @@ bool json_reduce_data(
 // json_reduce_data_metadata
 // ------------------------
 
-// Simplify case of node with DATA AND metadata
+// Simplify case of node with data AND metadata
 template<class NODE>
 bool json_reduce_data_metadata(
    const NODE &node, orderedJSON &json, const std::string &digits
@@ -356,16 +356,16 @@ bool json_reduce_data_metadata(
 
    // name (think e.g. "values", as in XML <values>)
    //    any number of metadata (possibly 0)
-   //    DATA the only child
-   //       TEXT the only metadatum
+   //    #data the only child
+   //       #text the only metadatum
    //       no children
    // Reduce to: array, w/name == name + digits; separately encoded metadata
    // Sketch:
    //    +---------------+     +---------------------+
    //    | name          | ==> | "name" :            | name: name + digits
    //    |    [metadata] |     |    [...]            |
-   //    |    DATA       |     | "nameMETADATA" : {  |
-   //    |       TEXT    |     |    key/value pairs  |
+   //    |    #data      |     | "name#metadata" : { |
+   //    |       #text   |     |    key/value pairs  |
    //    |       -       |     | }                   |
    //    +---------------+     +---------------------+
    // Remark. We're not super psyched about the "name#metadata" construction.
@@ -383,7 +383,7 @@ bool json_reduce_data_metadata(
    // Hence, our choice above. An important thing is that the above system
    // is reversible - a file, thus written, can be read back in, recovering
    // our original internal data structure unambiguously. Also, the two JSON
-   // constructs, "name" and "nameMETADATA", will appear next to each other,
+   // constructs, "name" and "name#metadata", will appear next to each other,
    // allowing someone who looks at the file to see what's going on.
 
    if (node.children.size() == 1 &&

@@ -19,7 +19,7 @@ namespace meta {
       label     ("label"     ),
       projectile("projectile"),
       symbol    ("symbol"    ),
-      text      (njoy::GNDStk::special::text),
+      TEXT      (njoy::GNDStk::special::text),
       unit      ("unit"      ),
       value     ("value"     ),
       version   ("version"   );
@@ -94,7 +94,7 @@ using namespace child;
 // GNDS tree, while others stipulate specific types.
 // -----------------------------------------------------------------------------
 
-// Helper for cdata Child object below
+// Helper for the CDATA Child object below
 namespace njoy {
 namespace GNDStk {
 namespace detail {
@@ -171,17 +171,13 @@ namespace child {
    GNDSTK_MAKE_CHILD(void, evaluated, many);
    GNDSTK_MAKE_CHILD(void, XYs1d, many);
 
-   // cdata
-   // This is where XML <!-- ... --> (comment) material resides. It's reasonable
-   // to extract such content into std::strings. We then store these in nodes
-   // of name CDATA, each with one metadatum having a key of TEXT and a value
-   // containing the original content.
+   // CDATA
    inline const njoy::GNDStk::Child<
       std::string,
       njoy::GNDStk::Allow::one,
       njoy::GNDStk::detail::text_metadatum_to_string
    >
-   cdata(njoy::GNDStk::special::cdata);
+   CDATA(njoy::GNDStk::special::cdata);
 } // namespace child
 
 using namespace meta;

@@ -101,15 +101,15 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
       // Special cases
       // ------------------------
 
-      // *** CDATA/TEXT
-      // *** COMMENT/TEXT
+      // *** #cdata/#text
+      // *** #comment/#text
       if ((parent == special::cdata ||
            parent == special::comment) && key == special::text) {
          hdf5.createAttribute(key,value); // just a simple string attribute
          continue;
       }
 
-      // *** DATA/TEXT
+      // *** #data/#text
       if (parent == special::data && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
@@ -127,7 +127,7 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
          continue;
       }
 
-      // *** key/TEXT not expected, except as already handled
+      // *** key/#text not expected, except as already handled
       if (key == special::text) {
          log::warning("Metadatum \"{}\" not expected here; writing anyway",
                       special::text);
@@ -178,7 +178,7 @@ void meta2hdf5(
    const std::string &base,
    const std::string &digits
 ) {
-   // Create NODENAME iff necessary. See remarks in the analogous JSON code.
+   // Create #nodename iff necessary. See remarks in the analogous JSON code.
    if (digits != "" &&
       !beginsin(base,std::string(1,special::prefix)))
       hdf5.createAttribute(special::nodename, node.name);
@@ -198,7 +198,7 @@ void meta2hdf5(
 // hdf5_reduce_cdata_comment
 // ------------------------
 
-// Simplify certain CDATA and COMMENT cases.
+// Simplify certain #cdata and #comment cases.
 template<class NODE, class OBJECT>
 bool hdf5_reduce_cdata_comment(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
@@ -206,15 +206,15 @@ bool hdf5_reduce_cdata_comment(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // CDATA or COMMENT
-   //    TEXT the only metadatum
+   // #cdata or #comment
+   //    #text the only metadatum
    //    no children
-   // Reduce to: string attribute, w/name == (CDATA or COMMENT) + suffix
+   // Reduce to: string attribute, w/name == (#cdata or #comment) + suffix
    // Sketch:
-   //    +---------------+     +-----------+
-   //    | CDATA/COMMENT | ==> | Attribute | name: CDATA/COMMENT + suffix
-   //    |    TEXT       |     |    value  |
-   //    +---------------+     +-----------+
+   //    +-----------------+     +-----------+
+   //    | #cdata/#comment | ==> | Attribute | name: #cdata/#comment + suffix
+   //    |    #text        |     |    value  |
+   //    +-----------------+     +-----------+
 
    if (
       (nameOriginal == special::cdata || nameOriginal == special::comment) &&
@@ -235,7 +235,7 @@ bool hdf5_reduce_cdata_comment(
 // hdf5_reduce_data
 // ------------------------
 
-// Simplify DATA case.
+// Simplify #data case.
 template<class NODE, class OBJECT>
 bool hdf5_reduce_data(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
@@ -243,15 +243,15 @@ bool hdf5_reduce_data(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // DATA
-   //    TEXT the only metadatum
+   // #data
+   //    #text the only metadatum
    //    no children
-   // Reduce to: data set, w/name == DATA + suffix
+   // Reduce to: data set, w/name == #data + suffix
    // Sketch:
-   //    +---------+     +---------+
-   //    | DATA    | ==> | DataSet | name: DATA + suffix
-   //    |    TEXT |     |    data |
-   //    +---------+     +---------+
+   //    +----------+     +---------+
+   //    | #data    | ==> | DataSet | name: #data + suffix
+   //    |    #text |     |    data |
+   //    +----------+     +---------+
 
    if (nameOriginal == special::data &&
        node.children.size() == 0 &&
@@ -274,23 +274,23 @@ bool hdf5_reduce_data(
 // hdf5_reduce_data_metadata
 // ------------------------
 
-// Simplify case of node with DATA AND metadata
+// Simplify case of node with #data AND metadata
 template<class NODE, class OBJECT>
 bool hdf5_reduce_data_metadata(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
 ) {
    // name (think e.g. "values", as in XML <values>)
    //    any number of metadata (possibly 0)
-   //    DATA the only child
-   //       TEXT the only metadatum
+   //    #data the only child
+   //       #text the only metadatum
    //       no children
    // Reduce to: data set, w/name == name + suffix
    // Sketch:
    //    +---------------+     +----------------+
    //    | name          | ==> | DataSet        | name: name + suffix
    //    |    [metadata] |     |   [Attributes] |
-   //    |    DATA       |     |    data        |
-   //    |       TEXT    |     +----------------+
+   //    |    #data      |     |    data        |
+   //    |       #text   |     +----------------+
    //    |       -       |
    //    +---------------+
 

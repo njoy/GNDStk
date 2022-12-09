@@ -195,7 +195,7 @@ SCENARIO("Testing GNDStk Node child()") {
             basic::child::reactionSuite,
             basic::child::documentations,
             basic::child::documentation,
-            misc::child::cdata
+            misc::child::CDATA
          );
          CHECK(0 == strncmp(descr.data(), "\n  8-O - 16 LANL", 16));
       }

@@ -18,7 +18,7 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
          documentations,
          documentation,
          CDATA,
-         text
+         TEXT
       );
       CHECK(thedocs.size() == 46742);
 
@@ -102,7 +102,7 @@ SCENARIO("Testing certain special functions in GNDStk Node") {
          ).one("values");
          const auto &constvalnode = valnode;
 
-         const std::string vals = valnode(DATA,text);
+         const std::string vals = valnode(DATA,TEXT);
          CHECK(vals.size() == 70254);
 
          CHECK(valnode.data() == vals);

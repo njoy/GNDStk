@@ -203,23 +203,23 @@ bool hdf52node(
    if (!atRoot) {
       for (const std::string &attrName : group.listAttributeNames()) {
          if (attrName == special::nodename) {
-            // NODENAME
+            // #nodename
             // Handled not as a regular attribute, but as the present node's
             // true name. The following line is basically a compressed version
             // of attr2node<std::string> (see early in this file). It assumes,
-            // in short, that this NODENAME attribute is one (not a vector of)
+            // in short, that this #nodename attribute is one (not a vector of)
             // T == std::string. And that's precisely what it should be, given
-            // how GNDStk creates NODENAME attributes in the first place.
+            // how GNDStk creates #nodename attributes in the first place.
             group.getAttribute(attrName).read(node.name);
          } else if (beginsin(attrName,special::cdata)) {
-            // CDATA, possibly with a numeric suffix
-            // Expand into a child node CDATA with a TEXT attribute.
+            // #cdata, possibly with a numeric suffix
+            // Expand into a child node #cdata with a #text attribute.
             std::string value;
             group.getAttribute(attrName).read(value);
             node.add(special::cdata).add(special::text,value);
          } else if (beginsin(attrName,special::comment)) {
-            // COMMENT, possibly with a numeric suffix
-            // Expand into a child node COMMENT with a TEXT attribute.
+            // #comment, possibly with a numeric suffix
+            // Expand into a child node #comment with a #text attribute.
             std::string value;
             group.getAttribute(attrName).read(value);
             node.add(special::comment).add(special::text,value);
