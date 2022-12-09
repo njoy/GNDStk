@@ -318,15 +318,15 @@ private:
 #ifdef _OPENMP
    bool readOpenMP(const std::string &str, std::vector<REAL> &vec) const
    {
-      // String size.
-      const std::size_t size = str.size();
-
       // Number of threads.
       // If there's just *one* thread, then we certainly won't bother with the
       // overhead of using OpenMP. Instead, we'll return to the serial read().
       const int nthreads = detail::get_nthreads();
       if (nthreads == 1)
          return false;
+
+      // String size.
+      const std::size_t size = str.size();
 
       // Assume, as a approximation that probably isn't too terrible, that the
       // printed floating-point numbers in the input string average around some
@@ -338,23 +338,22 @@ private:
       // this computation. It also might be worth considering the actual number
       // of threads, as computed above - and possibly, in borderline situations,
       // reducing the number of threads but still using more than just one.
-      static const std::size_t NCHARS = 10;
-      static const std::size_t MINFLOATS = 200;
+      static const std::size_t NCHARS = 10, MINFLOATS = 200;
       if (size/NCHARS < MINFLOATS)
          return false;
 
       // Compute an approximate splitting of the input string into substrings,
       // each to be handled by a different thread.
       std::vector<const char *> loc;
+      loc.reserve(nthreads+1);
       for (int t = 0; t < nthreads; ++t)
          loc.push_back(&str[t*(size/nthreads)]);
-      loc.push_back(&str[size]); // simplifies logic below
+      loc.push_back(&str[size]); // simplifies some logic below
 
       // Refine the approximate splitting so that borders occur at whitespace.
       for (int t = 1; t < nthreads; ++t) {
-         const char *const prev = loc[t-1];
-         while (prev < loc[t] && !isspace(*(loc[t]  ))) loc[t]--;
-         while (prev < loc[t] &&  isspace(*(loc[t]-1))) loc[t]--;
+         while (loc[t-1] < loc[t] && !isspace(*(loc[t]  ))) loc[t]--;
+         while (loc[t-1] < loc[t] &&  isspace(*(loc[t]-1))) loc[t]--;
       }
 
       // Set number of threads
@@ -368,28 +367,24 @@ private:
             {
                const int t = detail::this_thread();
                char *end = (char *)loc[t];
+               REAL element;
 
                for (const char *begin = end; end < loc[t+1]; begin = end+1) {
-                  REAL element;
-
                   if constexpr (std::is_same_v<REAL,float>)
-                     element = strtof (begin,&end);
+                     if (element = strtof (begin,&end), end <= begin) break;
                   if constexpr (std::is_same_v<REAL,double>)
-                     element = strtod (begin,&end);
+                     if (element = strtod (begin,&end), end <= begin) break;
                   if constexpr (std::is_same_v<REAL,long double>)
-                     element = strtold(begin,&end);
-
-                  if (!(begin < end))
-                     break;
+                     if (element = strtold(begin,&end), end <= begin) break;
                   subvec[t].push_back(element);
                }
             }
 
             // Splice the per-thread vectors; then we're done
-            std::size_t total = 0;
+            std::size_t total = vec.size(); // vec wasn't necessarily cleared
             for (int t = 0; t < nthreads; ++t)
                total += subvec[t].size();
-            vec.reserve(vec.size() + total);
+            vec.reserve(total);
             for (int t = 0; t < nthreads; ++t)
                vec.insert(vec.end(), subvec[t].begin(), subvec[t].end());
             return true;
@@ -397,7 +392,7 @@ private:
          // Fall through...
       }
 
-      // todo Implement support for other than PrecisionType::strto
+      // todo Implement parallel support for other than PrecisionType::strto
       return false;
    }
    #endif // #ifdef _OPENMP
@@ -418,9 +413,7 @@ public:
       if (clear)
          vec.clear();
 
-      // If the string is empty, there's nothing more to do. Note that some
-      // constructs we'll use (e.g. str.back()) actually require a non-empty
-      // string, so here we dispose of the empty case immediately.
+      // If the string is empty, there's nothing more to do.
       if (str.size() == 0)
          return;
 
