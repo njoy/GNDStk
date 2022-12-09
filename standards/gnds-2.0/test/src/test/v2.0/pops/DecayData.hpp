@@ -34,10 +34,8 @@ class DecayData : public Component<pops::DecayData> {
    {
       return
          // children
-         std::optional<pops::DecayModes>{}
-            / --Child<>("decayModes") |
-         std::optional<pops::AverageEnergies>{}
-            / --Child<>("averageEnergies")
+         --Child<std::optional<pops::DecayModes>>("decayModes") |
+         --Child<std::optional<pops::AverageEnergies>>("averageEnergies")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->decayModes, \
       this->averageEnergies)
 
-   // default, and from fields
+   // default
+   DecayData() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DecayData(
-      const wrapper<std::optional<pops::DecayModes>> &decayModes = {},
+      const wrapper<std::optional<pops::DecayModes>> &decayModes,
       const wrapper<std::optional<pops::AverageEnergies>> &averageEnergies = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    DecayData(const DecayData &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      decayModes(this,other.decayModes),
+      averageEnergies(this,other.averageEnergies)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DecayData(DecayData &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      decayModes(this,std::move(other.decayModes)),
+      averageEnergies(this,std::move(other.averageEnergies))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

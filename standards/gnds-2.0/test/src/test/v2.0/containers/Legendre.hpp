@@ -44,8 +44,7 @@ class Legendre : public Component<containers::Legendre> {
          Defaulted<Float64>{1.0}
             / Meta<>("domainMax") |
          // children
-         containers::Values{}
-            / --Child<>("values")
+         --Child<containers::Values>("values")
       ;
    }
 
@@ -81,10 +80,17 @@ public:
       this->domainMax, \
       this->values)
 
-   // default, and from fields
+   // default
+   Legendre() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Legendre(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<Integer32>> &lowerIndex = {},
       const wrapper<std::optional<Float64>> &domainMin = {},
@@ -111,17 +117,27 @@ public:
 
    // copy
    Legendre(const Legendre &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      lowerIndex(this,other.lowerIndex),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      values(this,other.values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Legendre(Legendre &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      lowerIndex(this,std::move(other.lowerIndex)),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      values(this,std::move(other.values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

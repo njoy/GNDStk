@@ -36,8 +36,7 @@ class ExternalRMatrix : public Component<resonances::ExternalRMatrix> {
          Defaulted<XMLName>{"Froehner"}
             / Meta<>("type") |
          // children
-         containers::Double{}
-            / ++Child<>("Double")
+         ++Child<containers::Double>("double")
       ;
    }
 
@@ -63,10 +62,17 @@ public:
       this->type, \
       this->Double)
 
-   // default, and from fields
+   // default
+   ExternalRMatrix() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit ExternalRMatrix(
-      const wrapper<std::optional<XMLName>> &type = {},
+      const wrapper<std::optional<XMLName>> &type,
       const wrapper<std::vector<containers::Double>> &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -85,17 +91,19 @@ public:
 
    // copy
    ExternalRMatrix(const ExternalRMatrix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      type(this,other.type),
+      Double(this,other.Double)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ExternalRMatrix(ExternalRMatrix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      type(this,std::move(other.type)),
+      Double(this,std::move(other.Double))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

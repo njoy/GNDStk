@@ -46,8 +46,7 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
          std::optional<enums::Interaction>{}
             / Meta<>("interaction") |
          // children
-         std::optional<transport::Reactions>{}
-            / --Child<>("reactions")
+         --Child<std::optional<transport::Reactions>>("reactions")
       ;
    }
 
@@ -78,9 +77,16 @@ public:
       this->interaction, \
       this->reactions)
 
-   // default, and from fields
+   // default
+   ReactionSuite() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ReactionSuite(
-      const wrapper<std::string> &evaluation = {},
+      const wrapper<std::string> &evaluation,
       const wrapper<std::string> &format = {},
       const wrapper<std::string> &projectile = {},
       const wrapper<enums::Frame> &projectileFrame = {},
@@ -109,17 +115,29 @@ public:
 
    // copy
    ReactionSuite(const ReactionSuite &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluation(this,other.evaluation),
+      format(this,other.format),
+      projectile(this,other.projectile),
+      projectileFrame(this,other.projectileFrame),
+      target(this,other.target),
+      interaction(this,other.interaction),
+      reactions(this,other.reactions)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ReactionSuite(ReactionSuite &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluation(this,std::move(other.evaluation)),
+      format(this,std::move(other.format)),
+      projectile(this,std::move(other.projectile)),
+      projectileFrame(this,std::move(other.projectileFrame)),
+      target(this,std::move(other.target)),
+      interaction(this,std::move(other.interaction)),
+      reactions(this,std::move(other.reactions))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

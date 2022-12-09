@@ -2967,9 +2967,9 @@ void fileCInterfaceHeader(
    hdr("// Instructions for Users");
    hdr("//");
    hdr("// Constructs you're MORE likely to care about are preceded with:");
-   hdr("//    // +++ comment");
+   hdr("//    // +++ remark");
    hdr("// Constructs you're LESS likely to care about are preceded with:");
-   hdr("//    // --- comment");
+   hdr("//    // --- remark");
    hdr("// Anything not marked as above can be ignored by most users.");
    hdr("//");
    hdr("// @ is the basic handle type in this file. Example:", per.clname);

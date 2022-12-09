@@ -46,12 +46,9 @@ class Polynomial1d : public Component<containers::Polynomial1d> {
          Float64{}
             / Meta<>("domainMax") |
          // children
-         containers::Axes{}
-            / --Child<>("axes") |
-         std::optional<extra::Uncertainty>{}
-            / --Child<>("uncertainty") |
-         containers::Values{}
-            / --Child<>("values")
+         --Child<containers::Axes>("axes") |
+         --Child<std::optional<extra::Uncertainty>>("uncertainty") |
+         --Child<containers::Values>("values")
       ;
    }
 
@@ -89,10 +86,17 @@ public:
       this->uncertainty, \
       this->values)
 
-   // default, and from fields
+   // default
+   Polynomial1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Polynomial1d(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<Integer32>> &lowerIndex = {},
       const wrapper<Float64> &domainMin = {},
@@ -123,17 +127,31 @@ public:
 
    // copy
    Polynomial1d(const Polynomial1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      lowerIndex(this,other.lowerIndex),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      axes(this,other.axes),
+      uncertainty(this,other.uncertainty),
+      values(this,other.values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Polynomial1d(Polynomial1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      lowerIndex(this,std::move(other.lowerIndex)),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      axes(this,std::move(other.axes)),
+      uncertainty(this,std::move(other.uncertainty)),
+      values(this,std::move(other.values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

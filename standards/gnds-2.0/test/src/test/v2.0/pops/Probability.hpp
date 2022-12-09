@@ -33,8 +33,7 @@ class Probability : public Component<pops::Probability> {
    {
       return
          // children
-         containers::Double{}
-            / ++Child<>("Double")
+         ++Child<containers::Double>("double")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->Double)
 
-   // default, and from fields
+   // default
+   Probability() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Probability(
-      const wrapper<std::vector<containers::Double>> &Double = {}
+      const wrapper<std::vector<containers::Double>> &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Probability(const Probability &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,other.Double)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Probability(Probability &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,std::move(other.Double))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

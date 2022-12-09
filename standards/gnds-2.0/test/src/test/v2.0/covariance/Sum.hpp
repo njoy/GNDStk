@@ -42,8 +42,7 @@ class Sum : public Component<covariance::Sum> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         std::optional<covariance::Summand>{}
-            / ++Child<>("summand")
+         ++Child<std::optional<covariance::Summand>>("summand")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->label, \
       this->summand)
 
-   // default, and from fields
+   // default
+   Sum() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Sum(
-      const wrapper<Float64> &domainMin = {},
+      const wrapper<Float64> &domainMin,
       const wrapper<Float64> &domainMax = {},
       const wrapper<XMLName> &domainUnit = {},
       const wrapper<std::optional<XMLName>> &label = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    Sum(const Sum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      domainUnit(this,other.domainUnit),
+      label(this,other.label),
+      summand(this,other.summand)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Sum(Sum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      domainUnit(this,std::move(other.domainUnit)),
+      label(this,std::move(other.label)),
+      summand(this,std::move(other.summand))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class DecayPath : public Component<pops::DecayPath> {
    {
       return
          // children
-         pops::Decay{}
-            / ++Child<>("decay")
+         ++Child<pops::Decay>("decay")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->decay)
 
-   // default, and from fields
+   // default
+   DecayPath() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DecayPath(
-      const wrapper<std::vector<pops::Decay>> &decay = {}
+      const wrapper<std::vector<pops::Decay>> &decay
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       decay(this,decay)
@@ -70,17 +76,17 @@ public:
 
    // copy
    DecayPath(const DecayPath &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      decay(this,other.decay)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DecayPath(DecayPath &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      decay(this,std::move(other.decay))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

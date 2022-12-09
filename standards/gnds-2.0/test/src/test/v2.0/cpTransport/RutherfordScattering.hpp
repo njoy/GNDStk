@@ -61,7 +61,6 @@ public:
    RutherfordScattering(const RutherfordScattering &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      *this = other;
       Component::finish(other);
    }
 
@@ -69,7 +68,6 @@ public:
    RutherfordScattering(RutherfordScattering &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

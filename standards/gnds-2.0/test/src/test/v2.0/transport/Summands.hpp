@@ -33,8 +33,7 @@ class Summands : public Component<transport::Summands> {
    {
       return
          // children
-         std::optional<transport::Add>{}
-            / ++Child<>("add")
+         ++Child<std::optional<transport::Add>>("add")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->add)
 
-   // default, and from fields
+   // default
+   Summands() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Summands(
-      const wrapper<std::optional<std::vector<transport::Add>>> &add = {}
+      const wrapper<std::optional<std::vector<transport::Add>>> &add
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       add(this,add)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Summands(const Summands &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      add(this,other.add)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Summands(Summands &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      add(this,std::move(other.add))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

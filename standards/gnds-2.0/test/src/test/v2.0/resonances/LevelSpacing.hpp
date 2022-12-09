@@ -35,12 +35,9 @@ class LevelSpacing : public Component<resonances::LevelSpacing> {
    {
       return
          // children
-         std::optional<containers::Constant1d>{}
-            / --Child<>("constant1d") |
-         std::optional<containers::XYs1d>{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Regions1d>{}
-            / --Child<>("regions1d")
+         --Child<std::optional<containers::Constant1d>>("constant1d") |
+         --Child<std::optional<containers::XYs1d>>("XYs1d") |
+         --Child<std::optional<containers::Regions1d>>("regions1d")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->XYs1d, \
       this->regions1d)
 
-   // default, and from fields
+   // default
+   LevelSpacing() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit LevelSpacing(
-      const wrapper<std::optional<containers::Constant1d>> &constant1d = {},
+      const wrapper<std::optional<containers::Constant1d>> &constant1d,
       const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
       const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    LevelSpacing(const LevelSpacing &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      constant1d(this,other.constant1d),
+      XYs1d(this,other.XYs1d),
+      regions1d(this,other.regions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    LevelSpacing(LevelSpacing &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      constant1d(this,std::move(other.constant1d)),
+      XYs1d(this,std::move(other.XYs1d)),
+      regions1d(this,std::move(other.regions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

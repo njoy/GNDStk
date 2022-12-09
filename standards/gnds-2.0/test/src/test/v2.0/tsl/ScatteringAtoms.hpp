@@ -33,8 +33,7 @@ class ScatteringAtoms : public Component<tsl::ScatteringAtoms> {
    {
       return
          // children
-         tsl::ScatteringAtom{}
-            / ++Child<>("scatteringAtom")
+         ++Child<tsl::ScatteringAtom>("scatteringAtom")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->scatteringAtom)
 
-   // default, and from fields
+   // default
+   ScatteringAtoms() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ScatteringAtoms(
-      const wrapper<std::vector<tsl::ScatteringAtom>> &scatteringAtom = {}
+      const wrapper<std::vector<tsl::ScatteringAtom>> &scatteringAtom
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       scatteringAtom(this,scatteringAtom)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ScatteringAtoms(const ScatteringAtoms &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      scatteringAtom(this,other.scatteringAtom)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ScatteringAtoms(ScatteringAtoms &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      scatteringAtom(this,std::move(other.scatteringAtom))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

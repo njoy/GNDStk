@@ -33,8 +33,7 @@ class Nuclides : public Component<pops::Nuclides> {
    {
       return
          // children
-         pops::Nuclide{}
-            / ++Child<>("nuclide")
+         ++Child<pops::Nuclide>("nuclide")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->nuclide)
 
-   // default, and from fields
+   // default
+   Nuclides() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Nuclides(
-      const wrapper<std::vector<pops::Nuclide>> &nuclide = {}
+      const wrapper<std::vector<pops::Nuclide>> &nuclide
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclide(this,nuclide)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Nuclides(const Nuclides &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      nuclide(this,other.nuclide)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Nuclides(Nuclides &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      nuclide(this,std::move(other.nuclide))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -75,9 +75,16 @@ public:
       this->checksum, \
       this->algorithm)
 
-   // default, and from fields
+   // default
+   Protare() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Protare(
-      const wrapper<XMLName> &projectile = {},
+      const wrapper<XMLName> &projectile,
       const wrapper<XMLName> &target = {},
       const wrapper<XMLName> &evaluation = {},
       const wrapper<XMLName> &path = {},
@@ -106,17 +113,29 @@ public:
 
    // copy
    Protare(const Protare &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      projectile(this,other.projectile),
+      target(this,other.target),
+      evaluation(this,other.evaluation),
+      path(this,other.path),
+      interaction(this,other.interaction),
+      checksum(this,other.checksum),
+      algorithm(this,other.algorithm)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Protare(Protare &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      projectile(this,std::move(other.projectile)),
+      target(this,std::move(other.target)),
+      evaluation(this,std::move(other.evaluation)),
+      path(this,std::move(other.path)),
+      interaction(this,std::move(other.interaction)),
+      checksum(this,std::move(other.checksum)),
+      algorithm(this,std::move(other.algorithm))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

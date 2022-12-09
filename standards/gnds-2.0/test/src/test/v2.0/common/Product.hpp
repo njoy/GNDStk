@@ -39,10 +39,8 @@ class Product : public Component<common::Product> {
          XMLName{}
             / Meta<>("pid") |
          // children
-         transport::Multiplicity{}
-            / --Child<>("multiplicity") |
-         transport::Distribution{}
-            / --Child<>("distribution")
+         --Child<transport::Multiplicity>("multiplicity") |
+         --Child<transport::Distribution>("distribution")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->multiplicity, \
       this->distribution)
 
-   // default, and from fields
+   // default
+   Product() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Product(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &pid = {},
       const wrapper<transport::Multiplicity> &multiplicity = {},
       const wrapper<transport::Distribution> &distribution = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Product(const Product &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      pid(this,other.pid),
+      multiplicity(this,other.multiplicity),
+      distribution(this,other.distribution)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Product(Product &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      multiplicity(this,std::move(other.multiplicity)),
+      distribution(this,std::move(other.distribution))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

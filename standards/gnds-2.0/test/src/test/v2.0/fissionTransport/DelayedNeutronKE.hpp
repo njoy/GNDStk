@@ -34,10 +34,8 @@ class DelayedNeutronKE : public Component<fissionTransport::DelayedNeutronKE> {
    {
       return
          // children
-         std::optional<containers::XYs1d>{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Polynomial1d>{}
-            / --Child<>("polynomial1d")
+         --Child<std::optional<containers::XYs1d>>("XYs1d") |
+         --Child<std::optional<containers::Polynomial1d>>("polynomial1d")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->XYs1d, \
       this->polynomial1d)
 
-   // default, and from fields
+   // default
+   DelayedNeutronKE() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DelayedNeutronKE(
-      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d,
       const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    DelayedNeutronKE(const DelayedNeutronKE &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,other.XYs1d),
+      polynomial1d(this,other.polynomial1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DelayedNeutronKE(DelayedNeutronKE &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,std::move(other.XYs1d)),
+      polynomial1d(this,std::move(other.polynomial1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

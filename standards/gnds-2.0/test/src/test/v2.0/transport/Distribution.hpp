@@ -101,9 +101,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d)
 
-   // default, and from fields
+   // default
+   Distribution() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Distribution(
-      const wrapper<_t> &_angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d = {}
+      const wrapper<_t> &_angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(this,_angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d)
@@ -120,17 +127,17 @@ public:
 
    // copy
    Distribution(const Distribution &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(this,other._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Distribution(Distribution &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(this,std::move(other._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

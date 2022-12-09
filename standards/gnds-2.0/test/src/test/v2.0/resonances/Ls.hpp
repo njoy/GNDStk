@@ -33,8 +33,7 @@ class Ls : public Component<resonances::Ls> {
    {
       return
          // children
-         resonances::L{}
-            / ++Child<>("L")
+         ++Child<resonances::L>("L")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->L)
 
-   // default, and from fields
+   // default
+   Ls() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Ls(
-      const wrapper<std::vector<resonances::L>> &L = {}
+      const wrapper<std::vector<resonances::L>> &L
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       L(this,L)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Ls(const Ls &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      L(this,other.L)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Ls(Ls &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      L(this,std::move(other.L))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

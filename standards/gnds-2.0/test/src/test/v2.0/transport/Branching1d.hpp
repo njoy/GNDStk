@@ -51,9 +51,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->label)
 
-   // default, and from fields
+   // default
+   Branching1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Branching1d(
-      const wrapper<XMLName> &label = {}
+      const wrapper<XMLName> &label
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label)
@@ -70,17 +77,17 @@ public:
 
    // copy
    Branching1d(const Branching1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Branching1d(Branching1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -51,9 +51,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->href)
 
-   // default, and from fields
+   // default
+   Add() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Add(
-      const wrapper<std::optional<std::string>> &href = {}
+      const wrapper<std::optional<std::string>> &href
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)
@@ -70,17 +77,17 @@ public:
 
    // copy
    Add(const Add &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Add(Add &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

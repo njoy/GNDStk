@@ -41,10 +41,8 @@ class GriddedCrossSection : public Component<styles::GriddedCrossSection> {
          XMLName{}
             / Meta<>("label") |
          // children
-         containers::Grid{}
-            / --Child<>("grid") |
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<containers::Grid>("grid") |
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->grid, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   GriddedCrossSection() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit GriddedCrossSection(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<containers::Grid> &grid = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    GriddedCrossSection(const GriddedCrossSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      grid(this,other.grid),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    GriddedCrossSection(GriddedCrossSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      grid(this,std::move(other.grid)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

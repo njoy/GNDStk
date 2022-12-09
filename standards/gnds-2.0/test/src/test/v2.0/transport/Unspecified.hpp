@@ -55,9 +55,16 @@ public:
       this->label, \
       this->productFrame)
 
-   // default, and from fields
+   // default
+   Unspecified() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Unspecified(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    Unspecified(const Unspecified &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Unspecified(Unspecified &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

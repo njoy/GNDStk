@@ -55,9 +55,16 @@ public:
       this->flags, \
       this->href)
 
-   // default, and from fields
+   // default
+   Conversion() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Conversion(
-      const wrapper<std::optional<XMLName>> &flags = {},
+      const wrapper<std::optional<XMLName>> &flags,
       const wrapper<std::optional<std::string>> &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    Conversion(const Conversion &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      flags(this,other.flags),
+      href(this,other.href)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Conversion(Conversion &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      flags(this,std::move(other.flags)),
+      href(this,std::move(other.href))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

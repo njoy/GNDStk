@@ -134,14 +134,14 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
          continue;
       }
 
-      // *** PCDATA/TEXT
+      // *** DATA/TEXT
       // ACTION: Apply our type-guessing code, but write *vectors* only, never
       // scalars. So, <values>10</values> produces a vector with one element,
       // NOT a scalar; while <values>10 20 30</values> produces a vector with
       // three elements. What may look like scalars are made into vectors
-      // because we think this reflects what these (PCDATA) nodes are intended
+      // because we think this reflects what these (DATA) nodes are intended
       // to represent. (If something was really just a scalar, then surely it
-      // would be placed into standard metadata (in <...>), not into PCDATA.
+      // would be placed into standard metadata (in <...>), not into DATA.
       if (parent == special::data && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
@@ -221,7 +221,7 @@ void meta2json(
 ) {
    // Create NODENAME iff necessary, to allow recovery of the node's original
    // name. Note that NODENAME is not necessary for special nodes, in particular
-   // CDATA, PCDATA, and COMMENT. For those, we can reliably reconstruct the
+   // CDATA, DATA, and COMMENT. For those, we can reliably reconstruct the
    // original name by removing trailing digits. A regular node, in contrast,
    // *might* have an actual name that has trailing digits (one user called a
    // node "sigma0", for example); or, trailing digits might have been added -
@@ -296,7 +296,7 @@ bool json_reduce_cdata_comment(
 // json_reduce_data
 // ------------------------
 
-// Simplify PCDATA case.
+// Simplify DATA case.
 template<class NODE>
 bool json_reduce_data(
    const NODE &node, orderedJSON &json, const std::string &digits
@@ -304,13 +304,13 @@ bool json_reduce_data(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + digits;
 
-   // PCDATA
+   // DATA
    //    TEXT the only metadatum
    //    no children
-   // Reduce to: array, w/name == PCDATA + digits
+   // Reduce to: array, w/name == DATA + digits
    // Sketch:
    //    +---------+     +----------+
-   //    | PCDATA  | ==> | "name" : | name: PCDATA + digits
+   //    | DATA    | ==> | "name" : | name: DATA + digits
    //    |    TEXT |     |    [...] |
    //    +---------+     +----------+
 
@@ -319,20 +319,20 @@ bool json_reduce_data(
        node.metadata.size() == 1 &&
        node.metadata[0].first == special::text
    ) {
-      // Remark. This case (basically, PCDATA/TEXT) may look superficially
+      // Remark. This case (basically, DATA/TEXT) may look superficially
       // like it would have been handled, in the case immediately below here,
       // in the previous (next-up) recurse of the node2json() function. Often
-      // it would have, but not always. Later, name/PCDATA/TEXT (three
+      // it would have, but not always. Later, name/DATA/TEXT (three
       // levels, so to speak) reduces to one level (name : [...]), but
-      // only if name has ONE child - the PCDATA. That's true when we
-      // have (in XML) something like <values>1 2 3</values>, as the pcdata,
+      // only if name has ONE child - the DATA. That's true when we
+      // have (in XML) something like <values>1 2 3</values>, as the data,
       // i.e. the 1 2 3 part, is <values>' only child node. However, it's
       // actually possible (though I don't see it in current GNDS files) to
       // have something like: <values><foo></foo>1 2 3</values>. There, the
-      // outer "name" node (<value>) has child foo and child PCDATA, and
-      // thus can't be reduced in the manner that's done if only PCDATA is
+      // outer "name" node (<value>) has child foo and child DATA, and
+      // thus can't be reduced in the manner that's done if only DATA is
       // there. In short, then, the present situation comes to pass if and
-      // when PCDATA has sibling nodes.
+      // when DATA has sibling nodes.
 
       // JSON array
       data2Value(nameSuffixed, node.metadata[0].second, json);
@@ -347,7 +347,7 @@ bool json_reduce_data(
 // json_reduce_data_metadata
 // ------------------------
 
-// Simplify case of node with PCDATA AND metadata
+// Simplify case of node with DATA AND metadata
 template<class NODE>
 bool json_reduce_data_metadata(
    const NODE &node, orderedJSON &json, const std::string &digits
@@ -356,7 +356,7 @@ bool json_reduce_data_metadata(
 
    // name (think e.g. "values", as in XML <values>)
    //    any number of metadata (possibly 0)
-   //    PCDATA the only child
+   //    DATA the only child
    //       TEXT the only metadatum
    //       no children
    // Reduce to: array, w/name == name + digits; separately encoded metadata
@@ -364,7 +364,7 @@ bool json_reduce_data_metadata(
    //    +---------------+     +---------------------+
    //    | name          | ==> | "name" :            | name: name + digits
    //    |    [metadata] |     |    [...]            |
-   //    |    PCDATA     |     | "nameMETADATA" : {  |
+   //    |    DATA       |     | "nameMETADATA" : {  |
    //    |       TEXT    |     |    key/value pairs  |
    //    |       -       |     | }                   |
    //    +---------------+     +---------------------+

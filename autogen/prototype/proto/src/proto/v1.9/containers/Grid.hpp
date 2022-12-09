@@ -87,10 +87,17 @@ public:
       this->unit, \
       this->link_values)
 
-   // default, and from fields
+   // default
+   Grid() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Grid(
-      const wrapper<std::optional<int>> &index = {},
+      const wrapper<std::optional<int>> &index,
       const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
       const wrapper<std::optional<std::string>> &label = {},
       const wrapper<std::optional<enums::GridStyle>> &style = {},
@@ -117,17 +124,27 @@ public:
 
    // copy
    Grid(const Grid &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      interpolation(this,other.interpolation),
+      label(this,other.label),
+      style(this,other.style),
+      unit(this,other.unit),
+      link_values(this,other.link_values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Grid(Grid &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      interpolation(this,std::move(other.interpolation)),
+      label(this,std::move(other.label)),
+      style(this,std::move(other.style)),
+      unit(this,std::move(other.unit)),
+      link_values(this,std::move(other.link_values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

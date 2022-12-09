@@ -109,7 +109,7 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
          continue;
       }
 
-      // *** PCDATA/TEXT
+      // *** DATA/TEXT
       if (parent == special::data && key == special::text) {
          const std::string type = guessType(value);
          if (type == "int" || type == "ints")
@@ -235,7 +235,7 @@ bool hdf5_reduce_cdata_comment(
 // hdf5_reduce_data
 // ------------------------
 
-// Simplify PCDATA case.
+// Simplify DATA case.
 template<class NODE, class OBJECT>
 bool hdf5_reduce_data(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
@@ -243,13 +243,13 @@ bool hdf5_reduce_data(
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + suffix;
 
-   // PCDATA
+   // DATA
    //    TEXT the only metadatum
    //    no children
-   // Reduce to: data set, w/name == PCDATA + suffix
+   // Reduce to: data set, w/name == DATA + suffix
    // Sketch:
    //    +---------+     +---------+
-   //    | PCDATA  | ==> | DataSet | name: PCDATA + suffix
+   //    | DATA    | ==> | DataSet | name: DATA + suffix
    //    |    TEXT |     |    data |
    //    +---------+     +---------+
 
@@ -274,14 +274,14 @@ bool hdf5_reduce_data(
 // hdf5_reduce_data_metadata
 // ------------------------
 
-// Simplify case of node with PCDATA AND metadata
+// Simplify case of node with DATA AND metadata
 template<class NODE, class OBJECT>
 bool hdf5_reduce_data_metadata(
    const NODE &node, OBJECT &hdf5, const std::string &suffix
 ) {
    // name (think e.g. "values", as in XML <values>)
    //    any number of metadata (possibly 0)
-   //    PCDATA the only child
+   //    DATA the only child
    //       TEXT the only metadatum
    //       no children
    // Reduce to: data set, w/name == name + suffix
@@ -289,7 +289,7 @@ bool hdf5_reduce_data_metadata(
    //    +---------------+     +----------------+
    //    | name          | ==> | DataSet        | name: name + suffix
    //    |    [metadata] |     |   [Attributes] |
-   //    |    PCDATA     |     |    data        |
+   //    |    DATA       |     |    data        |
    //    |       TEXT    |     +----------------+
    //    |       -       |
    //    +---------------+

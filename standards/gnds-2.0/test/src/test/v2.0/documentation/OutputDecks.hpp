@@ -33,8 +33,7 @@ class OutputDecks : public Component<documentation::OutputDecks> {
    {
       return
          // children
-         documentation::OutputDeck{}
-            / ++Child<>("outputDeck")
+         ++Child<documentation::OutputDeck>("outputDeck")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->outputDeck)
 
-   // default, and from fields
+   // default
+   OutputDecks() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit OutputDecks(
-      const wrapper<std::vector<documentation::OutputDeck>> &outputDeck = {}
+      const wrapper<std::vector<documentation::OutputDeck>> &outputDeck
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       outputDeck(this,outputDeck)
@@ -70,17 +76,17 @@ public:
 
    // copy
    OutputDecks(const OutputDecks &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      outputDeck(this,other.outputDeck)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    OutputDecks(OutputDecks &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      outputDeck(this,std::move(other.outputDeck))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

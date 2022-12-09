@@ -48,10 +48,8 @@ class Halflife : public Component<pops::Halflife> {
          std::optional<XMLName>{}
             / Meta<>("value") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
-            / --Child<>("uncertainty") |
+         --Child<std::optional<documentation::Documentation>>("documentation") |
+         --Child<std::optional<pops::Uncertainty>>("uncertainty") |
          _t{}
             / --(Child<>("string") || Child<>("Double"))
       ;
@@ -86,9 +84,16 @@ public:
       this->uncertainty, \
       this->_stringDouble)
 
-   // default, and from fields
+   // default
+   Halflife() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Halflife(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<XMLName>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
@@ -115,17 +120,27 @@ public:
 
    // copy
    Halflife(const Halflife &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      unit(this,other.unit),
+      value(this,other.value),
+      documentation(this,other.documentation),
+      uncertainty(this,other.uncertainty),
+      _stringDouble(this,other._stringDouble)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Halflife(Halflife &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value)),
+      documentation(this,std::move(other.documentation)),
+      uncertainty(this,std::move(other.uncertainty)),
+      _stringDouble(this,std::move(other._stringDouble))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

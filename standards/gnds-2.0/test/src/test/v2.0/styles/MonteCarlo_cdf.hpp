@@ -40,8 +40,7 @@ class MonteCarlo_cdf : public Component<styles::MonteCarlo_cdf> {
          XMLName{}
             / Meta<>("label") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -66,9 +65,16 @@ public:
       this->label, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   MonteCarlo_cdf() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MonteCarlo_cdf(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {}
@@ -91,17 +97,23 @@ public:
 
    // copy
    MonteCarlo_cdf(const MonteCarlo_cdf &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MonteCarlo_cdf(MonteCarlo_cdf &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

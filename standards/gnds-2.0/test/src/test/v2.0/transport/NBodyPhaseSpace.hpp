@@ -36,8 +36,7 @@ class NBodyPhaseSpace : public Component<transport::NBodyPhaseSpace> {
          std::optional<Integer32>{}
             / Meta<>("numberOfProducts") |
          // children
-         std::optional<tsl::Mass>{}
-            / --Child<>("mass")
+         --Child<std::optional<tsl::Mass>>("mass")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->numberOfProducts, \
       this->mass)
 
-   // default, and from fields
+   // default
+   NBodyPhaseSpace() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit NBodyPhaseSpace(
-      const wrapper<std::optional<Integer32>> &numberOfProducts = {},
+      const wrapper<std::optional<Integer32>> &numberOfProducts,
       const wrapper<std::optional<tsl::Mass>> &mass = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    NBodyPhaseSpace(const NBodyPhaseSpace &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      numberOfProducts(this,other.numberOfProducts),
+      mass(this,other.mass)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    NBodyPhaseSpace(NBodyPhaseSpace &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      numberOfProducts(this,std::move(other.numberOfProducts)),
+      mass(this,std::move(other.mass))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

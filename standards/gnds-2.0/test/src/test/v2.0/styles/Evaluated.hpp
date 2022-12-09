@@ -46,12 +46,9 @@ class Evaluated : public Component<styles::Evaluated> {
          XMLName{}
             / Meta<>("version") |
          // children
-         styles::ProjectileEnergyDomain{}
-            / --Child<>("projectileEnergyDomain") |
-         styles::Temperature{}
-            / --Child<>("temperature") |
-         documentation::Documentation{}
-            / --Child<>("documentation")
+         --Child<styles::ProjectileEnergyDomain>("projectileEnergyDomain") |
+         --Child<styles::Temperature>("temperature") |
+         --Child<documentation::Documentation>("documentation")
       ;
    }
 
@@ -84,9 +81,16 @@ public:
       this->temperature, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   Evaluated() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Evaluated(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<XMLName>> &derivedFrom = {},
       const wrapper<XMLName> &library = {},
@@ -117,17 +121,31 @@ public:
 
    // copy
    Evaluated(const Evaluated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      label(this,other.label),
+      derivedFrom(this,other.derivedFrom),
+      library(this,other.library),
+      version(this,other.version),
+      projectileEnergyDomain(this,other.projectileEnergyDomain),
+      temperature(this,other.temperature),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Evaluated(Evaluated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      label(this,std::move(other.label)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      library(this,std::move(other.library)),
+      version(this,std::move(other.version)),
+      projectileEnergyDomain(this,std::move(other.projectileEnergyDomain)),
+      temperature(this,std::move(other.temperature)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

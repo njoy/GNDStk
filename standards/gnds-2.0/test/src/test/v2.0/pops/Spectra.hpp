@@ -33,8 +33,7 @@ class Spectra : public Component<pops::Spectra> {
    {
       return
          // children
-         pops::Spectrum{}
-            / ++Child<>("spectrum")
+         ++Child<pops::Spectrum>("spectrum")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->spectrum)
 
-   // default, and from fields
+   // default
+   Spectra() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Spectra(
-      const wrapper<std::vector<pops::Spectrum>> &spectrum = {}
+      const wrapper<std::vector<pops::Spectrum>> &spectrum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       spectrum(this,spectrum)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Spectra(const Spectra &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      spectrum(this,other.spectrum)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Spectra(Spectra &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      spectrum(this,std::move(other.spectrum))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

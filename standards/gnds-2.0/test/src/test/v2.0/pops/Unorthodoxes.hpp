@@ -33,8 +33,7 @@ class Unorthodoxes : public Component<pops::Unorthodoxes> {
    {
       return
          // children
-         pops::Nuclide{}
-            / ++Child<>("unorthodox")
+         ++Child<pops::Nuclide>("unorthodox")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->unorthodox)
 
-   // default, and from fields
+   // default
+   Unorthodoxes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Unorthodoxes(
-      const wrapper<std::vector<pops::Nuclide>> &unorthodox = {}
+      const wrapper<std::vector<pops::Nuclide>> &unorthodox
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       unorthodox(this,unorthodox)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Unorthodoxes(const Unorthodoxes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unorthodox(this,other.unorthodox)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Unorthodoxes(Unorthodoxes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unorthodox(this,std::move(other.unorthodox))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

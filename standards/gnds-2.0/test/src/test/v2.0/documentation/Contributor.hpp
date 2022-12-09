@@ -43,10 +43,8 @@ class Contributor : public Component<documentation::Contributor> {
          std::optional<UTF8Text>{}
             / Meta<>("email") |
          // children
-         std::optional<documentation::Affiliations>{}
-            / --Child<>("affiliations") |
-         std::optional<documentation::Note>{}
-            / --Child<>("note")
+         --Child<std::optional<documentation::Affiliations>>("affiliations") |
+         --Child<std::optional<documentation::Note>>("note")
       ;
    }
 
@@ -75,9 +73,16 @@ public:
       this->affiliations, \
       this->note)
 
-   // default, and from fields
+   // default
+   Contributor() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Contributor(
-      const wrapper<UTF8Text> &name = {},
+      const wrapper<UTF8Text> &name,
       const wrapper<enums::ContributorType> &contributorType = {},
       const wrapper<std::optional<UTF8Text>> &orcid = {},
       const wrapper<std::optional<UTF8Text>> &email = {},
@@ -104,17 +109,27 @@ public:
 
    // copy
    Contributor(const Contributor &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      contributorType(this,other.contributorType),
+      orcid(this,other.orcid),
+      email(this,other.email),
+      affiliations(this,other.affiliations),
+      note(this,other.note)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Contributor(Contributor &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      contributorType(this,std::move(other.contributorType)),
+      orcid(this,std::move(other.orcid)),
+      email(this,std::move(other.email)),
+      affiliations(this,std::move(other.affiliations)),
+      note(this,std::move(other.note))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

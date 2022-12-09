@@ -35,12 +35,9 @@ class Background : public Component<transport::Background> {
    {
       return
          // children
-         std::optional<transport::ResolvedRegion>{}
-            / --Child<>("resolvedRegion") |
-         std::optional<transport::UnresolvedRegion>{}
-            / --Child<>("unresolvedRegion") |
-         std::optional<transport::FastRegion>{}
-            / --Child<>("fastRegion")
+         --Child<std::optional<transport::ResolvedRegion>>("resolvedRegion") |
+         --Child<std::optional<transport::UnresolvedRegion>>("unresolvedRegion") |
+         --Child<std::optional<transport::FastRegion>>("fastRegion")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->unresolvedRegion, \
       this->fastRegion)
 
-   // default, and from fields
+   // default
+   Background() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Background(
-      const wrapper<std::optional<transport::ResolvedRegion>> &resolvedRegion = {},
+      const wrapper<std::optional<transport::ResolvedRegion>> &resolvedRegion,
       const wrapper<std::optional<transport::UnresolvedRegion>> &unresolvedRegion = {},
       const wrapper<std::optional<transport::FastRegion>> &fastRegion = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    Background(const Background &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      resolvedRegion(this,other.resolvedRegion),
+      unresolvedRegion(this,other.unresolvedRegion),
+      fastRegion(this,other.fastRegion)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Background(Background &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      resolvedRegion(this,std::move(other.resolvedRegion)),
+      unresolvedRegion(this,std::move(other.unresolvedRegion)),
+      fastRegion(this,std::move(other.fastRegion))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

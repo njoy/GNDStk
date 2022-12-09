@@ -39,10 +39,8 @@ class EnergyAngularMC : public Component<processed::EnergyAngularMC> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         common::Energy{}
-            / --Child<>("energy") |
-         transport::EnergyAngular{}
-            / --Child<>("energyAngular")
+         --Child<common::Energy>("energy") |
+         --Child<transport::EnergyAngular>("energyAngular")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->energy, \
       this->energyAngular)
 
-   // default, and from fields
+   // default
+   EnergyAngularMC() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit EnergyAngularMC(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &productFrame = {},
       const wrapper<common::Energy> &energy = {},
       const wrapper<transport::EnergyAngular> &energyAngular = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    EnergyAngularMC(const EnergyAngularMC &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      energy(this,other.energy),
+      energyAngular(this,other.energyAngular)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    EnergyAngularMC(EnergyAngularMC &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      energy(this,std::move(other.energy)),
+      energyAngular(this,std::move(other.energyAngular))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

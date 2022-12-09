@@ -33,8 +33,7 @@ class HardSphereRadius : public Component<resonances::HardSphereRadius> {
    {
       return
          // children
-         containers::Constant1d{}
-            / --Child<>("constant1d")
+         --Child<containers::Constant1d>("constant1d")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->constant1d)
 
-   // default, and from fields
+   // default
+   HardSphereRadius() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit HardSphereRadius(
-      const wrapper<containers::Constant1d> &constant1d = {}
+      const wrapper<containers::Constant1d> &constant1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d)
@@ -70,17 +76,17 @@ public:
 
    // copy
    HardSphereRadius(const HardSphereRadius &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      constant1d(this,other.constant1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    HardSphereRadius(HardSphereRadius &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      constant1d(this,std::move(other.constant1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

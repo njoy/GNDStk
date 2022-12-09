@@ -42,12 +42,9 @@ class Reaction : public Component<transport::Reaction> {
          XMLName{}
             / Meta<>("label") |
          // children
-         std::optional<transport::DoubleDifferentialCrossSection>{}
-            / --Child<>("doubleDifferentialCrossSection") |
-         transport::CrossSection{}
-            / --Child<>("crossSection") |
-         transport::OutputChannel{}
-            / --Child<>("outputChannel")
+         --Child<std::optional<transport::DoubleDifferentialCrossSection>>("doubleDifferentialCrossSection") |
+         --Child<transport::CrossSection>("crossSection") |
+         --Child<transport::OutputChannel>("outputChannel")
       ;
    }
 
@@ -76,9 +73,16 @@ public:
       this->crossSection, \
       this->outputChannel)
 
-   // default, and from fields
+   // default
+   Reaction() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Reaction(
-      const wrapper<Integer32> &ENDF_MT = {},
+      const wrapper<Integer32> &ENDF_MT,
       const wrapper<std::optional<XMLName>> &fissionGenre = {},
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<transport::DoubleDifferentialCrossSection>> &doubleDifferentialCrossSection = {},
@@ -105,17 +109,27 @@ public:
 
    // copy
    Reaction(const Reaction &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      fissionGenre(this,other.fissionGenre),
+      label(this,other.label),
+      doubleDifferentialCrossSection(this,other.doubleDifferentialCrossSection),
+      crossSection(this,other.crossSection),
+      outputChannel(this,other.outputChannel)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Reaction(Reaction &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      fissionGenre(this,std::move(other.fissionGenre)),
+      label(this,std::move(other.label)),
+      doubleDifferentialCrossSection(this,std::move(other.doubleDifferentialCrossSection)),
+      crossSection(this,std::move(other.crossSection)),
+      outputChannel(this,std::move(other.outputChannel))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

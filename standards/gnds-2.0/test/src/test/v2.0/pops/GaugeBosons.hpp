@@ -33,8 +33,7 @@ class GaugeBosons : public Component<pops::GaugeBosons> {
    {
       return
          // children
-         std::optional<pops::GaugeBoson>{}
-            / ++Child<>("gaugeBoson")
+         ++Child<std::optional<pops::GaugeBoson>>("gaugeBoson")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->gaugeBoson)
 
-   // default, and from fields
+   // default
+   GaugeBosons() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit GaugeBosons(
-      const wrapper<std::optional<std::vector<pops::GaugeBoson>>> &gaugeBoson = {}
+      const wrapper<std::optional<std::vector<pops::GaugeBoson>>> &gaugeBoson
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gaugeBoson(this,gaugeBoson)
@@ -70,17 +76,17 @@ public:
 
    // copy
    GaugeBosons(const GaugeBosons &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      gaugeBoson(this,other.gaugeBoson)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    GaugeBosons(GaugeBosons &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      gaugeBoson(this,std::move(other.gaugeBoson))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

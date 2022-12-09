@@ -36,8 +36,7 @@ class PositronEmissionIntensity : public Component<pops::PositronEmissionIntensi
          Float64{}
             / Meta<>("value") |
          // children
-         std::optional<pops::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<std::optional<pops::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->value, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   PositronEmissionIntensity() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit PositronEmissionIntensity(
-      const wrapper<Float64> &value = {},
+      const wrapper<Float64> &value,
       const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    PositronEmissionIntensity(const PositronEmissionIntensity &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,other.value),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    PositronEmissionIntensity(PositronEmissionIntensity &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,std::move(other.value)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

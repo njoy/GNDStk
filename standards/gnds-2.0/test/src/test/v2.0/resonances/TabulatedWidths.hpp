@@ -44,16 +44,11 @@ class TabulatedWidths : public Component<resonances::TabulatedWidths> {
          Defaulted<bool>{false}
             / Meta<>("useForSelfShieldingOnly") |
          // children
-         std::optional<pops::PoPs_database>{}
-            / --Child<>("PoPs") |
-         std::optional<resonances::ScatteringRadius>{}
-            / --Child<>("scatteringRadius") |
-         std::optional<resonances::HardSphereRadius>{}
-            / --Child<>("hardSphereRadius") |
-         resonances::ResonanceReactions{}
-            / --Child<>("resonanceReactions") |
-         resonances::Ls{}
-            / --Child<>("Ls")
+         --Child<std::optional<pops::PoPs_database>>("PoPs") |
+         --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
+         --Child<resonances::ResonanceReactions>("resonanceReactions") |
+         --Child<resonances::Ls>("Ls")
       ;
    }
 
@@ -91,10 +86,17 @@ public:
       this->resonanceReactions, \
       this->Ls)
 
-   // default, and from fields
+   // default
+   TabulatedWidths() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit TabulatedWidths(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &approximation = {},
       const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
       const wrapper<std::optional<pops::PoPs_database>> &PoPs = {},
@@ -125,17 +127,31 @@ public:
 
    // copy
    TabulatedWidths(const TabulatedWidths &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      approximation(this,other.approximation),
+      useForSelfShieldingOnly(this,other.useForSelfShieldingOnly),
+      PoPs(this,other.PoPs),
+      scatteringRadius(this,other.scatteringRadius),
+      hardSphereRadius(this,other.hardSphereRadius),
+      resonanceReactions(this,other.resonanceReactions),
+      Ls(this,other.Ls)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    TabulatedWidths(TabulatedWidths &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      approximation(this,std::move(other.approximation)),
+      useForSelfShieldingOnly(this,std::move(other.useForSelfShieldingOnly)),
+      PoPs(this,std::move(other.PoPs)),
+      scatteringRadius(this,std::move(other.scatteringRadius)),
+      hardSphereRadius(this,std::move(other.hardSphereRadius)),
+      resonanceReactions(this,std::move(other.resonanceReactions)),
+      Ls(this,std::move(other.Ls))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -87,9 +87,16 @@ public:
       this->label, \
       this->_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
 
-   // default, and from fields
+   // default
+   CrossSection() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CrossSection(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<_t> &_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -108,17 +115,19 @@ public:
 
    // copy
    CrossSection(const CrossSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      _XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(this,other._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CrossSection(CrossSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      _XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(this,std::move(other._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

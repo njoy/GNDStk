@@ -44,12 +44,9 @@ class XYs2d : public Component<containers::XYs2d> {
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes") |
-         containers::Function1ds{}
-            / --Child<>("function1ds") |
-         std::optional<containers::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<std::optional<containers::Axes>>("axes") |
+         --Child<containers::Function1ds>("function1ds") |
+         --Child<std::optional<containers::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -85,10 +82,17 @@ public:
       this->function1ds, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   XYs2d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit XYs2d(
-      const wrapper<std::optional<Integer32>> &index = {},
+      const wrapper<std::optional<Integer32>> &index,
       const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
       const wrapper<std::optional<XMLName>> &interpolationQualifier = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
@@ -117,17 +121,29 @@ public:
 
    // copy
    XYs2d(const XYs2d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      interpolation(this,other.interpolation),
+      interpolationQualifier(this,other.interpolationQualifier),
+      outerDomainValue(this,other.outerDomainValue),
+      axes(this,other.axes),
+      function1ds(this,other.function1ds),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    XYs2d(XYs2d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      interpolation(this,std::move(other.interpolation)),
+      interpolationQualifier(this,std::move(other.interpolationQualifier)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      axes(this,std::move(other.axes)),
+      function1ds(this,std::move(other.function1ds)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

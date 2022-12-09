@@ -42,8 +42,7 @@ class PrimaryGamma : public Component<transport::PrimaryGamma> {
          std::optional<XMLName>{}
             / Meta<>("finalState") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes")
+         --Child<std::optional<containers::Axes>>("axes")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->finalState, \
       this->axes)
 
-   // default, and from fields
+   // default
+   PrimaryGamma() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit PrimaryGamma(
-      const wrapper<std::optional<Float64>> &domainMax = {},
+      const wrapper<std::optional<Float64>> &domainMax,
       const wrapper<std::optional<Float64>> &domainMin = {},
       const wrapper<std::optional<Float64>> &value = {},
       const wrapper<std::optional<XMLName>> &finalState = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    PrimaryGamma(const PrimaryGamma &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMax(this,other.domainMax),
+      domainMin(this,other.domainMin),
+      value(this,other.value),
+      finalState(this,other.finalState),
+      axes(this,other.axes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    PrimaryGamma(PrimaryGamma &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMax(this,std::move(other.domainMax)),
+      domainMin(this,std::move(other.domainMin)),
+      value(this,std::move(other.value)),
+      finalState(this,std::move(other.finalState)),
+      axes(this,std::move(other.axes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

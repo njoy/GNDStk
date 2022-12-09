@@ -40,12 +40,9 @@ class CrossSectionSum : public Component<transport::CrossSectionSum> {
          XMLName{}
             / Meta<>("label") |
          // children
-         common::Q{}
-            / --Child<>("Q") |
-         transport::CrossSection{}
-            / --Child<>("crossSection") |
-         transport::Summands{}
-            / --Child<>("summands")
+         --Child<common::Q>("Q") |
+         --Child<transport::CrossSection>("crossSection") |
+         --Child<transport::Summands>("summands")
       ;
    }
 
@@ -72,9 +69,16 @@ public:
       this->crossSection, \
       this->summands)
 
-   // default, and from fields
+   // default
+   CrossSectionSum() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CrossSectionSum(
-      const wrapper<std::optional<Integer32>> &ENDF_MT = {},
+      const wrapper<std::optional<Integer32>> &ENDF_MT,
       const wrapper<XMLName> &label = {},
       const wrapper<common::Q> &Q = {},
       const wrapper<transport::CrossSection> &crossSection = {},
@@ -99,17 +103,25 @@ public:
 
    // copy
    CrossSectionSum(const CrossSectionSum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      label(this,other.label),
+      Q(this,other.Q),
+      crossSection(this,other.crossSection),
+      summands(this,other.summands)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CrossSectionSum(CrossSectionSum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      label(this,std::move(other.label)),
+      Q(this,std::move(other.Q)),
+      crossSection(this,std::move(other.crossSection)),
+      summands(this,std::move(other.summands))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

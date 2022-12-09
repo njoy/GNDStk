@@ -59,9 +59,16 @@ public:
       this->lower, \
       this->upper)
 
-   // default, and from fields
+   // default
+   Interval() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Interval(
-      const wrapper<Float64> &confidence = {},
+      const wrapper<Float64> &confidence,
       const wrapper<Float64> &lower = {},
       const wrapper<Float64> &upper = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    Interval(const Interval &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      confidence(this,other.confidence),
+      lower(this,other.lower),
+      upper(this,other.upper)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Interval(Interval &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      confidence(this,std::move(other.confidence)),
+      lower(this,std::move(other.lower)),
+      upper(this,std::move(other.upper))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

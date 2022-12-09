@@ -38,8 +38,7 @@ class Transportable : public Component<styles::Transportable> {
          XMLName{}
             / Meta<>("label") |
          // children
-         styles::MultiGroup{}
-            / --Child<>("multiGroup")
+         --Child<styles::MultiGroup>("multiGroup")
       ;
    }
 
@@ -67,10 +66,17 @@ public:
       this->label, \
       this->multiGroup)
 
-   // default, and from fields
+   // default
+   Transportable() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Transportable(
-      const wrapper<std::optional<XMLName>> &conserve = {},
+      const wrapper<std::optional<XMLName>> &conserve,
       const wrapper<XMLName> &label = {},
       const wrapper<styles::MultiGroup> &multiGroup = {}
    ) :
@@ -91,17 +97,21 @@ public:
 
    // copy
    Transportable(const Transportable &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      conserve(this,other.conserve),
+      label(this,other.label),
+      multiGroup(this,other.multiGroup)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Transportable(Transportable &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      conserve(this,std::move(other.conserve)),
+      label(this,std::move(other.label)),
+      multiGroup(this,std::move(other.multiGroup))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

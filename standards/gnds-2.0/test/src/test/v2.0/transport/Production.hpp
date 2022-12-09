@@ -39,10 +39,8 @@ class Production : public Component<transport::Production> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         std::optional<transport::CrossSection>{}
-            / --Child<>("crossSection") |
-         std::optional<transport::OutputChannel>{}
-            / --Child<>("outputChannel")
+         --Child<std::optional<transport::CrossSection>>("crossSection") |
+         --Child<std::optional<transport::OutputChannel>>("outputChannel")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->crossSection, \
       this->outputChannel)
 
-   // default, and from fields
+   // default
+   Production() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Production(
-      const wrapper<std::optional<Integer32>> &ENDF_MT = {},
+      const wrapper<std::optional<Integer32>> &ENDF_MT,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<transport::CrossSection>> &crossSection = {},
       const wrapper<std::optional<transport::OutputChannel>> &outputChannel = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Production(const Production &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      label(this,other.label),
+      crossSection(this,other.crossSection),
+      outputChannel(this,other.outputChannel)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Production(Production &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      label(this,std::move(other.label)),
+      crossSection(this,std::move(other.crossSection)),
+      outputChannel(this,std::move(other.outputChannel))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

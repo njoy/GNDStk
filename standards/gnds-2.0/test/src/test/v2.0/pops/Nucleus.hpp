@@ -44,20 +44,13 @@ class Nucleus : public Component<pops::Nucleus> {
          Integer32{}
             / Meta<>("index") |
          // children
-         std::optional<pops::Charge>{}
-            / --Child<>("charge") |
-         std::optional<pops::Energy>{}
-            / --Child<>("energy") |
-         std::optional<pops::Halflife>{}
-            / --Child<>("halflife") |
-         std::optional<pops::Spin>{}
-            / --Child<>("spin") |
-         std::optional<pops::Parity>{}
-            / --Child<>("parity") |
-         std::optional<pops::DecayData>{}
-            / --Child<>("decayData") |
-         std::optional<fissionFragmentData::FissionFragmentData>{}
-            / --Child<>("fissionFragmentData")
+         --Child<std::optional<pops::Charge>>("charge") |
+         --Child<std::optional<pops::Energy>>("energy") |
+         --Child<std::optional<pops::Halflife>>("halflife") |
+         --Child<std::optional<pops::Spin>>("spin") |
+         --Child<std::optional<pops::Parity>>("parity") |
+         --Child<std::optional<pops::DecayData>>("decayData") |
+         --Child<std::optional<fissionFragmentData::FissionFragmentData>>("fissionFragmentData")
       ;
    }
 
@@ -92,9 +85,16 @@ public:
       this->decayData, \
       this->fissionFragmentData)
 
-   // default, and from fields
+   // default
+   Nucleus() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Nucleus(
-      const wrapper<XMLName> &id = {},
+      const wrapper<XMLName> &id,
       const wrapper<Integer32> &index = {},
       const wrapper<std::optional<pops::Charge>> &charge = {},
       const wrapper<std::optional<pops::Energy>> &energy = {},
@@ -127,17 +127,33 @@ public:
 
    // copy
    Nucleus(const Nucleus &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,other.id),
+      index(this,other.index),
+      charge(this,other.charge),
+      energy(this,other.energy),
+      halflife(this,other.halflife),
+      spin(this,other.spin),
+      parity(this,other.parity),
+      decayData(this,other.decayData),
+      fissionFragmentData(this,other.fissionFragmentData)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Nucleus(Nucleus &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,std::move(other.id)),
+      index(this,std::move(other.index)),
+      charge(this,std::move(other.charge)),
+      energy(this,std::move(other.energy)),
+      halflife(this,std::move(other.halflife)),
+      spin(this,std::move(other.spin)),
+      parity(this,std::move(other.parity)),
+      decayData(this,std::move(other.decayData)),
+      fissionFragmentData(this,std::move(other.fissionFragmentData))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

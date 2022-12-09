@@ -33,8 +33,7 @@ class ExternalFiles : public Component<common::ExternalFiles> {
    {
       return
          // children
-         common::ExternalFile{}
-            / ++Child<>("externalFile")
+         ++Child<common::ExternalFile>("externalFile")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->externalFile)
 
-   // default, and from fields
+   // default
+   ExternalFiles() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ExternalFiles(
-      const wrapper<std::vector<common::ExternalFile>> &externalFile = {}
+      const wrapper<std::vector<common::ExternalFile>> &externalFile
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       externalFile(this,externalFile)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ExternalFiles(const ExternalFiles &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      externalFile(this,other.externalFile)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ExternalFiles(ExternalFiles &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      externalFile(this,std::move(other.externalFile))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class ElapsedTimes : public Component<fpy::ElapsedTimes> {
    {
       return
          // children
-         fpy::ElapsedTime{}
-            / ++Child<>("elapsedTime")
+         ++Child<fpy::ElapsedTime>("elapsedTime")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->elapsedTime)
 
-   // default, and from fields
+   // default
+   ElapsedTimes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ElapsedTimes(
-      const wrapper<std::vector<fpy::ElapsedTime>> &elapsedTime = {}
+      const wrapper<std::vector<fpy::ElapsedTime>> &elapsedTime
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       elapsedTime(this,elapsedTime)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ElapsedTimes(const ElapsedTimes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      elapsedTime(this,other.elapsedTime)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ElapsedTimes(ElapsedTimes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      elapsedTime(this,std::move(other.elapsedTime))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

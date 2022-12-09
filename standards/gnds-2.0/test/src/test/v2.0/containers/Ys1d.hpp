@@ -39,10 +39,8 @@ class Ys1d : public Component<containers::Ys1d> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         containers::Axes{}
-            / --Child<>("axes") |
-         containers::Values{}
-            / --Child<>("values")
+         --Child<containers::Axes>("axes") |
+         --Child<containers::Values>("values")
       ;
    }
 
@@ -72,10 +70,17 @@ public:
       this->axes, \
       this->values)
 
-   // default, and from fields
+   // default
+   Ys1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Ys1d(
-      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
+      const wrapper<std::optional<enums::Interpolation>> &interpolation,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<containers::Axes> &axes = {},
       const wrapper<containers::Values> &values = {}
@@ -98,17 +103,23 @@ public:
 
    // copy
    Ys1d(const Ys1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      interpolation(this,other.interpolation),
+      label(this,other.label),
+      axes(this,other.axes),
+      values(this,other.values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Ys1d(Ys1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      interpolation(this,std::move(other.interpolation)),
+      label(this,std::move(other.label)),
+      axes(this,std::move(other.axes)),
+      values(this,std::move(other.values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

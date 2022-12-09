@@ -41,10 +41,8 @@ class Author : public Component<documentation::Author> {
          std::optional<UTF8Text>{}
             / Meta<>("email") |
          // children
-         std::optional<documentation::Affiliations>{}
-            / --Child<>("affiliations") |
-         std::optional<documentation::Note>{}
-            / --Child<>("note")
+         --Child<std::optional<documentation::Affiliations>>("affiliations") |
+         --Child<std::optional<documentation::Note>>("note")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->affiliations, \
       this->note)
 
-   // default, and from fields
+   // default
+   Author() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Author(
-      const wrapper<UTF8Text> &name = {},
+      const wrapper<UTF8Text> &name,
       const wrapper<std::optional<UTF8Text>> &orcid = {},
       const wrapper<std::optional<UTF8Text>> &email = {},
       const wrapper<std::optional<documentation::Affiliations>> &affiliations = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    Author(const Author &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      orcid(this,other.orcid),
+      email(this,other.email),
+      affiliations(this,other.affiliations),
+      note(this,other.note)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Author(Author &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      orcid(this,std::move(other.orcid)),
+      email(this,std::move(other.email)),
+      affiliations(this,std::move(other.affiliations)),
+      note(this,std::move(other.note))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

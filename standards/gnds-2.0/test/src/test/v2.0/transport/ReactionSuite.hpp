@@ -56,28 +56,17 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
          enums::Interaction{}
             / Meta<>("interaction") |
          // children
-         std::optional<common::ExternalFiles>{}
-            / --Child<>("externalFiles") |
-         styles::Styles{}
-            / --Child<>("styles") |
-         pops::PoPs_database{}
-            / --Child<>("PoPs") |
-         std::optional<resonances::Resonances>{}
-            / --Child<>("resonances") |
-         std::optional<transport::Reactions>{}
-            / --Child<>("reactions") |
-         std::optional<transport::OrphanProducts>{}
-            / --Child<>("orphanProducts") |
-         std::optional<transport::Sums>{}
-            / --Child<>("sums") |
-         std::optional<fissionTransport::FissionComponents>{}
-            / --Child<>("fissionComponents") |
-         std::optional<transport::Productions>{}
-            / --Child<>("productions") |
-         std::optional<transport::IncompleteReactions>{}
-            / --Child<>("incompleteReactions") |
-         std::optional<appData::ApplicationData>{}
-            / --Child<>("applicationData")
+         --Child<std::optional<common::ExternalFiles>>("externalFiles") |
+         --Child<styles::Styles>("styles") |
+         --Child<pops::PoPs_database>("PoPs") |
+         --Child<std::optional<resonances::Resonances>>("resonances") |
+         --Child<std::optional<transport::Reactions>>("reactions") |
+         --Child<std::optional<transport::OrphanProducts>>("orphanProducts") |
+         --Child<std::optional<transport::Sums>>("sums") |
+         --Child<std::optional<fissionTransport::FissionComponents>>("fissionComponents") |
+         --Child<std::optional<transport::Productions>>("productions") |
+         --Child<std::optional<transport::IncompleteReactions>>("incompleteReactions") |
+         --Child<std::optional<appData::ApplicationData>>("applicationData")
       ;
    }
 
@@ -128,9 +117,16 @@ public:
       this->incompleteReactions, \
       this->applicationData)
 
-   // default, and from fields
+   // default
+   ReactionSuite() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ReactionSuite(
-      const wrapper<XMLName> &evaluation = {},
+      const wrapper<XMLName> &evaluation,
       const wrapper<XMLName> &format = {},
       const wrapper<XMLName> &projectile = {},
       const wrapper<enums::Frame> &projectileFrame = {},
@@ -179,17 +175,49 @@ public:
 
    // copy
    ReactionSuite(const ReactionSuite &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluation(this,other.evaluation),
+      format(this,other.format),
+      projectile(this,other.projectile),
+      projectileFrame(this,other.projectileFrame),
+      target(this,other.target),
+      interaction(this,other.interaction),
+      externalFiles(this,other.externalFiles),
+      styles(this,other.styles),
+      PoPs(this,other.PoPs),
+      resonances(this,other.resonances),
+      reactions(this,other.reactions),
+      orphanProducts(this,other.orphanProducts),
+      sums(this,other.sums),
+      fissionComponents(this,other.fissionComponents),
+      productions(this,other.productions),
+      incompleteReactions(this,other.incompleteReactions),
+      applicationData(this,other.applicationData)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ReactionSuite(ReactionSuite &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluation(this,std::move(other.evaluation)),
+      format(this,std::move(other.format)),
+      projectile(this,std::move(other.projectile)),
+      projectileFrame(this,std::move(other.projectileFrame)),
+      target(this,std::move(other.target)),
+      interaction(this,std::move(other.interaction)),
+      externalFiles(this,std::move(other.externalFiles)),
+      styles(this,std::move(other.styles)),
+      PoPs(this,std::move(other.PoPs)),
+      resonances(this,std::move(other.resonances)),
+      reactions(this,std::move(other.reactions)),
+      orphanProducts(this,std::move(other.orphanProducts)),
+      sums(this,std::move(other.sums)),
+      fissionComponents(this,std::move(other.fissionComponents)),
+      productions(this,std::move(other.productions)),
+      incompleteReactions(this,std::move(other.incompleteReactions)),
+      applicationData(this,std::move(other.applicationData))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

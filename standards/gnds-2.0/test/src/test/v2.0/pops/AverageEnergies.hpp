@@ -33,8 +33,7 @@ class AverageEnergies : public Component<pops::AverageEnergies> {
    {
       return
          // children
-         pops::AverageEnergy{}
-            / ++Child<>("averageEnergy")
+         ++Child<pops::AverageEnergy>("averageEnergy")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->averageEnergy)
 
-   // default, and from fields
+   // default
+   AverageEnergies() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit AverageEnergies(
-      const wrapper<std::vector<pops::AverageEnergy>> &averageEnergy = {}
+      const wrapper<std::vector<pops::AverageEnergy>> &averageEnergy
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       averageEnergy(this,averageEnergy)
@@ -70,17 +76,17 @@ public:
 
    // copy
    AverageEnergies(const AverageEnergies &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      averageEnergy(this,other.averageEnergy)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    AverageEnergies(AverageEnergies &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      averageEnergy(this,std::move(other.averageEnergy))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

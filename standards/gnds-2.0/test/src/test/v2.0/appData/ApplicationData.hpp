@@ -33,8 +33,7 @@ class ApplicationData : public Component<appData::ApplicationData> {
    {
       return
          // children
-         std::optional<appData::Institution>{}
-            / --Child<>("institution")
+         --Child<std::optional<appData::Institution>>("institution")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->institution)
 
-   // default, and from fields
+   // default
+   ApplicationData() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ApplicationData(
-      const wrapper<std::optional<appData::Institution>> &institution = {}
+      const wrapper<std::optional<appData::Institution>> &institution
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       institution(this,institution)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ApplicationData(const ApplicationData &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      institution(this,other.institution)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ApplicationData(ApplicationData &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      institution(this,std::move(other.institution))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -38,8 +38,7 @@ class MultiGroup3d : public Component<transport::MultiGroup3d> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         containers::Gridded3d{}
-            / --Child<>("gridded3d")
+         --Child<containers::Gridded3d>("gridded3d")
       ;
    }
 
@@ -62,9 +61,16 @@ public:
       this->productFrame, \
       this->gridded3d)
 
-   // default, and from fields
+   // default
+   MultiGroup3d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MultiGroup3d(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &productFrame = {},
       const wrapper<containers::Gridded3d> &gridded3d = {}
    ) :
@@ -85,17 +91,21 @@ public:
 
    // copy
    MultiGroup3d(const MultiGroup3d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      gridded3d(this,other.gridded3d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MultiGroup3d(MultiGroup3d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      gridded3d(this,std::move(other.gridded3d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -37,10 +37,8 @@ class ParameterCovariance : public Component<covariance::ParameterCovariance> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         covariance::RowData{}
-            / --Child<>("rowData") |
-         covariance::ParameterCovarianceMatrix{}
-            / ++Child<>("parameterCovarianceMatrix")
+         --Child<covariance::RowData>("rowData") |
+         ++Child<covariance::ParameterCovarianceMatrix>("parameterCovarianceMatrix")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->rowData, \
       this->parameterCovarianceMatrix)
 
-   // default, and from fields
+   // default
+   ParameterCovariance() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ParameterCovariance(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<covariance::RowData> &rowData = {},
       const wrapper<std::vector<covariance::ParameterCovarianceMatrix>> &parameterCovarianceMatrix = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    ParameterCovariance(const ParameterCovariance &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      rowData(this,other.rowData),
+      parameterCovarianceMatrix(this,other.parameterCovarianceMatrix)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ParameterCovariance(ParameterCovariance &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      rowData(this,std::move(other.rowData)),
+      parameterCovarianceMatrix(this,std::move(other.parameterCovarianceMatrix))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

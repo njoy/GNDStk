@@ -61,7 +61,6 @@ public:
    FreeGasApproximation(const FreeGasApproximation &other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      *this = other;
       Component::finish(other);
    }
 
@@ -69,7 +68,6 @@ public:
    FreeGasApproximation(FreeGasApproximation &&other) :
       GNDSTK_COMPONENT(other.baseBlockData())
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

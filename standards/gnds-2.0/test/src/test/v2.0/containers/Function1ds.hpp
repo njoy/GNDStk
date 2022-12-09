@@ -68,9 +68,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_XYs1dconstant1dpolynomial1dLegendregridded1d)
 
-   // default, and from fields
+   // default
+   Function1ds() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Function1ds(
-      const wrapper<std::vector<_t>> &_XYs1dconstant1dpolynomial1dLegendregridded1d = {}
+      const wrapper<std::vector<_t>> &_XYs1dconstant1dpolynomial1dLegendregridded1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs1dconstant1dpolynomial1dLegendregridded1d(this,_XYs1dconstant1dpolynomial1dLegendregridded1d)
@@ -87,17 +94,17 @@ public:
 
    // copy
    Function1ds(const Function1ds &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs1dconstant1dpolynomial1dLegendregridded1d(this,other._XYs1dconstant1dpolynomial1dLegendregridded1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Function1ds(Function1ds &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs1dconstant1dpolynomial1dLegendregridded1d(this,std::move(other._XYs1dconstant1dpolynomial1dLegendregridded1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

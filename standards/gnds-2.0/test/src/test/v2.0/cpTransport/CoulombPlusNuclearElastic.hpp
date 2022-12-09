@@ -45,10 +45,8 @@ class CoulombPlusNuclearElastic : public Component<cpTransport::CoulombPlusNucle
          std::optional<enums::Frame>{}
             / Meta<>("productFrame") |
          // children
-         std::optional<cpTransport::RutherfordScattering>{}
-            / --Child<>("RutherfordScattering") |
-         std::optional<cpTransport::NuclearAmplitudeExpansion>{}
-            / --Child<>("nuclearAmplitudeExpansion")
+         --Child<std::optional<cpTransport::RutherfordScattering>>("RutherfordScattering") |
+         --Child<std::optional<cpTransport::NuclearAmplitudeExpansion>>("nuclearAmplitudeExpansion")
       ;
    }
 
@@ -84,10 +82,17 @@ public:
       this->RutherfordScattering, \
       this->nuclearAmplitudeExpansion)
 
-   // default, and from fields
+   // default
+   CoulombPlusNuclearElastic() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit CoulombPlusNuclearElastic(
-      const wrapper<std::optional<XMLName>> &href = {},
+      const wrapper<std::optional<XMLName>> &href,
       const wrapper<std::optional<bool>> &identicalParticles = {},
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<XMLName>> &pid = {},
@@ -116,17 +121,29 @@ public:
 
    // copy
    CoulombPlusNuclearElastic(const CoulombPlusNuclearElastic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      identicalParticles(this,other.identicalParticles),
+      label(this,other.label),
+      pid(this,other.pid),
+      productFrame(this,other.productFrame),
+      RutherfordScattering(this,other.RutherfordScattering),
+      nuclearAmplitudeExpansion(this,other.nuclearAmplitudeExpansion)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CoulombPlusNuclearElastic(CoulombPlusNuclearElastic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      identicalParticles(this,std::move(other.identicalParticles)),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      productFrame(this,std::move(other.productFrame)),
+      RutherfordScattering(this,std::move(other.RutherfordScattering)),
+      nuclearAmplitudeExpansion(this,std::move(other.nuclearAmplitudeExpansion))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -59,9 +59,16 @@ public:
       this->unit, \
       this->value)
 
-   // default, and from fields
+   // default
+   Integer() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Integer(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<Integer32> &value = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    Integer(const Integer &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      unit(this,other.unit),
+      value(this,other.value)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Integer(Integer &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

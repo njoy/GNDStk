@@ -44,10 +44,8 @@ class AverageParameterCovariance : public Component<covariance::AverageParameter
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         std::optional<covariance::ColumnData>{}
-            / --Child<>("columnData") |
-         std::optional<covariance::RowData>{}
-            / --Child<>("rowData") |
+         --Child<std::optional<covariance::ColumnData>>("columnData") |
+         --Child<std::optional<covariance::RowData>>("rowData") |
          _t{}
             / --(Child<>("covarianceMatrix"))
       ;
@@ -79,9 +77,16 @@ public:
       this->rowData, \
       this->_covarianceMatrix)
 
-   // default, and from fields
+   // default
+   AverageParameterCovariance() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit AverageParameterCovariance(
-      const wrapper<std::optional<bool>> &crossTerm = {},
+      const wrapper<std::optional<bool>> &crossTerm,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<covariance::ColumnData>> &columnData = {},
       const wrapper<std::optional<covariance::RowData>> &rowData = {},
@@ -106,17 +111,25 @@ public:
 
    // copy
    AverageParameterCovariance(const AverageParameterCovariance &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      crossTerm(this,other.crossTerm),
+      label(this,other.label),
+      columnData(this,other.columnData),
+      rowData(this,other.rowData),
+      _covarianceMatrix(this,other._covarianceMatrix)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    AverageParameterCovariance(AverageParameterCovariance &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      crossTerm(this,std::move(other.crossTerm)),
+      label(this,std::move(other.label)),
+      columnData(this,std::move(other.columnData)),
+      rowData(this,std::move(other.rowData)),
+      _covarianceMatrix(this,std::move(other._covarianceMatrix))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

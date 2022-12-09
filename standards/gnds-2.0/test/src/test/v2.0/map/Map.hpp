@@ -44,12 +44,9 @@ class Map : public Component<map::Map> {
          enums::HashAlgorithm{}
             / Meta<>("algorithm") |
          // children
-         std::optional<map::Import>{}
-            / ++Child<>("import") |
-         std::optional<map::Protare>{}
-            / ++Child<>("protare") |
-         std::optional<map::TNSL>{}
-            / ++Child<>("TNSL")
+         ++Child<std::optional<map::Import>>("import") |
+         ++Child<std::optional<map::Protare>>("protare") |
+         ++Child<std::optional<map::TNSL>>("TNSL")
       ;
    }
 
@@ -80,9 +77,16 @@ public:
       this->protare, \
       this->TNSL)
 
-   // default, and from fields
+   // default
+   Map() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Map(
-      const wrapper<XMLName> &library = {},
+      const wrapper<XMLName> &library,
       const wrapper<XMLName> &format = {},
       const wrapper<std::string> &checksum = {},
       const wrapper<enums::HashAlgorithm> &algorithm = {},
@@ -111,17 +115,29 @@ public:
 
    // copy
    Map(const Map &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      library(this,other.library),
+      format(this,other.format),
+      checksum(this,other.checksum),
+      algorithm(this,other.algorithm),
+      import(this,other.import),
+      protare(this,other.protare),
+      TNSL(this,other.TNSL)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Map(Map &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      library(this,std::move(other.library)),
+      format(this,std::move(other.format)),
+      checksum(this,std::move(other.checksum)),
+      algorithm(this,std::move(other.algorithm)),
+      import(this,std::move(other.import)),
+      protare(this,std::move(other.protare)),
+      TNSL(this,std::move(other.TNSL))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

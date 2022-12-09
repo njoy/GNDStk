@@ -33,8 +33,7 @@ class Acknowledgements : public Component<documentation::Acknowledgements> {
    {
       return
          // children
-         documentation::Acknowledgement{}
-            / ++Child<>("acknowledgement")
+         ++Child<documentation::Acknowledgement>("acknowledgement")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->acknowledgement)
 
-   // default, and from fields
+   // default
+   Acknowledgements() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Acknowledgements(
-      const wrapper<std::vector<documentation::Acknowledgement>> &acknowledgement = {}
+      const wrapper<std::vector<documentation::Acknowledgement>> &acknowledgement
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       acknowledgement(this,acknowledgement)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Acknowledgements(const Acknowledgements &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      acknowledgement(this,other.acknowledgement)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Acknowledgements(Acknowledgements &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      acknowledgement(this,std::move(other.acknowledgement))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

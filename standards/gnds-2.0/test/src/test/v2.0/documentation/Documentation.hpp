@@ -54,36 +54,21 @@ class Documentation : public Component<documentation::Documentation> {
          std::optional<UTF8Text>{}
             / Meta<>("version") |
          // children
-         documentation::Authors{}
-            / --Child<>("authors") |
-         std::optional<documentation::Contributors>{}
-            / --Child<>("contributors") |
-         std::optional<documentation::Collaborations>{}
-            / --Child<>("collaborations") |
-         documentation::Dates{}
-            / --Child<>("dates") |
-         std::optional<documentation::Copyright>{}
-            / --Child<>("copyright") |
-         std::optional<documentation::Acknowledgements>{}
-            / --Child<>("acknowledgements") |
-         std::optional<documentation::Keywords>{}
-            / --Child<>("keywords") |
-         std::optional<documentation::RelatedItems>{}
-            / --Child<>("relatedItems") |
-         documentation::Title{}
-            / --Child<>("title") |
-         std::optional<documentation::Abstract>{}
-            / --Child<>("abstract") |
-         documentation::Body{}
-            / --Child<>("body") |
-         std::optional<documentation::ComputerCodes>{}
-            / --Child<>("computerCodes") |
-         std::optional<documentation::ExperimentalDataSets>{}
-            / --Child<>("experimentalDataSets") |
-         std::optional<documentation::Bibliography>{}
-            / --Child<>("bibliography") |
-         std::optional<documentation::EndfCompatible>{}
-            / --Child<>("endfCompatible")
+         --Child<documentation::Authors>("authors") |
+         --Child<std::optional<documentation::Contributors>>("contributors") |
+         --Child<std::optional<documentation::Collaborations>>("collaborations") |
+         --Child<documentation::Dates>("dates") |
+         --Child<std::optional<documentation::Copyright>>("copyright") |
+         --Child<std::optional<documentation::Acknowledgements>>("acknowledgements") |
+         --Child<std::optional<documentation::Keywords>>("keywords") |
+         --Child<std::optional<documentation::RelatedItems>>("relatedItems") |
+         --Child<documentation::Title>("title") |
+         --Child<std::optional<documentation::Abstract>>("abstract") |
+         --Child<documentation::Body>("body") |
+         --Child<std::optional<documentation::ComputerCodes>>("computerCodes") |
+         --Child<std::optional<documentation::ExperimentalDataSets>>("experimentalDataSets") |
+         --Child<std::optional<documentation::Bibliography>>("bibliography") |
+         --Child<std::optional<documentation::EndfCompatible>>("endfCompatible")
       ;
    }
 
@@ -136,9 +121,16 @@ public:
       this->bibliography, \
       this->endfCompatible)
 
-   // default, and from fields
+   // default
+   Documentation() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Documentation(
-      const wrapper<std::optional<UTF8Text>> &doi = {},
+      const wrapper<std::optional<UTF8Text>> &doi,
       const wrapper<std::optional<std::string>> &publicationDate = {},
       const wrapper<std::optional<UTF8Text>> &version = {},
       const wrapper<documentation::Authors> &authors = {},
@@ -189,17 +181,51 @@ public:
 
    // copy
    Documentation(const Documentation &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      doi(this,other.doi),
+      publicationDate(this,other.publicationDate),
+      version(this,other.version),
+      authors(this,other.authors),
+      contributors(this,other.contributors),
+      collaborations(this,other.collaborations),
+      dates(this,other.dates),
+      copyright(this,other.copyright),
+      acknowledgements(this,other.acknowledgements),
+      keywords(this,other.keywords),
+      relatedItems(this,other.relatedItems),
+      title(this,other.title),
+      abstract(this,other.abstract),
+      body(this,other.body),
+      computerCodes(this,other.computerCodes),
+      experimentalDataSets(this,other.experimentalDataSets),
+      bibliography(this,other.bibliography),
+      endfCompatible(this,other.endfCompatible)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Documentation(Documentation &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      doi(this,std::move(other.doi)),
+      publicationDate(this,std::move(other.publicationDate)),
+      version(this,std::move(other.version)),
+      authors(this,std::move(other.authors)),
+      contributors(this,std::move(other.contributors)),
+      collaborations(this,std::move(other.collaborations)),
+      dates(this,std::move(other.dates)),
+      copyright(this,std::move(other.copyright)),
+      acknowledgements(this,std::move(other.acknowledgements)),
+      keywords(this,std::move(other.keywords)),
+      relatedItems(this,std::move(other.relatedItems)),
+      title(this,std::move(other.title)),
+      abstract(this,std::move(other.abstract)),
+      body(this,std::move(other.body)),
+      computerCodes(this,std::move(other.computerCodes)),
+      experimentalDataSets(this,std::move(other.experimentalDataSets)),
+      bibliography(this,std::move(other.bibliography)),
+      endfCompatible(this,std::move(other.endfCompatible))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

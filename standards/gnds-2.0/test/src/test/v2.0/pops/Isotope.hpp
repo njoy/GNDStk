@@ -38,8 +38,7 @@ class Isotope : public Component<pops::Isotope> {
          XMLName{}
             / Meta<>("symbol") |
          // children
-         std::optional<pops::Nuclides>{}
-            / --Child<>("nuclides")
+         --Child<std::optional<pops::Nuclides>>("nuclides")
       ;
    }
 
@@ -62,9 +61,16 @@ public:
       this->symbol, \
       this->nuclides)
 
-   // default, and from fields
+   // default
+   Isotope() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Isotope(
-      const wrapper<Integer32> &A = {},
+      const wrapper<Integer32> &A,
       const wrapper<XMLName> &symbol = {},
       const wrapper<std::optional<pops::Nuclides>> &nuclides = {}
    ) :
@@ -85,17 +91,21 @@ public:
 
    // copy
    Isotope(const Isotope &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      A(this,other.A),
+      symbol(this,other.symbol),
+      nuclides(this,other.nuclides)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Isotope(Isotope &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      A(this,std::move(other.A)),
+      symbol(this,std::move(other.symbol)),
+      nuclides(this,std::move(other.nuclides))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

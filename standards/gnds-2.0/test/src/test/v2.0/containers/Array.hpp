@@ -46,10 +46,8 @@ class Array : public Component<containers::Array> {
          std::optional<IntegerTuple>{}
             / Meta<>("offset") |
          // children
-         std::optional<containers::Values>{}
-            / ++Child<>("values") |
-         std::optional<containers::Array>{}
-            / ++Child<>("array")
+         ++Child<std::optional<containers::Values>>("values") |
+         ++Child<std::optional<containers::Array>>("array")
       ;
    }
 
@@ -87,10 +85,17 @@ public:
       this->values, \
       this->array)
 
-   // default, and from fields
+   // default
+   Array() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Array(
-      const wrapper<IntegerTuple> &shape = {},
+      const wrapper<IntegerTuple> &shape,
       const wrapper<std::optional<UTF8Text>> &compression = {},
       const wrapper<std::optional<UTF8Text>> &symmetry = {},
       const wrapper<std::optional<UTF8Text>> &permutation = {},
@@ -121,17 +126,31 @@ public:
 
    // copy
    Array(const Array &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      shape(this,other.shape),
+      compression(this,other.compression),
+      symmetry(this,other.symmetry),
+      permutation(this,other.permutation),
+      storageOrder(this,other.storageOrder),
+      offset(this,other.offset),
+      values(this,other.values),
+      array(this,other.array)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Array(Array &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      shape(this,std::move(other.shape)),
+      compression(this,std::move(other.compression)),
+      symmetry(this,std::move(other.symmetry)),
+      permutation(this,std::move(other.permutation)),
+      storageOrder(this,std::move(other.storageOrder)),
+      offset(this,std::move(other.offset)),
+      values(this,std::move(other.values)),
+      array(this,std::move(other.array))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

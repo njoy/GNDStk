@@ -40,12 +40,9 @@ class KalbachMann : public Component<transport::KalbachMann> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         transport::F{}
-            / --Child<>("f") |
-         transport::R{}
-            / --Child<>("r") |
-         std::optional<transport::A>{}
-            / --Child<>("a")
+         --Child<transport::F>("f") |
+         --Child<transport::R>("r") |
+         --Child<std::optional<transport::A>>("a")
       ;
    }
 
@@ -72,9 +69,16 @@ public:
       this->r, \
       this->a)
 
-   // default, and from fields
+   // default
+   KalbachMann() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit KalbachMann(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {},
       const wrapper<transport::F> &f = {},
       const wrapper<transport::R> &r = {},
@@ -99,17 +103,25 @@ public:
 
    // copy
    KalbachMann(const KalbachMann &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      f(this,other.f),
+      r(this,other.r),
+      a(this,other.a)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    KalbachMann(KalbachMann &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      f(this,std::move(other.f)),
+      r(this,std::move(other.r)),
+      a(this,std::move(other.a))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

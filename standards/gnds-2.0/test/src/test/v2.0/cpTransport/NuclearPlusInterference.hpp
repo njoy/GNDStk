@@ -37,10 +37,8 @@ class NuclearPlusInterference : public Component<cpTransport::NuclearPlusInterfe
          Float64{}
             / Meta<>("muCutoff") |
          // children
-         transport::CrossSection{}
-            / --Child<>("crossSection") |
-         transport::Distribution{}
-            / --Child<>("distribution")
+         --Child<transport::CrossSection>("crossSection") |
+         --Child<transport::Distribution>("distribution")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->crossSection, \
       this->distribution)
 
-   // default, and from fields
+   // default
+   NuclearPlusInterference() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit NuclearPlusInterference(
-      const wrapper<Float64> &muCutoff = {},
+      const wrapper<Float64> &muCutoff,
       const wrapper<transport::CrossSection> &crossSection = {},
       const wrapper<transport::Distribution> &distribution = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    NuclearPlusInterference(const NuclearPlusInterference &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      muCutoff(this,other.muCutoff),
+      crossSection(this,other.crossSection),
+      distribution(this,other.distribution)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    NuclearPlusInterference(NuclearPlusInterference &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      muCutoff(this,std::move(other.muCutoff)),
+      crossSection(this,std::move(other.crossSection)),
+      distribution(this,std::move(other.distribution))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

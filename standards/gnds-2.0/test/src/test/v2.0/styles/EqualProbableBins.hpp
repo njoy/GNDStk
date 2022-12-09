@@ -42,8 +42,7 @@ class EqualProbableBins : public Component<styles::EqualProbableBins> {
          Integer32{}
             / Meta<>("numberOfBins") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->numberOfBins, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   EqualProbableBins() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit EqualProbableBins(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<Integer32> &numberOfBins = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    EqualProbableBins(const EqualProbableBins &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      numberOfBins(this,other.numberOfBins),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    EqualProbableBins(EqualProbableBins &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      numberOfBins(this,std::move(other.numberOfBins)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

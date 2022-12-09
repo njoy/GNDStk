@@ -43,28 +43,17 @@ class Energy_uncorrelated : public Component<transport::Energy_uncorrelated> {
    {
       return
          // children
-         std::optional<containers::XYs2d>{}
-            / --Child<>("XYs2d") |
-         std::optional<containers::Regions2d>{}
-            / --Child<>("regions2d") |
-         std::optional<transport::GeneralEvaporation>{}
-            / --Child<>("generalEvaporation") |
-         std::optional<transport::DiscreteGamma>{}
-            / --Child<>("discreteGamma") |
-         std::optional<transport::PrimaryGamma>{}
-            / --Child<>("primaryGamma") |
-         std::optional<transport::NBodyPhaseSpace>{}
-            / --Child<>("NBodyPhaseSpace") |
-         std::optional<transport::Evaporation>{}
-            / --Child<>("evaporation") |
-         std::optional<transport::WeightedFunctionals>{}
-            / --Child<>("weightedFunctionals") |
-         std::optional<fissionTransport::SimpleMaxwellianFission>{}
-            / --Child<>("simpleMaxwellianFission") |
-         std::optional<fissionTransport::Watt>{}
-            / --Child<>("Watt") |
-         std::optional<fissionTransport::MadlandNix>{}
-            / --Child<>("MadlandNix")
+         --Child<std::optional<containers::XYs2d>>("XYs2d") |
+         --Child<std::optional<containers::Regions2d>>("regions2d") |
+         --Child<std::optional<transport::GeneralEvaporation>>("generalEvaporation") |
+         --Child<std::optional<transport::DiscreteGamma>>("discreteGamma") |
+         --Child<std::optional<transport::PrimaryGamma>>("primaryGamma") |
+         --Child<std::optional<transport::NBodyPhaseSpace>>("NBodyPhaseSpace") |
+         --Child<std::optional<transport::Evaporation>>("evaporation") |
+         --Child<std::optional<transport::WeightedFunctionals>>("weightedFunctionals") |
+         --Child<std::optional<fissionTransport::SimpleMaxwellianFission>>("simpleMaxwellianFission") |
+         --Child<std::optional<fissionTransport::Watt>>("Watt") |
+         --Child<std::optional<fissionTransport::MadlandNix>>("MadlandNix")
       ;
    }
 
@@ -101,9 +90,16 @@ public:
       this->Watt, \
       this->MadlandNix)
 
-   // default, and from fields
+   // default
+   Energy_uncorrelated() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Energy_uncorrelated(
-      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d,
       const wrapper<std::optional<containers::Regions2d>> &regions2d = {},
       const wrapper<std::optional<transport::GeneralEvaporation>> &generalEvaporation = {},
       const wrapper<std::optional<transport::DiscreteGamma>> &discreteGamma = {},
@@ -140,17 +136,37 @@ public:
 
    // copy
    Energy_uncorrelated(const Energy_uncorrelated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs2d(this,other.XYs2d),
+      regions2d(this,other.regions2d),
+      generalEvaporation(this,other.generalEvaporation),
+      discreteGamma(this,other.discreteGamma),
+      primaryGamma(this,other.primaryGamma),
+      NBodyPhaseSpace(this,other.NBodyPhaseSpace),
+      evaporation(this,other.evaporation),
+      weightedFunctionals(this,other.weightedFunctionals),
+      simpleMaxwellianFission(this,other.simpleMaxwellianFission),
+      Watt(this,other.Watt),
+      MadlandNix(this,other.MadlandNix)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Energy_uncorrelated(Energy_uncorrelated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs2d(this,std::move(other.XYs2d)),
+      regions2d(this,std::move(other.regions2d)),
+      generalEvaporation(this,std::move(other.generalEvaporation)),
+      discreteGamma(this,std::move(other.discreteGamma)),
+      primaryGamma(this,std::move(other.primaryGamma)),
+      NBodyPhaseSpace(this,std::move(other.NBodyPhaseSpace)),
+      evaporation(this,std::move(other.evaporation)),
+      weightedFunctionals(this,std::move(other.weightedFunctionals)),
+      simpleMaxwellianFission(this,std::move(other.simpleMaxwellianFission)),
+      Watt(this,std::move(other.Watt)),
+      MadlandNix(this,std::move(other.MadlandNix))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

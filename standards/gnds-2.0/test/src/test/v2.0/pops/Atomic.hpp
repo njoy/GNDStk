@@ -33,8 +33,7 @@ class Atomic : public Component<pops::Atomic> {
    {
       return
          // children
-         std::optional<pops::Configurations>{}
-            / --Child<>("configurations")
+         --Child<std::optional<pops::Configurations>>("configurations")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->configurations)
 
-   // default, and from fields
+   // default
+   Atomic() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Atomic(
-      const wrapper<std::optional<pops::Configurations>> &configurations = {}
+      const wrapper<std::optional<pops::Configurations>> &configurations
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configurations(this,configurations)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Atomic(const Atomic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configurations(this,other.configurations)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Atomic(Atomic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configurations(this,std::move(other.configurations))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

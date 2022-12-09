@@ -33,8 +33,7 @@ class PhotonEmissionProbabilities : public Component<transport::PhotonEmissionPr
    {
       return
          // children
-         std::optional<pops::Shell>{}
-            / --Child<>("shell")
+         --Child<std::optional<pops::Shell>>("shell")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->shell)
 
-   // default, and from fields
+   // default
+   PhotonEmissionProbabilities() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit PhotonEmissionProbabilities(
-      const wrapper<std::optional<pops::Shell>> &shell = {}
+      const wrapper<std::optional<pops::Shell>> &shell
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shell(this,shell)
@@ -70,17 +76,17 @@ public:
 
    // copy
    PhotonEmissionProbabilities(const PhotonEmissionProbabilities &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      shell(this,other.shell)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    PhotonEmissionProbabilities(PhotonEmissionProbabilities &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      shell(this,std::move(other.shell))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

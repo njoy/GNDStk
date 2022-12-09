@@ -33,8 +33,7 @@ class Isotopes : public Component<pops::Isotopes> {
    {
       return
          // children
-         pops::Isotope{}
-            / ++Child<>("isotope")
+         ++Child<pops::Isotope>("isotope")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->isotope)
 
-   // default, and from fields
+   // default
+   Isotopes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Isotopes(
-      const wrapper<std::vector<pops::Isotope>> &isotope = {}
+      const wrapper<std::vector<pops::Isotope>> &isotope
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       isotope(this,isotope)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Isotopes(const Isotopes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      isotope(this,other.isotope)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Isotopes(Isotopes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      isotope(this,std::move(other.isotope))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

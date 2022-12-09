@@ -33,8 +33,7 @@ class Leptons : public Component<pops::Leptons> {
    {
       return
          // children
-         pops::Lepton{}
-            / ++Child<>("lepton")
+         ++Child<pops::Lepton>("lepton")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->lepton)
 
-   // default, and from fields
+   // default
+   Leptons() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Leptons(
-      const wrapper<std::vector<pops::Lepton>> &lepton = {}
+      const wrapper<std::vector<pops::Lepton>> &lepton
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       lepton(this,lepton)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Leptons(const Leptons &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      lepton(this,other.lepton)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Leptons(Leptons &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      lepton(this,std::move(other.lepton))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Configurations : public Component<pops::Configurations> {
    {
       return
          // children
-         pops::Configuration{}
-            / ++Child<>("configuration")
+         ++Child<pops::Configuration>("configuration")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->configuration)
 
-   // default, and from fields
+   // default
+   Configurations() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Configurations(
-      const wrapper<std::vector<pops::Configuration>> &configuration = {}
+      const wrapper<std::vector<pops::Configuration>> &configuration
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configuration(this,configuration)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Configurations(const Configurations &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configuration(this,other.configuration)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Configurations(Configurations &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      configuration(this,std::move(other.configuration))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

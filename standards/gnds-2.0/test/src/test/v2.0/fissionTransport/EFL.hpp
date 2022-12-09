@@ -55,9 +55,16 @@ public:
       this->unit, \
       this->value)
 
-   // default, and from fields
+   // default
+   EFL() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit EFL(
-      const wrapper<XMLName> &unit = {},
+      const wrapper<XMLName> &unit,
       const wrapper<Float64> &value = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    EFL(const EFL &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unit(this,other.unit),
+      value(this,other.value)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    EFL(EFL &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

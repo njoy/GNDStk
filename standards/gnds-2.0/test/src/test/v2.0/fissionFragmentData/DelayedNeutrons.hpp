@@ -33,8 +33,7 @@ class DelayedNeutrons : public Component<fissionFragmentData::DelayedNeutrons> {
    {
       return
          // children
-         fissionFragmentData::DelayedNeutron{}
-            / ++Child<>("delayedNeutron")
+         ++Child<fissionFragmentData::DelayedNeutron>("delayedNeutron")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->delayedNeutron)
 
-   // default, and from fields
+   // default
+   DelayedNeutrons() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DelayedNeutrons(
-      const wrapper<std::vector<fissionFragmentData::DelayedNeutron>> &delayedNeutron = {}
+      const wrapper<std::vector<fissionFragmentData::DelayedNeutron>> &delayedNeutron
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       delayedNeutron(this,delayedNeutron)
@@ -70,17 +76,17 @@ public:
 
    // copy
    DelayedNeutrons(const DelayedNeutrons &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      delayedNeutron(this,other.delayedNeutron)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DelayedNeutrons(DelayedNeutrons &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      delayedNeutron(this,std::move(other.delayedNeutron))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

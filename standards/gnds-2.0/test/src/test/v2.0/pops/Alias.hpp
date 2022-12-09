@@ -55,9 +55,16 @@ public:
       this->id, \
       this->pid)
 
-   // default, and from fields
+   // default
+   Alias() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Alias(
-      const wrapper<XMLName> &id = {},
+      const wrapper<XMLName> &id,
       const wrapper<XMLName> &pid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    Alias(const Alias &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,other.id),
+      pid(this,other.pid)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Alias(Alias &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,std::move(other.id)),
+      pid(this,std::move(other.pid))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

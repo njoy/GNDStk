@@ -35,12 +35,9 @@ class Yields : public Component<fpy::Yields> {
    {
       return
          // children
-         fpy::Nuclides{}
-            / --Child<>("nuclides") |
-         containers::Values{}
-            / --Child<>("values") |
-         std::optional<containers::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<fpy::Nuclides>("nuclides") |
+         --Child<containers::Values>("values") |
+         --Child<std::optional<containers::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->values, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   Yields() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Yields(
-      const wrapper<fpy::Nuclides> &nuclides = {},
+      const wrapper<fpy::Nuclides> &nuclides,
       const wrapper<containers::Values> &values = {},
       const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    Yields(const Yields &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      nuclides(this,other.nuclides),
+      values(this,other.values),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Yields(Yields &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      nuclides(this,std::move(other.nuclides)),
+      values(this,std::move(other.values)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

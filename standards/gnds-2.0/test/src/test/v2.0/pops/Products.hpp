@@ -33,8 +33,7 @@ class Products : public Component<pops::Products> {
    {
       return
          // children
-         pops::Product{}
-            / ++Child<>("product")
+         ++Child<pops::Product>("product")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->product)
 
-   // default, and from fields
+   // default
+   Products() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Products(
-      const wrapper<std::vector<pops::Product>> &product = {}
+      const wrapper<std::vector<pops::Product>> &product
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       product(this,product)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Products(const Products &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      product(this,other.product)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Products(Products &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      product(this,std::move(other.product))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

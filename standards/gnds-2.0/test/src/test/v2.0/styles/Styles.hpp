@@ -43,28 +43,17 @@ class Styles : public Component<styles::Styles> {
    {
       return
          // children
-         std::optional<styles::Evaluated>{}
-            / ++Child<>("evaluated") |
-         std::optional<styles::CrossSectionReconstructed>{}
-            / ++Child<>("crossSectionReconstructed") |
-         std::optional<styles::AngularDistributionReconstructed>{}
-            / ++Child<>("angularDistributionReconstructed") |
-         std::optional<styles::CoulombPlusNuclearElasticMuCutoff>{}
-            / ++Child<>("CoulombPlusNuclearElasticMuCutoff") |
-         std::optional<styles::Heated>{}
-            / ++Child<>("heated") |
-         std::optional<styles::AverageProductData>{}
-            / ++Child<>("averageProductData") |
-         std::optional<styles::MonteCarlo_cdf>{}
-            / ++Child<>("MonteCarlo_cdf") |
-         std::optional<styles::GriddedCrossSection>{}
-            / ++Child<>("griddedCrossSection") |
-         std::optional<styles::URR_probabilityTables>{}
-            / ++Child<>("URR_probabilityTables") |
-         std::optional<styles::HeatedMultiGroup>{}
-            / ++Child<>("heatedMultiGroup") |
-         std::optional<styles::SnElasticUpScatter>{}
-            / ++Child<>("SnElasticUpScatter")
+         ++Child<std::optional<styles::Evaluated>>("evaluated") |
+         ++Child<std::optional<styles::CrossSectionReconstructed>>("crossSectionReconstructed") |
+         ++Child<std::optional<styles::AngularDistributionReconstructed>>("angularDistributionReconstructed") |
+         ++Child<std::optional<styles::CoulombPlusNuclearElasticMuCutoff>>("CoulombPlusNuclearElasticMuCutoff") |
+         ++Child<std::optional<styles::Heated>>("heated") |
+         ++Child<std::optional<styles::AverageProductData>>("averageProductData") |
+         ++Child<std::optional<styles::MonteCarlo_cdf>>("MonteCarlo_cdf") |
+         ++Child<std::optional<styles::GriddedCrossSection>>("griddedCrossSection") |
+         ++Child<std::optional<styles::URR_probabilityTables>>("URR_probabilityTables") |
+         ++Child<std::optional<styles::HeatedMultiGroup>>("heatedMultiGroup") |
+         ++Child<std::optional<styles::SnElasticUpScatter>>("SnElasticUpScatter")
       ;
    }
 
@@ -101,9 +90,16 @@ public:
       this->heatedMultiGroup, \
       this->SnElasticUpScatter)
 
-   // default, and from fields
+   // default
+   Styles() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Styles(
-      const wrapper<std::optional<std::vector<styles::Evaluated>>> &evaluated = {},
+      const wrapper<std::optional<std::vector<styles::Evaluated>>> &evaluated,
       const wrapper<std::optional<std::vector<styles::CrossSectionReconstructed>>> &crossSectionReconstructed = {},
       const wrapper<std::optional<std::vector<styles::AngularDistributionReconstructed>>> &angularDistributionReconstructed = {},
       const wrapper<std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>>> &CoulombPlusNuclearElasticMuCutoff = {},
@@ -140,17 +136,37 @@ public:
 
    // copy
    Styles(const Styles &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluated(this,other.evaluated),
+      crossSectionReconstructed(this,other.crossSectionReconstructed),
+      angularDistributionReconstructed(this,other.angularDistributionReconstructed),
+      CoulombPlusNuclearElasticMuCutoff(this,other.CoulombPlusNuclearElasticMuCutoff),
+      heated(this,other.heated),
+      averageProductData(this,other.averageProductData),
+      MonteCarlo_cdf(this,other.MonteCarlo_cdf),
+      griddedCrossSection(this,other.griddedCrossSection),
+      URR_probabilityTables(this,other.URR_probabilityTables),
+      heatedMultiGroup(this,other.heatedMultiGroup),
+      SnElasticUpScatter(this,other.SnElasticUpScatter)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Styles(Styles &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluated(this,std::move(other.evaluated)),
+      crossSectionReconstructed(this,std::move(other.crossSectionReconstructed)),
+      angularDistributionReconstructed(this,std::move(other.angularDistributionReconstructed)),
+      CoulombPlusNuclearElasticMuCutoff(this,std::move(other.CoulombPlusNuclearElasticMuCutoff)),
+      heated(this,std::move(other.heated)),
+      averageProductData(this,std::move(other.averageProductData)),
+      MonteCarlo_cdf(this,std::move(other.MonteCarlo_cdf)),
+      griddedCrossSection(this,std::move(other.griddedCrossSection)),
+      URR_probabilityTables(this,std::move(other.URR_probabilityTables)),
+      heatedMultiGroup(this,std::move(other.heatedMultiGroup)),
+      SnElasticUpScatter(this,std::move(other.SnElasticUpScatter))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

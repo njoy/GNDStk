@@ -36,8 +36,7 @@ class EnergyIntervals : public Component<resonances::EnergyIntervals> {
          XMLName{}
             / Meta<>("label") |
          // children
-         resonances::EnergyInterval{}
-            / ++Child<>("energyInterval")
+         ++Child<resonances::EnergyInterval>("energyInterval")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->energyInterval)
 
-   // default, and from fields
+   // default
+   EnergyIntervals() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit EnergyIntervals(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::vector<resonances::EnergyInterval>> &energyInterval = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    EnergyIntervals(const EnergyIntervals &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      energyInterval(this,other.energyInterval)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    EnergyIntervals(EnergyIntervals &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      energyInterval(this,std::move(other.energyInterval))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

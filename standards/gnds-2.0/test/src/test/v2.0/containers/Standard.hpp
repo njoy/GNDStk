@@ -33,8 +33,7 @@ class Standard : public Component<containers::Standard> {
    {
       return
          // children
-         extra::Double{}
-            / --Child<>("Double")
+         --Child<extra::Double>("double")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->Double)
 
-   // default, and from fields
+   // default
+   Standard() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Standard(
-      const wrapper<extra::Double> &Double = {}
+      const wrapper<extra::Double> &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Standard(const Standard &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,other.Double)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Standard(Standard &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,std::move(other.Double))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

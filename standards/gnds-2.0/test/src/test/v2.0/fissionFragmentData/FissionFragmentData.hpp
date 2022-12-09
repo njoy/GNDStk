@@ -35,12 +35,9 @@ class FissionFragmentData : public Component<fissionFragmentData::FissionFragmen
    {
       return
          // children
-         std::optional<fissionFragmentData::DelayedNeutrons>{}
-            / --Child<>("delayedNeutrons") |
-         std::optional<fissionTransport::FissionEnergyReleased>{}
-            / --Child<>("fissionEnergyReleased") |
-         std::optional<fpy::ProductYields>{}
-            / --Child<>("productYields")
+         --Child<std::optional<fissionFragmentData::DelayedNeutrons>>("delayedNeutrons") |
+         --Child<std::optional<fissionTransport::FissionEnergyReleased>>("fissionEnergyReleased") |
+         --Child<std::optional<fpy::ProductYields>>("productYields")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->fissionEnergyReleased, \
       this->productYields)
 
-   // default, and from fields
+   // default
+   FissionFragmentData() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit FissionFragmentData(
-      const wrapper<std::optional<fissionFragmentData::DelayedNeutrons>> &delayedNeutrons = {},
+      const wrapper<std::optional<fissionFragmentData::DelayedNeutrons>> &delayedNeutrons,
       const wrapper<std::optional<fissionTransport::FissionEnergyReleased>> &fissionEnergyReleased = {},
       const wrapper<std::optional<fpy::ProductYields>> &productYields = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    FissionFragmentData(const FissionFragmentData &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      delayedNeutrons(this,other.delayedNeutrons),
+      fissionEnergyReleased(this,other.fissionEnergyReleased),
+      productYields(this,other.productYields)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    FissionFragmentData(FissionFragmentData &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      delayedNeutrons(this,std::move(other.delayedNeutrons)),
+      fissionEnergyReleased(this,std::move(other.fissionEnergyReleased)),
+      productYields(this,std::move(other.productYields))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

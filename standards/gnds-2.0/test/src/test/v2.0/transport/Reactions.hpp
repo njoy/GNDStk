@@ -33,8 +33,7 @@ class Reactions : public Component<transport::Reactions> {
    {
       return
          // children
-         transport::Reaction{}
-            / ++Child<>("reaction")
+         ++Child<transport::Reaction>("reaction")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->reaction)
 
-   // default, and from fields
+   // default
+   Reactions() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Reactions(
-      const wrapper<std::vector<transport::Reaction>> &reaction = {}
+      const wrapper<std::vector<transport::Reaction>> &reaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       reaction(this,reaction)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Reactions(const Reactions &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      reaction(this,other.reaction)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Reactions(Reactions &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      reaction(this,std::move(other.reaction))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

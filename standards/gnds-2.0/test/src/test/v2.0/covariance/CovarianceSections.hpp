@@ -33,8 +33,7 @@ class CovarianceSections : public Component<covariance::CovarianceSections> {
    {
       return
          // children
-         std::optional<covariance::CovarianceSection>{}
-            / ++Child<>("covarianceSection")
+         ++Child<std::optional<covariance::CovarianceSection>>("covarianceSection")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->covarianceSection)
 
-   // default, and from fields
+   // default
+   CovarianceSections() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CovarianceSections(
-      const wrapper<std::optional<std::vector<covariance::CovarianceSection>>> &covarianceSection = {}
+      const wrapper<std::optional<std::vector<covariance::CovarianceSection>>> &covarianceSection
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       covarianceSection(this,covarianceSection)
@@ -70,17 +76,17 @@ public:
 
    // copy
    CovarianceSections(const CovarianceSections &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      covarianceSection(this,other.covarianceSection)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CovarianceSections(CovarianceSections &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      covarianceSection(this,std::move(other.covarianceSection))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

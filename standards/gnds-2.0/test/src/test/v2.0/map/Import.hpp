@@ -59,9 +59,16 @@ public:
       this->checksum, \
       this->algorithm)
 
-   // default, and from fields
+   // default
+   Import() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Import(
-      const wrapper<XMLName> &path = {},
+      const wrapper<XMLName> &path,
       const wrapper<std::string> &checksum = {},
       const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    Import(const Import &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      path(this,other.path),
+      checksum(this,other.checksum),
+      algorithm(this,other.algorithm)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Import(Import &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      path(this,std::move(other.path)),
+      checksum(this,std::move(other.checksum)),
+      algorithm(this,std::move(other.algorithm))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

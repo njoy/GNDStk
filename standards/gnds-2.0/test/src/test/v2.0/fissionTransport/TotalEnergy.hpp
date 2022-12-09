@@ -33,8 +33,7 @@ class TotalEnergy : public Component<fissionTransport::TotalEnergy> {
    {
       return
          // children
-         std::optional<containers::Polynomial1d>{}
-            / --Child<>("polynomial1d")
+         --Child<std::optional<containers::Polynomial1d>>("polynomial1d")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->polynomial1d)
 
-   // default, and from fields
+   // default
+   TotalEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit TotalEnergy(
-      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d = {}
+      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       polynomial1d(this,polynomial1d)
@@ -70,17 +76,17 @@ public:
 
    // copy
    TotalEnergy(const TotalEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      polynomial1d(this,other.polynomial1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    TotalEnergy(TotalEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      polynomial1d(this,std::move(other.polynomial1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

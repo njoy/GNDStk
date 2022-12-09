@@ -34,10 +34,8 @@ class ParameterCovariances : public Component<covariance::ParameterCovariances> 
    {
       return
          // children
-         std::optional<covariance::AverageParameterCovariance>{}
-            / ++Child<>("averageParameterCovariance") |
-         std::optional<covariance::ParameterCovariance>{}
-            / ++Child<>("parameterCovariance")
+         ++Child<std::optional<covariance::AverageParameterCovariance>>("averageParameterCovariance") |
+         ++Child<std::optional<covariance::ParameterCovariance>>("parameterCovariance")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->averageParameterCovariance, \
       this->parameterCovariance)
 
-   // default, and from fields
+   // default
+   ParameterCovariances() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ParameterCovariances(
-      const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>> &averageParameterCovariance = {},
+      const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>> &averageParameterCovariance,
       const wrapper<std::optional<std::vector<covariance::ParameterCovariance>>> &parameterCovariance = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    ParameterCovariances(const ParameterCovariances &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      averageParameterCovariance(this,other.averageParameterCovariance),
+      parameterCovariance(this,other.parameterCovariance)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ParameterCovariances(ParameterCovariances &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      averageParameterCovariance(this,std::move(other.averageParameterCovariance)),
+      parameterCovariance(this,std::move(other.parameterCovariance))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Contributors : public Component<documentation::Contributors> {
    {
       return
          // children
-         documentation::Author{}
-            / ++Child<>("contributor")
+         ++Child<documentation::Author>("contributor")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->contributor)
 
-   // default, and from fields
+   // default
+   Contributors() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Contributors(
-      const wrapper<std::vector<documentation::Author>> &contributor = {}
+      const wrapper<std::vector<documentation::Author>> &contributor
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       contributor(this,contributor)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Contributors(const Contributors &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      contributor(this,other.contributor)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Contributors(Contributors &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      contributor(this,std::move(other.contributor))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

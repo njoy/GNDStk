@@ -55,9 +55,16 @@ public:
       this->label, \
       this->href)
 
-   // default, and from fields
+   // default
+   ThermalNeutronScatteringLaw1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ThermalNeutronScatteringLaw1d(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    ThermalNeutronScatteringLaw1d(const ThermalNeutronScatteringLaw1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      href(this,other.href)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ThermalNeutronScatteringLaw1d(ThermalNeutronScatteringLaw1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      href(this,std::move(other.href))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

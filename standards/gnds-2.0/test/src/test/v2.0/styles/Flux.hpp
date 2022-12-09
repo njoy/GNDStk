@@ -36,8 +36,7 @@ class Flux : public Component<styles::Flux> {
          XMLName{}
             / Meta<>("label") |
          // children
-         containers::XYs2d{}
-            / --Child<>("XYs2d")
+         --Child<containers::XYs2d>("XYs2d")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->XYs2d)
 
-   // default, and from fields
+   // default
+   Flux() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Flux(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<containers::XYs2d> &XYs2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    Flux(const Flux &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      XYs2d(this,other.XYs2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Flux(Flux &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      XYs2d(this,std::move(other.XYs2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

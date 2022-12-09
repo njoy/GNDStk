@@ -63,9 +63,16 @@ public:
       this->unit, \
       this->types)
 
-   // default, and from fields
+   // default
+   Column() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Column(
-      const wrapper<Integer32> &index = {},
+      const wrapper<Integer32> &index,
       const wrapper<XMLName> &name = {},
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<XMLName>> &types = {}
@@ -88,17 +95,23 @@ public:
 
    // copy
    Column(const Column &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      name(this,other.name),
+      unit(this,other.unit),
+      types(this,other.types)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Column(Column &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      name(this,std::move(other.name)),
+      unit(this,std::move(other.unit)),
+      types(this,std::move(other.types))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

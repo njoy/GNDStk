@@ -67,9 +67,16 @@ public:
       this->domainUnit, \
       this->dimension)
 
-   // default, and from fields
+   // default
+   Slice() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Slice(
-      const wrapper<std::optional<Float64>> &domainMin = {},
+      const wrapper<std::optional<Float64>> &domainMin,
       const wrapper<std::optional<Float64>> &domainMax = {},
       const wrapper<std::optional<Float64>> &domainValue = {},
       const wrapper<std::optional<XMLName>> &domainUnit = {},
@@ -94,17 +101,25 @@ public:
 
    // copy
    Slice(const Slice &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      domainValue(this,other.domainValue),
+      domainUnit(this,other.domainUnit),
+      dimension(this,other.dimension)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Slice(Slice &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      domainValue(this,std::move(other.domainValue)),
+      domainUnit(this,std::move(other.domainUnit)),
+      dimension(this,std::move(other.dimension))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -59,9 +59,16 @@ public:
       this->label, \
       this->unit)
 
-   // default, and from fields
+   // default
+   Axis() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Axis(
-      const wrapper<std::optional<int>> &index = {},
+      const wrapper<std::optional<int>> &index,
       const wrapper<std::optional<std::string>> &label = {},
       const wrapper<std::optional<std::string>> &unit = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    Axis(const Axis &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      label(this,other.label),
+      unit(this,other.unit)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Axis(Axis &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

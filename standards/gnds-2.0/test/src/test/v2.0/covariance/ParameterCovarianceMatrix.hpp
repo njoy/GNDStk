@@ -39,10 +39,8 @@ class ParameterCovarianceMatrix : public Component<covariance::ParameterCovarian
          std::optional<XMLName>{}
             / Meta<>("type") |
          // children
-         covariance::Parameters{}
-            / --Child<>("parameters") |
-         containers::Array{}
-            / --Child<>("array")
+         --Child<covariance::Parameters>("parameters") |
+         --Child<containers::Array>("array")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->parameters, \
       this->array)
 
-   // default, and from fields
+   // default
+   ParameterCovarianceMatrix() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ParameterCovarianceMatrix(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::optional<XMLName>> &type = {},
       const wrapper<covariance::Parameters> &parameters = {},
       const wrapper<containers::Array> &array = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    ParameterCovarianceMatrix(const ParameterCovarianceMatrix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      type(this,other.type),
+      parameters(this,other.parameters),
+      array(this,other.array)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ParameterCovarianceMatrix(ParameterCovarianceMatrix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      type(this,std::move(other.type)),
+      parameters(this,std::move(other.parameters)),
+      array(this,std::move(other.array))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

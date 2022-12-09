@@ -52,9 +52,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->value)
 
-   // default, and from fields
+   // default
+   Foobar() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Foobar(
-      const wrapper<std::string> &value = {}
+      const wrapper<std::string> &value
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value)
@@ -79,17 +86,17 @@ public:
 
    // copy
    Foobar(const Foobar &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,other.value)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Foobar(Foobar &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,std::move(other.value))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -41,14 +41,10 @@ class AngularTwoBody : public Component<transport::AngularTwoBody> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         std::optional<containers::XYs2d>{}
-            / --Child<>("XYs2d") |
-         std::optional<containers::Regions2d>{}
-            / --Child<>("regions2d") |
-         std::optional<transport::Isotropic2d>{}
-            / --Child<>("isotropic2d") |
-         std::optional<transport::Recoil>{}
-            / --Child<>("recoil")
+         --Child<std::optional<containers::XYs2d>>("XYs2d") |
+         --Child<std::optional<containers::Regions2d>>("regions2d") |
+         --Child<std::optional<transport::Isotropic2d>>("isotropic2d") |
+         --Child<std::optional<transport::Recoil>>("recoil")
       ;
    }
 
@@ -77,9 +73,16 @@ public:
       this->isotropic2d, \
       this->recoil)
 
-   // default, and from fields
+   // default
+   AngularTwoBody() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit AngularTwoBody(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {},
       const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
       const wrapper<std::optional<containers::Regions2d>> &regions2d = {},
@@ -106,17 +109,27 @@ public:
 
    // copy
    AngularTwoBody(const AngularTwoBody &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      XYs2d(this,other.XYs2d),
+      regions2d(this,other.regions2d),
+      isotropic2d(this,other.isotropic2d),
+      recoil(this,other.recoil)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    AngularTwoBody(AngularTwoBody &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      XYs2d(this,std::move(other.XYs2d)),
+      regions2d(this,std::move(other.regions2d)),
+      isotropic2d(this,std::move(other.isotropic2d)),
+      recoil(this,std::move(other.recoil))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

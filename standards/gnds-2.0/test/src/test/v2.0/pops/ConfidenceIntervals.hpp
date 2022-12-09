@@ -33,8 +33,7 @@ class ConfidenceIntervals : public Component<pops::ConfidenceIntervals> {
    {
       return
          // children
-         pops::Interval{}
-            / ++Child<>("interval")
+         ++Child<pops::Interval>("interval")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->interval)
 
-   // default, and from fields
+   // default
+   ConfidenceIntervals() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ConfidenceIntervals(
-      const wrapper<std::vector<pops::Interval>> &interval = {}
+      const wrapper<std::vector<pops::Interval>> &interval
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       interval(this,interval)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ConfidenceIntervals(const ConfidenceIntervals &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      interval(this,other.interval)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ConfidenceIntervals(ConfidenceIntervals &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      interval(this,std::move(other.interval))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class DistinctScatteringKernel : public Component<tsl::DistinctScatteringKernel>
    {
       return
          // children
-         std::optional<containers::Gridded3d>{}
-            / --Child<>("gridded3d")
+         --Child<std::optional<containers::Gridded3d>>("gridded3d")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->gridded3d)
 
-   // default, and from fields
+   // default
+   DistinctScatteringKernel() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DistinctScatteringKernel(
-      const wrapper<std::optional<containers::Gridded3d>> &gridded3d = {}
+      const wrapper<std::optional<containers::Gridded3d>> &gridded3d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gridded3d(this,gridded3d)
@@ -70,17 +76,17 @@ public:
 
    // copy
    DistinctScatteringKernel(const DistinctScatteringKernel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      gridded3d(this,other.gridded3d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DistinctScatteringKernel(DistinctScatteringKernel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      gridded3d(this,std::move(other.gridded3d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

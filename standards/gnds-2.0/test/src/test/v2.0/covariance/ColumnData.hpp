@@ -40,8 +40,7 @@ class ColumnData : public Component<covariance::ColumnData> {
          std::optional<Integer32>{}
             / Meta<>("dimension") |
          // children
-         std::optional<covariance::Slices>{}
-            / --Child<>("slices")
+         --Child<std::optional<covariance::Slices>>("slices")
       ;
    }
 
@@ -66,9 +65,16 @@ public:
       this->dimension, \
       this->slices)
 
-   // default, and from fields
+   // default
+   ColumnData() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ColumnData(
-      const wrapper<std::optional<XMLName>> &ENDF_MFMT = {},
+      const wrapper<std::optional<XMLName>> &ENDF_MFMT,
       const wrapper<std::optional<XMLName>> &href = {},
       const wrapper<std::optional<Integer32>> &dimension = {},
       const wrapper<std::optional<covariance::Slices>> &slices = {}
@@ -91,17 +97,23 @@ public:
 
    // copy
    ColumnData(const ColumnData &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MFMT(this,other.ENDF_MFMT),
+      href(this,other.href),
+      dimension(this,other.dimension),
+      slices(this,other.slices)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ColumnData(ColumnData &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MFMT(this,std::move(other.ENDF_MFMT)),
+      href(this,std::move(other.href)),
+      dimension(this,std::move(other.dimension)),
+      slices(this,std::move(other.slices))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

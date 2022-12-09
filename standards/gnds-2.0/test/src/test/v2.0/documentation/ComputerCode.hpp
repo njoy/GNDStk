@@ -44,16 +44,11 @@ class ComputerCode : public Component<documentation::ComputerCode> {
          XMLName{}
             / Meta<>("version") |
          // children
-         std::optional<documentation::ExecutionArguments>{}
-            / --Child<>("executionArguments") |
-         std::optional<documentation::CodeRepo>{}
-            / --Child<>("codeRepo") |
-         std::optional<documentation::Note>{}
-            / --Child<>("note") |
-         std::optional<documentation::InputDecks>{}
-            / --Child<>("inputDecks") |
-         std::optional<documentation::OutputDecks>{}
-            / --Child<>("outputDecks")
+         --Child<std::optional<documentation::ExecutionArguments>>("executionArguments") |
+         --Child<std::optional<documentation::CodeRepo>>("codeRepo") |
+         --Child<std::optional<documentation::Note>>("note") |
+         --Child<std::optional<documentation::InputDecks>>("inputDecks") |
+         --Child<std::optional<documentation::OutputDecks>>("outputDecks")
       ;
    }
 
@@ -86,9 +81,16 @@ public:
       this->inputDecks, \
       this->outputDecks)
 
-   // default, and from fields
+   // default
+   ComputerCode() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ComputerCode(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<UTF8Text> &name = {},
       const wrapper<XMLName> &version = {},
       const wrapper<std::optional<documentation::ExecutionArguments>> &executionArguments = {},
@@ -119,17 +121,31 @@ public:
 
    // copy
    ComputerCode(const ComputerCode &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      name(this,other.name),
+      version(this,other.version),
+      executionArguments(this,other.executionArguments),
+      codeRepo(this,other.codeRepo),
+      note(this,other.note),
+      inputDecks(this,other.inputDecks),
+      outputDecks(this,other.outputDecks)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ComputerCode(ComputerCode &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      name(this,std::move(other.name)),
+      version(this,std::move(other.version)),
+      executionArguments(this,std::move(other.executionArguments)),
+      codeRepo(this,std::move(other.codeRepo)),
+      note(this,std::move(other.note)),
+      inputDecks(this,std::move(other.inputDecks)),
+      outputDecks(this,std::move(other.outputDecks))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

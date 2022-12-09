@@ -42,12 +42,9 @@ class Energy : public Component<common::Energy> {
          std::optional<XMLName>{}
             / Meta<>("value") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation") |
-         std::optional<containers::Uncertainty>{}
-            / --Child<>("uncertainty") |
-         containers::Double{}
-            / ++Child<>("Double")
+         --Child<std::optional<documentation::Documentation>>("documentation") |
+         --Child<std::optional<containers::Uncertainty>>("uncertainty") |
+         ++Child<containers::Double>("double")
       ;
    }
 
@@ -76,9 +73,16 @@ public:
       this->uncertainty, \
       this->Double)
 
-   // default, and from fields
+   // default
+   Energy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Energy(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<XMLName>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
@@ -105,17 +109,27 @@ public:
 
    // copy
    Energy(const Energy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      unit(this,other.unit),
+      value(this,other.value),
+      documentation(this,other.documentation),
+      uncertainty(this,other.uncertainty),
+      Double(this,other.Double)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Energy(Energy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value)),
+      documentation(this,std::move(other.documentation)),
+      uncertainty(this,std::move(other.uncertainty)),
+      Double(this,std::move(other.Double))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

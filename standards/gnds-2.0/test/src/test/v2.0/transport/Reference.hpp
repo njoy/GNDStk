@@ -55,9 +55,16 @@ public:
       this->href, \
       this->label)
 
-   // default, and from fields
+   // default
+   Reference() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Reference(
-      const wrapper<std::optional<std::string>> &href = {},
+      const wrapper<std::optional<std::string>> &href,
       const wrapper<std::optional<XMLName>> &label = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    Reference(const Reference &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      label(this,other.label)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Reference(Reference &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      label(this,std::move(other.label))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

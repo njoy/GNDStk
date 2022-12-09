@@ -55,9 +55,16 @@ public:
       this->unit, \
       this->value)
 
-   // default, and from fields
+   // default
+   CoherentAtomCrossSection() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CoherentAtomCrossSection(
-      const wrapper<XMLName> &unit = {},
+      const wrapper<XMLName> &unit,
       const wrapper<Float64> &value = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    CoherentAtomCrossSection(const CoherentAtomCrossSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unit(this,other.unit),
+      value(this,other.value)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CoherentAtomCrossSection(CoherentAtomCrossSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

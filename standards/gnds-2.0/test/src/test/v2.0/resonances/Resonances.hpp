@@ -39,14 +39,10 @@ class Resonances : public Component<resonances::Resonances> {
          std::optional<XMLName>{}
             / Meta<>("href") |
          // children
-         resonances::ScatteringRadius{}
-            / --Child<>("scatteringRadius") |
-         std::optional<resonances::HardSphereRadius>{}
-            / --Child<>("hardSphereRadius") |
-         std::optional<resonances::Resolved>{}
-            / ++Child<>("resolved") |
-         std::optional<resonances::Unresolved>{}
-            / ++Child<>("unresolved")
+         --Child<resonances::ScatteringRadius>("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
+         ++Child<std::optional<resonances::Resolved>>("resolved") |
+         ++Child<std::optional<resonances::Unresolved>>("unresolved")
       ;
    }
 
@@ -73,9 +69,16 @@ public:
       this->resolved, \
       this->unresolved)
 
-   // default, and from fields
+   // default
+   Resonances() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Resonances(
-      const wrapper<std::optional<XMLName>> &href = {},
+      const wrapper<std::optional<XMLName>> &href,
       const wrapper<resonances::ScatteringRadius> &scatteringRadius = {},
       const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
       const wrapper<std::optional<std::vector<resonances::Resolved>>> &resolved = {},
@@ -100,17 +103,25 @@ public:
 
    // copy
    Resonances(const Resonances &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      scatteringRadius(this,other.scatteringRadius),
+      hardSphereRadius(this,other.hardSphereRadius),
+      resolved(this,other.resolved),
+      unresolved(this,other.unresolved)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Resonances(Resonances &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      scatteringRadius(this,std::move(other.scatteringRadius)),
+      hardSphereRadius(this,std::move(other.hardSphereRadius)),
+      resolved(this,std::move(other.resolved)),
+      unresolved(this,std::move(other.unresolved))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

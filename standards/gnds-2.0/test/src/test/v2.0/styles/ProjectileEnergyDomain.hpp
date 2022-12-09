@@ -63,9 +63,16 @@ public:
       this->min, \
       this->unit)
 
-   // default, and from fields
+   // default
+   ProjectileEnergyDomain() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ProjectileEnergyDomain(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<Float64> &max = {},
       const wrapper<Float64> &min = {},
       const wrapper<XMLName> &unit = {}
@@ -88,17 +95,23 @@ public:
 
    // copy
    ProjectileEnergyDomain(const ProjectileEnergyDomain &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      max(this,other.max),
+      min(this,other.min),
+      unit(this,other.unit)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ProjectileEnergyDomain(ProjectileEnergyDomain &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      max(this,std::move(other.max)),
+      min(this,std::move(other.min)),
+      unit(this,std::move(other.unit))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

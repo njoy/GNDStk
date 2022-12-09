@@ -70,10 +70,17 @@ public:
       this->label, \
       this->type)
 
-   // default, and from fields
+   // default
+   Keyword() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Keyword(
-      const wrapper<std::optional<XMLName>> &encoding = {},
+      const wrapper<std::optional<XMLName>> &encoding,
       const wrapper<std::optional<std::string>> &markup = {},
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<XMLName> &type = {}
@@ -104,17 +111,23 @@ public:
 
    // copy
    Keyword(const Keyword &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,other.encoding),
+      markup(this,other.markup),
+      label(this,other.label),
+      type(this,other.type)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Keyword(Keyword &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,std::move(other.encoding)),
+      markup(this,std::move(other.markup)),
+      label(this,std::move(other.label)),
+      type(this,std::move(other.type))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -35,12 +35,9 @@ class NuclearAmplitudeExpansion : public Component<cpTransport::NuclearAmplitude
    {
       return
          // children
-         cpTransport::NuclearTerm{}
-            / --Child<>("nuclearTerm") |
-         cpTransport::RealInterferenceTerm{}
-            / --Child<>("realInterferenceTerm") |
-         cpTransport::ImaginaryInterferenceTerm{}
-            / --Child<>("imaginaryInterferenceTerm")
+         --Child<cpTransport::NuclearTerm>("nuclearTerm") |
+         --Child<cpTransport::RealInterferenceTerm>("realInterferenceTerm") |
+         --Child<cpTransport::ImaginaryInterferenceTerm>("imaginaryInterferenceTerm")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->realInterferenceTerm, \
       this->imaginaryInterferenceTerm)
 
-   // default, and from fields
+   // default
+   NuclearAmplitudeExpansion() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit NuclearAmplitudeExpansion(
-      const wrapper<cpTransport::NuclearTerm> &nuclearTerm = {},
+      const wrapper<cpTransport::NuclearTerm> &nuclearTerm,
       const wrapper<cpTransport::RealInterferenceTerm> &realInterferenceTerm = {},
       const wrapper<cpTransport::ImaginaryInterferenceTerm> &imaginaryInterferenceTerm = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    NuclearAmplitudeExpansion(const NuclearAmplitudeExpansion &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      nuclearTerm(this,other.nuclearTerm),
+      realInterferenceTerm(this,other.realInterferenceTerm),
+      imaginaryInterferenceTerm(this,other.imaginaryInterferenceTerm)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    NuclearAmplitudeExpansion(NuclearAmplitudeExpansion &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      nuclearTerm(this,std::move(other.nuclearTerm)),
+      realInterferenceTerm(this,std::move(other.realInterferenceTerm)),
+      imaginaryInterferenceTerm(this,std::move(other.imaginaryInterferenceTerm))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

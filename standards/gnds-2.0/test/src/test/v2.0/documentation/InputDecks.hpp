@@ -33,8 +33,7 @@ class InputDecks : public Component<documentation::InputDecks> {
    {
       return
          // children
-         documentation::InputDeck{}
-            / ++Child<>("inputDeck")
+         ++Child<documentation::InputDeck>("inputDeck")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->inputDeck)
 
-   // default, and from fields
+   // default
+   InputDecks() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit InputDecks(
-      const wrapper<std::vector<documentation::InputDeck>> &inputDeck = {}
+      const wrapper<std::vector<documentation::InputDeck>> &inputDeck
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       inputDeck(this,inputDeck)
@@ -70,17 +76,17 @@ public:
 
    // copy
    InputDecks(const InputDecks &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      inputDeck(this,other.inputDeck)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    InputDecks(InputDecks &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      inputDeck(this,std::move(other.inputDeck))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

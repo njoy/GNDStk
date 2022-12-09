@@ -55,9 +55,16 @@ public:
       this->dateType, \
       this->value)
 
-   // default, and from fields
+   // default
+   Date() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Date(
-      const wrapper<enums::DateType> &dateType = {},
+      const wrapper<enums::DateType> &dateType,
       const wrapper<std::string> &value = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    Date(const Date &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      dateType(this,other.dateType),
+      value(this,other.value)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Date(Date &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      dateType(this,std::move(other.dateType)),
+      value(this,std::move(other.value))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

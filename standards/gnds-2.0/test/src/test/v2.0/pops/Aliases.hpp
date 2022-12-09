@@ -34,10 +34,8 @@ class Aliases : public Component<pops::Aliases> {
    {
       return
          // children
-         std::optional<pops::Alias>{}
-            / ++Child<>("alias") |
-         std::optional<pops::MetaStable>{}
-            / ++Child<>("metaStable")
+         ++Child<std::optional<pops::Alias>>("alias") |
+         ++Child<std::optional<pops::MetaStable>>("metaStable")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->alias, \
       this->metaStable)
 
-   // default, and from fields
+   // default
+   Aliases() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Aliases(
-      const wrapper<std::optional<std::vector<pops::Alias>>> &alias = {},
+      const wrapper<std::optional<std::vector<pops::Alias>>> &alias,
       const wrapper<std::optional<std::vector<pops::MetaStable>>> &metaStable = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    Aliases(const Aliases &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      alias(this,other.alias),
+      metaStable(this,other.metaStable)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Aliases(Aliases &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      alias(this,std::move(other.alias)),
+      metaStable(this,std::move(other.metaStable))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

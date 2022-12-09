@@ -33,8 +33,7 @@ class ENDFconversionFlags : public Component<appData::ENDFconversionFlags> {
    {
       return
          // children
-         std::optional<appData::Conversion>{}
-            / --Child<>("conversion")
+         --Child<std::optional<appData::Conversion>>("conversion")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->conversion)
 
-   // default, and from fields
+   // default
+   ENDFconversionFlags() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ENDFconversionFlags(
-      const wrapper<std::optional<appData::Conversion>> &conversion = {}
+      const wrapper<std::optional<appData::Conversion>> &conversion
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       conversion(this,conversion)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ENDFconversionFlags(const ENDFconversionFlags &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      conversion(this,other.conversion)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ENDFconversionFlags(ENDFconversionFlags &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      conversion(this,std::move(other.conversion))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

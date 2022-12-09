@@ -33,8 +33,7 @@ class ProductYields : public Component<fpy::ProductYields> {
    {
       return
          // children
-         fpy::ProductYield{}
-            / ++Child<>("productYield")
+         ++Child<fpy::ProductYield>("productYield")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->productYield)
 
-   // default, and from fields
+   // default
+   ProductYields() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ProductYields(
-      const wrapper<std::vector<fpy::ProductYield>> &productYield = {}
+      const wrapper<std::vector<fpy::ProductYield>> &productYield
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       productYield(this,productYield)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ProductYields(const ProductYields &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      productYield(this,other.productYield)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ProductYields(ProductYields &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      productYield(this,std::move(other.productYield))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

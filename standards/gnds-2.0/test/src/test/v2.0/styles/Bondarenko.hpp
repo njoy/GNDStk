@@ -41,10 +41,8 @@ class Bondarenko : public Component<styles::Bondarenko> {
          XMLName{}
             / Meta<>("label") |
          // children
-         styles::SigmaZeros{}
-            / --Child<>("sigmaZeros") |
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<styles::SigmaZeros>("sigmaZeros") |
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->sigmaZeros, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   Bondarenko() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Bondarenko(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<styles::SigmaZeros> &sigmaZeros = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    Bondarenko(const Bondarenko &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      sigmaZeros(this,other.sigmaZeros),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Bondarenko(Bondarenko &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      sigmaZeros(this,std::move(other.sigmaZeros)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

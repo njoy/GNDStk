@@ -43,18 +43,12 @@ class DecayMode : public Component<pops::DecayMode> {
          enums::DecayType{}
             / Meta<>("mode") |
          // children
-         pops::Probability{}
-            / --Child<>("probability") |
-         std::optional<pops::InternalConversionCoefficients>{}
-            / --Child<>("internalConversionCoefficients") |
-         std::optional<pops::PhotonEmissionProbabilities>{}
-            / --Child<>("photonEmissionProbabilities") |
-         std::optional<pops::Q>{}
-            / --Child<>("Q") |
-         std::optional<pops::DecayPath>{}
-            / --Child<>("decayPath") |
-         std::optional<pops::Spectra>{}
-            / --Child<>("spectra")
+         --Child<pops::Probability>("probability") |
+         --Child<std::optional<pops::InternalConversionCoefficients>>("internalConversionCoefficients") |
+         --Child<std::optional<pops::PhotonEmissionProbabilities>>("photonEmissionProbabilities") |
+         --Child<std::optional<pops::Q>>("Q") |
+         --Child<std::optional<pops::DecayPath>>("decayPath") |
+         --Child<std::optional<pops::Spectra>>("spectra")
       ;
    }
 
@@ -87,9 +81,16 @@ public:
       this->decayPath, \
       this->spectra)
 
-   // default, and from fields
+   // default
+   DecayMode() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DecayMode(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<enums::DecayType> &mode = {},
       const wrapper<pops::Probability> &probability = {},
       const wrapper<std::optional<pops::InternalConversionCoefficients>> &internalConversionCoefficients = {},
@@ -120,17 +121,31 @@ public:
 
    // copy
    DecayMode(const DecayMode &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      mode(this,other.mode),
+      probability(this,other.probability),
+      internalConversionCoefficients(this,other.internalConversionCoefficients),
+      photonEmissionProbabilities(this,other.photonEmissionProbabilities),
+      Q(this,other.Q),
+      decayPath(this,other.decayPath),
+      spectra(this,other.spectra)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DecayMode(DecayMode &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      mode(this,std::move(other.mode)),
+      probability(this,std::move(other.probability)),
+      internalConversionCoefficients(this,std::move(other.internalConversionCoefficients)),
+      photonEmissionProbabilities(this,std::move(other.photonEmissionProbabilities)),
+      Q(this,std::move(other.Q)),
+      decayPath(this,std::move(other.decayPath)),
+      spectra(this,std::move(other.spectra))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

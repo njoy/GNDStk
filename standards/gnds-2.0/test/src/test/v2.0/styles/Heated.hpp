@@ -41,10 +41,8 @@ class Heated : public Component<styles::Heated> {
          XMLName{}
             / Meta<>("label") |
          // children
-         styles::Temperature{}
-            / --Child<>("temperature") |
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<styles::Temperature>("temperature") |
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->temperature, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   Heated() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Heated(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<styles::Temperature> &temperature = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    Heated(const Heated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      temperature(this,other.temperature),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Heated(Heated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      temperature(this,std::move(other.temperature)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

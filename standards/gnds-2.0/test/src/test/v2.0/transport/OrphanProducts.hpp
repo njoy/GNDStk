@@ -33,8 +33,7 @@ class OrphanProducts : public Component<transport::OrphanProducts> {
    {
       return
          // children
-         transport::OrphanProduct{}
-            / ++Child<>("orphanProduct")
+         ++Child<transport::OrphanProduct>("orphanProduct")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->orphanProduct)
 
-   // default, and from fields
+   // default
+   OrphanProducts() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit OrphanProducts(
-      const wrapper<std::vector<transport::OrphanProduct>> &orphanProduct = {}
+      const wrapper<std::vector<transport::OrphanProduct>> &orphanProduct
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       orphanProduct(this,orphanProduct)
@@ -70,17 +76,17 @@ public:
 
    // copy
    OrphanProducts(const OrphanProducts &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      orphanProduct(this,other.orphanProduct)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    OrphanProducts(OrphanProducts &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      orphanProduct(this,std::move(other.orphanProduct))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

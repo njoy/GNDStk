@@ -37,10 +37,8 @@ class Unorthodox : public Component<pops::Unorthodox> {
          XMLName{}
             / Meta<>("id") |
          // children
-         std::optional<pops::Charge>{}
-            / --Child<>("charge") |
-         std::optional<pops::Mass>{}
-            / --Child<>("mass")
+         --Child<std::optional<pops::Charge>>("charge") |
+         --Child<std::optional<pops::Mass>>("mass")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->charge, \
       this->mass)
 
-   // default, and from fields
+   // default
+   Unorthodox() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Unorthodox(
-      const wrapper<XMLName> &id = {},
+      const wrapper<XMLName> &id,
       const wrapper<std::optional<pops::Charge>> &charge = {},
       const wrapper<std::optional<pops::Mass>> &mass = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    Unorthodox(const Unorthodox &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,other.id),
+      charge(this,other.charge),
+      mass(this,other.mass)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Unorthodox(Unorthodox &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,std::move(other.id)),
+      charge(this,std::move(other.charge)),
+      mass(this,std::move(other.mass))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

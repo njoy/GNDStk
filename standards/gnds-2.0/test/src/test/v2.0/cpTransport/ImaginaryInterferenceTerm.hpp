@@ -34,10 +34,8 @@ class ImaginaryInterferenceTerm : public Component<cpTransport::ImaginaryInterfe
    {
       return
          // children
-         std::optional<containers::XYs2d>{}
-            / --Child<>("XYs2d") |
-         std::optional<containers::Regions2d>{}
-            / --Child<>("regions2d")
+         --Child<std::optional<containers::XYs2d>>("XYs2d") |
+         --Child<std::optional<containers::Regions2d>>("regions2d")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->XYs2d, \
       this->regions2d)
 
-   // default, and from fields
+   // default
+   ImaginaryInterferenceTerm() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ImaginaryInterferenceTerm(
-      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d,
       const wrapper<std::optional<containers::Regions2d>> &regions2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    ImaginaryInterferenceTerm(const ImaginaryInterferenceTerm &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs2d(this,other.XYs2d),
+      regions2d(this,other.regions2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ImaginaryInterferenceTerm(ImaginaryInterferenceTerm &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs2d(this,std::move(other.XYs2d)),
+      regions2d(this,std::move(other.regions2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Energy : public Component<fpy::Energy> {
    {
       return
          // children
-         containers::Double{}
-            / --Child<>("Double")
+         --Child<containers::Double>("double")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->Double)
 
-   // default, and from fields
+   // default
+   Energy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Energy(
-      const wrapper<containers::Double> &Double = {}
+      const wrapper<containers::Double> &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Energy(const Energy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,other.Double)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Energy(Energy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,std::move(other.Double))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

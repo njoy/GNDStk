@@ -38,8 +38,7 @@ class L : public Component<resonances::L> {
          Integer32{}
             / Meta<>("value") |
          // children
-         resonances::Js{}
-            / --Child<>("Js")
+         --Child<resonances::Js>("Js")
       ;
    }
 
@@ -62,9 +61,16 @@ public:
       this->value, \
       this->Js)
 
-   // default, and from fields
+   // default
+   L() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit L(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<Integer32> &value = {},
       const wrapper<resonances::Js> &Js = {}
    ) :
@@ -85,17 +91,21 @@ public:
 
    // copy
    L(const L &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      value(this,other.value),
+      Js(this,other.Js)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    L(L &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      value(this,std::move(other.value)),
+      Js(this,std::move(other.Js))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

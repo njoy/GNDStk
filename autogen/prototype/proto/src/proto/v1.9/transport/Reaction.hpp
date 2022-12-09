@@ -40,8 +40,7 @@ class Reaction : public Component<transport::Reaction> {
          std::string{}
             / Meta<>("label") |
          // children
-         transport::CrossSection{}
-            / --Child<>("crossSection")
+         --Child<transport::CrossSection>("crossSection")
       ;
    }
 
@@ -66,9 +65,16 @@ public:
       this->label, \
       this->crossSection)
 
-   // default, and from fields
+   // default
+   Reaction() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Reaction(
-      const wrapper<int> &ENDF_MT = {},
+      const wrapper<int> &ENDF_MT,
       const wrapper<std::optional<std::string>> &fissionGenre = {},
       const wrapper<std::string> &label = {},
       const wrapper<transport::CrossSection> &crossSection = {}
@@ -91,17 +97,23 @@ public:
 
    // copy
    Reaction(const Reaction &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      fissionGenre(this,other.fissionGenre),
+      label(this,other.label),
+      crossSection(this,other.crossSection)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Reaction(Reaction &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      fissionGenre(this,std::move(other.fissionGenre)),
+      label(this,std::move(other.label)),
+      crossSection(this,std::move(other.crossSection))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

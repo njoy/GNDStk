@@ -45,14 +45,10 @@ class ResonanceReaction : public Component<resonances::ResonanceReaction> {
          Defaulted<bool>{false}
             / Meta<>("eliminated") |
          // children
-         std::optional<common::Q>{}
-            / --Child<>("Q") |
-         std::optional<resonances::ScatteringRadius>{}
-            / --Child<>("scatteringRadius") |
-         std::optional<resonances::HardSphereRadius>{}
-            / --Child<>("hardSphereRadius") |
-         containers::Link{}
-            / --Child<>("link")
+         --Child<std::optional<common::Q>>("Q") |
+         --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
+         --Child<containers::Link>("link")
       ;
    }
 
@@ -90,10 +86,17 @@ public:
       this->hardSphereRadius, \
       this->link)
 
-   // default, and from fields
+   // default
+   ResonanceReaction() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit ResonanceReaction(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &ejectile = {},
       const wrapper<std::optional<Float64>> &boundaryConditionValue = {},
       const wrapper<std::optional<bool>> &eliminated = {},
@@ -124,17 +127,31 @@ public:
 
    // copy
    ResonanceReaction(const ResonanceReaction &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      ejectile(this,other.ejectile),
+      boundaryConditionValue(this,other.boundaryConditionValue),
+      eliminated(this,other.eliminated),
+      Q(this,other.Q),
+      scatteringRadius(this,other.scatteringRadius),
+      hardSphereRadius(this,other.hardSphereRadius),
+      link(this,other.link)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ResonanceReaction(ResonanceReaction &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      ejectile(this,std::move(other.ejectile)),
+      boundaryConditionValue(this,std::move(other.boundaryConditionValue)),
+      eliminated(this,std::move(other.eliminated)),
+      Q(this,std::move(other.Q)),
+      scatteringRadius(this,std::move(other.scatteringRadius)),
+      hardSphereRadius(this,std::move(other.hardSphereRadius)),
+      link(this,std::move(other.link))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

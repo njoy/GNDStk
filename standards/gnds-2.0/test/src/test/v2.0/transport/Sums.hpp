@@ -34,10 +34,8 @@ class Sums : public Component<transport::Sums> {
    {
       return
          // children
-         transport::CrossSectionSums{}
-            / --Child<>("crossSectionSums") |
-         std::optional<transport::MultiplicitySums>{}
-            / --Child<>("multiplicitySums")
+         --Child<transport::CrossSectionSums>("crossSectionSums") |
+         --Child<std::optional<transport::MultiplicitySums>>("multiplicitySums")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->crossSectionSums, \
       this->multiplicitySums)
 
-   // default, and from fields
+   // default
+   Sums() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Sums(
-      const wrapper<transport::CrossSectionSums> &crossSectionSums = {},
+      const wrapper<transport::CrossSectionSums> &crossSectionSums,
       const wrapper<std::optional<transport::MultiplicitySums>> &multiplicitySums = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    Sums(const Sums &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      crossSectionSums(this,other.crossSectionSums),
+      multiplicitySums(this,other.multiplicitySums)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Sums(Sums &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      crossSectionSums(this,std::move(other.crossSectionSums)),
+      multiplicitySums(this,std::move(other.multiplicitySums))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -40,12 +40,9 @@ class Regions1d : public Component<containers::Regions1d> {
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes") |
-         containers::Function1ds{}
-            / --Child<>("function1ds") |
-         std::optional<extra::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<std::optional<containers::Axes>>("axes") |
+         --Child<containers::Function1ds>("function1ds") |
+         --Child<std::optional<extra::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -72,9 +69,16 @@ public:
       this->function1ds, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   Regions1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Regions1d(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
       const wrapper<containers::Function1ds> &function1ds = {},
@@ -99,17 +103,25 @@ public:
 
    // copy
    Regions1d(const Regions1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      axes(this,other.axes),
+      function1ds(this,other.function1ds),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Regions1d(Regions1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      axes(this,std::move(other.axes)),
+      function1ds(this,std::move(other.function1ds)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

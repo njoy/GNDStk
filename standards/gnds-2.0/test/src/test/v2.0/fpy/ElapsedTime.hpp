@@ -43,8 +43,7 @@ class ElapsedTime : public Component<fpy::ElapsedTime> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         fpy::Time{}
-            / --Child<>("time") |
+         --Child<fpy::Time>("time") |
          _t{}
             / --(Child<>("yields") || Child<>("incidentEnergies"))
       ;
@@ -73,9 +72,16 @@ public:
       this->time, \
       this->_yieldsincidentEnergies)
 
-   // default, and from fields
+   // default
+   ElapsedTime() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ElapsedTime(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<fpy::Time> &time = {},
       const wrapper<_t> &_yieldsincidentEnergies = {}
    ) :
@@ -96,17 +102,21 @@ public:
 
    // copy
    ElapsedTime(const ElapsedTime &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      time(this,other.time),
+      _yieldsincidentEnergies(this,other._yieldsincidentEnergies)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ElapsedTime(ElapsedTime &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      time(this,std::move(other.time)),
+      _yieldsincidentEnergies(this,std::move(other._yieldsincidentEnergies))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -36,8 +36,7 @@ class Library : public Component<multigroup::Library> {
          std::string{}
             / Meta<>("name") |
          // children
-         multigroup::Element{}
-            / ++Child<>("element")
+         ++Child<multigroup::Element>("element")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->name, \
       this->element)
 
-   // default, and from fields
+   // default
+   Library() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Library(
-      const wrapper<std::string> &name = {},
+      const wrapper<std::string> &name,
       const wrapper<std::vector<multigroup::Element>> &element = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    Library(const Library &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      element(this,other.element)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Library(Library &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      element(this,std::move(other.element))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

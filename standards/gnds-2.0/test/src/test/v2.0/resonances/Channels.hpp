@@ -33,8 +33,7 @@ class Channels : public Component<resonances::Channels> {
    {
       return
          // children
-         resonances::Channel{}
-            / ++Child<>("channel")
+         ++Child<resonances::Channel>("channel")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->channel)
 
-   // default, and from fields
+   // default
+   Channels() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Channels(
-      const wrapper<std::vector<resonances::Channel>> &channel = {}
+      const wrapper<std::vector<resonances::Channel>> &channel
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       channel(this,channel)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Channels(const Channels &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      channel(this,other.channel)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Channels(Channels &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      channel(this,std::move(other.channel))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

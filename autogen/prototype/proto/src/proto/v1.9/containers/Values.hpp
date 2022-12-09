@@ -66,10 +66,17 @@ public:
       this->start, \
       this->length)
 
-   // default, and from fields
+   // default
+   Values() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Values(
-      const wrapper<std::optional<std::string>> &valueType = {},
+      const wrapper<std::optional<std::string>> &valueType,
       const wrapper<std::optional<int>> &start = {},
       const wrapper<std::optional<int>> &length = {}
    ) :
@@ -98,17 +105,21 @@ public:
 
    // copy
    Values(const Values &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      valueType(this,other.valueType),
+      start(this,other.start),
+      length(this,other.length)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Values(Values &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      valueType(this,std::move(other.valueType)),
+      start(this,std::move(other.start)),
+      length(this,std::move(other.length))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

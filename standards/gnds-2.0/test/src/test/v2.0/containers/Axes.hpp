@@ -37,10 +37,8 @@ class Axes : public Component<containers::Axes> {
          std::optional<UTF8Text>{}
             / Meta<>("href") |
          // children
-         std::optional<containers::Axis>{}
-            / ++Child<>("axis") |
-         std::optional<containers::Grid>{}
-            / ++Child<>("grid")
+         ++Child<std::optional<containers::Axis>>("axis") |
+         ++Child<std::optional<containers::Grid>>("grid")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->axis, \
       this->grid)
 
-   // default, and from fields
+   // default
+   Axes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Axes(
-      const wrapper<std::optional<UTF8Text>> &href = {},
+      const wrapper<std::optional<UTF8Text>> &href,
       const wrapper<std::optional<std::vector<containers::Axis>>> &axis = {},
       const wrapper<std::optional<std::vector<containers::Grid>>> &grid = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    Axes(const Axes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      axis(this,other.axis),
+      grid(this,other.grid)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Axes(Axes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      axis(this,std::move(other.axis)),
+      grid(this,std::move(other.grid))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -59,9 +59,16 @@ public:
       this->value, \
       this->unit)
 
-   // default, and from fields
+   // default
+   Shell() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Shell(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<Float64> &value = {},
       const wrapper<std::optional<XMLName>> &unit = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    Shell(const Shell &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      value(this,other.value),
+      unit(this,other.unit)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Shell(Shell &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      value(this,std::move(other.value)),
+      unit(this,std::move(other.unit))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

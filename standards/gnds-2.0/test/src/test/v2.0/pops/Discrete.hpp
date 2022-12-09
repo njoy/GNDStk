@@ -41,18 +41,12 @@ class Discrete : public Component<pops::Discrete> {
          std::optional<XMLName>{}
             / Meta<>("type") |
          // children
-         pops::DiscreteEnergy{}
-            / --Child<>("energy") |
-         pops::Intensity{}
-            / --Child<>("intensity") |
-         std::optional<pops::InternalConversionCoefficients>{}
-            / --Child<>("internalConversionCoefficients") |
-         std::optional<pops::InternalPairFormationCoefficient>{}
-            / --Child<>("internalPairFormationCoefficient") |
-         std::optional<pops::PhotonEmissionProbabilities>{}
-            / --Child<>("photonEmissionProbabilities") |
-         std::optional<pops::PositronEmissionIntensity>{}
-            / --Child<>("positronEmissionIntensity")
+         --Child<pops::DiscreteEnergy>("energy") |
+         --Child<pops::Intensity>("intensity") |
+         --Child<std::optional<pops::InternalConversionCoefficients>>("internalConversionCoefficients") |
+         --Child<std::optional<pops::InternalPairFormationCoefficient>>("internalPairFormationCoefficient") |
+         --Child<std::optional<pops::PhotonEmissionProbabilities>>("photonEmissionProbabilities") |
+         --Child<std::optional<pops::PositronEmissionIntensity>>("positronEmissionIntensity")
       ;
    }
 
@@ -83,9 +77,16 @@ public:
       this->photonEmissionProbabilities, \
       this->positronEmissionIntensity)
 
-   // default, and from fields
+   // default
+   Discrete() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Discrete(
-      const wrapper<std::optional<XMLName>> &type = {},
+      const wrapper<std::optional<XMLName>> &type,
       const wrapper<pops::DiscreteEnergy> &energy = {},
       const wrapper<pops::Intensity> &intensity = {},
       const wrapper<std::optional<pops::InternalConversionCoefficients>> &internalConversionCoefficients = {},
@@ -114,17 +115,29 @@ public:
 
    // copy
    Discrete(const Discrete &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      type(this,other.type),
+      energy(this,other.energy),
+      intensity(this,other.intensity),
+      internalConversionCoefficients(this,other.internalConversionCoefficients),
+      internalPairFormationCoefficient(this,other.internalPairFormationCoefficient),
+      photonEmissionProbabilities(this,other.photonEmissionProbabilities),
+      positronEmissionIntensity(this,other.positronEmissionIntensity)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Discrete(Discrete &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      type(this,std::move(other.type)),
+      energy(this,std::move(other.energy)),
+      intensity(this,std::move(other.intensity)),
+      internalConversionCoefficients(this,std::move(other.internalConversionCoefficients)),
+      internalPairFormationCoefficient(this,std::move(other.internalPairFormationCoefficient)),
+      photonEmissionProbabilities(this,std::move(other.photonEmissionProbabilities)),
+      positronEmissionIntensity(this,std::move(other.positronEmissionIntensity))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

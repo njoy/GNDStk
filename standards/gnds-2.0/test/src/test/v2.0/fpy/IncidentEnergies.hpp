@@ -33,8 +33,7 @@ class IncidentEnergies : public Component<fpy::IncidentEnergies> {
    {
       return
          // children
-         fpy::IncidentEnergy{}
-            / ++Child<>("incidentEnergy")
+         ++Child<fpy::IncidentEnergy>("incidentEnergy")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->incidentEnergy)
 
-   // default, and from fields
+   // default
+   IncidentEnergies() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit IncidentEnergies(
-      const wrapper<std::vector<fpy::IncidentEnergy>> &incidentEnergy = {}
+      const wrapper<std::vector<fpy::IncidentEnergy>> &incidentEnergy
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       incidentEnergy(this,incidentEnergy)
@@ -70,17 +76,17 @@ public:
 
    // copy
    IncidentEnergies(const IncidentEnergies &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      incidentEnergy(this,other.incidentEnergy)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    IncidentEnergies(IncidentEnergies &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      incidentEnergy(this,std::move(other.incidentEnergy))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

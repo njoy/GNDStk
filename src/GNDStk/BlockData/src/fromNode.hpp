@@ -26,8 +26,7 @@ void fromNode(const Node &node)
       // consider a Node's lack of plain character data, in the present context,
       // to be something that merits a warning.
       log::warning(
-         "Component marked as having block data, a.k.a. XML \"pcdata\" "
-         "(plain\ncharacter data), "
+         "Component marked as having block data, "
          "but no such content was found in the GNDS node."
       );
       log::member("BlockData::fromNode(Node, with name \"{}\")", node.name);

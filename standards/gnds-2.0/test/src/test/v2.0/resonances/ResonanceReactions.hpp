@@ -33,8 +33,7 @@ class ResonanceReactions : public Component<resonances::ResonanceReactions> {
    {
       return
          // children
-         resonances::ResonanceReaction{}
-            / ++Child<>("resonanceReaction")
+         ++Child<resonances::ResonanceReaction>("resonanceReaction")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->resonanceReaction)
 
-   // default, and from fields
+   // default
+   ResonanceReactions() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ResonanceReactions(
-      const wrapper<std::vector<resonances::ResonanceReaction>> &resonanceReaction = {}
+      const wrapper<std::vector<resonances::ResonanceReaction>> &resonanceReaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       resonanceReaction(this,resonanceReaction)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ResonanceReactions(const ResonanceReactions &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      resonanceReaction(this,other.resonanceReaction)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ResonanceReactions(ResonanceReactions &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      resonanceReaction(this,std::move(other.resonanceReaction))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

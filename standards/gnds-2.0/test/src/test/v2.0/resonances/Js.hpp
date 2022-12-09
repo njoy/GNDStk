@@ -33,8 +33,7 @@ class Js : public Component<resonances::Js> {
    {
       return
          // children
-         resonances::J{}
-            / ++Child<>("J")
+         ++Child<resonances::J>("J")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->J)
 
-   // default, and from fields
+   // default
+   Js() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Js(
-      const wrapper<std::vector<resonances::J>> &J = {}
+      const wrapper<std::vector<resonances::J>> &J
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       J(this,J)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Js(const Js &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      J(this,other.J)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Js(Js &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      J(this,std::move(other.J))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

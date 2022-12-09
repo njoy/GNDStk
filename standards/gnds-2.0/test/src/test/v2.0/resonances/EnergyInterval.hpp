@@ -78,9 +78,16 @@ public:
       this->domainUnit, \
       this->_RMatrixBreitWigner)
 
-   // default, and from fields
+   // default
+   EnergyInterval() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit EnergyInterval(
-      const wrapper<Integer32> &index = {},
+      const wrapper<Integer32> &index,
       const wrapper<Float64> &domainMin = {},
       const wrapper<Float64> &domainMax = {},
       const wrapper<XMLName> &domainUnit = {},
@@ -105,17 +112,25 @@ public:
 
    // copy
    EnergyInterval(const EnergyInterval &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      domainUnit(this,other.domainUnit),
+      _RMatrixBreitWigner(this,other._RMatrixBreitWigner)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    EnergyInterval(EnergyInterval &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      domainUnit(this,std::move(other.domainUnit)),
+      _RMatrixBreitWigner(this,std::move(other._RMatrixBreitWigner))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

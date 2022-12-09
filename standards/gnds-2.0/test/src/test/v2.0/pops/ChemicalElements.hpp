@@ -33,8 +33,7 @@ class ChemicalElements : public Component<pops::ChemicalElements> {
    {
       return
          // children
-         std::optional<pops::ChemicalElement>{}
-            / ++Child<>("chemicalElement")
+         ++Child<std::optional<pops::ChemicalElement>>("chemicalElement")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->chemicalElement)
 
-   // default, and from fields
+   // default
+   ChemicalElements() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ChemicalElements(
-      const wrapper<std::optional<std::vector<pops::ChemicalElement>>> &chemicalElement = {}
+      const wrapper<std::optional<std::vector<pops::ChemicalElement>>> &chemicalElement
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       chemicalElement(this,chemicalElement)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ChemicalElements(const ChemicalElements &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      chemicalElement(this,other.chemicalElement)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ChemicalElements(ChemicalElements &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      chemicalElement(this,std::move(other.chemicalElement))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

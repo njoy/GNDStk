@@ -37,10 +37,8 @@ class IncidentEnergy : public Component<fpy::IncidentEnergy> {
          XMLName{}
             / Meta<>("label") |
          // children
-         fpy::Energy{}
-            / --Child<>("energy") |
-         fpy::Yields{}
-            / --Child<>("yields")
+         --Child<fpy::Energy>("energy") |
+         --Child<fpy::Yields>("yields")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->energy, \
       this->yields)
 
-   // default, and from fields
+   // default
+   IncidentEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit IncidentEnergy(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<fpy::Energy> &energy = {},
       const wrapper<fpy::Yields> &yields = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    IncidentEnergy(const IncidentEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      energy(this,other.energy),
+      yields(this,other.yields)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    IncidentEnergy(IncidentEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      energy(this,std::move(other.energy)),
+      yields(this,std::move(other.yields))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class MultiplicitySums : public Component<transport::MultiplicitySums> {
    {
       return
          // children
-         std::optional<transport::MultiplicitySum>{}
-            / ++Child<>("multiplicitySum")
+         ++Child<std::optional<transport::MultiplicitySum>>("multiplicitySum")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->multiplicitySum)
 
-   // default, and from fields
+   // default
+   MultiplicitySums() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MultiplicitySums(
-      const wrapper<std::optional<std::vector<transport::MultiplicitySum>>> &multiplicitySum = {}
+      const wrapper<std::optional<std::vector<transport::MultiplicitySum>>> &multiplicitySum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       multiplicitySum(this,multiplicitySum)
@@ -70,17 +76,17 @@ public:
 
    // copy
    MultiplicitySums(const MultiplicitySums &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      multiplicitySum(this,other.multiplicitySum)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MultiplicitySums(MultiplicitySums &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      multiplicitySum(this,std::move(other.multiplicitySum))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

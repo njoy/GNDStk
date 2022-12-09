@@ -41,10 +41,8 @@ class FissionComponent : public Component<fissionTransport::FissionComponent> {
          XMLName{}
             / Meta<>("label") |
          // children
-         std::optional<transport::CrossSection>{}
-            / --Child<>("crossSection") |
-         std::optional<transport::OutputChannel>{}
-            / --Child<>("outputChannel")
+         --Child<std::optional<transport::CrossSection>>("crossSection") |
+         --Child<std::optional<transport::OutputChannel>>("outputChannel")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->crossSection, \
       this->outputChannel)
 
-   // default, and from fields
+   // default
+   FissionComponent() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit FissionComponent(
-      const wrapper<std::optional<Integer32>> &ENDF_MT = {},
+      const wrapper<std::optional<Integer32>> &ENDF_MT,
       const wrapper<XMLName> &fissionGenre = {},
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<transport::CrossSection>> &crossSection = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    FissionComponent(const FissionComponent &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      fissionGenre(this,other.fissionGenre),
+      label(this,other.label),
+      crossSection(this,other.crossSection),
+      outputChannel(this,other.outputChannel)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    FissionComponent(FissionComponent &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      fissionGenre(this,std::move(other.fissionGenre)),
+      label(this,std::move(other.label)),
+      crossSection(this,std::move(other.crossSection)),
+      outputChannel(this,std::move(other.outputChannel))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

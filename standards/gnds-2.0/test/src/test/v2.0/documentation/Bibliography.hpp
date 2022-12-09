@@ -33,8 +33,7 @@ class Bibliography : public Component<documentation::Bibliography> {
    {
       return
          // children
-         documentation::Bibitem{}
-            / ++Child<>("bibitem")
+         ++Child<documentation::Bibitem>("bibitem")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->bibitem)
 
-   // default, and from fields
+   // default
+   Bibliography() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Bibliography(
-      const wrapper<std::vector<documentation::Bibitem>> &bibitem = {}
+      const wrapper<std::vector<documentation::Bibitem>> &bibitem
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       bibitem(this,bibitem)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Bibliography(const Bibliography &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      bibitem(this,other.bibitem)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Bibliography(Bibliography &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      bibitem(this,std::move(other.bibitem))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -137,7 +137,7 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
          beginsin(key,special::comment) ||
          beginsin(key,special::data)
       ) {
-         // Special key: cdata, comment, or pcdata, with optional suffix
+         // Special key: cdata, comment, or data, with optional suffix
          if (val.is_object()) {
             try {
                json2node(val, node.add(key));

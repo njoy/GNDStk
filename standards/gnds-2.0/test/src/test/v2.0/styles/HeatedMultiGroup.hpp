@@ -43,14 +43,10 @@ class HeatedMultiGroup : public Component<styles::HeatedMultiGroup> {
          XMLName{}
             / Meta<>("label") |
          // children
-         styles::Transportables{}
-            / --Child<>("transportables") |
-         styles::Flux{}
-            / --Child<>("flux") |
-         styles::InverseSpeed{}
-            / --Child<>("inverseSpeed") |
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<styles::Transportables>("transportables") |
+         --Child<styles::Flux>("flux") |
+         --Child<styles::InverseSpeed>("inverseSpeed") |
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -81,9 +77,16 @@ public:
       this->inverseSpeed, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   HeatedMultiGroup() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit HeatedMultiGroup(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<styles::Transportables> &transportables = {},
@@ -112,17 +115,29 @@ public:
 
    // copy
    HeatedMultiGroup(const HeatedMultiGroup &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      transportables(this,other.transportables),
+      flux(this,other.flux),
+      inverseSpeed(this,other.inverseSpeed),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    HeatedMultiGroup(HeatedMultiGroup &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      transportables(this,std::move(other.transportables)),
+      flux(this,std::move(other.flux)),
+      inverseSpeed(this,std::move(other.inverseSpeed)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

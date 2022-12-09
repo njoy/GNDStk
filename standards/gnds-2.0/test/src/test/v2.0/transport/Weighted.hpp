@@ -39,20 +39,13 @@ class Weighted : public Component<transport::Weighted> {
    {
       return
          // children
-         containers::XYs1d{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::XYs2d>{}
-            / --Child<>("XYs2d") |
-         std::optional<transport::Evaporation>{}
-            / --Child<>("evaporation") |
-         std::optional<transport::GeneralEvaporation>{}
-            / --Child<>("generalEvaporation") |
-         std::optional<fissionTransport::SimpleMaxwellianFission>{}
-            / --Child<>("simpleMaxwellianFission") |
-         std::optional<fissionTransport::Watt>{}
-            / --Child<>("Watt") |
-         std::optional<fissionTransport::MadlandNix>{}
-            / --Child<>("MadlandNix")
+         --Child<containers::XYs1d>("XYs1d") |
+         --Child<std::optional<containers::XYs2d>>("XYs2d") |
+         --Child<std::optional<transport::Evaporation>>("evaporation") |
+         --Child<std::optional<transport::GeneralEvaporation>>("generalEvaporation") |
+         --Child<std::optional<fissionTransport::SimpleMaxwellianFission>>("simpleMaxwellianFission") |
+         --Child<std::optional<fissionTransport::Watt>>("Watt") |
+         --Child<std::optional<fissionTransport::MadlandNix>>("MadlandNix")
       ;
    }
 
@@ -81,9 +74,16 @@ public:
       this->Watt, \
       this->MadlandNix)
 
-   // default, and from fields
+   // default
+   Weighted() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Weighted(
-      const wrapper<containers::XYs1d> &XYs1d = {},
+      const wrapper<containers::XYs1d> &XYs1d,
       const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
       const wrapper<std::optional<transport::Evaporation>> &evaporation = {},
       const wrapper<std::optional<transport::GeneralEvaporation>> &generalEvaporation = {},
@@ -112,17 +112,29 @@ public:
 
    // copy
    Weighted(const Weighted &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,other.XYs1d),
+      XYs2d(this,other.XYs2d),
+      evaporation(this,other.evaporation),
+      generalEvaporation(this,other.generalEvaporation),
+      simpleMaxwellianFission(this,other.simpleMaxwellianFission),
+      Watt(this,other.Watt),
+      MadlandNix(this,other.MadlandNix)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Weighted(Weighted &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,std::move(other.XYs1d)),
+      XYs2d(this,std::move(other.XYs2d)),
+      evaporation(this,std::move(other.evaporation)),
+      generalEvaporation(this,std::move(other.generalEvaporation)),
+      simpleMaxwellianFission(this,std::move(other.simpleMaxwellianFission)),
+      Watt(this,std::move(other.Watt)),
+      MadlandNix(this,std::move(other.MadlandNix))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

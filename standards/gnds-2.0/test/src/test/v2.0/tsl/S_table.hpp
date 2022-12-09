@@ -33,8 +33,7 @@ class S_table : public Component<tsl::S_table> {
    {
       return
          // children
-         containers::Gridded2d{}
-            / --Child<>("gridded2d")
+         --Child<containers::Gridded2d>("gridded2d")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->gridded2d)
 
-   // default, and from fields
+   // default
+   S_table() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit S_table(
-      const wrapper<containers::Gridded2d> &gridded2d = {}
+      const wrapper<containers::Gridded2d> &gridded2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gridded2d(this,gridded2d)
@@ -70,17 +76,17 @@ public:
 
    // copy
    S_table(const S_table &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      gridded2d(this,other.gridded2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    S_table(S_table &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      gridded2d(this,std::move(other.gridded2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

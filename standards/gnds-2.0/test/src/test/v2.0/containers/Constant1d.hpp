@@ -44,8 +44,7 @@ class Constant1d : public Component<containers::Constant1d> {
          Float64{}
             / Meta<>("domainMax") |
          // children
-         containers::Axes{}
-            / --Child<>("axes")
+         --Child<containers::Axes>("axes")
       ;
    }
 
@@ -74,9 +73,16 @@ public:
       this->domainMax, \
       this->axes)
 
-   // default, and from fields
+   // default
+   Constant1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Constant1d(
-      const wrapper<std::optional<Float64>> &value = {},
+      const wrapper<std::optional<Float64>> &value,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
       const wrapper<Float64> &domainMin = {},
@@ -103,17 +109,27 @@ public:
 
    // copy
    Constant1d(const Constant1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,other.value),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      axes(this,other.axes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Constant1d(Constant1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      value(this,std::move(other.value)),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      axes(this,std::move(other.axes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

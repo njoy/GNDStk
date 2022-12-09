@@ -71,9 +71,16 @@ public:
       this->domainUnit, \
       this->_tabulatedWidths)
 
-   // default, and from fields
+   // default
+   Unresolved() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Unresolved(
-      const wrapper<Float64> &domainMin = {},
+      const wrapper<Float64> &domainMin,
       const wrapper<Float64> &domainMax = {},
       const wrapper<XMLName> &domainUnit = {},
       const wrapper<_t> &_tabulatedWidths = {}
@@ -96,17 +103,23 @@ public:
 
    // copy
    Unresolved(const Unresolved &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      domainUnit(this,other.domainUnit),
+      _tabulatedWidths(this,other._tabulatedWidths)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Unresolved(Unresolved &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      domainUnit(this,std::move(other.domainUnit)),
+      _tabulatedWidths(this,std::move(other._tabulatedWidths))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

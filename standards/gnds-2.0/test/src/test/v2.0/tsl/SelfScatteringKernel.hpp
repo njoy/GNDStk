@@ -72,9 +72,16 @@ public:
       this->symmetric, \
       this->_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation)
 
-   // default, and from fields
+   // default
+   SelfScatteringKernel() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit SelfScatteringKernel(
-      const wrapper<std::optional<bool>> &symmetric = {},
+      const wrapper<std::optional<bool>> &symmetric,
       const wrapper<_t> &_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -93,17 +100,19 @@ public:
 
    // copy
    SelfScatteringKernel(const SelfScatteringKernel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symmetric(this,other.symmetric),
+      _gridded3dGaussianApproximationSCTApproximationfreeGasApproximation(this,other._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SelfScatteringKernel(SelfScatteringKernel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symmetric(this,std::move(other.symmetric)),
+      _gridded3dGaussianApproximationSCTApproximationfreeGasApproximation(this,std::move(other._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

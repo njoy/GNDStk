@@ -63,9 +63,16 @@ public:
       this->checksum, \
       this->algorithm)
 
-   // default, and from fields
+   // default
+   ExternalFile() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ExternalFile(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &path = {},
       const wrapper<std::optional<std::string>> &checksum = {},
       const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {}
@@ -88,17 +95,23 @@ public:
 
    // copy
    ExternalFile(const ExternalFile &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      path(this,other.path),
+      checksum(this,other.checksum),
+      algorithm(this,other.algorithm)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ExternalFile(ExternalFile &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      path(this,std::move(other.path)),
+      checksum(this,std::move(other.checksum)),
+      algorithm(this,std::move(other.algorithm))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

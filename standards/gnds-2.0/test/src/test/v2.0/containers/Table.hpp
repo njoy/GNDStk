@@ -41,10 +41,8 @@ class Table : public Component<containers::Table> {
          Defaulted<XMLName>{"row-major"}
             / Meta<>("storageOrder") |
          // children
-         containers::ColumnHeaders{}
-            / --Child<>("columnHeaders") |
-         containers::Data{}
-            / --Child<>("data")
+         --Child<containers::ColumnHeaders>("columnHeaders") |
+         --Child<containers::Data>("data")
       ;
    }
 
@@ -76,10 +74,17 @@ public:
       this->columnHeaders, \
       this->data)
 
-   // default, and from fields
+   // default
+   Table() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Table(
-      const wrapper<Integer32> &columns = {},
+      const wrapper<Integer32> &columns,
       const wrapper<Integer32> &rows = {},
       const wrapper<std::optional<XMLName>> &storageOrder = {},
       const wrapper<containers::ColumnHeaders> &columnHeaders = {},
@@ -104,17 +109,25 @@ public:
 
    // copy
    Table(const Table &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      columns(this,other.columns),
+      rows(this,other.rows),
+      storageOrder(this,other.storageOrder),
+      columnHeaders(this,other.columnHeaders),
+      data(this,other.data)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Table(Table &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      columns(this,std::move(other.columns)),
+      rows(this,std::move(other.rows)),
+      storageOrder(this,std::move(other.storageOrder)),
+      columnHeaders(this,std::move(other.columnHeaders)),
+      data(this,std::move(other.data))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

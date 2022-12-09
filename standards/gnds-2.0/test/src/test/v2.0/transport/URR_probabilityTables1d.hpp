@@ -66,9 +66,16 @@ public:
       this->label, \
       this->_XYs2dregions2d)
 
-   // default, and from fields
+   // default
+   URR_probabilityTables1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit URR_probabilityTables1d(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<_t> &_XYs2dregions2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -87,17 +94,19 @@ public:
 
    // copy
    URR_probabilityTables1d(const URR_probabilityTables1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      _XYs2dregions2d(this,other._XYs2dregions2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    URR_probabilityTables1d(URR_probabilityTables1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      _XYs2dregions2d(this,std::move(other._XYs2dregions2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

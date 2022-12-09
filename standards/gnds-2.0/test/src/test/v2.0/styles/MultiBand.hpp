@@ -42,8 +42,7 @@ class MultiBand : public Component<styles::MultiBand> {
          Integer32{}
             / Meta<>("numberOfBands") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->numberOfBands, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   MultiBand() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MultiBand(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<Integer32> &numberOfBands = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    MultiBand(const MultiBand &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      numberOfBands(this,other.numberOfBands),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MultiBand(MultiBand &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      numberOfBands(this,std::move(other.numberOfBands)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

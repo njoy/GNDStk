@@ -33,8 +33,7 @@ class FissionComponents : public Component<fissionTransport::FissionComponents> 
    {
       return
          // children
-         std::optional<fissionTransport::FissionComponent>{}
-            / ++Child<>("fissionComponent")
+         ++Child<std::optional<fissionTransport::FissionComponent>>("fissionComponent")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->fissionComponent)
 
-   // default, and from fields
+   // default
+   FissionComponents() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit FissionComponents(
-      const wrapper<std::optional<std::vector<fissionTransport::FissionComponent>>> &fissionComponent = {}
+      const wrapper<std::optional<std::vector<fissionTransport::FissionComponent>>> &fissionComponent
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       fissionComponent(this,fissionComponent)
@@ -70,17 +76,17 @@ public:
 
    // copy
    FissionComponents(const FissionComponents &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      fissionComponent(this,other.fissionComponent)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    FissionComponents(FissionComponents &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      fissionComponent(this,std::move(other.fissionComponent))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

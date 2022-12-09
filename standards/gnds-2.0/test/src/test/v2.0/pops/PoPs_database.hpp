@@ -47,22 +47,14 @@ class PoPs_database : public Component<pops::PoPs_database> {
          XMLName{}
             / Meta<>("format") |
          // children
-         std::optional<styles::Styles>{}
-            / --Child<>("styles") |
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation") |
-         std::optional<pops::Aliases>{}
-            / --Child<>("aliases") |
-         std::optional<pops::GaugeBosons>{}
-            / --Child<>("gaugeBosons") |
-         std::optional<pops::Leptons>{}
-            / --Child<>("leptons") |
-         std::optional<pops::Baryons>{}
-            / --Child<>("baryons") |
-         std::optional<pops::ChemicalElements>{}
-            / --Child<>("chemicalElements") |
-         std::optional<pops::Unorthodoxes>{}
-            / --Child<>("unorthodoxes")
+         --Child<std::optional<styles::Styles>>("styles") |
+         --Child<std::optional<documentation::Documentation>>("documentation") |
+         --Child<std::optional<pops::Aliases>>("aliases") |
+         --Child<std::optional<pops::GaugeBosons>>("gaugeBosons") |
+         --Child<std::optional<pops::Leptons>>("leptons") |
+         --Child<std::optional<pops::Baryons>>("baryons") |
+         --Child<std::optional<pops::ChemicalElements>>("chemicalElements") |
+         --Child<std::optional<pops::Unorthodoxes>>("unorthodoxes")
       ;
    }
 
@@ -101,9 +93,16 @@ public:
       this->chemicalElements, \
       this->unorthodoxes)
 
-   // default, and from fields
+   // default
+   PoPs_database() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit PoPs_database(
-      const wrapper<XMLName> &name = {},
+      const wrapper<XMLName> &name,
       const wrapper<XMLName> &version = {},
       const wrapper<XMLName> &format = {},
       const wrapper<std::optional<styles::Styles>> &styles = {},
@@ -140,17 +139,37 @@ public:
 
    // copy
    PoPs_database(const PoPs_database &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      version(this,other.version),
+      format(this,other.format),
+      styles(this,other.styles),
+      documentation(this,other.documentation),
+      aliases(this,other.aliases),
+      gaugeBosons(this,other.gaugeBosons),
+      leptons(this,other.leptons),
+      baryons(this,other.baryons),
+      chemicalElements(this,other.chemicalElements),
+      unorthodoxes(this,other.unorthodoxes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    PoPs_database(PoPs_database &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      version(this,std::move(other.version)),
+      format(this,std::move(other.format)),
+      styles(this,std::move(other.styles)),
+      documentation(this,std::move(other.documentation)),
+      aliases(this,std::move(other.aliases)),
+      gaugeBosons(this,std::move(other.gaugeBosons)),
+      leptons(this,std::move(other.leptons)),
+      baryons(this,std::move(other.baryons)),
+      chemicalElements(this,std::move(other.chemicalElements)),
+      unorthodoxes(this,std::move(other.unorthodoxes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

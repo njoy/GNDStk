@@ -35,12 +35,9 @@ class Angular_uncorrelated : public Component<transport::Angular_uncorrelated> {
    {
       return
          // children
-         std::optional<containers::XYs2d>{}
-            / --Child<>("XYs2d") |
-         std::optional<transport::Isotropic2d>{}
-            / --Child<>("isotropic2d") |
-         std::optional<transport::Forward>{}
-            / --Child<>("forward")
+         --Child<std::optional<containers::XYs2d>>("XYs2d") |
+         --Child<std::optional<transport::Isotropic2d>>("isotropic2d") |
+         --Child<std::optional<transport::Forward>>("forward")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->isotropic2d, \
       this->forward)
 
-   // default, and from fields
+   // default
+   Angular_uncorrelated() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Angular_uncorrelated(
-      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
+      const wrapper<std::optional<containers::XYs2d>> &XYs2d,
       const wrapper<std::optional<transport::Isotropic2d>> &isotropic2d = {},
       const wrapper<std::optional<transport::Forward>> &forward = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    Angular_uncorrelated(const Angular_uncorrelated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs2d(this,other.XYs2d),
+      isotropic2d(this,other.isotropic2d),
+      forward(this,other.forward)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Angular_uncorrelated(Angular_uncorrelated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs2d(this,std::move(other.XYs2d)),
+      isotropic2d(this,std::move(other.isotropic2d)),
+      forward(this,std::move(other.forward))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

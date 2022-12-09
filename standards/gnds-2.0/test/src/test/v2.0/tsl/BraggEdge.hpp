@@ -37,10 +37,8 @@ class BraggEdge : public Component<tsl::BraggEdge> {
          XMLName{}
             / Meta<>("label") |
          // children
-         tsl::BraggEnergy{}
-            / --Child<>("BraggEnergy") |
-         tsl::StructureFactor{}
-            / --Child<>("structureFactor")
+         --Child<tsl::BraggEnergy>("BraggEnergy") |
+         --Child<tsl::StructureFactor>("structureFactor")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->BraggEnergy, \
       this->structureFactor)
 
-   // default, and from fields
+   // default
+   BraggEdge() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit BraggEdge(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<tsl::BraggEnergy> &BraggEnergy = {},
       const wrapper<tsl::StructureFactor> &structureFactor = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    BraggEdge(const BraggEdge &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      BraggEnergy(this,other.BraggEnergy),
+      structureFactor(this,other.structureFactor)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    BraggEdge(BraggEdge &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      BraggEnergy(this,std::move(other.BraggEnergy)),
+      structureFactor(this,std::move(other.structureFactor))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

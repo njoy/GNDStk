@@ -40,19 +40,19 @@ SCENARIO("BlockData<DATATYPE == void> fromNode()") {
             CHECK(b.string() == "some plain character data");
 
             // it shouldn't matter, but leading spaces are preserved
-            node << "<bar>   pcdata with leading spaces</bar>";
+            node << "<bar>   data with leading spaces</bar>";
             b.fromNode(node);
-            CHECK(b.string() == "   pcdata with leading spaces");
+            CHECK(b.string() == "   data with leading spaces");
 
             // ditto for trailing spaces
-            node << "<baz>pcdata with trailing spaces     </baz>";
+            node << "<baz>data with trailing spaces     </baz>";
             b.fromNode(node);
-            CHECK(b.string() == "pcdata with trailing spaces     ");
+            CHECK(b.string() == "data with trailing spaces     ");
 
             // ditto for both together
-            node << "<boo>  pcdata    </boo>";
+            node << "<boo>  data    </boo>";
             b.fromNode(node);
-            CHECK(b.string() == "  pcdata    ");
+            CHECK(b.string() == "  data    ");
          }
       }
    }
@@ -95,19 +95,19 @@ SCENARIO("BlockData<DATATYPE != void> fromNode()") {
             CHECK(b.string() == "some plain character data");
 
             // it shouldn't matter, but leading spaces are preserved
-            node << "<bar>   pcdata with leading spaces</bar>";
+            node << "<bar>   data with leading spaces</bar>";
             b.fromNode(node);
-            CHECK(b.string() == "   pcdata with leading spaces");
+            CHECK(b.string() == "   data with leading spaces");
 
             // ditto for trailing spaces
-            node << "<baz>pcdata with trailing spaces     </baz>";
+            node << "<baz>data with trailing spaces     </baz>";
             b.fromNode(node);
-            CHECK(b.string() == "pcdata with trailing spaces     ");
+            CHECK(b.string() == "data with trailing spaces     ");
 
             // ditto for both together
-            node << "<boo>  pcdata    </boo>";
+            node << "<boo>  data    </boo>";
             b.fromNode(node);
-            CHECK(b.string() == "  pcdata    ");
+            CHECK(b.string() == "  data    ");
          }
       }
    }

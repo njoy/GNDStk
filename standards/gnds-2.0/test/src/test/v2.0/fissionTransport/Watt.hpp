@@ -35,12 +35,9 @@ class Watt : public Component<fissionTransport::Watt> {
    {
       return
          // children
-         transport::U{}
-            / --Child<>("U") |
-         fissionTransport::A{}
-            / --Child<>("a") |
-         fissionTransport::B{}
-            / --Child<>("b")
+         --Child<transport::U>("U") |
+         --Child<fissionTransport::A>("a") |
+         --Child<fissionTransport::B>("b")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->a, \
       this->b)
 
-   // default, and from fields
+   // default
+   Watt() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Watt(
-      const wrapper<transport::U> &U = {},
+      const wrapper<transport::U> &U,
       const wrapper<fissionTransport::A> &a = {},
       const wrapper<fissionTransport::B> &b = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    Watt(const Watt &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      U(this,other.U),
+      a(this,other.a),
+      b(this,other.b)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Watt(Watt &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      U(this,std::move(other.U)),
+      a(this,std::move(other.a)),
+      b(this,std::move(other.b))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

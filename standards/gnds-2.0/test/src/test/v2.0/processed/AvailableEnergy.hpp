@@ -34,10 +34,8 @@ class AvailableEnergy : public Component<processed::AvailableEnergy> {
    {
       return
          // children
-         std::optional<containers::XYs1d>{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Gridded1d>{}
-            / --Child<>("gridded1d")
+         --Child<std::optional<containers::XYs1d>>("XYs1d") |
+         --Child<std::optional<containers::Gridded1d>>("gridded1d")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->XYs1d, \
       this->gridded1d)
 
-   // default, and from fields
+   // default
+   AvailableEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit AvailableEnergy(
-      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d,
       const wrapper<std::optional<containers::Gridded1d>> &gridded1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    AvailableEnergy(const AvailableEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,other.XYs1d),
+      gridded1d(this,other.gridded1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    AvailableEnergy(AvailableEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,std::move(other.XYs1d)),
+      gridded1d(this,std::move(other.gridded1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

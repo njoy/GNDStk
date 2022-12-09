@@ -40,12 +40,9 @@ class ExforDataSet : public Component<documentation::ExforDataSet> {
          std::string{}
             / Meta<>("retrievalDate") |
          // children
-         std::optional<documentation::CovarianceScript>{}
-            / --Child<>("covarianceScript") |
-         std::optional<documentation::CorrectionScript>{}
-            / --Child<>("correctionScript") |
-         std::optional<documentation::Note>{}
-            / --Child<>("note")
+         --Child<std::optional<documentation::CovarianceScript>>("covarianceScript") |
+         --Child<std::optional<documentation::CorrectionScript>>("correctionScript") |
+         --Child<std::optional<documentation::Note>>("note")
       ;
    }
 
@@ -72,9 +69,16 @@ public:
       this->correctionScript, \
       this->note)
 
-   // default, and from fields
+   // default
+   ExforDataSet() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ExforDataSet(
-      const wrapper<XMLName> &subentry = {},
+      const wrapper<XMLName> &subentry,
       const wrapper<std::string> &retrievalDate = {},
       const wrapper<std::optional<documentation::CovarianceScript>> &covarianceScript = {},
       const wrapper<std::optional<documentation::CorrectionScript>> &correctionScript = {},
@@ -99,17 +103,25 @@ public:
 
    // copy
    ExforDataSet(const ExforDataSet &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      subentry(this,other.subentry),
+      retrievalDate(this,other.retrievalDate),
+      covarianceScript(this,other.covarianceScript),
+      correctionScript(this,other.correctionScript),
+      note(this,other.note)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ExforDataSet(ExforDataSet &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      subentry(this,std::move(other.subentry)),
+      retrievalDate(this,std::move(other.retrievalDate)),
+      covarianceScript(this,std::move(other.covarianceScript)),
+      correctionScript(this,std::move(other.correctionScript)),
+      note(this,std::move(other.note))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

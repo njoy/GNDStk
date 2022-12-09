@@ -41,10 +41,8 @@ class ThermalNeutronScatteringLaw_incoherentElastic : public Component<tsl::Ther
          enums::Frame{}
             / Meta<>("productFrame") |
          // children
-         tsl::BoundAtomCrossSection{}
-            / --Child<>("boundAtomCrossSection") |
-         tsl::DebyeWallerIntegral{}
-            / --Child<>("DebyeWallerIntegral")
+         --Child<tsl::BoundAtomCrossSection>("boundAtomCrossSection") |
+         --Child<tsl::DebyeWallerIntegral>("DebyeWallerIntegral")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->boundAtomCrossSection, \
       this->DebyeWallerIntegral)
 
-   // default, and from fields
+   // default
+   ThermalNeutronScatteringLaw_incoherentElastic() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ThermalNeutronScatteringLaw_incoherentElastic(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &pid = {},
       const wrapper<enums::Frame> &productFrame = {},
       const wrapper<tsl::BoundAtomCrossSection> &boundAtomCrossSection = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    ThermalNeutronScatteringLaw_incoherentElastic(const ThermalNeutronScatteringLaw_incoherentElastic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      pid(this,other.pid),
+      productFrame(this,other.productFrame),
+      boundAtomCrossSection(this,other.boundAtomCrossSection),
+      DebyeWallerIntegral(this,other.DebyeWallerIntegral)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ThermalNeutronScatteringLaw_incoherentElastic(ThermalNeutronScatteringLaw_incoherentElastic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      productFrame(this,std::move(other.productFrame)),
+      boundAtomCrossSection(this,std::move(other.boundAtomCrossSection)),
+      DebyeWallerIntegral(this,std::move(other.DebyeWallerIntegral))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

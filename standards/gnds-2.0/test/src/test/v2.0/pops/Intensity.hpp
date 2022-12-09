@@ -41,10 +41,8 @@ class Intensity : public Component<pops::Intensity> {
          std::optional<Float64>{}
             / Meta<>("value") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<std::optional<documentation::Documentation>>("documentation") |
+         --Child<std::optional<pops::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->documentation, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   Intensity() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Intensity(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<Float64>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    Intensity(const Intensity &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      unit(this,other.unit),
+      value(this,other.value),
+      documentation(this,other.documentation),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Intensity(Intensity &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value)),
+      documentation(this,std::move(other.documentation)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

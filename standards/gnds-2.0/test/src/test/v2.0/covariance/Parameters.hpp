@@ -33,8 +33,7 @@ class Parameters : public Component<covariance::Parameters> {
    {
       return
          // children
-         std::optional<covariance::ParameterLink>{}
-            / ++Child<>("parameterLink")
+         ++Child<std::optional<covariance::ParameterLink>>("parameterLink")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->parameterLink)
 
-   // default, and from fields
+   // default
+   Parameters() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Parameters(
-      const wrapper<std::optional<std::vector<covariance::ParameterLink>>> &parameterLink = {}
+      const wrapper<std::optional<std::vector<covariance::ParameterLink>>> &parameterLink
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       parameterLink(this,parameterLink)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Parameters(const Parameters &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      parameterLink(this,other.parameterLink)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Parameters(Parameters &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      parameterLink(this,std::move(other.parameterLink))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

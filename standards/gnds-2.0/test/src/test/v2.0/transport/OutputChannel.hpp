@@ -40,12 +40,9 @@ class OutputChannel : public Component<transport::OutputChannel> {
          std::optional<XMLName>{}
             / Meta<>("process") |
          // children
-         std::optional<common::Q>{}
-            / --Child<>("Q") |
-         std::optional<common::Products>{}
-            / --Child<>("products") |
-         std::optional<fissionFragmentData::FissionFragmentData>{}
-            / --Child<>("fissionFragmentData")
+         --Child<std::optional<common::Q>>("Q") |
+         --Child<std::optional<common::Products>>("products") |
+         --Child<std::optional<fissionFragmentData::FissionFragmentData>>("fissionFragmentData")
       ;
    }
 
@@ -72,9 +69,16 @@ public:
       this->products, \
       this->fissionFragmentData)
 
-   // default, and from fields
+   // default
+   OutputChannel() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit OutputChannel(
-      const wrapper<std::optional<XMLName>> &genre = {},
+      const wrapper<std::optional<XMLName>> &genre,
       const wrapper<std::optional<XMLName>> &process = {},
       const wrapper<std::optional<common::Q>> &Q = {},
       const wrapper<std::optional<common::Products>> &products = {},
@@ -99,17 +103,25 @@ public:
 
    // copy
    OutputChannel(const OutputChannel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      genre(this,other.genre),
+      process(this,other.process),
+      Q(this,other.Q),
+      products(this,other.products),
+      fissionFragmentData(this,other.fissionFragmentData)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    OutputChannel(OutputChannel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      genre(this,std::move(other.genre)),
+      process(this,std::move(other.process)),
+      Q(this,std::move(other.Q)),
+      products(this,std::move(other.products)),
+      fissionFragmentData(this,std::move(other.fissionFragmentData))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

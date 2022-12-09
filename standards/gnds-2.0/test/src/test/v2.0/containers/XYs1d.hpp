@@ -44,12 +44,9 @@ class XYs1d : public Component<containers::XYs1d> {
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes") |
-         std::optional<extra::Uncertainty>{}
-            / --Child<>("uncertainty") |
-         containers::Values{}
-            / --Child<>("values")
+         --Child<std::optional<containers::Axes>>("axes") |
+         --Child<std::optional<extra::Uncertainty>>("uncertainty") |
+         --Child<containers::Values>("values")
       ;
    }
 
@@ -85,10 +82,17 @@ public:
       this->uncertainty, \
       this->values)
 
-   // default, and from fields
+   // default
+   XYs1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit XYs1d(
-      const wrapper<std::optional<Integer32>> &index = {},
+      const wrapper<std::optional<Integer32>> &index,
       const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
@@ -117,17 +121,29 @@ public:
 
    // copy
    XYs1d(const XYs1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      interpolation(this,other.interpolation),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      axes(this,other.axes),
+      uncertainty(this,other.uncertainty),
+      values(this,other.values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    XYs1d(XYs1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      interpolation(this,std::move(other.interpolation)),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      axes(this,std::move(other.axes)),
+      uncertainty(this,std::move(other.uncertainty)),
+      values(this,std::move(other.values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

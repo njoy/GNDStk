@@ -44,12 +44,9 @@ class CoherentPhotonScattering : public Component<atomic::CoherentPhotonScatteri
          enums::Frame{}
             / Meta<>("productFrame") |
          // children
-         std::optional<atomic::FormFactor>{}
-            / --Child<>("formFactor") |
-         std::optional<atomic::RealAnomalousFactor>{}
-            / --Child<>("realAnomalousFactor") |
-         std::optional<atomic::ImaginaryAnomalousFactor>{}
-            / --Child<>("imaginaryAnomalousFactor")
+         --Child<std::optional<atomic::FormFactor>>("formFactor") |
+         --Child<std::optional<atomic::RealAnomalousFactor>>("realAnomalousFactor") |
+         --Child<std::optional<atomic::ImaginaryAnomalousFactor>>("imaginaryAnomalousFactor")
       ;
    }
 
@@ -80,9 +77,16 @@ public:
       this->realAnomalousFactor, \
       this->imaginaryAnomalousFactor)
 
-   // default, and from fields
+   // default
+   CoherentPhotonScattering() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CoherentPhotonScattering(
-      const wrapper<std::optional<std::string>> &href = {},
+      const wrapper<std::optional<std::string>> &href,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &pid = {},
       const wrapper<enums::Frame> &productFrame = {},
@@ -111,17 +115,29 @@ public:
 
    // copy
    CoherentPhotonScattering(const CoherentPhotonScattering &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      label(this,other.label),
+      pid(this,other.pid),
+      productFrame(this,other.productFrame),
+      formFactor(this,other.formFactor),
+      realAnomalousFactor(this,other.realAnomalousFactor),
+      imaginaryAnomalousFactor(this,other.imaginaryAnomalousFactor)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CoherentPhotonScattering(CoherentPhotonScattering &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      productFrame(this,std::move(other.productFrame)),
+      formFactor(this,std::move(other.formFactor)),
+      realAnomalousFactor(this,std::move(other.realAnomalousFactor)),
+      imaginaryAnomalousFactor(this,std::move(other.imaginaryAnomalousFactor))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

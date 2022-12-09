@@ -39,10 +39,8 @@ class OrphanProduct : public Component<transport::OrphanProduct> {
          XMLName{}
             / Meta<>("label") |
          // children
-         transport::CrossSection{}
-            / --Child<>("crossSection") |
-         transport::OutputChannel{}
-            / --Child<>("outputChannel")
+         --Child<transport::CrossSection>("crossSection") |
+         --Child<transport::OutputChannel>("outputChannel")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->crossSection, \
       this->outputChannel)
 
-   // default, and from fields
+   // default
+   OrphanProduct() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit OrphanProduct(
-      const wrapper<Integer32> &ENDF_MT = {},
+      const wrapper<Integer32> &ENDF_MT,
       const wrapper<XMLName> &label = {},
       const wrapper<transport::CrossSection> &crossSection = {},
       const wrapper<transport::OutputChannel> &outputChannel = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    OrphanProduct(const OrphanProduct &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      label(this,other.label),
+      crossSection(this,other.crossSection),
+      outputChannel(this,other.outputChannel)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    OrphanProduct(OrphanProduct &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      label(this,std::move(other.label)),
+      crossSection(this,std::move(other.crossSection)),
+      outputChannel(this,std::move(other.outputChannel))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

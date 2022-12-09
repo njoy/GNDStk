@@ -77,9 +77,16 @@ public:
       this->domainUnit, \
       this->_RMatrixBreitWignerenergyIntervals)
 
-   // default, and from fields
+   // default
+   Resolved() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Resolved(
-      const wrapper<Float64> &domainMin = {},
+      const wrapper<Float64> &domainMin,
       const wrapper<Float64> &domainMax = {},
       const wrapper<XMLName> &domainUnit = {},
       const wrapper<_t> &_RMatrixBreitWignerenergyIntervals = {}
@@ -102,17 +109,23 @@ public:
 
    // copy
    Resolved(const Resolved &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,other.domainMin),
+      domainMax(this,other.domainMax),
+      domainUnit(this,other.domainUnit),
+      _RMatrixBreitWignerenergyIntervals(this,other._RMatrixBreitWignerenergyIntervals)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Resolved(Resolved &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMin(this,std::move(other.domainMin)),
+      domainMax(this,std::move(other.domainMax)),
+      domainUnit(this,std::move(other.domainUnit)),
+      _RMatrixBreitWignerenergyIntervals(this,std::move(other._RMatrixBreitWignerenergyIntervals))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

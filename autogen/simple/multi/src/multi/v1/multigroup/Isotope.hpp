@@ -51,9 +51,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->mass_number)
 
-   // default, and from fields
+   // default
+   Isotope() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Isotope(
-      const wrapper<int> &mass_number = {}
+      const wrapper<int> &mass_number
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       mass_number(this,mass_number)
@@ -70,17 +77,17 @@ public:
 
    // copy
    Isotope(const Isotope &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      mass_number(this,other.mass_number)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Isotope(Isotope &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      mass_number(this,std::move(other.mass_number))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

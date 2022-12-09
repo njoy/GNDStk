@@ -42,8 +42,7 @@ class IncoherentPhotonScattering : public Component<atomic::IncoherentPhotonScat
          enums::Frame{}
             / Meta<>("productFrame") |
          // children
-         std::optional<atomic::ScatteringFactor>{}
-            / --Child<>("scatteringFactor")
+         --Child<std::optional<atomic::ScatteringFactor>>("scatteringFactor")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->productFrame, \
       this->scatteringFactor)
 
-   // default, and from fields
+   // default
+   IncoherentPhotonScattering() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit IncoherentPhotonScattering(
-      const wrapper<std::optional<std::string>> &href = {},
+      const wrapper<std::optional<std::string>> &href,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &pid = {},
       const wrapper<enums::Frame> &productFrame = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    IncoherentPhotonScattering(const IncoherentPhotonScattering &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      label(this,other.label),
+      pid(this,other.pid),
+      productFrame(this,other.productFrame),
+      scatteringFactor(this,other.scatteringFactor)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    IncoherentPhotonScattering(IncoherentPhotonScattering &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      productFrame(this,std::move(other.productFrame)),
+      scatteringFactor(this,std::move(other.scatteringFactor))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

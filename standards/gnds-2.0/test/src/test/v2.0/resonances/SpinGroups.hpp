@@ -33,8 +33,7 @@ class SpinGroups : public Component<resonances::SpinGroups> {
    {
       return
          // children
-         resonances::SpinGroup{}
-            / ++Child<>("spinGroup")
+         ++Child<resonances::SpinGroup>("spinGroup")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->spinGroup)
 
-   // default, and from fields
+   // default
+   SpinGroups() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit SpinGroups(
-      const wrapper<std::vector<resonances::SpinGroup>> &spinGroup = {}
+      const wrapper<std::vector<resonances::SpinGroup>> &spinGroup
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       spinGroup(this,spinGroup)
@@ -70,17 +76,17 @@ public:
 
    // copy
    SpinGroups(const SpinGroups &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      spinGroup(this,other.spinGroup)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SpinGroups(SpinGroups &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      spinGroup(this,std::move(other.spinGroup))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

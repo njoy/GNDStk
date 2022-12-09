@@ -40,8 +40,7 @@ class ShortRangeSelfScalingVariance : public Component<covariance::ShortRangeSel
          std::optional<XMLName>{}
             / Meta<>("type") |
          // children
-         std::optional<containers::Gridded2d>{}
-            / --Child<>("gridded2d")
+         --Child<std::optional<containers::Gridded2d>>("gridded2d")
       ;
    }
 
@@ -66,9 +65,16 @@ public:
       this->type, \
       this->gridded2d)
 
-   // default, and from fields
+   // default
+   ShortRangeSelfScalingVariance() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ShortRangeSelfScalingVariance(
-      const wrapper<std::optional<XMLName>> &dependenceOnProcessedGroupWidth = {},
+      const wrapper<std::optional<XMLName>> &dependenceOnProcessedGroupWidth,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &type = {},
       const wrapper<std::optional<containers::Gridded2d>> &gridded2d = {}
@@ -91,17 +97,23 @@ public:
 
    // copy
    ShortRangeSelfScalingVariance(const ShortRangeSelfScalingVariance &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      dependenceOnProcessedGroupWidth(this,other.dependenceOnProcessedGroupWidth),
+      label(this,other.label),
+      type(this,other.type),
+      gridded2d(this,other.gridded2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ShortRangeSelfScalingVariance(ShortRangeSelfScalingVariance &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      dependenceOnProcessedGroupWidth(this,std::move(other.dependenceOnProcessedGroupWidth)),
+      label(this,std::move(other.label)),
+      type(this,std::move(other.type)),
+      gridded2d(this,std::move(other.gridded2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

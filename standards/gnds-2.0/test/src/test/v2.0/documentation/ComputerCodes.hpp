@@ -33,8 +33,7 @@ class ComputerCodes : public Component<documentation::ComputerCodes> {
    {
       return
          // children
-         documentation::ComputerCode{}
-            / ++Child<>("computerCode")
+         ++Child<documentation::ComputerCode>("computerCode")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->computerCode)
 
-   // default, and from fields
+   // default
+   ComputerCodes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ComputerCodes(
-      const wrapper<std::vector<documentation::ComputerCode>> &computerCode = {}
+      const wrapper<std::vector<documentation::ComputerCode>> &computerCode
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       computerCode(this,computerCode)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ComputerCodes(const ComputerCodes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      computerCode(this,other.computerCode)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ComputerCodes(ComputerCodes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      computerCode(this,std::move(other.computerCode))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

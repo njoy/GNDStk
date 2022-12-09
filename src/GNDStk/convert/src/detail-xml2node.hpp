@@ -94,7 +94,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       }
 
       // ------------------------
-      // cdata, pcdata, comment
+      // cdata, data, comment
       // ------------------------
 
       // We'll store these in a special manner as children of the current node,
@@ -104,7 +104,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // there, and then writes an XML back out. GNDS has no ordering, so doing
       // this isn't necessary. It is, however, easy to handle, and users may
       // appreciate that GNDStk doesn't toss comments, or mess with the ordering
-      // of cdata, pcdata, or comment nodes, either individually or together.
+      // of cdata, data, or comment nodes, either individually or together.
 
       if (xsub.type() == pugi::node_cdata) {
          node.add(special::cdata).add(special::text, xsub.value());

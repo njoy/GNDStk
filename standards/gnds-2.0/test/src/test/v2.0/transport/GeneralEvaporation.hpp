@@ -35,12 +35,9 @@ class GeneralEvaporation : public Component<transport::GeneralEvaporation> {
    {
       return
          // children
-         std::optional<transport::U>{}
-            / --Child<>("U") |
-         std::optional<transport::G>{}
-            / --Child<>("g") |
-         std::optional<transport::Theta>{}
-            / --Child<>("theta")
+         --Child<std::optional<transport::U>>("U") |
+         --Child<std::optional<transport::G>>("g") |
+         --Child<std::optional<transport::Theta>>("theta")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->g, \
       this->theta)
 
-   // default, and from fields
+   // default
+   GeneralEvaporation() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit GeneralEvaporation(
-      const wrapper<std::optional<transport::U>> &U = {},
+      const wrapper<std::optional<transport::U>> &U,
       const wrapper<std::optional<transport::G>> &g = {},
       const wrapper<std::optional<transport::Theta>> &theta = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    GeneralEvaporation(const GeneralEvaporation &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      U(this,other.U),
+      g(this,other.g),
+      theta(this,other.theta)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    GeneralEvaporation(GeneralEvaporation &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      U(this,std::move(other.U)),
+      g(this,std::move(other.g)),
+      theta(this,std::move(other.theta))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

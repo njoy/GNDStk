@@ -40,12 +40,9 @@ class Width : public Component<resonances::Width> {
          Float64{}
             / Meta<>("degreesOfFreedom") |
          // children
-         std::optional<containers::Constant1d>{}
-            / --Child<>("constant1d") |
-         std::optional<containers::XYs1d>{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Regions1d>{}
-            / --Child<>("regions1d")
+         --Child<std::optional<containers::Constant1d>>("constant1d") |
+         --Child<std::optional<containers::XYs1d>>("XYs1d") |
+         --Child<std::optional<containers::Regions1d>>("regions1d")
       ;
    }
 
@@ -72,9 +69,16 @@ public:
       this->XYs1d, \
       this->regions1d)
 
-   // default, and from fields
+   // default
+   Width() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Width(
-      const wrapper<std::string> &resonanceReaction = {},
+      const wrapper<std::string> &resonanceReaction,
       const wrapper<Float64> &degreesOfFreedom = {},
       const wrapper<std::optional<containers::Constant1d>> &constant1d = {},
       const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
@@ -99,17 +103,25 @@ public:
 
    // copy
    Width(const Width &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      resonanceReaction(this,other.resonanceReaction),
+      degreesOfFreedom(this,other.degreesOfFreedom),
+      constant1d(this,other.constant1d),
+      XYs1d(this,other.XYs1d),
+      regions1d(this,other.regions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Width(Width &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      resonanceReaction(this,std::move(other.resonanceReaction)),
+      degreesOfFreedom(this,std::move(other.degreesOfFreedom)),
+      constant1d(this,std::move(other.constant1d)),
+      XYs1d(this,std::move(other.XYs1d)),
+      regions1d(this,std::move(other.regions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -41,10 +41,8 @@ class ChemicalElement : public Component<pops::ChemicalElement> {
          std::optional<XMLName>{}
             / Meta<>("name") |
          // children
-         std::optional<pops::Atomic>{}
-            / --Child<>("atomic") |
-         std::optional<pops::Isotopes>{}
-            / --Child<>("isotopes")
+         --Child<std::optional<pops::Atomic>>("atomic") |
+         --Child<std::optional<pops::Isotopes>>("isotopes")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->atomic, \
       this->isotopes)
 
-   // default, and from fields
+   // default
+   ChemicalElement() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ChemicalElement(
-      const wrapper<XMLName> &symbol = {},
+      const wrapper<XMLName> &symbol,
       const wrapper<Integer32> &Z = {},
       const wrapper<std::optional<XMLName>> &name = {},
       const wrapper<std::optional<pops::Atomic>> &atomic = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    ChemicalElement(const ChemicalElement &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symbol(this,other.symbol),
+      Z(this,other.Z),
+      name(this,other.name),
+      atomic(this,other.atomic),
+      isotopes(this,other.isotopes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ChemicalElement(ChemicalElement &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symbol(this,std::move(other.symbol)),
+      Z(this,std::move(other.Z)),
+      name(this,std::move(other.name)),
+      atomic(this,std::move(other.atomic)),
+      isotopes(this,std::move(other.isotopes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

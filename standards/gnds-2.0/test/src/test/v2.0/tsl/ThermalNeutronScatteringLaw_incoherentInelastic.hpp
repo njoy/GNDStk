@@ -46,8 +46,7 @@ class ThermalNeutronScatteringLaw_incoherentInelastic : public Component<tsl::Th
          XMLName{}
             / Meta<>("primaryScatterer") |
          // children
-         tsl::ScatteringAtoms{}
-            / --Child<>("scatteringAtoms")
+         --Child<tsl::ScatteringAtoms>("scatteringAtoms")
       ;
    }
 
@@ -86,10 +85,17 @@ public:
       this->primaryScatterer, \
       this->scatteringAtoms)
 
-   // default, and from fields
+   // default
+   ThermalNeutronScatteringLaw_incoherentInelastic() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit ThermalNeutronScatteringLaw_incoherentInelastic(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::optional<XMLName>> &pid = {},
       const wrapper<std::optional<enums::Frame>> &productFrame = {},
       const wrapper<std::optional<bool>> &calculatedAtThermal = {},
@@ -118,17 +124,29 @@ public:
 
    // copy
    ThermalNeutronScatteringLaw_incoherentInelastic(const ThermalNeutronScatteringLaw_incoherentInelastic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      pid(this,other.pid),
+      productFrame(this,other.productFrame),
+      calculatedAtThermal(this,other.calculatedAtThermal),
+      incoherentApproximation(this,other.incoherentApproximation),
+      primaryScatterer(this,other.primaryScatterer),
+      scatteringAtoms(this,other.scatteringAtoms)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ThermalNeutronScatteringLaw_incoherentInelastic(ThermalNeutronScatteringLaw_incoherentInelastic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      productFrame(this,std::move(other.productFrame)),
+      calculatedAtThermal(this,std::move(other.calculatedAtThermal)),
+      incoherentApproximation(this,std::move(other.incoherentApproximation)),
+      primaryScatterer(this,std::move(other.primaryScatterer)),
+      scatteringAtoms(this,std::move(other.scatteringAtoms))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -36,8 +36,7 @@ class SigmaZeros : public Component<styles::SigmaZeros> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         containers::Values{}
-            / --Child<>("values")
+         --Child<containers::Values>("values")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->values)
 
-   // default, and from fields
+   // default
+   SigmaZeros() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit SigmaZeros(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<containers::Values> &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    SigmaZeros(const SigmaZeros &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      values(this,other.values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SigmaZeros(SigmaZeros &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      values(this,std::move(other.values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

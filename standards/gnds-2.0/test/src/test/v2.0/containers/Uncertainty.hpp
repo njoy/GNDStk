@@ -40,22 +40,14 @@ class Uncertainty : public Component<containers::Uncertainty> {
    {
       return
          // children
-         std::optional<containers::Standard>{}
-            / --Child<>("standard") |
-         std::optional<containers::LogNormal>{}
-            / --Child<>("logNormal") |
-         std::optional<containers::ConfidenceIntervals>{}
-            / --Child<>("confidenceIntervals") |
-         std::optional<containers::Pdf>{}
-            / --Child<>("pdf") |
-         std::optional<containers::XYs1d>{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Polynomial1d>{}
-            / --Child<>("polynomial1d") |
-         std::optional<containers::Covariance>{}
-            / --Child<>("covariance") |
-         std::optional<containers::ListOfCovariances>{}
-            / --Child<>("listOfCovariances")
+         --Child<std::optional<containers::Standard>>("standard") |
+         --Child<std::optional<containers::LogNormal>>("logNormal") |
+         --Child<std::optional<containers::ConfidenceIntervals>>("confidenceIntervals") |
+         --Child<std::optional<containers::Pdf>>("pdf") |
+         --Child<std::optional<containers::XYs1d>>("XYs1d") |
+         --Child<std::optional<containers::Polynomial1d>>("polynomial1d") |
+         --Child<std::optional<containers::Covariance>>("covariance") |
+         --Child<std::optional<containers::ListOfCovariances>>("listOfCovariances")
       ;
    }
 
@@ -86,9 +78,16 @@ public:
       this->covariance, \
       this->listOfCovariances)
 
-   // default, and from fields
+   // default
+   Uncertainty() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Uncertainty(
-      const wrapper<std::optional<containers::Standard>> &standard = {},
+      const wrapper<std::optional<containers::Standard>> &standard,
       const wrapper<std::optional<containers::LogNormal>> &logNormal = {},
       const wrapper<std::optional<containers::ConfidenceIntervals>> &confidenceIntervals = {},
       const wrapper<std::optional<containers::Pdf>> &pdf = {},
@@ -119,17 +118,31 @@ public:
 
    // copy
    Uncertainty(const Uncertainty &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      standard(this,other.standard),
+      logNormal(this,other.logNormal),
+      confidenceIntervals(this,other.confidenceIntervals),
+      pdf(this,other.pdf),
+      XYs1d(this,other.XYs1d),
+      polynomial1d(this,other.polynomial1d),
+      covariance(this,other.covariance),
+      listOfCovariances(this,other.listOfCovariances)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Uncertainty(Uncertainty &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      standard(this,std::move(other.standard)),
+      logNormal(this,std::move(other.logNormal)),
+      confidenceIntervals(this,std::move(other.confidenceIntervals)),
+      pdf(this,std::move(other.pdf)),
+      XYs1d(this,std::move(other.XYs1d)),
+      polynomial1d(this,std::move(other.polynomial1d)),
+      covariance(this,std::move(other.covariance)),
+      listOfCovariances(this,std::move(other.listOfCovariances))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

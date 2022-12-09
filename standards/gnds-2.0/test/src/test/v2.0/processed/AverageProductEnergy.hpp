@@ -35,12 +35,9 @@ class AverageProductEnergy : public Component<processed::AverageProductEnergy> {
    {
       return
          // children
-         containers::XYs1d{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Gridded1d>{}
-            / --Child<>("gridded1d") |
-         std::optional<containers::Regions1d>{}
-            / --Child<>("regions1d")
+         --Child<containers::XYs1d>("XYs1d") |
+         --Child<std::optional<containers::Gridded1d>>("gridded1d") |
+         --Child<std::optional<containers::Regions1d>>("regions1d")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->gridded1d, \
       this->regions1d)
 
-   // default, and from fields
+   // default
+   AverageProductEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit AverageProductEnergy(
-      const wrapper<containers::XYs1d> &XYs1d = {},
+      const wrapper<containers::XYs1d> &XYs1d,
       const wrapper<std::optional<containers::Gridded1d>> &gridded1d = {},
       const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    AverageProductEnergy(const AverageProductEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,other.XYs1d),
+      gridded1d(this,other.gridded1d),
+      regions1d(this,other.regions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    AverageProductEnergy(AverageProductEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,std::move(other.XYs1d)),
+      gridded1d(this,std::move(other.gridded1d)),
+      regions1d(this,std::move(other.regions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

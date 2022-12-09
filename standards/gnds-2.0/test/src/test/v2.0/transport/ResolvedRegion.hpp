@@ -59,9 +59,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_XYs1dregions1d)
 
-   // default, and from fields
+   // default
+   ResolvedRegion() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ResolvedRegion(
-      const wrapper<_t> &_XYs1dregions1d = {}
+      const wrapper<_t> &_XYs1dregions1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs1dregions1d(this,_XYs1dregions1d)
@@ -78,17 +85,17 @@ public:
 
    // copy
    ResolvedRegion(const ResolvedRegion &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs1dregions1d(this,other._XYs1dregions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ResolvedRegion(ResolvedRegion &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs1dregions1d(this,std::move(other._XYs1dregions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

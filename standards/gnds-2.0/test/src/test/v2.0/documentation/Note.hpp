@@ -66,10 +66,17 @@ public:
       this->markup, \
       this->label)
 
-   // default, and from fields
+   // default
+   Note() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Note(
-      const wrapper<std::optional<XMLName>> &encoding = {},
+      const wrapper<std::optional<XMLName>> &encoding,
       const wrapper<std::optional<std::string>> &markup = {},
       const wrapper<std::optional<XMLName>> &label = {}
    ) :
@@ -98,17 +105,21 @@ public:
 
    // copy
    Note(const Note &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,other.encoding),
+      markup(this,other.markup),
+      label(this,other.label)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Note(Note &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,std::move(other.encoding)),
+      markup(this,std::move(other.markup)),
+      label(this,std::move(other.label))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Widths : public Component<resonances::Widths> {
    {
       return
          // children
-         resonances::Width{}
-            / ++Child<>("width")
+         ++Child<resonances::Width>("width")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->width)
 
-   // default, and from fields
+   // default
+   Widths() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Widths(
-      const wrapper<std::vector<resonances::Width>> &width = {}
+      const wrapper<std::vector<resonances::Width>> &width
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       width(this,width)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Widths(const Widths &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      width(this,other.width)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Widths(Widths &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      width(this,std::move(other.width))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

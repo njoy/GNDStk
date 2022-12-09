@@ -74,9 +74,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d)
 
-   // default, and from fields
+   // default
+   Multiplicity() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Multiplicity(
-      const wrapper<_t> &_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d = {}
+      const wrapper<_t> &_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d(this,_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d)
@@ -93,17 +100,17 @@ public:
 
    // copy
    Multiplicity(const Multiplicity &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d(this,other._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Multiplicity(Multiplicity &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d(this,std::move(other._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

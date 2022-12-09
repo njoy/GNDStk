@@ -57,10 +57,17 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->sep)
 
-   // default, and from fields
+   // default
+   Data() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Data(
-      const wrapper<std::optional<UTF8Text>> &sep = {}
+      const wrapper<std::optional<UTF8Text>> &sep
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       sep(this,defaults.sep,sep)
@@ -85,17 +92,17 @@ public:
 
    // copy
    Data(const Data &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      sep(this,other.sep)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Data(Data &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      sep(this,std::move(other.sep))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

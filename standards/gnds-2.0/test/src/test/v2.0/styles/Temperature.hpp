@@ -41,10 +41,8 @@ class Temperature : public Component<styles::Temperature> {
          XMLName{}
             / Meta<>("unit") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<std::optional<documentation::Documentation>>("documentation") |
+         --Child<std::optional<pops::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->documentation, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   Temperature() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Temperature(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<Float64> &value = {},
       const wrapper<XMLName> &unit = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    Temperature(const Temperature &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      value(this,other.value),
+      unit(this,other.unit),
+      documentation(this,other.documentation),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Temperature(Temperature &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      value(this,std::move(other.value)),
+      unit(this,std::move(other.unit)),
+      documentation(this,std::move(other.documentation)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

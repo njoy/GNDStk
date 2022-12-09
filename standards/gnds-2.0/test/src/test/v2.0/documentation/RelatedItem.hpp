@@ -59,9 +59,16 @@ public:
       this->href, \
       this->relationType)
 
-   // default, and from fields
+   // default
+   RelatedItem() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit RelatedItem(
-      const wrapper<UTF8Text> &name = {},
+      const wrapper<UTF8Text> &name,
       const wrapper<std::optional<UTF8Text>> &href = {},
       const wrapper<std::optional<enums::RelationType>> &relationType = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    RelatedItem(const RelatedItem &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      href(this,other.href),
+      relationType(this,other.relationType)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    RelatedItem(RelatedItem &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      href(this,std::move(other.href)),
+      relationType(this,std::move(other.relationType))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

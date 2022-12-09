@@ -33,8 +33,7 @@ class Baryons : public Component<pops::Baryons> {
    {
       return
          // children
-         std::optional<pops::Baryon>{}
-            / ++Child<>("baryon")
+         ++Child<std::optional<pops::Baryon>>("baryon")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->baryon)
 
-   // default, and from fields
+   // default
+   Baryons() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Baryons(
-      const wrapper<std::optional<std::vector<pops::Baryon>>> &baryon = {}
+      const wrapper<std::optional<std::vector<pops::Baryon>>> &baryon
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       baryon(this,baryon)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Baryons(const Baryons &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      baryon(this,other.baryon)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Baryons(Baryons &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      baryon(this,std::move(other.baryon))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

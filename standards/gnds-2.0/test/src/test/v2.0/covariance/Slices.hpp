@@ -33,8 +33,7 @@ class Slices : public Component<covariance::Slices> {
    {
       return
          // children
-         covariance::Slice{}
-            / ++Child<>("slice")
+         ++Child<covariance::Slice>("slice")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->slice)
 
-   // default, and from fields
+   // default
+   Slices() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Slices(
-      const wrapper<std::vector<covariance::Slice>> &slice = {}
+      const wrapper<std::vector<covariance::Slice>> &slice
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       slice(this,slice)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Slices(const Slices &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      slice(this,other.slice)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Slices(Slices &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      slice(this,std::move(other.slice))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

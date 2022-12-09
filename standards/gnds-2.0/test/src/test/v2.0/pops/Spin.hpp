@@ -42,12 +42,9 @@ class Spin : public Component<pops::Spin> {
          std::optional<XMLName>{}
             / Meta<>("value") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation") |
-         std::optional<pops::Uncertainty>{}
-            / --Child<>("uncertainty") |
-         std::optional<containers::Fraction>{}
-            / ++Child<>("fraction")
+         --Child<std::optional<documentation::Documentation>>("documentation") |
+         --Child<std::optional<pops::Uncertainty>>("uncertainty") |
+         ++Child<std::optional<containers::Fraction>>("fraction")
       ;
    }
 
@@ -76,9 +73,16 @@ public:
       this->uncertainty, \
       this->fraction)
 
-   // default, and from fields
+   // default
+   Spin() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Spin(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
       const wrapper<std::optional<XMLName>> &value = {},
       const wrapper<std::optional<documentation::Documentation>> &documentation = {},
@@ -105,17 +109,27 @@ public:
 
    // copy
    Spin(const Spin &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      unit(this,other.unit),
+      value(this,other.value),
+      documentation(this,other.documentation),
+      uncertainty(this,other.uncertainty),
+      fraction(this,other.fraction)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Spin(Spin &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value)),
+      documentation(this,std::move(other.documentation)),
+      uncertainty(this,std::move(other.uncertainty)),
+      fraction(this,std::move(other.fraction))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -48,12 +48,9 @@ class Channel : public Component<resonances::Channel> {
          Integer32{}
             / Meta<>("columnIndex") |
          // children
-         std::optional<resonances::ExternalRMatrix>{}
-            / --Child<>("externalRMatrix") |
-         std::optional<resonances::ScatteringRadius>{}
-            / --Child<>("scatteringRadius") |
-         std::optional<resonances::HardSphereRadius>{}
-            / --Child<>("hardSphereRadius")
+         --Child<std::optional<resonances::ExternalRMatrix>>("externalRMatrix") |
+         --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius")
       ;
    }
 
@@ -88,9 +85,16 @@ public:
       this->scatteringRadius, \
       this->hardSphereRadius)
 
-   // default, and from fields
+   // default
+   Channel() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Channel(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::string> &resonanceReaction = {},
       const wrapper<Integer32> &L = {},
       const wrapper<Fraction32> &channelSpin = {},
@@ -123,17 +127,33 @@ public:
 
    // copy
    Channel(const Channel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      resonanceReaction(this,other.resonanceReaction),
+      L(this,other.L),
+      channelSpin(this,other.channelSpin),
+      boundaryConditionValue(this,other.boundaryConditionValue),
+      columnIndex(this,other.columnIndex),
+      externalRMatrix(this,other.externalRMatrix),
+      scatteringRadius(this,other.scatteringRadius),
+      hardSphereRadius(this,other.hardSphereRadius)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Channel(Channel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      resonanceReaction(this,std::move(other.resonanceReaction)),
+      L(this,std::move(other.L)),
+      channelSpin(this,std::move(other.channelSpin)),
+      boundaryConditionValue(this,std::move(other.boundaryConditionValue)),
+      columnIndex(this,std::move(other.columnIndex)),
+      externalRMatrix(this,std::move(other.externalRMatrix)),
+      scatteringRadius(this,std::move(other.scatteringRadius)),
+      hardSphereRadius(this,std::move(other.hardSphereRadius))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -55,9 +55,16 @@ public:
       this->name, \
       this->href)
 
-   // default, and from fields
+   // default
+   Affiliation() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Affiliation(
-      const wrapper<UTF8Text> &name = {},
+      const wrapper<UTF8Text> &name,
       const wrapper<std::optional<UTF8Text>> &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    Affiliation(const Affiliation &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,other.name),
+      href(this,other.href)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Affiliation(Affiliation &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      name(this,std::move(other.name)),
+      href(this,std::move(other.href))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

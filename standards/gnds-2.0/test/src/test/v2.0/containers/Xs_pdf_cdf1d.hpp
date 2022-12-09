@@ -38,12 +38,9 @@ class Xs_pdf_cdf1d : public Component<containers::Xs_pdf_cdf1d> {
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
          // children
-         containers::Xs_in_xs_pdf_cdf1d{}
-            / --Child<>("xs") |
-         containers::Pdf{}
-            / --Child<>("pdf") |
-         containers::Cdf_in_xs_pdf_cdf1d{}
-            / --Child<>("cdf")
+         --Child<containers::Xs_in_xs_pdf_cdf1d>("xs") |
+         --Child<containers::Pdf>("pdf") |
+         --Child<containers::Cdf_in_xs_pdf_cdf1d>("cdf")
       ;
    }
 
@@ -68,9 +65,16 @@ public:
       this->pdf, \
       this->cdf)
 
-   // default, and from fields
+   // default
+   Xs_pdf_cdf1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Xs_pdf_cdf1d(
-      const wrapper<std::optional<Float64>> &outerDomainValue = {},
+      const wrapper<std::optional<Float64>> &outerDomainValue,
       const wrapper<containers::Xs_in_xs_pdf_cdf1d> &xs = {},
       const wrapper<containers::Pdf> &pdf = {},
       const wrapper<containers::Cdf_in_xs_pdf_cdf1d> &cdf = {}
@@ -93,17 +97,23 @@ public:
 
    // copy
    Xs_pdf_cdf1d(const Xs_pdf_cdf1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      outerDomainValue(this,other.outerDomainValue),
+      xs(this,other.xs),
+      pdf(this,other.pdf),
+      cdf(this,other.cdf)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Xs_pdf_cdf1d(Xs_pdf_cdf1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      xs(this,std::move(other.xs)),
+      pdf(this,std::move(other.pdf)),
+      cdf(this,std::move(other.cdf))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

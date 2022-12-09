@@ -33,8 +33,7 @@ class ColumnSensitivity : public Component<covariance::ColumnSensitivity> {
    {
       return
          // children
-         containers::Array{}
-            / --Child<>("array")
+         --Child<containers::Array>("array")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->array)
 
-   // default, and from fields
+   // default
+   ColumnSensitivity() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ColumnSensitivity(
-      const wrapper<containers::Array> &array = {}
+      const wrapper<containers::Array> &array
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       array(this,array)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ColumnSensitivity(const ColumnSensitivity &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      array(this,other.array)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ColumnSensitivity(ColumnSensitivity &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      array(this,std::move(other.array))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class RelatedItems : public Component<documentation::RelatedItems> {
    {
       return
          // children
-         documentation::RelatedItem{}
-            / ++Child<>("relatedItem")
+         ++Child<documentation::RelatedItem>("relatedItem")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->relatedItem)
 
-   // default, and from fields
+   // default
+   RelatedItems() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit RelatedItems(
-      const wrapper<std::vector<documentation::RelatedItem>> &relatedItem = {}
+      const wrapper<std::vector<documentation::RelatedItem>> &relatedItem
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       relatedItem(this,relatedItem)
@@ -70,17 +76,17 @@ public:
 
    // copy
    RelatedItems(const RelatedItems &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      relatedItem(this,other.relatedItem)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    RelatedItems(RelatedItems &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      relatedItem(this,std::move(other.relatedItem))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

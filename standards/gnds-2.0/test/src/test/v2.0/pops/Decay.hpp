@@ -40,8 +40,7 @@ class Decay : public Component<pops::Decay> {
          Defaulted<bool>{false}
             / Meta<>("complete") |
          // children
-         std::optional<pops::Products>{}
-            / --Child<>("products")
+         --Child<std::optional<pops::Products>>("products")
       ;
    }
 
@@ -71,10 +70,17 @@ public:
       this->complete, \
       this->products)
 
-   // default, and from fields
+   // default
+   Decay() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Decay(
-      const wrapper<Integer32> &index = {},
+      const wrapper<Integer32> &index,
       const wrapper<std::optional<enums::DecayType>> &mode = {},
       const wrapper<std::optional<bool>> &complete = {},
       const wrapper<std::optional<pops::Products>> &products = {}
@@ -97,17 +103,23 @@ public:
 
    // copy
    Decay(const Decay &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,other.index),
+      mode(this,other.mode),
+      complete(this,other.complete),
+      products(this,other.products)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Decay(Decay &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      index(this,std::move(other.index)),
+      mode(this,std::move(other.mode)),
+      complete(this,std::move(other.complete)),
+      products(this,std::move(other.products))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

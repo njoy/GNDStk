@@ -59,9 +59,16 @@ public:
       this->coefficient, \
       this->href)
 
-   // default, and from fields
+   // default
+   Summand() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Summand(
-      const wrapper<std::optional<XMLName>> &ENDF_MFMT = {},
+      const wrapper<std::optional<XMLName>> &ENDF_MFMT,
       const wrapper<std::optional<Float64>> &coefficient = {},
       const wrapper<std::optional<std::string>> &href = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    Summand(const Summand &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MFMT(this,other.ENDF_MFMT),
+      coefficient(this,other.coefficient),
+      href(this,other.href)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Summand(Summand &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MFMT(this,std::move(other.ENDF_MFMT)),
+      coefficient(this,std::move(other.coefficient)),
+      href(this,std::move(other.href))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

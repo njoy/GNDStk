@@ -33,8 +33,7 @@ class BraggEdges : public Component<tsl::BraggEdges> {
    {
       return
          // children
-         tsl::BraggEdge{}
-            / ++Child<>("BraggEdge")
+         ++Child<tsl::BraggEdge>("BraggEdge")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->BraggEdge)
 
-   // default, and from fields
+   // default
+   BraggEdges() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit BraggEdges(
-      const wrapper<std::vector<tsl::BraggEdge>> &BraggEdge = {}
+      const wrapper<std::vector<tsl::BraggEdge>> &BraggEdge
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       BraggEdge(this,BraggEdge)
@@ -70,17 +76,17 @@ public:
 
    // copy
    BraggEdges(const BraggEdges &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      BraggEdge(this,other.BraggEdge)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    BraggEdges(BraggEdges &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      BraggEdge(this,std::move(other.BraggEdge))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

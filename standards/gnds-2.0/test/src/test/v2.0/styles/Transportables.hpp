@@ -36,8 +36,7 @@ class Transportables : public Component<styles::Transportables> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         styles::Transportable{}
-            / ++Child<>("transportable")
+         ++Child<styles::Transportable>("transportable")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->transportable)
 
-   // default, and from fields
+   // default
+   Transportables() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Transportables(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::vector<styles::Transportable>> &transportable = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    Transportables(const Transportables &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      transportable(this,other.transportable)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Transportables(Transportables &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      transportable(this,std::move(other.transportable))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

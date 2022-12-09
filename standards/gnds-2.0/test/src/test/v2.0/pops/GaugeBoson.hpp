@@ -41,18 +41,12 @@ class GaugeBoson : public Component<pops::GaugeBoson> {
          XMLName{}
             / Meta<>("id") |
          // children
-         std::optional<pops::Charge>{}
-            / --Child<>("charge") |
-         std::optional<pops::Halflife>{}
-            / --Child<>("halflife") |
-         std::optional<pops::Mass>{}
-            / --Child<>("mass") |
-         std::optional<pops::Spin>{}
-            / --Child<>("spin") |
-         std::optional<pops::Parity>{}
-            / --Child<>("parity") |
-         std::optional<pops::DecayData>{}
-            / --Child<>("decayData")
+         --Child<std::optional<pops::Charge>>("charge") |
+         --Child<std::optional<pops::Halflife>>("halflife") |
+         --Child<std::optional<pops::Mass>>("mass") |
+         --Child<std::optional<pops::Spin>>("spin") |
+         --Child<std::optional<pops::Parity>>("parity") |
+         --Child<std::optional<pops::DecayData>>("decayData")
       ;
    }
 
@@ -83,9 +77,16 @@ public:
       this->parity, \
       this->decayData)
 
-   // default, and from fields
+   // default
+   GaugeBoson() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit GaugeBoson(
-      const wrapper<XMLName> &id = {},
+      const wrapper<XMLName> &id,
       const wrapper<std::optional<pops::Charge>> &charge = {},
       const wrapper<std::optional<pops::Halflife>> &halflife = {},
       const wrapper<std::optional<pops::Mass>> &mass = {},
@@ -114,17 +115,29 @@ public:
 
    // copy
    GaugeBoson(const GaugeBoson &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,other.id),
+      charge(this,other.charge),
+      halflife(this,other.halflife),
+      mass(this,other.mass),
+      spin(this,other.spin),
+      parity(this,other.parity),
+      decayData(this,other.decayData)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    GaugeBoson(GaugeBoson &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,std::move(other.id)),
+      charge(this,std::move(other.charge)),
+      halflife(this,std::move(other.halflife)),
+      mass(this,std::move(other.mass)),
+      spin(this,std::move(other.spin)),
+      parity(this,std::move(other.parity)),
+      decayData(this,std::move(other.decayData))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

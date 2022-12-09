@@ -33,8 +33,7 @@ class IncompleteReactions : public Component<transport::IncompleteReactions> {
    {
       return
          // children
-         std::optional<transport::Reaction>{}
-            / --Child<>("reaction")
+         --Child<std::optional<transport::Reaction>>("reaction")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->reaction)
 
-   // default, and from fields
+   // default
+   IncompleteReactions() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit IncompleteReactions(
-      const wrapper<std::optional<transport::Reaction>> &reaction = {}
+      const wrapper<std::optional<transport::Reaction>> &reaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       reaction(this,reaction)
@@ -70,17 +76,17 @@ public:
 
    // copy
    IncompleteReactions(const IncompleteReactions &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      reaction(this,other.reaction)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    IncompleteReactions(IncompleteReactions &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      reaction(this,std::move(other.reaction))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class ResonanceParameters : public Component<resonances::ResonanceParameters> {
    {
       return
          // children
-         containers::Table{}
-            / --Child<>("table")
+         --Child<containers::Table>("table")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->table)
 
-   // default, and from fields
+   // default
+   ResonanceParameters() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ResonanceParameters(
-      const wrapper<containers::Table> &table = {}
+      const wrapper<containers::Table> &table
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       table(this,table)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ResonanceParameters(const ResonanceParameters &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      table(this,other.table)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ResonanceParameters(ResonanceParameters &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      table(this,std::move(other.table))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

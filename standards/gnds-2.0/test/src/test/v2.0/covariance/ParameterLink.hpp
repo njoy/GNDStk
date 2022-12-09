@@ -69,10 +69,17 @@ public:
       this->matrixStartIndex, \
       this->nParameters)
 
-   // default, and from fields
+   // default
+   ParameterLink() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit ParameterLink(
-      const wrapper<std::optional<XMLName>> &href = {},
+      const wrapper<std::optional<XMLName>> &href,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<Integer32>> &matrixStartIndex = {},
       const wrapper<std::optional<Integer32>> &nParameters = {}
@@ -95,17 +102,23 @@ public:
 
    // copy
    ParameterLink(const ParameterLink &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      label(this,other.label),
+      matrixStartIndex(this,other.matrixStartIndex),
+      nParameters(this,other.nParameters)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ParameterLink(ParameterLink &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      label(this,std::move(other.label)),
+      matrixStartIndex(this,std::move(other.matrixStartIndex)),
+      nParameters(this,std::move(other.nParameters))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

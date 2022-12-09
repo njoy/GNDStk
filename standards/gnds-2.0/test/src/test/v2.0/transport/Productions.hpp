@@ -33,8 +33,7 @@ class Productions : public Component<transport::Productions> {
    {
       return
          // children
-         std::optional<transport::Production>{}
-            / --Child<>("production")
+         --Child<std::optional<transport::Production>>("production")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->production)
 
-   // default, and from fields
+   // default
+   Productions() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Productions(
-      const wrapper<std::optional<transport::Production>> &production = {}
+      const wrapper<std::optional<transport::Production>> &production
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       production(this,production)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Productions(const Productions &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      production(this,other.production)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Productions(Productions &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      production(this,std::move(other.production))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

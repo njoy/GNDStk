@@ -63,9 +63,16 @@ public:
       this->href, \
       this->revisionID)
 
-   // default, and from fields
+   // default
+   CodeRepo() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CodeRepo(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &revisionSystem = {},
       const wrapper<XMLName> &href = {},
       const wrapper<XMLName> &revisionID = {}
@@ -88,17 +95,23 @@ public:
 
    // copy
    CodeRepo(const CodeRepo &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      revisionSystem(this,other.revisionSystem),
+      href(this,other.href),
+      revisionID(this,other.revisionID)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CodeRepo(CodeRepo &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      revisionSystem(this,std::move(other.revisionSystem)),
+      href(this,std::move(other.href)),
+      revisionID(this,std::move(other.revisionID))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

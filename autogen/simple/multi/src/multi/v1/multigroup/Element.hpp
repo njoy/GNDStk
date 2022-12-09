@@ -39,10 +39,8 @@ class Element : public Component<multigroup::Element> {
          int{}
             / Meta<>("atomic_number") |
          // children
-         multigroup::Isotope{}
-            / ++Child<>("isotope") |
-         std::optional<multigroup::Foobar>{}
-            / --Child<>("foobar")
+         ++Child<multigroup::Isotope>("isotope") |
+         --Child<std::optional<multigroup::Foobar>>("foobar")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->isotope, \
       this->foobar)
 
-   // default, and from fields
+   // default
+   Element() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Element(
-      const wrapper<std::optional<std::string>> &symbol = {},
+      const wrapper<std::optional<std::string>> &symbol,
       const wrapper<int> &atomic_number = {},
       const wrapper<std::vector<multigroup::Isotope>> &isotope = {},
       const wrapper<std::optional<multigroup::Foobar>> &foobar = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Element(const Element &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symbol(this,other.symbol),
+      atomic_number(this,other.atomic_number),
+      isotope(this,other.isotope),
+      foobar(this,other.foobar)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Element(Element &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      symbol(this,std::move(other.symbol)),
+      atomic_number(this,std::move(other.atomic_number)),
+      isotope(this,std::move(other.isotope)),
+      foobar(this,std::move(other.foobar))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

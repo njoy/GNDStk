@@ -59,9 +59,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->XYs1d_regions1d)
 
-   // default, and from fields
+   // default
+   CrossSection() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CrossSection(
-      const wrapper<std::vector<XYs1d_regions1d_t>> &XYs1d_regions1d = {}
+      const wrapper<std::vector<XYs1d_regions1d_t>> &XYs1d_regions1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d_regions1d(this,XYs1d_regions1d)
@@ -78,17 +85,17 @@ public:
 
    // copy
    CrossSection(const CrossSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d_regions1d(this,other.XYs1d_regions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CrossSection(CrossSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d_regions1d(this,std::move(other.XYs1d_regions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

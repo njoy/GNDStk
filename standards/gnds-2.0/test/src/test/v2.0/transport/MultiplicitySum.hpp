@@ -39,10 +39,8 @@ class MultiplicitySum : public Component<transport::MultiplicitySum> {
          XMLName{}
             / Meta<>("label") |
          // children
-         transport::Multiplicity{}
-            / --Child<>("multiplicity") |
-         transport::Summands{}
-            / --Child<>("summands")
+         --Child<transport::Multiplicity>("multiplicity") |
+         --Child<transport::Summands>("summands")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->multiplicity, \
       this->summands)
 
-   // default, and from fields
+   // default
+   MultiplicitySum() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MultiplicitySum(
-      const wrapper<std::optional<Integer32>> &ENDF_MT = {},
+      const wrapper<std::optional<Integer32>> &ENDF_MT,
       const wrapper<XMLName> &label = {},
       const wrapper<transport::Multiplicity> &multiplicity = {},
       const wrapper<transport::Summands> &summands = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    MultiplicitySum(const MultiplicitySum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,other.ENDF_MT),
+      label(this,other.label),
+      multiplicity(this,other.multiplicity),
+      summands(this,other.summands)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MultiplicitySum(MultiplicitySum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      ENDF_MT(this,std::move(other.ENDF_MT)),
+      label(this,std::move(other.label)),
+      multiplicity(this,std::move(other.multiplicity)),
+      summands(this,std::move(other.summands))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

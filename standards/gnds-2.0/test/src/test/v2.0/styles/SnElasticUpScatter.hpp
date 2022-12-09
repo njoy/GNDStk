@@ -42,8 +42,7 @@ class SnElasticUpScatter : public Component<styles::SnElasticUpScatter> {
          std::optional<Integer32>{}
             / Meta<>("upperCalculatedGroup") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->upperCalculatedGroup, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   SnElasticUpScatter() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit SnElasticUpScatter(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<Integer32>> &upperCalculatedGroup = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    SnElasticUpScatter(const SnElasticUpScatter &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      upperCalculatedGroup(this,other.upperCalculatedGroup),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SnElasticUpScatter(SnElasticUpScatter &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      upperCalculatedGroup(this,std::move(other.upperCalculatedGroup)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

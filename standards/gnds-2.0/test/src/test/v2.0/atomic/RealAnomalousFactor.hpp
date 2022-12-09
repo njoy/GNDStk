@@ -34,10 +34,8 @@ class RealAnomalousFactor : public Component<atomic::RealAnomalousFactor> {
    {
       return
          // children
-         std::optional<containers::XYs1d>{}
-            / --Child<>("XYs1d") |
-         std::optional<containers::Regions1d>{}
-            / --Child<>("regions1d")
+         --Child<std::optional<containers::XYs1d>>("XYs1d") |
+         --Child<std::optional<containers::Regions1d>>("regions1d")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->XYs1d, \
       this->regions1d)
 
-   // default, and from fields
+   // default
+   RealAnomalousFactor() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit RealAnomalousFactor(
-      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
+      const wrapper<std::optional<containers::XYs1d>> &XYs1d,
       const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    RealAnomalousFactor(const RealAnomalousFactor &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,other.XYs1d),
+      regions1d(this,other.regions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    RealAnomalousFactor(RealAnomalousFactor &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,std::move(other.XYs1d)),
+      regions1d(this,std::move(other.regions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

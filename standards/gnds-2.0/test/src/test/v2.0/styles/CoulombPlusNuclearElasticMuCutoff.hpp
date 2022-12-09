@@ -42,8 +42,7 @@ class CoulombPlusNuclearElasticMuCutoff : public Component<styles::CoulombPlusNu
          Float64{}
             / Meta<>("muCutoff") |
          // children
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -70,9 +69,16 @@ public:
       this->muCutoff, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   CoulombPlusNuclearElasticMuCutoff() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CoulombPlusNuclearElasticMuCutoff(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
       const wrapper<XMLName> &label = {},
       const wrapper<Float64> &muCutoff = {},
@@ -97,17 +103,25 @@ public:
 
    // copy
    CoulombPlusNuclearElasticMuCutoff(const CoulombPlusNuclearElasticMuCutoff &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      derivedFrom(this,other.derivedFrom),
+      label(this,other.label),
+      muCutoff(this,other.muCutoff),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CoulombPlusNuclearElasticMuCutoff(CoulombPlusNuclearElasticMuCutoff &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      label(this,std::move(other.label)),
+      muCutoff(this,std::move(other.muCutoff)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

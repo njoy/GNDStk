@@ -66,9 +66,16 @@ public:
       this->href, \
       this->axis_grid)
 
-   // default, and from fields
+   // default
+   Axes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Axes(
-      const wrapper<std::optional<std::string>> &href = {},
+      const wrapper<std::optional<std::string>> &href,
       const wrapper<std::vector<axis_grid_t>> &axis_grid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -87,17 +94,19 @@ public:
 
    // copy
    Axes(const Axes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href),
+      axis_grid(this,other.axis_grid)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Axes(Axes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href)),
+      axis_grid(this,std::move(other.axis_grid))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

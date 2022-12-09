@@ -74,9 +74,16 @@ public:
       this->type, \
       this->_gridded2dsandwichProduct)
 
-   // default, and from fields
+   // default
+   CovarianceMatrix() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CovarianceMatrix(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<enums::Frame>> &productFrame = {},
       const wrapper<XMLName> &type = {},
       const wrapper<_t> &_gridded2dsandwichProduct = {}
@@ -99,17 +106,23 @@ public:
 
    // copy
    CovarianceMatrix(const CovarianceMatrix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      type(this,other.type),
+      _gridded2dsandwichProduct(this,other._gridded2dsandwichProduct)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CovarianceMatrix(CovarianceMatrix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      type(this,std::move(other.type)),
+      _gridded2dsandwichProduct(this,std::move(other._gridded2dsandwichProduct))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

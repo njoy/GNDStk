@@ -39,10 +39,8 @@ class J : public Component<resonances::J> {
          Fraction32{}
             / Meta<>("value") |
          // children
-         resonances::LevelSpacing{}
-            / --Child<>("levelSpacing") |
-         resonances::Widths{}
-            / --Child<>("widths")
+         --Child<resonances::LevelSpacing>("levelSpacing") |
+         --Child<resonances::Widths>("widths")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->levelSpacing, \
       this->widths)
 
-   // default, and from fields
+   // default
+   J() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit J(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<Fraction32> &value = {},
       const wrapper<resonances::LevelSpacing> &levelSpacing = {},
       const wrapper<resonances::Widths> &widths = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    J(const J &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      value(this,other.value),
+      levelSpacing(this,other.levelSpacing),
+      widths(this,other.widths)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    J(J &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      value(this,std::move(other.value)),
+      levelSpacing(this,std::move(other.levelSpacing)),
+      widths(this,std::move(other.widths))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

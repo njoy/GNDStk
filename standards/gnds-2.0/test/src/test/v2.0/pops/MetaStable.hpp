@@ -59,9 +59,16 @@ public:
       this->metaStableIndex, \
       this->pid)
 
-   // default, and from fields
+   // default
+   MetaStable() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MetaStable(
-      const wrapper<XMLName> &id = {},
+      const wrapper<XMLName> &id,
       const wrapper<Integer32> &metaStableIndex = {},
       const wrapper<XMLName> &pid = {}
    ) :
@@ -82,17 +89,21 @@ public:
 
    // copy
    MetaStable(const MetaStable &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,other.id),
+      metaStableIndex(this,other.metaStableIndex),
+      pid(this,other.pid)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MetaStable(MetaStable &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      id(this,std::move(other.id)),
+      metaStableIndex(this,std::move(other.metaStableIndex)),
+      pid(this,std::move(other.pid))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

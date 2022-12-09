@@ -38,12 +38,9 @@ class Mixed : public Component<covariance::Mixed> {
          XMLName{}
             / Meta<>("label") |
          // children
-         std::optional<covariance::CovarianceMatrix>{}
-            / ++Child<>("covarianceMatrix") |
-         std::optional<covariance::ShortRangeSelfScalingVariance>{}
-            / ++Child<>("shortRangeSelfScalingVariance") |
-         std::optional<covariance::Sum>{}
-            / ++Child<>("sum")
+         ++Child<std::optional<covariance::CovarianceMatrix>>("covarianceMatrix") |
+         ++Child<std::optional<covariance::ShortRangeSelfScalingVariance>>("shortRangeSelfScalingVariance") |
+         ++Child<std::optional<covariance::Sum>>("sum")
       ;
    }
 
@@ -68,9 +65,16 @@ public:
       this->shortRangeSelfScalingVariance, \
       this->sum)
 
-   // default, and from fields
+   // default
+   Mixed() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Mixed(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::optional<std::vector<covariance::CovarianceMatrix>>> &covarianceMatrix = {},
       const wrapper<std::optional<std::vector<covariance::ShortRangeSelfScalingVariance>>> &shortRangeSelfScalingVariance = {},
       const wrapper<std::optional<std::vector<covariance::Sum>>> &sum = {}
@@ -93,17 +97,23 @@ public:
 
    // copy
    Mixed(const Mixed &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      covarianceMatrix(this,other.covarianceMatrix),
+      shortRangeSelfScalingVariance(this,other.shortRangeSelfScalingVariance),
+      sum(this,other.sum)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Mixed(Mixed &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      covarianceMatrix(this,std::move(other.covarianceMatrix)),
+      shortRangeSelfScalingVariance(this,std::move(other.shortRangeSelfScalingVariance)),
+      sum(this,std::move(other.sum))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

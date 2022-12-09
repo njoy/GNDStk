@@ -33,8 +33,7 @@ class ListOfCovariances : public Component<containers::ListOfCovariances> {
    {
       return
          // children
-         containers::Covariance{}
-            / ++Child<>("covariance")
+         ++Child<containers::Covariance>("covariance")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->covariance)
 
-   // default, and from fields
+   // default
+   ListOfCovariances() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ListOfCovariances(
-      const wrapper<std::vector<containers::Covariance>> &covariance = {}
+      const wrapper<std::vector<containers::Covariance>> &covariance
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       covariance(this,covariance)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ListOfCovariances(const ListOfCovariances &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      covariance(this,other.covariance)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ListOfCovariances(ListOfCovariances &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      covariance(this,std::move(other.covariance))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

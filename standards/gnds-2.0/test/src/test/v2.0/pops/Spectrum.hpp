@@ -39,10 +39,8 @@ class Spectrum : public Component<pops::Spectrum> {
          XMLName{}
             / Meta<>("pid") |
          // children
-         std::optional<pops::Continuum>{}
-            / --Child<>("continuum") |
-         std::optional<pops::Discrete>{}
-            / ++Child<>("discrete")
+         --Child<std::optional<pops::Continuum>>("continuum") |
+         ++Child<std::optional<pops::Discrete>>("discrete")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->continuum, \
       this->discrete)
 
-   // default, and from fields
+   // default
+   Spectrum() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Spectrum(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &pid = {},
       const wrapper<std::optional<pops::Continuum>> &continuum = {},
       const wrapper<std::optional<std::vector<pops::Discrete>>> &discrete = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Spectrum(const Spectrum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      pid(this,other.pid),
+      continuum(this,other.continuum),
+      discrete(this,other.discrete)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Spectrum(Spectrum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      continuum(this,std::move(other.continuum)),
+      discrete(this,std::move(other.discrete))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

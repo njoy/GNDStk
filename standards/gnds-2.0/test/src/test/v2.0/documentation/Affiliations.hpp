@@ -33,8 +33,7 @@ class Affiliations : public Component<documentation::Affiliations> {
    {
       return
          // children
-         documentation::Affiliation{}
-            / ++Child<>("affiliation")
+         ++Child<documentation::Affiliation>("affiliation")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->affiliation)
 
-   // default, and from fields
+   // default
+   Affiliations() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Affiliations(
-      const wrapper<std::vector<documentation::Affiliation>> &affiliation = {}
+      const wrapper<std::vector<documentation::Affiliation>> &affiliation
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       affiliation(this,affiliation)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Affiliations(const Affiliations &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      affiliation(this,other.affiliation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Affiliations(Affiliations &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      affiliation(this,std::move(other.affiliation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

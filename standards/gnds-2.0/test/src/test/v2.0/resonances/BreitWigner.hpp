@@ -45,14 +45,10 @@ class BreitWigner : public Component<resonances::BreitWigner> {
          Defaulted<bool>{false}
             / Meta<>("useForSelfShieldingOnly") |
          // children
-         std::optional<pops::PoPs_database>{}
-            / --Child<>("PoPs") |
-         std::optional<resonances::ScatteringRadius>{}
-            / --Child<>("scatteringRadius") |
-         std::optional<resonances::HardSphereRadius>{}
-            / --Child<>("hardSphereRadius") |
-         std::optional<resonances::ResonanceParameters>{}
-            / --Child<>("resonanceParameters")
+         --Child<std::optional<pops::PoPs_database>>("PoPs") |
+         --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
+         --Child<std::optional<resonances::ResonanceParameters>>("resonanceParameters")
       ;
    }
 
@@ -91,10 +87,17 @@ public:
       this->hardSphereRadius, \
       this->resonanceParameters)
 
-   // default, and from fields
+   // default
+   BreitWigner() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit BreitWigner(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &approximation = {},
       const wrapper<std::optional<bool>> &calculateChannelRadius = {},
       const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
@@ -125,17 +128,31 @@ public:
 
    // copy
    BreitWigner(const BreitWigner &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      approximation(this,other.approximation),
+      calculateChannelRadius(this,other.calculateChannelRadius),
+      useForSelfShieldingOnly(this,other.useForSelfShieldingOnly),
+      PoPs(this,other.PoPs),
+      scatteringRadius(this,other.scatteringRadius),
+      hardSphereRadius(this,other.hardSphereRadius),
+      resonanceParameters(this,other.resonanceParameters)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    BreitWigner(BreitWigner &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      approximation(this,std::move(other.approximation)),
+      calculateChannelRadius(this,std::move(other.calculateChannelRadius)),
+      useForSelfShieldingOnly(this,std::move(other.useForSelfShieldingOnly)),
+      PoPs(this,std::move(other.PoPs)),
+      scatteringRadius(this,std::move(other.scatteringRadius)),
+      hardSphereRadius(this,std::move(other.hardSphereRadius)),
+      resonanceParameters(this,std::move(other.resonanceParameters))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

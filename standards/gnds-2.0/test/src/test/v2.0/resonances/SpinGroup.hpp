@@ -41,10 +41,8 @@ class SpinGroup : public Component<resonances::SpinGroup> {
          Defaulted<Integer32>{1}
             / Meta<>("parity") |
          // children
-         resonances::Channels{}
-            / --Child<>("channels") |
-         resonances::ResonanceParameters{}
-            / --Child<>("resonanceParameters")
+         --Child<resonances::Channels>("channels") |
+         --Child<resonances::ResonanceParameters>("resonanceParameters")
       ;
    }
 
@@ -76,10 +74,17 @@ public:
       this->channels, \
       this->resonanceParameters)
 
-   // default, and from fields
+   // default
+   SpinGroup() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit SpinGroup(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<Fraction32> &spin = {},
       const wrapper<std::optional<Integer32>> &parity = {},
       const wrapper<resonances::Channels> &channels = {},
@@ -104,17 +109,25 @@ public:
 
    // copy
    SpinGroup(const SpinGroup &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      spin(this,other.spin),
+      parity(this,other.parity),
+      channels(this,other.channels),
+      resonanceParameters(this,other.resonanceParameters)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SpinGroup(SpinGroup &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      spin(this,std::move(other.spin)),
+      parity(this,std::move(other.parity)),
+      channels(this,std::move(other.channels)),
+      resonanceParameters(this,std::move(other.resonanceParameters))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -70,10 +70,17 @@ public:
       this->label, \
       this->filename)
 
-   // default, and from fields
+   // default
+   OutputDeck() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit OutputDeck(
-      const wrapper<std::optional<XMLName>> &encoding = {},
+      const wrapper<std::optional<XMLName>> &encoding,
       const wrapper<std::optional<std::string>> &markup = {},
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<std::optional<XMLName>> &filename = {}
@@ -104,17 +111,23 @@ public:
 
    // copy
    OutputDeck(const OutputDeck &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,other.encoding),
+      markup(this,other.markup),
+      label(this,other.label),
+      filename(this,other.filename)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    OutputDeck(OutputDeck &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,std::move(other.encoding)),
+      markup(this,std::move(other.markup)),
+      label(this,std::move(other.label)),
+      filename(this,std::move(other.filename))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

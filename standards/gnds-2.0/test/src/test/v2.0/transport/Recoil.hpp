@@ -51,9 +51,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->href)
 
-   // default, and from fields
+   // default
+   Recoil() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Recoil(
-      const wrapper<std::string> &href = {}
+      const wrapper<std::string> &href
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)
@@ -70,17 +77,17 @@ public:
 
    // copy
    Recoil(const Recoil &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,other.href)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Recoil(Recoil &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      href(this,std::move(other.href))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

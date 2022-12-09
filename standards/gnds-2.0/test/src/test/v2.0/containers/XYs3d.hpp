@@ -40,12 +40,9 @@ class XYs3d : public Component<containers::XYs3d> {
          std::optional<XMLName>{}
             / Meta<>("interpolationQualifier") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes") |
-         containers::Function2ds{}
-            / --Child<>("function2ds") |
-         std::optional<containers::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<std::optional<containers::Axes>>("axes") |
+         --Child<containers::Function2ds>("function2ds") |
+         --Child<std::optional<containers::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -77,10 +74,17 @@ public:
       this->function2ds, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   XYs3d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit XYs3d(
-      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
+      const wrapper<std::optional<enums::Interpolation>> &interpolation,
       const wrapper<std::optional<XMLName>> &interpolationQualifier = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
       const wrapper<containers::Function2ds> &function2ds = {},
@@ -105,17 +109,25 @@ public:
 
    // copy
    XYs3d(const XYs3d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      interpolation(this,other.interpolation),
+      interpolationQualifier(this,other.interpolationQualifier),
+      axes(this,other.axes),
+      function2ds(this,other.function2ds),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    XYs3d(XYs3d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      interpolation(this,std::move(other.interpolation)),
+      interpolationQualifier(this,std::move(other.interpolationQualifier)),
+      axes(this,std::move(other.axes)),
+      function2ds(this,std::move(other.function2ds)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

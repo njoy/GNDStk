@@ -40,8 +40,7 @@ class DiscreteGamma : public Component<transport::DiscreteGamma> {
          std::optional<Float64>{}
             / Meta<>("value") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes")
+         --Child<std::optional<containers::Axes>>("axes")
       ;
    }
 
@@ -66,9 +65,16 @@ public:
       this->value, \
       this->axes)
 
-   // default, and from fields
+   // default
+   DiscreteGamma() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DiscreteGamma(
-      const wrapper<std::optional<Float64>> &domainMax = {},
+      const wrapper<std::optional<Float64>> &domainMax,
       const wrapper<std::optional<Float64>> &domainMin = {},
       const wrapper<std::optional<Float64>> &value = {},
       const wrapper<std::optional<containers::Axes>> &axes = {}
@@ -91,17 +97,23 @@ public:
 
    // copy
    DiscreteGamma(const DiscreteGamma &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMax(this,other.domainMax),
+      domainMin(this,other.domainMin),
+      value(this,other.value),
+      axes(this,other.axes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DiscreteGamma(DiscreteGamma &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      domainMax(this,std::move(other.domainMax)),
+      domainMin(this,std::move(other.domainMin)),
+      value(this,std::move(other.value)),
+      axes(this,std::move(other.axes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

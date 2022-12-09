@@ -36,8 +36,7 @@ class InverseSpeed : public Component<styles::InverseSpeed> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         containers::Gridded1d{}
-            / --Child<>("gridded1d")
+         --Child<containers::Gridded1d>("gridded1d")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->gridded1d)
 
-   // default, and from fields
+   // default
+   InverseSpeed() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit InverseSpeed(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<containers::Gridded1d> &gridded1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    InverseSpeed(const InverseSpeed &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      gridded1d(this,other.gridded1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    InverseSpeed(InverseSpeed &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      gridded1d(this,std::move(other.gridded1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

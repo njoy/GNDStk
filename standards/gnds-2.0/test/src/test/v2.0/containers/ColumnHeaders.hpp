@@ -33,8 +33,7 @@ class ColumnHeaders : public Component<containers::ColumnHeaders> {
    {
       return
          // children
-         containers::Column{}
-            / ++Child<>("column")
+         ++Child<containers::Column>("column")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->column)
 
-   // default, and from fields
+   // default
+   ColumnHeaders() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ColumnHeaders(
-      const wrapper<std::vector<containers::Column>> &column = {}
+      const wrapper<std::vector<containers::Column>> &column
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       column(this,column)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ColumnHeaders(const ColumnHeaders &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      column(this,other.column)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ColumnHeaders(ColumnHeaders &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      column(this,std::move(other.column))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Dates : public Component<documentation::Dates> {
    {
       return
          // children
-         documentation::Date{}
-            / ++Child<>("date")
+         ++Child<documentation::Date>("date")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->date)
 
-   // default, and from fields
+   // default
+   Dates() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Dates(
-      const wrapper<std::vector<documentation::Date>> &date = {}
+      const wrapper<std::vector<documentation::Date>> &date
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Dates(const Dates &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Dates(Dates &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

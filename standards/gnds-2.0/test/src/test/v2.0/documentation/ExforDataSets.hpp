@@ -33,8 +33,7 @@ class ExforDataSets : public Component<documentation::ExforDataSets> {
    {
       return
          // children
-         documentation::ExforDataSet{}
-            / ++Child<>("exforDataSet")
+         ++Child<documentation::ExforDataSet>("exforDataSet")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->exforDataSet)
 
-   // default, and from fields
+   // default
+   ExforDataSets() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ExforDataSets(
-      const wrapper<std::vector<documentation::ExforDataSet>> &exforDataSet = {}
+      const wrapper<std::vector<documentation::ExforDataSet>> &exforDataSet
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       exforDataSet(this,exforDataSet)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ExforDataSets(const ExforDataSets &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      exforDataSet(this,other.exforDataSet)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ExforDataSets(ExforDataSets &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      exforDataSet(this,std::move(other.exforDataSet))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

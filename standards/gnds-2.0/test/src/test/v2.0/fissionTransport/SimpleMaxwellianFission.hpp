@@ -34,10 +34,8 @@ class SimpleMaxwellianFission : public Component<fissionTransport::SimpleMaxwell
    {
       return
          // children
-         std::optional<transport::U>{}
-            / --Child<>("U") |
-         std::optional<transport::Theta>{}
-            / --Child<>("theta")
+         --Child<std::optional<transport::U>>("U") |
+         --Child<std::optional<transport::Theta>>("theta")
       ;
    }
 
@@ -56,9 +54,16 @@ public:
       this->U, \
       this->theta)
 
-   // default, and from fields
+   // default
+   SimpleMaxwellianFission() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit SimpleMaxwellianFission(
-      const wrapper<std::optional<transport::U>> &U = {},
+      const wrapper<std::optional<transport::U>> &U,
       const wrapper<std::optional<transport::Theta>> &theta = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -77,17 +82,19 @@ public:
 
    // copy
    SimpleMaxwellianFission(const SimpleMaxwellianFission &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      U(this,other.U),
+      theta(this,other.theta)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SimpleMaxwellianFission(SimpleMaxwellianFission &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      U(this,std::move(other.U)),
+      theta(this,std::move(other.theta))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

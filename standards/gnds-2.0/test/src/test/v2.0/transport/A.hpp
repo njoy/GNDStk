@@ -59,9 +59,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_XYs2dregions2d)
 
-   // default, and from fields
+   // default
+   A() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit A(
-      const wrapper<_t> &_XYs2dregions2d = {}
+      const wrapper<_t> &_XYs2dregions2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs2dregions2d(this,_XYs2dregions2d)
@@ -78,17 +85,17 @@ public:
 
    // copy
    A(const A &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs2dregions2d(this,other._XYs2dregions2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    A(A &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs2dregions2d(this,std::move(other._XYs2dregions2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

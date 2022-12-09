@@ -36,8 +36,7 @@ class Institution : public Component<appData::Institution> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         std::optional<appData::ENDFconversionFlags>{}
-            / --Child<>("ENDFconversionFlags")
+         --Child<std::optional<appData::ENDFconversionFlags>>("ENDFconversionFlags")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->ENDFconversionFlags)
 
-   // default, and from fields
+   // default
+   Institution() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Institution(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<appData::ENDFconversionFlags>> &ENDFconversionFlags = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    Institution(const Institution &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      ENDFconversionFlags(this,other.ENDFconversionFlags)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Institution(Institution &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      ENDFconversionFlags(this,std::move(other.ENDFconversionFlags))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

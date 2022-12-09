@@ -80,10 +80,17 @@ public:
       this->productFrame, \
       this->_S_tableBraggEdges)
 
-   // default, and from fields
+   // default
+   ThermalNeutronScatteringLaw_coherentElastic() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit ThermalNeutronScatteringLaw_coherentElastic(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::optional<XMLName>> &pid = {},
       const wrapper<std::optional<enums::Frame>> &productFrame = {},
       const wrapper<_t> &_S_tableBraggEdges = {}
@@ -106,17 +113,23 @@ public:
 
    // copy
    ThermalNeutronScatteringLaw_coherentElastic(const ThermalNeutronScatteringLaw_coherentElastic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      pid(this,other.pid),
+      productFrame(this,other.productFrame),
+      _S_tableBraggEdges(this,other._S_tableBraggEdges)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ThermalNeutronScatteringLaw_coherentElastic(ThermalNeutronScatteringLaw_coherentElastic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      pid(this,std::move(other.pid)),
+      productFrame(this,std::move(other.productFrame)),
+      _S_tableBraggEdges(this,std::move(other._S_tableBraggEdges))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -48,10 +48,8 @@ class CovarianceSection : public Component<covariance::CovarianceSection> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         covariance::RowData{}
-            / --Child<>("rowData") |
-         std::optional<covariance::ColumnData>{}
-            / --Child<>("columnData") |
+         --Child<covariance::RowData>("rowData") |
+         --Child<std::optional<covariance::ColumnData>>("columnData") |
          _t{}
             / --(Child<>("covarianceMatrix") || Child<>("sum") || Child<>("mixed"))
       ;
@@ -90,10 +88,17 @@ public:
       this->columnData, \
       this->_covarianceMatrixsummixed)
 
-   // default, and from fields
+   // default
+   CovarianceSection() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit CovarianceSection(
-      const wrapper<std::optional<bool>> &crossTerm = {},
+      const wrapper<std::optional<bool>> &crossTerm,
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<covariance::RowData> &rowData = {},
       const wrapper<std::optional<covariance::ColumnData>> &columnData = {},
@@ -118,17 +123,25 @@ public:
 
    // copy
    CovarianceSection(const CovarianceSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      crossTerm(this,other.crossTerm),
+      label(this,other.label),
+      rowData(this,other.rowData),
+      columnData(this,other.columnData),
+      _covarianceMatrixsummixed(this,other._covarianceMatrixsummixed)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CovarianceSection(CovarianceSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      crossTerm(this,std::move(other.crossTerm)),
+      label(this,std::move(other.label)),
+      rowData(this,std::move(other.rowData)),
+      columnData(this,std::move(other.columnData)),
+      _covarianceMatrixsummixed(this,std::move(other._covarianceMatrixsummixed))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

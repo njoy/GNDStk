@@ -36,14 +36,10 @@ class SandwichProduct : public Component<covariance::SandwichProduct> {
    {
       return
          // children
-         containers::Axes{}
-            / --Child<>("axes") |
-         covariance::Covariance{}
-            / --Child<>("covariance") |
-         covariance::RowSensitivity{}
-            / --Child<>("rowSensitivity") |
-         std::optional<covariance::ColumnSensitivity>{}
-            / --Child<>("columnSensitivity")
+         --Child<containers::Axes>("axes") |
+         --Child<covariance::Covariance>("covariance") |
+         --Child<covariance::RowSensitivity>("rowSensitivity") |
+         --Child<std::optional<covariance::ColumnSensitivity>>("columnSensitivity")
       ;
    }
 
@@ -66,9 +62,16 @@ public:
       this->rowSensitivity, \
       this->columnSensitivity)
 
-   // default, and from fields
+   // default
+   SandwichProduct() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit SandwichProduct(
-      const wrapper<containers::Axes> &axes = {},
+      const wrapper<containers::Axes> &axes,
       const wrapper<covariance::Covariance> &covariance = {},
       const wrapper<covariance::RowSensitivity> &rowSensitivity = {},
       const wrapper<std::optional<covariance::ColumnSensitivity>> &columnSensitivity = {}
@@ -91,17 +94,23 @@ public:
 
    // copy
    SandwichProduct(const SandwichProduct &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      axes(this,other.axes),
+      covariance(this,other.covariance),
+      rowSensitivity(this,other.rowSensitivity),
+      columnSensitivity(this,other.columnSensitivity)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    SandwichProduct(SandwichProduct &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      axes(this,std::move(other.axes)),
+      covariance(this,std::move(other.covariance)),
+      rowSensitivity(this,std::move(other.rowSensitivity)),
+      columnSensitivity(this,std::move(other.columnSensitivity))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Pdf_in_xs_pdf_cdf1d : public Component<containers::Pdf_in_xs_pdf_cdf1d> {
    {
       return
          // children
-         containers::Values{}
-            / --Child<>("values")
+         --Child<containers::Values>("values")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->values)
 
-   // default, and from fields
+   // default
+   Pdf_in_xs_pdf_cdf1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Pdf_in_xs_pdf_cdf1d(
-      const wrapper<containers::Values> &values = {}
+      const wrapper<containers::Values> &values
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       values(this,values)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Pdf_in_xs_pdf_cdf1d(const Pdf_in_xs_pdf_cdf1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      values(this,other.values)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Pdf_in_xs_pdf_cdf1d(Pdf_in_xs_pdf_cdf1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      values(this,std::move(other.values))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

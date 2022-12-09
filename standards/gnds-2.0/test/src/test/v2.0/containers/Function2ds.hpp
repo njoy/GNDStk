@@ -59,9 +59,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_XYs2dgridded2d)
 
-   // default, and from fields
+   // default
+   Function2ds() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Function2ds(
-      const wrapper<std::vector<_t>> &_XYs2dgridded2d = {}
+      const wrapper<std::vector<_t>> &_XYs2dgridded2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs2dgridded2d(this,_XYs2dgridded2d)
@@ -78,17 +85,17 @@ public:
 
    // copy
    Function2ds(const Function2ds &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs2dgridded2d(this,other._XYs2dgridded2d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Function2ds(Function2ds &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs2dgridded2d(this,std::move(other._XYs2dgridded2d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

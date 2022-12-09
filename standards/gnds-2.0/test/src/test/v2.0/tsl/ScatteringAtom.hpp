@@ -47,22 +47,14 @@ class ScatteringAtom : public Component<tsl::ScatteringAtom> {
          Integer32{}
             / Meta<>("numberPerMolecule") |
          // children
-         tsl::Mass{}
-            / --Child<>("mass") |
-         std::optional<tsl::E_critical>{}
-            / --Child<>("e_critical") |
-         tsl::E_max{}
-            / --Child<>("e_max") |
-         tsl::BoundAtomCrossSection{}
-            / --Child<>("boundAtomCrossSection") |
-         std::optional<tsl::CoherentAtomCrossSection>{}
-            / --Child<>("coherentAtomCrossSection") |
-         std::optional<tsl::DistinctScatteringKernel>{}
-            / --Child<>("distinctScatteringKernel") |
-         tsl::SelfScatteringKernel{}
-            / --Child<>("selfScatteringKernel") |
-         std::optional<tsl::T_effective>{}
-            / --Child<>("T_effective")
+         --Child<tsl::Mass>("mass") |
+         --Child<std::optional<tsl::E_critical>>("e_critical") |
+         --Child<tsl::E_max>("e_max") |
+         --Child<tsl::BoundAtomCrossSection>("boundAtomCrossSection") |
+         --Child<std::optional<tsl::CoherentAtomCrossSection>>("coherentAtomCrossSection") |
+         --Child<std::optional<tsl::DistinctScatteringKernel>>("distinctScatteringKernel") |
+         --Child<tsl::SelfScatteringKernel>("selfScatteringKernel") |
+         --Child<std::optional<tsl::T_effective>>("T_effective")
       ;
    }
 
@@ -101,9 +93,16 @@ public:
       this->selfScatteringKernel, \
       this->T_effective)
 
-   // default, and from fields
+   // default
+   ScatteringAtom() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ScatteringAtom(
-      const wrapper<XMLName> &pid = {},
+      const wrapper<XMLName> &pid,
       const wrapper<bool> &primaryScatterer = {},
       const wrapper<Integer32> &numberPerMolecule = {},
       const wrapper<tsl::Mass> &mass = {},
@@ -140,17 +139,37 @@ public:
 
    // copy
    ScatteringAtom(const ScatteringAtom &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      pid(this,other.pid),
+      primaryScatterer(this,other.primaryScatterer),
+      numberPerMolecule(this,other.numberPerMolecule),
+      mass(this,other.mass),
+      e_critical(this,other.e_critical),
+      e_max(this,other.e_max),
+      boundAtomCrossSection(this,other.boundAtomCrossSection),
+      coherentAtomCrossSection(this,other.coherentAtomCrossSection),
+      distinctScatteringKernel(this,other.distinctScatteringKernel),
+      selfScatteringKernel(this,other.selfScatteringKernel),
+      T_effective(this,other.T_effective)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ScatteringAtom(ScatteringAtom &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      pid(this,std::move(other.pid)),
+      primaryScatterer(this,std::move(other.primaryScatterer)),
+      numberPerMolecule(this,std::move(other.numberPerMolecule)),
+      mass(this,std::move(other.mass)),
+      e_critical(this,std::move(other.e_critical)),
+      e_max(this,std::move(other.e_max)),
+      boundAtomCrossSection(this,std::move(other.boundAtomCrossSection)),
+      coherentAtomCrossSection(this,std::move(other.coherentAtomCrossSection)),
+      distinctScatteringKernel(this,std::move(other.distinctScatteringKernel)),
+      selfScatteringKernel(this,std::move(other.selfScatteringKernel)),
+      T_effective(this,std::move(other.T_effective))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -35,12 +35,9 @@ class MadlandNix : public Component<fissionTransport::MadlandNix> {
    {
       return
          // children
-         fissionTransport::EFH{}
-            / --Child<>("EFH") |
-         fissionTransport::EFL{}
-            / --Child<>("EFL") |
-         fissionTransport::T_M{}
-            / --Child<>("T_M")
+         --Child<fissionTransport::EFH>("EFH") |
+         --Child<fissionTransport::EFL>("EFL") |
+         --Child<fissionTransport::T_M>("T_M")
       ;
    }
 
@@ -61,9 +58,16 @@ public:
       this->EFL, \
       this->T_M)
 
-   // default, and from fields
+   // default
+   MadlandNix() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MadlandNix(
-      const wrapper<fissionTransport::EFH> &EFH = {},
+      const wrapper<fissionTransport::EFH> &EFH,
       const wrapper<fissionTransport::EFL> &EFL = {},
       const wrapper<fissionTransport::T_M> &T_M = {}
    ) :
@@ -84,17 +88,21 @@ public:
 
    // copy
    MadlandNix(const MadlandNix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      EFH(this,other.EFH),
+      EFL(this,other.EFL),
+      T_M(this,other.T_M)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MadlandNix(MadlandNix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      EFH(this,std::move(other.EFH)),
+      EFL(this,std::move(other.EFL)),
+      T_M(this,std::move(other.T_M))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -11,9 +11,9 @@
 // Instructions for Users
 //
 // Constructs you're MORE likely to care about are preceded with:
-//    // +++ comment
+//    // +++ remark
 // Constructs you're LESS likely to care about are preceded with:
-//    // --- comment
+//    // --- remark
 // Anything not marked as above can be ignored by most users.
 //
 // Product is the basic handle type in this file. Example:

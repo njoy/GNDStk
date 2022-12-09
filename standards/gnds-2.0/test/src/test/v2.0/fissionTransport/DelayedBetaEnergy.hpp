@@ -33,8 +33,7 @@ class DelayedBetaEnergy : public Component<fissionTransport::DelayedBetaEnergy> 
    {
       return
          // children
-         std::optional<containers::Polynomial1d>{}
-            / --Child<>("polynomial1d")
+         --Child<std::optional<containers::Polynomial1d>>("polynomial1d")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->polynomial1d)
 
-   // default, and from fields
+   // default
+   DelayedBetaEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DelayedBetaEnergy(
-      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d = {}
+      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       polynomial1d(this,polynomial1d)
@@ -70,17 +76,17 @@ public:
 
    // copy
    DelayedBetaEnergy(const DelayedBetaEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      polynomial1d(this,other.polynomial1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DelayedBetaEnergy(DelayedBetaEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      polynomial1d(this,std::move(other.polynomial1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

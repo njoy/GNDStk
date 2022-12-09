@@ -47,14 +47,10 @@ class CovarianceSuite : public Component<covariance::CovarianceSuite> {
          std::optional<Float64>{}
             / Meta<>("version") |
          // children
-         std::optional<common::ExternalFiles>{}
-            / --Child<>("externalFiles") |
-         std::optional<styles::Styles>{}
-            / --Child<>("styles") |
-         std::optional<covariance::CovarianceSections>{}
-            / --Child<>("covarianceSections") |
-         std::optional<covariance::ParameterCovariances>{}
-            / --Child<>("parameterCovariances")
+         --Child<std::optional<common::ExternalFiles>>("externalFiles") |
+         --Child<std::optional<styles::Styles>>("styles") |
+         --Child<std::optional<covariance::CovarianceSections>>("covarianceSections") |
+         --Child<std::optional<covariance::ParameterCovariances>>("parameterCovariances")
       ;
    }
 
@@ -89,9 +85,16 @@ public:
       this->covarianceSections, \
       this->parameterCovariances)
 
-   // default, and from fields
+   // default
+   CovarianceSuite() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CovarianceSuite(
-      const wrapper<std::optional<XMLName>> &evaluation = {},
+      const wrapper<std::optional<XMLName>> &evaluation,
       const wrapper<std::optional<XMLName>> &projectile = {},
       const wrapper<std::optional<XMLName>> &target = {},
       const wrapper<enums::Interaction> &interaction = {},
@@ -124,17 +127,33 @@ public:
 
    // copy
    CovarianceSuite(const CovarianceSuite &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluation(this,other.evaluation),
+      projectile(this,other.projectile),
+      target(this,other.target),
+      interaction(this,other.interaction),
+      version(this,other.version),
+      externalFiles(this,other.externalFiles),
+      styles(this,other.styles),
+      covarianceSections(this,other.covarianceSections),
+      parameterCovariances(this,other.parameterCovariances)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CovarianceSuite(CovarianceSuite &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      evaluation(this,std::move(other.evaluation)),
+      projectile(this,std::move(other.projectile)),
+      target(this,std::move(other.target)),
+      interaction(this,std::move(other.interaction)),
+      version(this,std::move(other.version)),
+      externalFiles(this,std::move(other.externalFiles)),
+      styles(this,std::move(other.styles)),
+      covarianceSections(this,std::move(other.covarianceSections)),
+      parameterCovariances(this,std::move(other.parameterCovariances))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

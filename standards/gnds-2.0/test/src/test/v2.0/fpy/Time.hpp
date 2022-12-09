@@ -59,9 +59,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_Doublestring)
 
-   // default, and from fields
+   // default
+   Time() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Time(
-      const wrapper<_t> &_Doublestring = {}
+      const wrapper<_t> &_Doublestring
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _Doublestring(this,_Doublestring)
@@ -78,17 +85,17 @@ public:
 
    // copy
    Time(const Time &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _Doublestring(this,other._Doublestring)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Time(Time &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _Doublestring(this,std::move(other._Doublestring))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

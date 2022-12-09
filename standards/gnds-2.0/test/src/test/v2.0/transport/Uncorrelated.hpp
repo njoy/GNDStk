@@ -39,10 +39,8 @@ class Uncorrelated : public Component<transport::Uncorrelated> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         transport::Angular_uncorrelated{}
-            / --Child<>("angular") |
-         transport::Energy_uncorrelated{}
-            / --Child<>("energy")
+         --Child<transport::Angular_uncorrelated>("angular") |
+         --Child<transport::Energy_uncorrelated>("energy")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->angular, \
       this->energy)
 
-   // default, and from fields
+   // default
+   Uncorrelated() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Uncorrelated(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {},
       const wrapper<transport::Angular_uncorrelated> &angular = {},
       const wrapper<transport::Energy_uncorrelated> &energy = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Uncorrelated(const Uncorrelated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      angular(this,other.angular),
+      energy(this,other.energy)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Uncorrelated(Uncorrelated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      angular(this,std::move(other.angular)),
+      energy(this,std::move(other.energy))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

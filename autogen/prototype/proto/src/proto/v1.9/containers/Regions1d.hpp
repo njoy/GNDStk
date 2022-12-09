@@ -39,10 +39,8 @@ class Regions1d : public Component<containers::Regions1d> {
          std::optional<double>{}
             / Meta<>("outerDomainValue") |
          // children
-         std::optional<containers::Axes>{}
-            / --Child<>("axes") |
-         containers::XYs1d{}
-            / ++Child<>("XYs1d")
+         --Child<std::optional<containers::Axes>>("axes") |
+         ++Child<containers::XYs1d>("XYs1d")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->axes, \
       this->XYs1d)
 
-   // default, and from fields
+   // default
+   Regions1d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Regions1d(
-      const wrapper<std::optional<std::string>> &label = {},
+      const wrapper<std::optional<std::string>> &label,
       const wrapper<std::optional<double>> &outerDomainValue = {},
       const wrapper<std::optional<containers::Axes>> &axes = {},
       const wrapper<std::vector<containers::XYs1d>> &XYs1d = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Regions1d(const Regions1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      outerDomainValue(this,other.outerDomainValue),
+      axes(this,other.axes),
+      XYs1d(this,other.XYs1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Regions1d(Regions1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      outerDomainValue(this,std::move(other.outerDomainValue)),
+      axes(this,std::move(other.axes)),
+      XYs1d(this,std::move(other.XYs1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

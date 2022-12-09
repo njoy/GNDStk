@@ -59,9 +59,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_XYs3dgridded3d)
 
-   // default, and from fields
+   // default
+   Function3ds() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Function3ds(
-      const wrapper<std::vector<_t>> &_XYs3dgridded3d = {}
+      const wrapper<std::vector<_t>> &_XYs3dgridded3d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs3dgridded3d(this,_XYs3dgridded3d)
@@ -78,17 +85,17 @@ public:
 
    // copy
    Function3ds(const Function3ds &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs3dgridded3d(this,other._XYs3dgridded3d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Function3ds(Function3ds &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _XYs3dgridded3d(this,std::move(other._XYs3dgridded3d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

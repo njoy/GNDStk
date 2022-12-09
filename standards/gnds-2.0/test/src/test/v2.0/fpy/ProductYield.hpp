@@ -37,10 +37,8 @@ class ProductYield : public Component<fpy::ProductYield> {
          XMLName{}
             / Meta<>("label") |
          // children
-         std::optional<fpy::Nuclides>{}
-            / --Child<>("nuclides") |
-         fpy::ElapsedTimes{}
-            / --Child<>("elapsedTimes")
+         --Child<std::optional<fpy::Nuclides>>("nuclides") |
+         --Child<fpy::ElapsedTimes>("elapsedTimes")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->nuclides, \
       this->elapsedTimes)
 
-   // default, and from fields
+   // default
+   ProductYield() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ProductYield(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<std::optional<fpy::Nuclides>> &nuclides = {},
       const wrapper<fpy::ElapsedTimes> &elapsedTimes = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    ProductYield(const ProductYield &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      nuclides(this,other.nuclides),
+      elapsedTimes(this,other.elapsedTimes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ProductYield(ProductYield &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      nuclides(this,std::move(other.nuclides)),
+      elapsedTimes(this,std::move(other.elapsedTimes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

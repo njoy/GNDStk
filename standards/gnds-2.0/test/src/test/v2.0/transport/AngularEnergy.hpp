@@ -38,8 +38,7 @@ class AngularEnergy : public Component<transport::AngularEnergy> {
          XMLName{}
             / Meta<>("productFrame") |
          // children
-         containers::XYs3d{}
-            / --Child<>("XYs3d")
+         --Child<containers::XYs3d>("XYs3d")
       ;
    }
 
@@ -62,9 +61,16 @@ public:
       this->productFrame, \
       this->XYs3d)
 
-   // default, and from fields
+   // default
+   AngularEnergy() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit AngularEnergy(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &productFrame = {},
       const wrapper<containers::XYs3d> &XYs3d = {}
    ) :
@@ -85,17 +91,21 @@ public:
 
    // copy
    AngularEnergy(const AngularEnergy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      productFrame(this,other.productFrame),
+      XYs3d(this,other.XYs3d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    AngularEnergy(AngularEnergy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      productFrame(this,std::move(other.productFrame)),
+      XYs3d(this,std::move(other.XYs3d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

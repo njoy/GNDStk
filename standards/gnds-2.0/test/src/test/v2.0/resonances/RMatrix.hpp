@@ -52,12 +52,9 @@ class RMatrix : public Component<resonances::RMatrix> {
          Defaulted<bool>{false}
             / Meta<>("supportsAngularReconstruction") |
          // children
-         std::optional<pops::PoPs_database>{}
-            / --Child<>("PoPs") |
-         resonances::ResonanceReactions{}
-            / --Child<>("resonanceReactions") |
-         resonances::SpinGroups{}
-            / --Child<>("spinGroups")
+         --Child<std::optional<pops::PoPs_database>>("PoPs") |
+         --Child<resonances::ResonanceReactions>("resonanceReactions") |
+         --Child<resonances::SpinGroups>("spinGroups")
       ;
    }
 
@@ -105,10 +102,17 @@ public:
       this->resonanceReactions, \
       this->spinGroups)
 
-   // default, and from fields
+   // default
+   RMatrix() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit RMatrix(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<XMLName> &approximation = {},
       const wrapper<std::optional<enums::BoundaryCondition>> &boundaryCondition = {},
       const wrapper<std::optional<Float64>> &boundaryConditionValue = {},
@@ -145,17 +149,37 @@ public:
 
    // copy
    RMatrix(const RMatrix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      approximation(this,other.approximation),
+      boundaryCondition(this,other.boundaryCondition),
+      boundaryConditionValue(this,other.boundaryConditionValue),
+      calculateChannelRadius(this,other.calculateChannelRadius),
+      calculatePenetrability(this,other.calculatePenetrability),
+      useForSelfShieldingOnly(this,other.useForSelfShieldingOnly),
+      supportsAngularReconstruction(this,other.supportsAngularReconstruction),
+      PoPs(this,other.PoPs),
+      resonanceReactions(this,other.resonanceReactions),
+      spinGroups(this,other.spinGroups)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    RMatrix(RMatrix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      approximation(this,std::move(other.approximation)),
+      boundaryCondition(this,std::move(other.boundaryCondition)),
+      boundaryConditionValue(this,std::move(other.boundaryConditionValue)),
+      calculateChannelRadius(this,std::move(other.calculateChannelRadius)),
+      calculatePenetrability(this,std::move(other.calculatePenetrability)),
+      useForSelfShieldingOnly(this,std::move(other.useForSelfShieldingOnly)),
+      supportsAngularReconstruction(this,std::move(other.supportsAngularReconstruction)),
+      PoPs(this,std::move(other.PoPs)),
+      resonanceReactions(this,std::move(other.resonanceReactions)),
+      spinGroups(this,std::move(other.spinGroups))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -37,10 +37,8 @@ class DelayedNeutron : public Component<fissionFragmentData::DelayedNeutron> {
          XMLName{}
             / Meta<>("label") |
          // children
-         fissionFragmentData::Rate{}
-            / --Child<>("rate") |
-         common::Product{}
-            / --Child<>("product")
+         --Child<fissionFragmentData::Rate>("rate") |
+         --Child<common::Product>("product")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->rate, \
       this->product)
 
-   // default, and from fields
+   // default
+   DelayedNeutron() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DelayedNeutron(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<fissionFragmentData::Rate> &rate = {},
       const wrapper<common::Product> &product = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    DelayedNeutron(const DelayedNeutron &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      rate(this,other.rate),
+      product(this,other.product)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DelayedNeutron(DelayedNeutron &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      rate(this,std::move(other.rate)),
+      product(this,std::move(other.product))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

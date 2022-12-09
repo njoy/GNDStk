@@ -33,8 +33,7 @@ class InternalConversionCoefficients : public Component<pops::InternalConversion
    {
       return
          // children
-         pops::Shell{}
-            / ++Child<>("shell")
+         ++Child<pops::Shell>("shell")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->shell)
 
-   // default, and from fields
+   // default
+   InternalConversionCoefficients() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit InternalConversionCoefficients(
-      const wrapper<std::vector<pops::Shell>> &shell = {}
+      const wrapper<std::vector<pops::Shell>> &shell
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shell(this,shell)
@@ -70,17 +76,17 @@ public:
 
    // copy
    InternalConversionCoefficients(const InternalConversionCoefficients &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      shell(this,other.shell)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    InternalConversionCoefficients(InternalConversionCoefficients &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      shell(this,std::move(other.shell))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

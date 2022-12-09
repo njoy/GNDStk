@@ -33,8 +33,7 @@ class WeightedFunctionals : public Component<transport::WeightedFunctionals> {
    {
       return
          // children
-         transport::Weighted{}
-            / --Child<>("weighted")
+         --Child<transport::Weighted>("weighted")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->weighted)
 
-   // default, and from fields
+   // default
+   WeightedFunctionals() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit WeightedFunctionals(
-      const wrapper<transport::Weighted> &weighted = {}
+      const wrapper<transport::Weighted> &weighted
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       weighted(this,weighted)
@@ -70,17 +76,17 @@ public:
 
    // copy
    WeightedFunctionals(const WeightedFunctionals &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      weighted(this,other.weighted)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    WeightedFunctionals(WeightedFunctionals &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      weighted(this,std::move(other.weighted))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

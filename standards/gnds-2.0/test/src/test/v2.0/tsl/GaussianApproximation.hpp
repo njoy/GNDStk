@@ -33,8 +33,7 @@ class GaussianApproximation : public Component<tsl::GaussianApproximation> {
    {
       return
          // children
-         std::optional<tsl::PhononSpectrum>{}
-            / --Child<>("phononSpectrum")
+         --Child<std::optional<tsl::PhononSpectrum>>("phononSpectrum")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->phononSpectrum)
 
-   // default, and from fields
+   // default
+   GaussianApproximation() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit GaussianApproximation(
-      const wrapper<std::optional<tsl::PhononSpectrum>> &phononSpectrum = {}
+      const wrapper<std::optional<tsl::PhononSpectrum>> &phononSpectrum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       phononSpectrum(this,phononSpectrum)
@@ -70,17 +76,17 @@ public:
 
    // copy
    GaussianApproximation(const GaussianApproximation &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      phononSpectrum(this,other.phononSpectrum)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    GaussianApproximation(GaussianApproximation &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      phononSpectrum(this,std::move(other.phononSpectrum))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

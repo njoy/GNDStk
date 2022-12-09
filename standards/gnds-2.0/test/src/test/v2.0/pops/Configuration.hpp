@@ -39,10 +39,8 @@ class Configuration : public Component<pops::Configuration> {
          Float64{}
             / Meta<>("electronNumber") |
          // children
-         pops::BindingEnergy{}
-            / --Child<>("bindingEnergy") |
-         std::optional<pops::DecayData>{}
-            / --Child<>("decayData")
+         --Child<pops::BindingEnergy>("bindingEnergy") |
+         --Child<std::optional<pops::DecayData>>("decayData")
       ;
    }
 
@@ -67,9 +65,16 @@ public:
       this->bindingEnergy, \
       this->decayData)
 
-   // default, and from fields
+   // default
+   Configuration() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Configuration(
-      const wrapper<std::string> &subshell = {},
+      const wrapper<std::string> &subshell,
       const wrapper<Float64> &electronNumber = {},
       const wrapper<pops::BindingEnergy> &bindingEnergy = {},
       const wrapper<std::optional<pops::DecayData>> &decayData = {}
@@ -92,17 +97,23 @@ public:
 
    // copy
    Configuration(const Configuration &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      subshell(this,other.subshell),
+      electronNumber(this,other.electronNumber),
+      bindingEnergy(this,other.bindingEnergy),
+      decayData(this,other.decayData)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Configuration(Configuration &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      subshell(this,std::move(other.subshell)),
+      electronNumber(this,std::move(other.electronNumber)),
+      bindingEnergy(this,std::move(other.bindingEnergy)),
+      decayData(this,std::move(other.decayData))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

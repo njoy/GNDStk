@@ -36,14 +36,10 @@ class Uncertainty : public Component<pops::Uncertainty> {
    {
       return
          // children
-         std::optional<pops::Standard>{}
-            / --Child<>("standard") |
-         std::optional<pops::LogNormal>{}
-            / --Child<>("logNormal") |
-         std::optional<pops::ConfidenceIntervals>{}
-            / --Child<>("confidenceIntervals") |
-         std::optional<pops::Pdf>{}
-            / --Child<>("pdf")
+         --Child<std::optional<pops::Standard>>("standard") |
+         --Child<std::optional<pops::LogNormal>>("logNormal") |
+         --Child<std::optional<pops::ConfidenceIntervals>>("confidenceIntervals") |
+         --Child<std::optional<pops::Pdf>>("pdf")
       ;
    }
 
@@ -66,9 +62,16 @@ public:
       this->confidenceIntervals, \
       this->pdf)
 
-   // default, and from fields
+   // default
+   Uncertainty() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Uncertainty(
-      const wrapper<std::optional<pops::Standard>> &standard = {},
+      const wrapper<std::optional<pops::Standard>> &standard,
       const wrapper<std::optional<pops::LogNormal>> &logNormal = {},
       const wrapper<std::optional<pops::ConfidenceIntervals>> &confidenceIntervals = {},
       const wrapper<std::optional<pops::Pdf>> &pdf = {}
@@ -91,17 +94,23 @@ public:
 
    // copy
    Uncertainty(const Uncertainty &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      standard(this,other.standard),
+      logNormal(this,other.logNormal),
+      confidenceIntervals(this,other.confidenceIntervals),
+      pdf(this,other.pdf)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Uncertainty(Uncertainty &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      standard(this,std::move(other.standard)),
+      logNormal(this,std::move(other.logNormal)),
+      confidenceIntervals(this,std::move(other.confidenceIntervals)),
+      pdf(this,std::move(other.pdf))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

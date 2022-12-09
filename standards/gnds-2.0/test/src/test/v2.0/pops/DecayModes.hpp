@@ -33,8 +33,7 @@ class DecayModes : public Component<pops::DecayModes> {
    {
       return
          // children
-         pops::DecayMode{}
-            / ++Child<>("decayMode")
+         ++Child<pops::DecayMode>("decayMode")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->decayMode)
 
-   // default, and from fields
+   // default
+   DecayModes() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit DecayModes(
-      const wrapper<std::vector<pops::DecayMode>> &decayMode = {}
+      const wrapper<std::vector<pops::DecayMode>> &decayMode
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       decayMode(this,decayMode)
@@ -70,17 +76,17 @@ public:
 
    // copy
    DecayModes(const DecayModes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      decayMode(this,other.decayMode)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    DecayModes(DecayModes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      decayMode(this,std::move(other.decayMode))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

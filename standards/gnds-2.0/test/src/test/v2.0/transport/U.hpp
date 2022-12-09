@@ -55,9 +55,16 @@ public:
       this->unit, \
       this->value)
 
-   // default, and from fields
+   // default
+   U() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit U(
-      const wrapper<std::optional<XMLName>> &unit = {},
+      const wrapper<std::optional<XMLName>> &unit,
       const wrapper<std::optional<Float64>> &value = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -76,17 +83,19 @@ public:
 
    // copy
    U(const U &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unit(this,other.unit),
+      value(this,other.value)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    U(U &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      unit(this,std::move(other.unit)),
+      value(this,std::move(other.value))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

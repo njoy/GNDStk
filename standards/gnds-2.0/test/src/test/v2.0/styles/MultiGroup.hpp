@@ -36,8 +36,7 @@ class MultiGroup : public Component<styles::MultiGroup> {
          XMLName{}
             / Meta<>("label") |
          // children
-         containers::Grid{}
-            / --Child<>("grid")
+         --Child<containers::Grid>("grid")
       ;
    }
 
@@ -58,9 +57,16 @@ public:
       this->label, \
       this->grid)
 
-   // default, and from fields
+   // default
+   MultiGroup() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit MultiGroup(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<containers::Grid> &grid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
@@ -79,17 +85,19 @@ public:
 
    // copy
    MultiGroup(const MultiGroup &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      grid(this,other.grid)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    MultiGroup(MultiGroup &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      grid(this,std::move(other.grid))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -33,8 +33,7 @@ class Keywords : public Component<documentation::Keywords> {
    {
       return
          // children
-         documentation::Keyword{}
-            / ++Child<>("keyword")
+         ++Child<documentation::Keyword>("keyword")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->keyword)
 
-   // default, and from fields
+   // default
+   Keywords() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Keywords(
-      const wrapper<std::vector<documentation::Keyword>> &keyword = {}
+      const wrapper<std::vector<documentation::Keyword>> &keyword
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       keyword(this,keyword)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Keywords(const Keywords &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      keyword(this,other.keyword)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Keywords(Keywords &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      keyword(this,std::move(other.keyword))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

@@ -70,10 +70,17 @@ public:
       this->label, \
       this->xref)
 
-   // default, and from fields
+   // default
+   Bibitem() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    // std::optional replaces Defaulted; this class knows the default(s)
    explicit Bibitem(
-      const wrapper<std::optional<XMLName>> &encoding = {},
+      const wrapper<std::optional<XMLName>> &encoding,
       const wrapper<std::optional<std::string>> &markup = {},
       const wrapper<std::optional<XMLName>> &label = {},
       const wrapper<XMLName> &xref = {}
@@ -104,17 +111,23 @@ public:
 
    // copy
    Bibitem(const Bibitem &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,other.encoding),
+      markup(this,other.markup),
+      label(this,other.label),
+      xref(this,other.xref)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Bibitem(Bibitem &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      encoding(this,std::move(other.encoding)),
+      markup(this,std::move(other.markup)),
+      label(this,std::move(other.label)),
+      xref(this,std::move(other.xref))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

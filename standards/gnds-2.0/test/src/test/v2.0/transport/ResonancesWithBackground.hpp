@@ -38,12 +38,9 @@ class ResonancesWithBackground : public Component<transport::ResonancesWithBackg
          XMLName{}
             / Meta<>("label") |
          // children
-         transport::ResonancesLink{}
-            / --Child<>("resonances") |
-         transport::Background{}
-            / --Child<>("background") |
-         std::optional<containers::Uncertainty>{}
-            / --Child<>("uncertainty")
+         --Child<transport::ResonancesLink>("resonances") |
+         --Child<transport::Background>("background") |
+         --Child<std::optional<containers::Uncertainty>>("uncertainty")
       ;
    }
 
@@ -68,9 +65,16 @@ public:
       this->background, \
       this->uncertainty)
 
-   // default, and from fields
+   // default
+   ResonancesWithBackground() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ResonancesWithBackground(
-      const wrapper<XMLName> &label = {},
+      const wrapper<XMLName> &label,
       const wrapper<transport::ResonancesLink> &resonances = {},
       const wrapper<transport::Background> &background = {},
       const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
@@ -93,17 +97,23 @@ public:
 
    // copy
    ResonancesWithBackground(const ResonancesWithBackground &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      resonances(this,other.resonances),
+      background(this,other.background),
+      uncertainty(this,other.uncertainty)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ResonancesWithBackground(ResonancesWithBackground &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      resonances(this,std::move(other.resonances)),
+      background(this,std::move(other.background)),
+      uncertainty(this,std::move(other.uncertainty))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

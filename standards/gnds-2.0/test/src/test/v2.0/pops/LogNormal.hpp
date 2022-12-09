@@ -33,8 +33,7 @@ class LogNormal : public Component<pops::LogNormal> {
    {
       return
          // children
-         extra::Double{}
-            / --Child<>("Double")
+         --Child<extra::Double>("double")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->Double)
 
-   // default, and from fields
+   // default
+   LogNormal() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit LogNormal(
-      const wrapper<extra::Double> &Double = {}
+      const wrapper<extra::Double> &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -70,17 +76,17 @@ public:
 
    // copy
    LogNormal(const LogNormal &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,other.Double)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    LogNormal(LogNormal &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      Double(this,std::move(other.Double))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

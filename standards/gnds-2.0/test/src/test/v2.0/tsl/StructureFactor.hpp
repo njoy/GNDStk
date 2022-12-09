@@ -33,8 +33,7 @@ class StructureFactor : public Component<tsl::StructureFactor> {
    {
       return
          // children
-         containers::XYs1d{}
-            / --Child<>("XYs1d")
+         --Child<containers::XYs1d>("XYs1d")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->XYs1d)
 
-   // default, and from fields
+   // default
+   StructureFactor() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit StructureFactor(
-      const wrapper<containers::XYs1d> &XYs1d = {}
+      const wrapper<containers::XYs1d> &XYs1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d)
@@ -70,17 +76,17 @@ public:
 
    // copy
    StructureFactor(const StructureFactor &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,other.XYs1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    StructureFactor(StructureFactor &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      XYs1d(this,std::move(other.XYs1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

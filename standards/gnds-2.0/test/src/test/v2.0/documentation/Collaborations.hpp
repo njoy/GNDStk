@@ -33,8 +33,7 @@ class Collaborations : public Component<documentation::Collaborations> {
    {
       return
          // children
-         documentation::Collaboration{}
-            / ++Child<>("collaboration")
+         ++Child<documentation::Collaboration>("collaboration")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->collaboration)
 
-   // default, and from fields
+   // default
+   Collaborations() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Collaborations(
-      const wrapper<std::vector<documentation::Collaboration>> &collaboration = {}
+      const wrapper<std::vector<documentation::Collaboration>> &collaboration
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       collaboration(this,collaboration)
@@ -70,17 +76,17 @@ public:
 
    // copy
    Collaborations(const Collaborations &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      collaboration(this,other.collaboration)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Collaborations(Collaborations &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      collaboration(this,std::move(other.collaboration))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

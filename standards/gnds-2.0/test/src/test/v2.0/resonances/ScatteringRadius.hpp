@@ -62,9 +62,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->_constant1dXYs1dregions1d)
 
-   // default, and from fields
+   // default
+   ScatteringRadius() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ScatteringRadius(
-      const wrapper<_t> &_constant1dXYs1dregions1d = {}
+      const wrapper<_t> &_constant1dXYs1dregions1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _constant1dXYs1dregions1d(this,_constant1dXYs1dregions1d)
@@ -81,17 +88,17 @@ public:
 
    // copy
    ScatteringRadius(const ScatteringRadius &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _constant1dXYs1dregions1d(this,other._constant1dXYs1dregions1d)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ScatteringRadius(ScatteringRadius &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      _constant1dXYs1dregions1d(this,std::move(other._constant1dXYs1dregions1d))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

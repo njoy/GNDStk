@@ -44,24 +44,15 @@ class FissionEnergyReleased : public Component<fissionTransport::FissionEnergyRe
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         std::optional<fissionTransport::DelayedBetaEnergy>{}
-            / --Child<>("delayedBetaEnergy") |
-         std::optional<fissionTransport::DelayedGammaEnergy>{}
-            / --Child<>("delayedGammaEnergy") |
-         std::optional<fissionTransport::DelayedNeutronKE>{}
-            / --Child<>("delayedNeutronKE") |
-         std::optional<fissionTransport::NeutrinoEnergy>{}
-            / --Child<>("neutrinoEnergy") |
-         std::optional<fissionTransport::NonNeutrinoEnergy>{}
-            / --Child<>("nonNeutrinoEnergy") |
-         std::optional<fissionTransport::PromptGammaEnergy>{}
-            / --Child<>("promptGammaEnergy") |
-         std::optional<fissionTransport::PromptNeutronKE>{}
-            / --Child<>("promptNeutronKE") |
-         std::optional<fissionTransport::PromptProductKE>{}
-            / --Child<>("promptProductKE") |
-         std::optional<fissionTransport::TotalEnergy>{}
-            / --Child<>("totalEnergy")
+         --Child<std::optional<fissionTransport::DelayedBetaEnergy>>("delayedBetaEnergy") |
+         --Child<std::optional<fissionTransport::DelayedGammaEnergy>>("delayedGammaEnergy") |
+         --Child<std::optional<fissionTransport::DelayedNeutronKE>>("delayedNeutronKE") |
+         --Child<std::optional<fissionTransport::NeutrinoEnergy>>("neutrinoEnergy") |
+         --Child<std::optional<fissionTransport::NonNeutrinoEnergy>>("nonNeutrinoEnergy") |
+         --Child<std::optional<fissionTransport::PromptGammaEnergy>>("promptGammaEnergy") |
+         --Child<std::optional<fissionTransport::PromptNeutronKE>>("promptNeutronKE") |
+         --Child<std::optional<fissionTransport::PromptProductKE>>("promptProductKE") |
+         --Child<std::optional<fissionTransport::TotalEnergy>>("totalEnergy")
       ;
    }
 
@@ -98,9 +89,16 @@ public:
       this->promptProductKE, \
       this->totalEnergy)
 
-   // default, and from fields
+   // default
+   FissionEnergyReleased() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit FissionEnergyReleased(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<fissionTransport::DelayedBetaEnergy>> &delayedBetaEnergy = {},
       const wrapper<std::optional<fissionTransport::DelayedGammaEnergy>> &delayedGammaEnergy = {},
       const wrapper<std::optional<fissionTransport::DelayedNeutronKE>> &delayedNeutronKE = {},
@@ -135,17 +133,35 @@ public:
 
    // copy
    FissionEnergyReleased(const FissionEnergyReleased &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      delayedBetaEnergy(this,other.delayedBetaEnergy),
+      delayedGammaEnergy(this,other.delayedGammaEnergy),
+      delayedNeutronKE(this,other.delayedNeutronKE),
+      neutrinoEnergy(this,other.neutrinoEnergy),
+      nonNeutrinoEnergy(this,other.nonNeutrinoEnergy),
+      promptGammaEnergy(this,other.promptGammaEnergy),
+      promptNeutronKE(this,other.promptNeutronKE),
+      promptProductKE(this,other.promptProductKE),
+      totalEnergy(this,other.totalEnergy)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    FissionEnergyReleased(FissionEnergyReleased &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      delayedBetaEnergy(this,std::move(other.delayedBetaEnergy)),
+      delayedGammaEnergy(this,std::move(other.delayedGammaEnergy)),
+      delayedNeutronKE(this,std::move(other.delayedNeutronKE)),
+      neutrinoEnergy(this,std::move(other.neutrinoEnergy)),
+      nonNeutrinoEnergy(this,std::move(other.nonNeutrinoEnergy)),
+      promptGammaEnergy(this,std::move(other.promptGammaEnergy)),
+      promptNeutronKE(this,std::move(other.promptNeutronKE)),
+      promptProductKE(this,std::move(other.promptProductKE)),
+      totalEnergy(this,std::move(other.totalEnergy))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

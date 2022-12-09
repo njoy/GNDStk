@@ -37,10 +37,8 @@ class Gridded2d : public Component<containers::Gridded2d> {
          std::optional<XMLName>{}
             / Meta<>("label") |
          // children
-         containers::Array{}
-            / --Child<>("array") |
-         containers::Axes{}
-            / --Child<>("axes")
+         --Child<containers::Array>("array") |
+         --Child<containers::Axes>("axes")
       ;
    }
 
@@ -63,9 +61,16 @@ public:
       this->array, \
       this->axes)
 
-   // default, and from fields
+   // default
+   Gridded2d() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit Gridded2d(
-      const wrapper<std::optional<XMLName>> &label = {},
+      const wrapper<std::optional<XMLName>> &label,
       const wrapper<containers::Array> &array = {},
       const wrapper<containers::Axes> &axes = {}
    ) :
@@ -86,17 +91,21 @@ public:
 
    // copy
    Gridded2d(const Gridded2d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,other.label),
+      array(this,other.array),
+      axes(this,other.axes)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    Gridded2d(Gridded2d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      label(this,std::move(other.label)),
+      array(this,std::move(other.array)),
+      axes(this,std::move(other.axes))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

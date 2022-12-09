@@ -41,10 +41,8 @@ class CrossSectionReconstructed : public Component<styles::CrossSectionReconstru
          std::optional<XMLName>{}
             / Meta<>("derivedFrom") |
          // children
-         std::optional<styles::Temperature>{}
-            / --Child<>("temperature") |
-         std::optional<documentation::Documentation>{}
-            / --Child<>("documentation")
+         --Child<std::optional<styles::Temperature>>("temperature") |
+         --Child<std::optional<documentation::Documentation>>("documentation")
       ;
    }
 
@@ -71,9 +69,16 @@ public:
       this->temperature, \
       this->documentation)
 
-   // default, and from fields
+   // default
+   CrossSectionReconstructed() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit CrossSectionReconstructed(
-      const wrapper<std::string> &date = {},
+      const wrapper<std::string> &date,
       const wrapper<XMLName> &label = {},
       const wrapper<std::optional<XMLName>> &derivedFrom = {},
       const wrapper<std::optional<styles::Temperature>> &temperature = {},
@@ -98,17 +103,25 @@ public:
 
    // copy
    CrossSectionReconstructed(const CrossSectionReconstructed &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,other.date),
+      label(this,other.label),
+      derivedFrom(this,other.derivedFrom),
+      temperature(this,other.temperature),
+      documentation(this,other.documentation)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    CrossSectionReconstructed(CrossSectionReconstructed &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      date(this,std::move(other.date)),
+      label(this,std::move(other.label)),
+      derivedFrom(this,std::move(other.derivedFrom)),
+      temperature(this,std::move(other.temperature)),
+      documentation(this,std::move(other.documentation))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 

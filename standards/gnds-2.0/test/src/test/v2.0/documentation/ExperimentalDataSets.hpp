@@ -33,8 +33,7 @@ class ExperimentalDataSets : public Component<documentation::ExperimentalDataSet
    {
       return
          // children
-         documentation::ExforDataSets{}
-            / --Child<>("exforDataSets")
+         --Child<documentation::ExforDataSets>("exforDataSets")
       ;
    }
 
@@ -51,9 +50,16 @@ public:
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->exforDataSets)
 
-   // default, and from fields
+   // default
+   ExperimentalDataSets() :
+      GNDSTK_COMPONENT(BlockData{})
+   {
+      Component::finish();
+   }
+
+   // from fields
    explicit ExperimentalDataSets(
-      const wrapper<documentation::ExforDataSets> &exforDataSets = {}
+      const wrapper<documentation::ExforDataSets> &exforDataSets
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       exforDataSets(this,exforDataSets)
@@ -70,17 +76,17 @@ public:
 
    // copy
    ExperimentalDataSets(const ExperimentalDataSets &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      exforDataSets(this,other.exforDataSets)
    {
-      *this = other;
       Component::finish(other);
    }
 
    // move
    ExperimentalDataSets(ExperimentalDataSets &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      exforDataSets(this,std::move(other.exforDataSets))
    {
-      *this = std::move(other);
       Component::finish(other);
    }
 
