@@ -1587,7 +1587,7 @@ void printSingletons(const std::string &file)
 
       const auto metadata = getMetadataJSON<true>(rhs);
       const auto children = getChildrenJSON<true>(rhs);
-      const bool data = rhs.contains("data") && !rhs["data"].is_null();
+      const bool data = rhs.contains("vector") && !rhs["vector"].is_null();
       const bool body = rhs.contains("bodyText") && !rhs["bodyText"].is_null();
 
       if (metadata.size() == 0 && children.size() == 0 && !data && !body)
@@ -1871,7 +1871,7 @@ void getClass(
    getClassVariants(elems, specs, per, dep);
 
    // data-node information
-   static const std::string datastr = "data";
+   static const std::string datastr = "vector";
    static const std::string bodystr = "bodyText";
    const bool data = classRHS.contains(datastr) && !classRHS[datastr].is_null();
    const bool body = classRHS.contains(bodystr) && !classRHS[bodystr].is_null();
