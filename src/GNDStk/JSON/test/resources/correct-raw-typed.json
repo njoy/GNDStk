@@ -16,30 +16,6 @@
          "strings": "cd ef gh ij"
       },
       "bar": null,
-      "comment": {
-         "#comment": {
-            "#metadata": {
-               "#text": "Comment"
-            }
-         }
-      },
-      "comments": {
-         "#comment0": {
-            "#metadata": {
-               "#text": "Comment #0"
-            }
-         },
-         "#comment1": {
-            "#metadata": {
-               "#text": "Comment #1"
-            }
-         },
-         "#comment2": {
-            "#metadata": {
-               "#text": "Comment #2"
-            }
-         }
-      },
       "double": {
          "#metadata": {
             "remark": "one double"
@@ -90,6 +66,30 @@
          "#cdata": {
             "#metadata": {
                "#text": "Block of CDATA"
+            }
+         }
+      },
+      "remark": {
+         "#comment": {
+            "#metadata": {
+               "#text": "Remark"
+            }
+         }
+      },
+      "remarks": {
+         "#comment0": {
+            "#metadata": {
+               "#text": "Remark #0"
+            }
+         },
+         "#comment1": {
+            "#metadata": {
+               "#text": "Remark #1"
+            }
+         },
+         "#comment2": {
+            "#metadata": {
+               "#text": "Remark #2"
             }
          }
       },
@@ -182,17 +182,17 @@
          },
          "#comment0": {
             "#metadata": {
-               "#text": "First comment"
+               "#text": "First remark"
             }
          },
          "#comment1": {
             "#metadata": {
-               "#text": "Second comment"
+               "#text": "Second remark"
             }
          },
          "#comment2": {
             "#metadata": {
-               "#text": "Third comment"
+               "#text": "Third remark"
             }
          },
          "#data0": {

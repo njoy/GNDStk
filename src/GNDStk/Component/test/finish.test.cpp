@@ -466,7 +466,7 @@ SCENARIO("Component finish()") {
       // ctor: copy
       WHEN("We call the copy constructor") {
          CHECK(test::construct2DerivedPlain == false);
-         // Comment as for the one regarding DerivedValue test
+         // Remark as for the one regarding DerivedValue test
          test::DerivedPlain dfrom;
          test::DerivedPlain d(dfrom);
          CHECK(test::construct2DerivedPlain == true);

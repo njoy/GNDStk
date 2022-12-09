@@ -54,7 +54,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    #include "GNDStk/Component/src/ctor.hpp"
 
    // finish
-   // See comments in finish.hpp
+   // See remarks in finish.hpp
    #include "GNDStk/Component/src/finish.hpp"
 
    // Helpers for derived-class getters/setters.

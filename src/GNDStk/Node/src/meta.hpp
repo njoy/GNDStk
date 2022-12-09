@@ -139,7 +139,7 @@ void meta(
    bool &found = detail::default_bool
 ) const {
    try {
-      // Comments as with those for std::optional above
+      // Remarks as with those for std::optional above
       bool f; // local "found"
       TYPE obj;
       meta(obj, obj/kwd, f);

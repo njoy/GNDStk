@@ -10,15 +10,15 @@
 
   <bar/>
 
-  <comment>
-    <!--Comment-->
-  </comment>
+  <remark>
+    <!--Remark-->
+  </remark>
 
-  <comments>
-    <!--Comment #0-->
-    <!--Comment #1-->
-    <!--Comment #2-->
-  </comments>
+  <remarks>
+    <!--Remark #0-->
+    <!--Remark #1-->
+    <!--Remark #2-->
+  </remarks>
 
   <double remark="one double">1.2</double>
   <doubles remark="three doubles">1.2 3.45 6.789</doubles>
@@ -43,8 +43,8 @@
   <values z="abc">a b c</values>
 
   <various>
-    <!--First comment-->1 2 3 4<![CDATA[Some CDATA]]>
-    <!--Second comment-->9.87 6.54 3.21<!--Third comment-->
+    <!--First remark-->1 2 3 4<![CDATA[Some CDATA]]>
+    <!--Second remark-->9.87 6.54 3.21<!--Third remark-->
     <![CDATA[More CDATA]]>
     <regularElement>
     </regularElement>a b c d e f g</various>

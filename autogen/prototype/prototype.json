@@ -1,5 +1,5 @@
 {
-    "comment" : [
+    "remark" : [
         "Path",
         "   Path to the Project directory.",
         "   Optional (defaults to .).",

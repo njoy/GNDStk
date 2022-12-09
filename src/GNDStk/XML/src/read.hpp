@@ -17,7 +17,7 @@ std::istream &read(std::istream &is)
            is,
            pugi::parse_default
          | pugi::parse_declaration // preserve <?xml ...?> material
-         | pugi::parse_comments    // preserve <!-- comment --> material
+         | pugi::parse_comments    // preserve <!-- ... --> material
       );
 
       // check for errors
@@ -37,7 +37,7 @@ std::istream &read(std::istream &is)
             );
          } else {
             // !is
-            // given the earlier comment about pugixml and !is, it may
+            // given the earlier remark about pugixml and !is, it may
             // not be possible to get here, but we'll cover it...
             log::error(
                "pugi::xml_document.load(istream,...) returned with !istream"

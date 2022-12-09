@@ -136,8 +136,8 @@ as follows. Set the raw string to what you wish, using the string() setter.
 Set length, start, or valueType as you wish, either before or after possibly
 setting the string. Finally, after doing all that, do a get<std::vector<T>>().
 Then the vector in the variant will be remade, per the new string and/or the
-length etc. parameters, as described earlier in this descriptive comment, if
-and when a get<vector<T>> function is next called.
+length etc. parameters, as described earlier in this remark, if and when a
+get<vector<T>> function is next called.
 
 The return value of the const version is a const reference to a (possibly
 newly converted-to from the raw string, possibly existing, or possibly remade)

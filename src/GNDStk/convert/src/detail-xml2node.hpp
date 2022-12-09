@@ -103,7 +103,7 @@ bool xml2node(const pugi::xml_node &xnode, NODE &node)
       // reads an XML, makes modest modifications or additions to data here and
       // there, and then writes an XML back out. GNDS has no ordering, so doing
       // this isn't necessary. It is, however, easy to handle, and users may
-      // appreciate that GNDStk doesn't toss comments, or mess with the ordering
+      // appreciate that GNDStk doesn't remove comments, or change the ordering
       // of cdata, data, or comment nodes, either individually or together.
 
       if (xsub.type() == pugi::node_cdata) {

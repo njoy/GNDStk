@@ -193,7 +193,7 @@ void child(
    bool &found = detail::default_bool
 ) const {
    try {
-      // Comments as in the meta() analog of this child() function
+      // Remarks as in the meta() analog of this child() function
       bool f;
       // todo Could perhaps make more efficient if (existing.has_value())...
       TYPE obj;
@@ -221,7 +221,7 @@ void child(
    bool &found = detail::default_bool
 ) const {
    try {
-      // Comments as with those for std::optional above
+      // Remarks as with those for std::optional above
       bool f;
       TYPE obj;
       child(obj, obj/kwd, f);

@@ -81,7 +81,7 @@ HighFive::DataSet data2DataSet(
 
 // -----------------------------------------------------------------------------
 // meta2hdf5*
-// See comments in the JSON analogs of these functions.
+// See remarks in the JSON analogs of these functions.
 // -----------------------------------------------------------------------------
 
 // ------------------------

@@ -41,7 +41,7 @@ void transferChild(
    // while Bar does not, i.e.:
    //    Foo: Component
    //    Bar
-   // Comments, below, reflect various situations.
+   // Remarks, below, reflect various situations.
 
    if constexpr (detail::isDerivedFromComponent<DEST>::value) {
       // *** Foo

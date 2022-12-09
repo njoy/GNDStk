@@ -16,14 +16,6 @@
          "strings": "cd ef gh ij"
       },
       "bar": null,
-      "comment": {
-         "#comment": "Comment"
-      },
-      "comments": {
-         "#comment0": "Comment #0",
-         "#comment1": "Comment #1",
-         "#comment2": "Comment #2"
-      },
       "double": [
          1.2
       ],
@@ -48,6 +40,14 @@
       ],
       "onecdata": {
          "#cdata": "Block of CDATA"
+      },
+      "remark": {
+         "#comment": "Remark"
+      },
+      "remarks": {
+         "#comment0": "Remark #0",
+         "#comment1": "Remark #1",
+         "#comment2": "Remark #2"
       },
       "string": [
          "ab"
@@ -90,9 +90,9 @@
       "various": {
          "#cdata0": "More CDATA",
          "#cdata1": "Some CDATA",
-         "#comment0": "First comment",
-         "#comment1": "Second comment",
-         "#comment2": "Third comment",
+         "#comment0": "First remark",
+         "#comment1": "Second remark",
+         "#comment2": "Third remark",
          "#data0": [
             1,
             2,
