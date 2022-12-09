@@ -1,5 +1,114 @@
 
 // -----------------------------------------------------------------------------
+// Helpers
+// -----------------------------------------------------------------------------
+
+private:
+
+// ------------------------
+// Transfer Meta
+// ------------------------
+
+template<class DEST, class TYPE, class CONVERTER>
+void transferMeta(
+   const Node &node, DEST &to,
+   const Meta<TYPE,CONVERTER> &key
+) {
+   node.meta(to, key);
+}
+
+
+// ------------------------
+// Transfer Child
+// ------------------------
+
+template<class DEST, class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+void transferChild(
+   const Node &node, DEST &to,
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &key
+) {
+   // Absolutely respect any non-default converter in the Child key, by doing
+   // a Core Interface child-node query in the usual manner. Note that we can
+   // still use the more-efficient "node.child(to,key)" rather than the less-
+   // efficient "to = node(key)", because, in the present context, we do have
+   // a specific destination for the query result.
+   if constexpr (!std::is_same_v<CONVERTER,detail::convert_t>) {
+      node.child(to, key);
+      return;
+   }
+
+   // In the following conditionals, assume that Foo derives from Component,
+   // while Bar does not, i.e.:
+   //    Foo: Component
+   //    Bar
+   // Comments, below, reflect various situations.
+
+   if constexpr (detail::isDerivedFromComponent<DEST>::value) {
+      // *** Foo
+      // Derives from Component, so we know that it has, via Component,
+      // a .read(node) function, which should be most efficient to use
+      // for "conversion" of the Node to a Foo.
+      node.child(to, key/[](const Node &node, DEST &to) { to.read(node); });
+
+   } else if constexpr (detail::isOptional<DEST>) {
+      using OPT = typename DEST::value_type; // type the optional may contain
+
+      if constexpr (detail::isVector_v<OPT>) {
+         using ELEM = typename OPT::value_type; // vector element type
+         if constexpr (detail::isDerivedFromComponent<ELEM>::value) {
+            // *** optional<vector<Foo>>
+            if (!to.has_value())
+               to = OPT{};
+            node.child(to, key/[](const Node &node, ELEM &e) { e.read(node); });
+         } else {
+            // *** optional<vector<Bar>>
+            node.child(to, key);
+         }
+      } else {
+         if constexpr (detail::isDerivedFromComponent<OPT>::value) {
+            // *** optional<Foo>
+            node.child(to, key/[](const Node &node, OPT &to) { to.read(node); });
+         } else {
+            // *** optional<Bar>
+            node.child(to, key);
+         }
+      }
+   } else if constexpr (detail::isVector_v<DEST>) {
+      using ELEM = typename DEST::value_type; // vector element type
+      if constexpr (detail::isDerivedFromComponent<ELEM>::value) {
+         // *** vector<Foo>
+         node.child(to, key/[](const Node &node, ELEM &e) { e.read(node); });
+      } else {
+         // *** vector<Bar>
+         node.child(to, key);
+      }
+   } else {
+      // *** Bar
+      node.child(to, key);
+   }
+}
+
+
+// ------------------------
+// Transfer
+// ------------------------
+
+template<class KEY>
+void transfer(const std::size_t n, const Node &node, const KEY &key)
+{
+   using DEST = typename detail::queryResult<KEY>::type;
+   DEST &to = *(DEST *)links[n];
+
+   if constexpr (detail::IsMeta<KEY>::value)
+      transferMeta(node, to, key);
+   else if constexpr (detail::IsChild<KEY>::value)
+      transferChild(node, to, key);
+   else
+      to = node(key);
+}
+
+
+// -----------------------------------------------------------------------------
 // Component::fromNode(Node)
 // -----------------------------------------------------------------------------
 
@@ -17,45 +126,35 @@
 // new(), below, but to no real effect: the result would be replaced, anyway,
 // when the derived class' own members are initialized in its constructor.
 
+public:
+
 void fromNode(const Node &node)
 {
    try {
       // does the node have the name we expect?
-      if (node.name != DERIVED::GNDSName()) {
+      if (node.name != DERIVED::FIELD()) {
          log::error(
-           "Name \"{}\" in Node sent to Component::fromNode() is not the "
-           "expected GNDS name \"{}\"",
-            node.name, DERIVED::GNDSName()
+           "Node name \"{}\" is not the expected name \"{}\"",
+            node.name, DERIVED::FIELD()
          );
          throw std::exception{};
       }
 
-      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
-         // consistency check; then nothing further to do
-         assert(0 == links.size());
-      } else {
-         // retrieve the node's data by doing a multi-query
-         const auto tup = node(toKeywordTup(DERIVED::keys()));
+      // consistency check
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
-         // consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+      // apply links:
+      // Node ==> derived-class data
+      std::apply(
+         [this,node](const auto &... key) {
+            std::size_t n = 0; (this->transfer(n++, node, key), ...);
+         },
+         Keys().tup
+      );
 
-         // apply links:
-         // Node ==> derived-class data
-         // Below, each apply'd "result" is one particular element - one
-         // retrieved value - from the above multi-query on the node.
-         std::apply(
-            [this](const auto &... result) {
-               std::size_t n = 0;
-               ((*(std::decay_t<decltype(result)> *)links[n++] = result), ...);
-            },
-            tup
-         );
-      }
-
-      // body text, a.k.a. XML "pcdata" (plain character data), if any
-      if constexpr (hasBodyText)
-         body::fromNode(node);
+      // block data, a.k.a. XML "pcdata" (plain character data), if any
+      if constexpr (hasBlockData)
+         BLOCKDATA::fromNode(node);
 
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);

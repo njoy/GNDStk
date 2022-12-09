@@ -34,6 +34,12 @@ inline void convert(const T &value, std::ostream &os)
    }
 }
 
+// string
+inline void convert(const std::string &value, std::ostream &os)
+{
+   os << value;
+}
+
 // pair
 template<class X, class Y>
 inline void convert(const std::pair<X,Y> &p, std::ostream &os)

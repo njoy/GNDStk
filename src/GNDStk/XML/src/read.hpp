@@ -21,7 +21,7 @@ std::istream &read(std::istream &is)
       );
 
       // check for errors
-      // note: we've noticed that pugi doesn't (or, at least, doesn't
+      // note: we've noticed that pugixml doesn't (or, at least, doesn't
       // always) arrange for !is when pugi::xml_document.load() fails
       const bool pugierr = load.description() != std::string("No error");
       if (pugierr || !is) {
@@ -37,7 +37,7 @@ std::istream &read(std::istream &is)
             );
          } else {
             // !is
-            // given the earlier comment about pugi and !is, it may
+            // given the earlier comment about pugixml and !is, it may
             // not be possible to get here, but we'll cover it...
             log::error(
                "pugi::xml_document.load(istream,...) returned with !istream"
@@ -67,7 +67,7 @@ std::istream &read(std::istream &is)
 
 
 // ------------------------
-// read(file name)
+// read(file)
 // ------------------------
 
 bool read(const std::string &filename)

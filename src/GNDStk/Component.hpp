@@ -13,16 +13,22 @@ using helpMap = std::map<std::string,std::string>;
 // Component
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText, class DATA>
-class Component : public BodyText<hasBodyText,DATA>
+template<class DERIVED, bool hasBlockData, class DATATYPE>
+class Component : public BlockData<hasBlockData,DATATYPE>
 {
    // For convenience
-   using body = BodyText<hasBodyText,DATA>;
-   using typename body::VariantOfVectors;
-   using typename body::VariantOfScalars;
+   using BLOCKDATA = BlockData<hasBlockData,DATATYPE>;
+   using typename BLOCKDATA::VariantOfVectors;
+   using typename BLOCKDATA::VariantOfScalars;
+
+   static const auto &Keys()
+   {
+      static const auto value = makeKeyTuple(DERIVED::KEYS());
+      return value;
+   }
 
    // Links to fields in the object of the derived class. I can't find a way
-   // to do this in a decltype(DERIVED::keys())-aware manner, because DERIVED
+   // to do this in a decltype(DERIVED::KEYS())-aware manner, because DERIVED
    // is generally an incomplete type *here* - outside of Component's member
    // functions. So, we'll do it the old-fashioned way.
    std::vector<void *> links;
@@ -35,12 +41,12 @@ class Component : public BodyText<hasBodyText,DATA>
    // Copy and move *assignments* have the right behavior, however.
    Component &operator=(const Component &other)
    {
-      body::operator=(other);
+      BLOCKDATA::operator=(other);
       return *this;
    }
    Component &operator=(Component &&other)
    {
-      body::operator=(std::move(other));
+      BLOCKDATA::operator=(std::move(other));
       return *this;
    }
 
@@ -51,22 +57,35 @@ class Component : public BodyText<hasBodyText,DATA>
    // See comments in finish.hpp
    #include "GNDStk/Component/src/finish.hpp"
 
-   // Intermediaries between derived-class getters, and getter functions
-   // in detail::. These shorten the code in the derived classes.
+   // Helpers for derived-class getters/setters.
+   // These allow us to shorten some other code.
    #include "GNDStk/Component/src/getter.hpp"
+   #include "GNDStk/Component/src/setter.hpp"
 
    // Fallback for documentation() if DERIVED doesn't have help
    static inline helpMap help;
 
 public:
 
+   #include "GNDStk/Component/src/read.hpp"
+   #include "GNDStk/Component/src/write.hpp"
+   #include "GNDStk/Component/src/print.hpp"
    #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/sort.hpp"
    #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
-   #include "GNDStk/Component/src/write.hpp"
 
-   // You can (but don't need to) override the following in DERIVED
-   static std::string namespaceName() { return ""; }
+   // Namespace
+   static std::string Namespace() { return DERIVED::NAMESPACE(); }
+
+   // baseBlockData
+   // Convenient access to the BlockData base class
+   BLOCKDATA &baseBlockData() { return *this; }
+   const BLOCKDATA &baseBlockData() const { return *this; }
+
+   // baseComponent
+   // Convenient access to the Component base class (of the derived class)
+   Component &baseComponent() { return *this; }
+   const Component &baseComponent() const { return *this; }
 
    // derived
    // Convenient access to the derived class
@@ -80,15 +99,36 @@ public:
    {
       try {
          return DERIVED::help.at(subject);
-      }
-      catch ( ... ) {
+      } catch (...) {
          return "No help information is available";
       }
    }
 
-   // Component << std::string
-   // Meaning: read the string's content (currently XML or JSON) into an object
-   // of the Component's DERIVED class. Uses Node's << std::string capability.
+   // has
+   // Usable in C++ "compile-time if" (a.k.a. "if constexpr") statements
+   template<
+      class EXTRACTOR, class THIS = DERIVED,
+      class = decltype(std::declval<EXTRACTOR>()(THIS{}))
+   >
+   static constexpr bool has(const Lookup<false,EXTRACTOR> &)
+   {
+      return true;
+   }
+
+   template<
+      class EXTRACTOR, bool F,
+      class = std::enable_if_t<F == false>
+   >
+   static constexpr bool has(const Lookup<F,EXTRACTOR> &)
+   {
+      return false;
+   }
+
+   // Class
+   static std::string Class() { return DERIVED::CLASS(); }
+
+   // Component << string
+   // Like Node << string, but for Component's derived class.
    void operator<<(const std::string &str)
    {
       try {
@@ -96,22 +136,61 @@ public:
          node << str;
          derived() = DERIVED(node);
       } catch (...) {
-         log::function(std::string(DERIVED::className()) + " << string");
+         log::function("{} << string", Class());
          throw;
       }
    }
+
+   // Component >> string
+   // Like Node >> string, but for Component's derived class.
+   void operator>>(std::string &str) const
+   {
+      try {
+         Node(*this) >> str;
+      } catch (...) {
+         log::function("{} >> string", Class());
+         throw;
+      }
+   }
+
+   // Forwards, where viable and unambiguous, to certain capabilities
+   // in DERIVED's fields
+   #include "GNDStk/Component/src/forward.hpp"
+
+   // Wrapper for derived-class fields
+   #include "GNDStk/Component/src/field.hpp"
 
 }; // class Component
 
 
 // -----------------------------------------------------------------------------
-// ostream << Component
+// Stream I/O
 // -----------------------------------------------------------------------------
 
-template<class DERIVED, bool hasBodyText, class DATA>
+// operator>>
+template<class DERIVED, bool hasBlockData, class DATATYPE>
+std::istream &operator>>(
+   std::istream &is,
+   Component<DERIVED,hasBlockData,DATATYPE> &comp
+) {
+   try {
+      return comp.read(is);
+   } catch (...) {
+      log::function("istream >> {}", comp.Class());
+      throw;
+   }
+}
+
+// operator<<
+template<class DERIVED, bool hasBlockData, class DATATYPE>
 std::ostream &operator<<(
    std::ostream &os,
-   const Component<DERIVED,hasBodyText,DATA> &obj
+   const Component<DERIVED,hasBlockData,DATATYPE> &comp
 ) {
-   return obj.write(os);
+   try {
+      return comp.print(os,0);
+   } catch (...) {
+      log::function("ostream << {}", comp.Class());
+      throw;
+   }
 }

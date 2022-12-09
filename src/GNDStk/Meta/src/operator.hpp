@@ -23,21 +23,21 @@ inline auto operator-(const Meta<TYPE,CONVERTER> &kwd)
 
 // T/Meta<TYPE,CONVERTER>
 template<class T, class TYPE, class CONVERTER>
-inline auto operator/(const T &object, const Meta<TYPE,CONVERTER> &kwd)
+inline auto operator/(const T &, const Meta<TYPE,CONVERTER> &kwd)
 {
    // Keep the old converter.
    // You must change that separately if it's necessary to do so,
    // e.g. because its convert()s handled TYPE, but not T.
-   return Meta<T,CONVERTER>(kwd.name, object, kwd.converter);
+   return Meta<T,CONVERTER>(kwd.name, kwd.converter);
 }
 
 // T/Meta<void>
 template<class T>
-inline auto operator/(const T &object, const Meta<void> &kwd)
+inline auto operator/(const T &, const Meta<void> &kwd)
 {
    // Use our default converter. (The input, a Meta<void>, doesn't have one.)
    // You must change that separately if the default isn't wanted.
-   return Meta<T>(kwd.name, object);
+   return Meta<T>(kwd.name);
 }
 
 
@@ -115,7 +115,7 @@ inline Meta<
    const C &converter
 ) {
    // Keep the old type
-   return Meta<TYPE,C>(kwd.name, kwd.object, converter);
+   return Meta<TYPE,C>(kwd.name, converter);
 }
 
 // Meta<void>/C
@@ -130,7 +130,7 @@ inline Meta<
       !std::is_same_v<TYPE,void>, // ...require non-void!
       "Meta<void>/CONVERTER not allowed; the Meta type must be non-void"
    );
-   return kwd; // placeholder; the static_assert will always fail
+   return kwd; // need a return; but the static_assert will always fail
 }
 
 
@@ -148,8 +148,5 @@ inline auto operator--(
    const Meta<TYPE,CONVERTER> &kwd,
    const int
 ) {
-   return Meta<TYPE,typename detail::default_converter<TYPE>::type>(
-      kwd.name,
-      kwd.object
-   );
+   return Meta<TYPE,detail::default_converter_t<TYPE>>(kwd.name);
 }

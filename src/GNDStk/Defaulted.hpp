@@ -53,6 +53,8 @@ class Defaulted {
 
 public:
 
+   using value_type = T;
+
    // construction, assignment
    #include "GNDStk/Defaulted/src/ctor.hpp"
    #include "GNDStk/Defaulted/src/assign.hpp"

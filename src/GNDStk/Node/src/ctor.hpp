@@ -36,14 +36,14 @@ Node(const Node &other)
 // ------------------------
 
 // string
-Node(const std::string &name) :
+explicit Node(const std::string &name) :
    name(name)
 {
 }
 
 // Child<*>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-Node(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
+explicit Node(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
    name(kwd.name)
 {
 }

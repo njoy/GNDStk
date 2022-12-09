@@ -30,7 +30,7 @@
         },
         "children": {
             "reactions": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             }
         }
@@ -40,7 +40,7 @@
         "metadata": {},
         "children": {
             "reaction": {
-                "occurrence": "1+",
+                "times": "1+",
                 "required": true
             }
         }
@@ -63,7 +63,7 @@
         },
         "children": {
             "crossSection": {
-                "occurrence": "1",
+                "times": "1",
                 "required": true
             }
         }
@@ -73,12 +73,12 @@
         "metadata": {},
         "children": {
             "XYs1d": {
-                "occurrence": "choice+",
+                "times": "choice+",
                 "variant": "XYs1d_regions1d",
                 "required": false
             },
             "regions1d": {
-                "occurrence": "choice+",
+                "times": "choice+",
                 "variant": "XYs1d_regions1d",
                 "required": false
             }
