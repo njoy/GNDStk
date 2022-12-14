@@ -40,6 +40,7 @@ namespace special {
    inline const char prefix = '#';
 
    inline const std::string
+      any      = prefix + std::string(""),
       nodename = prefix + std::string("nodename"),
       metadata = prefix + std::string("metadata"),
       cdata    = prefix + std::string("cdata"),

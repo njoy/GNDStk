@@ -81,8 +81,7 @@ bool write_comment(const NODE &node, pugi::xml_node &xnode)
 template<class NODE>
 bool node2xml(const NODE &node, pugi::xml_node &x)
 {
-   static const std::string context =
-      "node2xml(Node, pugi::xml_node)";
+   static const std::string context = "node2xml(Node, pugi::xml_node)";
 
    // name
    pugi::xml_node xnode = x.append_child(node.name.data());

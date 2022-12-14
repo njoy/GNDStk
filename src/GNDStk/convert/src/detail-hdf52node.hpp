@@ -1,7 +1,4 @@
 
-// rootHDF5Name: name of the root HDF5 group
-inline const std::string rootHDF5Name = "/";
-
 // Helper: hdf52node_error
 inline void hdf52node_error(const std::string &message)
 {
@@ -181,7 +178,7 @@ bool hdf52node(
    const HighFive::Group &group, const std::string &groupName,
    NODE &node, const bool decl
 ) {
-   const bool atRoot = groupName == rootHDF5Name;
+   const bool atRoot = groupName == "/";
 
    // node name: from HDF5 group name
    if (!decl) {

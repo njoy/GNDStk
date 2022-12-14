@@ -231,7 +231,7 @@ SCENARIO("Testing various BlockData-related detail:: constructs") {
 
       WHEN("We try vector<string>s of varying sizes") {
 
-         THEN("Bounds are correct when size == \"\"") {
+         THEN("Bounds are correct when size == 0") {
             std::vector<std::string> v = {};
             const auto bounds = detail::getBounds(v);
             CHECK(bounds.first  == 0);

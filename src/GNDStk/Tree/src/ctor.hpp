@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // default
-Tree() : Node(slashTreeName)
+Tree() : Node("/")
 {
 }
 
@@ -12,7 +12,7 @@ Tree() : Node(slashTreeName)
 Tree(Tree &&) = default;
 
 // copy
-Tree(const Tree &other) : Node(slashTreeName)
+Tree(const Tree &other) : Node("/")
 {
    try {
       if (!convert(other,*this))
@@ -30,7 +30,7 @@ Tree(const Tree &other) : Node(slashTreeName)
 // -----------------------------------------------------------------------------
 
 // XML
-explicit Tree(const XML &x) : Node(slashTreeName)
+explicit Tree(const XML &x) : Node("/")
 {
    try {
       if (!convert(x,*this))
@@ -42,7 +42,7 @@ explicit Tree(const XML &x) : Node(slashTreeName)
 }
 
 // JSON
-explicit Tree(const JSON &j) : Node(slashTreeName)
+explicit Tree(const JSON &j) : Node("/")
 {
    try {
       if (!convert(j,*this))
@@ -54,7 +54,7 @@ explicit Tree(const JSON &j) : Node(slashTreeName)
 }
 
 // HDF5
-explicit Tree(const HDF5 &h) : Node(slashTreeName)
+explicit Tree(const HDF5 &h) : Node("/")
 {
    try {
       if (!convert(h,*this))
@@ -79,7 +79,7 @@ explicit Tree(
    const std::string &filename,
    const FileType format = FileType::guess
 )
- : Node(slashTreeName)
+ : Node("/")
 {
    try {
       if (!read(filename,format))
@@ -95,7 +95,7 @@ explicit Tree(
 // Example:
 //    Tree t("n-008_O_016.xml", "xml");
 Tree(const std::string &filename, const std::string &format)
- : Node(slashTreeName)
+ : Node("/")
 {
    try {
       if (!read(filename,format))
@@ -111,7 +111,7 @@ Tree(const std::string &filename, const std::string &format)
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, FileType::xml);
 explicit Tree(std::istream &is, const FileType format = FileType::guess)
- : Node(slashTreeName)
+ : Node("/")
 {
    try {
       if (!read(is,format))
@@ -127,7 +127,7 @@ explicit Tree(std::istream &is, const FileType format = FileType::guess)
 //    std::ifstream ifs("n-008_O_016.xml");
 //    Tree t(ifs, "xml");
 Tree(std::istream &is, const std::string &format)
- : Node(slashTreeName)
+ : Node("/")
 {
    try {
       if (!read(is,format))
@@ -173,7 +173,7 @@ Tree(
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 )
- : Node(slashTreeName)
+ : Node("/")
 {
    try {
       reset(kwd, format, version, encoding);
@@ -191,7 +191,7 @@ Tree(
    const std::string &version  = detail::default_string,
    const std::string &encoding = detail::default_string
 )
- : Node(slashTreeName)
+ : Node("/")
 {
    try {
       reset(kwd, format, version, encoding);

@@ -720,7 +720,7 @@ inline const std::string error_format_read =
 template<class NODE>
 bool getDecl(const NODE &node, const bool &decl)
 {
-   return sent(decl) ? decl : node.name == slashTreeName;
+   return sent(decl) ? decl : node.name == "/";
 }
 
 

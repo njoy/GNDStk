@@ -2,9 +2,6 @@
 // Name for newly-created nodes
 inline const std::string emptyNodeName = "";
 
-// Name for root nodes of trees
-inline const std::string slashTreeName = "/";
-
 #include "GNDStk/Node/src/detail.hpp"
 std::ostream &operator<<(std::ostream &os, const Node &node);
 
@@ -44,7 +41,7 @@ public:
    // clear
    Node &clear()
    {
-      if (name != slashTreeName) // else Tree; leave alone
+      if (name != "/") // else Tree; leave alone
          name = emptyNodeName;
       metadata.clear();
       children.clear();
@@ -55,7 +52,7 @@ public:
    bool empty() const
    {
       return
-        (name == emptyNodeName || name == slashTreeName) &&
+        (name == emptyNodeName || name == "/") &&
          metadata.size() == 0 &&
          children.size() == 0;
    }

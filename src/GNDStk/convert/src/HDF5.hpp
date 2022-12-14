@@ -7,71 +7,50 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 {
    static const std::string context = "convert(Node,HDF5)";
 
-   // Prepare the HDF5
+   // clear
    h.clear();
-   const std::string tmpfile = name != "" ? name : h.temporaryName(h.fileDesc);
 
    try {
+      // bookkeeping, re: HighFive employing basically a file descriptor
+      const std::string tmpfile =
+         name != "" ? name : h.temporaryName(h.fileDesc);
       h.filePtr = new HighFive::File(tmpfile, HDF5::modeWrite);
 
-      // Probably a regular Node...
-      if (node.name != slashTreeName) {
+      // ------------------------
+      // Node
+      // ------------------------
+
+      if (node.name != "/") {
          const bool ret = detail::node2hdf5(node,*h.filePtr);
          h.filePtr->flush();
          return ret;
       }
 
-      // Probably a Tree...
-      if (node.metadata.size() != 0) {
-         log::warning(
-            "Encountered Node with empty name \"\",\n"
-            "but the Node also contains metadata.\n"
-            "Not expected in this context. We'll ignore the metadata."
-         );
-         log::function(context);
-      }
+      // ------------------------
+      // Tree
+      // ------------------------
 
-      bool found_decl = false;
-      bool found_top  = false;
+      detail::warn_node_top_metadata(node,context);
+      bool found_dec = false;
 
-      for (auto &c : node.children) {
-         if (c->name == special::xml ||
-             c->name == special::json ||
-             c->name == special::hdf5
-         ) {
+      for (auto &cptr : node.children) {
+         if (cptr->name == special::xml ) continue;
+         if (cptr->name == special::json) continue;
+
+         if (cptr->name == special::hdf5 || cptr->name == special::any) {
             // looks like a declaration node
-            if (found_decl) {
-               // already seen
-               log::warning(
-                  "Encountered Node with empty name \"\",\n"
-                  "and > 1 child nodes that look like "
-                  "declaration nodes.\n"
-                  "Not expected in this context. "
-                  "For HDF5, we're ignoring declaration nodes anyway."
-               );
-               log::function(context);
-            }
-            found_decl = true;
+            if (found_dec) // already seen
+               detail::info_node_multiple_dec(context);
+            // fixme Implement top-level metadata/attributes in HDF5
+            found_dec = true;
          } else {
             // looks like a regular node
-            if (found_top) {
-               // already seen
-               log::warning(
-                  "Encountered Node with empty name \"\",\n"
-                  "and > 1 child nodes that look like "
-                  "regular (non-declaration) nodes.\n"
-                  "Not expected in this context. "
-                  "We'll convert all the child nodes."
-               );
-               log::function(context);
-            }
-            const bool ret = detail::node2hdf5(*c,*h.filePtr);
+            const bool ret = detail::node2hdf5(*cptr,*h.filePtr);
             h.filePtr->flush();
             if (!ret)
                return false;
-            found_top = true;
-         } // else
-      } // for
+         }
+      }
 
    } catch (...) {
       log::function(context);
@@ -83,37 +62,6 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 }
 
 
-
-// -----------------------------------------------------------------------------
-// XML  ==> HDF5
-// JSON ==> HDF5
-// As with convert()s to XML, these go through temporaries.
-// -----------------------------------------------------------------------------
-
-inline bool convert(const XML &x, HDF5 &h)
-{
-   try {
-      Tree t; // temporary
-      return convert(x,t) && convert(t,h);
-   } catch (...) {
-      log::function("convert(XML,HDF5)");
-      throw;
-   }
-}
-
-inline bool convert(const JSON &j, HDF5 &h)
-{
-   try {
-      Tree t; // temporary
-      return convert(j,t) && convert(t,h);
-   } catch (...) {
-      log::function("convert(JSON,HDF5)");
-      throw;
-   }
-}
-
-
-
 // -----------------------------------------------------------------------------
 // HDF5 ==> HDF5
 // For completeness
@@ -121,7 +69,7 @@ inline bool convert(const JSON &j, HDF5 &h)
 
 inline bool convert(const HDF5 &from, HDF5 &to)
 {
-   // self?
+   // same object?
    if (&to == &from)
       return true;
 
@@ -132,7 +80,7 @@ inline bool convert(const HDF5 &from, HDF5 &to)
    if (from.empty())
       return true;
 
-   // convert
+   // from ==> to
    try {
       std::ifstream ifs(from.filePtr->getName(), std::ios::binary);
       if (!ifs) {
@@ -144,12 +92,12 @@ inline bool convert(const HDF5 &from, HDF5 &to)
          // to create a *file* for the destination object. It cannot simply
          // duplicate an internal data structure, as the analogous XML and
          // JSON convert() functions do. The above error message might thus
-         // surprise a user, who wouldn't necessarily realize that a file
-         // is being created as a result of this convert(). To help clarify
-         // the situation, we'll write an informational note.
+         // surprise a user, who wouldn't necessarily realize that a file is
+         // being created as a result of this convert(). To help clarify the
+         // situation, we'll write an informational note.
          log::info(
-            "We're attempting to open this file here because it's referenced\n"
-            "by the source HDF5 object.");
+            "We're attempting to open this in this context because it's\n"
+            "behind the source HDF5 object.");
          throw std::exception{};
       }
       if (!to.read(ifs))
@@ -161,4 +109,33 @@ inline bool convert(const HDF5 &from, HDF5 &to)
 
    // done
    return true;
+}
+
+
+// -----------------------------------------------------------------------------
+// XML  ==> HDF5
+// JSON ==> HDF5
+// As with our convert()s to XML, these go through temporaries.
+// -----------------------------------------------------------------------------
+
+inline bool convert(const XML &x, HDF5 &h)
+{
+   try {
+      Tree tmp;
+      return convert(x,tmp) && convert(tmp,h);
+   } catch (...) {
+      log::function("convert(XML,HDF5)");
+      throw;
+   }
+}
+
+inline bool convert(const JSON &j, HDF5 &h)
+{
+   try {
+      Tree tmp;
+      return convert(j,tmp) && convert(tmp,h);
+   } catch (...) {
+      log::function("convert(JSON,HDF5)");
+      throw;
+   }
 }

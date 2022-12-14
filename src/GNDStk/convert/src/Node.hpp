@@ -16,7 +16,7 @@ inline bool convert(const XML &x, Node &node, const bool &DECL)
 
    // optionally, make a boilerplate declaration node
    if (decl) {
-      node.name = slashTreeName;
+      node.name = "/";
       node.add(special::xml); // "we built the object from an XML"
    }
 
@@ -111,7 +111,7 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
 
    // optionally, make a boilerplate declaration node
    if (decl) {
-      node.name = slashTreeName;
+      node.name = "/";
       node.add(special::json); // "we built the object from a JSON"
    }
 
@@ -172,7 +172,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
    // optionally, make a boilerplate declaration node
    Node *declnode = nullptr;
    if (decl) {
-      node.name = slashTreeName;
+      node.name = "/";
       declnode = &node.add(special::hdf5); // "we built the object from an HDF5"
    }
 
@@ -182,7 +182,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 
    // not empty in the earlier (h.filePtr == nullptr) sense,
    // but with no real content in the HDF5 document?
-   const HighFive::Group &rootGroup = h.filePtr->getGroup(detail::rootHDF5Name);
+   const HighFive::Group &rootGroup = h.filePtr->getGroup("/");
    if (rootGroup.getNumberAttributes() == 0 &&
        rootGroup.getNumberObjects() == 0)
       return true;
@@ -197,7 +197,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
                return false;
 
       // visit the rest of the root HDF5 group
-      return detail::hdf52node(rootGroup, detail::rootHDF5Name, node, decl);
+      return detail::hdf52node(rootGroup, "/", node, decl);
    } catch (...) {
       log::function("convert(HDF5,Node)");
       throw;
