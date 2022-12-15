@@ -226,8 +226,10 @@ DatesDateSetByDateType(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Dates/src/custom.h"
 
 #undef extern_c
 #endif

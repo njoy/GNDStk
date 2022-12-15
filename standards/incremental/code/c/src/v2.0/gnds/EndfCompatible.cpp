@@ -378,3 +378,10 @@ EndfCompatibleDoublesSetArray(ConstHandle2EndfCompatible This, const double *con
    return detail::vectorSet<CPP,double>
       (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/EndfCompatible/src/custom.cpp"

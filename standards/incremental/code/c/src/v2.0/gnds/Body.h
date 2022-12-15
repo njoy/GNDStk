@@ -267,8 +267,10 @@ BodyDoublesSetArray(ConstHandle2Body This, const double *const values, const siz
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Body/src/custom.h"
 
 #undef extern_c
 #endif

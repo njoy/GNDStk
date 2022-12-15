@@ -248,8 +248,10 @@ DocumentationEndfCompatibleSet(ConstHandle2Documentation This, ConstHandle2Const
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Documentation/src/custom.h"
 
 #undef extern_c
 #endif

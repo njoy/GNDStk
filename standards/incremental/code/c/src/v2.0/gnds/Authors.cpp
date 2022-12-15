@@ -248,3 +248,10 @@ AuthorsAuthorSetByName(
       (CLASSNAME, CLASSNAME+"AuthorSetByName",
        This, extract::author, meta::name, name, author);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Authors/src/custom.cpp"

@@ -183,8 +183,10 @@ FoobarValueSet(ConstHandle2Foobar This, const char *const value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Foobar/src/custom.h"
 
 #undef extern_c
 #endif

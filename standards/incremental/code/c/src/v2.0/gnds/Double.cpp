@@ -233,3 +233,10 @@ DoubleUnitSet(ConstHandle2Double This, const char *const unit)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Double/src/custom.cpp"

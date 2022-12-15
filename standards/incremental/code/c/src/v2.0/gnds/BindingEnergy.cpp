@@ -172,3 +172,10 @@ BindingEnergyDoubleSet(ConstHandle2BindingEnergy This, ConstHandle2ConstDouble D
    detail::setField<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/BindingEnergy/src/custom.cpp"

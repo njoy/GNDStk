@@ -236,8 +236,10 @@ PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/PoPs/src/custom.h"
 
 #undef extern_c
 #endif

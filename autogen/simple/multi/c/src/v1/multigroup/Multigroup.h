@@ -217,8 +217,10 @@ MultigroupLibrarySetByName(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Multigroup/src/custom.h"
 
 #undef extern_c
 #endif

@@ -378,3 +378,10 @@ BodyDoublesSetArray(ConstHandle2Body This, const double *const values, const siz
    return detail::vectorSet<CPP,double>
       (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Body/src/custom.cpp"

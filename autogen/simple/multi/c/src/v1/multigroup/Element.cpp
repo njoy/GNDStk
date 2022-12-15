@@ -361,3 +361,10 @@ ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar)
    detail::setField<CPP,CPPFoobar>
       (CLASSNAME, CLASSNAME+"FoobarSet", This, extract::foobar, foobar);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Element/src/custom.cpp"

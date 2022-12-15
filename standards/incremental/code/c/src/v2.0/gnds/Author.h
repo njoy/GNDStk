@@ -148,8 +148,10 @@ AuthorNameSet(ConstHandle2Author This, const char *const name);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Author/src/custom.h"
 
 #undef extern_c
 #endif

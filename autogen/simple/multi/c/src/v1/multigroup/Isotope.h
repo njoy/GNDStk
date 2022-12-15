@@ -148,8 +148,10 @@ IsotopeMassNumberSet(ConstHandle2Isotope This, const int mass_number);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Isotope/src/custom.h"
 
 #undef extern_c
 #endif

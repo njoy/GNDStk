@@ -320,3 +320,10 @@ PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements
    detail::setField<CPP,CPPChemicalElements>
       (CLASSNAME, CLASSNAME+"ChemicalElementsSet", This, extract::chemicalElements, chemicalElements);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/PoPs/src/custom.cpp"

@@ -246,8 +246,10 @@ LibraryElementSetByAtomicNumber(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Library/src/custom.h"
 
 #undef extern_c
 #endif

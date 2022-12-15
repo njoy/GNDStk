@@ -152,8 +152,10 @@ BindingEnergyDoubleSet(ConstHandle2BindingEnergy This, ConstHandle2ConstDouble D
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/BindingEnergy/src/custom.h"
 
 #undef extern_c
 #endif

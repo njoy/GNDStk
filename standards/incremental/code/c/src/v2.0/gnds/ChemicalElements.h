@@ -255,8 +255,10 @@ ChemicalElementsChemicalElementSetByName(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/ChemicalElements/src/custom.h"
 
 #undef extern_c
 #endif

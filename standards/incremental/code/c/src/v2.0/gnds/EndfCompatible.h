@@ -267,8 +267,10 @@ EndfCompatibleDoublesSetArray(ConstHandle2EndfCompatible This, const double *con
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/EndfCompatible/src/custom.h"
 
 #undef extern_c
 #endif

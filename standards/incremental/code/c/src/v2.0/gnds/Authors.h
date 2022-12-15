@@ -197,8 +197,10 @@ AuthorsAuthorSetByName(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Authors/src/custom.h"
 
 #undef extern_c
 #endif

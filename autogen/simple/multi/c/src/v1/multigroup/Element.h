@@ -261,8 +261,10 @@ ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Element/src/custom.h"
 
 #undef extern_c
 #endif

@@ -242,3 +242,10 @@ ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstB
    detail::setField<CPP,CPPBindingEnergy>
       (CLASSNAME, CLASSNAME+"BindingEnergySet", This, extract::bindingEnergy, bindingEnergy);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Configuration/src/custom.cpp"

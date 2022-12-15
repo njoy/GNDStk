@@ -163,3 +163,10 @@ AuthorNameSet(ConstHandle2Author This, const char *const name)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Author/src/custom.cpp"

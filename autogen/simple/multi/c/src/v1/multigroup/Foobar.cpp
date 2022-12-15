@@ -226,3 +226,10 @@ FoobarValueSet(ConstHandle2Foobar This, const char *const value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Foobar/src/custom.cpp"

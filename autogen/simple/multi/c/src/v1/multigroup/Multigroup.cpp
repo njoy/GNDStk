@@ -283,3 +283,10 @@ MultigroupLibrarySetByName(
       (CLASSNAME, CLASSNAME+"LibrarySetByName",
        This, extract::library, meta::name, name, library);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Multigroup/src/custom.cpp"

@@ -293,3 +293,10 @@ ConfigurationsConfigurationSetByElectronNumber(
       (CLASSNAME, CLASSNAME+"ConfigurationSetByElectronNumber",
        This, extract::configuration, meta::electronNumber, electronNumber, configuration);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Configurations/src/custom.cpp"

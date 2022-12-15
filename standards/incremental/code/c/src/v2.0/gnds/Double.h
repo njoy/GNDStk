@@ -188,8 +188,10 @@ DoubleUnitSet(ConstHandle2Double This, const char *const unit);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Double/src/custom.h"
 
 #undef extern_c
 #endif

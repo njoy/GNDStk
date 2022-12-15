@@ -267,8 +267,10 @@ TitleDoublesSetArray(ConstHandle2Title This, const double *const values, const s
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Title/src/custom.h"
 
 #undef extern_c
 #endif

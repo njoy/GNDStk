@@ -198,3 +198,10 @@ DateDateTypeSet(ConstHandle2Date This, const enums::DateType dateType)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"DateTypeSet", This, extract::dateType, dateType);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Date/src/custom.cpp"

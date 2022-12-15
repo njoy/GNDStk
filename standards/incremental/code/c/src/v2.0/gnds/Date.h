@@ -168,8 +168,10 @@ DateDateTypeSet(ConstHandle2Date This, const enums::DateType dateType);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Date/src/custom.h"
 
 #undef extern_c
 #endif

@@ -344,3 +344,10 @@ DocumentationEndfCompatibleSet(ConstHandle2Documentation This, ConstHandle2Const
    detail::setField<CPP,CPPEndfCompatible>
       (CLASSNAME, CLASSNAME+"EndfCompatibleSet", This, extract::endfCompatible, endfCompatible);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Documentation/src/custom.cpp"

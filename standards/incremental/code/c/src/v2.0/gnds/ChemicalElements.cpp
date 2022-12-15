@@ -338,3 +338,10 @@ ChemicalElementsChemicalElementSetByName(
       (CLASSNAME, CLASSNAME+"ChemicalElementSetByName",
        This, extract::chemicalElement, meta::name, name, chemicalElement);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/ChemicalElements/src/custom.cpp"

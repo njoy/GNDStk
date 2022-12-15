@@ -212,8 +212,10 @@ ChemicalElementAtomicSet(ConstHandle2ChemicalElement This, ConstHandle2ConstAtom
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/ChemicalElement/src/custom.h"
 
 #undef extern_c
 #endif

@@ -163,3 +163,10 @@ IsotopeMassNumberSet(ConstHandle2Isotope This, const int mass_number)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"MassNumberSet", This, extract::mass_number, mass_number);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Isotope/src/custom.cpp"

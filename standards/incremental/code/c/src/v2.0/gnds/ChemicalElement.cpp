@@ -277,3 +277,10 @@ ChemicalElementAtomicSet(ConstHandle2ChemicalElement This, ConstHandle2ConstAtom
    detail::setField<CPP,CPPAtomic>
       (CLASSNAME, CLASSNAME+"AtomicSet", This, extract::atomic, atomic);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/ChemicalElement/src/custom.cpp"

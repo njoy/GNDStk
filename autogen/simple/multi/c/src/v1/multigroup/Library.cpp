@@ -328,3 +328,10 @@ LibraryElementSetByAtomicNumber(
       (CLASSNAME, CLASSNAME+"ElementSetByAtomicNumber",
        This, extract::element, meta::atomic_number, atomic_number, element);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1/multigroup/Library/src/custom.cpp"

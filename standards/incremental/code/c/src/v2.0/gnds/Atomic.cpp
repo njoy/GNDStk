@@ -172,3 +172,10 @@ AtomicConfigurationsSet(ConstHandle2Atomic This, ConstHandle2ConstConfigurations
    detail::setField<CPP,CPPConfigurations>
       (CLASSNAME, CLASSNAME+"ConfigurationsSet", This, extract::configurations, configurations);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Atomic/src/custom.cpp"

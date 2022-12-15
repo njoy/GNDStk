@@ -152,8 +152,10 @@ StylesEvaluatedSet(ConstHandle2Styles This, ConstHandle2ConstEvaluated evaluated
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Styles/src/custom.h"
 
 #undef extern_c
 #endif

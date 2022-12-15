@@ -293,3 +293,10 @@ DatesDateSetByDateType(
       (CLASSNAME, CLASSNAME+"DateSetByDateType",
        This, extract::date, meta::dateType, dateType, date);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Dates/src/custom.cpp"

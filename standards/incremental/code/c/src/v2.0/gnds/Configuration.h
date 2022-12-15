@@ -192,8 +192,10 @@ ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstB
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/gnds/Configuration/src/custom.h"
 
 #undef extern_c
 #endif
