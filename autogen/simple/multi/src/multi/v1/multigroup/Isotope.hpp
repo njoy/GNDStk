@@ -32,6 +32,9 @@ class Isotope : public Component<multigroup::Isotope> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          int{}
             / Meta<>("mass_number")
@@ -41,6 +44,9 @@ class Isotope : public Component<multigroup::Isotope> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<int> mass_number{this};
 
@@ -49,6 +55,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->mass_number)
 
    // default
@@ -78,6 +85,7 @@ public:
    // copy
    Isotope(const Isotope &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       mass_number(this,other.mass_number)
    {
       Component::finish(other);
@@ -86,6 +94,7 @@ public:
    // move
    Isotope(Isotope &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       mass_number(this,std::move(other.mass_number))
    {
       Component::finish(other);

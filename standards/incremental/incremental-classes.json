@@ -29,7 +29,6 @@
     },
 
     "styles": {
-        "metadata": {},
         "children": {
             "evaluated": {
                 "times": "1",
@@ -66,7 +65,6 @@
     },
 
     "documentation": {
-        "metadata": {},
         "children": {
             "authors": {
                 "times": "1",
@@ -92,7 +90,6 @@
     },
 
     "authors": {
-        "metadata": {},
         "children": {
             "author": {
                 "times": "1+",
@@ -107,12 +104,10 @@
                 "required": true,
                 "type": "string"
             }
-        },
-        "children": {}
+        }
     },
 
     "dates": {
-        "metadata": {},
         "children": {
             "date": {
                 "times": "1+",
@@ -131,30 +126,22 @@
                 "required": true,
                 "type": "dateType"
             }
-        },
-        "children": {}
+        }
     },
 
     "title": {
-        "metadata": {},
-        "vector": "",
-        "children": {}
+        "vector": ""
     },
 
     "body": {
-        "metadata": {},
-        "vector": "",
-        "children": {}
+        "vector": ""
     },
 
     "endfCompatible": {
-        "metadata": {},
-        "vector": "",
-        "children": {}
+        "vector": ""
     },
 
     "chemicalElements": {
-        "metadata": {},
         "children": {
             "chemicalElement": {
                 "times": "1+",
@@ -187,7 +174,6 @@
     },
 
     "atomic": {
-        "metadata": {},
         "children": {
             "configurations": {
                 "times": "1",
@@ -197,7 +183,6 @@
     },
 
     "configurations": {
-        "metadata": {},
         "children": {
             "configuration": {
                 "times": "1+",
@@ -226,7 +211,6 @@
     },
 
     "bindingEnergy": {
-        "metadata": {},
         "children": {
             "double": {
                 "times": "1",
@@ -249,7 +233,6 @@
                 "required": true,
                 "type": "string"
             }
-        },
-        "children": {}
+        }
     }
 }

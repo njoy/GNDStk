@@ -12,6 +12,18 @@ auto scalarize(const std::variant<Ts...>)
    return std::variant<typename Ts::value_type ...>{};
 }
 
+// getBounds
+template<class T>
+auto getBounds(const std::vector<T> &vec)
+{
+   T zero;
+   if constexpr (std::is_same_v<T,std::string>) zero = ""; else zero = T(0);
+   std::pair<std::size_t,std::size_t> bnd(0,vec.size());
+   while (bnd.first < bnd.second && vec[bnd.first   ] == zero) ++bnd.first;
+   while (bnd.first < bnd.second && vec[bnd.second-1] == zero) --bnd.second;
+   return bnd;
+}
+
 
 // -----------------------------------------------------------------------------
 // SFINAE constructs for detecting whether or not a class has certain members.
@@ -81,6 +93,7 @@ struct has_label<std::variant<Ts...>> {
 
 template<class T>
 inline constexpr bool hasIndex = has_index<std::decay_t<T>>::value;
+
 template<class T>
 inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
 
@@ -121,22 +134,6 @@ void element2element(const T &value, std::string &str)
       str = Precision<PrecisionContext::data,T>{}.write(value);
    else
       convert_t{}(value,str);
-}
-
-
-// -----------------------------------------------------------------------------
-// getBounds
-// -----------------------------------------------------------------------------
-
-template<class T>
-auto getBounds(const std::vector<T> &vec)
-{
-   T zero;
-   if constexpr (std::is_same_v<T,std::string>) zero = ""; else zero = T(0);
-   std::pair<std::size_t,std::size_t> bnd(0,vec.size());
-   while (bnd.first < bnd.second && vec[bnd.first   ] == zero) ++bnd.first;
-   while (bnd.first < bnd.second && vec[bnd.second-1] == zero) --bnd.second;
-   return bnd;
 }
 
 

@@ -32,6 +32,9 @@ class Dates : public Component<gnds::Dates> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          ++Child<gnds::Date>("date")
       ;
@@ -39,6 +42,9 @@ class Dates : public Component<gnds::Dates> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<gnds::Date>> date{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->date)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    Dates(const Dates &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       date(this,other.date)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    Dates(Dates &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       date(this,std::move(other.date))
    {
       Component::finish(other);

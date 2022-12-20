@@ -36,6 +36,9 @@ class Documentation : public Component<gnds::Documentation> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          --Child<gnds::Authors>("authors") |
          --Child<gnds::Dates>("dates") |
@@ -47,6 +50,9 @@ class Documentation : public Component<gnds::Documentation> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<gnds::Authors> authors{this};
@@ -60,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->authors, \
       this->dates, \
       this->title, \
@@ -101,6 +108,7 @@ public:
    // copy
    Documentation(const Documentation &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       authors(this,other.authors),
       dates(this,other.dates),
       title(this,other.title),
@@ -113,6 +121,7 @@ public:
    // move
    Documentation(Documentation &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       authors(this,std::move(other.authors)),
       dates(this,std::move(other.dates)),
       title(this,std::move(other.title)),

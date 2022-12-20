@@ -1003,45 +1003,49 @@ void writeClassForComponent(writer &out, const PerClass &per)
    // KEYS() contents
    int count = 0;
    const int total = per.nfields();
-   if (total == 0)
-      out(2,"return std::tuple<>{};");
-   else {
-      out(2,"return");
+   out(2,"return");
 
-      // metadata
-      if (per.metadata.size())
-         out(3,"// metadata");
-      for (const auto &m : per.metadata) {
-         out(3,"@{@}", m.typeFull, initializer(m));
-         out(4,"/ Meta<>(\"@\")@", m.original, ++count < total ? " |" : "");
-      }
+   // comment
+   out(3,"// comment");
+   out(3,"++Child<std::string>(special::comment)/commentConverter{}@",
+       std::string(total ? " |" : ""));
 
-      // children
-      if (per.children.size() || per.variants.size())
-         out(3,"// children");
-      for (const auto &c : per.children) {
-         out(3,"@Child<@>(\"@\")@",
-             c.isVector ? "++" : "--",
-             c.typeHalf, // without any std::vector
-             c.original,
-             ++count < total ? " |" : ""
-         );
-      }
+   // metadata
+   if (per.metadata.size()) {
+      out();
+      out(3,"// metadata");
+   }
+   for (const auto &m : per.metadata) {
+      out(3,"@{@}", m.typeFull, initializer(m));
+      out(4,"/ Meta<>(\"@\")@", m.original, ++count < total ? " |" : "");
+   }
 
-      // variants
-      for (const auto &v : per.variants) {
-         out(3,"@{}", v.typeHalf); // without any std::vector
-         out(4,"/ @(", v.isVector ? "++" : "--", false);
-         int n = 0; // for alternatives; not to be confused w/count
-         for (const auto &c : v.children)
-            out("@Child<>(\"@\")", n++ == 0 ? "" : " || ", c.name, false);
-         out(")@", ++count < total ? " |" : "");
-      }
+   // children
+   if (per.children.size() || per.variants.size()) {
+      out();
+      out(3,"// children");
+   }
+   for (const auto &c : per.children) {
+      out(3,"@Child<@>(\"@\")@",
+          c.isVector ? "++" : "--",
+          c.typeHalf, // without any std::vector
+          c.original,
+          ++count < total ? " |" : ""
+      );
+   }
 
-      out(2,";");
+   // variants
+   for (const auto &v : per.variants) {
+      out(3,"@{}", v.typeHalf); // without any std::vector
+      out(4,"/ @(", v.isVector ? "++" : "--", false);
+      int n = 0; // for alternatives; not to be confused w/count
+      for (const auto &c : v.children)
+         out("@Child<>(\"@\")", n++ == 0 ? "" : " || ", c.name, false);
+      out(")@", ++count < total ? " |" : "");
    }
 
    // KEYS() end
+   out(2,";");
    out(1,"}");
    out();
    out("public:");
@@ -1070,6 +1074,7 @@ void writeClassSuffix(
       out(2,"if (this != &other) {");
       out(3,"std::cout << \"assign: @: copy\" << std::endl;", per.clname);
       out(3,"Component::operator=(other);");
+      out(3,"comment = other.comment;");
       if (per.nfields() > 0) {
          for (const auto &m : per.metadata)
             out(3,"@ = other.@;", m.name, m.name);
@@ -1090,6 +1095,7 @@ void writeClassSuffix(
       out(2,"if (this != &other) {");
       out(3,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
       out(3,"Component::operator=(std::move(other));");
+      out(3,"comment = std::move(other.comment);");
       if (per.nfields() > 0) {
          for (const auto &m : per.metadata)
             out(3,"@ = std::move(other.@);", m.name, m.name);
@@ -1249,18 +1255,15 @@ void writeClassCtors(writer &out, const PerClass &per)
    int count; const int total = per.nfields();
    out();
 
-   if (total == 0)
-      out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata)");
-   else {
-      out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
-      count = 0;
-      for (const auto &m : per.metadata)
-         out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
-      for (const auto &c : per.children)
-         out(2,"this->@@", c.name, ++count < total ? ", \\" : ")");
-      for (const auto &v : per.variants)
-         out(2,"this->@@", v.name, ++count < total ? ", \\" : ")");
-   }
+   out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
+   out(2,"this->comment@", std::string(total ? ", \\" : ")"));
+   count = 0;
+   for (const auto &m : per.metadata)
+      out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
+   for (const auto &c : per.children)
+      out(2,"this->@@", c.name, ++count < total ? ", \\" : ")");
+   for (const auto &v : per.variants)
+      out(2,"this->@@", v.name, ++count < total ? ", \\" : ")");
 
    // ------------------------
    // ctor: default
@@ -1377,17 +1380,16 @@ void writeClassCtors(writer &out, const PerClass &per)
    out();
    out(1,"// copy");
    out(1,"@(const @ &other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true, total == 0);
-   if (total > 0) {
-      out(",");
-      count = 0;
-      for (const auto &m : per.metadata)
-         out(2,"@(this,other.@)@", m.name, m.name, sep(count,total));
-      for (const auto &c : per.children)
-         out(2,"@(this,other.@)@", c.name, c.name, sep(count,total));
-      for (const auto &v : per.variants)
-         out(2,"@(this,other.@)@", v.name, v.name, sep(count,total));
-   }
+   writeClassCtorComponent(out, per, true, false);
+   out(",");
+   out(2,"comment(this,other.comment)@", std::string(total ? "," : ""));
+   count = 0;
+   for (const auto &m : per.metadata)
+      out(2,"@(this,other.@)@", m.name, m.name, sep(count,total));
+   for (const auto &c : per.children)
+      out(2,"@(this,other.@)@", c.name, c.name, sep(count,total));
+   for (const auto &v : per.variants)
+      out(2,"@(this,other.@)@", v.name, v.name, sep(count,total));
    writeClassCtorBody(out, "copy", per.clname, "other");
 
    // ------------------------
@@ -1397,17 +1399,17 @@ void writeClassCtors(writer &out, const PerClass &per)
    out();
    out(1,"// move");
    out(1,"@(@ &&other) :", per.clname, per.clname);
-   writeClassCtorComponent(out, per, true, total == 0);
-   if (total > 0) {
-      out(",");
-      count = 0;
-      for (const auto &m : per.metadata)
-         out(2,"@(this,std::move(other.@))@", m.name, m.name, sep(count,total));
-      for (const auto &c : per.children)
-         out(2,"@(this,std::move(other.@))@", c.name, c.name, sep(count,total));
-      for (const auto &v : per.variants)
-         out(2,"@(this,std::move(other.@))@", v.name, v.name, sep(count,total));
-   }
+   writeClassCtorComponent(out, per, true, false);
+   out(",");
+   out(2,"comment(this,std::move(other.comment))@",
+       std::string(total ? "," : ""));
+   count = 0;
+   for (const auto &m : per.metadata)
+      out(2,"@(this,std::move(other.@))@", m.name, m.name, sep(count,total));
+   for (const auto &c : per.children)
+      out(2,"@(this,std::move(other.@))@", c.name, c.name, sep(count,total));
+   for (const auto &v : per.variants)
+      out(2,"@(this,std::move(other.@))@", v.name, v.name, sep(count,total));
    writeClassCtorBody(out, "move", per.clname, "other");
 } // writeClassCtors
 
@@ -1448,6 +1450,11 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
                 m.type, m.name, initializer(m));
       out(1,"} defaults;");
    }
+
+   // output: comment
+   out();
+   out(1,"// comment");
+   out(1,"Field<std::vector<std::string>> comment{this};");
 
    // output: fields
    writeClassContentMetadata(out, per);
@@ -1500,44 +1507,28 @@ orderedJSON readJSONFile(const std::string &file, const bool print = false)
 
 
 // getMetadataJSON
-template<bool required>
-auto getMetadataJSON(const orderedJSON &j)
+orderedJSON getMetadataJSON(const orderedJSON &j)
 {
    static const std::string metastr = "metadata";
    static const std::string attrstr = "attributes";
-
    const bool meta = j.contains(metastr);
    const bool attr = j.contains(attrstr);
 
-   if constexpr (required) {
-      assert(meta != attr); // exactly one
-      return meta ? j[metastr] : j[attrstr];
-   } else {
-      assert(!(meta && attr)); // not both
-      return std::optional<orderedJSON>(
-         meta ? j[metastr] : attr ? j[attrstr] : orderedJSON{});
-   }
+   assert(!(meta && attr)); // not both
+   return meta ? j[metastr] : attr ? j[attrstr] : orderedJSON{};
 } // getMetadataJSON
 
 
 // getChildrenJSON
-template<bool required>
-auto getChildrenJSON(const orderedJSON &j)
+orderedJSON getChildrenJSON(const orderedJSON &j)
 {
    static const std::string chldstr = "children";
    static const std::string nodestr = "childNodes";
-
    const bool chld = j.contains(chldstr);
    const bool node = j.contains(nodestr);
 
-   if constexpr (required) {
-      assert(chld != node); // exactly one
-      return chld ? j[chldstr] : j[nodestr];
-   } else {
-      assert(!(chld && node)); // not both
-      return std::optional<orderedJSON>(
-         chld ? j[chldstr] : node ? j[nodestr] : orderedJSON{});
-   }
+   assert(!(chld && node)); // not both
+   return chld ? j[chldstr] : node ? j[nodestr] : orderedJSON{};
 } // getChildrenJSON
 
 
@@ -1558,19 +1549,18 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
             specs.mapName.insert(pair(item.key(),item.value()));
 
    // Changes to metadata/attributes?
-   const auto metadata = getMetadataJSON<false>(jchanges);
-   if (metadata.has_value()) {
-      // from/to pairs for "type"
-      if (metadata->contains("type"))
-         for (const auto &item : (*metadata)["type"].items())
-            if (!isComment(item.key()))
-               specs.mapMetaType.insert(pair(item.key(),item.value()));
-      // from/to pairs for "default"
-      if (metadata->contains("default"))
-         for (const auto &item : (*metadata)["default"].items())
-            if (!isComment(item.key()))
-               specs.mapMetaDefault.insert(pair(item.key(),item.value()));
-   }
+   const orderedJSON metadata = getMetadataJSON(jchanges);
+
+   // from/to pairs for "type"
+   if (metadata.contains("type"))
+      for (const auto &item : metadata["type"].items())
+         if (!isComment(item.key()))
+            specs.mapMetaType.insert(pair(item.key(),item.value()));
+   // from/to pairs for "default"
+   if (metadata.contains("default"))
+      for (const auto &item : metadata["default"].items())
+         if (!isComment(item.key()))
+            specs.mapMetaDefault.insert(pair(item.key(),item.value()));
 } // readChangesFile
 
 
@@ -1585,10 +1575,11 @@ void printSingletons(const std::string &file)
       if (!isClass(item))
          continue;
 
-      const auto metadata = getMetadataJSON<true>(rhs);
-      const auto children = getChildrenJSON<true>(rhs);
       const bool data = rhs.contains("vector") && !rhs["vector"].is_null();
       const bool body = rhs.contains("bodyText") && !rhs["bodyText"].is_null();
+
+      const orderedJSON metadata = getMetadataJSON(rhs);
+      const orderedJSON children = getChildrenJSON(rhs);
 
       if (metadata.size() == 0 && children.size() == 0 && !data && !body)
          log::info("This class has no metadata, data, or children: "
@@ -1892,8 +1883,8 @@ void getClass(
    per.nameGNDS = nameGNDS(keyval,nsname,true);
 
    // metadata/children information
-   const orderedJSON attrs = getMetadataJSON<true>(classRHS);
-   const orderedJSON elems = getChildrenJSON<true>(classRHS);
+   const orderedJSON attrs = getMetadataJSON(classRHS);
+   const orderedJSON elems = getChildrenJSON(classRHS);
    validateMetadata(attrs);
    validateChildren(elems, per);
    getClassMetadata(attrs, specs, per);
@@ -2090,7 +2081,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
                nameGNDS(node)));
 
             // attributes ==> metadata
-            const auto attrs = getMetadataJSON<true>(node.value());
+            const orderedJSON attrs = getMetadataJSON(node.value());
             for (const auto &attr : attrs.items())
                metadata.insert(std::make_pair(
                   nameField(attr,specs),

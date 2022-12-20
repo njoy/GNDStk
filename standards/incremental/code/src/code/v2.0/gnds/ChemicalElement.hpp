@@ -32,6 +32,9 @@ class ChemicalElement : public Component<gnds::ChemicalElement> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("symbol") |
@@ -39,6 +42,7 @@ class ChemicalElement : public Component<gnds::ChemicalElement> {
             / Meta<>("Z") |
          std::string{}
             / Meta<>("name") |
+
          // children
          --Child<gnds::Atomic>("atomic")
       ;
@@ -46,6 +50,9 @@ class ChemicalElement : public Component<gnds::ChemicalElement> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> symbol{this};
@@ -60,6 +67,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->symbol, \
       this->Z, \
       this->name, \
@@ -98,6 +106,7 @@ public:
    // copy
    ChemicalElement(const ChemicalElement &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       symbol(this,other.symbol),
       Z(this,other.Z),
       name(this,other.name),
@@ -109,6 +118,7 @@ public:
    // move
    ChemicalElement(ChemicalElement &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       symbol(this,std::move(other.symbol)),
       Z(this,std::move(other.Z)),
       name(this,std::move(other.name)),

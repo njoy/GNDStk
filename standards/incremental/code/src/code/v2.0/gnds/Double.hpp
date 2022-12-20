@@ -32,6 +32,9 @@ class Double : public Component<gnds::Double> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("label") |
@@ -45,6 +48,9 @@ class Double : public Component<gnds::Double> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::string> label{this};
    Field<double> value{this};
@@ -55,6 +61,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->value, \
       this->unit)
@@ -90,6 +97,7 @@ public:
    // copy
    Double(const Double &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       value(this,other.value),
       unit(this,other.unit)
@@ -100,6 +108,7 @@ public:
    // move
    Double(Double &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       value(this,std::move(other.value)),
       unit(this,std::move(other.unit))

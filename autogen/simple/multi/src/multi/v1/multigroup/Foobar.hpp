@@ -32,6 +32,9 @@ class Foobar : public Component<multigroup::Foobar,true,double> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("value")
@@ -42,6 +45,9 @@ public:
    using Component::construct;
    using BlockData::operator=;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::string> value{this};
 
@@ -50,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->value)
 
    // default
@@ -87,6 +94,7 @@ public:
    // copy
    Foobar(const Foobar &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       value(this,other.value)
    {
       Component::finish(other);
@@ -95,6 +103,7 @@ public:
    // move
    Foobar(Foobar &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       value(this,std::move(other.value))
    {
       Component::finish(other);

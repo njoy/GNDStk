@@ -31,18 +31,25 @@ class Title : public Component<gnds::Title,true> {
    // Core Interface multi-query to extract metadata and child nodes
    static auto KEYS()
    {
-      return std::tuple<>{};
+      return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{}
+      ;
    }
 
 public:
    using Component::construct;
    using BlockData::operator=;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata)
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment)
 
    // default
    Title() :
@@ -68,14 +75,16 @@ public:
 
    // copy
    Title(const Title &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment)
    {
       Component::finish(other);
    }
 
    // move
    Title(Title &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment))
    {
       Component::finish(other);
    }

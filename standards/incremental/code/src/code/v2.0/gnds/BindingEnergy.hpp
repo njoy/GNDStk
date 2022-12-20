@@ -32,6 +32,9 @@ class BindingEnergy : public Component<gnds::BindingEnergy> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          --Child<gnds::Double>("double")
       ;
@@ -39,6 +42,9 @@ class BindingEnergy : public Component<gnds::BindingEnergy> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<gnds::Double> Double{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->Double)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    BindingEnergy(const BindingEnergy &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       Double(this,other.Double)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    BindingEnergy(BindingEnergy &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       Double(this,std::move(other.Double))
    {
       Component::finish(other);

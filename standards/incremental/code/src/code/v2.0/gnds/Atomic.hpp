@@ -32,6 +32,9 @@ class Atomic : public Component<gnds::Atomic> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          --Child<gnds::Configurations>("configurations")
       ;
@@ -39,6 +42,9 @@ class Atomic : public Component<gnds::Atomic> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<gnds::Configurations> configurations{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->configurations)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    Atomic(const Atomic &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       configurations(this,other.configurations)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    Atomic(Atomic &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       configurations(this,std::move(other.configurations))
    {
       Component::finish(other);

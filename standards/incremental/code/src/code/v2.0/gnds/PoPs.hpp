@@ -33,6 +33,9 @@ class PoPs : public Component<gnds::PoPs> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("name") |
@@ -40,6 +43,7 @@ class PoPs : public Component<gnds::PoPs> {
             / Meta<>("version") |
          std::string{}
             / Meta<>("format") |
+
          // children
          --Child<gnds::Styles>("styles") |
          --Child<gnds::ChemicalElements>("chemicalElements")
@@ -48,6 +52,9 @@ class PoPs : public Component<gnds::PoPs> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> name{this};
@@ -63,6 +70,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->name, \
       this->version, \
       this->format, \
@@ -104,6 +112,7 @@ public:
    // copy
    PoPs(const PoPs &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       name(this,other.name),
       version(this,other.version),
       format(this,other.format),
@@ -116,6 +125,7 @@ public:
    // move
    PoPs(PoPs &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       version(this,std::move(other.version)),
       format(this,std::move(other.format)),

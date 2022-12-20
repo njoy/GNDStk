@@ -32,6 +32,9 @@ class Date : public Component<gnds::Date> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("value") |
@@ -43,6 +46,9 @@ class Date : public Component<gnds::Date> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::string> value{this};
    Field<enums::DateType> dateType{this};
@@ -52,6 +58,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->value, \
       this->dateType)
 
@@ -84,6 +91,7 @@ public:
    // copy
    Date(const Date &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       value(this,other.value),
       dateType(this,other.dateType)
    {
@@ -93,6 +101,7 @@ public:
    // move
    Date(Date &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       dateType(this,std::move(other.dateType))
    {

@@ -32,6 +32,9 @@ class Evaluated : public Component<gnds::Evaluated> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("label") |
@@ -41,6 +44,7 @@ class Evaluated : public Component<gnds::Evaluated> {
             / Meta<>("library") |
          std::string{}
             / Meta<>("version") |
+
          // children
          --Child<gnds::Documentation>("documentation")
       ;
@@ -48,6 +52,9 @@ class Evaluated : public Component<gnds::Evaluated> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> label{this};
@@ -63,6 +70,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->date, \
       this->library, \
@@ -104,6 +112,7 @@ public:
    // copy
    Evaluated(const Evaluated &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       date(this,other.date),
       library(this,other.library),
@@ -116,6 +125,7 @@ public:
    // move
    Evaluated(Evaluated &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       date(this,std::move(other.date)),
       library(this,std::move(other.library)),

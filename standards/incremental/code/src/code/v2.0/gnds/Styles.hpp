@@ -32,6 +32,9 @@ class Styles : public Component<gnds::Styles> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          --Child<gnds::Evaluated>("evaluated")
       ;
@@ -39,6 +42,9 @@ class Styles : public Component<gnds::Styles> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<gnds::Evaluated> evaluated{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->evaluated)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    Styles(const Styles &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       evaluated(this,other.evaluated)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    Styles(Styles &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       evaluated(this,std::move(other.evaluated))
    {
       Component::finish(other);

@@ -32,11 +32,15 @@ class Configuration : public Component<gnds::Configuration> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("subshell") |
          std::string{}
             / Meta<>("electronNumber") |
+
          // children
          --Child<gnds::BindingEnergy>("bindingEnergy")
       ;
@@ -44,6 +48,9 @@ class Configuration : public Component<gnds::Configuration> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> subshell{this};
@@ -57,6 +64,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->subshell, \
       this->electronNumber, \
       this->bindingEnergy)
@@ -92,6 +100,7 @@ public:
    // copy
    Configuration(const Configuration &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       subshell(this,other.subshell),
       electronNumber(this,other.electronNumber),
       bindingEnergy(this,other.bindingEnergy)
@@ -102,6 +111,7 @@ public:
    // move
    Configuration(Configuration &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       subshell(this,std::move(other.subshell)),
       electronNumber(this,std::move(other.electronNumber)),
       bindingEnergy(this,std::move(other.bindingEnergy))

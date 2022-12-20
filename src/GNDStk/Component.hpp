@@ -160,6 +160,18 @@ public:
    // Wrapper for derived-class fields
    #include "GNDStk/Component/src/field.hpp"
 
+   // Core Interface node "converter" to support comments
+   struct commentConverter {
+      void operator()(const Node &node, std::string &string) const
+      {
+         string = node.meta(special::text);
+      }
+
+      void operator()(const std::string &string, Node &node) const
+      {
+         node.add(special::text,string);
+      }
+   };
 }; // class Component
 
 

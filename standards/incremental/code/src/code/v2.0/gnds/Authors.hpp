@@ -32,6 +32,9 @@ class Authors : public Component<gnds::Authors> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          ++Child<gnds::Author>("author")
       ;
@@ -39,6 +42,9 @@ class Authors : public Component<gnds::Authors> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<gnds::Author>> author{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->author)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    Authors(const Authors &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       author(this,other.author)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    Authors(Authors &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       author(this,std::move(other.author))
    {
       Component::finish(other);

@@ -32,9 +32,13 @@ class Multigroup : public Component<multigroup::Multigroup> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("projectile") |
+
          // children
          ++Child<multigroup::Library>("library")
       ;
@@ -42,6 +46,9 @@ class Multigroup : public Component<multigroup::Multigroup> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> projectile{this};
@@ -54,6 +61,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->projectile, \
       this->library)
 
@@ -86,6 +94,7 @@ public:
    // copy
    Multigroup(const Multigroup &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       projectile(this,other.projectile),
       library(this,other.library)
    {
@@ -95,6 +104,7 @@ public:
    // move
    Multigroup(Multigroup &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       projectile(this,std::move(other.projectile)),
       library(this,std::move(other.library))
    {

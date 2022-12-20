@@ -7,7 +7,7 @@ namespace colors {
 
 // Specific colors:
 //    colors::plain::*
-//    colors::vivid::*
+//    colors::bold::*
 // Reset/clear:
 //    colors::reset
 // Note that all of these are ANSI color escape sequences. They'll work on many
@@ -15,8 +15,7 @@ namespace colors {
 // by default, so colors aren't actually used unless someone sets it to true.
 
 namespace plain {
-
-inline const std::string
+   inline const std::string
    black   = "\033[30;1m",
    red     = "\033[31;1m",
    green   = "\033[32;1m",
@@ -27,12 +26,10 @@ inline const std::string
    violet  = magenta,
    yellow  = "\033[33;1m",
    white   = "\033[37;1m";
+}
 
-} // namespace plain
-
-namespace vivid {
-
-inline const std::string
+namespace bold {
+   inline const std::string
    black   = "\033[30;21m",
    red     = "\033[31;21m",
    green   = "\033[32;21m",
@@ -43,8 +40,7 @@ inline const std::string
    violet  = magenta,
    yellow  = "\033[33;21m",
    white   = "\033[37;21m";
-
-} // namespace vivid
+}
 
 inline const std::string reset = "\033[0m";
 
@@ -66,11 +62,11 @@ inline const std::string reset = "\033[0m";
 inline std::string label = "";
 inline std::string colon = "";
 
-// Component labels + begin/end curly braces
+// Component labels, and begin/end curly braces
 inline std::string component = plain::magenta;
 inline std::string brace     = plain::magenta;
 
-// Vector labels + begin/end square brackets
+// Vector labels, and begin/end square brackets
 inline std::string vector  = plain::yellow;
 inline std::string bracket = plain::yellow;
 

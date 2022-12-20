@@ -32,6 +32,9 @@ class Configurations : public Component<gnds::Configurations> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          ++Child<gnds::Configuration>("configuration")
       ;
@@ -39,6 +42,9 @@ class Configurations : public Component<gnds::Configurations> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<gnds::Configuration>> configuration{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->configuration)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    Configurations(const Configurations &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       configuration(this,other.configuration)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    Configurations(Configurations &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       configuration(this,std::move(other.configuration))
    {
       Component::finish(other);

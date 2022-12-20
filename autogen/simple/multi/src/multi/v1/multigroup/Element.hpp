@@ -33,11 +33,15 @@ class Element : public Component<multigroup::Element> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // metadata
          std::optional<std::string>{}
             / Meta<>("symbol") |
          int{}
             / Meta<>("atomic_number") |
+
          // children
          ++Child<multigroup::Isotope>("isotope") |
          --Child<std::optional<multigroup::Foobar>>("foobar")
@@ -46,6 +50,9 @@ class Element : public Component<multigroup::Element> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<std::string>> symbol{this};
@@ -60,6 +67,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->symbol, \
       this->atomic_number, \
       this->isotope, \
@@ -98,6 +106,7 @@ public:
    // copy
    Element(const Element &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       symbol(this,other.symbol),
       atomic_number(this,other.atomic_number),
       isotope(this,other.isotope),
@@ -109,6 +118,7 @@ public:
    // move
    Element(Element &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       symbol(this,std::move(other.symbol)),
       atomic_number(this,std::move(other.atomic_number)),
       isotope(this,std::move(other.isotope)),

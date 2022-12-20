@@ -61,8 +61,6 @@
                 "type": "int",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -73,7 +71,6 @@
                 "required": true
             }
         },
-        "children": { },
         "vector": "double"
     }
 }

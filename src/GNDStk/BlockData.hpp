@@ -10,8 +10,8 @@
 
 // -----------------------------------------------------------------------------
 // BlockData<false,DATATYPE>
-// The <true,DATATYPE> case is specialized and has the fun stuff. This one needs
-// just a bit of content, in order to facilitate uniform treatment of BlockData.
+// The <true,DATATYPE> case is specialized and has the fun stuff. This one
+// needs just a bit of content, to allow for uniform treatment of BlockData.
 // -----------------------------------------------------------------------------
 
 template<bool hasBlockData, class DATATYPE>

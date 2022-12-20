@@ -32,6 +32,9 @@ class ChemicalElements : public Component<gnds::ChemicalElements> {
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment)/commentConverter{} |
+
          // children
          ++Child<gnds::ChemicalElement>("chemicalElement")
       ;
@@ -39,6 +42,9 @@ class ChemicalElements : public Component<gnds::ChemicalElements> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<gnds::ChemicalElement>> chemicalElement{this};
@@ -48,6 +54,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->chemicalElement)
 
    // default
@@ -77,6 +84,7 @@ public:
    // copy
    ChemicalElements(const ChemicalElements &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       chemicalElement(this,other.chemicalElement)
    {
       Component::finish(other);
@@ -85,6 +93,7 @@ public:
    // move
    ChemicalElements(ChemicalElements &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       chemicalElement(this,std::move(other.chemicalElement))
    {
       Component::finish(other);
