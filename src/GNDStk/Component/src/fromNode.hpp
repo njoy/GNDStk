@@ -48,7 +48,7 @@ void transferChild(
       // Derives from Component, so we know that it has, via Component,
       // a .read(node) function, which should be most efficient to use
       // for "conversion" of the Node to a Foo.
-      node.child(to, key/[](const Node &node, DEST &to) { to.read(node); });
+      node.child(to, key/[](const Node &n, DEST &to) { to.read(n); });
 
    } else if constexpr (detail::isOptional<DEST>) {
       using OPT = typename DEST::value_type; // type the optional may contain
@@ -59,7 +59,7 @@ void transferChild(
             // *** optional<vector<Foo>>
             if (!to.has_value())
                to = OPT{};
-            node.child(to, key/[](const Node &node, ELEM &e) { e.read(node); });
+            node.child(to, key/[](const Node &n, ELEM &e) { e.read(n); });
          } else {
             // *** optional<vector<Bar>>
             node.child(to, key);
@@ -67,7 +67,7 @@ void transferChild(
       } else {
          if constexpr (detail::isDerivedFromComponent<OPT>::value) {
             // *** optional<Foo>
-            node.child(to, key/[](const Node &node, OPT &to) { to.read(node); });
+            node.child(to, key/[](const Node &n, OPT &to) { to.read(n); });
          } else {
             // *** optional<Bar>
             node.child(to, key);
@@ -77,7 +77,7 @@ void transferChild(
       using ELEM = typename DEST::value_type; // vector element type
       if constexpr (detail::isDerivedFromComponent<ELEM>::value) {
          // *** vector<Foo>
-         node.child(to, key/[](const Node &node, ELEM &e) { e.read(node); });
+         node.child(to, key/[](const Node &n, ELEM &e) { e.read(n); });
       } else {
          // *** vector<Bar>
          node.child(to, key);

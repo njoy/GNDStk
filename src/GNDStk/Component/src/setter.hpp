@@ -8,7 +8,7 @@ template<
       std::is_constructible_v<T,FROM> || std::is_convertible_v<FROM,T>
    >
 >
-void setter(std::vector<T> &vec, const FROM &value)
+static void setter(std::vector<T> &vec, const FROM &value)
 {
    vec.push_back(value);
 }
@@ -21,7 +21,7 @@ template<
       std::is_constructible_v<T,FROM> || std::is_convertible_v<FROM,T>
    >
 >
-void setter(std::optional<std::vector<T>> &opt, const FROM &value)
+static void setter(std::optional<std::vector<T>> &opt, const FROM &value)
 {
    if (!opt.has_value())
       opt = std::vector<T>{};

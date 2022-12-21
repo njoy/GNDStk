@@ -147,10 +147,13 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
             }
          } else {
             beginsin(key,special::data)
-          ? node.add(special::data   ).add(special::text, json_array(val))
+          ? node.add(special::data   )
+               .add(special::text, json_array(val))
           : beginsin(key,special::cdata)
-          ? node.add(special::cdata  ).add(special::text, val.get<std::string>())
-          : node.add(special::comment).add(special::text, val.get<std::string>());
+          ? node.add(special::cdata  )
+               .add(special::text, val.get<std::string>())
+          : node.add(special::comment)
+               .add(special::text, val.get<std::string>());
          }
       } else if (endsin(key,special::nodename) ||
                  endsin(key,special::metadata)) {

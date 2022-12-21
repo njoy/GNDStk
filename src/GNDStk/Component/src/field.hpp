@@ -97,7 +97,7 @@ public:
    // class - say, Element - that contains a vector of isotopes, and that
    // the Isotope class contains an integer metadatum called mass_number.)
    // Note: the SFINAE is such that this function is enabled iff a call to
-   // operator()(key) of the present class would be valid, and return bool.
+   // operator()(key) of the present class would be valid and return bool.
    template<
       class KEY,
       class = std::enable_if_t<std::is_same_v<
@@ -146,7 +146,7 @@ public:
    const T &operator()() const { return wrappedValue; }
    T &operator()() { return wrappedValue; }
 
-   // index/label/Lookup, including Lookup<true> (via the "has" function)
+   // (index/label/Lookup), including Lookup<true> (via the "has" function)
    // If T == vector
    template<
       class KEY, class = detail::isSearchKey<KEY>,
@@ -161,6 +161,35 @@ public:
    >
    decltype(auto) operator()(const KEY &key)
       { return parent.getter(wrappedValue,key); }
+
+   // [index/label/Lookup]
+   // If T == vector
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   decltype(auto) operator[](const KEY &key) const
+      { return (*this)(key); }
+
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   decltype(auto) operator[](const KEY &key)
+      { return (*this)(key); }
+
+   // size()
+   // If T == vector
+   template<
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   std::size_t size() const
+   {
+      if constexpr (detail::isOptional<T>)
+         return wrappedValue.has_value() ? wrappedValue->size() : 0;
+      else
+         return wrappedValue.size();
+   }
 
    // ------------------------
    // Conversions
@@ -196,30 +225,44 @@ public:
    }
 
    // ------------------------
-   // Setters
+   // Setters: general
    // ------------------------
 
    // replace(T)
    // Replace existing value with another.
+   // Provides a "builder pattern" for DERIVED.
    DERIVED &replace(const T &val)
    {
       wrappedValue = val;
       return parent;
    }
 
+   // operator()(T)
+   // Provides a "builder pattern" for DERIVED. Note that no ambiguity should
+   // arise with Field<vector>'s operator() that accepts an index, a label, or
+   // a Lookup object, because the parameter here is also a T (and thus is a
+   // vector if we're in a Field<vector>).
    DERIVED &operator()(const T &val)
    {
       return replace(val);
    }
 
-   DERIVED &operator=(const T &val)
+   // operator=(T)
+   // Returns the left-hand side, as one would probably expect. For assignment,
+   // a builder pattern for DERIVED would just be goofy.
+   Field &operator=(const T &val)
    {
-      return replace(val);
+      return replace(val), *this;
    }
 
+   // ------------------------
+   // Setters: for Defaulted;
+   // remarks as above
+   // ------------------------
+
    // replace(optional)
-   // If T == Defaulted
    // Replace existing Defaulted's value with the given optional value.
+   // Provides a "builder pattern" for DERIVED.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
    {
@@ -227,46 +270,76 @@ public:
       return parent;
    }
 
+   // operator()(optional)
+   // As above.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    DERIVED &operator()(const std::optional<typename TEE::value_type> &opt)
    {
       return replace(opt);
    }
 
+   // operator=(optional)
+   // As above, except returns Field, as expected for assignment.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &operator=(const std::optional<typename TEE::value_type> &opt)
+   Field &operator=(const std::optional<typename TEE::value_type> &opt)
    {
-      return replace(opt);
+      return replace(opt), *this;
    }
+
+   // ------------------------
+   // Setters: add to vector
+   // ------------------------
 
    // add(element)
    // If T == [optional] vector
-   // Add (via push_back) to this->wrappedValue, which in this context
+   // Add (via push_back()) to this->wrappedValue, which in this context
    // is a vector.
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &add(
+   Field &add(
       const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
-      parent.setter(wrappedValue, elem);
-      return parent;
+      Component::setter(wrappedValue, elem);
+      return *this;
    }
 
+   // Here, we actually don't want an operator() that forwards to add(), like
+   // the operator()s that forwarded to replace() in earlier setters. Imagine
+   // that this Field wrapped, say, a vector<int>. If someone used the above
+   // add() function and wrote field.add(123), the meaning is clearly that 123
+   // is to be added (think push_back()) to the vector<int>. But if we allowed
+   // for an operator() that forwards to add(), and someone used it to write
+   // field(123), they *might* want 123 added to the vector - or they might
+   // be intending to retrieve vector[123]. In the *getter* functions defined
+   // earlier, note that we do indeed allow both operator() and operator[] for
+   // retrieving vector elements (by index, label, or Lookup object). I suppose
+   // we could allow only the operator[] form for getting, and then be able to
+   // have an operator() setter here, with the same meaning as add(). However,
+   // we believe that the getter's use of the operator() in question provides
+   // for the better and more-expected meaning.
+
+   // operator+=(element)
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &operator()(
+   Field &operator+=(
       const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
    ) {
       return add(elem);
    }
 
-   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &operator+=(
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &elem
-   ) {
-      return add(elem);
-   }
+   // ------------------------
+   // Setters: for vector or
+   // optional vector, replace
+   // an element
+   // ------------------------
+
+   // The following may not see too much use. They mostly have the same effect
+   // as indexing into the vector and then doing an assignment. The difference
+   // is that these functions endow the operation with a "builder pattern" for
+   // DERIVED, and in that respect are analogous to replace(T) and operator()(T)
+   // as defined earlier. Indexing+assignment, in contrast, returns a reference
+   // to the assignment's left-hand side (as one would expect from assignment),
+   // which is the current Field, not its parent DERIVED.
 
    // replace(index/label/Lookup, element)
-   // If T == [optional] vector
    // Find the vector's element that has the given index, label, or Lookup,
    // and replace it with the given replacement element.
    template<
@@ -281,6 +354,7 @@ public:
       return parent;
    }
 
+   // operator()(index/label/Lookup, element)
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
@@ -537,7 +611,7 @@ public:
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
    }
 
-   // index/label/Lookup, including Lookup<true> (via the "has" function)
+   // (index/label/Lookup), including Lookup<true> (via the "has" function)
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>
@@ -573,6 +647,31 @@ public:
       }
    }
 
+   // [index/label/Lookup]
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   decltype(auto) operator[](const KEY &key) const
+      { return (*this)(key); }
+
+   template<
+      class KEY, class = detail::isSearchKey<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   decltype(auto) operator[](const KEY &key)
+      { return (*this)(key); }
+
+   // size()
+   // If T == vector
+   template<
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   std::size_t size() const
+   {
+      return whole.size();
+   }
+
    // ------------------------
    // Setters
    // ------------------------
@@ -586,33 +685,30 @@ public:
       return whole.parent;
    }
 
+   // operator()(value)
    template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
    DERIVED &operator()(const std::optional<PART> &opt)
    {
       return replace(opt);
    }
 
+   // operator=(value)
    template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
-   DERIVED &operator=(const std::optional<PART> &opt)
+   FieldPart &operator=(const std::optional<PART> &opt)
    {
-      return replace(opt);
+      return replace(opt), *this;
    }
 
    // add(value)
    // If WHOLE == vector
    template<class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &add(const std::optional<PART> &opt)
+   FieldPart &add(const std::optional<PART> &opt)
    {
       if (opt) whole.add(opt.value());
-      return whole.parent;
+      return *this;
    }
 
-   template<class T = WHOLE, std::enable_if_t<detail::isVector_v<T>, int> = 0>
-   DERIVED &operator()(const std::optional<PART> &opt)
-   {
-      return add(opt);
-   }
-
+   // operator+=(value)
    template<class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &operator+=(const std::optional<PART> &opt)
    {
@@ -621,8 +717,6 @@ public:
 
    // replace(index/label/Lookup, element)
    // If WHOLE == vector
-   // Find the vector's element that has the given index, label, or Lookup,
-   // and replace it with the given replacement value.
    template<
       class KEY, class = detail::isSearchKeyRefReturn<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>

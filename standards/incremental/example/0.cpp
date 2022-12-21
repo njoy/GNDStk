@@ -42,10 +42,14 @@ int main(const int argc, const char *const *const argv)
    for (int n = 1; n < argc; ++n) {
       const std::string filename = argv[n];
       std::cout << "\nFile: \"" << filename << '"' << std::endl;
+      print();
 
       gnds::PoPs pops;
-      for (int n = 0; n < 100000; ++n)
-         pops.read(filename);
+      pops.read(filename);
+      ///pops.print(); // Component's prettyprinting
+      ///pops.write(); // Internal debug format :-/
+      pops.xml();
+      print();
    }
 
 #if 0

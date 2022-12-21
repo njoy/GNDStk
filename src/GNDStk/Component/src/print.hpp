@@ -207,3 +207,31 @@ DERIVED &print(std::ostream &os = std::cout)
    print(os,0) << std::endl;
    return *static_cast<DERIVED *>(this);
 }
+
+
+// -----------------------------------------------------------------------------
+// Component::xml()
+// Component::json()
+// Component::hdf5()
+//
+// Shortcuts: like write(), but (1) in the given format, (2) to std::cout
+// by default, and (3) with the trailing newline, print()-style.
+// -----------------------------------------------------------------------------
+
+// xml
+std::ostream &xml(std::ostream &os = std::cout, const bool decl = false) const
+{
+   return write(os, "xml", decl) << std::endl, os;
+}
+
+// json
+std::ostream &json(std::ostream &os = std::cout, const bool decl = false) const
+{
+   return write(os, "json", decl) << std::endl, os;
+}
+
+// hdf5
+std::ostream &hdf5(std::ostream &os = std::cout, const bool decl = false) const
+{
+   return write(os, "hdf5", decl) << std::endl, os;
+}

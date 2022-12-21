@@ -517,7 +517,10 @@ HANDLE getByMetadatum(
 }
 
 // setByMetadatum
-template<class CPP, class CLASS, class C, class EXTRACT, class META, class V, class T>
+template<
+   class CPP, class CLASS, class C,
+   class EXTRACT, class META, class V, class T
+>
 void setByMetadatum(
    const std::string &classname,
    const std::string &funname,

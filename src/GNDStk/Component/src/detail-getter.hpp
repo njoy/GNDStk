@@ -79,6 +79,7 @@ const T &getter(
          // !hasIndex<T>
          // No "index" is anywhere to be found in T. Here, then, we interpret
          // this function's index parameter to be a C++ vector [index].
+         // zzz Really need to rethink "index" and "label" interpretations.
          if (index < vec.size())
             return vec[index];
 
@@ -254,7 +255,8 @@ const T &getter(
                  "Keeping the first element that was found.",
                   look.name, look.placeholder
                );
-               log::member(context, nname, cname, fname, look.name, look.placeholder);
+               log::member(context, nname, cname, fname, look.name,
+                           look.placeholder);
             } else
                object = ptr;
          }
