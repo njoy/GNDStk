@@ -1,0 +1,239 @@
+{
+    "namespace": "gnds",
+
+    "PoPs": {
+        "metadata": {
+            "name": {
+                "required": true,
+                "type": "string"
+            },
+            "version": {
+                "required": true,
+                "type": "string"
+            },
+            "format": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "chemicalElements": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "styles": {
+        "children": {
+            "evaluated": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "evaluated": {
+        "metadata": {
+            "label": {
+                "required": true,
+                "type": "string"
+            },
+            "date": {
+                "required": true,
+                "type": "string"
+            },
+            "library": {
+                "required": true,
+                "type": "string"
+            },
+            "version": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "documentation": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "documentation": {
+        "children": {
+            "authors": {
+                "times": "1",
+                "required": true
+            },
+            "dates": {
+                "times": "1",
+                "required": true
+            },
+            "title": {
+                "times": "1",
+                "required": true
+            },
+            "body": {
+                "times": "1",
+                "required": true
+            },
+            "endfCompatible": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "authors": {
+        "children": {
+            "author": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "author": {
+        "metadata": {
+            "name": {
+                "required": true,
+                "type": "string"
+            }
+        }
+    },
+
+    "dates": {
+        "children": {
+            "date": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "date": {
+        "metadata": {
+            "value": {
+                "required": true,
+                "remark": "type changes to (std::)string via changes.json...",
+                "type": "date"
+            },
+            "dateType": {
+                "required": true,
+                "type": "dateType"
+            }
+        }
+    },
+
+    "title": {
+        "vector": ""
+    },
+
+    "body": {
+        "vector": ""
+    },
+
+    "endfCompatible": {
+        "vector": ""
+    },
+
+    "chemicalElements": {
+        "children": {
+            "chemicalElement": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "chemicalElement": {
+        "metadata": {
+            "symbol": {
+                "required": true,
+                "type": "string"
+            },
+            "Z": {
+                "required": true,
+                "type": "int"
+            },
+            "name": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "atomic": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "atomic": {
+        "children": {
+            "configurations": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "configurations": {
+        "children": {
+            "configuration": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "configuration": {
+        "metadata": {
+            "subshell": {
+                "required": true,
+                "type": "string"
+            },
+            "electronNumber": {
+                "required": true,
+                "type": "string"
+            }
+        },
+        "children": {
+            "bindingEnergy": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "bindingEnergy": {
+        "children": {
+            "double": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "double": {
+        "metadata": {
+            "label": {
+                "required": true,
+                "type": "string"
+            },
+            "value": {
+                "required": true,
+                "type": "double"
+            },
+            "unit": {
+                "required": true,
+                "type": "string"
+            }
+        }
+    }
+}

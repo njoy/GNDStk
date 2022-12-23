@@ -1,0 +1,121 @@
+
+#include "catch.hpp"
+#include "GNDStk.hpp"
+
+using namespace njoy::GNDStk;
+
+// -----------------------------------------------------------------------------
+// Scenario
+// -----------------------------------------------------------------------------
+
+SCENARIO("BlockData data types") {
+   GIVEN("std::vector<T> for certain specific Ts") {
+
+      WHEN("Via BlockData, we make variants of vectors and of scalars") {
+         // vector type
+         using vv = BlockData<true,void>::VariantOfVectors;
+         THEN("The variant-of-vector size should be correct") {
+            CHECK(std::variant_size_v<vv> == 15);
+         }
+         vv vectors;
+
+         // scalar type
+         using vs = BlockData<true,void>::VariantOfScalars;
+         THEN("The variant-of-scalar size should be correct") {
+            CHECK(std::variant_size_v<vv> == 15);
+         }
+         vs scalars;
+
+         THEN("Transforming to vector<string>, and access, work") {
+            vectors = std::vector<std::string>(10,"a");
+            scalars = std::get<std::vector<std::string>>(vectors)[0];
+            CHECK(std::get<std::string>(scalars) == "a");
+         }
+
+         THEN("Transforming to vector<char>, and access, work") {
+            vectors = std::vector<char>(10,'b');
+            scalars = std::get<std::vector<char>>(vectors)[0];
+            CHECK(std::get<char>(scalars) == 'b');
+         }
+
+         THEN("Transforming to vector<signed char>, and access, work") {
+            vectors = std::vector<signed char>(10,-100);
+            scalars = std::get<std::vector<signed char>>(vectors)[0];
+            CHECK(std::get<signed char>(scalars) == -100);
+         }
+
+         THEN("Transforming to vector<short>, and access, work") {
+            vectors = std::vector<short>(10,-200);
+            scalars = std::get<std::vector<short>>(vectors)[0];
+            CHECK(std::get<short>(scalars) == -200);
+         }
+
+         THEN("Transforming to vector<int>, and access, work") {
+            vectors = std::vector<int>(10,-300);
+            scalars = std::get<std::vector<int>>(vectors)[0];
+            CHECK(std::get<int>(scalars) == -300);
+         }
+
+         THEN("Transforming to vector<long>, and access, work") {
+            vectors = std::vector<long>(10,-400);
+            scalars = std::get<std::vector<long>>(vectors)[0];
+            CHECK(std::get<long>(scalars) == -400);
+         }
+
+         THEN("Transforming to vector<long long>, and access, work") {
+            vectors = std::vector<long long>(10,-500);
+            scalars = std::get<std::vector<long long>>(vectors)[0];
+            CHECK(std::get<long long>(scalars) == -500);
+         }
+
+         THEN("Transforming to vector<unsigned char>, and access, work") {
+            vectors = std::vector<unsigned char>(10,100);
+            scalars = std::get<std::vector<unsigned char>>(vectors)[0];
+            CHECK(std::get<unsigned char>(scalars) == 100);
+         }
+
+         THEN("Transforming to vector<unsigned short>, and access, work") {
+            vectors = std::vector<unsigned short>(10,200);
+            scalars = std::get<std::vector<unsigned short>>(vectors)[0];
+            CHECK(std::get<unsigned short>(scalars) == 200);
+         }
+
+         THEN("Transforming to vector<unsigned>, and access, work") {
+            vectors = std::vector<unsigned>(10,300);
+            scalars = std::get<std::vector<unsigned>>(vectors)[0];
+            CHECK(std::get<unsigned>(scalars) == 300);
+         }
+
+         THEN("Transforming to vector<unsigned long>, and access, work") {
+            vectors = std::vector<unsigned long>(10,400);
+            scalars = std::get<std::vector<unsigned long>>(vectors)[0];
+            CHECK(std::get<unsigned long>(scalars) == 400);
+         }
+
+         THEN("Transforming to vector<unsigned long long>, and access, work") {
+            vectors = std::vector<unsigned long long>(10,500);
+            scalars = std::get<std::vector<unsigned long long>>(vectors)[0];
+            CHECK(std::get<unsigned long long>(scalars) == 500);
+         }
+
+         THEN("Transforming to vector<float>, and access, work") {
+            vectors = std::vector<float>(10,-1.2f);
+            scalars = std::get<std::vector<float>>(vectors)[0];
+            CHECK(std::get<float>(scalars) == -1.2f);
+         }
+
+         THEN("Transforming to vector<double>, and access, work") {
+            vectors = std::vector<double>(10,3.4);
+            scalars = std::get<std::vector<double>>(vectors)[0];
+            CHECK(std::get<double>(scalars) == 3.4);
+         }
+
+         THEN("Transforming to vector<long double>, and access, work") {
+            vectors = std::vector<long double>(10,-5.6);
+            scalars = std::get<std::vector<long double>>(vectors)[0];
+            CHECK(std::get<long double>(scalars) == -5.6);
+         }
+      } // WHEN
+
+   } // GIVEN
+} // SCENARIO

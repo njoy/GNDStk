@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 using namespace njoy::GNDStk;
 
 
@@ -257,20 +258,21 @@ R"***(1e-05
 
 // -----------------------------------------------------------------------------
 // Scenario
+// Test operator() cases; except multi-queries are in another scenario.
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk Node operator()") {
+SCENARIO("Testing GNDStk::Node's operator()") {
 
    // tree
    Tree tree("n-008_O_016.xml");
 
    // Child objects with Allow::one
-   auto temperature = keyword.child<temperature_t,Allow::one>("temperature");
-   auto styles = keyword.child<void,Allow::one>("styles");
+   auto temperature = Child<temperature_t,Allow::one>("temperature");
+   auto styles = Child<void,Allow::one>("styles");
 
    // Child objects with Allow::many
-   auto isotope = keyword.child<isotope_t,Allow::many>("isotope");
-   auto isotope_node = keyword.child<void,Allow::many>("isotope");
+   auto isotope = Child<isotope_t,Allow::many>("isotope");
+   auto isotope_node = Child<void,Allow::many>("isotope");
 
    GIVEN("The top-level node from a tree object") {
 
@@ -977,4 +979,309 @@ SCENARIO("Testing GNDStk Node operator()") {
 
       CHECK(oss.str() == numeric_string);
    } // GIVEN
+}
+
+
+// -----------------------------------------------------------------------------
+// Scenario
+// Test multi-query operator().
+// -----------------------------------------------------------------------------
+
+// test string
+static const std::string xmlstring =
+R"***(
+<foo a="123" b="4.56">
+   <bar label="xyz" x="one"   y="two"  z="1"  ></bar>
+   <bar label="zyx" x="three" y="four" z="2"  ></bar>
+   <baz label="ijk" i="eye"   j="jay"  k="kay"></baz>
+   <baz label="lmn" l="ell"   m="m"    n="n"  ></baz>
+   <boo label="jane" a="321"/>
+   <boo label="john" b="6.54"/>
+</foo>
+)***";
+
+// SCENARIO
+SCENARIO("Testing GNDStk::Node's operator() for multi-queries") {
+
+   // A Node
+   Node node;
+   node << xmlstring;
+   std::cout << node << std::endl;
+
+   // Meta objects
+   const Meta<int> a("a");
+   const Meta<double> b("b");
+   const Meta<std::string> label("label");
+   const Meta<std::string> x("x");
+   const Meta<std::string> y("y");
+   const Meta<int> z("z");
+   const Meta<std::string> i("i");
+   const Meta<std::string> j("j");
+   const Meta<std::string> k("k");
+   const Meta<std::string> l("l");
+   const Meta<char> m("m");
+   const Meta<char> n("n");
+
+   // Child objects
+   const Child<> bar("bar");
+   const Child<> baz("baz");
+   const Child<> boo("boo");
+
+   /*
+   ------------------------------------+------------------------------------
+   Meta/Child | Meta/Child             |
+   a. Meta  | Meta                     |  KeyTuple<Meta,Meta>
+   b. Meta  | Child                    |  KeyTuple<Meta,Child>
+   c. Child | Meta                     |  KeyTuple<Child,Meta>
+   d. Child | Child                    |  KeyTuple<Child,Child>
+   ------------------------------------+------------------------------------
+   Child | string/regex                |
+   a. Child | string                   |  KeyTuple<pair<Child,string>>
+   b. Child | char *                   |  KeyTuple<pair<Child,string>>
+   c. Child | regex                    |  KeyTuple<pair<Child,regex>>
+   ------------------------------------+------------------------------------
+   KeyTuple<...> | Meta/Child          |
+   a. KeyTuple<...> | Meta             |  KeyTuple<...,Meta>
+   b. KeyTuple<...> | Child            |  KeyTuple<...,Child>
+   ------------------------------------+------------------------------------
+   KeyTuple<...,Child> | string/regex  |
+   a. KeyTuple<...,Child> | string     |  KeyTuple<...,pair<Child,string>>
+   b. KeyTuple<...,Child> | char *     |  KeyTuple<...,pair<Child,string>>
+   c. KeyTuple<...,Child> | regex      |  KeyTuple<...,pair<Child,regex>>
+   ------------------------------------+------------------------------------
+   */
+
+   // ------------------------
+   // or.hpp operator|, case 1
+   // ------------------------
+
+   GIVEN("Meta | Meta")
+   {
+      const auto tup = node(a | b);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup) == 123);
+      CHECK(std::get<1>(tup) == 4.56);
+   }
+
+   GIVEN("Meta | Child")
+   {
+      const auto tup = node(a | bar);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup) == 123);
+      CHECK(std::get<1>(tup).name == "bar");
+   }
+
+   GIVEN("Child | Meta")
+   {
+      const auto tup = node(bar | a);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "bar");
+      CHECK(std::get<1>(tup) == 123);
+   }
+
+   GIVEN("Child | Child")
+   {
+      const auto tup = node(bar | baz);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "bar");
+      CHECK(std::get<1>(tup).name == "baz");
+   }
+
+   // ------------------------
+   // or.hpp operator|, case 2
+   // ------------------------
+
+   GIVEN("Child | string")
+   {
+      const auto tup = node(bar | std::string("xyz"));
+      CHECK(std::tuple_size_v<decltype(tup)> == 1);
+      CHECK(std::get<0>(tup).name == "bar");
+      CHECK(std::get<0>(tup)(label) == "xyz");
+   }
+
+   GIVEN("Child | char *")
+   {
+      const auto tup = node(baz | "lmn");
+      CHECK(std::tuple_size_v<decltype(tup)> == 1);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "lmn");
+   }
+
+   GIVEN("Child | regex")
+   {
+      const auto tup = node(boo | std::regex("j[au]ne"));
+      CHECK(std::tuple_size_v<decltype(tup)> == 1);
+      CHECK(std::get<0>(tup).name == "boo");
+      CHECK(std::get<0>(tup)(label) == "jane");
+   }
+
+   // ------------------------
+   // or.hpp operator|, case 3
+   // ------------------------
+
+   GIVEN("KeyTuple<...> | Meta")
+   {
+      const auto tup = node(a | b | a);
+      CHECK(std::tuple_size_v<decltype(tup)> == 3);
+      CHECK(std::get<0>(tup) == 123);
+      CHECK(std::get<1>(tup) == 4.56);
+      CHECK(std::get<2>(tup) == 123);
+   }
+
+   GIVEN("KeyTuple<...> | Child")
+   {
+      const auto tup = node(a | b | bar);
+      CHECK(std::tuple_size_v<decltype(tup)> == 3);
+      CHECK(std::get<0>(tup) == 123);
+      CHECK(std::get<1>(tup) == 4.56);
+      CHECK(std::get<2>(tup).name == "bar");
+   }
+
+   GIVEN("KeyTuple<...,pair<Child,string>> | Meta")
+   {
+      const auto tup = node(baz | std::string("ijk") | a);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "ijk");
+      CHECK(std::get<1>(tup) == 123);
+   }
+
+   GIVEN("KeyTuple<...,pair<Child,char *>> | Meta")
+   {
+      const auto tup = node(baz | "lmn" | a);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "lmn");
+      CHECK(std::get<0>(tup)(m) == 'm');
+      CHECK(std::get<0>(tup)(n) == 'n');
+      CHECK(std::get<1>(tup) == 123);
+   }
+
+   GIVEN("KeyTuple<...,pair<Child,regex>> | Meta")
+   {
+      const auto tup = node(baz | std::regex("[kji]+") | a);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "ijk");
+      CHECK(std::get<1>(tup) == 123);
+   }
+
+   GIVEN("KeyTuple<...,pair<Child,string>> | Child")
+   {
+      const auto tup = node(baz | std::string("ijk") | bar);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "ijk");
+      CHECK(std::get<1>(tup).name == "bar");
+   }
+
+   GIVEN("KeyTuple<...,pair<Child,char *>> | Child")
+   {
+      const auto tup = node(baz | "lmn" | bar);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "lmn");
+      CHECK(std::get<1>(tup).name == "bar");
+   }
+
+   GIVEN("KeyTuple<...,pair<Child,regex>> | Child")
+   {
+      const auto tup = node(baz | std::regex("[kji]+") | bar);
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "baz");
+      CHECK(std::get<0>(tup)(label) == "ijk");
+      CHECK(std::get<1>(tup).name == "bar");
+   }
+
+   // ------------------------
+   // or.hpp operator|, case 4
+   // ------------------------
+
+   GIVEN("KeyTuple<...,Child> | string")
+   {
+      const auto tup = node(bar | baz | std::string("ijk"));
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "bar");
+      CHECK(std::get<1>(tup).name == "baz");
+      CHECK(std::get<1>(tup)(label) == "ijk");
+   }
+
+   GIVEN("KeyTuple<...,Child> | char *")
+   {
+      const auto tup = node(bar | baz | "lmn");
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "bar");
+      CHECK(std::get<1>(tup).name == "baz");
+      CHECK(std::get<1>(tup)(label) == "lmn");
+   }
+
+   GIVEN("KeyTuple<...,Child> | regex")
+   {
+      const auto tup = node(bar | baz | std::regex("[kji]+"));
+      CHECK(std::tuple_size_v<decltype(tup)> == 2);
+      CHECK(std::get<0>(tup).name == "bar");
+      CHECK(std::get<1>(tup).name == "baz");
+      CHECK(std::get<1>(tup)(label) == "ijk");
+   }
+
+   // ------------------------
+   // Miscellaneous fun stuff
+   // ------------------------
+
+   GIVEN("Various multi-queries")
+   {
+      {
+         const auto tup = node(a | b | bar | baz | boo);
+         CHECK(std::tuple_size_v<decltype(tup)> == 5);
+         CHECK(std::get<0>(tup) == 123);
+         CHECK(std::get<1>(tup) == 4.56);
+         CHECK(std::get<2>(tup).name == "bar");
+         CHECK(std::get<3>(tup).name == "baz");
+         CHECK(std::get<4>(tup).name == "boo");
+      }
+      {
+         const auto tup = node(bar,"xyz")(label | x | y | z);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
+         CHECK(std::get<0>(tup) == "xyz");
+         CHECK(std::get<1>(tup) == "one");
+         CHECK(std::get<2>(tup) == "two");
+         CHECK(std::get<3>(tup) == 1);
+      }
+      {
+         const auto tup = node(bar,"zyx")(label | x | y | z);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
+         CHECK(std::get<0>(tup) == "zyx");
+         CHECK(std::get<1>(tup) == "three");
+         CHECK(std::get<2>(tup) == "four");
+         CHECK(std::get<3>(tup) == 2);
+      }
+      {
+         const auto tup = node(baz,"ijk")(label | i | j | k);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
+         CHECK(std::get<0>(tup) == "ijk");
+         CHECK(std::get<1>(tup) == "eye");
+         CHECK(std::get<2>(tup) == "jay");
+         CHECK(std::get<3>(tup) == "kay");
+      }
+      {
+         const auto tup = node(baz,"lmn")(label | l | m | n);
+         CHECK(std::tuple_size_v<decltype(tup)> == 4);
+         CHECK(std::get<0>(tup) == "lmn");
+         CHECK(std::get<1>(tup) == "ell");
+         CHECK(std::get<2>(tup) == 'm');
+         CHECK(std::get<3>(tup) == 'n');
+      }
+      {
+         const auto tup = node(boo,"jane")(label | a);
+         CHECK(std::tuple_size_v<decltype(tup)> == 2);
+         CHECK(std::get<0>(tup) == "jane");
+         CHECK(std::get<1>(tup) == 321);
+      }
+      {
+         const auto tup = node(boo,"john")(label | b);
+         CHECK(std::tuple_size_v<decltype(tup)> == 2);
+         CHECK(std::get<0>(tup) == "john");
+         CHECK(std::get<1>(tup) == 6.54);
+      }
+   }
 }

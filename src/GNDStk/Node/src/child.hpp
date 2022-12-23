@@ -66,7 +66,10 @@ child(
 
 private:
 
-template<std::size_t n, std::size_t size, class KWD, class... Ts>
+template<
+   std::size_t n, std::size_t size,
+   class KWD, class... Ts
+>
 void variant_find_one(
    const KWD &kwd,
    const std::vector<std::string> &names,
@@ -79,7 +82,7 @@ void variant_find_one(
       bool f = false; // local "found"
       const Node &node = one(names[n], kwd.filter, f);
 
-      if (f) { // if one() found anything for the <n> alternative
+      if (f) { // if one() found anything for the <n>th alternative...
          if (found) // if already global "found", then warning...
          {
             // The situation here is as follows. In the present context, we're
@@ -122,7 +125,7 @@ void variant_find_one(
             );
          } else { // not already global "found"...
             // convert the Node to an object of the n-th variant alternative
-            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            static std::variant_alternative_t<n,std::variant<Ts...>> alt;
             kwd.converter(node,alt);
             var = alt;
             selectedAlternative = n;
@@ -156,37 +159,22 @@ public:
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-TYPE
-child(
+void child(
+   TYPE &existing,
    const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      TYPE obj = kwd.object;
-
       if constexpr (detail::isVariant<TYPE>::value) {
-         // ------------------------
-         // variant obj
-         // ------------------------
-
-         const auto names = detail::name_split(kwd);
-         found = false;
-         variant_find_one<0,std::variant_size_v<TYPE>>(kwd,names,found,obj,0);
-
+         // TYPE: variant
+         variant_find_one<0,std::variant_size_v<TYPE>>(
+            kwd, detail::name_split(kwd), found = false, existing, 0);
       } else {
-         // ------------------------
-         // non-variant obj
-         // ------------------------
-
-         // call one(string), with the Child's key
+         // TYPE: not variant
          const Node &node = one(kwd.name, kwd.filter, found);
-         // convert the node, if found, to an object of the appropriate type
          if (found)
-            kwd.converter(node,obj);
+            kwd.converter(node,existing);
       }
-
-      return obj;
-
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -199,18 +187,22 @@ child(
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-std::optional<TYPE>
-child(
+void child(
+   std::optional<TYPE> &existing,
    const Child<std::optional<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      // Comments as in the meta() analog of this child() function
+      // Remarks as in the meta() analog of this child() function
       bool f;
-      const TYPE obj =
-         child((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
+      // todo Could perhaps make more efficient if (existing.has_value())...
+      TYPE obj;
+      child(obj, obj/kwd, f);
+      if (f)
+         existing = obj;
+      else
+         existing = std::nullopt;
       found = true;
-      return f ? std::optional<TYPE>(obj) : std::nullopt;
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -223,18 +215,21 @@ child(
 // ------------------------
 
 template<class TYPE, class CONVERTER, class FILTER>
-Defaulted<TYPE>
-child(
+void child(
+   Defaulted<TYPE> &existing,
    const Child<Defaulted<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
+      // Remarks as with those for std::optional above
       bool f;
-      const TYPE obj = child(kwd.object.value()/kwd, f);
+      TYPE obj;
+      child(obj, obj/kwd, f);
+      if (f)
+         existing = obj;
+      else
+         existing.reset();
       found = true;
-      return f
-         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
-         : Defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -247,22 +242,22 @@ child(
 // ------------------------
 
 // With caller-specified type
-template<class TYPE, class... Ts, class CONVERTER, class FILTER>
-std::enable_if_t<
-   detail::isAlternativeOrTheVariant<TYPE,std::variant<Ts...>>,
-   TYPE
-> child(
+template<
+   class TYPE, class... Ts, class CONVERTER, class FILTER,
+   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+>
+void child(
+   TYPE &existing,
    const Child<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const auto ptr = std::get_if<TYPE>(&kwd.object);
-   return child((ptr ? *ptr : TYPE{})/kwd, found);
+   child(existing, existing/kwd, found);
 }
 
 
 
 // -----------------------------------------------------------------------------
-// child(Child<TYPE,many>[,found])
+// child(Child<TYPE,many,...>[,found])
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -279,10 +274,10 @@ template<
 >
 bool variant_find_many(
    const Node &c, // child node from loop in caller
-   CONTAINER<std::variant<Ts...>> &container,
    const KWD &kwd,
    const std::vector<std::string> &names,
    bool &found,
+   CONTAINER<std::variant<Ts...>> &containervar,
    std::size_t selectedAlternative
 ) const {
    if constexpr (n < size) {
@@ -295,9 +290,9 @@ bool variant_find_many(
             // and expected that multiple matches may occur. Bear in mind, then,
             // that the following message does not (and should not) warn about
             // multiple matching child nodes. Rather, the warning relates to the
-            // situation of the current child node (c) matching against multiple
+            // situation of the current child node, c, matching against multiple
             // different alternatives in the std::variant. This shouldn't happen
-            // if the names[n] (the whitespace-separated names we obtained from
+            // if the names[*] (the whitespace-separated names we obtained from
             // kwd.name) are distinct. However: (1) a user could make a mistake
             // in that regard; and (2) as elsewhere, we do a regex match, which
             // could concievably lead to multiple matches if the regexes aren't
@@ -316,7 +311,7 @@ bool variant_find_many(
                   : ""
                ) +
                "Keeping the position <{}> \"{}\" variant alternative.\n",
-               c.name, // current node's name
+               c.name, // current Node's name
                selectedAlternative, names[selectedAlternative], // already
                kwd.name,
                n, names[n], // new one
@@ -330,17 +325,17 @@ bool variant_find_many(
          } else {
             // not (found)
             // convert the Node to an object of the n-th variant alternative
-            std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            static std::variant_alternative_t<n,std::variant<Ts...>> alt;
             kwd.converter(c,alt);
-            container.push_back(alt);
+            containervar.push_back(alt);
             selectedAlternative = n;
             found = true;
          }
       } // if regex_match + filter
 
-      // Proceed to the next alternative in the variant
+      // Proceed to the next alternative in the variant.
       return variant_find_many<n+1,size>
-         (c, container, kwd, names, found, selectedAlternative);
+         (c, kwd, names, found, containervar, selectedAlternative);
    } // if constexpr (n < size)
 
    return found;
@@ -354,57 +349,59 @@ public:
 // ------------------------
 
 template<
-   template<class...> class CONTAINER = std::vector,
+   template<class...> class CONTAINER,
    class TYPE, class CONVERTER, class FILTER
 >
-CONTAINER<TYPE>
-child(
+void child(
+   CONTAINER<TYPE> &existing,
    const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   // container
-   CONTAINER<TYPE> container;
+   existing.clear();
    found = false;
 
    try {
 
       if constexpr (detail::isVariant<TYPE>::value) {
          // ------------------------
-         // variant obj
+         // TYPE: variant
          // ------------------------
 
          const auto names = detail::name_split(kwd);
          for (auto &c : children) {
             bool f = false; // per-child "found", over variant alternatives
             if (variant_find_many<0,std::variant_size_v<TYPE>>
-                (*c, container, kwd, names, f, 0))
+                (*c, kwd, names, f, existing, 0))
                found = true;
          }
 
       } else {
          // ------------------------
-         // non-variant obj
+         // TYPE: not variant
          // ------------------------
 
          // ""
-         // meaning: return a container with the converted-to-TYPE current Node
+         // meaning: get the converted-to-TYPE current Node
          if (kwd.name == "") {
-            TYPE obj = kwd.object;
-            kwd.converter(*this,obj);
-            container.push_back(obj);
+            existing.push_back(detail::make_once<TYPE>());
+            kwd.converter(*this,existing.back());
             found = true;
          } else {
+            // prepare container
+            // todo maybe do something similar for the variant case, above
+            existing.reserve(count(kwd));
+
             // search in the current Node's children
-            for (auto &c : children)
+            for (auto &c : children) {
                if (std::regex_match(c->name, std::regex(kwd.name)) &&
                    kwd.filter(*c)
                ) {
-                  // convert *c to an object of the appropriate type
-                  TYPE obj = kwd.object;
-                  kwd.converter(*c,obj);
-                  container.push_back(obj);
+                  // convert Node *c to an object of the appropriate type
+                  existing.push_back(detail::make_once<TYPE>());
+                  kwd.converter(*c,existing.back());
                   found = true;
                }
+            }
          }
       }
 
@@ -412,9 +409,6 @@ child(
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
    }
-
-   // done
-   return container;
 }
 
 
@@ -423,49 +417,52 @@ child(
 // ------------------------
 
 // With an Allow::many Child, as we have here, it's permissible (without an
-// exception being thrown) to extract any number of values - including none -
+// exception being thrown) to extract any number of values - including zero -
 // into the container. In some sense, then, Allow::many means it's optional
 // to have *any* matching values. So the question is: how should we handle
 // Child<std::optional<TYPE>,Allow::many>, given that two different "optional"
-// concepts are involved?
+// concepts are involved in that particular case?
 //
 // Creating a container<std::optional<TYPE>> wouldn't really make sense.
 // With a container of optionals, when, and from where, would any nullopt
 // values arise? We're filling the container with what we do find, in which
-// case there's no real meaning associated with any nullopt values.
+// case there's no real meaning associated with nullopt values.
 //
 // We could dispense with "optional" altogether, and return container<TYPE>,
 // with length 0 (i.e. no elements in the container) if no values are found.
 // That's arguably a resonable behavior, but is the same behavior we'd have
-// if the Child didn't have a std::optional type in the first place.
+// if the Child didn't have a std::optional TYPE in the first place.
 //
-// So, let's give the optional encoding (as in Child<std::optional<TYPE>>)
-// some meaning, in the following way. We'll return an optional container,
-// with no value (so that optional.has_value() == false) in the event that
-// the container would have no elements. Else, optional.has_value() will be
-// true, with a container that has >= 1 element.
+// So, let's give the Child<std::optional<TYPE>,Allow::many> situation some
+// meaning, in the following way. We'll return an optional container, with
+// no value (so that optional.has_value() == false) in the event that the
+// container would have no elements. Else, optional.has_value() will be true,
+// with a container that has >= 1 element.
 //
 // Consistent with the behavior of std::optional elsewhere in GNDStk, we'll
 // always return from here with found == true. That's already the case with
 // Allow::many if container.size() > 0 on output, but now we unconditionally
-// return found == true, even for "0 size", which, as we'd said, now means
+// return found == true, even for "0 size", which, as we've said, now means
 // that there's no value in the optional.
 
 template<
-   template<class...> class CONTAINER = std::vector,
+   template<class...> class CONTAINER,
    class TYPE, class CONVERTER, class FILTER
 >
-std::optional<CONTAINER<TYPE>>
-child(
+void child(
+   std::optional<CONTAINER<TYPE>> &existing,
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
       bool f;
-      const auto container =
-         child((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
+      CONTAINER<TYPE> obj;
+      child(obj, TYPE{}/kwd, f);
+      if (f)
+         existing = obj;
+      else
+         existing = std::nullopt;
       found = true;
-      return f ? std::optional<CONTAINER<TYPE>>(container) : std::nullopt;
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
@@ -477,27 +474,25 @@ child(
 // Defaulted<TYPE>
 // ------------------------
 
-// Similar to the optional case. We'll return a Defaulted<CONTAINER<TYPE>>,
-// with the default value being a container of one value - the value from
-// the original Defaulted<TYPE> in the Child object.
+// Similar to the optional case. We'll set a Defaulted<CONTAINER<TYPE>>.
 template<
-   template<class...> class CONTAINER = std::vector,
+   template<class...> class CONTAINER,
    class TYPE, class CONVERTER, class FILTER
 >
-Defaulted<CONTAINER<TYPE>>
-child(
+void child(
+   Defaulted<CONTAINER<TYPE>> &existing,
    const Child<Defaulted<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
       bool f;
-      const auto container = child(kwd.object.value()/kwd, f);
+      CONTAINER<TYPE> obj;
+      child(obj, TYPE{}/kwd, f);
+      if (f)
+         existing = obj;
+      else
+         existing.reset();
       found = true;
-      return f
-         ? Defaulted<CONTAINER<TYPE>>(
-              CONTAINER<TYPE>(1, kwd.object.get_default()), container)
-         : Defaulted<CONTAINER<TYPE>>(
-              CONTAINER<TYPE>(1, kwd.object.get_default()));
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
       throw;
@@ -512,18 +507,113 @@ child(
 // With caller-specified type
 template<
    class TYPE,
-   template<class...> class CONTAINER = std::vector,
-   class... Ts, class CONVERTER, class FILTER
+   template<class...> class CONTAINER,
+   class... Ts, class CONVERTER, class FILTER,
+   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
 >
-CONTAINER<
-   std::enable_if_t<
-      detail::isAlternativeOrTheVariant<TYPE,std::variant<Ts...>>,
-      TYPE
-   >
-> child(
+void child(
+   CONTAINER<TYPE> &existing,
    const Child<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const auto ptr = std::get_if<TYPE>(&kwd.object);
-   return child<CONTAINER>((ptr ? *ptr : TYPE{})/kwd, found);
+   child<CONTAINER>(existing, TYPE{}/kwd, found);
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Formulations that return TYPE, instead of taking an existing TYPE object
+// -----------------------------------------------------------------------------
+
+// ------------------------
+// Allow::one
+// ------------------------
+
+// general
+template<class TYPE, class CONVERTER, class FILTER>
+TYPE child(
+   const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   TYPE ret;
+   child(ret, kwd, found);
+   return ret;
+}
+
+// variant
+template<
+   class TYPE, class... Ts, class CONVERTER, class FILTER,
+   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+>
+TYPE child(
+   const Child<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   TYPE ret;
+   child<TYPE>(ret, kwd, found);
+   return ret;
+}
+
+// ------------------------
+// Allow::many
+// ------------------------
+
+// general
+template<
+   template<class...> class CONTAINER = std::vector,
+   class TYPE, class CONVERTER, class FILTER
+>
+CONTAINER<TYPE> child(
+   const Child<TYPE,Allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   CONTAINER<TYPE> ret;
+   child(ret, kwd, found);
+   return ret;
+}
+
+// optional
+template<
+   template<class...> class CONTAINER = std::vector,
+   class TYPE, class CONVERTER, class FILTER
+>
+std::optional<CONTAINER<TYPE>> child(
+   const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   std::optional<CONTAINER<TYPE>> ret;
+   child(ret, kwd, found);
+   return ret;
+}
+
+// Defaulted
+template<
+   template<class...> class CONTAINER = std::vector,
+   class TYPE, class CONVERTER, class FILTER
+>
+Defaulted<CONTAINER<TYPE>> child(
+   const Child<Defaulted<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   Defaulted<CONTAINER<TYPE>> ret;
+   child(ret, kwd, found);
+   return ret;
+}
+
+// variant
+template< // With caller-specified type
+   class TYPE,
+   template<class...> class CONTAINER = std::vector,
+   class... Ts, class CONVERTER, class FILTER,
+   class = std::enable_if_t<
+      detail::isAlternative<TYPE,std::variant<Ts...>>
+   >
+>
+CONTAINER<TYPE> child(
+   const Child<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   CONTAINER<TYPE> ret;
+   child(ret, kwd, found);
+   return ret;
 }

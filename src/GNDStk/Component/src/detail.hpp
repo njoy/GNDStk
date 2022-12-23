@@ -1,36 +1,9 @@
 
 // Forward declaration, needed by some things later
-template<class DERIVED, bool hasBodyText = false, class DATA = void>
+template<class DERIVED, bool hasBlockData = false, class DATATYPE = void>
 class Component;
 
-
 namespace detail {
-
-// -----------------------------------------------------------------------------
-// colorize_*(text)
-// -----------------------------------------------------------------------------
-
-#define gndstkPaste(one,two) one ## two
-#define gndstkColorFun(part) \
-   inline std::string gndstkPaste(colorize_,part)(const std::string &text) \
-   { \
-      return GNDStk::color && colors::part != "" \
-         ? colors::part + text + colors::reset \
-         : text; \
-   }
-
-   // colorize_label() etc.
-   gndstkColorFun(label)
-   gndstkColorFun(colon)
-   gndstkColorFun(component)
-   gndstkColorFun(brace)
-   gndstkColorFun(bracket)
-   gndstkColorFun(comment)
-
-#undef gndstkColorFun
-#undef gndstkPaste
-
-
 
 // -----------------------------------------------------------------------------
 // Functions: miscellaneous
@@ -42,14 +15,16 @@ namespace detail {
 
 // Meta
 template<class TYPE, class CONVERTER>
-std::string getName(const Meta<TYPE,CONVERTER> &m)
+const std::string &
+getName(const Meta<TYPE,CONVERTER> &m)
 {
    return m.name;
 }
 
 // Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-std::string getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
+const std::string &
+getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
 {
    return c.name;
 }
@@ -59,109 +34,121 @@ template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
    class = std::enable_if_t<IsStringOrRegex<T>::value>
 >
-std::string getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
+const std::string &
+getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
 {
    return getName(p.first);
 }
 
 
 // ------------------------
-// colorize
+// Various
 // ------------------------
 
+// colorize
 inline std::string colorize(
    const std::string &label,
    const std::string &color
 ) {
-   // no coloring in the first place?
-   if (!GNDStk::color)
+   // no coloring wanted?
+   if (!GNDStk::colors)
       return label;
 
-   // normal label color?
+   // normal (not overridden) label color?
    if (color == "")
       return colorize_label(label);
 
-   // override, e.g. for optional
-   return color + label + colors::reset;
+   // override, e.g. for the label of a std::optional
+   return color + label + GNDStk::color::reset;
 }
 
-
-// ------------------------
 // fullName
-// ------------------------
-
 inline std::string fullName(
-   const std::string &nsname,
-   const std::string &clname
+   const std::string &nname, // name of namespace
+   const std::string &cname  // name of class
 ) {
-   return (nsname == "" ? "" : nsname + "::") + clname;
+   return (nname == "" ? "" : nname + "::") + cname;
 }
 
-
-// ------------------------
 // indentString
-// ------------------------
-
 inline void indentString(
    std::ostream &os, const int level, const std::string &str = ""
 ) {
    os << std::string(GNDStk::indent * level,' ') << str;
 }
 
+// isDerivedFromComponent
+// Adapted from an answer here:
+//    https://stackoverflow.com/questions/34672441
+// The issue is that Component is a class *template*.
+template<class T>
+class isDerivedFromComponent {
+   template<class A, bool B, class C>
+   static constexpr std::true_type test(Component<A,B,C> *);
+   static constexpr std::false_type test(...);
+   using type = decltype(test(std::declval<T *>()));
+public:
+   static constexpr bool value = type::value;
+};
+
 
 // ------------------------
-// hasWriteOneArg
-// hasWriteTwoArg
+// hasPrint*
 // ------------------------
 
 // These are adapted from an answer here:
 // https://stackoverflow.com/questions/87372
 
-// class
+// hasPrintOneArg
 template<class DERIVED>
-class HasWriteOneArg
+class HasPrintOneArg
 {
    template<
       class U,
       std::ostream &(U::*)(std::ostream &) const
    > struct SFINAE {};
 
-   template<class U> static char test(SFINAE<U, &U::write> *);
+   template<class U> static char test(SFINAE<U, &U::print> *);
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+   static constexpr bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
-// variable - use this
+// HasPrintTwoArg
 template<class DERIVED>
-inline constexpr bool hasWriteOneArg = HasWriteOneArg<DERIVED>::has;
-
-// class
-template<class DERIVED>
-class HasWriteTwoArg
+class HasPrintTwoArg
 {
    template<
       class U,
       std::ostream &(U::*)(std::ostream &, const int) const
    > struct SFINAE {};
 
-   template<class U> static char test(SFINAE<U, &U::write> *);
+   template<class U> static char test(SFINAE<U, &U::print> *);
    template<class U> static long test(...);
 
 public:
-   static const bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
+   static constexpr bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
 };
 
-// variable - use this
+// Variable templates for the above; prefer these
 template<class DERIVED>
-inline constexpr bool hasWriteTwoArg = HasWriteTwoArg<DERIVED>::has;
+inline constexpr bool hasPrintOneArg = HasPrintOneArg<DERIVED>::has;
+
+template<class DERIVED>
+inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 
 
 
 // -----------------------------------------------------------------------------
-// writeComponentPart
+// printComponentPart
+// Forward declarations
 // -----------------------------------------------------------------------------
+
+// todo
+// Verify that we really need these. At some point, I thought I determined that
+// they were necessary for proper resolution of calls to the various overloaded
+// printComponentPart() functions, which often call one another.
 
 // Cases:
 //    std::string
@@ -170,44 +157,50 @@ inline constexpr bool hasWriteTwoArg = HasWriteTwoArg<DERIVED>::has;
 //    Defaulted<T>
 //    std::vector<T>
 
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const T &value,
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::optional<T> &opt,
    const std::string &label, const std::size_t maxlen
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const Defaulted<T> &def,
    const std::string &label, const std::size_t maxlen
 );
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::vector<T> &vec,
    const std::string &label, const std::size_t maxlen,
    const std::string &color = ""
 );
 
 
+
+// -----------------------------------------------------------------------------
+// printComponentPart
+// Definitions
+// -----------------------------------------------------------------------------
+
 // ------------------------
 // for string
 // ------------------------
 
-inline bool writeComponentPart(
+inline bool printComponentPart(
    std::ostream &os, const int level, const std::string &str,
    const std::string &label, const std::size_t maxlen,
    const std::string &color
@@ -216,23 +209,58 @@ inline bool writeComponentPart(
 
    if (label != "") {
       os << colorize(label,color);
-      if (maxlen != 0)
+      if (maxlen != 0) {
+         assert(maxlen >= label.size());
          os << std::string(maxlen-label.size(),' ');
+      }
       os << " " << colorize_colon(":");
-      // assuming the string to be printed isn't empty - which we don't really
-      // anticipate would happen - then print a space after the ":" and before
-      // the soon-to-be-printed string
+      // Assuming the string to be printed isn't empty - which we don't really
+      // anticipate would happen - print a space after the ":" and before the
+      // soon-to-be-printed string.
       if (str != "")
          os << ' ';
    }
 
+   // Nothing to print.
+   if (str == "")
+      return true;
+
+   // Print, indenting after any internal newlines the string might happen
+   // to have. Note that callers probably shouldn't *end* such strings with
+   // newlines. They generally won't, given how this function is called, but
+   // its possible that such newlines could arrive in the original data, from
+   // somebody's file. These won't really do any harm (and all of this is just
+   // prettyprinting, after all), but will simply cause a blank line to appear
+   // where it may seem unexpected. Speaking of the unexpected, a newline at
+   // the string's *beginning*, as opposed to its ending, will produce an end-
+   // of-line space after the label and colon a few lines above ("label : \n").
+   // Some may find end-of-line whitespace to feel...icky. We could write logic
+   // that avoids producing end-of-line whitespace or blank lines, but believe
+   // it's better to leave such things. If they occur, it may point somebody
+   // to a construct like, say, the following in an XML file:
+   //    <foo>
+   //       <![CDATA[
+   //          This is a comment.
+   //       ]]>
+   //    </foo>
+   // which should probably be this instead:
+   //    <foo>
+   //       <![CDATA[This is a comment.]]>
+   //    </foo>
+   // That is, without leading and trailing newlines.
+
+   bool start = true;
    for (auto &ch : str) {
+      if (GNDStk::colors && start) os << color::value;
+      start = ch == '\n';
+      if (GNDStk::colors && start) os << color::reset; // before os << \n...
       os << ch;
-      // indent after any internal newlines the string might happen to have;
-      // but callers probably shouldn't *end* such strings with newlines
-      if (ch == '\n')
+      if (start) { // after \n, indent for additional content
+         os << std::flush;
          indentString(os,level);
+      }
    }
+   if (GNDStk::colors) os << color::reset;
 
    return true;
 }
@@ -242,33 +270,22 @@ inline bool writeComponentPart(
 // for T
 // ------------------------
 
-// helper
-// is_base_of_Component
-// Adapted from an answer here:
-// https://stackoverflow.com/questions/34672441
 template<class T>
-class is_base_of_Component {
-   template<class A, bool B, class C>
-   static constexpr std::true_type test(Component<A,B,C> *);
-   static constexpr std::false_type test(...);
-   using type = decltype(test(std::declval<T *>()));
-public:
-   static constexpr bool value = type::value;
-};
-
-template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const T &value,
    const std::string &label, const std::size_t maxlen,
    const std::string &color
 ) {
-   if constexpr (is_base_of_Component<T>::value) {
-      // T is derived from Component, and thus inherits a write()
-      value.write(os,level);
+   if constexpr (isDerivedFromComponent<T>::value) {
+      // Suppress "unused parameter" warnings
+      (void)value; (void)maxlen;
+      (void)label; (void)color;
+      // T is derived from Component, and thus inherits a print()
+      value.baseComponent().print(os,level);
    } else {
       // T is any old type, not derived from Component
       if constexpr (std::is_floating_point_v<T>) {
-         writeComponentPart(
+         printComponentPart(
             os, level,
             detail::Precision<
                detail::PrecisionContext::metadata,
@@ -281,7 +298,7 @@ bool writeComponentPart(
          // if the printed value has internal newlines.
          std::string str;
          convert_t{}(value,str);
-         writeComponentPart(os, level, str, label, maxlen, color);
+         printComponentPart(os, level, str, label, maxlen, color);
       }
    }
    return true;
@@ -293,19 +310,19 @@ bool writeComponentPart(
 // ------------------------
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::optional<T> &opt,
    const std::string &label, const std::size_t maxlen
 ) {
    if (opt.has_value())
-      writeComponentPart(
+      printComponentPart(
          os, level, opt.value(),
-         label, maxlen, colors::optional
+         label, maxlen, color::optional
       );
    else if (comments)
-      writeComponentPart(
+      printComponentPart(
          os, level, colorize_comment("// optional; has no value"),
-         label, maxlen, colors::optional
+         label, maxlen, color::optional
       );
    else
       return false; // <== caller won't print newline
@@ -318,25 +335,25 @@ bool writeComponentPart(
 // ------------------------
 
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const Defaulted<T> &def,
    const std::string &label, const std::size_t maxlen
 ) {
    if (def.has_value()) {
-      writeComponentPart(
+      printComponentPart(
          os, level, def.value(),
-         label, maxlen, colors::defaulted
+         label, maxlen, color::defaulted
       );
    } else if (comments) {
       std::string str;
       convert_t{}(def.get_default(),str);
-      writeComponentPart(
+      printComponentPart(
          os, level,
          colorize_comment("// defaulted; is its default (" + str + ")"),
-         label, maxlen, colors::defaulted
+         label, maxlen, color::defaulted
       );
    } else
-      return false; // <== caller won't print newline
+      return false; // <== so that caller won't print newline
    return true;
 }
 
@@ -351,25 +368,35 @@ bool writeComponentPart(
 //    ...
 // ]
 template<class T>
-bool writeComponentPart(
+bool printComponentPart(
    std::ostream &os, const int level, const std::vector<T> &vec,
-   const std::string &label, const std::size_t maxlen,
+   const std::string &label, const std::size_t /*maxlen*/,
    const std::string &color
 ) {
-   (void)maxlen; // doesn't use; formats with [...]
+   // Doesn't use maxlen; formats with [...]
+
+   // To avoid user confusion in prettyprinted output, we'll change our special
+   // name "#comment" (which identifies comment nodes to be transformed into the
+   // form <!--a comment--> when writing to XML), to the name "comment" instead.
+   // Also, because our code generator creates the comment vector<string> field
+   // automatically, in generated classes, we'll forego printing it here at all,
+   // that is, we won't write "comment [(nothing)]"), if the vector is empty.
+   const bool comment = label == special::comment;
+   if (comment && vec.size() == 0)
+      return false; // <== so that caller won't print newline
 
    indentString(
       os, level,
       colorize(
-         label,
-         color != "" ? color : colors::vector
+         comment ? "comment" : label,
+         color != "" ? color : GNDStk::color::vector
       )
       + " " + colorize_bracket("[") + "\n"
    );
 
    for (auto &value : vec) {
-      writeComponentPart(os, level+1, value, "", 0);
-      os << '\n'; // between elements
+      printComponentPart(os, level+1, value, "", 0);
+      os << std::endl; // between elements
    }
 
    indentString(
@@ -383,329 +410,13 @@ bool writeComponentPart(
 
 
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
 // getter()
 // Various cases.
-// Intended for use in our auto-generated Standard Interface classes.
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-// getter(vector, index, ...)
-// Index into vector data member of class.
+// Intended for use in our Standard Interface classes.
 // -----------------------------------------------------------------------------
 
-// const
-template<class T>
-const T &getter(
-   const std::vector<T> &vec,
-   const std::size_t index,
-   const std::string &nsname, // enclosing class' namespace
-   const std::string &clname, // enclosing class
-   const std::string &field   // enclosing class' field we're accessing
-) {
-   static const std::string context = "getter {}::{}.{}({}) on vector";
-
-   try {
-      // todo Make this more efficient, e.g. by assuming that the vector's
-      // elements are sorted by index, so that the wanted value is likely
-      // to be found at [index].
-
-      const T *selected = nullptr;
-
-      for (auto &v : vec) {
-         const T *ptr = nullptr;
-
-         if constexpr (isVariant<T>::value) {
-            // T == variant
-            std::visit(
-               [&v,&index,&ptr](auto &&alternative)
-               {
-                  if constexpr (hasIndex<decltype(alternative)>)
-                     if (alternative.index() == index)
-                        ptr = &v;
-               },
-               v
-            );
-         } else {
-            // T != variant
-            if constexpr (hasIndex<T>)
-               if (v.index() == index)
-                  ptr = &v;
-         }
-
-         if (!ptr)
-            continue;
-
-         if (selected) {
-            log::warning(
-              "Element with index {} was already found in the vector.\n"
-              "Keeping the first element that was found.",
-               index
-            );
-            log::member(context, nsname, clname, field, index);
-         } else
-            selected = ptr;
-      } // for
-
-      if (!selected) {
-         log::error(
-           "Element with index {} was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
-            index
-         );
-         throw std::exception{};
-      }
-
-      return *selected;
-
-   } catch (...) {
-      // context
-      // Example: prints "getter containers::Axes.axis(100)"
-      log::member(context, nsname, clname, field, index);
-      throw;
-   }
-}
-
-// non-const
-template<class T>
-T &getter(
-   std::vector<T> &vec,
-   const std::size_t index,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   return const_cast<T &>(
-      getter(std::as_const(vec), index, nsname, clname, field)
-   );
-}
-
-
-
-// -----------------------------------------------------------------------------
-// getter(vector, label, ...)
-// Element of the vector that has .label() == label.
-// Assumes that the element type has a .label() getter.
-// -----------------------------------------------------------------------------
-
-// const
-template<class T>
-const T &getter(
-   const std::vector<T> &vec,
-   const std::string &label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   static const std::string context = "getter {}::{}.{}(\"{}\") on vector";
-
-   try {
-      const T *selected = nullptr;
-
-      for (auto &v : vec) {
-         const T *ptr = nullptr;
-
-         if constexpr (isVariant<T>::value) {
-            // T == variant
-            std::visit(
-               [&v,&label,&ptr](auto &&alternative)
-               {
-                  if constexpr (hasLabel<decltype(alternative)>)
-                     if (alternative.label() == label)
-                        ptr = &v;
-               },
-               v
-            );
-         } else {
-            // T != variant
-            if constexpr (hasLabel<T>)
-               if (v.label() == label)
-                  ptr = &v;
-         }
-
-         if (!ptr)
-            continue;
-
-         if (selected) {
-            log::warning(
-              "Element with label \"{}\" was already found in the vector.\n"
-              "Keeping the first element that was found.",
-               label
-            );
-            log::member(context, nsname, clname, field, label);
-         } else
-            selected = ptr;
-      } // for
-
-      if (!selected) {
-         log::error(
-           "Element with label \"{}\" was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
-            label
-         );
-         throw std::exception{};
-      }
-
-      return *selected;
-
-   } catch (...) {
-      // context
-      log::member(context, nsname, clname, field, label);
-      throw;
-   }
-}
-
-// non-const
-template<class T>
-T &getter(
-   std::vector<T> &vec,
-   const std::string &label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   return const_cast<T &>(
-      getter(std::as_const(vec), label, nsname, clname, field)
-   );
-}
-
-
-
-// -----------------------------------------------------------------------------
-// getter(optional<vector>, index or label, ...)
-// As earlier, but for optional<vector> data member.
-// -----------------------------------------------------------------------------
-
-// const
-template<
-   class T, class LOOKUP,
-   class = std::enable_if_t<
-      std::is_convertible_v<LOOKUP,std::size_t> ||
-      std::is_convertible_v<LOOKUP,std::string>
-   >
->
-const T &getter(
-   const std::optional<std::vector<T>> &opt,
-   const LOOKUP &index_or_label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      // optional must have value
-      if (!opt.has_value()) {
-         log::error("optional vector {} does not have a value", field);
-         throw std::exception{};
-      }
-      return getter((*opt), index_or_label, nsname, clname, field);
-   } catch (...) {
-      // context
-      log::member(
-         std::is_convertible_v<LOOKUP,std::size_t>
-            ? "getter {}::{}.{}({}) on optional<vector>"
-            : "getter {}::{}.{}(\"{}\") on optional<vector>",
-         nsname, clname, field, index_or_label);
-      throw;
-   }
-}
-
-// non-const
-template<
-   class T, class LOOKUP,
-   class = std::enable_if_t<
-      std::is_convertible_v<LOOKUP,std::size_t> ||
-      std::is_convertible_v<LOOKUP,std::string>
-   >
->
-T &getter(
-   std::optional<std::vector<T>> &opt,
-   const LOOKUP &index_or_label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   return const_cast<T &>(
-      getter(std::as_const(opt), index_or_label, nsname, clname, field)
-   );
-}
-
-
-
-// -----------------------------------------------------------------------------
-// getter<T>(...)
-// With caller-specified type, when variant is involved
-// -----------------------------------------------------------------------------
-
-// ------------------------
-// variant,...
-// ------------------------
-
-template<
-   class T,
-   class... Ts,
-   class = std::enable_if_t<detail::isAlternative<T,std::variant<Ts...>>>
->
-const T *getter(
-   const std::variant<Ts...> &var,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      return std::holds_alternative<T>(var)
-         ? &std::get<T>(var)
-         : nullptr;
-   } catch (...) {
-      // context
-      log::member(
-        "getter {}::{}.{}() on variant",
-         nsname, clname, field);
-      throw;
-   }
-}
-
-
-// ------------------------
-// vector<variant>,
-// index or label,
-// ...
-// ------------------------
-
-// The (size_t index) and (string label) cases were similar enough that
-// we were able to combine them into one function.
-
-template<
-   class T, class LOOKUP,
-   class = std::enable_if_t<
-      std::is_convertible_v<LOOKUP,std::size_t> ||
-      std::is_convertible_v<LOOKUP,std::string>
-   >,
-   class... Ts
->
-const T *getter(
-   const std::vector<std::variant<Ts...>> &vec,
-   const LOOKUP &index_or_label,
-   const std::string &nsname,
-   const std::string &clname,
-   const std::string &field
-) {
-   try {
-      return getter<T>(
-         // no <T>, so it calls getter(generic vector); it isn't recursive
-         getter(vec, index_or_label, nsname, clname, field), // scalar variant
-         nsname, clname, field
-      );
-   } catch (...) {
-      // context
-      log::member(
-         std::is_convertible_v<LOOKUP,std::size_t>
-            ? "getter {}::{}.{}({}) on vector<variant>"
-            : "getter {}::{}.{}(\"{}\") on vector<variant>",
-         nsname, clname, field, index_or_label);
-      throw;
-   }
-}
+#include "GNDStk/Component/src/detail-sfinae.hpp"
+#include "GNDStk/Component/src/detail-getter.hpp"
 
 
 
@@ -713,8 +424,8 @@ const T *getter(
 // For sorting derived-class fields based on index and label, if and when one
 // or the other of those is determined to be present. That determination hinges
 // on both a compile-time check that the classes involved even *have* index or
-// label fields in their content struct, and if they do, if either of those is
-// possibly a std::optional that may or may not contain a value at the moment.
+// label fields, and, if they do, if either of those is possibly a std::optional
+// that may or may not contain a value at the moment.
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -731,46 +442,46 @@ bool compareRegular(const A &a, const B &b)
    // index?
    std::size_t aindex = 0;  bool ahasindex = false;
    if constexpr (hasIndex<A>) {
-      if constexpr (isOptional<decltype(A{}.content.index)>) {
-         if ((ahasindex = a.content.index.has_value()))
-            aindex = a.content.index.value();
+      if constexpr (isOptional<decltype(A{}.index())>) {
+         if ((ahasindex = a.index().has_value()))
+            aindex = a.index().value();
       } else {
          ahasindex = true;
-         aindex = a.content.index;
+         aindex = a.index();
       }
    }
 
    std::size_t bindex = 0;  bool bhasindex = false;
    if constexpr (hasIndex<B>) {
-      if constexpr (isOptional<decltype(B{}.content.index)>) {
-         if ((bhasindex = b.content.index.has_value()))
-            bindex = b.content.index.value();
+      if constexpr (isOptional<decltype(B{}.index())>) {
+         if ((bhasindex = b.index().has_value()))
+            bindex = b.index().value();
       } else {
          bhasindex = true;
-         bindex = b.content.index;
+         bindex = b.index();
       }
    }
 
    // label?
    std::string alabel = "";  bool ahaslabel = false;
    if constexpr (hasLabel<A>) {
-      if constexpr (isOptional<decltype(A{}.content.label)>) {
-         if ((ahaslabel = a.content.label.has_value()))
-            alabel = a.content.label.value();
+      if constexpr (isOptional<decltype(A{}.label())>) {
+         if ((ahaslabel = a.label().has_value()))
+            alabel = a.label().value();
       } else {
          ahaslabel = true;
-         alabel = a.content.label;
+         alabel = a.label();
       }
    }
 
    std::string blabel = "";  bool bhaslabel = false;
    if constexpr (hasLabel<B>) {
-      if constexpr (isOptional<decltype(B{}.content.label)>) {
-         if ((bhaslabel = b.content.label.has_value()))
-            blabel = b.content.label.value();
+      if constexpr (isOptional<decltype(B{}.label())>) {
+         if ((bhaslabel = b.label().has_value()))
+            blabel = b.label().value();
       } else {
          bhaslabel = true;
-         blabel = b.content.label;
+         blabel = b.label();
       }
    }
 
@@ -783,7 +494,7 @@ bool compareRegular(const A &a, const B &b)
     : ahaslabel && bhaslabel ? alabel < blabel
     : ahaslabel ? true
     : bhaslabel ? false
-      // equal
+      // equal (so, not <, for strict weak ordering purposes)
     : false;
 }
 
@@ -847,5 +558,46 @@ void sort(std::optional<std::vector<T>> &opt)
    if (opt.has_value())
       sort(opt.value());
 }
+
+
+
+// -----------------------------------------------------------------------------
+// queryResult
+// doNotAlign
+// -----------------------------------------------------------------------------
+
+// default
+template<class KEY>
+struct queryResult {
+   using type = std::decay_t<decltype(Node{}(std::declval<KEY>()))>;
+};
+
+// For Meta<Defaulted>
+template<class TYPE, class CONVERTER>
+struct queryResult<Meta<Defaulted<TYPE>,CONVERTER>> {
+   using type = Defaulted<TYPE>;
+};
+
+// For std::tuple
+template<class... KEYS>
+struct queryResult<std::tuple<KEYS...>> {
+   using type = std::tuple<typename queryResult<KEYS>::type...>;
+};
+
+// doNotAlign
+// Component::print() uses the following to exclude [optional] vectors and
+// Component-derived classes from its alignment computation. Those are printed
+// in their own specific manner, and we think the alignment just looks better,
+// and has fewer spurious-looking spaces, when those constructs are excluded.
+template<class KEY>
+struct doNotAlign {
+   static constexpr bool value =
+      isVector<
+         typename queryResult<std::decay_t<KEY>>::type>::value ||
+      isOptionalVector<
+         typename queryResult<std::decay_t<KEY>>::type>::value ||
+      isDerivedFromComponent<
+         typename queryResult<std::decay_t<KEY>>::type>::value;
+};
 
 } // namespace detail

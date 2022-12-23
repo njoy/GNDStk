@@ -1,4 +1,3 @@
-
 #ifndef NJOY_GNDSTK_INTERPOLATION
 #define NJOY_GNDSTK_INTERPOLATION
 
@@ -6,9 +5,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class giving acceptable interpolation values
-   *
-   *  See GNDS v1.9 specifications section 3.5.3
+   *  @brief Enumeration class for interpolation values
    */
   enum class Interpolation {
 
@@ -21,7 +18,7 @@ namespace enums {
   };
 
   /**
-   *  @brief Return whether or not a string is a valid interpolation
+   *  @brief Return whether or not a string is a valid interpolation value
    *
    *  @param[in] string    the string to be verified
    *
