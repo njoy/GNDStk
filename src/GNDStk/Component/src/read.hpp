@@ -23,15 +23,7 @@ void read(const Node &node)
    sort();
 
    // construct
-   void (Component::*componentConstruct)
-      (const Node &) = &Component::construct;
-   void (DERIVED::*derivedConstruct)
-      (const Node &) = &DERIVED::construct;
-
-   if (derivedConstruct != componentConstruct)
-      derived().construct(node);
-   else
-      derived().construct();
+   derived().construct(node);
 }
 
 

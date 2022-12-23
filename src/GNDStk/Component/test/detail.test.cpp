@@ -155,34 +155,36 @@ SCENARIO("Testing Component detail:: miscellaneous functions") {
 
    // colorize
    GIVEN("Function: colorize()") {
-      WHEN("Called with GNDStk::color == true and color == \"\"") {
+      WHEN("Called with GNDStk::colors == true and color == \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = true;
-            // coloring is on, but we don't give a color
+            njoy::GNDStk::colors = true;
+            // coloring is on, but we don't provide a color,
+            // and the default label color is set to ""
+            color::label = "";
             CHECK(detail::colorize("one","") == "one");
          }
       }
 
-      WHEN("Called with GNDStk::color == true and color != \"\"") {
+      WHEN("Called with GNDStk::colors == true and color != \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = true;
-            // coloring is on, and we give a color
+            njoy::GNDStk::colors = true;
+            // coloring is on, and we provide a color
             CHECK(detail::colorize("two","[color]") == "[color]two\033[0m");
          }
       }
 
-      WHEN("Called with GNDStk::color == false and color == \"\"") {
+      WHEN("Called with GNDStk::colors == false and color == \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = false;
-            // coloring is off, and we don't give a color anyway
+            njoy::GNDStk::colors = false;
+            // coloring is off, and we don't provide a color anyway
             CHECK(detail::colorize("three","") == "three");
          }
       }
 
-      WHEN("Called with GNDStk::color == false and color != \"\"") {
+      WHEN("Called with GNDStk::colors == false and color != \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = false;
-            // coloring is off, and we give a color (but it isn't used,
+            njoy::GNDStk::colors = false;
+            // coloring is off, and we provide a color (but it isn't used,
             // because coloring is off)
             CHECK(detail::colorize("four","[color]") == "four");
          }

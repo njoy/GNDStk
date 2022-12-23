@@ -224,11 +224,11 @@ void action(const std::string &str)
    static const std::string inverse = "\033[7m";
    static const std::string background(80,' ');
    std::cout
-      << inverse << colors::plain::blue << '\n'
+      << inverse << color::plain::blue << '\n'
       << background << '\n'
       << std::setw(80) << std::left << str << '\n'
       << background << '\n'
-      << colors::reset
+      << color::reset
       << std::endl;
 }
 
@@ -1490,7 +1490,7 @@ orderedJSON readJSONFile(const std::string &file, const bool print = false)
    if (print) {
       const std::string f = beginsin(file,"./") ? std::string(&file[2]) : file;
       std::cout << "File: ";
-      std::cout << '"' << colors::plain::purple << f << colors::reset << '"';
+      std::cout << '"' << color::plain::magenta << f << color::reset << '"';
       std::cout << std::endl;
    }
 
@@ -3456,7 +3456,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 int main(const int argc, const char *const *const argv)
 {
    // For GNDStk's diagnostics
-   color = true;
+   colors = true;
 
    // READ INFORMATION from the JSON file on the command line
    InfoSpecs specs;

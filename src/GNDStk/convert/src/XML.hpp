@@ -53,7 +53,7 @@ inline bool convert(const Node &node, XML &x)
          if (cptr->name == special::json) continue;
          if (cptr->name == special::hdf5) continue;
 
-         if (cptr->name == special::xml || cptr->name == special::any) {
+         if (cptr->name == special::xml || cptr->name == special::decl) {
             // looks like a declaration node
             pugi::xml_node xdecl;
             if (found_dec) // already seen

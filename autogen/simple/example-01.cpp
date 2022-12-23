@@ -4,7 +4,7 @@ using namespace multi::v1;
 
 int main()
 {
-   color = true;
+   colors = true;
 
    // Make some elements. We can make elements ("outer
    // objects") first, then add isotopes ("inner objects").

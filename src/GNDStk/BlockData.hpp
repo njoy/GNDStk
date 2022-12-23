@@ -137,7 +137,7 @@ public:
    // Print to ostream
    #include "GNDStk/BlockData/src/print.hpp"
 
-   // Pull/push length/start/valueType from/to derived-class struct Content
+   // Pull/push length/start/valueType from/to derived-class object
    #include "GNDStk/BlockData/src/sync.hpp"
 
    // Assignment

@@ -13,7 +13,7 @@ key/value pair.
 */
 
 // User-settable flag
-inline bool comma = false;
+inline bool commas = false;
 
 
 // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ inline void convert(const std::string &value, std::ostream &os)
 template<class X, class Y>
 inline void convert(const std::pair<X,Y> &p, std::ostream &os)
 {
-   if ((convert(p.first,os),os) && os << (GNDStk::comma ? ',' : ' '))
+   if ((convert(p.first,os),os) && os << (GNDStk::commas ? ',' : ' '))
       convert(p.second,os);
 }
 
@@ -55,7 +55,7 @@ inline void convert(const std::pair<X,Y> &p, std::ostream &os)
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
-      const std::string sep = GNDStk::comma ? "," : " "; \
+      const std::string sep = GNDStk::commas ? "," : " "; \
       std::size_t count = 0; \
       for (const T &val : value) \
          if (!(os << (count++ ? sep : "") && (convert(val,os),os))) \

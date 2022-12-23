@@ -41,6 +41,7 @@ namespace special {
 
    inline const std::string
       any      = prefix + std::string(""),
+      decl     = prefix + std::string(""),
       nodename = prefix + std::string("nodename"),
       metadata = prefix + std::string("metadata"),
       cdata    = prefix + std::string("cdata"),
@@ -95,11 +96,11 @@ inline void failback(std::istream &is, const std::streampos pos)
 // Helper constructs for some simple Log-enhancing prettyprinting
 // -----------------------------------------------------------------------------
 
-// align, color
+// align, colors
 // Users can set these in their own codes.
 // Remember that they're scoped in njoy::GNDStk, like other things.
 inline bool align = true;  // extra spaces, to line stuff up for easy reading
-inline bool color = false; // default: impose no ANSI escape-sequence clutter
+inline bool colors = false; // default: no colors; so no ANSI escape sequences
 
 namespace detail {
 
@@ -133,13 +134,13 @@ inline std::string diagnostic(
    };
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off
-   static const std::string reset = "\033[0m";  // all color/decorations off
+   static const std::string reset = "\033[0m";  // all colors/decorations off
    static const std::size_t warn = 7; // length of "warning", the longest label
 
    // full text, including the (possibly underlined) prefix if one was provided
    const std::string text = prefix == ""
     ?  message
-    : (color ? under : "") + prefix + (color ? unoff : "") + ": " + message;
+    : (colors ? under : "") + prefix + (colors ? unoff : "") + ": " + message;
 
    // full text, possibly spaced for alignment
    std::string spaced, indent = std::string(warn+3,' '); // 3 for '[', ']', ' '
@@ -151,7 +152,7 @@ inline std::string diagnostic(
       spaced = text;
 
    // final message, possibly colorized
-   return color ? codes[label] + spaced + reset : spaced;
+   return colors ? codes[label] + spaced + reset : spaced;
 }
 
 // context
@@ -205,12 +206,10 @@ inline long truncate = -1;
 // those are in namespace GNDStk::log; so, the names don't conflict.
 
 // Print info messages? (with log::info())
-inline bool  info = true;
-inline bool &note = info; // alias
+inline bool notes = true;
 
 // Print warnings? (with log::warning())
-inline bool  warning  = true;
-inline bool &warnings = warning; // alias; plural may "read" better
+inline bool warnings = true;
 
 // Print debug messages? (with log::debug())
 inline bool debug = false;
@@ -241,7 +240,7 @@ namespace log {
 template<class... Args>
 void info(const std::string &str, Args &&...args)
 {
-   if (GNDStk::info) {
+   if (GNDStk::notes) {
       const std::string msg = detail::diagnostic("info",str);
       Log::info(msg.data(), std::forward<Args>(args)...);
    }
@@ -251,7 +250,7 @@ void info(const std::string &str, Args &&...args)
 template<class... Args>
 void warning(const std::string &str, Args &&...args)
 {
-   if (GNDStk::warning) {
+   if (GNDStk::warnings) {
       const std::string msg = detail::diagnostic("warning",str);
       Log::warning(msg.data(), std::forward<Args>(args)...);
    }
@@ -460,7 +459,7 @@ inline bool endsin_hdf5(const std::string &str)
 
 // -----------------------------------------------------------------------------
 // Re: file format indicators
-// These are used in places where we're allowing a user to give a string,
+// These are used in places where we're allowing a user to provide a string,
 // e.g. "xml", in place of a file format specifier ala enum class file.
 // -----------------------------------------------------------------------------
 

@@ -68,7 +68,7 @@ R"***(proto::ReactionSuite {
               label            : eval
               outerDomainValue : // optional; has no value
               proto::Axes {
-                href      : // optional; has no value
+                href : // optional; has no value
                 axis grid [
                   proto::Axis {
                     index : 0
@@ -265,7 +265,7 @@ R"***(proto::ReactionSuite {
                 } // proto::XYs1d
               ]
               proto::Axes {
-                href      : // optional; has no value
+                href : // optional; has no value
                 axis grid [
                   proto::Axis {
                     index : 0
@@ -295,7 +295,7 @@ R"***(proto::ReactionSuite {
               label            : eval
               outerDomainValue : // optional; has no value
               proto::Axes {
-                href      : // optional; has no value
+                href : // optional; has no value
                 axis grid [
                   proto::Axis {
                     index : 0

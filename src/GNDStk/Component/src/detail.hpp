@@ -46,16 +46,16 @@ inline std::string colorize(
    const std::string &label,
    const std::string &color
 ) {
-   // no coloring in the first place?
-   if (!GNDStk::color)
+   // no coloring wanted?
+   if (!GNDStk::colors)
       return label;
 
-   // normal label color?
+   // normal (not overridden) label color?
    if (color == "")
       return colorize_label(label);
 
-   // override, e.g. for optional
-   return color + label + colors::reset;
+   // override, e.g. for the label of a std::optional
+   return color + label + GNDStk::color::reset;
 }
 
 
@@ -134,6 +134,15 @@ inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 // printComponentPart
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// Forward declarations
+// ------------------------
+
+// todo
+// Verify that we really need these. At some point, I thought I determined that
+// they were necessary for proper resolution of calls to the various overloaded
+// printComponentPart() functions, which often call one another.
+
 // Cases:
 //    std::string
 //    T
@@ -190,20 +199,51 @@ inline bool printComponentPart(
       if (maxlen != 0)
          os << std::string(maxlen-label.size(),' ');
       os << " " << colorize_colon(":");
-      // assuming the string to be printed isn't empty - which we don't really
-      // anticipate would happen - then print a space after the ":" and before
-      // the soon-to-be-printed string
+      // Assuming the string to be printed isn't empty - which we don't really
+      // anticipate would happen - print a space after the ":" and before the
+      // soon-to-be-printed string.
       if (str != "")
          os << ' ';
    }
 
+   // Nothing to print.
+   if (str == "")
+      return true;
+
+   // Print, indenting after any internal newlines the string might happen
+   // to have. Note that callers probably shouldn't *end* such strings with
+   // newlines. They generally won't, given how this function is called, but
+   // its possible that such newlines could arrive in the original data, from
+   // somebody's file. These won't really do any harm (and all of this is just
+   // prettyprinting, after all), but will simply cause a blank line to appear
+   // where it may seem unexpected. Speaking of the unexpected, a newline at
+   // the string's *beginning*, as opposed to its ending, will produce an end-
+   // of-line space after the label and colon a few lines above ("label : \n").
+   // Some may find end-of-line whitespace to feel...icky. We could write logic
+   // that avoids producing end-of-line whitespace or blank lines, but believe
+   // it's better to leave such things. If they occur, it may point somebody
+   // to a construct like, say, the following in an XML file:
+   //    <foo>
+   //       <![CDATA[
+   //          This is a comment.
+   //       ]]>
+   //    </foo>
+   // which should probably be this instead:
+   //    <foo>
+   //       <![CDATA[This is a comment.]]>
+   //    </foo>
+   // That is, without leading and trailing newlines.
+
+   bool start = true;
    for (auto &ch : str) {
+      if (GNDStk::colors && start) os << color::value;
+      start = ch == '\n';
+      if (GNDStk::colors && start) os << color::reset; // before os << \n...
       os << ch;
-      // indent after any internal newlines the string might happen to have;
-      // but callers probably shouldn't *end* such strings with newlines
-      if (ch == '\n')
+      if (start) // after \n, indent for additional content
          indentString(os,level);
    }
+   if (GNDStk::colors) os << color::reset;
 
    return true;
 }
@@ -216,7 +256,8 @@ inline bool printComponentPart(
 // helper
 // isDerivedFromComponent
 // Adapted from an answer here:
-// https://stackoverflow.com/questions/34672441
+//    https://stackoverflow.com/questions/34672441
+// The issue is that Component is a class *template*.
 template<class T>
 class isDerivedFromComponent {
    template<class A, bool B, class C>
@@ -274,12 +315,12 @@ bool printComponentPart(
    if (opt.has_value())
       printComponentPart(
          os, level, opt.value(),
-         label, maxlen, colors::optional
+         label, maxlen, color::optional
       );
    else if (comments)
       printComponentPart(
          os, level, colorize_comment("// optional; has no value"),
-         label, maxlen, colors::optional
+         label, maxlen, color::optional
       );
    else
       return false; // <== caller won't print newline
@@ -299,7 +340,7 @@ bool printComponentPart(
    if (def.has_value()) {
       printComponentPart(
          os, level, def.value(),
-         label, maxlen, colors::defaulted
+         label, maxlen, color::defaulted
       );
    } else if (comments) {
       std::string str;
@@ -307,10 +348,10 @@ bool printComponentPart(
       printComponentPart(
          os, level,
          colorize_comment("// defaulted; is its default (" + str + ")"),
-         label, maxlen, colors::defaulted
+         label, maxlen, color::defaulted
       );
    } else
-      return false; // <== caller won't print newline
+      return false; // <== so that caller won't print newline
    return true;
 }
 
@@ -332,11 +373,21 @@ bool printComponentPart(
 ) {
    (void)maxlen; // doesn't use; formats with [...]
 
+   // To avoid user confusion in prettyprinted output, we'll change our special
+   // name "#comment" (which identifies comment nodes to be transformed into the
+   // form <!--a comment--> when writing to XML), to the name "comment" instead.
+   // Also, because our code generator creates the comment vector<string> field
+   // automatically, in generated classes, we'll forego printing it here at all,
+   // that is, we won't write "comment [(nothing)]"), if the vector is empty.
+   const bool comment = label == special::comment;
+   if (comment && vec.size() == 0)
+      return false; // <== so that caller won't print newline
+
    indentString(
       os, level,
       colorize(
-         label,
-         color != "" ? color : colors::vector
+         comment ? "comment" : label,
+         color != "" ? color : GNDStk::color::vector
       )
       + " " + colorize_bracket("[") + "\n"
    );
@@ -371,8 +422,8 @@ bool printComponentPart(
 // For sorting derived-class fields based on index and label, if and when one
 // or the other of those is determined to be present. That determination hinges
 // on both a compile-time check that the classes involved even *have* index or
-// label fields in their Content struct, and if they do, if either of those is
-// possibly a std::optional that may or may not contain a value at the moment.
+// label fields, and, if they do, if either of those is possibly a std::optional
+// that may or may not contain a value at the moment.
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -441,7 +492,7 @@ bool compareRegular(const A &a, const B &b)
     : ahaslabel && bhaslabel ? alabel < blabel
     : ahaslabel ? true
     : bhaslabel ? false
-      // equal
+      // equal (so, not <, for strict weak ordering purposes)
     : false;
 }
 

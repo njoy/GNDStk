@@ -37,7 +37,7 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
          if (cptr->name == special::xml ) continue;
          if (cptr->name == special::json) continue;
 
-         if (cptr->name == special::hdf5 || cptr->name == special::any) {
+         if (cptr->name == special::hdf5 || cptr->name == special::decl) {
             // looks like a declaration node
             if (found_dec) // already seen
                detail::info_node_multiple_dec(context);

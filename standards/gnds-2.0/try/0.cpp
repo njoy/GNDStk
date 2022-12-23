@@ -6,8 +6,8 @@ using namespace test::v2_0;
 
 int main(const int argc, const char *const *const argv)
 {
-   // color, for diagnostics
-   color = true;
+   // color for diagnostics
+   colors = true;
 
    // usage
    if (argc < 2) {

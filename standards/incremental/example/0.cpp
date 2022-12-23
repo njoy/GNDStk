@@ -24,7 +24,7 @@ int main(const int argc, const char *const *const argv)
    print();
 
    // for printing
-   color = true;
+   colors = true;
    comments = false;
 
    // documentation: default construction
@@ -46,7 +46,7 @@ int main(const int argc, const char *const *const argv)
 
       gnds::PoPs pops;
       pops.read(filename);
-      ///pops.print(); // Component's prettyprinting
+      pops.print(); // Component's prettyprinting
       ///pops.write(); // Internal debug format :-/
       pops.xml();
       print();

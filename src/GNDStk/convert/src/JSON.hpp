@@ -29,7 +29,7 @@ inline bool convert(const Node &node, JSON &j)
          if (cptr->name == special::xml ) continue;
          if (cptr->name == special::hdf5) continue;
 
-         if (cptr->name == special::json || cptr->name == special::any) {
+         if (cptr->name == special::json || cptr->name == special::decl) {
             // looks like a declaration node
             if (found_dec) // already seen
                detail::info_node_multiple_dec(context);

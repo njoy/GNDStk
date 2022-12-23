@@ -145,8 +145,8 @@ void element2element(const T &value, std::string &str)
 #define gndstkColorFun(part) \
    inline std::string gndstkPaste(colorize_,part)(const std::string &text) \
    { \
-      return GNDStk::color && colors::part != "" \
-         ? colors::part + text + colors::reset \
+      return GNDStk::colors && color::part != "" \
+         ? color::part + text + color::reset \
          : text; \
    }
 

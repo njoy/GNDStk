@@ -4,7 +4,7 @@ using namespace multi::v1;
 
 int main()
 {
-   color = true;
+   colors = true;
 
    // Try a Foobar all by itself
    {

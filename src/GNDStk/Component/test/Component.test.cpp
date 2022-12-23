@@ -164,7 +164,7 @@ SCENARIO("Testing GNDStk Component") {
       // Component. ostream << Component prints the object to the ostream.
       WHEN("We test (Component << string) and (ostream << Component)") {
          DerivedData der;
-         color = false; // avoid cluttering the checked output below
+         colors = false; // avoid cluttering the checked output below
 
          const std::string expected =
             "DerivedData {\n"

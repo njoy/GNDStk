@@ -12,7 +12,7 @@ std::ostream &print(std::ostream &os, const int level) const
       return os;
 
    // Coloring?
-   const bool coloring = GNDStk::color && GNDStk::colors::value != "";
+   const bool coloring = GNDStk::colors && GNDStk::color::data != "";
 
    // ------------------------
    // If string is active
@@ -22,7 +22,7 @@ std::ostream &print(std::ostream &os, const int level) const
       // Print the string exactly as-is, without our column formatting
       // or any indentation; then also print a newline
       return coloring
-         ? os << colors::value << rawstring << colors::reset << std::endl
+         ? os << color::data << rawstring << color::reset << std::endl
          : os << rawstring << std::endl;
    }
 
@@ -56,12 +56,12 @@ std::ostream &print(std::ostream &os, const int level) const
 
             // value
             using namespace detail;
-            if (coloring) os << colors::value;
+            if (coloring) os << color::data;
             if constexpr (std::is_floating_point_v<T>)
                os << Precision<PrecisionContext::data,T>{}.write(element);
             else
                os << element;
-            if (coloring) os << colors::reset;
+            if (coloring) os << color::reset;
          };
 
          // If applicable, print a message saying the data were truncated

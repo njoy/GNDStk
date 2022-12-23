@@ -27,9 +27,9 @@ void align(const int value)
    njoy::GNDStk::align = bool(value);
 }
 
-void color(const int value)
+void colors(const int value)
 {
-   njoy::GNDStk::color = bool(value);
+   njoy::GNDStk::colors = bool(value);
 }
 
 // ------------------------
@@ -58,14 +58,14 @@ void truncation(const long value)
 // Re: GNDStk diagnostics
 // ------------------------
 
-void note(const int value)
+void notes(const int value)
 {
-   njoy::GNDStk::info = bool(value);
+   njoy::GNDStk::notes = bool(value);
 }
 
-void warning(const int value)
+void warnings(const int value)
 {
-   njoy::GNDStk::warning = bool(value);
+   njoy::GNDStk::warnings = bool(value);
 }
 
 void debug(const int value)
