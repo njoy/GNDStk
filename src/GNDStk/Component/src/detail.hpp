@@ -15,14 +15,16 @@ namespace detail {
 
 // Meta
 template<class TYPE, class CONVERTER>
-std::string getName(const Meta<TYPE,CONVERTER> &m)
+const std::string &
+getName(const Meta<TYPE,CONVERTER> &m)
 {
    return m.name;
 }
 
 // Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-std::string getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
+const std::string &
+getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
 {
    return c.name;
 }
@@ -32,16 +34,18 @@ template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
    class = std::enable_if_t<IsStringOrRegex<T>::value>
 >
-std::string getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
+const std::string &
+getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
 {
    return getName(p.first);
 }
 
 
 // ------------------------
-// colorize
+// Various
 // ------------------------
 
+// colorize
 inline std::string colorize(
    const std::string &label,
    const std::string &color
@@ -58,11 +62,7 @@ inline std::string colorize(
    return color + label + GNDStk::color::reset;
 }
 
-
-// ------------------------
 // fullName
-// ------------------------
-
 inline std::string fullName(
    const std::string &nname, // name of namespace
    const std::string &cname  // name of class
@@ -70,16 +70,26 @@ inline std::string fullName(
    return (nname == "" ? "" : nname + "::") + cname;
 }
 
-
-// ------------------------
 // indentString
-// ------------------------
-
 inline void indentString(
    std::ostream &os, const int level, const std::string &str = ""
 ) {
    os << std::string(GNDStk::indent * level,' ') << str;
 }
+
+// isDerivedFromComponent
+// Adapted from an answer here:
+//    https://stackoverflow.com/questions/34672441
+// The issue is that Component is a class *template*.
+template<class T>
+class isDerivedFromComponent {
+   template<class A, bool B, class C>
+   static constexpr std::true_type test(Component<A,B,C> *);
+   static constexpr std::false_type test(...);
+   using type = decltype(test(std::declval<T *>()));
+public:
+   static constexpr bool value = type::value;
+};
 
 
 // ------------------------
@@ -132,11 +142,8 @@ inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 
 // -----------------------------------------------------------------------------
 // printComponentPart
-// -----------------------------------------------------------------------------
-
-// ------------------------
 // Forward declarations
-// ------------------------
+// -----------------------------------------------------------------------------
 
 // todo
 // Verify that we really need these. At some point, I thought I determined that
@@ -183,6 +190,12 @@ bool printComponentPart(
 );
 
 
+
+// -----------------------------------------------------------------------------
+// printComponentPart
+// Definitions
+// -----------------------------------------------------------------------------
+
 // ------------------------
 // for string
 // ------------------------
@@ -196,8 +209,10 @@ inline bool printComponentPart(
 
    if (label != "") {
       os << colorize(label,color);
-      if (maxlen != 0)
+      if (maxlen != 0) {
+         assert(maxlen >= label.size());
          os << std::string(maxlen-label.size(),' ');
+      }
       os << " " << colorize_colon(":");
       // Assuming the string to be printed isn't empty - which we don't really
       // anticipate would happen - print a space after the ":" and before the
@@ -240,8 +255,10 @@ inline bool printComponentPart(
       start = ch == '\n';
       if (GNDStk::colors && start) os << color::reset; // before os << \n...
       os << ch;
-      if (start) // after \n, indent for additional content
+      if (start) { // after \n, indent for additional content
+         os << std::flush;
          indentString(os,level);
+      }
    }
    if (GNDStk::colors) os << color::reset;
 
@@ -252,21 +269,6 @@ inline bool printComponentPart(
 // ------------------------
 // for T
 // ------------------------
-
-// helper
-// isDerivedFromComponent
-// Adapted from an answer here:
-//    https://stackoverflow.com/questions/34672441
-// The issue is that Component is a class *template*.
-template<class T>
-class isDerivedFromComponent {
-   template<class A, bool B, class C>
-   static constexpr std::true_type test(Component<A,B,C> *);
-   static constexpr std::false_type test(...);
-   using type = decltype(test(std::declval<T *>()));
-public:
-   static constexpr bool value = type::value;
-};
 
 template<class T>
 bool printComponentPart(
@@ -368,10 +370,10 @@ bool printComponentPart(
 template<class T>
 bool printComponentPart(
    std::ostream &os, const int level, const std::vector<T> &vec,
-   const std::string &label, const std::size_t maxlen,
+   const std::string &label, const std::size_t /*maxlen*/,
    const std::string &color
 ) {
-   (void)maxlen; // doesn't use; formats with [...]
+   // Doesn't use maxlen; formats with [...]
 
    // To avoid user confusion in prettyprinted output, we'll change our special
    // name "#comment" (which identifies comment nodes to be transformed into the
@@ -394,7 +396,7 @@ bool printComponentPart(
 
    for (auto &value : vec) {
       printComponentPart(os, level+1, value, "", 0);
-      os << '\n'; // between elements
+      os << std::endl; // between elements
    }
 
    indentString(
@@ -561,6 +563,7 @@ void sort(std::optional<std::vector<T>> &opt)
 
 // -----------------------------------------------------------------------------
 // queryResult
+// doNotAlign
 // -----------------------------------------------------------------------------
 
 // default
@@ -579,6 +582,22 @@ struct queryResult<Meta<Defaulted<TYPE>,CONVERTER>> {
 template<class... KEYS>
 struct queryResult<std::tuple<KEYS...>> {
    using type = std::tuple<typename queryResult<KEYS>::type...>;
+};
+
+// doNotAlign
+// Component::print() uses the following to exclude [optional] vectors and
+// Component-derived classes from its alignment computation. Those are printed
+// in their own specific manner, and we think the alignment just looks better,
+// and has fewer spurious-looking spaces, when those constructs are excluded.
+template<class KEY>
+struct doNotAlign {
+   static constexpr bool value =
+      isVector<
+         typename queryResult<std::decay_t<KEY>>::type>::value ||
+      isOptionalVector<
+         typename queryResult<std::decay_t<KEY>>::type>::value ||
+      isDerivedFromComponent<
+         typename queryResult<std::decay_t<KEY>>::type>::value;
 };
 
 } // namespace detail

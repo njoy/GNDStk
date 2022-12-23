@@ -47,12 +47,12 @@ int main(const int argc, const char *const *const argv)
       gnds::PoPs pops;
       pops.read(filename);
       pops.print(); // Component's prettyprinting
-      ///pops.write(); // Internal debug format :-/
+      //pops.write(); // Internal debug format :-/
       pops.xml();
       print();
    }
 
-#if 0
+   /*
    // speed test: construct from node
    for (int n = 1; n < argc; ++n) {
       const std::string filename = argv[n];
@@ -63,9 +63,9 @@ int main(const int argc, const char *const *const argv)
       for (int n = 0; n < 100000; ++n)
          gnds::PoPs pops(node);
    }
-#endif
+   */
 
-#if 0
+   /*
    // files
    for (int n = 1; n < argc; ++n) {
       const std::string filename = argv[n];
@@ -90,5 +90,5 @@ int main(const int argc, const char *const *const argv)
       p.print();
       print();
    }
-#endif
+   */
 }

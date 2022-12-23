@@ -67,8 +67,9 @@ std::ostream &print(std::ostream &os, const int level) const
          detail::colorize_component(
             detail::fullName(Namespace(), Class())
          ) + " " +
-         detail::colorize_brace("{") + "\n"
+         detail::colorize_brace("{")
       );
+      os << std::endl;
 
       // ------------------------
       // Consistency check
@@ -93,28 +94,14 @@ std::ostream &print(std::ostream &os, const int level) const
 
       if (GNDStk::align) {
          std::apply(
-            [&maxlen](const auto &... key) {
-               using namespace detail;
+            [&maxlen](const auto &... key)
+            {
                ((
                   maxlen = std::max(
                      maxlen,
-                     // The following selection excludes vectors, optional
-                     // vectors, and Component-derived classes from the
-                     // alignment computation. Those are printed in their
-                     // own specific manner, and we think the alignment just
-                     // looks better, and has fewer spurious-looking spaces,
-                     // when those constructs are excluded.
-                     isVector<
-                        typename queryResult<std::decay_t<decltype(key)>>::type
-                     >::value ||
-                     isOptionalVector<
-                        typename queryResult<std::decay_t<decltype(key)>>::type
-                     >::value ||
-                     isDerivedFromComponent<
-                        typename queryResult<std::decay_t<decltype(key)>>::type
-                     >::value
-                     ? 0 // excluded cases
-                     : getName(key).size() // normal cases
+                     detail::doNotAlign<decltype(key)>::value
+                        ? 0 // non-aligned cases
+                        : detail::getName(key).size() // normal cases
                   )
                ), ... );
             },
@@ -128,25 +115,23 @@ std::ostream &print(std::ostream &os, const int level) const
 
       // derived-class data ==> print
       std::apply(
-         [this,&os,&level,maxlen](const auto &... key) {
+         [this,&os,&level,maxlen](const auto &... key)
+         {
             std::size_t n = 0;
-            (
-               (
-                  // indent, value, newline
-                  detail::printComponentPart(
-                     os,
-                     level+1,
-                     *(
-                        typename detail::queryResult<
-                           std::decay_t<decltype(key)>
-                        >::type
-                     *)links[n++],
-                     detail::getName(key),
-                     maxlen
-                  ) && (os << '\n') // no if()s in fold expressions :-/
-               ),
-               ...
-            );
+            ((
+               // indent, value, newline
+               detail::printComponentPart(
+                  os,
+                  level+1,
+                  *(
+                     typename detail::queryResult<
+                        std::decay_t<decltype(key)>
+                     >::type
+                  *)links[n++],
+                  detail::getName(key),
+                  detail::doNotAlign<decltype(key)>::value ? 0 : maxlen
+               ) && (os << std::endl) // no if()s in fold expressions :-/
+            ), ... );
          },
          Keys().tup
       );
@@ -162,7 +147,7 @@ std::ostream &print(std::ostream &os, const int level) const
       if constexpr (detail::hasPrintTwoArg<DERIVED>) {
          // Derived class has:
          //    std::ostream &print(std::ostream &os, const int level) const;
-         // and handles indentation level in its own way; we won't here.
+         // and handles the indentation level in its own way; we won't here.
          std::ostringstream tmp;
          derived().print(tmp,level+1);
          const std::string &str = tmp.str();
@@ -173,7 +158,7 @@ std::ostream &print(std::ostream &os, const int level) const
             if (str[size-1] == '\n') size--;
             for (std::size_t i = 0; i < size; ++i)
                os << str[i];
-            std::cout << std::endl;
+            os << std::endl;
          }
       } else if constexpr (detail::hasPrintOneArg<DERIVED>) {
          // Derived class has:
@@ -191,7 +176,7 @@ std::ostream &print(std::ostream &os, const int level) const
                os << indentTo(level+1);
             for (std::size_t i = 0; i < size; ++i)
                os << str[i] << (str[i] == '\n' ? indentTo(level+1) : "");
-            std::cout << std::endl;
+            os << std::endl;
          }
       }
 
@@ -222,7 +207,10 @@ std::ostream &print(std::ostream &os, const int level) const
       return os;
 
    } catch (...) {
-      log::member("Component.print()");
+      log::member(
+         "Component.print() for {}",
+         detail::fullName(Namespace(), Class())
+      );
       throw;
    }
 }

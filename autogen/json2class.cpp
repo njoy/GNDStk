@@ -219,14 +219,16 @@ struct InfoSpecs {
 // -----------------------------------------------------------------------------
 
 // Print text describing an action the code is about to take
-void action(const std::string &str)
+template<class... ARGS>
+void action(const ARGS &...args)
 {
    static const std::string inverse = "\033[7m";
    static const std::string background(80,' ');
    std::cout
       << inverse << color::plain::blue << '\n'
-      << background << '\n'
-      << std::setw(80) << std::left << str << '\n'
+      << background << '\n';
+   ((std::cout << std::setw(80) << std::left << args << '\n'), ...);
+   std::cout
       << background << '\n'
       << color::reset
       << std::endl;
@@ -1604,6 +1606,12 @@ void commandLine(
    static const std::string input   = "JSONDir";
    static const std::string files   = "JSONFiles";
    static const std::string changes = "Changes";
+
+   action(
+      "GNDStk Code Generator",
+      "Author: Martin Staley",
+      "Los Alamos National Laboratory"
+   );
 
    // Usage
    if (argc != 2) {
