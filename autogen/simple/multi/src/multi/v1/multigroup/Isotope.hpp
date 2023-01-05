@@ -16,24 +16,26 @@ namespace multigroup {
 // class Isotope
 // -----------------------------------------------------------------------------
 
-class Isotope : public Component<multigroup::Isotope> {
+class Isotope :
+   public Component<multigroup::Isotope>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Isotope"; }
    static auto FIELD() { return "isotope"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // metadata
          int{}
@@ -65,7 +67,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Isotope(
       const wrapper<int> &mass_number
    ) :

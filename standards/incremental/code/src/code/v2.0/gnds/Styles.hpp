@@ -16,24 +16,26 @@ namespace gnds {
 // class Styles
 // -----------------------------------------------------------------------------
 
-class Styles : public Component<gnds::Styles> {
+class Styles :
+   public Component<gnds::Styles>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Styles"; }
    static auto FIELD() { return "styles"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
          --Child<gnds::Evaluated>("evaluated")
@@ -64,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Styles(
       const wrapper<gnds::Evaluated> &evaluated
    ) :

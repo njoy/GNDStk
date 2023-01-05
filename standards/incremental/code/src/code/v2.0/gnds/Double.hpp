@@ -16,24 +16,26 @@ namespace gnds {
 // class Double
 // -----------------------------------------------------------------------------
 
-class Double : public Component<gnds::Double> {
+class Double :
+   public Component<gnds::Double>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Double"; }
    static auto FIELD() { return "double"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // metadata
          std::string{}
@@ -73,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Double(
       const wrapper<std::string> &label,
       const wrapper<double> &value = {},

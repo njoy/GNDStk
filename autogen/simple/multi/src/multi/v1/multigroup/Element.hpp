@@ -17,24 +17,26 @@ namespace multigroup {
 // class Element
 // -----------------------------------------------------------------------------
 
-class Element : public Component<multigroup::Element> {
+class Element :
+   public Component<multigroup::Element>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Element"; }
    static auto FIELD() { return "element"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // metadata
          std::optional<std::string>{}
@@ -80,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Element(
       const wrapper<std::optional<std::string>> &symbol,
       const wrapper<int> &atomic_number = {},

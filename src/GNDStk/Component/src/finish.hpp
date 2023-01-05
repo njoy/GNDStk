@@ -127,15 +127,20 @@ void finish(const Node &node)
 // finish(vector)
 // ------------------------
 
-template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
+template<
+   class T,
+   class = std::enable_if_t<!hasBlockData || BLOCKDATA::template supported<T>>
+>
 void finish(const std::vector<T> &vector)
 {
-   // assign from the vector
-   BLOCKDATA::operator=(vector);
+   if constexpr (hasBlockData) {
+      // assign from the vector
+      BLOCKDATA::operator=(vector);
 
-   // length, start, valueType: push back up to derived,
-   // as they would have been computed above in operator=.
-   BLOCKDATA::pushToDerived(derived());
+      // length, start, valueType: push back up to derived,
+      // as they would have been computed above in operator=.
+      BLOCKDATA::pushToDerived(derived());
+   }
 
    // derived-class vector fields
    sort();

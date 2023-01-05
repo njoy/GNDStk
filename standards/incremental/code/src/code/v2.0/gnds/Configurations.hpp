@@ -16,24 +16,26 @@ namespace gnds {
 // class Configurations
 // -----------------------------------------------------------------------------
 
-class Configurations : public Component<gnds::Configurations> {
+class Configurations :
+   public Component<gnds::Configurations>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Configurations"; }
    static auto FIELD() { return "configurations"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
          ++Child<gnds::Configuration>("configuration")
@@ -64,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Configurations(
       const wrapper<std::vector<gnds::Configuration>> &configuration
    ) :

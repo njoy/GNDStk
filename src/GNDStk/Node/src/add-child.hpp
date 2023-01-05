@@ -109,9 +109,10 @@ Node &add(
    const T &val = T{} // <== via SFINAE, T != optional
 ) {
    try {
+      // new node
       Node &n = add();
-      kwd.converter(TYPE(val),n);
 
+      // name
       if constexpr (detail::isVariant<TYPE>::value) {
          std::istringstream names(kwd.name);
          for (std::size_t i = 0; i <= TYPE(val).index(); ++i)
@@ -122,6 +123,9 @@ Node &add(
       } else {
          n.name = kwd.name;
       }
+
+      // convert value into node
+      kwd.converter(TYPE(val),n);
 
       return n;
    } catch (...) {

@@ -998,7 +998,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
 
    // KEYS() begin
    out();
-   out(1,"// Core Interface multi-query to extract metadata and child nodes");
+   out(1,"// Core Interface multi-query to transfer information to/from Nodes");
    out(1,"static auto KEYS()");
    out(1,"{");
 
@@ -3297,7 +3297,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
          dataTypesNames.emplace_back( it->second.first, it->second.second );
       }
       else {
-         // this is a node with a runtime data type: select types to expose
+         // this is a node with a run-time data type: select types to expose
          std::array< std::string, 3 > types = { "int", "double", "string" };
          for ( const auto& type : types ) {
             it = map.find( type );

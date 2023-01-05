@@ -395,7 +395,7 @@ private:
       // todo Implement parallel support for other than PrecisionType::strto
       return false;
    }
-   #endif // #ifdef _OPENMP
+#endif // #ifdef _OPENMP
 
 public:
 

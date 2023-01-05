@@ -13,24 +13,25 @@ std::ostream &print(std::ostream &os, const int level) const
           (active() == Active::vector && size() == 0))
          return os;
 
-      // Coloring?
-      const bool coloring = GNDStk::colors && GNDStk::color::data != "";
-
       // ------------------------
       // If string is active
       // ------------------------
 
       if (active() == Active::string) {
-         // Print the string exactly as-is, without our column formatting
+         // Print the string exactly as-is, without column formatting
          // or any indentation; then also print a newline
-         return coloring
-            ? os << color::data << rawstring << color::reset << std::endl
+         return GNDStk::colors && color::data::string != ""
+            ? os << color::data::string << rawstring << color::reset
+                 << std::endl
             : os << rawstring << std::endl;
       }
 
       // ------------------------
       // If vector is active
       // ------------------------
+
+      // Coloring?
+      const bool coloring = GNDStk::colors && color::data::vector != "";
 
       // Indentation (string, with some number of spaces)
       const std::string indent(GNDStk::indent*level,' ');
@@ -44,7 +45,7 @@ std::ostream &print(std::ostream &os, const int level) const
                ? size
                : std::min(size,std::size_t(GNDStk::truncate));
 
-            // Print, using our column formatting
+            // Print, using column formatting
             for (std::size_t i = 0; i < end; ++i) {
                const T &element = alt[i];
 
@@ -52,13 +53,13 @@ std::ostream &print(std::ostream &os, const int level) const
                i == 0
                   ? os << indent // at the very beginning, or...
                   : GNDStk::columns <= 0 ||
-                    i % std::size_t(std::abs(GNDStk::columns)) != 0
+                    i % std::size_t(GNDStk::columns) != 0
                   ? os << ' ' // still on the current line, or...
                   : os << '\n' << indent; // starting the next line
 
                // value
                using namespace detail;
-               if (coloring) os << color::data;
+               if (coloring) os << color::data::vector;
                if constexpr (std::is_floating_point_v<T>)
                   os << Precision<PrecisionContext::data,T>{}.write(element);
                else

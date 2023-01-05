@@ -16,34 +16,40 @@ namespace multigroup {
 // class Foobar
 // -----------------------------------------------------------------------------
 
-class Foobar : public Component<multigroup::Foobar,true,double> {
+class Foobar :
+   public Component<multigroup::Foobar>,
+   public DataNode<std::vector<double>,false>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Foobar"; }
    static auto FIELD() { return "foobar"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // metadata
          std::string{}
-            / Meta<>("value")
+            / Meta<>("value") |
+
+         // data
+         --Child<DataNode>(special::anydata) / DataConverter{}
       ;
    }
 
 public:
    using Component::construct;
-   using BlockData::operator=;
+   using DataNode::operator=;
 
    // comment
    Field<std::vector<std::string>> comment{this};
@@ -57,7 +63,8 @@ public:
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->comment, \
-      this->value)
+      this->value, \
+      static_cast<DataNode &>(*this))
 
    // default
    Foobar() :
@@ -66,7 +73,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Foobar(
       const wrapper<std::string> &value
    ) :
@@ -83,10 +90,10 @@ public:
       Component::finish(node);
    }
 
-   // from vector
-   template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
-   Foobar(const std::vector<T> &vector) :
-      GNDSTK_COMPONENT(BlockData{})
+   // from vector<double>
+   Foobar(const std::vector<double> &vector) :
+      GNDSTK_COMPONENT(BlockData{}),
+      DataNode(vector)
    {
       Component::finish(vector);
    }
@@ -94,6 +101,7 @@ public:
    // copy
    Foobar(const Foobar &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      DataNode(other),
       comment(this,other.comment),
       value(this,other.value)
    {
@@ -103,6 +111,7 @@ public:
    // move
    Foobar(Foobar &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      DataNode(std::move(other)),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value))
    {

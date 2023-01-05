@@ -46,6 +46,7 @@ namespace special {
       metadata = prefix + std::string("metadata"),
       cdata    = prefix + std::string("cdata"),
       data     = prefix + std::string("data"),
+      anydata  = cdata + "|" + data, // either
       comment  = prefix + std::string("comment"),
       text     = prefix + std::string("text"),
       xml      = prefix + std::string("xml"),
@@ -151,7 +152,7 @@ inline std::string diagnostic(
    } else
       spaced = text;
 
-   // final message, possibly colorized
+   // final message, possibly colored
    return colors ? codes[label] + spaced + reset : spaced;
 }
 
@@ -698,3 +699,16 @@ namespace detail {
 #endif
 
 } // namespace detail
+
+
+// -----------------------------------------------------------------------------
+// DataNode
+// -----------------------------------------------------------------------------
+
+template<class T, bool preferCDATA = false>
+struct DataNode : public T
+{
+   using T::operator=;
+   bool cdata = preferCDATA;
+   explicit DataNode(const T &from = T{}) : T(from) { }
+};

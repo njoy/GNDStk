@@ -16,24 +16,26 @@ namespace gnds {
 // class Atomic
 // -----------------------------------------------------------------------------
 
-class Atomic : public Component<gnds::Atomic> {
+class Atomic :
+   public Component<gnds::Atomic>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Atomic"; }
    static auto FIELD() { return "atomic"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
          --Child<gnds::Configurations>("configurations")
@@ -64,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Atomic(
       const wrapper<gnds::Configurations> &configurations
    ) :

@@ -21,6 +21,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    using typename BLOCKDATA::VariantOfVectors;
    using typename BLOCKDATA::VariantOfScalars;
 
+   // Keys()
    static const auto &Keys()
    {
       static const auto value = makeKeyTuple(DERIVED::KEYS());
@@ -34,7 +35,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    std::vector<void *> links;
 
    // This class cannot have copy or move construction. Its constructor MUST
-   // know about the fields in the specific instance that's derived from it.
+   // know about the fields in the specific instance that derives from it.
    Component(const Component &) = delete;
    Component(Component &&) = delete;
 
@@ -44,6 +45,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
       BLOCKDATA::operator=(other);
       return *this;
    }
+
    Component &operator=(Component &&other)
    {
       BLOCKDATA::operator=(std::move(other));
@@ -54,10 +56,10 @@ class Component : public BlockData<hasBlockData,DATATYPE>
    #include "GNDStk/Component/src/ctor.hpp"
 
    // finish
-   // See remarks in finish.hpp
+   // Helpers for the constructors
    #include "GNDStk/Component/src/finish.hpp"
 
-   // Helpers for derived-class getters/setters.
+   // Helpers for derived-class getters and setters.
    // These allow us to shorten some other code.
    #include "GNDStk/Component/src/getter.hpp"
    #include "GNDStk/Component/src/setter.hpp"
@@ -72,27 +74,30 @@ public:
    #include "GNDStk/Component/src/print.hpp"
    #include "GNDStk/Component/src/fromNode.hpp"
    #include "GNDStk/Component/src/sort.hpp"
-   #include "GNDStk/Component/src/toNode.hpp" // conversion to Node
+   #include "GNDStk/Component/src/toNode.hpp"
+   #include "GNDStk/Component/src/convert.hpp"
 
-   // Namespace
+   // Access to vector base of DERIVED, if applicable
+   template<
+      class D = DERIVED,
+      class = std::enable_if_t<detail::isDerivedFromVector<D>::value>
+   >
+   auto &vector()
+   {
+      using VECTOR = typename detail::isDerivedFromVector<D>::type;
+      return static_cast<VECTOR &>(derived());
+   }
+
+   // Forwards, where viable and unambiguous, to certain capabilities
+   // in DERIVED's fields
+   #include "GNDStk/Component/src/forward.hpp"
+
+   // Wrapper for derived-class fields
+   #include "GNDStk/Component/src/field.hpp"
+
+   // Namespace, Class
    static std::string Namespace() { return DERIVED::NAMESPACE(); }
-
-   // baseBlockData
-   // Convenient access to the BlockData base class
-   BLOCKDATA &baseBlockData() { return *this; }
-   const BLOCKDATA &baseBlockData() const { return *this; }
-
-   // baseComponent
-   // Convenient access to the Component base class (of the derived class)
-   Component &baseComponent() { return *this; }
-   const Component &baseComponent() const { return *this; }
-
-   // derived
-   // Convenient access to the derived class
-   DERIVED &derived()
-      { return static_cast<DERIVED &>(*this); }
-   const DERIVED &derived() const
-      { return static_cast<const DERIVED &>(*this); }
+   static std::string Class() { return DERIVED::CLASS(); }
 
    // documentation
    static std::string documentation(const std::string &subject = "")
@@ -104,8 +109,30 @@ public:
       }
    }
 
+   // ------------------------
+   // Shorthand access...
+   // ------------------------
+
+   // To the BlockData base class
+   BLOCKDATA &baseBlockData() { return *this; }
+   const BLOCKDATA &baseBlockData() const { return *this; }
+
+   // To the Component base class (of the derived class)
+   Component &baseComponent() { return *this; }
+   const Component &baseComponent() const { return *this; }
+
+   // To the derived class
+   DERIVED &derived()
+      { return static_cast<DERIVED &>(*this); }
+   const DERIVED &derived() const
+      { return static_cast<const DERIVED &>(*this); }
+
+   // ------------------------
    // has
+   // ------------------------
+
    // Usable in C++ "compile-time if" (a.k.a. "if constexpr") statements
+
    template<
       class EXTRACTOR, class THIS = DERIVED,
       class = decltype(std::declval<EXTRACTOR>()(THIS{}))
@@ -124,8 +151,21 @@ public:
       return false;
    }
 
-   // Class
-   static std::string Class() { return DERIVED::CLASS(); }
+   // ------------------------
+   // String (not stream) I/O
+   // ------------------------
+
+   // Component >> string
+   // Like Node >> string, but for Component's derived class.
+   void operator>>(std::string &str) const
+   {
+      try {
+         Node(*this) >> str;
+      } catch (...) {
+         log::function("{} >> string", Class());
+         throw;
+      }
+   }
 
    // Component << string
    // Like Node << string, but for Component's derived class.
@@ -140,38 +180,6 @@ public:
          throw;
       }
    }
-
-   // Component >> string
-   // Like Node >> string, but for Component's derived class.
-   void operator>>(std::string &str) const
-   {
-      try {
-         Node(*this) >> str;
-      } catch (...) {
-         log::function("{} >> string", Class());
-         throw;
-      }
-   }
-
-   // Forwards, where viable and unambiguous, to certain capabilities
-   // in DERIVED's fields
-   #include "GNDStk/Component/src/forward.hpp"
-
-   // Wrapper for derived-class fields
-   #include "GNDStk/Component/src/field.hpp"
-
-   // Core Interface node "converter" to support comments
-   struct commentConverter {
-      void operator()(const Node &node, std::string &string) const
-      {
-         string = node.meta(special::text);
-      }
-
-      void operator()(const std::string &string, Node &node) const
-      {
-         node.add(special::text,string);
-      }
-   };
 }; // class Component
 
 

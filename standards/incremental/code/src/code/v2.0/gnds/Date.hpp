@@ -16,24 +16,26 @@ namespace gnds {
 // class Date
 // -----------------------------------------------------------------------------
 
-class Date : public Component<gnds::Date> {
+class Date :
+   public Component<gnds::Date>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Date"; }
    static auto FIELD() { return "date"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // metadata
          std::string{}
@@ -69,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Date(
       const wrapper<std::string> &value,
       const wrapper<enums::DateType> &dateType = {}

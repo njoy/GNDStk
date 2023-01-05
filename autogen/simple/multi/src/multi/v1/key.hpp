@@ -11,7 +11,8 @@
 namespace multi {
 namespace v1 {
 
-using namespace njoy::GNDStk;
+using namespace njoy;
+using namespace GNDStk;
 
 
 // -----------------------------------------------------------------------------

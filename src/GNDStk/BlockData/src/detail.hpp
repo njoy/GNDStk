@@ -138,27 +138,27 @@ void element2element(const T &value, std::string &str)
 
 
 // -----------------------------------------------------------------------------
-// colorize_*(text)
+// colorize
+// colorize_*
 // -----------------------------------------------------------------------------
 
-#define gndstkPaste(one,two) one ## two
-#define gndstkColorFun(part) \
-   inline std::string gndstkPaste(colorize_,part)(const std::string &text) \
-   { \
-      return GNDStk::colors && color::part != "" \
-         ? color::part + text + color::reset \
-         : text; \
-   }
+inline std::string colorize(const std::string &text, const std::string &color)
+{
+   return GNDStk::colors && color != ""
+      ? color + text + GNDStk::color::reset
+      : text;
+}
 
-   // colorize_label() etc.
-   gndstkColorFun(label)
-   gndstkColorFun(colon)
-   gndstkColorFun(component)
-   gndstkColorFun(brace)
-   gndstkColorFun(bracket)
-   gndstkColorFun(comment)
+inline std::string colorize_brace(const std::string &text)
+{ return colorize(text, color::brace); }
 
-#undef gndstkColorFun
-#undef gndstkPaste
+inline std::string colorize_colon(const std::string &text)
+{ return colorize(text, color::colon); }
+
+inline std::string colorize_bracket(const std::string &text)
+{ return colorize(text, color::bracket); }
+
+inline std::string colorize_comment(const std::string &text)
+{ return colorize(text, color::comment); }
 
 } // namespace detail

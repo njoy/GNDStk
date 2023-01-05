@@ -16,24 +16,26 @@ namespace gnds {
 // class Authors
 // -----------------------------------------------------------------------------
 
-class Authors : public Component<gnds::Authors> {
+class Authors :
+   public Component<gnds::Authors>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Authors"; }
    static auto FIELD() { return "authors"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
          ++Child<gnds::Author>("author")
@@ -64,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Authors(
       const wrapper<std::vector<gnds::Author>> &author
    ) :

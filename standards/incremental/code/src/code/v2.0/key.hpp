@@ -11,7 +11,8 @@
 namespace code {
 namespace v2_0 {
 
-using namespace njoy::GNDStk;
+using namespace njoy;
+using namespace GNDStk;
 
 
 // -----------------------------------------------------------------------------

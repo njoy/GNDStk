@@ -828,3 +828,5 @@ template<class T>
 struct stripField<Field<T>> {
    using type = T;
 };
+
+public:

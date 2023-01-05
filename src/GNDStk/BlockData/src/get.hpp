@@ -214,6 +214,8 @@ std::enable_if_t<
          detail::Precision<detail::PrecisionContext::data,T>{}.
             read(rawstring,*to,false);
       } else {
+         // The above read would ultimately do the following for non-floating-
+         // point T, but only after extra logic that we might as well avoid.
          std::istringstream iss(rawstring);
          T element;
          while (iss >> element)

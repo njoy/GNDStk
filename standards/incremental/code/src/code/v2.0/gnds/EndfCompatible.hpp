@@ -16,24 +16,29 @@ namespace gnds {
 // class EndfCompatible
 // -----------------------------------------------------------------------------
 
-class EndfCompatible : public Component<gnds::EndfCompatible,true> {
+class EndfCompatible :
+   public Component<gnds::EndfCompatible,true>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "EndfCompatible"; }
    static auto FIELD() { return "endfCompatible"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{}
+         ++Child<std::string>(special::comment) / CommentConverter{}
+
+         // data
+         --Child<DataNode>(special::anydata) / DataConverter{}
       ;
    }
 
@@ -50,6 +55,7 @@ public:
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->comment)
+      static_cast<DataNode &>(*this))
 
    // default
    EndfCompatible() :
@@ -76,6 +82,7 @@ public:
    // copy
    EndfCompatible(const EndfCompatible &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      DataNode(other),
       comment(this,other.comment)
    {
       Component::finish(other);
@@ -84,6 +91,7 @@ public:
    // move
    EndfCompatible(EndfCompatible &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      DataNode(std::move(other)),
       comment(this,std::move(other.comment))
    {
       Component::finish(other);

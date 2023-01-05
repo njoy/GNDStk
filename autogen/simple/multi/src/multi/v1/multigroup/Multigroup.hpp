@@ -16,24 +16,26 @@ namespace multigroup {
 // class Multigroup
 // -----------------------------------------------------------------------------
 
-class Multigroup : public Component<multigroup::Multigroup> {
+class Multigroup :
+   public Component<multigroup::Multigroup>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Multigroup"; }
    static auto FIELD() { return "multigroup"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
          // comment
-         ++Child<std::string>(special::comment)/commentConverter{} |
+         ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // metadata
          std::string{}
@@ -72,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Multigroup(
       const wrapper<std::string> &projectile,
       const wrapper<std::vector<multigroup::Library>> &library = {}
