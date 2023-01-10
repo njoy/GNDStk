@@ -1,0 +1,100 @@
+{
+    "namespace": "Reduced",
+
+    "function1ds": {
+        "metadata": {
+        },
+        "children": {
+            "Legendre": {
+                "times": "1+",
+                "required": true
+            },
+            "XYs1d": {
+                "times": "1+",
+                "required": false
+            }
+        }
+    },
+
+    "outputChannel": {
+        "metadata": {
+            "genre": {
+                "type": "string",
+                "required": true
+            },
+            "process": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "Q": {
+                "times": "1",
+                "required": true
+            },
+            "products": {
+                "times": "1",
+                "namespace": "Reduced",
+                "required": false
+            }
+        }
+    },
+
+    "products": {
+        "metadata": {
+        },
+        "children": {
+            "product": {
+                "times": "1+",
+                "namespace": "Reduced",
+                "required": true
+            }
+        }
+    },
+
+    "product": {
+        "metadata": {
+            "pid": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "multiplicity": {
+                "times": "1",
+                "required": true
+            },
+            "distribution": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "polynomial1d": {
+        "metadata": {
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            },
+            "values": {
+                "times": "1",
+                "required": true
+            }
+        }
+    }
+}

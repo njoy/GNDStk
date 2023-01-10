@@ -46,6 +46,7 @@ namespace special {
       metadata = prefix + std::string("metadata"),
       cdata    = prefix + std::string("cdata"),
       data     = prefix + std::string("data"),
+      self     = prefix + std::string("self"),
       anydata  = cdata + "|" + data, // either
       comment  = prefix + std::string("comment"),
       text     = prefix + std::string("text"),
@@ -711,4 +712,8 @@ struct DataNode : public T
    using T::operator=;
    bool cdata = preferCDATA;
    explicit DataNode(const T &from = T{}) : T(from) { }
+   DataNode(const DataNode &from) = default;
+   DataNode(DataNode &&from) = default;
+   DataNode &operator=(const DataNode &from) = default;
+   DataNode &operator=(DataNode &&from) = default;
 };

@@ -27,7 +27,7 @@ const Node &one(
 ) const {
    // ""
    // meaning: return the current node
-   if (key == "") {
+   if (key == "" || key == special::self) {
       // filter is ignored in this case
       return found = true, *this;
    }
@@ -47,9 +47,9 @@ const Node &one(
    if (nboth) {
       if (nboth > 1)
          log::warning(
-            "Node.one(\"{}\") called, but {} matching nodes were found;\n"
-            "returning the first one that was found",
-            key, nboth
+            "Node.one(\"{}\") called, but {} matching nodes were found.\n"
+            "Returning the first one that was found. Context: Node {}.",
+            key, nboth, name // name == current ("parent") node's name
          );
       return found = true, *theone;
    }

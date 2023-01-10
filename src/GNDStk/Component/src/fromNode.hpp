@@ -1,5 +1,57 @@
 
 // -----------------------------------------------------------------------------
+// Hack
+// todo Temporary (maybe). And describe the purpose of this.
+// -----------------------------------------------------------------------------
+
+#ifdef GNDSTK_HACK
+
+// T
+template<class KEY>
+void hack(Node &, const KEY &)
+{
+   // The hack doesn't work in this case
+   assert(false);
+}
+
+// Meta
+template<class TYPE, class CONVERTER>
+void hack(Node &node, const Meta<TYPE,CONVERTER> &key)
+{
+   for (auto &m : node.metadata) {
+      if (std::regex_match(m.first, std::regex(key.name))) {
+         m.first = "marked-" + m.first;
+         break;
+      }
+   }
+}
+
+// Child<Allow::one>
+template<class TYPE, class CONVERTER, class FILTER>
+void hack(Node &node, const Child<TYPE,Allow::one,CONVERTER,FILTER> &key)
+{
+   for (auto &c : node.children) {
+      if (std::regex_match(c->name, std::regex(key.name))) {
+         c->name = "marked-" + c->name;
+         break; // supposedly only Allow::one (i.e. ONE) match
+      }
+   }
+}
+
+// Child<Allow::many>
+template<class TYPE, class CONVERTER, class FILTER>
+void hack(Node &node, const Child<TYPE,Allow::many,CONVERTER,FILTER> &key)
+{
+   for (auto &c : node.children) {
+      if (std::regex_match(c->name, std::regex(key.name)))
+         c->name = "marked-" + c->name;
+   }
+}
+
+#endif
+
+
+// -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
 
@@ -105,12 +157,18 @@ void transfer(const std::size_t n, const Node &node, const KEY &key)
       transferChild(node, to, key);
    else
       to = node(key);
+
+   #ifdef GNDSTK_HACK
+   hack(const_cast<Node &>(node), key);
+   #endif
 }
 
 
 // -----------------------------------------------------------------------------
 // Component::fromNode(Node)
 // -----------------------------------------------------------------------------
+
+public:
 
 // Retrieve a Node's data, and, via the links, get it into the fields in the
 // derived-class object. We'd have preferred to call this in the constructor,
@@ -125,8 +183,6 @@ void transfer(const std::size_t n, const Node &node, const KEY &key)
 // and funny stuff would happen. Maybe not too funny.) We could use placement
 // new(), below, but to no real effect: the result would be replaced, anyway,
 // when the derived class' own members are initialized in its constructor.
-
-public:
 
 void fromNode(const Node &node)
 {
@@ -146,7 +202,7 @@ void fromNode(const Node &node)
       // apply links:
       // Node ==> derived-class data
       std::apply(
-         [this,node](const auto &... key) {
+         [this,&node](const auto &... key) {
             std::size_t n = 0; (this->transfer(n++, node, key), ...);
          },
          Keys().tup
@@ -155,6 +211,34 @@ void fromNode(const Node &node)
       // block data
       if constexpr (hasBlockData)
          BLOCKDATA::fromNode(node);
+
+      // ------------------------
+      // hack
+      // ------------------------
+
+      #ifdef GNDSTK_HACK
+      std::vector<std::string> ancestors;
+      for (const Node *n = &node; n; n = &n->parent())
+         ancestors.push_back(n->name);
+
+      for (auto &m : node.metadata) {
+         if (!beginsin(m.first, "marked-")) {
+            std::cout << color::custom::green << "missed: metadatum ";
+            for (size_t i = ancestors.size(); i--; )
+               std::cout << ancestors[i] << ".";
+            std::cout << m.first << color::reset << std::endl;
+         }
+      }
+
+      for (auto &c : node.children) {
+         if (!beginsin(c->name, "marked-")) {
+            std::cout << color::custom::blue << "missed: child node ";
+            for (size_t i = ancestors.size(); i--; )
+               std::cout << ancestors[i] << ".";
+            std::cout << c->name << color::reset << std::endl;
+         }
+      }
+      #endif
 
    } catch (...) {
       log::member("Component.fromNode(Node(\"{}\"))", node.name);

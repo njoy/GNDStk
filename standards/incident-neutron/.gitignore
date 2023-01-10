@@ -1,2 +1,13 @@
-compile
+
 gnds
+compile
+m
+j
+stub.cpp
+deps
+files
+pugixml.o
+inmv
+out
+1
+1.cpp

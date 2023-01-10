@@ -30,6 +30,7 @@ SCENARIO("Component print()") {
          THEN("Component's print() function gives the correct result") {
             // Component's operator<< calls its print(ostream,0)
             njoy::GNDStk::reals << std::setprecision(8) << std::scientific;
+            comments = true;
             oss << suite << std::endl;
             CHECK(oss.str() == CorrectPrintText());
          }
@@ -50,7 +51,6 @@ inline const std::string &CorrectPrintText()
 R"***(proto::ReactionSuite {
   evaluation      : ENDF/B-8.0
   format          : 1.9
-  interaction     : // optional; has no value
   projectile      : n
   projectileFrame : lab
   target          : H2
@@ -58,17 +58,13 @@ R"***(proto::ReactionSuite {
     reaction [
       proto::Reaction {
         ENDF_MT      : 16
-        fissionGenre : // optional; has no value
         label        : 2n + H1
         proto::CrossSection {
           XYs1d regions1d [
             proto::XYs1d {
-              index            : // optional; has no value
-              interpolation    : // defaulted; is its default (lin-lin)
+              interpolation    : lin-lin // its default
               label            : eval
-              outerDomainValue : // optional; has no value
               proto::Axes {
-                href : // optional; has no value
                 axis grid [
                   proto::Axis {
                     index : 0
@@ -80,12 +76,11 @@ R"***(proto::ReactionSuite {
                     label : energy_in
                     unit  : eV
                   } // proto::Axis
-                ]
+                ] // axis grid
               } // proto::Axes
               proto::Values {
-                length    : // optional; has no value
-                start     : // defaulted; is its default (0)
-                valueType : // defaulted; is its default (double)
+                start     : 0 // its default
+                valueType : double // its default
                 3.33900000e+06 0.00000000e+00 3.40000000e+06 1.20000000e-03
                 3.50000000e+06 2.90000000e-03 3.75000000e+06 7.10318300e-03
                 4.00000000e+06 1.35000000e-02 4.25000000e+06 1.90312400e-02
@@ -150,29 +145,23 @@ R"***(proto::ReactionSuite {
                 1.48000000e+08 6.52076000e-02 1.50000000e+08 6.47240200e-02
               } // proto::Values
             } // proto::XYs1d
-          ]
+          ] // XYs1d regions1d
         } // proto::CrossSection
       } // proto::Reaction
       proto::Reaction {
         ENDF_MT      : 102
-        fissionGenre : // optional; has no value
         label        : H3 + photon
         proto::CrossSection {
           XYs1d regions1d [
             proto::Regions1d {
               label            : eval
-              outerDomainValue : // optional; has no value
               XYs1d [
                 proto::XYs1d {
                   index            : 0
-                  interpolation    : log-log
-                  label            : // optional; has no value
-                  outerDomainValue : // optional; has no value
-                  axes             : // optional; has no value
+                  interpolation    : log-log // its default
                   proto::Values {
-                    length    : // optional; has no value
-                    start     : // defaulted; is its default (0)
-                    valueType : // defaulted; is its default (double)
+                    start     : 0 // its default
+                    valueType : double // its default
                     1.00000000e-05 2.53000000e-02 1.00000000e-04 8.00000000e-03
                     2.53000000e-02 5.06000000e-04 1.00000000e+02 8.00000000e-06
                     1.00000000e+03 2.50000000e-06 2.00000000e+03 1.76000000e-06
@@ -182,14 +171,10 @@ R"***(proto::ReactionSuite {
                 } // proto::XYs1d
                 proto::XYs1d {
                   index            : 1
-                  interpolation    : // defaulted; is its default (lin-lin)
-                  label            : // optional; has no value
-                  outerDomainValue : // optional; has no value
-                  axes             : // optional; has no value
+                  interpolation    : lin-lin // its default
                   proto::Values {
-                    length    : // optional; has no value
-                    start     : // defaulted; is its default (0)
-                    valueType : // defaulted; is its default (double)
+                    start     : 0 // its default
+                    valueType : double // its default
                     1.00000000e+04 1.00000000e-06 2.00000000e+04 1.03000000e-06
                     3.00000000e+04 1.15000000e-06 4.00000000e+04 1.27000000e-06
                     5.00000000e+04 1.39000000e-06 6.00000000e+04 1.50000000e-06
@@ -263,9 +248,8 @@ R"***(proto::ReactionSuite {
                     1.50000000e+08 4.00000000e-06
                   } // proto::Values
                 } // proto::XYs1d
-              ]
+              ] // XYs1d
               proto::Axes {
-                href : // optional; has no value
                 axis grid [
                   proto::Axis {
                     index : 0
@@ -277,25 +261,21 @@ R"***(proto::ReactionSuite {
                     label : energy_in
                     unit  : eV
                   } // proto::Axis
-                ]
+                ] // axis grid
               } // proto::Axes
             } // proto::Regions1d
-          ]
+          ] // XYs1d regions1d
         } // proto::CrossSection
       } // proto::Reaction
       proto::Reaction {
         ENDF_MT      : 2
-        fissionGenre : // optional; has no value
         label        : n + H2
         proto::CrossSection {
           XYs1d regions1d [
             proto::XYs1d {
-              index            : // optional; has no value
-              interpolation    : // defaulted; is its default (lin-lin)
+              interpolation    : lin-lin // its default
               label            : eval
-              outerDomainValue : // optional; has no value
               proto::Axes {
-                href : // optional; has no value
                 axis grid [
                   proto::Axis {
                     index : 0
@@ -307,12 +287,11 @@ R"***(proto::ReactionSuite {
                     label : energy_in
                     unit  : eV
                   } // proto::Axis
-                ]
+                ] // axis grid
               } // proto::Axes
               proto::Values {
-                length    : // optional; has no value
-                start     : // defaulted; is its default (0)
-                valueType : // defaulted; is its default (double)
+                start     : 0 // its default
+                valueType : double // its default
                 1.00000000e-05 3.39500000e+00 1.00000000e-04 3.39500000e+00
                 2.53000000e-02 3.39500400e+00 1.00000000e+02 3.39500200e+00
                 1.00000000e+03 3.39489800e+00 2.00000000e+03 3.39479800e+00
@@ -404,10 +383,10 @@ R"***(proto::ReactionSuite {
                 1.48000000e+08 1.04269800e-02 1.50000000e+08 1.02176600e-02
               } // proto::Values
             } // proto::XYs1d
-          ]
+          ] // XYs1d regions1d
         } // proto::CrossSection
       } // proto::Reaction
-    ]
+    ] // reaction
   } // proto::Reactions
 } // proto::ReactionSuite
 )***";

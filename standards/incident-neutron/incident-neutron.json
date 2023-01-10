@@ -1,0 +1,9 @@
+{
+    "Project": "IncidentNeutron",
+    "Version": "v2.0",
+    "JSONFiles": [
+        "incident-neutron-reduced.json",
+        "incident-neutron-mean-values.json"
+    ],
+    "Changes": "changes.json"
+}

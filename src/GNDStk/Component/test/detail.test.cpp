@@ -279,25 +279,25 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
    // For string
    GIVEN("printComponentPart() for string") {
       oss.str("");
-      printComponentPart(oss, level=2, "foo\nbar", "label", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "label", "foo\nbar");
       CHECK(oss.str() ==
             "    label : foo\n"
             "    bar");
 
       oss.str("");
-      printComponentPart(oss, level=2, "foo\nbar", "label", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "label", "foo\nbar");
       CHECK(oss.str() ==
             "    label      : foo\n"
             "    bar");
 
       oss.str("");
-      printComponentPart(oss, level=2, "foo\nbar", "", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "", "foo\nbar");
       CHECK(oss.str() ==
             "    foo\n"
             "    bar");
 
       oss.str("");
-      printComponentPart(oss, level=2, "foo\nbar", "", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "", "foo\nbar");
       CHECK(oss.str() ==
             "    foo\n"
             "    bar");
@@ -311,19 +311,19 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          double value = 1.234;
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", value);
          CHECK(oss.str() == "    label : 1.234");
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", value);
          CHECK(oss.str() == "    label      : 1.234");
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", value);
          CHECK(oss.str() == "    1.234");
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", value);
          CHECK(oss.str() == "    1.234");
       }
 
@@ -347,19 +347,19 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
             "    } // Derived";
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", value);
          CHECK(oss.str() == expected);
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", value);
          CHECK(oss.str() == expected);
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", value);
          CHECK(oss.str() == expected);
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", value);
          CHECK(oss.str() == expected);
       }
 
@@ -368,19 +368,19 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          NonDerived value;
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", value);
          CHECK(oss.str() == "    label : {12,3.4}");
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", value);
          CHECK(oss.str() == "    label      : {12,3.4}");
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", value);
          CHECK(oss.str() == "    {12,3.4}");
 
          oss.str("");
-         printComponentPart(oss, level=2, value, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", value);
          CHECK(oss.str() == "    {12,3.4}");
       }
    } // GIVEN
@@ -391,19 +391,19 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          std::optional<double> opt = 1.234;
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", opt);
          CHECK(oss.str() == "    label : 1.234");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", opt);
          CHECK(oss.str() == "    label      : 1.234");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", opt);
          CHECK(oss.str() == "    1.234");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", opt);
          CHECK(oss.str() == "    1.234");
       }
 
@@ -413,19 +413,19 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          comments = false;
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", opt);
          CHECK(oss.str() == "");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", opt);
          CHECK(oss.str() == "");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", opt);
          CHECK(oss.str() == "");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", opt);
          CHECK(oss.str() == "");
       }
 
@@ -435,20 +435,20 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          comments = true;
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "label", maxlen=0);
-         CHECK(oss.str() == "    label : // optional; has no value");
+         printComponentPart(oss, level=2, maxlen= 0, "label", opt);
+         CHECK(oss.str() == "");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "label", maxlen=10);
-         CHECK(oss.str() == "    label      : // optional; has no value");
+         printComponentPart(oss, level=2, maxlen=10, "label", opt);
+         CHECK(oss.str() == "");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "", maxlen=0);
-         CHECK(oss.str() == "    // optional; has no value");
+         printComponentPart(oss, level=2, maxlen= 0, "", opt);
+         CHECK(oss.str() == "");
 
          oss.str("");
-         printComponentPart(oss, level=2, opt, "", maxlen=10);
-         CHECK(oss.str() == "    // optional; has no value");
+         printComponentPart(oss, level=2, maxlen=10, "", opt);
+         CHECK(oss.str() == "");
       }
    } // GIVEN
 
@@ -461,20 +461,20 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          Defaulted<double> def(5.6,7.8);
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "label", maxlen=0);
-         CHECK(oss.str() == "    label : 7.8");
+         printComponentPart(oss, level=2, maxlen= 0, "label", def);
+         CHECK(oss.str() == "    label : 7.8 // its default");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "label", maxlen=10);
-         CHECK(oss.str() == "    label      : 7.8");
+         printComponentPart(oss, level=2, maxlen=10, "label", def);
+         CHECK(oss.str() == "    label      : 7.8 // its default");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "", maxlen=0);
-         CHECK(oss.str() == "    7.8");
+         printComponentPart(oss, level=2, maxlen= 0, "", def);
+         CHECK(oss.str() == "    7.8 // its default");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "", maxlen=10);
-         CHECK(oss.str() == "    7.8");
+         printComponentPart(oss, level=2, maxlen=10, "", def);
+         CHECK(oss.str() == "    7.8 // its default");
       }
 
       WHEN("The Defaulted has its default, and comments == false") {
@@ -483,20 +483,20 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          comments = false;
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "label", maxlen=0);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen= 0, "label", def);
+         CHECK(oss.str() == "    label : 3.14");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "label", maxlen=10);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen=10, "label", def);
+         CHECK(oss.str() == "    label      : 3.14");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "", maxlen=0);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen= 0, "", def);
+         CHECK(oss.str() == "    3.14");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "", maxlen=10);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen=10, "", def);
+         CHECK(oss.str() == "    3.14");
       }
 
       WHEN("The Defaulted has its default, and comments == true") {
@@ -505,22 +505,22 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          comments = true;
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", def);
          CHECK(oss.str() ==
-               "    label : // defaulted; is its default (2.72)");
+               "    label : 2.72 // its default");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", def);
          CHECK(oss.str() ==
-               "    label      : // defaulted; is its default (2.72)");
+               "    label      : 2.72 // its default");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "", maxlen=0);
-         CHECK(oss.str() == "    // defaulted; is its default (2.72)");
+         printComponentPart(oss, level=2, maxlen= 0, "", def);
+         CHECK(oss.str() == "    2.72 // its default");
 
          oss.str("");
-         printComponentPart(oss, level=2, def, "", maxlen=10);
-         CHECK(oss.str() == "    // defaulted; is its default (2.72)");
+         printComponentPart(oss, level=2, maxlen=10, "", def);
+         CHECK(oss.str() == "    2.72 // its default");
       }
    } // GIVEN
 
@@ -530,19 +530,19 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
       std::variant<int,double> var(9.87);
 
       oss.str("");
-      printComponentPart(oss, level=2, var, "label", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "label", var);
       CHECK(oss.str() == "    label : 9.87");
 
       oss.str("");
-      printComponentPart(oss, level=2, var, "label", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "label", var);
       CHECK(oss.str() == "    label      : 9.87");
 
       oss.str("");
-      printComponentPart(oss, level=2, var, "", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "", var);
       CHECK(oss.str() == "    9.87");
 
       oss.str("");
-      printComponentPart(oss, level=2, var, "", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "", var);
       CHECK(oss.str() == "    9.87");
    } // GIVEN
 
@@ -550,6 +550,7 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
    GIVEN("printComponentPart() for vector") {
       oss.str("");
       const std::vector<std::string> vec{{"a","b","c","d","e"}};
+      comments = false;
 
       const std::string expected =
          "    label [\n"
@@ -561,11 +562,11 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          "    ]";
 
       oss.str("");
-      printComponentPart(oss, level=2, vec, "label", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "label", vec);
       CHECK(oss.str() == expected);
 
       oss.str("");
-      printComponentPart(oss, level=2, vec, "label", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "label", vec);
       CHECK(oss.str() == expected);
    } // GIVEN
 }

@@ -1,0 +1,3023 @@
+{
+    "namespace": "IncidentNeutronMeanValues",
+
+    "reactionSuite": {
+        "metadata": {
+            "projectile": {
+                "type": "string",
+                "required": true
+            },
+            "target": {
+                "type": "string",
+                "required": true
+            },
+            "evaluation": {
+                "type": "string",
+                "required": true
+            },
+            "format": {
+                "type": "string",
+                "required": true
+            },
+            "projectileFrame": {
+                "type": "string",
+                "required": true
+            },
+            "interaction": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "externalFiles": {
+                "times": "1",
+                "required": false
+            },
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "PoPs": {
+                "times": "1",
+                "required": true
+            },
+            "resonances": {
+                "times": "1",
+                "required": true
+            },
+            "reactions": {
+                "times": "1",
+                "required": true
+            },
+            "sums": {
+                "times": "1",
+                "required": true
+            },
+            "applicationData": {
+                "times": "1",
+                "required": false
+            },
+            "productions": {
+                "times": "1",
+                "required": false
+            },
+            "fissionComponents": {
+                "times": "1",
+                "required": false
+            },
+            "orphanProducts": {
+                "times": "1",
+                "required": false
+            },
+            "incompleteReactions": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "incompleteReactions": {
+        "metadata": {
+        },
+        "children": {
+            "reaction": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "orphanProducts": {
+        "metadata": {
+        },
+        "children": {
+            "orphanProduct": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "orphanProduct": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ENDF_MT": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "crossSection": {
+                "times": "1",
+                "required": true
+            },
+            "outputChannel": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "fissionComponents": {
+        "metadata": {
+        },
+        "children": {
+            "fissionComponent": {
+                "times": "1+",
+                "required": false
+            }
+        }
+    },
+
+    "fissionComponent": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ENDF_MT": {
+                "type": "int",
+                "required": true
+            },
+            "fissionGenre": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "crossSection": {
+                "times": "1",
+                "required": true
+            },
+            "outputChannel": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "externalFiles": {
+        "metadata": {
+        },
+        "children": {
+            "externalFile": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "externalFile": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "path": {
+                "type": "string",
+                "required": true
+            },
+            "checksum": {
+                "type": "string",
+                "required": true
+            },
+            "algorithm": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "styles": {
+        "metadata": {
+        },
+        "children": {
+            "evaluated": {
+                "times": "1",
+                "required": true
+            },
+            "crossSectionReconstructed": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "crossSectionReconstructed": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "derivedFrom": {
+                "type": "string",
+                "required": true
+            },
+            "date": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "PoPs": {
+        "metadata": {
+            "name": {
+                "type": "string",
+                "required": true
+            },
+            "version": {
+                "type": "string",
+                "required": true
+            },
+            "format": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "aliases": {
+                "times": "1",
+                "required": false
+            },
+            "gaugeBosons": {
+                "times": "1",
+                "required": false
+            },
+            "baryons": {
+                "times": "1",
+                "required": false
+            },
+            "chemicalElements": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "aliases": {
+        "metadata": {
+        },
+        "children": {
+            "alias": {
+                "times": "1+",
+                "required": true
+            },
+            "metaStable": {
+                "times": "1+",
+                "required": false
+            }
+        }
+    },
+
+    "alias": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "pid": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "metaStable": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "pid": {
+                "type": "string",
+                "required": true
+            },
+            "metaStableIndex": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "gaugeBosons": {
+        "metadata": {
+        },
+        "children": {
+            "gaugeBoson": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "gaugeBoson": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": true
+            },
+            "spin": {
+                "times": "1",
+                "required": true
+            },
+            "parity": {
+                "times": "1",
+                "required": true
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "halflife": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "baryons": {
+        "metadata": {
+        },
+        "children": {
+            "baryon": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "baryon": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": true
+            },
+            "spin": {
+                "times": "1",
+                "required": true
+            },
+            "parity": {
+                "times": "1",
+                "required": true
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "halflife": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "mass": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": false
+            },
+            "unit": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "double": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        }
+    },
+
+    "spin": {
+        "metadata": {
+        },
+        "children": {
+            "fraction": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "fraction": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "integer": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "int",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        }
+    },
+
+    "string": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "parity": {
+        "metadata": {
+        },
+        "children": {
+            "integer": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "charge": {
+        "metadata": {
+        },
+        "children": {
+            "integer": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "halflife": {
+        "metadata": {
+        },
+        "// remark": "PERHAPS USE VARIANT HERE? <string> or <double>...",
+        "children": {
+            "string": {
+                "times": "1",
+                "required": false
+            },
+            "double": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "chemicalElements": {
+        "metadata": {
+        },
+        "children": {
+            "chemicalElement": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "chemicalElement": {
+        "metadata": {
+            "symbol": {
+                "type": "string",
+                "required": true
+            },
+            "Z": {
+                "type": "int",
+                "required": true
+            },
+            "name": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "isotopes": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "resonances": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "scatteringRadius": {
+                "times": "1",
+                "required": false
+            },
+            "resolved": {
+                "times": "1",
+                "required": false
+            },
+            "unresolved": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "branching1d": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "branching3d": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "resolved": {
+        "metadata": {
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            },
+            "domainUnit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "BreitWigner": {
+                "times": "1",
+                "required": false
+            },
+            "RMatrix": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "RMatrix": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "approximation": {
+                "type": "string",
+                "required": true
+            },
+            "boundaryCondition": {
+                "type": "string",
+                "required": true
+            },
+            "calculateChannelRadius": {
+                "type": "bool",
+                "required": false
+            },
+            "supportsAngularReconstruction": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "PoPs": {
+                "times": "1",
+                "required": false
+            },
+            "resonanceReactions": {
+                "times": "1",
+                "required": true
+            },
+            "spinGroups": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "spinGroups": {
+        "metadata": {
+        },
+        "children": {
+            "spinGroup": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "spinGroup": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "spin": {
+                "type": "int",
+                "required": true
+            },
+            "parity": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "channels": {
+                "times": "1",
+                "required": true
+            },
+            "resonanceParameters": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "channels": {
+        "metadata": {
+        },
+        "children": {
+            "channel": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "channel": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "resonanceReaction": {
+                "type": "string",
+                "required": true
+            },
+            "L": {
+                "type": "int",
+                "required": true
+            },
+            "channelSpin": {
+                "type": "int",
+                "required": true
+            },
+            "columnIndex": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "scatteringRadius": {
+                "times": "1",
+                "required": false
+            },
+            "hardSphereRadius": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "unresolved": {
+        "metadata": {
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            },
+            "domainUnit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "tabulatedWidths": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "tabulatedWidths": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "approximation": {
+                "type": "string",
+                "required": true
+            },
+            "useForSelfShieldingOnly": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "resonanceReactions": {
+                "times": "1",
+                "required": true
+            },
+            "Ls": {
+                "times": "1",
+                "required": true
+            },
+            "PoPs": {
+                "times": "1",
+                "required": false
+            },
+            "scatteringRadius": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "resonanceReactions": {
+        "metadata": {
+        },
+        "children": {
+            "resonanceReaction": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "resonanceReaction": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ejectile": {
+                "type": "string",
+                "required": false
+            },
+            "eliminated": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "link": {
+                "times": "1",
+                "required": true
+            },
+            "hardSphereRadius": {
+                "times": "1",
+                "required": false
+            },
+            "Q": {
+                "times": "1",
+                "required": false
+            },
+            "scatteringRadius": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "hardSphereRadius": {
+        "metadata": {
+        },
+        "children": {
+            "constant1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "link": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "Ls": {
+        "metadata": {
+        },
+        "children": {
+            "L": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "L": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "Js": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "Js": {
+        "metadata": {
+        },
+        "children": {
+            "J": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "J": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "levelSpacing": {
+                "times": "1",
+                "required": true
+            },
+            "widths": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "levelSpacing": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "constant1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "widths": {
+        "metadata": {
+        },
+        "children": {
+            "width": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "width": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "resonanceReaction": {
+                "type": "string",
+                "required": true
+            },
+            "degreesOfFreedom": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "constant1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "unresolvedRegion": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "BreitWigner": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "approximation": {
+                "type": "string",
+                "required": true
+            },
+            "calculateChannelRadius": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "resonanceParameters": {
+                "times": "1",
+                "required": true
+            },
+            "PoPs": {
+                "times": "1",
+                "required": false
+            },
+            "scatteringRadius": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "resonanceParameters": {
+        "metadata": {
+        },
+        "children": {
+            "table": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "scatteringRadius": {
+        "metadata": {
+        },
+        "children": {
+            "constant1d": {
+                "times": "1",
+                "required": false
+            },
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "isotopes": {
+        "metadata": {
+        },
+        "children": {
+            "isotope": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "isotope": {
+        "metadata": {
+            "symbol": {
+                "type": "string",
+                "required": true
+            },
+            "A": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "nuclides": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "reactions": {
+        "metadata": {
+        },
+        "children": {
+            "reaction": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "nuclides": {
+        "metadata": {
+        },
+        "children": {
+            "nuclide": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "nuclide": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": false
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "nucleus": {
+                "times": "1",
+                "required": true
+            },
+            "decayData": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "decayData": {
+        "metadata": {
+        },
+        "children": {
+            "decayModes": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "decayModes": {
+        "metadata": {
+        },
+        "children": {
+            "decayMode": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "decayMode": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "mode": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "probability": {
+                "times": "1",
+                "required": true
+            },
+            "decayPath": {
+                "times": "1",
+                "required": true
+            },
+            "photonEmissionProbabilities": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "photonEmissionProbabilities": {
+        "metadata": {
+        },
+        "children": {
+            "shell": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "shell": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "probability": {
+        "metadata": {
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "decayPath": {
+        "metadata": {
+        },
+        "children": {
+            "decay": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "decay": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "products": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "table": {
+        "metadata": {
+            "rows": {
+                "type": "int",
+                "required": true
+            },
+            "columns": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "columnHeaders": {
+                "times": "1",
+                "required": true
+            },
+            "data": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+    "data": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "vector": "double"
+    },
+
+    "columnHeaders": {
+        "metadata": {
+        },
+        "children": {
+            "column": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "column": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            },
+            "name": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "nucleus": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "index": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": false
+            },
+            "spin": {
+                "times": "1",
+                "required": false
+            },
+            "parity": {
+                "times": "1",
+                "required": false
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "halflife": {
+                "times": "1",
+                "required": false
+            },
+            "energy": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "energy": {
+        "metadata": {
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "required": false
+            },
+            "NBodyPhaseSpace": {
+                "times": "1",
+                "required": false
+            },
+            "primaryGamma": {
+                "times": "1",
+                "required": false
+            },
+            "discreteGamma": {
+                "times": "1",
+                "required": false
+            },
+            "XYs2d": {
+                "times": "1",
+                "required": false
+            },
+            "generalEvaporation": {
+                "times": "1",
+                "required": false
+            },
+            "evaporation": {
+                "times": "1",
+                "required": false
+            },
+            "weightedFunctionals": {
+                "times": "1",
+                "required": false
+            },
+            "simpleMaxwellianFission": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "simpleMaxwellianFission": {
+        "metadata": {
+        },
+        "children": {
+            "U": {
+                "times": "1",
+                "required": true
+            },
+            "theta": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "weightedFunctionals": {
+        "metadata": {
+        },
+        "children": {
+            "weighted": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "weighted": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
+            },
+            "evaporation": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "evaporation": {
+        "metadata": {
+        },
+        "children": {
+            "U": {
+                "times": "1",
+                "required": true
+            },
+            "theta": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "generalEvaporation": {
+        "metadata": {
+        },
+        "children": {
+            "U": {
+                "times": "1",
+                "required": true
+            },
+            "theta": {
+                "times": "1",
+                "required": true
+            },
+            "g": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "U": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "theta": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "g": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "NBodyPhaseSpace": {
+        "metadata": {
+            "numberOfProducts": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "primaryGamma": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "discreteGamma": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "productions": {
+        "metadata": {
+        },
+        "children": {
+            "production": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "production": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ENDF_MT": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "crossSection": {
+                "times": "1",
+                "required": true
+            },
+            "outputChannel": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "reaction": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ENDF_MT": {
+                "type": "int",
+                "required": true
+            },
+            "fissionGenre": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "crossSection": {
+                "times": "1",
+                "required": true
+            },
+            "outputChannel": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "crossSection": {
+        "metadata": {
+        },
+        "// remark": "PERHAPS USE VARIANT HERE? <XYs1d> or <regions1d>...",
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "reference": {
+                "times": "1",
+                "required": false
+            },
+            "resonancesWithBackground": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "resonancesWithBackground": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "resonances": {
+                "times": "1",
+                "required": true
+            },
+            "background": {
+                "times": "1",
+                "required": true
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "background": {
+        "metadata": {
+        },
+        "children": {
+            "resolvedRegion": {
+                "times": "1",
+                "required": false
+            },
+            "fastRegion": {
+                "times": "1",
+                "required": true
+            },
+            "unresolvedRegion": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "resolvedRegion": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "fastRegion": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "reference": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "constant1d": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "regions1d": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "outerDomainValue": {
+                "type": "double",
+                "required": false
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": false
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            },
+            "function1ds": {
+                "times": "1",
+                "namespace": "Reduced",
+                "required": true
+            }
+        }
+    },
+
+    "regions2d": {
+        "metadata": {
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            },
+            "function2ds": {
+                "times": "1",
+                "required": true
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "function2ds": {
+        "metadata": {
+        },
+        "children": {
+            "XYs2d": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "values": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "vector": "double"
+    },
+
+    "angularTwoBody": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "XYs2d": {
+                "times": "1",
+                "required": false
+            },
+            "regions2d": {
+                "times": "1",
+                "required": false
+            },
+            "recoil": {
+                "times": "1",
+                "required": false
+            },
+            "isotropic2d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "recoil": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "uncertainty": {
+        "metadata": {
+        },
+        "children": {
+            "covariance": {
+                "times": "1",
+                "required": false
+            },
+            "listOfCovariances": {
+                "times": "1",
+                "required": false
+            },
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "Reduced",
+                "required": false
+            }
+        }
+    },
+
+    "listOfCovariances": {
+        "metadata": {
+        },
+        "children": {
+            "covariance": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "axes": {
+        "metadata": {
+        },
+        "children": {
+            "axis": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "axis": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "XYs1d": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "index": {
+                "type": "int",
+                "required": false
+            },
+            "interpolation": {
+                "type": "string",
+                "required": false
+            },
+            "outerDomainValue": {
+                "type": "double",
+                "required": false
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": false
+            },
+            "values": {
+                "times": "1",
+                "required": true
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "XYs2d": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": false
+            },
+            "interpolation": {
+                "type": "string",
+                "required": false
+            },
+            "interpolationQualifier": {
+                "type": "string",
+                "required": false
+            },
+            "outerDomainValue": {
+                "type": "double",
+                "required": false
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": false
+            },
+            "function1ds": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "XYs3d": {
+        "metadata": {
+            "interpolationQualifier": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": false
+            },
+            "function2ds": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "function1ds": {
+        "metadata": {
+        },
+        "children": {
+            "Legendre": {
+                "times": "1+",
+                "required": true
+            },
+            "XYs1d": {
+                "times": "1+",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1+",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "Legendre": {
+        "metadata": {
+            "outerDomainValue": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "values": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "fissionFragmentData": {
+        "metadata": {
+        },
+        "children": {
+            "delayedNeutrons": {
+                "times": "1",
+                "required": false
+            },
+            "fissionEnergyReleases": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "delayedNeutrons": {
+        "metadata": {
+        },
+        "children": {
+            "delayedNeutron": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "delayedNeutron": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "rate": {
+                "times": "1",
+                "required": true
+            },
+            "product": {
+                "times": "1",
+                "namespace": "Reduced",
+                "required": true
+            }
+        }
+    },
+
+    "rate": {
+        "metadata": {
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "fissionEnergyReleases": {
+        "metadata": {
+        },
+        "children": {
+            "fissionEnergyRelease": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "fissionEnergyRelease": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "promptProductKE": {
+                "times": "1",
+                "required": true
+            },
+            "promptNeutronKE": {
+                "times": "1",
+                "required": true
+            },
+            "delayedNeutronKE": {
+                "times": "1",
+                "required": true
+            },
+            "promptGammaEnergy": {
+                "times": "1",
+                "required": true
+            },
+            "delayedGammaEnergy": {
+                "times": "1",
+                "required": true
+            },
+            "delayedBetaEnergy": {
+                "times": "1",
+                "required": true
+            },
+            "neutrinoEnergy": {
+                "times": "1",
+                "required": true
+            },
+            "nonNeutrinoEnergy": {
+                "times": "1",
+                "required": true
+            },
+            "totalEnergy": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "promptProductKE": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "promptNeutronKE": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "delayedNeutronKE": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "promptGammaEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "delayedGammaEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "delayedBetaEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "neutrinoEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "nonNeutrinoEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "totalEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "polynomial1d": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "domainMin": {
+                "type": "double",
+                "required": true
+            },
+            "domainMax": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            },
+            "values": {
+                "times": "1",
+                "required": true
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "covariance": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "Q": {
+        "metadata": {
+        },
+        "children": {
+            "constant1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "outputChannel": {
+        "metadata": {
+            "genre": {
+                "type": "string",
+                "required": true
+            },
+            "process": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "Q": {
+                "times": "1",
+                "required": true
+            },
+            "products": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "fissionFragmentData": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            }
+        }
+    },
+
+    "products": {
+        "metadata": {
+        },
+        "children": {
+            "product": {
+                "times": "1+",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": true
+            }
+        }
+    },
+
+    "product": {
+        "metadata": {
+            "pid": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "multiplicity": {
+                "times": "1",
+                "required": false
+            },
+            "distribution": {
+                "times": "1",
+                "required": false
+            },
+            "outputChannel": {
+                "times": "1",
+                "namespace": "Reduced",
+                "required": false
+            }
+        }
+    },
+
+    "multiplicity": {
+        "metadata": {
+        },
+        "children": {
+            "constant1d": {
+                "times": "1",
+                "required": false
+            },
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "polynomial1d": {
+                "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
+                "required": false
+            },
+            "reference": {
+                "times": "1",
+                "required": false
+            },
+            "branching1d": {
+                "times": "1",
+                "required": false
+            },
+            "branching3d": {
+                "times": "1",
+                "required": false
+            },
+            "unspecified": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "multiplicitySums": {
+        "metadata": {
+        },
+        "children": {
+            "multiplicitySum": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "multiplicitySum": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ENDF_MT": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "multiplicity": {
+                "times": "1",
+                "required": true
+            },
+            "summands": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "distribution": {
+        "metadata": {
+        },
+        "children": {
+            "angularTwoBody": {
+                "times": "1",
+                "required": false
+            },
+            "uncorrelated": {
+                "times": "1",
+                "required": false
+            },
+            "unspecified": {
+                "times": "1",
+                "required": false
+            },
+            "energyAngular": {
+                "times": "1",
+                "required": false
+            },
+            "KalbachMann": {
+                "times": "1",
+                "required": false
+            },
+            "angularEnergy": {
+                "times": "1",
+                "required": false
+            },
+            "branching3d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "angularEnergy": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "XYs3d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "KalbachMann": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "f": {
+                "times": "1",
+                "required": false
+            },
+            "r": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "f": {
+        "metadata": {
+        },
+        "children": {
+            "XYs2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "r": {
+        "metadata": {
+        },
+        "children": {
+            "XYs2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "energyAngular": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "XYs3d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "uncorrelated": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "angular": {
+                "times": "1",
+                "required": true
+            },
+            "energy": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "unspecified": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        }
+    },
+
+    "sums": {
+        "metadata": {
+        },
+        "children": {
+            "crossSectionSums": {
+                "times": "1",
+                "required": true
+            },
+            "multiplicitySums": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "crossSectionSums": {
+        "metadata": {
+        },
+        "children": {
+            "crossSectionSum": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "crossSectionSum": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "ENDF_MT": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "summands": {
+                "times": "1",
+                "required": true
+            },
+            "Q": {
+                "times": "1",
+                "required": true
+            },
+            "crossSection": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "summands": {
+        "metadata": {
+        },
+        "children": {
+            "add": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "add": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "applicationData": {
+        "metadata": {
+        },
+        "children": {
+            "institution": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "institution": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "ENDFconversionFlags": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "ENDFconversionFlags": {
+        "metadata": {
+        },
+        "children": {
+            "conversion": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "conversion": {
+        "metadata": {
+            "flags": {
+                "type": "string",
+                "required": true
+            },
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "evaluated": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "date": {
+                "type": "string",
+                "required": true
+            },
+            "library": {
+                "type": "string",
+                "required": true
+            },
+            "version": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "documentation": {
+                "times": "1",
+                "required": true
+            },
+            "temperature": {
+                "times": "1",
+                "required": true
+            },
+            "projectileEnergyDomain": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "documentation": {
+        "metadata": {
+        },
+        "children": {
+            "authors": {
+                "times": "1",
+                "required": true
+            },
+            "dates": {
+                "times": "1",
+                "required": true
+            },
+            "title": {
+                "times": "1",
+                "required": true
+            },
+            "body": {
+                "times": "1",
+                "required": true
+            },
+            "endfCompatible": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "temperature": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "projectileEnergyDomain": {
+        "metadata": {
+            "min": {
+                "type": "double",
+                "required": true
+            },
+            "max": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "angular": {
+        "metadata": {
+        },
+        "children": {
+            "isotropic2d": {
+                "times": "1",
+                "required": false
+            },
+            "XYs2d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "isotropic2d": {
+        "metadata": {
+        },
+        "children": {
+        }
+    },
+
+    "authors": {
+        "metadata": {
+        },
+        "children": {
+            "author": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "author": {
+        "metadata": {
+            "name": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "dates": {
+        "metadata": {
+        },
+        "children": {
+            "date": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "date": {
+        "metadata": {
+            "value": {
+                "type": "string",
+                "required": true
+            },
+            "dateType": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "title": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "string": true,
+        "cdata": true
+    },
+
+    "body": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "string": true,
+        "cdata": true
+    },
+
+    "endfCompatible": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "string": true,
+        "cdata": true
+    }
+}

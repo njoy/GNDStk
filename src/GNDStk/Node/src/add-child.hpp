@@ -23,7 +23,7 @@
 //    plain
 //    Defaulted
 // Guaranteed to add something
-// Returns: reference to added Node
+// Returns: reference to the added Node
 // -----------------------------------------------------------------------------
 
 // 0-argument
@@ -67,11 +67,11 @@ Node &add(const Defaulted<T> &def)
 // -----------------------------------------------------------------------------
 // Child<void>, *
 // Guaranteed to add something
-// Returns: reference to added Node
+// Returns: reference to the added Node
 // -----------------------------------------------------------------------------
 
 // Similar in principle to its Meta counterpart. Bounces to one of the above
-// add() functions; and, like those, doesn't allow std::optional.
+// add() functions, and, like those, doesn't allow std::optional.
 
 // Child<void>, plain
 // Child<void>, Defaulted
@@ -94,7 +94,7 @@ Node &add(
 // -----------------------------------------------------------------------------
 // Child<plain>, *
 // Guaranteed to add something
-// Returns: reference to added Node
+// Returns: reference to the added Node
 // -----------------------------------------------------------------------------
 
 // Child<plain>, plain
@@ -109,19 +109,34 @@ Node &add(
    const T &val = T{} // <== via SFINAE, T != optional
 ) {
    try {
+      // Special case. The following is a mechanism by which someone can have
+      // add() *not* actually add a new child node to the current node, but
+      // instead have it assume that the converter will modify the current node
+      // in some fashion (perhaps by adding a child node itself; but, really,
+      // any modification would be possible). This case can be seen as basically
+      // the complement of how the query system returns *this when given the
+      // special::self string, instead of interpreting the string as the name
+      // of a child node that it should find and return. It turns out that
+      // this "identity function," in a manner of speaking, will be useful for
+      // achieving some things that would otherwise be more awkward to achieve.
+      if (kwd.name == special::self) {
+         assert(false); // zzz need to test writing!!!
+         kwd.converter(TYPE(val),*this);
+         return *this;
+      }
+
       // new node
-      Node &n = add();
+      Node &n = add(kwd.name);
 
       // name
       if constexpr (detail::isVariant<TYPE>::value) {
          std::istringstream names(kwd.name);
-         for (std::size_t i = 0; i <= TYPE(val).index(); ++i)
+         const std::size_t index = TYPE(val).index();
+         for (std::size_t i = 0; i <= index; ++i)
             names >> n.name;
          // todo Have a warning or error if we can't properly extract
          // the index()-th name. This might mean someone didn't formulate
          // the name properly when dealing with a variant.
-      } else {
-         n.name = kwd.name;
       }
 
       // convert value into node

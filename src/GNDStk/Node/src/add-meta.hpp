@@ -26,7 +26,7 @@
 // -----------------------------------------------------------------------------
 // string, *
 // Guaranteed to add something
-// Returns: reference to added metadatum pair
+// Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 
 // string, plain
@@ -72,7 +72,7 @@ metaPair &add(
 // -----------------------------------------------------------------------------
 // Meta<void>, *
 // Guaranteed to add something
-// Returns: reference to added metadatum pair
+// Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 
 // A Meta<void> means that the Meta imposes no particular type, and thus
@@ -105,7 +105,7 @@ metaPair &add(
 // -----------------------------------------------------------------------------
 // Meta<plain>, *
 // Guaranteed to add something
-// Returns: reference to added metadatum pair
+// Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 
 // Meta<plain>, plain

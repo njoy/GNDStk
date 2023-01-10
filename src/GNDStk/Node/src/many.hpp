@@ -25,7 +25,7 @@ CONTAINER<Node> many(
    try {
       // ""
       // meaning: return a container with a copy of current node
-      if (key == "") {
+      if (key == "" || key == special::self) {
          // filter is ignored in this case
          container.push_back(*this);
          found = true;
