@@ -120,7 +120,7 @@ Node &add(
       // this "identity function," in a manner of speaking, will be useful for
       // achieving some things that would otherwise be more awkward to achieve.
       if (kwd.name == special::self) {
-         assert(false); // zzz need to test writing!!!
+         assert(false); // todo NEED TO TEST WRITING!!!
          kwd.converter(TYPE(val),*this);
          return *this;
       }

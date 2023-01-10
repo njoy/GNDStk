@@ -159,7 +159,7 @@ struct DataConverter {
       str.cdata = data.name == special::cdata;
 
       found = false;
-      str = node.meta(special::text,found);
+      str = data.meta(special::text,found);
 
       if (!found) {
          log::warning(

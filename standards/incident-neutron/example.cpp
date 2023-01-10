@@ -17,6 +17,7 @@ int main(const int argc, const char *const *const argv)
       std::cout << "File: " << argv[i] << std::endl;
       try {
          r.read(argv[i]);
+         r.print();
       } catch (...) {
          if (i < argc-1)
             std::cout << "Continuing to the next file...\n" << std::endl;

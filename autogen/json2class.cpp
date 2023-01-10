@@ -149,13 +149,16 @@ struct PerClass {
       { return metadata.size() + children.size() + variants.size(); }
 
    // Data node?
-   // If (and only if) isData, dataType is considered. If dataType == "", this
-   // is the situation in GNDS in which the type of data residing in a node is
-   // to be determined dynamically, via a string metadatum called valueType. If
-   // dataType != "" (for example, dataType == "int" or dataType == "double"),
-   // then dataType is considered to stipulate the given type.
-   bool isData;
-   std::string dataType;
+   // If (and only if) isDataVector, elementType is considered. If it's "", then
+   // this is the situation in GNDS in which the type of data residing in a node
+   // is to be determined dynamically, via a string metadatum called valueType.
+   // If elementType != "" (for example, elementType == "int" or "double"), then
+   // elementType stipulates the wanted type.
+   bool isDataString; // Example: <foo> This is a free-form text string </foo>
+   bool isDataVector; // Example: <foo> 1.2 3.45 6.789 </foo>
+   std::string elementType;
+   bool isDataNode; // for convenience: either isDataString or isDataVector
+   bool cdata; // prefer "cdata" over plain data?
 };
 
 
@@ -954,19 +957,30 @@ void writeClassPrefix(writer &out, const PerClass &per)
    out(largeComment);
 
    // class begin
+   // A namespace prefix in Component<> prevents possible ambiguities with the
+   // Child<> object, for the class, brought in through key.hpp. Normally the
+   // class name is capitalized while the Child<> object isn't, but if the node
+   // name was already capitalized in the specs (an example we encountered was
+   // the name "XYs1d"), then the Child<> key would reflect that. Then, without
+   // the nsname:: below, we'd have an ambiguity.
    out();
-   out("class @ : public Component<@::@@> {",
-       // A namespace prefix in Component<> prevents possible ambiguities with
-       // the Child<> object for the class that was brought in through key.hpp.
-       // Normally the class name is capitalized while the Child<> object isn't,
-       // but if the node name was already capitalized in the specs (an example
-       // we encountered was "XYs1d"), then the Child<> key would reflect that.
-       // Then, without the nsname:: here, we'd have an ambiguity.
-       per.clname, per.nsname, per.clname,
-       per.isData
-          ? (",true" + (per.dataType == "" ? "" : "," + per.dataType))
-          : ""
-   );
+   out("class @ :", per.clname);
+
+   if (per.isDataVector && per.elementType == "") {
+      out(1,"public Component<@::@,true>", per.nsname, per.clname);
+   } else if (per.isDataVector) {
+      out(1,"public Component<@::@>,", per.nsname, per.clname);
+      out(1,"public DataNode<std::vector<@>,@>", per.elementType,
+          per.cdata ? "true" : "false");
+   } else if (per.isDataString) {
+      out(1,"public Component<@::@>,", per.nsname, per.clname);
+      out(1,"public DataNode<std::string,@>",
+          std::string(per.cdata ? "true" : "false"));
+   } else {
+      out(1,"public Component<@::@>", per.nsname, per.clname);
+   }
+
+   out("{");
    out(1,"friend class Component;");
 } // writeClassPrefix
 
@@ -991,7 +1005,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out(1,"// For Component");
    out(1,smallComment);
    out();
-   out(1,"// Names: this namespace, this class, a field/node of this type");
+   out(1,"// Names: this namespace, this class, and a field/node of this type");
    out(1,"static auto NAMESPACE() { return \"@\"; }", per.nsname);
    out(1,"static auto CLASS() { return \"@\"; }", per.clname);
    out(1,"static auto FIELD() { return \"@\"; }", per.nameGNDS);
@@ -1004,12 +1018,12 @@ void writeClassForComponent(writer &out, const PerClass &per)
 
    // KEYS() contents
    int count = 0;
-   const int total = per.nfields();
+   const int total = per.nfields() + int(per.isDataNode);
    out(2,"return");
 
    // comment
    out(3,"// comment");
-   out(3,"++Child<std::string>(special::comment)/commentConverter{}@",
+   out(3,"++Child<std::string>(special::comment) / CommentConverter{}@",
        std::string(total ? " |" : ""));
 
    // metadata
@@ -1019,7 +1033,9 @@ void writeClassForComponent(writer &out, const PerClass &per)
    }
    for (const auto &m : per.metadata) {
       out(3,"@{@}", m.typeFull, initializer(m));
-      out(4,"/ Meta<>(\"@\")@", m.original, ++count < total ? " |" : "");
+      out(4,"/ Meta<>(\"@\")@", m.original,
+          ++count < total ? " |" : ""
+         );
    }
 
    // children
@@ -1043,7 +1059,16 @@ void writeClassForComponent(writer &out, const PerClass &per)
       int n = 0; // for alternatives; not to be confused w/count
       for (const auto &c : v.children)
          out("@Child<>(\"@\")", n++ == 0 ? "" : " || ", c.name, false);
-      out(")@", ++count < total ? " |" : "");
+      out(")@",
+          ++count < total ? " |" : ""
+         );
+   }
+
+   // data
+   if (per.isDataNode) {
+      out();
+      out(3,"// data");
+      out(3,"--Child<DataNode>(special::self) / DataConverter{}");
    }
 
    // KEYS() end
@@ -1076,6 +1101,8 @@ void writeClassSuffix(
       out(2,"if (this != &other) {");
       out(3,"std::cout << \"assign: @: copy\" << std::endl;", per.clname);
       out(3,"Component::operator=(other);");
+      if (per.isDataNode)
+         out(3,"DataNode::operator=(other);");
       out(3,"comment = other.comment;");
       if (per.nfields() > 0) {
          for (const auto &m : per.metadata)
@@ -1097,6 +1124,8 @@ void writeClassSuffix(
       out(2,"if (this != &other) {");
       out(3,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
       out(3,"Component::operator=(std::move(other));");
+      if (per.isDataNode)
+         out(3,"DataNode::operator=(std::move(other));");
       out(3,"comment = std::move(other.comment);");
       if (per.nfields() > 0) {
          for (const auto &m : per.metadata)
@@ -1156,7 +1185,7 @@ void writeClassContentMetadata(writer &out, const PerClass &per)
    }
 
    for (const auto &m : per.metadata) {
-      per.isData && (
+      per.isDataVector && (
       m.name == "length" || m.name == "start" || m.name == "valueType")
          ? out(1,"mutable Field<@> @{this", m.typeFull, m.name, false)
          : out(1,        "Field<@> @{this", m.typeFull, m.name, false);
@@ -1258,14 +1287,19 @@ void writeClassCtors(writer &out, const PerClass &per)
    out();
 
    out(1,"#define GNDSTK_COMPONENT(blockdata) Component(blockdata, \\");
-   out(2,"this->comment@", std::string(total ? ", \\" : ")"));
+   out(2,"this->comment@", std::string(total || per.isDataNode ? ", \\" : ")"));
    count = 0;
    for (const auto &m : per.metadata)
-      out(2,"this->@@", m.name, ++count < total ? ", \\" : ")");
+      out(2,"this->@@", m.name,
+          ++count < total || per.isDataNode ? ", \\" : ")");
    for (const auto &c : per.children)
-      out(2,"this->@@", c.name, ++count < total ? ", \\" : ")");
+      out(2,"this->@@", c.name,
+          ++count < total || per.isDataNode ? ", \\" : ")");
    for (const auto &v : per.variants)
-      out(2,"this->@@", v.name, ++count < total ? ", \\" : ")");
+      out(2,"this->@@", v.name,
+          ++count < total || per.isDataNode ? ", \\" : ")");
+   if (per.isDataNode)
+      out(2,"static_cast<DataNode &>(*this))");
 
    // ------------------------
    // ctor: default
@@ -1285,7 +1319,7 @@ void writeClassCtors(writer &out, const PerClass &per)
       out();
 
       // comment for this constructor
-      out(1,"// from fields");
+      out(1,"// from fields, comment excluded");
 
       // informational message, if applicable
       for (const auto &m : per.metadata)
@@ -1365,7 +1399,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    // ctor: vector
    // ------------------------
 
-   if (per.isData) {
+   if (per.isDataVector && per.elementType == "") {
       out();
       out(1,"// from vector");
       out(1,"template<class T, class = "
@@ -1373,6 +1407,23 @@ void writeClassCtors(writer &out, const PerClass &per)
       out(1,"@(const std::vector<T> &vector) :", per.clname);
       writeClassCtorComponent(out, per, false);
       writeClassCtorBody(out, "vector", per.clname, "vector");
+   } else if (per.isDataVector) {
+      out();
+      out(1,"// from vector<@>", per.elementType);
+      out(1,"@(const std::vector<@> &vector) :", per.clname, per.elementType);
+      writeClassCtorComponent(out, per, false,false);
+      out(",");
+      out(2,"DataNode(vector)");
+      writeClassCtorBody(out, "vector", per.clname, "vector");
+   } else if (per.isDataString) {
+      // todo
+      // Perhaps construction from std::string here, as we do with std::vector
+      // above, but we need to be careful. What if the class has a std::string
+      // metadatum and no other fields? Then, I think, the constructor created
+      // here would conflict with the "from fields" constructor. And, actually,
+      // perhaps this sort of thing can happen in relation to std::vector too.
+      // With other priorities being more pressing, let's address these concerns
+      // only if and when necessary.
    }
 
    // ------------------------
@@ -1384,6 +1435,8 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"@(const @ &other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true, false);
    out(",");
+   if (per.isDataNode)
+      out(2,"DataNode(other),");
    out(2,"comment(this,other.comment)@", std::string(total ? "," : ""));
    count = 0;
    for (const auto &m : per.metadata)
@@ -1403,6 +1456,8 @@ void writeClassCtors(writer &out, const PerClass &per)
    out(1,"@(@ &&other) :", per.clname, per.clname);
    writeClassCtorComponent(out, per, true, false);
    out(",");
+   if (per.isDataNode)
+      out(2,"DataNode(std::move(other)),");
    out(2,"comment(this,std::move(other.comment))@",
        std::string(total ? "," : ""));
    count = 0;
@@ -1434,8 +1489,10 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
 
    // output: using directives
    out(1,"using Component::construct;");
-   if (per.isData)
+   if (per.isDataVector && per.elementType == "")
       out(1,"using BlockData::operator=;");
+   else if (per.isDataNode)
+      out(1,"using DataNode::operator=;");
 
    // output: defaults (applicable only to metadata)
    std::size_t ndefaults = 0;
@@ -1577,16 +1634,24 @@ void printSingletons(const std::string &file)
       if (!isClass(item))
          continue;
 
-      const bool data = rhs.contains("vector") && !rhs["vector"].is_null();
-      const bool body = rhs.contains("bodyText") && !rhs["bodyText"].is_null();
+      const bool hasdata =
+         (rhs.contains("string"  ) && !rhs["string"  ].is_null()) ||
+         (rhs.contains("vector"  ) && !rhs["vector"  ].is_null()) ||
+         (rhs.contains("bodyText") && !rhs["bodyText"].is_null());
 
       const orderedJSON metadata = getMetadataJSON(rhs);
       const orderedJSON children = getChildrenJSON(rhs);
+      // todo Should arrange to ignore "//..." style entries within "metadata"
+      // and "children". I ignore those in (at least *some*) other places,
+      // like at the same level as "metadata" and "children". At some point,
+      // when priorities allow, I should determine precisely where "comments"
+      // are currently ignored, and where they aren't. We probably want to
+      // arrange to ignore them everywhere in all of the input .json files.
 
-      if (metadata.size() == 0 && children.size() == 0 && !data && !body)
+      if (metadata.size() == 0 && children.size() == 0 && !hasdata)
          log::info("This class has no metadata, data, or children: "
                    "\"{}\"", parent);
-      if (metadata.size() == 0 && children.size() == 1 && !data && !body)
+      if (metadata.size() == 0 && children.size() == 1 && !hasdata)
          log::info("This class has no metadata or data, and just one child: "
                    "\"{}\"", parent);
    }
@@ -1900,19 +1965,23 @@ void getClass(
    getClassVariants(elems, specs, per, dep);
 
    // data-node information
-   static const std::string datastr = "vector";
-   static const std::string bodystr = "bodyText";
-   const bool data = classRHS.contains(datastr) && !classRHS[datastr].is_null();
-   const bool body = classRHS.contains(bodystr) && !classRHS[bodystr].is_null();
-   assert(!(data && body)); // not both
-   per.isData = data || body;
-   if (data) {
+   const bool
+      str  = classRHS.contains("string"  ) && !classRHS["string"  ].is_null(),
+      vec  = classRHS.contains("vector"  ) && !classRHS["vector"  ].is_null(),
+      body = classRHS.contains("bodyText") && !classRHS["bodyText"].is_null();
+   assert(int(str) + int(vec) + int(body) <= 1); // no more than one
+
+   per.isDataString = str;
+   per.isDataVector = vec || body;
+   per.isDataNode   = per.isDataString || per.isDataVector;
+   if (vec) {
       // A type change, as with metadata, may be warranted here as well
-      const std::string type = classRHS[datastr];
+      const std::string type = classRHS["vector"];
       const auto it = specs.mapMetaType.find(type);
-      per.dataType = it == specs.mapMetaType.end() ? type : it->second;
+      per.elementType = it == specs.mapMetaType.end() ? type : it->second;
    } else
-      per.dataType = "";
+      per.elementType = "";
+   per.cdata = classRHS.contains("cdata") && classRHS["cdata"];
 
    // per.code will contain printed C++ code for the class itself
    writeClass(per,specs);
@@ -2118,7 +2187,8 @@ void fileGNDStkKey(const InfoSpecs &specs)
    out("namespace @ {", specs.Project);
    out("namespace @ {", specs.VersionUnderscore);
    out();
-   out("using namespace njoy::GNDStk;");
+   out("using namespace njoy;");
+   out("using namespace GNDStk;");
 
    // ------------------------
    // Meta<> objects
@@ -3130,8 +3200,8 @@ void fileCInterfaceCommon(
    fileCInterfaceIO(hdr,src, per);
 
    // Array support, if BlockData
-   if (per.isData)
-      fileCInterfaceVector(hdr,src, per, per.dataType);
+   if (per.isDataVector)
+      fileCInterfaceVector(hdr,src, per, per.elementType);
 
    // Functions regarding metadata
    for (const auto &m : per.metadata)
@@ -3247,8 +3317,8 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
    static const std::map<std::string,std::pair<std::string,std::string>> map = {
       // ----------------------   -----------            -----------------
-      // In per.dataType or       The                    A name to use
-      // in per.metadata's        appropriate            for the function
+      // In per.elementType       The                    A name to use
+      // or in per.metadata's     appropriate            for the function
       // valueType defaultValue   C++ type               that returns them
       // ----------------------   -----------            -----------------
 
@@ -3289,9 +3359,9 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    };
 
    std::vector< std::pair< std::string, std::string > > dataTypesNames;
-   if (per.isData) {
-      // try to find per.dataType in the map
-      auto it = map.find(per.dataType);
+   if (per.isDataVector) {
+      // try to find per.elementType in the map
+      auto it = map.find(per.elementType);
       if (it != map.end()) {
          // this is a node with a fixed data type
          dataTypesNames.emplace_back( it->second.first, it->second.second );

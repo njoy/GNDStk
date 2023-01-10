@@ -55,8 +55,12 @@ the enclosing class to do the right thing.
 // Doesn't print the trailing newline.
 // -----------------------------------------------------------------------------
 
-std::ostream &print(std::ostream &os, const int level) const
-{
+std::ostream &print(
+   std::ostream &os, const int level,
+   const std::string &labelColor = color::component
+) const {
+   const std::string label = detail::fullName(Namespace(), Class());
+
    try {
       // ------------------------
       // Indent, header, newline
@@ -64,10 +68,7 @@ std::ostream &print(std::ostream &os, const int level) const
 
       detail::indentString(
          os, level,
-         detail::colorize_component(
-            detail::fullName(Namespace(), Class())
-         ) + " " +
-         detail::colorize_brace("{")
+         detail::colorize(label, labelColor) + ' ' + detail::colorize_brace("{")
       );
       os << std::endl;
 
@@ -99,7 +100,7 @@ std::ostream &print(std::ostream &os, const int level) const
                ((
                   maxlen = std::max(
                      maxlen,
-                     detail::doNotAlign<decltype(key)>::value
+                     detail::doNotAlign<std::decay_t<decltype(key)>>::value
                         ? 0 // non-aligned cases
                         : detail::getName(key).size() // normal cases
                   )
@@ -113,7 +114,7 @@ std::ostream &print(std::ostream &os, const int level) const
       // Apply links
       // ------------------------
 
-      // derived-class data ==> print
+      // derived-class fields ==> print
       std::apply(
          [this,&os,&level,maxlen](const auto &... key)
          {
@@ -121,15 +122,22 @@ std::ostream &print(std::ostream &os, const int level) const
             ((
                // indent, value, newline
                detail::printComponentPart(
+                  // os
                   os,
+                  // level
                   level+1,
+                  // maxlen
+                  detail::doNotAlign<std::decay_t<decltype(key)>>::value
+                     ? 0
+                     : maxlen,
+                  // field label
+                  detail::getName(key),
+                  // field value
                   *(
                      typename detail::queryResult<
                         std::decay_t<decltype(key)>
                      >::type
-                  *)links[n++],
-                  detail::getName(key),
-                  detail::doNotAlign<decltype(key)>::value ? 0 : maxlen
+                  *)links[n++]
                ) && (os << std::endl) // no if()s in fold expressions :-/
             ), ... );
          },
@@ -195,22 +203,13 @@ std::ostream &print(std::ostream &os, const int level) const
       detail::indentString(
          os, level,
          detail::colorize_brace("}")
-          + (comments
-              ? " " +
-                detail::colorize_comment(
-                   std::string("// ") + detail::fullName(Namespace(), Class())
-                )
-              : ""
-            )
+          + (comments ? ' ' + detail::colorize_comment("// " + label) : "")
       );
 
       return os;
 
    } catch (...) {
-      log::member(
-         "Component.print() for {}",
-         detail::fullName(Namespace(), Class())
-      );
+      log::member("Component.print() for {}", label);
       throw;
    }
 }

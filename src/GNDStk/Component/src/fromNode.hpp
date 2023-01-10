@@ -8,10 +8,12 @@
 
 // T
 template<class KEY>
-void hack(Node &, const KEY &)
+void hack(const Node &node, const KEY &)
 {
    // The hack doesn't work in this case
-   assert(false);
+   std::cout << color::custom::green
+             << "not marking child node " << node.name
+             << color::reset << std::endl;
 }
 
 // Meta

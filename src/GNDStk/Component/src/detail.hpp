@@ -1,13 +1,30 @@
 
-// Forward declaration, needed by some things later
+// A forward declaration of Component is needed by some constructs here
 template<class DERIVED, bool hasBlockData = false, class DATATYPE = void>
 class Component;
 
 namespace detail {
 
+// Various helper constructs
+#include "GNDStk/Component/src/detail-sfinae.hpp"
+
+// getter()
+// Various cases.
+// Intended for use in our Standard Interface classes.
+#include "GNDStk/Component/src/detail-getter.hpp"
+
+
 // -----------------------------------------------------------------------------
 // Functions: miscellaneous
 // -----------------------------------------------------------------------------
+
+// indentString
+inline void indentString(
+   std::ostream &os, const int level, const std::string &str = ""
+) {
+   os << std::string(GNDStk::indent * level, ' ') << str;
+}
+
 
 // ------------------------
 // getName
@@ -45,36 +62,12 @@ getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
 // Various
 // ------------------------
 
-// colorize
-inline std::string colorize(
-   const std::string &label,
-   const std::string &color
-) {
-   // no coloring wanted?
-   if (!GNDStk::colors)
-      return label;
-
-   // normal (not overridden) label color?
-   if (color == "")
-      return colorize_label(label);
-
-   // override, e.g. for the label of a std::optional
-   return color + label + GNDStk::color::reset;
-}
-
 // fullName
 inline std::string fullName(
    const std::string &nname, // name of namespace
    const std::string &cname  // name of class
 ) {
    return (nname == "" ? "" : nname + "::") + cname;
-}
-
-// indentString
-inline void indentString(
-   std::ostream &os, const int level, const std::string &str = ""
-) {
-   os << std::string(GNDStk::indent * level,' ') << str;
 }
 
 // isDerivedFromComponent
@@ -89,6 +82,21 @@ class isDerivedFromComponent {
    using type = decltype(test(std::declval<T *>()));
 public:
    static constexpr bool value = type::value;
+};
+
+// isDerivedFromVector
+// Similar to isDerivedFromComponent
+template<class T>
+class isDerivedFromVector {
+   template<class X, class Allocator>
+   static constexpr std::pair<std::vector<X,Allocator>,std::true_type>
+      test(std::vector<X,Allocator> *);
+   static constexpr std::pair<int,std::false_type>
+      test(...);
+   using ret = decltype(test(std::declval<T *>()));
+public:
+   static constexpr bool value = ret::second_type::value;
+   using type = std::conditional_t<value, typename ret::first_type,void>;
 };
 
 
@@ -139,285 +147,370 @@ template<class DERIVED>
 inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 
 
-
 // -----------------------------------------------------------------------------
 // printComponentPart
-// Forward declarations
 // -----------------------------------------------------------------------------
-
-// todo
-// Verify that we really need these. At some point, I thought I determined that
-// they were necessary for proper resolution of calls to the various overloaded
-// printComponentPart() functions, which often call one another.
 
 // Cases:
-//    std::string
-//    T
-//    std::optional<T>
-//    Defaulted<T>
-//    std::vector<T>
-
-bool printComponentPart(
-   std::ostream &os, const int level, const std::string &str,
-   const std::string &label, const std::size_t maxlen,
-   const std::string &color = ""
-);
-
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const T &value,
-   const std::string &label, const std::size_t maxlen,
-   const std::string &color = ""
-);
-
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const std::optional<T> &opt,
-   const std::string &label, const std::size_t maxlen
-);
-
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const Defaulted<T> &def,
-   const std::string &label, const std::size_t maxlen
-);
-
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const std::vector<T> &vec,
-   const std::string &label, const std::size_t maxlen,
-   const std::string &color = ""
-);
-
-
-
-// -----------------------------------------------------------------------------
-// printComponentPart
-// Definitions
-// -----------------------------------------------------------------------------
+//    1. string
+//    2. DataNode<string>
+//    3. DataNode<vector<T>>
+//    4. T
+//    5. vector<T>
+//    6. optional<T>
+//    7. Defaulted<T>
 
 // ------------------------
-// for string
+// 1. string
 // ------------------------
 
 inline bool printComponentPart(
-   std::ostream &os, const int level, const std::string &str,
-   const std::string &label, const std::size_t maxlen,
-   const std::string &color
+   std::ostream &os, const int level, const std::size_t maxlen,
+   const std::string &label,
+   const std::string &value,
+   const std::string &labelColor = color::label,
+   const std::string &valueColor = color::value
 ) {
    indentString(os,level);
 
    if (label != "") {
-      os << colorize(label,color);
+      // label
+      os << colorize(label,labelColor);
+
+      // alignment
       if (maxlen != 0) {
          assert(maxlen >= label.size());
-         os << std::string(maxlen-label.size(),' ');
+         os << std::string(maxlen-label.size(), ' ');
       }
-      os << " " << colorize_colon(":");
+
+      // space, :, space
+      os << ' ' << colorize_colon(":");
       // Assuming the string to be printed isn't empty - which we don't really
-      // anticipate would happen - print a space after the ":" and before the
-      // soon-to-be-printed string.
-      if (str != "")
+      // anticipate it would be - print a space after the ":", i.e. just before
+      // the soon-to-be-printed string.
+      if (value != "")
          os << ' ';
    }
 
    // Nothing to print.
-   if (str == "")
+   if (value == "")
       return true;
 
-   // Print, indenting after any internal newlines the string might happen
-   // to have. Note that callers probably shouldn't *end* such strings with
-   // newlines. They generally won't, given how this function is called, but
-   // its possible that such newlines could arrive in the original data, from
-   // somebody's file. These won't really do any harm (and all of this is just
-   // prettyprinting, after all), but will simply cause a blank line to appear
-   // where it may seem unexpected. Speaking of the unexpected, a newline at
-   // the string's *beginning*, as opposed to its ending, will produce an end-
-   // of-line space after the label and colon a few lines above ("label : \n").
-   // Some may find end-of-line whitespace to feel...icky. We could write logic
-   // that avoids producing end-of-line whitespace or blank lines, but believe
-   // it's better to leave such things. If they occur, it may point somebody
-   // to a construct like, say, the following in an XML file:
-   //    <foo>
-   //       <![CDATA[
-   //          This is a comment.
-   //       ]]>
-   //    </foo>
-   // which should probably be this instead:
-   //    <foo>
-   //       <![CDATA[This is a comment.]]>
-   //    </foo>
-   // That is, without leading and trailing newlines.
-
+   // Print, indenting after any internal newlines the string might contain.
+   const bool hascolor = GNDStk::colors && valueColor != "";
    bool start = true;
-   for (auto &ch : str) {
-      if (GNDStk::colors && start) os << color::value;
+
+   for (auto &ch : value) {
+      if (start && hascolor) os << valueColor;
       start = ch == '\n';
-      if (GNDStk::colors && start) os << color::reset; // before os << \n...
+      if (start && hascolor) os << color::reset; // before os << \n...
       os << ch;
       if (start) { // after \n, indent for additional content
          os << std::flush;
          indentString(os,level);
       }
    }
-   if (GNDStk::colors) os << color::reset;
+   if (hascolor) os << color::reset;
 
    return true;
 }
 
 
 // ------------------------
-// for T
+// 2. DataNode<string>
 // ------------------------
 
-template<class T>
+template<bool preferCDATA>
 bool printComponentPart(
-   std::ostream &os, const int level, const T &value,
-   const std::string &label, const std::size_t maxlen,
-   const std::string &color
+   std::ostream &os, const int level, const std::size_t,
+   const std::string &,
+   const DataNode<std::string,preferCDATA> &value,
+   const std::string & = "",
+   const std::string &valueColor = color::data::string
 ) {
-   if constexpr (isDerivedFromComponent<T>::value) {
-      // Suppress "unused parameter" warnings
-      (void)value; (void)maxlen;
-      (void)label; (void)color;
-      // T is derived from Component, and thus inherits a print()
-      value.baseComponent().print(os,level);
-   } else {
-      // T is any old type, not derived from Component
-      if constexpr (std::is_floating_point_v<T>) {
-         printComponentPart(
-            os, level,
-            detail::Precision<
-               detail::PrecisionContext::metadata,
-               T
-            >{}.write(value),
-            label, maxlen, color
-         );
-      } else {
-         // The string intermediary allows us to indent properly
-         // if the printed value has internal newlines.
-         std::string str;
-         convert_t{}(value,str);
-         printComponentPart(os, level, str, label, maxlen, color);
+   // If empty, don't even print a newline
+   if (value == "")
+      return false;
+
+   // Forward to printComponentPart(string). The way we're printing
+   // a DataNode<string>, maxlen, label, and labelColor aren't used.
+   return printComponentPart(
+      os, level, 0, "",
+      static_cast<const std::string &>(value),
+      valueColor
+   );
+}
+
+
+// ------------------------
+// 3. DataNode<vector>
+// ------------------------
+
+template<class T, bool preferCDATA>
+bool printComponentPart(
+   std::ostream &os, const int level, const std::size_t,
+   const std::string &,
+   const DataNode<std::vector<T>,preferCDATA> &vec,
+   const std::string & = "",
+   const std::string &valueColor = color::data::vector
+) {
+   // The way we're printing a DataNode<vector>, maxlen, label,
+   // and labelColor aren't used.
+
+   // If empty, don't even print a newline
+   const std::size_t size = vec.size();
+   if (size == 0)
+      return false;
+
+   // Coloring?
+   const bool hascolor =
+      (colors && valueColor != "") ||
+      (shades && std::is_arithmetic_v<T>);
+
+   // Indentation (string, with some number of spaces)
+   const std::string indent(GNDStk::indent * level, ' ');
+
+   // End, given the requested truncation
+   const std::size_t end = GNDStk::truncate < 0
+      ? size
+      : std::min(size, std::size_t(GNDStk::truncate));
+
+   // Compute the minimum and maximum values in the data vector, if we'll need
+   // them. Our use of std::conditional_t allows us to avoid constructing two
+   // possibly large and complex T values (given that T could be, for example,
+   // a large Component-based object) if T isn't of arithmetic type.
+   std::conditional_t<std::is_arithmetic_v<T>,T,int> min, max;
+   if constexpr (std::is_arithmetic_v<T>)
+      if (shades) {
+         min = max = vec[0]; // vec.size() == 0 was ruled out above
+         for (std::size_t i = 1; i < size; ++i) {
+            min = std::min(min,vec[i]);
+            max = std::max(max,vec[i]);
+         }
       }
+
+   // Print, using column formatting
+   for (std::size_t i = 0; i < end; ++i) {
+      // element's whitespace prefix
+      i == 0
+         // at the very beginning
+         ? os << indent
+         : GNDStk::columns <= 0 || i % std::size_t(GNDStk::columns) != 0
+         // still on the current line
+         ? os << ' '
+         // starting the next line
+         : os << (hascolor ? color::reset : "") << std::endl << indent;
+
+      // color, if applicable
+      if constexpr (std::is_arithmetic_v<T>)
+         if (shades)
+            os << color::blue2red(min,vec[i],max);
+      if (hascolor && !(std::is_arithmetic_v<T> && shades))
+         os << valueColor;
+
+      // element
+      if constexpr (std::is_floating_point_v<T>)
+         os << Precision<PrecisionContext::data,T>{}.write(vec[i]);
+      else
+         os << vec[i];
+   };
+   if (hascolor) os << color::reset;
+
+   // If applicable, print a message saying the data were truncated
+   if (end < size) {
+      if (end > 0)
+         os << std::endl; // we printed *something*; go to the next line, then:
+      os << indent << colorize_comment(
+         "// truncated; actual #elements == " + std::to_string(size));
    }
+
    return true;
 }
 
 
 // ------------------------
-// for optional
+// 4. T (general)
 // ------------------------
 
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::optional<T> &opt,
-   const std::string &label, const std::size_t maxlen
+   std::ostream &os, const int level, const std::size_t maxlen,
+   const std::string &label,
+   const T &value,
+   const std::string &labelColor = isDerivedFromComponent<T>::value
+      ? color::component
+      : color::label,
+   const std::string &valueColor = color::value
 ) {
-   if (opt.has_value())
-      printComponentPart(
-         os, level, opt.value(),
-         label, maxlen, color::optional
-      );
-   else if (comments)
-      printComponentPart(
-         os, level, colorize_comment("// optional; has no value"),
-         label, maxlen, color::optional
-      );
-   else
-      return false; // <== caller won't print newline
-   return true;
-}
+   // If value is derived from Component, we'll call its .print() function.
+   // Otherwise, we'll forward to printComponentPart(string), after creating
+   // some sort of string representation of the value.
 
-
-// ------------------------
-// for Defaulted
-// ------------------------
-
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const Defaulted<T> &def,
-   const std::string &label, const std::size_t maxlen
-) {
-   if (def.has_value()) {
+   if constexpr (isDerivedFromComponent<T>::value) {
+      value.baseComponent().print(os,level,labelColor);
+   } else if constexpr (std::is_floating_point_v<T>) {
+      // T is floating-point. Use our floating-point printing mechanism.
       printComponentPart(
-         os, level, def.value(),
-         label, maxlen, color::defaulted
+         os, level, maxlen, label,
+         Precision<PrecisionContext::metadata, T>{}.write(value),
+         labelColor, valueColor
       );
-   } else if (comments) {
+   } else {
+      // T is not floating-point.
+      // A string intermediary allows us to indent properly if the printed
+      // value has internal newlines.
       std::string str;
-      convert_t{}(def.get_default(),str);
+      convert_t{}(value,str);
+
       printComponentPart(
-         os, level,
-         colorize_comment("// defaulted; is its default (" + str + ")"),
-         label, maxlen, color::defaulted
+         os, level, maxlen, label,
+         str,
+         labelColor, valueColor
       );
-   } else
-      return false; // <== so that caller won't print newline
+   }
+
    return true;
 }
 
 
 // ------------------------
-// for vector
+// 5. vector
 // ------------------------
 
-// label [
-//    element
-//    element
-//    ...
-// ]
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::vector<T> &vec,
-   const std::string &label, const std::size_t /*maxlen*/,
-   const std::string &color
+   std::ostream &os, const int level, const std::size_t,
+   const std::string &label,
+   const std::vector<T> &vec,
+   const std::string &labelColor = color::vector,
+   const std::string & = ""
 ) {
-   // Doesn't use maxlen; formats with [...]
+   // Forward to some printComponentPart() for each element. Note that here,
+   // in the vector context, maxlen isn't applicable. As for valueColor (the
+   // last parameter), the forwarded-to printComponentPart() will use what's
+   // appropriate for the vector elements.
 
    // To avoid user confusion in prettyprinted output, we'll change our special
    // name "#comment" (which identifies comment nodes to be transformed into the
    // form <!--a comment--> when writing to XML), to the name "comment" instead.
    // Also, because our code generator creates the comment vector<string> field
-   // automatically, in generated classes, we'll forego printing it here at all,
-   // that is, we won't write "comment [(nothing)]"), if the vector is empty.
-   const bool comment = label == special::comment;
-   if (comment && vec.size() == 0)
-      return false; // <== so that caller won't print newline
+   // automatically, in generated classes, we won't print it here at all if the
+   // vector is empty; that is, we won't write "comment [(nothing)]").
+   const bool isComment = label == special::comment;
+   if (isComment && vec.size() == 0)
+      return false; // <== so that the caller won't print a newline
+
+   const std::string lab = isComment ? "comment" : label;
 
    indentString(
       os, level,
-      colorize(
-         comment ? "comment" : label,
-         color != "" ? color : GNDStk::color::vector
-      )
-      + " " + colorize_bracket("[") + "\n"
+      colorize(lab, labelColor) + ' ' + colorize_bracket("[")
    );
+   os << std::endl;
 
-   for (auto &value : vec) {
-      printComponentPart(os, level+1, value, "", 0);
+   for (const auto &element : vec) {
+      printComponentPart(
+         os, level+1, 0, "",
+         element,
+         isDerivedFromComponent<T>::value ? color::component : "",
+         isComment ? color::data::comment : ""
+      );
       os << std::endl; // between elements
    }
 
    indentString(
       os, level,
       colorize_bracket("]")
+       + (comments ? ' ' + colorize_comment("// " + lab) : "")
    );
 
    return true;
 }
 
 
+// ------------------------
+// 6. optional
+// ------------------------
 
-// -----------------------------------------------------------------------------
-// getter()
-// Various cases.
-// Intended for use in our Standard Interface classes.
-// -----------------------------------------------------------------------------
+// todo Maybe don't need labelColor and valueColor?
+template<class T>
+bool printComponentPart(
+   std::ostream &os, const int level, const std::size_t maxlen,
+   const std::string &label,
+   const std::optional<T> &value,
+   const std::string &labelColor = "",
+   const std::string &valueColor = ""
+) {
+   if (!value.has_value())
+      return false; // <== so that the caller won't print a newline
 
-#include "GNDStk/Component/src/detail-sfinae.hpp"
-#include "GNDStk/Component/src/detail-getter.hpp"
+   // label color
+   std::string clabel = labelColor;
+   if (clabel == "") {
+      if constexpr (isDerivedFromComponent<T>::value)
+         clabel = color::optional::component;
+      else if constexpr (isVector<T>::value)
+         clabel = color::optional::vector;
+      else
+         clabel = color::optional::label;
+   }
 
+   // value color
+   std::string cvalue = valueColor;
+   if (cvalue == "")
+      cvalue = color::optional::value;
+
+   // print
+   printComponentPart(
+      os, level, maxlen, label,
+      value.value(),
+      clabel
+   );
+   return true;
+}
+
+
+// ------------------------
+// 7. Defaulted
+// ------------------------
+
+// todo Maybe don't need labelColor and valueColor?
+template<class T>
+bool printComponentPart(
+   std::ostream &os, const int level, const std::size_t maxlen,
+   const std::string &label,
+   const Defaulted<T> &value,
+   const std::string &labelColor = "",
+   const std::string &valueColor = ""
+) {
+   // label color
+   std::string clabel = labelColor;
+   if (clabel == "") {
+      if constexpr (isDerivedFromComponent<T>::value)
+         clabel = color::optional::component;
+      else if constexpr (isVector<T>::value)
+         clabel = color::optional::vector;
+      else
+         clabel = color::optional::label;
+   }
+
+   // value color
+   std::string cvalue = valueColor;
+   if (cvalue == "")
+      cvalue = color::optional::value;
+
+   // print
+   printComponentPart(
+      os, level, maxlen, label,
+      value.value(),
+      clabel, cvalue
+   );
+
+   // comment
+   if (comments)
+      os << ' ' << colorize_comment("// its default");
+   return true;
+}
 
 
 // -----------------------------------------------------------------------------
@@ -560,31 +653,54 @@ void sort(std::optional<std::vector<T>> &opt)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // queryResult
+// isDataNode
 // doNotAlign
 // -----------------------------------------------------------------------------
 
-// default
+// ------------------------
+// queryResult
+// ------------------------
+
+// general
 template<class KEY>
 struct queryResult {
    using type = std::decay_t<decltype(Node{}(std::declval<KEY>()))>;
 };
 
-// For Meta<Defaulted>
+// for Meta<Defaulted>
 template<class TYPE, class CONVERTER>
 struct queryResult<Meta<Defaulted<TYPE>,CONVERTER>> {
    using type = Defaulted<TYPE>;
 };
 
-// For std::tuple
+// for std::tuple
 template<class... KEYS>
 struct queryResult<std::tuple<KEYS...>> {
    using type = std::tuple<typename queryResult<KEYS>::type...>;
 };
 
+// ------------------------
+// isDataNode
+// ------------------------
+
+// general
+template<class T>
+struct isDataNode {
+   static constexpr bool value = false;
+};
+
+// for DataNode
+template<class T, bool preferCDATA>
+struct isDataNode<DataNode<T,preferCDATA>> {
+   static constexpr bool value = true;
+};
+
+// ------------------------
 // doNotAlign
+// ------------------------
+
 // Component::print() uses the following to exclude [optional] vectors and
 // Component-derived classes from its alignment computation. Those are printed
 // in their own specific manner, and we think the alignment just looks better,
@@ -592,12 +708,10 @@ struct queryResult<std::tuple<KEYS...>> {
 template<class KEY>
 struct doNotAlign {
    static constexpr bool value =
-      isVector<
-         typename queryResult<std::decay_t<KEY>>::type>::value ||
-      isOptionalVector<
-         typename queryResult<std::decay_t<KEY>>::type>::value ||
-      isDerivedFromComponent<
-         typename queryResult<std::decay_t<KEY>>::type>::value;
+      isVector              <typename queryResult<KEY>::type>::value ||
+      isOptionalVector      <typename queryResult<KEY>::type>::value ||
+      isDerivedFromComponent<typename queryResult<KEY>::type>::value ||
+      isDataNode            <typename queryResult<KEY>::type>::value;
 };
 
 } // namespace detail
