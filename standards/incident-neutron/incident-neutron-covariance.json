@@ -1,0 +1,734 @@
+{
+    "namespace": "covar",
+
+    "covarianceSuite": {
+        "metadata": {
+            "projectile": {
+                "type": "string",
+                "required": true
+            },
+            "target": {
+                "type": "string",
+                "required": true
+            },
+            "evaluation": {
+                "type": "string",
+                "required": true
+            },
+            "interaction": {
+                "type": "string",
+                "required": true
+            },
+            "format": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "externalFiles": {
+                "times": "1",
+                "required": false
+            },
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "covarianceSections": {
+                "times": "1",
+                "required": false
+            },
+            "parameterCovariances": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "covarianceSections": {
+        "metadata": {
+        },
+        "children": {
+            "covarianceSection": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "covarianceSection": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "crossTerm": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "rowData": {
+                "times": "1",
+                "required": true
+            },
+            "columnData": {
+                "times": "1",
+                "required": false
+            },
+            "covarianceMatrix": {
+                "times": "1",
+                "required": false
+            },
+            "mixed": {
+                "times": "1",
+                "required": false
+            },
+            "sum": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "mixed": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "covarianceMatrix": {
+                "times": "1+",
+                "required": true
+            },
+            "sum": {
+                "times": "1+",
+                "required": false
+            },
+            "shortRangeSelfScalingVariance": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "// I noticed that 'label' always looked like an int, in particular" : "",
+    "// the int 1, in the following. That seems goofy." : "",
+    "shortRangeSelfScalingVariance": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "type": {
+                "type": "string",
+                "required": true
+            },
+            "dependenceOnProcessedGroupWidth": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "gridded2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "sum": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "domainMin": {
+                "type": "double",
+                "required": false
+            },
+            "domainMax": {
+                "type": "double",
+                "required": false
+            },
+            "domainUnit": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "summand": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "summand": {
+        "metadata": {
+            "ENDF_MFMT": {
+                "type": "string",
+                "required": false
+            },
+            "coefficient": {
+                "type": "string",
+                "required": false
+            },
+            "href": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        }
+    },
+
+    "rowData": {
+        "metadata": {
+            "ENDF_MFMT": {
+                "type": "string",
+                "required": false
+            },
+            "dimension": {
+                "type": "int",
+                "required": false
+            },
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "slices": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "columnData": {
+        "metadata": {
+            "ENDF_MFMT": {
+                "type": "string",
+                "required": false
+            },
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "slices": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "slices": {
+        "metadata": {
+        },
+        "children": {
+            "slice": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "slice": {
+        "metadata": {
+            "dimension": {
+                "type": "int",
+                "required": true
+            },
+            "domainValue": {
+                "type": "int",
+                "required": false
+            },
+            "domainMin": {
+                "type": "double",
+                "required": false
+            },
+            "domainMax": {
+                "type": "double",
+                "required": false
+            },
+            "domainUnit": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        }
+    },
+
+    "covarianceMatrix": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "type": {
+                "type": "string",
+                "required": true
+            },
+            "productFrame": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "gridded2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "gridded2d": {
+        "metadata": {
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            },
+            "array": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "axes": {
+        "metadata": {
+        },
+        "children": {
+            "axis": {
+                "times": "1",
+                "required": true
+            },
+            "grid": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "axis": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "grid": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            },
+            "style": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "link": {
+                "times": "1",
+                "required": false
+            },
+            "values": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "// in the covar files all values nodes seem to have a valueType": "",
+    "// of Integer32, and, as therefore expected, int values. So...": "",
+    "values": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "valueType": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        },
+        "vector": "int"
+    },
+
+    "link": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "array": {
+        "metadata": {
+            "shape": {
+                "type": "string",
+                "required": true
+            },
+            "symmetry": {
+                "type": "string",
+                "required": false
+            },
+            "compression": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "values": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "parameterCovariances": {
+        "metadata": {
+        },
+        "children": {
+            "parameterCovariance": {
+                "times": "1+",
+                "required": true
+            },
+            "averageParameterCovariance": {
+                "times": "1+",
+                "required": false
+            }
+        }
+    },
+
+    "averageParameterCovariance": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "crossTerm": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "covarianceMatrix": {
+                "times": "1",
+                "required": true
+            },
+            "rowData": {
+                "times": "1",
+                "required": true
+            },
+            "columnData": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "parameterCovariance": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "rowData": {
+                "times": "1",
+                "required": true
+            },
+            "parameterCovarianceMatrix": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "parameterCovarianceMatrix": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "type": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "array": {
+                "times": "1",
+                "required": true
+            },
+            "parameters": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "parameters": {
+        "metadata": {
+        },
+        "children": {
+            "parameterLink": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "parameterLink": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "href": {
+                "type": "string",
+                "required": true
+            },
+            "nParameters": {
+                "type": "int",
+                "required": false
+            },
+            "matrixStartIndex": {
+                "type": "int",
+                "required": false
+            }
+        },
+        "children": {
+        }
+    },
+
+    "externalFiles": {
+        "metadata": {
+        },
+        "children": {
+            "externalFile": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "externalFile": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "path": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "styles": {
+        "metadata": {
+        },
+        "children": {
+            "evaluated": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "evaluated": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "date": {
+                "type": "string",
+                "required": true
+            },
+            "library": {
+                "type": "string",
+                "required": true
+            },
+            "version": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "documentation": {
+                "times": "1",
+                "required": true
+            },
+            "temperature": {
+                "times": "1",
+                "required": true
+            },
+            "projectileEnergyDomain": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "documentation": {
+        "metadata": {
+        },
+        "children": {
+            "authors": {
+                "times": "1",
+                "required": true
+            },
+            "dates": {
+                "times": "1",
+                "required": true
+            },
+            "title": {
+                "times": "1",
+                "required": true
+            },
+            "body": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "temperature": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "projectileEnergyDomain": {
+        "metadata": {
+            "min": {
+                "type": "double",
+                "required": true
+            },
+            "max": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "authors": {
+        "metadata": {
+        },
+        "children": {
+            "author": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "author": {
+        "metadata": {
+            "name": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "dates": {
+        "metadata": {
+        },
+        "children": {
+            "date": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "date": {
+        "metadata": {
+            "value": {
+                "type": "string",
+                "required": true
+            },
+            "dateType": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "title": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "string": true,
+        "cdata": true
+    },
+
+    "body": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "string": true,
+        "cdata": true
+    }
+}
