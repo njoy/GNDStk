@@ -30,10 +30,12 @@
         },
         "children": {
             "externalFiles": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": false
             },
             "styles": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -166,6 +168,7 @@
         },
         "children": {
             "externalFile": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1+",
                 "required": true
             }
@@ -200,6 +203,7 @@
         },
         "children": {
             "evaluated": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -860,6 +864,7 @@
         },
         "children": {
             "link": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -1578,6 +1583,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             }
@@ -1601,6 +1607,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             }
@@ -1805,6 +1812,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             }
@@ -1824,6 +1832,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": false
             },
@@ -1844,6 +1853,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -1955,6 +1965,7 @@
         },
         "children": {
             "axis": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1+",
                 "required": true
             }
@@ -2001,10 +2012,12 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": false
             },
             "values": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -2036,6 +2049,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": false
             },
@@ -2060,6 +2074,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": false
             },
@@ -2099,6 +2114,7 @@
         },
         "children": {
             "values": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             }
@@ -2361,10 +2377,12 @@
         },
         "children": {
             "axes": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
             "values": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -2849,14 +2867,17 @@
         },
         "children": {
             "documentation": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
             "temperature": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
             "projectileEnergyDomain": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             }
@@ -2868,18 +2889,22 @@
         },
         "children": {
             "authors": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
             "dates": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
             "title": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
             "body": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1",
                 "required": true
             },
@@ -2951,6 +2976,7 @@
         },
         "children": {
             "author": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1+",
                 "required": true
             }
@@ -2973,6 +2999,7 @@
         },
         "children": {
             "date": {
+                "namespace": "IncidentNeutronMeanValues",
                 "times": "1+",
                 "required": true
             }

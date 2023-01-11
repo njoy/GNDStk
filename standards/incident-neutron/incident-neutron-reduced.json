@@ -89,10 +89,12 @@
         "children": {
             "axes": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             },
             "values": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             }
         }

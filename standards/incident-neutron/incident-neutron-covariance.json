@@ -26,10 +26,12 @@
         },
         "children": {
             "externalFiles": {
+                "namespace": "covar",
                 "times": "1",
                 "required": false
             },
             "styles": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
@@ -292,6 +294,7 @@
         },
         "children": {
             "axes": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
@@ -307,6 +310,7 @@
         },
         "children": {
             "axis": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
@@ -357,10 +361,12 @@
         },
         "children": {
             "link": {
+                "namespace": "covar",
                 "times": "1",
                 "required": false
             },
             "values": {
+                "namespace": "covar",
                 "times": "1",
                 "required": false
             }
@@ -413,6 +419,7 @@
         },
         "children": {
             "values": {
+                "namespace": "covar",
                 "times": "1+",
                 "required": true
             }
@@ -542,6 +549,7 @@
         },
         "children": {
             "externalFile": {
+                "namespace": "covar",
                 "times": "1+",
                 "required": true
             }
@@ -568,6 +576,7 @@
         },
         "children": {
             "evaluated": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             }
@@ -595,14 +604,17 @@
         },
         "children": {
             "documentation": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
             "temperature": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
             "projectileEnergyDomain": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             }
@@ -614,18 +626,22 @@
         },
         "children": {
             "authors": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
             "dates": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
             "title": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             },
             "body": {
+                "namespace": "covar",
                 "times": "1",
                 "required": true
             }
@@ -671,6 +687,7 @@
         },
         "children": {
             "author": {
+                "namespace": "covar",
                 "times": "1+",
                 "required": true
             }
@@ -693,6 +710,7 @@
         },
         "children": {
             "date": {
+                "namespace": "covar",
                 "times": "1+",
                 "required": true
             }
