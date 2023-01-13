@@ -45,7 +45,7 @@
             },
             "resonances": {
                 "times": "1",
-                "required": true
+                "required": false
             },
             "reactions": {
                 "times": "1",
@@ -53,7 +53,7 @@
             },
             "sums": {
                 "times": "1",
-                "required": true
+                "required": false
             },
             "applicationData": {
                 "times": "1",
@@ -114,6 +114,7 @@
         "children": {
             "crossSection": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             },
             "outputChannel": {
@@ -153,6 +154,7 @@
         "children": {
             "crossSection": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             },
             "outputChannel": {
@@ -1639,6 +1641,7 @@
         "children": {
             "crossSection": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             },
             "outputChannel": {
@@ -1667,12 +1670,17 @@
         "children": {
             "crossSection": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             },
             "outputChannel": {
                 "times": "1",
                 "namespace": "IncidentNeutronMeanValues",
                 "required": true
+            },
+            "doubleDifferentialCrossSection": {
+                "times": "1",
+                "required": false
             }
         }
     },
@@ -1696,6 +1704,10 @@
                 "required": false
             },
             "resonancesWithBackground": {
+                "times": "1",
+                "required": false
+            },
+            "CoulombPlusNuclearElastic": {
                 "times": "1",
                 "required": false
             }
@@ -2478,6 +2490,7 @@
             },
             "distribution": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": false
             },
             "outputChannel": {
@@ -2592,6 +2605,10 @@
                 "required": false
             },
             "branching3d": {
+                "times": "1",
+                "required": false
+            },
+            "CoulombPlusNuclearElastic": {
                 "times": "1",
                 "required": false
             }
@@ -2767,6 +2784,7 @@
             },
             "crossSection": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             }
         }

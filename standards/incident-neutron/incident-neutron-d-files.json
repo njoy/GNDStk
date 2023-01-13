@@ -1,0 +1,155 @@
+{
+    "namespace": "dd",
+
+    "doubleDifferentialCrossSection": {
+        "metadata": {
+        },
+        "children": {
+            "CoulombPlusNuclearElastic": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "CoulombPlusNuclearElastic": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "href": {
+                "type": "string",
+                "required": false
+            },
+            "pid": {
+                "type": "string",
+                "required": false
+            },
+            "productFrame": {
+                "type": "string",
+                "required": false
+            },
+            "identicalParticles": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "RutherfordScattering": {
+                "times": "1",
+                "required": false
+            },
+            "nuclearAmplitudeExpansion": {
+                "times": "1",
+                "required": false
+            },
+            "nuclearPlusInterference": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "RutherfordScattering": {
+        "metadata": {
+        },
+        "children": {
+        }
+    },
+
+    "nuclearAmplitudeExpansion": {
+        "metadata": {
+        },
+        "children": {
+            "nuclearTerm": {
+                "times": "1",
+                "required": true
+            },
+            "realInterferenceTerm": {
+                "times": "1",
+                "required": true
+            },
+            "imaginaryInterferenceTerm": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "nuclearTerm": {
+        "metadata": {
+        },
+        "children": {
+            "regions2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "realInterferenceTerm": {
+        "metadata": {
+        },
+        "children": {
+            "regions2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "imaginaryInterferenceTerm": {
+        "metadata": {
+        },
+        "children": {
+            "regions2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "nuclearPlusInterference": {
+        "metadata": {
+            "muCutoff": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "crossSection": {
+                "times": "1",
+                "namespace": "dd",
+                "required": true
+            },
+            "distribution": {
+                "times": "1",
+                "namespace": "dd",
+                "required": true
+            }
+        }
+    },
+
+    "crossSection": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "distribution": {
+        "metadata": {
+        },
+        "children": {
+            "XYs2d": {
+                "times": "1",
+                "required": false
+            }
+        }
+    }
+}

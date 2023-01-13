@@ -117,10 +117,9 @@ Node &add(
       // the complement of how the query system returns *this when given the
       // special::self string, instead of interpreting the string as the name
       // of a child node that it should find and return. It turns out that
-      // this "identity function," in a manner of speaking, will be useful for
-      // achieving some things that would otherwise be more awkward to achieve.
+      // this "identity function," in a manner of speaking, will help us achieve
+      // some things that would otherwise be more awkward to achieve.
       if (kwd.name == special::self) {
-         assert(false); // todo NEED TO TEST WRITING!!!
          kwd.converter(TYPE(val),*this);
          return *this;
       }
