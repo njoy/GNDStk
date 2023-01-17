@@ -1,0 +1,15 @@
+{
+    "namespace": "productyield",
+
+    "nuclides": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        },
+        "vector": "string"
+    }
+}

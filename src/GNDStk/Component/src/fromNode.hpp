@@ -18,7 +18,7 @@ void hack(const Node &node, const KEY &)
 
 // Meta
 template<class TYPE, class CONVERTER>
-void hack(Node &node, const Meta<TYPE,CONVERTER> &key)
+void hack(const Node &node, const Meta<TYPE,CONVERTER> &key)
 {
    for (auto &m : node.metadata) {
       if (std::regex_match(m.first, std::regex(key.name))) {
@@ -30,9 +30,9 @@ void hack(Node &node, const Meta<TYPE,CONVERTER> &key)
 
 // Child<Allow::one>
 template<class TYPE, class CONVERTER, class FILTER>
-void hack(Node &node, const Child<TYPE,Allow::one,CONVERTER,FILTER> &key)
+void hack(const Node &node, const Child<TYPE,Allow::one,CONVERTER,FILTER> &key)
 {
-   for (auto &c : node.children) {
+   for (const auto &c : node.children) {
       if (std::regex_match(c->name, std::regex(key.name))) {
          c->name = "marked-" + c->name;
          break; // supposedly only Allow::one (i.e. ONE) match
@@ -42,9 +42,9 @@ void hack(Node &node, const Child<TYPE,Allow::one,CONVERTER,FILTER> &key)
 
 // Child<Allow::many>
 template<class TYPE, class CONVERTER, class FILTER>
-void hack(Node &node, const Child<TYPE,Allow::many,CONVERTER,FILTER> &key)
+void hack(const Node &node, const Child<TYPE,Allow::many,CONVERTER,FILTER> &key)
 {
-   for (auto &c : node.children) {
+   for (const auto &c : node.children) {
       if (std::regex_match(c->name, std::regex(key.name)))
          c->name = "marked-" + c->name;
    }
@@ -161,7 +161,7 @@ void transfer(const std::size_t n, const Node &node, const KEY &key)
       to = node(key);
 
    #ifdef GNDSTK_HACK
-   hack(const_cast<Node &>(node), key);
+   hack(node,key);
    #endif
 }
 
@@ -223,7 +223,7 @@ void fromNode(const Node &node)
       for (const Node *n = &node; n; n = &n->parent())
          ancestors.push_back(n->name);
 
-      for (auto &m : node.metadata) {
+      for (const auto &m : node.metadata) {
          if (!beginsin(m.first, "marked-")) {
             std::cout << color::custom::green << "missed: metadatum ";
             for (size_t i = ancestors.size(); i--; )
@@ -232,7 +232,7 @@ void fromNode(const Node &node)
          }
       }
 
-      for (auto &c : node.children) {
+      for (const auto &c : node.children) {
          if (!beginsin(c->name, "marked-")) {
             std::cout << color::custom::blue << "missed: child node ";
             for (size_t i = ancestors.size(); i--; )
