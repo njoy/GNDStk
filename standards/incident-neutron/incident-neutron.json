@@ -4,7 +4,8 @@
     "JSONFiles": [
         "incident-neutron-reduced.json",
         "incident-neutron-mean-values.json",
-        "incident-neutron-covariance.json"
+        "incident-neutron-covariance.json",
+        "incident-neutron-d-files.json"
     ],
     "Changes": "changes.json"
 }

@@ -70,6 +70,7 @@
             },
             "distribution": {
                 "times": "1",
+                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             }
         }
