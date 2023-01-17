@@ -56,7 +56,7 @@ public:
       wrappedValue(other.wrappedValue)
    { }
 
-   // parent, default value, current value
+   // parent, default value, current value (std::optional)
    // If T == Defaulted
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field(
@@ -67,16 +67,29 @@ public:
       wrappedValue(def,v)
    { }
 
+   /*
+   // parent, default value, current value (GNDStk::Optional)
+   // If T == Defaulted
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   Field(
+      DERIVED *const parent, const typename TEE::value_type &def,
+      const GNDStk::Optional<typename TEE::value_type> &v = {}
+   ) :
+      parent(*parent),
+      wrappedValue(def,v)
+   { }
+   */
+
    // ------------------------
    // has
    // ------------------------
 
    // has()
    // With no arguments.
-   // Relates to std::optional, not to the question of what metadata or metadata
-   // values the present Field might contain. (See the below function for that.)
-   // Returns true iff T is either *not* std::optional, or is std::optional and
-   // has a value.
+   // Relates to std::optional/GNDStk::Optional, not to the question of what
+   // metadata or metadata values the present Field might contain. (See the
+   // below function for that.) Returns true iff T is either *not* optional,
+   // or is optional *and* has a value.
    bool has() const
    {
       if constexpr (detail::isOptional<T>)
@@ -112,7 +125,7 @@ public:
 
    // ------------------------
    // value()
-   // Get past std::optional
+   // Get past optional
    // where necessary
    // ------------------------
 
@@ -142,7 +155,7 @@ public:
    // ------------------------
 
    // ()
-   // Get exactly the wrapped value, whatever it is (including std::optional)
+   // Get exactly the Field-wrapped value, whatever it is (including optional)
    const T &operator()() const { return wrappedValue; }
    T &operator()() { return wrappedValue; }
 
@@ -261,13 +274,17 @@ public:
    // ------------------------
 
    // replace(optional)
-   // Replace existing Defaulted's value with the given optional value.
+   // Replace existing Defaulted's value with the given value.
    // Provides a "builder pattern" for DERIVED.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
    {
-      wrappedValue = opt;
-      return parent;
+      return wrappedValue = opt, parent;
+   }
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   DERIVED &replace(const GNDStk::Optional<typename TEE::value_type> &opt)
+   {
+      return wrappedValue = opt, parent;
    }
 
    // operator()(optional)
@@ -277,11 +294,21 @@ public:
    {
       return replace(opt);
    }
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   DERIVED &operator()(const GNDStk::Optional<typename TEE::value_type> &opt)
+   {
+      return replace(opt);
+   }
 
    // operator=(optional)
    // As above, except returns Field, as expected for assignment.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field &operator=(const std::optional<typename TEE::value_type> &opt)
+   {
+      return replace(opt), *this;
+   }
+   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
+   Field &operator=(const GNDStk::Optional<typename TEE::value_type> &opt)
    {
       return replace(opt), *this;
    }
@@ -453,13 +480,22 @@ public:
    }
 
    // opt()
-   // Makes an optional. So, we must return by value,
+   // Makes a std::optional. So, we must return by value,
    // and then only the const version is needed.
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    const std::optional<PART> opt() const
    {
       const PART *const p = ptr();
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
+   }
+
+   // Opt()
+   // As above, except makes a GNDStk::Optional.
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   const GNDStk::Optional<PART> Opt() const
+   {
+      const PART *const p = ptr();
+      return p ? GNDStk::Optional<PART>{*p} : GNDStk::Optional<PART>{};
    }
 
    // operator()
@@ -511,9 +547,13 @@ public:
       return const_cast<PART &>(std::as_const(*this).operator const PART &());
    }
 
-   // To optional<PART>
+   // To std::optional<PART>
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    operator std::optional<PART>() const { return opt(); }
+
+   // To GNDStk::Optional<PART>
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   operator GNDStk::Optional<PART>() const { return Opt(); }
 
    // ------------------------
    // has
@@ -523,9 +563,9 @@ public:
    /*
    // todo I'm not sure that this would have a clear meaning for FieldPart.
    // For Field, it means whether or not a value exists - either it's not
-   // std::optional, or is std::optional but has a value. Here, that meaning
-   // could be confused with the concept of whether or not the variant
-   // contains the "PART" represented by this FieldPart. Think about this.
+   // optional, or is optional but has a value. Here, that meaning could be
+   // confused with the concept of whether or not the variant contains the
+   // "PART" represented by this FieldPart. Think about this.
 
    // has()
    bool has() const
@@ -611,6 +651,17 @@ public:
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
    }
 
+   // Opt(index/label/Lookup)
+   template<
+      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>
+   >
+   const GNDStk::Optional<PART> Opt(const KEY &key) const
+   {
+      const PART *const p = ptr(key);
+      return p ? GNDStk::Optional<PART>{*p} : GNDStk::Optional<PART>{};
+   }
+
    // (index/label/Lookup), including Lookup<true> (via the "has" function)
    template<
       class KEY, class = detail::isSearchKey<KEY>,
@@ -674,6 +725,7 @@ public:
 
    // ------------------------
    // Setters
+   // Using std::optional
    // ------------------------
 
    // replace(value)
@@ -735,6 +787,69 @@ public:
    }
 
    // ------------------------
+   // Setters
+   // Using GNDStk::Optional
+   // ------------------------
+
+   // replace(value)
+   // If WHOLE == variant
+   template<class T = WHOLE, class = detail::isVariant_t<T>>
+   DERIVED &replace(const GNDStk::Optional<PART> &opt)
+   {
+      if (opt) whole.replace(opt.value());
+      return whole.parent;
+   }
+
+   // operator()(value)
+   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
+   DERIVED &operator()(const GNDStk::Optional<PART> &opt)
+   {
+      return replace(opt);
+   }
+
+   // operator=(value)
+   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
+   FieldPart &operator=(const GNDStk::Optional<PART> &opt)
+   {
+      return replace(opt), *this;
+   }
+
+   // add(value)
+   // If WHOLE == vector
+   template<class T = WHOLE, class = detail::isVector_t<T>>
+   FieldPart &add(const GNDStk::Optional<PART> &opt)
+   {
+      if (opt) whole.add(opt.value());
+      return *this;
+   }
+
+   // operator+=(value)
+   template<class T = WHOLE, class = detail::isVector_t<T>>
+   DERIVED &operator+=(const GNDStk::Optional<PART> &opt)
+   {
+      return add(opt);
+   }
+
+   // replace(index/label/Lookup, element)
+   // If WHOLE == vector
+   template<
+      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>>
+   DERIVED &replace(const KEY &key, const GNDStk::Optional<PART> &opt)
+   {
+      if (opt) whole(key,opt.value());
+      return whole.parent;
+   }
+
+   template<
+      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class T = WHOLE, class = detail::isVector_t<T>>
+   DERIVED &operator()(const KEY &key, const GNDStk::Optional<PART> &opt)
+   {
+      return replace(key,opt);
+   }
+
+   // ------------------------
    // Assignment
    // ------------------------
 
@@ -774,14 +889,14 @@ struct wrapper {
    { }
 
    // wrapper(optional::value_type)
-   // If T == optional
+   // If T == std::optional or GNDStk::Optional
    template<class TEE = T, class = std::enable_if_t<detail::isOptional<TEE>>>
    wrapper(const typename TEE::value_type &v) :
       value(v)
    { }
 
    // wrapper(nullopt_t)
-   // If T == optional
+   // If T == std::optional or GNDStk::Optional
    template<class TEE = T, class = std::enable_if_t<detail::isOptional<TEE>>>
    wrapper(const std::nullopt_t &v) :
       value(v)

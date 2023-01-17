@@ -71,7 +71,7 @@ Node &add(const Defaulted<T> &def)
 // -----------------------------------------------------------------------------
 
 // Similar in principle to its Meta counterpart. Bounces to one of the above
-// add() functions, and, like those, doesn't allow std::optional.
+// add() functions, and, like those, doesn't allow optional.
 
 // Child<void>, plain
 // Child<void>, Defaulted
@@ -120,7 +120,6 @@ Node &add(
       // this "identity function," in a manner of speaking, will be useful for
       // achieving some things that would otherwise be more awkward to achieve.
       if (kwd.name == special::self) {
-         assert(false); // todo NEED TO TEST WRITING!!!
          kwd.converter(TYPE(val),*this);
          return *this;
       }
@@ -168,10 +167,10 @@ Node &add(
 
 
 // -----------------------------------------------------------------------------
-// Child<optional>, *
+// Child<std::optional>, *
 // -----------------------------------------------------------------------------
 
-// Child<optional>, plain
+// Child<std::optional>, plain
 // Returns: Node &
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -185,7 +184,7 @@ Node &add(
    return add(TYPE{}/kwd, val);
 }
 
-// Child<optional>, optional
+// Child<std::optional>, std::optional
 // Returns: bool: was something added?
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -199,7 +198,7 @@ bool add(
    return opt.has_value() ? (add(kwd, opt.value()), true) : false;
 }
 
-// Child<optional>, Defaulted
+// Child<std::optional>, Defaulted
 // Returns: bool: was something added?
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -208,6 +207,54 @@ template<
 >
 bool add(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const Defaulted<T> &def
+) {
+   return def.has_value() ? (add(kwd, def.value()), true) : false;
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Child<GNDStk::Optional>, *
+// -----------------------------------------------------------------------------
+
+// Child<GNDStk::Optional>, plain
+// Returns: Node &
+template<
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
+   class T = TYPE,
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
+>
+Node &add(
+   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const T &val = T{}
+) {
+   return add(TYPE{}/kwd, val);
+}
+
+// Child<GNDStk::Optional>, GNDStk::Optional
+// Returns: bool: was something added?
+template<
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
+   class T,
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
+>
+bool add(
+   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const GNDStk::Optional<T> &opt
+) {
+   return opt.has_value() ? (add(kwd, opt.value()), true) : false;
+}
+
+// Child<GNDStk::Optional>, Defaulted
+// Returns: bool: was something added?
+template<
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
+   class T,
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
+>
+bool add(
+   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const Defaulted<T> &def
 ) {
    return def.has_value() ? (add(kwd, def.value()), true) : false;
@@ -233,7 +280,7 @@ Node &add(
    return add(TYPE{}/kwd, val);
 }
 
-// Child<Defaulted>, optional
+// Child<Defaulted>, std::optional
 // Returns: bool: was something added?
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -243,6 +290,20 @@ template<
 bool add(
    const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
    const std::optional<T> &opt
+) {
+   return opt.has_value() ? (add(kwd, opt.value()), true) : false;
+}
+
+// Child<Defaulted>, GNDStk::Optional
+// Returns: bool: was something added?
+template<
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
+   class T,
+   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
+>
+bool add(
+   const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
+   const GNDStk::Optional<T> &opt
 ) {
    return opt.has_value() ? (add(kwd, opt.value()), true) : false;
 }
@@ -275,7 +336,7 @@ bool add(
 
 // The relatively complicated template specification is designed to handle both
 // Child<void> and Child<TYPE>, and T (for the container elements) being a plain
-// type, a std::optional<something>, or a Defaulted<something>.
+// type, an optional<something>, or a Defaulted<something>.
 
 template<
    // re: the Child
@@ -337,6 +398,30 @@ template<
 void add(
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    const std::optional<CONTAINER<T,Args...>> &opt
+) {
+   if (opt.has_value())
+      add(TYPE{}/kwd, opt.value());
+}
+
+template<
+   class TYPE, class CONVERTER, class FILTER,
+
+   template<class...> class CONTAINER = std::vector,
+   class T =
+      std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+   class... Args,
+   class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
+
+   class = std::enable_if_t<
+      std::is_constructible_v<
+         std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+         typename detail::remove_opt_def<T>::type
+      >
+   >
+>
+void add(
+   const Child<GNDStk::Optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   const GNDStk::Optional<CONTAINER<T,Args...>> &opt
 ) {
    if (opt.has_value())
       add(TYPE{}/kwd, opt.value());

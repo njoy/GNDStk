@@ -17,6 +17,10 @@ const bool debugging = false;
 // Put print statements in constructor and assignment calls. For debugging.
 const bool printCtorCalls = false;
 
+// Optional type to use
+#define OPTIONAL "std::optional"
+//#define OPTIONAL "GNDStk::Optional"
+
 
 // -----------------------------------------------------------------------------
 // Data structures
@@ -61,8 +65,8 @@ struct Class2Dependencies {
 // InfoMetadata
 struct InfoMetadata {
    // A JSON spec can make a metadatum be:
-   //    - a std::optional, or
-   //    - a GNDStk::defaulted
+   //    - an optional, or
+   //    - a Defaulted
    // but (in contrast with child nodes) can't make it be a vector of metadata.
    // An individual metadatum may be a vector in its own right, as in an XML
    // construct such as <element meta="1 2 3 4"> (so that meta is a vector of
@@ -71,7 +75,7 @@ struct InfoMetadata {
    std::string original; // without e.g. the "double" to "Double" change
    std::string name;
    std::string type;     // underlying type
-   std::string typeFull; // WITH any optional<> or defaulted<>
+   std::string typeFull; // WITH any optional<> or Defaulted<>
    bool        isOptional;
    bool        isDefaulted;
    std::string defaultValue;
@@ -80,9 +84,9 @@ struct InfoMetadata {
 // InfoChildren
 struct InfoChildren {
    // A JSON spec can make a child node be:
-   //    - a std::optional, and/or
-   //    - a std::vector
-   // but can't make it be a GNDStk::defaulted. (The use of a default value for
+   //    - an optional, and/or
+   //    - a vector
+   // but can't make it be a GNDStk::Defaulted. (The use of a default value for
    // child nodes just doesn't exist in the GNDS specifications, even though the
    // concept would seem to make sense.)
    std::string original; // without e.g. the "double" to "Double" change
@@ -582,7 +586,7 @@ void getClassMetadata(
 
       // Optional? (not required, and has no default)
       m.isOptional = !metaRHS["required"] && m.defaultValue == "";
-      const std::string optPrefix = m.isOptional ? "std::optional<" : "";
+      const std::string optPrefix = m.isOptional ? OPTIONAL "<" : "";
       const std::string optSuffix = m.isOptional ? ">" : "";
 
       // Defaulted? (not required, but does have a default)
@@ -590,7 +594,7 @@ void getClassMetadata(
       const std::string defPrefix = m.isDefaulted ? "Defaulted<" : "";
       const std::string defSuffix = m.isDefaulted ? ">" : "";
 
-      // Full type, including any optional or defaulted
+      // Full type, including any optional<> or Defaulted<>
       m.typeFull =
          optPrefix + defPrefix +
          m.type +
@@ -631,7 +635,7 @@ void getClassChildren(
 
       // Optional?
       c.isOptional = !elemRHS["required"];
-      const std::string optPrefix = c.isOptional ? "std::optional<" : "";
+      const std::string optPrefix = c.isOptional ? OPTIONAL "<" : "";
       const std::string optSuffix = c.isOptional ? ">" : "";
 
       // Vector?
@@ -639,7 +643,7 @@ void getClassChildren(
       const std::string vecPrefix = c.isVector ? "std::vector<" : "";
       const std::string vecSuffix = c.isVector ? ">" : "";
 
-      // Full type, including any optional or vector
+      // Full type, including any optional<> or vector<>
       // If both, use optional<vector>; the reverse makes less sense
       c.typeFull =
          optPrefix + vecPrefix +
@@ -1324,7 +1328,7 @@ void writeClassCtors(writer &out, const PerClass &per)
       // informational message, if applicable
       for (const auto &m : per.metadata)
          if (m.isDefaulted) {
-            out(1,"// std::optional replaces Defaulted; "
+            out(1,"// optional replaces Defaulted; "
                 "this class knows the default(s)");
             break;
          }
@@ -1336,7 +1340,7 @@ void writeClassCtors(writer &out, const PerClass &per)
       for (const auto &m : per.metadata) {
          out(
             2,"const wrapper<@> &@@@",
-            m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
+            m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull,
             m.name,
             count ? " = {}" : "",
             count+1 < total ? "," : ""
@@ -3435,7 +3439,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    const int total = per.nfields();
    for (auto &m : per.metadata)
       out(4,"const @ &@",
-          m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
+          m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull,
           sep(count,total));
    for (auto &c : per.children)
       out(4,"const @ &@", c.typeFull, sep(count,total));

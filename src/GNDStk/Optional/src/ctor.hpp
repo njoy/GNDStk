@@ -7,6 +7,10 @@
 Optional()
 { }
 
+// std::nullopt_t
+explicit Optional(const std::nullopt_t)
+{ }
+
 // T
 explicit Optional(const T &val) :
    ptr(new T(val))

@@ -655,9 +655,9 @@ namespace data {
    inline std::string vector  = "";
 }
 
-// If an object is std::optional or GNDStk::Defaulted, the color for its label
-// (but not its braces, brackets, or colon separator, where applicable) or for
-// its value can be modified by using the following.
+// If an object is optional or GNDStk::Defaulted, the color for its label (but
+// not for its braces, brackets, or colon separator, where applicable), or for
+// its value, can be modified by using the following.
 namespace optional {
    inline std::string component = custom::faded::purple;
    inline std::string label     = custom::faded::blue;

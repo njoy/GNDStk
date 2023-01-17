@@ -70,10 +70,15 @@ std::string &valueType() const
 // -----------------------------------------------------------------------------
 // Setters
 // Builder pattern for all: return *this.
-// Arguments of std::optional allow for more flexibility in derived classes.
+// Arguments of optional type allow for more flexibility in derived classes.
 // -----------------------------------------------------------------------------
 
-// length
+// todo Consider using a macro to shorten the similar code below.
+
+// ------------------------
+// For std::optional
+// ------------------------
+
 BlockData &length(const std::optional<std::size_t> &opt)
 {
    if (opt.has_value())
@@ -81,7 +86,6 @@ BlockData &length(const std::optional<std::size_t> &opt)
    return *this;
 }
 
-// start
 BlockData &start(const std::optional<std::size_t> &opt)
 {
    if (opt.has_value())
@@ -89,8 +93,32 @@ BlockData &start(const std::optional<std::size_t> &opt)
    return *this;
 }
 
-// valueType
 BlockData &valueType(const std::optional<std::string> &opt)
+{
+   if (opt.has_value())
+      vars.valueType = opt.value();
+   return *this;
+}
+
+// ------------------------
+// For GNDStk::Optional
+// ------------------------
+
+BlockData &length(const GNDStk::Optional<std::size_t> &opt)
+{
+   if (opt.has_value())
+      vars.length = opt.value();
+   return *this;
+}
+
+BlockData &start(const GNDStk::Optional<std::size_t> &opt)
+{
+   if (opt.has_value())
+      vars.start = opt.value();
+   return *this;
+}
+
+BlockData &valueType(const GNDStk::Optional<std::string> &opt)
 {
    if (opt.has_value())
       vars.valueType = opt.value();

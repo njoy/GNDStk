@@ -3,6 +3,13 @@
 // Assignment operators
 // -----------------------------------------------------------------------------
 
+// = std::nullopt_t
+Optional &operator=(const std::nullopt_t)
+{
+   reset();
+   return *this;
+}
+
 // = T
 Optional &operator=(const T &val)
 {

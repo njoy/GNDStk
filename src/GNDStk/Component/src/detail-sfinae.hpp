@@ -37,9 +37,15 @@ struct isOptionalVector
    : public std::false_type
 { };
 
-// for std::vector
+// for std::optional<std::vector>
 template<class T, class Alloc>
 struct isOptionalVector<std::optional<std::vector<T,Alloc>>>
+   : public std::true_type
+{ };
+
+// for GNDStk::Optional<std::vector>
+template<class T, class Alloc>
+struct isOptionalVector<GNDStk::Optional<std::vector<T,Alloc>>>
    : public std::true_type
 { };
 
@@ -67,6 +73,14 @@ struct isVectorOrOptionalVector<std::vector<T,Alloc>>
 // for std::optional<std::vector>
 template<class T, class Alloc>
 struct isVectorOrOptionalVector<std::optional<std::vector<T,Alloc>>>
+   : public std::true_type
+{
+   using value_type = T;
+};
+
+// for GNDStk::Optional<std::vector>
+template<class T, class Alloc>
+struct isVectorOrOptionalVector<GNDStk::Optional<std::vector<T,Alloc>>>
    : public std::true_type
 {
    using value_type = T;
@@ -218,9 +232,15 @@ struct isMatchExact<FROM,std::vector<FROM,Alloc>> {
    static constexpr int count = 1;
 };
 
-// FROM, optional<vector<FROM>>
+// FROM, std::optional<vector<FROM>>
 template<class FROM, class Alloc>
 struct isMatchExact<FROM,std::optional<std::vector<FROM,Alloc>>>
+ : public isMatchExact<FROM,std::vector<FROM,Alloc>>
+{ };
+
+// FROM, GNDStk::Optional<vector<FROM>>
+template<class FROM, class Alloc>
+struct isMatchExact<FROM,GNDStk::Optional<std::vector<FROM,Alloc>>>
  : public isMatchExact<FROM,std::vector<FROM,Alloc>>
 { };
 
@@ -262,9 +282,15 @@ struct isMatchViable<FROM,std::vector<TO,Alloc>> {
    static constexpr int count = std::is_convertible_v<FROM,TO>;
 };
 
-// FROM, optional<vector<TO>>
+// FROM, std::optional<vector<TO>>
 template<class FROM, class TO, class Alloc>
 struct isMatchViable<FROM,std::optional<std::vector<TO,Alloc>>>
+ : public isMatchViable<FROM,std::vector<TO,Alloc>>
+{ };
+
+// FROM, GNDStk::Optional<vector<TO>>
+template<class FROM, class TO, class Alloc>
+struct isMatchViable<FROM,GNDStk::Optional<std::vector<TO,Alloc>>>
  : public isMatchViable<FROM,std::vector<TO,Alloc>>
 { };
 

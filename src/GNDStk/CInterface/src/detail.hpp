@@ -298,7 +298,7 @@ auto getField(
 
    try {
       const auto &field = *extract(tocpp<CPP>(ptr));
-      const T &ret = field.value(); // .value() gets us into any std::optional
+      const T &ret = field.value(); // .value() gets us into any optional
       if constexpr (std::is_same_v<HANDLE,void>) {
          // metadatum
          if constexpr (std::is_same_v<T,std::string>) {

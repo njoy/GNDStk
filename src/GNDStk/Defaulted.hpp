@@ -17,7 +17,7 @@ Note that you can explicitly give a Defaulted object a value that happens to
 equal its default. If you do, then the value is considered to be a hard value,
 not the Defaulted object's default. That is to say, the data structure *does*
 distinguish "has its default" from "has a value that coincidentally happens to
-be equal to its default."
+equal its default."
 
 The above distinction has ramifications when a Defaulted object is written.
 Specifically, when a Defaulted object is written to a Node: (1) If the object

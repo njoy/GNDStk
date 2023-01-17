@@ -155,54 +155,40 @@ public:
 
 
 // ------------------------
-// TYPE
+// TYPE, optional<TYPE>
 // ------------------------
 
-template<class TYPE, class CONVERTER, class FILTER>
+template<class T, class CONVERTER, class FILTER>
 void child(
-   TYPE &existing,
-   const Child<TYPE,Allow::one,CONVERTER,FILTER> &kwd,
+   T &existing,
+   const Child<T,Allow::one,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      if constexpr (detail::isVariant<TYPE>::value) {
-         // TYPE: variant
-         variant_find_one<0,std::variant_size_v<TYPE>>(
-            kwd, detail::name_split(kwd), found = false, existing, 0);
+      if constexpr (!detail::isOptional<T>) {
+         if constexpr (detail::isVariant<T>::value) {
+            // T: variant
+            variant_find_one<0,std::variant_size_v<T>>(
+               kwd, detail::name_split(kwd), found = false, existing, 0);
+         } else {
+            // T: not variant
+            const Node &node = one(kwd.name, kwd.filter, found);
+            if (found)
+               kwd.converter(node,existing);
+         }
       } else {
-         // TYPE: not variant
-         const Node &node = one(kwd.name, kwd.filter, found);
-         if (found)
-            kwd.converter(node,existing);
+         using TYPE = typename T::value_type;
+         // Remarks as in the meta() analog of this child() function
+         bool f;
+         // todo Could perhaps make more efficient if (existing.has_value())...
+         TYPE obj;
+         child(obj, obj/kwd, f);
+         if (f)
+            existing = obj;
+         else
+            existing = std::nullopt;
+         found = true;
       }
-   } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
-      throw;
-   }
-}
-
-
-// ------------------------
-// optional<TYPE>
-// ------------------------
-
-template<class TYPE, class CONVERTER, class FILTER>
-void child(
-   std::optional<TYPE> &existing,
-   const Child<std::optional<TYPE>,Allow::one,CONVERTER,FILTER> &kwd,
-   bool &found = detail::default_bool
-) const {
-   try {
-      // Remarks as in the meta() analog of this child() function
-      bool f;
-      // todo Could perhaps make more efficient if (existing.has_value())...
-      TYPE obj;
-      child(obj, obj/kwd, f);
-      if (f)
-         existing = obj;
-      else
-         existing = std::nullopt;
-      found = true;
    } catch (...) {
       log::member("Node.child(" + detail::keyname(kwd) + " with Allow::one)");
       throw;
@@ -221,7 +207,7 @@ void child(
    bool &found = detail::default_bool
 ) const {
    try {
-      // Remarks as with those for std::optional above
+      // Remarks as with those for optional above
       bool f;
       TYPE obj;
       child(obj, obj/kwd, f);
@@ -420,10 +406,10 @@ void child(
 // exception being thrown) to extract any number of values - including zero -
 // into the container. In some sense, then, Allow::many means it's optional
 // to have *any* matching values. So the question is: how should we handle
-// Child<std::optional<TYPE>,Allow::many>, given that two different "optional"
+// Child<optional<TYPE>,Allow::many>, given that two different "optional"
 // concepts are involved in that particular case?
 //
-// Creating a container<std::optional<TYPE>> wouldn't really make sense.
+// Creating a container<optional<TYPE>> wouldn't really make sense.
 // With a container of optionals, when, and from where, would any nullopt
 // values arise? We're filling the container with what we do find, in which
 // case there's no real meaning associated with nullopt values.
@@ -431,20 +417,21 @@ void child(
 // We could dispense with "optional" altogether, and return container<TYPE>,
 // with length 0 (i.e. no elements in the container) if no values are found.
 // That's arguably a resonable behavior, but is the same behavior we'd have
-// if the Child didn't have a std::optional TYPE in the first place.
+// if the Child didn't have an optional TYPE in the first place.
 //
-// So, let's give the Child<std::optional<TYPE>,Allow::many> situation some
+// So, let's give the Child<optional<TYPE>,Allow::many> situation some
 // meaning, in the following way. We'll return an optional container, with
 // no value (so that optional.has_value() == false) in the event that the
 // container would have no elements. Else, optional.has_value() will be true,
 // with a container that has >= 1 element.
 //
-// Consistent with the behavior of std::optional elsewhere in GNDStk, we'll
+// Consistent with the behavior of optional elsewhere in GNDStk, we'll
 // always return from here with found == true. That's already the case with
 // Allow::many if container.size() > 0 on output, but now we unconditionally
 // return found == true, even for "0 size", which, as we've said, now means
 // that there's no value in the optional.
 
+// std::optional
 template<
    template<class...> class CONTAINER,
    class TYPE, class CONVERTER, class FILTER
@@ -452,6 +439,31 @@ template<
 void child(
    std::optional<CONTAINER<TYPE>> &existing,
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   try {
+      bool f;
+      CONTAINER<TYPE> obj;
+      child(obj, TYPE{}/kwd, f);
+      if (f)
+         existing = obj;
+      else
+         existing = std::nullopt;
+      found = true;
+   } catch (...) {
+      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
+      throw;
+   }
+}
+
+// GNDStk::Optional
+template<
+   template<class...> class CONTAINER,
+   class TYPE, class CONVERTER, class FILTER
+>
+void child(
+   GNDStk::Optional<CONTAINER<TYPE>> &existing,
+   const Child<GNDStk::Optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -572,7 +584,7 @@ CONTAINER<TYPE> child(
    return ret;
 }
 
-// optional
+// std::optional
 template<
    template<class...> class CONTAINER = std::vector,
    class TYPE, class CONVERTER, class FILTER
@@ -582,6 +594,20 @@ std::optional<CONTAINER<TYPE>> child(
    bool &found = detail::default_bool
 ) const {
    std::optional<CONTAINER<TYPE>> ret;
+   child(ret, kwd, found);
+   return ret;
+}
+
+// GNDStk::Optional
+template<
+   template<class...> class CONTAINER = std::vector,
+   class TYPE, class CONVERTER, class FILTER
+>
+GNDStk::Optional<CONTAINER<TYPE>> child(
+   const Child<GNDStk::Optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   GNDStk::Optional<CONTAINER<TYPE>> ret;
    child(ret, kwd, found);
    return ret;
 }
