@@ -263,6 +263,10 @@
                 "times": "1",
                 "required": false
             },
+            "leptons": {
+                "times": "1",
+                "required": false
+            },
             "chemicalElements": {
                 "times": "1",
                 "required": false
@@ -375,6 +379,52 @@
     "baryon": {
         "metadata": {
             "id": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": true
+            },
+            "spin": {
+                "times": "1",
+                "required": true
+            },
+            "parity": {
+                "times": "1",
+                "required": true
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "halflife": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "leptons": {
+        "metadata": {
+        },
+        "children": {
+            "lepton": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "lepton": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "generation": {
                 "type": "string",
                 "required": true
             }
@@ -576,7 +626,7 @@
         "children": {
             "isotopes": {
                 "times": "1",
-                "required": true
+                "required": false
             }
         }
     },
@@ -1430,6 +1480,10 @@
                 "required": false
             },
             "simpleMaxwellianFission": {
+                "times": "1",
+                "required": false
+            },
+            "MadlandNix": {
                 "times": "1",
                 "required": false
             }
@@ -2497,6 +2551,21 @@
                 "times": "1",
                 "namespace": "Reduced",
                 "required": false
+            },
+            "averageProductEnergy": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "averageProductEnergy": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
             }
         }
     },
@@ -2611,6 +2680,120 @@
             "CoulombPlusNuclearElastic": {
                 "times": "1",
                 "required": false
+            },
+            "coherentPhotonScattering": {
+                "times": "1",
+                "required": false
+            },
+            "incoherentPhotonScattering": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "coherentPhotonScattering": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "href": {
+                "type": "string",
+                "required": false
+            },
+            "pid": {
+                "type": "string",
+                "required": false
+            },
+            "productFrame": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "formFactor": {
+                "times": "1",
+                "required": false
+            },
+            "realAnomalousFactor": {
+                "times": "1",
+                "required": false
+            },
+            "imaginaryAnomalousFactor": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "incoherentPhotonScattering": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "href": {
+                "type": "string",
+                "required": false
+            },
+            "pid": {
+                "type": "string",
+                "required": false
+            },
+            "productFrame": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "scatteringFactor": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "scatteringFactor": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "formFactor": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "realAnomalousFactor": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "imaginaryAnomalousFactor": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
             }
         }
     },
@@ -2742,7 +2925,7 @@
         "children": {
             "crossSectionSums": {
                 "times": "1",
-                "required": true
+                "required": false
             },
             "multiplicitySums": {
                 "times": "1",

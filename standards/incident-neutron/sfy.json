@@ -54,109 +54,6 @@
         }
     },
 
-    "chemicalElements": {
-        "metadata": {
-        },
-        "children": {
-            "chemicalElement": {
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "chemicalElement": {
-        "metadata": {
-            "symbol": {
-                "type": "string",
-                "required": true
-            },
-            "Z": {
-                "type": "int",
-                "required": true
-            },
-            "name": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-            "isotopes": {
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
-    "isotopes": {
-        "metadata": {
-        },
-        "children": {
-            "isotope": {
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "isotope": {
-        "metadata": {
-            "symbol": {
-                "type": "string",
-                "required": true
-            },
-            "A": {
-                "type": "int",
-                "required": true
-            }
-        },
-        "children": {
-            "nuclides": {
-                "namespace": "sfy",
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
-    "nuclides": {
-        "metadata": {
-        },
-        "children": {
-            "nuclide": {
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "nuclide": {
-        "metadata": {
-            "id": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-            "mass": {
-                "times": "1",
-                "required": true
-            },
-            "charge": {
-                "times": "1",
-                "required": true
-            },
-            "nucleus": {
-                "times": "1",
-                "required": true
-            },
-            "fissionFragmentData": {
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
     "evaluated": {
         "metadata": {
             "label": {
@@ -286,12 +183,116 @@
         "cdata": true
     },
 
+    "chemicalElements": {
+        "metadata": {
+        },
+        "children": {
+            "chemicalElement": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "chemicalElement": {
+        "metadata": {
+            "symbol": {
+                "type": "string",
+                "required": true
+            },
+            "Z": {
+                "type": "int",
+                "required": true
+            },
+            "name": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "isotopes": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "isotopes": {
+        "metadata": {
+        },
+        "children": {
+            "isotope": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "isotope": {
+        "metadata": {
+            "symbol": {
+                "type": "string",
+                "required": true
+            },
+            "A": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
+            "nuclides": {
+                "namespace": "sfy",
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "nuclides": {
+        "metadata": {
+        },
+        "children": {
+            "nuclide": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "nuclide": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": true
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "nucleus": {
+                "times": "1",
+                "required": true
+            },
+            "fissionFragmentData": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
     "mass": {
         "metadata": {
         },
         "children": {
             "double": {
                 "times": "1",
+                "namespace": "sfy",
                 "required": true
             }
         }
@@ -318,6 +319,40 @@
                 "required": true
             },
             "energy": {
+                "times": "1",
+                "required": true
+            },
+            "spin": {
+                "times": "1",
+                "required": false
+            },
+            "parity": {
+                "times": "1",
+                "required": false
+            },
+            "decayData": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "spin": {
+        "metadata": {
+        },
+        "children": {
+            "fraction": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "parity": {
+        "metadata": {
+        },
+        "children": {
+            "integer": {
                 "times": "1",
                 "required": true
             }
@@ -398,6 +433,7 @@
         "children": {
             "double": {
                 "times": "1",
+                "namespace": "sfy",
                 "required": false
             },
             "string": {
@@ -441,6 +477,10 @@
         "children": {
             "covariance": {
                 "times": "1",
+                "required": false
+            },
+            "standard": {
+                "times": "1",
                 "required": true
             }
         }
@@ -477,6 +517,25 @@
         }
     },
 
+    "fraction": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
     "charge": {
         "metadata": {
         },
@@ -494,18 +553,36 @@
         "children": {
             "string": {
                 "times": "1",
-                "required": true
+                "required": false
+            },
+            "double": {
+                "times": "1",
+                "namespace": "sfy",
+                "required": false
             }
         }
     },
 
     "energy": {
         "metadata": {
+            "value": {
+                "type": "double",
+                "required": false
+            },
+            "unit": {
+                "type": "string",
+                "required": false
+            }
         },
         "children": {
             "double": {
                 "times": "1",
-                "required": true
+                "namespace": "sfy",
+                "required": false
+            },
+            "uncertainty": {
+                "times": "1",
+                "required": false
             }
         }
     },
@@ -522,7 +599,7 @@
             },
             "unit": {
                 "type": "string",
-                "required": true
+                "required": false
             }
         },
         "children": {
@@ -541,10 +618,143 @@
             },
             "unit": {
                 "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "decayData": {
+        "metadata": {
+        },
+        "children": {
+            "decayModes": {
+                "times": "1",
+                "required": true
+            },
+            "averageEnergies": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "averageEnergies": {
+        "metadata": {
+        },
+        "children": {
+            "averageEnergy": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "averageEnergy": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
                 "required": true
             }
         },
         "children": {
+            "uncertainty": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "probability": {
+        "metadata": {
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "namespace": "sfy",
+                "required": true
+            }
+        }
+    },
+
+    "decayPath": {
+        "metadata": {
+        },
+        "children": {
+            "decay": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "decay": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            },
+            "complete": {
+                "type": "bool",
+                "required": false
+            }
+        },
+        "children": {
+            "products": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "products": {
+        "metadata": {
+        },
+        "children": {
+            "product": {
+                "times": "1+",
+                "required": false
+            }
+        }
+    },
+
+    "product": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "pid": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "Q": {
+        "metadata": {
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "namespace": "sfy",
+                "required": true
+            }
         }
     },
 
@@ -564,6 +774,154 @@
             }
         },
         "children": {
+        }
+    },
+
+    "decayModes": {
+        "metadata": {
+        },
+        "children": {
+            "decayMode": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "decayMode": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": false
+            },
+            "mode": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "decayPath": {
+                "times": "1",
+                "required": true
+            },
+            "probability": {
+                "times": "1",
+                "required": true
+            },
+            "Q": {
+                "times": "1",
+                "required": true
+            },
+            "spectra": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "standard": {
+        "metadata": {
+        },
+        "children": {
+            "double": {
+                "times": "1",
+                "namespace": "Reduced",
+                "required": true
+            }
+        }
+    },
+
+    "spectra": {
+        "metadata": {
+        },
+        "children": {
+            "spectrum": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "spectrum": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "pid": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "discrete": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "discrete": {
+        "metadata": {
+        },
+        "children": {
+            "intensity": {
+                "times": "1",
+                "required": true
+            },
+            "energy": {
+                "times": "1",
+                "required": true
+            },
+            "internalConversionCoefficients": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "intensity": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "internalConversionCoefficients": {
+        "metadata": {
+        },
+        "children": {
+            "shell": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "shell": {
+        "metadata": {
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "value": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "uncertainty": {
+                "times": "1",
+                "required": false
+            }
         }
     }
 }
