@@ -412,7 +412,7 @@
         },
         "children": {
             "nuclides": {
-                "namespace" : "yields",
+                "namespace" : "productyield",
                 "times": "1",
                 "required": true
             },
