@@ -38,7 +38,61 @@
             },
             "chemicalElements": {
                 "times": "1",
+                "required": false
+            },
+            "aliases": {
+                "times": "1",
+                "required": false
+            },
+            "baryons": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "baryons": {
+        "metadata": {
+        },
+        "children": {
+            "baryon": {
+                "times": "1+",
                 "required": true
+            }
+        }
+    },
+
+    "baryon": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "mass": {
+                "times": "1",
+                "required": true
+            },
+            "spin": {
+                "times": "1",
+                "required": true
+            },
+            "parity": {
+                "times": "1",
+                "required": true
+            },
+            "charge": {
+                "times": "1",
+                "required": true
+            },
+            "halflife": {
+                "times": "1",
+                "required": true
+            },
+            "decayData": {
+                "times": "1",
+                "required": false
             }
         }
     },
@@ -78,6 +132,55 @@
                 "times": "1",
                 "required": true
             }
+        }
+    },
+
+    "aliases": {
+        "metadata": {
+        },
+        "children": {
+            "alias": {
+                "times": "1",
+                "required": false
+            },
+            "metaStable": {
+                "times": "1+",
+                "required": false
+            }
+        }
+    },
+
+    "alias": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "pid": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "metaStable": {
+        "metadata": {
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "pid": {
+                "type": "string",
+                "required": true
+            },
+            "metaStableIndex": {
+                "type": "int",
+                "required": true
+            }
+        },
+        "children": {
         }
     },
 
@@ -310,6 +413,10 @@
             }
         },
         "children": {
+            "mass": {
+                "times": "1",
+                "required": false
+            },
             "charge": {
                 "times": "1",
                 "required": true
@@ -639,7 +746,7 @@
             },
             "averageEnergies": {
                 "times": "1",
-                "required": true
+                "required": false
             }
         }
     },
@@ -673,7 +780,7 @@
         "children": {
             "uncertainty": {
                 "times": "1",
-                "required": true
+                "required": false
             }
         }
     },
@@ -695,7 +802,7 @@
         },
         "children": {
             "decay": {
-                "times": "1",
+                "times": "1+",
                 "required": true
             }
         }
@@ -706,6 +813,10 @@
             "index": {
                 "type": "int",
                 "required": true
+            },
+            "mode": {
+                "type": "string",
+                "required": false
             },
             "complete": {
                 "type": "bool",
@@ -857,12 +968,20 @@
             "discrete": {
                 "times": "1+",
                 "required": true
+            },
+            "continuum": {
+                "times": "1",
+                "required": false
             }
         }
     },
 
     "discrete": {
         "metadata": {
+            "type": {
+                "type": "string",
+                "required": false
+            }
         },
         "children": {
             "intensity": {
@@ -874,6 +993,89 @@
                 "required": true
             },
             "internalConversionCoefficients": {
+                "times": "1",
+                "required": false
+            },
+            "positronEmissionIntensity": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "continuum": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "XYs1d": {
+        "metadata": {
+        },
+        "children": {
+            "axes": {
+                "times": "1",
+                "required": true
+            },
+            "values": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "axes": {
+        "metadata": {
+        },
+        "children": {
+            "axis": {
+                "times": "1+",
+                "required": true
+            }
+        }
+    },
+
+    "axis": {
+        "metadata": {
+            "index": {
+                "type": "int",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "values": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "vector": "double"
+    },
+
+    "positronEmissionIntensity": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+            "uncertainty": {
                 "times": "1",
                 "required": false
             }
