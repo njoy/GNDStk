@@ -1,0 +1,23 @@
+{
+    "namespace": "two",
+
+    "array": {
+        "metadata": {
+            "shape": {
+                "type": "string",
+                "required": true
+            },
+            "compression": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "values": {
+                "times": "1",
+                "namespace": "doubles",
+                "required": true
+            }
+        }
+    }
+}

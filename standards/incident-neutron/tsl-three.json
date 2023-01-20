@@ -1,0 +1,19 @@
+{
+    "namespace": "three",
+
+    "array": {
+        "metadata": {
+            "shape": {
+                "type": "string",
+                "required": true
+            },
+            "compression": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        },
+        "vector": "double"
+    }
+}
