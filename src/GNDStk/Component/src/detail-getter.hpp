@@ -343,13 +343,9 @@ auto getter(
 // As earlier, but for optional<vector> data member.
 // -----------------------------------------------------------------------------
 
-template<
-   class T, class KEY,
-   class = isSearchKey<KEY>
->
-decltype(auto) getter(
-   const std::optional<std::vector<T>> &optvec,
-   const KEY &key,
+template<class OPTVEC, class KEY>
+decltype(auto) getter_helper(
+   const OPTVEC &optvec, const KEY &key,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    const std::string fname = fn != "" ? fn : "<unknown name>";
@@ -389,6 +385,24 @@ decltype(auto) getter(
       }
       throw;
    }
+}
+
+// std::optional
+template<class T, class KEY, class = isSearchKey<KEY>>
+decltype(auto) getter(
+   const std::optional<std::vector<T>> &optvec, const KEY &key,
+   const std::string &nname, const std::string &cname, const std::string &fn
+) {
+   return getter_helper(optvec, key, nname, cname, fn);
+}
+
+// GNDStk::Optional
+template<class T, class KEY, class = isSearchKey<KEY>>
+decltype(auto) getter(
+   const GNDStk::Optional<std::vector<T>> &optvec, const KEY &key,
+   const std::string &nname, const std::string &cname, const std::string &fn
+) {
+   return getter_helper(optvec, key, nname, cname, fn);
 }
 
 

@@ -1,7 +1,11 @@
 
 // Like getter.hpp, but to help with *setters* in Component-derived classes.
 
-// push_back a value into the vector.
+// ------------------------
+// vector
+// ------------------------
+
+// push_back into the vector.
 template<
    class T, class FROM,
    class = std::enable_if_t<
@@ -10,11 +14,18 @@ template<
 >
 static void setter(std::vector<T> &vec, const FROM &value)
 {
-   vec.push_back(value);
+   vec.push_back(T(value));
 }
 
+
+// ------------------------
+// optional
+// ------------------------
+
 // Create an empty vector in the optional<vector> if it has no value, then
-// push_back a value into the vector.
+// push_back into the vector.
+
+// std::optional
 template<
    class T, class FROM,
    class = std::enable_if_t<
@@ -25,5 +36,19 @@ static void setter(std::optional<std::vector<T>> &opt, const FROM &value)
 {
    if (!opt.has_value())
       opt = std::vector<T>{};
-   opt->push_back(value);
+   opt->push_back(T(value));
+}
+
+// GNDStk::Optional
+template<
+   class T, class FROM,
+   class = std::enable_if_t<
+      std::is_constructible_v<T,FROM> || std::is_convertible_v<FROM,T>
+   >
+>
+static void setter(GNDStk::Optional<std::vector<T>> &opt, const FROM &value)
+{
+   if (!opt.has_value())
+      opt = std::vector<T>{};
+   opt->push_back(T(value));
 }

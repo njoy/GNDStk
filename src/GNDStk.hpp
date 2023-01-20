@@ -87,6 +87,9 @@ namespace GNDStk {
 #include "GNDStk/Child.hpp"
 #include "GNDStk/or.hpp"
 
+// Our alternative to std::optional
+#include "GNDStk/Optional.hpp"
+
 // Like std::optional, but with a default
 #include "GNDStk/Defaulted.hpp"
 

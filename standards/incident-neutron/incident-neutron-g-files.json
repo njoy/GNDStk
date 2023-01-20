@@ -1,0 +1,70 @@
+{
+    "namespace": "IncidentNeutronMeanValues",
+
+    "remark": [
+        "At the time of this writing, the classes defined below appear",
+        "in only one GNDS 2.0 file:",
+        "   g-095_Am_241.endf.gnds.xml",
+        "That seems surprising, but it is what it is."
+    ],
+
+    "MadlandNix": {
+        "metadata": {
+        },
+        "children": {
+            "EFL": {
+                "times": "1",
+                "required": true
+            },
+            "EFH": {
+                "times": "1",
+                "required": true
+            },
+            "T_M": {
+                "times": "1",
+                "required": true
+            }
+        }
+    },
+
+    "EFL": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "EFH": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            },
+            "unit": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "T_M": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    }
+}

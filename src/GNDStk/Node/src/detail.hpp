@@ -17,6 +17,12 @@ struct is_optional<std::optional<T>> {
    static constexpr bool value = true;
 };
 
+// GNDStk::Optional
+template<class T>
+struct is_optional<GNDStk::Optional<T>> {
+   static constexpr bool value = true;
+};
+
 template<class T>
 inline constexpr bool isOptional = is_optional<std::decay_t<T>>::value;
 
@@ -32,13 +38,19 @@ struct remove_opt_def {
    using type = T;
 };
 
-// optional
+// std::optional
 template<class T>
 struct remove_opt_def<std::optional<T>> {
    using type = T;
 };
 
-// Defaulted
+// GNDStk::Optional
+template<class T>
+struct remove_opt_def<GNDStk::Optional<T>> {
+   using type = T;
+};
+
+// GNDStk::Defaulted
 template<class T>
 struct remove_opt_def<Defaulted<T>> {
    using type = T;
@@ -62,10 +74,18 @@ std::string keyname(
    return "Meta(\"" + m.name + "\")";
 }
 
-// Meta<optional<TYPE>>
+// Meta<std::optional<TYPE>>
 template<class TYPE, class CONVERTER>
 std::string keyname(
    const Meta<std::optional<TYPE>,CONVERTER> &m
+) {
+   return "optional Meta(\"" + m.name + "\")";
+}
+
+// Meta<GNDStk::Optional<TYPE>>
+template<class TYPE, class CONVERTER>
+std::string keyname(
+   const Meta<GNDStk::Optional<TYPE>,CONVERTER> &m
 ) {
    return "optional Meta(\"" + m.name + "\")";
 }
@@ -91,10 +111,18 @@ std::string keyname(
    return "Child(\"" + c.name + "\")";
 }
 
-// Child<optional<TYPE>>
+// Child<std::optional<TYPE>>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
+) {
+   return "optional Child(\"" + c.name + "\")";
+}
+
+// Child<GNDStk::Optional<TYPE>>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(
+   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
    return "optional Child(\"" + c.name + "\")";
 }

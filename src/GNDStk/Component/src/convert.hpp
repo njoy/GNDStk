@@ -98,7 +98,7 @@ struct DataConverter {
       }
 
       #ifdef GNDSTK_HACK
-      const_cast<Node &>(data).name = "marked-" + data.name;
+      data.name = "marked-" + data.name;
       #endif
    }
 
@@ -174,7 +174,7 @@ struct DataConverter {
       }
 
       #ifdef GNDSTK_HACK
-      const_cast<Node &>(data).name = "marked-" + data.name;
+      data.name = "marked-" + data.name;
       #endif
    }
 

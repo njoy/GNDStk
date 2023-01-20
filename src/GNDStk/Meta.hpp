@@ -76,8 +76,8 @@ public:
 
 // Macro
 // For Meta building.
-// This macro doesn't allow for the (optional) TYPE object or the converter.
-// For those, construct a Meta directly.
+// This macro doesn't allow a custom converter to be given.
+// If you need a custom converter, construct a Meta directly.
 #define GNDSTK_MAKE_META(TYPE,name) \
    inline const njoy::GNDStk::Meta<TYPE> name(#name)
 // Note: we won't #undef this eventually, as we normally would,

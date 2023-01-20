@@ -157,7 +157,7 @@ inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 //    3. DataNode<vector<T>>
 //    4. T
 //    5. vector<T>
-//    6. optional<T>
+//    6. std::optional<T>, GNDStk::Optional<T>
 //    7. Defaulted<T>
 
 // ------------------------
@@ -433,14 +433,16 @@ bool printComponentPart(
 // ------------------------
 
 // todo Maybe don't need labelColor and valueColor?
-template<class T>
-bool printComponentPart(
+template<class OPT>
+bool printComponentPart_helper(
    std::ostream &os, const int level, const std::size_t maxlen,
    const std::string &label,
-   const std::optional<T> &value,
+   const OPT &value,
    const std::string &labelColor = "",
    const std::string &valueColor = ""
 ) {
+   using T = typename OPT::value_type;
+
    if (!value.has_value())
       return false; // <== so that the caller won't print a newline
 
@@ -467,6 +469,32 @@ bool printComponentPart(
       clabel
    );
    return true;
+}
+
+// std::optional
+template<class T>
+bool printComponentPart(
+   std::ostream &os, const int level, const std::size_t maxlen,
+   const std::string &label,
+   const std::optional<T> &value,
+   const std::string &labelColor = "",
+   const std::string &valueColor = ""
+) {
+   return printComponentPart_helper(
+      os, level, maxlen, label, value, labelColor, valueColor);
+}
+
+// GNDStk::Optional
+template<class T>
+bool printComponentPart(
+   std::ostream &os, const int level, const std::size_t maxlen,
+   const std::string &label,
+   const GNDStk::Optional<T> &value,
+   const std::string &labelColor = "",
+   const std::string &valueColor = ""
+) {
+   return printComponentPart_helper(
+      os, level, maxlen, label, value, labelColor, valueColor);
 }
 
 
@@ -516,8 +544,8 @@ bool printComponentPart(
 // -----------------------------------------------------------------------------
 // For sorting derived-class fields based on index and label, if and when one
 // or the other of those is determined to be present. That determination hinges
-// on both a compile-time check that the classes involved even *have* index or
-// label fields, and, if they do, if either of those is possibly a std::optional
+// on both a compile-time check that the classes involved even *have* index
+// or label fields, and, if they do, if either of those is possibly an optional
 // that may or may not contain a value at the moment.
 // -----------------------------------------------------------------------------
 
@@ -644,9 +672,17 @@ void sort(std::vector<std::variant<Ts...>> &vec)
       std::sort(vec.begin(), vec.end(), compareVariant<Ts...>);
 }
 
-// optional<vector>
+// std::optional<vector>
 template<class T>
 void sort(std::optional<std::vector<T>> &opt)
+{
+   if (opt.has_value())
+      sort(opt.value());
+}
+
+// GNDStk::Optional<vector>
+template<class T>
+void sort(GNDStk::Optional<std::vector<T>> &opt)
 {
    if (opt.has_value())
       sort(opt.value());

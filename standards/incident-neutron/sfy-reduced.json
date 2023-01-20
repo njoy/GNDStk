@@ -1,0 +1,14 @@
+{
+    "namespace": "Reduced",
+
+    "double": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    }
+}

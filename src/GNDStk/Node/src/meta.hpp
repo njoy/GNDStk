@@ -76,51 +76,38 @@ meta(
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// TYPE
+// TYPE, optional<TYPE>
 // ------------------------
 
-template<class TYPE, class CONVERTER>
+template<class T, class CONVERTER>
 void meta(
-   TYPE &existing,
-   const Meta<TYPE,CONVERTER> &kwd,
+   T &existing,
+   const Meta<T,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      // call meta(string), with the Meta's key
-      const std::string &str = meta(kwd.name,found);
-      // convert str, if any, to an object of the appropriate type
-      if (found)
-         kwd.converter(str,existing);
-   } catch (...) {
-      log::member("Node.meta(" + detail::keyname(kwd) + ")");
-      throw;
-   }
-}
-
-
-// ------------------------
-// optional<TYPE>
-// ------------------------
-
-template<class TYPE, class CONVERTER>
-void meta(
-   std::optional<TYPE> &existing,
-   const Meta<std::optional<TYPE>,CONVERTER> &kwd,
-   bool &found = detail::default_bool
-) const {
-   try {
-      bool f; // local "found" for TYPE (not optional<TYPE>)
-      TYPE obj;
-      meta(obj, obj/kwd, f);
-      if (f)
-         existing = obj;
-      else
-         existing = std::nullopt;
-      // For optional, we always *return* with found == true. After all, being
-      // optional means something can either (1) be there, or (2) not be there.
-      // That condition is always true. :-) And, this way, if an optional value
-      // isn't there, its absence won't - and shouldn't - break a multi-query.
-      found = true;
+      if constexpr (!detail::isOptional<T>) {
+         // call meta(string), with the Meta's key
+         const std::string &str = meta(kwd.name,found);
+         // convert str, if any, to an object of the appropriate type
+         if (found)
+            kwd.converter(str,existing);
+      } else {
+         using TYPE = typename T::value_type;
+         bool f; // local "found" for TYPE (not optional<TYPE>)
+         TYPE obj;
+         meta(obj, obj/kwd, f);
+         if (f)
+            existing = obj;
+         else
+            existing = std::nullopt;
+         // For optional, we always *return* with found == true. After all,
+         // being  optional means something can either be there, or not be
+         // there. That condition is always true. :-) And, this way, if an
+         // optional value isn't there, its absence won't - and shouldn't -
+         // break a multi-query.
+         found = true;
+      }
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
@@ -139,7 +126,7 @@ void meta(
    bool &found = detail::default_bool
 ) const {
    try {
-      // Remarks as with those for std::optional above
+      // Remarks as with those for optional case above
       bool f; // local "found"
       TYPE obj;
       meta(obj, obj/kwd, f);
