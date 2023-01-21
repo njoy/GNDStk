@@ -1984,8 +1984,6 @@ void getClass(
 
    per.isDataString = str;
    per.isDataVector = vec || body;
-   per.isDataNode =
-      per.isDataString || (per.isDataVector && per.elementType != "");
    if (vec) {
       // A type change, as with metadata, may be warranted here as well
       const std::string type = classRHS["vector"];
@@ -1993,6 +1991,8 @@ void getClass(
       per.elementType = it == specs.mapMetaType.end() ? type : it->second;
    } else
       per.elementType = "";
+   per.isDataNode =
+      per.isDataString || (per.isDataVector && per.elementType != "");
    per.cdata = classRHS.contains("cdata") && classRHS["cdata"];
 
    // per.code will contain printed C++ code for the class itself
